@@ -39,7 +39,7 @@ jobs:
         echo 'exec `which mono` $MONO_OPTIONS /usr/local/lib/docfx/docfx.exe "$@"' | sudo tee -a /usr/local/bin/docfx > /dev/null
         sudo chmod +wx /usr/local/bin/docfx
         sudo mkdir /usr/local/lib/docfx/plugins
-        cp ./main/docfx/plugins/* /usr/local/lib/docfx/plugins
+        sudo cp ./main/docfx/plugins/* /usr/local/lib/docfx/plugins
     # Build docs
     - name: Build docs
       shell: pwsh
