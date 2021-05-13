@@ -1,7 +1,8 @@
 /**
  * This file is unique for each sample browser. It contains the logic specific to each repo for loading the samples as needed.
  */
-var jsonPath = document.location.origin +"/samples.json";
+var baseAddress = (document.location.host === "pnp.github.io") ?  document.location.origin + "/script-samples" : document.location.origin;
+var jsonPath = baseAddress +"/samples.json";
 
 /**
  * Reads a sample metadata and returns a pre-populated HTML element
@@ -18,7 +19,7 @@ function loadSample(sample, filter) {
         var escapedDescription = sample.shortDescription;
 
         var shortDescription = sample.shortDescription; //.length > 80 ? sample.shortDescription.substr(0, 77)  : sample.shortDescription;
-        var thumbnail = document.location.origin + "/assets/nopreview.png";
+        var thumbnail = baseAddress + "/assets/nopreview.png";
         
 
         if (sample.thumbnails && sample.thumbnails.length > 0) {
