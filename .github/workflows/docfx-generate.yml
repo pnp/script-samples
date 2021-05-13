@@ -38,7 +38,7 @@ jobs:
         echo '#!/bin/sh' | sudo tee -a /usr/local/bin/docfx > /dev/null
         echo 'exec `which mono` $MONO_OPTIONS /usr/local/lib/docfx/docfx.exe "$@"' | sudo tee -a /usr/local/bin/docfx > /dev/null
         sudo chmod +x /usr/local/bin/docfx
-        md /usr/local/lib/docfx/plugins
+        mkdir /usr/local/lib/docfx/plugins
         cp ./main/docfx/plugins/* /usr/local/lib/docfx/plugins
     # Build docs
     - name: Build docs
