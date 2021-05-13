@@ -3,7 +3,7 @@
     "name": "add-app-catalogue-to-sp-site",
     "source": "pnp",
     "title": "Add App Catalog to SharePoint site",
-    "url": "add-app-catalogue-to-sp-site/readme.html",
+    "url": "add-app-catalogue-to-sp-site/README.html",
     "creationDateTime": "2021-05-11T00:00:00",
     "updateDateTime": "2021-05-11T00:00:00",
     "shortDescription": "Deploy certain SharePoint solution to a specific site",
@@ -60,7 +60,7 @@
     "name": "test-generic-helloworld-scenario",
     "source": "pnp",
     "title": "Test Generic Sample - Hello World",
-    "url": "test-generic-helloworld-scenario/readme.html",
+    "url": "test-generic-helloworld-scenario/README.html",
     "creationDateTime": "2021-05-11T00:00:00",
     "updateDateTime": "2021-05-11T00:00:00",
     "shortDescription": "A 'Hello, World' program generally is a computer program that outputs or displays the message 'Hello, World!'.",
@@ -130,90 +130,10 @@
     ]
   },
   {
-    "name": "user-language-for-site",
-    "source": "pnp",
-    "title": "Testing user preferred language of SharePoint site",
-    "url": "user-language-for-site/readme.html",
-    "creationDateTime": "2021-05-11T00:00:00",
-    "updateDateTime": "2021-05-11T00:00:00",
-    "shortDescription": "Changes the MUI setting for a user within the User Information List",
-    "longDescription": [
-      "This script that changes the MUI setting for a user within the User Information List to update the user with the appropriate language tag"
-    ],
-    "products": [
-      "SharePoint"
-    ],
-    "categories": [
-      "Configure"
-    ],
-    "metadata": [
-      {
-        "key": "PnP-PowerShell",
-        "value": "1.5.0"
-      }
-    ],
-    "thumbnails": [
-      {
-        "type": "image",
-        "order": 100,
-        "url": "user-language-for-site/assets/preview.png",
-        "alt": "This sample does not contain a preview image"
-      }
-    ],
-    "authors": [
-      {
-        "name": "Paul Bullock",
-        "gitHubAccount": "pkbullock",
-        "company": "CaPa Creative Ltd",
-        "pictureUrl": "https://avatars.githubusercontent.com/u/8781041?v=4"
-      }
-    ]
-  },
-  {
-    "name": "generate-markdown-lcids",
-    "source": "pnp",
-    "title": " Generate Markdown Report of LCIDs",
-    "url": "generate-markdown-lcids/readme.html",
-    "creationDateTime": "2021-05-11T00:00:00",
-    "updateDateTime": "2021-05-11T00:00:00",
-    "shortDescription": "Simple report listing out the language IDs in Markdown",
-    "longDescription": [
-      "Simple report listing out the language IDs (LCIDs) of a SharePoint site and generated a markdown formatted table"
-    ],
-    "products": [
-      "SharePoint"
-    ],
-    "categories": [
-      "Report"
-    ],
-    "metadata": [
-      {
-        "key": "PnP-PowerShell",
-        "value": "1.5.0"
-      }
-    ],
-    "thumbnails": [
-      {
-        "type": "image",
-        "order": 100,
-        "url": "generate-markdown-lcids/assets/preview.png",
-        "alt": ""
-      }
-    ],
-    "authors": [
-      {
-        "name": "Paul Bullock",
-        "gitHubAccount": "pkbullock",
-        "company": "CaPa Creative Ltd",
-        "pictureUrl": "https://avatars.githubusercontent.com/u/8781041?v=4"
-      }
-    ]
-  },
-  {
     "name": "create-comm-sites-specific-locale",
     "source": "pnp",
     "title": "Create Modern Sites as alternative primary language",
-    "url": "create-comm-sites-specific-locale/readme.html",
+    "url": "create-comm-sites-specific-locale/README.html",
     "creationDateTime": "2021-05-11T00:00:00",
     "updateDateTime": "2021-05-11T00:00:00",
     "shortDescription": "Create a modern site in another language as the primary language",
@@ -253,7 +173,7 @@
     "name": "modernise-classic-pages-from-publishing-sites",
     "source": "pnp",
     "title": " Modernizing classic pages from on-premises sites",
-    "url": "modernise-classic-pages-from-publishing-sites/readme.html",
+    "url": "modernise-classic-pages-from-publishing-sites/README.html",
     "creationDateTime": "2021-05-11T00:00:00",
     "updateDateTime": "2021-05-11T00:00:00",
     "shortDescription": "Conversion of an on-premises 2013 publishing page to the modern experience",
@@ -290,10 +210,90 @@
     ]
   },
   {
+    "name": "user-language-for-site",
+    "source": "pnp",
+    "title": "Testing user preferred language of SharePoint site",
+    "url": "user-language-for-site/README.html",
+    "creationDateTime": "2021-05-11T00:00:00",
+    "updateDateTime": "2021-05-11T00:00:00",
+    "shortDescription": "Changes the MUI setting for a user within the User Information List",
+    "longDescription": [
+      "This script that changes the MUI setting for a user within the User Information List to update the user with the appropriate language tag"
+    ],
+    "products": [
+      "SharePoint"
+    ],
+    "categories": [
+      "Configure"
+    ],
+    "metadata": [
+      {
+        "key": "PnP-PowerShell",
+        "value": "1.5.0"
+      }
+    ],
+    "thumbnails": [
+      {
+        "type": "image",
+        "order": 100,
+        "url": "user-language-for-site/assets/preview.png",
+        "alt": "This sample does not contain a preview image"
+      }
+    ],
+    "authors": [
+      {
+        "name": "Paul Bullock",
+        "gitHubAccount": "pkbullock",
+        "company": "CaPa Creative Ltd",
+        "pictureUrl": "https://avatars.githubusercontent.com/u/8781041?v=4"
+      }
+    ]
+  },
+  {
+    "name": "generate-markdown-lcids",
+    "source": "pnp",
+    "title": " Generate Markdown Report of LCIDs",
+    "url": "generate-markdown-lcids/README.html",
+    "creationDateTime": "2021-05-11T00:00:00",
+    "updateDateTime": "2021-05-11T00:00:00",
+    "shortDescription": "Simple report listing out the language IDs in Markdown",
+    "longDescription": [
+      "Simple report listing out the language IDs (LCIDs) of a SharePoint site and generated a markdown formatted table"
+    ],
+    "products": [
+      "SharePoint"
+    ],
+    "categories": [
+      "Report"
+    ],
+    "metadata": [
+      {
+        "key": "PnP-PowerShell",
+        "value": "1.5.0"
+      }
+    ],
+    "thumbnails": [
+      {
+        "type": "image",
+        "order": 100,
+        "url": "generate-markdown-lcids/assets/preview.png",
+        "alt": ""
+      }
+    ],
+    "authors": [
+      {
+        "name": "Paul Bullock",
+        "gitHubAccount": "pkbullock",
+        "company": "CaPa Creative Ltd",
+        "pictureUrl": "https://avatars.githubusercontent.com/u/8781041?v=4"
+      }
+    ]
+  },
+  {
     "name": "modernize-blog-pages",
     "source": "pnp",
     "title": "Modernize Blog Pages",
-    "url": "modernize-blog-pages/readme.html",
+    "url": "modernize-blog-pages/README.html",
     "creationDateTime": "2021-05-11T00:00:00",
     "updateDateTime": "2021-05-11T00:00:00",
     "shortDescription": "Converts all blog pages in a site",
@@ -333,7 +333,7 @@
     "name": "authenticate-graph",
     "source": "pnp",
     "title": "Authenticate with and call the Microsoft Graph",
-    "url": "authenticate-graph/readme.html",
+    "url": "authenticate-graph/README.html",
     "creationDateTime": "2021-05-11T00:00:00",
     "updateDateTime": "2021-05-11T00:00:00",
     "shortDescription": "Obtain a new access token for the Microsoft Graph and use it an HTTP request, or connect to the Graph",
