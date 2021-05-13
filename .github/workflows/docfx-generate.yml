@@ -24,7 +24,7 @@ jobs:
         ref: main
         path: main
     # Checks-out gh-pages branch
-    - name: Checkout main branch
+    - name: Checkout gh-pages branch
       uses: actions/checkout@v2
       with: 
         ref: gh-pages
