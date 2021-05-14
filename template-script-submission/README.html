@@ -5,9 +5,9 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <title>Authenticate with and call the Microsoft Graph | Script Samples </title>
+    <title> | Script Samples </title>
     <meta name="viewport" content="width=device-width">
-    <meta name="title" content="Authenticate with and call the Microsoft Graph | Script Samples ">
+    <meta name="title" content=" | Script Samples ">
     <meta name="generator" content="docfx 2.56.7.0">
     <meta name="description" content="A sample gallery of scripts to manage all things Microsoft 365.">
     <link rel="shortcut icon" href="https://c.s-microsoft.com/favicon.ico?v2">
@@ -55,72 +55,58 @@
             <article class="content wrap" id="_content" data-uid="">
                   <div class="contribution-panel mobile-hide pull-right">
                   </div>
-                    <h1 id="authenticate-with-and-call-the-microsoft-graph">Authenticate with and call the Microsoft Graph</h1>
+                    <h1 id="section"><title></title></h1>
 
+<div class="NOTE">
+<h5>Note</h5>
+<p>This is a community template please find the contributor guidance to help you write this scenario.</p>
+</div>
 <h2 id="summary">Summary</h2>
-<p>Obtain a new access token for the Microsoft Graph and use it an HTTP request, or connect to the Graph to perform operations.</p>
+<p>This is a <strong><title></title></strong> example to show contributors the structure of a contribution.</p>
+<p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Maecenas porttitor congue massa. Fusce posuere, magna sed pulvinar ultricies, purus lectus malesuada libero, sit amet commodo magna eros quis urna.</p>
 <p><img src="assets/example.png" alt="Example Screenshot"></p>
-<h2 id="scripts">Scripts</h2>
+<p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Maecenas porttitor congue massa. Fusce posuere, magna sed pulvinar ultricies, purus lectus malesuada libero, sit amet commodo magna eros quis urna.Nunc viverra imperdiet enim. Fusce est. Vivamus a tellus.Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Proin pharetra nonummy pede. Mauris et orci.Aenean nec lorem. In porttitor. Donec laoreet nonummy augue.</p>
 <div class="tabGroup" id="tabgroup_CeZOj-G++Q">
 <ul role="tablist">
 <li role="presentation">
-<a href="#tabpanel_CeZOj-G++Q_m365cli" role="tab" aria-controls="tabpanel_CeZOj-G++Q_m365cli" data-tab="m365cli" tabindex="0" aria-selected="true">Microsoft CLI</a>
+<a href="#tabpanel_CeZOj-G++Q_pnpps" role="tab" aria-controls="tabpanel_CeZOj-G++Q_pnpps" data-tab="pnpps" tabindex="0" aria-selected="true">PnP PowerShell</a>
 </li>
 <li role="presentation">
-<a href="#tabpanel_CeZOj-G++Q_m365clibash" role="tab" aria-controls="tabpanel_CeZOj-G++Q_m365clibash" data-tab="m365clibash" tabindex="-1">Microsoft CLI (Bash)</a>
-</li>
-<li role="presentation">
-<a href="#tabpanel_CeZOj-G++Q_pnpps" role="tab" aria-controls="tabpanel_CeZOj-G++Q_pnpps" data-tab="pnpps" tabindex="-1">PnP PowerShell</a>
+<a href="#tabpanel_CeZOj-G++Q_m365cli" role="tab" aria-controls="tabpanel_CeZOj-G++Q_m365cli" data-tab="m365cli" tabindex="-1">Microsoft CLI</a>
 </li>
 <li role="presentation">
 <a href="#tabpanel_CeZOj-G++Q_graphps" role="tab" aria-controls="tabpanel_CeZOj-G++Q_graphps" data-tab="graphps" tabindex="-1">Microsoft Graph PowerShell</a>
 </li>
 </ul>
-<section id="tabpanel_CeZOj-G++Q_m365cli" role="tabpanel" data-tab="m365cli">
+<section id="tabpanel_CeZOj-G++Q_pnpps" role="tabpanel" data-tab="pnpps">
 
 <pre><code class="lang-powershell">
-$token = m365 util accesstoken get --resource https://graph.microsoft.com --new
-$me = Invoke-RestMethod -Uri https://graph.microsoft.com/v1.0/me -Headers @{&quot;Authorization&quot;=&quot;Bearer $token&quot;}
-$me
+
 
 </code></pre>
 </section>
-<section id="tabpanel_CeZOj-G++Q_m365clibash" role="tabpanel" data-tab="m365clibash" aria-hidden="true" hidden="hidden">
+<section id="tabpanel_CeZOj-G++Q_m365cli" role="tabpanel" data-tab="m365cli" aria-hidden="true" hidden="hidden">
 
-<pre><code class="lang-bash">#!/bin/bash
+<pre><code class="lang-bash">
 
-# requires jq: https://stedolan.github.io/jq/
 
-token=`m365 util accesstoken get --resource https://graph.microsoft.com --new`
-me=`curl https://graph.microsoft.com/v1.0/me -H &quot;Authorization: Bearer $token&quot;`
-echo $me | jq
-
-</code></pre>
-</section>
-<section id="tabpanel_CeZOj-G++Q_pnpps" role="tabpanel" data-tab="pnpps" aria-hidden="true" hidden="hidden">
-
-<pre><code class="lang-powershell">#https://docs.microsoft.com/en-us/powershell/module/sharepoint-pnp/connect-pnponline?view=sharepoint-ps#example-7
-Connect-PnPOnline -Url &quot;https://contoso.sharepoint.com&quot; -ClientId 6c5c98c7-e05a-4a0f-bcfa-0cfc65aa1f28 -Tenant 'contoso.onmicrosoft.com' -Thumbprint 34CFAA860E5FB8C44335A38A097C1E41EEA206AA
-
-$token = Get-PnPGraphAccessToken
-$uri = 'https://graph.microsoft.com/v1.0/users?$filter=displayName eq ''Paul Bullock'''
-$me = Invoke-RestMethod -Uri $uri -Headers @{&quot;Authorization&quot;=&quot;Bearer $($token)&quot;} -Method Get -ContentType &quot;application/json&quot;
-$me.value
 </code></pre>
 </section>
 <section id="tabpanel_CeZOj-G++Q_graphps" role="tabpanel" data-tab="graphps" aria-hidden="true" hidden="hidden">
 
 <pre><code class="lang-powershell">
-Connect-MgGraph
-Get-MgContext
-Get-MgUser -Filter &quot;displayName eq 'Paul Bullock'&quot;
-Disconnect-MgGraph
+
 
 </code></pre>
 </section>
 </div>
+
+<p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Maecenas porttitor congue massa. Fusce posuere, magna sed pulvinar ultricies, purus lectus malesuada libero, sit amet commodo magna eros quis urna.Nunc viverra imperdiet enim. Fusce est. Vivamus a tellus.Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Proin pharetra nonummy pede. Mauris et orci.Aenean nec lorem. In porttitor. Donec laoreet nonummy augue.</p>
+<h2 id="metadata">Metadata</h2>
+<p><img src="https://img.shields.io/badge/PnP%20PS-1.5.0-green?style=flat-square&amp;logo=powershell" alt="PnP PS 1.5"></p>
+<p><img src="https://img.shields.io/badge/PnP%20CLI-3.7.0-green?style=flat-square&amp;logo=GNU-Bash" alt="PnP CLI 3.7"></p>
 <h2 id="source-credit">Source Credit</h2>
-<p>Sample first appeared on  <a href="https://pnp.github.io/cli-microsoft365/sample-scripts/graph/call-graph/">https://pnp.github.io/cli-microsoft365/sample-scripts/graph/call-graph/</a></p>
+<p>Sample first appeared on <a href="https://pnp.github.io/cli-microsoft365/sample-scripts/spo/add-app-catalog/">https://pnp.github.io/cli-microsoft365/sample-scripts/spo/add-app-catalog/</a></p>
 <h2 id="contributors">Contributors</h2>
 <table>
 <thead>
@@ -130,16 +116,13 @@ Disconnect-MgGraph
 </thead>
 <tbody>
 <tr>
-<td>Garry Trinder</td>
-</tr>
-<tr>
-<td>Paul Bullock</td>
+<td>&lt;-you-&gt;</td>
 </tr>
 </tbody>
 </table>
 <h2 id="disclaimer">Disclaimer</h2>
 <p><strong>THESE SAMPLES ARE PROVIDED <em>AS IS</em> WITHOUT WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, INCLUDING ANY IMPLIED WARRANTIES OF FITNESS FOR A PARTICULAR PURPOSE, MERCHANTABILITY, OR NON-INFRINGEMENT.</strong></p>
-<img src="https://telemetry.sharepointpnp.com/script-samples/scripts/authenticate-graph" aria-hidden="true">
+<img src="https://telemetry.sharepointpnp.com/script-samples/scripts/template-script-submission" aria-hidden="true">
 </article>
           </div>
         </div>
