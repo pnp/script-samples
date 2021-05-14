@@ -636,6 +636,30 @@ code {
 }
 
 .article{
-  padding-top:70px;
+  padding-top:0;
   margin-top:0;
+}
+
+@media screen and (max-width: 767px) {
+  .container-fluid>.navbar-collapse, .container-fluid>.navbar-header, .container>.navbar-collapse, .container>.navbar-header,
+  .row { 
+    margin: 0; 
+  }
+
+  #autocollapse .navbar-brand{
+    margin-left: 15px;
+  }
+
+  .navbar-toggle{
+    padding: 10px;
+    margin-top: 12px;
+  }
+
+
+}
+
+header,
+footer{
+  position:inherit;
+  z-index: unset;
 }
