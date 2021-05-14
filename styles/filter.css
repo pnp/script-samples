@@ -2,10 +2,6 @@
     box-sizing: border-box;
   }
 
-  body {
-    font-family: sans-serif;
-  }
-
   /* ---- button ---- */
 
   .button {
@@ -77,6 +73,19 @@
     display: block;
     clear: both;
   }
+
+  @media screen and (min-width: 768px) {
+    /* 5 columns for larger screens */
+    .sample-thumbnail,
+    .grid-sizer { width: 33.333%; }
+  }
+
+  @media screen and (max-width: 767px) {
+    /* 1 columns for small screens */
+    .sample-thumbnail,
+    .grid-sizer { width: 100%; }
+  }
+
 
   /* ---- .sample-item ---- */
 
