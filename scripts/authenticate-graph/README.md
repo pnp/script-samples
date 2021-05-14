@@ -72,3 +72,6 @@ Sample first appeared on  [https://pnp.github.io/cli-microsoft365/sample-scripts
 | Paul Bullock |
 
 [!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
+
+
+<img src="https://telemetry.sharepointpnp.com/script-samples/scripts/authenticate-graph" aria-hidden="true" />

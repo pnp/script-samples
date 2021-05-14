@@ -53,3 +53,5 @@ Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Maecenas porttitor con
 
 
 [!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
+
+<img src="https://telemetry.sharepointpnp.com/script-samples/scripts/test-generic-helloworld-scenario" aria-hidden="true" />

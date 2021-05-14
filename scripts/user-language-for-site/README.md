@@ -59,3 +59,5 @@ Article first appeared on [Testing user preferred language of SharePoint site | 
 | Paul Bullock |
 
 [!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
+
+<img src="https://telemetry.sharepointpnp.com/script-samples/scripts/user-language-for-site" aria-hidden="true" />

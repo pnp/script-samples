@@ -44,3 +44,5 @@ Write-Host "Script Complete! :)" -ForegroundColor Green
 | Paul Bullock |
 
 [!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
+
+<img src="https://telemetry.sharepointpnp.com/script-samples/scripts/generate-markdown-lcids" aria-hidden="true" />

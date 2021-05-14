@@ -7,3 +7,5 @@ plugin: insert-gallery
 Find scripts using libraries such as Graph PowerShell SDK, Microsoft CLI, PnP PowerShell and more. You can search by entering a keyword or filter by operation.
 
 *--this will be auto generated--*
+
+<img src="https://telemetry.sharepointpnp.com/script-samples" aria-hidden="true" />
