@@ -60,9 +60,20 @@ a {
 button:hover,
 button:focus,
 a:hover,
-a:focus {
+a:focus{
   color: var(--highlight-light);
-  text-decoration: none;
+}
+
+button:hover,
+button:focus,
+a:hover,
+a:focus,
+.sample-inner:not() {
+  text-decoration: underline;
+}
+
+.article p a{
+  text-decoration: underline;
 }
 
 .toc .nav > li.active > a {
@@ -371,15 +382,15 @@ p {
 }
 
 pre {
-  /* font-size: .875rem; */
+  font-size: .9em;
   overflow: auto;
-  border: 1px solid hsla(0,0%,89%,1);
-  border: 1px solid #e3e3e3;
+  /* border: 1px solid hsla(0,0%,89%,1);
+  border: 1px solid #e3e3e3; */
   background-color: hsla(0,0%,98%,1);
   background-color: #fafafa;
   font-smooth: auto;
-  padding: 1rem;
-  margin: 1rem 0 0;
+  /* padding: 1rem;
+  margin: 1rem 0 0; */
   white-space: pre;
   word-spacing: normal;
   word-break: normal;
@@ -638,6 +649,7 @@ code {
 .article{
   padding-top:0;
   margin-top:0;
+  margin-bottom: 40px;
 }
 
 @media screen and (max-width: 767px) {
@@ -662,4 +674,22 @@ header,
 footer{
   position:inherit;
   z-index: unset;
+}
+
+
+#_content p img {
+  max-width: 60%;
+}
+
+#_content .sample-preview img {
+  max-width: 100%;
+}
+
+.tabGroup section[role="tabpanel"]{
+  padding-top: 0;
+  border: 0;
+}
+
+.table-bordered, .table-bordered>tbody>tr>td, .table-bordered>tbody>tr>th, .table-bordered>tfoot>tr>td, .table-bordered>tfoot>tr>th, .table-bordered>thead>tr>td, .table-bordered>thead>tr>th{
+  border: 1px solid #efefef;
 }
