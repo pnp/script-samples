@@ -1,5 +1,45 @@
 [
   {
+    "name": "modernize-blog-pages",
+    "source": "pnp",
+    "title": "Modernize Blog Pages",
+    "url": "modernize-blog-pages/README.html",
+    "creationDateTime": "2021-05-11T00:00:00",
+    "updateDateTime": "2021-05-11T00:00:00",
+    "shortDescription": "Converts all blog pages in a site",
+    "longDescription": [
+      "Converts all blog pages in a site"
+    ],
+    "products": [
+      "SharePoint"
+    ],
+    "categories": [
+      "Modernize"
+    ],
+    "metadata": [
+      {
+        "key": "PnP-PowerShell",
+        "value": "1.5.0"
+      }
+    ],
+    "thumbnails": [
+      {
+        "type": "image",
+        "order": 100,
+        "url": "modernize-blog-pages/assets/preview.png",
+        "alt": "This sample does not contain a preview image"
+      }
+    ],
+    "authors": [
+      {
+        "name": "Paul Bullock",
+        "gitHubAccount": "pkbullock",
+        "company": "CaPa Creative Ltd",
+        "pictureUrl": "https://avatars.githubusercontent.com/u/8781041?v=4"
+      }
+    ]
+  },
+  {
     "name": "remove-delete-option-library",
     "source": "pnp",
     "title": "Remove delete option on a document library",
@@ -38,21 +78,21 @@
     ]
   },
   {
-    "name": "generate-markdown-lcids",
+    "name": "create-comm-sites-specific-locale",
     "source": "pnp",
-    "title": " Generate Markdown Report of LCIDs",
-    "url": "generate-markdown-lcids/README.html",
+    "title": "Create Modern Sites as alternative primary language",
+    "url": "create-comm-sites-specific-locale/README.html",
     "creationDateTime": "2021-05-11T00:00:00",
     "updateDateTime": "2021-05-11T00:00:00",
-    "shortDescription": "Simple report listing out the language IDs in Markdown",
+    "shortDescription": "Create a modern site in another language as the primary language",
     "longDescription": [
-      "Simple report listing out the language IDs (LCIDs) of a SharePoint site and generated a markdown formatted table"
+      "This script will show you how by creating a modern site with the primary language set to a language other than English."
     ],
     "products": [
       "SharePoint"
     ],
     "categories": [
-      "Report"
+      "Provision"
     ],
     "metadata": [
       {
@@ -64,8 +104,8 @@
       {
         "type": "image",
         "order": 100,
-        "url": "generate-markdown-lcids/assets/preview.png",
-        "alt": ""
+        "url": "create-comm-sites-specific-locale/assets/preview.png",
+        "alt": "Preview of the resulting site as another language"
       }
     ],
     "authors": [
@@ -78,21 +118,21 @@
     ]
   },
   {
-    "name": "modernize-blog-pages",
+    "name": "user-language-for-site",
     "source": "pnp",
-    "title": "Modernize Blog Pages",
-    "url": "modernize-blog-pages/README.html",
+    "title": "Testing user preferred language of SharePoint site",
+    "url": "user-language-for-site/README.html",
     "creationDateTime": "2021-05-11T00:00:00",
     "updateDateTime": "2021-05-11T00:00:00",
-    "shortDescription": "Converts all blog pages in a site",
+    "shortDescription": "Changes the MUI setting for a user within the User Information List",
     "longDescription": [
-      "Converts all blog pages in a site"
+      "This script that changes the MUI setting for a user within the User Information List to update the user with the appropriate language tag"
     ],
     "products": [
       "SharePoint"
     ],
     "categories": [
-      "Modernize"
+      "Configure"
     ],
     "metadata": [
       {
@@ -104,7 +144,7 @@
       {
         "type": "image",
         "order": 100,
-        "url": "modernize-blog-pages/assets/preview.png",
+        "url": "user-language-for-site/assets/preview.png",
         "alt": "This sample does not contain a preview image"
       }
     ],
@@ -308,21 +348,21 @@
     ]
   },
   {
-    "name": "create-comm-sites-specific-locale",
+    "name": "generate-markdown-lcids",
     "source": "pnp",
-    "title": "Create Modern Sites as alternative primary language",
-    "url": "create-comm-sites-specific-locale/README.html",
+    "title": " Generate Markdown Report of LCIDs",
+    "url": "generate-markdown-lcids/README.html",
     "creationDateTime": "2021-05-11T00:00:00",
     "updateDateTime": "2021-05-11T00:00:00",
-    "shortDescription": "Create a modern site in another language as the primary language",
+    "shortDescription": "Simple report listing out the language IDs in Markdown",
     "longDescription": [
-      "This script will show you how by creating a modern site with the primary language set to a language other than English."
+      "Simple report listing out the language IDs (LCIDs) of a SharePoint site and generated a markdown formatted table"
     ],
     "products": [
       "SharePoint"
     ],
     "categories": [
-      "Provision"
+      "Report"
     ],
     "metadata": [
       {
@@ -334,48 +374,8 @@
       {
         "type": "image",
         "order": 100,
-        "url": "create-comm-sites-specific-locale/assets/preview.png",
-        "alt": "Preview of the resulting site as another language"
-      }
-    ],
-    "authors": [
-      {
-        "name": "Paul Bullock",
-        "gitHubAccount": "pkbullock",
-        "company": "CaPa Creative Ltd",
-        "pictureUrl": "https://avatars.githubusercontent.com/u/8781041?v=4"
-      }
-    ]
-  },
-  {
-    "name": "user-language-for-site",
-    "source": "pnp",
-    "title": "Testing user preferred language of SharePoint site",
-    "url": "user-language-for-site/README.html",
-    "creationDateTime": "2021-05-11T00:00:00",
-    "updateDateTime": "2021-05-11T00:00:00",
-    "shortDescription": "Changes the MUI setting for a user within the User Information List",
-    "longDescription": [
-      "This script that changes the MUI setting for a user within the User Information List to update the user with the appropriate language tag"
-    ],
-    "products": [
-      "SharePoint"
-    ],
-    "categories": [
-      "Configure"
-    ],
-    "metadata": [
-      {
-        "key": "PnP-PowerShell",
-        "value": "1.5.0"
-      }
-    ],
-    "thumbnails": [
-      {
-        "type": "image",
-        "order": 100,
-        "url": "user-language-for-site/assets/preview.png",
-        "alt": "This sample does not contain a preview image"
+        "url": "generate-markdown-lcids/assets/preview.png",
+        "alt": ""
       }
     ],
     "authors": [
