@@ -1,5 +1,5 @@
 ---
-plugin: add-to-gallery
+plugin: add-to-gallery-preparation
 ---
 
 # Hello World Generic Scenario
