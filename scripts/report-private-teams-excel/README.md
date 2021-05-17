@@ -4,15 +4,15 @@ plugin: add-to-gallery
 
 # Report of Private Teams to Excel
 
-> [!Note]
-> For this sample, you will require the [Excel PowerShell module](https://www.powershellgallery.com/packages/ImportExcel) to be installed
-
 ## Summary
 
 This sample gathers all of the teams private channels in your tenant and produces an Excel file which is then uploaded to a SharePoint Site.
 Two connections are used, one for the Admin Centre and the other to upload the file to the "Documents" location in the root site.
 
 ![Example Screenshot](assets/example.png)
+
+> [!Note]
+> For this sample, you will require the [Excel PowerShell module](https://www.powershellgallery.com/packages/ImportExcel) to be installed
 
 # [PnP PowerShell](#tab/pnpps)
 
