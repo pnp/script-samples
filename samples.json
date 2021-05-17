@@ -1,20 +1,19 @@
 [
   {
-    "name": "modernize-blog-pages",
+    "name": "report-private-teams-excel",
     "source": "pnp",
-    "title": "Modernize Blog Pages",
-    "url": "modernize-blog-pages/README.html",
-    "creationDateTime": "2021-05-11T00:00:00",
-    "updateDateTime": "2021-05-11T00:00:00",
-    "shortDescription": "Converts all blog pages in a site",
-    "longDescription": [
-      "Converts all blog pages in a site"
-    ],
+    "title": "Report of Private Teams to Excel",
+    "url": "report-private-teams-excel/README.html",
+    "creationDateTime": "2021-05-17T00:00:00",
+    "updateDateTime": "2021-05-17T00:00:00",
+    "shortDescription": "Gathers all of the teams private channels in your tenant and produces an Excel file",
+    "longDescription": [],
     "products": [
-      "SharePoint"
+      "SharePoint",
+      "Teams"
     ],
     "categories": [
-      "Modernize"
+      "Report"
     ],
     "metadata": [
       {
@@ -26,8 +25,8 @@
       {
         "type": "image",
         "order": 100,
-        "url": "modernize-blog-pages/assets/preview.png",
-        "alt": "This sample does not contain a preview image"
+        "url": "report-private-teams-excel/assets/preview.png",
+        "alt": ""
       }
     ],
     "authors": [
@@ -40,14 +39,16 @@
     ]
   },
   {
-    "name": "remove-delete-option-library",
+    "name": "add-app-catalogue-to-sp-site",
     "source": "pnp",
-    "title": "Remove delete option on a document library",
-    "url": "remove-delete-option-library/README.html",
-    "creationDateTime": "2021-05-17T00:00:00",
-    "updateDateTime": "2021-05-17T00:00:00",
-    "shortDescription": "Remove the delete option on a document library to prevent users from accidentally deleting libraries",
-    "longDescription": [],
+    "title": "Add App Catalog to SharePoint site",
+    "url": "add-app-catalogue-to-sp-site/README.html",
+    "creationDateTime": "2021-05-11T00:00:00",
+    "updateDateTime": "2021-05-11T00:00:00",
+    "shortDescription": "Deploy certain SharePoint solution to a specific site",
+    "longDescription": [
+      "hen you just want to deploy certain SharePoint solution to a specific site, it's required to create an app catalog for that site."
+    ],
     "products": [
       "SharePoint"
     ],
@@ -58,22 +59,39 @@
       {
         "key": "PnP-PowerShell",
         "value": "1.5.0"
+      },
+      {
+        "key": "Microsoft365-CLI",
+        "value": "3.7.0"
       }
     ],
     "thumbnails": [
       {
         "type": "image",
         "order": 100,
-        "url": "remove-delete-option-library/assets/preview.png",
-        "alt": "image preview of the completed change - no delete option"
+        "url": "add-app-catalogue-to-sp-site/assets/preview.png",
+        "alt": "This sample does not contain a preview image"
       }
     ],
     "authors": [
+      {
+        "name": "David Ramalho",
+        "gitHubAccount": "",
+        "company": "SharePoint Tricks",
+        "pictureUrl": "https://i1.wp.com/pbs.twimg.com/profile_images/1060671490847326208/zyudunZr_200x200.jpg?zoom=1.25&ssl=1"
+      },
       {
         "name": "Paul Bullock",
         "gitHubAccount": "pkbullock",
         "company": "CaPa Creative Ltd",
         "pictureUrl": "https://avatars.githubusercontent.com/u/8781041?v=4"
+      }
+    ],
+    "references": [
+      {
+        "name": "Sample first appeared on SPO Add App Catalog",
+        "description": "",
+        "url": "https://pnp.github.io/cli-microsoft365/sample-scripts/spo/add-app-catalog/"
       }
     ]
   },
@@ -252,55 +270,14 @@
     ]
   },
   {
-    "name": "report-private-teams-excel",
+    "name": "remove-delete-option-library",
     "source": "pnp",
-    "title": "Report of Private Teams to Excel",
-    "url": "report-private-teams-excel/README.html",
+    "title": "Remove delete option on a document library",
+    "url": "remove-delete-option-library/README.html",
     "creationDateTime": "2021-05-17T00:00:00",
     "updateDateTime": "2021-05-17T00:00:00",
-    "shortDescription": "Gathers all of the teams private channels in your tenant and produces an Excel file",
+    "shortDescription": "Remove the delete option on a document library to prevent users from accidentally deleting libraries",
     "longDescription": [],
-    "products": [
-      "SharePoint",
-      "Teams"
-    ],
-    "categories": [
-      "Report"
-    ],
-    "metadata": [
-      {
-        "key": "PnP-PowerShell",
-        "value": "1.5.0"
-      }
-    ],
-    "thumbnails": [
-      {
-        "type": "image",
-        "order": 100,
-        "url": "report-private-teams-excel/assets/preview.png",
-        "alt": ""
-      }
-    ],
-    "authors": [
-      {
-        "name": "Paul Bullock",
-        "gitHubAccount": "pkbullock",
-        "company": "CaPa Creative Ltd",
-        "pictureUrl": "https://avatars.githubusercontent.com/u/8781041?v=4"
-      }
-    ]
-  },
-  {
-    "name": "add-app-catalogue-to-sp-site",
-    "source": "pnp",
-    "title": "Add App Catalog to SharePoint site",
-    "url": "add-app-catalogue-to-sp-site/README.html",
-    "creationDateTime": "2021-05-11T00:00:00",
-    "updateDateTime": "2021-05-11T00:00:00",
-    "shortDescription": "Deploy certain SharePoint solution to a specific site",
-    "longDescription": [
-      "hen you just want to deploy certain SharePoint solution to a specific site, it's required to create an app catalog for that site."
-    ],
     "products": [
       "SharePoint"
     ],
@@ -311,39 +288,22 @@
       {
         "key": "PnP-PowerShell",
         "value": "1.5.0"
-      },
-      {
-        "key": "Microsoft365-CLI",
-        "value": "3.7.0"
       }
     ],
     "thumbnails": [
       {
         "type": "image",
         "order": 100,
-        "url": "add-app-catalogue-to-sp-site/assets/preview.png",
-        "alt": "This sample does not contain a preview image"
+        "url": "remove-delete-option-library/assets/preview.png",
+        "alt": "image preview of the completed change - no delete option"
       }
     ],
     "authors": [
-      {
-        "name": "David Ramalho",
-        "gitHubAccount": "",
-        "company": "SharePoint Tricks",
-        "pictureUrl": "https://i1.wp.com/pbs.twimg.com/profile_images/1060671490847326208/zyudunZr_200x200.jpg?zoom=1.25&ssl=1"
-      },
       {
         "name": "Paul Bullock",
         "gitHubAccount": "pkbullock",
         "company": "CaPa Creative Ltd",
         "pictureUrl": "https://avatars.githubusercontent.com/u/8781041?v=4"
-      }
-    ],
-    "references": [
-      {
-        "name": "Sample first appeared on SPO Add App Catalog",
-        "description": "",
-        "url": "https://pnp.github.io/cli-microsoft365/sample-scripts/spo/add-app-catalog/"
       }
     ]
   },
@@ -376,6 +336,46 @@
         "order": 100,
         "url": "generate-markdown-lcids/assets/preview.png",
         "alt": ""
+      }
+    ],
+    "authors": [
+      {
+        "name": "Paul Bullock",
+        "gitHubAccount": "pkbullock",
+        "company": "CaPa Creative Ltd",
+        "pictureUrl": "https://avatars.githubusercontent.com/u/8781041?v=4"
+      }
+    ]
+  },
+  {
+    "name": "modernize-blog-pages",
+    "source": "pnp",
+    "title": "Modernize Blog Pages",
+    "url": "modernize-blog-pages/README.html",
+    "creationDateTime": "2021-05-11T00:00:00",
+    "updateDateTime": "2021-05-11T00:00:00",
+    "shortDescription": "Converts all blog pages in a site",
+    "longDescription": [
+      "Converts all blog pages in a site"
+    ],
+    "products": [
+      "SharePoint"
+    ],
+    "categories": [
+      "Modernize"
+    ],
+    "metadata": [
+      {
+        "key": "PnP-PowerShell",
+        "value": "1.5.0"
+      }
+    ],
+    "thumbnails": [
+      {
+        "type": "image",
+        "order": 100,
+        "url": "modernize-blog-pages/assets/preview.png",
+        "alt": "This sample does not contain a preview image"
       }
     ],
     "authors": [
