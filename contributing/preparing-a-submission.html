@@ -1,0 +1,135 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html lang="en">
+  
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Preparing a submission | Script Samples </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Preparing a submission | Script Samples ">
+    <meta name="generator" content="docfx 2.56.7.0">
+    <meta name="description" content="A sample gallery of scripts to manage all things Microsoft 365.">
+    <link rel="shortcut icon" href="https://c.s-microsoft.com/favicon.ico?v2">
+    <link rel="stylesheet" href="../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../styles/docfx.css">
+    <link rel="stylesheet" href="../styles/main.css">
+    <link rel="stylesheet" href="../styles/extra.css">
+    <link rel="stylesheet" href="../styles/filter.css">
+    <link rel="stylesheet" href="../styles/site.css">
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet"> 
+    <meta property="docfx:navrel" content="../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+    
+    
+    <meta property="docfx:newtab" content="true">
+  </head>  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../assets/logo.svg" alt="">
+              </a>    </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <label class="glyphicon glyphicon-search" for="search-query"></label>
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>      </header>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-12">
+            <article class="content wrap" id="_content" data-uid="">
+                  <div class="contribution-panel mobile-hide pull-right">
+                  </div>
+                    <h1 id="preparing-a-submission">Preparing a submission</h1>
+
+<p>Thank you for considering contributing to this repository. In order to help you get started, we have prepared this guide to provide you with the information you need to prepare your submission.</p>
+<h2 id="markdown">Markdown</h2>
+<p>This repository uses a text based markup called &quot;Markdown&quot; which allows you to write articles/pages quickly without having to worry about the presentation of the page. Even this page is written using this - we use a site generator to turn this into a page automatically.</p>
+<p>If you want to learn more about Markdown checkout this guide by Bob German on Tech Community - <a href="https://techcommunity.microsoft.com/t5/microsoft-365-pnp-blog/what-s-up-with-markdown/ba-p/2323834">What's up with Markdown?</a></p>
+<h3 id="key-elements-of-markdown-we-use">Key elements of Markdown we use</h3>
+<p>TBC</p>
+<h3 id="page-structure">Page Structure</h3>
+<p>The page follows a standard format, we have created a graphic to explain the layout and the markdown for each section:</p>
+<p><img src="../assets/contributing/page-layouts.png" alt="Page Layouts and Markdown"></p>
+<p>The minimum we need for the submission is:</p>
+<ul>
+<li><strong>Article Title</strong> - the title for your script</li>
+<li><strong>Summary</strong> - for briefly describing what the script does</li>
+<li><strong>Image</strong>, ideally named &quot;example.png&quot; in an assets folder, presenting the end result of the operation. The more visual the better.</li>
+<li><strong>Script</strong> - minimum of at least one type. We support: PnP PowerShell, Microsoft 365 CLI, Graph PowerShell SDK, SPO PowerShell, if there are other types you wish to include, please raise an issue, we may need to tweak the site to accommodate the library.</li>
+<li><strong>Contributors</strong> - your name, or if a joint submission those you have worked with - so that we can attribute credit for the submission.</li>
+</ul>
+<p>We add the disclaimer statement at the bottom.</p>
+<h2 id="submission-template-files">Submission Template Files</h2>
+<p>There is a template submission folder called &quot;template-script-submission&quot; in <a href="https://github.com/pnp/script-samples/tree/main/scripts/template-script-submission">template-script-submission | GitHub - PnP Script Samples</a>.</p>
+<p>Before you can submit, you need to make sure you are setup with a &quot;fork&quot; of the repository in your own account, please navigate to <a href="submitting-pull-requests.html">Submitting Pull Requests</a> for setup information.</p>
+<p>The template submission folder contains:</p>
+<ul>
+<li><strong>README.md</strong> - Sample Readme with the structure, remove the dummy text and update the areas for your submission</li>
+<li><strong>assets/example.png</strong> - image for the sample, simply replace with a screenshot to show in the article</li>
+</ul>
+<h3 id="optional-files">Optional files</h3>
+<ul>
+<li><strong>assets/template.sample.json</strong> - this is a metadata file used for the gallery views, this is optional <em>DO NOT HAVE TO COMPLETE THIS</em></li>
+<li><strong>assets/preview.png</strong> - we generate a preview from the example.png file, you do not have to update this.</li>
+</ul>
+<h3 id="folder-structure">Folder Structure</h3>
+<p>We have worked to keep the folder structure lean and as simple as possible when submitting scripts:</p>
+<pre><code class="lang-markdown">
++--- script-folder-title - *folder for the script based on the title of your sample, please all lowercase and spaces as hyphens*
+  |___ assets - *sub folder for any images or assets you need to support your sample*
+</code></pre>
+<p><img src="../assets/contributing/folder-structure-contributors.png" alt="Folder structure"></p>
+<img src="https://telemetry.sharepointpnp.com/script-samples/contributing" aria-hidden="true">
+</article>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            <span>Script Samples<br>Generated by <strong><a href='https://dotnet.github.io/docfx' alt='Doc FX Website'>DocFX</a></strong> with <strong><a href='https://ovasquez.github.io/docfx-material' alt='DocFx Material Theme'>Material UI</a></strong></span>
+            
+            <!-- <img src="https://telemetry.sharepointpnp.com/@pnp.github.io/index/" alt="spacer"> -->
+          </div>
+        </div>
+      </footer>    </div>
+    
+    <script type="text/javascript" src="../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+    
+    <script type="text/javascript" src="../styles/clipboard.min.js"></script>
+    <script type="text/javascript" src="../styles/isotope.pkgd.min.js"></script>
+    <script type="text/javascript" src="../styles/loadsamples.js"></script>
+    <script type="text/javascript" src="../styles/filtersamples.js"></script>
+
+  </body>
+</html>
