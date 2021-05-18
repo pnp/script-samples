@@ -179,3 +179,18 @@ $(function (){
         }
     });
 });
+
+
+// Copy to clipboard
+$(function (){
+    var clipboard = new ClipboardJS('button.article-clipboard');
+    clipboard.on('success', function(e) {
+        e.clearSelection();
+
+        $(e.trigger).children('span.article-clipboard__message').addClass('copied');
+        var tempCopiedNotify = setInterval( function(){
+            $(e.trigger).children('span.article-clipboard__message').removeClass('copied');
+            clearInterval(tempCopiedNotify);
+          }, 600 );
+    });
+});
