@@ -12,7 +12,7 @@ This repository's contributors are all community members who volunteered their t
 
 These samples are direct from the feature teams, PnP core team (http://aka.ms/m365pnp) or shared by the community. We welcome your input on issues and suggestions for new samples. We  welcome community contributions for sample scripts. If you have any questions, just let us know.
 
-Please have a look on our [Contribution Guidance](./.github/CONTRIBUTING.md) before submitting your pull requests, so that we can get your contribution processed as fast as possible.
+Please have a look on our [Contribution Guidance](./docfx/contribute.md) before submitting your pull requests, so that we can get your contribution processed as fast as possible.
 
 ## Code of Conduct
 
