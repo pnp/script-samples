@@ -42,7 +42,7 @@ To show in the gallery simply update to "plugin: add-to-gallery".
 
 We have worked to keep the folder structure lean and as simple as possible when submitting scripts:
 
-![Folder Structure](assets/contributing/folder-structure.png)
+![Folder Structure](../assets/contributing/folder-structure.png)
 
 ### Starting Files in folder structure
 
