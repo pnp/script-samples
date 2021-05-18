@@ -688,8 +688,51 @@ footer{
 .tabGroup section[role="tabpanel"]{
   padding-top: 0;
   border: 0;
+  position: relative;
 }
 
 .table-bordered, .table-bordered>tbody>tr>td, .table-bordered>tbody>tr>th, .table-bordered>tfoot>tr>td, .table-bordered>tfoot>tr>th, .table-bordered>thead>tr>td, .table-bordered>thead>tr>th{
   border: 1px solid #efefef;
+}
+
+/* Clipboard */
+.article-clipboard {
+  position: absolute;
+  top: 0.6rem;
+  right: 0.6rem;
+  width: 2.8rem;
+  height: 2.8rem;
+  border-radius: 0.2rem;
+  font-size: 1.6rem;
+  cursor: pointer;
+  z-index: 1;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  border: 0;
+}
+
+.article-clipboard__message {
+  display: inline-table;
+  padding: 0.6rem 1rem;
+  border-radius: 0.2rem;
+  background-color: rgba(0, 0, 0, 0.54);
+  color: white;
+  font-size: 1.28rem;
+  white-space: nowrap;
+}
+
+.tabGroup section[role="tabpanel"]{
+  overflow: unset;
+}
+
+span.done {
+  position: absolute;
+  top: 0; 
+  right: 3.4rem;
+  text-align: center;
+  opacity: 0;
+  transition: all .500s;
+}
+span.copied {
+  opacity: 1;
 }
