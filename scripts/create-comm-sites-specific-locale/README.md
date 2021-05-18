@@ -50,5 +50,4 @@ Article first appeared on [https://capacreative.co.uk/2018/11/19/create-communic
 
 [!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
 
-
 <img src="https://telemetry.sharepointpnp.com/script-samples/scripts/create-comm-sites-specific-locale" aria-hidden="true" />

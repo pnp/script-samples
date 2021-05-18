@@ -29,7 +29,7 @@ Write-Host "Done! :-)" -ForegroundColor Green
 
 ## Source Credit
 
-Example: Sample first appeared on [Prevent document library deletion | CaPa Creative Ltd](https://capacreative.co.uk/2018/09/17/prevent-document-library-deletion/)
+Sample first appeared on [Prevent document library deletion | CaPa Creative Ltd](https://capacreative.co.uk/2018/09/17/prevent-document-library-deletion/)
 
 ## Contributors
 
