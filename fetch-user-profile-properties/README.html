@@ -1,0 +1,223 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html lang="en">
+  
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Fetch User Profile Properties From Site Collection And Export To CSV | Script Samples </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Fetch User Profile Properties From Site Collection And Export To CSV | Script Samples ">
+    <meta name="generator" content="docfx 2.56.7.0">
+    <meta name="description" content="A sample gallery of scripts to manage all things Microsoft 365.">
+    <link rel="shortcut icon" href="https://c.s-microsoft.com/favicon.ico?v2">
+    <link rel="stylesheet" href="../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../styles/docfx.css">
+    <link rel="stylesheet" href="../styles/main.css">
+    <link rel="stylesheet" href="../styles/extra.css">
+    <link rel="stylesheet" href="../styles/filter.css">
+    <link rel="stylesheet" href="../styles/site.css">
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet"> 
+    <meta property="docfx:navrel" content="../toc.html">
+    <meta property="docfx:tocrel" content="../toc.html">
+    
+    
+    <meta property="docfx:newtab" content="true">
+  </head>  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../assets/logo.svg" alt="">
+              </a>    </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <label class="glyphicon glyphicon-search" for="search-query"></label>
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>      </header>
+      <div role="main" class="container body-content hide-when-search">
+        <div class="article row grid">
+          <div class="col-md-12">
+            <article class="content wrap" id="_content" data-uid="">
+                  <div class="contribution-panel mobile-hide pull-right">
+                  </div>
+                    <h1 id="fetch-user-profile-properties-from-site-collection-and-export-to-csv">Fetch User Profile Properties From Site Collection And Export To CSV</h1>
+
+<h2 id="summary">Summary</h2>
+<p>Many times we have a requirement like to get users or user profile properties from any SharePoint site collection and we need it in CSV or Excel format.</p>
+<p><img src="assets/example.png" alt="Example Screenshot"></p>
+<h2 id="implementation">Implementation</h2>
+<p>Open Windows Powershell ISE
+Create a new file and write a script</p>
+<p>Now we will see all the steps which we required to achieve the solution:</p>
+<ol>
+<li>We will read the site URL from the user</li>
+<li>then we will connect to the O365 admin site and then we will connect to the site which the user has entered</li>
+<li>Create a function to bind a CSV</li>
+<li>Create a function to get user profile properties by email d</li>
+<li>In the main function we will write a logic to get web and users of site collection URL and then get all the properties and bind it to CSV</li>
+</ol>
+<p>So at the end, our script will be like this,</p>
+<div class="tabGroup" id="tabgroup_CeZOj-G++Q">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_CeZOj-G++Q_pnpps" role="tab" aria-controls="tabpanel_CeZOj-G++Q_pnpps" data-tab="pnpps" tabindex="0" aria-selected="true">PnP PowerShell</a>
+</li>
+</ul>
+<section id="tabpanel_CeZOj-G++Q_pnpps" role="tabpanel" data-tab="pnpps"><button class="article-clipboard" title="Copy to clipboard" data-toggle="tooltip" data-placement="top" data-clipboard-target="section[id^='tabpanel'][data-tab='pnpps'] pre">
+    <span class="glyphicon glyphicon-copy" aria-hidden="true"></span>
+    <span class="article-clipboard__message done">Copied</span>
+</button>
+
+<pre><code class="lang-powershell">
+$basePath = #base path where you want to save CSV file(&quot;D:\Chandani\...\&quot;)
+$dateTime = &quot;{0:MM_dd_yy}_{0:HH_mm_ss}&quot; -f (Get-Date)
+$csvPath = $basePath + &quot;\userdetails&quot; + $dateTime + &quot;.csv&quot;
+$adminSiteURL = &quot;https://****-admin.sharepoint.com/&quot; #O365 admin site URL
+$username = #user email id
+$password = &quot;********&quot;
+$secureStringPwd = $password | ConvertTo-SecureString -AsPlainText -Force 
+$Creds = New-Object System.Management.Automation.PSCredential -ArgumentList $username, $secureStringPwd
+$global:userDetails = @()
+$index = 1;
+$userInfo;
+  
+Function Login() {
+    [cmdletbinding()]
+    param([parameter(Mandatory = $true, ValueFromPipeline = $true)] $Creds)
+ 
+    #connect to O365 admin site
+    Write-Host &quot;Connecting to Tenant Admin Site '$($adminSiteURL)'&quot; -f Yellow | Out-File $LogFile -Append -Force
+  
+    Connect-PnPOnline -Url $adminSiteURL -Credentials $Creds
+    Write-Host &quot;Connection Successfull&quot; -f Yellow | Out-File $LogFile -Append -Force
+   
+}
+Function StartProcessing {
+    Login($Creds);
+    ConnectionToSite($Creds)
+}
+
+Function ConnectionToSite() {
+    $siteURL = Read-Host &quot;Please enter site collcetion URL&quot; 
+  
+    try {            
+        Write-Host &quot;Connecting to Site '$($siteURL)'&quot; -f Yellow          
+                              
+        $SCWeb = Get-PnPWeb -Identity &quot;&quot;              
+                                                     
+        $getusers = Get-PnPUser -Web $SCWeb
+
+        ForEach ($user in $getusers) { 
+            $email = $user.Email
+            If ($email) {
+                $userInfo = GetUserProfileProperties $email        
+                #creating object fro CSV
+                $global:userDetails += New-Object PSObject -Property ([ordered]@{                   
+                        Id            = $index
+                        GUID          = $userInfo.'UserProfile_GUID'
+                        FirstName     = $userInfo.FirstName
+                        LastName      = $userInfo.LastName
+                        WorkEmail     = $userInfo.WorkEmail 
+                        PictureURL    = $userInfo.PictureURL    
+                        Department    = $userInfo.Department
+                        PreferredName = $userInfo.PreferredName                        
+                    })
+                $index++ 
+            } 
+        }                                                                
+    }
+    catch {
+        Write-Host -f Red &quot;Error in connecting to Site '$($TenantSite)'&quot;                        
+    }                                     
+    BindingtoCSV($global:userDetails) 
+}
+
+Function BindingtoCSV {
+    [cmdletbinding()]
+    param([parameter(Mandatory = $true, ValueFromPipeline = $true)] $Global)   
+    Write-Host -f Yellow &quot;Exporting to CSV...&quot;
+    $userDetails | Export-Csv $csvPath -NoTypeInformation -Append
+    Write-Host -f Yellow &quot;Exported Successfully...&quot;
+}
+
+Function GetUserProfileProperties($username) {
+    $Properties = Get-PnPUserProfileProperty -Account $username
+    $Properties = $Properties.UserProfileProperties
+   
+    If ($Properties) {
+        $Properties = $Properties
+    }
+    else {
+        $Properties = $null
+    }
+    return $Properties
+}
+
+StartProcessing
+
+</code></pre>
+</section>
+</div>
+<h2 id="source-credit">Source Credit</h2>
+<p>Sample first appeared on <a href="https://techcommunity.microsoft.com/t5/microsoft-365-pnp-blog/fetch-user-profile-properties-from-site-collection-and-export-to/ba-p/2232136">Fetch User Profile Properties From Site Collection And Export To CSV Using PNP PowerShell | Microsoft 365 PnP Blog</a></p>
+<h2 id="contributors">Contributors</h2>
+<table>
+<thead>
+<tr>
+<th>Author(s)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Chandani Prajapati</td>
+</tr>
+</tbody>
+</table>
+<h2 id="disclaimer">Disclaimer</h2>
+<p><strong>THESE SAMPLES ARE PROVIDED <em>AS IS</em> WITHOUT WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, INCLUDING ANY IMPLIED WARRANTIES OF FITNESS FOR A PARTICULAR PURPOSE, MERCHANTABILITY, OR NON-INFRINGEMENT.</strong></p>
+<img src="https://telemetry.sharepointpnp.com/script-samples/scripts/template-script-submission" aria-hidden="true">
+</article>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            <span>Script Samples<br>Generated by <strong><a href='https://dotnet.github.io/docfx' alt='Doc FX Website'>DocFX</a></strong> with <strong><a href='https://ovasquez.github.io/docfx-material' alt='DocFx Material Theme'>Material UI</a></strong></span>
+            
+            <!-- <img src="https://telemetry.sharepointpnp.com/@pnp.github.io/index/" alt="spacer"> -->
+          </div>
+        </div>
+      </footer>    </div>
+    
+    <script type="text/javascript" src="../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+    
+    <script type="text/javascript" src="../styles/clipboard.min.js"></script>
+    <script type="text/javascript" src="../styles/isotope.pkgd.min.js"></script>
+    <script type="text/javascript" src="../styles/loadsamples.js"></script>
+    <script type="text/javascript" src="../styles/filtersamples.js"></script>
+
+  </body>
+</html>
