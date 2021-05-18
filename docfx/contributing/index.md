@@ -1,25 +1,23 @@
 # Contributing
 
-If you'd like to contribute to this repository, please read the following guidelines. Contributors are more than welcome to share their learnings with others in this centralized location.
+If you'd like to contribute to this repository, please read the following guidelines. Contributors are **more than welcome** to share their learnings with others in this centralized location.
 
-The repository can be found at [https://github.com/pnp/script-samples](https://github.com/pnp/script-samples)
+> [!NOTE]
+> The repository can be found at [https://github.com/pnp/script-samples](https://github.com/pnp/script-samples)
 
 ## Code of Conduct
 
 This project has adopted the [Microsoft Open Source Code of Conduct](https://opensource.microsoft.com/codeofconduct/).
-For more information, see the [Code of Conduct FAQ](https://opensource.microsoft.com/codeofconduct/faq/) or contact [opencode@microsoft.com](mailto:opencode@microsoft.com) with any additional questions or comments.
-
-Remember that this repository is maintained by community members who volunteer their time to help. Be courteous and patient.
+For more information, see the [Code of Conduct FAQ](https://opensource.microsoft.com/codeofconduct/faq/) or contact [opencode@microsoft.com](mailto:opencode@microsoft.com) with any additional 
+questions or comments.
+ 
+**Remember that this repository is maintained by community members who volunteer their time to help. Be courteous and patient.**
 
 ## Signing the CLA
 
-Before we can accept your pull requests you will be asked to sign electronically Contributor License Agreement (CLA), which is a pre-requisite for any contributions all PnP repositories. This will be one-time process, so for any future contributions you will not be asked to re-sign anything. After the CLA has been signed, our PnP core team members will have a look at your submission for a final verification of the submission. Please do not delete your development branch until the submission has been closed.
+Before we can accept your pull requests you will be asked to sign electronically Contributor License Agreement (CLA), which is a pre-requisite for any contributions all PnP repositories. This will be one-time process, so for any future contributions you will not be asked to re-sign anything. After the CLA has been signed, our PnP core team members will have a look at your submission for a final verification of the submission. **Please do not delete your development branch until the submission has been closed.**
 
 You can find Microsoft CLA from the following address - https://cla.microsoft.com.
-
-Thank you for your contribution.
-
-> Sharing is caring.
 
 ## Typos, Issues, Bugs and contributions
 
@@ -54,19 +52,7 @@ When you are submitting a new sample, it has to follow up below guidelines
 
 TBC
 
-### Folder Structure
 
-We have worked to keep the folder structure lean and as simple as possible when submitting scenarios:
-
-```markdown
-
-| --- scenario-title - *folder for the scenario*
-    |--- assets - *folder for any images or assets you need to support your description*
-    |--- scripts - *folder for the final scripts*
-
-```
-
-And that's it!
 
 ### Example scenario layouts
 

@@ -1,5 +1,7 @@
 # Submitting Pull Requests
 
+## The process
+
 Here's a high-level process for submitting new samples or updates to existing ones.
 
 1. Sign the Contributor License Agreement
@@ -10,7 +12,11 @@ Here's a high-level process for submitting new samples or updates to existing on
 6. Create a pull request in your own fork and target the `main` branch
 7. Fill up the provided PR template with the requested details
 
+## Want to practice the setup?
+
 If you feel insecure about that process or are new to GitHub, please consider to attend the [Sharing Is Caring sessions from the PnP team](https://pnp.github.io/sharing-is-caring/#pnp-sic-events) in which the Microsoft 365 PnP team provides hands-on guidance for first time contributors.
+
+## Submission Guidelines
 
 Before you submit your pull request consider the following guidelines:
 
@@ -31,8 +37,10 @@ Before you submit your pull request consider the following guidelines:
 * Make your changes in a new git branch:
 
   ```shell
-  git checkout -b sampleA master
+  git checkout -b working-with-files-in-libraries master
   ```
+
+## Keeping your fork up to date
 
 * Ensure your fork is updated and not behind the upstream **script-samples** repo. Refer to these resources for more information on syncing your repo:
   * [GitHub Help: Syncing a Fork](https://help.github.com/articles/syncing-a-fork/)
@@ -49,8 +57,8 @@ Before you submit your pull request consider the following guidelines:
     # update your local master to be a mirror of what's in the main repo
     git pull --rebase upstream master
 
-    # switch to your branch where you are working, say "sampleA"
-    git checkout sampleA
+    # switch to your branch where you are working, say "working-with-files-in-libraries"
+    git checkout working-with-files-in-libraries
 
     # update your branch to update it's fork point to the current tip of master & put your changes on top of it
     git rebase master
@@ -59,5 +67,5 @@ Before you submit your pull request consider the following guidelines:
 * Push your branch to GitHub:
 
   ```shell
-  git push origin sampleA
+  git push origin working-with-files-in-libraries
   ```
