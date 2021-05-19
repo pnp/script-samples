@@ -10,7 +10,23 @@ If you want to learn more about Markdown checkout this guide by Bob German on Te
 
 ### Key elements of Markdown we use
 
-TBC
+```markdown
+
+# Heading 1
+## Heading 2
+### Heading 3
+
+
+| Table Header |
+|--------------|
+| Table Data   |
+
+
+[Hyperlink](https://bing.co.uk)
+
+![Image](../../assets/contributing/image.png)
+
+```
 
 ### Page Structure
 
