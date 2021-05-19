@@ -14,7 +14,7 @@ If the sample you wish to contribute is stored in your own GitHub repository, yo
 * Pull your forked copy of `script-samples` into your local repository
 
     ```shell
-    git remote add origin https://github.com/yourgitaccount/powerplatform-samples.git
+    git remote add origin https://github.com/yourgitaccount/script-samples.git
     git pull origin master
     ```
 

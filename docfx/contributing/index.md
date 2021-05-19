@@ -8,8 +8,7 @@ If you'd like to contribute to this repository, please read the following guidel
 ## Code of Conduct
 
 This project has adopted the [Microsoft Open Source Code of Conduct](https://opensource.microsoft.com/codeofconduct/).
-For more information, see the [Code of Conduct FAQ](https://opensource.microsoft.com/codeofconduct/faq/) or contact [opencode@microsoft.com](mailto:opencode@microsoft.com) with any additional 
-questions or comments.
+For more information, see the [Code of Conduct FAQ](https://opensource.microsoft.com/codeofconduct/faq/) or contact [opencode@microsoft.com](mailto:opencode@microsoft.com) with any additional questions or comments.
  
 **Remember that this repository is maintained by community members who volunteer their time to help. Be courteous and patient.**
 
@@ -45,58 +44,18 @@ When you are submitting a new sample, it has to follow up below guidelines
   * If your solution is demonstrating multiple technologies, please use functional terms as the name for the solution folder
 * Do not use period/dot in the folder name of the provided sample
 
+## Remove environment or sensitive details
 
-## Getting Started for writing scenarios
-
-### Using Markdown
-
-TBC
-
-
-
-### Example scenario layouts
-
-TBC
-
-### Naming and casing
-
-TBC
-
-### Spell checker
-
-TBC
-
-### Preferred content layouts
-
-### Descriptions
-
-TBC
-
-### Embedding scripts
-
-TBC
-
-### Adding an alterative script tab
-
-TBC
-
-### Images and previews
-
-TBC
-
-## Scenario Guidelines
-
-TBC
-
-### Remove environment or sensitive details
-
-TBC
+Please be sure to remove all of your password, usernames and tenant addresses from the sample scripts - this is to maintain the security of your tenant. Examples include replacing the organisation name with Contoso e.g. https://contoso.sharepoint.com giving the details of the type of address but hiding the key information.
 
 ### Destructive scripts
 
-TBC
+We are happy to accept scripts that bulk delete or remove, delete an artefact but we will add a warning message to ensure that the reader is aware to ensure they understanding the implications of running the script.
 
-## Recognition for your contribution
+e.g.
+
+> [!Warning]
+> Please be aware this script contains a command that will remove or delete an artefact, ensure you test and understanding the implications of running the script.
 
 ## Repository Maintainers
 
