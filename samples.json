@@ -1,101 +1,5 @@
 [
   {
-    "name": "report-private-teams-excel",
-    "source": "pnp",
-    "title": "Report of Private Teams to Excel",
-    "url": "report-private-teams-excel/README.html",
-    "creationDateTime": "2021-05-17T00:00:00",
-    "updateDateTime": "2021-05-17T00:00:00",
-    "shortDescription": "Gathers all of the teams private channels in your tenant and produces an Excel file",
-    "longDescription": [],
-    "products": [
-      "SharePoint",
-      "Teams"
-    ],
-    "categories": [
-      "Report"
-    ],
-    "metadata": [
-      {
-        "key": "PnP-PowerShell",
-        "value": "1.5.0"
-      }
-    ],
-    "thumbnails": [
-      {
-        "type": "image",
-        "order": 100,
-        "url": "report-private-teams-excel/assets/preview.png",
-        "alt": ""
-      }
-    ],
-    "authors": [
-      {
-        "name": "Paul Bullock",
-        "gitHubAccount": "pkbullock",
-        "company": "CaPa Creative Ltd",
-        "pictureUrl": "https://avatars.githubusercontent.com/u/8781041?v=4"
-      }
-    ]
-  },
-  {
-    "name": "add-app-catalogue-to-sp-site",
-    "source": "pnp",
-    "title": "Add App Catalog to SharePoint site",
-    "url": "add-app-catalogue-to-sp-site/README.html",
-    "creationDateTime": "2021-05-11T00:00:00",
-    "updateDateTime": "2021-05-11T00:00:00",
-    "shortDescription": "Deploy certain SharePoint solution to a specific site",
-    "longDescription": [
-      "hen you just want to deploy certain SharePoint solution to a specific site, it's required to create an app catalog for that site."
-    ],
-    "products": [
-      "SharePoint"
-    ],
-    "categories": [
-      "Configure"
-    ],
-    "metadata": [
-      {
-        "key": "PnP-PowerShell",
-        "value": "1.5.0"
-      },
-      {
-        "key": "Microsoft365-CLI",
-        "value": "3.7.0"
-      }
-    ],
-    "thumbnails": [
-      {
-        "type": "image",
-        "order": 100,
-        "url": "add-app-catalogue-to-sp-site/assets/preview.png",
-        "alt": "This sample does not contain a preview image"
-      }
-    ],
-    "authors": [
-      {
-        "name": "David Ramalho",
-        "gitHubAccount": "",
-        "company": "SharePoint Tricks",
-        "pictureUrl": "https://i1.wp.com/pbs.twimg.com/profile_images/1060671490847326208/zyudunZr_200x200.jpg?zoom=1.25&ssl=1"
-      },
-      {
-        "name": "Paul Bullock",
-        "gitHubAccount": "pkbullock",
-        "company": "CaPa Creative Ltd",
-        "pictureUrl": "https://avatars.githubusercontent.com/u/8781041?v=4"
-      }
-    ],
-    "references": [
-      {
-        "name": "Sample first appeared on SPO Add App Catalog",
-        "description": "",
-        "url": "https://pnp.github.io/cli-microsoft365/sample-scripts/spo/add-app-catalog/"
-      }
-    ]
-  },
-  {
     "name": "remove-delete-option-library",
     "source": "pnp",
     "title": "Remove delete option on a document library",
@@ -134,88 +38,9 @@
     ]
   },
   {
-    "name": "fetch-user-profile-properties",
-    "source": "pnp",
-    "title": "Fetch User Profile Properties From Site Collection And Export To CSV",
-    "url": "fetch-user-profile-properties/README.html",
-    "creationDateTime": "2021-03-24T00:00:00",
-    "updateDateTime": "2021-03-24T00:00:00",
-    "shortDescription": "Get users or user profile properties from any SharePoint site collection and we need it in CSV or Excel format",
-    "longDescription": [
-      ""
-    ],
-    "products": [
-      "SharePoint"
-    ],
-    "categories": [
-      "Report"
-    ],
-    "metadata": [
-      {
-        "key": "PnP-PowerShell",
-        "value": "1.5.0"
-      }
-    ],
-    "thumbnails": [
-      {
-        "type": "image",
-        "order": 100,
-        "url": "fetch-user-profile-properties/assets/preview.png",
-        "alt": ""
-      }
-    ],
-    "authors": [
-      {
-        "name": "Chandani Prajapati",
-        "gitHubAccount": "chandaniprajapati",
-        "pictureUrl": "https://avatars.githubusercontent.com/u/52065929?v=4"
-      }
-    ]
-  },
-  {
-    "name": "create-comm-sites-specific-locale",
-    "source": "pnp",
-    "title": "Create Modern Sites as alternative primary language",
-    "url": "create-comm-sites-specific-locale/README.html",
-    "creationDateTime": "2021-05-11T00:00:00",
-    "updateDateTime": "2021-05-11T00:00:00",
-    "shortDescription": "Create a modern site in another language as the primary language",
-    "longDescription": [
-      "This script will show you how by creating a modern site with the primary language set to a language other than English."
-    ],
-    "products": [
-      "SharePoint"
-    ],
-    "categories": [
-      "Provision"
-    ],
-    "metadata": [
-      {
-        "key": "PnP-PowerShell",
-        "value": "1.5.0"
-      }
-    ],
-    "thumbnails": [
-      {
-        "type": "image",
-        "order": 100,
-        "url": "create-comm-sites-specific-locale/assets/preview.png",
-        "alt": "Preview of the resulting site as another language"
-      }
-    ],
-    "authors": [
-      {
-        "name": "Paul Bullock",
-        "gitHubAccount": "pkbullock",
-        "company": "CaPa Creative Ltd",
-        "pictureUrl": "https://avatars.githubusercontent.com/u/8781041?v=4"
-      }
-    ]
-  },
-  {
     "name": "get-all-site-collections-subwebs",
     "source": "pnp",
-    "title": "How to to get all site collections with their sub webs using PnP PowerShell?",
+    "title": "How to to get all site collections with their sub webs",
     "url": "get-all-site-collections-subwebs/README.html",
     "creationDateTime": "2021-05-05T00:00:00",
     "updateDateTime": "2021-05-05T00:00:00",
@@ -278,46 +103,6 @@
         "order": 100,
         "url": "user-language-for-site/assets/preview.png",
         "alt": "This sample does not contain a preview image"
-      }
-    ],
-    "authors": [
-      {
-        "name": "Paul Bullock",
-        "gitHubAccount": "pkbullock",
-        "company": "CaPa Creative Ltd",
-        "pictureUrl": "https://avatars.githubusercontent.com/u/8781041?v=4"
-      }
-    ]
-  },
-  {
-    "name": "generate-markdown-lcids",
-    "source": "pnp",
-    "title": " Generate Markdown Report of LCIDs",
-    "url": "generate-markdown-lcids/README.html",
-    "creationDateTime": "2021-05-11T00:00:00",
-    "updateDateTime": "2021-05-11T00:00:00",
-    "shortDescription": "Simple report listing out the language IDs in Markdown",
-    "longDescription": [
-      "Simple report listing out the language IDs (LCIDs) of a SharePoint site and generated a markdown formatted table"
-    ],
-    "products": [
-      "SharePoint"
-    ],
-    "categories": [
-      "Report"
-    ],
-    "metadata": [
-      {
-        "key": "PnP-PowerShell",
-        "value": "1.5.0"
-      }
-    ],
-    "thumbnails": [
-      {
-        "type": "image",
-        "order": 100,
-        "url": "generate-markdown-lcids/assets/preview.png",
-        "alt": ""
       }
     ],
     "authors": [
@@ -415,6 +200,222 @@
         "company": "",
         "pictureUrl": "https://avatars.githubusercontent.com/u/11563347?v=4"
       },
+      {
+        "name": "Paul Bullock",
+        "gitHubAccount": "pkbullock",
+        "company": "CaPa Creative Ltd",
+        "pictureUrl": "https://avatars.githubusercontent.com/u/8781041?v=4"
+      }
+    ]
+  },
+  {
+    "name": "report-private-teams-excel",
+    "source": "pnp",
+    "title": "Report of Private Teams to Excel",
+    "url": "report-private-teams-excel/README.html",
+    "creationDateTime": "2021-05-17T00:00:00",
+    "updateDateTime": "2021-05-17T00:00:00",
+    "shortDescription": "Gathers all of the teams private channels in your tenant and produces an Excel file",
+    "longDescription": [],
+    "products": [
+      "SharePoint",
+      "Teams"
+    ],
+    "categories": [
+      "Report"
+    ],
+    "metadata": [
+      {
+        "key": "PnP-PowerShell",
+        "value": "1.5.0"
+      }
+    ],
+    "thumbnails": [
+      {
+        "type": "image",
+        "order": 100,
+        "url": "report-private-teams-excel/assets/preview.png",
+        "alt": ""
+      }
+    ],
+    "authors": [
+      {
+        "name": "Paul Bullock",
+        "gitHubAccount": "pkbullock",
+        "company": "CaPa Creative Ltd",
+        "pictureUrl": "https://avatars.githubusercontent.com/u/8781041?v=4"
+      }
+    ]
+  },
+  {
+    "name": "add-app-catalogue-to-sp-site",
+    "source": "pnp",
+    "title": "Add App Catalog to SharePoint site",
+    "url": "add-app-catalogue-to-sp-site/README.html",
+    "creationDateTime": "2021-05-11T00:00:00",
+    "updateDateTime": "2021-05-11T00:00:00",
+    "shortDescription": "Deploy certain SharePoint solution to a specific site",
+    "longDescription": [
+      "hen you just want to deploy certain SharePoint solution to a specific site, it's required to create an app catalog for that site."
+    ],
+    "products": [
+      "SharePoint"
+    ],
+    "categories": [
+      "Deploy",
+      "Configure"
+    ],
+    "metadata": [
+      {
+        "key": "PnP-PowerShell",
+        "value": "1.5.0"
+      },
+      {
+        "key": "Microsoft365-CLI",
+        "value": "3.7.0"
+      }
+    ],
+    "thumbnails": [
+      {
+        "type": "image",
+        "order": 100,
+        "url": "add-app-catalogue-to-sp-site/assets/preview.png",
+        "alt": "This sample does not contain a preview image"
+      }
+    ],
+    "authors": [
+      {
+        "name": "David Ramalho",
+        "gitHubAccount": "",
+        "company": "SharePoint Tricks",
+        "pictureUrl": "https://i1.wp.com/pbs.twimg.com/profile_images/1060671490847326208/zyudunZr_200x200.jpg?zoom=1.25&ssl=1"
+      },
+      {
+        "name": "Paul Bullock",
+        "gitHubAccount": "pkbullock",
+        "company": "CaPa Creative Ltd",
+        "pictureUrl": "https://avatars.githubusercontent.com/u/8781041?v=4"
+      }
+    ],
+    "references": [
+      {
+        "name": "Sample first appeared on SPO Add App Catalog",
+        "description": "",
+        "url": "https://pnp.github.io/cli-microsoft365/sample-scripts/spo/add-app-catalog/"
+      }
+    ]
+  },
+  {
+    "name": "fetch-user-profile-properties",
+    "source": "pnp",
+    "title": "Fetch User Profile Properties From Site Collection And Export To CSV",
+    "url": "fetch-user-profile-properties/README.html",
+    "creationDateTime": "2021-03-24T00:00:00",
+    "updateDateTime": "2021-03-24T00:00:00",
+    "shortDescription": "Get users or user profile properties from any SharePoint site collection and we need it in CSV or Excel format",
+    "longDescription": [
+      ""
+    ],
+    "products": [
+      "SharePoint"
+    ],
+    "categories": [
+      "Report"
+    ],
+    "metadata": [
+      {
+        "key": "PnP-PowerShell",
+        "value": "1.5.0"
+      }
+    ],
+    "thumbnails": [
+      {
+        "type": "image",
+        "order": 100,
+        "url": "fetch-user-profile-properties/assets/preview.png",
+        "alt": ""
+      }
+    ],
+    "authors": [
+      {
+        "name": "Chandani Prajapati",
+        "gitHubAccount": "chandaniprajapati",
+        "pictureUrl": "https://avatars.githubusercontent.com/u/52065929?v=4"
+      }
+    ]
+  },
+  {
+    "name": "create-comm-sites-specific-locale",
+    "source": "pnp",
+    "title": "Create Modern Sites as alternative primary language",
+    "url": "create-comm-sites-specific-locale/README.html",
+    "creationDateTime": "2021-05-11T00:00:00",
+    "updateDateTime": "2021-05-11T00:00:00",
+    "shortDescription": "Create a modern site in another language as the primary language",
+    "longDescription": [
+      "This script will show you how by creating a modern site with the primary language set to a language other than English."
+    ],
+    "products": [
+      "SharePoint"
+    ],
+    "categories": [
+      "Provision"
+    ],
+    "metadata": [
+      {
+        "key": "PnP-PowerShell",
+        "value": "1.5.0"
+      }
+    ],
+    "thumbnails": [
+      {
+        "type": "image",
+        "order": 100,
+        "url": "create-comm-sites-specific-locale/assets/preview.png",
+        "alt": "Preview of the resulting site as another language"
+      }
+    ],
+    "authors": [
+      {
+        "name": "Paul Bullock",
+        "gitHubAccount": "pkbullock",
+        "company": "CaPa Creative Ltd",
+        "pictureUrl": "https://avatars.githubusercontent.com/u/8781041?v=4"
+      }
+    ]
+  },
+  {
+    "name": "generate-markdown-lcids",
+    "source": "pnp",
+    "title": " Generate Markdown Report of LCIDs",
+    "url": "generate-markdown-lcids/README.html",
+    "creationDateTime": "2021-05-11T00:00:00",
+    "updateDateTime": "2021-05-11T00:00:00",
+    "shortDescription": "Simple report listing out the language IDs in Markdown",
+    "longDescription": [
+      "Simple report listing out the language IDs (LCIDs) of a SharePoint site and generated a markdown formatted table"
+    ],
+    "products": [
+      "SharePoint"
+    ],
+    "categories": [
+      "Report"
+    ],
+    "metadata": [
+      {
+        "key": "PnP-PowerShell",
+        "value": "1.5.0"
+      }
+    ],
+    "thumbnails": [
+      {
+        "type": "image",
+        "order": 100,
+        "url": "generate-markdown-lcids/assets/preview.png",
+        "alt": ""
+      }
+    ],
+    "authors": [
       {
         "name": "Paul Bullock",
         "gitHubAccount": "pkbullock",
