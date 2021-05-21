@@ -12,7 +12,7 @@ Obtain a new access token for the Microsoft Graph and use it an HTTP request, or
 
 ## Scripts
 
-# [Microsoft CLI](#tab/m365cli)
+# [Microsoft 365 CLI (PowerShell)](#tab/m365cli)
 
 ```powershell
 
@@ -22,7 +22,7 @@ $me
 
 ```
 
-# [Microsoft CLI (Bash)](#tab/m365clibash)
+# [Microsoft 365 CLI (Bash)](#tab/m365clibash)
 
 ```bash
 #!/bin/bash

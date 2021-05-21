@@ -10,7 +10,7 @@ When you just want to deploy certain SharePoint solution to a specific site, it'
 
 ![Example Screenshot](assets/example.png)
 
-# [Microsoft CLI](#tab/m365cli)
+# [Microsoft 365 CLI (Bash)](#tab/m365cli)
 
 ```bash
 
