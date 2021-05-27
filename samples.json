@@ -1,20 +1,56 @@
 [
   {
-    "name": "modernize-classic-pages-from-publishing-sites",
+    "name": "spo-add-multiple-folders-in-libraries-using-csv-file",
     "source": "pnp",
-    "title": " Modernizing classic pages from on-premises sites",
-    "url": "modernize-classic-pages-from-publishing-sites/README.html",
+    "title": "Add multiple folders in libraries using a csv file",
+    "url": "spo-add-multiple-folders-in-libraries-using-csv-file/README.html",
+    "creationDateTime": "2021-05-10T00:00:00",
+    "updateDateTime": "2021-05-10T00:00:00",
+    "shortDescription": "This script will create the folders (not nested) into the libraries provided in the .csv file.",
+    "products": [
+      "SharePoint"
+    ],
+    "categories": [
+      "Data"
+    ],
+    "metadata": [
+      {
+        "key": "cli-for-microsoft365",
+        "value": "3.7.0"
+      }
+    ],
+    "thumbnails": [
+      {
+        "type": "image",
+        "order": 100,
+        "url": "spo-add-multiple-folders-in-libraries-using-csv-file/assets/preview.png",
+        "alt": "preview image for the sample"
+      }
+    ],
+    "authors": [
+      {
+        "name": "Veronique Lengelle",
+        "gitHubAccount": "veronicageek",
+        "pictureUrl": "https://avatars.githubusercontent.com/u/25181757?v=4"
+      }
+    ]
+  },
+  {
+    "name": "user-language-for-site",
+    "source": "pnp",
+    "title": "Testing user preferred language of SharePoint site",
+    "url": "user-language-for-site/README.html",
     "creationDateTime": "2021-05-11T00:00:00",
     "updateDateTime": "2021-05-11T00:00:00",
-    "shortDescription": "Conversion of an on-premises 2013 publishing page to the modern experience",
+    "shortDescription": "Changes the MUI setting for a user within the User Information List",
     "longDescription": [
-      "Show process of conversion of an on-premises 2013 publishing page over to SharePoint Online modern sites"
+      "This script that changes the MUI setting for a user within the User Information List to update the user with the appropriate language tag"
     ],
     "products": [
       "SharePoint"
     ],
     "categories": [
-      "Modernize"
+      "Configure"
     ],
     "metadata": [
       {
@@ -26,8 +62,8 @@
       {
         "type": "image",
         "order": 100,
-        "url": "modernize-classic-pages-from-publishing-sites/assets/preview.png",
-        "alt": ""
+        "url": "user-language-for-site/assets/preview.png",
+        "alt": "This sample does not contain a preview image"
       }
     ],
     "authors": [
@@ -40,42 +76,39 @@
     ]
   },
   {
-    "name": "modernize-blog-pages",
+    "name": "spo-add-custom-clientside-webpart-to-modern-page",
     "source": "pnp",
-    "title": "Modernize Blog Pages",
-    "url": "modernize-blog-pages/README.html",
-    "creationDateTime": "2021-05-11T00:00:00",
-    "updateDateTime": "2021-05-11T00:00:00",
-    "shortDescription": "Converts all blog pages in a site",
-    "longDescription": [
-      "Converts all blog pages in a site"
-    ],
+    "title": "Add custom client-side web part to modern page",
+    "url": "spo-add-custom-clientside-webpart-to-modern-page/README.html",
+    "creationDateTime": "2020-08-23T00:00:00",
+    "updateDateTime": "2020-08-23T00:00:00",
+    "shortDescription": "Programmatically add custom web part to a modern page",
     "products": [
       "SharePoint"
     ],
     "categories": [
-      "Modernize"
+      "Configure"
     ],
     "metadata": [
       {
-        "key": "PnP-PowerShell",
-        "value": "1.5.0"
+        "key": "cli-for-microsoft365",
+        "value": "3.7.0"
       }
     ],
     "thumbnails": [
       {
         "type": "image",
         "order": 100,
-        "url": "modernize-blog-pages/assets/preview.png",
-        "alt": "This sample does not contain a preview image"
+        "url": "spo-add-custom-clientside-webpart-to-modern-page/assets/preview.png",
+        "alt": "preview image for the sample"
       }
     ],
     "authors": [
       {
-        "name": "Paul Bullock",
-        "gitHubAccount": "pkbullock",
-        "company": "CaPa Creative Ltd",
-        "pictureUrl": "https://avatars.githubusercontent.com/u/8781041?v=4"
+        "name": "Yannick Plenevaux",
+        "gitHubAccount": "ypcode",
+        "company": "PVX Solutions",
+        "pictureUrl": "https://avatars.githubusercontent.com/u/8345556?v=4"
       }
     ]
   },
@@ -108,6 +141,86 @@
         "order": 100,
         "url": "create-comm-sites-specific-locale/assets/preview.png",
         "alt": "Preview of the resulting site as another language"
+      }
+    ],
+    "authors": [
+      {
+        "name": "Paul Bullock",
+        "gitHubAccount": "pkbullock",
+        "company": "CaPa Creative Ltd",
+        "pictureUrl": "https://avatars.githubusercontent.com/u/8781041?v=4"
+      }
+    ]
+  },
+  {
+    "name": "generate-markdown-lcids",
+    "source": "pnp",
+    "title": " Generate Markdown Report of LCIDs",
+    "url": "generate-markdown-lcids/README.html",
+    "creationDateTime": "2021-05-11T00:00:00",
+    "updateDateTime": "2021-05-11T00:00:00",
+    "shortDescription": "Simple report listing out the language IDs in Markdown",
+    "longDescription": [
+      "Simple report listing out the language IDs (LCIDs) of a SharePoint site and generated a markdown formatted table"
+    ],
+    "products": [
+      "SharePoint"
+    ],
+    "categories": [
+      "Report"
+    ],
+    "metadata": [
+      {
+        "key": "PnP-PowerShell",
+        "value": "1.5.0"
+      }
+    ],
+    "thumbnails": [
+      {
+        "type": "image",
+        "order": 100,
+        "url": "generate-markdown-lcids/assets/preview.png",
+        "alt": ""
+      }
+    ],
+    "authors": [
+      {
+        "name": "Paul Bullock",
+        "gitHubAccount": "pkbullock",
+        "company": "CaPa Creative Ltd",
+        "pictureUrl": "https://avatars.githubusercontent.com/u/8781041?v=4"
+      }
+    ]
+  },
+  {
+    "name": "modernize-classic-pages-from-publishing-sites",
+    "source": "pnp",
+    "title": " Modernizing classic pages from on-premises sites",
+    "url": "modernize-classic-pages-from-publishing-sites/README.html",
+    "creationDateTime": "2021-05-11T00:00:00",
+    "updateDateTime": "2021-05-11T00:00:00",
+    "shortDescription": "Conversion of an on-premises 2013 publishing page to the modern experience",
+    "longDescription": [
+      "Show process of conversion of an on-premises 2013 publishing page over to SharePoint Online modern sites"
+    ],
+    "products": [
+      "SharePoint"
+    ],
+    "categories": [
+      "Modernize"
+    ],
+    "metadata": [
+      {
+        "key": "PnP-PowerShell",
+        "value": "1.5.0"
+      }
+    ],
+    "thumbnails": [
+      {
+        "type": "image",
+        "order": 100,
+        "url": "modernize-classic-pages-from-publishing-sites/assets/preview.png",
+        "alt": ""
       }
     ],
     "authors": [
@@ -159,11 +272,11 @@
     ]
   },
   {
-    "name": "authenticate-graph",
+    "name": "graph-call-graph",
     "source": "pnp",
     "title": "Authenticate with and call the Microsoft Graph",
-    "url": "authenticate-graph/README.html",
-    "creationDateTime": "2021-05-11T00:00:00",
+    "url": "graph-call-graph/README.html",
+    "creationDateTime": "2021-08-23T00:00:00",
     "updateDateTime": "2021-05-11T00:00:00",
     "shortDescription": "Obtain a new access token for the Microsoft Graph and use it an HTTP request, or connect to the Graph",
     "longDescription": [
@@ -193,7 +306,7 @@
       {
         "type": "image",
         "order": 100,
-        "url": "authenticate-graph/assets/preview.png",
+        "url": "graph-call-graph/assets/preview.png",
         "alt": "Image of the result of calling the graph"
       }
     ],
@@ -213,38 +326,42 @@
     ]
   },
   {
-    "name": "spo-add-multiple-folders-in-libraries-using-csv-file",
+    "name": "modernize-blog-pages",
     "source": "pnp",
-    "title": "Add multiple folders in libraries using a csv file",
-    "url": "spo-add-multiple-folders-in-libraries-using-csv-file/README.html",
-    "creationDateTime": "2021-05-10T00:00:00",
-    "updateDateTime": "2021-05-10T00:00:00",
-    "shortDescription": "This script will create the folders (not nested) into the libraries provided in the .csv file.",
+    "title": "Modernize Blog Pages",
+    "url": "modernize-blog-pages/README.html",
+    "creationDateTime": "2021-05-11T00:00:00",
+    "updateDateTime": "2021-05-11T00:00:00",
+    "shortDescription": "Converts all blog pages in a site",
+    "longDescription": [
+      "Converts all blog pages in a site"
+    ],
     "products": [
       "SharePoint"
     ],
     "categories": [
-      "Data"
+      "Modernize"
     ],
     "metadata": [
       {
-        "key": "cli-for-microsoft365",
-        "value": "3.7.0"
+        "key": "PnP-PowerShell",
+        "value": "1.5.0"
       }
     ],
     "thumbnails": [
       {
         "type": "image",
         "order": 100,
-        "url": "spo-add-multiple-folders-in-libraries-using-csv-file/assets/preview.png",
-        "alt": "preview image for the sample"
+        "url": "modernize-blog-pages/assets/preview.png",
+        "alt": "This sample does not contain a preview image"
       }
     ],
     "authors": [
       {
-        "name": "Veronique Lengelle",
-        "gitHubAccount": "veronicageek",
-        "pictureUrl": "https://avatars.githubusercontent.com/u/25181757?v=4"
+        "name": "Paul Bullock",
+        "gitHubAccount": "pkbullock",
+        "company": "CaPa Creative Ltd",
+        "pictureUrl": "https://avatars.githubusercontent.com/u/8781041?v=4"
       }
     ]
   },
@@ -320,123 +437,6 @@
         "name": "Chandani Prajapati",
         "gitHubAccount": "chandaniprajapati",
         "pictureUrl": "https://avatars.githubusercontent.com/u/52065929?v=4"
-      }
-    ]
-  },
-  {
-    "name": "spo-add-custom-clientside-webpart-to-modern-page",
-    "source": "pnp",
-    "title": "Add custom client-side web part to modern page",
-    "url": "spo-add-custom-clientside-webpart-to-modern-page/README.html",
-    "creationDateTime": "2020-08-23T00:00:00",
-    "updateDateTime": "2020-08-23T00:00:00",
-    "shortDescription": "Programmatically add custom web part to a modern page",
-    "products": [
-      "SharePoint"
-    ],
-    "categories": [
-      "Configure"
-    ],
-    "metadata": [
-      {
-        "key": "cli-for-microsoft365",
-        "value": "3.7.0"
-      }
-    ],
-    "thumbnails": [
-      {
-        "type": "image",
-        "order": 100,
-        "url": "spo-add-custom-clientside-webpart-to-modern-page/assets/preview.png",
-        "alt": "preview image for the sample"
-      }
-    ],
-    "authors": [
-      {
-        "name": "Yannick Plenevaux",
-        "gitHubAccount": "ypcode",
-        "company": "PVX Solutions",
-        "pictureUrl": "https://avatars.githubusercontent.com/u/8345556?v=4"
-      }
-    ]
-  },
-  {
-    "name": "generate-markdown-lcids",
-    "source": "pnp",
-    "title": " Generate Markdown Report of LCIDs",
-    "url": "generate-markdown-lcids/README.html",
-    "creationDateTime": "2021-05-11T00:00:00",
-    "updateDateTime": "2021-05-11T00:00:00",
-    "shortDescription": "Simple report listing out the language IDs in Markdown",
-    "longDescription": [
-      "Simple report listing out the language IDs (LCIDs) of a SharePoint site and generated a markdown formatted table"
-    ],
-    "products": [
-      "SharePoint"
-    ],
-    "categories": [
-      "Report"
-    ],
-    "metadata": [
-      {
-        "key": "PnP-PowerShell",
-        "value": "1.5.0"
-      }
-    ],
-    "thumbnails": [
-      {
-        "type": "image",
-        "order": 100,
-        "url": "generate-markdown-lcids/assets/preview.png",
-        "alt": ""
-      }
-    ],
-    "authors": [
-      {
-        "name": "Paul Bullock",
-        "gitHubAccount": "pkbullock",
-        "company": "CaPa Creative Ltd",
-        "pictureUrl": "https://avatars.githubusercontent.com/u/8781041?v=4"
-      }
-    ]
-  },
-  {
-    "name": "user-language-for-site",
-    "source": "pnp",
-    "title": "Testing user preferred language of SharePoint site",
-    "url": "user-language-for-site/README.html",
-    "creationDateTime": "2021-05-11T00:00:00",
-    "updateDateTime": "2021-05-11T00:00:00",
-    "shortDescription": "Changes the MUI setting for a user within the User Information List",
-    "longDescription": [
-      "This script that changes the MUI setting for a user within the User Information List to update the user with the appropriate language tag"
-    ],
-    "products": [
-      "SharePoint"
-    ],
-    "categories": [
-      "Configure"
-    ],
-    "metadata": [
-      {
-        "key": "PnP-PowerShell",
-        "value": "1.5.0"
-      }
-    ],
-    "thumbnails": [
-      {
-        "type": "image",
-        "order": 100,
-        "url": "user-language-for-site/assets/preview.png",
-        "alt": "This sample does not contain a preview image"
-      }
-    ],
-    "authors": [
-      {
-        "name": "Paul Bullock",
-        "gitHubAccount": "pkbullock",
-        "company": "CaPa Creative Ltd",
-        "pictureUrl": "https://avatars.githubusercontent.com/u/8781041?v=4"
       }
     ]
   },
