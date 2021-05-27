@@ -8,8 +8,7 @@ plugin: add-to-gallery
 
 When you delete Microsoft 365 groups, the modern group-connected team sites get deleted with them. The script below handles the remaining modern sites: communication sites and groupless team sites.
  
-> [!Warning]
-> Please be aware this script contains a command that will remove or delete an artefact, ensure you test and understanding the implications of running the script.
+[!INCLUDE [Delete Warning](../../docfx/includes/DELETE-WARN.md)]
 
 ![Example Screenshot](assets/example.png)
  
