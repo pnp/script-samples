@@ -86,7 +86,7 @@ Sample first appeared on [Add a Site Collection Admin using a csv file | CLI for
 
 | Author(s) |
 |-----------|
-
+| Veronique Lengelle |
 
 
 [!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
