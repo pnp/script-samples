@@ -1,12 +1,91 @@
 [
   {
-    "name": "spo-add-multiple-folders-in-libraries-using-csv-file",
+    "name": "modernize-blog-pages",
     "source": "pnp",
-    "title": "Add multiple folders in libraries using a csv file",
-    "url": "spo-add-multiple-folders-in-libraries-using-csv-file/README.html",
-    "creationDateTime": "2021-05-10T00:00:00",
-    "updateDateTime": "2021-05-10T00:00:00",
-    "shortDescription": "This script will create the folders (not nested) into the libraries provided in the .csv file.",
+    "title": "Modernize Blog Pages",
+    "url": "modernize-blog-pages/README.html",
+    "creationDateTime": "2021-05-11T00:00:00",
+    "updateDateTime": "2021-05-11T00:00:00",
+    "shortDescription": "Converts all blog pages in a site",
+    "longDescription": [
+      "Converts all blog pages in a site"
+    ],
+    "products": [
+      "SharePoint"
+    ],
+    "categories": [
+      "Modernize"
+    ],
+    "metadata": [
+      {
+        "key": "PnP-PowerShell",
+        "value": "1.5.0"
+      }
+    ],
+    "thumbnails": [
+      {
+        "type": "image",
+        "order": 100,
+        "url": "modernize-blog-pages/assets/preview.png",
+        "alt": "This sample does not contain a preview image"
+      }
+    ],
+    "authors": [
+      {
+        "name": "Paul Bullock",
+        "gitHubAccount": "pkbullock",
+        "company": "CaPa Creative Ltd",
+        "pictureUrl": "https://avatars.githubusercontent.com/u/8781041?v=4"
+      }
+    ]
+  },
+  {
+    "name": "report-private-teams-excel",
+    "source": "pnp",
+    "title": "Report of Private Teams to Excel",
+    "url": "report-private-teams-excel/README.html",
+    "creationDateTime": "2021-05-17T00:00:00",
+    "updateDateTime": "2021-05-17T00:00:00",
+    "shortDescription": "Gathers all of the teams private channels in your tenant and produces an Excel file",
+    "longDescription": [],
+    "products": [
+      "SharePoint",
+      "Teams"
+    ],
+    "categories": [
+      "Report"
+    ],
+    "metadata": [
+      {
+        "key": "PnP-PowerShell",
+        "value": "1.5.0"
+      }
+    ],
+    "thumbnails": [
+      {
+        "type": "image",
+        "order": 100,
+        "url": "report-private-teams-excel/assets/preview.png",
+        "alt": ""
+      }
+    ],
+    "authors": [
+      {
+        "name": "Paul Bullock",
+        "gitHubAccount": "pkbullock",
+        "company": "CaPa Creative Ltd",
+        "pictureUrl": "https://avatars.githubusercontent.com/u/8781041?v=4"
+      }
+    ]
+  },
+  {
+    "name": "spo-copy-files-to-another-library",
+    "source": "pnp",
+    "title": "Copy files to another SharePoint Library in another site",
+    "url": "spo-copy-files-to-another-library/README.html",
+    "creationDateTime": "2021-04-20T00:00:00",
+    "updateDateTime": "2021-04-20T00:00:00",
+    "shortDescription": "Copy all files and folders from source library to a different library in different SharePoint site ",
     "products": [
       "SharePoint"
     ],
@@ -23,15 +102,195 @@
       {
         "type": "image",
         "order": 100,
-        "url": "spo-add-multiple-folders-in-libraries-using-csv-file/assets/preview.png",
+        "url": "spo-copy-files-to-another-library/assets/preview.png",
         "alt": "preview image for the sample"
       }
     ],
     "authors": [
       {
+        "name": "Adam Wójcik",
+        "gitHubAccount": "Adam-it",
+        "pictureUrl": "https://avatars.githubusercontent.com/u/58668583?v=4"
+      },
+      {
         "name": "Veronique Lengelle",
         "gitHubAccount": "veronicageek",
         "pictureUrl": "https://avatars.githubusercontent.com/u/25181757?v=4"
+      },
+      {
+        "name": "Garry Trinder",
+        "gitHubAccount": "garrytrinder",
+        "company": "@cpsglobal",
+        "pictureUrl": "https://avatars.githubusercontent.com/u/11563347?v=4"
+      }
+    ]
+  },
+  {
+    "name": "remove-delete-option-library",
+    "source": "pnp",
+    "title": "Remove delete option on a document library",
+    "url": "remove-delete-option-library/README.html",
+    "creationDateTime": "2021-05-17T00:00:00",
+    "updateDateTime": "2021-05-17T00:00:00",
+    "shortDescription": "Remove the delete option on a document library to prevent users from accidentally deleting libraries",
+    "longDescription": [],
+    "products": [
+      "SharePoint"
+    ],
+    "categories": [
+      "Configure"
+    ],
+    "metadata": [
+      {
+        "key": "PnP-PowerShell",
+        "value": "1.5.0"
+      }
+    ],
+    "thumbnails": [
+      {
+        "type": "image",
+        "order": 100,
+        "url": "remove-delete-option-library/assets/preview.png",
+        "alt": "image preview of the completed change - no delete option"
+      }
+    ],
+    "authors": [
+      {
+        "name": "Paul Bullock",
+        "gitHubAccount": "pkbullock",
+        "company": "CaPa Creative Ltd",
+        "pictureUrl": "https://avatars.githubusercontent.com/u/8781041?v=4"
+      }
+    ]
+  },
+  {
+    "name": "spo-add-custom-clientside-webpart-to-modern-page",
+    "source": "pnp",
+    "title": "Add custom client-side web part to modern page",
+    "url": "spo-add-custom-clientside-webpart-to-modern-page/README.html",
+    "creationDateTime": "2020-08-23T00:00:00",
+    "updateDateTime": "2020-08-23T00:00:00",
+    "shortDescription": "Programmatically add custom web part to a modern page",
+    "products": [
+      "SharePoint"
+    ],
+    "categories": [
+      "Configure"
+    ],
+    "metadata": [
+      {
+        "key": "cli-for-microsoft365",
+        "value": "3.7.0"
+      }
+    ],
+    "thumbnails": [
+      {
+        "type": "image",
+        "order": 100,
+        "url": "spo-add-custom-clientside-webpart-to-modern-page/assets/preview.png",
+        "alt": "preview image for the sample"
+      }
+    ],
+    "authors": [
+      {
+        "name": "Yannick Plenevaux",
+        "gitHubAccount": "ypcode",
+        "company": "PVX Solutions",
+        "pictureUrl": "https://avatars.githubusercontent.com/u/8345556?v=4"
+      }
+    ]
+  },
+  {
+    "name": "generate-markdown-lcids",
+    "source": "pnp",
+    "title": " Generate Markdown Report of LCIDs",
+    "url": "generate-markdown-lcids/README.html",
+    "creationDateTime": "2021-05-11T00:00:00",
+    "updateDateTime": "2021-05-11T00:00:00",
+    "shortDescription": "Simple report listing out the language IDs in Markdown",
+    "longDescription": [
+      "Simple report listing out the language IDs (LCIDs) of a SharePoint site and generated a markdown formatted table"
+    ],
+    "products": [
+      "SharePoint"
+    ],
+    "categories": [
+      "Report"
+    ],
+    "metadata": [
+      {
+        "key": "PnP-PowerShell",
+        "value": "1.5.0"
+      }
+    ],
+    "thumbnails": [
+      {
+        "type": "image",
+        "order": 100,
+        "url": "generate-markdown-lcids/assets/preview.png",
+        "alt": ""
+      }
+    ],
+    "authors": [
+      {
+        "name": "Paul Bullock",
+        "gitHubAccount": "pkbullock",
+        "company": "CaPa Creative Ltd",
+        "pictureUrl": "https://avatars.githubusercontent.com/u/8781041?v=4"
+      }
+    ]
+  },
+  {
+    "name": "graph-call-graph",
+    "source": "pnp",
+    "title": "Authenticate with and call the Microsoft Graph",
+    "url": "graph-call-graph/README.html",
+    "creationDateTime": "2021-08-23T00:00:00",
+    "updateDateTime": "2021-05-11T00:00:00",
+    "shortDescription": "Obtain a new access token for the Microsoft Graph and use it an HTTP request, or connect to the Graph",
+    "longDescription": [
+      ""
+    ],
+    "products": [
+      "Graph"
+    ],
+    "categories": [
+      "Configure"
+    ],
+    "metadata": [
+      {
+        "key": "pnp-powerShell",
+        "value": "1.5.0"
+      },
+      {
+        "key": "cli-for-microsoft365",
+        "value": "3.7.0"
+      },
+      {
+        "key": "graph-powerShell",
+        "value": "1.0.0"
+      }
+    ],
+    "thumbnails": [
+      {
+        "type": "image",
+        "order": 100,
+        "url": "graph-call-graph/assets/preview.png",
+        "alt": "Image of the result of calling the graph"
+      }
+    ],
+    "authors": [
+      {
+        "name": "Garry Trinder",
+        "gitHubAccount": "garrytrinder",
+        "company": "",
+        "pictureUrl": "https://avatars.githubusercontent.com/u/11563347?v=4"
+      },
+      {
+        "name": "Paul Bullock",
+        "gitHubAccount": "pkbullock",
+        "company": "CaPa Creative Ltd",
+        "pictureUrl": "https://avatars.githubusercontent.com/u/8781041?v=4"
       }
     ]
   },
@@ -116,133 +375,18 @@
     ]
   },
   {
-    "name": "modernize-blog-pages",
+    "name": "spo-delete-non-group-connected-modern-sites",
     "source": "pnp",
-    "title": "Modernize Blog Pages",
-    "url": "modernize-blog-pages/README.html",
-    "creationDateTime": "2021-05-11T00:00:00",
-    "updateDateTime": "2021-05-11T00:00:00",
-    "shortDescription": "Converts all blog pages in a site",
-    "longDescription": [
-      "Converts all blog pages in a site"
-    ],
+    "title": "Delete all (non-group connected) modern SharePoint sites",
+    "url": "spo-delete-non-group-connected-modern-sites/README.html",
+    "creationDateTime": "2021-01-16T00:00:00",
+    "updateDateTime": "2021-01-16T00:00:00",
+    "shortDescription": "This script handles deletion of remaining modern non-group sites: communication sites and groupless team sites",
     "products": [
       "SharePoint"
     ],
     "categories": [
-      "Modernize"
-    ],
-    "metadata": [
-      {
-        "key": "PnP-PowerShell",
-        "value": "1.5.0"
-      }
-    ],
-    "thumbnails": [
-      {
-        "type": "image",
-        "order": 100,
-        "url": "modernize-blog-pages/assets/preview.png",
-        "alt": "This sample does not contain a preview image"
-      }
-    ],
-    "authors": [
-      {
-        "name": "Paul Bullock",
-        "gitHubAccount": "pkbullock",
-        "company": "CaPa Creative Ltd",
-        "pictureUrl": "https://avatars.githubusercontent.com/u/8781041?v=4"
-      }
-    ]
-  },
-  {
-    "name": "remove-delete-option-library",
-    "source": "pnp",
-    "title": "Remove delete option on a document library",
-    "url": "remove-delete-option-library/README.html",
-    "creationDateTime": "2021-05-17T00:00:00",
-    "updateDateTime": "2021-05-17T00:00:00",
-    "shortDescription": "Remove the delete option on a document library to prevent users from accidentally deleting libraries",
-    "longDescription": [],
-    "products": [
-      "SharePoint"
-    ],
-    "categories": [
-      "Configure"
-    ],
-    "metadata": [
-      {
-        "key": "PnP-PowerShell",
-        "value": "1.5.0"
-      }
-    ],
-    "thumbnails": [
-      {
-        "type": "image",
-        "order": 100,
-        "url": "remove-delete-option-library/assets/preview.png",
-        "alt": "image preview of the completed change - no delete option"
-      }
-    ],
-    "authors": [
-      {
-        "name": "Paul Bullock",
-        "gitHubAccount": "pkbullock",
-        "company": "CaPa Creative Ltd",
-        "pictureUrl": "https://avatars.githubusercontent.com/u/8781041?v=4"
-      }
-    ]
-  },
-  {
-    "name": "get-all-site-collections-subwebs",
-    "source": "pnp",
-    "title": "How to to get all site collections with their sub webs",
-    "url": "get-all-site-collections-subwebs/README.html",
-    "creationDateTime": "2021-05-05T00:00:00",
-    "updateDateTime": "2021-05-05T00:00:00",
-    "shortDescription": "Get site collections with all the sub-webs",
-    "longDescription": [],
-    "products": [
-      "SharePoint"
-    ],
-    "categories": [
-      "Report"
-    ],
-    "metadata": [
-      {
-        "key": "PnP-PowerShell",
-        "value": "1.5.0"
-      }
-    ],
-    "thumbnails": [
-      {
-        "type": "image",
-        "order": 100,
-        "url": "get-all-site-collections-subwebs/assets/preview.png",
-        "alt": ""
-      }
-    ],
-    "authors": [
-      {
-        "name": "Chandani Prajapati",
-        "gitHubAccount": "chandaniprajapati",
-        "pictureUrl": "https://avatars.githubusercontent.com/u/52065929?v=4"
-      }
-    ]
-  },
-  {
-    "name": "spo-add-site-collection-admin-using-csv-file",
-    "source": "pnp",
-    "title": "Add a Site Collection Admin using a csv file",
-    "url": "spo-add-site-collection-admin-using-csv-file/README.html",
-    "creationDateTime": "2021-04-23T00:00:00",
-    "updateDateTime": "2021-04-23T00:00:00",
-    "shortDescription": "Learn how to add site collection adminstrators to all inc. hidden SharePoint sites.",
-    "products": [
-      "SharePoint"
-    ],
-    "categories": [
-      "Configure"
+      "Deploy"
     ],
     "metadata": [
       {
@@ -254,218 +398,16 @@
       {
         "type": "image",
         "order": 100,
-        "url": "spo-add-site-collection-admin-using-csv-file/assets/preview.png",
+        "url": "spo-delete-non-group-connected-modern-sites/assets/preview.png",
         "alt": "preview image for the sample"
       }
     ],
     "authors": [
       {
-        "name": "Veronique Lengelle",
-        "gitHubAccount": "veronicageek",
-        "pictureUrl": "https://avatars.githubusercontent.com/u/25181757?v=4"
-      }
-    ]
-  },
-  {
-    "name": "modernize-classic-pages-from-publishing-sites",
-    "source": "pnp",
-    "title": " Modernizing classic pages from on-premises sites",
-    "url": "modernize-classic-pages-from-publishing-sites/README.html",
-    "creationDateTime": "2021-05-11T00:00:00",
-    "updateDateTime": "2021-05-11T00:00:00",
-    "shortDescription": "Conversion of an on-premises 2013 publishing page to the modern experience",
-    "longDescription": [
-      "Show process of conversion of an on-premises 2013 publishing page over to SharePoint Online modern sites"
-    ],
-    "products": [
-      "SharePoint"
-    ],
-    "categories": [
-      "Modernize"
-    ],
-    "metadata": [
-      {
-        "key": "PnP-PowerShell",
-        "value": "1.5.0"
-      }
-    ],
-    "thumbnails": [
-      {
-        "type": "image",
-        "order": 100,
-        "url": "modernize-classic-pages-from-publishing-sites/assets/preview.png",
-        "alt": ""
-      }
-    ],
-    "authors": [
-      {
-        "name": "Paul Bullock",
-        "gitHubAccount": "pkbullock",
-        "company": "CaPa Creative Ltd",
-        "pictureUrl": "https://avatars.githubusercontent.com/u/8781041?v=4"
-      }
-    ]
-  },
-  {
-    "name": "generate-markdown-lcids",
-    "source": "pnp",
-    "title": " Generate Markdown Report of LCIDs",
-    "url": "generate-markdown-lcids/README.html",
-    "creationDateTime": "2021-05-11T00:00:00",
-    "updateDateTime": "2021-05-11T00:00:00",
-    "shortDescription": "Simple report listing out the language IDs in Markdown",
-    "longDescription": [
-      "Simple report listing out the language IDs (LCIDs) of a SharePoint site and generated a markdown formatted table"
-    ],
-    "products": [
-      "SharePoint"
-    ],
-    "categories": [
-      "Report"
-    ],
-    "metadata": [
-      {
-        "key": "PnP-PowerShell",
-        "value": "1.5.0"
-      }
-    ],
-    "thumbnails": [
-      {
-        "type": "image",
-        "order": 100,
-        "url": "generate-markdown-lcids/assets/preview.png",
-        "alt": ""
-      }
-    ],
-    "authors": [
-      {
-        "name": "Paul Bullock",
-        "gitHubAccount": "pkbullock",
-        "company": "CaPa Creative Ltd",
-        "pictureUrl": "https://avatars.githubusercontent.com/u/8781041?v=4"
-      }
-    ]
-  },
-  {
-    "name": "spo-copy-files-to-another-library",
-    "source": "pnp",
-    "title": "Copy files to another SharePoint Library in another site",
-    "url": "spo-copy-files-to-another-library/README.html",
-    "creationDateTime": "2021-04-20T00:00:00",
-    "updateDateTime": "2021-04-20T00:00:00",
-    "shortDescription": "Copy all files and folders from source library to a different library in different SharePoint site ",
-    "products": [
-      "SharePoint"
-    ],
-    "categories": [
-      "Data"
-    ],
-    "metadata": [
-      {
-        "key": "cli-for-microsoft365",
-        "value": "3.7.0"
-      }
-    ],
-    "thumbnails": [
-      {
-        "type": "image",
-        "order": 100,
-        "url": "spo-copy-files-to-another-library/assets/preview.png",
-        "alt": "preview image for the sample"
-      }
-    ],
-    "authors": [
-      {
-        "name": "Adam Wójcik",
-        "gitHubAccount": "Adam-it",
-        "pictureUrl": "https://avatars.githubusercontent.com/u/58668583?v=4"
-      },
-      {
-        "name": "Veronique Lengelle",
-        "gitHubAccount": "veronicageek",
-        "pictureUrl": "https://avatars.githubusercontent.com/u/25181757?v=4"
-      },
-      {
-        "name": "Garry Trinder",
-        "gitHubAccount": "garrytrinder",
-        "company": "@cpsglobal",
-        "pictureUrl": "https://avatars.githubusercontent.com/u/11563347?v=4"
-      }
-    ]
-  },
-  {
-    "name": "fetch-user-profile-properties",
-    "source": "pnp",
-    "title": "Fetch User Profile Properties From Site Collection And Export To CSV",
-    "url": "fetch-user-profile-properties/README.html",
-    "creationDateTime": "2021-03-24T00:00:00",
-    "updateDateTime": "2021-03-24T00:00:00",
-    "shortDescription": "Get users or user profile properties from any SharePoint site collection and we need it in CSV or Excel format",
-    "longDescription": [
-      ""
-    ],
-    "products": [
-      "SharePoint"
-    ],
-    "categories": [
-      "Report"
-    ],
-    "metadata": [
-      {
-        "key": "PnP-PowerShell",
-        "value": "1.5.0"
-      }
-    ],
-    "thumbnails": [
-      {
-        "type": "image",
-        "order": 100,
-        "url": "fetch-user-profile-properties/assets/preview.png",
-        "alt": ""
-      }
-    ],
-    "authors": [
-      {
-        "name": "Chandani Prajapati",
-        "gitHubAccount": "chandaniprajapati",
-        "pictureUrl": "https://avatars.githubusercontent.com/u/52065929?v=4"
-      }
-    ]
-  },
-  {
-    "name": "spo-add-custom-clientside-webpart-to-modern-page",
-    "source": "pnp",
-    "title": "Add custom client-side web part to modern page",
-    "url": "spo-add-custom-clientside-webpart-to-modern-page/README.html",
-    "creationDateTime": "2020-08-23T00:00:00",
-    "updateDateTime": "2020-08-23T00:00:00",
-    "shortDescription": "Programmatically add custom web part to a modern page",
-    "products": [
-      "SharePoint"
-    ],
-    "categories": [
-      "Configure"
-    ],
-    "metadata": [
-      {
-        "key": "cli-for-microsoft365",
-        "value": "3.7.0"
-      }
-    ],
-    "thumbnails": [
-      {
-        "type": "image",
-        "order": 100,
-        "url": "spo-add-custom-clientside-webpart-to-modern-page/assets/preview.png",
-        "alt": "preview image for the sample"
-      }
-    ],
-    "authors": [
-      {
-        "name": "Yannick Plenevaux",
-        "gitHubAccount": "ypcode",
-        "company": "PVX Solutions",
-        "pictureUrl": "https://avatars.githubusercontent.com/u/8345556?v=4"
+        "name": "Laura Kokkarinen",
+        "gitHubAccount": "LauraKokkarinen",
+        "company": "Sulava",
+        "pictureUrl": "https://avatars.githubusercontent.com/u/41330990?v=4"
       }
     ]
   },
@@ -528,17 +470,88 @@
     ]
   },
   {
-    "name": "report-private-teams-excel",
+    "name": "spo-add-site-collection-admin-using-csv-file",
     "source": "pnp",
-    "title": "Report of Private Teams to Excel",
-    "url": "report-private-teams-excel/README.html",
-    "creationDateTime": "2021-05-17T00:00:00",
-    "updateDateTime": "2021-05-17T00:00:00",
-    "shortDescription": "Gathers all of the teams private channels in your tenant and produces an Excel file",
+    "title": "Add a Site Collection Admin using a csv file",
+    "url": "spo-add-site-collection-admin-using-csv-file/README.html",
+    "creationDateTime": "2021-04-23T00:00:00",
+    "updateDateTime": "2021-04-23T00:00:00",
+    "shortDescription": "Learn how to add site collection adminstrators to all inc. hidden SharePoint sites.",
+    "products": [
+      "SharePoint"
+    ],
+    "categories": [
+      "Configure"
+    ],
+    "metadata": [
+      {
+        "key": "cli-for-microsoft365",
+        "value": "3.7.0"
+      }
+    ],
+    "thumbnails": [
+      {
+        "type": "image",
+        "order": 100,
+        "url": "spo-add-site-collection-admin-using-csv-file/assets/preview.png",
+        "alt": "preview image for the sample"
+      }
+    ],
+    "authors": [
+      {
+        "name": "Veronique Lengelle",
+        "gitHubAccount": "veronicageek",
+        "pictureUrl": "https://avatars.githubusercontent.com/u/25181757?v=4"
+      }
+    ]
+  },
+  {
+    "name": "spo-add-multiple-folders-in-libraries-using-csv-file",
+    "source": "pnp",
+    "title": "Add multiple folders in libraries using a csv file",
+    "url": "spo-add-multiple-folders-in-libraries-using-csv-file/README.html",
+    "creationDateTime": "2021-05-10T00:00:00",
+    "updateDateTime": "2021-05-10T00:00:00",
+    "shortDescription": "This script will create the folders (not nested) into the libraries provided in the .csv file.",
+    "products": [
+      "SharePoint"
+    ],
+    "categories": [
+      "Data"
+    ],
+    "metadata": [
+      {
+        "key": "cli-for-microsoft365",
+        "value": "3.7.0"
+      }
+    ],
+    "thumbnails": [
+      {
+        "type": "image",
+        "order": 100,
+        "url": "spo-add-multiple-folders-in-libraries-using-csv-file/assets/preview.png",
+        "alt": "preview image for the sample"
+      }
+    ],
+    "authors": [
+      {
+        "name": "Veronique Lengelle",
+        "gitHubAccount": "veronicageek",
+        "pictureUrl": "https://avatars.githubusercontent.com/u/25181757?v=4"
+      }
+    ]
+  },
+  {
+    "name": "get-all-site-collections-subwebs",
+    "source": "pnp",
+    "title": "How to to get all site collections with their sub webs",
+    "url": "get-all-site-collections-subwebs/README.html",
+    "creationDateTime": "2021-05-05T00:00:00",
+    "updateDateTime": "2021-05-05T00:00:00",
+    "shortDescription": "Get site collections with all the sub-webs",
     "longDescription": [],
     "products": [
-      "SharePoint",
-      "Teams"
+      "SharePoint"
     ],
     "categories": [
       "Report"
@@ -553,7 +566,46 @@
       {
         "type": "image",
         "order": 100,
-        "url": "report-private-teams-excel/assets/preview.png",
+        "url": "get-all-site-collections-subwebs/assets/preview.png",
+        "alt": ""
+      }
+    ],
+    "authors": [
+      {
+        "name": "Chandani Prajapati",
+        "gitHubAccount": "chandaniprajapati",
+        "pictureUrl": "https://avatars.githubusercontent.com/u/52065929?v=4"
+      }
+    ]
+  },
+  {
+    "name": "modernize-classic-pages-from-publishing-sites",
+    "source": "pnp",
+    "title": " Modernizing classic pages from on-premises sites",
+    "url": "modernize-classic-pages-from-publishing-sites/README.html",
+    "creationDateTime": "2021-05-11T00:00:00",
+    "updateDateTime": "2021-05-11T00:00:00",
+    "shortDescription": "Conversion of an on-premises 2013 publishing page to the modern experience",
+    "longDescription": [
+      "Show process of conversion of an on-premises 2013 publishing page over to SharePoint Online modern sites"
+    ],
+    "products": [
+      "SharePoint"
+    ],
+    "categories": [
+      "Modernize"
+    ],
+    "metadata": [
+      {
+        "key": "PnP-PowerShell",
+        "value": "1.5.0"
+      }
+    ],
+    "thumbnails": [
+      {
+        "type": "image",
+        "order": 100,
+        "url": "modernize-classic-pages-from-publishing-sites/assets/preview.png",
         "alt": ""
       }
     ],
@@ -567,56 +619,41 @@
     ]
   },
   {
-    "name": "graph-call-graph",
+    "name": "fetch-user-profile-properties",
     "source": "pnp",
-    "title": "Authenticate with and call the Microsoft Graph",
-    "url": "graph-call-graph/README.html",
-    "creationDateTime": "2021-08-23T00:00:00",
-    "updateDateTime": "2021-05-11T00:00:00",
-    "shortDescription": "Obtain a new access token for the Microsoft Graph and use it an HTTP request, or connect to the Graph",
+    "title": "Fetch User Profile Properties From Site Collection And Export To CSV",
+    "url": "fetch-user-profile-properties/README.html",
+    "creationDateTime": "2021-03-24T00:00:00",
+    "updateDateTime": "2021-03-24T00:00:00",
+    "shortDescription": "Get users or user profile properties from any SharePoint site collection and we need it in CSV or Excel format",
     "longDescription": [
       ""
     ],
     "products": [
-      "Graph"
+      "SharePoint"
     ],
     "categories": [
-      "Configure"
+      "Report"
     ],
     "metadata": [
       {
-        "key": "pnp-powerShell",
+        "key": "PnP-PowerShell",
         "value": "1.5.0"
-      },
-      {
-        "key": "cli-for-microsoft365",
-        "value": "3.7.0"
-      },
-      {
-        "key": "graph-powerShell",
-        "value": "1.0.0"
       }
     ],
     "thumbnails": [
       {
         "type": "image",
         "order": 100,
-        "url": "graph-call-graph/assets/preview.png",
-        "alt": "Image of the result of calling the graph"
+        "url": "fetch-user-profile-properties/assets/preview.png",
+        "alt": ""
       }
     ],
     "authors": [
       {
-        "name": "Garry Trinder",
-        "gitHubAccount": "garrytrinder",
-        "company": "",
-        "pictureUrl": "https://avatars.githubusercontent.com/u/11563347?v=4"
-      },
-      {
-        "name": "Paul Bullock",
-        "gitHubAccount": "pkbullock",
-        "company": "CaPa Creative Ltd",
-        "pictureUrl": "https://avatars.githubusercontent.com/u/8781041?v=4"
+        "name": "Chandani Prajapati",
+        "gitHubAccount": "chandaniprajapati",
+        "pictureUrl": "https://avatars.githubusercontent.com/u/52065929?v=4"
       }
     ]
   }
