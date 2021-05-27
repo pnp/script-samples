@@ -24,13 +24,7 @@ Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Maecenas porttitor con
 
 ```
 
-# [Microsoft CLI](#tab/m365cli)
-
-```bash
-
-<your bash script>
-
-```
+# [CLI for Microsoft 365](#tab/cli-m365)
 
 ```powershell
 

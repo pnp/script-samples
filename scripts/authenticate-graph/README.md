@@ -12,26 +12,13 @@ Obtain a new access token for the Microsoft Graph and use it an HTTP request, or
 
 ## Scripts
 
-# [Microsoft 365 CLI (PowerShell)](#tab/m365cli)
+# [CLI for Microsoft 365)](#tab/m365cli)
 
 ```powershell
 
 $token = m365 util accesstoken get --resource https://graph.microsoft.com --new
 $me = Invoke-RestMethod -Uri https://graph.microsoft.com/v1.0/me -Headers @{"Authorization"="Bearer $token"}
 $me
-
-```
-
-# [Microsoft 365 CLI (Bash)](#tab/m365clibash)
-
-```bash
-#!/bin/bash
-
-# requires jq: https://stedolan.github.io/jq/
-
-token=`m365 util accesstoken get --resource https://graph.microsoft.com --new`
-me=`curl https://graph.microsoft.com/v1.0/me -H "Authorization: Bearer $token"`
-echo $me | jq
 
 ```
 
