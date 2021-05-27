@@ -1,20 +1,20 @@
 [
   {
-    "name": "create-comm-sites-specific-locale",
+    "name": "modernize-blog-pages",
     "source": "pnp",
-    "title": "Create Modern Sites as alternative primary language",
-    "url": "create-comm-sites-specific-locale/README.html",
+    "title": "Modernize Blog Pages",
+    "url": "modernize-blog-pages/README.html",
     "creationDateTime": "2021-05-11T00:00:00",
     "updateDateTime": "2021-05-11T00:00:00",
-    "shortDescription": "Create a modern site in another language as the primary language",
+    "shortDescription": "Converts all blog pages in a site",
     "longDescription": [
-      "This script will show you how by creating a modern site with the primary language set to a language other than English."
+      "Converts all blog pages in a site"
     ],
     "products": [
       "SharePoint"
     ],
     "categories": [
-      "Provision"
+      "Modernize"
     ],
     "metadata": [
       {
@@ -26,8 +26,8 @@
       {
         "type": "image",
         "order": 100,
-        "url": "create-comm-sites-specific-locale/assets/preview.png",
-        "alt": "Preview of the resulting site as another language"
+        "url": "modernize-blog-pages/assets/preview.png",
+        "alt": "This sample does not contain a preview image"
       }
     ],
     "authors": [
@@ -36,6 +36,141 @@
         "gitHubAccount": "pkbullock",
         "company": "CaPa Creative Ltd",
         "pictureUrl": "https://avatars.githubusercontent.com/u/8781041?v=4"
+      }
+    ]
+  },
+  {
+    "name": "user-language-for-site",
+    "source": "pnp",
+    "title": "Testing user preferred language of SharePoint site",
+    "url": "user-language-for-site/README.html",
+    "creationDateTime": "2021-05-11T00:00:00",
+    "updateDateTime": "2021-05-11T00:00:00",
+    "shortDescription": "Changes the MUI setting for a user within the User Information List",
+    "longDescription": [
+      "This script that changes the MUI setting for a user within the User Information List to update the user with the appropriate language tag"
+    ],
+    "products": [
+      "SharePoint"
+    ],
+    "categories": [
+      "Configure"
+    ],
+    "metadata": [
+      {
+        "key": "PnP-PowerShell",
+        "value": "1.5.0"
+      }
+    ],
+    "thumbnails": [
+      {
+        "type": "image",
+        "order": 100,
+        "url": "user-language-for-site/assets/preview.png",
+        "alt": "This sample does not contain a preview image"
+      }
+    ],
+    "authors": [
+      {
+        "name": "Paul Bullock",
+        "gitHubAccount": "pkbullock",
+        "company": "CaPa Creative Ltd",
+        "pictureUrl": "https://avatars.githubusercontent.com/u/8781041?v=4"
+      }
+    ]
+  },
+  {
+    "name": "get-all-site-collections-subwebs",
+    "source": "pnp",
+    "title": "How to to get all site collections with their sub webs",
+    "url": "get-all-site-collections-subwebs/README.html",
+    "creationDateTime": "2021-05-05T00:00:00",
+    "updateDateTime": "2021-05-05T00:00:00",
+    "shortDescription": "Get site collections with all the sub-webs",
+    "longDescription": [],
+    "products": [
+      "SharePoint"
+    ],
+    "categories": [
+      "Report"
+    ],
+    "metadata": [
+      {
+        "key": "PnP-PowerShell",
+        "value": "1.5.0"
+      }
+    ],
+    "thumbnails": [
+      {
+        "type": "image",
+        "order": 100,
+        "url": "get-all-site-collections-subwebs/assets/preview.png",
+        "alt": ""
+      }
+    ],
+    "authors": [
+      {
+        "name": "Chandani Prajapati",
+        "gitHubAccount": "chandaniprajapati",
+        "pictureUrl": "https://avatars.githubusercontent.com/u/52065929?v=4"
+      }
+    ]
+  },
+  {
+    "name": "spo-add-app-catalog",
+    "source": "pnp",
+    "title": "Add App Catalog to SharePoint site",
+    "url": "spo-add-app-catalog/README.html",
+    "creationDateTime": "2021-05-11T00:00:00",
+    "updateDateTime": "2021-05-11T00:00:00",
+    "shortDescription": "Deploy certain SharePoint solution to a specific site",
+    "longDescription": [
+      "hen you just want to deploy certain SharePoint solution to a specific site, it's required to create an app catalog for that site."
+    ],
+    "products": [
+      "SharePoint"
+    ],
+    "categories": [
+      "Deploy",
+      "Configure"
+    ],
+    "metadata": [
+      {
+        "key": "PnP-PowerShell",
+        "value": "1.5.0"
+      },
+      {
+        "key": "cli-for-microsoft365",
+        "value": "3.7.0"
+      }
+    ],
+    "thumbnails": [
+      {
+        "type": "image",
+        "order": 100,
+        "url": "spo-add-app-catalog/assets/preview.png",
+        "alt": "This sample does not contain a preview image"
+      }
+    ],
+    "authors": [
+      {
+        "name": "David Ramalho",
+        "gitHubAccount": "",
+        "company": "SharePoint Tricks",
+        "pictureUrl": "https://i1.wp.com/pbs.twimg.com/profile_images/1060671490847326208/zyudunZr_200x200.jpg?zoom=1.25&ssl=1"
+      },
+      {
+        "name": "Paul Bullock",
+        "gitHubAccount": "pkbullock",
+        "company": "CaPa Creative Ltd",
+        "pictureUrl": "https://avatars.githubusercontent.com/u/8781041?v=4"
+      }
+    ],
+    "references": [
+      {
+        "name": "Sample first appeared on SPO Add App Catalog",
+        "description": "",
+        "url": "https://pnp.github.io/cli-microsoft365/sample-scripts/spo/add-app-catalog/"
       }
     ]
   },
@@ -67,45 +202,6 @@
         "type": "image",
         "order": 100,
         "url": "generate-markdown-lcids/assets/preview.png",
-        "alt": ""
-      }
-    ],
-    "authors": [
-      {
-        "name": "Paul Bullock",
-        "gitHubAccount": "pkbullock",
-        "company": "CaPa Creative Ltd",
-        "pictureUrl": "https://avatars.githubusercontent.com/u/8781041?v=4"
-      }
-    ]
-  },
-  {
-    "name": "report-private-teams-excel",
-    "source": "pnp",
-    "title": "Report of Private Teams to Excel",
-    "url": "report-private-teams-excel/README.html",
-    "creationDateTime": "2021-05-17T00:00:00",
-    "updateDateTime": "2021-05-17T00:00:00",
-    "shortDescription": "Gathers all of the teams private channels in your tenant and produces an Excel file",
-    "longDescription": [],
-    "products": [
-      "SharePoint",
-      "Teams"
-    ],
-    "categories": [
-      "Report"
-    ],
-    "metadata": [
-      {
-        "key": "PnP-PowerShell",
-        "value": "1.5.0"
-      }
-    ],
-    "thumbnails": [
-      {
-        "type": "image",
-        "order": 100,
-        "url": "report-private-teams-excel/assets/preview.png",
         "alt": ""
       }
     ],
@@ -158,46 +254,6 @@
     ]
   },
   {
-    "name": "modernize-blog-pages",
-    "source": "pnp",
-    "title": "Modernize Blog Pages",
-    "url": "modernize-blog-pages/README.html",
-    "creationDateTime": "2021-05-11T00:00:00",
-    "updateDateTime": "2021-05-11T00:00:00",
-    "shortDescription": "Converts all blog pages in a site",
-    "longDescription": [
-      "Converts all blog pages in a site"
-    ],
-    "products": [
-      "SharePoint"
-    ],
-    "categories": [
-      "Modernize"
-    ],
-    "metadata": [
-      {
-        "key": "PnP-PowerShell",
-        "value": "1.5.0"
-      }
-    ],
-    "thumbnails": [
-      {
-        "type": "image",
-        "order": 100,
-        "url": "modernize-blog-pages/assets/preview.png",
-        "alt": "This sample does not contain a preview image"
-      }
-    ],
-    "authors": [
-      {
-        "name": "Paul Bullock",
-        "gitHubAccount": "pkbullock",
-        "company": "CaPa Creative Ltd",
-        "pictureUrl": "https://avatars.githubusercontent.com/u/8781041?v=4"
-      }
-    ]
-  },
-  {
     "name": "remove-delete-option-library",
     "source": "pnp",
     "title": "Remove delete option on a document library",
@@ -236,101 +292,6 @@
     ]
   },
   {
-    "name": "get-all-site-collections-subwebs",
-    "source": "pnp",
-    "title": "How to to get all site collections with their sub webs",
-    "url": "get-all-site-collections-subwebs/README.html",
-    "creationDateTime": "2021-05-05T00:00:00",
-    "updateDateTime": "2021-05-05T00:00:00",
-    "shortDescription": "Get site collections with all the sub-webs",
-    "longDescription": [],
-    "products": [
-      "SharePoint"
-    ],
-    "categories": [
-      "Report"
-    ],
-    "metadata": [
-      {
-        "key": "PnP-PowerShell",
-        "value": "1.5.0"
-      }
-    ],
-    "thumbnails": [
-      {
-        "type": "image",
-        "order": 100,
-        "url": "get-all-site-collections-subwebs/assets/preview.png",
-        "alt": ""
-      }
-    ],
-    "authors": [
-      {
-        "name": "Chandani Prajapati",
-        "gitHubAccount": "chandaniprajapati",
-        "pictureUrl": "https://avatars.githubusercontent.com/u/52065929?v=4"
-      }
-    ]
-  },
-  {
-    "name": "add-app-catalogue-to-sp-site",
-    "source": "pnp",
-    "title": "Add App Catalog to SharePoint site",
-    "url": "add-app-catalogue-to-sp-site/README.html",
-    "creationDateTime": "2021-05-11T00:00:00",
-    "updateDateTime": "2021-05-11T00:00:00",
-    "shortDescription": "Deploy certain SharePoint solution to a specific site",
-    "longDescription": [
-      "hen you just want to deploy certain SharePoint solution to a specific site, it's required to create an app catalog for that site."
-    ],
-    "products": [
-      "SharePoint"
-    ],
-    "categories": [
-      "Deploy",
-      "Configure"
-    ],
-    "metadata": [
-      {
-        "key": "PnP-PowerShell",
-        "value": "1.5.0"
-      },
-      {
-        "key": "Microsoft365-CLI",
-        "value": "3.7.0"
-      }
-    ],
-    "thumbnails": [
-      {
-        "type": "image",
-        "order": 100,
-        "url": "add-app-catalogue-to-sp-site/assets/preview.png",
-        "alt": "This sample does not contain a preview image"
-      }
-    ],
-    "authors": [
-      {
-        "name": "David Ramalho",
-        "gitHubAccount": "",
-        "company": "SharePoint Tricks",
-        "pictureUrl": "https://i1.wp.com/pbs.twimg.com/profile_images/1060671490847326208/zyudunZr_200x200.jpg?zoom=1.25&ssl=1"
-      },
-      {
-        "name": "Paul Bullock",
-        "gitHubAccount": "pkbullock",
-        "company": "CaPa Creative Ltd",
-        "pictureUrl": "https://avatars.githubusercontent.com/u/8781041?v=4"
-      }
-    ],
-    "references": [
-      {
-        "name": "Sample first appeared on SPO Add App Catalog",
-        "description": "",
-        "url": "https://pnp.github.io/cli-microsoft365/sample-scripts/spo/add-app-catalog/"
-      }
-    ]
-  },
-  {
     "name": "authenticate-graph",
     "source": "pnp",
     "title": "Authenticate with and call the Microsoft Graph",
@@ -349,15 +310,15 @@
     ],
     "metadata": [
       {
-        "key": "PnP-PowerShell",
+        "key": "pnp-powerShell",
         "value": "1.5.0"
       },
       {
-        "key": "Microsoft365-CLI",
+        "key": "cli-for-microsoft365",
         "value": "3.7.0"
       },
       {
-        "key": "Graph-PowerShell",
+        "key": "graph-powerShell",
         "value": "1.0.0"
       }
     ],
@@ -385,21 +346,58 @@
     ]
   },
   {
-    "name": "user-language-for-site",
+    "name": "spo-add-custom-clientside-webpart-to-modern-page",
     "source": "pnp",
-    "title": "Testing user preferred language of SharePoint site",
-    "url": "user-language-for-site/README.html",
-    "creationDateTime": "2021-05-11T00:00:00",
-    "updateDateTime": "2021-05-11T00:00:00",
-    "shortDescription": "Changes the MUI setting for a user within the User Information List",
-    "longDescription": [
-      "This script that changes the MUI setting for a user within the User Information List to update the user with the appropriate language tag"
-    ],
+    "title": "Add custom client-side web part to modern page",
+    "url": "spo-add-custom-clientside-webpart-to-modern-page/README.html",
+    "creationDateTime": "2020-08-23T00:00:00",
+    "updateDateTime": "2020-08-23T00:00:00",
+    "shortDescription": "Programmatically add custom web part to a modern page",
     "products": [
       "SharePoint"
     ],
     "categories": [
       "Configure"
+    ],
+    "metadata": [
+      {
+        "key": "cli-for-microsoft365",
+        "value": "3.7.0"
+      }
+    ],
+    "thumbnails": [
+      {
+        "type": "image",
+        "order": 100,
+        "url": "spo-add-custom-clientside-webpart-to-modern-page/assets/preview.png",
+        "alt": "preview image for the sample"
+      }
+    ],
+    "authors": [
+      {
+        "name": "Yannick Plenevaux",
+        "gitHubAccount": "ypcode",
+        "company": "PVX Solutions",
+        "pictureUrl": "https://avatars.githubusercontent.com/u/8345556?v=4"
+      }
+    ]
+  },
+  {
+    "name": "create-comm-sites-specific-locale",
+    "source": "pnp",
+    "title": "Create Modern Sites as alternative primary language",
+    "url": "create-comm-sites-specific-locale/README.html",
+    "creationDateTime": "2021-05-11T00:00:00",
+    "updateDateTime": "2021-05-11T00:00:00",
+    "shortDescription": "Create a modern site in another language as the primary language",
+    "longDescription": [
+      "This script will show you how by creating a modern site with the primary language set to a language other than English."
+    ],
+    "products": [
+      "SharePoint"
+    ],
+    "categories": [
+      "Provision"
     ],
     "metadata": [
       {
@@ -411,8 +409,8 @@
       {
         "type": "image",
         "order": 100,
-        "url": "user-language-for-site/assets/preview.png",
-        "alt": "This sample does not contain a preview image"
+        "url": "create-comm-sites-specific-locale/assets/preview.png",
+        "alt": "Preview of the resulting site as another language"
       }
     ],
     "authors": [
@@ -452,6 +450,45 @@
         "type": "image",
         "order": 100,
         "url": "modernize-classic-pages-from-publishing-sites/assets/preview.png",
+        "alt": ""
+      }
+    ],
+    "authors": [
+      {
+        "name": "Paul Bullock",
+        "gitHubAccount": "pkbullock",
+        "company": "CaPa Creative Ltd",
+        "pictureUrl": "https://avatars.githubusercontent.com/u/8781041?v=4"
+      }
+    ]
+  },
+  {
+    "name": "report-private-teams-excel",
+    "source": "pnp",
+    "title": "Report of Private Teams to Excel",
+    "url": "report-private-teams-excel/README.html",
+    "creationDateTime": "2021-05-17T00:00:00",
+    "updateDateTime": "2021-05-17T00:00:00",
+    "shortDescription": "Gathers all of the teams private channels in your tenant and produces an Excel file",
+    "longDescription": [],
+    "products": [
+      "SharePoint",
+      "Teams"
+    ],
+    "categories": [
+      "Report"
+    ],
+    "metadata": [
+      {
+        "key": "PnP-PowerShell",
+        "value": "1.5.0"
+      }
+    ],
+    "thumbnails": [
+      {
+        "type": "image",
+        "order": 100,
+        "url": "report-private-teams-excel/assets/preview.png",
         "alt": ""
       }
     ],
