@@ -5,9 +5,9 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <title>Delete all (non-group connected) modern SharePoint sites | PnP Samples </title>
+    <title>Empty the tenant recycle bin | PnP Samples </title>
     <meta name="viewport" content="width=device-width">
-    <meta name="title" content="Delete all (non-group connected) modern SharePoint sites | PnP Samples ">
+    <meta name="title" content="Empty the tenant recycle bin | PnP Samples ">
     <meta name="generator" content="docfx 2.56.7.0">
     <meta name="description" content="A sample gallery of scripts to manage all things Microsoft 365.">
     <link rel="shortcut icon" href="https://c.s-microsoft.com/favicon.ico?v2">
@@ -55,10 +55,10 @@
             <article class="content wrap" id="_content" data-uid="">
                   <div class="contribution-panel mobile-hide pull-right">
                   </div>
-                    <h1 id="delete-all-non-group-connected-modern-sharepoint-sites">Delete all (non-group connected) modern SharePoint sites</h1>
+                    <h1 id="empty-the-tenant-recycle-bin">Empty the tenant recycle bin</h1>
 
 <h2 id="summary">Summary</h2>
-<p>When you delete Microsoft 365 groups, the modern group-connected team sites get deleted with them. The script below handles the remaining modern sites: communication sites and groupless team sites.</p>
+<p>Your deleted modern SharePoint sites are not going to disappear from the UI before they have been removed from the tenant recycle bin. You can either wait for three months, delete them manually via the SharePoint admin center, or run the script below.</p>
 <div class="WARNING">
 <h5>Warning</h5>
 <p>Please be aware this script contains a command that will remove or delete an artefact, ensure you test and understand the implications of running the script.</p>
@@ -76,24 +76,27 @@
     <span class="article-clipboard__message done">Copied</span>
 </button>
 
-<pre><code class="lang-powershell">$sparksjoy = &quot;Cat Lovers United&quot;, &quot;Extranet&quot;, &quot;Hub&quot;
-$sites = m365 spo site classic list -o json |ConvertFrom-Json
-$sites = $sites | where {  $_.template -eq &quot;SITEPAGEPUBLISHING#0&quot; -or $_.template -eq &quot;STS#3&quot; -and -not ($sparksjoy -contains $_.Title)}
-if ($sites.Count -eq 0) { break }
-$sites | Format-Table Title, Url, Template
+<pre><code class="lang-powershell">$deletedSites = m365 spo tenant recyclebinitem list -o json | ConvertFrom-Json
+$deletedSites | Format-Table Url
+
+if ($deletedSites.Count -eq 0) { break }
+
 Read-Host -Prompt &quot;Press Enter to start deleting (CTRL + C to exit)&quot;
+
 $progress = 0
-$total = $sites.Count
-foreach ($site in $sites)
+$total = $deletedSites.Count
+
+foreach ($deletedSite in $deletedSites)
 {
-    $progress++
-    write-host $progress / $total&quot;:&quot; $site.Title
-    write-host $site.Url
-    m365 spo site classic remove --url $site.Url
+  $progress++
+  Write-Host $progress / $total&quot;:&quot; $deletedSite.Url
+  m365 spo tenant recyclebinitem remove -u $deletedSite.Url --confirm
 }
 </code></pre>
+</section>
+</div>
 <h2 id="source-credit">Source Credit</h2>
-<p>Sample first appeared on <a href="https://pnp.github.io/cli-microsoft365/sample-scripts/spo/delete-non-group-connected-modern-sites/">Delete all (non-group connected) modern SharePoint sites | CLI for Microsoft 365</a></p>
+<p>Sample first appeared on <a href="https://pnp.github.io/cli-microsoft365/sample-scripts/spo/empty-tenant-recyclebin/">Empty the tenant recycle bin | CLI for Microsoft 365</a></p>
 <h2 id="contributors">Contributors</h2>
 <table>
 <thead>
@@ -109,9 +112,7 @@ foreach ($site in $sites)
 </table>
 <h2 id="disclaimer">Disclaimer</h2>
 <p><strong>THESE SAMPLES ARE PROVIDED <em>AS IS</em> WITHOUT WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, INCLUDING ANY IMPLIED WARRANTIES OF FITNESS FOR A PARTICULAR PURPOSE, MERCHANTABILITY, OR NON-INFRINGEMENT.</strong></p>
-<img src="https://telemetry.sharepointpnp.com/script-samples/scripts/spo-delete-non-group-connected-modern-sites" aria-hidden="true">
-</section>
-</div>
+<img src="https://telemetry.sharepointpnp.com/script-samples/scripts/spo-empty-tenant-recyclebin" aria-hidden="true">
 </article>
           </div>
         </div>
