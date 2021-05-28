@@ -20,6 +20,8 @@ m365 spo site appcatalog add --url $site
 Write-output "App Catalog Created on " $site
 
 ```
+[!INCLUDE [More about CLI for Microsoft 365](../../docfx/includes/MORE-CLIM365.md)]
+
 # [PnP PowerShell](#tab/pnpps)
 
 ```powershell
@@ -30,7 +32,7 @@ Add-PnPSiteCollectionAppCatalog -Site $site
 Write-output "App Catalog Created on " $site
 
 ```
-
+[!INCLUDE [More about PnP PowerShell](../../docfx/includes/MORE-PNPPS.md)]
 ***
 
 ## Source Credit

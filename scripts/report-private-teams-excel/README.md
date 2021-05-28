@@ -60,7 +60,7 @@ $file = Add-PnPFile -Path $reportFileName -Folder "Shared Documents" -Connection
 Write-Host "Uploaded Excel File to SharePoint"
 
 ```
-
+[!INCLUDE [More about PnP PowerShell](../../docfx/includes/MORE-PNPPS.md)]
 ***
 
 ## Source Credit

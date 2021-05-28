@@ -30,7 +30,8 @@ foreach ($site in $sites)
     m365 spo site classic remove --url $site.Url
 }
 ```
-
+[!INCLUDE [More about CLI for Microsoft 365](../../docfx/includes/MORE-CLIM365.md)]
+***
 
 ## Source Credit
 

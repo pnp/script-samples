@@ -33,7 +33,7 @@ New-PnPTenantSite -Template $siteTemplate -Title $siteTitle -Url $newSiteUrl `
 Write-Host "Script Complete! :)" -ForegroundColor Green
 
 ```
-
+[!INCLUDE [More about PnP PowerShell](../../docfx/includes/MORE-PNPPS.md)]
 ***
 
 To see a list of LCIDs, check out the sample [Generate Markdown Report of LCIDs](../generate-markdown-lcids/README.md) to see the full list

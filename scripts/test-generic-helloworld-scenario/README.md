@@ -24,15 +24,16 @@ Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Maecenas porttitor con
 Connect-PnPOnline https://contoso.sharepoint.com
 
 ```
+[!INCLUDE [More about PnP PowerShell](../../docfx/includes/MORE-PNPPS.md)]
 
-# [Microsoft CLI](#tab/m365cli)
+# [CLI for Microsoft 365](#tab/m365cli-ps)
 
-```bash
+```powershell
 
 m365 login
 
 ```
-
+[!INCLUDE [More about CLI for Microsoft 365](../../docfx/includes/MORE-CLIM365.md)]
 # [Microsoft Graph PowerShell](#tab/graphps)
 
 ```powershell
@@ -40,7 +41,7 @@ m365 login
 Connect-MgGraph -Scopes "User.Read.All", "Group.ReadWrite.All"
 
 ```
-
+[!INCLUDE [More about Microsoft Graph PowerShell SDK](../../docfx/includes/MORE-GRAPHSDK.md)]
 ***
 
 Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Maecenas porttitor congue massa. Fusce posuere, magna sed pulvinar ultricies, purus lectus malesuada libero, sit amet commodo magna eros quis urna.Nunc viverra imperdiet enim. Fusce est. Vivamus a tellus.Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Proin pharetra nonummy pede. Mauris et orci.Aenean nec lorem. In porttitor. Donec laoreet nonummy augue.

@@ -31,6 +31,7 @@ else {
   Write-Host("No extensions found with the name '" + $extensionName + "'.");
 }
 ```
+[!INCLUDE [More about CLI for Microsoft 365](../../docfx/includes/MORE-CLIM365.md)]
 ***
 
 

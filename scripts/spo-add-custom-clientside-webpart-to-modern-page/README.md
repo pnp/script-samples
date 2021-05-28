@@ -32,6 +32,8 @@ $webPartPropsJson = '`"{0}"`' -f $webPartPropsJson.Replace('\','\\').Replace('"'
 
 m365 spo page clientsidewebpart add -u $site -n $pageName --webPartId $webPartId --webPartProperties $webPartPropsJson
 ```
+[!INCLUDE [More about CLI for Microsoft 365](../../docfx/includes/MORE-CLIM365.md)]
+***
 
 
 ## Source Credit

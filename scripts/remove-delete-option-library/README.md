@@ -25,6 +25,7 @@ Invoke-PnPQuery
 Write-Host "Done! :-)" -ForegroundColor Green
 
 ```
+[!INCLUDE [More about PnP PowerShell](../../docfx/includes/MORE-PNPPS.md)]
 ***
 
 ## Source Credit

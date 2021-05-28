@@ -76,6 +76,7 @@ foreach($site in $csvSites){
         }
 }
 ```
+[!INCLUDE [More about CLI for Microsoft 365](../../docfx/includes/MORE-CLIM365.md)]
 ***
 
 ## Source Credit

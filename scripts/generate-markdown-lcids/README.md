@@ -34,7 +34,7 @@ $markdown | clip
 Write-Host "Script Complete! :)" -ForegroundColor Green
 
 ```
-
+[!INCLUDE [More about PnP PowerShell](../../docfx/includes/MORE-PNPPS.md)]
 ***
 
 ## Contributors

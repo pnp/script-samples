@@ -61,7 +61,7 @@ Function AllSiteCollAndSubWebs() {
 AllSiteCollAndSubWebs
 
 ```
-
+[!INCLUDE [More about PnP PowerShell](../../docfx/includes/MORE-PNPPS.md)]
 ***
 
 ## Source Credit

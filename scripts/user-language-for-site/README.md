@@ -45,7 +45,7 @@ $item.Update()
 Invoke-PnPQuery
 
 ```
-
+[!INCLUDE [More about PnP PowerShell](../../docfx/includes/MORE-PNPPS.md)]
 ***
 
 ## Source Credit

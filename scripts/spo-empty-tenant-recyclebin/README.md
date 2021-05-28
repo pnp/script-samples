@@ -31,6 +31,7 @@ foreach ($deletedSite in $deletedSites)
   m365 spo tenant recyclebinitem remove -u $deletedSite.Url --confirm
 }
 ```
+[!INCLUDE [More about CLI for Microsoft 365](../../docfx/includes/MORE-CLIM365.md)]
 ***
 
 ## Source Credit

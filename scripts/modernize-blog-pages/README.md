@@ -63,6 +63,7 @@ Converts all blog pages in a site, this includes:
     Write-Host "Blog site modernization complete! :)" -ForegroundColor Green
 
 ```
+[!INCLUDE [More about PnP PowerShell](../../docfx/includes/MORE-PNPPS.md)]
 ***
 
 ## Contributors

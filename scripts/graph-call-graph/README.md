@@ -21,7 +21,7 @@ $me = Invoke-RestMethod -Uri https://graph.microsoft.com/v1.0/me -Headers @{"Aut
 $me
 
 ```
-
+[!INCLUDE [More about CLI for Microsoft 365](../../docfx/includes/MORE-CLIM365.md)]
 # [PnP PowerShell](#tab/pnpps)
 
 ```powershell
@@ -33,7 +33,7 @@ $uri = 'https://graph.microsoft.com/v1.0/users?$filter=displayName eq ''Paul Bul
 $me = Invoke-RestMethod -Uri $uri -Headers @{"Authorization"="Bearer $($token)"} -Method Get -ContentType "application/json"
 $me.value
 ```
-
+[!INCLUDE [More about PnP PowerShell](../../docfx/includes/MORE-PNPPS.md)]
 # [Microsoft Graph PowerShell](#tab/graphps)
 
 ```powershell
@@ -44,7 +44,7 @@ Get-MgUser -Filter "displayName eq 'Paul Bullock'"
 Disconnect-MgGraph
 
 ```
-
+[!INCLUDE [More about Microsoft Graph PowerShell SDK](../../docfx/includes/MORE-GRAPHSDK.md)]
 ***
 
 ## Source Credit

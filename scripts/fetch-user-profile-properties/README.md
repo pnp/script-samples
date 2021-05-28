@@ -116,7 +116,7 @@ Function GetUserProfileProperties($username) {
 StartProcessing
 
 ```
-
+[!INCLUDE [More about PnP PowerShell](../../docfx/includes/MORE-PNPPS.md)]
 ***
 
 ## Source Credit
