@@ -6,7 +6,7 @@ The site uses the DocFx engine, this is the same tool that [docs.microsoft.com](
 
 In addition, plugins have been developed to extend DocFx to generate the galleries.
 
-The main goal with DocFx builds must complete with **0 warnings and errors**.
+The main goal with DocFx builds must complete with **0 warnings and errors**. The site will not publish/update if there are warnings.
 
 ## Front Matter for Gallery Pages
 
@@ -23,7 +23,7 @@ A small amount of front matter is used to tag the pages to inject the gallery in
 Currently, there are 3 pages that galleries are used:
 
 * Index.md - default gallery page
-* bylibrary.md - By Library gallery page e.g. M365 CLI, PnP PS, Graph PS SDK etc.
+* bytool.md - By Library gallery page e.g. M365 CLI, PnP PS, Graph PS SDK etc.
 * byproduct.md - By Product e.g. Microsoft Product the script performs an action against
 
 #### Initial State
@@ -44,29 +44,23 @@ We have worked to keep the folder structure lean and as simple as possible when 
 
 ![Folder Structure](../assets/contributing/folder-structure.png)
 
-### Starting Files in folder structure
-
-
-
-
-
 ## Naming and casing
 
 DocFx is case sensitive with the markdown files and in compilation of the site, to make this easier, all sample file paths etc. should be in lowercase to avoid any issues with linking to files.
 
 Spaces should be replaced with hyphens as well.
 
-## Spell checker
-
-TBC
-
-## Preferred content layouts
-
-TBC
 
 ## Images and previews
 
-TBC
+When creating images and previews, please follow this guidance:
+
+* Favor the product UI change, close up of the affect element if preferred, to reduce the updates
+* If delete, show a before image and indicate what is being removed.
+* Terminal is less favorable because it would only show output of 1 of the three types of script that could run.
+* PNG format preferred, JPG can be submitted, though these will be converted to PNG.
+
+If only example images are shown, Paul Bullock has a tool to convert in bulk.
 
 ## Recognizing contributors
 
@@ -75,3 +69,7 @@ When samples are submitted it is important that contributors are recognized for 
 * Their name on the sample. If we as a maintainer also contributes to the article, they must be the primary or first name.
 * The article must list their name, company and GitHub/LinkedIn/Twitter handle - we will encourage their complete this.
 * Promotion to Twitter - their sample will get promoted to Twitter for exposure.
+
+## Spell checker
+
+TBC
