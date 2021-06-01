@@ -1,0 +1,266 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html lang="en">
+  
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Grant API permissions to SharePoint Azure AD Application | PnP Samples </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Grant API permissions to SharePoint Azure AD Application | PnP Samples ">
+    <meta name="generator" content="docfx 2.56.7.0">
+    <meta name="description" content="A sample gallery of scripts to manage all things Microsoft 365.">
+    <link rel="shortcut icon" href="https://c.s-microsoft.com/favicon.ico?v2">
+    <link rel="stylesheet" href="../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../styles/docfx.css">
+    <link rel="stylesheet" href="../styles/main.css">
+    <link rel="stylesheet" href="../styles/extra.css">
+    <link rel="stylesheet" href="../styles/filter.css">
+    <link rel="stylesheet" href="../styles/site.css">
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet"> 
+    <meta property="docfx:navrel" content="../toc.html">
+    <meta property="docfx:tocrel" content="../toc.html">
+    
+    
+    <meta property="docfx:newtab" content="true">
+  </head>  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../assets/logo.svg" alt="">
+              </a>    </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <label class="glyphicon glyphicon-search" for="search-query"></label>
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>      </header>
+      <div role="main" class="container body-content hide-when-search">
+        <div class="article row grid">
+          <div class="col-md-12">
+            <article class="content wrap" id="_content" data-uid="">
+                  <div class="contribution-panel mobile-hide pull-right">
+                  </div>
+                    <h1 id="grant-api-permissions-to-sharepoint-azure-ad-application">Grant API permissions to SharePoint Azure AD Application</h1>
+
+<h2 id="summary">Summary</h2>
+<p>When developing your SPFx components, you usually first run them locally before deploying them (really ?).</p>
+<p>And then comes the time to work with API such as Microsoft Graph.</p>
+<p>If you never use those permissions before in your SPFx projects (and the tenant with which you're working), you realize that you have to:</p>
+<p>Add required API permissions in your &quot;package-solution.json&quot; file</p>
+<ul>
+<li>Bundle / Ship your project</li>
+<li>Publish it</li>
+<li>Go to the SharePoint Admin Center Web API Permissions page</li>
+<li>Approve those permissions</li>
+</ul>
+<p>All of this, just to play with the API as you didn't plan to release your package in a production environment.</p>
+<p>So what if you could bypass all these steps for both Graph and owned API?</p>
+<blockquote>
+<p>[!important}
+This trick is just for development purposes. In Production environment, you should update your &quot;package.json&quot; file to add required permissions and allow them (or ask for validation) in the
+<em>API Access</em>  page.</p>
+</blockquote>
+<div class="WARNING">
+<h5>Warning</h5>
+<p>These permissions will be granted on the whole tenant and could be used by any script running in your tenant. More info <a href="https://docs.microsoft.com/en-us/sharepoint/dev/spfx/use-aadhttpclient#considerations">here</a>.</p>
+</div>
+<p><img src="assets/example.png" alt="Example Screenshot"></p>
+<div class="tabGroup" id="tabgroup_CeZOj-G++Q">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_CeZOj-G++Q_cli-m365-ps" role="tab" aria-controls="tabpanel_CeZOj-G++Q_cli-m365-ps" data-tab="cli-m365-ps" tabindex="0" aria-selected="true">CLI for Microsoft 365 with PowerShell</a>
+</li>
+<li role="presentation">
+<a href="#tabpanel_CeZOj-G++Q_m365cli-bash" role="tab" aria-controls="tabpanel_CeZOj-G++Q_m365cli-bash" data-tab="m365cli-bash" tabindex="-1">Microsoft 365 CLI with Bash</a>
+</li>
+</ul>
+<section id="tabpanel_CeZOj-G++Q_cli-m365-ps" role="tabpanel" data-tab="cli-m365-ps"><button class="article-clipboard" title="Copy to clipboard" data-toggle="tooltip" data-placement="top" data-clipboard-target="section[id^='tabpanel'][data-tab='cli-m365-ps'] pre">
+    <span class="glyphicon glyphicon-copy" aria-hidden="true"></span>
+    <span class="article-clipboard__message done">Copied</span>
+</button>
+
+<pre><code class="lang-powershell">m365 login # Don't execute that command if you're already logged in
+
+# Granting Microsoft Graph permissions
+$resourceName = &quot;Microsoft Graph&quot;
+$msGraphPermissions = @(
+  &quot;Mail.Read&quot;,
+  &quot;People.Read&quot;,
+  &quot;User.ReadWrite&quot;
+)
+
+$progress = 0
+$total = $msGraphPermissions.Count
+
+ForEach ($permission in $msGraphPermissions) {
+  $progress++
+  Write-Host $progress / $total&quot;:&quot; $permission
+    
+  # If permission already granted, you'll face an OAuth permission issue
+  # So you can test the presence of the scope for the requested resource to prevent the error
+  $scopeToAdd = m365 spo sp grant list --query &quot;[?Resource == '${resourceName}' &amp;&amp; Scope == '${permission}']&quot;
+  if ($scopeToAdd -eq &quot;&quot;) {
+    m365 spo serviceprincipal grant add --resource &quot;$resourceName&quot; --scope &quot;$permission&quot;
+    Write-Host &quot;Permission '${permission}' for Resource '${resourceName}' granted&quot; -ForegroundColor Green
+  }
+  else {
+    Write-Host &quot;Permission '${permission}' for Resource '${resourceName}' already granted&quot; -ForegroundColor Yellow 
+  }
+}
+
+# Granting custom permissions
+$resourceName = &quot;contoso-api&quot;
+$customPermissions = @(
+  &quot;user_impersonation&quot;,
+  &quot;random_permission&quot;
+)
+
+$progress = 0
+$total = $customPermissions.Count
+
+ForEach ($permission in $customPermissions) {
+  $progress++
+  Write-Host $progress / $total&quot;:&quot; $permission
+
+  # If permission already granted, you'll face an OAuth permission issue
+  # So you can test the presence of the scope for the requested resource to prevent the error
+  $scopeToAdd = m365 spo sp grant list --query &quot;[?Resource == '${resourceName}' &amp;&amp; Scope == '${permission}']&quot;
+  if ($scopeToAdd -eq &quot;&quot;) {
+    m365 spo serviceprincipal grant add --resource &quot;$resourceName&quot; --scope &quot;$permission&quot;
+    Write-Host &quot;Permission '${permission}' for Resource '${resourceName}' granted&quot; -ForegroundColor Green
+  }
+  else {
+    Write-Host &quot;Permission '${permission}' for Resource '${resourceName}' already granted&quot; -ForegroundColor Yellow 
+  }
+}
+</code></pre>
+<div class="highlight-tool">
+<p>Check out the <strong>CLI for Microsoft 365</strong> to learn more at: <a href="https://aka.ms/cli-m365">https://aka.ms/cli-m365</a></p>
+</div>
+</section>
+<section id="tabpanel_CeZOj-G++Q_m365cli-bash" role="tabpanel" data-tab="m365cli-bash" aria-hidden="true" hidden="hidden"><button class="article-clipboard" title="Copy to clipboard" data-toggle="tooltip" data-placement="top" data-clipboard-target="section[id^='tabpanel'][data-tab='m365cli-bash'] pre">
+    <span class="glyphicon glyphicon-copy" aria-hidden="true"></span>
+    <span class="article-clipboard__message done">Copied</span>
+</button>
+
+<pre><code class="lang-bash">#!/bin/bash
+
+# color formatting for echo
+NOCOLOR='\033[0m'
+YELLOW='\033[1;33m'
+GREEN='\033[0;32m'
+
+m365 login # Don't execute that command if you're already logged in
+
+# Granting Microsoft Graph permissions
+resourceName=&quot;Microsoft Graph&quot;
+msGraphPermissions=(&quot;Mail.Read&quot; &quot;People.Read&quot; &quot;User.ReadWrite&quot;)
+
+progress=0
+total=${#msGraphPermissions[@]}
+
+for permission in &quot;${msGraphPermissions[@]}&quot;; do
+  ((progress++))
+  printf '%s / %s:%s\n' &quot;$progress&quot; &quot;$total&quot; &quot;$permission&quot;
+
+  # If permission already granted, you'll face an OAuth permission issue
+  # So you can test the presence of the scope for the requested resource to prevent the error
+  scopeToAdd=$( m365 spo sp grant list --query &quot;[?Resource == '$resourceName' &amp;&amp; Scope == '${permission}']&quot; )
+  if [ &quot;$( [ -z &quot;$scopeToAdd&quot; ] &amp;&amp; echo &quot;Empty&quot; )&quot; == &quot;Empty&quot; ]; then
+    m365 spo serviceprincipal grant add --resource &quot;$resourceName&quot; --scope &quot;$permission&quot;
+    echo -e &quot;${GREEN}Permission '${permission}' for Resource '${resourceName}' granted${NOCOLOR}&quot;
+  else
+    echo -e &quot;${YELLOW}Permission '${permission}' for Resource '${resourceName}' already granted${NOCOLOR}&quot;
+  fi
+done
+
+# Granting custom permissions
+resourceName=&quot;contoso-api&quot;
+customPermissions=(&quot;user_impersonation&quot; &quot;random_permission&quot;)
+
+progress=0
+total=${#customPermissions[@]}
+
+for permission in &quot;${customPermissions[@]}&quot;; do
+  ((progress++))
+  printf '%s / %s:%s\n' &quot;$progress&quot; &quot;$total&quot; &quot;$permission&quot;
+  
+  # If permission already granted, you'll face an OAuth permission issue
+  # So you can test the presence of the scope for the requested resource to prevent the error
+  scopeToAdd=$( m365 spo sp grant list --query &quot;[?Resource == '$resourceName' &amp;&amp; Scope == '${permission}']&quot; )
+  if [ &quot;$( [ -z &quot;$scopeToAdd&quot; ] &amp;&amp; echo &quot;Empty&quot; )&quot; == &quot;Empty&quot; ]; then
+    m365 spo serviceprincipal grant add --resource &quot;$resourceName&quot; --scope &quot;$permission&quot;
+    echo -e &quot;${GREEN}Permission '${permission}' for Resource '${resourceName}' granted${NOCOLOR}&quot;
+  else
+    echo -e &quot;${YELLOW}Permission '${permission}' for Resource '${resourceName}' already granted${NOCOLOR}&quot;
+  fi
+done
+</code></pre>
+<div class="highlight-tool">
+<p>Check out the <strong>CLI for Microsoft 365</strong> to learn more at: <a href="https://aka.ms/cli-m365">https://aka.ms/cli-m365</a></p>
+</div>
+<h2 id="source-credit">Source Credit</h2>
+<p>Sample first appeared on <a href="https://pnp.github.io/cli-microsoft365/sample-scripts/spo/grant-api-permissions-aad/">Grant API permissions to SharePoint Azure AD Application | CLI for Microsoft 365</a></p>
+<h2 id="contributors">Contributors</h2>
+<table>
+<thead>
+<tr>
+<th>Author(s)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Michaël Maillot</td>
+</tr>
+</tbody>
+</table>
+<h2 id="disclaimer">Disclaimer</h2>
+<p><strong>THESE SAMPLES ARE PROVIDED <em>AS IS</em> WITHOUT WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, INCLUDING ANY IMPLIED WARRANTIES OF FITNESS FOR A PARTICULAR PURPOSE, MERCHANTABILITY, OR NON-INFRINGEMENT.</strong></p>
+<img src="https://telemetry.sharepointpnp.com/script-samples/scripts/spo-grant-api-permissions-aad" aria-hidden="true">
+</section>
+</div>
+</article>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            <span>Script Samples<br>Generated by <strong><a href='https://dotnet.github.io/docfx' alt='Doc FX Website'>DocFX</a></strong> with <strong><a href='https://ovasquez.github.io/docfx-material' alt='DocFx Material Theme'>Material UI</a></strong></span>
+            
+            <!-- <img src="https://telemetry.sharepointpnp.com/@pnp.github.io/index/" alt="spacer"> -->
+          </div>
+        </div>
+      </footer>    </div>
+    
+    <script type="text/javascript" src="../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+    
+    <script type="text/javascript" src="../styles/clipboard.min.js"></script>
+    <script type="text/javascript" src="../styles/isotope.pkgd.min.js"></script>
+    <script type="text/javascript" src="../styles/loadsamples.js"></script>
+    <script type="text/javascript" src="../styles/filtersamples.js"></script>
+
+  </body>
+</html>
