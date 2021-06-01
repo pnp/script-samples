@@ -32,7 +32,8 @@ If you want to learn more about Markdown checkout this guide by Bob German on Te
 
 The page follows a standard format, we have created a graphic to explain the layout and the markdown for each section:
 
-![Page Layouts and Markdown](../assets/contributing/page-layouts.png)
+> [!div class="full-image-size"]
+> ![Page Layouts and Markdown](../assets/contributing/page-layouts.png)
 
 The minimum we need for the submission is:
 

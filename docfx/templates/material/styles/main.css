@@ -542,8 +542,10 @@ code {
   cursor: pointer;
   border-radius: 2px;
   border:1px solid #edebe9;
-  transition: box-shadow 0.5s ease 0s;
+  /* transition: box-shadow 0.5s ease 0s; */
   overflow: hidden;
+
+  /* transition: background 0.4s, box-shadow 0.4s; */
 }
 
 .sample-item:hover {
@@ -764,4 +766,8 @@ pre{
 
 .tabGroup a[role="tab"]:hover, .tabGroup a[role="tab"]:focus{
   color: var(--highlight-light);
+}
+
+.full-image-size p img{
+  max-width: 100% !important;
 }
