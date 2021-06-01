@@ -1,0 +1,232 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html lang="en">
+  
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Deploy Microsoft Teams personal app and add it to users | PnP Samples </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Deploy Microsoft Teams personal app and add it to users | PnP Samples ">
+    <meta name="generator" content="docfx 2.56.7.0">
+    <meta name="description" content="A sample gallery of scripts to manage all things Microsoft 365.">
+    <link rel="shortcut icon" href="https://c.s-microsoft.com/favicon.ico?v2">
+    <link rel="stylesheet" href="../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../styles/docfx.css">
+    <link rel="stylesheet" href="../styles/main.css">
+    <link rel="stylesheet" href="../styles/extra.css">
+    <link rel="stylesheet" href="../styles/filter.css">
+    <link rel="stylesheet" href="../styles/site.css">
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet"> 
+    <meta property="docfx:navrel" content="../toc.html">
+    <meta property="docfx:tocrel" content="../toc.html">
+    
+    
+    <meta property="docfx:newtab" content="true">
+  </head>  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../assets/logo.svg" alt="">
+              </a>    </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <label class="glyphicon glyphicon-search" for="search-query"></label>
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>      </header>
+      <div role="main" class="container body-content hide-when-search">
+        <div class="article row grid">
+          <div class="col-md-12">
+            <article class="content wrap" id="_content" data-uid="">
+                  <div class="contribution-panel mobile-hide pull-right">
+                  </div>
+                    <h1 id="deploy-microsoft-teams-personal-app-and-add-it-to-users">Deploy Microsoft Teams personal app and add it to users</h1>
+
+<h2 id="summary">Summary</h2>
+<p>Installs or updates a Microsoft Teams app from a provided zipped manifest and then, based on the parameters, add it to the current users and / or to a set of users.</p>
+<p><img src="assets/example.png" alt="Example Screenshot"></p>
+<div class="tabGroup" id="tabgroup_CeZOj-G++Q">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_CeZOj-G++Q_cli-m365-ps" role="tab" aria-controls="tabpanel_CeZOj-G++Q_cli-m365-ps" data-tab="cli-m365-ps" tabindex="0" aria-selected="true">CLI for Microsoft 365 with PowerShell</a>
+</li>
+</ul>
+<section id="tabpanel_CeZOj-G++Q_cli-m365-ps" role="tabpanel" data-tab="cli-m365-ps"><button class="article-clipboard" title="Copy to clipboard" data-toggle="tooltip" data-placement="top" data-clipboard-target="section[id^='tabpanel'][data-tab='cli-m365-ps'] pre">
+    <span class="glyphicon glyphicon-copy" aria-hidden="true"></span>
+    <span class="article-clipboard__message done">Copied</span>
+</button>
+
+<pre><code class="lang-powershell">&lt;#
+  .SYNOPSIS
+    Installs an app to Microsoft Teams and potentially to a set of users
+  .EXAMPLE
+    .\Install-PersonalApp.ps1 -AppManifestPath &quot;C:\_\Manifest.zip&quot; -AppId &quot;2dbace6f-3f3b-4779-9e3f-bb4d27c403fe&quot; -Publish -Install -CurrentUser
+  .EXAMPLE
+    .\Install-PersonalApp.ps1 -AppManifestPath &quot;C:\_\Manifest.zip&quot; -AppId &quot;2dbace6f-3f3b-4779-9e3f-bb4d27c403fe&quot; -Publish -Update -Install -Users @(&quot;user1@contoso.com&quot;, &quot;user2@contoso.com&quot;)
+  .PARAMETER AppManifestPath
+    Valid Path to an zipped App Manifest representing the Microsoft Teams app
+  .PARAMETER AppId
+    GUID of the Microsoft Teams app. Is the same &quot;id&quot; you can find in the manifest.json from your Microsoft Teams app.
+  .PARAMETER Users
+    Array of string representing the usernames of the users to deploy the Microsoft Teams app to.
+  .PARAMETER Publish
+    Switch allowing to Publish (make available) the application to the tenant app catalog
+  .PARAMETER Update
+    Switch allowing to Update an existing application in the tenant app catalog
+  .PARAMETER Install
+    Switch allowing to Install the app for the specified Users or Current User
+  .PARAMETER CurrentUser
+    Switch allowing to Install the app for the current user
+#&gt;
+Param(
+  [ValidateScript( {
+      if (-not ($_ | Test-Path) ) {
+        throw &quot;File or folder does not exist&quot;
+      }
+      if (-not ($_ | Test-Path -PathType Leaf) ) {
+        throw &quot;The Path argument must be a file. Folder paths are not allowed.&quot;
+      }
+      if ($_ -notmatch &quot;.zip&quot;) {
+        throw &quot;The file specified in the path argument must be a zip&quot;
+      }
+      return $true
+    })]
+  [System.IO.FileInfo]$AppManifestPath,
+  [string]$AppId,
+  [string[]]$Users,
+  [switch]$Publish,
+  [switch]$Update,
+  [switch]$Install,
+  [switch]$CurrentUser
+)
+
+$m365Status = m365 status
+
+if ($m365Status -eq &quot;Logged Out&quot;) {
+  # Connection to Microsoft 365
+  m365 login
+}
+
+# Validating that the app is not already in the store
+$app = m365 teams app list --query &quot;[?externalId == '$AppId']&quot; -o json | ConvertFrom-Json
+
+if ($app.Length -gt 0) {
+  if ($Update) {
+    # Updating the app with the provided manifest
+    m365 teams app update --id $app.id --filePath $AppManifestPath
+    $app = m365 teams app list --query &quot;[?externalId == '$AppId']&quot; -o json | ConvertFrom-Json
+    Write-Host &quot;The App '$($app.displayName)' with ID '$($app.id)' and ExternalID '$($app.externalId)' was updated.&quot;
+  }
+}
+else {
+  if ($Publish) {
+    # Publishing the app with the provided manifest
+    m365 teams app publish --filePath $AppManifestPath
+    $app = m365 teams app list --query &quot;[?externalId == '$AppId']&quot; -o json | ConvertFrom-Json
+    Write-Host &quot;The App '$($app.displayName)' with ID '$($app.id)' and ExternalID '$($app.externalId)' was published.&quot;
+  }
+}
+
+if ($CurrentUser) {
+  # Getting the reference of the currently connected user
+  $connectedAs = m365 status -o json | ConvertFrom-Json
+  $user = m365 aad user get --userName $connectedAs.connectedAs -o json | ConvertFrom-Json
+
+  if ($user) {
+    $Users += $user.userPrincipalName
+  }
+}  
+
+$user = $null
+if ($Users.Length -gt 0 -and $Install) {
+  $Users | ForEach-Object {
+    # Getting the specified user
+    $user = m365 aad user get --userName $_ -o json | ConvertFrom-Json
+  
+    if ($user) {
+      $userApp = m365 teams user app list --userId $user.id --query &quot;[?appId == '$($app.id)']&quot; -o json | ConvertFrom-Json
+
+      if ($userApp.Length -eq 0) {
+        # Adding the app to the personal apps of the specified user
+        m365 teams user app add --appId $app.id --userId $user.id
+        Write-Host &quot;The App '$($app.displayName)' with ID '$($app.id)' was deployed to user '$($user.userPrincipalName)'.&quot;
+
+      }
+      else {
+        Write-Warning &quot;The App '$($app.displayName)' with ID '$($app.id)' is already deployed to user '$($user.userPrincipalName)'.&quot;
+      }
+    }
+    else {
+      Write-Warning &quot;The user '$_' was not found&quot;
+    }
+  }
+}
+</code></pre>
+<div class="highlight-tool">
+<p>Check out the <strong>CLI for Microsoft 365</strong> to learn more at: <a href="https://aka.ms/cli-m365">https://aka.ms/cli-m365</a></p>
+</div>
+</section>
+</div>
+<h2 id="source-credit">Source Credit</h2>
+<p>Sample first appeared on <a href="https://pnp.github.io/cli-microsoft365/sample-scripts/teams/install-personal-app/">Deploy Microsoft Teams personal app and add it to users | CLI for Microsoft 365</a></p>
+<h2 id="contributors">Contributors</h2>
+<table>
+<thead>
+<tr>
+<th>Author(s)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Sébastien Levert</td>
+</tr>
+</tbody>
+</table>
+<h2 id="disclaimer">Disclaimer</h2>
+<p><strong>THESE SAMPLES ARE PROVIDED <em>AS IS</em> WITHOUT WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, INCLUDING ANY IMPLIED WARRANTIES OF FITNESS FOR A PARTICULAR PURPOSE, MERCHANTABILITY, OR NON-INFRINGEMENT.</strong></p>
+<img src="https://telemetry.sharepointpnp.com/script-samples/scripts/teams-install-personal-app" aria-hidden="true">
+</article>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            <span>Script Samples<br>Generated by <strong><a href='https://dotnet.github.io/docfx' alt='Doc FX Website'>DocFX</a></strong> with <strong><a href='https://ovasquez.github.io/docfx-material' alt='DocFx Material Theme'>Material UI</a></strong></span>
+            
+            <!-- <img src="https://telemetry.sharepointpnp.com/@pnp.github.io/index/" alt="spacer"> -->
+          </div>
+        </div>
+      </footer>    </div>
+    
+    <script type="text/javascript" src="../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+    
+    <script type="text/javascript" src="../styles/clipboard.min.js"></script>
+    <script type="text/javascript" src="../styles/isotope.pkgd.min.js"></script>
+    <script type="text/javascript" src="../styles/loadsamples.js"></script>
+    <script type="text/javascript" src="../styles/filtersamples.js"></script>
+
+  </body>
+</html>

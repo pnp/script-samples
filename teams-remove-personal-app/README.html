@@ -1,0 +1,205 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html lang="en">
+  
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Removes Microsoft Teams personal app from users and Microsoft Teams app catalog | PnP Samples </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Removes Microsoft Teams personal app from users and Microsoft Teams app catalog | PnP Samples ">
+    <meta name="generator" content="docfx 2.56.7.0">
+    <meta name="description" content="A sample gallery of scripts to manage all things Microsoft 365.">
+    <link rel="shortcut icon" href="https://c.s-microsoft.com/favicon.ico?v2">
+    <link rel="stylesheet" href="../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../styles/docfx.css">
+    <link rel="stylesheet" href="../styles/main.css">
+    <link rel="stylesheet" href="../styles/extra.css">
+    <link rel="stylesheet" href="../styles/filter.css">
+    <link rel="stylesheet" href="../styles/site.css">
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet"> 
+    <meta property="docfx:navrel" content="../toc.html">
+    <meta property="docfx:tocrel" content="../toc.html">
+    
+    
+    <meta property="docfx:newtab" content="true">
+  </head>  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../assets/logo.svg" alt="">
+              </a>    </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <label class="glyphicon glyphicon-search" for="search-query"></label>
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>      </header>
+      <div role="main" class="container body-content hide-when-search">
+        <div class="article row grid">
+          <div class="col-md-12">
+            <article class="content wrap" id="_content" data-uid="">
+                  <div class="contribution-panel mobile-hide pull-right">
+                  </div>
+                    <h1 id="removes-microsoft-teams-personal-app-from-users-and-microsoft-teams-app-catalog">Removes Microsoft Teams personal app from users and Microsoft Teams app catalog</h1>
+
+<h2 id="summary">Summary</h2>
+<p>Uninstalls an app from the specified users and / or unpublish it from the Microsoft Teams app catalog based on the App Id available in the
+<code>manifest.json</code> of the Teams app.</p>
+<div class="WARNING">
+<h5>Warning</h5>
+<p>Please be aware this script contains a command that will remove or delete an artefact, ensure you test and understand the implications of running the script.</p>
+</div>
+
+<p><img src="assets/example.png" alt="Example Screenshot"></p>
+<div class="tabGroup" id="tabgroup_CeZOj-G++Q">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_CeZOj-G++Q_cli-m365-ps" role="tab" aria-controls="tabpanel_CeZOj-G++Q_cli-m365-ps" data-tab="cli-m365-ps" tabindex="0" aria-selected="true">CLI for Microsoft 365 with PowerShell</a>
+</li>
+</ul>
+<section id="tabpanel_CeZOj-G++Q_cli-m365-ps" role="tabpanel" data-tab="cli-m365-ps"><button class="article-clipboard" title="Copy to clipboard" data-toggle="tooltip" data-placement="top" data-clipboard-target="section[id^='tabpanel'][data-tab='cli-m365-ps'] pre">
+    <span class="glyphicon glyphicon-copy" aria-hidden="true"></span>
+    <span class="article-clipboard__message done">Copied</span>
+</button>
+
+<pre><code class="lang-powershell">&lt;#
+  .SYNOPSIS
+    Removes an app from the personal scope of a set of users
+  .EXAMPLE
+    .\Remove-PersonalApp.ps1 -AppId &quot;2dbace6f-3f3b-4779-9e3f-bb4d27c403fe&quot; -Unpublish -Uninstall -CurrentUser
+  .EXAMPLE
+    .\Remove-PersonalApp.ps1 -AppId &quot;2dbace6f-3f3b-4779-9e3f-bb4d27c403fe&quot; -Unpublish -Uninstall -CurrentUser -Users @(&quot;user1@contoso.com&quot;, &quot;user2@contoso.com&quot;)
+  .EXAMPLE
+    .\Remove-PersonalApp.ps1 -AppId &quot;2dbace6f-3f3b-4779-9e3f-bb4d27c403fe&quot; -Unpublish
+  .PARAMETER AppId
+    GUID of the Microsoft Teams app. Is the same &quot;id&quot; you can find in the manifest.json from your Microsoft Teams app.
+  .PARAMETER Users
+    Array of string representing the usernames of the users to deploy the Microsoft Teams app to.
+  .PARAMETER CurrentUser
+    Switch allowing to Install the app for the current user
+#&gt;
+Param(
+  [string]$AppId,
+  [string[]]$Users,
+  [switch]$Uninstall,
+  [switch]$Unpublish,
+  [switch]$CurrentUser
+)
+
+$m365Status = m365 status
+
+if ($m365Status -eq &quot;Logged Out&quot;) {
+  # Connection to Microsoft 365
+  m365 login
+}
+
+# Validating that the app is not already in the store
+$app = m365 teams app list --query &quot;[?externalId == '$AppId']&quot; -o json | ConvertFrom-Json
+
+if ($app.Length -gt 0) {
+  if ($Uninstall) {
+    if ($CurrentUser) {
+      # Getting the reference of the currently connected user
+      $connectedAs = m365 status -o json | ConvertFrom-Json
+      $user = m365 aad user get --userName $connectedAs.connectedAs -o json | ConvertFrom-Json
+
+      if ($user) {
+        $Users += $user.userPrincipalName
+      }
+    }
+
+    if ($Users.Length -gt 0) {
+      $Users | ForEach-Object {
+        $user = m365 aad user get --userName $_ -o json | ConvertFrom-Json
+        $userApp = m365 teams user app list --userId $user.id --query &quot;[?appId == '$($app.id)']&quot; -o json | ConvertFrom-Json
+
+        if ($userApp) {
+          # Removing the app from the personal apps of the specified user
+          m365 teams user app remove --appId $userApp.id --userId $user.id --confirm
+          Write-Host &quot;The App '$($app.displayName)' with ID '$($app.id)' was removed for user '$($user.userPrincipalName)'.&quot;
+        }
+        else {
+          Write-Warning &quot;The App '$($app.displayName)' with ID '$($app.id)' is not installed for user '$($user.userPrincipalName)'.&quot;
+        }
+      }
+    }
+  }  
+
+  if ($Unpublish) {
+    # Removing the app from the app catalog
+    m365 teams app remove --id $app.id --confirm
+    Write-Host &quot;The App '$($app.displayName)' with ID '$($app.id)' was removed from the app catalog.&quot;
+  }
+}
+else {
+  Write-Warning &quot;The App with ID '$AppId' does not exist.&quot;
+}
+</code></pre>
+<div class="highlight-tool">
+<p>Check out the <strong>CLI for Microsoft 365</strong> to learn more at: <a href="https://aka.ms/cli-m365">https://aka.ms/cli-m365</a></p>
+</div>
+</section>
+</div>
+<h2 id="source-credit">Source Credit</h2>
+<p>Sample first appeared on <a href="https://pnp.github.io/cli-microsoft365/sample-scripts/teams/remove-personal-app/">Removes Microsoft Teams personal app from users and Microsoft Teams app catalog | CLI for Microsoft 365</a></p>
+<h2 id="contributors">Contributors</h2>
+<table>
+<thead>
+<tr>
+<th>Author(s)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Sébastien Levert</td>
+</tr>
+</tbody>
+</table>
+<h2 id="disclaimer">Disclaimer</h2>
+<p><strong>THESE SAMPLES ARE PROVIDED <em>AS IS</em> WITHOUT WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, INCLUDING ANY IMPLIED WARRANTIES OF FITNESS FOR A PARTICULAR PURPOSE, MERCHANTABILITY, OR NON-INFRINGEMENT.</strong></p>
+<img src="https://telemetry.sharepointpnp.com/script-samples/scripts/teams-remove-personal-app" aria-hidden="true">
+</article>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            <span>Script Samples<br>Generated by <strong><a href='https://dotnet.github.io/docfx' alt='Doc FX Website'>DocFX</a></strong> with <strong><a href='https://ovasquez.github.io/docfx-material' alt='DocFx Material Theme'>Material UI</a></strong></span>
+            
+            <!-- <img src="https://telemetry.sharepointpnp.com/@pnp.github.io/index/" alt="spacer"> -->
+          </div>
+        </div>
+      </footer>    </div>
+    
+    <script type="text/javascript" src="../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+    
+    <script type="text/javascript" src="../styles/clipboard.min.js"></script>
+    <script type="text/javascript" src="../styles/isotope.pkgd.min.js"></script>
+    <script type="text/javascript" src="../styles/loadsamples.js"></script>
+    <script type="text/javascript" src="../styles/filtersamples.js"></script>
+
+  </body>
+</html>
