@@ -766,22 +766,30 @@ TODO: Move styles
     border-radius: 5px 5px 0 0;
     height: 250px;
     max-height: 250px;
-    background-color: #BBB9D1;
+    background-color: #ededed;
     width: 100%;
     position: relative;
+
+    overflow: hidden;
 }
 
 .sample-preview img {
-    border-top-left-radius: 5px;
-    border-top-right-radius: 5px;
+    
+    border-radius: 5px;
     height: 100%;
     width: 100%;
     object-position: center;
     object-fit: cover;
     border: 0;
     position: absolute;
-    top: 0;
-    left: 0;
+    top: 11px;
+    left: 89px;
+    -webkit-transform: rotate(-25deg);
+    -moz-transform: rotate(25deg);
+    -ms-transform: rotate(25deg);
+    -o-transform: rotate(25deg);
+    overflow: hidden;
+    box-shadow: 0px 0px 3px rgba(0,0,0,0.3);
 }
 
 .sample-details {
