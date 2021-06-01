@@ -63,6 +63,7 @@ function loadSample(sample, filter) {
         var authorsGitHub = "";
         var productTag = sample.products[0].toLowerCase();
         var productName = sample.products[0];
+        var library = metadata[0].key.toLowerCase();
 
 
         // Build the authors array
@@ -112,7 +113,7 @@ function loadSample(sample, filter) {
       <img src="${thumbnail}" loading="lazy" alt="${title}">
     </div>
     <div class="sample-details">
-      <div class="producttype-item ${productTag}">${productName}</div>
+      <div class="producttype-item ${library}">${library}</div>
       <p class="sample-title" title="${sample.title}">${sample.title}</p>
       <p class="sample-description" title='${escapedDescription}'>${shortDescription}</p>
       <div class="sample-activity">
