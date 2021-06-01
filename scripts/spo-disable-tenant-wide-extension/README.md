@@ -32,6 +32,32 @@ else {
 }
 ```
 [!INCLUDE [More about CLI for Microsoft 365](../../docfx/includes/MORE-CLIM365.md)]
+
+# [CLI for Microsoft 365 using Bash](#tab/cli-m365-bash)
+
+```bash
+#!/bin/bash
+
+# requires jq: https://stedolan.github.io/jq/
+
+echo "Enter the extension name to disable: "; read extensionName;
+listName="Tenant Wide Extensions";
+
+appCatalogUrl=$(m365 spo tenant appcatalogurl get)
+filterQuery="Title eq '$extensionName'"
+appItemsJson=$(m365 spo listitem list --title "$listName" --webUrl "$appCatalogUrl" --fields "Id,Title" --filter "$filterQuery" --output json)
+appItemId=( $(jq -r '.[].Id' <<< $appItemsJson))
+
+if [[ $appItemId -gt 0 ]]
+then
+ m365 spo listitem set --listTitle "$listName" --id "$appItemId" --webUrl "$appCatalogUrl" --TenantWideExtensionDisabled "true" >/dev/null 2>&1
+ echo "Extension disabled."
+else
+  echo "No extensions found with the name '$extensionName'."
+fi
+```
+[!INCLUDE [More about CLI for Microsoft 365](../../docfx/includes/MORE-CLIM365.md)]
+
 ***
 
 

@@ -32,6 +32,33 @@ foreach ($deletedSite in $deletedSites)
 }
 ```
 [!INCLUDE [More about CLI for Microsoft 365](../../docfx/includes/MORE-CLIM365.md)]
+
+# [CLI for Microsoft 365 using Bash](#tab/cli-m365-bash)
+```bash
+#!/bin/bash
+
+# requires jq: https://stedolan.github.io/jq/
+
+deletedsites=( $(m365 spo tenant recyclebinitem list -o json | jq -r '.[].Url') )
+
+if [ ${#deletedsites[@]} = 0 ]; then
+  exit 1
+fi
+
+printf '%s\n' "${deletedsites[@]}"
+echo "Press Enter to start deleting (CTRL + C to exit)"
+read foo
+
+progress=0
+total=${#deletedsites[@]}
+
+for deletedsite in "${deletedsites[@]}"; do
+  ((progress++))
+  printf '%s / %s:%s\n' "$progress" "$total" "$deletedsite"
+  m365 spo tenant recyclebinitem remove -u $deletedsite --confirm
+done
+```
+[!INCLUDE [More about CLI for Microsoft 365](../../docfx/includes/MORE-CLIM365.md)]
 ***
 
 ## Source Credit

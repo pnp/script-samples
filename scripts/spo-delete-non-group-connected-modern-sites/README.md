@@ -31,6 +31,52 @@ foreach ($site in $sites)
 }
 ```
 [!INCLUDE [More about CLI for Microsoft 365](../../docfx/includes/MORE-CLIM365.md)]
+
+# [CLI for Microsoft 365 using Bash](#tab/cli-m365-bash)
+
+```bash
+#!/bin/bash
+
+# requires jq: https://stedolan.github.io/jq/
+
+sparksjoy=("Communication site" "Comm Site" "Hub")
+sitestoremove=()
+while read site; do
+ siteTitle=$(echo ${site} | jq -r '.Title')
+ echo $siteTitle
+  exists=true
+  for keep in "${sparksjoy[@]}"; do
+    echo $keep
+    if [ "$keep" == "$siteTitle" ] ; then
+    echo "matched"
+      exists=false
+      break
+    fi
+  done
+  if [ "$exists" = true ]; then
+    sitestoremove+=("$site")
+  fi
+
+done < <(m365 spo site classic list -o json | jq -c '.[] | select(.Template == "SITEPAGEPUBLISHING#0" or .Template == "STS#3")')
+
+if [ ${#sitestoremove[@]} = 0 ]; then
+  exit 1
+fi
+
+printf '%s\n' "${sitestoremove[@]}"
+echo "Press Enter to start deleting (CTRL + C to exit)"
+read foo
+
+for site in "${sitestoremove[@]}"; do
+   siteUrl=$(echo ${site} | jq -r '.Url')
+  echo "Deleting site..."
+  echo $siteUrl
+   m365 spo site classic remove --url $siteUrl
+done
+
+```
+[!INCLUDE [More about CLI for Microsoft 365](../../docfx/includes/MORE-CLIM365.md)]
+
 ***
 
 ## Source Credit
