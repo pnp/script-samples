@@ -100,7 +100,7 @@ Sample first appeared on [Copy files to another SharePoint Library in another si
 | Author(s) |
 |-----------|
 | Garry Trinder |
-| Adam |
+| Adam Wójcik |
 | Veronique Lengelle |
 
 
