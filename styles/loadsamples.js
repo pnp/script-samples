@@ -106,7 +106,7 @@ function loadSample(sample, filter) {
 
         // Build the HTML to insert
         var $items = $(`
-<a class="sample-thumbnail" href="${sample.url}" data-modified="${sample.modified}" data-title="${title}" data-keywords="${keywords}" data-tags="${tags}" data-libraries="${libraries}" data-operation="${operations}" data-products="${products}">
+<a class="sample-thumbnail" href="${sample.url}" data-modified="${sample.updateDateTime}" data-title="${title}" data-keywords="${keywords}" data-tags="${tags}" data-libraries="${libraries}" data-operation="${operations}" data-products="${products}">
   <div class="sample-inner">
     <div class="sample-preview">
       <img src="${thumbnail}" loading="lazy" alt="${title}">
