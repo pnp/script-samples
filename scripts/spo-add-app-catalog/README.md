@@ -10,9 +10,9 @@ When you just want to deploy certain SharePoint solution to a specific site, it'
 
 ![Example Screenshot](assets/example.png)
 
-# [CLI for Microsoft 365](#tab/cli-m365)
+# [CLI for Microsoft 365 using PowerShell](#tab/cli-m365-ps)
 
-```bash
+```powershell
 
 $site = "https://contoso.sharepoint.com/sites/site"
 m365 login

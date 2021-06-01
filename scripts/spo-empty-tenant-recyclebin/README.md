@@ -12,7 +12,7 @@ Your deleted modern SharePoint sites are not going to disappear from the UI befo
 
 ![Example Screenshot](assets/example.png)
  
-# [CLI for Microsoft 365](#tab/cli-m365-ps)
+# [CLI for Microsoft 365 using PowerShell](#tab/cli-m365-ps)
 ```powershell
 $deletedSites = m365 spo tenant recyclebinitem list -o json | ConvertFrom-Json
 $deletedSites | Format-Table Url

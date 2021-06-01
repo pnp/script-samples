@@ -12,7 +12,7 @@ When you delete Microsoft 365 groups, the modern group-connected team sites get 
 
 ![Example Screenshot](assets/example.png)
  
-# [CLI for Microsoft 365](#tab/cli-m365-ps)
+# [CLI for Microsoft 365 using PowerShell](#tab/cli-m365-ps)
 ```powershell
 $sparksjoy = "Cat Lovers United", "Extranet", "Hub"
 $sites = m365 spo site classic list -o json |ConvertFrom-Json

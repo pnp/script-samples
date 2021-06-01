@@ -10,7 +10,7 @@ You've built an amazing new web part and now you want to programmatically add it
  
 ![Example Screenshot](assets/example.png)
  
-# [CLI for Microsoft 365](#tab/cli-m365)
+# [CLI for Microsoft 365 using PowerShell](#tab/cli-m365-ps)
 ```powershell
 $site = "https://contoso.sharepoint.com/sites/site1"
 $pageName = "AModernPage.aspx"
@@ -29,6 +29,25 @@ $webPartProps = @{
 $webPartPropsJson = $webPartProps | ConvertTo-Json -Compress
 # Make sure to add the backticks, double the JSON double-quotes and escape double quotes in properties'values
 $webPartPropsJson = '`"{0}"`' -f $webPartPropsJson.Replace('\','\\').Replace('"', '""')
+
+m365 spo page clientsidewebpart add -u $site -n $pageName --webPartId $webPartId --webPartProperties $webPartPropsJson
+```
+[!INCLUDE [More about CLI for Microsoft 365](../../docfx/includes/MORE-CLIM365.md)]
+
+# [CLI for Microsoft 365 using Bash](#tab/cli-m365-bash)
+```bash
+#!/bin/bash
+site=https://contoso.sharepoint.com/sites/site1
+pageName=AModernPage.aspx
+webPartId=af660fc1-c09b-4c15-b093-2b74b047286b
+
+choice1='Choice X'
+choice2='Choice Z'
+description='My "Super Awesome" web part';
+# Build the JSON including your dynamic values with printf
+# For each argument that might be dynamic, we escape the double quotes " with \"
+# Make sure not to ommit the surrounding back ticks and surrounding double quotes for each arguments
+printf -v webPartPropsJson '`{"myChoices":["%s","%s"], "description":"%s"}`' "${choice1//\"/\\\"}" "${choice2//\"/\\\"}" "${description//\"/\\\"}"
 
 m365 spo page clientsidewebpart add -u $site -n $pageName --webPartId $webPartId --webPartProperties $webPartPropsJson
 ```

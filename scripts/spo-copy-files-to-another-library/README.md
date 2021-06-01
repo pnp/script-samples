@@ -12,7 +12,7 @@ This script shows how you can use the CLI to:
  
 ![Example Screenshot](assets/example.png)
  
-# [CLI for Microsoft 365](#tab/cli-m365-ps)
+# [CLI for Microsoft 365 using PowerShell](#tab/cli-m365-ps)
 ```powershell
 Write-host 'Copy files to another SharePoint Library in another site'
 

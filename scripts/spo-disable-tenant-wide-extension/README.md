@@ -13,7 +13,7 @@ Tenant Wide Extensions list from the App Catalog helps to manage the activation 
  
 ![Example Screenshot](assets/example.png)
  
-# [CLI for Microsoft 365](#tab/cli-m365-ps)
+# [CLI for Microsoft 365 using PowerShell](#tab/cli-m365-ps)
 ```powershell
 $extensionName = Read-Host "Enter the Extension Name"
 $listName = "Tenant Wide Extensions"

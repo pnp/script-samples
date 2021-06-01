@@ -17,7 +17,7 @@ Reference: ['ensure' commands #1427](https://github.com/pnp/cli-microsoft365/dis
 
 ![Example Screenshot](assets/example.png)
 
-# [CLI for Microsoft 365](#tab/cli-m365)
+# [CLI for Microsoft 365 using PowerShell](#tab/cli-m365-ps)
 
 ```powershell
 

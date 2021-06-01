@@ -52,7 +52,7 @@ Once you've got the .csv file from the script above, filter it to your needs to 
 > [!note]
 > The script will add the user as a "site admin" on classic and non group-connected sites, or a an "additional admin" in group-connected sites (and not as a group Member).
  
-# [CLI for Microsoft 365](#tab/cli-m365-ps3)
+# [CLI for Microsoft 365 using PowerShell](#tab/cli-m365-ps)
 ```powershell
 $csvSites = Import-Csv -Path "<YOUR-CSV-FILE-PATH>"
 $UserToAdd = "john.smith@contoso.com"  ## Change to your user

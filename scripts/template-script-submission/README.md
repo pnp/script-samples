@@ -25,13 +25,22 @@ Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Maecenas porttitor con
 ```
 [!INCLUDE [More about PnP PowerShell](../../docfx/includes/MORE-PNPPS.md)]
 
-# [CLI for Microsoft 365](#tab/cli-m365)
+# [CLI for Microsoft 365 using PowerShell](#tab/cli-m365-ps)
 
 ```powershell
 
 <your powershell script>
 
 ```
+
+# [CLI for Microsoft 365 using Bash](#tab/cli-m365-bash)
+
+```bash
+
+<your powershell script>
+
+```
+
 [!INCLUDE [More about CLI for Microsoft 365](../../docfx/includes/MORE-CLIM365.md)]
 
 # [Microsoft Graph PowerShell](#tab/graphps)
