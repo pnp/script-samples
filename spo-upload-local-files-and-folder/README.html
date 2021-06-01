@@ -5,9 +5,9 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <title>Copy files to another SharePoint Library in another site | PnP Samples </title>
+    <title>Upload local files and folders to SharePoint Online | PnP Samples </title>
     <meta name="viewport" content="width=device-width">
-    <meta name="title" content="Copy files to another SharePoint Library in another site | PnP Samples ">
+    <meta name="title" content="Upload local files and folders to SharePoint Online | PnP Samples ">
     <meta name="generator" content="docfx 2.56.7.0">
     <meta name="description" content="A sample gallery of scripts to manage all things Microsoft 365.">
     <link rel="shortcut icon" href="https://c.s-microsoft.com/favicon.ico?v2">
@@ -55,19 +55,15 @@
             <article class="content wrap" id="_content" data-uid="">
                   <div class="contribution-panel mobile-hide pull-right">
                   </div>
-                    <h1 id="copy-files-to-another-sharepoint-library-in-another-site">Copy files to another SharePoint Library in another site</h1>
+                    <h1 id="upload-local-files-and-folders-to-sharepoint-online">Upload local files and folders to SharePoint Online</h1>
 
 <h2 id="summary">Summary</h2>
-<p>This script shows how you can use the CLI to:</p>
-<ul>
-<li>when copyKeepingSameFolderStructure is true - copy all files and folders from source library to a different library in different SharePoint site keeping the same folder and subfolder structure</li>
-<li>when copyKeepingSameFolderStructure is false - copy all files from all folders and subfolders from source library to a different library to a root folder in different SharePoint</li>
-</ul>
+<p>This script shows how you can use the CLI to upload files located on a local folder to a SharePoint Online library or subfolder. This is a simple script that could be used for simple data migration scenarios. The given example uploads to the given site to Shared Documents library all files and sub folders of ./import local folder</p>
 <p><img src="assets/example.png" alt="Example Screenshot"></p>
 <div class="tabGroup" id="tabgroup_CeZOj-G++Q">
 <ul role="tablist">
 <li role="presentation">
-<a href="#tabpanel_CeZOj-G++Q_cli-m365-ps" role="tab" aria-controls="tabpanel_CeZOj-G++Q_cli-m365-ps" data-tab="cli-m365-ps" tabindex="0" aria-selected="true">CLI for Microsoft 365 using PowerShell</a>
+<a href="#tabpanel_CeZOj-G++Q_cli-m365-ps" role="tab" aria-controls="tabpanel_CeZOj-G++Q_cli-m365-ps" data-tab="cli-m365-ps" tabindex="0" aria-selected="true">CLI for Microsoft 365 with PowerShell</a>
 </li>
 </ul>
 <section id="tabpanel_CeZOj-G++Q_cli-m365-ps" role="tabpanel" data-tab="cli-m365-ps"><button class="article-clipboard" title="Copy to clipboard" data-toggle="tooltip" data-placement="top" data-clipboard-target="section[id^='tabpanel'][data-tab='cli-m365-ps'] pre">
@@ -75,87 +71,46 @@
     <span class="article-clipboard__message done">Copied</span>
 </button>
 
-<pre><code class="lang-powershell">Write-host 'Copy files to another SharePoint Library in another site'
+<pre><code class="lang-powershell">Write-host 'upload files and folders from directory example'
 
-function Copy-FilesFromFolderToLibrary(
-  [Parameter(Mandatory = $True)][string] $tenatUrl,
-  [Parameter(Mandatory = $True)][string] $sourceSite,
-  [Parameter(Mandatory = $True)][string] $folder,
-  [Parameter(Mandatory = $True)][string] $targetLibrary,
-  [Parameter(Mandatory = $True)][string] $targetSite) {
-    Write-Host $folder
+function Import-FilesAndFolders(
+  [Parameter(Mandatory = $True)][string] $folderPath,
+  [Parameter(Mandatory = $True)][string] $sPFolderPath,
+  [Parameter(Mandatory = $True)][string] $siteUrl) {
+    $items = Get-ChildItem -Path $folderPath
+    foreach ($item in $items) {
+        if ((Get-Item $item.FullName) -is [System.IO.DirectoryInfo]) {
+          Write-host &quot;creating folder $item&quot;
+          $folderCreated = m365 spo folder add --webUrl $siteUrl --parentFolderUrl $sPFolderPath --name $item.Name
 
-    $allFolders = m365 spo folder list --webUrl &quot;$tenatUrl$sourceSite&quot; --parentFolderUrl $folder --output 'json'
-    $allFolders = $allFolders | ConvertFrom-Json
-    foreach ($innerfolder in $allFolders) {
-      if ($innerfolder.Name -ne 'Forms') {
-        $folderUrl = $innerfolder.ServerRelativeUrl -replace $sourceSite, ''
-        Copy-FilesFromFolderToLibrary -tenatUrl $tenatUrl -sourceSite $sourceSite -folder $folderUrl -targetLibrary $targetLibrary -targetSite $targetSite
-      }
+          Write-host &quot;importing folder $item&quot;
+          Import-FilesAndFolders  -folderPath $item.FullName -sPFolderPath &quot;$sPFolderPath/$item&quot; -siteUrl $siteUrl
+        }
+        else {
+          Write-host &quot;importing file $item&quot;
+
+          m365 spo file add --webUrl $siteUrl --folder $sPFolderPath --path $item.FullName
+        }
     }
-
-    $allFiles = m365 spo file list --webUrl &quot;$tenatUrl$sourceSite&quot; --folder $folder.substring(1) --output 'json'
-    $allFiles = $allFiles | ConvertFrom-Json
-    foreach ($file in $allFiles) {
-      $fileUrl = $file.ServerRelativeUrl -replace $sourceSite, ''
-      m365 spo file copy --webUrl &quot;$tenatUrl$sourceSite&quot; --sourceUrl $fileUrl --targetUrl &quot;$targetSite/$targetLibrary&quot; --allowSchemaMismatch
-    }
-}
-
-function Copy-LibraryToLibrary(
-  [Parameter(Mandatory = $True)][string] $tenatUrl,
-  [Parameter(Mandatory = $True)][string] $sourceLibrary,
-  [Parameter(Mandatory = $True)][string] $sourceSite,
-  [Parameter(Mandatory = $True)][string] $targetLibrary,
-  [Parameter(Mandatory = $True)][string] $targetSite,
-  [Parameter(Mandatory = $True)][bool] $copyKeepingSameFolderStructure) {
-  if ($copyKeepingSameFolderStructure) {
-    Write-host &quot;Copy the same structure&quot;
-    
-    $allFolders = m365 spo folder list --webUrl &quot;$tenatUrl$sourceSite&quot; --parentFolderUrl &quot;/$sourceLibrary&quot; --output 'json'
-    $allFolders = $allFolders | ConvertFrom-Json
-    foreach ($folder in $allFolders) {
-      if ($folder.Name -ne 'Forms') {
-        $folderName = $folder.Name
-        m365 spo folder copy --webUrl &quot;$tenatUrl$sourceSite&quot; --sourceUrl &quot;/$sourceLibrary/$folderName&quot; --targetUrl &quot;$targetSite/$targetLibrary&quot; --allowSchemaMismatch
-      }
-    }
-    
-    $allFiles = m365 spo file list --webUrl &quot;$tenatUrl$sourceSite&quot; --folder $sourceLibrary --output 'json'
-    $allFiles = $allFiles | ConvertFrom-Json
-    foreach ($file in $allFiles) {
-      $fileUrl = $file.ServerRelativeUrl -replace $sourceSite, ''
-      m365 spo file copy --webUrl &quot;$tenatUrl$sourceSite&quot; --sourceUrl $fileUrl --targetUrl &quot;$targetSite/$targetLibrary&quot; --allowSchemaMismatch
-    }
-  }
-  else {
-    Write-host &quot;Copy files to the root target folder&quot;
-
-    Copy-FilesFromFolderToLibrary -tenatUrl $tenatUrl -sourceSite $sourceSite -folder &quot;/$sourceLibrary&quot; -targetLibrary $targetLibrary -targetSite $targetSite
-  }
 }
 
 Write-host 'ensure logged in'
 $m365Status = m365 status
 if ($m365Status -eq &quot;Logged Out&quot;) {
-  m365 login
+    m365 login
 }
 
-$tenatUrl = 'https://contoso.sharepoint.com'
-$sourceLibrary = 'Shared%20Documents'
-$sourceSite = '/sites/FromSite'
-$targetLibrary = 'Shared%20Documents'
-$targetSite = '/sites/ToSite'
-$copyKeepingSameFolderStructure = $false
-Copy-LibraryToLibrary -tenatUrl $tenatUrl -sourceLibrary $sourceLibrary -sourceSite $sourceSite -targetLibrary $targetLibrary -targetSite $targetSite -copyKeepingSameFolderStructure $copyKeepingSameFolderStructure
+$importFolderPath = './import'
+$sPFolderPath = '/Shared Documents'
+$siteUrl = 'https://contoso.sharepoint.com/sites/TestFileImport'
+Import-FilesAndFolders -folderPath $importFolderPath -sPFolderPath $sPFolderPath -siteUrl $siteUrl
+
 </code></pre>
 <div class="highlight-tool">
 <p>Check out the <strong>CLI for Microsoft 365</strong> to learn more at: <a href="https://aka.ms/cli-m365">https://aka.ms/cli-m365</a></p>
 </div>
-</section>
-</div>
 <h2 id="source-credit">Source Credit</h2>
-<p>Sample first appeared on <a href="https://pnp.github.io/cli-microsoft365/sample-scripts/spo/copy-files-to-another-library/">Copy files to another SharePoint Library in another site | CLI for Microsoft 365</a></p>
+<p>Sample first appeared on <a href="https://pnp.github.io/cli-microsoft365/sample-scripts/spo/upload-local-files-and-folder/">Upload local files and folders to SharePoint Online | CLI for Microsoft 365</a></p>
 <h2 id="contributors">Contributors</h2>
 <table>
 <thead>
@@ -165,19 +120,18 @@ Copy-LibraryToLibrary -tenatUrl $tenatUrl -sourceLibrary $sourceLibrary -sourceS
 </thead>
 <tbody>
 <tr>
-<td>Garry Trinder</td>
+<td>Patrick Lamber</td>
 </tr>
 <tr>
 <td>Adam Wójcik</td>
-</tr>
-<tr>
-<td>Veronique Lengelle</td>
 </tr>
 </tbody>
 </table>
 <h2 id="disclaimer">Disclaimer</h2>
 <p><strong>THESE SAMPLES ARE PROVIDED <em>AS IS</em> WITHOUT WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, INCLUDING ANY IMPLIED WARRANTIES OF FITNESS FOR A PARTICULAR PURPOSE, MERCHANTABILITY, OR NON-INFRINGEMENT.</strong></p>
-<img src="https://telemetry.sharepointpnp.com/script-samples/scripts/spo-copy-files-to-another-library" aria-hidden="true">
+<img src="https://telemetry.sharepointpnp.com/script-samples/scripts/spo-upload-local-files-and-folder" aria-hidden="true">
+</section>
+</div>
 </article>
           </div>
         </div>

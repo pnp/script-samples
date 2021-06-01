@@ -5,9 +5,9 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <title>Copy files to another SharePoint Library in another site | PnP Samples </title>
+    <title>Sync SharePoint Document Library Documents with Azure Storage Container | PnP Samples </title>
     <meta name="viewport" content="width=device-width">
-    <meta name="title" content="Copy files to another SharePoint Library in another site | PnP Samples ">
+    <meta name="title" content="Sync SharePoint Document Library Documents with Azure Storage Container | PnP Samples ">
     <meta name="generator" content="docfx 2.56.7.0">
     <meta name="description" content="A sample gallery of scripts to manage all things Microsoft 365.">
     <link rel="shortcut icon" href="https://c.s-microsoft.com/favicon.ico?v2">
@@ -55,19 +55,24 @@
             <article class="content wrap" id="_content" data-uid="">
                   <div class="contribution-panel mobile-hide pull-right">
                   </div>
-                    <h1 id="copy-files-to-another-sharepoint-library-in-another-site">Copy files to another SharePoint Library in another site</h1>
+                    <h1 id="sync-sharepoint-document-library-documents-with-azure-storage-container">Sync SharePoint Document Library Documents with Azure Storage Container</h1>
 
 <h2 id="summary">Summary</h2>
-<p>This script shows how you can use the CLI to:</p>
+<p>This PowerShell script shows how to download and sync documents in a SharePoint Document Library into an Azure Storage Container using Office 365 CLI and Azure CLI commands.
+Prerequisites:</p>
 <ul>
-<li>when copyKeepingSameFolderStructure is true - copy all files and folders from source library to a different library in different SharePoint site keeping the same folder and subfolder structure</li>
-<li>when copyKeepingSameFolderStructure is false - copy all files from all folders and subfolders from source library to a different library to a root folder in different SharePoint</li>
+<li><a href="https://pnp.github.io/cli-microsoft365/">CLI for Microsoft 365</a></li>
+<li><a href="https://docs.microsoft.com/en-us/cli/azure/?view=azure-cli-latest">Azure CLI</a></li>
+<li>SharePoint Online Site</li>
+<li>Document Library with documents</li>
+<li>Azure Storage Container</li>
+<li>Azure Storage Account Key with required permission to upload documents</li>
 </ul>
 <p><img src="assets/example.png" alt="Example Screenshot"></p>
 <div class="tabGroup" id="tabgroup_CeZOj-G++Q">
 <ul role="tablist">
 <li role="presentation">
-<a href="#tabpanel_CeZOj-G++Q_cli-m365-ps" role="tab" aria-controls="tabpanel_CeZOj-G++Q_cli-m365-ps" data-tab="cli-m365-ps" tabindex="0" aria-selected="true">CLI for Microsoft 365 using PowerShell</a>
+<a href="#tabpanel_CeZOj-G++Q_cli-m365-ps" role="tab" aria-controls="tabpanel_CeZOj-G++Q_cli-m365-ps" data-tab="cli-m365-ps" tabindex="0" aria-selected="true">CLI for Microsoft 365 with PowerShell</a>
 </li>
 </ul>
 <section id="tabpanel_CeZOj-G++Q_cli-m365-ps" role="tabpanel" data-tab="cli-m365-ps"><button class="article-clipboard" title="Copy to clipboard" data-toggle="tooltip" data-placement="top" data-clipboard-target="section[id^='tabpanel'][data-tab='cli-m365-ps'] pre">
@@ -75,79 +80,62 @@
     <span class="article-clipboard__message done">Copied</span>
 </button>
 
-<pre><code class="lang-powershell">Write-host 'Copy files to another SharePoint Library in another site'
+<pre><code class="lang-powershell">$spolHostName = &quot;https://tenant-name.sharepoint.com&quot;
+$spolSiteRelativeUrl = &quot;/sites/site-name&quot;
+$spolDocLibTitle = &quot;document-library-title&quot;
+$azStorageAccountKey = &quot;*****************&quot;
+$azStorageAccountName = &quot;azure-storage-account-name&quot;
+$azStorageContainerName = &quot;azure-storage-container-name&quot;
+$localBaseFolderName = &quot;local-base-folder-name&quot;
 
-function Copy-FilesFromFolderToLibrary(
-  [Parameter(Mandatory = $True)][string] $tenatUrl,
-  [Parameter(Mandatory = $True)][string] $sourceSite,
-  [Parameter(Mandatory = $True)][string] $folder,
-  [Parameter(Mandatory = $True)][string] $targetLibrary,
-  [Parameter(Mandatory = $True)][string] $targetSite) {
-    Write-Host $folder
+$localFileDownloadFolderPath = $PSScriptRoot
+$spolSiteUrl = $spolHostName + $spolSiteRelativeUrl
 
-    $allFolders = m365 spo folder list --webUrl &quot;$tenatUrl$sourceSite&quot; --parentFolderUrl $folder --output 'json'
-    $allFolders = $allFolders | ConvertFrom-Json
-    foreach ($innerfolder in $allFolders) {
-      if ($innerfolder.Name -ne 'Forms') {
-        $folderUrl = $innerfolder.ServerRelativeUrl -replace $sourceSite, ''
-        Copy-FilesFromFolderToLibrary -tenatUrl $tenatUrl -sourceSite $sourceSite -folder $folderUrl -targetLibrary $targetLibrary -targetSite $targetSite
-      }
+$spolLibItems = o365 spo listitem list --webUrl $spolSiteUrl --title $spolDocLibTitle --fields 'FileRef,FileLeafRef' --filter &quot;FSObjType eq 0&quot; -o json | ConvertFrom-Json
+
+if ($spolLibItems.Count -gt 0) {
+  ForEach ($spolLibItem in $spolLibItems) {
+    $spolLibFileRelativeUrl = $spolLibItem.FileRef
+    $spolFileName = $spolLibItem.FileLeafRef
+
+    $spolLibFolderRelativeUrl = $spolLibFileRelativeUrl.Substring(0, $spolLibFileRelativeUrl.lastIndexOf('/'))
+
+    $localDownloadFolderPath = Join-Path $localFileDownloadFolderPath $localBaseFolderName $spolLibFolderRelativeUrl
+
+    If (!(test-path $localDownloadFolderPath)) {
+      $message = &quot;Target local folder $localDownloadFolderPath not exist&quot;
+      Write-Host $message -ForegroundColor Yellow
+
+      New-Item -ItemType Directory -Force -Path $localDownloadFolderPath | Out-Null
+
+      $message = &quot;Created target local folder at $localDownloadFolderPath&quot;
+      Write-Host $message -ForegroundColor Green
+    }
+    else {
+      $message = &quot;Target local folder exist at $localDownloadFolderPath&quot;
+      Write-Host $message -ForegroundColor Blue
     }
 
-    $allFiles = m365 spo file list --webUrl &quot;$tenatUrl$sourceSite&quot; --folder $folder.substring(1) --output 'json'
-    $allFiles = $allFiles | ConvertFrom-Json
-    foreach ($file in $allFiles) {
-      $fileUrl = $file.ServerRelativeUrl -replace $sourceSite, ''
-      m365 spo file copy --webUrl &quot;$tenatUrl$sourceSite&quot; --sourceUrl $fileUrl --targetUrl &quot;$targetSite/$targetLibrary&quot; --allowSchemaMismatch
-    }
-}
+    $localFilePath = Join-Path $localDownloadFolderPath $spolFileName
 
-function Copy-LibraryToLibrary(
-  [Parameter(Mandatory = $True)][string] $tenatUrl,
-  [Parameter(Mandatory = $True)][string] $sourceLibrary,
-  [Parameter(Mandatory = $True)][string] $sourceSite,
-  [Parameter(Mandatory = $True)][string] $targetLibrary,
-  [Parameter(Mandatory = $True)][string] $targetSite,
-  [Parameter(Mandatory = $True)][bool] $copyKeepingSameFolderStructure) {
-  if ($copyKeepingSameFolderStructure) {
-    Write-host &quot;Copy the same structure&quot;
-    
-    $allFolders = m365 spo folder list --webUrl &quot;$tenatUrl$sourceSite&quot; --parentFolderUrl &quot;/$sourceLibrary&quot; --output 'json'
-    $allFolders = $allFolders | ConvertFrom-Json
-    foreach ($folder in $allFolders) {
-      if ($folder.Name -ne 'Forms') {
-        $folderName = $folder.Name
-        m365 spo folder copy --webUrl &quot;$tenatUrl$sourceSite&quot; --sourceUrl &quot;/$sourceLibrary/$folderName&quot; --targetUrl &quot;$targetSite/$targetLibrary&quot; --allowSchemaMismatch
-      }
-    }
-    
-    $allFiles = m365 spo file list --webUrl &quot;$tenatUrl$sourceSite&quot; --folder $sourceLibrary --output 'json'
-    $allFiles = $allFiles | ConvertFrom-Json
-    foreach ($file in $allFiles) {
-      $fileUrl = $file.ServerRelativeUrl -replace $sourceSite, ''
-      m365 spo file copy --webUrl &quot;$tenatUrl$sourceSite&quot; --sourceUrl $fileUrl --targetUrl &quot;$targetSite/$targetLibrary&quot; --allowSchemaMismatch
-    }
+    $message = &quot;Processing SharePoint file $spolFileName&quot;
+    Write-Host $message -ForegroundColor Green
+
+    o365 spo file get --webUrl $spolSiteUrl --url $spolLibFileRelativeUrl --asFile --path $localFilePath
+
+    $message = &quot;Downloaded SharePoint file at $localFilePath&quot;
+    Write-Host $message -ForegroundColor Green
   }
-  else {
-    Write-host &quot;Copy files to the root target folder&quot;
 
-    Copy-FilesFromFolderToLibrary -tenatUrl $tenatUrl -sourceSite $sourceSite -folder &quot;/$sourceLibrary&quot; -targetLibrary $targetLibrary -targetSite $targetSite
-  }
+  $localFolderToSync = Join-Path $localFileDownloadFolderPath $localBaseFolderName
+  az storage blob sync --account-key $azStorageAccountKey --account-name $azStorageAccountName -c $azStorageContainerName -s $localFolderToSync --only-show-errors | Out-Null
+
+  $message = &quot;Syncing local folder $localFolderToSync with Azure Storage Container $azStorageContainerName is completed&quot;
+  Write-Host $message -ForegroundColor Green
 }
-
-Write-host 'ensure logged in'
-$m365Status = m365 status
-if ($m365Status -eq &quot;Logged Out&quot;) {
-  m365 login
+else {
+  Write-Host &quot;No files in $spolDocLibTitle library&quot; -ForegroundColor Yellow
 }
-
-$tenatUrl = 'https://contoso.sharepoint.com'
-$sourceLibrary = 'Shared%20Documents'
-$sourceSite = '/sites/FromSite'
-$targetLibrary = 'Shared%20Documents'
-$targetSite = '/sites/ToSite'
-$copyKeepingSameFolderStructure = $false
-Copy-LibraryToLibrary -tenatUrl $tenatUrl -sourceLibrary $sourceLibrary -sourceSite $sourceSite -targetLibrary $targetLibrary -targetSite $targetSite -copyKeepingSameFolderStructure $copyKeepingSameFolderStructure
 </code></pre>
 <div class="highlight-tool">
 <p>Check out the <strong>CLI for Microsoft 365</strong> to learn more at: <a href="https://aka.ms/cli-m365">https://aka.ms/cli-m365</a></p>
@@ -155,7 +143,7 @@ Copy-LibraryToLibrary -tenatUrl $tenatUrl -sourceLibrary $sourceLibrary -sourceS
 </section>
 </div>
 <h2 id="source-credit">Source Credit</h2>
-<p>Sample first appeared on <a href="https://pnp.github.io/cli-microsoft365/sample-scripts/spo/copy-files-to-another-library/">Copy files to another SharePoint Library in another site | CLI for Microsoft 365</a></p>
+<p>Sample first appeared on <a href="https://pnp.github.io/cli-microsoft365/sample-scripts/spo/sync-splib-into-az-storage-container/">Sync SharePoint Document Library Documents with Azure Storage Container | CLI for Microsoft 365</a></p>
 <h2 id="contributors">Contributors</h2>
 <table>
 <thead>
@@ -165,19 +153,13 @@ Copy-LibraryToLibrary -tenatUrl $tenatUrl -sourceLibrary $sourceLibrary -sourceS
 </thead>
 <tbody>
 <tr>
-<td>Garry Trinder</td>
-</tr>
-<tr>
-<td>Adam Wójcik</td>
-</tr>
-<tr>
-<td>Veronique Lengelle</td>
+<td>Joseph Velliah</td>
 </tr>
 </tbody>
 </table>
 <h2 id="disclaimer">Disclaimer</h2>
 <p><strong>THESE SAMPLES ARE PROVIDED <em>AS IS</em> WITHOUT WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, INCLUDING ANY IMPLIED WARRANTIES OF FITNESS FOR A PARTICULAR PURPOSE, MERCHANTABILITY, OR NON-INFRINGEMENT.</strong></p>
-<img src="https://telemetry.sharepointpnp.com/script-samples/scripts/spo-copy-files-to-another-library" aria-hidden="true">
+<img src="https://telemetry.sharepointpnp.com/script-samples/scripts/spo-sync-splib-into-az-storage-container" aria-hidden="true">
 </article>
           </div>
         </div>
