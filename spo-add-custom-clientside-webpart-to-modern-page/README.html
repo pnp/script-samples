@@ -63,10 +63,13 @@
 <div class="tabGroup" id="tabgroup_CeZOj-G++Q">
 <ul role="tablist">
 <li role="presentation">
-<a href="#tabpanel_CeZOj-G++Q_cli-m365" role="tab" aria-controls="tabpanel_CeZOj-G++Q_cli-m365" data-tab="cli-m365" tabindex="0" aria-selected="true">CLI for Microsoft 365</a>
+<a href="#tabpanel_CeZOj-G++Q_cli-m365-ps" role="tab" aria-controls="tabpanel_CeZOj-G++Q_cli-m365-ps" data-tab="cli-m365-ps" tabindex="0" aria-selected="true">CLI for Microsoft 365 using PowerShell</a>
+</li>
+<li role="presentation">
+<a href="#tabpanel_CeZOj-G++Q_cli-m365-bash" role="tab" aria-controls="tabpanel_CeZOj-G++Q_cli-m365-bash" data-tab="cli-m365-bash" tabindex="-1">CLI for Microsoft 365 using Bash</a>
 </li>
 </ul>
-<section id="tabpanel_CeZOj-G++Q_cli-m365" role="tabpanel" data-tab="cli-m365"><button class="article-clipboard" title="Copy to clipboard" data-toggle="tooltip" data-placement="top" data-clipboard-target="section[id^='tabpanel'][data-tab='cli-m365'] pre">
+<section id="tabpanel_CeZOj-G++Q_cli-m365-ps" role="tabpanel" data-tab="cli-m365-ps"><button class="article-clipboard" title="Copy to clipboard" data-toggle="tooltip" data-placement="top" data-clipboard-target="section[id^='tabpanel'][data-tab='cli-m365-ps'] pre">
     <span class="glyphicon glyphicon-copy" aria-hidden="true"></span>
     <span class="article-clipboard__message done">Copied</span>
 </button>
@@ -88,6 +91,30 @@ $webPartProps = @{
 $webPartPropsJson = $webPartProps | ConvertTo-Json -Compress
 # Make sure to add the backticks, double the JSON double-quotes and escape double quotes in properties'values
 $webPartPropsJson = '`&quot;{0}&quot;`' -f $webPartPropsJson.Replace('\','\\').Replace('&quot;', '&quot;&quot;')
+
+m365 spo page clientsidewebpart add -u $site -n $pageName --webPartId $webPartId --webPartProperties $webPartPropsJson
+</code></pre>
+<div class="highlight-tool">
+<p>Check out the <strong>CLI for Microsoft 365</strong> to learn more at: <a href="https://aka.ms/cli-m365">https://aka.ms/cli-m365</a></p>
+</div>
+</section>
+<section id="tabpanel_CeZOj-G++Q_cli-m365-bash" role="tabpanel" data-tab="cli-m365-bash" aria-hidden="true" hidden="hidden"><button class="article-clipboard" title="Copy to clipboard" data-toggle="tooltip" data-placement="top" data-clipboard-target="section[id^='tabpanel'][data-tab='cli-m365-bash'] pre">
+    <span class="glyphicon glyphicon-copy" aria-hidden="true"></span>
+    <span class="article-clipboard__message done">Copied</span>
+</button>
+
+<pre><code class="lang-bash">#!/bin/bash
+site=https://contoso.sharepoint.com/sites/site1
+pageName=AModernPage.aspx
+webPartId=af660fc1-c09b-4c15-b093-2b74b047286b
+
+choice1='Choice X'
+choice2='Choice Z'
+description='My &quot;Super Awesome&quot; web part';
+# Build the JSON including your dynamic values with printf
+# For each argument that might be dynamic, we escape the double quotes &quot; with \&quot;
+# Make sure not to ommit the surrounding back ticks and surrounding double quotes for each arguments
+printf -v webPartPropsJson '`{&quot;myChoices&quot;:[&quot;%s&quot;,&quot;%s&quot;], &quot;description&quot;:&quot;%s&quot;}`' &quot;${choice1//\&quot;/\\\&quot;}&quot; &quot;${choice2//\&quot;/\\\&quot;}&quot; &quot;${description//\&quot;/\\\&quot;}&quot;
 
 m365 spo page clientsidewebpart add -u $site -n $pageName --webPartId $webPartId --webPartProperties $webPartPropsJson
 </code></pre>
