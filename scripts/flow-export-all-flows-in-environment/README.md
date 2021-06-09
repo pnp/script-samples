@@ -51,6 +51,7 @@ Sample first appeared on [Export all flows in environment | CLI for Microsoft 36
 | Author(s) |
 |-----------|
 | Garry Trinder |
+| Luise Freese |
 
 [!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
 <img src="https://telemetry.sharepointpnp.com/script-samples/scripts/flow-export-all-flows-in-environment" aria-hidden="true" />
