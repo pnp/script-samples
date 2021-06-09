@@ -5,9 +5,9 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <title>Cancel all running flow runs for a flow in an environment | PnP Samples </title>
+    <title>Export a single flow to a Logic App | PnP Samples </title>
     <meta name="viewport" content="width=device-width">
-    <meta name="title" content="Cancel all running flow runs for a flow in an environment | PnP Samples ">
+    <meta name="title" content="Export a single flow to a Logic App | PnP Samples ">
     <meta name="generator" content="docfx 2.56.7.0">
     <meta name="description" content="A sample gallery of scripts to manage all things Microsoft 365.">
     <link rel="shortcut icon" href="https://c.s-microsoft.com/favicon.ico?v2">
@@ -54,18 +54,22 @@
           <div class="col-md-12">
             <article class="content wrap" id="_content" data-uid="">
                   <div class="contribution-panel mobile-hide pull-right">
-                      <a href="https://github.com/pnp/script-samples/blob/main/scripts/flow-cancel-all-running-flow-runs/README.md/#L1" title="Improve this Doc" class="improve-doc-lg"><i class="glyphicon glyphicon-pencil"></i></a>
+                      <a href="https://github.com/pnp/script-samples/blob/main/scripts/flow-export-flow-logicapp/README.md/#L1" title="Improve this Doc" class="improve-doc-lg"><i class="glyphicon glyphicon-pencil"></i></a>
                   </div>
-                    <h1 id="cancel-all-running-flow-runs-for-a-flow-in-an-environment">Cancel all running flow runs for a flow in an environment</h1>
+                    <h1 id="export-a-single-flow-to-a-logic-app">Export a single flow to a Logic App</h1>
 
 <h2 id="summary">Summary</h2>
-<p>Do you want to automate the cancellation of running Power Automate flow runs?</p>
-<p>This script will cancel all running flow runs of a Power Automate flow created in an environment. Pass the Flow environment id and the flow guid as parameter while running the script.</p>
+<p>Want to upgrade one of your Power Automate flows to a Logic App? Missing the option in the UI? Or just looking at an easy way to do it programmatically?</p>
+<p>By combining the CLI for Microsoft 365 and PowerShell we can make this task easy and repeatable.</p>
+<p>This script will export the Power Automate flow <em>Your sample test flow</em>, make sure to pass the correct name in the script, and your flow will be exported right away.</p>
 <p><img src="assets/example.png" alt="Example Screenshot"></p>
 <div class="tabGroup" id="tabgroup_CeZOj-G++Q">
 <ul role="tablist">
 <li role="presentation">
-<a href="#tabpanel_CeZOj-G++Q_cli-m365-ps" role="tab" aria-controls="tabpanel_CeZOj-G++Q_cli-m365-ps" data-tab="cli-m365-ps" tabindex="0" aria-selected="true">CLI for Microsoft 365 with PowerShell</a>
+<a href="#tabpanel_CeZOj-G++Q_cli-m365-ps" role="tab" aria-controls="tabpanel_CeZOj-G++Q_cli-m365-ps" data-tab="cli-m365-ps" tabindex="0" aria-selected="true">CLI for Microsoft 365 using PowerShell</a>
+</li>
+<li role="presentation">
+<a href="#tabpanel_CeZOj-G++Q_cli-m365-bash" role="tab" aria-controls="tabpanel_CeZOj-G++Q_cli-m365-bash" data-tab="cli-m365-bash" tabindex="-1">CLI for Microsoft 365 using Bash</a>
 </li>
 </ul>
 <section id="tabpanel_CeZOj-G++Q_cli-m365-ps" role="tabpanel" data-tab="cli-m365-ps"><button class="article-clipboard" title="Copy to clipboard" data-toggle="tooltip" data-placement="top" data-clipboard-target="section[id^='tabpanel'][data-tab='cli-m365-ps'] pre">
@@ -73,19 +77,29 @@
     <span class="article-clipboard__message done">Copied</span>
 </button>
 
-<pre><code class="lang-powershell">
-$flowEnvironment = $args[0]
-$flowGUID = $args[1]
-$flowRuns = m365 flow run list --environment $flowEnvironment --flow $flowGUID --output json | ConvertFrom-Json
-foreach ($run in $flowRuns) {
-  if ($run.status -eq &quot;Running&quot;) {
-    Write-Output &quot;Run details: &quot; $run
-    # Cancel all the running flow runs
-    m365 flow run cancel --environment $flowEnvironment --flow $flowGUID --name $run.name --confirm
-    Write-Output &quot;Run Cancelled successfully&quot;
-  }
-}
+<pre><code class="lang-powershell">Write-Output &quot;Getting environment info...&quot;
+$environmentId = $(m365 flow environment list --query &quot;[?displayName == '(default)']&quot; -o json | ConvertFrom-Json).Name
+$flowId = $(m365 flow list --environment $environmentId --query &quot;[?displayName == 'Your sample test flow']&quot; -o json | ConvertFrom-Json)[0].Name
 
+Write-Output &quot;Getting Flow info...&quot;
+m365 flow export --environment $environmentId --id $flowId -f 'json'
+
+Write-Output &quot;Complete&quot;
+</code></pre>
+<div class="highlight-tool">
+<p>Check out the <strong>CLI for Microsoft 365</strong> to learn more at: <a href="https://aka.ms/cli-m365">https://aka.ms/cli-m365</a></p>
+</div>
+</section>
+<section id="tabpanel_CeZOj-G++Q_cli-m365-bash" role="tabpanel" data-tab="cli-m365-bash" aria-hidden="true" hidden="hidden"><button class="article-clipboard" title="Copy to clipboard" data-toggle="tooltip" data-placement="top" data-clipboard-target="section[id^='tabpanel'][data-tab='cli-m365-bash'] pre">
+    <span class="glyphicon glyphicon-copy" aria-hidden="true"></span>
+    <span class="article-clipboard__message done">Copied</span>
+</button>
+
+<pre><code class="lang-bash">#!/bin/bash
+ENV_NAME=m365 flow environment list --query '[?contains(displayName,`default`)] .name'
+FLOW_NAME=m365 flow list --environment $environmentId --query '[?displayName == `Your sample test flow`] .name'
+echo &quot;Exporting your flow&quot;
+m365 flow export --environment $ENV_NAME --id $FLOW_NAME -f 'json'
 </code></pre>
 <div class="highlight-tool">
 <p>Check out the <strong>CLI for Microsoft 365</strong> to learn more at: <a href="https://aka.ms/cli-m365">https://aka.ms/cli-m365</a></p>
@@ -93,7 +107,7 @@ foreach ($run in $flowRuns) {
 </section>
 </div>
 <h2 id="source-credit">Source Credit</h2>
-<p>Sample first appeared on <a href="https://pnp.github.io/cli-microsoft365/sample-scripts/flow/cancel-all-running-flow-runs/">Cancel all running flow runs for a flow in an environment | CLI for Microsoft 365</a></p>
+<p>Sample first appeared on <a href="https://pnp.github.io/cli-microsoft365/sample-scripts/flow/export-flow-logicapp/">Export a single flow to a Logic App | CLI for Microsoft 365</a></p>
 <h2 id="contributors">Contributors</h2>
 <table>
 <thead>
@@ -103,13 +117,16 @@ foreach ($run in $flowRuns) {
 </thead>
 <tbody>
 <tr>
-<td>Mohamed Ashiq Faleel</td>
+<td>Albert-Jan Schot</td>
+</tr>
+<tr>
+<td>Luise Freese</td>
 </tr>
 </tbody>
 </table>
 <h2 id="disclaimer">Disclaimer</h2>
 <p><strong>THESE SAMPLES ARE PROVIDED <em>AS IS</em> WITHOUT WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, INCLUDING ANY IMPLIED WARRANTIES OF FITNESS FOR A PARTICULAR PURPOSE, MERCHANTABILITY, OR NON-INFRINGEMENT.</strong></p>
-<img src="https://telemetry.sharepointpnp.com/script-samples/scripts/flow-cancel-all-running-flow-runs" aria-hidden="true">
+<img src="https://telemetry.sharepointpnp.com/script-samples/scripts/flow-export-flow-logicapp" aria-hidden="true">
 </article>
           </div>
         </div>

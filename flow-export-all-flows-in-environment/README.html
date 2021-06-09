@@ -5,9 +5,9 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <title>Cancel all running flow runs for a flow in an environment | PnP Samples </title>
+    <title>Export all flows in environment | PnP Samples </title>
     <meta name="viewport" content="width=device-width">
-    <meta name="title" content="Cancel all running flow runs for a flow in an environment | PnP Samples ">
+    <meta name="title" content="Export all flows in environment | PnP Samples ">
     <meta name="generator" content="docfx 2.56.7.0">
     <meta name="description" content="A sample gallery of scripts to manage all things Microsoft 365.">
     <link rel="shortcut icon" href="https://c.s-microsoft.com/favicon.ico?v2">
@@ -54,13 +54,14 @@
           <div class="col-md-12">
             <article class="content wrap" id="_content" data-uid="">
                   <div class="contribution-panel mobile-hide pull-right">
-                      <a href="https://github.com/pnp/script-samples/blob/main/scripts/flow-cancel-all-running-flow-runs/README.md/#L1" title="Improve this Doc" class="improve-doc-lg"><i class="glyphicon glyphicon-pencil"></i></a>
+                      <a href="https://github.com/pnp/script-samples/blob/main/scripts/flow-export-all-flows-in-environment/README.md/#L1" title="Improve this Doc" class="improve-doc-lg"><i class="glyphicon glyphicon-pencil"></i></a>
                   </div>
-                    <h1 id="cancel-all-running-flow-runs-for-a-flow-in-an-environment">Cancel all running flow runs for a flow in an environment</h1>
+                    <h1 id="export-all-flows-in-environment">Export all flows in environment</h1>
 
 <h2 id="summary">Summary</h2>
-<p>Do you want to automate the cancellation of running Power Automate flow runs?</p>
-<p>This script will cancel all running flow runs of a Power Automate flow created in an environment. Pass the Flow environment id and the flow guid as parameter while running the script.</p>
+<p>When was the last time you backed up all the flows in your environment?</p>
+<p>By combining the CLI for Microsoft 365 and PowerShell we can make this task easy and repeatable.</p>
+<p>This script will get all flows in your default environment and export them as both a ZIP file for importing back into Power Automate and as a JSON file for importing into Azure as an Azure Logic App.</p>
 <p><img src="assets/example.png" alt="Example Screenshot"></p>
 <div class="tabGroup" id="tabgroup_CeZOj-G++Q">
 <ul role="tablist">
@@ -74,26 +75,32 @@
 </button>
 
 <pre><code class="lang-powershell">
-$flowEnvironment = $args[0]
-$flowGUID = $args[1]
-$flowRuns = m365 flow run list --environment $flowEnvironment --flow $flowGUID --output json | ConvertFrom-Json
-foreach ($run in $flowRuns) {
-  if ($run.status -eq &quot;Running&quot;) {
-    Write-Output &quot;Run details: &quot; $run
-    # Cancel all the running flow runs
-    m365 flow run cancel --environment $flowEnvironment --flow $flowGUID --name $run.name --confirm
-    Write-Output &quot;Run Cancelled successfully&quot;
-  }
+Write-Output &quot;Getting environment info...&quot;
+$environment = m365 flow environment list --query '[?contains(displayName,`default`)] .name'
+
+Write-Output &quot;Getting Flows info...&quot;
+$flows = m365 flow list --environment $environment --asAdmin --output json | ConvertFrom-JSON
+
+Write-Output &quot;Found $($flows.Count) Flows to export...&quot;
+
+$flows | ForEach-Object {
+    Write-Output &quot;Exporting as ZIP &amp; JSON... $($_.displayName)&quot;
+    $filename = $_.displayName.Replace(&quot; &quot;,&quot;&quot;)
+    $timestamp = Get-Date -Format &quot;yyyymmddhhmmss&quot;
+    $exportPath = &quot;$($filename)_$($timestamp)&quot;
+    $flowId = $_.Name
+    
+    m365 flow export --id $flowId --environment $environment --packageDisplayName $_.displayName --path &quot;$exportPath.zip&quot;
+    m365 flow export --id $flowId --environment $environment --format json --path &quot;$exportPath.json&quot;
 }
 
+Write-Output &quot;Complete&quot;
+[!INCLUDE [More about CLI for Microsoft 365](../../docfx/includes/MORE-CLIM365.md)]
 </code></pre>
-<div class="highlight-tool">
-<p>Check out the <strong>CLI for Microsoft 365</strong> to learn more at: <a href="https://aka.ms/cli-m365">https://aka.ms/cli-m365</a></p>
-</div>
 </section>
 </div>
 <h2 id="source-credit">Source Credit</h2>
-<p>Sample first appeared on <a href="https://pnp.github.io/cli-microsoft365/sample-scripts/flow/cancel-all-running-flow-runs/">Cancel all running flow runs for a flow in an environment | CLI for Microsoft 365</a></p>
+<p>Sample first appeared on <a href="https://pnp.github.io/cli-microsoft365/sample-scripts/flow/export-all-flows-in-environment/">Export all flows in environment | CLI for Microsoft 365</a></p>
 <h2 id="contributors">Contributors</h2>
 <table>
 <thead>
@@ -103,13 +110,16 @@ foreach ($run in $flowRuns) {
 </thead>
 <tbody>
 <tr>
-<td>Mohamed Ashiq Faleel</td>
+<td>Garry Trinder</td>
+</tr>
+<tr>
+<td>Luise Freese</td>
 </tr>
 </tbody>
 </table>
 <h2 id="disclaimer">Disclaimer</h2>
 <p><strong>THESE SAMPLES ARE PROVIDED <em>AS IS</em> WITHOUT WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, INCLUDING ANY IMPLIED WARRANTIES OF FITNESS FOR A PARTICULAR PURPOSE, MERCHANTABILITY, OR NON-INFRINGEMENT.</strong></p>
-<img src="https://telemetry.sharepointpnp.com/script-samples/scripts/flow-cancel-all-running-flow-runs" aria-hidden="true">
+<img src="https://telemetry.sharepointpnp.com/script-samples/scripts/flow-export-all-flows-in-environment" aria-hidden="true">
 </article>
           </div>
         </div>
