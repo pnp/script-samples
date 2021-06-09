@@ -1,14 +1,14 @@
 [
   {
     "schema": null,
-    "name": "aad-replace-membership-of-selected-groups",
+    "name": "aad-replace-owner-with-a-different-one",
     "version": null,
     "source": "pnp",
-    "title": "Replace a user's membership in selected Microsoft 365 Groups or Teams",
-    "url": "aad-replace-membership-of-selected-groups/README.html",
+    "title": "Replace an owner in a Microsoft 365 Group or Microsoft Team",
+    "url": "aad-replace-owner-with-a-different-one/README.html",
     "creationDateTime": "2021-05-04",
     "updateDateTime": "2021-05-04",
-    "shortDescription": "Replace the membership of a user for a selected list of Groups",
+    "shortDescription": "Find all the Microsoft 365 Groups that a user is an Owner of and replace them with someone",
     "longDescription": null,
     "products": [
       "AzureAD",
@@ -32,7 +32,7 @@
       {
         "type": "image",
         "order": 100,
-        "url": "aad-replace-membership-of-selected-groups/assets/preview.png",
+        "url": "aad-replace-owner-with-a-different-one/assets/preview.png",
         "alt": "preview image for the sample",
         "slides": null
       }
