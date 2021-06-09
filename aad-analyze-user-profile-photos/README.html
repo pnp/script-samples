@@ -1,0 +1,363 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html lang="en">
+  
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Analyze User Profile Photos using Azure Computer Vision API | PnP Samples </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Analyze User Profile Photos using Azure Computer Vision API | PnP Samples ">
+    <meta name="generator" content="docfx 2.56.7.0">
+    <meta name="description" content="A sample gallery of scripts to manage all things Microsoft 365.">
+    <link rel="shortcut icon" href="https://c.s-microsoft.com/favicon.ico?v2">
+    <link rel="stylesheet" href="../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../styles/docfx.css">
+    <link rel="stylesheet" href="../styles/main.css">
+    <link rel="stylesheet" href="../styles/extra.css">
+    <link rel="stylesheet" href="../styles/filter.css">
+    <link rel="stylesheet" href="../styles/site.css">
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet"> 
+    <meta property="docfx:navrel" content="../toc.html">
+    <meta property="docfx:tocrel" content="../toc.html">
+    
+    
+    <meta property="docfx:newtab" content="true">
+  </head>  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../assets/logo.svg" alt="">
+              </a>    </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <label class="glyphicon glyphicon-search" for="search-query"></label>
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>      </header>
+      <div role="main" class="container body-content hide-when-search">
+        <div class="article row grid">
+          <div class="col-md-12">
+            <article class="content wrap" id="_content" data-uid="">
+                  <div class="contribution-panel mobile-hide pull-right">
+                      <a href="https://github.com/pnp/script-samples/blob/main/scripts/aad-analyze-user-profile-photos/README.md/#L1" title="Improve this Doc" class="improve-doc-lg"><i class="glyphicon glyphicon-pencil"></i></a>
+                  </div>
+                    <h1 id="analyze-user-profile-photos-using-azure-computer-vision-api">Analyze User Profile Photos using Azure Computer Vision API</h1>
+
+<h2 id="summary">Summary</h2>
+<p>This script uses Azure Cognitive Service API and Microsoft 365 CLI to analyze user profile pictures and assess whether they meet the standards placed by the organization. It can be customized to ban content within an org channel or collaboration network where employees post pictures, memes, etc.</p>
+<p>Prerequisites</p>
+<ul>
+<li><a href="https://pnp.github.io/cli-microsoft365/">CLI for Microsoft 365</a></li>
+<li>Microsoft 365 users</li>
+<li><a href="https://azure.microsoft.com/services/cognitive-services/computer-vision/">Computer Vision API instance and API key</a></li>
+</ul>
+<div class="NOTE">
+<h5>Note</h5>
+<p>If you don't already have an <a href="https://azure.microsoft.com/try/cognitive-services/">Azure Cognitive Services instance and key</a>, create a cognitive service instance and get API key from there.</p>
+</div>
+<p><img src="assets/example.png" alt="Example Screenshot"></p>
+<div class="tabGroup" id="tabgroup_CeZOj-G++Q">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_CeZOj-G++Q_cli-m365-ps" role="tab" aria-controls="tabpanel_CeZOj-G++Q_cli-m365-ps" data-tab="cli-m365-ps" tabindex="0" aria-selected="true">CLI for Microsoft 365 with PowerShell</a>
+</li>
+</ul>
+<section id="tabpanel_CeZOj-G++Q_cli-m365-ps" role="tabpanel" data-tab="cli-m365-ps"><button class="article-clipboard" title="Copy to clipboard" data-toggle="tooltip" data-placement="top" data-clipboard-target="section[id^='tabpanel'][data-tab='cli-m365-ps'] pre">
+    <span class="glyphicon glyphicon-copy" aria-hidden="true"></span>
+    <span class="article-clipboard__message done">Copied</span>
+</button>
+
+<pre><code class="lang-powershell">$resultDir = &quot;Output&quot;
+$azureVisionApiInstance = &quot;azure-vision-api-instance-name&quot;
+$azureVisionApiKey = &quot;azure-vision-api-key&quot;
+
+$photoRequirements = @{
+    requirePortrait   = $false
+    allowClipart      = $true
+    allowLinedrawing  = $true
+    allowAdult        = $false
+    allowRacy         = $false
+    allowGory         = $false
+    photoRequirements = @{
+        requirePortrait   = $false
+        allowClipart      = $true
+        allowLinedrawing  = $true
+        allowAdult        = $false
+        allowRacy         = $false
+        allowGory         = $false
+        forbiddenKeywords = @(&quot;cartoon&quot;, `
+                &quot;animal&quot;, `
+                &quot;nude&quot;, `
+                &quot;child&quot;, `
+                &quot;people&quot;, `
+                &quot;group&quot;, `
+                &quot;family&quot;, `
+                &quot;several&quot;, `
+                &quot;crowd&quot;, `
+                &quot;food&quot;, `
+                &quot;restaurant&quot;, `
+                &quot;train&quot;, `
+                &quot;bus&quot;, `
+                &quot;car&quot;, `
+                &quot;airplane&quot;, `
+                &quot;vehicle&quot;, `
+                &quot;platform&quot;, `
+                &quot;station&quot;, `
+                &quot;standing&quot;, `
+                &quot;flying&quot;, `
+                &quot;suitcase&quot;, `
+                &quot;screenshot&quot;, `
+                &quot;newspaper&quot;, `
+                &quot;typography&quot;, `
+                &quot;font&quot;, `
+                &quot;document&quot;, `
+                &quot;sport&quot;)
+    }
+}
+
+$requiredProfileProperties = &quot;id,displayName,userPrincipalName&quot;
+$global:analysisOutcomes = @()
+
+$executionDir = $PSScriptRoot
+$outputDir = &quot;$executionDir/$resultDir&quot;
+$outputFilePath = &quot;$outputDir/$(get-date -f yyyyMMdd-HHmmss)-scan-profile-pictures-outcome.csv&quot;
+
+if (-not (Test-Path -Path &quot;$outputDir&quot; -PathType Container)) {
+    New-Item -ItemType Directory -Path &quot;$outputDir&quot;
+    Write-Host &quot;Created $outputDir folder...&quot;
+}
+function AddAnalysisOutcome {
+    param (
+        [Parameter(Mandatory = $false)] [string] $UserId,
+        [Parameter(Mandatory = $false)] [string] $UserPrincipalName,
+        [Parameter(Mandatory = $false)] [bool] $IsPortraitValid,
+        [Parameter(Mandatory = $false)] [bool] $IsOnlyOnePersonValid,
+        [Parameter(Mandatory = $false)] [bool] $IsClipartValid,
+        [Parameter(Mandatory = $false)] [bool] $IsLineDrawingValid,
+        [Parameter(Mandatory = $false)] [bool] $IsAdultValid,
+        [Parameter(Mandatory = $false)] [bool] $IsRacyValid,
+        [Parameter(Mandatory = $false)] [bool] $IsGoryValid,
+        [Parameter(Mandatory = $false)] [bool] $IsCelebrity,
+        [Parameter(Mandatory = $false)] [bool] $IsForbiddenKeywordExist,
+        [Parameter(Mandatory = $false)] [bool] $IsValidProfilePhoto,
+        [Parameter(Mandatory = $false)] [string] $Notes
+    )
+
+    $analysisOutcome = New-Object -TypeName PSObject
+
+    $analysisOutcome | Add-Member -MemberType NoteProperty -Name &quot;UserId&quot; -Value $UserId
+    $analysisOutcome | Add-Member -MemberType NoteProperty -Name &quot;UserPrincipalName&quot; -Value $UserPrincipalName
+    $analysisOutcome | Add-Member -MemberType NoteProperty -Name &quot;IsPortraitValid&quot; -Value $IsPortraitValid
+    $analysisOutcome | Add-Member -MemberType NoteProperty -Name &quot;IsOnlyOnePersonValid&quot; -Value $IsOnlyOnePersonValid
+    $analysisOutcome | Add-Member -MemberType NoteProperty -Name &quot;IsClipartValid&quot; -Value $IsClipartValid
+    $analysisOutcome | Add-Member -MemberType NoteProperty -Name &quot;IsLineDrawingValid&quot; -Value $IsLineDrawingValid
+    $analysisOutcome | Add-Member -MemberType NoteProperty -Name &quot;IsAdultValid&quot; -Value $IsAdultValid
+    $analysisOutcome | Add-Member -MemberType NoteProperty -Name &quot;IsRacyValid&quot; -Value $IsRacyValid
+    $analysisOutcome | Add-Member -MemberType NoteProperty -Name &quot;IsGoryValid&quot; -Value $IsGoryValid
+    $analysisOutcome | Add-Member -MemberType NoteProperty -Name &quot;IsCelebrity&quot; -Value $IsCelebrity
+    $analysisOutcome | Add-Member -MemberType NoteProperty -Name &quot;IsForbiddenKeywordExist&quot; -Value $IsForbiddenKeywordExist
+    $analysisOutcome | Add-Member -MemberType NoteProperty -Name &quot;IsValidProfilePhoto&quot; -Value $IsValidProfilePhoto
+    $analysisOutcome | Add-Member -MemberType NoteProperty -Name &quot;Notes&quot; -Value $Notes
+
+    $global:analysisOutcomes += $analysisOutcome
+}
+
+$users = m365 aad user list --properties $requiredProfileProperties -o json | ConvertFrom-Json -AsHashtable
+$usersCount = $users.Count
+Write-Host &quot;Number of users found : $usersCount&quot;
+
+try {
+    $token = m365 util accesstoken get --resource https://graph.microsoft.com
+
+    $i = 0
+
+    for ($i = 0; $i -lt $usersCount; $i++) {
+        try {
+            $userId = $users[$i].id
+            $userPrincipalName = $users[$i].userPrincipalName
+
+            $percentComplete = ($i / $usersCount) * 100
+            Write-Progress -Activity &quot;Analysing&quot; -Status &quot;User : $userId - $userPrincipalName&quot; -PercentComplete $percentComplete
+
+            try {
+                $headers = New-Object &quot;System.Collections.Generic.Dictionary[[String],[String]]&quot;
+                $headers.Add(&quot;Content-Type&quot;, &quot;image/jpg&quot;)
+                $headers.Add(&quot;Authorization&quot;, &quot;Bearer $token&quot;)
+                $userPhoto = (Invoke-RestMethod -Uri &quot;https://graph.microsoft.com/v1.0/users/$userId/photo/`$value&quot; -Headers $headers)
+
+                if ($userPhoto) {
+                    try {
+                        $headers = New-Object &quot;System.Collections.Generic.Dictionary[[String],[String]]&quot;
+                        $headers.Add(&quot;Content-Type&quot;, &quot;application/json&quot;)
+                        $headers.Add(&quot;Ocp-Apim-Subscription-Key&quot;, $azureVisionApiKey)
+
+                        $analysis = (Invoke-RestMethod -Uri (&quot;https://$azureVisionApiInstance.cognitiveservices.azure.com/vision/v3.1/analyze?visualFeatures=Categories,Adult,Tags,Description,Faces,Color,ImageType,Objects&amp;details=Celebrities&amp;language=en&quot;) `
+                                -Headers $headers `
+                                -Body ($userPhoto) `
+                                -ContentType &quot;application/octet-stream&quot; `
+                                -Method &quot;Post&quot;);
+
+                        if ($analysis) {
+                            $analysisData = $analysis | ConvertFrom-Json -AsHashtable
+                            $isPortrait = $analysisData.categories.Length -gt 0 ? ($analysisData.categories | Where-Object { $_.name -eq 'people_portrait' }).Length -gt 0  ? $true : $false : $false
+                            $isPortraitValid = $photoRequirements.requirePortrait ? $isPortrait : $true
+                            $isOnlyOnePersonValid = $analysisData.faces.Length -eq 1 ? $true : $false
+                            $isClipartValid = $analysisData.imageType.clipArtType -eq 0 ? $true : $false
+                            $isLineDrawingValid = $analysisData.imageType.lineDrawingType -eq 0 ? $true : $false
+                            $isAdultValid = $photoRequirements.allowAdult ? $true : !$analysisData.adult.isAdultContent
+                            $isRacyValid = $photoRequirements.allowRacy ? $true : !$analysisData.adult.isRacyContent
+                            $isGoryValid = $photoRequirements.allowGory ? $true : !$analysisData.adult.isGoryContent
+                            $isCelebrity = ($analysisData.categories | Where-Object { $_.detail.celebrities.Length -gt 0 }).Length -gt 0 ? $true : $false
+
+                            $invalidKeywords = @()
+
+                            foreach ($forbiddenKeyword in $photoRequirements.forbiddenKeywords) {
+                                $isForbiddenKeywordExist = ($analysisData.tags | Where-Object { $_.name -eq $forbiddenKeyword }).Length -gt 0 ? $true : $false
+
+                                if ($isForbiddenKeywordExist) {
+                                    $invalidKeyword = New-Object -TypeName PSObject
+                                    $invalidKeyword | Add-Member -MemberType NoteProperty -Name forbiddenKeyword -Value $forbiddenKeyword
+                                    $invalidKeywords += $invalidKeyword
+                                }
+                            }
+
+                            $isForbiddenKeywordExist = $invalidKeywords.Length -gt 0 ? $true : $false
+
+                            $isValidProfilePhoto = $isPortraitValid `
+                                -and $isOnlyOnePersonValid `
+                                -and $isClipartValid  `
+                                -and $isLineDrawingValid `
+                                -and $isAdultValid `
+                                -and $isRacyValid `
+                                -and $isGoryValid `
+                                -and !$isCelebrity `
+                                -and !$isForbiddenKeywordExist;
+
+                            AddAnalysisOutcome $userId `
+                                $userPrincipalName `
+                                $isPortraitValid `
+                                $isOnlyOnePersonValid `
+                                $isClipartValid `
+                                $isLineDrawingValid `
+                                $isAdultValid `
+                                $isRacyValid `
+                                $isGoryValid `
+                                $isCelebrity `
+                                $isForbiddenKeywordExist `
+                                $isValidProfilePhoto `
+                                &quot;Profile photo available&quot;
+                        }
+                    }
+                    catch {
+                        AddAnalysisOutcome $userId `
+                            $userPrincipalName `
+                            $false `
+                            $false `
+                            $false `
+                            $false `
+                            $false `
+                            $false `
+                            $false `
+                            $false `
+                            $false `
+                            $false `
+                            &quot;Unable to analyze profile photo&quot;
+                    }
+                }
+            }
+            catch {
+                AddAnalysisOutcome $userId `
+                    $userPrincipalName `
+                    $false `
+                    $false `
+                    $false `
+                    $false `
+                    $false `
+                    $false `
+                    $false `
+                    $false `
+                    $false `
+                    $false `
+                    &quot;Unable to get profile photo&quot;
+            }
+        }
+        catch {
+            Write-Host &quot;Unable to get profile details for this user&quot; -ForegroundColor Red
+        }
+    }
+}
+catch {
+    Write-Host &quot;Unable to get new access token&quot; -ForegroundColor Red
+}
+
+$global:analysisOutcomes | Export-Csv -Path &quot;$outputFilePath&quot; -NoTypeInformation
+Write-Host &quot;Open $outputFilePath to review analysis outcomes report.&quot;
+</code></pre>
+<div class="highlight-tool">
+<p>Check out the <strong>CLI for Microsoft 365</strong> to learn more at: <a href="https://aka.ms/cli-m365">https://aka.ms/cli-m365</a></p>
+</div>
+</section>
+</div>
+<h2 id="source-credit">Source Credit</h2>
+<p>Sample first appeared on <a href="https://pnp.github.io/cli-microsoft365/sample-scripts/aad/analyze-user-profile-photos/">Analyze User Profile Photos using Azure Computer Vision API | CLI for Microsoft 365</a></p>
+<h2 id="contributors">Contributors</h2>
+<table>
+<thead>
+<tr>
+<th>Author(s)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Joseph Velliah</td>
+</tr>
+</tbody>
+</table>
+<h2 id="disclaimer">Disclaimer</h2>
+<p><strong>THESE SAMPLES ARE PROVIDED <em>AS IS</em> WITHOUT WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, INCLUDING ANY IMPLIED WARRANTIES OF FITNESS FOR A PARTICULAR PURPOSE, MERCHANTABILITY, OR NON-INFRINGEMENT.</strong></p>
+<img src="https://telemetry.sharepointpnp.com/script-samples/scripts/aad-analyze-user-profile-photos" aria-hidden="true">
+</article>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            <span>Script Samples<br>Generated by <strong><a href='https://dotnet.github.io/docfx' alt='Doc FX Website'>DocFX</a></strong> with <strong><a href='https://ovasquez.github.io/docfx-material' alt='DocFx Material Theme'>Material UI</a></strong></span>
+            
+            <!-- <img src="https://telemetry.sharepointpnp.com/@pnp.github.io/index/" alt="spacer"> -->
+          </div>
+        </div>
+      </footer>    </div>
+    
+    <script type="text/javascript" src="../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+    
+    <script type="text/javascript" src="../styles/clipboard.min.js"></script>
+    <script type="text/javascript" src="../styles/isotope.pkgd.min.js"></script>
+    <script type="text/javascript" src="../styles/loadsamples.js"></script>
+    <script type="text/javascript" src="../styles/filtersamples.js"></script>
+
+  </body>
+</html>
