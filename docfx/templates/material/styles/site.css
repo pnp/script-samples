@@ -48,10 +48,20 @@
     background-repeat: no-repeat;
 }
 
+.sample-thumbnail[data-products^="azure ad"] .sample-preview,
 .sample-thumbnail[data-products^="azuread"] .sample-preview {
     background-image: url(../assets/icons/custom/aad.svg);
     background-size: 300px;
     background-position: -82px -14px;
+    background-repeat: no-repeat;
+}
+
+.sample-thumbnail[data-products^="power automate"] .sample-preview,
+.sample-thumbnail[data-products^="powerautomate"] .sample-preview {
+    
+    background-image: url(../assets/icons/custom/powerautomate.svg);
+    background-size: 311px;
+    background-position: -76px -32px;
     background-repeat: no-repeat;
 }
 /* //Data driven backgrounds */
