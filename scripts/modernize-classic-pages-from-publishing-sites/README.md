@@ -8,6 +8,9 @@ plugin: add-to-gallery
 
 This is a **Modernizing classic pages from publishing sites** example to show the conversion of an on-premises 2013 publishing page over to SharePoint Online modern sites - this includes the extraction of the mapping files and conversion process.
 
+> [!note]
+> This script uses the older [SharePoint PnP PowerShell Online module](https://www.powershellgallery.com/packages/SharePointPnPPowerShellOnline/3.29.2101.0)
+
 ![Example Screenshot](assets/transform.jpg)
 
 # [PnP PowerShell](#tab/pnpps)

@@ -12,6 +12,9 @@ Converts all blog pages in a site, this includes:
 - Connecting to MFA or supplying credentials
 - Includes Logging to File, log flushing into single log file
 
+> [!note]
+> This script uses the older [SharePoint PnP PowerShell Online module](https://www.powershellgallery.com/packages/SharePointPnPPowerShellOnline/3.29.2101.0)
+
 # [PnP PowerShell](#tab/pnpps)
 
 ```powershell
