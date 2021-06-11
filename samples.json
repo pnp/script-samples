@@ -1,5 +1,664 @@
 [
   {
+    "name": "teams-list-teams-app-usage",
+    "source": "pnp",
+    "title": "List app usage in Microsoft Teams",
+    "url": "teams-list-teams-app-usage/README.html",
+    "creationDateTime": "2021-01-11T00:00:00",
+    "updateDateTime": "2021-01-11T00:00:00",
+    "shortDescription": "A sample script which iterates through all the teams in your tenant and lists all apps in each team",
+    "products": [
+      "Teams"
+    ],
+    "categories": [
+      "Report"
+    ],
+    "tags": [
+      "Microsoft Teams",
+      "Governance",
+      "bash"
+    ],
+    "metadata": [
+      {
+        "key": "cli-for-microsoft365",
+        "value": "3.7.0"
+      }
+    ],
+    "thumbnails": [
+      {
+        "type": "image",
+        "order": 100,
+        "url": "teams-list-teams-app-usage/assets/preview.png",
+        "alt": "preview image for the sample"
+      }
+    ],
+    "authors": [
+      {
+        "name": "Kislay Sinha",
+        "gitHubAccount": "sinhakislay",
+        "company": "",
+        "pictureUrl": "https://avatars.githubusercontent.com/u/15047248?v=4"
+      },
+      {
+        "name": "Thomas Goelles",
+        "gitHubAccount": "thomyg",
+        "company": "Solvion",
+        "pictureUrl": "https://avatars.githubusercontent.com/u/10920072?v=4"
+      }
+    ]
+  },
+  {
+    "name": "modernize-blog-pages",
+    "source": "pnp",
+    "title": "Modernize Blog Pages",
+    "url": "modernize-blog-pages/README.html",
+    "creationDateTime": "2021-05-11T00:00:00",
+    "updateDateTime": "2021-05-11T00:00:00",
+    "shortDescription": "Converts all blog pages in a site",
+    "longDescription": [
+      "Converts all blog pages in a site"
+    ],
+    "products": [
+      "SharePoint"
+    ],
+    "categories": [
+      "Modernize"
+    ],
+    "metadata": [
+      {
+        "key": "PnP-PowerShell",
+        "value": "1.5.0"
+      }
+    ],
+    "thumbnails": [
+      {
+        "type": "image",
+        "order": 100,
+        "url": "modernize-blog-pages/assets/preview.png",
+        "alt": "This sample does not contain a preview image"
+      }
+    ],
+    "authors": [
+      {
+        "name": "Paul Bullock",
+        "gitHubAccount": "pkbullock",
+        "company": "CaPa Creative Ltd",
+        "pictureUrl": "https://avatars.githubusercontent.com/u/8781041?v=4"
+      }
+    ]
+  },
+  {
+    "name": "spo-list-all-application-customizers",
+    "source": "pnp",
+    "title": "List all application customizers in a tenant",
+    "url": "spo-list-all-application-customizers/README.html",
+    "creationDateTime": "2021-01-17T00:00:00",
+    "updateDateTime": "2021-01-17T00:00:00",
+    "shortDescription": "Script to list out all the Application Customizers in all the sites in the tenant",
+    "products": [
+      "SharePoint"
+    ],
+    "categories": [
+      "Report"
+    ],
+    "tags": [
+      "SharePoint Online",
+      "Governance",
+      "bash"
+    ],
+    "metadata": [
+      {
+        "key": "cli-for-microsoft365",
+        "value": "3.7.0"
+      }
+    ],
+    "thumbnails": [
+      {
+        "type": "image",
+        "order": 100,
+        "url": "spo-list-all-application-customizers/assets/preview.png",
+        "alt": "preview image for the sample"
+      }
+    ],
+    "authors": [
+      {
+        "name": "Rabia Williams",
+        "gitHubAccount": "rabwill",
+        "company": "Microsoft",
+        "pictureUrl": "https://avatars.githubusercontent.com/u/20379311?v=4"
+      }
+    ]
+  },
+  {
+    "name": "remove-delete-option-library",
+    "source": "pnp",
+    "title": "Remove delete option on a document library",
+    "url": "remove-delete-option-library/README.html",
+    "creationDateTime": "2018-09-17T00:00:00",
+    "updateDateTime": "2018-09-17T00:00:00",
+    "shortDescription": "Remove the delete option on a document library to prevent users from accidentally deleting libraries",
+    "longDescription": [],
+    "products": [
+      "SharePoint"
+    ],
+    "categories": [
+      "Configure"
+    ],
+    "metadata": [
+      {
+        "key": "PnP-PowerShell",
+        "value": "1.5.0"
+      }
+    ],
+    "thumbnails": [
+      {
+        "type": "image",
+        "order": 100,
+        "url": "remove-delete-option-library/assets/preview.png",
+        "alt": "image preview of the completed change - no delete option"
+      }
+    ],
+    "authors": [
+      {
+        "name": "Paul Bullock",
+        "gitHubAccount": "pkbullock",
+        "company": "CaPa Creative Ltd",
+        "pictureUrl": "https://avatars.githubusercontent.com/u/8781041?v=4"
+      }
+    ]
+  },
+  {
+    "name": "teams-deploy-teams-app",
+    "source": "pnp",
+    "title": "Deploy Microsoft Teams app from Azure DevOps",
+    "url": "teams-deploy-teams-app/README.html",
+    "creationDateTime": "2020-08-23T00:00:00",
+    "updateDateTime": "2020-08-23T00:00:00",
+    "shortDescription": "Installs or updates a Microsoft Teams app from an Azure DevOps pipeline",
+    "products": [
+      "Teams",
+      "Azure"
+    ],
+    "categories": [
+      "Deploy"
+    ],
+    "tags": [
+      "Microsoft Teams",
+      "Azure DevOps",
+      "Continuous Deployment",
+      "bash"
+    ],
+    "metadata": [
+      {
+        "key": "cli-for-microsoft365",
+        "value": "3.7.0"
+      }
+    ],
+    "thumbnails": [
+      {
+        "type": "image",
+        "order": 100,
+        "url": "teams-deploy-teams-app/assets/preview.png",
+        "alt": "preview image for the sample"
+      }
+    ],
+    "authors": [
+      {
+        "name": "Garry Trinder",
+        "gitHubAccount": "garrytrinder",
+        "company": "@cpsglobal",
+        "pictureUrl": "https://avatars.githubusercontent.com/u/11563347?v=4"
+      }
+    ]
+  },
+  {
+    "name": "aad-delete-m365-groups-and-sharepoint-sites",
+    "source": "pnp",
+    "title": "Delete all Microsoft 365 groups and SharePoint sites",
+    "url": "aad-delete-m365-groups-and-sharepoint-sites/README.html",
+    "creationDateTime": "2021-03-15T00:00:00",
+    "updateDateTime": "2021-03-15T00:00:00",
+    "shortDescription": "Example how you can delete all Microsoft 365 Groups and SharePoint Online sites in your development environment",
+    "products": [
+      "AzureAD",
+      "SharePoint"
+    ],
+    "categories": [
+      "Provision"
+    ],
+    "tags": [
+      "SharePoint Online",
+      "Microsoft 365 Groups"
+    ],
+    "metadata": [
+      {
+        "key": "cli-for-microsoft365",
+        "value": "3.7.0"
+      }
+    ],
+    "thumbnails": [
+      {
+        "type": "image",
+        "order": 100,
+        "url": "aad-delete-m365-groups-and-sharepoint-sites/assets/preview.png",
+        "alt": "preview image for the sample"
+      }
+    ],
+    "authors": [
+      {
+        "name": "Patrick Lamber",
+        "gitHubAccount": "plamber",
+        "company": "Expertsinside AG",
+        "pictureUrl": "https://avatars.githubusercontent.com/u/18241305?v=4"
+      }
+    ]
+  },
+  {
+    "name": "teams-export-teams-conversations",
+    "source": "pnp",
+    "title": "Export conversations from Microsoft Teams Channels",
+    "url": "teams-export-teams-conversations/README.html",
+    "creationDateTime": "2021-01-29T00:00:00",
+    "updateDateTime": "2021-01-29T00:00:00",
+    "shortDescription": "This script shows an example for Microsoft 365 to export the conversations from Microsoft Teams Channels",
+    "products": [
+      "Teams"
+    ],
+    "categories": [
+      "Data"
+    ],
+    "tags": [
+      "Microsoft Teams",
+      "PowerShell"
+    ],
+    "metadata": [
+      {
+        "key": "cli-for-microsoft365",
+        "value": "3.7.0"
+      }
+    ],
+    "thumbnails": [
+      {
+        "type": "image",
+        "order": 100,
+        "url": "teams-export-teams-conversations/assets/preview.png",
+        "alt": "preview image for the sample"
+      }
+    ],
+    "authors": [
+      {
+        "name": "Joseph Velliah",
+        "gitHubAccount": "sprider",
+        "pictureUrl": "https://avatars.githubusercontent.com/u/21008316?v=4"
+      }
+    ]
+  },
+  {
+    "name": "user-language-for-site",
+    "source": "pnp",
+    "title": "Testing user preferred language of SharePoint site",
+    "url": "user-language-for-site/README.html",
+    "creationDateTime": "2021-05-11T00:00:00",
+    "updateDateTime": "2021-05-11T00:00:00",
+    "shortDescription": "Changes the MUI setting for a user within the User Information List",
+    "longDescription": [
+      "This script that changes the MUI setting for a user within the User Information List to update the user with the appropriate language tag"
+    ],
+    "products": [
+      "SharePoint"
+    ],
+    "categories": [
+      "Configure"
+    ],
+    "metadata": [
+      {
+        "key": "PnP-PowerShell",
+        "value": "1.5.0"
+      }
+    ],
+    "thumbnails": [
+      {
+        "type": "image",
+        "order": 100,
+        "url": "user-language-for-site/assets/preview.png",
+        "alt": "This sample does not contain a preview image"
+      }
+    ],
+    "authors": [
+      {
+        "name": "Paul Bullock",
+        "gitHubAccount": "pkbullock",
+        "company": "CaPa Creative Ltd",
+        "pictureUrl": "https://avatars.githubusercontent.com/u/8781041?v=4"
+      }
+    ]
+  },
+  {
+    "name": "get-all-site-collections-subwebs",
+    "source": "pnp",
+    "title": "How to to get all site collections with their sub webs",
+    "url": "get-all-site-collections-subwebs/README.html",
+    "creationDateTime": "2021-05-05T00:00:00",
+    "updateDateTime": "2021-05-05T00:00:00",
+    "shortDescription": "Get site collections with all the sub-webs",
+    "longDescription": [],
+    "products": [
+      "SharePoint"
+    ],
+    "categories": [
+      "Report"
+    ],
+    "metadata": [
+      {
+        "key": "PnP-PowerShell",
+        "value": "1.5.0"
+      }
+    ],
+    "thumbnails": [
+      {
+        "type": "image",
+        "order": 100,
+        "url": "get-all-site-collections-subwebs/assets/preview.png",
+        "alt": ""
+      }
+    ],
+    "authors": [
+      {
+        "name": "Chandani Prajapati",
+        "gitHubAccount": "chandaniprajapati",
+        "pictureUrl": "https://avatars.githubusercontent.com/u/52065929?v=4"
+      }
+    ]
+  },
+  {
+    "name": "teams-list-all-tabs-teams",
+    "source": "pnp",
+    "title": "List all tabs in Microsoft Teams teams in the tenant",
+    "url": "teams-list-all-tabs-teams/README.html",
+    "creationDateTime": "2021-02-06T00:00:00",
+    "updateDateTime": "2021-02-06T00:00:00",
+    "shortDescription": "List all tabs in Microsoft Teams teams in the tenant and exports the results in a CSV",
+    "products": [
+      "Teams"
+    ],
+    "categories": [
+      "Report"
+    ],
+    "tags": [
+      "Microsoft Teams",
+      "Governance"
+    ],
+    "metadata": [
+      {
+        "key": "cli-for-microsoft365",
+        "value": "3.7.0"
+      }
+    ],
+    "thumbnails": [
+      {
+        "type": "image",
+        "order": 100,
+        "url": "teams-list-all-tabs-teams/assets/preview.png",
+        "alt": "preview image for the sample"
+      }
+    ],
+    "authors": [
+      {
+        "name": "Veronique Lengelle",
+        "gitHubAccount": "veronicageek",
+        "pictureUrl": "https://avatars.githubusercontent.com/u/25181757?v=4"
+      },
+      {
+        "name": "Patrick Lamber",
+        "gitHubAccount": "plamber",
+        "company": "Expertsinside AG",
+        "pictureUrl": "https://avatars.githubusercontent.com/u/18241305?v=4"
+      }
+    ]
+  },
+  {
+    "name": "create-comm-sites-specific-locale",
+    "source": "pnp",
+    "title": "Create Modern Sites as alternative primary language",
+    "url": "create-comm-sites-specific-locale/README.html",
+    "creationDateTime": "2021-05-11T00:00:00",
+    "updateDateTime": "2021-05-11T00:00:00",
+    "shortDescription": "Create a modern site in another language as the primary language",
+    "longDescription": [
+      "This script will show you how by creating a modern site with the primary language set to a language other than English."
+    ],
+    "products": [
+      "SharePoint"
+    ],
+    "categories": [
+      "Provision"
+    ],
+    "metadata": [
+      {
+        "key": "PnP-PowerShell",
+        "value": "1.5.0"
+      }
+    ],
+    "thumbnails": [
+      {
+        "type": "image",
+        "order": 100,
+        "url": "create-comm-sites-specific-locale/assets/preview.png",
+        "alt": "Preview of the resulting site as another language"
+      }
+    ],
+    "authors": [
+      {
+        "name": "Paul Bullock",
+        "gitHubAccount": "pkbullock",
+        "company": "CaPa Creative Ltd",
+        "pictureUrl": "https://avatars.githubusercontent.com/u/8781041?v=4"
+      }
+    ]
+  },
+  {
+    "name": "aad-replace-owner-with-a-different-one",
+    "source": "pnp",
+    "title": "Replace an owner in a Microsoft 365 Group or Microsoft Team",
+    "url": "aad-replace-owner-with-a-different-one/README.html",
+    "creationDateTime": "2021-05-04T00:00:00",
+    "updateDateTime": "2021-05-04T00:00:00",
+    "shortDescription": "Find all the Microsoft 365 Groups that a user is an Owner of and replace them with someone",
+    "products": [
+      "AzureAD",
+      "Teams"
+    ],
+    "categories": [
+      "Configure"
+    ],
+    "tags": [
+      "Microsoft 365 Groups",
+      "Microsoft Teams",
+      "Governance"
+    ],
+    "metadata": [
+      {
+        "key": "cli-for-microsoft365",
+        "value": "3.7.0"
+      }
+    ],
+    "thumbnails": [
+      {
+        "type": "image",
+        "order": 100,
+        "url": "aad-replace-owner-with-a-different-one/assets/preview.png",
+        "alt": "preview image for the sample"
+      }
+    ],
+    "authors": [
+      {
+        "name": "Patrick Lamber",
+        "gitHubAccount": "plamber",
+        "company": "Expertsinside AG",
+        "pictureUrl": "https://avatars.githubusercontent.com/u/18241305?v=4"
+      },
+      {
+        "name": "Alan Eardley",
+        "gitHubAccount": "al-eardley",
+        "company": "Microsoft",
+        "pictureUrl": "https://avatars.githubusercontent.com/u/10485065?v=4"
+      }
+    ]
+  },
+  {
+    "name": "spo-delete-non-group-connected-modern-sites",
+    "source": "pnp",
+    "title": "Delete all (non-group connected) modern SharePoint sites",
+    "url": "spo-delete-non-group-connected-modern-sites/README.html",
+    "creationDateTime": "2021-01-16T00:00:00",
+    "updateDateTime": "2021-01-16T00:00:00",
+    "shortDescription": "This script handles deletion of remaining modern non-group sites: communication sites and groupless team sites",
+    "products": [
+      "SharePoint"
+    ],
+    "categories": [
+      "Deploy"
+    ],
+    "tags": [
+      "SharePoint Online",
+      "Microsoft 365 groups",
+      "bash"
+    ],
+    "metadata": [
+      {
+        "key": "cli-for-microsoft365",
+        "value": "3.7.0"
+      }
+    ],
+    "thumbnails": [
+      {
+        "type": "image",
+        "order": 100,
+        "url": "spo-delete-non-group-connected-modern-sites/assets/preview.png",
+        "alt": "preview image for the sample"
+      }
+    ],
+    "authors": [
+      {
+        "name": "Laura Kokkarinen",
+        "gitHubAccount": "LauraKokkarinen",
+        "company": "Sulava",
+        "pictureUrl": "https://avatars.githubusercontent.com/u/41330990?v=4"
+      }
+    ]
+  },
+  {
+    "name": "teams-remove-wikitab-teams",
+    "source": "pnp",
+    "title": "Remove Wiki tab in a Microsoft Teams channel",
+    "url": "teams-remove-wikitab-teams/README.html",
+    "creationDateTime": "2020-08-23T00:00:00",
+    "updateDateTime": "2020-08-23T00:00:00",
+    "shortDescription": "Removes the wiki tab of a Microsoft Teams Team's channel",
+    "products": [
+      "Teams"
+    ],
+    "categories": [
+      "Configure"
+    ],
+    "tags": [
+      "Microsoft Teams",
+      "bash"
+    ],
+    "metadata": [
+      {
+        "key": "cli-for-microsoft365",
+        "value": "3.7.0"
+      }
+    ],
+    "thumbnails": [
+      {
+        "type": "image",
+        "order": 100,
+        "url": "teams-remove-wikitab-teams/assets/preview.png",
+        "alt": "preview image for the sample"
+      }
+    ],
+    "authors": [
+      {
+        "name": "Rabia Williams",
+        "gitHubAccount": "rabwill",
+        "company": "Microsoft",
+        "pictureUrl": "https://avatars.githubusercontent.com/u/20379311?v=4"
+      },
+      {
+        "name": "Laura Kokkarinen",
+        "gitHubAccount": "LauraKokkarinen",
+        "company": "Sulava",
+        "pictureUrl": "https://avatars.githubusercontent.com/u/41330990?v=4"
+      },
+      {
+        "name": "Garry Trinder",
+        "gitHubAccount": "garrytrinder",
+        "company": "@cpsglobal",
+        "pictureUrl": "https://avatars.githubusercontent.com/u/11563347?v=4"
+      }
+    ]
+  },
+  {
+    "name": "spo-add-app-catalog",
+    "source": "pnp",
+    "title": "Add App Catalog to SharePoint site",
+    "url": "spo-add-app-catalog/README.html",
+    "creationDateTime": "2021-05-11T00:00:00",
+    "updateDateTime": "2021-05-11T00:00:00",
+    "shortDescription": "Deploy certain SharePoint solution to a specific site",
+    "longDescription": [
+      "hen you just want to deploy certain SharePoint solution to a specific site, it's required to create an app catalog for that site."
+    ],
+    "products": [
+      "SharePoint"
+    ],
+    "categories": [
+      "Deploy",
+      "Configure"
+    ],
+    "metadata": [
+      {
+        "key": "cli-for-microsoft365",
+        "value": "3.7.0"
+      },
+      {
+        "key": "PnP-PowerShell",
+        "value": "1.5.0"
+      }
+    ],
+    "thumbnails": [
+      {
+        "type": "image",
+        "order": 100,
+        "url": "spo-add-app-catalog/assets/preview.png",
+        "alt": "This sample does not contain a preview image"
+      }
+    ],
+    "authors": [
+      {
+        "name": "David Ramalho",
+        "gitHubAccount": "",
+        "company": "SharePoint Tricks",
+        "pictureUrl": "https://i1.wp.com/pbs.twimg.com/profile_images/1060671490847326208/zyudunZr_200x200.jpg?zoom=1.25&ssl=1"
+      },
+      {
+        "name": "Paul Bullock",
+        "gitHubAccount": "pkbullock",
+        "company": "CaPa Creative Ltd",
+        "pictureUrl": "https://avatars.githubusercontent.com/u/8781041?v=4"
+      }
+    ],
+    "references": [
+      {
+        "name": "Sample first appeared on SPO Add App Catalog",
+        "description": "",
+        "url": "https://pnp.github.io/cli-microsoft365/sample-scripts/spo/add-app-catalog/"
+      }
+    ]
+  },
+  {
     "name": "spo-remove-orphaned-redirect-sites",
     "source": "pnp",
     "title": "Remove orphaned redirect sites",
@@ -1104,1054 +1763,6 @@
     ]
   },
   {
-    "name": "teams-add-bulk-users-teams",
-    "source": "pnp",
-    "title": "Bulk add members to Microsoft Teams team from CSV file",
-    "url": "teams-add-bulk-users-teams/README.html",
-    "creationDateTime": "2021-04-16T00:00:00",
-    "updateDateTime": "2021-04-16T00:00:00",
-    "shortDescription": "This script will add users in existing Microsoft Teams teams from your .csv file",
-    "products": [
-      "Teams"
-    ],
-    "categories": [
-      "Provision"
-    ],
-    "tags": [
-      "Teams",
-      "Provisioning"
-    ],
-    "metadata": [
-      {
-        "key": "cli-for-microsoft365",
-        "value": "3.7.0"
-      }
-    ],
-    "thumbnails": [
-      {
-        "type": "image",
-        "order": 100,
-        "url": "teams-add-bulk-users-teams/assets/preview.png",
-        "alt": "preview image for the sample"
-      }
-    ],
-    "authors": [
-      {
-        "name": "Veronique Lengelle",
-        "gitHubAccount": "veronicageek",
-        "pictureUrl": "https://avatars.githubusercontent.com/u/25181757?v=4"
-      }
-    ]
-  },
-  {
-    "name": "aad-flag-groups-with-user-names",
-    "source": "pnp",
-    "title": "Scan for Microsoft 365 Groups created with user's first or last name",
-    "url": "aad-flag-groups-with-user-names/README.html",
-    "creationDateTime": "2020-08-23T00:00:00",
-    "updateDateTime": "2020-08-23T00:00:00",
-    "shortDescription": "This sample script scans the Microsoft 365 groups that may contain user's first or last name as the group mail",
-    "products": [
-      "AzureAD",
-      "Office"
-    ],
-    "categories": [
-      "Report"
-    ],
-    "tags": [
-      "Microsoft 365 Group",
-      "Governance",
-      "bash"
-    ],
-    "metadata": [
-      {
-        "key": "cli-for-microsoft365",
-        "value": "3.7.0"
-      }
-    ],
-    "thumbnails": [
-      {
-        "type": "image",
-        "order": 100,
-        "url": "aad-flag-groups-with-user-names/assets/preview.png",
-        "alt": "preview image for the sample"
-      }
-    ],
-    "authors": [
-      {
-        "name": "Joseph Velliah",
-        "gitHubAccount": "sprider",
-        "pictureUrl": "https://avatars.githubusercontent.com/u/21008316?v=4"
-      }
-    ]
-  },
-  {
-    "name": "spo-list-tenant-wide-extensions",
-    "source": "pnp",
-    "title": "List all tenant-wide extensions",
-    "url": "spo-list-tenant-wide-extensions/README.html",
-    "creationDateTime": "2020-08-23T00:00:00",
-    "updateDateTime": "2020-08-23T00:00:00",
-    "shortDescription": "Script lists all tenant-wide extensions deployed in the tenant",
-    "products": [
-      "SharePoint"
-    ],
-    "categories": [
-      "Report"
-    ],
-    "tags": [
-      "SharePoint Online",
-      "Tenant Wide Extension",
-      "bash"
-    ],
-    "metadata": [
-      {
-        "key": "cli-for-microsoft365",
-        "value": "3.7.0"
-      }
-    ],
-    "thumbnails": [
-      {
-        "type": "image",
-        "order": 100,
-        "url": "spo-list-tenant-wide-extensions/assets/preview.png",
-        "alt": "preview image for the sample"
-      }
-    ],
-    "authors": [
-      {
-        "name": "Shantha Kumar T",
-        "gitHubAccount": "ktskumar",
-        "pictureUrl": "https://avatars.githubusercontent.com/u/34408892?v=4"
-      }
-    ]
-  },
-  {
-    "name": "spo-monitor-site-collection-storage-usage",
-    "source": "pnp",
-    "title": "Monitor Site Collections Storage Usage",
-    "url": "spo-monitor-site-collection-storage-usage/README.html",
-    "creationDateTime": "2021-04-26T00:00:00",
-    "updateDateTime": "2021-04-26T00:00:00",
-    "shortDescription": "Monitor Site Collections storage usage and send an email with sites over the designated storage threshold.",
-    "products": [
-      "SharePoint"
-    ],
-    "categories": [
-      "Report"
-    ],
-    "tags": [
-      "SharePoint Online",
-      "Governance"
-    ],
-    "metadata": [
-      {
-        "key": "cli-for-microsoft365",
-        "value": "3.7.0"
-      }
-    ],
-    "thumbnails": [
-      {
-        "type": "image",
-        "order": 100,
-        "url": "spo-monitor-site-collection-storage-usage/assets/preview.png",
-        "alt": "preview image for the sample"
-      }
-    ],
-    "authors": [
-      {
-        "name": "Veronique Lengelle",
-        "gitHubAccount": "veronicageek",
-        "pictureUrl": "https://avatars.githubusercontent.com/u/25181757?v=4"
-      }
-    ]
-  },
-  {
-    "name": "graph-call-graph",
-    "source": "pnp",
-    "title": "Authenticate with and call the Microsoft Graph",
-    "url": "graph-call-graph/README.html",
-    "creationDateTime": "2021-08-23T00:00:00",
-    "updateDateTime": "2021-05-11T00:00:00",
-    "shortDescription": "Obtain a new access token for the Microsoft Graph and use it an HTTP request, or connect to the Graph",
-    "longDescription": [
-      ""
-    ],
-    "products": [
-      "Graph"
-    ],
-    "categories": [
-      "Configure"
-    ],
-    "tags": [
-      "bash"
-    ],
-    "metadata": [
-      {
-        "key": "cli-for-microsoft365",
-        "value": "3.7.0"
-      },
-      {
-        "key": "pnp-powerShell",
-        "value": "1.5.0"
-      },
-      {
-        "key": "graph-powerShell",
-        "value": "1.0.0"
-      }
-    ],
-    "thumbnails": [
-      {
-        "type": "image",
-        "order": 100,
-        "url": "graph-call-graph/assets/preview.png",
-        "alt": "Image of the result of calling the graph"
-      }
-    ],
-    "authors": [
-      {
-        "name": "Garry Trinder",
-        "gitHubAccount": "garrytrinder",
-        "company": "",
-        "pictureUrl": "https://avatars.githubusercontent.com/u/11563347?v=4"
-      },
-      {
-        "name": "Paul Bullock",
-        "gitHubAccount": "pkbullock",
-        "company": "CaPa Creative Ltd",
-        "pictureUrl": "https://avatars.githubusercontent.com/u/8781041?v=4"
-      }
-    ]
-  },
-  {
-    "name": "teams-list-teams-app-usage",
-    "source": "pnp",
-    "title": "List app usage in Microsoft Teams",
-    "url": "teams-list-teams-app-usage/README.html",
-    "creationDateTime": "2021-01-11T00:00:00",
-    "updateDateTime": "2021-01-11T00:00:00",
-    "shortDescription": "A sample script which iterates through all the teams in your tenant and lists all apps in each team",
-    "products": [
-      "Teams"
-    ],
-    "categories": [
-      "Report"
-    ],
-    "tags": [
-      "Microsoft Teams",
-      "Governance",
-      "bash"
-    ],
-    "metadata": [
-      {
-        "key": "cli-for-microsoft365",
-        "value": "3.7.0"
-      }
-    ],
-    "thumbnails": [
-      {
-        "type": "image",
-        "order": 100,
-        "url": "teams-list-teams-app-usage/assets/preview.png",
-        "alt": "preview image for the sample"
-      }
-    ],
-    "authors": [
-      {
-        "name": "Kislay Sinha",
-        "gitHubAccount": "sinhakislay",
-        "company": "",
-        "pictureUrl": "https://avatars.githubusercontent.com/u/15047248?v=4"
-      },
-      {
-        "name": "Thomas Goelles",
-        "gitHubAccount": "thomyg",
-        "company": "Solvion",
-        "pictureUrl": "https://avatars.githubusercontent.com/u/10920072?v=4"
-      }
-    ]
-  },
-  {
-    "name": "modernize-blog-pages",
-    "source": "pnp",
-    "title": "Modernize Blog Pages",
-    "url": "modernize-blog-pages/README.html",
-    "creationDateTime": "2021-05-11T00:00:00",
-    "updateDateTime": "2021-05-11T00:00:00",
-    "shortDescription": "Converts all blog pages in a site",
-    "longDescription": [
-      "Converts all blog pages in a site"
-    ],
-    "products": [
-      "SharePoint"
-    ],
-    "categories": [
-      "Modernize"
-    ],
-    "metadata": [
-      {
-        "key": "PnP-PowerShell",
-        "value": "1.5.0"
-      }
-    ],
-    "thumbnails": [
-      {
-        "type": "image",
-        "order": 100,
-        "url": "modernize-blog-pages/assets/preview.png",
-        "alt": "This sample does not contain a preview image"
-      }
-    ],
-    "authors": [
-      {
-        "name": "Paul Bullock",
-        "gitHubAccount": "pkbullock",
-        "company": "CaPa Creative Ltd",
-        "pictureUrl": "https://avatars.githubusercontent.com/u/8781041?v=4"
-      }
-    ]
-  },
-  {
-    "name": "spo-list-all-application-customizers",
-    "source": "pnp",
-    "title": "List all application customizers in a tenant",
-    "url": "spo-list-all-application-customizers/README.html",
-    "creationDateTime": "2021-01-17T00:00:00",
-    "updateDateTime": "2021-01-17T00:00:00",
-    "shortDescription": "Script to list out all the Application Customizers in all the sites in the tenant",
-    "products": [
-      "SharePoint"
-    ],
-    "categories": [
-      "Report"
-    ],
-    "tags": [
-      "SharePoint Online",
-      "Governance",
-      "bash"
-    ],
-    "metadata": [
-      {
-        "key": "cli-for-microsoft365",
-        "value": "3.7.0"
-      }
-    ],
-    "thumbnails": [
-      {
-        "type": "image",
-        "order": 100,
-        "url": "spo-list-all-application-customizers/assets/preview.png",
-        "alt": "preview image for the sample"
-      }
-    ],
-    "authors": [
-      {
-        "name": "Rabia Williams",
-        "gitHubAccount": "rabwill",
-        "company": "Microsoft",
-        "pictureUrl": "https://avatars.githubusercontent.com/u/20379311?v=4"
-      }
-    ]
-  },
-  {
-    "name": "remove-delete-option-library",
-    "source": "pnp",
-    "title": "Remove delete option on a document library",
-    "url": "remove-delete-option-library/README.html",
-    "creationDateTime": "2018-09-17T00:00:00",
-    "updateDateTime": "2018-09-17T00:00:00",
-    "shortDescription": "Remove the delete option on a document library to prevent users from accidentally deleting libraries",
-    "longDescription": [],
-    "products": [
-      "SharePoint"
-    ],
-    "categories": [
-      "Configure"
-    ],
-    "metadata": [
-      {
-        "key": "PnP-PowerShell",
-        "value": "1.5.0"
-      }
-    ],
-    "thumbnails": [
-      {
-        "type": "image",
-        "order": 100,
-        "url": "remove-delete-option-library/assets/preview.png",
-        "alt": "image preview of the completed change - no delete option"
-      }
-    ],
-    "authors": [
-      {
-        "name": "Paul Bullock",
-        "gitHubAccount": "pkbullock",
-        "company": "CaPa Creative Ltd",
-        "pictureUrl": "https://avatars.githubusercontent.com/u/8781041?v=4"
-      }
-    ]
-  },
-  {
-    "name": "teams-deploy-teams-app",
-    "source": "pnp",
-    "title": "Deploy Microsoft Teams app from Azure DevOps",
-    "url": "teams-deploy-teams-app/README.html",
-    "creationDateTime": "2020-08-23T00:00:00",
-    "updateDateTime": "2020-08-23T00:00:00",
-    "shortDescription": "Installs or updates a Microsoft Teams app from an Azure DevOps pipeline",
-    "products": [
-      "Teams",
-      "Azure"
-    ],
-    "categories": [
-      "Deploy"
-    ],
-    "tags": [
-      "Microsoft Teams",
-      "Azure DevOps",
-      "Continuous Deployment",
-      "bash"
-    ],
-    "metadata": [
-      {
-        "key": "cli-for-microsoft365",
-        "value": "3.7.0"
-      }
-    ],
-    "thumbnails": [
-      {
-        "type": "image",
-        "order": 100,
-        "url": "teams-deploy-teams-app/assets/preview.png",
-        "alt": "preview image for the sample"
-      }
-    ],
-    "authors": [
-      {
-        "name": "Garry Trinder",
-        "gitHubAccount": "garrytrinder",
-        "company": "@cpsglobal",
-        "pictureUrl": "https://avatars.githubusercontent.com/u/11563347?v=4"
-      }
-    ]
-  },
-  {
-    "name": "aad-delete-m365-groups-and-sharepoint-sites",
-    "source": "pnp",
-    "title": "Delete all Microsoft 365 groups and SharePoint sites",
-    "url": "aad-delete-m365-groups-and-sharepoint-sites/README.html",
-    "creationDateTime": "2021-03-15T00:00:00",
-    "updateDateTime": "2021-03-15T00:00:00",
-    "shortDescription": "Example how you can delete all Microsoft 365 Groups and SharePoint Online sites in your development environment",
-    "products": [
-      "AzureAD",
-      "SharePoint"
-    ],
-    "categories": [
-      "Provision"
-    ],
-    "tags": [
-      "SharePoint Online",
-      "Microsoft 365 Groups"
-    ],
-    "metadata": [
-      {
-        "key": "cli-for-microsoft365",
-        "value": "3.7.0"
-      }
-    ],
-    "thumbnails": [
-      {
-        "type": "image",
-        "order": 100,
-        "url": "aad-delete-m365-groups-and-sharepoint-sites/assets/preview.png",
-        "alt": "preview image for the sample"
-      }
-    ],
-    "authors": [
-      {
-        "name": "Patrick Lamber",
-        "gitHubAccount": "plamber",
-        "company": "Expertsinside AG",
-        "pictureUrl": "https://avatars.githubusercontent.com/u/18241305?v=4"
-      }
-    ]
-  },
-  {
-    "name": "teams-export-teams-conversations",
-    "source": "pnp",
-    "title": "Export conversations from Microsoft Teams Channels",
-    "url": "teams-export-teams-conversations/README.html",
-    "creationDateTime": "2021-01-29T00:00:00",
-    "updateDateTime": "2021-01-29T00:00:00",
-    "shortDescription": "This script shows an example for Microsoft 365 to export the conversations from Microsoft Teams Channels",
-    "products": [
-      "Teams"
-    ],
-    "categories": [
-      "Data"
-    ],
-    "tags": [
-      "Microsoft Teams",
-      "PowerShell"
-    ],
-    "metadata": [
-      {
-        "key": "cli-for-microsoft365",
-        "value": "3.7.0"
-      }
-    ],
-    "thumbnails": [
-      {
-        "type": "image",
-        "order": 100,
-        "url": "teams-export-teams-conversations/assets/preview.png",
-        "alt": "preview image for the sample"
-      }
-    ],
-    "authors": [
-      {
-        "name": "Joseph Velliah",
-        "gitHubAccount": "sprider",
-        "pictureUrl": "https://avatars.githubusercontent.com/u/21008316?v=4"
-      }
-    ]
-  },
-  {
-    "name": "user-language-for-site",
-    "source": "pnp",
-    "title": "Testing user preferred language of SharePoint site",
-    "url": "user-language-for-site/README.html",
-    "creationDateTime": "2021-05-11T00:00:00",
-    "updateDateTime": "2021-05-11T00:00:00",
-    "shortDescription": "Changes the MUI setting for a user within the User Information List",
-    "longDescription": [
-      "This script that changes the MUI setting for a user within the User Information List to update the user with the appropriate language tag"
-    ],
-    "products": [
-      "SharePoint"
-    ],
-    "categories": [
-      "Configure"
-    ],
-    "metadata": [
-      {
-        "key": "PnP-PowerShell",
-        "value": "1.5.0"
-      }
-    ],
-    "thumbnails": [
-      {
-        "type": "image",
-        "order": 100,
-        "url": "user-language-for-site/assets/preview.png",
-        "alt": "This sample does not contain a preview image"
-      }
-    ],
-    "authors": [
-      {
-        "name": "Paul Bullock",
-        "gitHubAccount": "pkbullock",
-        "company": "CaPa Creative Ltd",
-        "pictureUrl": "https://avatars.githubusercontent.com/u/8781041?v=4"
-      }
-    ]
-  },
-  {
-    "name": "get-all-site-collections-subwebs",
-    "source": "pnp",
-    "title": "How to to get all site collections with their sub webs",
-    "url": "get-all-site-collections-subwebs/README.html",
-    "creationDateTime": "2021-05-05T00:00:00",
-    "updateDateTime": "2021-05-05T00:00:00",
-    "shortDescription": "Get site collections with all the sub-webs",
-    "longDescription": [],
-    "products": [
-      "SharePoint"
-    ],
-    "categories": [
-      "Report"
-    ],
-    "metadata": [
-      {
-        "key": "PnP-PowerShell",
-        "value": "1.5.0"
-      }
-    ],
-    "thumbnails": [
-      {
-        "type": "image",
-        "order": 100,
-        "url": "get-all-site-collections-subwebs/assets/preview.png",
-        "alt": ""
-      }
-    ],
-    "authors": [
-      {
-        "name": "Chandani Prajapati",
-        "gitHubAccount": "chandaniprajapati",
-        "pictureUrl": "https://avatars.githubusercontent.com/u/52065929?v=4"
-      }
-    ]
-  },
-  {
-    "name": "spo-ensure-siteassets-library",
-    "source": "pnp",
-    "title": "Ensure the Site Assets Library is created",
-    "url": "spo-ensure-siteassets-library/README.html",
-    "creationDateTime": "2020-09-04T00:00:00",
-    "updateDateTime": "2020-09-04T00:00:00",
-    "shortDescription": "Ensuring when creating a new modern SharePoint site using the CLI/REST API that the Site Assets library is created",
-    "products": [
-      "SharePoint"
-    ],
-    "categories": [
-      "Deploy"
-    ],
-    "tags": [],
-    "metadata": [
-      {
-        "key": "cli-for-microsoft365",
-        "value": "3.7.0"
-      }
-    ],
-    "thumbnails": [
-      {
-        "type": "image",
-        "order": 100,
-        "url": "spo-ensure-siteassets-library/assets/preview.png",
-        "alt": "preview image for the sample"
-      }
-    ],
-    "authors": [
-      {
-        "name": "Phillip Allan-Harding",
-        "gitHubAccount": "phillipharding",
-        "pictureUrl": "https://avatars.githubusercontent.com/u/7671418?v=4"
-      }
-    ]
-  },
-  {
-    "name": "spo-copy-files-to-another-library",
-    "source": "pnp",
-    "title": "Copy files to another SharePoint Library in another site",
-    "url": "spo-copy-files-to-another-library/README.html",
-    "creationDateTime": "2021-04-20T00:00:00",
-    "updateDateTime": "2021-04-20T00:00:00",
-    "shortDescription": "Copy all files and folders from source library to a different library in different SharePoint site ",
-    "products": [
-      "SharePoint"
-    ],
-    "categories": [
-      "Data"
-    ],
-    "tags": [
-      "SharePoint Online",
-      "Files"
-    ],
-    "metadata": [
-      {
-        "key": "cli-for-microsoft365",
-        "value": "3.7.0"
-      }
-    ],
-    "thumbnails": [
-      {
-        "type": "image",
-        "order": 100,
-        "url": "spo-copy-files-to-another-library/assets/preview.png",
-        "alt": "preview image for the sample"
-      }
-    ],
-    "authors": [
-      {
-        "name": "Adam Wójcik",
-        "gitHubAccount": "Adam-it",
-        "pictureUrl": "https://avatars.githubusercontent.com/u/58668583?v=4"
-      },
-      {
-        "name": "Veronique Lengelle",
-        "gitHubAccount": "veronicageek",
-        "pictureUrl": "https://avatars.githubusercontent.com/u/25181757?v=4"
-      },
-      {
-        "name": "Garry Trinder",
-        "gitHubAccount": "garrytrinder",
-        "company": "@cpsglobal",
-        "pictureUrl": "https://avatars.githubusercontent.com/u/11563347?v=4"
-      }
-    ]
-  },
-  {
-    "name": "spo-list-site-externalusers",
-    "source": "pnp",
-    "title": "List all external users in all site collections",
-    "url": "spo-list-site-externalusers/README.html",
-    "creationDateTime": "2021-03-15T00:00:00",
-    "updateDateTime": "2021-03-15T00:00:00",
-    "shortDescription": "Script helps you to list all external users in all SharePoint Online sites",
-    "products": [
-      "SharePoint"
-    ],
-    "categories": [
-      "Report"
-    ],
-    "tags": [
-      "SharePoint Online",
-      "Governance",
-      "External Users"
-    ],
-    "metadata": [
-      {
-        "key": "cli-for-microsoft365",
-        "value": "3.7.0"
-      }
-    ],
-    "thumbnails": [
-      {
-        "type": "image",
-        "order": 100,
-        "url": "spo-list-site-externalusers/assets/preview.png",
-        "alt": "preview image for the sample"
-      }
-    ],
-    "authors": [
-      {
-        "name": "Albert-Jan Schot",
-        "gitHubAccount": "appieschot",
-        "company": "@portiva",
-        "pictureUrl": "https://avatars.githubusercontent.com/u/15227781?v=4"
-      }
-    ]
-  },
-  {
-    "name": "fetch-user-profile-properties",
-    "source": "pnp",
-    "title": "Fetch User Profile Properties From Site Collection And Export To CSV",
-    "url": "fetch-user-profile-properties/README.html",
-    "creationDateTime": "2021-03-24T00:00:00",
-    "updateDateTime": "2021-03-24T00:00:00",
-    "shortDescription": "Get users or user profile properties from any SharePoint site collection and we need it in CSV or Excel format",
-    "longDescription": [
-      ""
-    ],
-    "products": [
-      "SharePoint"
-    ],
-    "categories": [
-      "Report"
-    ],
-    "metadata": [
-      {
-        "key": "PnP-PowerShell",
-        "value": "1.5.0"
-      }
-    ],
-    "thumbnails": [
-      {
-        "type": "image",
-        "order": 100,
-        "url": "fetch-user-profile-properties/assets/preview.png",
-        "alt": ""
-      }
-    ],
-    "authors": [
-      {
-        "name": "Chandani Prajapati",
-        "gitHubAccount": "chandaniprajapati",
-        "pictureUrl": "https://avatars.githubusercontent.com/u/52065929?v=4"
-      }
-    ]
-  },
-  {
-    "name": "teams-list-all-tabs-teams",
-    "source": "pnp",
-    "title": "List all tabs in Microsoft Teams teams in the tenant",
-    "url": "teams-list-all-tabs-teams/README.html",
-    "creationDateTime": "2021-02-06T00:00:00",
-    "updateDateTime": "2021-02-06T00:00:00",
-    "shortDescription": "List all tabs in Microsoft Teams teams in the tenant and exports the results in a CSV",
-    "products": [
-      "Teams"
-    ],
-    "categories": [
-      "Report"
-    ],
-    "tags": [
-      "Microsoft Teams",
-      "Governance"
-    ],
-    "metadata": [
-      {
-        "key": "cli-for-microsoft365",
-        "value": "3.7.0"
-      }
-    ],
-    "thumbnails": [
-      {
-        "type": "image",
-        "order": 100,
-        "url": "teams-list-all-tabs-teams/assets/preview.png",
-        "alt": "preview image for the sample"
-      }
-    ],
-    "authors": [
-      {
-        "name": "Veronique Lengelle",
-        "gitHubAccount": "veronicageek",
-        "pictureUrl": "https://avatars.githubusercontent.com/u/25181757?v=4"
-      },
-      {
-        "name": "Patrick Lamber",
-        "gitHubAccount": "plamber",
-        "company": "Expertsinside AG",
-        "pictureUrl": "https://avatars.githubusercontent.com/u/18241305?v=4"
-      }
-    ]
-  },
-  {
-    "name": "create-comm-sites-specific-locale",
-    "source": "pnp",
-    "title": "Create Modern Sites as alternative primary language",
-    "url": "create-comm-sites-specific-locale/README.html",
-    "creationDateTime": "2021-05-11T00:00:00",
-    "updateDateTime": "2021-05-11T00:00:00",
-    "shortDescription": "Create a modern site in another language as the primary language",
-    "longDescription": [
-      "This script will show you how by creating a modern site with the primary language set to a language other than English."
-    ],
-    "products": [
-      "SharePoint"
-    ],
-    "categories": [
-      "Provision"
-    ],
-    "metadata": [
-      {
-        "key": "PnP-PowerShell",
-        "value": "1.5.0"
-      }
-    ],
-    "thumbnails": [
-      {
-        "type": "image",
-        "order": 100,
-        "url": "create-comm-sites-specific-locale/assets/preview.png",
-        "alt": "Preview of the resulting site as another language"
-      }
-    ],
-    "authors": [
-      {
-        "name": "Paul Bullock",
-        "gitHubAccount": "pkbullock",
-        "company": "CaPa Creative Ltd",
-        "pictureUrl": "https://avatars.githubusercontent.com/u/8781041?v=4"
-      }
-    ]
-  },
-  {
-    "name": "aad-replace-owner-with-a-different-one",
-    "source": "pnp",
-    "title": "Replace an owner in a Microsoft 365 Group or Microsoft Team",
-    "url": "aad-replace-owner-with-a-different-one/README.html",
-    "creationDateTime": "2021-05-04T00:00:00",
-    "updateDateTime": "2021-05-04T00:00:00",
-    "shortDescription": "Find all the Microsoft 365 Groups that a user is an Owner of and replace them with someone",
-    "products": [
-      "AzureAD",
-      "Teams"
-    ],
-    "categories": [
-      "Configure"
-    ],
-    "tags": [
-      "Microsoft 365 Groups",
-      "Microsoft Teams",
-      "Governance"
-    ],
-    "metadata": [
-      {
-        "key": "cli-for-microsoft365",
-        "value": "3.7.0"
-      }
-    ],
-    "thumbnails": [
-      {
-        "type": "image",
-        "order": 100,
-        "url": "aad-replace-owner-with-a-different-one/assets/preview.png",
-        "alt": "preview image for the sample"
-      }
-    ],
-    "authors": [
-      {
-        "name": "Patrick Lamber",
-        "gitHubAccount": "plamber",
-        "company": "Expertsinside AG",
-        "pictureUrl": "https://avatars.githubusercontent.com/u/18241305?v=4"
-      },
-      {
-        "name": "Alan Eardley",
-        "gitHubAccount": "al-eardley",
-        "company": "Microsoft",
-        "pictureUrl": "https://avatars.githubusercontent.com/u/10485065?v=4"
-      }
-    ]
-  },
-  {
-    "name": "spo-delete-non-group-connected-modern-sites",
-    "source": "pnp",
-    "title": "Delete all (non-group connected) modern SharePoint sites",
-    "url": "spo-delete-non-group-connected-modern-sites/README.html",
-    "creationDateTime": "2021-01-16T00:00:00",
-    "updateDateTime": "2021-01-16T00:00:00",
-    "shortDescription": "This script handles deletion of remaining modern non-group sites: communication sites and groupless team sites",
-    "products": [
-      "SharePoint"
-    ],
-    "categories": [
-      "Deploy"
-    ],
-    "tags": [
-      "SharePoint Online",
-      "Microsoft 365 groups",
-      "bash"
-    ],
-    "metadata": [
-      {
-        "key": "cli-for-microsoft365",
-        "value": "3.7.0"
-      }
-    ],
-    "thumbnails": [
-      {
-        "type": "image",
-        "order": 100,
-        "url": "spo-delete-non-group-connected-modern-sites/assets/preview.png",
-        "alt": "preview image for the sample"
-      }
-    ],
-    "authors": [
-      {
-        "name": "Laura Kokkarinen",
-        "gitHubAccount": "LauraKokkarinen",
-        "company": "Sulava",
-        "pictureUrl": "https://avatars.githubusercontent.com/u/41330990?v=4"
-      }
-    ]
-  },
-  {
-    "name": "teams-remove-wikitab-teams",
-    "source": "pnp",
-    "title": "Remove Wiki tab in a Microsoft Teams channel",
-    "url": "teams-remove-wikitab-teams/README.html",
-    "creationDateTime": "2020-08-23T00:00:00",
-    "updateDateTime": "2020-08-23T00:00:00",
-    "shortDescription": "Removes the wiki tab of a Microsoft Teams Team's channel",
-    "products": [
-      "Teams"
-    ],
-    "categories": [
-      "Configure"
-    ],
-    "tags": [
-      "Microsoft Teams",
-      "bash"
-    ],
-    "metadata": [
-      {
-        "key": "cli-for-microsoft365",
-        "value": "3.7.0"
-      }
-    ],
-    "thumbnails": [
-      {
-        "type": "image",
-        "order": 100,
-        "url": "teams-remove-wikitab-teams/assets/preview.png",
-        "alt": "preview image for the sample"
-      }
-    ],
-    "authors": [
-      {
-        "name": "Rabia Williams",
-        "gitHubAccount": "rabwill",
-        "company": "Microsoft",
-        "pictureUrl": "https://avatars.githubusercontent.com/u/20379311?v=4"
-      },
-      {
-        "name": "Laura Kokkarinen",
-        "gitHubAccount": "LauraKokkarinen",
-        "company": "Sulava",
-        "pictureUrl": "https://avatars.githubusercontent.com/u/41330990?v=4"
-      },
-      {
-        "name": "Garry Trinder",
-        "gitHubAccount": "garrytrinder",
-        "company": "@cpsglobal",
-        "pictureUrl": "https://avatars.githubusercontent.com/u/11563347?v=4"
-      }
-    ]
-  },
-  {
-    "name": "spo-add-app-catalog",
-    "source": "pnp",
-    "title": "Add App Catalog to SharePoint site",
-    "url": "spo-add-app-catalog/README.html",
-    "creationDateTime": "2021-05-11T00:00:00",
-    "updateDateTime": "2021-05-11T00:00:00",
-    "shortDescription": "Deploy certain SharePoint solution to a specific site",
-    "longDescription": [
-      "hen you just want to deploy certain SharePoint solution to a specific site, it's required to create an app catalog for that site."
-    ],
-    "products": [
-      "SharePoint"
-    ],
-    "categories": [
-      "Deploy",
-      "Configure"
-    ],
-    "metadata": [
-      {
-        "key": "cli-for-microsoft365",
-        "value": "3.7.0"
-      },
-      {
-        "key": "PnP-PowerShell",
-        "value": "1.5.0"
-      }
-    ],
-    "thumbnails": [
-      {
-        "type": "image",
-        "order": 100,
-        "url": "spo-add-app-catalog/assets/preview.png",
-        "alt": "This sample does not contain a preview image"
-      }
-    ],
-    "authors": [
-      {
-        "name": "David Ramalho",
-        "gitHubAccount": "",
-        "company": "SharePoint Tricks",
-        "pictureUrl": "https://i1.wp.com/pbs.twimg.com/profile_images/1060671490847326208/zyudunZr_200x200.jpg?zoom=1.25&ssl=1"
-      },
-      {
-        "name": "Paul Bullock",
-        "gitHubAccount": "pkbullock",
-        "company": "CaPa Creative Ltd",
-        "pictureUrl": "https://avatars.githubusercontent.com/u/8781041?v=4"
-      }
-    ],
-    "references": [
-      {
-        "name": "Sample first appeared on SPO Add App Catalog",
-        "description": "",
-        "url": "https://pnp.github.io/cli-microsoft365/sample-scripts/spo/add-app-catalog/"
-      }
-    ]
-  },
-  {
     "name": "aad-manage-group-users",
     "source": "pnp",
     "title": "Bulk add/remove users to Microsoft Teams and Microsoft 365 Groups",
@@ -2564,6 +2175,395 @@
         "gitHubAccount": "sebastienlevert",
         "company": "Microsoft",
         "pictureUrl": "https://avatars.githubusercontent.com/u/7620955?v=4"
+      }
+    ]
+  },
+  {
+    "name": "spo-ensure-siteassets-library",
+    "source": "pnp",
+    "title": "Ensure the Site Assets Library is created",
+    "url": "spo-ensure-siteassets-library/README.html",
+    "creationDateTime": "2020-09-04T00:00:00",
+    "updateDateTime": "2020-09-04T00:00:00",
+    "shortDescription": "Ensuring when creating a new modern SharePoint site using the CLI/REST API that the Site Assets library is created",
+    "products": [
+      "SharePoint"
+    ],
+    "categories": [
+      "Deploy"
+    ],
+    "tags": [],
+    "metadata": [
+      {
+        "key": "cli-for-microsoft365",
+        "value": "3.7.0"
+      }
+    ],
+    "thumbnails": [
+      {
+        "type": "image",
+        "order": 100,
+        "url": "spo-ensure-siteassets-library/assets/preview.png",
+        "alt": "preview image for the sample"
+      }
+    ],
+    "authors": [
+      {
+        "name": "Phillip Allan-Harding",
+        "gitHubAccount": "phillipharding",
+        "pictureUrl": "https://avatars.githubusercontent.com/u/7671418?v=4"
+      }
+    ]
+  },
+  {
+    "name": "spo-copy-files-to-another-library",
+    "source": "pnp",
+    "title": "Copy files to another SharePoint Library in another site",
+    "url": "spo-copy-files-to-another-library/README.html",
+    "creationDateTime": "2021-04-20T00:00:00",
+    "updateDateTime": "2021-04-20T00:00:00",
+    "shortDescription": "Copy all files and folders from source library to a different library in different SharePoint site ",
+    "products": [
+      "SharePoint"
+    ],
+    "categories": [
+      "Data"
+    ],
+    "tags": [
+      "SharePoint Online",
+      "Files"
+    ],
+    "metadata": [
+      {
+        "key": "cli-for-microsoft365",
+        "value": "3.7.0"
+      }
+    ],
+    "thumbnails": [
+      {
+        "type": "image",
+        "order": 100,
+        "url": "spo-copy-files-to-another-library/assets/preview.png",
+        "alt": "preview image for the sample"
+      }
+    ],
+    "authors": [
+      {
+        "name": "Adam Wójcik",
+        "gitHubAccount": "Adam-it",
+        "pictureUrl": "https://avatars.githubusercontent.com/u/58668583?v=4"
+      },
+      {
+        "name": "Veronique Lengelle",
+        "gitHubAccount": "veronicageek",
+        "pictureUrl": "https://avatars.githubusercontent.com/u/25181757?v=4"
+      },
+      {
+        "name": "Garry Trinder",
+        "gitHubAccount": "garrytrinder",
+        "company": "@cpsglobal",
+        "pictureUrl": "https://avatars.githubusercontent.com/u/11563347?v=4"
+      }
+    ]
+  },
+  {
+    "name": "spo-list-site-externalusers",
+    "source": "pnp",
+    "title": "List all external users in all site collections",
+    "url": "spo-list-site-externalusers/README.html",
+    "creationDateTime": "2021-03-15T00:00:00",
+    "updateDateTime": "2021-03-15T00:00:00",
+    "shortDescription": "Script helps you to list all external users in all SharePoint Online sites",
+    "products": [
+      "SharePoint"
+    ],
+    "categories": [
+      "Report"
+    ],
+    "tags": [
+      "SharePoint Online",
+      "Governance",
+      "External Users"
+    ],
+    "metadata": [
+      {
+        "key": "cli-for-microsoft365",
+        "value": "3.7.0"
+      }
+    ],
+    "thumbnails": [
+      {
+        "type": "image",
+        "order": 100,
+        "url": "spo-list-site-externalusers/assets/preview.png",
+        "alt": "preview image for the sample"
+      }
+    ],
+    "authors": [
+      {
+        "name": "Albert-Jan Schot",
+        "gitHubAccount": "appieschot",
+        "company": "@portiva",
+        "pictureUrl": "https://avatars.githubusercontent.com/u/15227781?v=4"
+      }
+    ]
+  },
+  {
+    "name": "fetch-user-profile-properties",
+    "source": "pnp",
+    "title": "Fetch User Profile Properties From Site Collection And Export To CSV",
+    "url": "fetch-user-profile-properties/README.html",
+    "creationDateTime": "2021-03-24T00:00:00",
+    "updateDateTime": "2021-03-24T00:00:00",
+    "shortDescription": "Get users or user profile properties from any SharePoint site collection and we need it in CSV or Excel format",
+    "longDescription": [
+      ""
+    ],
+    "products": [
+      "SharePoint"
+    ],
+    "categories": [
+      "Report"
+    ],
+    "metadata": [
+      {
+        "key": "PnP-PowerShell",
+        "value": "1.5.0"
+      }
+    ],
+    "thumbnails": [
+      {
+        "type": "image",
+        "order": 100,
+        "url": "fetch-user-profile-properties/assets/preview.png",
+        "alt": ""
+      }
+    ],
+    "authors": [
+      {
+        "name": "Chandani Prajapati",
+        "gitHubAccount": "chandaniprajapati",
+        "pictureUrl": "https://avatars.githubusercontent.com/u/52065929?v=4"
+      }
+    ]
+  },
+  {
+    "name": "teams-add-bulk-users-teams",
+    "source": "pnp",
+    "title": "Bulk add members to Microsoft Teams team from CSV file",
+    "url": "teams-add-bulk-users-teams/README.html",
+    "creationDateTime": "2021-04-16T00:00:00",
+    "updateDateTime": "2021-04-16T00:00:00",
+    "shortDescription": "This script will add users in existing Microsoft Teams teams from your .csv file",
+    "products": [
+      "Teams"
+    ],
+    "categories": [
+      "Provision"
+    ],
+    "tags": [
+      "Teams",
+      "Provisioning"
+    ],
+    "metadata": [
+      {
+        "key": "cli-for-microsoft365",
+        "value": "3.7.0"
+      }
+    ],
+    "thumbnails": [
+      {
+        "type": "image",
+        "order": 100,
+        "url": "teams-add-bulk-users-teams/assets/preview.png",
+        "alt": "preview image for the sample"
+      }
+    ],
+    "authors": [
+      {
+        "name": "Veronique Lengelle",
+        "gitHubAccount": "veronicageek",
+        "pictureUrl": "https://avatars.githubusercontent.com/u/25181757?v=4"
+      }
+    ]
+  },
+  {
+    "name": "aad-flag-groups-with-user-names",
+    "source": "pnp",
+    "title": "Scan for Microsoft 365 Groups created with user's first or last name",
+    "url": "aad-flag-groups-with-user-names/README.html",
+    "creationDateTime": "2020-08-23T00:00:00",
+    "updateDateTime": "2020-08-23T00:00:00",
+    "shortDescription": "This sample script scans the Microsoft 365 groups that may contain user's first or last name as the group mail",
+    "products": [
+      "AzureAD",
+      "Office"
+    ],
+    "categories": [
+      "Report"
+    ],
+    "tags": [
+      "Microsoft 365 Group",
+      "Governance",
+      "bash"
+    ],
+    "metadata": [
+      {
+        "key": "cli-for-microsoft365",
+        "value": "3.7.0"
+      }
+    ],
+    "thumbnails": [
+      {
+        "type": "image",
+        "order": 100,
+        "url": "aad-flag-groups-with-user-names/assets/preview.png",
+        "alt": "preview image for the sample"
+      }
+    ],
+    "authors": [
+      {
+        "name": "Joseph Velliah",
+        "gitHubAccount": "sprider",
+        "pictureUrl": "https://avatars.githubusercontent.com/u/21008316?v=4"
+      }
+    ]
+  },
+  {
+    "name": "spo-list-tenant-wide-extensions",
+    "source": "pnp",
+    "title": "List all tenant-wide extensions",
+    "url": "spo-list-tenant-wide-extensions/README.html",
+    "creationDateTime": "2020-08-23T00:00:00",
+    "updateDateTime": "2020-08-23T00:00:00",
+    "shortDescription": "Script lists all tenant-wide extensions deployed in the tenant",
+    "products": [
+      "SharePoint"
+    ],
+    "categories": [
+      "Report"
+    ],
+    "tags": [
+      "SharePoint Online",
+      "Tenant Wide Extension",
+      "bash"
+    ],
+    "metadata": [
+      {
+        "key": "cli-for-microsoft365",
+        "value": "3.7.0"
+      }
+    ],
+    "thumbnails": [
+      {
+        "type": "image",
+        "order": 100,
+        "url": "spo-list-tenant-wide-extensions/assets/preview.png",
+        "alt": "preview image for the sample"
+      }
+    ],
+    "authors": [
+      {
+        "name": "Shantha Kumar T",
+        "gitHubAccount": "ktskumar",
+        "pictureUrl": "https://avatars.githubusercontent.com/u/34408892?v=4"
+      }
+    ]
+  },
+  {
+    "name": "spo-monitor-site-collection-storage-usage",
+    "source": "pnp",
+    "title": "Monitor Site Collections Storage Usage",
+    "url": "spo-monitor-site-collection-storage-usage/README.html",
+    "creationDateTime": "2021-04-26T00:00:00",
+    "updateDateTime": "2021-04-26T00:00:00",
+    "shortDescription": "Monitor Site Collections storage usage and send an email with sites over the designated storage threshold.",
+    "products": [
+      "SharePoint"
+    ],
+    "categories": [
+      "Report"
+    ],
+    "tags": [
+      "SharePoint Online",
+      "Governance"
+    ],
+    "metadata": [
+      {
+        "key": "cli-for-microsoft365",
+        "value": "3.7.0"
+      }
+    ],
+    "thumbnails": [
+      {
+        "type": "image",
+        "order": 100,
+        "url": "spo-monitor-site-collection-storage-usage/assets/preview.png",
+        "alt": "preview image for the sample"
+      }
+    ],
+    "authors": [
+      {
+        "name": "Veronique Lengelle",
+        "gitHubAccount": "veronicageek",
+        "pictureUrl": "https://avatars.githubusercontent.com/u/25181757?v=4"
+      }
+    ]
+  },
+  {
+    "name": "graph-call-graph",
+    "source": "pnp",
+    "title": "Authenticate with and call the Microsoft Graph",
+    "url": "graph-call-graph/README.html",
+    "creationDateTime": "2021-08-23T00:00:00",
+    "updateDateTime": "2021-05-11T00:00:00",
+    "shortDescription": "Obtain a new access token for the Microsoft Graph and use it an HTTP request, or connect to the Graph",
+    "longDescription": [
+      ""
+    ],
+    "products": [
+      "Graph"
+    ],
+    "categories": [
+      "Configure"
+    ],
+    "tags": [
+      "bash"
+    ],
+    "metadata": [
+      {
+        "key": "cli-for-microsoft365",
+        "value": "3.7.0"
+      },
+      {
+        "key": "pnp-powerShell",
+        "value": "1.5.0"
+      },
+      {
+        "key": "graph-powerShell",
+        "value": "1.0.0"
+      }
+    ],
+    "thumbnails": [
+      {
+        "type": "image",
+        "order": 100,
+        "url": "graph-call-graph/assets/preview.png",
+        "alt": "Image of the result of calling the graph"
+      }
+    ],
+    "authors": [
+      {
+        "name": "Garry Trinder",
+        "gitHubAccount": "garrytrinder",
+        "company": "",
+        "pictureUrl": "https://avatars.githubusercontent.com/u/11563347?v=4"
+      },
+      {
+        "name": "Paul Bullock",
+        "gitHubAccount": "pkbullock",
+        "company": "CaPa Creative Ltd",
+        "pictureUrl": "https://avatars.githubusercontent.com/u/8781041?v=4"
       }
     ]
   }
