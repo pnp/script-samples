@@ -5,11 +5,23 @@ If you'd like to contribute to this repository, please read the following guidel
 > [!NOTE]
 > The repository can be found at [https://github.com/pnp/script-samples](https://github.com/pnp/script-samples)
 
+## How can I contribute
+
+There are ways to contribute:
+
+* Create a scenario e.g. Upload a document to SharePoint, then add your script to the scenario
+* Extend an existing scenario that does NOT have an example for the tool e.g. a scenario containing only CLI for Microsoft 365 sample, you can submit an updated scenario with a PnP PowerShell equivalent
+* Logging an [issue in GitHub](https://github.com/pnp/script-samples/issues) if you have feedback about the site or samples
+
+To get started quickly, check out the [Preparing a submission guide](preparing-a-submission.md)
+
+> *Please register your idea in the issue list and assign to yourself, there maybe others considering similar scripts.*
+
 ## Code of Conduct
 
 This project has adopted the [Microsoft Open Source Code of Conduct](https://opensource.microsoft.com/codeofconduct/).
 For more information, see the [Code of Conduct FAQ](https://opensource.microsoft.com/codeofconduct/faq/) or contact [opencode@microsoft.com](mailto:opencode@microsoft.com) with any additional questions or comments.
- 
+
 **Remember that this repository is maintained by community members who volunteer their time to help. Be courteous and patient.**
 
 ## Signing the CLA
