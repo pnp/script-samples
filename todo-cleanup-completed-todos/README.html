@@ -1,0 +1,184 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html lang="en">
+  
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Cleanup completed Microsoft To Do tasks | PnP Samples </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Cleanup completed Microsoft To Do tasks | PnP Samples ">
+    <meta name="generator" content="docfx 2.56.7.0">
+    <meta name="description" content="A sample gallery of scripts to manage all things Microsoft 365.">
+    <link rel="shortcut icon" href="https://c.s-microsoft.com/favicon.ico?v2">
+    <link rel="stylesheet" href="../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../styles/docfx.css">
+    <link rel="stylesheet" href="../styles/main.css">
+    <link rel="stylesheet" href="../styles/extra.css">
+    <link rel="stylesheet" href="../styles/filter.css">
+    <link rel="stylesheet" href="../styles/site.css">
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet"> 
+    <meta property="docfx:navrel" content="../toc.html">
+    <meta property="docfx:tocrel" content="../toc.html">
+    
+    
+    <meta property="docfx:newtab" content="true">
+  </head>  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../assets/logo.svg" alt="">
+              </a>    </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <label class="glyphicon glyphicon-search" for="search-query"></label>
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>      </header>
+      <div role="main" class="container body-content hide-when-search">
+        <div class="article row grid">
+          <div class="col-md-12">
+            <article class="content wrap" id="_content" data-uid="">
+                  <div class="contribution-panel mobile-hide pull-right">
+                      <a href="https://github.com/pnp/script-samples/blob/main/scripts/todo-cleanup-completed-todos/README.md/#L1" title="Improve this Doc" class="improve-doc-lg"><i class="glyphicon glyphicon-pencil"></i></a>
+                  </div>
+                    <h1 id="cleanup-completed-microsoft-to-do-tasks">Cleanup completed Microsoft To Do tasks</h1>
+
+<h2 id="summary">Summary</h2>
+<p>Microsoft To Do is my task management tool of choice, I use it for tracking everything I do, which means I generate and complete a lot of tasks during a working week.
+This script iterates across all of the task lists and removes the tasks that have been marked as complete.</p>
+<div class="WARNING">
+<h5>Warning</h5>
+<p>Please be aware this script contains a command that will remove or delete an artefact, ensure you test and understand the implications of running the script.</p>
+</div>
+<div class="tabGroup" id="tabgroup_CeZOj-G++Q">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_CeZOj-G++Q_cli-m365-ps" role="tab" aria-controls="tabpanel_CeZOj-G++Q_cli-m365-ps" data-tab="cli-m365-ps" tabindex="0" aria-selected="true">CLI for Microsoft 365 with PowerShell</a>
+</li>
+<li role="presentation">
+<a href="#tabpanel_CeZOj-G++Q_m365cli-bash" role="tab" aria-controls="tabpanel_CeZOj-G++Q_m365cli-bash" data-tab="m365cli-bash" tabindex="-1">Microsoft 365 CLI with Bash</a>
+</li>
+</ul>
+<section id="tabpanel_CeZOj-G++Q_cli-m365-ps" role="tabpanel" data-tab="cli-m365-ps"><button class="article-clipboard" title="Copy to clipboard" data-toggle="tooltip" data-placement="top" data-clipboard-target="section[id^='tabpanel'][data-tab='cli-m365-ps'] pre">
+    <span class="glyphicon glyphicon-copy" aria-hidden="true"></span>
+    <span class="article-clipboard__message done">Copied</span>
+</button>
+
+<pre><code class="lang-powershell">Write-Output &quot;Getting Microsoft To Do task lists ...&quot;
+$lists = m365 todo list list -o json | ConvertFrom-Json
+
+Write-Output &quot;Iterating Microsoft To Do task lists ...&quot;
+$lists | ForEach-Object { 
+    $listId = $_.Id
+    
+    Write-Output &quot;Getting completed tasks from '$($_.displayName)' task list ...&quot;
+    $tasks = m365 todo task list --listId $listId -o json --query '[?status==`completed`]' | ConvertFrom-Json
+    Write-Output &quot;$($tasks.Count) completed tasks found ...&quot;
+
+    $tasks | ForEach-Object {
+        Write-Output &quot;Removing '$($_.Title)' task ...&quot;
+        m365 todo task remove --listId $listId --id $_.Id --confirm
+    }
+}
+
+Write-Output &quot;Done&quot;
+</code></pre>
+<div class="highlight-tool">
+<p>Check out the <strong>CLI for Microsoft 365</strong> to learn more at: <a href="https://aka.ms/cli-m365">https://aka.ms/cli-m365</a></p>
+</div>
+</section>
+<section id="tabpanel_CeZOj-G++Q_m365cli-bash" role="tabpanel" data-tab="m365cli-bash" aria-hidden="true" hidden="hidden"><button class="article-clipboard" title="Copy to clipboard" data-toggle="tooltip" data-placement="top" data-clipboard-target="section[id^='tabpanel'][data-tab='m365cli-bash'] pre">
+    <span class="glyphicon glyphicon-copy" aria-hidden="true"></span>
+    <span class="article-clipboard__message done">Copied</span>
+</button>
+
+<pre><code class="lang-bash">#!/usr/bin/env bash
+# -*- coding: utf-8 -*- 
+
+echo &quot;Getting Microsoft To Do task lists ...&quot;
+strListIds=`m365 todo list list --query '[].id'`
+arrListIds=($strListIds)
+
+echo &quot;Iterating Microsoft To Do task lists ...&quot;
+for strlistId in &quot;${arrListIds[@]}&quot;; do
+    echo &quot;Getting completed tasks from '${strlistId}' task list ...&quot;
+    strTaskIds=$(m365 todo task list --listId &quot;${strlistId}&quot; --query '[?status==`completed`].id')
+    arrTaskIds=($strTaskIds)
+    strCount=${#arrTaskIds[@]}
+    echo &quot;${strCount} completed tasks found ...&quot;    
+    for strTaskId in &quot;${arrTaskIds[@]}&quot;; do
+        echo &quot;Removing '${strTaskId}' task ...&quot;
+        m365 todo task remove --listId &quot;${strlistId}&quot; --id &quot;$strTaskId&quot; --confirm
+    done
+done
+
+echo &quot;Done&quot;
+</code></pre>
+<div class="highlight-tool">
+<p>Check out the <strong>CLI for Microsoft 365</strong> to learn more at: <a href="https://aka.ms/cli-m365">https://aka.ms/cli-m365</a></p>
+</div>
+</section>
+</div>
+<h2 id="source-credit">Source Credit</h2>
+<p>Sample first appeared on <a href="https://pnp.github.io/cli-microsoft365/sample-scripts/todo/cleanup-completed-todos/">Cleanup completed Microsoft To Do tasks | CLI for Microsoft 365</a></p>
+<h2 id="contributors">Contributors</h2>
+<table>
+<thead>
+<tr>
+<th>Author(s)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Garry Trinder</td>
+</tr>
+</tbody>
+</table>
+<h2 id="disclaimer">Disclaimer</h2>
+<p><strong>THESE SAMPLES ARE PROVIDED <em>AS IS</em> WITHOUT WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, INCLUDING ANY IMPLIED WARRANTIES OF FITNESS FOR A PARTICULAR PURPOSE, MERCHANTABILITY, OR NON-INFRINGEMENT.</strong></p>
+<img src="https://telemetry.sharepointpnp.com/script-samples/scripts/todo-cleanup-completed-todos" aria-hidden="true">
+</article>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            <span>Script Samples<br>Generated by <strong><a href='https://dotnet.github.io/docfx' alt='Doc FX Website'>DocFX</a></strong> with <strong><a href='https://ovasquez.github.io/docfx-material' alt='DocFx Material Theme'>Material UI</a></strong></span>
+            
+            <!-- <img src="https://telemetry.sharepointpnp.com/@pnp.github.io/index/" alt="spacer"> -->
+          </div>
+        </div>
+      </footer>    </div>
+    
+    <script type="text/javascript" src="../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+    
+    <script type="text/javascript" src="../styles/clipboard.min.js"></script>
+    <script type="text/javascript" src="../styles/isotope.pkgd.min.js"></script>
+    <script type="text/javascript" src="../styles/loadsamples.js"></script>
+    <script type="text/javascript" src="../styles/filtersamples.js"></script>
+
+  </body>
+</html>
