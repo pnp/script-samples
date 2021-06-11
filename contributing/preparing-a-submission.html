@@ -69,24 +69,7 @@
 <h2 id="markdown">Markdown</h2>
 <p>This repository uses a text based markup called &quot;Markdown&quot; which allows you to write articles/pages quickly without having to worry about the presentation of the page. Even this page is written using this - we use a site generator to turn this into a page automatically.</p>
 <p>If you want to learn more about Markdown checkout this guide by Bob German on Tech Community - <a href="https://techcommunity.microsoft.com/t5/microsoft-365-pnp-blog/what-s-up-with-markdown/ba-p/2323834">What's up with Markdown?</a></p>
-<h3 id="key-elements-of-markdown-we-use">Key elements of Markdown we use</h3>
-<pre><code class="lang-markdown">
-# Heading 1
-## Heading 2
-### Heading 3
-
-
-| Table Header |
-|--------------|
-| Table Data   |
-
-
-[Hyperlink](https://bing.co.uk)
-
-![Image](../../assets/contributing/image.png)
-
-</code></pre>
-<h3 id="page-structure">Page Structure</h3>
+<h2 id="page-structure">Page Structure</h2>
 <p>The page follows a standard format, we have created a graphic to explain the layout and the markdown for each section:</p>
 <div class="full-image-size">
 <p><img src="../assets/contributing/page-layouts.png" alt="Page Layouts and Markdown"></p>
@@ -100,6 +83,57 @@
 <li><strong>Contributors</strong> - your name, or if a joint submission those you have worked with - so that we can attribute credit for the submission.</li>
 </ul>
 <p>We add the disclaimer statement at the bottom.</p>
+<h2 id="key-elements-of-markdown-we-use">Key elements of Markdown we use</h2>
+<pre><code class="lang-markdown">
+# Heading 1
+## Heading 2
+### Heading 3
+
+
+| Table Header |
+|--------------|
+| Table Data   |
+
+
+[Hyperlink](https://bing.co.uk)
+
+![Example Screenshot](assets/example.png)
+
+</code></pre>
+<h3 id="tabs-containing-scripts">Tabs containing scripts</h3>
+<p>Each tab contains the sample for the scripts named under a specific tool. Use the following markdown to contain the script in the tab:</p>
+<pre><code class="lang-markdown">
+# [PnP PowerShell](#tab/pnpps)
+``powershell
+    Your-PowerShellScript
+``
+
+# [CLI for Microsoft 365 using PowerShell](#tab/cli-m365-ps)
+`` powershell
+    Your-PowerShellScript
+``
+
+# [CLI for Microsoft 365 using Bash](#tab/cli-m365-bash)
+``bash
+    echo &quot;your bash script&quot;
+``
+
+# [Microsoft Graph PowerShell](#tab/graphps)
+``powershell
+    Your-PowerShellScript
+``
+
+</code></pre>
+<div class="NOTE">
+<h5>Note</h5>
+<ul>
+<li>Use three backticks around the script, not the two shown above</li>
+<li>Delete the tabs you do not need</li>
+</ul>
+</div>
+<p>We add an additional block to provide guidance back to the tool guiding site:</p>
+<pre><code class="lang-markdown">[!INCLUDE [More about CLI for Microsoft 365](../../docfx/includes/MORE-CLIM365.md)]
+</code></pre>
 <h2 id="submission-template-files">Submission Template Files</h2>
 <p>There is a template submission folder called &quot;template-script-submission&quot; in <a href="https://github.com/pnp/script-samples/tree/main/scripts/template-script-submission">template-script-submission | GitHub - PnP Script Samples</a>.</p>
 <p>Before you can submit, you need to make sure you are setup with a &quot;fork&quot; of the repository in your own account, please navigate to <a href="submitting-pull-requests.html">Submitting Pull Requests</a> for setup information.</p>
