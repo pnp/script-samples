@@ -72,4 +72,13 @@
     background-repeat: no-repeat;
 }
 
+.sample-thumbnail[data-products^="microsoft todo"] .sample-preview, 
+.sample-thumbnail[data-products^="microsoft to do"] .sample-preview, 
+.sample-thumbnail[data-products^="todo"] .sample-preview {
+    background-image: url(../assets/icons/custom/todo.svg);
+    background-size: 350px;
+    background-position: -73px -24px;
+    background-repeat: no-repeat;
+}
+
 /* //Data driven backgrounds */
