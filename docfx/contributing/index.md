@@ -13,6 +13,9 @@ There are ways to contribute:
 * Extend an existing scenario that does NOT have an example for the tool e.g. a scenario containing only CLI for Microsoft 365 sample, you can submit an updated scenario with a PnP PowerShell equivalent
 * Logging an [issue in GitHub](https://github.com/pnp/script-samples/issues) if you have feedback about the site or samples
 
+> [!div class="full-image-size"]
+> ![Ways to contribute](../assets/contributing/ways-to-contribute.png)
+
 To get started quickly, check out the [Preparing a submission guide](preparing-a-submission.md)
 
 > *Please register your idea in the issue list and assign to yourself, there maybe others considering similar scripts.*
