@@ -2,7 +2,7 @@
 plugin: add-to-gallery
 ---
 
-# Report of Private Teams to Excel
+# Report of Private Teams channels to Excel
 
 ## Summary
 
