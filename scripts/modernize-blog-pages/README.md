@@ -15,6 +15,8 @@ Converts all blog pages in a site, this includes:
 > [!note]
 > This script uses the older [SharePoint PnP PowerShell Online module](https://www.powershellgallery.com/packages/SharePointPnPPowerShellOnline/3.29.2101.0)
 
+![Example Screenshot](assets/modern-page.png)
+
 # [PnP PowerShell](#tab/pnpps)
 
 ```powershell
