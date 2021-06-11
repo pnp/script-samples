@@ -8,27 +8,7 @@ This repository uses a text based markup called "Markdown" which allows you to w
 
 If you want to learn more about Markdown checkout this guide by Bob German on Tech Community - [What's up with Markdown?](https://techcommunity.microsoft.com/t5/microsoft-365-pnp-blog/what-s-up-with-markdown/ba-p/2323834)
 
-### Key elements of Markdown we use
-
-```markdown
-
-# Heading 1
-## Heading 2
-### Heading 3
-
-
-| Table Header |
-|--------------|
-| Table Data   |
-
-
-[Hyperlink](https://bing.co.uk)
-
-![Image](../../assets/contributing/image.png)
-
-```
-
-### Page Structure
+## Page Structure
 
 The page follows a standard format, we have created a graphic to explain the layout and the markdown for each section:
 
@@ -44,6 +24,65 @@ The minimum we need for the submission is:
 - **Contributors** - your name, or if a joint submission those you have worked with - so that we can attribute credit for the submission.
 
 We add the disclaimer statement at the bottom.
+
+## Key elements of Markdown we use
+
+```markdown
+
+# Heading 1
+## Heading 2
+### Heading 3
+
+
+| Table Header |
+|--------------|
+| Table Data   |
+
+
+[Hyperlink](https://bing.co.uk)
+
+![Example Screenshot](assets/example.png)
+
+```
+
+### Tabs containing scripts
+
+Each tab contains the sample for the scripts named under a specific tool. Use the following markdown to contain the script in the tab:
+
+```markdown
+
+# [PnP PowerShell](#tab/pnpps)
+``powershell
+    Your-PowerShellScript
+``
+
+# [CLI for Microsoft 365 using PowerShell](#tab/cli-m365-ps)
+`` powershell
+    Your-PowerShellScript
+``
+
+# [CLI for Microsoft 365 using Bash](#tab/cli-m365-bash)
+``bash
+    echo "your bash script"
+``
+
+# [Microsoft Graph PowerShell](#tab/graphps)
+``powershell
+    Your-PowerShellScript
+``
+
+```
+
+> [!note]
+> * Use three backticks around the script, not the two shown above
+> * Delete the tabs you do not need
+
+
+We add an additional block to provide guidance back to the tool guiding site:
+
+```markdown
+[!INCLUDE [More about CLI for Microsoft 365](../../docfx/includes/MORE-CLIM365.md)]
+```
 
 ## Submission Template Files
 
