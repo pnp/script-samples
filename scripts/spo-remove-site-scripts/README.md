@@ -71,6 +71,32 @@ done
 ```
 [!INCLUDE [More about CLI for Microsoft 365](../../docfx/includes/MORE-CLIM365.md)]
 
+# [SPO Management Shell](#tab/spoms-ps)
+
+```powershell
+Connect-SPOService "https://contoso-admin.sharepoint.com"
+
+$keepThese = "Base Site Settings", "English Region", "Standard Site Columns", "Standard Libraries"
+$siteScripts = Get-SPOSiteScript
+$siteScripts = $siteScripts | Where-Object { -not ($keepThese -contains $_.Title)}
+
+if ($siteScripts.Count -eq 0) { break }
+
+$siteScripts | Format-Table Title, SiteScriptIds, Description
+Read-Host -Prompt "Press Enter to start deleting (CTRL + C to exit)"
+$progress = 0
+$total = $siteScripts.Count
+
+foreach ($siteScript in $siteScripts)
+{
+  $progress++
+  Write-Host $progress / $total":" $siteScript.Title
+  Remove-SPOSiteScript $siteScript.Id
+}
+```
+[!INCLUDE [More about SPO Management Shell](../../docfx/includes/MORE-SPOMS.md)]
+
+***
 
 ## Source Credit
 
@@ -81,6 +107,7 @@ Sample first appeared on [Delete custom SharePoint site scripts | CLI for Micros
 | Author(s) |
 |-----------|
 | Laura Kokkarinen |
+| Paul Bullock |
 
 
 [!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
