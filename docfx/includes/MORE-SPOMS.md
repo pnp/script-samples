@@ -1,0 +1,2 @@
+> [!div class="highlight-tool"] 
+> Check out the **SPO Management Shell** to learn more at: [Introduction SharePoint Online Management Shell | Microsoft Docs](https://docs.microsoft.com/en-us/powershell/sharepoint/sharepoint-online/introduction-sharepoint-online-management-shell?view=sharepoint-ps)

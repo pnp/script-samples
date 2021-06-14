@@ -37,7 +37,7 @@ Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Maecenas porttitor con
 
 ```bash
 
-<your powershell script>
+<your bash script>
 
 ```
 
@@ -51,6 +51,15 @@ Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Maecenas porttitor con
 
 ```
 [!INCLUDE [More about Microsoft Graph PowerShell SDK](../../docfx/includes/MORE-GRAPHSDK.md)]
+
+# [SPO Management Shell](#tab/spoms-ps)
+
+```powershell
+
+<your powershell script>
+
+```
+[!INCLUDE [More about SPO Management Shell](../../docfx/includes/MORE-SPOMS.md)]
 
 ***
 

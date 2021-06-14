@@ -34,6 +34,28 @@ Write-Host "Script Complete! :)" -ForegroundColor Green
 
 ```
 [!INCLUDE [More about PnP PowerShell](../../docfx/includes/MORE-PNPPS.md)]
+
+# [SPO Management Shell](#tab/spoms-ps)
+
+```powershell
+$adminUrl = "https://<tenant>-admin.sharepoint.com"
+$newSiteUrl = "https://<tenant>.sharepoint.com/sites/Pensaerniaeth" 
+$ownerEmail = "<your.name@your.email.com>"
+
+$siteTitle = "Pensaerniaeth"                # Translates to "Architecture" - Bing Translator
+$siteTemplate = "SITEPAGEPUBLISHING#0"      # Communication Site Template
+$lcid = 1106                                # Welsh
+$timeZone = 2                               # London
+$storageQuota = 1000
+
+Connect-SPOService $adminUrl
+New-SPOSite -Template $siteTemplate -Title $siteTitle -Url $newSiteUrl `
+        -LocaleId $lcid -Owner $ownerEmail -TimeZoneId $timeZone -StorageQuota $storageQuota
+
+Write-Host "Script Complete! :)" -ForegroundColor Green
+
+```
+[!INCLUDE [More about SPO Management Shell](../../docfx/includes/MORE-SPOMS.md)]
 ***
 
 To see a list of LCIDs, check out the sample [Generate Markdown Report of LCIDs](../generate-markdown-lcids/README.md) to see the full list
