@@ -10,8 +10,6 @@ Site designs and especially site scripts can be something that ends up just hang
  
 [!INCLUDE [Delete Warning](../../docfx/includes/DELETE-WARN.md)]
 
-![Example Screenshot](assets/example.png)
- 
 # [CLI for Microsoft 365 with PowerShell](#tab/cli-m365-ps)
 ```powershell
 $sparksjoy = "Project Site", "Issues List"

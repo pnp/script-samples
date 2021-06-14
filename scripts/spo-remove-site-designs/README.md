@@ -10,8 +10,6 @@ Site designs and especially site scripts can be something that ends up just hang
  
 [!INCLUDE [Delete Warning](../../docfx/includes/DELETE-WARN.md)]
 
-![Example Screenshot](assets/example.png)
- 
 # [CLI for Microsoft 365 with PowerShell](#tab/cli-m365-ps)
 ```powershell
 $sparksjoy = "Cat Lovers United", "Multicolored theme"
@@ -68,6 +66,31 @@ for sitedesign in "${sitedesignstoremove[@]}"; do
 done
 ```
 [!INCLUDE [More about CLI for Microsoft 365](../../docfx/includes/MORE-CLIM365.md)]
+
+# [SPO Management Shell](#tab/spoms-ps)
+```powershell
+Connect-SPOService "https://contoso-admin.sharepoint.com"
+
+$keepThese = "Register the new site", "Corporate Basic Site", "Corporate Internal Site"
+$siteDesigns = Get-SPOSiteDesign
+$siteDesigns = $siteDesigns | Where-Object { -not ($keepThese -contains $_.Title)}
+
+if ($siteDesigns.Count -eq 0) { break }
+
+$siteDesigns | Format-Table Title, SiteScriptIds, Description
+Read-Host -Prompt "Press Enter to start deleting (CTRL + C to exit)"
+$progress = 0
+$total = $siteDesigns.Count
+
+foreach ($siteScript in $siteDesigns)
+{
+  $progress++
+  Write-Host $progress / $total":" $siteScript.Title
+  Remove-SPOSiteDesign $siteScript.Id
+}
+```
+[!INCLUDE [More about SPO Management Shell](../../docfx/includes/MORE-SPOMS.md)]
+
 ***
 
 ## Source Credit
@@ -79,6 +102,7 @@ Sample first appeared on [Delete custom SharePoint site designs | CLI for Micros
 | Author(s) |
 |-----------|
 | Laura Kokkarinen |
+| Paul Bullock |
 
 
 [!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
