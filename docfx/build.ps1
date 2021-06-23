@@ -3,7 +3,7 @@
 $ErrorActionPreference = "Stop"
 Set-StrictMode -Version 2.0
 
-./main/docfx/report-matrix.ps1 -BaseDir "./main"
+./main/docfx/report-matrix.ps1 -BaseDir "./main" -ReportFile "./main/docfx/matrix.md"
 
 docfx build ./main/docfx/docfx.json --warningsAsErrors $args
 
