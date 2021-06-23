@@ -3,6 +3,8 @@
 $ErrorActionPreference = "Stop"
 Set-StrictMode -Version 2.0
 
+./main/docfx/report-matrix.ps1 -BaseDir "./main/docfx"
+
 docfx build ./main/docfx/docfx.json --warningsAsErrors $args
 
 # Copy the created site to the pnpcoredocs folder (= clone of the gh-pages branch)
