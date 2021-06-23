@@ -33,7 +33,7 @@ echo $appCatalogs | jq -r '.[].SPSiteURL'
 echo "Total count:" $(echo $appCatalogs | jq length)
 ```
 [!INCLUDE [More about CLI for Microsoft 365](../../docfx/includes/MORE-CLIM365.md)]
-
+***
 
 ## Source Credit
 

@@ -35,7 +35,7 @@ listId=$(m365 spo list get --webUrl $site -t "$listName" -o json | jq ".Id")
 m365 spo list set --webUrl $site -i $listId -t $listName --hidden true
 ```
 [!INCLUDE [More about CLI for Microsoft 365](../../docfx/includes/MORE-CLIM365.md)]
-
+***
 
 ## Source Credit
 
