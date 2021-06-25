@@ -45,6 +45,7 @@ Write-Host "$($files.Length) found"
 "|------|:--------:|:--------:|:----------:|:-----------:|:--------:|"  | Out-File $reportFile -Append
 
 $matrixRows = @()
+$sampleCount = 0
 
 $files | Foreach-Object {
 
@@ -65,12 +66,29 @@ $files | Foreach-Object {
 
 
     #Write-Host $content
-    if($content.Contains("#tab/pnpps")){  $PnPPS = $true  }
-    if($content.Contains("#tab/cli-m365-ps")){  $CLIPS = $true  }
+    if($content.Contains("#tab/pnpps")){  
+        $PnPPS = $true
+        $sampleCount++
+    }
+    if($content.Contains("#tab/cli-m365-ps")){  
+        $CLIPS = $true  
+        $sampleCount++
+    }
     if($content.Contains("#tab/cli-m365-bash") -or
-        $content.Contains("#tab/m365cli-bash")){ $CLIBash = $true }
-    if($content.Contains("#tab/graphps")){ $GraphSDK = $true }  
-    if($content.Contains("#tab/spoms-ps")){ $SPOMS = $true }
+        $content.Contains("#tab/m365cli-bash")){ 
+        
+        $CLIBash = $true 
+        $sampleCount++
+    }
+
+    if($content.Contains("#tab/graphps")){ 
+        $GraphSDK = $true
+        $sampleCount++
+    }  
+    if($content.Contains("#tab/spoms-ps")){ 
+        $SPOMS = $true
+        $sampleCount++
+    }
     
     $status = [PSCustomObject]@{
         Link = "[$($title)]($(ResolveLink $dirName))"
@@ -94,6 +112,6 @@ $matrixRows | ForEach-Object{
     $row | Out-File $reportFile -Append
 }
 
-"`nThere are **{0}** samples in the site | Generated: {1} `n" -f $matrixRows.Length, [System.DateTime]::Now.ToString("dd MMM yyyy hh:mm:ss") `
+"`nThere are **{0}** scenarios and **{1}** scripts in the site | Generated: {2} `n" -f $matrixRows.Length, $sampleCount, [System.DateTime]::Now.ToString("dd MMM yyyy hh:mm:ss") `
     | Out-File $reportFile -Append
 
