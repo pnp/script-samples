@@ -4,7 +4,8 @@
 param(
     [string]$BaseDir = "C:\Git\contrib\script-samples\",
     [string]$ScriptFolder = "scripts",
-    [string]$ReportFile = "matrix.md"
+    [string]$ReportFile = "matrix.md",
+    [string]$AssetsFolder = "assets"
 )
 
 function DispTick{
@@ -32,6 +33,28 @@ function ResolveLink{
     return $markdownLink
 }
 
+function GetTitleFromSampleJson{
+    param(
+        [string]$SamplePath,
+        [string]$DefaultReturn
+    )
+
+    try{
+        $assetsFolder = Join-Path -Path $SamplePath -ChildPath $AssetsFolder
+        $sampleFilePath = Join-Path -Path $assetsFolder -ChildPath "sample.json"
+
+        $json = Get-Content $sampleFilePath | ConvertFrom-Json
+
+        return $json.title
+
+    }catch{
+        # Swallow - this shouldnt happen
+        Write-Host "Warning cannot resolve title: $PSItem.Message"
+    }
+
+    return $DefaultReturn
+}
+
 # Check all pages for tabs and three ***
 
 $dir = Join-Path -Path $BaseDir -ChildPath $ScriptFolder
@@ -56,7 +79,7 @@ $files | Foreach-Object {
     }
 
     $content = Get-Content -Path $_.FullName -Raw
-    $title = $_.Directory.Name
+    $title = GetTitleFromSampleJson -SamplePath $_.Directory -DefaultReturn $_.Directory.Name
     $dirName = $_.Directory.Name 
     $PnPPS = $false
     $CLIPS = $false
