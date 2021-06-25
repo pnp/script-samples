@@ -7,8 +7,6 @@ plugin: add-to-gallery
 ## Summary
 sometimes users need to restore items from SharePoint recycle bin. This script allows them to undelete items from recycle bin and restore it in respective document library and list.
 
-[!INCLUDE [Delete Warning](../../docfx/includes/DELETE-WARN.md)]
-
 ![Example Screenshot](assets/example.png)
 
 # [PnP PowerShell](#tab/pnpps)
@@ -44,5 +42,5 @@ Connect-PnPOnline -Url  $siteUrl
 | [Dipen Shah](https://github.com/dips365) |
 
 
-
-
+[!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
+<img src="https://telemetry.sharepointpnp.com/script-samples/scripts/bulk-undelete-from-recyclebin" aria-hidden="true" />
