@@ -785,3 +785,30 @@ pre{
 p.sample-title {
   margin-top: 0.2em;
 }
+
+
+.producttype-item:first-child{
+  z-index: 50;
+}
+
+.producttype-item:nth-of-type(2),
+.producttype-item:not(:first-child) { 
+  margin-left: 40px;
+  z-index: 40;
+}
+
+.producttype-item:nth-of-type(3){
+  margin-left: 73px !important;
+  z-index: 30;
+}
+
+.producttype-item:nth-of-type(4){
+  margin-left: 96px !important;
+  z-index: 20;
+}
+
+.producttype-item{
+  -webkit-box-shadow: 4px 0px 6px 0px rgba(0, 0, 0, 0.05);
+  -moz-box-shadow: 4px 0px 6px 0px rgba(0, 0, 0, 0.05);
+  box-shadow: 4px 0px 6px 0px rgba(0, 0, 0, 0.05);
+}
