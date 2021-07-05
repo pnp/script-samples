@@ -143,7 +143,7 @@ After that we specify the section, column and order of where the web part is on 
         Disconnect-PnPOnline;
     }
 
-    Connect-PnPOnline $siteUrl -UseWebLogin -WarningAction Ignore;
+    Connect-PnPOnline $siteUrl -UseWebLogin;
 
     # If there is an error in the connection then exit
     if ($null -eq $env:PNPPSSITE) {
