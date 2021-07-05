@@ -1,0 +1,317 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html lang="en">
+  
+  <head>
+    <meta charset="utf-8">
+    <title>Copy custom SPFx web part settings from one page to other pages | PnP Samples </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Copy custom SPFx web part settings from one page to other pages | PnP Samples ">
+    <meta name="generator" content="docfx 2.56.7.0">
+    <meta name="description" content="A sample gallery of scripts to manage all things Microsoft 365.">
+  
+    <!-- Social Media -->
+    <meta property="og:locale" content="en_GB">
+    <meta property="og:title" content="Copy custom SPFx web part settings from one page to other pages | PnP Samples ">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://pnp.github.io/script-samples">
+    <meta property="og:image" content="https://pnp.github.io/script-samples/assets/social-media-screenshot.png">
+    <meta property="og:image:alt" content="Screenshot example of the PnP Script Samples Site">
+    <meta property="og:site_name" content="PnP Script Samples">
+    <meta property="og:description" content="A sample gallery of scripts to manage all things Microsoft 365.">
+  
+    <link rel="shortcut icon" href="https://c.s-microsoft.com/favicon.ico?v2">
+    <link rel="stylesheet" href="../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../styles/docfx.css">
+    <link rel="stylesheet" href="../styles/main.css">
+    <link rel="stylesheet" href="../styles/extra.css">
+    <link rel="stylesheet" href="../styles/filter.css">
+    <link rel="stylesheet" href="../styles/site.css">
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet"> 
+    <meta property="docfx:navrel" content="../toc.html">
+    <meta property="docfx:tocrel" content="../toc.html">
+    
+    
+    <meta property="docfx:newtab" content="true">
+  </head>  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../assets/logo.svg" alt="">
+              </a>    </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <label class="glyphicon glyphicon-search" for="search-query"></label>
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>      </header>
+      <div role="main" class="container body-content hide-when-search">
+        <div class="article row grid">
+          <div class="col-md-12">
+            <article class="content wrap" id="_content" data-uid="">
+                  <div class="contribution-panel mobile-hide pull-right">
+                      <a href="https://github.com/pnp/script-samples/blob/main/scripts/spo-copy-webpart-settings/README.md/#L1" title="Improve this Doc" class="improve-doc-lg"><i class="glyphicon glyphicon-pencil"></i></a>
+                  </div>
+                    <h1 id="copy-custom-spfx-web-part-settings-from-one-page-to-other-pages">Copy custom SPFx web part settings from one page to other pages</h1>
+
+<h2 id="summary">Summary</h2>
+<p>Say we have lots of pages with a custom SPFx web part in the same location (section, column, order).</p>
+<p>If that web part needs to updated on all such pages then we can use this script.</p>
+<p>We simply need to update the web part in one page.</p>
+<p>After that we can use this script to copy those updates on to other pages.</p>
+<p>While using this script, we input the link of the page where the web part was updated (this page acts like the template page).</p>
+<p>We then specify the section, column and order of where the web part is.</p>
+<p>After that we specify the section, column and order of where the web part is on the destination pages i.e. the pages where the web part needs to be updated.</p>
+<p><img src="assets/example.png" alt="Example Screenshot"></p>
+<div class="tabGroup" id="tabgroup_CeZOj-G++Q">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_CeZOj-G++Q_pnpps" role="tab" aria-controls="tabpanel_CeZOj-G++Q_pnpps" data-tab="pnpps" tabindex="0" aria-selected="true">PnP PowerShell</a>
+</li>
+</ul>
+<section id="tabpanel_CeZOj-G++Q_pnpps" role="tabpanel" data-tab="pnpps"><button class="article-clipboard" title="Copy to clipboard" data-toggle="tooltip" data-placement="top" data-clipboard-target="section[id^='tabpanel'][data-tab='pnpps'] pre">
+    <span class="glyphicon glyphicon-copy" aria-hidden="true"></span>
+    <span class="article-clipboard__message done">Copied</span>
+</button>
+
+<pre><code class="lang-powershell">
+    # The site where the web parts are present
+    # TODO: Enter value
+    $siteUrl = &quot;&quot;;
+
+    # The Id of the webpart - see manifest
+    # TODO: Enter value 
+    $webpartId = &quot;&quot;; # e.g. 544c1372-42df-47c3-94d6-017428cd2baf
+
+    # The name of the page where the web part properties have been updated
+    # TODO: Enter value
+    $sourcePageName = &quot;&quot;; #e.g. page-1.aspx
+
+    # The section where the web part is present in the source page
+    # TODO: Change value
+    $sourceWebpartSectionNumber = 0;
+
+    # The coulmn in the section where the web part is present in the source page
+    # TODO: Change value
+    $sourceWebpartColumnNumber = 0;
+
+    # The order of the web part in the column in the source page
+    # TODO: Change value
+    $sourceWebpartOrderNumber = 0;
+
+    # The names of the pages where the web part properties need to be updated
+    # TODO: Enter values
+    $destinationPageNames = @(
+        &quot;&quot;, # e.g. page-2.aspx
+        &quot;&quot;  # e.g. page-3.aspx
+    );
+
+    # The section where the web part is present in the destination pages
+    # TODO: Change value
+    $destinationWebpartSectionNumber = 0;
+
+    # The coulmn in the section where the web part is present in the destination pages
+    # TODO: Change value
+    $destinationWebpartColumnNumber = 0;
+
+    # The order of the web part in the column in the destination pages
+    # TODO: Change value
+    $destinationWebpartOrderNumber = 0;
+
+    # Arrays to store results
+    $savedPages = @();
+    $skippedPages = @();
+
+    # Functions
+    function Get-WebpartSettings {
+        param(
+            [string]$pageName,
+            [int]$sectionNumber,
+            [int]$columnNumber,
+            [int]$controlNumber
+        )
+        $page = Get-PnPPage $pageName;
+
+        if ($null -eq $page) {
+            Write-Error &quot;    Page doesn't exist. Please check the page name.&quot;;
+            return $null;
+        }
+
+        # Change the below based on the type of the webpart
+        # as not all web parts will have settings in `PropertiesJson`
+        # * Add null checks for section and column if needed
+        return $page.Sections[$sectionNumber].Columns[$columnNumber].Controls[$controlNumber].PropertiesJson;
+    };
+
+    function Update-WebpartSettings {
+        param(
+            [string]$pageName,
+            [int]$sectionNumber,
+            [int]$columnNumber,
+            [int]$controlNumber,
+            [string]$webPartId,
+            $webPartProps
+        )
+
+        $page = Get-PnPPage $pageName;
+
+        if ($null -eq $page) {
+            Write-Error &quot;    Skipped $pageName as page is null.&quot;;
+            return $false;
+        }
+
+        $webPart = $page.Sections[$sectionNumber].Columns[$columnNumber].Controls[$controlNumber];
+
+        if ($null -eq $webPart) {
+            Write-Error &quot;    Skipped $pageName as webpart is null&quot;;
+            return $false;
+        }
+
+        if ($webPart.WebPartId -ne $webPartId) {
+            Write-Host &quot;    Skipped $pageName as webpart is different compared to the one specified&quot; -ForegroundColor Yellow;
+            return $false;
+        }
+
+        # Change the below based on the type of the webpart
+        # as not all web parts will have settings in `PropertiesJson`
+        # * Add null checks for section and column if needed
+        $page.Sections[$sectionNumber].Columns[$columnNumber].Controls[$controlNumber].PropertiesJson = $webPartProps;
+            
+        $page.Save() | Out-Null;
+        $page.Publish();
+
+        Write-Host &quot;    Completed $pageName&quot; -ForegroundColor Green;
+        return $true;
+    }
+
+    # End functions
+
+    # Start
+
+    if ($null -ne $env:PNPPSSITE) {
+        Disconnect-PnPOnline;
+    }
+
+    Connect-PnPOnline $siteUrl -UseWebLogin;
+
+    # If there is an error in the connection then exit
+    if ($null -eq $env:PNPPSSITE) {
+        Write-Error &quot;Not proceeding as there was an error in connecting to the site.&quot;;
+        exit;
+    }
+
+    $sourceWebPartProps = Get-WebpartSettings `
+        -pageName $sourcePageName `
+        -sectionNumber $sourceWebpartSectionNumber `
+        -columnNumber $sourceWebpartColumnNumber `
+        -controlNumber $sourceWebpartOrderNumber `;
+
+    if ($null -eq $sourceWebPartProps) {
+        Write-Error &quot;Not proceeding as source webpart or it's properties are empty.&quot;;
+        exit;
+    }
+
+    $destinationPageNames | ForEach-Object {
+        $destinationPageName = $_;
+        Write-Host &quot;    --------------------------      &quot; -ForegroundColor White;
+        $destinationWebPartUpdated = Update-WebpartSettings `
+            -pageName $destinationPageName `
+            -sectionNumber $destinationWebpartSectionNumber `
+            -columnNumber $destinationWebpartColumnNumber `
+            -controlNumber $destinationWebpartOrderNumber `
+            -webPartId $webpartId `
+            -webPartProps $sourceWebPartProps;
+        Write-Host &quot;    --------------------------      &quot; -ForegroundColor White;
+
+        if ($destinationWebPartUpdated) {
+            $savedPages += $destinationPageName;
+        }
+        else {
+            $skippedPages += $destinationPageName;
+        }
+    }
+
+    Write-Host &quot;    --------------------------      &quot; -ForegroundColor White;
+        
+
+    Write-Host &quot;    Saved pages:&quot; -ForegroundColor Green;
+    $savedPages | ForEach-Object {
+        Write-Host &quot;    $_&quot; -ForegroundColor Green;
+    };
+
+    Write-Host &quot;    Skipped pages:&quot; -ForegroundColor Yellow;
+    $skippedPages | ForEach-Object {
+        Write-Host &quot;    $_&quot; -ForegroundColor Yellow;
+    };
+
+    Write-Host &quot;    --------------------------      &quot; -ForegroundColor White;
+
+    Disconnect-PnPOnline;
+
+    # End
+
+</code></pre>
+<div class="highlight-tool">
+<p>Check out the <strong>PnP PowerShell</strong> to learn more at: <a href="https://aka.ms/pnp/powershell">https://aka.ms/pnp/powershell</a></p>
+</div>
+</section>
+</div>
+<h2 id="contributors">Contributors</h2>
+<table>
+<thead>
+<tr>
+<th>Author(s)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Anoop Tatti</td>
+</tr>
+</tbody>
+</table>
+<h2 id="disclaimer">Disclaimer</h2>
+<p><strong>THESE SAMPLES ARE PROVIDED <em>AS IS</em> WITHOUT WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, INCLUDING ANY IMPLIED WARRANTIES OF FITNESS FOR A PARTICULAR PURPOSE, MERCHANTABILITY, OR NON-INFRINGEMENT.</strong></p>
+</article>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            <span>Script Samples<br>Generated by <strong><a href='https://dotnet.github.io/docfx' alt='Doc FX Website'>DocFX</a></strong> with <strong><a href='https://ovasquez.github.io/docfx-material' alt='DocFx Material Theme'>Material UI</a></strong></span>
+            
+            <!-- <img src="https://telemetry.sharepointpnp.com/@pnp.github.io/index/" alt="spacer"> -->
+          </div>
+        </div>
+      </footer>    </div>
+    
+    <script type="text/javascript" src="../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+    
+    <script type="text/javascript" src="../styles/clipboard.min.js"></script>
+    <script type="text/javascript" src="../styles/isotope.pkgd.min.js"></script>
+    <script type="text/javascript" src="../styles/loadsamples.js"></script>
+    <script type="text/javascript" src="../styles/filtersamples.js"></script>
+
+  </body>
+</html>
