@@ -1,0 +1,201 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html lang="en">
+  
+  <head>
+    <meta charset="utf-8">
+    <title>Export CSV To SharePoint List Data | PnP Samples </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Export CSV To SharePoint List Data | PnP Samples ">
+    <meta name="generator" content="docfx 2.56.7.0">
+    <meta name="description" content="A sample gallery of scripts to manage all things Microsoft 365.">
+  
+    <!-- Social Media -->
+    <meta property="og:locale" content="en_GB">
+    <meta property="og:title" content="Export CSV To SharePoint List Data | PnP Samples ">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://pnp.github.io/script-samples">
+    <meta property="og:image" content="https://pnp.github.io/script-samples/assets/social-media-screenshot.png">
+    <meta property="og:image:alt" content="Screenshot example of the PnP Script Samples Site">
+    <meta property="og:site_name" content="PnP Script Samples">
+    <meta property="og:description" content="A sample gallery of scripts to manage all things Microsoft 365.">
+  
+    <link rel="shortcut icon" href="https://c.s-microsoft.com/favicon.ico?v2">
+    <link rel="stylesheet" href="../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../styles/docfx.css">
+    <link rel="stylesheet" href="../styles/main.css">
+    <link rel="stylesheet" href="../styles/extra.css">
+    <link rel="stylesheet" href="../styles/filter.css">
+    <link rel="stylesheet" href="../styles/site.css">
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet"> 
+    <meta property="docfx:navrel" content="../toc.html">
+    <meta property="docfx:tocrel" content="../toc.html">
+    
+    
+    <meta property="docfx:newtab" content="true">
+  </head>  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../assets/logo.svg" alt="">
+              </a>    </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <label class="glyphicon glyphicon-search" for="search-query"></label>
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>      </header>
+      <div role="main" class="container body-content hide-when-search">
+        <div class="article row grid">
+          <div class="col-md-12">
+            <article class="content wrap" id="_content" data-uid="">
+                  <div class="contribution-panel mobile-hide pull-right">
+                      <a href="https://github.com/pnp/script-samples/blob/main/scripts/spo-export-data-to-sharepoint-lists/README.md/#L1" title="Improve this Doc" class="improve-doc-lg"><i class="glyphicon glyphicon-pencil"></i></a>
+                  </div>
+                    <h1 id="export-csv-to-sharepoint-list-data">Export CSV To SharePoint List Data</h1>
+
+<h2 id="summary">Summary</h2>
+<p>Many times we have requirements like having to add a CSV file to the SharePoint list so if there are many records then manually this work becomes difficult.</p>
+<h2 id="implementation">Implementation</h2>
+<ul>
+<li>Open Windows PowerShell ISE</li>
+<li>Create a new file</li>
+<li>Write a script as below,</li>
+<li>First, we will connect the site URL with the user's credentials.
+<ul>
+<li>To connect the SharePoint site with PnP refer to this article.</li>
+<li>Then we will create a list and fields. so field types will be as a below,</li>
+<li>FirstName,LastName,JobTitle,Location - Single line of text</li>
+<li>BirthDate, HireDate - Date and time</li>
+</ul>
+</li>
+</ul>
+<p>We will import the CSV using the Import-Csv method.</p>
+<div class="tabGroup" id="tabgroup_CeZOj-G++Q">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_CeZOj-G++Q_pnpps" role="tab" aria-controls="tabpanel_CeZOj-G++Q_pnpps" data-tab="pnpps" tabindex="0" aria-selected="true">PnP PowerShell</a>
+</li>
+</ul>
+<section id="tabpanel_CeZOj-G++Q_pnpps" role="tabpanel" data-tab="pnpps"><button class="article-clipboard" title="Copy to clipboard" data-toggle="tooltip" data-placement="top" data-clipboard-target="section[id^='tabpanel'][data-tab='pnpps'] pre">
+    <span class="glyphicon glyphicon-copy" aria-hidden="true"></span>
+    <span class="article-clipboard__message done">Copied</span>
+</button>
+
+<pre><code class="lang-powershell">
+$Login = #userid    
+$password = #password  
+$secureStringPwd = $password | ConvertTo-SecureString -AsPlainText -Force     
+$Creds = New-Object -Typename System.Management.Automation.PSCredential -ArgumentList $Login, $secureStringPwd   
+$siteUrl = #siteUrl  
+ 
+#connect to site  
+Write-Host &quot;Connection to the site...&quot; -ForegroundColor Yellow  
+Connect-PnpOnline -Url $SiteUrl -Credentials $Creds       
+Write-Host &quot;Connection successfully...&quot; -ForegroundColor Yellow  
+ 
+#create a list  
+Write-Host &quot;Creating list...&quot; -ForegroundColor Yellow  
+New-PnPList -Title &quot;Employees&quot; -Url &quot;lists/Employees&quot;   
+Write-Host &quot;List created...&quot; -ForegroundColor Yellow  
+ 
+#create fields  
+Write-Host &quot;Creating fields...&quot; -ForegroundColor Yellow  
+Add-PnPField -List &quot;Employees&quot; -DisplayName &quot;First Name&quot; -InternalName &quot;FirstName&quot; -Type Text -AddToDefaultView  
+Add-PnPField -List &quot;Employees&quot; -DisplayName &quot;Last Name&quot; -InternalName &quot;LastName&quot; -Type Text -AddToDefaultView  
+Add-PnPField -List &quot;Employees&quot; -DisplayName &quot;Location&quot; -InternalName &quot;Location&quot; -Type Text -AddToDefaultView  
+Add-PnPField -List &quot;Employees&quot; -DisplayName &quot;Job Title&quot; -InternalName &quot;JobTitle&quot; -Type Text -AddToDefaultView   
+Add-PnPField -List &quot;Employees&quot; -DisplayName &quot;Hire Date&quot; -InternalName &quot;HireDate&quot; -Type DateTime -AddToDefaultView  
+Add-PnPField -List &quot;Employees&quot; -DisplayName &quot;Birth Date&quot; -InternalName &quot;BirthDate&quot; -Type DateTime -AddToDefaultView  
+Write-Host &quot;Fields created...&quot; -ForegroundColor Yellow  
+  
+$filePath = &quot;F:\Intranet Employee Report.csv&quot;  
+ 
+#Import CSV  
+$CSVRecords = Import-Csv $FilePath  
+Write-host -f Yellow &quot;$($CSVRecords.count) Rows Found!&quot;  
+ 
+#create list items  
+Write-Host &quot;Creating list items...&quot; -ForegroundColor Yellow  
+foreach ($Record in $CSVRecords) {  
+    $items = Add-PnPListItem -List &quot;Employees&quot; -Values @{  
+        &quot;Title&quot;     = $Record.'FirstName' + &quot; &quot; + $Record.'LastName';  
+        &quot;FirstName&quot; = $Record.'FirstName';  
+        &quot;LastName&quot;  = $Record.'LastName';  
+        &quot;Location&quot;  = $Record.'Location';  
+        &quot;JobTitle&quot;  = $Record.'JobTitle';        
+        &quot;BirthDate&quot; = $Record.'BirthDate';  
+        &quot;HireDate&quot;  = $Record.'HireDate';  
+    }  
+}  
+  
+Write-Host &quot;list items created...&quot; -ForegroundColor Yellow  
+
+</code></pre>
+<div class="highlight-tool">
+<p>Check out the <strong>PnP PowerShell</strong> to learn more at: <a href="https://aka.ms/pnp/powershell">https://aka.ms/pnp/powershell</a></p>
+</div>
+</section>
+</div>
+<h2 id="source-credit">Source Credit</h2>
+<p>Sample first appeared on <a href="https://www.c-sharpcorner.com/article/export-csv-to-sharepoint-list-data-using-pnp-powershell/">https://www.c-sharpcorner.com/article/export-csv-to-sharepoint-list-data-using-pnp-powershell/</a></p>
+<h2 id="contributors">Contributors</h2>
+<table>
+<thead>
+<tr>
+<th>Author(s)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Chandani Prajapati</td>
+</tr>
+</tbody>
+</table>
+<h2 id="disclaimer">Disclaimer</h2>
+<p><strong>THESE SAMPLES ARE PROVIDED <em>AS IS</em> WITHOUT WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, INCLUDING ANY IMPLIED WARRANTIES OF FITNESS FOR A PARTICULAR PURPOSE, MERCHANTABILITY, OR NON-INFRINGEMENT.</strong></p>
+<img src="https://telemetry.sharepointpnp.com/script-samples/scripts/spo-export-data-to-sharepoint-lists" aria-hidden="true">
+</article>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            <span>Script Samples<br>Generated by <strong><a href='https://dotnet.github.io/docfx' alt='Doc FX Website'>DocFX</a></strong> with <strong><a href='https://ovasquez.github.io/docfx-material' alt='DocFx Material Theme'>Material UI</a></strong></span>
+            
+            <!-- <img src="https://telemetry.sharepointpnp.com/@pnp.github.io/index/" alt="spacer"> -->
+          </div>
+        </div>
+      </footer>    </div>
+    
+    <script type="text/javascript" src="../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+    
+    <script type="text/javascript" src="../styles/clipboard.min.js"></script>
+    <script type="text/javascript" src="../styles/isotope.pkgd.min.js"></script>
+    <script type="text/javascript" src="../styles/loadsamples.js"></script>
+    <script type="text/javascript" src="../styles/filtersamples.js"></script>
+
+  </body>
+</html>
