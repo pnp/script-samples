@@ -1,0 +1,230 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html lang="en">
+  
+  <head>
+    <meta charset="utf-8">
+    <title>Get SharePoint Site Recycle Bin Items And Export It To CSV | PnP Samples </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Get SharePoint Site Recycle Bin Items And Export It To CSV | PnP Samples ">
+    <meta name="generator" content="docfx 2.56.7.0">
+    <meta name="description" content="A sample gallery of scripts to manage all things Microsoft 365.">
+  
+    <!-- Social Media -->
+    <meta property="og:locale" content="en_GB">
+    <meta property="og:title" content="Get SharePoint Site Recycle Bin Items And Export It To CSV | PnP Samples ">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://pnp.github.io/script-samples">
+    <meta property="og:image" content="https://pnp.github.io/script-samples/assets/social-media-screenshot.png">
+    <meta property="og:image:alt" content="Screenshot example of the PnP Script Samples Site">
+    <meta property="og:site_name" content="PnP Script Samples">
+    <meta property="og:description" content="A sample gallery of scripts to manage all things Microsoft 365.">
+  
+    <link rel="shortcut icon" href="https://c.s-microsoft.com/favicon.ico?v2">
+    <link rel="stylesheet" href="../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../styles/docfx.css">
+    <link rel="stylesheet" href="../styles/main.css">
+    <link rel="stylesheet" href="../styles/extra.css">
+    <link rel="stylesheet" href="../styles/filter.css">
+    <link rel="stylesheet" href="../styles/site.css">
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet"> 
+    <meta property="docfx:navrel" content="../toc.html">
+    <meta property="docfx:tocrel" content="../toc.html">
+    
+    
+    <meta property="docfx:newtab" content="true">
+  </head>  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../assets/logo.svg" alt="">
+              </a>    </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <label class="glyphicon glyphicon-search" for="search-query"></label>
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>      </header>
+      <div role="main" class="container body-content hide-when-search">
+        <div class="article row grid">
+          <div class="col-md-12">
+            <article class="content wrap" id="_content" data-uid="">
+                  <div class="contribution-panel mobile-hide pull-right">
+                      <a href="https://github.com/pnp/script-samples/blob/main/scripts/spo-recyclebin-items-to-csv/README.md/#L1" title="Improve this Doc" class="improve-doc-lg"><i class="glyphicon glyphicon-pencil"></i></a>
+                  </div>
+                    <h1 id="get-sharepoint-site-recycle-bin-items-and-export-it-to-csv">Get SharePoint Site Recycle Bin Items And Export It To CSV</h1>
+
+<h2 id="summary">Summary</h2>
+<p>Many times we have requirements like read recycle bin items from any site collection and get items based on recycle bin stage(like FirstStage, SecondStage or Both Stage) export it to CSV.</p>
+<h2 id="implementation">Implementation</h2>
+<ul>
+<li>Open Windows PowerShell ISE</li>
+<li>Create a new file</li>
+<li>Write a script as below,</li>
+<li>First, we will connect to Tenant admin site.
+<ul>
+<li>Then we will Read site URL from user and connect to the Site,</li>
+<li>We will ask to user for enter the stage (like F For FisrtStage, S For SecondStage and B For Both Stage) and based on stage it will retrieve recycle bin items.</li>
+<li>And then we will export it to CSV.</li>
+</ul>
+</li>
+</ul>
+<div class="tabGroup" id="tabgroup_CeZOj-G++Q">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_CeZOj-G++Q_pnpps" role="tab" aria-controls="tabpanel_CeZOj-G++Q_pnpps" data-tab="pnpps" tabindex="0" aria-selected="true">PnP PowerShell</a>
+</li>
+</ul>
+<section id="tabpanel_CeZOj-G++Q_pnpps" role="tabpanel" data-tab="pnpps"><button class="article-clipboard" title="Copy to clipboard" data-toggle="tooltip" data-placement="top" data-clipboard-target="section[id^='tabpanel'][data-tab='pnpps'] pre">
+    <span class="glyphicon glyphicon-copy" aria-hidden="true"></span>
+    <span class="article-clipboard__message done">Copied</span>
+</button>
+
+<pre><code class="lang-powershell">
+#Global Variable Declaration
+$AdminURL = &quot;https://{domain}-admin.sharepoint.com/&quot;
+$UserName = &quot;USERID&quot;
+$Password = &quot;PASSWORD&quot;
+$SecureStringPwd = $Password | ConvertTo-SecureString -AsPlainText -Force 
+$Credentials = New-Object System.Management.Automation.PSCredential -ArgumentList $UserName, $SecureStringPwd
+$DateTime = &quot;_{0:MM_dd_yy}_{0:HH_mm_ss}&quot; -f (Get-Date)
+$BasePath = &quot;E:\PnP-Scripts\GetRecycleBinDataToCSV\Logs\&quot;
+$CSVPath = $BasePath + &quot;\RecycleBinItems&quot; + $DateTime + &quot;.csv&quot;
+$global:RecycleBinItems = @()
+$global:SelectedStage = &quot;&quot;
+
+#Login to Tenant Admin Site
+Function LoginToAdminSite() {
+    [cmdletbinding()]
+    param([parameter(Mandatory = $true, ValueFromPipeline = $true)] $Credentials)
+    Write-Host &quot;Connecting to Tenant Admin Site '$($AdminURL)'...&quot; -ForegroundColor Yellow
+    Connect-PnPOnline -Url $AdminURL -Credentials $Credentials
+    Write-Host &quot;Connection Successfull to Tenant Admin Site :'$($AdminURL)'&quot; -ForegroundColor Green
+}
+
+#Login to SharePoint Site
+Function ConnectToSPSite() {
+    try {
+        $SiteUrl = Read-Host &quot;Please enter SiteURL&quot;
+        if ($SiteUrl) {
+            Write-Host &quot;Connecting to Site :'$($SiteUrl)'...&quot; -ForegroundColor Yellow  
+            Connect-PnPOnline -Url $SiteUrl -Credentials $Credentials
+            Write-Host &quot;Connection Successfull to site: '$($SiteUrl)'&quot; -ForegroundColor Green  
+            
+            GetRecycleBinItems($SiteUrl)
+        }
+        else {
+            Write-Host &quot;Site URL is empty&quot; -ForegroundColor Red
+        }
+    }
+    catch {
+        Write-Host &quot;Error in connecting to Site:'$($SiteUrl)'&quot; $_.Exception.Message -ForegroundColor Red               
+    } 
+}
+
+#Read recycle bin items and export to CSV
+Function GetRecycleBinItems($siteUrl) {
+    try {
+        Write-Host &quot;Enter F to read first stage items &quot; -ForegroundColor Magenta
+        Write-Host &quot;Enter S to read second stage items &quot; -ForegroundColor Magenta
+        Write-Host &quot;Enter B to read both stage items &quot; -ForegroundColor Magenta
+        $Stage = Read-Host &quot;Enter stage&quot;
+        
+        if ($Stage -eq 'F') {
+            $global:SelectedStage = &quot;FirstStage&quot;
+        }
+        elseif ($Stage -eq 'S') {
+            $global:SelectedStage = &quot;SecondStage&quot;   
+        }
+        if ($global:SelectedStage) { 
+            Write-Host &quot;Reading items from '$($global:SelectedStage)'...&quot; -ForegroundColor Yellow
+            $global:RecycleBinItems = Get-PnPRecycleBinItem | Select-Object Title, AuthorEmail, AuthorName, DeletedByEmail, DeletedByName, DeletedDate, ID, ItemState, ItemType, LeafName, Size | Where-Object { $_.ItemState -eq $global:SelectedStage }
+            Write-Host &quot;Items retrieved successfully from&quot; $global:SelectedStage -ForegroundColor Green
+        }
+        else {
+            Write-Host &quot;Reading items form both stages...&quot; -ForegroundColor Yellow
+            $global:RecycleBinItems = Get-PnPRecycleBinItem | Select-Object Title, AuthorEmail, AuthorName, DeletedByEmail, DeletedByName, DeletedDate, ID, ItemState, ItemType, LeafName, Size
+            Write-Host &quot;Items retrieved successfully from&quot; $global:SelectedStage -ForegroundColor Green
+        }                     
+    }
+    catch {
+        Write-Host &quot;Error in getting recycle bin items from :'$($siteUrl)'&quot; $_.Exception.Message -ForegroundColor Red                 
+    }
+    Write-Host &quot;Exporting to CSV...&quot; -ForegroundColor Yellow
+    $global:RecycleBinItems | Export-Csv $CSVPath -NoTypeInformation -Append
+    Write-Host &quot;Exported to CSV successfully&quot; -ForegroundColor Green
+}
+
+Function Main {
+    LoginToAdminSite($Credentials);
+    ConnectToSPSite
+}
+
+Main
+
+</code></pre>
+<div class="highlight-tool">
+<p>Check out the <strong>PnP PowerShell</strong> to learn more at: <a href="https://aka.ms/pnp/powershell">https://aka.ms/pnp/powershell</a></p>
+</div>
+</section>
+</div>
+<h2 id="contributors">Contributors</h2>
+<table>
+<thead>
+<tr>
+<th>Author(s)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Chandani Prajapati</td>
+</tr>
+</tbody>
+</table>
+<h2 id="disclaimer">Disclaimer</h2>
+<p><strong>THESE SAMPLES ARE PROVIDED <em>AS IS</em> WITHOUT WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, INCLUDING ANY IMPLIED WARRANTIES OF FITNESS FOR A PARTICULAR PURPOSE, MERCHANTABILITY, OR NON-INFRINGEMENT.</strong></p>
+<img src="https://telemetry.sharepointpnp.com/script-samples/scripts/spo-recyclebin-items-to-csv" aria-hidden="true">
+</article>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            <span>Script Samples<br>Generated by <strong><a href='https://dotnet.github.io/docfx' alt='Doc FX Website'>DocFX</a></strong> with <strong><a href='https://ovasquez.github.io/docfx-material' alt='DocFx Material Theme'>Material UI</a></strong></span>
+            
+            <!-- <img src="https://telemetry.sharepointpnp.com/@pnp.github.io/index/" alt="spacer"> -->
+          </div>
+        </div>
+      </footer>    </div>
+    
+    <script type="text/javascript" src="../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+    
+    <script type="text/javascript" src="../styles/clipboard.min.js"></script>
+    <script type="text/javascript" src="../styles/isotope.pkgd.min.js"></script>
+    <script type="text/javascript" src="../styles/loadsamples.js"></script>
+    <script type="text/javascript" src="../styles/filtersamples.js"></script>
+
+  </body>
+</html>
