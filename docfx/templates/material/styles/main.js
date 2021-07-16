@@ -194,3 +194,42 @@ $(function (){
           }, 600 );
     });
 });
+
+// Command Help
+function getSiteBaseAddress(){
+
+    var baseSiteAddress = (document.location.host === "pnp.github.io") ?  
+        document.location.origin + "/script-samples" : document.location.origin;
+
+    return baseSiteAddress;
+}
+
+$(function (){
+
+    //if tabs, if tabs contain m365 load JSON file, if tabs contain -PnP load file
+    if($("a[data-tab='cli-m365-ps']")){
+       
+        var jsonHelpPath = getSiteBaseAddress() +"/assets/help/cli.help.json";
+        
+
+        // Load inline help
+        $.getJSON(jsonHelpPath, function (data) {
+        
+            $.each(data, function (_u, helpItem) {
+        
+                //Working
+                var cmdlet = helpItem.cmd;
+                $("section[data-tab='cli-m365-ps'] pre code").contents().each(function(index, line){
+                    var objLine = $(line);
+                    if(objLine.text().indexOf(cmdlet) > 1){
+                        var parts = objLine.text().split(cmdlet)
+                        objLine.replaceWith(parts[0] + "<a href='" + helpItem.helpUrl + "'>"+cmdlet+"</a>" + parts[1]);
+                    }
+                }); 
+
+            });
+        });
+    }
+
+});
+
