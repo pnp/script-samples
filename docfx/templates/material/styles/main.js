@@ -223,7 +223,7 @@ $(function (){
                     var objLine = $(line);
                     if(objLine.text().indexOf(cmdlet) > 1){
                         var parts = objLine.text().split(cmdlet)
-                        objLine.replaceWith(parts[0] + "<a href='" + helpItem.helpUrl + "'>"+cmdlet+"</a>" + parts[1]);
+                        objLine.replaceWith(parts[0] + "<a href='" + helpItem.helpUrl + "' class='cmd-help' target='_blank'>"+cmdlet+"</a>" + parts[1]);
                     }
                 }); 
 
