@@ -228,26 +228,50 @@ $(function (){
                 var cmdHelpUrl = helpItem.helpUrl;
                 var tabs = ["cli-m365-ps","m365cli-bash","cli-m365-bash"]; //TODO: this needs fixing
 
-                $.each(tabs, function (_i, tab) {
-                    console.log(cmdlet);
-
-                    $("section[data-tab='" + tab + "'] pre code").contents().each(function(index, line){
-                        var objLine = $(line);
-                        console.log(objLine.text());
-                        
-                        if(objLine.text().indexOf(cmdlet) > -1){
-                            var parts = objLine.text().split(cmdlet)
-                            console.log(parts.length);
-                            objLine.replaceWith(parts[0] + "<a href='" + cmdHelpUrl + "' class='cmd-help' target='_blank'>"+cmdlet+"</a>" + parts[1]);
-                        }
-                    }); 
-                });
+                updateCmdletWithHelpLinks(tabs, cmdlet, cmdHelpUrl)   
             });
         });
     }
 
-    // if($("a[data-tab='cli-m365-ps']")){
+    if($("a[data-tab='pnpps']")){
+        var jsonHelpPath = getSiteBaseAddress() +"/assets/help/powershell.help.json";
+        $.getJSON(jsonHelpPath, function (data) {
+            $.each(data, function (_u, helpItem) {
+                var cmdlet = helpItem.cmd;
+                var cmdHelpUrl = helpItem.helpUrl;
+                var tabs = ["pnpps"]; //TODO: this needs fixing
 
-    // }
+                updateCmdletWithHelpLinks(tabs, cmdlet, cmdHelpUrl)                 
+            });
+        });
+    }
 
+    if($("a[data-tab='spoms-ps']")){
+        var jsonHelpPath = getSiteBaseAddress() +"/assets/help/spoms.help.json";
+        $.getJSON(jsonHelpPath, function (data) {
+            $.each(data, function (_u, helpItem) {
+                var cmdlet = helpItem.cmd;
+                var cmdHelpUrl = helpItem.helpUrl;
+                var tabs = ["spoms-ps"]; //TODO: this needs fixing
+
+                updateCmdletWithHelpLinks(tabs, cmdlet, cmdHelpUrl)                 
+            });
+        });
+    }
+
+    function updateCmdletWithHelpLinks(tabs, cmdlet, cmdHelpUrl) {
+
+        $.each(tabs, function (_i, tab) {
+            $("section[data-tab='" + tab + "'] pre code").contents().each(function (index, line) {
+                var objLine = $(line)
+                console.log(objLine.text())
+    
+                if (objLine.text().indexOf(cmdlet) > -1) {
+                    var parts = objLine.text().split(cmdlet)
+                    console.log(parts.length)
+                    objLine.replaceWith(parts[0] + "<a href='" + cmdHelpUrl + "' class='cmd-help' target='_blank'>" + cmdlet + "</a>" + parts[1])
+                }
+            });
+        });
+    }
 });
