@@ -28,7 +28,7 @@ function Process-PnPPowerShellDocs
     }
 
 
-    $pnppsDocRows | ConvertTo-Json | Out-File "$($outputPath)\powershell.help.json"
+    $pnppsDocRows | ConvertTo-Json | Out-File "$($outputPath)\powershell.help.json" -Force
 
     Write-Host "PnP PowerShell cmdlets documentation generated"
 }
@@ -60,13 +60,57 @@ function Process-SPOManagementShellDocs
     }
 
 
-    $spomsDocRows | ConvertTo-Json | Out-File "$($outputPath)\spoms.help.json"
+    $spomsDocRows | ConvertTo-Json | Out-File "$($outputPath)\spoms.help.json" -Force
 
     Write-Host "SPO Management Shell cmdlets documentation generated"
 }
 
 # CLI for Microsoft 365
-# 
+function Process-CliForM365Docs
+{
+
+    $clim365Docs = Join-Path -Path $currentLocation -ChildPath "cli-microsoft365\docs\docs\cmd"
+    Write-Host "Processing CLI for Microsoft 365 Path: $($clim365Docs)"
+    $clim365BaseSitePath = "https://pnp.github.io/cli-microsoft365/cmd"
+    $clim365DocsFiles = Get-ChildItem -Path $clim365Docs -Recurse -Filter *.md
+    $clim365DocRows = @()
+
+    Write-Host "$($clim365DocsFiles.Length) found"
+    
+    $clim365DocsFiles | Foreach-Object {
+
+        $parentName = $_.Directory.Parent.Name
+        $cmdletName = $_.Name.Replace(".md","")
+        $cmdletPath = $_.Name.Replace(".md","/")
+        
+        $helpUrl = "$($cmdletPath)"
+        $finalCmdName = "m365 $($cmdletName.Replace("-"," "))"
+
+        # Directory
+        if($parentName -ne "docs"){
+            $helpUrl = "$($parentName)/$($cmdletName)"
+
+            if($cmdletName -like "*-*"){
+                $parts = $cmdletName.Split("-")
+                $helpUrl = "$($parentName)/$($parts[0])/$($cmdletName)"
+            }
+
+            # Cmdlet Name
+            $finalCmdName = "m365 $($parentName) $($cmdletName.Replace("-"," "))"
+        }
+        
+        $cmdHelp = [PSCustomObject]@{
+            cmd = $finalCmdName
+            helpUrl = "$($clim365BaseSitePath)/$($helpUrl)"
+        }
+
+        $clim365DocRows += $cmdHelp
+    }
+
+    $clim365DocRows | ConvertTo-Json | Out-File "$($outputPath)\cli.help.json" -Force
+
+    Write-Host "CLI for Microsoft 365 cmdlets documentation generated"
+}
 
 # Pre Launch
 
@@ -77,5 +121,7 @@ function Process-SPOManagementShellDocs
 # To refresh functions use . .\Get-HelpJson.ps1 in cmd window
 $currentLocation = "C:\Git\utility\script-help\"
 $outputPath = "$(Get-Location)\assets\help"
-#Process-PnPPowerShellDocs
+
+Process-PnPPowerShellDocs
 Process-SPOManagementShellDocs
+Process-CliForM365Docs
