@@ -79,8 +79,15 @@ $(function () {
             $(this).html(link)
         }
     });
-})
 
+    // Remove export html wrapper from bash tab
+    $("code.lang-bash").each(function () {
+        var text = $(this).html();
+        text = text.replace(/<span class="hljs-built_in">export.*<\/span>/, "export");
+        $(this).html(text);
+    });
+});
+    
 function httpGetAsync(targetUrl, callback) {
     var xmlHttp = new XMLHttpRequest();
     xmlHttp.onreadystatechange = function () {
@@ -207,11 +214,10 @@ function getSiteBaseAddress(){
 $(function (){
 
     //if tabs, if tabs contain m365 load JSON file, if tabs contain -PnP load file
-    if($("a[data-tab='cli-m365-ps']")){
+    if($("a[data-tab='cli-m365-ps']") || $("a[data-tab='m365cli-bash']")){
        
         var jsonHelpPath = getSiteBaseAddress() +"/assets/help/cli.help.json";
-        
-
+      
         // Load inline help
         $.getJSON(jsonHelpPath, function (data) {
         
@@ -219,17 +225,29 @@ $(function (){
         
                 //Working
                 var cmdlet = helpItem.cmd;
-                $("section[data-tab='cli-m365-ps'] pre code").contents().each(function(index, line){
-                    var objLine = $(line);
-                    if(objLine.text().indexOf(cmdlet) > 1){
-                        var parts = objLine.text().split(cmdlet)
-                        objLine.replaceWith(parts[0] + "<a href='" + helpItem.helpUrl + "' class='cmd-help' target='_blank'>"+cmdlet+"</a>" + parts[1]);
-                    }
-                }); 
+                var cmdHelpUrl = helpItem.helpUrl;
+                var tabs = ["cli-m365-ps","m365cli-bash","cli-m365-bash"]; //TODO: this needs fixing
 
+                $.each(tabs, function (_i, tab) {
+                    console.log(cmdlet);
+
+                    $("section[data-tab='" + tab + "'] pre code").contents().each(function(index, line){
+                        var objLine = $(line);
+                        console.log(objLine.text());
+                        
+                        if(objLine.text().indexOf(cmdlet) > -1){
+                            var parts = objLine.text().split(cmdlet)
+                            console.log(parts.length);
+                            objLine.replaceWith(parts[0] + "<a href='" + cmdHelpUrl + "' class='cmd-help' target='_blank'>"+cmdlet+"</a>" + parts[1]);
+                        }
+                    }); 
+                });
             });
         });
     }
 
-});
+    // if($("a[data-tab='cli-m365-ps']")){
 
+    // }
+
+});
