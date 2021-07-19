@@ -96,7 +96,11 @@ function Process-CliForM365Docs
             }
 
             # Cmdlet Name
-            $finalCmdName = "m365 $($parentName) $($cmdletName.Replace("-"," "))"
+            if($parentName -eq "cmd"){
+                $finalCmdName = "m365 $($cmdletName.Replace("-"," "))"
+            }else{
+                $finalCmdName = "m365 $($parentName) $($cmdletName.Replace("-"," "))"
+            }
         }
         
         $cmdHelp = [PSCustomObject]@{
