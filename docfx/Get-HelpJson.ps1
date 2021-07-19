@@ -105,7 +105,7 @@ function Process-CliForM365Docs
         
         $cmdHelp = [PSCustomObject]@{
             cmd = $finalCmdName
-            helpUrl = "$($clim365BaseSitePath)/$($helpUrl)"
+            helpUrl = "$($clim365BaseSitePath)/$($helpUrl)".Replace("cmd/cmd","cmd")
         }
 
         $clim365DocRows += $cmdHelp
