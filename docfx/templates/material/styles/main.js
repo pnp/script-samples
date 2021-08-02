@@ -228,7 +228,7 @@ $(function (){
                 var cmdHelpUrl = helpItem.helpUrl;
                 var tabs = ["cli-m365-ps","m365cli-bash","cli-m365-bash"]; //TODO: this needs fixing
 
-                updateCmdletWithHelpLinks(tabs, cmdlet, cmdHelpUrl)   
+                updateCmdletWithHelpLinks(tabs, cmdlet, cmdHelpUrl);   
             });
         });
     }
@@ -241,7 +241,7 @@ $(function (){
                 var cmdHelpUrl = helpItem.helpUrl;
                 var tabs = ["pnpps"]; //TODO: this needs fixing
 
-                updateCmdletWithHelpLinks(tabs, cmdlet, cmdHelpUrl)                 
+                updateCmdletWithHelpLinksPs(tabs, cmdlet, cmdHelpUrl);                
             });
         });
     }
@@ -254,7 +254,37 @@ $(function (){
                 var cmdHelpUrl = helpItem.helpUrl;
                 var tabs = ["spoms-ps"]; //TODO: this needs fixing
 
-                updateCmdletWithHelpLinks(tabs, cmdlet, cmdHelpUrl)                 
+                updateCmdletWithHelpLinksPs(tabs, cmdlet, cmdHelpUrl);                 
+            });
+        });
+    }
+
+    function updateCmdletWithHelpLinksPs(tabs, cmdlet, cmdHelpUrl) {
+
+        $.each(tabs, function (_i, tab) {
+            $("section[data-tab='" + tab + "'] pre code").contents().each(function (index, line) {
+                var objLine = $(line);
+                    
+                if (objLine.text().indexOf(cmdlet) > -1) {
+                    var parts = objLine.text().split(" ");
+                    var updateLine = false;
+                    $.each(parts, function (_j, part) {
+
+                        var partClean = part.replace("\n", "").replace("\n\n","");
+
+                        //if (part === cmdlet || part === "\n" + cmdlet || part === "\n\n" + cmdlet || part ===  cmdlet + "\n" || part === "\n\n" + cmdlet) {
+                        if (partClean === cmdlet) {
+                            parts[_j] = part.replace(partClean, "<a href='" + cmdHelpUrl + "' class='cmd-help' target='_blank'>" + part +"</a>");
+                            updateLine = true;
+                        }
+                    });
+
+                    //objLine.replaceWith(parts[0] + "<a href='" + cmdHelpUrl + "' class='cmd-help' target='_blank'>" + cmdlet + "</a>" + parts[1]);
+                    if(updateLine){
+                        objLine.replaceWith(parts.join(" "));
+                    }
+                    
+                }
             });
         });
     }
@@ -263,13 +293,11 @@ $(function (){
 
         $.each(tabs, function (_i, tab) {
             $("section[data-tab='" + tab + "'] pre code").contents().each(function (index, line) {
-                var objLine = $(line)
-                console.log(objLine.text())
-    
+                var objLine = $(line);
+                    
                 if (objLine.text().indexOf(cmdlet) > -1) {
-                    var parts = objLine.text().split(cmdlet)
-                    console.log(parts.length)
-                    objLine.replaceWith(parts[0] + "<a href='" + cmdHelpUrl + "' class='cmd-help' target='_blank'>" + cmdlet + "</a>" + parts[1])
+                    var parts = objLine.text().split(cmdlet);
+                    objLine.replaceWith(parts[0] + "<a href='" + cmdHelpUrl + "' class='cmd-help' target='_blank'>" + cmdlet + "</a>" + parts[1]);
                 }
             });
         });
