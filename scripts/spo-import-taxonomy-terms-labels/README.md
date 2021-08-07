@@ -9,9 +9,10 @@ plugin: add-to-gallery
 The script is to import terms and labels into a term set. The sample is a small set of terms to showcase the use case but the requirement was to import 100s of terms with labels into SharePoint Online.
 
 The sample using PnP PowerShell to import a csv file (same format you would use for import via UI for a term set but with an additional column for labels delimited by |)
+
 # [PnP PowerShell](#tab/pnpps)
 ```powershell
-Connect-PnPOnline -Url https://reshmeeauckloo-admin.sharepoint.com/ -UseWebLogin
+Connect-PnPOnline -Url https://contoso-admin.sharepoint.com/ -UseWebLogin
 $envTermGroup = "Test"
 $termSId = "{38e2bfe9-37a7-4f8c-856f-f65a1b6050a8}"
 $csvPath = "C:\script\Status.csv"
@@ -99,8 +100,6 @@ Add-Synonyms $csvPath $termSId $envTermGroup
 [!INCLUDE [More about PnP PowerShell](../../docfx/includes/MORE-PNPPS.md)]
 ***
 
-## Source Credit
-
 ## Contributors
 
 | Author(s) |
@@ -108,4 +107,4 @@ Add-Synonyms $csvPath $termSId $envTermGroup
 | Reshmee Auckloo |
 
 [!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
-<img src="https://telemetry.sharepointpnp.com/script-samples/scripts/template-script-submission" aria-hidden="true" />
+<img src="https://telemetry.sharepointpnp.com/script-samples/scripts/spo-import-taxonomy-terms-labels" aria-hidden="true" />
