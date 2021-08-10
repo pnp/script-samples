@@ -1,6 +1,6 @@
 # Welcome to Script Samples
 
-This repository contains scripts for PnP PowerShell, CLI for Microsoft365, Graph SDK PowerShell, and SPO PowerShell scripts that are based on real world examples of the scripts that you run to perform tasks.
+This repository contains scripts for PnP PowerShell, CLI for Microsoft365, Graph SDK PowerShell, SPO PowerShell, Azure CLI scripts that are based on real world examples of the scripts that you run to perform tasks.
 
 If you are looking for the main site, rather than the repository, please visit: [https://pnp.github.io/script-samples](https://pnp.github.io/script-samples)
 
