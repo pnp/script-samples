@@ -61,6 +61,16 @@ Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Maecenas porttitor con
 ```
 [!INCLUDE [More about SPO Management Shell](../../docfx/includes/MORE-SPOMS.md)]
 
+# [Azure CLI](#tab/azure-cli)
+
+```Azure CLI
+
+<your cli script>  
+
+```
+[!INCLUDE [More about Azure CLI](../../docfx/includes/MORE-AZURECLI.md)]
+***
+
 ***
 
 ## Source Credit
