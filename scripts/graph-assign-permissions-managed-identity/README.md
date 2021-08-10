@@ -14,7 +14,7 @@ Create an Azure Functions App with and assign several permissions of Microsoft G
 
 # [Azure CLI](#tab/azure-cli)
 
-```Azure CLI
+```powershell
   
 #Get a random number between 100 and 300 to more easily be able to distinguish between several trials
 $rand = Get-Random -Minimum 300 -Maximum 500
@@ -65,9 +65,8 @@ $appRoleIds = $(az ad sp show --id $graphId --query "appRoles[?value=='Team.Crea
 foreach ($appRoleId in $appRoleIds) { $body = "{'principalId':'$principalId','resourceId':'$graphResourceId','appRoleId':'$appRoleId'}"; az rest --method post --uri https://graph.microsoft.com/v1.0/servicePrincipals/$principalId/appRoleAssignments --body $body --headers Content-Type=application/json }
 
 ```
-[!INCLUDE [More about Azure CLI]()]
-
-
+[!INCLUDE [More about Azure CLI](../../docfx/includes/MORE-AZURECLI.md)]
+***
 
 ## Source Credit
 
@@ -78,8 +77,7 @@ Sample first appeared on  [https://github.com/LuiseFreese/PnPrincessScripts/blob
 | Author(s) |
 |-----------|
 | Luise Freese |
-|  |
 
 [!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
 
-<img src="https://telemetry.sharepointpnp.com/script-samples/scripts/authenticate-graph" aria-hidden="true" />
+<img src="https://telemetry.sharepointpnp.com/script-samples/scripts/graph-assign-permissions-managed-identity" aria-hidden="true" />
