@@ -7,8 +7,6 @@ plugin: add-to-gallery
 ## Summary
 Reset bulk file permissions  from unique to parent folder inheritance.
 
-![Example Screenshot](assets/example.png)
-
 # [PnP PowerShell](#tab/pnpps)
 ```powershell
 
@@ -47,8 +45,9 @@ foreach($folder in $folders){
 }
 ## Disconnect PnP Connection.
 Disconnect-PnPOnline
-
 ```
+[!INCLUDE [More about PnP PowerShell](../../docfx/includes/MORE-PNPPS.md)]
+***
 
 ## Contributors
 
@@ -58,4 +57,4 @@ Disconnect-PnPOnline
 
 
 [!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
-<img src="https://telemetry.sharepointpnp.com/script-samples/scripts/Reset-Files-Permission-Unique-To-Inheried" aria-hidden="true" />
+<img src="https://telemetry.sharepointpnp.com/script-samples/scripts/reset-files-permission-unique-to-inherited" aria-hidden="true" />
