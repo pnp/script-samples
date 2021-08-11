@@ -4,15 +4,15 @@
   
   <head>
     <meta charset="utf-8">
-    <title> | PnP Samples </title>
+    <title>Assign Graph permissions to a Managed Identity | PnP Samples </title>
     <meta name="viewport" content="width=device-width">
-    <meta name="title" content=" | PnP Samples ">
+    <meta name="title" content="Assign Graph permissions to a Managed Identity | PnP Samples ">
     <meta name="generator" content="docfx 2.56.7.0">
     <meta name="description" content="A sample gallery of scripts to manage all things Microsoft 365.">
   
     <!-- Social Media -->
     <meta property="og:locale" content="en_GB">
-    <meta property="og:title" content=" | PnP Samples ">
+    <meta property="og:title" content="Assign Graph permissions to a Managed Identity | PnP Samples ">
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://pnp.github.io/script-samples">
     <meta property="og:image" content="https://pnp.github.io/script-samples/assets/social-media-screenshot.png">
@@ -64,90 +64,73 @@
           <div class="col-md-12">
             <article class="content wrap" id="_content" data-uid="">
                   <div class="contribution-panel mobile-hide pull-right">
-                      <a href="https://github.com/pnp/script-samples/blob/main/scripts/template-script-submission/README.md/#L1" title="Improve this Doc" class="improve-doc-lg"><i class="glyphicon glyphicon-pencil"></i></a>
+                      <a href="https://github.com/pnp/script-samples/blob/main/scripts/graph-assign-permissions-managed-identity/README.md/#L1" title="Improve this Doc" class="improve-doc-lg"><i class="glyphicon glyphicon-pencil"></i></a>
                   </div>
-                    <h1 id="section"><title></title></h1>
+                    <h1 id="assign-graph-permissions-to-a-managed-identity">Assign Graph permissions to a Managed Identity</h1>
 
-<div class="NOTE">
-<h5>Note</h5>
-<p>This is a submission helper template please find the <a href="/docfx/contribute.md">contributor guidance</a> to help you write this scenario.</p>
-</div>
 <h2 id="summary">Summary</h2>
-<p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Maecenas porttitor congue massa. Fusce posuere, magna sed pulvinar ultricies, purus lectus malesuada libero, sit amet commodo magna eros quis urna.</p>
+<p>Create an Azure Functions App with and assign several permissions of Microsoft Graph API to a Managed Identity</p>
 <p><img src="assets/example.png" alt="Example Screenshot"></p>
-<p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Maecenas porttitor congue massa. Fusce posuere, magna sed pulvinar ultricies, purus lectus malesuada libero, sit amet commodo magna eros quis urna.Nunc viverra imperdiet enim. Fusce est. Vivamus a tellus.Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Proin pharetra nonummy pede. Mauris et orci.Aenean nec lorem. In porttitor. Donec laoreet nonummy augue.</p>
+<h2 id="scripts">Scripts</h2>
 <div class="tabGroup" id="tabgroup_CeZOj-G++Q">
 <ul role="tablist">
 <li role="presentation">
-<a href="#tabpanel_CeZOj-G++Q_pnpps" role="tab" aria-controls="tabpanel_CeZOj-G++Q_pnpps" data-tab="pnpps" tabindex="0" aria-selected="true">PnP PowerShell</a>
-</li>
-<li role="presentation">
-<a href="#tabpanel_CeZOj-G++Q_cli-m365-ps" role="tab" aria-controls="tabpanel_CeZOj-G++Q_cli-m365-ps" data-tab="cli-m365-ps" tabindex="-1">CLI for Microsoft 365 using PowerShell</a>
-</li>
-<li role="presentation">
-<a href="#tabpanel_CeZOj-G++Q_cli-m365-bash" role="tab" aria-controls="tabpanel_CeZOj-G++Q_cli-m365-bash" data-tab="cli-m365-bash" tabindex="-1">CLI for Microsoft 365 using Bash</a>
-</li>
-<li role="presentation">
-<a href="#tabpanel_CeZOj-G++Q_graphps" role="tab" aria-controls="tabpanel_CeZOj-G++Q_graphps" data-tab="graphps" tabindex="-1">Microsoft Graph PowerShell</a>
-</li>
-<li role="presentation">
-<a href="#tabpanel_CeZOj-G++Q_spoms-ps" role="tab" aria-controls="tabpanel_CeZOj-G++Q_spoms-ps" data-tab="spoms-ps" tabindex="-1">SPO Management Shell</a>
-</li>
-<li role="presentation">
-<a href="#tabpanel_CeZOj-G++Q_azure-cli" role="tab" aria-controls="tabpanel_CeZOj-G++Q_azure-cli" data-tab="azure-cli" tabindex="-1">Azure CLI</a>
+<a href="#tabpanel_CeZOj-G++Q_azure-cli" role="tab" aria-controls="tabpanel_CeZOj-G++Q_azure-cli" data-tab="azure-cli" tabindex="0" aria-selected="true">Azure CLI</a>
 </li>
 </ul>
-<section id="tabpanel_CeZOj-G++Q_pnpps" role="tabpanel" data-tab="pnpps">
+<section id="tabpanel_CeZOj-G++Q_azure-cli" role="tabpanel" data-tab="azure-cli"><button class="article-clipboard" title="Copy to clipboard" data-toggle="tooltip" data-placement="top" data-clipboard-target="section[id^='tabpanel'][data-tab='azure-cli'] pre">
+    <span class="glyphicon glyphicon-copy" aria-hidden="true"></span>
+    <span class="article-clipboard__message done">Copied</span>
+</button>
 
-<pre><code class="lang-powershell">
-&lt;your powershell script&gt;
+<pre><code class="lang-powershell">  
+#Get a random number between 100 and 300 to more easily be able to distinguish between several trials
+$rand = Get-Random -Minimum 300 -Maximum 500
 
-</code></pre>
-<div class="highlight-tool">
-<p>Check out the <strong>PnP PowerShell</strong> to learn more at: <a href="https://aka.ms/pnp/powershell">https://aka.ms/pnp/powershell</a></p>
-</div>
-</section>
-<section id="tabpanel_CeZOj-G++Q_cli-m365-ps" role="tabpanel" data-tab="cli-m365-ps" aria-hidden="true" hidden="hidden">
+#Set values
+$resourceGroup = &quot;DemoPlay$rand&quot;
+$location = &quot;westeurope&quot;
+$storage = &quot;luisedemostorage$rand&quot;
+$functionapp = &quot;LuiseDemo-functionapp$rand&quot;
 
-<pre><code class="lang-powershell">
-&lt;your powershell script&gt;
+#create group
+az group create -n $resourceGroup -l $location
 
-</code></pre>
-</section>
-<section id="tabpanel_CeZOj-G++Q_cli-m365-bash" role="tabpanel" data-tab="cli-m365-bash" aria-hidden="true" hidden="hidden">
+#create storage account
+az storage account create `
+    -n $storage `
+    -l $location `
+    -g $resourceGroup `
+    --sku Standard_LRS
+    
+#create function
+az functionapp create `
+    -n $functionapp `
+    --storage-account $storage `
+    --consumption-plan-location $location `
+    --runtime powershell `
+    -g $resourceGroup `
+    --functions-version 3
+    
+#Create system-assigned Managed identity    
+az functionapp identity assign -n $functionapp -g $resourceGroup
 
-<pre><code class="lang-bash">
-&lt;your bash script&gt;
+#Get Graph Api service provider 
+az ad sp list --query &quot;[?appDisplayName=='Microsoft Graph'].{Name:appDisplayName, Id:appId}&quot; --output table --all
 
-</code></pre>
-<div class="highlight-tool">
-<p>Check out the <strong>CLI for Microsoft 365</strong> to learn more at: <a href="https://aka.ms/cli-m365">https://aka.ms/cli-m365</a></p>
-</div>
-</section>
-<section id="tabpanel_CeZOj-G++Q_graphps" role="tabpanel" data-tab="graphps" aria-hidden="true" hidden="hidden">
+#Save that as $graphID
+$graphId = az ad sp list --query &quot;[?appDisplayName=='Microsoft Graph'].appId | [0]&quot; --all 
 
-<pre><code class="lang-powershell">
-&lt;your powershell script&gt;
+#Set values
+$webAppName = &quot;LuiseDemo-functionapp$rand&quot;
+$principalId = $(az resource list -n $webAppName --query [*].identity.principalId --out tsv)
+$graphResourceId = $(az ad sp list --display-name &quot;Microsoft Graph&quot; --query [0].objectId --out tsv)
 
-</code></pre>
-<div class="highlight-tool">
-<p>Check out the <strong>Microsoft Graph PowerShell SDK</strong> to learn more at: <a href="https://docs.microsoft.com/en-us/graph/powershell/get-started">https://docs.microsoft.com/en-us/graph/powershell/get-started</a></p>
-</div>
-</section>
-<section id="tabpanel_CeZOj-G++Q_spoms-ps" role="tabpanel" data-tab="spoms-ps" aria-hidden="true" hidden="hidden">
+#Get appRoleIds for Team.Create, Group.ReadWrite.All, Directory.ReadWrite.All, Group.Create, Sites.Manage.All, Sites.ReadWrite.All
+$appRoleIds = $(az ad sp show --id $graphId --query &quot;appRoles[?value=='Team.Create'].id | [0]&quot;), $(az ad sp show --id $graphId --query &quot;appRoles[?value=='Group.ReadWrite.All'].id | [0]&quot;), $(az ad sp show --id $graphId --query &quot;appRoles[?value=='Directory.ReadWrite.All'].id | [0]&quot;), $(az ad sp show --id $graphId --query &quot;appRoles[?value=='Group.Create'].id | [0]&quot;), $(az ad sp show --id $graphId --query &quot;appRoles[?value=='Sites.Manage.All'].id | [0]&quot;), $(az ad sp show --id $graphId --query &quot;appRoles[?value=='Sites.ReadWrite.All'].id | [0]&quot;)
 
-<pre><code class="lang-powershell">
-&lt;your powershell script&gt;
-
-</code></pre>
-<div class="highlight-tool">
-<p>Check out the <strong>SPO Management Shell</strong> to learn more at: <a href="https://docs.microsoft.com/en-us/powershell/sharepoint/sharepoint-online/introduction-sharepoint-online-management-shell?view=sharepoint-ps">Introduction SharePoint Online Management Shell | Microsoft Docs</a></p>
-</div>
-</section>
-<section id="tabpanel_CeZOj-G++Q_azure-cli" role="tabpanel" data-tab="azure-cli" aria-hidden="true" hidden="hidden">
-
-<pre><code class="lang-Azure">
-&lt;your cli script&gt;  
+#Loop over all appRoleIds and assign the permissions
+foreach ($appRoleId in $appRoleIds) { $body = &quot;{'principalId':'$principalId','resourceId':'$graphResourceId','appRoleId':'$appRoleId'}&quot;; az rest --method post --uri https://graph.microsoft.com/v1.0/servicePrincipals/$principalId/appRoleAssignments --body $body --headers Content-Type=application/json }
 
 </code></pre>
 <div class="highlight-tool">
@@ -155,9 +138,8 @@
 </div>
 </section>
 </div>
-<hr>
 <h2 id="source-credit">Source Credit</h2>
-<p>Sample first appeared on <a href="https://pnp.github.io/cli-microsoft365/sample-scripts/spo/add-app-catalog/">https://pnp.github.io/cli-microsoft365/sample-scripts/spo/add-app-catalog/</a></p>
+<p>Sample first appeared on  <a href="https://github.com/LuiseFreese/PnPrincessScripts/blob/main/managedidentities.ps1">https://github.com/LuiseFreese/PnPrincessScripts/blob/main/managedidentities.ps1</a></p>
 <h2 id="contributors">Contributors</h2>
 <table>
 <thead>
@@ -167,13 +149,13 @@
 </thead>
 <tbody>
 <tr>
-<td>&lt;-you-&gt;</td>
+<td>Luise Freese</td>
 </tr>
 </tbody>
 </table>
 <h2 id="disclaimer">Disclaimer</h2>
 <p><strong>THESE SAMPLES ARE PROVIDED <em>AS IS</em> WITHOUT WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, INCLUDING ANY IMPLIED WARRANTIES OF FITNESS FOR A PARTICULAR PURPOSE, MERCHANTABILITY, OR NON-INFRINGEMENT.</strong></p>
-<img src="https://telemetry.sharepointpnp.com/script-samples/scripts/template-script-submission" aria-hidden="true">
+<img src="https://telemetry.sharepointpnp.com/script-samples/scripts/graph-assign-permissions-managed-identity" aria-hidden="true">
 </article>
           </div>
         </div>
