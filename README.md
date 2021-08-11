@@ -10,7 +10,7 @@ This repository's contributors are all community members who volunteered their t
 
 ## Contributions
 
-These samples are direct from the feature teams, PnP team (https://aka.ms/m365pnp) or shared by the community. We welcome your input on issues and suggestions for new samples. We  welcome community contributions for sample scripts. If you have any questions, just let us know.
+These samples are direct from the feature teams, PnP team (https://aka.ms/m365pnp) or shared by the community. We welcome your input on issues and suggestions for new and existing samples. We  welcome community contributions for sample scripts. If you have any questions, just let us know.
 
 Please have a look at our [Contribution Guidance](https://pnp.github.io/script-samples/contributing/index.html) before submitting your pull requests, so that we can get your contribution processed as fast as possible.
 
