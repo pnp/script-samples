@@ -4,6 +4,9 @@ This repository contains scripts for PnP PowerShell, CLI for Microsoft365, Graph
 
 If you are looking for the main site, rather than the repository, please visit: [https://pnp.github.io/script-samples](https://pnp.github.io/script-samples)
 
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/cB2aideuHlk" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
 ## Authors
 
 This repository's contributors are all community members who volunteered their time to share code samples. Work is done as an open source community project, which each sample contained in their own solution.
@@ -12,8 +15,17 @@ This repository's contributors are all community members who volunteered their t
 
 These samples are direct from the feature teams, PnP team (https://aka.ms/m365pnp) or shared by the community. We welcome your input on issues and suggestions for new and existing samples. We welcome community contributions for sample scripts. If you have any questions, just let us know.
 
-Please have a look at our [Contribution Guidance](https://pnp.github.io/script-samples/contributing/index.html) before submitting your pull requests, so that we can get your contribution processed as fast as possible.
+We are looking for contributions in the following areas:
 
+* Create a new scenario with a script
+* Update a scenario with an alternative script using another tool e.g. Adding a PnP PowerShell script to a scenario that only has CLI for Microsoft 365.
+* Feedback on the usability of the site, we are always looking to improve the experience.
+
+In this repo, we are created a template submission folder and files, complete the readme, add any screenshots and submit your GitHub Pull Request, please contact us via issues list to communicate what your planning.
+
+Check out our [Contribution Guidance](https://pnp.github.io/script-samples/contributing/index.html) before submitting your pull requests, so that we can get your contribution processed as fast as possible.
+
+If you need any support or want to know how to use GitHub then we have a great programme to [support new contributors | sharing is caring](https://pnp.github.io/sharing-is-caring/).
 ## Code of Conduct
 
 This repository has adopted the [Microsoft Open Source Code of Conduct](https://opensource.microsoft.com/codeofconduct/). For more information see the [Code of Conduct FAQ](https://opensource.microsoft.com/codeofconduct/faq/) or contact [opencode@microsoft.com](mailto:opencode@microsoft.com) with any additional questions or comments.
