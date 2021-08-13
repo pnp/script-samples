@@ -4,8 +4,8 @@ This repository contains scripts for PnP PowerShell, CLI for Microsoft365, Graph
 
 If you are looking for the main site, rather than the repository, please visit: [https://pnp.github.io/script-samples](https://pnp.github.io/script-samples)
 
-
-<iframe width="560" height="315" src="https://www.youtube.com/embed/cB2aideuHlk" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+Check out our YouTube Video:
+[![Introducing Script Samples](https://img.youtube.com/vi/cB2aideuHlk/maxresdefault.jpg)](https://www.youtube.com/embed/cB2aideuHlk)
 
 ## Authors
 
