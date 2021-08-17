@@ -7,7 +7,7 @@ plugin: add-to-gallery
 ## Summary
 
 Say we have lots of Office documents in a Document library. We need to have copies of the document
-stored on a local file share in case of network outages. We want the local copies tyo be in PDF format so people cant modify them.
+stored on a local file share in case of network outages. We want the local copies to be in PDF format so people cant modify them.
 
 This script will download the contents of a document library to a local directory , converting Office Documents to PDF in the process.
 
