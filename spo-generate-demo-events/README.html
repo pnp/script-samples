@@ -1,0 +1,199 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html lang="en">
+  
+  <head>
+    <meta charset="utf-8">
+    <title>Generate Demo Events for SharePoint Events List | PnP Samples </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Generate Demo Events for SharePoint Events List | PnP Samples ">
+    <meta name="generator" content="docfx 2.56.7.0">
+    <meta name="description" content="A sample gallery of scripts to manage all things Microsoft 365.">
+  
+    <!-- Social Media -->
+    <meta property="og:locale" content="en_GB">
+    <meta property="og:title" content="Generate Demo Events for SharePoint Events List | PnP Samples ">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://pnp.github.io/script-samples">
+    <meta property="og:image" content="https://pnp.github.io/script-samples/assets/social-media-screenshot.png">
+    <meta property="og:image:alt" content="Screenshot example of the PnP Script Samples Site">
+    <meta property="og:site_name" content="PnP Script Samples">
+    <meta property="og:description" content="A sample gallery of scripts to manage all things Microsoft 365.">
+  
+    <link rel="shortcut icon" href="https://c.s-microsoft.com/favicon.ico?v2">
+    <link rel="stylesheet" href="../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../styles/docfx.css">
+    <link rel="stylesheet" href="../styles/main.css">
+    <link rel="stylesheet" href="../styles/extra.css">
+    <link rel="stylesheet" href="../styles/filter.css">
+    <link rel="stylesheet" href="../styles/site.css">
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet"> 
+    <meta property="docfx:navrel" content="../toc.html">
+    <meta property="docfx:tocrel" content="../toc.html">
+    
+    
+    <meta property="docfx:newtab" content="true">
+  </head>  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../assets/logo.svg" alt="">
+              </a>    </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <label class="glyphicon glyphicon-search" for="search-query"></label>
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>      </header>
+      <div role="main" class="container body-content hide-when-search">
+        <div class="article row grid">
+          <div class="col-md-12">
+            <article class="content wrap" id="_content" data-uid="">
+                  <div class="contribution-panel mobile-hide pull-right">
+                      <a href="https://github.com/pnp/script-samples/blob/main/scripts/spo-generate-demo-events/README.md/#L1" title="Improve this Doc" class="improve-doc-lg"><i class="glyphicon glyphicon-pencil"></i></a>
+                  </div>
+                    <h1 id="generate-demo-events-for-sharepoint-events-list">Generate Demo Events for SharePoint Events List</h1>
+
+<h2 id="summary">Summary</h2>
+<p>This sample script generates demo events for the SharePoint Events List within a modern site. This uses a CSV to load sample events that includes, titles, descriptions, start, end times, category. The script will use the current date and add days to the events from the CSV file to create example events in the future relative to the current date.</p>
+<p>This scenario shows how to bulk add events and could be modified to bulk load events into the SharePoint Events List.</p>
+<div class="NOTE">
+<h5>Note</h5>
+<p>The script does not include the imagery shown in the screenshot, I have update stock images as its very quick to do.
+In addition, the location does not resolve the longitude and latitude coordinates.</p>
+</div>
+<p><img src="assets/example.png" alt="Example Screenshot"></p>
+<div class="tabGroup" id="tabgroup_CeZOj-G++Q">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_CeZOj-G++Q_pnpps" role="tab" aria-controls="tabpanel_CeZOj-G++Q_pnpps" data-tab="pnpps" tabindex="0" aria-selected="true">PnP PowerShell</a>
+</li>
+<li role="presentation">
+<a href="#tabpanel_CeZOj-G++Q_csv" role="tab" aria-controls="tabpanel_CeZOj-G++Q_csv" data-tab="csv" tabindex="-1">CSV</a>
+</li>
+</ul>
+<section id="tabpanel_CeZOj-G++Q_pnpps" role="tabpanel" data-tab="pnpps"><button class="article-clipboard" title="Copy to clipboard" data-toggle="tooltip" data-placement="top" data-clipboard-target="section[id^='tabpanel'][data-tab='pnpps'] pre">
+    <span class="glyphicon glyphicon-copy" aria-hidden="true"></span>
+    <span class="article-clipboard__message done">Copied</span>
+</button>
+
+<pre><code class="lang-powershell">Connect-PnPOnline https://contoso.sharepoint.com/sites/demo -Interactive
+
+# Load Data from CSV File
+$eventsToAdd = Import-CSV events.csv
+
+# Each time you run the script it will use the current date and set it X number of days in the future. 
+$eventsToAdd | ForEach-Object {
+
+    # Uses todays date as the date
+    # Date format is Month/Day/Year Hour/Minute
+    $format = &quot;MM/dd/yyyy HH:mm&quot;
+    
+    # Add Days
+    $today = ((Get-Date).AddDays($_.FutureDays)).ToString(&quot;MM/dd/yyyy&quot;)
+    $startDateTime = $today + &quot; $($_.StartTime)&quot;
+    $endDateTime = $today + &quot; $($_.EndTime)&quot;
+
+    Write-Host &quot;Adding $startDateTime StartDate&quot;
+    Write-Host &quot;Adding $endDateTime EndDate&quot;
+
+    $values = @{
+        &quot;Title&quot; = $_.Title; 
+        &quot;Category&quot; = $_.Category; 
+        &quot;Description&quot; = $_.Description; 
+        &quot;fAllDayEvent&quot; = $_.AllDayEvent; 
+        &quot;Location&quot; = $_.Location;
+        &quot;EventDate&quot; = $startDateTime;
+        &quot;EndDate&quot; = $endDateTime;
+    }
+    
+    Add-PnPListItem -List &quot;Events&quot; -ContentType &quot;Event&quot; -Values $values
+}
+
+</code></pre>
+<div class="highlight-tool">
+<p>Check out the <strong>PnP PowerShell</strong> to learn more at: <a href="https://aka.ms/pnp/powershell">https://aka.ms/pnp/powershell</a></p>
+</div>
+</section>
+<section id="tabpanel_CeZOj-G++Q_csv" role="tabpanel" data-tab="csv" aria-hidden="true" hidden="hidden"><button class="article-clipboard" title="Copy to clipboard" data-toggle="tooltip" data-placement="top" data-clipboard-target="section[id^='tabpanel'][data-tab='csv'] pre">
+    <span class="glyphicon glyphicon-copy" aria-hidden="true"></span>
+    <span class="article-clipboard__message done">Copied</span>
+</button>
+
+<pre><code>
+Title,FutureDays,StartTime,EndTime,Description,Category,AllDayEvent,Location
+All Company Away Day,10,10:00,11:00,This is a corporate event for everyone to join,Corporate Event,FALSE,&quot;Bath, England&quot;
+Senior Management Quarterly Announcements,90,12:00,13:00,This is a corporate event for everyone to join,Corporate Event,FALSE,&quot;Bath, England&quot;
+Senior Management Quarterly Announcements,180,10:00,11:00,This is a corporate event for everyone to join,Corporate Event,FALSE,&quot;Bristol, England&quot;
+Company Internal Conference,35,09:00,17:00,This is a corporate event for everyone to join,Corporate Event,FALSE,&quot;Cardiff, Wales&quot;
+Training Event: Office 365,15,10:00,11:00,This is a corporate event for everyone to join,Corporate Event,FALSE,&quot;London, England&quot;
+Training Event: Security,20,12:00,13:00,This is a corporate event for everyone to join,Corporate Event,FALSE,&quot;London, England&quot;
+Training Event: Using Teams,25,12:00,13:00,This is a corporate event for everyone to join,Corporate Event,FALSE,&quot;London, England&quot;
+
+</code></pre>
+<div class="NOTE">
+<h5>Note</h5>
+<p>Save the CSV block of text as a CSV file and name it &quot;events.csv&quot;</p>
+</div>
+</section>
+</div>
+<h2 id="contributors">Contributors</h2>
+<table>
+<thead>
+<tr>
+<th>Author(s)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Paul Bullock</td>
+</tr>
+</tbody>
+</table>
+<h2 id="disclaimer">Disclaimer</h2>
+<p><strong>THESE SAMPLES ARE PROVIDED <em>AS IS</em> WITHOUT WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, INCLUDING ANY IMPLIED WARRANTIES OF FITNESS FOR A PARTICULAR PURPOSE, MERCHANTABILITY, OR NON-INFRINGEMENT.</strong></p>
+<img src="https://telemetry.sharepointpnp.com/script-samples/scripts/spo-generate-demo-events" aria-hidden="true">
+</article>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            <span>Script Samples<br>Generated by <strong><a href='https://dotnet.github.io/docfx' alt='Doc FX Website'>DocFX</a></strong> with <strong><a href='https://ovasquez.github.io/docfx-material' alt='DocFx Material Theme'>Material UI</a></strong></span>
+            
+            <!-- <img src="https://telemetry.sharepointpnp.com/@pnp.github.io/index/" alt="spacer"> -->
+          </div>
+        </div>
+      </footer>    </div>
+    
+    <script type="text/javascript" src="../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+    
+    <script type="text/javascript" src="../styles/clipboard.min.js"></script>
+    <script type="text/javascript" src="../styles/isotope.pkgd.min.js"></script>
+    <script type="text/javascript" src="../styles/loadsamples.js"></script>
+    <script type="text/javascript" src="../styles/filtersamples.js"></script>
+
+  </body>
+</html>
