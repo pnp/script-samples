@@ -10,8 +10,6 @@ This script shows how you can use the CLI to:
  - when copyKeepingSameFolderStructure is true - copy all files and folders from source library to a different library in different SharePoint site keeping the same folder and subfolder structure
  - when copyKeepingSameFolderStructure is false - copy all files from all folders and subfolders from source library to a different library to a root folder in different SharePoint
  
-![Example Screenshot](assets/example.png)
- 
 # [CLI for Microsoft 365 using PowerShell](#tab/cli-m365-ps)
 ```powershell
 Write-host 'Copy files to another SharePoint Library in another site'

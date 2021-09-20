@@ -12,8 +12,6 @@ By combining the CLI for Microsoft 365 and PowerShell we can make this task easy
 
 This script will export the Power Automate flow *Your sample test flow*, make sure to pass the correct name in the script, and your flow will be exported right away.
 
-![Example Screenshot](assets/example.png)
-
 # [CLI for Microsoft 365 using PowerShell](#tab/cli-m365-ps)
 
 ```powershell

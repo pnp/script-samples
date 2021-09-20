@@ -9,7 +9,6 @@ plugin: add-to-gallery
 List all the application customizers in a tenant. Scope is default ``` all ```. Here we are using the
 [custom action list](https://pnp.github.io/cli-microsoft365/cmd/spo/customaction/customaction-list/) command to list out all the Application Customizers in all the sites in the tenant.
  
-![Example Screenshot](assets/example.png)
  
 # [CLI for Microsoft 365 with PowerShell](#tab/cli-m365-ps)
 ```powershell

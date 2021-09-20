@@ -8,8 +8,6 @@ plugin: add-to-gallery
 
 A sample script which iterates through all the teams in your tenant and lists all apps in each team. This script will be handy if you want to generate a report of available apps in Teams across your tenant.
  
-![Example Screenshot](assets/example.png)
- 
 # [CLI for Microsoft 365 with PowerShell](#tab/cli-m365-ps)
 ```powershell
 $availableTeams = m365 teams team list -o json | ConvertFrom-Json

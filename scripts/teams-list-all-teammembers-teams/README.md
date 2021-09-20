@@ -6,8 +6,6 @@ plugin: add-to-gallery
 
 List all team members in Microsoft Teams teams in the tenant and exports the results in a CSV.
  
-![Example Screenshot](assets/example.png)
- 
 # [CLI for Microsoft 365 with PowerShell](#tab/cli-m365-ps)
 ```powershell
 function Get-TeamMembers(

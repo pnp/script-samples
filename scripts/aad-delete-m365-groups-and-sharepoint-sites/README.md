@@ -10,8 +10,6 @@ Another example how you can delete all Microsoft 365 Groups and SharePoint Onlin
  
 [!INCLUDE [Delete Warning](../../docfx/includes/DELETE-WARN.md)]
 
-![Example Screenshot](assets/example.png)
- 
 # [CLI for Microsoft 365 with PowerShell](#tab/cli-m365-ps)
 ```powershell
 ### Warning. Use with caution. This script deletes all M365 Groups and SPO Sites in your tenant

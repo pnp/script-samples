@@ -10,8 +10,6 @@ We utilize Teams during incidents and create channels for each. We would like to
 - right now the only option we have is to go through Security & Compliance.
 - Teams usage is growing in every organization and it would soon become unreasonably to only have Administrators be the ones doing exports of channels for all the Teams.
 
-![Example Screenshot](assets/example.png)
-
 ## Solution
 
 This script uses CLI for Microsoft 365 to export the conversations from Microsoft Teams Channels. You don't need to be a tenant admin to export conversations but you still can only export conversations of Teams of which you are member.

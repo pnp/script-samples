@@ -10,8 +10,6 @@ This script can be used to replace the membership of a user for a selected list 
  
 [!INCLUDE [Delete Warning](../../docfx/includes/DELETE-WARN.md)]
 
-![Example Screenshot](assets/example.png)
- 
 # [CLI for Microsoft 365 with PowerShell](#tab/cli-m365-ps)
 ```powershell
 $fileInput = "<PUTYOURPATHHERE.csv>"

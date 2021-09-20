@@ -9,8 +9,6 @@ plugin: add-to-gallery
 Search all flows as, an administrator, for a specific search string and report results. This sample allows you to get a report of all flows that are connected to a specific site or list. The 
 ``` $searchString ``` can be any value but results are the best when using a GUID or site collection URL.
  
-![Example Screenshot](assets/example.png)
- 
 # [CLI for Microsoft 365 with PowerShell](#tab/cli-m365-ps)
 ```powershell
 Write-Output "Retrieving all environments"

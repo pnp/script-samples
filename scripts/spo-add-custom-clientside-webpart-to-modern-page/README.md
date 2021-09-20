@@ -8,8 +8,6 @@ plugin: add-to-gallery
 
 You've built an amazing new web part and now you want to programmatically add it to a modern page. This sample helps you add your web part to the page with your custom properties that might be dynamic according to your script.
  
-![Example Screenshot](assets/example.png)
- 
 # [CLI for Microsoft 365 using PowerShell](#tab/cli-m365-ps)
 ```powershell
 $site = "https://contoso.sharepoint.com/sites/site1"

@@ -8,8 +8,6 @@ plugin: add-to-gallery
 
 This script helps you to list and export all site collection and their lists SharePoint Online sites, ideal for getting insights into the size of your environment.
  
-![Example Screenshot](assets/example.png)
- 
 # [CLI for Microsoft 365 with PowerShell](#tab/cli-m365-ps)
 ```powershell
 $fileExportPath = "<PUTYOURPATHHERE.csv>"

@@ -17,8 +17,6 @@ Below is an example of the format needed for your .csv file:
 > [!important]
 > Make sure your target libraries contained in the file do exist in SharePoint Online.
  
-![Example Screenshot](assets/example.png)
- 
 # [CLI for Microsoft 365](#tab/cli-m365-ps)
 ```powershell
 <#

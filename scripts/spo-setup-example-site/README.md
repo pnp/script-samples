@@ -14,8 +14,6 @@ This script is a good starting point for a setup script to create site with some
  - modifies the all items view of the document library,
  - modifies the site navigation links
  
-![Example Screenshot](assets/example.png)
- 
 # [CLI for Microsoft 365 with PowerShell](#tab/cli-m365-ps)
 ```powershell
 Write-host 'setup script example'

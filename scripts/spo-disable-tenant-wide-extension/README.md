@@ -11,8 +11,6 @@ Tenant Wide Extensions list from the App Catalog helps to manage the activation 
 > [!Note]
 > TenantWideExtensionDisabled column denotes the extension is enabled or disabled.
  
-![Example Screenshot](assets/example.png)
- 
 # [CLI for Microsoft 365 using PowerShell](#tab/cli-m365-ps)
 ```powershell
 $extensionName = Read-Host "Enter the Extension Name"

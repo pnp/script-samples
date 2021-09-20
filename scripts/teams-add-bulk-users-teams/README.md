@@ -8,8 +8,6 @@ plugin: add-to-gallery
 
 This script will add users in existing Teams contained in your .csv file.
  
-![Example Screenshot](assets/example.png)
- 
 # [CLI for Microsoft 365 with PowerShell](#tab/cli-m365-ps)
 ```powershell
 <#

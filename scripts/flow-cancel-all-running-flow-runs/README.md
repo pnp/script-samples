@@ -10,8 +10,6 @@ Do you want to automate the cancellation of running Power Automate flow runs?
 
 This script will cancel all running flow runs of a Power Automate flow created in an environment. Pass the Flow environment id and the flow guid as parameter while running the script.
 
-![Example Screenshot](assets/example.png)
-
 # [CLI for Microsoft 365 with PowerShell](#tab/cli-m365-ps)
 ```powershell
 

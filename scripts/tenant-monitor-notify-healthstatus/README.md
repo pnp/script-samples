@@ -24,8 +24,6 @@ All the pre-requisites would be completed by the script. Script checks whether S
 
 If you want to schedule the script directly, you can go ahead without the need of any other configurations.
  
-![Example Screenshot](assets/example.png)
- 
 # [CLI for Microsoft 365 with PowerShell](#tab/cli-m365-ps)
 ```powershell
 #Ensure that you are logged in to the site mentioned in the webURL as a user who has Edit Permission

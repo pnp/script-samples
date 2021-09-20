@@ -11,8 +11,6 @@ Companies pursue to hasten profits growth or enter new marketplace through Merge
 > [!Note}
 > Refactor the code as per your requirement.
  
-![Example Screenshot](assets/example.png)
- 
 # [CLI for Microsoft 365 with PowerShell](#tab/cli-m365-ps)
 ```powershell
 $taskItems = import-csv "sample-input-file.csv" –header mailNickname, userEmail, role, action

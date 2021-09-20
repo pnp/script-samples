@@ -15,8 +15,6 @@ Reference: ['ensure' commands #1427](https://github.com/pnp/cli-microsoft365/dis
 * calls the _api/web/Lists/EnsureSiteAssetsLibrary REST endpoint to create the Site Assets library
 * returns the existing or created SPList as a JSON object
 
-![Example Screenshot](assets/example.png)
-
 # [CLI for Microsoft 365 using PowerShell](#tab/cli-m365-ps)
 
 ```powershell

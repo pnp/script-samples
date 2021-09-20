@@ -6,8 +6,6 @@ plugin: add-to-gallery
 
 Retrieves all activities for a specific Microsoft Teams Team and shares the top 3 contributors based on their score as an adaptive card to the specified webhook url.
  
-![Example Screenshot](assets/example.png)
- 
 # [CLI for Microsoft 365 with PowerShell](#tab/cli-m365-ps)
 ```powershell
 $teamId = "<PUTYOURTEAMIDHERE>"

@@ -15,8 +15,6 @@ plugin: add-to-gallery
 >
 > Sites created with Private Channels are not (yet?) visible in the SharePoint Online admin center, so adding users as Site Collection Admins into those could cause chaos! It's safer to get a list of all your sites, and keep the intended ones in your csv file to feed the script.
 
-![Example Screenshot](assets/example.png)
-
 ## Get all the Site Collections in your tenant
 
 To get all the Site Collections in your tenant and export to a .csv file, you can run the following:
