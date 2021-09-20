@@ -40,57 +40,82 @@
 
 /* Data driven backgrounds */
 .sample-thumbnail[data-products^="sharepoint"] .sample-preview{
-    background-image: url(../assets/icons/custom/sharepoint.svg);
-    background-size: 500px;
-    background-position: -110px -110px;
-    background-repeat: no-repeat;
+    background: rgb(237,237,237);
+    background: linear-gradient(90deg, rgba(237,237,237,1) 0%, rgba(5,143,146,1) 77%);
+    
+    /* background-image: url(../assets/icons/custom/sharepoint.svg);
+    background-size: 100px;
+    background-position: 10px 10px;
+    background-repeat: no-repeat; */
 }
 
 .sample-thumbnail[data-products^="teams"] .sample-preview{
-    background-image: url(../assets/icons/custom/teams.svg);
+
+    background: rgb(237,237,237);
+    background: linear-gradient(90deg, rgba(237,237,237,1) 0%, rgba(57,64,171,1) 77%);
+
+    /* background-image: url(../assets/icons/custom/teams.svg);
     background-size: 500px;
     background-position: -110px -110px;
-    background-repeat: no-repeat;
+    background-repeat: no-repeat; */
 }
 
 .sample-thumbnail[data-products^="graph"] .sample-preview {
-    background-image: url(../assets/icons/custom/graph.svg);
+
+    background: rgb(237,237,237);
+    background: linear-gradient(90deg, rgba(237,237,237,1) 0%, rgba(43,124,210,1) 77%);
+
+    /* background-image: url(../assets/icons/custom/graph.svg);
     background-size: 300px;
     background-position: -73px -27px;
-    background-repeat: no-repeat;
+    background-repeat: no-repeat; */
 }
 
 .sample-thumbnail[data-products^="azure ad"] .sample-preview,
 .sample-thumbnail[data-products^="azuread"] .sample-preview {
-    background-image: url(../assets/icons/custom/aad.svg);
+
+    background: rgb(237,237,237);
+    background: linear-gradient(90deg, rgba(237,237,237,1) 0%, rgba(84,174,240,1) 77%);
+
+    /* background-image: url(../assets/icons/custom/aad.svg);
     background-size: 300px;
     background-position: -82px -14px;
-    background-repeat: no-repeat;
+    background-repeat: no-repeat; */
 }
 
 .sample-thumbnail[data-products^="power automate"] .sample-preview,
 .sample-thumbnail[data-products^="powerautomate"] .sample-preview {
     
-    background-image: url(../assets/icons/custom/powerautomate.svg);
+    background: rgb(237,237,237);
+    background: linear-gradient(90deg, rgba(237,237,237,1) 0%, rgba(17,82,212,1) 77%);
+
+    /* background-image: url(../assets/icons/custom/powerautomate.svg);
     background-size: 311px;
     background-position: -76px -32px;
-    background-repeat: no-repeat;
+    background-repeat: no-repeat; */
 }
 
 .sample-thumbnail[data-products^="office"] .sample-preview {
-    background-image: url(../assets/icons/custom/office.svg);
+    /* background-image: url(../assets/icons/custom/office.svg);
     background-size: 400px;
     background-position: -51px -77px;
-    background-repeat: no-repeat;
+    background-repeat: no-repeat; */
+
+    background: rgb(237,237,237);
+    background: linear-gradient(90deg, rgba(237,237,237,1) 0%, rgba(226,92,1,1) 77%);
 }
 
 .sample-thumbnail[data-products^="microsoft todo"] .sample-preview, 
 .sample-thumbnail[data-products^="microsoft to do"] .sample-preview, 
 .sample-thumbnail[data-products^="todo"] .sample-preview {
-    background-image: url(../assets/icons/custom/todo.svg);
+
+    background: rgb(237,237,237);
+    background: linear-gradient(90deg, rgba(237,237,237,1) 0%, rgba(41,135,230,1) 77%);
+
+    /* background-image: url(../assets/icons/custom/todo.svg);
     background-size: 350px;
     background-position: -73px -24px;
-    background-repeat: no-repeat;
+    background-repeat: no-repeat; */
 }
 
 /* //Data driven backgrounds */
