@@ -1,0 +1,248 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html lang="en">
+  
+  <head>
+    <meta charset="utf-8">
+    <title>Recognize most active users for a specific Team | PnP Samples </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Recognize most active users for a specific Team | PnP Samples ">
+    <meta name="generator" content="docfx 2.56.7.0">
+    <meta name="description" content="A sample gallery of scripts to manage all things Microsoft 365.">
+  
+    <!-- Social Media -->
+    <meta property="og:locale" content="en_GB">
+    <meta property="og:title" content="Recognize most active users for a specific Team | PnP Samples ">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://pnp.github.io/script-samples">
+    <meta property="og:image" content="https://pnp.github.io/script-samples/assets/social-media-screenshot.png">
+    <meta property="og:image:alt" content="Screenshot example of the PnP Script Samples Site">
+    <meta property="og:site_name" content="PnP Script Samples">
+    <meta property="og:description" content="A sample gallery of scripts to manage all things Microsoft 365.">
+  
+    <link rel="shortcut icon" href="https://c.s-microsoft.com/favicon.ico?v2">
+    <link rel="stylesheet" href="../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../styles/docfx.css">
+    <link rel="stylesheet" href="../styles/main.css">
+    <link rel="stylesheet" href="../styles/extra.css">
+    <link rel="stylesheet" href="../styles/filter.css">
+    <link rel="stylesheet" href="../styles/site.css">
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet"> 
+    <meta property="docfx:navrel" content="../toc.html">
+    <meta property="docfx:tocrel" content="../toc.html">
+    
+    
+    <meta property="docfx:newtab" content="true">
+  </head>  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+             <div class="github-mark">
+              <a href="https://github.com/pnp/script-samples">
+                <img src="https://pnp.github.io/script-samples/assets/icons/github-light-64px.png" alt="GitHub Icon Image">
+              </a>
+            </div>
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../assets/logo.svg" alt="">
+              </a>    </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <label class="glyphicon glyphicon-search" for="search-query"></label>
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>      </header>
+      <div role="main" class="container body-content hide-when-search">
+        <div class="article row grid">
+          <div class="col-md-12">
+            <article class="content wrap" id="_content" data-uid="">
+                  <div class="contribution-panel mobile-hide pull-right">
+                      <a href="https://github.com/pnp/script-samples/blob/main/scripts/teams-recognize-most-active-users-specific-team/README.md/#L1" title="Improve this Doc" class="improve-doc-lg"><i class="glyphicon glyphicon-pencil"></i></a>
+                  </div>
+                    <h1 id="recognize-most-active-users-for-a-specific-team">Recognize most active users for a specific Team</h1>
+
+<p>Retrieves all activities for a specific Microsoft Teams Team and shares the top 3 contributors based on their score as an adaptive card to the specified webhook url.</p>
+<p><img src="assets/example.png" alt="Example Screenshot"></p>
+<div class="tabGroup" id="tabgroup_CeZOj-G++Q">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_CeZOj-G++Q_cli-m365-ps" role="tab" aria-controls="tabpanel_CeZOj-G++Q_cli-m365-ps" data-tab="cli-m365-ps" tabindex="0" aria-selected="true">CLI for Microsoft 365 with PowerShell</a>
+</li>
+</ul>
+<section id="tabpanel_CeZOj-G++Q_cli-m365-ps" role="tabpanel" data-tab="cli-m365-ps"><button class="article-clipboard" title="Copy to clipboard" data-toggle="tooltip" data-placement="top" data-clipboard-target="section[id^='tabpanel'][data-tab='cli-m365-ps'] pre">
+    <span class="glyphicon glyphicon-copy" aria-hidden="true"></span>
+    <span class="article-clipboard__message done">Copied</span>
+</button>
+
+<pre><code class="lang-powershell">$teamId = &quot;&lt;PUTYOURTEAMIDHERE&gt;&quot;
+$webhookUrl = &quot;&lt;PUTYOURURLHERE&gt;&quot;
+# You can get a delta of messages since the last 'n' days. Currently set to seven. You can go back a maximum of 8 months.
+$date = (get-date).AddDays(-7).ToString(&quot;yyyy-MM-ddTHH:mm:ssZ&quot;)
+
+$channels = m365 teams channel list --teamId $teamId --output json | ConvertFrom-Json
+$results = @()
+$scoreResults = @()
+
+$channelCounter = 0;
+
+foreach ($channel in $channels) {
+
+    $channelCounter++;
+    Write-Output &quot;Processing channel... $channelCounter/$($channels.Length)&quot;
+
+    $messages = m365 teams message list --teamId $teamId --channelId $channel.id --since $date --output json | ConvertFrom-Json
+
+    $messageCounter = 0;
+
+    foreach ($message in $messages) {
+        $messageCounter++
+        Write-Output &quot;Processing message ... $messageCounter/$($messages.Length)&quot;
+
+        # Skip messages that are created with an application (bots / adaptive cards)
+        if ($null -ne $message.from.user.id) {
+            $results += [pscustomobject][ordered]@{
+                Type       = &quot;Post&quot;
+                Details    = $message.reactionType
+                UserId     = $message.from.user.id
+                HasSubject = $($null -ne $message.subject)
+            }
+        }
+
+        # Process all likes and comments on the initial message
+        foreach ($reaction in $message.reactions) {
+            $results += [pscustomobject][ordered]@{
+                Type    = &quot;Reaction&quot;
+                Details = $reaction.reactionType
+                UserId  = $reaction.user.user.id
+            }
+        }
+
+        $replies = m365 teams message reply list --teamId $teamId --channelId $channel.id --messageId $message.Id --output json | ConvertFrom-Json
+
+        foreach ($reply in $replies) {
+            # Skip replies that are created with an application (bots)
+            if ($null -ne $message.from.user.id) {
+                $results += [pscustomobject][ordered]@{
+                    Type   = &quot;Reply&quot;
+                    UserId = $reply.from.user.id
+                }
+            }
+
+            # Process all likes and comments on the reply message
+            foreach ($reaction in $reply.reactions) {
+                $results += [pscustomobject][ordered]@{
+                    Type    = &quot;Reaction&quot;
+                    Details = $reaction.reactionType
+                    UserId  = $reaction.user.user.id
+                }
+            }
+
+        }
+    }
+}
+
+# Group the results per user
+$resultsGrouped = $results | Group-Object -Property UserId
+
+#Score per user
+foreach ($teamsUser in $resultsGrouped) {
+    $user = m365 aad user get --id $teamsUser.Name --output json | ConvertFrom-Json
+
+    # Count points
+    # Each  post is two points, 1 extra point awarded for each Post with Subject
+    # Each reply 1 and each reaction 0.5
+    $score = (($teamsUser.Group | Where-Object { $_.Type -eq &quot;Post&quot; }).Count * 2)
+    $score += (($teamsUser.Group | Where-Object { $_.HasSubject }).Count)
+    $score += ($teamsUser.Group | Where-Object { $_.Type -eq &quot;Reply&quot; }).Count
+    $score += (($teamsUser.Group | Where-Object { $_.Type -eq &quot;Reaction&quot; }).Count / 2)
+
+    $scoreResults += [pscustomobject][ordered]@{
+        DisplayName       = $user.displayName
+        UserPrincipalName = $user.userPrincipalName
+        Score             = $score;
+    }
+}
+
+# Sort our score report based on the score
+$scoreResults = $scoreResults | Sort-Object { $_.score } -Descending
+
+#Construct adaptive card
+$title = &quot;🏆 Most active team members&quot;
+$scoreJson = '{   \&quot;title\&quot;: \&quot;🥇 '+$($scoreResults[0].DisplayName)+'\&quot;,   \&quot;value\&quot;: \&quot;' + $($scoreResults[0].score) + '\&quot;   }'
+
+if($scoreResults[1]){
+    $scoreJson += ',{   \&quot;title\&quot;: \&quot;🥈 '+$($scoreResults[1].DisplayName)+'\&quot;,   \&quot;value\&quot;: \&quot;' + $($scoreResults[1].score) + '\&quot;   }'
+}
+if($scoreResults[2]){
+    $scoreJson += ',{   \&quot;title\&quot;: \&quot;🥉 '+$($scoreResults[2].DisplayName)+'\&quot;,   \&quot;value\&quot;: \&quot;' + $($scoreResults[2].score) + '\&quot;   }'
+}
+
+$card = '{ \&quot;type\&quot;: \&quot;AdaptiveCard\&quot;, \&quot;$schema\&quot;: \&quot;http://adaptivecards.io/schemas/adaptive-card.json\&quot;, \&quot;version\&quot;: \&quot;1.2\&quot;, \&quot;body\&quot;: [  {  \&quot;type\&quot;: \&quot;TextBlock\&quot;,  \&quot;text\&quot;: \&quot;' + $($title) + '\&quot;,  \&quot;wrap\&quot;: true,  \&quot;size\&quot;: \&quot;Medium\&quot;,  \&quot;weight\&quot;: \&quot;Bolder\&quot;,  \&quot;color\&quot;: \&quot;Attention\&quot;  },  {  \&quot;type\&quot;: \&quot;TextBlock\&quot;,  \&quot;wrap\&quot;: true,  \&quot;text\&quot;: \&quot;Week ' + $(get-date -UFormat %V) + '\&quot;,  \&quot;fontType\&quot;: \&quot;Default\&quot;,  \&quot;size\&quot;: \&quot;Small\&quot;,  \&quot;weight\&quot;: \&quot;Lighter\&quot;,  \&quot;isSubtle\&quot;: true  },  {  \&quot;type\&quot;: \&quot;FactSet\&quot;,  \&quot;facts\&quot;: [   ' + $scoreJson + '  ]  } ] }'
+
+m365 adaptivecard send --url $webhookUrl --card $card
+</code></pre>
+<div class="highlight-tool">
+<p>Check out the <strong>CLI for Microsoft 365</strong> to learn more at: <a href="https://aka.ms/cli-m365">https://aka.ms/cli-m365</a></p>
+</div>
+</section>
+</div>
+<h2 id="source-credit">Source Credit</h2>
+<p>Sample first appeared on <a href="https://pnp.github.io/cli-microsoft365/sample-scripts/teams/recognize-most-active-users-specific-team/">Recognize most active users for a specific Team | CLI for Microsoft 365</a></p>
+<h2 id="contributors">Contributors</h2>
+<table>
+<thead>
+<tr>
+<th>Author(s)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Albert-Jan Schot</td>
+</tr>
+</tbody>
+</table>
+<h2 id="disclaimer">Disclaimer</h2>
+<p><strong>THESE SAMPLES ARE PROVIDED <em>AS IS</em> WITHOUT WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, INCLUDING ANY IMPLIED WARRANTIES OF FITNESS FOR A PARTICULAR PURPOSE, MERCHANTABILITY, OR NON-INFRINGEMENT.</strong></p>
+<img src="https://telemetry.sharepointpnp.com/script-samples/scripts/teams-recognize-most-active-users-specific-team" aria-hidden="true">
+</article>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            <span>Script Samples<br>Generated by <strong><a href='https://dotnet.github.io/docfx' alt='Doc FX Website'>DocFX</a></strong> with <strong><a href='https://ovasquez.github.io/docfx-material' alt='DocFx Material Theme'>Material UI</a></strong></span>
+            
+            <!-- <img src="https://telemetry.sharepointpnp.com/@pnp.github.io/index/" alt="spacer"> -->
+          </div>
+        </div>
+      </footer>    </div>
+    
+    <script type="text/javascript" src="../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+    
+    <script type="text/javascript" src="../styles/clipboard.min.js"></script>
+    <script type="text/javascript" src="../styles/isotope.pkgd.min.js"></script>
+    <script type="text/javascript" src="../styles/loadsamples.js"></script>
+    <script type="text/javascript" src="../styles/filtersamples.js"></script>
+
+  </body>
+</html>
