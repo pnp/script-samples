@@ -33,9 +33,10 @@ Invoke-PnPBatch -Batch $batch
 
 #Update each list item separatelly
 $batch = New-PnPBatch
-Get-PnPListItem -List $list -PageSize 1000 | ForEach-Object { 
+$items = Get-PnPListItem -List $list -PageSize 1000
+$items | ForEach-Object { 
             
-            Set-PnPListItem -List $list -Identity $_ -Values @{"Title"="Test Item Batched and updated $_"} -Batch $batch
+            Set-PnPListItem -List $list -Identity $_.Id -Values @{"Title"="Test Item Batched and updated $_"} -Batch $batch
            }
 
 Invoke-PnPBatch -Batch $batch
@@ -43,8 +44,9 @@ Invoke-PnPBatch -Batch $batch
 
 #remove each list item separatelly
 $batch = New-PnPBatch
-Get-PnPListItem -List $list -PageSize 1000 | ForEach-Object { 
-            Remove-PnPListItrm -List $list -Identity $_
+$items = Get-PnPListItem -List $list -PageSize 1000
+$items | ForEach-Object { 
+            Remove-PnPListItrm -List $list -Identity $_.Id
            }
 
 Invoke-PnPBatch -Batch $batch
