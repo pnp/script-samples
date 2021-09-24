@@ -2,7 +2,7 @@
 plugin: add-to-gallery
 ---
 
-# Get, Update, Add, Remove sharepoint list items in large lists
+# Get, Update, Add, Remove SharePoint list items in large lists
 
 ## Summary
 

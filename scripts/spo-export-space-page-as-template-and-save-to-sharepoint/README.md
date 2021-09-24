@@ -6,7 +6,7 @@ plugin: add-to-gallery
 
 ## Summary
 
-This script will extract Space content type page as template file and saves it as new space page to sharepoint. 
+This script will extract Space content type page as template file and saves it as new space page to SharePoint. 
 Note, this script does not include referenced files e.g. images, videos etc.
 
 ![Example Screenshot](assets/example.png)
@@ -95,7 +95,7 @@ process {
 
 | Author(s) |
 |-----------|
-| Valeras Narbutas} |
+| Valeras Narbutas |
 
 
 [!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
