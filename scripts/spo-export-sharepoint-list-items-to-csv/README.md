@@ -2,11 +2,11 @@
 plugin: add-to-gallery
 ---
 
-# Export CSV To SharePoint List Data with attachments
+# Export SharePoint List Data to CSV with attachments
 
 ## Summary
 
-Many times we have requirements like having to add a CSV file to the SharePoint list so if there are many records then manually this work becomes difficult.
+Script will export all SharePoint list data to CSV file, also takes items attachments and stores it to PC.
 
 ## Implementation
 
