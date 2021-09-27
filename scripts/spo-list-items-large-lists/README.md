@@ -47,7 +47,7 @@ Invoke-PnPBatch -Batch $batch
 $batch = New-PnPBatch
 $items = Get-PnPListItem -List $list -PageSize 1000
 $items | ForEach-Object { 
-            Remove-PnPListItrm -List $list -Identity $_.Id
+            Remove-PnPListItem -List $list -Identity $_.Id
            }
 
 Invoke-PnPBatch -Batch $batch
@@ -56,7 +56,7 @@ Invoke-PnPBatch -Batch $batch
 #read each list item separatelly
 $batch = New-PnPBatch
 Get-PnPListItem -List $list -PageSize 1000 | ForEach-Object { 
-            get-PnPListItrm -List $list -Identity $_
+            get-PnPListItem -List $list -Identity $_
            }
 
 Invoke-PnPBatch -Batch $batch
@@ -64,7 +64,7 @@ Invoke-PnPBatch -Batch $batch
 
 ```
 [!INCLUDE [More about PnP PowerShell](../../docfx/includes/MORE-PNPPS.md)]
-***
+
 # [CLI for Microsoft 365 with PowerShell](#tab/cli-m365-ps)
 ```powershell
 
