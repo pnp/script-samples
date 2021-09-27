@@ -81,7 +81,8 @@
                     <h1 id="get-update-add-remove-sharepoint-list-items-in-large-lists">Get, Update, Add, Remove SharePoint list items in large lists</h1>
 
 <h2 id="summary">Summary</h2>
-<p>Working and processing lists items in large lists.</p>
+<p>Working and processing lists items in large lists.
+PnP PowerShell and M365 CLI examples</p>
 <h2 id="implementation">Implementation</h2>
 <ul>
 <li>Open Windows PowerShell ISE</li>
@@ -92,6 +93,9 @@
 <ul role="tablist">
 <li role="presentation">
 <a href="#tabpanel_CeZOj-G++Q_pnpps" role="tab" aria-controls="tabpanel_CeZOj-G++Q_pnpps" data-tab="pnpps" tabindex="0" aria-selected="true">PnP PowerShell</a>
+</li>
+<li role="presentation">
+<a href="#tabpanel_CeZOj-G++Q_cli-m365-ps" role="tab" aria-controls="tabpanel_CeZOj-G++Q_cli-m365-ps" data-tab="cli-m365-ps" tabindex="-1">CLI for Microsoft 365 with PowerShell</a>
 </li>
 </ul>
 <section id="tabpanel_CeZOj-G++Q_pnpps" role="tabpanel" data-tab="pnpps"><button class="article-clipboard" title="Copy to clipboard" data-toggle="tooltip" data-placement="top" data-clipboard-target="section[id^='tabpanel'][data-tab='pnpps'] pre">
@@ -129,7 +133,7 @@ Invoke-PnPBatch -Batch $batch
 $batch = New-PnPBatch
 $items = Get-PnPListItem -List $list -PageSize 1000
 $items | ForEach-Object { 
-            Remove-PnPListItrm -List $list -Identity $_.Id
+            Remove-PnPListItem -List $list -Identity $_.Id
            }
 
 Invoke-PnPBatch -Batch $batch
@@ -138,7 +142,7 @@ Invoke-PnPBatch -Batch $batch
 #read each list item separatelly
 $batch = New-PnPBatch
 Get-PnPListItem -List $list -PageSize 1000 | ForEach-Object { 
-            get-PnPListItrm -List $list -Identity $_
+            get-PnPListItem -List $list -Identity $_
            }
 
 Invoke-PnPBatch -Batch $batch
@@ -147,6 +151,72 @@ Invoke-PnPBatch -Batch $batch
 </code></pre>
 <div class="highlight-tool">
 <p>Check out the <strong>PnP PowerShell</strong> to learn more at: <a href="https://aka.ms/pnp/powershell">https://aka.ms/pnp/powershell</a></p>
+</div>
+</section>
+<section id="tabpanel_CeZOj-G++Q_cli-m365-ps" role="tabpanel" data-tab="cli-m365-ps" aria-hidden="true" hidden="hidden"><button class="article-clipboard" title="Copy to clipboard" data-toggle="tooltip" data-placement="top" data-clipboard-target="section[id^='tabpanel'][data-tab='cli-m365-ps'] pre">
+    <span class="glyphicon glyphicon-copy" aria-hidden="true"></span>
+    <span class="article-clipboard__message done">Copied</span>
+</button>
+
+<pre><code class="lang-powershell">
+
+$url = &quot;Site Url&quot;
+$listName = &quot;LargeListTitle&quot;
+
+
+$m365Status = m365 status
+if ($m365Status -eq &quot;Logged Out&quot;) {
+  Write-Host &quot;Logging in the User!&quot;
+  m365 login --authType browser
+}
+
+#count list items
+$listProperties = m365 spo list get --title  $listName --webUrl $url -o json | ConvertFrom-Json
+$itemCount = $listProperties.ItemCount
+
+#Set up page size and page number
+$pageSize = 1000
+$pageNumber = [int][Math]::Ceiling($itemCount/$pageSize)
+
+
+# get all items from large list
+for ($i = 0; $i -lt $pageNumber; $i++)
+{ 
+  # get items from large library
+ m365 spo listitem list --title $listName --webUrl $url --pageSize $pageSize --pageNumber $i  
+}
+
+
+# create list items
+1..100 | ForEach-Object { 
+            m365 spo listitem add --contentType Item --listTitle $listName --webUrl $url --Title &quot;Demo Item using CLI&quot;
+           }
+
+#update list items
+for ($i = 0; $i -lt $pageNumber; $i++)
+{ 
+   $items = m365 spo listitem list --title $listName --webUrl $url --fields &quot;ID&quot;  --pageSize $pageSize --pageNumber $i --output json 
+    $items = $items.Replace(&quot;Id&quot;,&quot;Idd&quot;) | ConvertFrom-Json
+    $items | select -ExpandProperty ID | ForEach-Object { 
+             m365 spo listitem set --listTitle $listName --id $_ --webUrl $url --Title &quot;update with cli&quot;
+           }
+}
+
+#remove list items
+for ($i = 0; $i -lt $pageNumber; $i++)
+{ 
+  # get items from large library
+    $items = m365 spo listitem list --title $listName --webUrl $url --fields &quot;ID&quot;  --pageSize $pageSize --pageNumber $i --output json 
+    $items = $items.Replace(&quot;Id&quot;,&quot;Idd&quot;) | ConvertFrom-Json
+    $items | select -ExpandProperty ID | ForEach-Object { 
+             m365 spo listitem remove --webUrl $url --listTitle $listName --id $_  --confirm 
+           }
+}
+
+
+</code></pre>
+<div class="highlight-tool">
+<p>Check out the <strong>CLI for Microsoft 365</strong> to learn more at: <a href="https://aka.ms/cli-m365">https://aka.ms/cli-m365</a></p>
 </div>
 </section>
 </div>
