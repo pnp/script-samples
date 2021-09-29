@@ -11,7 +11,7 @@ This sample script shows how to apply column format using:
 * Format added in script
 * Getting format sample from GitHub sample page
 
-Scenario ispired by Paul Bullock [Blog post about column formatting](https://www.pkbullock.com/blog/2018/using-pnp-powershell-to-apply-modern-column-formatting/)
+Scenario inspired by Paul Bullock [Blog post about column formatting](https://www.pkbullock.com/blog/2018/using-pnp-powershell-to-apply-modern-column-formatting/)
 
 
 ![Example Screenshot](assets/example.png)
@@ -128,7 +128,7 @@ $fieldToFormat.UpdateAndPushChanges($true)
 ```
 
 > [!Note]
-> This is JSON i used in examples
+> This is JSON used in examples
 
 ***
 
