@@ -1,0 +1,199 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html lang="en">
+  
+  <head>
+    <meta charset="utf-8">
+    <title>Add a tenant theme to SharePoint Online | PnP Samples </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Add a tenant theme to SharePoint Online | PnP Samples ">
+    <meta name="generator" content="docfx 2.56.7.0">
+    <meta name="description" content="A sample gallery of scripts to manage all things Microsoft 365.">
+  
+    <!-- Social Media -->
+    <meta property="og:locale" content="en_GB">
+    <meta property="og:title" content="Add a tenant theme to SharePoint Online | PnP Samples ">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://pnp.github.io/script-samples">
+    <meta property="og:image" content="https://pnp.github.io/script-samples/assets/social-media-screenshot.png">
+    <meta property="og:image:alt" content="Screenshot example of the PnP Script Samples Site">
+    <meta property="og:site_name" content="PnP Script Samples">
+    <meta property="og:description" content="A sample gallery of scripts to manage all things Microsoft 365.">
+  
+    <link rel="shortcut icon" href="https://c.s-microsoft.com/favicon.ico?v2">
+    <link rel="stylesheet" href="../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../styles/docfx.css">
+    <link rel="stylesheet" href="../styles/main.css">
+    <link rel="stylesheet" href="../styles/extra.css">
+    <link rel="stylesheet" href="../styles/filter.css">
+    <link rel="stylesheet" href="../styles/site.css">
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet"> 
+    <meta property="docfx:navrel" content="../toc.html">
+    <meta property="docfx:tocrel" content="../toc.html">
+    
+    
+    <meta property="docfx:newtab" content="true">
+    <script type="text/javascript">
+      (function(c,l,a,r,i,t,y){
+          c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+          t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+          y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+      })(window, document, "clarity", "script", "8j6pedl344");
+  </script>
+  </head>  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+             <div class="github-mark">
+              <a href="https://github.com/pnp/script-samples">
+                <img src="https://pnp.github.io/script-samples/assets/icons/github-light-64px.png" alt="GitHub Icon Image">
+              </a>
+            </div>
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../assets/logo.svg" alt="">
+              </a>    </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <label class="glyphicon glyphicon-search" for="search-query"></label>
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>      </header>
+      <div role="main" class="container body-content hide-when-search">
+        <div class="article row grid">
+          <div class="col-md-12">
+            <article class="content wrap" id="_content" data-uid="">
+                  <div class="contribution-panel mobile-hide pull-right">
+                      <a href="https://github.com/pnp/script-samples/blob/main/scripts/spo-add-tenant-theme/README.md/#L1" title="Improve this Doc" class="improve-doc-lg"><i class="glyphicon glyphicon-pencil"></i></a>
+                  </div>
+                    <h1 id="add-a-tenant-theme-to-sharepoint-online">Add a tenant theme to SharePoint Online</h1>
+
+<h2 id="summary">Summary</h2>
+<p>This example adds a tenant theme to the SharePoint.
+When working with themes, it is recommended to use the Theme Designer to get started and check for accessibility.
+#&gt; [!Note] For reference the themes can be generated at: <a href="https://aka.ms/themedesigner">https://aka.ms/themedesigner</a></p>
+<div class="tabGroup" id="tabgroup_CeZOj-G++Q">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_CeZOj-G++Q_pnpps" role="tab" aria-controls="tabpanel_CeZOj-G++Q_pnpps" data-tab="pnpps" tabindex="0" aria-selected="true">PnP PowerShell</a>
+</li>
+</ul>
+<section id="tabpanel_CeZOj-G++Q_pnpps" role="tabpanel" data-tab="pnpps"><button class="article-clipboard" title="Copy to clipboard" data-toggle="tooltip" data-placement="top" data-clipboard-target="section[id^='tabpanel'][data-tab='pnpps'] pre">
+    <span class="glyphicon glyphicon-copy" aria-hidden="true"></span>
+    <span class="article-clipboard__message done">Copied</span>
+</button>
+
+<pre><code class="lang-powershell">
+$url = &quot;https://contoso-admin.sharepoint.com&quot;
+$themeName = &quot;Demo Branding (Red)&quot;
+
+# -------------------------------------------------------------
+# Theme Palette  
+# -------------------------------------------------------------
+
+$themePalette = @{
+    &quot;themePrimary&quot; = &quot;#b21212&quot;;
+    &quot;themeLighterAlt&quot; = &quot;#fcf3f3&quot;;
+    &quot;themeLighter&quot; = &quot;#f3d0d0&quot;;
+    &quot;themeLight&quot; = &quot;#e8a9a9&quot;;
+    &quot;themeTertiary&quot; = &quot;#d16060&quot;;
+    &quot;themeSecondary&quot; = &quot;#bc2727&quot;;
+    &quot;themeDarkAlt&quot; = &quot;#a11010&quot;;
+    &quot;themeDark&quot; = &quot;#880e0e&quot;;
+    &quot;themeDarker&quot; = &quot;#640a0a&quot;;
+    &quot;neutralLighterAlt&quot; = &quot;#f8f8f8&quot;;
+    &quot;neutralLighter&quot; = &quot;#f4f4f4&quot;;
+    &quot;neutralLight&quot; = &quot;#eaeaea&quot;;
+    &quot;neutralQuaternaryAlt&quot; = &quot;#dadada&quot;;
+    &quot;neutralQuaternary&quot; = &quot;#d0d0d0&quot;;
+    &quot;neutralTertiaryAlt&quot; = &quot;#c8c8c8&quot;;
+    &quot;neutralTertiary&quot; = &quot;#c2c2c2&quot;;
+    &quot;neutralSecondary&quot; = &quot;#858585&quot;;
+    &quot;neutralPrimaryAlt&quot; = &quot;#4b4b4b&quot;;
+    &quot;neutralPrimary&quot; = &quot;#333333&quot;;
+    &quot;neutralDark&quot; = &quot;#272727&quot;;
+    &quot;black&quot; = &quot;#1d1d1d&quot;;
+    &quot;white&quot; = &quot;#ffffff&quot;;
+    &quot;bodyBackground&quot; = &quot;#ffffff&quot;;
+    &quot;bodyText&quot; = &quot;#333333&quot;;
+}
+
+# -------------------------------------------------------------
+# Connection  
+# -------------------------------------------------------------
+
+Write-Host &quot;Connecting to &quot; $url
+Connect-PnPOnline -Url $url -Interactive
+
+# -------------------------------------------------------------
+# Apply Theme  
+# -------------------------------------------------------------
+
+Add-PnPTenantTheme -Identity $themeName -Palette $themePalette -IsInverted $false -Overwrite
+
+Write-Host &quot;Done! :)&quot; -ForegroundColor Green
+
+</code></pre>
+<div class="highlight-tool">
+<p>Check out the <strong>PnP PowerShell</strong> to learn more at: <a href="https://aka.ms/pnp/powershell">https://aka.ms/pnp/powershell</a></p>
+</div>
+</section>
+</div>
+<h2 id="contributors">Contributors</h2>
+<table>
+<thead>
+<tr>
+<th>Author(s)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Paul Bullock</td>
+</tr>
+</tbody>
+</table>
+<h2 id="disclaimer">Disclaimer</h2>
+<p><strong>THESE SAMPLES ARE PROVIDED <em>AS IS</em> WITHOUT WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, INCLUDING ANY IMPLIED WARRANTIES OF FITNESS FOR A PARTICULAR PURPOSE, MERCHANTABILITY, OR NON-INFRINGEMENT.</strong></p>
+<img src="https://telemetry.sharepointpnp.com/script-samples/scripts/spo-add-tenant-theme" aria-hidden="true">
+</article>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            <span>Script Samples<br>Generated by <strong><a href='https://dotnet.github.io/docfx' alt='Doc FX Website'>DocFX</a></strong> with <strong><a href='https://ovasquez.github.io/docfx-material' alt='DocFx Material Theme'>Material UI</a></strong></span>
+            
+            <!-- <img src="https://telemetry.sharepointpnp.com/@pnp.github.io/index/" alt="spacer"> -->
+          </div>
+        </div>
+      </footer>    </div>
+    
+    <script type="text/javascript" src="../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+    
+    <script type="text/javascript" src="../styles/clipboard.min.js"></script>
+    <script type="text/javascript" src="../styles/isotope.pkgd.min.js"></script>
+    <script type="text/javascript" src="../styles/loadsamples.js"></script>
+    <script type="text/javascript" src="../styles/filtersamples.js"></script>
+
+  </body>
+</html>
