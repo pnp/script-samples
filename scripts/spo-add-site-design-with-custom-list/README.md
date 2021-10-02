@@ -2,11 +2,11 @@
 plugin: add-to-gallery
 ---
 
-# Create and add site design to sharepoint site with site columns, content type. 
+# Create and add site design to SharePoint site with site columns, content type. 
 
 ## Summary
 
-This script will create site design with diffrent column types. 
+This script will create site design with different column types. 
  - Sets regional settings
  - Creates custom content type 
  - Adds new fields to new content type
@@ -227,7 +227,7 @@ Stop-Transcript
 
 [!INCLUDE [More about PnP PowerShell](../../docfx/includes/MORE-PNPPS.md)]
 
-# [JSON Site Script](#tab/json)
+# [JSON Site Script](#tab/json1)
 
 ```
 {
@@ -337,7 +337,7 @@ Stop-Transcript
     "version": "'+$v+'"
 }
 ```
-# [JSON Site Script 2](#tab/json)
+# [JSON Site Script 2](#tab/json2)
 ```
 {
     "$schema": "https://developer.microsoft.com/json-schemas/sp/site-design-script-actions.schema.json",
@@ -378,9 +378,6 @@ Stop-Transcript
     "version": "'+$v+'"
 }
 ```
-
-
-
 [!INCLUDE [More about PnP PowerShell](../../docfx/includes/MORE-PNPPS.md)]
 
 ***
