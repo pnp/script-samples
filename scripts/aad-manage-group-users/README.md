@@ -6,9 +6,11 @@ plugin: add-to-gallery
 
 ## Summary
 
-Companies pursue to hasten profits growth or enter new marketplace through Mergers and Acquisitions (M&A). M&A typically fails during integration. This also applies to migrating users and data in Microsoft Teams and Groups. Partial acquisition can be pretty tricky. To help make the activity as charming as possible, I have created the following sample script to add/remove bulk users to/from Microsoft Teams team or Microsoft 365 group using CLI for Microsoft 365 commands.
+Companies pursue to hasten profits growth or enter new marketplace through Mergers and Acquisitions (M&A). M&A typically fails during integration. This also applies to migrating users and data in Microsoft Teams and Groups. Partial acquisition can be pretty tricky. 
+
+To help make the activity as charming as possible, I have created the following sample script to add/remove bulk users to/from Microsoft Teams team or Microsoft 365 group.
  
-> [!Note}
+> [!Note]
 > Refactor the code as per your requirement.
  
 # [CLI for Microsoft 365 with PowerShell](#tab/cli-m365-ps)
@@ -51,12 +53,13 @@ ForEach ($taskItem in $taskItems) {
     }
 }
 ```
-[!INCLUDE [More about CLI for Microsoft 365](../../docfx/includes/MORE-CLIM365.md)]
- groupMailNickname1, user1@domainname.com, owner, add
+
+# [CSV File](#tab/csv)
+```powershell
+groupMailNickname1, user1@domainname.com, owner, add
 groupMailNickname2, user2@domainname.com, member, add
 groupMailNickname3, user3@domainname.com, , remove
 ```
-[!INCLUDE [More about CLI for Microsoft 365](../../docfx/includes/MORE-CLIM365.md)]
 ***
 
 ## Source Credit
