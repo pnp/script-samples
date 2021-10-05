@@ -2,11 +2,11 @@
 plugin: add-to-gallery
 ---
 
-# Read SharePoint List Items Using CAML Query
+# Copy Webparts From One Page To Another Page
 
 ## Summary
 
-Sometimes we want to read SharePoint list items using CAML query.
+This sample read Site Url, Source page and destination page from user and then we will copy webparts from source page to destination page
 
 ## Implementation
 
