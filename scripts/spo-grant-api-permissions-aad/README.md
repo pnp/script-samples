@@ -30,7 +30,6 @@ So what if you could bypass all these steps for both Graph and owned API?
 > [!warning]
 > These permissions will be granted on the whole tenant and could be used by any script running in your tenant. More info [here](https://docs.microsoft.com/en-us/sharepoint/dev/spfx/use-aadhttpclient#considerations).
  
-![Example Screenshot](assets/example.png)
  
 # [CLI for Microsoft 365 with PowerShell](#tab/cli-m365-ps)
 ```powershell

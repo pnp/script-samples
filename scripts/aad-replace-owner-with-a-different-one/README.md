@@ -8,8 +8,6 @@ plugin: add-to-gallery
 
 Find all the Microsoft 365 Groups that a user is an Owner of and replace them with someone else useful for when an employee leaves and ownership needs to be updated.
  
-![Example Screenshot](assets/example.png)
- 
 # [CLI for Microsoft 365 with PowerShell](#tab/cli-m365-ps)
 ```powershell
 # This script replaces an owner with a different person in all Microsoft 365 Groups

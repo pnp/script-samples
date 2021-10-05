@@ -8,8 +8,6 @@ plugin: add-to-gallery
 
 Installs or updates a Microsoft Teams app from an Azure DevOps pipeline. Deploys the app if it hasn't been deployed yet or updates the existing package if it's been previously deployed.
  
-![Example Screenshot](assets/example.png)
- 
 # [CLI for Microsoft 365 with PowerShell](#tab/cli-m365-ps)
 ```powershell
 m365 login -t password -u $(username) -p $(password)

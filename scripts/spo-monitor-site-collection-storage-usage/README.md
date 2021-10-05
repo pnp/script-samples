@@ -8,8 +8,6 @@ plugin: add-to-gallery
 
 Monitor Site Collections storage usage and send an email with sites over the designated storage threshold.
  
-![Example Screenshot](assets/example.png)
- 
 # [CLI for Microsoft 365 with PowerShell](#tab/cli-m365-ps)
 ```powershell
 <#

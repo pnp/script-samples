@@ -8,7 +8,6 @@ plugin: add-to-gallery
 
 Have you been creating a lot of beautiful themes lately and testing them in your dev tenant, but don’t want to keep them anymore? If yes, then this PowerShell script is for you.
  
-![Example Screenshot](assets/example.png)
  
 # [CLI for Microsoft 365 with PowerShell](#tab/cli-m365-ps)
 ```powershell

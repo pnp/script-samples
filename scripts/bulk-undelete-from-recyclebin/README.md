@@ -7,8 +7,6 @@ plugin: add-to-gallery
 ## Summary
 sometimes users need to restore items from SharePoint recycle bin. This script allows them to undelete items from recycle bin and restore it in respective document library and list.
 
-![Example Screenshot](assets/example.png)
-
 # [PnP PowerShell](#tab/pnpps)
 ```powershell
 

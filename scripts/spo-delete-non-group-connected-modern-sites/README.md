@@ -10,8 +10,6 @@ When you delete Microsoft 365 groups, the modern group-connected team sites get 
  
 [!INCLUDE [Delete Warning](../../docfx/includes/DELETE-WARN.md)]
 
-![Example Screenshot](assets/example.png)
- 
 # [CLI for Microsoft 365 using PowerShell](#tab/cli-m365-ps)
 ```powershell
 $sparksjoy = "Cat Lovers United", "Extranet", "Hub"

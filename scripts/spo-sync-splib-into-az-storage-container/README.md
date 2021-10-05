@@ -15,8 +15,6 @@ This PowerShell script shows how to download and sync documents in a SharePoint 
  - Azure Storage Container
  - Azure Storage Account Key with required permission to upload documents
  
-![Example Screenshot](assets/example.png)
- 
 # [CLI for Microsoft 365 with PowerShell](#tab/cli-m365-ps)
 ```powershell
 $spolHostName = "https://tenant-name.sharepoint.com"

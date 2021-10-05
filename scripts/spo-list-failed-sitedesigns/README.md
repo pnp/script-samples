@@ -8,8 +8,6 @@ plugin: add-to-gallery
 
 The following script iterates through all site collections and lists all site design runs with errors. By filtering on ``` OutcomeCode == '1' ``` it will return all sites and runs with explicit errors. By filtering on ``` OutcomeCode != '0' ```  you can also return any result that is not marked as successful.
  
-![Example Screenshot](assets/example.png)
- 
 # [CLI for Microsoft 365 with PowerShell](#tab/cli-m365-ps)
 ```powershell
 $allSPOSites = m365 spo site classic list -o json | ConvertFrom-Json

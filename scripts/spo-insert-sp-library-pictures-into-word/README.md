@@ -20,8 +20,6 @@ This PowerShell script shows how to download and insert many pictures in a Share
  - Folder to download the images
  - Blank Word document to add the images
  
-![Example Screenshot](assets/example.png)
- 
 # [CLI for Microsoft 365 with PowerShell](#tab/cli-m365-ps)
 ```powershell
 Write-Host "Execution started"

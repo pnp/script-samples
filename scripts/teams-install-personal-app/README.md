@@ -8,8 +8,6 @@ plugin: add-to-gallery
 
 Installs or updates a Microsoft Teams app from a provided zipped manifest and then, based on the parameters, add it to the current users and / or to a set of users.
  
-![Example Screenshot](assets/example.png)
- 
 # [CLI for Microsoft 365 with PowerShell](#tab/cli-m365-ps)
 ```powershell
 <#

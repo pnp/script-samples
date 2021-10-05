@@ -8,8 +8,6 @@ plugin: add-to-gallery
 
 This script helps you to list all external users in all SharePoint Online sites. It provides insights in who the users are, and if available who they where invited by.
  
-![Example Screenshot](assets/example.png)
- 
 # [CLI for Microsoft 365 with PowerShell](#tab/cli-m365-ps)
 ```powershell
 $fileExportPath = "<PUTYOURPATHHERE.csv>"

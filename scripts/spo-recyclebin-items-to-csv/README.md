@@ -17,6 +17,8 @@ Many times we have requirements like read recycle bin items from any site collec
     - Then we will Read site URL from user and connect to the Site,
     - We will ask to user for enter the stage (like F For FisrtStage, S For SecondStage and B For Both Stage) and based on stage it will retrieve recycle bin items.
     - And then we will export it to CSV.
+ 
+![Example Screenshot](assets/preview.png)
 
 # [PnP PowerShell](#tab/pnpps)
 ```powershell

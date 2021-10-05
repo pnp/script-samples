@@ -530,7 +530,6 @@ li.md-nav__item .md-nav__link:active, li.md-nav__item .md-nav__link:hover {
     text-align: center;
     line-height: 42px;
     font-size: 14px;
-    color: #7D7A9E;
     margin-left: 10px;
     position: relative;
 }
@@ -753,7 +752,7 @@ TODO: Move styles
     margin-left: 8px;
     margin-right: 8px;
     margin-bottom: 16px;
-    min-height: 434px;
+    min-height: 325px;
 }
 
 
@@ -764,12 +763,11 @@ TODO: Move styles
 
 .sample-preview {
     border-radius: 5px 5px 0 0;
-    height: 250px;
-    max-height: 250px;
+    height: 150px;
+    max-height: 150px;
     background-color: #ededed;
     width: 100%;
     position: relative;
-
     overflow: hidden;
 }
 
@@ -778,16 +776,16 @@ TODO: Move styles
     border-radius: 5px;
     height: 100%;
     width: 100%;
-    object-position: center;
+    object-position: top;
     object-fit: cover;
     border: 0;
     position: absolute;
-    top: 11px;
-    left: 89px;
-    -webkit-transform: rotate(-25deg);
-    -moz-transform: rotate(25deg);
-    -ms-transform: rotate(25deg);
-    -o-transform: rotate(25deg);
+    top: -15px;
+    left: 65px;
+    -webkit-transform: rotate(-15deg);
+    -moz-transform: rotate(15deg);
+    -ms-transform: rotate(15deg);
+    -o-transform: rotate(15deg);
     overflow: hidden;
     box-shadow: 0px 0px 3px rgba(0,0,0,0.3);
 }
@@ -795,7 +793,7 @@ TODO: Move styles
 .sample-details {
     background-color: #ffffff;
     position: relative;
-    padding: 20px 15px;
+    padding: 20px 12px;
     border-radius: 0 0 5px 5px;
     margin-top: -5px;
     border-top: solid 1px #EDEBE9;
@@ -925,9 +923,9 @@ TODO: Move styles
 }
 
 .sample-description {
-    font-family: "Segoe UI", "Segoe UI Web (West European)", "Segoe UI", -apple-system, BlinkMacSystemFont, Roboto, "Helvetica Neue", sans-serif;
+    font-family: "Roboto", sans-serif, -apple-system, BlinkMacSystemFont, Roboto, "Helvetica Neue", sans-serif;
     -webkit-font-smoothing: antialiased;
-    font-size: 14px;
+    font-size: 0.8em;
     font-weight: 400;
     /* padding: 8px 16px;
     display: block; */
@@ -937,10 +935,10 @@ TODO: Move styles
     -webkit-line-clamp: 3;
     -webkit-box-orient: vertical;
     white-space: normal;
-    height: 54px;
-    max-height: 54px;
+    /* height: 65px;
+    max-height: 65px; */
     line-height: 18px;
-    color: rgb(96, 94, 92);
+    color: rgb(76, 74, 72);
     text-align: left;
 }
 
@@ -981,12 +979,41 @@ TODO: Move styles
     background-position: center;
 }
 
+.sample-text{
+
+    height: 100px;
+    max-height: 100px;
+}
+
+@media only screen and (max-width: 1175px) {
+    .sample-preview{
+        height: 100px;
+        max-height: 100px;
+    }
+    .sample-text{
+
+        height: 150px;
+        max-height: 150px;
+    }
+}
+
 @media only screen and (max-width: 1020px) {
     .tag-filter-panel {
         width: 35%
     }
     .tag-filter-panel.hidden {
         right: -50%
+    }
+
+    .sample-preview{
+        height: 100px;
+        max-height: 100px;
+    }
+
+    .sample-text{
+
+        height: 150px;
+        max-height: 150px;
     }
 }
 
@@ -1000,6 +1027,22 @@ TODO: Move styles
     .tag-filter-panel .tags-content-wrapper {
         height: calc(100vh - 210px)
     }
+
+    .sample-preview{
+        height: 100px;
+        max-height: 100px;
+    }
+    
+    .sample-text{
+
+        height: 120px;
+        max-height: 120px;
+    }
+
+    .sample-inner{
+        min-height: 300px;
+    }
+    
 }
 
 /* ADDED FOR DIAGNOSIS */
@@ -1044,3 +1087,4 @@ p.sample-title {
 .filter-section {
     overflow: unset;
 }
+

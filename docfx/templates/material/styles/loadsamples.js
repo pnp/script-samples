@@ -121,8 +121,10 @@ function loadSample(sample, filter) {
     </div>
     <div class="sample-details">
       ${tools}
-      <p class="sample-title" title="${sample.title}">${sample.title}</p>
-      <p class="sample-description" title='${escapedDescription}'>${shortDescription}</p>
+      <div class="sample-text">
+        <p class="sample-title" title="${sample.title}">${sample.title}</p>
+        <p class="sample-description" title='${escapedDescription}'>${shortDescription}</p>
+      </div>
       <div class="sample-activity">
         ${authorAvatars}
         <div class="activity-details">

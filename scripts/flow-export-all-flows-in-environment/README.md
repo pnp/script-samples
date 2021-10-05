@@ -12,8 +12,6 @@ By combining the CLI for Microsoft 365 and PowerShell we can make this task easy
 
 This script will get all flows in your default environment and export them as both a ZIP file for importing back into Power Automate and as a JSON file for importing into Azure as an Azure Logic App.
 
-![Example Screenshot](assets/example.png)
-
 # [CLI for Microsoft 365 with PowerShell](#tab/cli-m365-ps)
 ```powershell
 

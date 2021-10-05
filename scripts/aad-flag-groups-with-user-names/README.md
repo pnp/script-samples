@@ -13,8 +13,6 @@ This sample script scans the Microsoft 365 groups that may contain user’s firs
 > [!Note]
 > The filter condition can be changed as per your requirement.
 
-![Example Screenshot](assets/example.png)
- 
 # [CLI for Microsoft 365 with PowerShell](#tab/cli-m365-ps)
 ```powershell
 $groupsToFlag = @()

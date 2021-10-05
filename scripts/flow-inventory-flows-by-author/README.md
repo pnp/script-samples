@@ -11,8 +11,6 @@ The [Power Automate Admin Center](https://admin.flow.microsoft.com/) provides a 
 The ``` bash ``` version of this script uses an external file to process owner mapping. This is provided in the jq tab and should be saved to the same folder as the bash script and named 
 ``` marge.jq ```.
  
-![Example Screenshot](assets/example.png)
- 
 # [CLI for Microsoft 365 with PowerShell](#tab/cli-m365-ps)
 ```powershell
 #!/usr/local/bin/pwsh -File

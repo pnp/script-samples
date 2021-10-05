@@ -10,8 +10,6 @@ This function will remove the designated user for every site in the tenant if he
 
 [!INCLUDE [Delete Warning](../../docfx/includes/DELETE-WARN.md)]
 
-![Example Screenshot](assets/example.png)
- 
 # [CLI for Microsoft 365 with PowerShell](#tab/cli-m365-ps)
 ```powershell
 <#

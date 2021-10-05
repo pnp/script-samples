@@ -16,8 +16,6 @@ This script uses Azure Cognitive Service API and Microsoft 365 CLI to analyze us
 > [!note]
 > If you don't already have an [Azure Cognitive Services instance and key](https://azure.microsoft.com/try/cognitive-services/), create a cognitive service instance and get API key from there.
  
-![Example Screenshot](assets/example.png)
- 
 # [CLI for Microsoft 365 with PowerShell](#tab/cli-m365-ps)
 ```powershell
 $resultDir = "Output"

@@ -8,8 +8,6 @@ plugin: add-to-gallery
 
 Create multiple lists in multiple sites and also to map the content type
 
-![Example Screenshot](assets/example.png)
- 
 # [CLI for Microsoft 365 with PowerShell](#tab/cli-m365-ps)
 ```powershell
 <#

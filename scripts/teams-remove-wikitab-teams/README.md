@@ -11,8 +11,6 @@ Removes the wiki tab of a Microsoft Teams Team's channel.
 
 [!INCLUDE [Delete Warning](../../docfx/includes/DELETE-WARN.md)]
  
-![Example Screenshot](assets/example.png)
- 
 # [CLI for Microsoft 365 with PowerShell](#tab/cli-m365-ps)
 ```powershell
 $groupMailNickname = "Architecture"

@@ -10,8 +10,6 @@ Changing the URL of a site results in a new site type: a Redirect Site. However 
 
 [!INCLUDE [Delete Warning](../../docfx/includes/DELETE-WARN.md)]
  
-![Example Screenshot](assets/example.png)
- 
 # [CLI for Microsoft 365 with PowerShell](#tab/cli-m365-ps)
 ```powershell
 $sites = m365 spo site classic list --t "REDIRECTSITE#0" --output json | ConvertFrom-Json

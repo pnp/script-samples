@@ -8,8 +8,6 @@ plugin: add-to-gallery
 
  This sample script shows you how to create a Team and add members and owners using a CSV.
  
-![Example Screenshot](assets/example.png)
- 
 # [CLI for Microsoft 365 with PowerShell](#tab/cli-m365-ps)
 ```powershell
 # This script provisions a Group with owners and members and Teamifies it

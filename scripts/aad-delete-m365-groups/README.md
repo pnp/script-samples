@@ -10,8 +10,6 @@ There are so many different ways to create Microsoft 365 groups. Teams, Planner,
  
 [!INCLUDE [Delete Warning](../../docfx/includes/DELETE-WARN.md)]
 
-![Example Screenshot](assets/example.png)
- 
 # [CLI for Microsoft 365 with PowerShell](#tab/cli-m365-ps)
 ```powershell
 $sparksjoy = "All Company", "TEMPLATE Project", "We have cats in this team! Join!"

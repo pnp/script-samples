@@ -11,8 +11,6 @@ Uninstalls an app from the specified users and / or unpublish it from the Micros
 
 [!INCLUDE [Delete Warning](../../docfx/includes/DELETE-WARN.md)]
  
-![Example Screenshot](assets/example.png)
- 
 # [CLI for Microsoft 365 with PowerShell](#tab/cli-m365-ps)
 ```powershell
 <#
