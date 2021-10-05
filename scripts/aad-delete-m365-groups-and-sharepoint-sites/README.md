@@ -61,7 +61,6 @@ foreach ($site in $allSites) {
 ```
 [!INCLUDE [More about CLI for Microsoft 365](../../docfx/includes/MORE-CLIM365.md)]
 ***
-
 # [PnP PowerShell](#tab/pnpps)
 ```powershell
 $AdminCenterURL="https://contoso-admin.sharepoint.com/"
