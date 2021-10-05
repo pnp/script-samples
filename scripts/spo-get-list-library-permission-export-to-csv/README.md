@@ -2,7 +2,7 @@
 plugin: add-to-gallery
 ---
 
-# Get SharePoint Site Recycle Bin Items And Export It To CSV
+# Get SharePoint List Or Library Permissions And Export It To CSV
 
 ## Summary
 
@@ -18,8 +18,6 @@ Many times we have requirements like get any specific list/library permissions a
 	- then we will Read list/library title from user and get list information.
     - And then we will export it to CSV with some specific information.
  
-![Example Screenshot](assets/example.png)
-
 # [PnP PowerShell](#tab/pnpps)
 ```powershell
 
