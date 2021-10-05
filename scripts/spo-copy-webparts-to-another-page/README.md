@@ -68,7 +68,7 @@ Function GetWebparts {
                 Write-Host "Added all the webparts" -ForegroundColor Green  
             }
             else {
-                Write-Host "No webparts found'"-ForegroundColor Gary               
+                Write-Host "No webparts found'"-ForegroundColor Gray               
             }
         }
         else {
