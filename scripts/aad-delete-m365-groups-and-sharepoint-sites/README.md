@@ -60,7 +60,7 @@ foreach ($site in $allSites) {
 }
 ```
 [!INCLUDE [More about CLI for Microsoft 365](../../docfx/includes/MORE-CLIM365.md)]
-***
+
 # [PnP PowerShell](#tab/pnpps)
 ```powershell
 $AdminCenterURL="https://contoso-admin.sharepoint.com/"
@@ -84,6 +84,7 @@ Remove-PnPTenantSite -Url $_.Url -Force -SkipRecycleBin
 #permanently delete the site and to allow a site to be created with the url of the site just deleted , i.e. to avoid message "This site address is available with modification"
 Remove-SPODeletedSite -identity $_.Url -NoWait -Confirm:$false 
 }
+```
 [!INCLUDE [More about PnP PowerShell](../../docfx/includes/MORE-PNPPS.md)]
 ***
 ## Source Credit
@@ -95,6 +96,7 @@ Sample first appeared on [Delete all Microsoft 365 groups and SharePoint sites |
 | Author(s) |
 |-----------|
 | Patrick Lamber |
+| Reshmee Auckloo 
 
 
 [!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
