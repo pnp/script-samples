@@ -57,6 +57,8 @@ Stop-Transcript
   
 
 ```
+[!INCLUDE [More about PnP PowerShell](../../docfx/includes/MORE-PNPPS.md)]
+
 # [CSV file](#tab/csv)
 ```csv
 Title;Template;Url
@@ -65,9 +67,6 @@ Announcements;Announcements;lists/Announcements
 Custom Simple List;GenericList;lists/CustomSimpleList
 
 ```
-
-
-[!INCLUDE [More about PnP PowerShell](../../docfx/includes/MORE-PNPPS.md)]
 ***
 
 ## Contributors
