@@ -47,7 +47,14 @@ $data | Foreach-Object{
    
    New-PnPList -Title $_.Title -Url $_.Url -Template $_.Template -OnQuickLaunch -EnableContentTypes 
    
-}   
+}  
+ 
+## Disconnect the context  
+Disconnect-PnPOnline  
+ 
+## Stop Transcript  
+Stop-Transcript  
+  
 
 ```
 # [CSV file](#tab/csv)
