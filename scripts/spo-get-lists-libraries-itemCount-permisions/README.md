@@ -5,9 +5,7 @@ plugin: add-to-gallery
 # Export all List and Libraries with Item count and Permission in CSV
 
 ## Summary
-Get all lists and Libraries along with total Item count and pemrissions and export it in CV file using below power shell script.
-
-![Example Screenshot](assets/example.png)
+Get all lists and Libraries along with total Item count and permissions and export it in CSV file using below power shell script.
 
 # [PnP PowerShell](#tab/pnpps)
 ```powershell

@@ -1,49 +1,44 @@
 [
   {
     "schema": null,
-    "name": "spo-grant-api-permissions-aad",
+    "name": "spo-get-lists-libraries-itemcount-permisions",
     "version": null,
     "source": "pnp",
-    "title": "Grant API permissions to SharePoint Azure AD Application",
-    "url": "spo-grant-api-permissions-aad/README.html",
-    "creationDateTime": "2021-03-19",
-    "updateDateTime": "2021-03-19",
-    "shortDescription": "Reduce steps for configuring SPFx web parts to use Microsoft Graph",
+    "title": "Export all List and Libraries with Item count and Permission in CSV",
+    "url": "spo-get-lists-libraries-itemcount-permisions/README.html",
+    "creationDateTime": "2021-10-08",
+    "updateDateTime": "2021-10-08",
+    "shortDescription": "Get all lists and Libraries along with total Item count and permissions and export it in CSV",
     "longDescription": null,
     "products": [
-      "SharePoint",
-      "Graph"
+      "SharePoint"
     ],
     "categories": [
-      "Configure"
+      "Data"
     ],
     "tags": [
-      "SharePoint Online",
-      "Azure Active Directory",
-      "Microsoft Graph",
-      "bash"
     ],
     "metadata": [
       {
-        "key": "cli-for-microsoft365",
-        "value": "3.7.0"
+        "key": "pnp-powerShell",
+        "value": "1.5.0"
       }
     ],
     "thumbnails": [
       {
         "type": "image",
         "order": 100,
-        "url": "spo-grant-api-permissions-aad/assets/preview.png",
+        "url": "spo-get-lists-libraries-itemcount-permisions/assets/preview.png",
         "alt": "preview image for the sample",
         "slides": null
       }
     ],
     "authors": [
       {
-        "name": "Michaël Maillot",
-        "gitHubAccount": "michaelmaillot",
-        "company": "onepoint",
-        "pictureUrl": "https://avatars.githubusercontent.com/u/44271458?v=4"
+        "name": "Dipen Shah",
+        "gitHubAccount": "dips365",
+        "company": "Rapid Circle",
+        "pictureUrl": "https://avatars.githubusercontent.com/u/40450958?v=4"
       }
     ],
     "references": null
