@@ -95,7 +95,7 @@ In addition, the location does not resolve the longitude and latitude coordinate
 <a href="#tabpanel_CeZOj-G++Q_pnpps" role="tab" aria-controls="tabpanel_CeZOj-G++Q_pnpps" data-tab="pnpps" tabindex="0" aria-selected="true">PnP PowerShell</a>
 </li>
 <li role="presentation">
-<a href="#tabpanel_CeZOj-G++Q_csv" role="tab" aria-controls="tabpanel_CeZOj-G++Q_csv" data-tab="csv" tabindex="-1">CSV</a>
+<a href="#tabpanel_CeZOj-G++Q_cli-m365-ps" role="tab" aria-controls="tabpanel_CeZOj-G++Q_cli-m365-ps" data-tab="cli-m365-ps" tabindex="-1">CLI for Microsoft 365 with PowerShell</a>
 </li>
 </ul>
 <section id="tabpanel_CeZOj-G++Q_pnpps" role="tabpanel" data-tab="pnpps"><button class="article-clipboard" title="Copy to clipboard" data-toggle="tooltip" data-placement="top" data-clipboard-target="section[id^='tabpanel'][data-tab='pnpps'] pre">
@@ -141,7 +141,55 @@ $eventsToAdd | ForEach-Object {
 <p>Check out the <strong>PnP PowerShell</strong> to learn more at: <a href="https://aka.ms/pnp/powershell">https://aka.ms/pnp/powershell</a></p>
 </div>
 </section>
-<section id="tabpanel_CeZOj-G++Q_csv" role="tabpanel" data-tab="csv" aria-hidden="true" hidden="hidden"><button class="article-clipboard" title="Copy to clipboard" data-toggle="tooltip" data-placement="top" data-clipboard-target="section[id^='tabpanel'][data-tab='csv'] pre">
+<section id="tabpanel_CeZOj-G++Q_cli-m365-ps" role="tabpanel" data-tab="cli-m365-ps" aria-hidden="true" hidden="hidden"><button class="article-clipboard" title="Copy to clipboard" data-toggle="tooltip" data-placement="top" data-clipboard-target="section[id^='tabpanel'][data-tab='cli-m365-ps'] pre">
+    <span class="glyphicon glyphicon-copy" aria-hidden="true"></span>
+    <span class="article-clipboard__message done">Copied</span>
+</button>
+
+<pre><code class="lang-powershell">
+# Ensure connected to tenant
+$m365Status = m365 status
+if ($m365Status -eq &quot;Logged Out&quot;) {
+    m365 login
+}
+
+# Site to which we will add the events
+$site = &quot;https://example.sharepoint.com/sites/testEventsScript&quot;
+
+# Load Data from CSV File
+$eventsToAdd = Import-CSV events.csv
+
+# Each time you run the script it will use the current date and set it X number of days in the future. 
+$eventsToAdd | ForEach-Object {
+
+    # Uses todays date as the date
+    # Date format is Month/Day/Year Hour/Minute
+    $format = &quot;MM/dd/yyyy HH:mm&quot;
+    
+    # Add Days
+    $today = ((Get-Date).AddDays($_.FutureDays)).ToString(&quot;MM/dd/yyyy&quot;)
+    $startDateTime = $today + &quot; $($_.StartTime)&quot;
+    $endDateTime = $today + &quot; $($_.EndTime)&quot;
+
+    Write-Host &quot;Adding $startDateTime StartDate&quot;
+    Write-Host &quot;Adding $endDateTime EndDate&quot;
+    
+    m365 spo listitem add --contentType &quot;Event&quot; --listTitle &quot;Events&quot; --webUrl $site --Title $_.Title --Category $_.Category --Description $_.Description --fAllDayEvent $_.AllDayEvent --Location $_.Location --EventDate $startDateTime --EndDate $endDateTime
+}
+
+</code></pre>
+<div class="highlight-tool">
+<p>Check out the <strong>CLI for Microsoft 365</strong> to learn more at: <a href="https://aka.ms/cli-m365">https://aka.ms/cli-m365</a></p>
+</div>
+</section>
+</div>
+<div class="tabGroup" id="tabgroup_CeZOj-G++Q-1">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_CeZOj-G++Q-1_csv" role="tab" aria-controls="tabpanel_CeZOj-G++Q-1_csv" data-tab="csv" tabindex="0" aria-selected="true">CSV</a>
+</li>
+</ul>
+<section id="tabpanel_CeZOj-G++Q-1_csv" role="tabpanel" data-tab="csv"><button class="article-clipboard" title="Copy to clipboard" data-toggle="tooltip" data-placement="top" data-clipboard-target="section[id^='tabpanel'][data-tab='csv'] pre">
     <span class="glyphicon glyphicon-copy" aria-hidden="true"></span>
     <span class="article-clipboard__message done">Copied</span>
 </button>
@@ -173,6 +221,9 @@ Training Event: Using Teams,25,12:00,13:00,This is a corporate event for everyon
 <tbody>
 <tr>
 <td>Paul Bullock</td>
+</tr>
+<tr>
+<td>Adam Wójcik</td>
 </tr>
 </tbody>
 </table>
