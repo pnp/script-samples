@@ -11,6 +11,7 @@ Sometimes we have a business requirement to get site collections with all the su
 ![Example Screenshot](assets/example.png)
 
 result with CLI version of the script
+
 ![Example Cli Screenshot](assets/example_cli.png)
 
 Let's see step-by-step implementation
@@ -65,7 +66,6 @@ AllSiteCollAndSubWebs
 
 ```
 [!INCLUDE [More about PnP PowerShell](../../docfx/includes/MORE-PNPPS.md)]
-***
 
 # [CLI for Microsoft 365 with PowerShell](#tab/cli-m365-ps)
 ```powershell
