@@ -83,6 +83,8 @@
 <h2 id="summary">Summary</h2>
 <p>Sometimes we have a business requirement to get site collections with all the sub-webs so we can achieve the solution easily using PnP Powershell.</p>
 <p><img src="assets/example.png" alt="Example Screenshot"></p>
+<p>result with CLI version of the script</p>
+<p><img src="assets/example_cli.png" alt="Example Cli Screenshot"></p>
 <p>Let's see step-by-step implementation</p>
 <h2 id="implementation">Implementation</h2>
 <p>Open Windows Powershell ISE
@@ -98,6 +100,9 @@ Create a new file and write a script</p>
 <ul role="tablist">
 <li role="presentation">
 <a href="#tabpanel_CeZOj-G++Q_pnpps" role="tab" aria-controls="tabpanel_CeZOj-G++Q_pnpps" data-tab="pnpps" tabindex="0" aria-selected="true">PnP PowerShell</a>
+</li>
+<li role="presentation">
+<a href="#tabpanel_CeZOj-G++Q_cli-m365-ps" role="tab" aria-controls="tabpanel_CeZOj-G++Q_cli-m365-ps" data-tab="cli-m365-ps" tabindex="-1">CLI for Microsoft 365 with PowerShell</a>
 </li>
 </ul>
 <section id="tabpanel_CeZOj-G++Q_pnpps" role="tabpanel" data-tab="pnpps"><button class="article-clipboard" title="Copy to clipboard" data-toggle="tooltip" data-placement="top" data-clipboard-target="section[id^='tabpanel'][data-tab='pnpps'] pre">
@@ -142,6 +147,53 @@ AllSiteCollAndSubWebs
 <p>Check out the <strong>PnP PowerShell</strong> to learn more at: <a href="https://aka.ms/pnp/powershell">https://aka.ms/pnp/powershell</a></p>
 </div>
 </section>
+<section id="tabpanel_CeZOj-G++Q_cli-m365-ps" role="tabpanel" data-tab="cli-m365-ps" aria-hidden="true" hidden="hidden"><button class="article-clipboard" title="Copy to clipboard" data-toggle="tooltip" data-placement="top" data-clipboard-target="section[id^='tabpanel'][data-tab='cli-m365-ps'] pre">
+    <span class="glyphicon glyphicon-copy" aria-hidden="true"></span>
+    <span class="article-clipboard__message done">Copied</span>
+</button>
+
+<pre><code class="lang-powershell">
+function PrintSite([string]$type, $sitesJson) {
+    $sites = $sitesJson | ConvertFrom-Json
+    $sitesCount = $sites.Count
+    Write-Host &quot;--------------------------------------------------------------------&quot;
+    Write-Host &quot;$type (amount: $sitesCount):&quot;
+    foreach ($site in $sites) {
+        Write-Host $site.Title $site.Url    
+        $subWebs = m365 spo web list -u $site.Url
+        $subWebs = $subWebs | ConvertFrom-Json
+        foreach ($subWeb in $subWebs) {
+            Write-Host $subWeb.Title $subWeb.Url
+        }
+    }
+}
+
+function AllSiteCollAndSubWebs() {
+    $m365Status = m365 status
+    if ($m365Status -eq &quot;Logged Out&quot;) {
+        m365 login
+    }
+
+    $teamSites = m365 spo site list --type TeamSite
+    PrintSite -type 'Team Sites' -sitesJson $teamSites
+
+    $communicationSites = m365 spo site list --type CommunicationSite
+    PrintSite -type 'Communication Sites' -sitesJson $communicationSites
+
+    $classicSites = m365 spo site classic list
+    PrintSite -type 'Classic Sites' -sitesJson $classicSites
+
+    $deletedSites = m365 spo site list --deleted
+    PrintSite -type 'Deleted Sites' -sitesJson $deletedSites
+}
+
+AllSiteCollAndSubWebs
+
+</code></pre>
+<div class="highlight-tool">
+<p>Check out the <strong>CLI for Microsoft 365</strong> to learn more at: <a href="https://aka.ms/cli-m365">https://aka.ms/cli-m365</a></p>
+</div>
+</section>
 </div>
 <h2 id="source-credit">Source Credit</h2>
 <p>Sample first appeared on <a href="https://techcommunity.microsoft.com/t5/microsoft-365-pnp-blog/how-to-to-get-all-site-collections-with-their-sub-webs-using-pnp/ba-p/2322131">How to to get all site collections with their sub webs using PnP PowerShell? | Microsoft 365 PnP Blog</a></p>
@@ -155,6 +207,9 @@ AllSiteCollAndSubWebs
 <tbody>
 <tr>
 <td>Chandani Prajapati</td>
+</tr>
+<tr>
+<td>Adam Wójcik</td>
 </tr>
 </tbody>
 </table>
