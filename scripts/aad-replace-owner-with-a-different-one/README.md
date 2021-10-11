@@ -134,7 +134,9 @@ catch
 #Export the result Array to CSV file
 $m365GroupCollection | sort "Group Name" |Export-CSV $OutPutView -Force -NoTypeInformation
 Disconnect-PnPOnline
-
+```
+[!INCLUDE [More about PnP PowerShell](../../docfx/includes/MORE-PNPPS.md)]
+***
 ## Source Credit
 
 Sample first appeared on [Replace an owner in a Microsoft 365 Group or Microsoft Team | CLI for Microsoft 365](https://pnp.github.io/cli-microsoft365/sample-scripts/aad/replace-owner-with-a-different-one/)
