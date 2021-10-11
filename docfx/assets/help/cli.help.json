@@ -204,12 +204,20 @@
     "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/aad/user/user-list"
   },
   {
+    "cmd": "m365 aad user set",
+    "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/aad/user/user-set"
+  },
+  {
     "cmd": "m365 adaptivecard send",
     "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/adaptivecard/adaptivecard-send"
   },
   {
     "cmd": "m365 cli consent",
     "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/cli/cli-consent"
+  },
+  {
+    "cmd": "m365 cli doctor",
+    "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/cli/cli-doctor"
   },
   {
     "cmd": "m365 cli issue",
@@ -472,6 +480,10 @@
     "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/planner/plan/plan-add"
   },
   {
+    "cmd": "m365 planner plan get",
+    "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/planner/plan/plan-get"
+  },
+  {
     "cmd": "m365 planner plan list",
     "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/planner/plan/plan-list"
   },
@@ -538,6 +550,10 @@
   {
     "cmd": "m365 spo app install",
     "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/spo/app/app-install"
+  },
+  {
+    "cmd": "m365 spo app instance list",
+    "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/spo/app/app-instance-list"
   },
   {
     "cmd": "m365 spo app list",
@@ -750,6 +766,14 @@
   {
     "cmd": "m365 spo group remove",
     "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/spo/group/group-remove"
+  },
+  {
+    "cmd": "m365 spo group user add",
+    "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/spo/group/group-user-add"
+  },
+  {
+    "cmd": "m365 spo group user list",
+    "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/spo/group/group-user-list"
   },
   {
     "cmd": "m365 spo hidedefaultthemes get",
@@ -1170,6 +1194,10 @@
   {
     "cmd": "m365 spo site apppermission list",
     "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/spo/site/site-apppermission-list"
+  },
+  {
+    "cmd": "m365 spo site apppermission remove",
+    "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/spo/site/site-apppermission-remove"
   },
   {
     "cmd": "m365 spo site apppermission set",
@@ -1606,6 +1634,10 @@
   {
     "cmd": "m365 teams team clone",
     "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/teams/team/team-clone"
+  },
+  {
+    "cmd": "m365 teams team get",
+    "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/teams/team/team-get"
   },
   {
     "cmd": "m365 teams team list",

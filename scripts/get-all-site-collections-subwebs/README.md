@@ -10,6 +10,10 @@ Sometimes we have a business requirement to get site collections with all the su
 
 ![Example Screenshot](assets/example.png)
 
+result with CLI version of the script
+
+![Example Cli Screenshot](assets/example_cli.png)
+
 Let's see step-by-step implementation
 
 ## Implementation
@@ -62,6 +66,48 @@ AllSiteCollAndSubWebs
 
 ```
 [!INCLUDE [More about PnP PowerShell](../../docfx/includes/MORE-PNPPS.md)]
+
+# [CLI for Microsoft 365 with PowerShell](#tab/cli-m365-ps)
+```powershell
+
+function PrintSite([string]$type, $sitesJson) {
+    $sites = $sitesJson | ConvertFrom-Json
+    $sitesCount = $sites.Count
+    Write-Host "--------------------------------------------------------------------"
+    Write-Host "$type (amount: $sitesCount):"
+    foreach ($site in $sites) {
+        Write-Host $site.Title $site.Url    
+        $subWebs = m365 spo web list -u $site.Url
+        $subWebs = $subWebs | ConvertFrom-Json
+        foreach ($subWeb in $subWebs) {
+            Write-Host $subWeb.Title $subWeb.Url
+        }
+    }
+}
+
+function AllSiteCollAndSubWebs() {
+    $m365Status = m365 status
+    if ($m365Status -eq "Logged Out") {
+        m365 login
+    }
+
+    $teamSites = m365 spo site list --type TeamSite
+    PrintSite -type 'Team Sites' -sitesJson $teamSites
+
+    $communicationSites = m365 spo site list --type CommunicationSite
+    PrintSite -type 'Communication Sites' -sitesJson $communicationSites
+
+    $classicSites = m365 spo site classic list
+    PrintSite -type 'Classic Sites' -sitesJson $classicSites
+
+    $deletedSites = m365 spo site list --deleted
+    PrintSite -type 'Deleted Sites' -sitesJson $deletedSites
+}
+
+AllSiteCollAndSubWebs
+
+```
+[!INCLUDE [More about CLI for Microsoft 365](../../docfx/includes/MORE-CLIM365.md)]
 ***
 
 ## Source Credit
@@ -73,6 +119,7 @@ Sample first appeared on [How to to get all site collections with their sub webs
 | Author(s) |
 |-----------|
 | Chandani Prajapati |
+| Adam Wójcik |
 
 [!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
 <img src="https://telemetry.sharepointpnp.com/script-samples/scripts/get-all-site-collections-subwebs" aria-hidden="true" />

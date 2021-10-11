@@ -57,6 +57,43 @@ $eventsToAdd | ForEach-Object {
 ```
 [!INCLUDE [More about PnP PowerShell](../../docfx/includes/MORE-PNPPS.md)]
 
+# [CLI for Microsoft 365 with PowerShell](#tab/cli-m365-ps)
+```powershell
+
+# Ensure connected to tenant
+$m365Status = m365 status
+if ($m365Status -eq "Logged Out") {
+    m365 login
+}
+
+# Site to which we will add the events
+$site = "https://example.sharepoint.com/sites/testEventsScript"
+
+# Load Data from CSV File
+$eventsToAdd = Import-CSV events.csv
+
+# Each time you run the script it will use the current date and set it X number of days in the future. 
+$eventsToAdd | ForEach-Object {
+
+    # Uses todays date as the date
+    # Date format is Month/Day/Year Hour/Minute
+    $format = "MM/dd/yyyy HH:mm"
+    
+    # Add Days
+    $today = ((Get-Date).AddDays($_.FutureDays)).ToString("MM/dd/yyyy")
+    $startDateTime = $today + " $($_.StartTime)"
+    $endDateTime = $today + " $($_.EndTime)"
+
+    Write-Host "Adding $startDateTime StartDate"
+    Write-Host "Adding $endDateTime EndDate"
+    
+    m365 spo listitem add --contentType "Event" --listTitle "Events" --webUrl $site --Title $_.Title --Category $_.Category --Description $_.Description --fAllDayEvent $_.AllDayEvent --Location $_.Location --EventDate $startDateTime --EndDate $endDateTime
+}
+
+```
+[!INCLUDE [More about CLI for Microsoft 365](../../docfx/includes/MORE-CLIM365.md)]
+***
+
 # [CSV](#tab/csv)
 
 ```
@@ -82,6 +119,7 @@ Training Event: Using Teams,25,12:00,13:00,This is a corporate event for everyon
 | Author(s) |
 |-----------|
 | Paul Bullock |
+| Adam Wójcik |
 
 
 [!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
