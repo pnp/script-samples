@@ -7,7 +7,7 @@
     "title": "List all Microsoft Teams team's Owners and Members",
     "url": "teams-list-teams-owners-and-members/README.html",
     "creationDateTime": "2021-03-20",
-    "updateDateTime": "2021-03-20",
+    "updateDateTime": "2021-10-11",
     "shortDescription": "This script allows you to list all Teams team's owners and members and export them into a CSV file.",
     "longDescription": null,
     "products": [
@@ -24,6 +24,10 @@
       {
         "key": "cli-for-microsoft365",
         "value": "3.7.0"
+      },
+      {
+        "key": "pnp-powerShell",
+        "value": "1.5.0"
       }
     ],
     "thumbnails": [
@@ -36,6 +40,12 @@
       }
     ],
     "authors": [
+      {
+        "gitHubAccount": "reshmee011",
+        "company": "",
+        "pictureUrl": "https://avatars.githubusercontent.com/u/7693852?v=4",
+        "name": "Reshmee Auckloo"
+      },
       {
         "name": "Patrick Lamber",
         "gitHubAccount": "plamber",
