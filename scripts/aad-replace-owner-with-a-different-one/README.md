@@ -137,6 +137,7 @@ Disconnect-PnPOnline
 ```
 [!INCLUDE [More about PnP PowerShell](../../docfx/includes/MORE-PNPPS.md)]
 ***
+
 ## Source Credit
 
 Sample first appeared on [Replace an owner in a Microsoft 365 Group or Microsoft Team | CLI for Microsoft 365](https://pnp.github.io/cli-microsoft365/sample-scripts/aad/replace-owner-with-a-different-one/)
@@ -147,6 +148,7 @@ Sample first appeared on [Replace an owner in a Microsoft 365 Group or Microsoft
 |-----------|
 | Alan Eardley |
 | Patrick Lamber |
+| Reshmee Auckloo |
 
 
 [!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
