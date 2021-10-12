@@ -95,6 +95,7 @@ Sample first appeared on [List all Microsoft Teams team's Owners and Members | C
 |-----------|
 | Patrick Lamber |
 | Inspired by Robin Clarke |
+| Reshmee Auckloo |
 
 
 [!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
