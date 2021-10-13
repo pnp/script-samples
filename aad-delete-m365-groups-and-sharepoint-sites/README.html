@@ -157,25 +157,27 @@ foreach ($site in $allSites) {
 </button>
 
 <pre><code class="lang-powershell">$AdminCenterURL=&quot;https://contoso-admin.sharepoint.com/&quot;
-#Connect to SharePoint admin url using SPOService to retrieve all sites to be deleted
-Connect-SPOService -Url $AdminCenterURL
 #Connect to SharePoint admin url using PnPOnline to use PnP cmdlets to delete m365 groups and SharePoint sites
 Connect-PnPOnline -Url $AdminCenterURL -Interactive
 
 #retrieve all m365 group connected ( template &quot;GROUP#0&quot; sites to be deleted) sites beginning with https://contoso.sharepoint.com/sites/D-Test
-$sites = Get-SPOSite  -Filter {Url -like  &quot;https://contoso.sharepoint.com/sites/D-Test&quot; -and Template -eq &quot;GROUP#0&quot; }
-#displaying the sites returned 
-$sites | Format-Table Title, Url, Template , GroupId
+$sites = Get-PnPTenantSite -Filter {Url -like https://contoso.sharepoint.com/sites/D-Test} -Template 'GROUP#0'
 
-Read-Host -Prompt &quot;Press Enter to start deleting (CTRL + C to exit)&quot;
+#displaying the sites returned to be deleted
+$sites | Format-Table  Url, Template , GroupId
+
+Read-Host -Prompt &quot;Press Enter to start deleting m365 groups and sites (CTRL + C to exit)&quot;
 $sites | ForEach-Object{
 Remove-PnPMicrosoft365Group  -Identity $_.GroupId
 #allow time for m365 group to be deleted
 Start-Sleep -Seconds 60
 #delete the SharePoint site after the m365 group is deleted
 Remove-PnPTenantSite -Url $_.Url -Force -SkipRecycleBin
+#permanently remove the m365 group
+Remove-PnPDeletedMicrosoft365Group -Identity $_.GroupId
+
 #permanently delete the site and to allow a site to be created with the url of the site just deleted , i.e. to avoid message &quot;This site address is available with modification&quot;
-Remove-SPODeletedSite -identity $_.Url -NoWait -Confirm:$false 
+Remove-PnPTenantDeletedSite -Identity $_.Url -Force
 }
 </code></pre>
 <div class="highlight-tool">
