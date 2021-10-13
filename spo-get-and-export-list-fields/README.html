@@ -4,15 +4,15 @@
   
   <head>
     <meta charset="utf-8">
-    <title>Get SharePoint Site Collection and their Subwebs Permissions And Export It To CSV | PnP Samples </title>
+    <title>Get SharePoint List Fields With Required properties And Export It To CSV | PnP Samples </title>
     <meta name="viewport" content="width=device-width">
-    <meta name="title" content="Get SharePoint Site Collection and their Subwebs Permissions And Export It To CSV | PnP Samples ">
+    <meta name="title" content="Get SharePoint List Fields With Required properties And Export It To CSV | PnP Samples ">
     <meta name="generator" content="docfx 2.56.7.0">
     <meta name="description" content="A sample gallery of scripts to manage all things Microsoft 365.">
   
     <!-- Social Media -->
     <meta property="og:locale" content="en_GB">
-    <meta property="og:title" content="Get SharePoint Site Collection and their Subwebs Permissions And Export It To CSV | PnP Samples ">
+    <meta property="og:title" content="Get SharePoint List Fields With Required properties And Export It To CSV | PnP Samples ">
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://pnp.github.io/script-samples">
     <meta property="og:image" content="https://pnp.github.io/script-samples/assets/social-media-screenshot.png">
@@ -76,22 +76,21 @@
           <div class="col-md-12">
             <article class="content wrap" id="_content" data-uid="">
                   <div class="contribution-panel mobile-hide pull-right">
-                      <a href="https://github.com/pnp/script-samples/blob/main/scripts/spo-export-sitecollection-permission-with-subwebs/README.md/#L1" title="Improve this Doc" class="improve-doc-lg"><i class="glyphicon glyphicon-pencil"></i></a>
+                      <a href="https://github.com/pnp/script-samples/blob/main/scripts/spo-get-and-export-list-fields/README.md/#L1" title="Improve this Doc" class="improve-doc-lg"><i class="glyphicon glyphicon-pencil"></i></a>
                   </div>
-                    <h1 id="get-sharepoint-site-collection-and-their-subwebs-permissions-and-export-it-to-csv">Get SharePoint Site Collection and their Subwebs Permissions And Export It To CSV</h1>
+                    <h1 id="get-sharepoint-list-fields-with-required-properties-and-export-it-to-csv">Get SharePoint List Fields With Required properties And Export It To CSV</h1>
 
 <h2 id="summary">Summary</h2>
-<p>Sometimes we have requirement like get User Permissions Audit Report for a Site Collection with their all SubWebs.</p>
+<p>This sample read site url and list/library title from user and fetch some required field properties and then export it to CSV</p>
 <h2 id="implementation">Implementation</h2>
 <ul>
 <li>Open Windows PowerShell ISE</li>
 <li>Create a new file</li>
 <li>Write a script as below,</li>
-<li>First, we will Read site URL from user and connect to the Site
+<li>First, we will Read site URL from user and connect to the Site.
 <ul>
-<li>then we will get all subwebs for the site collcetion.</li>
-<li>And then we will get all the permissions for site collection and subwebs.</li>
-<li>Then we will export an object to CSV.</li>
+<li>then we will Read list/library title from user and get fields information.</li>
+<li>And then we will export it to CSV with some required properties.</li>
 </ul>
 </li>
 </ul>
@@ -108,13 +107,13 @@
 
 <pre><code class="lang-powershell">
 $username = &quot;chandani@domain.onmicrosoft.com&quot;
-$password = &quot;********&quot;
+$password = &quot;*******&quot;
 $secureStringPwd = $password | ConvertTo-SecureString -AsPlainText -Force 
 $Creds = New-Object System.Management.Automation.PSCredential -ArgumentList $username, $secureStringPwd
-$global:permissions = @()
-$BasePath = &quot;E:\Contribution\PnP-Scripts\SitePermission\&quot;
+$global:listFields = @()
+$BasePath = &quot;E:\Contribution\PnP-Scripts\ListFields\&quot;
 $DateTime = &quot;{0:MM_dd_yy}_{0:HH_mm_ss}&quot; -f (Get-Date)
-$CSVPath = $BasePath + &quot;\sitepermissions&quot; + $DateTime + &quot;.csv&quot;
+$CSVPath = $BasePath + &quot;\listfields&quot; + $DateTime + &quot;.csv&quot;
 
 Function ConnectToSPSite() {
     try {
@@ -123,10 +122,10 @@ Function ConnectToSPSite() {
             Write-Host &quot;Connecting to Site :'$($SiteUrl)'...&quot; -ForegroundColor Yellow  
             Connect-PnPOnline -Url $SiteUrl -Credentials $Creds
             Write-Host &quot;Connection Successfull to site: '$($SiteUrl)'&quot; -ForegroundColor Green              
-            WebPermission
+            GetListFields
         }
         else {
-            Write-Host &quot;Site URL is empty.&quot; -ForegroundColor Red
+            Write-Host &quot;Source Site URL is empty.&quot; -ForegroundColor Red
         }
     }
     catch {
@@ -134,88 +133,47 @@ Function ConnectToSPSite() {
     } 
 }
 
-Function WebPermission {
+Function GetListFields() {
     try {
-        $Web = Get-PnPWeb -Includes RoleAssignments
-        CheckPermission $Web    
-        SubWebPermission        
+        $ListName =  Read-Host &quot;Please enter list name&quot;
+        if ($ListName) {
+            Write-Host &quot;Getting fields from :'$($ListName)'...&quot; -ForegroundColor Yellow  
+            $ListFields = Get-PnPField -List $ListName
+            Write-Host &quot;Getting fields from :'$($ListName)' Successfully!&quot; -ForegroundColor Green  
+            foreach ($ListField in $ListFields) {  
+                $global:listFields += New-Object PSObject -Property ([ordered]@{
+                        &quot;Title&quot;            = $ListField.Title                           
+                        &quot;Type&quot;             = $ListField.TypeAsString                         
+                        &quot;Internal Name&quot;    = $ListField.InternalName  
+                        &quot;Static Name&quot;      = $ListField.StaticName  
+                        &quot;Scope&quot;            = $ListField.Scope  
+                        &quot;Type DisplayName&quot; = $ListField.TypeDisplayName                          
+                        &quot;Is read only?&quot;    = $ListField.ReadOnlyField  
+                        &quot;Unique?&quot;          = $ListField.EnforceUniqueValues  
+                        &quot;IsRequired&quot;       = $ListField.Required
+                        &quot;IsSortable&quot;       = $ListField.Sortable
+                        &quot;Schema XML&quot;       = $ListField.SchemaXml
+                        &quot;Description&quot;      = $ListField.Description 
+                        &quot;Group Name&quot;       = $ListField.Group   
+                    })
+            }  
+        }
+        else {
+            Write-Host &quot;List name is empty.&quot; -ForegroundColor Red
+        }
+        BindingtoCSV($global:listFields)
+        $global:listFields = @()
     }
     catch {
-        Write-Host &quot;Error in getting web:&quot; $_.Exception.Message -ForegroundColor Red               
+        Write-Host &quot;Error in getting list fields from :'$($ListName)'&quot; $_.Exception.Message -ForegroundColor Red               
     } 
-}
-
-Function CheckPermission ($obj) {
-    try {
-        Write-Host &quot;Getting permission for the :'$($obj.Url)'...&quot; -ForegroundColor Yellow
-        Get-PnPProperty -ClientObject $obj -Property HasUniqueRoleAssignments, RoleAssignments      
-        $HasUniquePermissions = $obj.HasUniqueRoleAssignments
-   
-        Foreach ($RoleAssignment in $obj.RoleAssignments) {                
-            Get-PnPProperty -ClientObject $RoleAssignment -Property RoleDefinitionBindings, Member
-                  
-            $PermissionType = $RoleAssignment.Member.PrincipalType
-                     
-            $PermissionLevels = $RoleAssignment.RoleDefinitionBindings | Select -ExpandProperty Name
-                
-            If ($PermissionLevels.Length -eq 0) { Continue } 
-
-            If ($PermissionType -eq &quot;SharePointGroup&quot;) {
-                    
-                $GroupMembers = Get-PnPGroupMembers -Identity $RoleAssignment.Member.LoginName                                  
-                If ($GroupMembers.count -eq 0) { Continue }
-                ForEach ($User in $GroupMembers) {
-                    $global:permissions += New-Object PSObject -Property ([ordered]@{
-                            'Site URL'           = $obj.Url
-                            'Site Title'         = $obj.Title
-                            Title                = $User.Title 
-                            PermissionType       = $PermissionType
-                            PermissionLevels     = $PermissionLevels -join &quot;,&quot;
-                            Member               = $RoleAssignment.Member.Title     
-                            HasUniquePermissions = $HasUniquePermissions                                     
-                        })  
-                }
-            }                        
-            Else {                                        
-                $global:permissions += New-Object PSObject -Property ([ordered]@{
-                        'Site URL'           = $obj.Url
-                        'Site Title'         = $obj.Title
-                        Title                = $RoleAssignment.Member.Title 
-                        PermissionType       = $PermissionType
-                        PermissionLevels     = $PermissionLevels -join &quot;,&quot;
-                        Member               = &quot;Direct Permission&quot;      
-                        HasUniquePermissions = $HasUniquePermissions                             
-                    })  
-            }                            
-        }                                  
-        BindingtoCSV($global:permissions)
-        $global:permissions = @()
-        Write-Host &quot;Getting permission successfully for the :'$($obj.Url)'...&quot; -ForegroundColor Green
-    }
-    catch {
-        Write-Host &quot;Error in checking permission&quot; $_.Exception.Message -ForegroundColor Red               
-    } 
-}
-
-Function SubWebPermission {
-    try {    
-        $subwebs = Get-PnPSubWebs -Recurse  
-        foreach ($subweb in $subwebs) { 
-            Write-Host &quot;Connecting to Subweb :'$($subweb.Url)'...&quot; -ForegroundColor Yellow
-            Connect-PnPOnline -Url $subweb.Url -Credentials $Creds
-            Write-Host &quot;Connection successfully to Subweb :'$($subweb.Url)'...&quot; -ForegroundColor Green
-            CheckPermission $subweb
-        } 
-    }
-    catch {
-        Write-Host &quot;Error in connecting to sub web&quot; $_.Exception.Message -ForegroundColor Red               
-    } 
+    Write-Host &quot;Export to CSV Successfully!&quot; -ForegroundColor Green
 }
 
 Function BindingtoCSV {
     [cmdletbinding()]
     param([parameter(Mandatory = $true, ValueFromPipeline = $true)] $Global)       
-    $global:permissions | Export-Csv $CSVPath -NoTypeInformation -Append            
+    $global:listFields | Export-Csv $CSVPath -NoTypeInformation -Append            
 }
 
 ConnectToSPSite
@@ -241,7 +199,7 @@ ConnectToSPSite
 </table>
 <h2 id="disclaimer">Disclaimer</h2>
 <p><strong>THESE SAMPLES ARE PROVIDED <em>AS IS</em> WITHOUT WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, INCLUDING ANY IMPLIED WARRANTIES OF FITNESS FOR A PARTICULAR PURPOSE, MERCHANTABILITY, OR NON-INFRINGEMENT.</strong></p>
-<img src="https://telemetry.sharepointpnp.com/script-samples/scripts/spo-export-sitecollection-permission-with-subwebs" aria-hidden="true">
+<img src="https://telemetry.sharepointpnp.com/script-samples/scripts/spo-get-and-export-list-fields" aria-hidden="true">
 </article>
           </div>
         </div>
