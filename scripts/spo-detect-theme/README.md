@@ -24,6 +24,9 @@ else{
     Write-Host "Theme does not found" -ForegroundColor red 
 }
 ```
+[!INCLUDE [More about PnP PowerShell](../../docfx/includes/MORE-PNPPS.md)]
+***
+
 ## Contributors
 
 | Author(s) |
