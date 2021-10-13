@@ -1,0 +1,223 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html lang="en">
+  
+  <head>
+    <meta charset="utf-8">
+    <title>Set SharePoint regional settings | PnP Samples </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Set SharePoint regional settings | PnP Samples ">
+    <meta name="generator" content="docfx 2.56.7.0">
+    <meta name="description" content="A sample gallery of scripts to manage all things Microsoft 365.">
+  
+    <!-- Social Media -->
+    <meta property="og:locale" content="en_GB">
+    <meta property="og:title" content="Set SharePoint regional settings | PnP Samples ">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://pnp.github.io/script-samples">
+    <meta property="og:image" content="https://pnp.github.io/script-samples/assets/social-media-screenshot.png">
+    <meta property="og:image:alt" content="Screenshot example of the PnP Script Samples Site">
+    <meta property="og:site_name" content="PnP Script Samples">
+    <meta property="og:description" content="A sample gallery of scripts to manage all things Microsoft 365.">
+  
+    <link rel="shortcut icon" href="https://c.s-microsoft.com/favicon.ico?v2">
+    <link rel="stylesheet" href="../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../styles/docfx.css">
+    <link rel="stylesheet" href="../styles/main.css">
+    <link rel="stylesheet" href="../styles/extra.css">
+    <link rel="stylesheet" href="../styles/filter.css">
+    <link rel="stylesheet" href="../styles/site.css">
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet"> 
+    <meta property="docfx:navrel" content="../toc.html">
+    <meta property="docfx:tocrel" content="../toc.html">
+    
+    
+    <meta property="docfx:newtab" content="true">
+    <script type="text/javascript">
+      (function(c,l,a,r,i,t,y){
+          c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+          t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+          y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+      })(window, document, "clarity", "script", "8j6pedl344");
+  </script>
+  </head>  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+             <div class="github-mark">
+              <a href="https://github.com/pnp/script-samples">
+                <img src="https://pnp.github.io/script-samples/assets/icons/github-light-64px.png" alt="GitHub Icon Image">
+              </a>
+            </div>
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../assets/logo.svg" alt="">
+              </a>    </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <label class="glyphicon glyphicon-search" for="search-query"></label>
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>      </header>
+      <div role="main" class="container body-content hide-when-search">
+        <div class="article row grid">
+          <div class="col-md-12">
+            <article class="content wrap" id="_content" data-uid="">
+                  <div class="contribution-panel mobile-hide pull-right">
+                      <a href="https://github.com/pnp/script-samples/blob/main/scripts/spo-set-sharepoint-regional-settings/README.md/#L1" title="Improve this Doc" class="improve-doc-lg"><i class="glyphicon glyphicon-pencil"></i></a>
+                  </div>
+                    <h1 id="set-sharepoint-regional-settings">Set SharePoint regional settings</h1>
+
+<h2 id="summary">Summary</h2>
+<p>Script will set custom regional settings in your sharepoint site</p>
+<h2 id="implementation">Implementation</h2>
+<ul>
+<li>Open Windows PowerShell ISE</li>
+<li>Edit Script and add details of your prefered regional settings</li>
+<li>Press run</li>
+</ul>
+<div class="tabGroup" id="tabgroup_CeZOj-G++Q">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_CeZOj-G++Q_pnpps" role="tab" aria-controls="tabpanel_CeZOj-G++Q_pnpps" data-tab="pnpps" tabindex="0" aria-selected="true">PnP PowerShell</a>
+</li>
+</ul>
+<section id="tabpanel_CeZOj-G++Q_pnpps" role="tabpanel" data-tab="pnpps"><button class="article-clipboard" title="Copy to clipboard" data-toggle="tooltip" data-placement="top" data-clipboard-target="section[id^='tabpanel'][data-tab='pnpps'] pre">
+    <span class="glyphicon glyphicon-copy" aria-hidden="true"></span>
+    <span class="article-clipboard__message done">Copied</span>
+</button>
+
+<pre><code class="lang-powershell">
+###### Declare and Initialize Variables ######  
+
+#Destination site collection url
+$url=&quot;https://&lt;tenant&gt;.sharepoint.com/sites/&lt;yoursitecollection&gt;&quot;
+
+# data will be saved in same directory script was started from
+$saveDir = (Resolve-path &quot;.\&quot;)  
+$currentTime= $(get-date).ToString(&quot;yyyyMMddHHmmss&quot;)  
+$logFilePath=&quot;.\log-&quot;+$currentTime+&quot;.log&quot;  
+
+## Start the Transcript  
+Start-Transcript -Path $logFilePath 
+
+## Connect to SharePoint Online site  
+Connect-PnPOnline -Url $Url -Interactive
+
+
+### Set Sharepoint site time zone with Pnp Powershell 
+$localeId = 2057 # UK
+$timeZoneId = 2 # London
+
+$web = Get-PnPWeb -Includes RegionalSettings,RegionalSettings.TimeZones
+$timeZone = $web.RegionalSettings.TimeZones | Where-Object {$_.Id -eq $timeZoneId}
+$web.RegionalSettings.LocaleId = $localeId
+$web.RegionalSettings.TimeZone = $timeZone
+$web.Update()
+Invoke-PnPQuery
+
+
+### Set Regional Settings using PnP PowerShell
+$web = Get-PnPWeb -Includes RegionalSettings
+
+## Define your regional settings in an object
+$myRegionalSettings = @{
+    LocaleId              = 1063
+    WorkDayStartHour      = 9
+    WorkDayEndHour        = 6
+    FirstDayOfWeek        = 0
+    Time24                = $False
+    CalendarType          = 1
+    AlternateCalendarType = 0
+    WorkDays              = 124
+}
+
+$properties = $myRegionalSettings.GetEnumerator()
+
+foreach($property in $myRegionalSettings.GetEnumerator()){
+    $web.RegionalSettings.$($property.Name)= $property.Value 
+}
+$web.Update()
+Invoke-PnPQuery
+
+
+## Disconnect the context  
+Disconnect-PnPOnline  
+ 
+## Stop Transcript  
+Stop-Transcript  
+ 
+
+</code></pre>
+<div class="NOTE">
+<h5>Note</h5>
+<p>Site regional settings can be changed in multiple ways via code. One of the examples of changing reginal setting via site design can be found in this sample <a href="https://pnp.github.io/script-samples/spo-add-site-design-with-custom-list/README.html?tabs=pnpps">Create and add site design to SharePoint site with site columns, content type</a></p>
+</div>
+<div class="highlight-tool">
+<p>Check out the <strong>PnP PowerShell</strong> to learn more at: <a href="https://aka.ms/pnp/powershell">https://aka.ms/pnp/powershell</a></p>
+</div>
+</section>
+</div>
+<h2 id="source-credit">Source Credit</h2>
+<p>Sample first appeared on <a href="https://www.pkbullock.com/blog/2020/the-many-ways-to-set-uk-locale-in-sharepoint/">The many ways to set UK Locale in SharePoint</a></p>
+<h2 id="contributors">Contributors</h2>
+<table>
+<thead>
+<tr>
+<th>Author(s)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Inspired by Paul Bullock</td>
+</tr>
+<tr>
+<td>Valeras Narbutas</td>
+</tr>
+</tbody>
+</table>
+<h2 id="disclaimer">Disclaimer</h2>
+<p><strong>THESE SAMPLES ARE PROVIDED <em>AS IS</em> WITHOUT WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, INCLUDING ANY IMPLIED WARRANTIES OF FITNESS FOR A PARTICULAR PURPOSE, MERCHANTABILITY, OR NON-INFRINGEMENT.</strong></p>
+<img src="https://telemetry.sharepointpnp.com/script-samples/scripts/spo-set-sharepoint-regional-settings" aria-hidden="true">
+</article>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            <span>Script Samples<br>Generated by <strong><a href='https://dotnet.github.io/docfx' alt='Doc FX Website'>DocFX</a></strong> with <strong><a href='https://ovasquez.github.io/docfx-material' alt='DocFx Material Theme'>Material UI</a></strong></span>
+            
+            <!-- <img src="https://telemetry.sharepointpnp.com/@pnp.github.io/index/" alt="spacer"> -->
+          </div>
+        </div>
+      </footer>    </div>
+    
+    <script type="text/javascript" src="../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+    
+    <script type="text/javascript" src="../styles/clipboard.min.js"></script>
+    <script type="text/javascript" src="../styles/isotope.pkgd.min.js"></script>
+    <script type="text/javascript" src="../styles/loadsamples.js"></script>
+    <script type="text/javascript" src="../styles/filtersamples.js"></script>
+
+  </body>
+</html>
