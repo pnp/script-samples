@@ -12,6 +12,7 @@ Get currently installed theme in SharePoint site
 # Make sure necessary modules are installed
 # PnP PowerShell to get access to M365 tenent
 Install-Module PnP.PowerShell
+Connect-PnPOnline -Url $siteURL
 $siteURL = "https://tenent.sharepoint.com/sites/Dataverse"
 $web = Get-PnPWeb -Includes PrimaryColor
 $themes = Get-PnPTenantTheme
