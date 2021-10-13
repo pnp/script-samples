@@ -32,11 +32,11 @@ $CSVPath = $BasePath + "\sitepermissions" + $DateTime + ".csv"
 
 Function ConnectToSPSite() {
     try {
-        $SourceSiteUrl = Read-Host "Please enter Site URL"
-        if ($SourceSiteUrl) {
-            Write-Host "Connecting to Site :'$($SourceSiteUrl)'..." -ForegroundColor Yellow  
-            Connect-PnPOnline -Url $SourceSiteUrl -Credentials $Creds
-            Write-Host "Connection Successfull to site: '$($SourceSiteUrl)'" -ForegroundColor Green              
+        $SiteUrl = Read-Host "Please enter Site URL"
+        if ($SiteUrl) {
+            Write-Host "Connecting to Site :'$($SiteUrl)'..." -ForegroundColor Yellow  
+            Connect-PnPOnline -Url $SiteUrl -Credentials $Creds
+            Write-Host "Connection Successfull to site: '$($SiteUrl)'" -ForegroundColor Green              
             WebPermission
         }
         else {
@@ -50,8 +50,8 @@ Function ConnectToSPSite() {
 
 Function WebPermission {
     try {
-        $web = Get-PnPWeb -Includes RoleAssignments
-        CheckPermission $web    
+        $Web = Get-PnPWeb -Includes RoleAssignments
+        CheckPermission $Web    
         SubWebPermission        
     }
     catch {
