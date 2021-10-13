@@ -2,7 +2,7 @@
 plugin: add-to-gallery
 ---
 
-# Get SharePoint List Or Library Permissions And Export It To CSV
+# Get SharePoint Site Collection and their Subwebs Permissions And Export It To CSV
 
 ## Summary
 
