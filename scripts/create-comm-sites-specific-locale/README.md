@@ -56,19 +56,38 @@ Write-Host "Script Complete! :)" -ForegroundColor Green
 
 ```
 [!INCLUDE [More about SPO Management Shell](../../docfx/includes/MORE-SPOMS.md)]
+
+# [CLI for Microsoft 365 with PowerShell](#tab/cli-m365-ps)
+```powershell
+
+$newSiteUrl = "https://<tenant>.sharepoint.com/sites/Pensaerniaeth"
+$siteTitle = "Pensaerniaeth"
+$lcid = 1106
+
+$m365Status = m365 status
+if ($m365Status -eq "Logged Out") {
+m365 login
+}
+m365 spo site add --type CommunicationSite --url $newSiteUrl --title $siteTitle --lcid $lcid
+
+Write-Host "Script Complete! :)" -ForegroundColor Green
+
+```
+[!INCLUDE [More about CLI for Microsoft 365](../../docfx/includes/MORE-CLIM365.md)]
 ***
 
 To see a list of LCIDs, check out the sample [Generate Markdown Report of LCIDs](../generate-markdown-lcids/README.md) to see the full list
 
 ## Source Credit
 
-Article first appeared on [https://capacreative.co.uk/2018/11/19/create-communication-sites-with-a-specific-primary-language-using-pnp-powershell/](https://capacreative.co.uk/2018/11/19/create-communication-sites-with-a-specific-primary-language-using-pnp-powershell/)
+Article first appeared on [https://www.pkbullock.com/blog/2018/create-communication-sites-with-a-specific-primary-language-using-pnp-powershell/](https://www.pkbullock.com/blog/2018/create-communication-sites-with-a-specific-primary-language-using-pnp-powershell/)
 
 ## Contributors
 
 | Author(s) |
 |-----------|
 | Paul Bullock |
+| Adam Wójcik |
 
 [!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
 
