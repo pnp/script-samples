@@ -2,11 +2,11 @@
 plugin: add-to-gallery
 ---
 
-# Get SharePoint List Or Library Permissions And Export It To CSV
+# Get SharePoint List Fields With Required properties And Export It To CSV
 
 ## Summary
 
-Many times we have requirements like get any specific list/library permissions and Export to CSV.
+This sample read site url and list/library title from user and fetch some required field properties and then export it to CSV
 
 ## Implementation
 
