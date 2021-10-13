@@ -56,8 +56,6 @@ Write-Host "Script Complete! :)" -ForegroundColor Green
 
 ```
 [!INCLUDE [More about SPO Management Shell](../../docfx/includes/MORE-SPOMS.md)]
-***
-
 
 # [CLI for Microsoft 365 with PowerShell](#tab/cli-m365-ps)
 ```powershell
@@ -82,7 +80,7 @@ To see a list of LCIDs, check out the sample [Generate Markdown Report of LCIDs]
 
 ## Source Credit
 
-Article first appeared on [https://capacreative.co.uk/2018/11/19/create-communication-sites-with-a-specific-primary-language-using-pnp-powershell/](https://capacreative.co.uk/2018/11/19/create-communication-sites-with-a-specific-primary-language-using-pnp-powershell/)
+Article first appeared on [https://www.pkbullock.com/blog/2018/create-communication-sites-with-a-specific-primary-language-using-pnp-powershell/](https://www.pkbullock.com/blog/2018/create-communication-sites-with-a-specific-primary-language-using-pnp-powershell/)
 
 ## Contributors
 
