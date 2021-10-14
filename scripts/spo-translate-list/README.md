@@ -7,7 +7,7 @@ plugin: add-to-gallery
 ## Summary
 
 Say we have PowerApp that is storing its data in Sharepoint lists. We want to make the app multilingual so we Add a new list with the languages we want to support called ID_Languages:
-![Example Screenshot](assets/Languages.png)
+![Example Screenshot](./assets/Languages.png)
 
 We then add a Radio control to our list to let the user select a language. We set the onChange of the control to :
 Set(gvLanguage,Radio1.Selected.Title);
