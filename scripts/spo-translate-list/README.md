@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 ---
 plugin: add-to-gallery
 ---
