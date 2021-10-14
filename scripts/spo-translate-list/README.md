@@ -39,7 +39,7 @@ First(
 ).Translation
 
 Next for any dropdown lists we create a new list to hold the translated values. For example here is a list (ID-Ease) used in dropdowns:
-![Example Screenshot](assets/EaSE.png) 
+![Example Screenshot](assets/EaSE.PNG) 
 
 Again we only add the values for our native lanuage now. Again the Language column is a lookup to our Languages list. The MasterEase column is a lookup to a master list of Ease values. For a single lookup value, all the translations must point back to the same master record for reporting purposes(Thats not importaant for this sampel though).
 
@@ -177,9 +177,9 @@ Translate-List -ListId "ID-Ease" -ColumnsToTranslate @("Title")  -ColumnsToCopy 
 
 After running the script the translated values have been added to your ID-App Labels and ID-Ease lists:
 
-![Example Screenshot](assets/AppLabelsTranslated.png) 
+![Example Screenshot](assets/AppLabelsTranslated.PNG) 
 
-![Example Screenshot](assets/EaseTranslated.png) 
+![Example Screenshot](assets/EaseTranslated.PNG) 
 
 If you add new items to any of the lists the script can be rerun and it will re-translate everything.
 
