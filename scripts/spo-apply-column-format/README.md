@@ -7,12 +7,12 @@ plugin: add-to-gallery
 ## Summary
 
 This sample script shows how to apply column format using:
+
 * Existing column format
 * Format added in script
 * Getting format sample from GitHub sample page
 
 Scenario inspired by Paul Bullock [Blog post about column formatting](https://www.pkbullock.com/blog/2018/using-pnp-powershell-to-apply-modern-column-formatting/)
-
 
 ![Example Screenshot](assets/example.png)
 
