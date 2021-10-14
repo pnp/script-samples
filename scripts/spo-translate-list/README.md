@@ -7,7 +7,7 @@ plugin: add-to-gallery
 ## Summary
 
 Say we have PowerApp that is storing its data in Sharepoint lists. We want to make the app multilingual so we Add a new list with the languages we want to support called ID_Languages:
-![Example Screenshot](./assets/Languages.png)
+![Example Screenshot](./assets/Languages.PNG)
 
 We then add a Radio control to our list to let the user select a language. We set the onChange of the control to :
 Set(gvLanguage,Radio1.Selected.Title);
@@ -16,7 +16,7 @@ So now we have the selected lanuage in gvLanguage.
 
 Next we want to change all the labels in the app to display the translated text of the label. So we create a table called ID-App Labels
 
-![Example Screenshot](assets/AppLabels.png)        
+![Example Screenshot](assets/AppLabels.PNG)        
 
 The Title field is what we use in code to find the correct label (If you're using forms make it the same as the name of the field). The Language is a lookup column pointing back to our ID-Languages list. The Translation column is the translated version of that label. We just add the values for our native language for now.
 
