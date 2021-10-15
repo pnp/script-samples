@@ -1,0 +1,45 @@
+[
+    {
+      "name": "spo-cleanup-site-column-usage",
+      "source": "pnp",
+      "title": "Clean Up Unwanted Site Columns from Content Types and Lists/Libraries",
+      "shortDescription": "We decide we want to trim away a few of the Site Columns we’ve created, here is the script that does just that",
+      "url": "spo-cleanup-site-column-usage/README.html",
+      "longDescription": [
+        "Sometimes when we iteratively build out our information architecture, we’re over-zealous. It seems like we need a set of Site Columns to maintain metadata on lists or libraries, but in the end, we decide we want to trim away a few of the Site Columns we’ve created."
+      ],
+      "creationDateTime": "2021-10-15",
+      "updateDateTime": "2021-10-15",
+      "products": [
+        "SharePoint"
+      ],
+      "metadata": [
+        {
+          "key": "pnp-powerShell",
+          "value": "1.5.0"
+        }
+      ],
+      "categories": [
+        "Configure",
+        "Report"
+      ],
+      "tags":[
+      ],
+      "thumbnails": [
+        {
+          "type": "image",
+          "order": 100,
+          "url": "spo-cleanup-site-column-usage/assets/preview.png",
+          "alt": ""
+        }
+      ],
+      "authors": [
+        {
+          "gitHubAccount": "sympmarc",
+          "company": "@SympraxisConsulting",
+          "pictureUrl": "https://avatars.githubusercontent.com/u/1295627?v=4",
+          "name": "Marc D Anderson"
+        }
+      ]
+    }
+  ]
