@@ -22,7 +22,7 @@ When we want to clean up use of a Site Column – and we’re setting up our inf
 
 ## $reportOnly = $false
 
-![$reportOnly = $tru](assets/report-only-true.jpg)
+![$reportOnly = $tru](assets/report-only-false.jpg)
 
 # [PnP.PowerShell](#tab/pnp-ps)
 ```powershell
