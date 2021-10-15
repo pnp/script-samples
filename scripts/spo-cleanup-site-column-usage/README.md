@@ -87,8 +87,8 @@ foreach ($list in $lists) {
 # Remove the Site Column itself
 if (!$reportOnly) {
     Remove-PnPField -Identity $siteColumn
-}```
-
+}
+```
 [!INCLUDE [More about PnP.PowerShell](../../docfx/includes/MORE-PNPPS.md)]
 ***
 
