@@ -1,0 +1,218 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html lang="en">
+  
+  <head>
+    <meta charset="utf-8">
+    <title>Clean Up Unwanted Site Columns from Content Types and Lists/Libraries | PnP Samples </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Clean Up Unwanted Site Columns from Content Types and Lists/Libraries | PnP Samples ">
+    <meta name="generator" content="docfx 2.56.7.0">
+    <meta name="description" content="A sample gallery of scripts to manage all things Microsoft 365.">
+  
+    <!-- Social Media -->
+    <meta property="og:locale" content="en_GB">
+    <meta property="og:title" content="Clean Up Unwanted Site Columns from Content Types and Lists/Libraries | PnP Samples ">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://pnp.github.io/script-samples">
+    <meta property="og:image" content="https://pnp.github.io/script-samples/assets/social-media-screenshot.png">
+    <meta property="og:image:alt" content="Screenshot example of the PnP Script Samples Site">
+    <meta property="og:site_name" content="PnP Script Samples">
+    <meta property="og:description" content="A sample gallery of scripts to manage all things Microsoft 365.">
+  
+    <link rel="shortcut icon" href="https://c.s-microsoft.com/favicon.ico?v2">
+    <link rel="stylesheet" href="../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../styles/docfx.css">
+    <link rel="stylesheet" href="../styles/main.css">
+    <link rel="stylesheet" href="../styles/extra.css">
+    <link rel="stylesheet" href="../styles/filter.css">
+    <link rel="stylesheet" href="../styles/site.css">
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet"> 
+    <meta property="docfx:navrel" content="../toc.html">
+    <meta property="docfx:tocrel" content="../toc.html">
+    
+    
+    <meta property="docfx:newtab" content="true">
+    <script type="text/javascript">
+      (function(c,l,a,r,i,t,y){
+          c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+          t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+          y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+      })(window, document, "clarity", "script", "8j6pedl344");
+  </script>
+  </head>  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+             <div class="github-mark">
+              <a href="https://github.com/pnp/script-samples">
+                <img src="https://pnp.github.io/script-samples/assets/icons/github-light-64px.png" alt="GitHub Icon Image">
+              </a>
+            </div>
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../assets/logo.svg" alt="">
+              </a>    </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <label class="glyphicon glyphicon-search" for="search-query"></label>
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>      </header>
+      <div role="main" class="container body-content hide-when-search">
+        <div class="article row grid">
+          <div class="col-md-12">
+            <article class="content wrap" id="_content" data-uid="">
+                  <div class="contribution-panel mobile-hide pull-right">
+                      <a href="https://github.com/pnp/script-samples/blob/main/scripts/spo-cleanup-site-column-usage/README.md/#L1" title="Improve this Doc" class="improve-doc-lg"><i class="glyphicon glyphicon-pencil"></i></a>
+                  </div>
+                    <h1 id="clean-up-unwanted-site-columns-from-content-types-and-listslibraries">Clean Up Unwanted Site Columns from Content Types and Lists/Libraries</h1>
+
+<h2 id="summary">Summary</h2>
+<p>Sometimes when we iteratively build out our information architecture, we’re over-zealous. It seems like we need a set of Site Columns to maintain metadata on lists or libraries, but in the end, we decide we want to trim away a few of the Site Columns we’ve created. Or, maybe you’ve migrated a bunch of metadata into SharePoint with a set of documents and it turns out that metadata is no longer valid or useful.</p>
+<p>If the Site Columns exist in only one or two libraries, it’s not a big deal to do this manually. But when you need to remove several Site Columns across a dozen or so Content Types, which are applied to a dozen or so libraries, POowerShell may make more sense.</p>
+<p>When we want to clean up use of a Site Column – and we’re setting up our information architecture well – there are three main steps:</p>
+<ul>
+<li>Remove the Site Column from all Content Types which have it.</li>
+<li>Remove the orphaned Site Column from all lists/libraries which have it. When we remove a Site Column from Content Types which are enabled on lists or libraries, the orphaned Site Column remains. This makes sense, because you probably have some data in that column. To truly remove it, you need to remove the column in each list as well.</li>
+<li>Remove the Site Column itself. This removes it from the site entirely.</li>
+</ul>
+<h2 id="reportonly--true">$reportOnly = $true</h2>
+<p><img src="assets/report-only-true.jpg" alt="$reportOnly = $tru"></p>
+<h2 id="reportonly--false">$reportOnly = $false</h2>
+<p><img src="assets/report-only-true.jpg" alt="$reportOnly = $tru"></p>
+<div class="tabGroup" id="tabgroup_CeZOj-G++Q">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_CeZOj-G++Q_pnp-ps" role="tab" aria-controls="tabpanel_CeZOj-G++Q_pnp-ps" data-tab="pnp-ps" tabindex="0" aria-selected="true">PnP.PowerShell</a>
+</li>
+</ul>
+<section id="tabpanel_CeZOj-G++Q_pnp-ps" role="tabpanel" data-tab="pnp-ps"><button class="article-clipboard" title="Copy to clipboard" data-toggle="tooltip" data-placement="top" data-clipboard-target="section[id^='tabpanel'][data-tab='pnp-ps'] pre">
+    <span class="glyphicon glyphicon-copy" aria-hidden="true"></span>
+    <span class="article-clipboard__message done">Copied</span>
+</button>
+
+<pre><code class="lang-powershell"># Import modules
+Import-Module PnP.PowerShell
+
+# Base variables
+$siteURL = &quot;https://tenant.sharepoint.com/sites/sitename&quot;
+$siteColumn = &quot;EffectiveDate&quot;
+$reportOnly = $false # If $true, just report. If $false, take action.
+
+# Connect to the tenant
+$siteConnection = Connect-PnPOnline -Url $siteUrl -Interactive -ReturnConnection
+
+# Remove the Site Column from all Content Types which have it
+Write-Host -BackgroundColor Blue &quot;Checking Content Types&quot;
+
+# Get all the Content Types. Here, I have all my custom Content Types in a Group called _ClientName.
+$cts = Get-PnPContentType -Connection $siteConnection | Where-Object { $_.Group -eq &quot;_ClientName&quot; }
+
+foreach ($ct in $cts) {
+
+    Write-Host &quot;Checking Content Type $($ct.Name)&quot;
+
+    $fields = Get-PnPProperty -ClientObject $ct -property &quot;Fields&quot; | Where-Object { $_.InternalName -eq $siteColumn }
+    $field = $fields | Where-Object { $_.InternalName -eq $siteColumn }
+
+    if ($field) {
+        Write-Host -ForegroundColor Green &quot;Found column $($siteColumn) in $($ct.Name)&quot;
+        if (!$reportOnly) {
+            Write-Host -ForegroundColor Yellow &quot;Removing column $($siteColumn) in $($ct.Name)&quot;
+            Remove-PnPFieldFromContentType -Field $field -ContentType $ct -Connection $siteConnection
+        }
+    }
+
+}
+
+# Remove the orphaned Site Column from all lists/libraries which have it
+Write-Host -BackgroundColor Blue &quot;Checking Lists&quot;
+
+# Get all lists/libraries in the site, but exclude System or Hidden lists
+$lists = Get-PnPList -Connection $siteConnection | Where-Object { $_.Hidden -ne $true -and $_.IsSystemList -ne $true }
+
+foreach ($list in $lists) {
+
+    Write-Host &quot;Checking list $($list.Title)&quot;
+
+    $field = Get-PnPField -List $list | Where-Object { $_.InternalName -eq $siteColumn }
+
+    if ($field) {
+        Write-Host -ForegroundColor Green &quot;Found column $($siteColumn) in $($list.Title)&quot;
+
+        if (!$reportOnly) {
+            Write-Host -ForegroundColor Yellow &quot;Removing column $($siteColumn) in $($list.Title)&quot;
+            Remove-PnPField -Identity $field -List $list -Connection $siteConnection -Force
+        }
+
+    }
+
+}
+
+# Remove the Site Column itself
+if (!$reportOnly) {
+    Remove-PnPField -Identity $siteColumn
+}```
+
+[!INCLUDE [More about PnP.PowerShell](../../docfx/includes/MORE-PNPPS.md)]
+***
+
+## Source Credit
+
+Sample first appeared on [Clean Up Unwanted Site Columns from Content Types and Lists/Libraries | Marc D Anderson''s Blog](https://sympmarc.com/2021/10/14/clean-up-unwanted-site-columns-from-content-types-and-lists-libraries/)
+
+## Contributors
+
+| Author(s) |
+|-----------|
+| Marc D Anderson |
+
+
+[!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
+&lt;img src=&quot;https://telemetry.sharepointpnp.com/script-samples/scripts/spo-copy-files-to-another-library&quot; aria-hidden=&quot;true&quot; /&gt;
+</code></pre>
+</section>
+</div>
+</article>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            <span>Script Samples<br>Generated by <strong><a href='https://dotnet.github.io/docfx' alt='Doc FX Website'>DocFX</a></strong> with <strong><a href='https://ovasquez.github.io/docfx-material' alt='DocFx Material Theme'>Material UI</a></strong></span>
+            
+            <!-- <img src="https://telemetry.sharepointpnp.com/@pnp.github.io/index/" alt="spacer"> -->
+          </div>
+        </div>
+      </footer>    </div>
+    
+    <script type="text/javascript" src="../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+    
+    <script type="text/javascript" src="../styles/clipboard.min.js"></script>
+    <script type="text/javascript" src="../styles/isotope.pkgd.min.js"></script>
+    <script type="text/javascript" src="../styles/loadsamples.js"></script>
+    <script type="text/javascript" src="../styles/filtersamples.js"></script>
+
+  </body>
+</html>
