@@ -37,7 +37,7 @@ Before you submit your pull request consider the following guidelines:
 * Make your changes in a new git branch:
 
   ```shell
-  git checkout -b working-with-files-in-libraries master
+  git checkout -b working-with-files-in-libraries main
   ```
 
 ## Keeping your fork up to date
@@ -49,19 +49,19 @@ Before you submit your pull request consider the following guidelines:
 
     ```shell
     # assuming you are in the folder of your locally cloned fork....
-    git checkout master
+    git checkout main
 
     # assuming you have a remote named `upstream` pointing official **script-samples** repo
     git fetch upstream
 
-    # update your local master to be a mirror of what's in the main repo
-    git pull --rebase upstream master
+    # update your local main to be a mirror of what's in the main repo
+    git pull --rebase upstream main
 
     # switch to your branch where you are working, say "working-with-files-in-libraries"
     git checkout working-with-files-in-libraries
 
-    # update your branch to update it's fork point to the current tip of master & put your changes on top of it
-    git rebase master
+    # update your branch to update it's fork point to the current tip of main & put your changes on top of it
+    git rebase main
     ```
 
 * Push your branch to GitHub:
