@@ -2,25 +2,25 @@
 plugin: add-to-gallery
 ---
 
-# Translate columns in a sharepoint list
+# Translate columns in a SharePoint list
 
 ## Summary
 
-Say we have PowerApp that is storing its data in Sharepoint lists. We want to make the app multilingual so we Add a new list with the languages we want to support called ID_Languages:
-![Example Screenshot](./assets/Languages.PNG)
+Say we have PowerApp that is storing its data in SharePoint lists. We want to make the app multilingual so we Add a new list with the languages we want to support called ID_Languages:
+![Example Screenshot](assets/Languages.PNG)
 
 We then add a Radio control to our list to let the user select a language. We set the onChange of the control to :
 Set(gvLanguage,Radio1.Selected.Title);
 
-So now we have the selected lanuage in gvLanguage.
+So now we have the selected language in gvLanguage.
 
 Next we want to change all the labels in the app to display the translated text of the label. So we create a table called ID-App Labels
 
-![Example Screenshot](assets/AppLabels.PNG)        
+![Example Screenshot](assets/AppLabels.PNG)
 
 The Title field is what we use in code to find the correct label (If you're using forms make it the same as the name of the field). The Language is a lookup column pointing back to our ID-Languages list. The Translation column is the translated version of that label. We just add the values for our native language for now.
 
-We add the following to the OnSelect of the Langauge Radio control to get all the labels for the selected language:
+We add the following to the OnSelect of the Language Radio control to get all the labels for the selected language:
 Set(
     gvLabels,
     Filter(
@@ -34,23 +34,22 @@ Now, whenever we want to add literal text to our PowerApp , instead of typing in
 First(
     Filter(
         gvLabels,
-        Title = "AppTitle" 
+        Title = "AppTitle"
     )
 ).Translation
 
 Next for any dropdown lists we create a new list to hold the translated values. For example here is a list (ID-Ease) used in dropdowns:
-![Example Screenshot](assets/EaSE.PNG) 
 
-Again we only add the values for our native lanuage now. Again the Language column is a lookup to our Languages list. The MasterEase column is a lookup to a master list of Ease values. For a single lookup value, all the translations must point back to the same master record for reporting purposes(Thats not importaant for this sampel though).
+![Example Screenshot](assets/EaSE.PNG)
+
+Again we only add the values for our native language now. Again the Language column is a lookup to our Languages list. The MasterEase column is a lookup to a master list of Ease values. For a single lookup value, all the translations must point back to the same master record for reporting purposes(That's not important for this sample though).
 
 Now , when we want to display the "Ease" is a Dropdown or ComboBox we set the items to 
 
 Filter('ID-Ease',Language.Value=gvLanguage)
 
-Now for the scripting part. We get everything developed and working in our native language and we want to add the 
+Now for the scripting part. We get everything developed and working in our native language and we want to add the
 translations for all the other languages in or ID-Languages list.
-
-
 
 
 # [PnP PowerShell](#tab/pnpps)
@@ -174,20 +173,22 @@ Translate-List -ListId "ID-App Labels" -ColumnsToTranslate @("Translation")  -Co
 Translate-List -ListId "ID-Ease" -ColumnsToTranslate @("Title")  -ColumnsToCopy @("MasterEase") -LanguageColumnName "Language" -FromLanguage "en" -LanguageList "ID-Languages"
 
 ```
+[!INCLUDE [More about PnP PowerShell](../../docfx/includes/MORE-PNPPS.md)]
 
 After running the script the translated values have been added to your ID-App Labels and ID-Ease lists:
 
-![Example Screenshot](assets/AppLabelsTranslated.PNG) 
+![Example Screenshot](assets/AppLabelsTranslated.PNG)
 
-![Example Screenshot](assets/EaseTranslated.PNG) 
+![Example Screenshot](assets/EaseTranslated.PNG)
 
 If you add new items to any of the lists the script can be rerun and it will re-translate everything.
 
 To run the script you will need to get a key for Azure translation services as described at https://docs.microsoft.com/en-us/azure/cognitive-services/translator/translator-how-to-signup. Your key should be place in the variable $subscriptionkey 
 
-Note: The translations done using machine translatoion services should be reviewed by someone who speakes both languages. The are sometime incorrect.
+> [!Note]
+> The translations done using machine translation services should be reviewed by someone who speaks both languages. The are sometime incorrect.
 
-[!INCLUDE [More about PnP PowerShell](../../docfx/includes/MORE-PNPPS.md)]
+
 ***
 
 ## Contributors
@@ -197,11 +198,4 @@ Note: The translations done using machine translatoion services should be review
 | Russell Gove |
 
 [!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
-<img src="https://telemetry.sharepointpnp.com/script-samples/scripts/graph-download-office-documents-as-pdf" aria-hidden="true" />
-=======
----
-plugin: add-to-gallery
----
-
-
-
+<img src="https://telemetry.sharepointpnp.com/script-samples/scripts/spo-translate-list" aria-hidden="true" />
