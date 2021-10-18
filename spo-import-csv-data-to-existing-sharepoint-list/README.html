@@ -4,15 +4,15 @@
   
   <head>
     <meta charset="utf-8">
-    <title>Submitting Pull Requests | PnP Samples </title>
+    <title>Import CSV values to an existing SharePoint List | PnP Samples </title>
     <meta name="viewport" content="width=device-width">
-    <meta name="title" content="Submitting Pull Requests | PnP Samples ">
+    <meta name="title" content="Import CSV values to an existing SharePoint List | PnP Samples ">
     <meta name="generator" content="docfx 2.56.7.0">
     <meta name="description" content="A sample gallery of scripts to manage all things Microsoft 365.">
   
     <!-- Social Media -->
     <meta property="og:locale" content="en_GB">
-    <meta property="og:title" content="Submitting Pull Requests | PnP Samples ">
+    <meta property="og:title" content="Import CSV values to an existing SharePoint List | PnP Samples ">
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://pnp.github.io/script-samples">
     <meta property="og:image" content="https://pnp.github.io/script-samples/assets/social-media-screenshot.png">
@@ -29,7 +29,7 @@
     <link rel="stylesheet" href="../styles/site.css">
     <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet"> 
     <meta property="docfx:navrel" content="../toc.html">
-    <meta property="docfx:tocrel" content="toc.html">
+    <meta property="docfx:tocrel" content="../toc.html">
     
     
     <meta property="docfx:newtab" content="true">
@@ -72,87 +72,114 @@
           </div>
         </nav>      </header>
       <div role="main" class="container body-content hide-when-search">
-        
-        <div class="sidenav hide-when-search">
-          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
-          <div class="sidetoggle collapse" id="sidetoggle">
-            <div id="sidetoc"></div>
-          </div>
-        </div>
-        <div class="article row grid-right">
+        <div class="article row grid">
           <div class="col-md-12">
             <article class="content wrap" id="_content" data-uid="">
                   <div class="contribution-panel mobile-hide pull-right">
-                      <a href="https://github.com/pnp/script-samples/blob/main/docfx/contributing/submitting-pull-requests.md/#L1" title="Improve this Doc" class="improve-doc-lg"><i class="glyphicon glyphicon-pencil"></i></a>
+                      <a href="https://github.com/pnp/script-samples/blob/main/scripts/spo-import-csv-data-to-existing-sharepoint-list/README.md/#L1" title="Improve this Doc" class="improve-doc-lg"><i class="glyphicon glyphicon-pencil"></i></a>
                   </div>
-                    <h1 id="submitting-pull-requests">Submitting Pull Requests</h1>
+                    <h1 id="import-csv-values-to-an-existing-sharepoint-list">Import CSV values to an existing SharePoint List</h1>
 
-<h2 id="the-process">The process</h2>
-<p>Here's a high-level process for submitting new samples or updates to existing ones.</p>
-<ol>
-<li>Sign the Contributor License Agreement</li>
-<li>Fork this repository <a href="https://github.com/pnp/script-samples">pnp/script-samples</a> to your GitHub account</li>
-<li>Create a new branch from the <code>main</code> branch for your fork for the contribution</li>
-<li>Include your changes to your branch</li>
-<li>Commit your changes using descriptive commit message * These are used to track changes on the repositories for monthly communications</li>
-<li>Create a pull request in your own fork and target the <code>main</code> branch</li>
-<li>Fill up the provided PR template with the requested details</li>
-</ol>
-<h2 id="want-to-practice-the-setup">Want to practice the setup?</h2>
-<p>If you feel insecure about that process or are new to GitHub, please consider to attend the <a href="https://pnp.github.io/sharing-is-caring/#pnp-sic-events">Sharing Is Caring sessions from the PnP team</a> in which the Microsoft 365 PnP team provides hands-on guidance for first time contributors.</p>
-<h2 id="submission-guidelines">Submission Guidelines</h2>
-<p>Before you submit your pull request consider the following guidelines:</p>
-<ul>
-<li><p>Search <a href="https://github.com/pnp/script-samples/pulls">GitHub</a> for an open or closed Pull Request
-which relates to your submission. You don't want to duplicate effort.</p>
-</li>
-<li><p>Make sure you have a link in your local cloned fork to the <a href="https://github.com/pnp/script-samples">pnp/script-samples</a></p>
-<pre><code class="lang-shell"># check if you have a remote pointing to the Microsoft repo:
-git remote -v
-
-# if you see a pair of remotes (fetch &amp; pull) that point to https://github.com/pnp/script-samples, you're ok... otherwise you need to add one
-
-# add a new remote named &quot;upstream&quot; and point to the Microsoft repo
-git remote add upstream https://github.com/pnp/script-samples.git
-</code></pre>
-</li>
-<li><p>Make your changes in a new git branch:</p>
-<pre><code class="lang-shell">git checkout -b working-with-files-in-libraries main
-</code></pre>
+<h2 id="summary">Summary</h2>
+<p>Main idea here is import content from a csv to a existing list.</p>
+<p>Usually for that to happen,  we need to explicit enumerate each column of the list and in the csv file.</p>
+<p>With this sample you dont need to do it anymore as long you follow the bellow rule :</p>
+<blockquote>
+<p>CSV columns must have the same name as the list columns name.</p>
+</blockquote>
+<p>Excelsior, hum? :P</p>
+<div class="tabGroup" id="tabgroup_CeZOj-G++Q">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_CeZOj-G++Q_pnpps" role="tab" aria-controls="tabpanel_CeZOj-G++Q_pnpps" data-tab="pnpps" tabindex="0" aria-selected="true">PnP PowerShell</a>
 </li>
 </ul>
-<h2 id="keeping-your-fork-up-to-date">Keeping your fork up to date</h2>
-<ul>
-<li><p>Ensure your fork is updated and not behind the upstream <strong>script-samples</strong> repo. Refer to these resources for more information on syncing your repo:</p>
-<ul>
-<li><p><a href="https://help.github.com/articles/syncing-a-fork/">GitHub Help: Syncing a Fork</a></p>
-</li>
-<li><p><a href="http://www.andrewconnell.com/blog/keep-your-forked-git-repo-updated-with-changes-from-the-original-upstream-repo">Keep Your Forked Git Repo Updated with Changes from the Original Upstream Repo</a></p>
-</li>
-<li><p>For a quick cheat sheet:</p>
-<pre><code class="lang-shell"># assuming you are in the folder of your locally cloned fork....
-git checkout main
+<section id="tabpanel_CeZOj-G++Q_pnpps" role="tabpanel" data-tab="pnpps"><button class="article-clipboard" title="Copy to clipboard" data-toggle="tooltip" data-placement="top" data-clipboard-target="section[id^='tabpanel'][data-tab='pnpps'] pre">
+    <span class="glyphicon glyphicon-copy" aria-hidden="true"></span>
+    <span class="article-clipboard__message done">Copied</span>
+</button>
 
-# assuming you have a remote named `upstream` pointing official **script-samples** repo
-git fetch upstream
-
-# update your local main to be a mirror of what's in the main repo
-git pull --rebase upstream main
-
-# switch to your branch where you are working, say &quot;working-with-files-in-libraries&quot;
-git checkout working-with-files-in-libraries
-
-# update your branch to update it's fork point to the current tip of main &amp; put your changes on top of it
-git rebase main
+<pre><code class="lang-powershell">
+[CmdletBinding()]
+param (
+    [Parameter(Mandatory = $true)]
+    [string]$Url,
+    [Parameter(Mandatory = $true)]
+    [string]$ListName,
+    [Parameter(Mandatory = $true)]
+    [string]$CsvFile
+)
+begin {
+    Import-Module PnP.PowerShell
+    Write-Output &quot;Connecting to $Url&quot;
+    Connect-PnPOnline -Url $Url -Interactive
+}
+process {
+    
+    
+    ## Powershell filter , it converts an array in a hashtable
+    filter ArrayToHash {
+        begin {
+            $hash = @{} 
+        }
+        process { 
+            $obj = $_ | Get-Member | Where-Object { $_.MemberType -eq 'NoteProperty' } | Select-object name
+            foreach ($o in $obj) {
+                $name = $o.Name
+                $hash[$name] = $_.&quot;$name&quot;
+            }
+     
+        }
+        end { return $hash }
+    }
+    Write-Output &quot; Collect CSV data from $CsvFile&quot;
+    $rows = Import-Csv $CsvFile
+    $totalRows = $rows.Length
+    Write-Output &quot; $CsvFile has $totalRows rows&quot;
+ 
+    Write-Output &quot; Items will be added using batch mode&quot;
+    Write-Output &quot; Initiate batch&quot; 
+    $batch = New-PnPBatch
+    $ct=0
+    $rows.ForEach({
+            # convert hast
+            $values = $_ | ArrayToHash
+            Add-PnPListItem -List $ListName -Values $values -Batch  $batch
+            Write-Output &quot;  Item added ($ct/$totalRows)&quot;  
+            $ct++
+        })
+    Write-Output &quot; Invoke batch&quot; 
+    Invoke-PnPBatch -Batch $batch
+    Write-Output &quot; Batch invoked&quot;
+}
+end{
+    Write-Output &quot; Disconnecting&quot;
+    Connect-PnPOnline -Url $Url -Interactive
+    Write-Output &quot;Disconnected from $Url&quot;
+    Write-Output &quot;All done!&quot;
+}
 </code></pre>
-</li>
-</ul>
-</li>
-<li><p>Push your branch to GitHub:</p>
-<pre><code class="lang-shell">git push origin working-with-files-in-libraries
-</code></pre>
-</li>
-</ul>
+<div class="highlight-tool">
+<p>Check out the <strong>PnP PowerShell</strong> to learn more at: <a href="https://aka.ms/pnp/powershell">https://aka.ms/pnp/powershell</a></p>
+</div>
+</section>
+</div>
+<h2 id="contributors">Contributors</h2>
+<table>
+<thead>
+<tr>
+<th>Author(s)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Rodrigo Pinto</td>
+</tr>
+</tbody>
+</table>
+<h2 id="disclaimer">Disclaimer</h2>
+<p><strong>THESE SAMPLES ARE PROVIDED <em>AS IS</em> WITHOUT WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, INCLUDING ANY IMPLIED WARRANTIES OF FITNESS FOR A PARTICULAR PURPOSE, MERCHANTABILITY, OR NON-INFRINGEMENT.</strong></p>
+<img src="https://telemetry.sharepointpnp.com/script-samples/scripts/spo-import-csv-data-to-existing-sharepoint-list" aria-hidden="true">
 </article>
           </div>
         </div>
