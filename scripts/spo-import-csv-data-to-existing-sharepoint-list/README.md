@@ -74,7 +74,7 @@ process {
 }
 end{
     Write-Output " Disconnecting"
-    Connect-PnPOnline -Url $Url -Interactive
+    Disconnect-PnPOnline
     Write-Output "Disconnected from $Url"
     Write-Output "All done!"
 }
