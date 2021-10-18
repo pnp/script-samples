@@ -12,7 +12,7 @@ Usually for that to happen,  we need to explicit enumerate each column of the li
 
 With this sample you dont need to do it anymore as long you follow the bellow rule :  
 >  
->CSV columns must have the same name as the list columns name.  
+> CSV columns must have the same name as the list columns name.  
   
 Excelsior, hum? :P  
 
@@ -78,6 +78,9 @@ end{
     Write-Output "Disconnected from $Url"
     Write-Output "All done!"
 }
+```
+[!INCLUDE [More about PnP PowerShell](../../docfx/includes/MORE-PNPPS.md)]
+***
 
 ## Contributors
 
