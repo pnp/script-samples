@@ -1,0 +1,303 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html lang="en">
+  
+  <head>
+    <meta charset="utf-8">
+    <title>Translate columns in a SharePoint list | PnP Samples </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Translate columns in a SharePoint list | PnP Samples ">
+    <meta name="generator" content="docfx 2.56.7.0">
+    <meta name="description" content="A sample gallery of scripts to manage all things Microsoft 365.">
+  
+    <!-- Social Media -->
+    <meta property="og:locale" content="en_GB">
+    <meta property="og:title" content="Translate columns in a SharePoint list | PnP Samples ">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://pnp.github.io/script-samples">
+    <meta property="og:image" content="https://pnp.github.io/script-samples/assets/social-media-screenshot.png">
+    <meta property="og:image:alt" content="Screenshot example of the PnP Script Samples Site">
+    <meta property="og:site_name" content="PnP Script Samples">
+    <meta property="og:description" content="A sample gallery of scripts to manage all things Microsoft 365.">
+  
+    <link rel="shortcut icon" href="https://c.s-microsoft.com/favicon.ico?v2">
+    <link rel="stylesheet" href="../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../styles/docfx.css">
+    <link rel="stylesheet" href="../styles/main.css">
+    <link rel="stylesheet" href="../styles/extra.css">
+    <link rel="stylesheet" href="../styles/filter.css">
+    <link rel="stylesheet" href="../styles/site.css">
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet"> 
+    <meta property="docfx:navrel" content="../toc.html">
+    <meta property="docfx:tocrel" content="../toc.html">
+    
+    
+    <meta property="docfx:newtab" content="true">
+    <script type="text/javascript">
+      (function(c,l,a,r,i,t,y){
+          c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+          t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+          y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+      })(window, document, "clarity", "script", "8j6pedl344");
+  </script>
+  </head>  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+             <div class="github-mark">
+              <a href="https://github.com/pnp/script-samples">
+                <img src="https://pnp.github.io/script-samples/assets/icons/github-light-64px.png" alt="GitHub Icon Image">
+              </a>
+            </div>
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../assets/logo.svg" alt="">
+              </a>    </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <label class="glyphicon glyphicon-search" for="search-query"></label>
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>      </header>
+      <div role="main" class="container body-content hide-when-search">
+        <div class="article row grid">
+          <div class="col-md-12">
+            <article class="content wrap" id="_content" data-uid="">
+                  <div class="contribution-panel mobile-hide pull-right">
+                      <a href="https://github.com/pnp/script-samples/blob/main/scripts/spo-translate-list/README.md/#L1" title="Improve this Doc" class="improve-doc-lg"><i class="glyphicon glyphicon-pencil"></i></a>
+                  </div>
+                    <h1 id="translate-columns-in-a-sharepoint-list">Translate columns in a SharePoint list</h1>
+
+<h2 id="summary">Summary</h2>
+<p>Say we have PowerApp that is storing its data in SharePoint lists. We want to make the app multilingual so we Add a new list with the languages we want to support called ID_Languages:
+<img src="assets/Languages.PNG" alt="Example Screenshot"></p>
+<p>We then add a Radio control to our list to let the user select a language. We set the onChange of the control to :
+Set(gvLanguage,Radio1.Selected.Title);</p>
+<p>So now we have the selected language in gvLanguage.</p>
+<p>Next we want to change all the labels in the app to display the translated text of the label. So we create a table called ID-App Labels</p>
+<p><img src="assets/AppLabels.PNG" alt="Example Screenshot"></p>
+<p>The Title field is what we use in code to find the correct label (If you're using forms make it the same as the name of the field). The Language is a lookup column pointing back to our ID-Languages list. The Translation column is the translated version of that label. We just add the values for our native language for now.</p>
+<p>We add the following to the OnSelect of the Language Radio control to get all the labels for the selected language:
+Set(
+gvLabels,
+Filter(
+'ID-App Labels',
+Language.Value = gvLanguage
+)
+);</p>
+<p>Now, whenever we want to add literal text to our PowerApp , instead of typing in the text we use the formula
+First(
+Filter(
+gvLabels,
+Title = &quot;AppTitle&quot;
+)
+).Translation</p>
+<p>Next for any dropdown lists we create a new list to hold the translated values. For example here is a list (ID-Ease) used in dropdowns:</p>
+<p><img src="assets/EaSE.PNG" alt="Example Screenshot"></p>
+<p>Again we only add the values for our native language now. Again the Language column is a lookup to our Languages list. The MasterEase column is a lookup to a master list of Ease values. For a single lookup value, all the translations must point back to the same master record for reporting purposes(That's not important for this sample though).</p>
+<p>Now , when we want to display the &quot;Ease&quot; is a Dropdown or ComboBox we set the items to</p>
+<p>Filter('ID-Ease',Language.Value=gvLanguage)</p>
+<p>Now for the scripting part. We get everything developed and working in our native language and we want to add the
+translations for all the other languages in or ID-Languages list.</p>
+<div class="tabGroup" id="tabgroup_CeZOj-G++Q">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_CeZOj-G++Q_pnpps" role="tab" aria-controls="tabpanel_CeZOj-G++Q_pnpps" data-tab="pnpps" tabindex="0" aria-selected="true">PnP PowerShell</a>
+</li>
+</ul>
+<section id="tabpanel_CeZOj-G++Q_pnpps" role="tabpanel" data-tab="pnpps"><button class="article-clipboard" title="Copy to clipboard" data-toggle="tooltip" data-placement="top" data-clipboard-target="section[id^='tabpanel'][data-tab='pnpps'] pre">
+    <span class="glyphicon glyphicon-copy" aria-hidden="true"></span>
+    <span class="article-clipboard__message done">Copied</span>
+</button>
+
+<pre><code class="lang-powershell">Connect-PnPOnline &quot;https://tenant.sharepoint.com/sites/ShopFloorIdeation/&quot; -DeviceLogin
+function Translate-List {
+    param (
+        [string]$ListId, ## the ID or Title of the list to translate
+        [string[]]$ColumnsToTranslate, ## the names of the columns to translate
+        [string[]]$ColumnsToCopy, ## the names of the columns to copy without translating
+        [string]$LanguageColumnName, ## the name of the Language column (must be a lookup)
+        [string]$FromLanguage, ## the language we are translating from (items in the list must be of this lanugage)
+        [string]$LanguageList ## the ID or Title of the List of languages
+    )
+    $endpoint = &quot;https://api.cognitive.microsofttranslator.com/&quot;
+    $subscriptionkey = &quot;YOURKEY&quot;
+    $headers = @{&quot;Ocp-Apim-Subscription-Key&quot; = $subscriptionkey; &quot;Content-Type&quot; = &quot;application/json&quot;; } 
+    ##1. Sanity check
+    $list = get-pnpList -Identity $ListId
+    $fields = Get-PNPField -List $list
+    if ($null -eq $list) {
+        Write-Error &quot;List $listId not found&quot;
+        return;
+    }
+    foreach ($col in $ColumnsToCopy) {
+        $field = $Fields.Where({ $_.InternalName -eq $col }) 
+        if (0 -eq $field.Count) {
+            Write-Error &quot;Field $col not found in list $listId&quot;
+            return;
+        }
+        $fieldType = $field.FieldTypeKind
+        if ($fieldType -ne &quot;Lookup&quot; -and $fieldType -ne &quot;Text&quot;) {
+            Write-Error &quot;Cannot copy field $col of type  $fieldType&quot;
+            return;
+        }
+    }
+    foreach ($col in $ColumnsToTranslate) {
+        $field = $Fields.Where({ $_.InternalName -eq $col }) 
+        if (0 -eq $field.Count) {
+            Write-Error &quot;Field $col not found in list $listId&quot;
+            return;
+        }
+        $fieldType = $field.FieldTypeKind
+        if ($fieldType -ne &quot;Text&quot;) {
+            Write-Error &quot;Cannot translate field $col of type  $fieldType&quot;
+            return;
+        }
+    }
+
+    ##2. Remove old items
+    
+    $items = (Get-PnPListItem -List $list -PageSize 10000)
+    $deletebatch = new-PnPBatch
+    foreach ($item in $items) {
+        If ($item.FieldValues[$LanguageColumnName].LookupValue -ne $FromLanguage) {
+            Remove-PnPListItem -List $list -Identity $item.Id -Batch $deletebatch -Recycle
+        }
+        if ($deletebatch.RequestCount -eq 100) {
+            Invoke-PnpBatch $deletebatch
+            $deletebatch = new-PnPBatch
+        }
+    }
+    if ($deletebatch.RequestCount -gt 0) {
+        Invoke-PnpBatch $deletebatch
+    }
+    ##3. Add back translations
+
+    $items = (Get-PnPListItem -List $list -PageSize 10000)
+    $languages = (Get-PnPListItem -List (get-pnpList -Identity &quot;ID-Languages&quot;) -PageSize 10000)
+    
+    foreach ($language in $languages | Where-Object { $_.FieldValues[&quot;Title&quot;] -ne $FromLanguage }) {
+        $route = &quot;/translate?api-version=3.0&amp;from=$FromLanguage&amp;to=&quot; + $language.FieldValues[&quot;Title&quot;]
+        $uri = &quot;$endpoint$route&quot;
+        foreach ($item in $items) {
+            $updates = @{
+                $LanguageColumnName = $language.FieldValues[&quot;ID&quot;]
+            }
+            foreach ($col in $ColumnsToCopy) {
+                $field = $Fields.Where({ $_.InternalName -eq $col }) 
+                $fieldType = $field.FieldTypeKind
+                switch ($fieldType) {
+                    &quot;Lookup&quot; { 
+                        $updates[$col] = $item[$col].LookupId
+                    }
+                    &quot;Text&quot; { 
+                        $updates[$col] = $item[$col]
+                    }
+                    Default {
+                        Write-Host &quot;Cannot copy field $col of type  $fieldType&quot;
+                    }
+                }
+            }
+            foreach ($ColumnToTranslate in $ColumnsToTranslate) {
+                if ($null -eq $item.FieldValues[$ColumnToTranslate] ) {
+                    $updates[$ColumnToTranslate] = $null
+                }
+                else {
+                    $body = @(
+                        @{
+                            &quot;Text&quot; = $item.FieldValues[$ColumnToTranslate]
+                        })
+                    $body = ConvertTo-Json $body
+                    $response = Invoke-WebRequest -Uri $uri -Body $body  -Headers $headers -Method Post
+                    $xlat = $response | ConvertFrom-Json
+                    if ($xlat.translations.text.Length -lt 256) {
+                        $translation = $xlat.translations.text
+                    }
+                    else {
+                        $translation = $xlat.translations.text.Substring(0, 255)
+                    }
+                    $updates[$ColumnToTranslate] = $translation
+                }    
+            }
+            $newItem = Add-PnPListItem -List $list  -Values $updates
+        }
+    }
+    return 
+}
+Translate-List -ListId &quot;ID-App Labels&quot; -ColumnsToTranslate @(&quot;Translation&quot;)  -ColumnsToCopy @(&quot;Title&quot;) -LanguageColumnName &quot;Language&quot; -FromLanguage &quot;en&quot; -LanguageList &quot;ID-Languages&quot;
+Translate-List -ListId &quot;ID-Ease&quot; -ColumnsToTranslate @(&quot;Title&quot;)  -ColumnsToCopy @(&quot;MasterEase&quot;) -LanguageColumnName &quot;Language&quot; -FromLanguage &quot;en&quot; -LanguageList &quot;ID-Languages&quot;
+
+</code></pre>
+<div class="highlight-tool">
+<p>Check out the <strong>PnP PowerShell</strong> to learn more at: <a href="https://aka.ms/pnp/powershell">https://aka.ms/pnp/powershell</a></p>
+</div>
+
+<p>After running the script the translated values have been added to your ID-App Labels and ID-Ease lists:</p>
+<p><img src="assets/AppLabelsTranslated.PNG" alt="Example Screenshot"></p>
+<p><img src="assets/EaseTranslated.PNG" alt="Example Screenshot"></p>
+<p>If you add new items to any of the lists the script can be rerun and it will re-translate everything.</p>
+<p>To run the script you will need to get a key for Azure translation services as described at <a href="https://docs.microsoft.com/en-us/azure/cognitive-services/translator/translator-how-to-signup">https://docs.microsoft.com/en-us/azure/cognitive-services/translator/translator-how-to-signup</a>. Your key should be place in the variable $subscriptionkey</p>
+<div class="NOTE">
+<h5>Note</h5>
+<p>The translations done using machine translation services should be reviewed by someone who speaks both languages. The are sometime incorrect.</p>
+</div>
+</section>
+</div>
+<h2 id="contributors">Contributors</h2>
+<table>
+<thead>
+<tr>
+<th>Author(s)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Russell Gove</td>
+</tr>
+</tbody>
+</table>
+<h2 id="disclaimer">Disclaimer</h2>
+<p><strong>THESE SAMPLES ARE PROVIDED <em>AS IS</em> WITHOUT WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, INCLUDING ANY IMPLIED WARRANTIES OF FITNESS FOR A PARTICULAR PURPOSE, MERCHANTABILITY, OR NON-INFRINGEMENT.</strong></p>
+<img src="https://telemetry.sharepointpnp.com/script-samples/scripts/spo-translate-list" aria-hidden="true">
+</article>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            <span>Script Samples<br>Generated by <strong><a href='https://dotnet.github.io/docfx' alt='Doc FX Website'>DocFX</a></strong> with <strong><a href='https://ovasquez.github.io/docfx-material' alt='DocFx Material Theme'>Material UI</a></strong></span>
+            
+            <!-- <img src="https://telemetry.sharepointpnp.com/@pnp.github.io/index/" alt="spacer"> -->
+          </div>
+        </div>
+      </footer>    </div>
+    
+    <script type="text/javascript" src="../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+    
+    <script type="text/javascript" src="../styles/clipboard.min.js"></script>
+    <script type="text/javascript" src="../styles/isotope.pkgd.min.js"></script>
+    <script type="text/javascript" src="../styles/loadsamples.js"></script>
+    <script type="text/javascript" src="../styles/filtersamples.js"></script>
+
+  </body>
+</html>
