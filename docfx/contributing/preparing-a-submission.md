@@ -86,7 +86,7 @@ We add an additional block to provide guidance back to the tool guiding site:
 
 ## Submission Template Files
 
-There is a template submission folder called "template-script-submission" in [template-script-submission | GitHub - PnP Script Samples](https://github.com/pnp/script-samples/tree/main/scripts/template-script-submission).
+There is a template submission folder called "_template-script-submission" in [_template-script-submission | GitHub - PnP Script Samples](https://github.com/pnp/script-samples/tree/main/scripts/_template-script-submission).
 
 Before you can submit, you need to make sure you are setup with a "fork" of the repository in your own account, please navigate to [Submitting Pull Requests](submitting-pull-requests.md) for setup information.
 
