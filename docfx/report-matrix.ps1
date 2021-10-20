@@ -74,7 +74,7 @@ $files | Foreach-Object {
 
     # Skip these
     if($_.Directory.Name -eq "scripts" -or
-        $_.Directory.Name -eq "template-script-submission"){
+        $_.Directory.Name -eq "_template-script-submission"){
         return
     }
 
