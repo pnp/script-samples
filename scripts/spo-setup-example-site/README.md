@@ -148,7 +148,7 @@ $nodeAddedResponse = m365 spo navigation node add --webUrl $siteUrl --location Q
 $nodeAddedResponse = m365 spo navigation node add --webUrl $siteUrl --location QuickLaunch --title 'Hidden Sample List' --url "/$siteRelativeUrl/Lists/$listName/AllItems.aspx"
 ```
 [!INCLUDE [More about CLI for Microsoft 365](../../docfx/includes/MORE-CLIM365.md)]
-***
+
 
 # [PnP PowerShell](#tab/pnpps)
 ```powershell
@@ -301,6 +301,9 @@ $nodeAddedResponse = Add-PnPNavigationNode -Title "Hidden Sample List PNP" -Url 
 ## Disconnect the context  
 Disconnect-PnPOnline  
 ```
+
+***
+
 ## Source Credit
 
 Sample first appeared on [Setup example site | CLI for Microsoft 365](https://pnp.github.io/cli-microsoft365/sample-scripts/spo/setup-example-site/)
