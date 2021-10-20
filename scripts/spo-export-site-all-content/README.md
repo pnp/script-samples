@@ -313,7 +313,9 @@ end {
     Write-Log "End"
     
 }
-
+```
+[!INCLUDE [More about PnP PowerShell](../../docfx/includes/MORE-PNPPS.md)]
+***
 
 ## Contributors
 
