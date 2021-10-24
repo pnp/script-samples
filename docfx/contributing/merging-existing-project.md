@@ -15,17 +15,17 @@ If the sample you wish to contribute is stored in your own GitHub repository, yo
 
     ```shell
     git remote add origin https://github.com/yourgitaccount/script-samples.git
-    git pull origin master
+    git pull origin main
     ```
 
 * Pull your other project from GitHub into the `samples` folder of your local copy of `script-samples`
 
     ```shell
-    git subtree add --prefix=samples/projectname https://github.com/yourgitaccount/projectname.git master
+    git subtree add --prefix=samples/projectname https://github.com/yourgitaccount/projectname.git main
     ```
 
 * Push the changes up to your forked repository
 
     ```shell
-    git push origin master
+    git push origin main
     ```
