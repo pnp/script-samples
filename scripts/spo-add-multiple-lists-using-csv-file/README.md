@@ -59,6 +59,32 @@ Stop-Transcript
 ```
 [!INCLUDE [More about PnP PowerShell](../../docfx/includes/MORE-PNPPS.md)]
 
+# [CLI for Microsoft 365 with PowerShell](#tab/cli-m365-ps)
+```powershell
+Write-host 'ensure logged in'
+$m365Status = m365 status
+if ($m365Status -eq "Logged Out") {
+  m365 login --authType browser
+}
+
+
+#Destination site collection url
+$url="https://<tenant>.sharepoint.com/sites/<sitename>"
+#Path to CSV file
+$csvFilePath = "ListsAndLibraries.csv"
+
+
+## Import CSV file
+$data = Import-Csv -Path $csvFilePath -Delimiter ";"
+
+## Create list or library
+$data | Foreach-Object{
+   m365 spo list add --title $_.Title --baseTemplate $_.Template --webUrl $url --output 'json'
+   
+} 
+
+```
+
 # [CSV file](#tab/csv)
 ```csv
 Title;Template;Url
