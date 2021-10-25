@@ -8,7 +8,7 @@ plugin: add-to-gallery
 
 Sometimes when we iteratively build out our information architecture, we’re over-zealous. It seems like we need a set of Site Columns to maintain metadata on lists or libraries, but in the end, we decide we want to trim away a few of the Site Columns we’ve created. Or, maybe you’ve migrated a bunch of metadata into SharePoint with a set of documents and it turns out that metadata is no longer valid or useful.
 
-If the Site Columns exist in only one or two libraries, it’s not a big deal to do this manually. But when you need to remove several Site Columns across a dozen or so Content Types, which are applied to a dozen or so libraries, POowerShell may make more sense.
+If the Site Columns exist in only one or two libraries, it’s not a big deal to do this manually. But when you need to remove several Site Columns across a dozen or so Content Types, which are applied to a dozen or so libraries, PowerShell may make more sense.
 
 When we want to clean up use of a Site Column – and we’re setting up our information architecture well – there are three main steps:
 
@@ -101,7 +101,6 @@ if (!$reportOnly) {
 }
 ```
 [!INCLUDE [More about PnP.PowerShell](../../docfx/includes/MORE-PNPPS.md)]
-***
 
 # [CLI for Microsoft 365 with PowerShell](#tab/cli-m365-ps)
 ```powershell
