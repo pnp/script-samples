@@ -82,7 +82,7 @@
 
 <h2 id="summary">Summary</h2>
 <p>Sometimes when we iteratively build out our information architecture, we’re over-zealous. It seems like we need a set of Site Columns to maintain metadata on lists or libraries, but in the end, we decide we want to trim away a few of the Site Columns we’ve created. Or, maybe you’ve migrated a bunch of metadata into SharePoint with a set of documents and it turns out that metadata is no longer valid or useful.</p>
-<p>If the Site Columns exist in only one or two libraries, it’s not a big deal to do this manually. But when you need to remove several Site Columns across a dozen or so Content Types, which are applied to a dozen or so libraries, POowerShell may make more sense.</p>
+<p>If the Site Columns exist in only one or two libraries, it’s not a big deal to do this manually. But when you need to remove several Site Columns across a dozen or so Content Types, which are applied to a dozen or so libraries, PowerShell may make more sense.</p>
 <p>When we want to clean up use of a Site Column – and we’re setting up our information architecture well – there are three main steps:</p>
 <ul>
 <li>Remove the Site Column from all Content Types which have it.</li>
@@ -90,13 +90,22 @@
 <li>Remove the Site Column itself. This removes it from the site entirely.</li>
 </ul>
 <h2 id="reportonly--true">$reportOnly = $true</h2>
-<p><img src="assets/report-only-true.jpg" alt="$reportOnly = $tru"></p>
+<p><img src="assets/report-only-true.jpg" alt="$reportOnly = $true"></p>
 <h2 id="reportonly--false">$reportOnly = $false</h2>
-<p><img src="assets/report-only-false.jpg" alt="$reportOnly = $tru"></p>
+<p><img src="assets/report-only-false.jpg" alt="$reportOnly = $false"></p>
+<hr>
+<p>CLI version of the script works the same except the user needs to provide a list of content types that needs to be checked.</p>
+<h2 id="reportonly--true-1">$reportOnly = $true</h2>
+<p><img src="assets/cli-report-only-true.png" alt="$reportOnly = $true"></p>
+<h2 id="reportonly--false-1">$reportOnly = $false</h2>
+<p><img src="assets/cli-report-only-false.png" alt="$reportOnly = $false"></p>
 <div class="tabGroup" id="tabgroup_CeZOj-G++Q">
 <ul role="tablist">
 <li role="presentation">
 <a href="#tabpanel_CeZOj-G++Q_pnp-ps" role="tab" aria-controls="tabpanel_CeZOj-G++Q_pnp-ps" data-tab="pnp-ps" tabindex="0" aria-selected="true">PnP.PowerShell</a>
+</li>
+<li role="presentation">
+<a href="#tabpanel_CeZOj-G++Q_cli-m365-ps" role="tab" aria-controls="tabpanel_CeZOj-G++Q_cli-m365-ps" data-tab="cli-m365-ps" tabindex="-1">CLI for Microsoft 365 with PowerShell</a>
 </li>
 </ul>
 <section id="tabpanel_CeZOj-G++Q_pnp-ps" role="tabpanel" data-tab="pnp-ps"><button class="article-clipboard" title="Copy to clipboard" data-toggle="tooltip" data-placement="top" data-clipboard-target="section[id^='tabpanel'][data-tab='pnp-ps'] pre">
@@ -171,6 +180,82 @@ if (!$reportOnly) {
 <p>Check out the <strong>PnP PowerShell</strong> to learn more at: <a href="https://aka.ms/pnp/powershell">https://aka.ms/pnp/powershell</a></p>
 </div>
 </section>
+<section id="tabpanel_CeZOj-G++Q_cli-m365-ps" role="tabpanel" data-tab="cli-m365-ps" aria-hidden="true" hidden="hidden"><button class="article-clipboard" title="Copy to clipboard" data-toggle="tooltip" data-placement="top" data-clipboard-target="section[id^='tabpanel'][data-tab='cli-m365-ps'] pre">
+    <span class="glyphicon glyphicon-copy" aria-hidden="true"></span>
+    <span class="article-clipboard__message done">Copied</span>
+</button>
+
+<pre><code class="lang-powershell">
+# Base variables
+$siteURL = &quot;https://tenant.sharepoint.com/sites/sitename&quot;
+$contentTypeArray = @('testCT1','CustomContentType1')
+$siteColumn = &quot;EffectiveDate&quot;
+$reportOnly = $true # If $true, just report. If $false, take action.
+
+$m365Status = m365 status
+if ($m365Status -eq &quot;Logged Out&quot;) {
+    m365 login
+}
+
+# Remove the Site Column from all Content Types which have it
+Write-Host -BackgroundColor Blue &quot;Checking Content Types&quot;
+
+foreach ($contentTypeName in $contentTypeArray) {
+
+    Write-Host &quot;Checking Content Type $contentTypeName&quot;
+
+    $contentType = m365 spo contenttype get --webUrl $siteURL --name $contentTypeName
+    $contentType = $contentType | ConvertFrom-Json
+    $schemaXml = $contentType.SchemaXml
+    $schemaXml = [xml]&quot;&lt;xml&gt;$schemaXml&lt;/xml&gt;&quot;
+    $field = $schemaXml.xml.ContentType.Fields.Field | ? { $_.Name -eq $siteColumn }
+
+    if ($field) {
+        Write-Host -ForegroundColor Green &quot;Found column $($siteColumn) in $($contentTypeName)&quot;
+        if (!$reportOnly) {
+            Write-Host -ForegroundColor Yellow &quot;Removing column $($siteColumn) in $($contentTypeName)&quot;
+            $contentTypeId = $contentType.Id.StringValue
+            $fieldLinkId = $field.ID.Replace(&quot;{&quot;, &quot;&quot;).Replace(&quot;}&quot;, &quot;&quot;)
+            m365 spo contenttype field remove  --contentTypeId $contentTypeId --fieldLinkId $fieldLinkId --webUrl $siteURL --confirm
+        }
+    }
+}
+
+
+# Remove the orphaned Site Column from all lists/libraries which have it
+Write-Host -BackgroundColor Blue &quot;Checking Lists&quot;
+
+$lists = m365 spo list list --webUrl $siteURL
+$lists = $lists | ConvertFrom-Json
+
+foreach ($list in $lists) {
+
+    $listTitle = $list.Title
+    Write-Host &quot;Checking list $($listTitle)&quot;
+
+    $field = m365 spo field get --webUrl $siteURL --listTitle $listTitle --fieldTitle $siteColumn
+
+    if ($field) {
+        Write-Host -ForegroundColor Green &quot;Found column $($siteColumn) in $($listTitle)&quot;
+
+        if (!$reportOnly) {
+            Write-Host -ForegroundColor Yellow &quot;Removing column $($siteColumn) in $($listTitle)&quot;
+            m365 spo field remove --webUrl $siteURL --listTitle $listTitle --fieldTitle $siteColumn --confirm
+        }
+    }
+}
+
+# Remove the Site Column itself
+if (!$reportOnly) {
+    m365 spo field remove --webUrl $siteURL --fieldTitle $siteColumn --confirm
+}
+
+
+</code></pre>
+<div class="highlight-tool">
+<p>Check out the <strong>CLI for Microsoft 365</strong> to learn more at: <a href="https://aka.ms/cli-m365">https://aka.ms/cli-m365</a></p>
+</div>
+</section>
 </div>
 <h2 id="source-credit">Source Credit</h2>
 <p>Sample first appeared on <a href="https://sympmarc.com/2021/10/14/clean-up-unwanted-site-columns-from-content-types-and-lists-libraries/">Clean Up Unwanted Site Columns from Content Types and Lists/Libraries | Marc D Anderson''s Blog</a></p>
@@ -184,6 +269,9 @@ if (!$reportOnly) {
 <tbody>
 <tr>
 <td>Marc D Anderson</td>
+</tr>
+<tr>
+<td>Adam Wójcik</td>
 </tr>
 </tbody>
 </table>
