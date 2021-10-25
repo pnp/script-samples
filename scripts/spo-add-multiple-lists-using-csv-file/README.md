@@ -82,8 +82,8 @@ $data | Foreach-Object{
    m365 spo list add --title $_.Title --baseTemplate $_.Template --webUrl $url --output 'json'
    
 } 
-
 ```
+[!INCLUDE [More about CLI for Microsoft 365](../../docfx/includes/MORE-CLIM365.md)]
 
 # [CSV file](#tab/csv)
 ```csv
