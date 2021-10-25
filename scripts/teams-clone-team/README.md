@@ -113,4 +113,4 @@ process {
 | Rodrigo Pinto |
 
 [!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
-<img src="https://telemetry.sharepointpnp.com/script-samples/scripts/spo-export-site-all-content" aria-hidden="true" />
+<img src="https://telemetry.sharepointpnp.com/script-samples/scripts/teams-clone-team" aria-hidden="true" />
