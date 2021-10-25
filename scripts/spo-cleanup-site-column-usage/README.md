@@ -8,7 +8,7 @@ plugin: add-to-gallery
 
 Sometimes when we iteratively build out our information architecture, we’re over-zealous. It seems like we need a set of Site Columns to maintain metadata on lists or libraries, but in the end, we decide we want to trim away a few of the Site Columns we’ve created. Or, maybe you’ve migrated a bunch of metadata into SharePoint with a set of documents and it turns out that metadata is no longer valid or useful.
 
-If the Site Columns exist in only one or two libraries, it’s not a big deal to do this manually. But when you need to remove several Site Columns across a dozen or so Content Types, which are applied to a dozen or so libraries, POowerShell may make more sense.
+If the Site Columns exist in only one or two libraries, it’s not a big deal to do this manually. But when you need to remove several Site Columns across a dozen or so Content Types, which are applied to a dozen or so libraries, PowerShell may make more sense.
 
 When we want to clean up use of a Site Column – and we’re setting up our information architecture well – there are three main steps:
 
@@ -18,11 +18,22 @@ When we want to clean up use of a Site Column – and we’re setting up our inf
 
 ## $reportOnly = $true
 
-![$reportOnly = $tru](assets/report-only-true.jpg)
+![$reportOnly = $true](assets/report-only-true.jpg)
 
 ## $reportOnly = $false
 
-![$reportOnly = $tru](assets/report-only-false.jpg)
+![$reportOnly = $false](assets/report-only-false.jpg)
+
+---
+CLI version of the script works the same except the user needs to provide a list of content types that needs to be checked.
+
+## $reportOnly = $true
+
+![$reportOnly = $true](assets/cli-report-only-true.png)
+
+## $reportOnly = $false
+
+![$reportOnly = $false](assets/cli-report-only-false.png)
 
 # [PnP.PowerShell](#tab/pnp-ps)
 ```powershell
@@ -90,6 +101,77 @@ if (!$reportOnly) {
 }
 ```
 [!INCLUDE [More about PnP.PowerShell](../../docfx/includes/MORE-PNPPS.md)]
+
+# [CLI for Microsoft 365 with PowerShell](#tab/cli-m365-ps)
+```powershell
+
+# Base variables
+$siteURL = "https://tenant.sharepoint.com/sites/sitename"
+$contentTypeArray = @('testCT1','CustomContentType1')
+$siteColumn = "EffectiveDate"
+$reportOnly = $true # If $true, just report. If $false, take action.
+
+$m365Status = m365 status
+if ($m365Status -eq "Logged Out") {
+    m365 login
+}
+
+# Remove the Site Column from all Content Types which have it
+Write-Host -BackgroundColor Blue "Checking Content Types"
+
+foreach ($contentTypeName in $contentTypeArray) {
+
+    Write-Host "Checking Content Type $contentTypeName"
+
+    $contentType = m365 spo contenttype get --webUrl $siteURL --name $contentTypeName
+    $contentType = $contentType | ConvertFrom-Json
+    $schemaXml = $contentType.SchemaXml
+    $schemaXml = [xml]"<xml>$schemaXml</xml>"
+    $field = $schemaXml.xml.ContentType.Fields.Field | ? { $_.Name -eq $siteColumn }
+
+    if ($field) {
+        Write-Host -ForegroundColor Green "Found column $($siteColumn) in $($contentTypeName)"
+        if (!$reportOnly) {
+            Write-Host -ForegroundColor Yellow "Removing column $($siteColumn) in $($contentTypeName)"
+            $contentTypeId = $contentType.Id.StringValue
+            $fieldLinkId = $field.ID.Replace("{", "").Replace("}", "")
+            m365 spo contenttype field remove  --contentTypeId $contentTypeId --fieldLinkId $fieldLinkId --webUrl $siteURL --confirm
+        }
+    }
+}
+
+
+# Remove the orphaned Site Column from all lists/libraries which have it
+Write-Host -BackgroundColor Blue "Checking Lists"
+
+$lists = m365 spo list list --webUrl $siteURL
+$lists = $lists | ConvertFrom-Json
+
+foreach ($list in $lists) {
+
+    $listTitle = $list.Title
+    Write-Host "Checking list $($listTitle)"
+
+    $field = m365 spo field get --webUrl $siteURL --listTitle $listTitle --fieldTitle $siteColumn
+
+    if ($field) {
+        Write-Host -ForegroundColor Green "Found column $($siteColumn) in $($listTitle)"
+
+        if (!$reportOnly) {
+            Write-Host -ForegroundColor Yellow "Removing column $($siteColumn) in $($listTitle)"
+            m365 spo field remove --webUrl $siteURL --listTitle $listTitle --fieldTitle $siteColumn --confirm
+        }
+    }
+}
+
+# Remove the Site Column itself
+if (!$reportOnly) {
+    m365 spo field remove --webUrl $siteURL --fieldTitle $siteColumn --confirm
+}
+
+
+```
+[!INCLUDE [More about CLI for Microsoft 365](../../docfx/includes/MORE-CLIM365.md)]
 ***
 
 ## Source Credit
@@ -101,7 +183,7 @@ Sample first appeared on [Clean Up Unwanted Site Columns from Content Types and 
 | Author(s) |
 |-----------|
 | Marc D Anderson |
-
+| Adam Wójcik |
 
 [!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
 <img src="https://telemetry.sharepointpnp.com/script-samples/scripts/spo-copy-files-to-another-library" aria-hidden="true" />
