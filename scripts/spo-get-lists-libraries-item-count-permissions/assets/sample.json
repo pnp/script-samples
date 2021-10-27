@@ -7,7 +7,7 @@
     "title": "Export all List and Libraries with Item count and Permission in CSV",
     "url": "spo-get-lists-libraries-item-count-permissions/README.html",
     "creationDateTime": "2021-10-08",
-    "updateDateTime": "2021-10-08",
+    "updateDateTime": "2021-10-27",
     "shortDescription": "Get all lists and Libraries along with total Item count and permissions and export it in CSV",
     "longDescription": null,
     "products": [
@@ -22,6 +22,10 @@
       {
         "key": "pnp-powerShell",
         "value": "1.5.0"
+      },
+      {
+        "key": "cli-for-microsoft365",
+        "value": "3.7.0"
       }
     ],
     "thumbnails": [
@@ -34,6 +38,11 @@
       }
     ],
     "authors": [
+      {
+        "gitHubAccount": "Adam-it",
+        "pictureUrl": "https://avatars.githubusercontent.com/u/58668583?v=4",
+        "name": "Adam Wójcik"
+      },
       {
         "name": "Dipen Shah",
         "gitHubAccount": "dips365",
