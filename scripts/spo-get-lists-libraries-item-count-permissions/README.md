@@ -61,7 +61,8 @@ Connect-PnPOnline -Url  $siteUrl
 
  $ResultData | Export-Csv $ReportOutput -NoTypeInformation
 ```
-## Contributors
+[!INCLUDE [More about PnP PowerShell](../../docfx/includes/MORE-PNPPS.md)]
+
 
 # [CLI for Microsoft 365 with PowerShell](#tab/cli-m365-ps)
 ```powershell
@@ -105,6 +106,8 @@ $ResultData | Export-Csv $ReportOutput -NoTypeInformation
 ```
 [!INCLUDE [More about CLI for Microsoft 365](../../docfx/includes/MORE-CLIM365.md)]
 ***
+
+## Contributors
 
 | Author(s) |
 |-----------|
