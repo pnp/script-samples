@@ -267,7 +267,7 @@ Disconnect-PnPOnline
 Stop-Transcript  
 
 ```
-![Results Screenshot](assets/example.png)
+![Results Screenshot](assets/results.png)
 
 > [!Note]
 > SharePoint tenant admin right are required to be able add list design
