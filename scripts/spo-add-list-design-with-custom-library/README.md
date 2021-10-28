@@ -2,13 +2,13 @@
 plugin: add-to-gallery
 ---
 
-# Create and add list design to SharePoint site with content types,site columns and list views 
+# Create and add list template to SharePoint site with content types,site columns and list views 
 
 ## Summary
 
-  [Creating custom list templates](https://docs.microsoft.com/en-us/sharepoint/lists-custom-template) is now possible to create both custom document libraries and lists although official microsoft documentation has not specified anything about supporting custom document library templates. This script will create list design with associated site columns, site content types and views for a document library and also creates an instance of a document library.
+  [Creating custom list templates](https://docs.microsoft.com/en-us/sharepoint/lists-custom-template) is now possible to create both custom document libraries and lists although official microsoft documentation has not specified anything about supporting custom document library templates. This script will create list template with associated site columns, site content types and views for a document library and also creates an instance of a document library.
  
-More about list design 
+More about list template 
  [https://docs.microsoft.com/en-us/sharepoint/lists-custom-template](https://docs.microsoft.com/en-us/sharepoint/lists-custom-template)
 
 ![Example Screenshot](assets/example.png)
@@ -38,7 +38,7 @@ Connect-PnPOnline -Url $Url -Interactive
 ##connect-sposervice is needed to do cmdlets involving SPO
 Connect-SPOService $adminSiteUrl 
 
-#list design script
+#list template script
 # - Create site columns 
 # - Create site content type with created site columns
 
@@ -257,7 +257,7 @@ Add-SPOListDesign -Title "Test Document Library" -Description "Deploy document l
 $listDesigns = Get-SPOListDesign
 $listDesign = $listDesigns | Where-Object {$_.Title -eq "Test Document Library"} 
 
- #invoke list design to create an instance of the library
+ #invoke list template to create an instance of the library
 Invoke-SPOListDesign -Identity $listDesign.Id -WebUrl $siteUrl 
 
 ## Disconnect the context  
