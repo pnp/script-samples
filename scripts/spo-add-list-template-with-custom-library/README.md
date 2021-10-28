@@ -160,7 +160,7 @@ $list_script = '{
     },
     {
       "verb": "createSPList",
-      "listName": "test_ct",
+      "listName": "Audit1",
       "templateType": 101,
       "subactions": [
         {
