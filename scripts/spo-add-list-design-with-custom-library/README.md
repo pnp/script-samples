@@ -269,7 +269,7 @@ Stop-Transcript
 ```
 
 > [!Note]
-> SharePoint tenant admin right are required to be able add site design
+> SharePoint tenant admin right are required to be able add list design
 
 [!INCLUDE [More about PnP PowerShell](../../docfx/includes/MORE-PNPPS.md)]
 
