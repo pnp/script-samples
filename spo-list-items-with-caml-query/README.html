@@ -90,7 +90,7 @@
 <li>First, we will connect to Tenant admin site.
 <ul>
 <li>Then we will connect to SharePoint site in which we want to read list items.</li>
-<li>And then create a seprate functions for all the field operations.</li>
+<li>And then create a separate functions for all the field operations.</li>
 </ul>
 </li>
 </ul>
@@ -98,6 +98,9 @@
 <ul role="tablist">
 <li role="presentation">
 <a href="#tabpanel_CeZOj-G++Q_pnpps" role="tab" aria-controls="tabpanel_CeZOj-G++Q_pnpps" data-tab="pnpps" tabindex="0" aria-selected="true">PnP PowerShell</a>
+</li>
+<li role="presentation">
+<a href="#tabpanel_CeZOj-G++Q_cli-m365-ps" role="tab" aria-controls="tabpanel_CeZOj-G++Q_cli-m365-ps" data-tab="cli-m365-ps" tabindex="-1">CLI for Microsoft 365 with PowerShell</a>
 </li>
 </ul>
 <section id="tabpanel_CeZOj-G++Q_pnpps" role="tabpanel" data-tab="pnpps"><button class="article-clipboard" title="Copy to clipboard" data-toggle="tooltip" data-placement="top" data-clipboard-target="section[id^='tabpanel'][data-tab='pnpps'] pre">
@@ -327,6 +330,216 @@ Main
 <p>Check out the <strong>PnP PowerShell</strong> to learn more at: <a href="https://aka.ms/pnp/powershell">https://aka.ms/pnp/powershell</a></p>
 </div>
 </section>
+<section id="tabpanel_CeZOj-G++Q_cli-m365-ps" role="tabpanel" data-tab="cli-m365-ps" aria-hidden="true" hidden="hidden"><button class="article-clipboard" title="Copy to clipboard" data-toggle="tooltip" data-placement="top" data-clipboard-target="section[id^='tabpanel'][data-tab='cli-m365-ps'] pre">
+    <span class="glyphicon glyphicon-copy" aria-hidden="true"></span>
+    <span class="article-clipboard__message done">Copied</span>
+</button>
+
+<pre><code class="lang-powershell">
+#Global Variable Declaration
+$SiteURL = &quot;https://tenant.sharepoint.com/sites/SiteName/&quot;
+$ListName = &quot;ListName&quot;
+
+Function loginToTenant() {
+    $m365Status = m365 status
+    if ($m365Status -eq &quot;Logged Out&quot;) {
+        m365 login
+    }
+}
+
+Function FilterTextField() {     
+    Write-Host &quot;**************** FILTER BY TEXT **************** &quot; -ForegroundColor Green
+    $FilterTextField = m365 spo listitem list --title $ListName --webUrl $SiteURL --camlQuery &quot;@&lt;View&gt;
+                                                                &lt;ViewFields&gt;
+                                                                    &lt;FieldRef Name='Title'/&gt;                                                                    
+                                                                    &lt;FieldRef Name='GUID'/&gt;                                                                    
+                                                                &lt;/ViewFields&gt;
+                                                                &lt;Query&gt;
+                                                                    &lt;Where&gt;
+                                                                        &lt;Eq&gt;
+                                                                            &lt;FieldRef Name='Title'/&gt;
+                                                                            &lt;Value Type='Text'&gt;Ankit&lt;/Value&gt;
+                                                                         &lt;/Eq&gt;
+                                                                    &lt;/Where&gt;
+                                                                &lt;/Query&gt;
+                                                            &lt;/View&gt;&quot;
+    if ($FilterTextField -eq $null) {
+        Write-Host &quot;No records found for filter by text&quot; -ForegroundColor Gray
+    }
+    else {
+        $FilterTextField | Format-Table
+    }   
+}
+
+Function FilterDateField() {
+    Write-Host &quot;**************** FILTER BY DATE **************** &quot; -ForegroundColor Green
+    $FilterDateField = m365 spo listitem list --title $ListName --webUrl $SiteURL --camlQuery &quot;@&lt;View&gt;
+                                                                &lt;ViewFields&gt;
+                                                                    &lt;FieldRef Name='Title'/&gt;                                                                   
+                                                                    &lt;FieldRef Name='GUID'/&gt;
+                                                                    &lt;FieldRef Name='Modified'/&gt;
+                                                                &lt;/ViewFields&gt;
+                                                                &lt;Query&gt;&lt;Where&gt;
+                                                                    &lt;Geq&gt;&lt;FieldRef Name='Modified'/&gt;&lt;Value Type='DateTime'&gt;&lt;Today/&gt;&lt;/Value&gt;&lt;/Eq&gt;&lt;/Where&gt;
+                                                                &lt;/Query&gt;
+                                                            &lt;/View&gt;&quot;
+
+    if ($FilterDateField -eq $null) {
+        Write-Host &quot;No records found for filter by date&quot; -ForegroundColor Gray
+    }
+    else {
+        $FilterDateField | Format-Table
+    }    
+}
+
+Function FilterChoiceField() {    
+    Write-Host &quot;**************** FILTER BY CHOICE **************** &quot; -ForegroundColor Green 
+    $FilterChoiceField = m365 spo listitem list --title $ListName --webUrl $SiteURL --camlQuery &quot;@&lt;View&gt;
+                                                                &lt;ViewFields&gt;
+                                                                    &lt;FieldRef Name='Title'/&gt;
+                                                                    &lt;FieldRef Name='Hobby'/&gt;
+                                                                    &lt;FieldRef Name='GUID'/&gt;
+                                                                &lt;/ViewFields&gt;
+                                                                 &lt;Query&gt;
+                                                                    &lt;Where&gt;
+                                                                        &lt;Eq&gt;
+                                                                            &lt;FieldRef Name='Hobby'/&gt;
+                                                                            &lt;Value Type='Choice'&gt;Drawing&lt;/Value&gt;
+                                                                        &lt;/Eq&gt;
+                                                                    &lt;/Where&gt;
+                                                                &lt;/Query&gt;
+                                                              &lt;/View&gt;&quot;
+
+    if ($FilterChoiceField -eq $null) {
+        Write-Host &quot;No records found for filter by text&quot; -ForegroundColor Gray
+    }
+    else {
+        $FilterChoiceField | Format-Table
+    }    
+}
+
+Function FilterLookupField() {   
+    Write-Host &quot;**************** FILTER BY LOOKUP **************** &quot; -ForegroundColor Green
+    $FilterLookupField = m365 spo listitem list --title $ListName --webUrl $SiteURL --camlQuery &quot;@&lt;View&gt;
+                                                                &lt;ViewFields&gt;
+                                                                    &lt;FieldRef Name='Title'/&gt;
+                                                                    &lt;FieldRef Name='Country'/&gt;
+                                                                    &lt;FieldRef Name='GUID'/&gt;
+                                                                &lt;/ViewFields&gt;
+                                                                 &lt;Query&gt;
+                                                                    &lt;Where&gt;
+                                                                        &lt;Eq&gt;
+                                                                            &lt;FieldRef Name='Country'/&gt;
+                                                                            &lt;Value Type='Lookup'&gt;India&lt;/Value&gt;
+                                                                        &lt;/Eq&gt;
+                                                                    &lt;/Where&gt;
+                                                                &lt;/Query&gt;
+                                                              &lt;/View&gt;&quot;                                                                      
+    if ($FilterLookupField -eq $null) {
+        Write-Host &quot;No records found for filter by text&quot; -ForegroundColor Gray
+    }
+    else {
+        $FilterLookupField | Format-Table
+    }    
+}
+
+Function FilterUserField() {   
+    Write-Host &quot;**************** FILTER BY PEOPLE **************** &quot; -ForegroundColor Green
+    $filterByPeople = m365 spo listitem list --title $ListName --webUrl $SiteURL --camlQuery &quot;@&lt;View&gt;
+                                                                &lt;ViewFields&gt;
+                                                                    &lt;FieldRef Name='Title'/&gt;
+                                                                    &lt;FieldRef Name='User'/&gt;
+                                                                    &lt;FieldRef Name='GUID'/&gt;
+                                                                &lt;/ViewFields&gt;
+                                                                &lt;Query&gt;
+                                                                    &lt;Where&gt;
+                                                                        &lt;Eq&gt;
+                                                                            &lt;FieldRef Name='User'/&gt;
+                                                                            &lt;Value Type='User'&gt;Adam Wójcik&lt;/Value&gt;
+                                                                        &lt;/Eq&gt;
+                                                                     &lt;/Where&gt;
+                                                                     &lt;/Query&gt;
+                                                                 &lt;/View&gt;&quot;        
+    if ($filterByPeople -eq $null) {
+        Write-Host &quot;No records found for filter by text&quot; -ForegroundColor Gray
+    }
+    else {
+        $filterByPeople | Format-Table
+    }     
+}
+
+Function BeginsWith() {   
+    Write-Host &quot;**************** FILTER BY TEXT BEGINS WITH **************** &quot; -ForegroundColor Green
+    $FilterByTextBeginsWith = m365 spo listitem list --title $ListName --webUrl $SiteURL --camlQuery &quot;@&lt;View&gt;
+                                                                &lt;ViewFields&gt;
+                                                                    &lt;FieldRef Name='Title'/&gt;                                                                    
+                                                                    &lt;FieldRef Name='GUID'/&gt;                                                                                                                                       
+                                                                &lt;/ViewFields&gt;
+                                                                &lt;Query&gt;
+                                                                    &lt;Where&gt;
+                                                                        &lt;BeginsWith&gt;
+                                                                            &lt;FieldRef Name='Title'/&gt;
+                                                                                &lt;Value Type='Text'&gt;Emp&lt;/Value&gt;
+                                                                         &lt;/BeginsWith&gt;
+                                                                    &lt;/Where&gt;
+                                                                &lt;/Query&gt;
+                                                            &lt;/View&gt;&quot;       
+    if ($FilterByTextBeginsWith -eq $null) {
+        Write-Host &quot;No records found for filter by choice&quot; -ForegroundColor Gray
+    }
+    else {
+        $FilterByTextBeginsWith | Format-Table
+    }    
+}
+
+Function ContainsValue() {    
+    Write-Host &quot;**************** FILTER BY TEXT CONTAINS VALUE **************** &quot; -ForegroundColor Green
+    $FilterByTextContainsVal = m365 spo listitem list --title $ListName --webUrl $SiteURL --camlQuery &quot;@&lt;View&gt;
+                                                                &lt;ViewFields&gt;
+                                                                    &lt;FieldRef Name='Title'/&gt;                                                                    
+                                                                    &lt;FieldRef Name='GUID'/&gt;                                                                    
+                                                                &lt;/ViewFields&gt;
+                                                                &lt;Query&gt;
+                                                                    &lt;Where&gt;
+                                                                        &lt;Contains&gt;
+                                                                            &lt;FieldRef Name='Title'/&gt;
+                                                                                &lt;Value Type='Text'&gt;i&lt;/Value&gt;
+                                                                         &lt;/Contains&gt;
+                                                                    &lt;/Where&gt;
+                                                                &lt;/Query&gt;
+                                                            &lt;/View&gt;&quot;   
+
+    if ($FilterByTextContainsVal -eq $null) {
+        Write-Host &quot;No records found for filter by contains&quot; -ForegroundColor Gray
+    }
+    else {
+        $FilterByTextContainsVal | Format-Table
+    }        
+}
+
+Function GetListItemsUsingCAML() {
+    FilterTextField
+    FilterDateField
+    FilterChoiceField
+    FilterLookupField
+    FilterUserField  
+    BeginsWith
+    ContainsValue  
+}
+
+Function Main() {
+    loginToTenant
+    GetListItemsUsingCAML
+}
+
+Main
+
+
+</code></pre>
+<div class="highlight-tool">
+<p>Check out the <strong>CLI for Microsoft 365</strong> to learn more at: <a href="https://aka.ms/cli-m365">https://aka.ms/cli-m365</a></p>
+</div>
+</section>
 </div>
 <h2 id="contributors">Contributors</h2>
 <table>
@@ -339,11 +552,14 @@ Main
 <tr>
 <td>Chandani Prajapati</td>
 </tr>
+<tr>
+<td><a href="https://github.com/Adam-it">Adam Wójcik</a></td>
+</tr>
 </tbody>
 </table>
 <h2 id="disclaimer">Disclaimer</h2>
 <p><strong>THESE SAMPLES ARE PROVIDED <em>AS IS</em> WITHOUT WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, INCLUDING ANY IMPLIED WARRANTIES OF FITNESS FOR A PARTICULAR PURPOSE, MERCHANTABILITY, OR NON-INFRINGEMENT.</strong></p>
-<img src="https://telemetry.sharepointpnp.com/script-samples/scripts/spo-recyclebin-items-to-csv" aria-hidden="true">
+<img src="https://telemetry.sharepointpnp.com/script-samples/scripts/spo-list-items-with-caml-query" aria-hidden="true">
 </article>
           </div>
         </div>
