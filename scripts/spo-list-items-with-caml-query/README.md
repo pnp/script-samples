@@ -240,12 +240,218 @@ Main
 [!INCLUDE [More about PnP PowerShell](../../docfx/includes/MORE-PNPPS.md)]
 ***
 
+# [CLI for Microsoft 365 with PowerShell](#tab/cli-m365-ps)
+```powershell
+
+#Global Variable Declaration
+$SiteURL = "https://tenant.sharepoint.com/sites/SiteName/"
+$ListName = "ListName"
+
+Function loginToTenant() {
+    $m365Status = m365 status
+    if ($m365Status -eq "Logged Out") {
+        m365 login
+    }
+}
+
+Function FilterTextField() {     
+    Write-Host "**************** FILTER BY TEXT **************** " -ForegroundColor Green
+    $FilterTextField = m365 spo listitem list --title $ListName --webUrl $SiteURL --camlQuery "@<View>
+                                                                <ViewFields>
+                                                                    <FieldRef Name='Title'/>                                                                    
+                                                                    <FieldRef Name='GUID'/>                                                                    
+                                                                </ViewFields>
+                                                                <Query>
+                                                                    <Where>
+                                                                        <Eq>
+                                                                            <FieldRef Name='Title'/>
+                                                                            <Value Type='Text'>Ankit</Value>
+                                                                         </Eq>
+                                                                    </Where>
+                                                                </Query>
+                                                            </View>"
+    if ($FilterTextField -eq $null) {
+        Write-Host "No records found for filter by text" -ForegroundColor Gray
+    }
+    else {
+        $FilterTextField | Format-Table
+    }   
+}
+
+Function FilterDateField() {
+    Write-Host "**************** FILTER BY DATE **************** " -ForegroundColor Green
+    $FilterDateField = m365 spo listitem list --title $ListName --webUrl $SiteURL --camlQuery "@<View>
+                                                                <ViewFields>
+                                                                    <FieldRef Name='Title'/>                                                                   
+                                                                    <FieldRef Name='GUID'/>
+                                                                    <FieldRef Name='Modified'/>
+                                                                </ViewFields>
+                                                                <Query><Where>
+                                                                    <Geq><FieldRef Name='Modified'/><Value Type='DateTime'><Today/></Value></Eq></Where>
+                                                                </Query>
+                                                            </View>"
+
+    if ($FilterDateField -eq $null) {
+        Write-Host "No records found for filter by date" -ForegroundColor Gray
+    }
+    else {
+        $FilterDateField | Format-Table
+    }    
+}
+
+Function FilterChoiceField() {    
+    Write-Host "**************** FILTER BY CHOICE **************** " -ForegroundColor Green 
+    $FilterChoiceField = m365 spo listitem list --title $ListName --webUrl $SiteURL --camlQuery "@<View>
+                                                                <ViewFields>
+                                                                    <FieldRef Name='Title'/>
+                                                                    <FieldRef Name='Hobby'/>
+                                                                    <FieldRef Name='GUID'/>
+                                                                </ViewFields>
+                                                                 <Query>
+                                                                    <Where>
+                                                                        <Eq>
+                                                                            <FieldRef Name='Hobby'/>
+                                                                            <Value Type='Choice'>Drawing</Value>
+                                                                        </Eq>
+                                                                    </Where>
+                                                                </Query>
+                                                              </View>"
+
+    if ($FilterChoiceField -eq $null) {
+        Write-Host "No records found for filter by text" -ForegroundColor Gray
+    }
+    else {
+        $FilterChoiceField | Format-Table
+    }    
+}
+
+Function FilterLookupField() {   
+    Write-Host "**************** FILTER BY LOOKUP **************** " -ForegroundColor Green
+    $FilterLookupField = m365 spo listitem list --title $ListName --webUrl $SiteURL --camlQuery "@<View>
+                                                                <ViewFields>
+                                                                    <FieldRef Name='Title'/>
+                                                                    <FieldRef Name='Country'/>
+                                                                    <FieldRef Name='GUID'/>
+                                                                </ViewFields>
+                                                                 <Query>
+                                                                    <Where>
+                                                                        <Eq>
+                                                                            <FieldRef Name='Country'/>
+                                                                            <Value Type='Lookup'>India</Value>
+                                                                        </Eq>
+                                                                    </Where>
+                                                                </Query>
+                                                              </View>"                                                                      
+    if ($FilterLookupField -eq $null) {
+        Write-Host "No records found for filter by text" -ForegroundColor Gray
+    }
+    else {
+        $FilterLookupField | Format-Table
+    }    
+}
+
+Function FilterUserField() {   
+    Write-Host "**************** FILTER BY PEOPLE **************** " -ForegroundColor Green
+    $filterByPeople = m365 spo listitem list --title $ListName --webUrl $SiteURL --camlQuery "@<View>
+                                                                <ViewFields>
+                                                                    <FieldRef Name='Title'/>
+                                                                    <FieldRef Name='User'/>
+                                                                    <FieldRef Name='GUID'/>
+                                                                </ViewFields>
+                                                                <Query>
+                                                                    <Where>
+                                                                        <Eq>
+                                                                            <FieldRef Name='User'/>
+                                                                            <Value Type='User'>Adam Wójcik</Value>
+                                                                        </Eq>
+                                                                     </Where>
+                                                                     </Query>
+                                                                 </View>"        
+    if ($filterByPeople -eq $null) {
+        Write-Host "No records found for filter by text" -ForegroundColor Gray
+    }
+    else {
+        $filterByPeople | Format-Table
+    }     
+}
+
+Function BeginsWith() {   
+    Write-Host "**************** FILTER BY TEXT BEGINS WITH **************** " -ForegroundColor Green
+    $FilterByTextBeginsWith = m365 spo listitem list --title $ListName --webUrl $SiteURL --camlQuery "@<View>
+                                                                <ViewFields>
+                                                                    <FieldRef Name='Title'/>                                                                    
+                                                                    <FieldRef Name='GUID'/>                                                                                                                                       
+                                                                </ViewFields>
+                                                                <Query>
+                                                                    <Where>
+                                                                        <BeginsWith>
+                                                                            <FieldRef Name='Title'/>
+                                                                                <Value Type='Text'>Emp</Value>
+                                                                         </BeginsWith>
+                                                                    </Where>
+                                                                </Query>
+                                                            </View>"       
+    if ($FilterByTextBeginsWith -eq $null) {
+        Write-Host "No records found for filter by choice" -ForegroundColor Gray
+    }
+    else {
+        $FilterByTextBeginsWith | Format-Table
+    }    
+}
+
+Function ContainsValue() {    
+    Write-Host "**************** FILTER BY TEXT CONTAINS VALUE **************** " -ForegroundColor Green
+    $FilterByTextContainsVal = m365 spo listitem list --title $ListName --webUrl $SiteURL --camlQuery "@<View>
+                                                                <ViewFields>
+                                                                    <FieldRef Name='Title'/>                                                                    
+                                                                    <FieldRef Name='GUID'/>                                                                    
+                                                                </ViewFields>
+                                                                <Query>
+                                                                    <Where>
+                                                                        <Contains>
+                                                                            <FieldRef Name='Title'/>
+                                                                                <Value Type='Text'>i</Value>
+                                                                         </Contains>
+                                                                    </Where>
+                                                                </Query>
+                                                            </View>"   
+
+    if ($FilterByTextContainsVal -eq $null) {
+        Write-Host "No records found for filter by contains" -ForegroundColor Gray
+    }
+    else {
+        $FilterByTextContainsVal | Format-Table
+    }        
+}
+
+Function GetListItemsUsingCAML() {
+    FilterTextField
+    FilterDateField
+    FilterChoiceField
+    FilterLookupField
+    FilterUserField  
+    BeginsWith
+    ContainsValue  
+}
+
+Function Main() {
+    loginToTenant
+    GetListItemsUsingCAML
+}
+
+Main
+
+
+```
+[!INCLUDE [More about CLI for Microsoft 365](../../docfx/includes/MORE-CLIM365.md)]
+***
 
 ## Contributors
 
 | Author(s) |
 |-----------|
 | Chandani Prajapati |
+| [Adam Wójcik](https://github.com/Adam-it)|
 
 [!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
 <img src="https://telemetry.sharepointpnp.com/script-samples/scripts/spo-recyclebin-items-to-csv" aria-hidden="true" />
