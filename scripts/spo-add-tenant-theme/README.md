@@ -8,7 +8,9 @@ plugin: add-to-gallery
 
 This example adds a tenant theme to the SharePoint.
 When working with themes, it is recommended to use the Theme Designer to get started and check for accessibility.
-#> [!Note] For reference the themes can be generated at: https://aka.ms/themedesigner
+
+> [!Note]
+> For reference the themes can be generated at: https://aka.ms/themedesigner
 
 # [PnP PowerShell](#tab/pnpps)
 
@@ -65,8 +67,6 @@ Write-Host "Done! :)" -ForegroundColor Green
 
 ```
 [!INCLUDE [More about PnP PowerShell](../../docfx/includes/MORE-PNPPS.md)]
-
-***
 
 # [CLI for Microsoft 365 with PowerShell](#tab/cli-m365-ps)
 ```powershell
