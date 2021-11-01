@@ -67,8 +67,6 @@ $credentials | FT -AutoSize
 [!INCLUDE [More about Microsoft Graph PowerShell SDK](../../docfx/includes/MORE-GRAPHSDK.md)]
 ***
 
-***
-
 ## Source Credit
 
 Sample first appeared on [List out all Azure AD Apps along with their KeyCredentials and PasswordCredentials along with Expiration](https://gist.github.com/svarukala/f23e6ee03e7516b1520469e9730a4515)
@@ -81,4 +79,4 @@ Sample first appeared on [List out all Azure AD Apps along with their KeyCredent
 
 
 [!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
-<img src="https://telemetry.sharepointpnp.com/script-samples/scripts/aad-delete-m365-groups-and-sharepoint-sites" aria-hidden="true" />
+<img src="https://telemetry.sharepointpnp.com/script-samples/scripts/aad-apps-expird-keys" aria-hidden="true" />
