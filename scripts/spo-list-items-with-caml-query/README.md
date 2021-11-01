@@ -15,7 +15,7 @@ Sometimes we want to read SharePoint list items using CAML query.
 - Write a script as below,
 - First, we will connect to Tenant admin site.
     - Then we will connect to SharePoint site in which we want to read list items.
-    - And then create a seprate functions for all the field operations.
+    - And then create a separate functions for all the field operations.
 
 # [PnP PowerShell](#tab/pnpps)
 ```powershell
@@ -238,7 +238,7 @@ Main
 
 ```
 [!INCLUDE [More about PnP PowerShell](../../docfx/includes/MORE-PNPPS.md)]
-***
+
 
 # [CLI for Microsoft 365 with PowerShell](#tab/cli-m365-ps)
 ```powershell
@@ -454,4 +454,4 @@ Main
 | [Adam Wójcik](https://github.com/Adam-it)|
 
 [!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
-<img src="https://telemetry.sharepointpnp.com/script-samples/scripts/spo-recyclebin-items-to-csv" aria-hidden="true" />
+<img src="https://telemetry.sharepointpnp.com/script-samples/scripts/spo-list-items-with-caml-query" aria-hidden="true" />
