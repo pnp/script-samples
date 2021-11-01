@@ -2,14 +2,14 @@
     {
       "name": "spo-list-items-with-caml-query",
       "source": "pnp",
-      "title": "Get SharePoint List Items Using CAML Queries With Different Field Types.",
+      "title": "Read SharePoint List Items Using CAML Query",
       "shortDescription": "This script sample shows how to get SharePoint list items using CAML query with different types of fields",
       "url": "spo-list-items-with-caml-query/README.html",
       "longDescription": [
         "This sample read SharePoint list items using CAML query with different types of fields like Text, Date, Choice, Lookup, User, and some advanced concepts like BeginsWith and Contains."
       ],
       "creationDateTime": "2021-07-19",
-      "updateDateTime": "2021-07-19",
+      "updateDateTime": "2021-11-01",
       "products": [
         "SharePoint"
       ],
@@ -17,6 +17,10 @@
         {
           "key": "pnp-powerShell",
           "value": "1.5.0"
+        },
+        {
+          "key": "cli-for-microsoft365",
+          "value": "6.14.22"
         }
       ],
       "categories": [
@@ -32,6 +36,11 @@
         }
       ],
       "authors": [
+        {
+          "gitHubAccount": "Adam-it",
+          "pictureUrl": "https://avatars.githubusercontent.com/u/58668583?v=4",
+          "name": "Adam Wójcik"
+        },
         {
           "gitHubAccount": "chandaniprajapati",
           "pictureUrl": "https://avatars.githubusercontent.com/u/52065929?v=4",
