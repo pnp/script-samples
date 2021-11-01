@@ -9,9 +9,11 @@ plugin: add-to-gallery
 Powershell script that could run once a day and sends summary (for example adaptive card in teams) with list of all flows runs with total runs count for current day, number of times the flow succeeded and number of times the flow failed
 
 result in console
+
 ![run in console](assets/example2.png)
 
 result as adaptive card in teams
+
 ![adaptive card in teams](assets/example.png)
  
 # [CLI for Microsoft 365 with PowerShell](#tab/cli-m365-ps)
