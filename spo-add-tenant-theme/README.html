@@ -82,12 +82,18 @@
 
 <h2 id="summary">Summary</h2>
 <p>This example adds a tenant theme to the SharePoint.
-When working with themes, it is recommended to use the Theme Designer to get started and check for accessibility.
-#&gt; [!Note] For reference the themes can be generated at: <a href="https://aka.ms/themedesigner">https://aka.ms/themedesigner</a></p>
+When working with themes, it is recommended to use the Theme Designer to get started and check for accessibility.</p>
+<div class="NOTE">
+<h5>Note</h5>
+<p>For reference the themes can be generated at: <a href="https://aka.ms/themedesigner">https://aka.ms/themedesigner</a></p>
+</div>
 <div class="tabGroup" id="tabgroup_CeZOj-G++Q">
 <ul role="tablist">
 <li role="presentation">
 <a href="#tabpanel_CeZOj-G++Q_pnpps" role="tab" aria-controls="tabpanel_CeZOj-G++Q_pnpps" data-tab="pnpps" tabindex="0" aria-selected="true">PnP PowerShell</a>
+</li>
+<li role="presentation">
+<a href="#tabpanel_CeZOj-G++Q_cli-m365-ps" role="tab" aria-controls="tabpanel_CeZOj-G++Q_cli-m365-ps" data-tab="cli-m365-ps" tabindex="-1">CLI for Microsoft 365 with PowerShell</a>
 </li>
 </ul>
 <section id="tabpanel_CeZOj-G++Q_pnpps" role="tabpanel" data-tab="pnpps"><button class="article-clipboard" title="Copy to clipboard" data-toggle="tooltip" data-placement="top" data-clipboard-target="section[id^='tabpanel'][data-tab='pnpps'] pre">
@@ -150,6 +156,69 @@ Write-Host &quot;Done! :)&quot; -ForegroundColor Green
 <p>Check out the <strong>PnP PowerShell</strong> to learn more at: <a href="https://aka.ms/pnp/powershell">https://aka.ms/pnp/powershell</a></p>
 </div>
 </section>
+<section id="tabpanel_CeZOj-G++Q_cli-m365-ps" role="tabpanel" data-tab="cli-m365-ps" aria-hidden="true" hidden="hidden"><button class="article-clipboard" title="Copy to clipboard" data-toggle="tooltip" data-placement="top" data-clipboard-target="section[id^='tabpanel'][data-tab='cli-m365-ps'] pre">
+    <span class="glyphicon glyphicon-copy" aria-hidden="true"></span>
+    <span class="article-clipboard__message done">Copied</span>
+</button>
+
+<pre><code class="lang-powershell">
+$themeName = &quot;Demo Branding (Red) CLI&quot;
+
+# -------------------------------------------------------------
+# Theme Palette  
+# -------------------------------------------------------------
+
+$themePalette = '{
+    \&quot;themePrimary\&quot;: \&quot;#b21212\&quot;,
+    \&quot;themeLighterAlt\&quot;: \&quot;#fcf3f3\&quot;,
+    \&quot;themeLighter\&quot;: \&quot;#f3d0d0\&quot;,
+    \&quot;themeLight\&quot;: \&quot;#e8a9a9\&quot;,
+    \&quot;themeTertiary\&quot;: \&quot;#d16060\&quot;,
+    \&quot;themeSecondary\&quot;: \&quot;#bc2727\&quot;,
+    \&quot;themeDarkAlt\&quot;: \&quot;#a11010\&quot;,
+    \&quot;themeDark\&quot;: \&quot;#880e0e\&quot;,
+    \&quot;themeDarker\&quot;: \&quot;#640a0a\&quot;,
+    \&quot;neutralLighterAlt\&quot;: \&quot;#f8f8f8\&quot;,
+    \&quot;neutralLighter\&quot;: \&quot;#f4f4f4\&quot;,
+    \&quot;neutralLight\&quot;: \&quot;#eaeaea\&quot;,
+    \&quot;neutralQuaternaryAlt\&quot;: \&quot;#dadada\&quot;,
+    \&quot;neutralQuaternary\&quot;: \&quot;#d0d0d0\&quot;,
+    \&quot;neutralTertiaryAlt\&quot;: \&quot;#c8c8c8\&quot;,
+    \&quot;neutralTertiary\&quot;: \&quot;#c2c2c2\&quot;,
+    \&quot;neutralSecondary\&quot;: \&quot;#858585\&quot;,
+    \&quot;neutralPrimaryAlt\&quot;: \&quot;#4b4b4b\&quot;,
+    \&quot;neutralPrimary\&quot;: \&quot;#333333\&quot;,
+    \&quot;neutralDark\&quot;: \&quot;#272727\&quot;,
+    \&quot;black\&quot;: \&quot;#1d1d1d\&quot;,
+    \&quot;white\&quot;: \&quot;#ffffff\&quot;,
+    \&quot;bodyBackground\&quot;: \&quot;#ffffff\&quot;,
+    \&quot;bodyText\&quot;: \&quot;#333333\&quot;
+}'
+
+
+# -------------------------------------------------------------
+# Connection  
+# -------------------------------------------------------------
+
+$m365Status = m365 status
+if ($m365Status -eq &quot;Logged Out&quot;) {
+    m365 login
+}
+
+# -------------------------------------------------------------
+# Apply Theme  
+# -------------------------------------------------------------
+
+m365 spo theme set --name $themeName --theme $themePalette
+
+Write-Host &quot;Done! :)&quot; -ForegroundColor Green
+
+
+</code></pre>
+<div class="highlight-tool">
+<p>Check out the <strong>CLI for Microsoft 365</strong> to learn more at: <a href="https://aka.ms/cli-m365">https://aka.ms/cli-m365</a></p>
+</div>
+</section>
 </div>
 <h2 id="contributors">Contributors</h2>
 <table>
@@ -161,6 +230,9 @@ Write-Host &quot;Done! :)&quot; -ForegroundColor Green
 <tbody>
 <tr>
 <td>Paul Bullock</td>
+</tr>
+<tr>
+<td><a href="https://github.com/Adam-it">Adam Wójcik</a></td>
 </tr>
 </tbody>
 </table>
