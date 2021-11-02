@@ -11,7 +11,13 @@ plugin: add-to-gallery
 More about list template 
  [https://docs.microsoft.com/en-us/sharepoint/lists-custom-template](https://docs.microsoft.com/en-us/sharepoint/lists-custom-template)
 
-![Example Screenshot](assets/libraries.csv)
+Below is an example of the format needed for your .csv file:
+
+InternalName,DisplayName
+AR,Annual Reports
+CR,Credit Risk
+Audit,Audit
+PO,Purchase Orders
 
 # [PnP PowerShell](#tab/pnpps)
 
