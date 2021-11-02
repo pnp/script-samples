@@ -52,4 +52,4 @@ $itemsToSave | Export-Csv -Path "SearchResults.csv" -NoTypeInformation
 | James Love |
 
 [!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
-<img src="https://telemetry.sharepointpnp.com/script-samples/scripts/template-script-submission" aria-hidden="true" />
+<img src="https://telemetry.sharepointpnp.com/script-samples/scripts/export-search-to-csv" aria-hidden="true" />
