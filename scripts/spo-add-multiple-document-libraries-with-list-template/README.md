@@ -11,14 +11,6 @@ plugin: add-to-gallery
 More about list template 
  [https://docs.microsoft.com/en-us/sharepoint/lists-custom-template](https://docs.microsoft.com/en-us/sharepoint/lists-custom-template)
 
-Below is an example of the format needed for your .csv file:
-
-| InternalName,DisplayName |
-| AR,Annual Reports |
-| CR,Credit Risk |
-| Audit,Audit |
-| PO,Purchase Orders |
-
 # [PnP PowerShell](#tab/pnpps)
 
 ```powershell
@@ -87,10 +79,18 @@ Disconnect-PnPOnline
 Stop-Transcript  
 
 ```
+# [CSV file sample](#tab/csv)
+```csv
+InternalName,DisplayName 
+AR,Annual Reports 
+CR,Credit Risk 
+Audit,Audit 
+PO,Purchase Orders 
+
+```
+## Results running the script 
 ![Results Screenshot](assets/results.png)
 
-> [!Note]
-> SharePoint tenant admin right are required to be able add list design
 
 [!INCLUDE [More about PnP PowerShell](../../docfx/includes/MORE-PNPPS.md)]
 
