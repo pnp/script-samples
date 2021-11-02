@@ -13,11 +13,11 @@ More about list template
 
 Below is an example of the format needed for your .csv file:
 
-InternalName,DisplayName
-AR,Annual Reports
-CR,Credit Risk
-Audit,Audit
-PO,Purchase Orders
+| InternalName,DisplayName |
+| AR,Annual Reports |
+| CR,Credit Risk |
+| Audit,Audit |
+| PO,Purchase Orders |
 
 # [PnP PowerShell](#tab/pnpps)
 
