@@ -8,6 +8,12 @@ plugin: add-to-gallery
 
 Perform a search query (such as "Show me all News Posts in this tenant") and export the results to CSV.
 
+This script is designed as a starter for you to expand by modifying the query used, and adding whichever managed properties you want to appear in the CSV file, in the order you want.
+
+Any content you can retrieve through search you can use in this script, so as long as you can build the query for it.
+
+The key to this script is the `Submit-PnPSearchQuery` cmdlet, which you can also modify in this script, for example to set the Result Source. See more information on the usage of this cmdlet [here](https://docs.microsoft.com/en-us/powershell/module/sharepoint-pnp/submit-pnpsearchquery?view=sharepoint-ps).
+
 ![Example Screenshot](assets/example.png)
 
 ## Instructions
