@@ -107,14 +107,15 @@ begin {
 
     $env:functionName = ""
     $env:MainFunctionName = ""
-    $msg = "`n`r`n`r
 
-       █▀█ █▄░█ █▀█ █▀▀ ▄▀█ █▄░█ █▀▄ █▄█ 
-█▀▀ █░▀█ █▀▀ █▄▄ █▀█ █░▀█ █▄▀ ░█░  `nMSTeam Builder  `n`n    ...aka ... [team-clone-team]
+    $msg = "`n`r
+
+    █▀█ █▄░█ █▀█ █▀▀ ▄▀█ █▄░█ █▀▄ █▄█
+    █▀▀ █░▀█ █▀▀ █▄▄ █▀█ █░▀█ █▄▀ ░█░  `n    MSTeam Builder: `n`r   ...aka ... [team-clone-team]
     `n"
     $msg += ('#' * 70) + "`n"
-            
-    Write-Log  $msg
+    Write-Output  $msg
+    
     $env:functionName = "[Clone-Team]"
     #Validate if PartsToClone has duplicate values 
     $tmp = $PartsToClone | Group-Object | Where-Object -Property Count -gt 1
