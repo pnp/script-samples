@@ -227,6 +227,63 @@ Stop-Transcript
 
 [!INCLUDE [More about PnP PowerShell](../../docfx/includes/MORE-PNPPS.md)]
 
+# [CLI for Microsoft 365](#tab/cli-m365-ps)
+```powershell
+###### Declare and Initialize Variables ######  
+
+#Destination site collection url
+$url="https://<tenant>.sharepoint.com/sites/siteurl"
+
+Write-host 'setup script example'
+
+Write-host 'ensure logged in'
+$m365Status = m365 status
+if ($m365Status -eq "Logged Out") {
+  m365 login --authType browser
+}
+
+
+## Connect to SharePoint Online site  
+$site = m365 spo site get --url $url 
+$site = $site | ConvertFrom-Json
+
+
+#Site design script
+# - Set site regionalsettings (useful for formatting date type field)
+# - Apply custom theme
+# - Create site columns (text, number, person, choice)
+# - Create site content type with created site columns
+
+
+ #add Script to SharePoint sharepoint tenant 
+ $addScript = m365 spo sitescript add --title "This is first script CLI 1" --description "some description " --content "@firstscript.json"
+ $addScript =  $addScript | ConvertFrom-Json
+
+ $site_script_CreateAndUpdateSiteList = m365 spo sitescript add --title "This is second script for list CLI 2" --description "Create and Update list CLI2" --content "@secondscript.json"
+ $site_script_CreateAndUpdateSiteList = $site_script_CreateAndUpdateSiteList | ConvertFrom-Json
+ 
+ #add site design to site collection with site script
+ $siteDesign = m365 spo sitedesign add --title "DevGods site design CLI" --webTemplate "TeamSite" --siteScripts "$($addScript.Id),$($site_script_CreateAndUpdateSiteList.Id)"
+ $siteDesign =$siteDesign | ConvertFrom-Json
+ 
+ 
+ #set design on site collection
+ m365 spo sitedesign set --id $siteDesign.Id --title "DevGods site design from cli" --version 2
+ 
+ #invoke site design
+ m365 spo sitedesign apply --id $siteDesign.Id --webUrl  $url
+ 
+ m365 logout
+
+```
+[!INCLUDE [More about CLI for Microsoft 365](../../docfx/includes/MORE-CLIM365.md)]
+
+
+> [!Note]
+> PowerShell cant correctly pass json of design script if it is added directly in the code. 
+> To make this work save json files in same directory you are running script, in the code above files names "firstscript.json" and "secondscript.json"
+
+
 # [JSON Site Script](#tab/json1)
 
 ```
@@ -334,9 +391,10 @@ Stop-Transcript
         }
  ],
     "bindata": { },
-    "version": "'+$v+'"
+    "version": "1"
 }
 ```
+
 # [JSON Site Script 2](#tab/json2)
 ```
 {
@@ -375,7 +433,7 @@ Stop-Transcript
             
 ],
      "bindata": { },
-    "version": "'+$v+'"
+    "version": "1"
 }
 ```
 [!INCLUDE [More about PnP PowerShell](../../docfx/includes/MORE-PNPPS.md)]
