@@ -155,7 +155,7 @@ $row | Out-File $reportFile -Append
     | Out-File $reportFile -Append
 
 "`nPnP PowerShell: {0}`n" -f $PnPPSCount | Out-File $reportFile -Append
-"`nCli for Microsoft 365 PowerShell: {0}`n" -f $CLIPSCount | Out-File $reportFile -Append
-"`nCli for Microsoft 365 Bash: {0}`n" -f $CLIBashCount | Out-File $reportFile -Append
-"`nGraph SDK: {0}`n" -f $GraphSDKCount | Out-File $reportFile -Append
-"`nSPO Management SDK: {0}`n" -f $SPOMSCount | Out-File $reportFile -Append
+"Cli for Microsoft 365 PowerShell: {0}`n" -f $CLIPSCount | Out-File $reportFile -Append
+"Cli for Microsoft 365 Bash: {0}`n" -f $CLIBashCount | Out-File $reportFile -Append
+"Graph SDK: {0}`n" -f $GraphSDKCount | Out-File $reportFile -Append
+"SPO Management SDK: {0}`n`n" -f $SPOMSCount | Out-File $reportFile -Append
