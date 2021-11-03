@@ -287,4 +287,4 @@ Inspired by [Invoke-SPOListDesign to create instances of lists/libraires](https:
 
 
 [!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
-<img src="https://telemetry.sharepointpnp.com/script-samples/scripts/spo-add-site-design-with-custom-list" aria-hidden="true" />
+<img src="https://telemetry.sharepointpnp.com/script-samples/scripts/spo-add-list-template-with-custom-library" aria-hidden="true" />
