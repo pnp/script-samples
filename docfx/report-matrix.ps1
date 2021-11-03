@@ -70,6 +70,12 @@ Write-Host "$($files.Length) found"
 $matrixRows = @()
 $sampleCount = 0
 
+$PnPPSCount = 0
+$CLIPSCount = 0
+$CLIBashCount = 0
+$GraphSDKCount = 0
+$SPOMSCount = 0
+
 $files | Foreach-Object {
 
     # Skip these
@@ -92,25 +98,30 @@ $files | Foreach-Object {
     if($content.Contains("#tab/pnpps")){  
         $PnPPS = $true
         $sampleCount++
+        $PnPPSCount++
     }
     if($content.Contains("#tab/cli-m365-ps")){  
         $CLIPS = $true  
         $sampleCount++
+        $CLIPSCount++
     }
     if($content.Contains("#tab/cli-m365-bash") -or
         $content.Contains("#tab/m365cli-bash")){ 
         
         $CLIBash = $true 
         $sampleCount++
+        $CLIBashCount++
     }
 
     if($content.Contains("#tab/graphps")){ 
         $GraphSDK = $true
         $sampleCount++
+        $GraphSDKCount++
     }  
     if($content.Contains("#tab/spoms-ps")){ 
         $SPOMS = $true
         $sampleCount++
+        $SPOMSCount++
     }
     
     $status = [PSCustomObject]@{
@@ -134,6 +145,11 @@ $matrixRows | ForEach-Object{
 
     $row | Out-File $reportFile -Append
 }
+
+# Counts
+$row = "| - | {0} | {1} | {2} | {3} | {4} |" -f , $PnPPSCount, $CLIPSCount, $CLIBashCount, $GraphSDKCount, $SPOMSCount
+$row | Out-File $reportFile -Append
+
 
 "`nThere are **{0}** scenarios and **{1}** scripts in the site | Generated: {2} `n" -f $matrixRows.Length, $sampleCount, [System.DateTime]::Now.ToString("dd MMM yyyy hh:mm:ss") `
     | Out-File $reportFile -Append
