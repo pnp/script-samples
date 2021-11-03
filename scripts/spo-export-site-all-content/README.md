@@ -123,7 +123,8 @@ begin {
             Write-Log "  Gathering [$Includes] Document Libraries"
         }
        
-        $files = ""
+        $files = "Write-Host 'Attention: Document libraries should exists already on the url.' `n"
+        $files += "Write-Host 'This script dont create the document libraries or replace invalid chars in the filenames'`n"
         $doclibs.foreach({
                 $list = $_
                 Write-Log "   $($list.Title) Document Library"
@@ -136,8 +137,7 @@ begin {
                 $items = $htItems.GetEnumerator().ForEach({ $_.Value }) | Sort-Object IsFolder -Descending
                 Write-Log "   All files and folders collected"
                 Write-Log "   Export [$($list.Title)] Content started ..."
-                $files = "Write-Host 'Attention: Document libraries should exists already on the url.' `n"
-                $files += "Write-Host 'This script dont create the document libraries or replace invalid chars in the filenames'`n"
+                
                 $items.foreach({
                         $item = $_
                        
