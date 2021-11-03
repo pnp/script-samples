@@ -227,7 +227,7 @@ Stop-Transcript
 
 [!INCLUDE [More about PnP PowerShell](../../docfx/includes/MORE-PNPPS.md)]
 
-# [CLI for Microsoft 365](#tab/cli-m365-ps1)
+# [CLI for Microsoft 365](#tab/cli-m365-ps)
 ```powershell
 ###### Declare and Initialize Variables ######  
 
@@ -274,11 +274,14 @@ $site = $site | ConvertFrom-Json
  m365 spo sitedesign apply --id $siteDesign.Id --webUrl  $url
  
  m365 logout
+
 ```
+[!INCLUDE [More about CLI for Microsoft 365](../../docfx/includes/MORE-CLIM365.md)]
+
+
 > [!Note]
 > PowerShell cant correctly pass json of design script if it is added directly in the code. 
 > To make this work save json files in same directory you are running script, in the code above files names "firstscript.json" and "secondscript.json"
-
 
 
 # [JSON Site Script](#tab/json1)
@@ -391,6 +394,7 @@ $site = $site | ConvertFrom-Json
     "version": "1"
 }
 ```
+
 # [JSON Site Script 2](#tab/json2)
 ```
 {
