@@ -151,6 +151,11 @@ $row = "| - | {0} | {1} | {2} | {3} | {4} |" -f $PnPPSCount, $CLIPSCount, $CLIBa
 $row | Out-File $reportFile -Append
 
 
-"`nThere are **{0}** scenarios and **{1}** scripts in the site | Generated: {2} `n" -f $matrixRows.Length, $sampleCount, [System.DateTime]::Now.ToString("dd MMM yyyy hh:mm:ss") `
+"`nThere are **{0}** scenarios and **{1}** scripts in the site | Generated: {2} `n`n" -f $matrixRows.Length, $sampleCount, [System.DateTime]::Now.ToString("dd MMM yyyy hh:mm:ss") `
     | Out-File $reportFile -Append
 
+"`nPnP PowerShell: {0}`n" -f $PnPPSCount | Out-File $reportFile -Append
+"`nCli for Microsoft 365 PowerShell: {0}`n" -f $CLIPSCount | Out-File $reportFile -Append
+"`nCli for Microsoft 365 Bash: {0}`n" -f $CLIBashCount | Out-File $reportFile -Append
+"`nGraph SDK: {0}`n" -f $GraphSDKCount | Out-File $reportFile -Append
+"`nSPO Management SDK: {0}`n" -f $SPOMSCount | Out-File $reportFile -Append
