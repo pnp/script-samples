@@ -154,8 +154,6 @@ $row | Out-File $reportFile -Append
 "`nThere are **{0}** scenarios and **{1}** scripts in the site | Generated: {2} `n`n" -f $matrixRows.Length, $sampleCount, [System.DateTime]::Now.ToString("dd MMM yyyy hh:mm:ss") `
     | Out-File $reportFile -Append
 
-"`nPnP PowerShell: {0}" -f $PnPPSCount | Out-File $reportFile -Append
-"Cli for Microsoft 365 PowerShell: {0}" -f $CLIPSCount | Out-File $reportFile -Append
-"Cli for Microsoft 365 Bash: {0}" -f $CLIBashCount | Out-File $reportFile -Append
-"Graph SDK: {0}" -f $GraphSDKCount | Out-File $reportFile -Append
-"SPO Management SDK: {0}`n" -f $SPOMSCount | Out-File $reportFile -Append
+"`rPnP PowerShell: {0} <br />Cli for Microsoft 365 PowerShell: {1}<br />Cli for Microsoft 365 Bash: {2}<br />Graph SDK: {3}<br />SPO Management SDK: {4}<br /><br />" `
+    -f $PnPPSCount, $CLIPSCount, $CLIBashCount, $GraphSDKCount, $SPOMSCount `
+    | Out-File $reportFile -Append
