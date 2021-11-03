@@ -1,0 +1,233 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html lang="en">
+  
+  <head>
+    <meta charset="utf-8">
+    <title>Create multiple document libraries using custom list template | PnP Samples </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Create multiple document libraries using custom list template | PnP Samples ">
+    <meta name="generator" content="docfx 2.56.7.0">
+    <meta name="description" content="A sample gallery of scripts to manage all things Microsoft 365.">
+  
+    <!-- Social Media -->
+    <meta property="og:locale" content="en_GB">
+    <meta property="og:title" content="Create multiple document libraries using custom list template | PnP Samples ">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://pnp.github.io/script-samples">
+    <meta property="og:image" content="https://pnp.github.io/script-samples/assets/social-media-screenshot.png">
+    <meta property="og:image:alt" content="Screenshot example of the PnP Script Samples Site">
+    <meta property="og:site_name" content="PnP Script Samples">
+    <meta property="og:description" content="A sample gallery of scripts to manage all things Microsoft 365.">
+  
+    <link rel="shortcut icon" href="https://c.s-microsoft.com/favicon.ico?v2">
+    <link rel="stylesheet" href="../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../styles/docfx.css">
+    <link rel="stylesheet" href="../styles/main.css">
+    <link rel="stylesheet" href="../styles/extra.css">
+    <link rel="stylesheet" href="../styles/filter.css">
+    <link rel="stylesheet" href="../styles/site.css">
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet"> 
+    <meta property="docfx:navrel" content="../toc.html">
+    <meta property="docfx:tocrel" content="../toc.html">
+    
+    
+    <meta property="docfx:newtab" content="true">
+    <script type="text/javascript">
+      (function(c,l,a,r,i,t,y){
+          c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+          t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+          y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+      })(window, document, "clarity", "script", "8j6pedl344");
+  </script>
+  </head>  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+             <div class="github-mark">
+              <a href="https://github.com/pnp/script-samples">
+                <img src="https://pnp.github.io/script-samples/assets/icons/github-light-64px.png" alt="GitHub Icon Image">
+              </a>
+            </div>
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../assets/logo.svg" alt="">
+              </a>    </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <label class="glyphicon glyphicon-search" for="search-query"></label>
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>      </header>
+      <div role="main" class="container body-content hide-when-search">
+        <div class="article row grid">
+          <div class="col-md-12">
+            <article class="content wrap" id="_content" data-uid="">
+                  <div class="contribution-panel mobile-hide pull-right">
+                      <a href="https://github.com/pnp/script-samples/blob/main/scripts/spo-add-multiple-document-libraries-with-list-template/README.md/#L1" title="Improve this Doc" class="improve-doc-lg"><i class="glyphicon glyphicon-pencil"></i></a>
+                  </div>
+                    <h1 id="create-multiple-document-libraries-using-custom-list-template">Create multiple document libraries using custom list template</h1>
+
+<h2 id="summary">Summary</h2>
+<p><a href="https://docs.microsoft.com/en-us/sharepoint/lists-custom-template">Creating custom list templates</a> is now possible to create both custom document libraries and lists although official microsoft documentation has not specified anything about supporting custom document library templates. This script will create multiple instances of document library by applying custom list template. Please refer to <a href="https://github.com/pnp/script-samples/blob/main/scripts/spo-add-list-template-with-custom-library/README.md/#L1">Create and add list template to SharePoint site with content types,site columns and list views</a> to add a custom list template. However there are some limitations with the list design to  set permissions, apply versionings, create indexed columns , etc.. The script calls the cmdlet Invoke-SPOListDesign iteratively and amends the document library url and display name before applying versioning settings and creating indexed columns.</p>
+<p>More about list template
+<a href="https://docs.microsoft.com/en-us/sharepoint/lists-custom-template">https://docs.microsoft.com/en-us/sharepoint/lists-custom-template</a></p>
+<div class="tabGroup" id="tabgroup_CeZOj-G++Q">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_CeZOj-G++Q_pnpps" role="tab" aria-controls="tabpanel_CeZOj-G++Q_pnpps" data-tab="pnpps" tabindex="0" aria-selected="true">PnP PowerShell</a>
+</li>
+<li role="presentation">
+<a href="#tabpanel_CeZOj-G++Q_csv" role="tab" aria-controls="tabpanel_CeZOj-G++Q_csv" data-tab="csv" tabindex="-1">CSV file sample</a>
+</li>
+</ul>
+<section id="tabpanel_CeZOj-G++Q_pnpps" role="tabpanel" data-tab="pnpps"><button class="article-clipboard" title="Copy to clipboard" data-toggle="tooltip" data-placement="top" data-clipboard-target="section[id^='tabpanel'][data-tab='pnpps'] pre">
+    <span class="glyphicon glyphicon-copy" aria-hidden="true"></span>
+    <span class="article-clipboard__message done">Copied</span>
+</button>
+
+<pre><code class="lang-powershell">[CmdletBinding()] 
+    Param(
+    [Parameter(Mandatory=$false,  Position=0)]
+    [String]$adminSiteUrl = &quot;https://&lt;tenant&gt;-admin.sharepoint.com&quot;,
+    [Parameter(Mandatory=$false,  Position=1)]
+    [String]$siteUrl =  &quot;https://&lt;tenant&gt;.sharepoint.com/sites/investment&quot;,
+    [Parameter(Mandatory=$false,  Position=2)]
+    [String]$librariesCSV =  &quot;C:\Scripts\DocumentLibraryTemplate\libraries.csv&quot;,
+
+    [Parameter(Mandatory=$false,  Position=4)]
+    [String]$listDesignId = &quot;5b38e500-0fab-4da7-b011-ad7113228920&quot; # use Get-SPOListDesign to find the Id of the list design containing the document library template
+  )
+#creating indexed columns might help with performance of large libraries, i.e. &gt;5000 files
+function Create-Index ($list, $targetFieldName)
+{
+  $targetField = Get-PnPField -List $list -Identity $targetFieldName
+  $targetField.Indexed = 1;
+  $targetField.Update();
+  $list.Context.ExecuteQuery();
+}
+
+# log file will be saved in same directory script was started from  
+$currentTime= $(get-date).ToString(&quot;yyyyMMddHHmmss&quot;)  
+$logFilePath=&quot;.\log-&quot;+$currentTime+&quot;.log&quot;  
+
+
+## Start the Transcript  
+Start-Transcript -Path $logFilePath 
+
+Connect-SPOService $adminSiteUrl 
+Connect-PnPOnline -Url $siteUrl -Interactive
+Import-Csv $librariesCSV | ForEach-Object {
+Invoke-SPOListDesign -Identity $listDesignId -WebUrl $siteUrl
+#Get library just created and update Internal name and display name, replace &lt;listName&gt; with the name specified in the custom list template
+$lib = Get-PnPList -Identity &quot;&lt;listName&gt;&quot; -Includes RootFolder
+#wait until document library has been created
+while(!$lib)
+{
+ $lib = Get-PnPList -Identity &quot;&lt;listName&gt;&quot; -Includes RootFolder
+ sleep -second 5
+}
+if($lib)
+{
+    $lib.Rootfolder.MoveTo($($_.InternalName))  
+    Invoke-PnPQuery  
+    #this will change library title  
+    Set-PnPList -Identity $lib.Id -Title $($_.DisplayName)
+    #add document library to quick launch
+    Add-PnPNavigationNode -Title $_.DisplayName -Url $($_.InternalName + &quot;/&quot;) -Location &quot;QuickLaunch&quot;
+    #enable versioning on the library
+    Set-PnPList -Identity $lib.Id -EnableVersioning $True -EnableMinorVersions $True -MajorVersions 500 -MinorVersions 10
+    Write-host &quot;`tSetting versioning to major/minor to :&quot;$_.DisplayName
+    Create-Index $lib &quot;Created By&quot;
+    Create-Index $lib &quot;Modified&quot;
+ }
+}
+
+
+## Disconnect the context  
+Disconnect-PnPOnline  
+ 
+## Stop Transcript  
+Stop-Transcript  
+
+</code></pre>
+</section>
+<section id="tabpanel_CeZOj-G++Q_csv" role="tabpanel" data-tab="csv" aria-hidden="true" hidden="hidden"><button class="article-clipboard" title="Copy to clipboard" data-toggle="tooltip" data-placement="top" data-clipboard-target="section[id^='tabpanel'][data-tab='csv'] pre">
+    <span class="glyphicon glyphicon-copy" aria-hidden="true"></span>
+    <span class="article-clipboard__message done">Copied</span>
+</button>
+
+<pre><code class="lang-csv">InternalName,DisplayName 
+AR,Annual Reports 
+CR,Credit Risk 
+Audit,Audit 
+PO,Purchase Orders 
+
+</code></pre>
+<h2 id="results-running-the-script">Results running the script</h2>
+<p><img src="assets/results.png" alt="Results Screenshot"></p>
+<div class="highlight-tool">
+<p>Check out the <strong>PnP PowerShell</strong> to learn more at: <a href="https://aka.ms/pnp/powershell">https://aka.ms/pnp/powershell</a></p>
+</div>
+</section>
+</div>
+<h2 id="source-credit">Source Credit</h2>
+<p>Inspired by <a href="https://reshmeeauckloo.wordpress.com/2021/10/27/invoke-spolistdesign-to-create-instances-of-lists-libraires/">Invoke-SPOListDesign to create instances of lists/libraires</a></p>
+<h2 id="contributors">Contributors</h2>
+<table>
+<thead>
+<tr>
+<th>Author(s)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Reshmee Auckloo</td>
+</tr>
+</tbody>
+</table>
+<h2 id="disclaimer">Disclaimer</h2>
+<p><strong>THESE SAMPLES ARE PROVIDED <em>AS IS</em> WITHOUT WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, INCLUDING ANY IMPLIED WARRANTIES OF FITNESS FOR A PARTICULAR PURPOSE, MERCHANTABILITY, OR NON-INFRINGEMENT.</strong></p>
+<img src="https://telemetry.sharepointpnp.com/script-samples/scripts/spo-add-multiple-document-libraries-with-list-template" aria-hidden="true">
+</article>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            <span>Script Samples<br>Generated by <strong><a href='https://dotnet.github.io/docfx' alt='Doc FX Website'>DocFX</a></strong> with <strong><a href='https://ovasquez.github.io/docfx-material' alt='DocFx Material Theme'>Material UI</a></strong></span>
+            
+            <!-- <img src="https://telemetry.sharepointpnp.com/@pnp.github.io/index/" alt="spacer"> -->
+          </div>
+        </div>
+      </footer>    </div>
+    
+    <script type="text/javascript" src="../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+    
+    <script type="text/javascript" src="../styles/clipboard.min.js"></script>
+    <script type="text/javascript" src="../styles/isotope.pkgd.min.js"></script>
+    <script type="text/javascript" src="../styles/loadsamples.js"></script>
+    <script type="text/javascript" src="../styles/filtersamples.js"></script>
+
+  </body>
+</html>
