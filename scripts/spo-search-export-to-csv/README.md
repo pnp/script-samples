@@ -2,7 +2,7 @@
 plugin: add-to-gallery
 ---
 
-# Run A Seach Query And Export To CSV
+# Run A Search Query And Export To CSV
 
 ## Summary
 
@@ -50,6 +50,9 @@ foreach ($row in $search.ResultRows) {
 
 $itemsToSave | Export-Csv -Path "SearchResults.csv" -NoTypeInformation
 ```
+[!INCLUDE [More about PnP PowerShell](../../docfx/includes/MORE-PNPPS.md)]
+***
+
 
 ## Contributors
 
