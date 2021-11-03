@@ -147,7 +147,7 @@ $matrixRows | ForEach-Object{
 }
 
 # Counts
-$row = "| - | {0} | {1} | {2} | {3} | {4} |" -f , $PnPPSCount, $CLIPSCount, $CLIBashCount, $GraphSDKCount, $SPOMSCount
+$row = "| - | {0} | {1} | {2} | {3} | {4} |" -f $PnPPSCount, $CLIPSCount, $CLIBashCount, $GraphSDKCount, $SPOMSCount
 $row | Out-File $reportFile -Append
 
 
