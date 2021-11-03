@@ -104,11 +104,9 @@ begin {
         Write-Log "    End"
     } 
  
-
     $env:functionName = ""
     $env:MainFunctionName = ""
-
-    $msg = "`n`r
+    $msg = "`n`r`n`r
 
     █▀█ █▄░█ █▀█ █▀▀ ▄▀█ █▄░█ █▀▄ █▄█
     █▀▀ █░▀█ █▀▀ █▄▄ █▀█ █░▀█ █▄▀ ░█░  `n    MSTeam Builder: `n`r   ...aka ... [team-clone-team]
