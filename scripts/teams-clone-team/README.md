@@ -30,7 +30,7 @@ param (
     [Parameter(Mandatory = $true)]
     [string]$Tenant ,
     [Parameter(Mandatory = $true)]
-    [string]$Url = "https://excelssior.sharepoint.com",
+    [string]$Url = "",
     [Parameter(Mandatory = $true)]
     [string]$Team ,
     [Parameter(Mandatory = $true)]
