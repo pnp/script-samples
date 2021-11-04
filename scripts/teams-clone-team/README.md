@@ -30,7 +30,7 @@ param (
     [Parameter(Mandatory = $true)]
     [string]$Tenant ,
     [Parameter(Mandatory = $true)]
-    [string]$Url = "",
+    [string]$Url,
     [Parameter(Mandatory = $true)]
     [string]$Team ,
     [Parameter(Mandatory = $true)]
