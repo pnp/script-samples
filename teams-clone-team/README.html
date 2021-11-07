@@ -84,6 +84,7 @@
 <h2 id="summary">Summary</h2>
 <p>This script allow us to clone an existing team into a new one with changed properties.</p>
 <p>On the new to be &quot;cloned&quot; team we can define name, description, visibility and &quot;parts to clone&quot; (&quot;Apps&quot;,&quot;Tabs&quot;,&quot;Settings&quot;,&quot;Channels&quot;,  &quot;Members&quot;)</p>
+<p>Latest update, added the -IncludeContent  switch ... allowing to actual clone structure and content !!</p>
 <p>The script is a subset of the SPO powershell packages with content (PnPCandy) concept already been used across many projects.</p>
 <p>Excelsior, hum? :P</p>
 <div class="tabGroup" id="tabgroup_CeZOj-G++Q">
@@ -98,71 +99,130 @@
 </button>
 
 <pre><code class="lang-powershell">
+
+# 2021-11-02 Added better logging Teams and  provision validation
+# 2021-11-02 Added IncludeContent switch
 [CmdletBinding()]
 param (
     [Parameter(Mandatory = $true)]
-    [string]$Tenant,
+    [string]$Tenant ,
     [Parameter(Mandatory = $true)]
     [string]$Url,
     [Parameter(Mandatory = $true)]
     [string]$Team ,
-    [Parameter(Mandatory = $True)]
+    [Parameter(Mandatory = $true)]
     [string]$NewTeamName,
-    [Parameter(Mandatory = $false)]
+    [Parameter(Mandatory = $true)]
     [string]$NewTeamDescription ,
-    [Parameter(Mandatory = $false)]
+    [Parameter(Mandatory = $true)]
     [string]$NewMailNickname,
     [Parameter(Mandatory = $true)]
     [ValidateSet(&quot;Private&quot;, &quot;Public&quot;)]
     [string]$NewTeamVisibility,
     [Parameter(Mandatory = $false)]
     [ValidateSet(&quot;Apps&quot;, &quot;Tabs&quot;, &quot;Settings&quot;, &quot;Channels&quot;, &quot;Members&quot;)]
-    [string[]]$PartsToClone = (&quot;Apps&quot;, &quot;Tabs&quot;, &quot;Settings&quot;, &quot;Channels&quot;, &quot;Members&quot;)
+    [string[]]$PartsToClone = (&quot;Apps&quot;, &quot;Tabs&quot;, &quot;Settings&quot;, &quot;Channels&quot;, &quot;Members&quot;),
+    [Parameter(Mandatory = $false)]
+    [switch]$IncludeContent 
+
 )
 begin {
     $ErrorActionPreference = &quot;Stop&quot;
     Import-Module PnP.PowerShell
+    # Write message to string or log file if its defined
+    function Write-Log($msg) {
+        
+        $message = &quot;$($env:MainFunctionName)$($env:FunctionName) $msg&quot;
+        $message = $message.Trim()
+        Write-Host ($message)
+        if ($Logfile.Length -gt 0) {
+            Add-Content -Path $Logfile -Value $message -Force
+        }
+    }
+    
+    Function Get-FoldersFiles($folderUrl, [ref] $outAssets) {
+        $items = Get-PnPFolderItem -FolderSiteRelativeUrl $folderUrl -ItemType All    
+        # Loop through the folders  
+        foreach ($asset in $items) { 
+            # dont collect forms document library   
+            if ($asset.Name -ne &quot;Forms&quot;) {               
+                $newItemURL = $folderUrl + &quot;/&quot; + $asset.Name   
+                $item = New-Object PSObject
+                $item | Add-Member -MemberType NoteProperty -Name 'ServerRelativeUrl' -Value $asset.ServerRelativeUrl
+                $item | Add-Member -MemberType NoteProperty -Name 'LocalPath' -Value ($newItemURL -replace &quot;/&quot;, &quot;\&quot;)
+               
+                $item | Add-Member -MemberType NoteProperty -Name 'IsFolder' -Value  ($null -ne $asset.ItemCount)
+                $item | Add-Member -MemberType NoteProperty -Name 'Leaf' -Value  ($newItemURL | Split-Path -Leaf  )
+                
+                $item | Add-Member -MemberType NoteProperty -Name 'RemotePath' -Value ($newItemURL | Split-Path) #(($newItemURL | Split-Path) -replace &quot;\\&quot;, &quot;/&quot;)
+                [Hashtable] $t = $outAssets.Value
+                $t.Add($asset.ServerRelativeUrl, $item)
+                if ($null -ne $asset.ItemCount) {
+                    Write-Log  &quot;   Collecting  $newItemURL&quot;
+                    Get-FoldersFiles -folderUrl $newItemURL -outAssets ([ref]$t)
+                }  
+            }
+        }
+    } 
+    Function Add-Content([string] $source , [string] $destination) {
 
-    $msg = &quot;`n`r
+        Write-Log &quot;    Start&quot;
+        Write-Log &quot;    Content from $source will be cloned to $destination&quot;
+        ## Get all document libraries
+        Connect-PnPOnline -Url $source -Interactive
+        $doclib = Get-PnPList -Includes RootFolder | where-object { $_.BaseTemplate -eq 101 -and $_.Title -eq &quot;Documents&quot; }
+        $folderDest = ($destination + &quot;/&quot; + (Get-PnPProperty -ClientObject $doclib.RootFolder -Property Name))
+        $subfolders = Get-PnPFolder -List $doclib 
+        $subfolders.foreach({
+                Write-Log (&quot;     $($_.ServerRelativeUrl) cloned to $folderDest&quot;)  
+                Copy-PnPFile -SourceUrl $_.ServerRelativeUrl -TargetUrl $folderDest -OverwriteIfAlreadyExists -Force   
+            })
+        Write-Log &quot;    All content was cloned ! &quot;
+        Write-Log &quot;    End&quot;
+    } 
+ 
+    $env:functionName = &quot;&quot;
+    $env:MainFunctionName = &quot;&quot;
+    $msg = &quot;`n`r`n`r
 
     █▀█ █▄░█ █▀█ █▀▀ ▄▀█ █▄░█ █▀▄ █▄█
-    █▀▀ █░▀█ █▀▀ █▄▄ █▀█ █░▀█ █▄▀ ░█░  `n    MSTeam Builder  `n`n    ...aka ... [team-clone-team]
+    █▀▀ █░▀█ █▀▀ █▄▄ █▀█ █░▀█ █▄▀ ░█░  `n    MSTeam Builder: `n`r   ...aka ... [team-clone-team]
     `n&quot;
     $msg += ('#' * 70) + &quot;`n&quot;
-
     Write-Output  $msg
     
+    $env:functionName = &quot;[Clone-Team]&quot;
     #Validate if PartsToClone has duplicate values 
     $tmp = $PartsToClone | Group-Object | Where-Object -Property Count -gt 1
     if ($null -ne $tmp) {
         throw &quot;PartsToClone : The following values are duplicated: $($tmp.Name -join ', ')&quot;
     }
-    Write-Output &quot;Connecting to $Url&quot;
+    Write-Log &quot;Start&quot;
+    Write-Log &quot; Connecting to $Url&quot;
     Connect-PnPOnline -Url $Url -Interactive -Tenant $Tenant
- 
-    $accesstoken = Get-PnPGraphAccessToken
+    $accesstoken = Get-PnPAccessToken
+    
 }
 process {
+
+    Write-Log &quot;   Get Team by name or Id [$team]&quot;
+    $existingTeam = Get-PnPMicrosoft365Group  -IncludeSiteUrl | Where-object { $_.HasTeam -and (($_.id -eq $Team) -or ($_.Displayname -eq $Team)) } | Select-Object Id, DisplayName, SiteUrl
    
-    Write-Output &quot; Get Team by name or Id [$team]&quot;
-    $existingTeam = Get-PnPMicrosoft365Group  -IncludeSiteUrl | Where-object { $_.HasTeam -and (($_.id -eq $Team) -or ($_.Displayname -eq $Team)) } | Select-Object Id, DisplayName
-   
-    $URL = &quot;https://graph.microsoft.com/v1.0/teams/$($existingTeam.Id)/clone&quot;  
-    
+    $cloneUrl = &quot;https://graph.microsoft.com/beta/teams/$($existingTeam.Id)/clone&quot;  
    
     $NewTeamDescription = $NewTeamDescription.Trim()
     if ($NewTeamDescription.Trim().Length -eq 0) { 
-        Write-Output (&quot; Fill in description if empty&quot;)
+        Write-Log (&quot;   Fill in description if empty&quot;)
         $NewTeamDescription = $NewTeamName
     }
-    Write-Output (&quot; Cleanup MailNickname (remove spaces)&quot;)
+    Write-Log (&quot;   Cleanup MailNickname (remove spaces)&quot;)
     $NewMailNickname = $NewMailNickname.Trim().Replace(&quot; &quot;, &quot;&quot;)
     if ($NewMailNickname.Trim().Length -eq 0) {
         $NewMailNickname = $NewTeamName.ToLower()
     }
     $tmp = ($PartsToClone -join &quot;,&quot;).ToLower()
     if ($tmp.Trim().Length -eq 0) {
-        Write-Output (&quot; Parts To Clone if empty&quot;)
+        Write-Log (&quot;   Parts To Clone if empty&quot;)
         $PartsToClone = (&quot;Apps&quot;, &quot;Tabs&quot;, &quot;Settings&quot;, &quot;Channels&quot;, &quot;Members&quot;)
         $PartsToClone = ($PartsToClone -join &quot;,&quot;).ToLower()
     }
@@ -174,11 +234,41 @@ process {
         &quot;partsToClone&quot;: &quot;apps,tabs,settings,channels,members&quot;,
         &quot;visibility&quot;: &quot;'+ $NewTeamVisibility + '&quot;
         }'
-    Write-Output (&quot; Clone new Team:$NewTeamName&quot;)
-    Invoke-RestMethod -Headers @{Authorization = &quot;Bearer $accesstoken&quot;; &quot;Content-Type&quot; = &quot;application/json&quot; } `
-        -Uri $URL -Body $newTeam -Method POST 
-    Write-Output (&quot; Team [$NewTeamName] was cloned from [$($existingTeam.DisplayName)]&quot;)
+    Write-Log (&quot;   Clone new Team:$NewTeamName&quot;)
+
+    ## Changed from Rest to WebRequest since Invoke-Rest doesn't return Headers
+    $r = Invoke-WebRequest -Headers @{Authorization = &quot;Bearer $accesstoken&quot;; &quot;Content-Type&quot; = &quot;application/json&quot; } `
+        -Uri $cloneUrl -Body $newTeam -Method POST 
+    
+    #Cloning is a long-running operation. After the POST clone returns, 
+    #We need to GET the operation to see if it's 'running' or 'succeeded' or 'failed'. 
+    #We should continue to GET until the status is not 'running'. 
+    #The recommended delay between GETs is 5 seconds.   
+    Start-Sleep 15
+    $getUrl = &quot;https://graph.microsoft.com/beta&quot; + $r.Headers.Location   
+    $result = Invoke-RestMethod -Headers @{Authorization = &quot;Bearer $accesstoken&quot;; &quot;Content-Type&quot; = &quot;application/json&quot; } `
+        -Uri $getUrl  -Method Get 
+
+    while ($result.status -eq &quot;inProgress&quot;) {
+        Start-Sleep 5    
+        $result = Invoke-RestMethod -Headers @{Authorization = &quot;Bearer $accesstoken&quot;; &quot;Content-Type&quot; = &quot;application/json&quot; } `
+            -Uri $getUrl  -Method Get 
+        Write-Log (&quot;   Provisioning team ...&quot; + $result.status)
+    }  
+
+    if ($IncludeContent) {
+        Write-Log (&quot;   IncludeContent switch was request&quot;)
+        Write-Log (&quot;   Copy Content from [$Team] to [$NewTeamName]&quot;)
+        Write-Log (&quot;   Disconnect and Reconnect in order to get latest created team&quot;)
+        Connect-PnPOnline -Url $Url -Interactive -Tenant $Tenant
+        $clonedTeam = Get-PnPMicrosoft365Group  -IncludeSiteUrl -Identity $result.targetResourceId  
+        Connect-PnPOnline -Url $clonedTeam.SiteUrl -Interactive -Tenant $Tenant
+        $destinationUrl = (Get-PnPWeb).ServerRelativeUrl
+        Add-Content -source $existingTeam.SiteUrl -destination $destinationUrl
+    }
+    Write-Log (&quot;  Team [$NewTeamName] was cloned from [$($existingTeam.DisplayName)]&quot;)
     Disconnect-PnPOnline
+    Write-Log (&quot;Disconnected&quot;)
 }
 
 </code></pre>
