@@ -160,6 +160,14 @@
     "helpUrl": "https://pnp.github.io/powershell/cmdlets/Add-PnPPlannerBucket.html"
   },
   {
+    "cmd": "Add-PnPPlannerRoster",
+    "helpUrl": "https://pnp.github.io/powershell/cmdlets/Add-PnPPlannerRoster.html"
+  },
+  {
+    "cmd": "Add-PnPPlannerRosterMember",
+    "helpUrl": "https://pnp.github.io/powershell/cmdlets/Add-PnPPlannerRosterMember.html"
+  },
+  {
     "cmd": "Add-PnPPlannerTask",
     "helpUrl": "https://pnp.github.io/powershell/cmdlets/Add-PnPPlannerTask.html"
   },
@@ -356,6 +364,10 @@
     "helpUrl": "https://pnp.github.io/powershell/cmdlets/Copy-PnPItemProxy.html"
   },
   {
+    "cmd": "Copy-PnPList",
+    "helpUrl": "https://pnp.github.io/powershell/cmdlets/Copy-PnPList.html"
+  },
+  {
     "cmd": "Deny-PnPTenantServicePrincipalPermissionRequest",
     "helpUrl": "https://pnp.github.io/powershell/cmdlets/Deny-PnPTenantServicePrincipalPermissionRequest.html"
   },
@@ -366,6 +378,10 @@
   {
     "cmd": "Disable-PnPFlow",
     "helpUrl": "https://pnp.github.io/powershell/cmdlets/Disable-PnPFlow.html"
+  },
+  {
+    "cmd": "Disable-PnPPageScheduling",
+    "helpUrl": "https://pnp.github.io/powershell/cmdlets/Disable-PnPPageScheduling.html"
   },
   {
     "cmd": "Disable-PnPPowerShellTelemetry",
@@ -398,6 +414,10 @@
   {
     "cmd": "Enable-PnPFlow",
     "helpUrl": "https://pnp.github.io/powershell/cmdlets/Enable-PnPFlow.html"
+  },
+  {
+    "cmd": "Enable-PnPPageScheduling",
+    "helpUrl": "https://pnp.github.io/powershell/cmdlets/Enable-PnPPageScheduling.html"
   },
   {
     "cmd": "Enable-PnPPowerShellTelemetry",
@@ -446,10 +466,6 @@
   {
     "cmd": "Find-PnPFile",
     "helpUrl": "https://pnp.github.io/powershell/cmdlets/Find-PnPFile.html"
-  },
-  {
-    "cmd": "Get-PnPAADUser",
-    "helpUrl": "https://pnp.github.io/powershell/cmdlets/Get-PnPAADUser.html"
   },
   {
     "cmd": "Get-PnPAccessToken",
@@ -520,8 +536,8 @@
     "helpUrl": "https://pnp.github.io/powershell/cmdlets/Get-PnPAzureADGroupOwner.html"
   },
   {
-    "cmd": "Get-PnPAzureADUser.ps1",
-    "helpUrl": "https://pnp.github.io/powershell/cmdlets/Get-PnPAzureADUser.ps1"
+    "cmd": "Get-PnPAzureADUser",
+    "helpUrl": "https://pnp.github.io/powershell/cmdlets/Get-PnPAzureADUser.html"
   },
   {
     "cmd": "Get-PnPAzureCertificate",
@@ -768,12 +784,28 @@
     "helpUrl": "https://pnp.github.io/powershell/cmdlets/Get-PnPPlannerBucket.html"
   },
   {
+    "cmd": "Get-PnPPlannerConfiguration",
+    "helpUrl": "https://pnp.github.io/powershell/cmdlets/Get-PnPPlannerConfiguration.html"
+  },
+  {
     "cmd": "Get-PnPPlannerPlan",
     "helpUrl": "https://pnp.github.io/powershell/cmdlets/Get-PnPPlannerPlan.html"
   },
   {
+    "cmd": "Get-PnPPlannerRosterMember",
+    "helpUrl": "https://pnp.github.io/powershell/cmdlets/Get-PnPPlannerRosterMember.html"
+  },
+  {
+    "cmd": "Get-PnPPlannerRosterPlan",
+    "helpUrl": "https://pnp.github.io/powershell/cmdlets/Get-PnPPlannerRosterPlan.html"
+  },
+  {
     "cmd": "Get-PnPPlannerTask",
     "helpUrl": "https://pnp.github.io/powershell/cmdlets/Get-PnPPlannerTask.html"
+  },
+  {
+    "cmd": "Get-PnPPlannerUserPolicy",
+    "helpUrl": "https://pnp.github.io/powershell/cmdlets/Get-PnPPlannerUserPolicy.html"
   },
   {
     "cmd": "Get-PnPPowerPlatformEnvironment",
@@ -1096,6 +1128,10 @@
     "helpUrl": "https://pnp.github.io/powershell/cmdlets/Get-PnPWeb.html"
   },
   {
+    "cmd": "Get-PnPWebHeader",
+    "helpUrl": "https://pnp.github.io/powershell/cmdlets/Get-PnPWebHeader.html"
+  },
+  {
     "cmd": "Get-PnPWebhookSubscriptions",
     "helpUrl": "https://pnp.github.io/powershell/cmdlets/Get-PnPWebhookSubscriptions.html"
   },
@@ -1162,6 +1198,10 @@
   {
     "cmd": "Invoke-PnPSiteDesign",
     "helpUrl": "https://pnp.github.io/powershell/cmdlets/Invoke-PnPSiteDesign.html"
+  },
+  {
+    "cmd": "Invoke-PnPSiteScript",
+    "helpUrl": "https://pnp.github.io/powershell/cmdlets/Invoke-PnPSiteScript.html"
   },
   {
     "cmd": "Invoke-PnPSiteSwap",
@@ -1554,6 +1594,14 @@
   {
     "cmd": "Remove-PnPPlannerPlan",
     "helpUrl": "https://pnp.github.io/powershell/cmdlets/Remove-PnPPlannerPlan.html"
+  },
+  {
+    "cmd": "Remove-PnPPlannerRoster",
+    "helpUrl": "https://pnp.github.io/powershell/cmdlets/Remove-PnPPlannerRoster.html"
+  },
+  {
+    "cmd": "Remove-PnPPlannerRosterMember",
+    "helpUrl": "https://pnp.github.io/powershell/cmdlets/Remove-PnPPlannerRosterMember.html"
   },
   {
     "cmd": "Remove-PnPPlannerTask",
@@ -1992,12 +2040,20 @@
     "helpUrl": "https://pnp.github.io/powershell/cmdlets/Set-PnPPlannerBucket.html"
   },
   {
+    "cmd": "Set-PnPPlannerConfiguration",
+    "helpUrl": "https://pnp.github.io/powershell/cmdlets/Set-PnPPlannerConfiguration.html"
+  },
+  {
     "cmd": "Set-PnPPlannerPlan",
     "helpUrl": "https://pnp.github.io/powershell/cmdlets/Set-PnPPlannerPlan.html"
   },
   {
     "cmd": "Set-PnPPlannerTask",
     "helpUrl": "https://pnp.github.io/powershell/cmdlets/Set-PnPPlannerTask.html"
+  },
+  {
+    "cmd": "Set-PnPPlannerUserPolicy",
+    "helpUrl": "https://pnp.github.io/powershell/cmdlets/Set-PnPPlannerUserPolicy.html"
   },
   {
     "cmd": "Set-PnPPropertyBagValue",
@@ -2158,6 +2214,10 @@
   {
     "cmd": "Set-PnPWeb",
     "helpUrl": "https://pnp.github.io/powershell/cmdlets/Set-PnPWeb.html"
+  },
+  {
+    "cmd": "Set-PnPWebHeader",
+    "helpUrl": "https://pnp.github.io/powershell/cmdlets/Set-PnPWebHeader.html"
   },
   {
     "cmd": "Set-PnPWebhookSubscription",
