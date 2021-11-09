@@ -102,6 +102,9 @@
 <li role="presentation">
 <a href="#tabpanel_CeZOj-G++Q_pnpps" role="tab" aria-controls="tabpanel_CeZOj-G++Q_pnpps" data-tab="pnpps" tabindex="0" aria-selected="true">PnP PowerShell</a>
 </li>
+<li role="presentation">
+<a href="#tabpanel_CeZOj-G++Q_cli-m365-ps" role="tab" aria-controls="tabpanel_CeZOj-G++Q_cli-m365-ps" data-tab="cli-m365-ps" tabindex="-1">CLI for Microsoft 365 with PowerShell</a>
+</li>
 </ul>
 <section id="tabpanel_CeZOj-G++Q_pnpps" role="tabpanel" data-tab="pnpps"><button class="article-clipboard" title="Copy to clipboard" data-toggle="tooltip" data-placement="top" data-clipboard-target="section[id^='tabpanel'][data-tab='pnpps'] pre">
     <span class="glyphicon glyphicon-copy" aria-hidden="true"></span>
@@ -162,6 +165,82 @@ Write-Host &quot;list items created...&quot; -ForegroundColor Yellow
 <p>Check out the <strong>PnP PowerShell</strong> to learn more at: <a href="https://aka.ms/pnp/powershell">https://aka.ms/pnp/powershell</a></p>
 </div>
 </section>
+<section id="tabpanel_CeZOj-G++Q_cli-m365-ps" role="tabpanel" data-tab="cli-m365-ps" aria-hidden="true" hidden="hidden"><button class="article-clipboard" title="Copy to clipboard" data-toggle="tooltip" data-placement="top" data-clipboard-target="section[id^='tabpanel'][data-tab='cli-m365-ps'] pre">
+    <span class="glyphicon glyphicon-copy" aria-hidden="true"></span>
+    <span class="article-clipboard__message done">Copied</span>
+</button>
+
+<pre><code class="lang-powershell">
+$siteUrl = #siteUrl
+$listName = &quot;Employees&quot;
+
+$m365Status = m365 status
+if ($m365Status -eq &quot;Logged Out&quot;) {
+    m365 login
+}
+ 
+#create a list  
+Write-Host &quot;Creating list...&quot; -ForegroundColor Yellow  
+
+m365 spo list add --title $listName --baseTemplate &quot;GenericList&quot; --webUrl $siteUrl
+Write-Host &quot;List created...&quot; -ForegroundColor Yellow  
+ 
+#create fields  
+Write-Host &quot;Creating fields...&quot; -ForegroundColor Yellow  
+
+$firstNameXml = &quot;&lt;Field Type='Text' DisplayName='FirstName' Required='FALSE' EnforceUniqueValues='FALSE' Indexed='FALSE' ID='{6085e32a-339b-4da7-ab6d-c1e013e5ab27}' SourceID='{4f118c69-66e0-497c-96ff-d7855ce0713d}' StaticName='FirstName' Name='FirstName'&gt;&lt;/Field&gt;&quot;
+m365 spo field add --webUrl $siteUrl --listTitle $listName --xml $firstNameXml
+m365 spo list view field add --webUrl $siteUrl --listTitle $listName --viewTitle 'All Items' --fieldTitle 'FirstName'
+
+$lastNameXml = &quot;&lt;Field Type='Text' DisplayName='LastName' Required='FALSE' EnforceUniqueValues='FALSE' Indexed='FALSE' ID='{1b9be491-0a09-4381-b9e2-7a980a5b8ad9}' SourceID='{4f118c69-66e0-497c-96ff-d7855ce0713d}' StaticName='LastName' Name='LastName'&gt;&lt;/Field&gt;&quot;
+m365 spo field add --webUrl $siteUrl --listTitle $listName --xml $lastNameXml
+m365 spo list view field add --webUrl $siteUrl --listTitle $listName --viewTitle 'All Items' --fieldTitle 'LastName'
+
+$locationXml = &quot;&lt;Field Type='Text' DisplayName='Location' Required='FALSE' EnforceUniqueValues='FALSE' Indexed='FALSE' ID='{b801e08f-c9e1-406d-a044-237f576157be}' SourceID='{4f118c69-66e0-497c-96ff-d7855ce0713d}' StaticName='Location' Name='Location'&gt;&lt;/Field&gt;&quot;
+m365 spo field add --webUrl $siteUrl --listTitle $listName --xml $locationXml
+m365 spo list view field add --webUrl $siteUrl --listTitle $listName --viewTitle 'All Items' --fieldTitle 'Location'
+
+$jobTitleXml = &quot;&lt;Field Type='Text' DisplayName='JobTitle' Required='FALSE' EnforceUniqueValues='FALSE' Indexed='FALSE' ID='{127da56f-8d7f-4f36-a461-afab9f5c6f34}' SourceID='{4f118c69-66e0-497c-96ff-d7855ce0713d}' StaticName='JobTitle' Name='JobTitle'&gt;&lt;/Field&gt;&quot;
+m365 spo field add --webUrl $siteUrl --listTitle $listName --xml $jobTitleXml
+m365 spo list view field add --webUrl $siteUrl --listTitle $listName --viewTitle 'All Items' --fieldTitle 'JobTitle'
+
+$hireDateXml = &quot;&lt;Field Type='DateTime' DisplayName='HireDate' Required='FALSE' EnforceUniqueValues='FALSE' Indexed='FALSE' ID='{41351989-e693-430d-9c40-d4e19c47df08}' SourceID='{4f118c69-66e0-497c-96ff-d7855ce0713d}' StaticName='HireDate' Name='HireDate'&gt;&lt;/Field&gt;&quot;
+m365 spo field add --webUrl $siteUrl --listTitle $listName --xml $hireDateXml
+m365 spo list view field add --webUrl $siteUrl --listTitle $listName --viewTitle 'All Items' --fieldTitle 'HireDate'
+
+$birthDateXml = &quot;&lt;Field Type='DateTime' DisplayName='BirthDate' Required='FALSE' EnforceUniqueValues='FALSE' Indexed='FALSE' ID='{b0541eb4-d16f-4b44-a92a-d36a2e3f88ba}' SourceID='{4f118c69-66e0-497c-96ff-d7855ce0713d}' StaticName='BirthDate' Name='BirthDate'&gt;&lt;/Field&gt;&quot;
+m365 spo field add --webUrl $siteUrl --listTitle $listName --xml $birthDateXml
+m365 spo list view field add --webUrl $siteUrl --listTitle $listName --viewTitle 'All Items' --fieldTitle 'BirthDate'
+ 
+Write-Host &quot;Fields created...&quot; -ForegroundColor Yellow  
+  
+$filePath = &quot;C:\workspace\a_Local\cli_sample\Intranet Employee Report.csv&quot;  
+ 
+#Import CSV  
+$CSVRecords = Import-Csv $FilePath  
+Write-host -f Yellow &quot;$($CSVRecords.count) Rows Found!&quot;  
+ 
+#create list items  
+Write-Host &quot;Creating list items...&quot; -ForegroundColor Yellow  
+foreach ($Record in $CSVRecords) {  
+    $title = $Record.'FirstName' + &quot; &quot; + $Record.'LastName'
+    $FirstName = $Record.'FirstName'
+    $LastName = $Record.'LastName'
+    $Location = $Record.'Location'
+    $JobTitle = $Record.'JobTitle'
+    $BirthDate = $Record.'BirthDate'
+    $HireDate = $Record.'HireDate'
+    m365 spo listitem add --listTitle $listName --webUrl $siteUrl --Title $title --FirstName $FirstName --LastName $LastName --Location $Location --JobTitle $JobTitle --BirthDate $BirthDate --HireDate $HireDate
+}  
+  
+Write-Host &quot;list items created...&quot; -ForegroundColor Yellow  
+
+
+</code></pre>
+<div class="highlight-tool">
+<p>Check out the <strong>CLI for Microsoft 365</strong> to learn more at: <a href="https://aka.ms/cli-m365">https://aka.ms/cli-m365</a></p>
+</div>
+</section>
 </div>
 <h2 id="source-credit">Source Credit</h2>
 <p>Sample first appeared on <a href="https://www.c-sharpcorner.com/article/export-csv-to-sharepoint-list-data-using-pnp-powershell/">https://www.c-sharpcorner.com/article/export-csv-to-sharepoint-list-data-using-pnp-powershell/</a></p>
@@ -175,6 +254,9 @@ Write-Host &quot;list items created...&quot; -ForegroundColor Yellow
 <tbody>
 <tr>
 <td>Chandani Prajapati</td>
+</tr>
+<tr>
+<td><a href="https://github.com/Adam-it">Adam Wójcik</a></td>
 </tr>
 </tbody>
 </table>
