@@ -24,64 +24,18 @@ Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Maecenas porttitor con
 
 ```
 [!INCLUDE [More about PnP PowerShell](../../docfx/includes/MORE-PNPPS.md)]
-
-# [CLI for Microsoft 365 using PowerShell](#tab/cli-m365-ps)
-
-```powershell
-
-<your powershell script>
-
-```
-
-# [CLI for Microsoft 365 using Bash](#tab/cli-m365-bash)
-
-```bash
-
-<your bash script>
-
-```
-
-[!INCLUDE [More about CLI for Microsoft 365](../../docfx/includes/MORE-CLIM365.md)]
-
-# [Microsoft Graph PowerShell](#tab/graphps)
-
-```powershell
-
-<your powershell script>
-
-```
-[!INCLUDE [More about Microsoft Graph PowerShell SDK](../../docfx/includes/MORE-GRAPHSDK.md)]
-
-# [SPO Management Shell](#tab/spoms-ps)
-
-```powershell
-
-<your powershell script>
-
-```
-[!INCLUDE [More about SPO Management Shell](../../docfx/includes/MORE-SPOMS.md)]
-
-# [Azure CLI](#tab/azure-cli)
-
-```Azure CLI
-
-<your cli script>  
-
-```
-[!INCLUDE [More about Azure CLI](../../docfx/includes/MORE-AZURECLI.md)]
-***
-
+  
 ***
 
 ## Source Credit
 
-Sample first appeared on [https://pnp.github.io/cli-microsoft365/sample-scripts/spo/add-app-catalog/](https://pnp.github.io/cli-microsoft365/sample-scripts/spo/add-app-catalog/)
+Sample first appeared on [Adding the New Modern Calendar View to a SharePoint List using PnP PowerShell - Leon Armston Blog](https://www.leonarmston.com/2021/11/adding-the-new-modern-calendar-view-to-a-sharepoint-list-using-pnp-powershell/)
 
 ## Contributors
 
 | Author(s) |
 |-----------|
-| <-you-> |
+| Leon Armston |
 
 
 [!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
