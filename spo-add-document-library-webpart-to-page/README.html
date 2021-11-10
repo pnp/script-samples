@@ -89,6 +89,9 @@
 <li role="presentation">
 <a href="#tabpanel_CeZOj-G++Q_pnpps" role="tab" aria-controls="tabpanel_CeZOj-G++Q_pnpps" data-tab="pnpps" tabindex="0" aria-selected="true">PnP PowerShell</a>
 </li>
+<li role="presentation">
+<a href="#tabpanel_CeZOj-G++Q_cli-m365-ps" role="tab" aria-controls="tabpanel_CeZOj-G++Q_cli-m365-ps" data-tab="cli-m365-ps" tabindex="-1">CLI for Microsoft 365 with PowerShell</a>
+</li>
 </ul>
 <section id="tabpanel_CeZOj-G++Q_pnpps" role="tabpanel" data-tab="pnpps"><button class="article-clipboard" title="Copy to clipboard" data-toggle="tooltip" data-placement="top" data-clipboard-target="section[id^='tabpanel'][data-tab='pnpps'] pre">
     <span class="glyphicon glyphicon-copy" aria-hidden="true"></span>
@@ -122,6 +125,46 @@ foreach ($name in $ray) {
 <p>Check out the <strong>PnP PowerShell</strong> to learn more at: <a href="https://aka.ms/pnp/powershell">https://aka.ms/pnp/powershell</a></p>
 </div>
 </section>
+<section id="tabpanel_CeZOj-G++Q_cli-m365-ps" role="tabpanel" data-tab="cli-m365-ps" aria-hidden="true" hidden="hidden"><button class="article-clipboard" title="Copy to clipboard" data-toggle="tooltip" data-placement="top" data-clipboard-target="section[id^='tabpanel'][data-tab='cli-m365-ps'] pre">
+    <span class="glyphicon glyphicon-copy" aria-hidden="true"></span>
+    <span class="article-clipboard__message done">Copied</span>
+</button>
+
+<pre><code class="lang-powershell">
+$site = &quot;https://yourtenant.sharepoint.com/sites/Yoursite/&quot;
+
+$m365Status = m365 status
+if ($m365Status -eq &quot;Logged Out&quot;) {
+    m365 login
+}
+
+$ray = &quot;folder1&quot;,
+       &quot;folder2&quot;,
+       &quot;folder3&quot;
+
+foreach ($name in $ray) {
+
+    #create page
+    $fileName = &quot;$name.aspx&quot;
+    m365 spo page add --name $fileName --title $name --webUrl $site
+    
+    #add sections
+    m365 spo page section add --name $fileName --webUrl $site --sectionTemplate TwoColumn --order 1
+    
+    #add text webpart
+    m365 spo page text add --webUrl $site --pageName $fileName --text $name --section 1 --column 1
+    
+    #add doclib
+    $webpartProperties = '{\&quot;selectedListId\&quot;:\&quot;DC4B61E0-01BE-4A87-B8E1-B9AEF4E34153\&quot;,\&quot;selectedFolderPath\&quot;:\&quot;' + $name + '\&quot;,\&quot;hideCommandBar\&quot;:\&quot;false\&quot;}'
+    m365 spo page clientsidewebpart add --webUrl $site --pageName $fileName --standardWebPart List --section 1 --column 1 --webPartProperties $webpartProperties
+    m365 spo page set --name $fileName --webUrl $site --publish
+}
+
+</code></pre>
+<div class="highlight-tool">
+<p>Check out the <strong>CLI for Microsoft 365</strong> to learn more at: <a href="https://aka.ms/cli-m365">https://aka.ms/cli-m365</a></p>
+</div>
+</section>
 </div>
 <h2 id="source-credit">Source Credit</h2>
 <p>Sample first appeared on <a href="https://techcommunity.microsoft.com/t5/microsoft-365-pnp-blog/use-pnp-powershell-to-add-a-document-library-webpart-to-a-page/ba-p/2428310">Use PnP Powershell to add a document library webpart to a page (and only show a specific folder) | Tech Community</a></p>
@@ -135,6 +178,9 @@ foreach ($name in $ray) {
 <tbody>
 <tr>
 <td>Marijn Somers</td>
+</tr>
+<tr>
+<td><a href="https://github.com/Adam-it">Adam Wójcik</a></td>
 </tr>
 </tbody>
 </table>
