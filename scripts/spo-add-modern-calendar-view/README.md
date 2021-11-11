@@ -70,7 +70,7 @@ Invoke-PnPSPRestMethod -Method Post -Url "$url/_api/web/lists/GetByTitle('$listn
 
 #Optional Commands
 Set-PnPList -Identity $listname -ListExperience NewExperience # Set list experience to force the list to display in Modern
-Set-PnPView -List $list -Identity $newViewTitle -Values @{DefaultView=$true;MobileView=$true;MobileDefaultView=$true} #Set newly created view To Be Default
+Set-PnPView -List $listname -Identity $newViewTitle -Values @{DefaultView=$true;MobileView=$true;MobileDefaultView=$true} #Set newly created view To Be Default
 ```
 [!INCLUDE [More about PnP PowerShell](../../docfx/includes/MORE-PNPPS.md)]
   
