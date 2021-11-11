@@ -38,6 +38,41 @@ foreach ($name in $ray) {
 
 ```
 [!INCLUDE [More about PnP PowerShell](../../docfx/includes/MORE-PNPPS.md)]
+
+# [CLI for Microsoft 365 with PowerShell](#tab/cli-m365-ps)
+```powershell
+
+$site = "https://yourtenant.sharepoint.com/sites/Yoursite/"
+
+$m365Status = m365 status
+if ($m365Status -eq "Logged Out") {
+    m365 login
+}
+
+$ray = "folder1",
+       "folder2",
+       "folder3"
+
+foreach ($name in $ray) {
+
+    #create page
+    $fileName = "$name.aspx"
+    m365 spo page add --name $fileName --title $name --webUrl $site
+    
+    #add sections
+    m365 spo page section add --name $fileName --webUrl $site --sectionTemplate TwoColumn --order 1
+    
+    #add text webpart
+    m365 spo page text add --webUrl $site --pageName $fileName --text $name --section 1 --column 1
+    
+    #add doclib
+    $webpartProperties = '{\"selectedListId\":\"DC4B61E0-01BE-4A87-B8E1-B9AEF4E34153\",\"selectedFolderPath\":\"' + $name + '\",\"hideCommandBar\":\"false\"}'
+    m365 spo page clientsidewebpart add --webUrl $site --pageName $fileName --standardWebPart List --section 1 --column 1 --webPartProperties $webpartProperties
+    m365 spo page set --name $fileName --webUrl $site --publish
+}
+
+```
+[!INCLUDE [More about CLI for Microsoft 365](../../docfx/includes/MORE-CLIM365.md)]
 ***
 
 ## Source Credit
@@ -49,6 +84,7 @@ Sample first appeared on [Use PnP Powershell to add a document library webpart t
 | Author(s) |
 |-----------|
 | Marijn Somers |
+| [Adam Wójcik](https://github.com/Adam-it)|
 
 [!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
 <img src="https://telemetry.sharepointpnp.com/script-samples/scripts/template-script-submission" aria-hidden="true" />
