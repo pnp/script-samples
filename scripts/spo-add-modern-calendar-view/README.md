@@ -10,9 +10,9 @@ Recently we have finally been able to add a modern calendar view to a list in Sh
 
 ![Example Screenshot](assets/example.png)
 
-This script allow you to add a new modern calendar view to an existing SharePoint list. It uses the SharePoint REST API to add the view using the PnP cmdlet **Invoke-PnPSPRestMethod** as currently Modern calendar view is not available using just **Add-PnPView**.
+This script allow you to add a new modern calendar view to an existing SharePoint list. It uses the SharePoint REST API to add the view using the PnP cmdlet **Invoke-PnPSPRestMethod** as currently modern calendar view is not available using just **Add-PnPView**.
 
-Key points to note regarding the JSON body
+Key points to note regarding the JSON body:
 
 * **RowLimit** is set to zero – this is to ensure all items for the current month/week/day are fetched correctly.
 * **StartDate** (internal field name) is mapped to 0th entry in ViewFields
