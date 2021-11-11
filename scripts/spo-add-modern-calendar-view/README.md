@@ -30,8 +30,8 @@ Key points to note regarding the JSON body:
 ###### Declare and Initialize Variables ######  
 
 $url = 'https://<tenant>.sharepoint.com/sites/sitename'
-$listname = "Calendar"
-$newViewTitle = "Modern Calendar View"
+$listname = "Calendar" # Change to the SharePoint list name to be used
+$newViewTitle = "Modern Calendar View" #Change if you require a different View name
 
 
 ## Connect to SharePoint Online site  
