@@ -86,7 +86,7 @@ Set-PnPView -List $list -Identity $newViewTitle -Values @{DefaultView=$true;Mobi
 
 | Author(s) |
 |-----------|
-| Leon Armston |
+| [Leon Armston[(https://github.com/LeonArmston) |
 
 
 [!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
