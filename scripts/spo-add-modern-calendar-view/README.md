@@ -1,5 +1,5 @@
 ---
-plugin: add-to-gallery-preparation
+plugin: add-to-gallery
 ---
 
 # Adding a new modern calendar view to a SharePoint list using PnP PowerShell
