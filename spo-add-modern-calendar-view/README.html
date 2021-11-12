@@ -1,0 +1,209 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html lang="en">
+  
+  <head>
+    <meta charset="utf-8">
+    <title>Adding a new modern calendar view to a SharePoint list using PnP PowerShell | PnP Samples </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Adding a new modern calendar view to a SharePoint list using PnP PowerShell | PnP Samples ">
+    <meta name="generator" content="docfx 2.56.7.0">
+    <meta name="description" content="A sample gallery of scripts to manage all things Microsoft 365.">
+  
+    <!-- Social Media -->
+    <meta property="og:locale" content="en_GB">
+    <meta property="og:title" content="Adding a new modern calendar view to a SharePoint list using PnP PowerShell | PnP Samples ">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://pnp.github.io/script-samples">
+    <meta property="og:image" content="https://pnp.github.io/script-samples/assets/social-media-screenshot.png">
+    <meta property="og:image:alt" content="Screenshot example of the PnP Script Samples Site">
+    <meta property="og:site_name" content="PnP Script Samples">
+    <meta property="og:description" content="A sample gallery of scripts to manage all things Microsoft 365.">
+  
+    <link rel="shortcut icon" href="https://c.s-microsoft.com/favicon.ico?v2">
+    <link rel="stylesheet" href="../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../styles/docfx.css">
+    <link rel="stylesheet" href="../styles/main.css">
+    <link rel="stylesheet" href="../styles/extra.css">
+    <link rel="stylesheet" href="../styles/filter.css">
+    <link rel="stylesheet" href="../styles/site.css">
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet"> 
+    <meta property="docfx:navrel" content="../toc.html">
+    <meta property="docfx:tocrel" content="../toc.html">
+    
+    
+    <meta property="docfx:newtab" content="true">
+    <script type="text/javascript">
+      (function(c,l,a,r,i,t,y){
+          c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+          t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+          y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+      })(window, document, "clarity", "script", "8j6pedl344");
+  </script>
+  </head>  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+             <div class="github-mark">
+              <a href="https://github.com/pnp/script-samples">
+                <img src="https://pnp.github.io/script-samples/assets/icons/github-light-64px.png" alt="GitHub Icon Image">
+              </a>
+            </div>
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../assets/logo.svg" alt="">
+              </a>    </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <label class="glyphicon glyphicon-search" for="search-query"></label>
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>      </header>
+      <div role="main" class="container body-content hide-when-search">
+        <div class="article row grid">
+          <div class="col-md-12">
+            <article class="content wrap" id="_content" data-uid="">
+                  <div class="contribution-panel mobile-hide pull-right">
+                      <a href="https://github.com/pnp/script-samples/blob/main/scripts/spo-add-modern-calendar-view/README.md/#L1" title="Improve this Doc" class="improve-doc-lg"><i class="glyphicon glyphicon-pencil"></i></a>
+                  </div>
+                    <h1 id="adding-a-new-modern-calendar-view-to-a-sharepoint-list-using-pnp-powershell">Adding a new modern calendar view to a SharePoint list using PnP PowerShell</h1>
+
+<h2 id="summary">Summary</h2>
+<p>Recently we have finally been able to add a modern calendar view to a list in SharePoint Online but only through the UI. Before this a calendar view was only available in SharePoint classic mode.</p>
+<p><img src="assets/example.png" alt="Example Screenshot"></p>
+<p>This script allow you to add a new modern calendar view to an existing SharePoint list. It uses the SharePoint REST API to add the view using the PnP cmdlet <strong>Invoke-PnPSPRestMethod</strong> as currently modern calendar view is not available using just <strong>Add-PnPView</strong>.</p>
+<p>Key points to note regarding the JSON body:</p>
+<ul>
+<li><strong>RowLimit</strong> is set to zero – this is to ensure all items for the current month/week/day are fetched correctly.</li>
+<li><strong>StartDate</strong> (internal field name) is mapped to 0th entry in ViewFields</li>
+<li><strong>EndDate</strong> (internal field name) is mapped to 1st entry in ViewFields</li>
+<li><strong>ViewData</strong> has 5 FieldRef entries – 1 for month view and 2 each for week and day view. The fields are used as ‘Title’ for respective visualizations. If this is missing, you will see the popup to ‘fix’ calendar view.</li>
+<li><strong>CalendarViewStyles</strong> has 3 CalendarViewStyle entry – will be used in future. Even if this is missing, View creation will succeed.</li>
+<li><strong>ViewType2</strong> is MODERNCALENDAR</li>
+<li><strong>ViewTypeKind</strong> is 1 – which maps to HTML.</li>
+<li><strong>Query</strong> can be set if required.</li>
+</ul>
+<div class="tabGroup" id="tabgroup_CeZOj-G++Q">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_CeZOj-G++Q_pnpps" role="tab" aria-controls="tabpanel_CeZOj-G++Q_pnpps" data-tab="pnpps" tabindex="0" aria-selected="true">PnP PowerShell</a>
+</li>
+</ul>
+<section id="tabpanel_CeZOj-G++Q_pnpps" role="tabpanel" data-tab="pnpps"><button class="article-clipboard" title="Copy to clipboard" data-toggle="tooltip" data-placement="top" data-clipboard-target="section[id^='tabpanel'][data-tab='pnpps'] pre">
+    <span class="glyphicon glyphicon-copy" aria-hidden="true"></span>
+    <span class="article-clipboard__message done">Copied</span>
+</button>
+
+<pre><code class="lang-powershell">###### Declare and Initialize Variables ######  
+
+$url = 'https://&lt;tenant&gt;.sharepoint.com/sites/sitename'
+$listname = &quot;Calendar&quot; #Change to the SharePoint list name to be used
+$newViewTitle = &quot;Modern Calendar View&quot; #Change if you require a different View name
+
+
+## Connect to SharePoint Online site  
+Connect-PnPOnline -Url $url -Interactive
+
+$viewCreationJson = @&quot;
+{
+    &quot;parameters&quot;: {
+        &quot;__metadata&quot;: {
+            &quot;type&quot;: &quot;SP.ViewCreationInformation&quot;
+        },
+        &quot;Title&quot;: &quot;$newViewTitle&quot;,
+        &quot;ViewFields&quot;: {
+            &quot;__metadata&quot;: {
+                &quot;type&quot;: &quot;Collection(Edm.String)&quot;
+            },
+            &quot;results&quot;: [
+                &quot;EventDate&quot;,
+                &quot;EndDate&quot;,
+                &quot;Title&quot;
+            ]
+        },
+        &quot;ViewTypeKind&quot;: 1,
+        &quot;ViewType2&quot;: &quot;MODERNCALENDAR&quot;,
+        &quot;ViewData&quot;: &quot;&lt;FieldRef Name=\&quot;Title\&quot; Type=\&quot;CalendarMonthTitle\&quot; /&gt;&lt;FieldRef Name=\&quot;Title\&quot; Type=\&quot;CalendarWeekTitle\&quot; /&gt;&lt;FieldRef Name=\&quot;Title\&quot; Type=\&quot;CalendarWeekLocation\&quot; /&gt;&lt;FieldRef Name=\&quot;Title\&quot; Type=\&quot;CalendarDayTitle\&quot; /&gt;&lt;FieldRef Name=\&quot;Title\&quot; Type=\&quot;CalendarDayLocation\&quot; /&gt;&quot;,
+        &quot;CalendarViewStyles&quot;: &quot;&lt;CalendarViewStyle Title=\&quot;Day\&quot; Type=\&quot;day\&quot; Template=\&quot;CalendarViewdayChrome\&quot; Sequence=\&quot;1\&quot; Default=\&quot;FALSE\&quot; /&gt;&lt;CalendarViewStyle Title=\&quot;Week\&quot; Type=\&quot;week\&quot; Template=\&quot;CalendarViewweekChrome\&quot; Sequence=\&quot;2\&quot; Default=\&quot;FALSE\&quot; /&gt;&lt;CalendarViewStyle Title=\&quot;Month\&quot; Type=\&quot;month\&quot; Template=\&quot;CalendarViewmonthChrome\&quot; Sequence=\&quot;3\&quot; Default=\&quot;TRUE\&quot; /&gt;&quot;,
+        &quot;Query&quot;: &quot;&quot;,
+        &quot;Paged&quot;: true,
+        &quot;PersonalView&quot;: false,
+        &quot;RowLimit&quot;: 0
+    }
+}
+&quot;@
+
+Invoke-PnPSPRestMethod -Method Post -Url &quot;$url/_api/web/lists/GetByTitle('$listname')/Views/Add&quot; -ContentType &quot;application/json;odata=verbose&quot; -Content $viewCreationJson
+
+#Optional Commands
+Set-PnPList -Identity $listname -ListExperience NewExperience # Set list experience to force the list to display in Modern
+Set-PnPView -List $listname -Identity $newViewTitle -Values @{DefaultView=$true;MobileView=$true;MobileDefaultView=$true} #Set newly created view To Be Default
+</code></pre>
+<div class="highlight-tool">
+<p>Check out the <strong>PnP PowerShell</strong> to learn more at: <a href="https://aka.ms/pnp/powershell">https://aka.ms/pnp/powershell</a></p>
+</div>
+</section>
+</div>
+<h2 id="source-credit">Source Credit</h2>
+<ul>
+<li>Sample first appeared on <a href="https://www.leonarmston.com/2021/11/adding-the-new-modern-calendar-view-to-a-sharepoint-list-using-pnp-powershell/">Adding the New Modern Calendar View to a SharePoint List using PnP PowerShell - Leon Armston Blog</a></li>
+<li>JSON body explanation <a href="https://stackoverflow.com/questions/67271425/create-modern-calendar-view-for-sharepoint-online-list-using-the-rest-api">stackoverflow</a> - credit <a href="https://github.com/shagra-ms">@shagra-ms</a></li>
+</ul>
+<h2 id="contributors">Contributors</h2>
+<table>
+<thead>
+<tr>
+<th>Author(s)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="https://github.com/LeonArmston">Leon Armston</a></td>
+</tr>
+</tbody>
+</table>
+<h2 id="disclaimer">Disclaimer</h2>
+<p><strong>THESE SAMPLES ARE PROVIDED <em>AS IS</em> WITHOUT WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, INCLUDING ANY IMPLIED WARRANTIES OF FITNESS FOR A PARTICULAR PURPOSE, MERCHANTABILITY, OR NON-INFRINGEMENT.</strong></p>
+<img src="https://telemetry.sharepointpnp.com/script-samples/scripts/spo-add-modern-calendar-view" aria-hidden="true">
+</article>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            <span>Script Samples<br>Generated by <strong><a href='https://dotnet.github.io/docfx' alt='Doc FX Website'>DocFX</a></strong> with <strong><a href='https://ovasquez.github.io/docfx-material' alt='DocFx Material Theme'>Material UI</a></strong></span>
+            
+            <!-- <img src="https://telemetry.sharepointpnp.com/@pnp.github.io/index/" alt="spacer"> -->
+          </div>
+        </div>
+      </footer>    </div>
+    
+    <script type="text/javascript" src="../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+    
+    <script type="text/javascript" src="../styles/clipboard.min.js"></script>
+    <script type="text/javascript" src="../styles/isotope.pkgd.min.js"></script>
+    <script type="text/javascript" src="../styles/loadsamples.js"></script>
+    <script type="text/javascript" src="../styles/filtersamples.js"></script>
+
+  </body>
+</html>
