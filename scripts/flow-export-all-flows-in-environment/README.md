@@ -8,7 +8,7 @@ plugin: add-to-gallery
 
 When was the last time you backed up all the flows in your environment?
 
-By combining the CLI for Microsoft 365 and PowerShell along with a new pure PnP PowerShell example we can make this task easy and repeatable. There 
+By combining the CLI for Microsoft 365 and PowerShell along with a new pure PnP PowerShell example we can make this task easy and repeatable.
 
 This script will get all flows in your default environment and export them as both a ZIP file for importing back into Power Automate and as a JSON file for importing into Azure as an Azure Logic App.
 
