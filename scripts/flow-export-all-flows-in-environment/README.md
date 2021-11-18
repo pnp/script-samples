@@ -77,7 +77,7 @@ Added PnP PowerShell version from [PnP.PowerShell + Bonus Script: Export all Flo
 |-----------|
 | Garry Trinder |
 | Luise Freese |
-| Leon Armston |
+| [Leon Armston](https://github.com/LeonArmston) |
 
 [!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
 <img src="https://telemetry.sharepointpnp.com/script-samples/scripts/flow-export-all-flows-in-environment" aria-hidden="true" />
