@@ -93,6 +93,9 @@ Two connections are used, one for the Admin Centre and the other to upload the f
 <li role="presentation">
 <a href="#tabpanel_CeZOj-G++Q_pnpps" role="tab" aria-controls="tabpanel_CeZOj-G++Q_pnpps" data-tab="pnpps" tabindex="0" aria-selected="true">PnP PowerShell</a>
 </li>
+<li role="presentation">
+<a href="#tabpanel_CeZOj-G++Q_cli-m365-ps" role="tab" aria-controls="tabpanel_CeZOj-G++Q_cli-m365-ps" data-tab="cli-m365-ps" tabindex="-1">CLI for Microsoft 365</a>
+</li>
 </ul>
 <section id="tabpanel_CeZOj-G++Q_pnpps" role="tabpanel" data-tab="pnpps"><button class="article-clipboard" title="Copy to clipboard" data-toggle="tooltip" data-placement="top" data-clipboard-target="section[id^='tabpanel'][data-tab='pnpps'] pre">
     <span class="glyphicon glyphicon-copy" aria-hidden="true"></span>
@@ -146,6 +149,56 @@ Write-Host &quot;Uploaded Excel File to SharePoint&quot;
 <p>Check out the <strong>PnP PowerShell</strong> to learn more at: <a href="https://aka.ms/pnp/powershell">https://aka.ms/pnp/powershell</a></p>
 </div>
 </section>
+<section id="tabpanel_CeZOj-G++Q_cli-m365-ps" role="tabpanel" data-tab="cli-m365-ps" aria-hidden="true" hidden="hidden"><button class="article-clipboard" title="Copy to clipboard" data-toggle="tooltip" data-placement="top" data-clipboard-target="section[id^='tabpanel'][data-tab='cli-m365-ps'] pre">
+    <span class="glyphicon glyphicon-copy" aria-hidden="true"></span>
+    <span class="article-clipboard__message done">Copied</span>
+</button>
+
+<pre><code class="lang-powershell">
+Write-Host &quot;Running Script...&quot;
+
+# Ensure login
+$m365Status = m365 status
+if ($m365Status -eq &quot;Logged Out&quot;) {
+m365 login
+}
+
+#-----------------
+# Gather Reporting Data
+#-----------------
+
+# Gets all Team Private Channels based on the template
+$teamPrivateChannels = m365 spo site classic list --webTemplate &quot;TEAMCHANNEL#0&quot;
+$teamPrivateChannels = $teamPrivateChannels | ConvertFrom-Json
+    
+#-----------------
+# Produce and Save Reporting Data
+#-----------------
+$now = [System.DateTime]::Now.ToString(&quot;yyyy-mm-dd_hh-MM-ss&quot;)
+$reportFileName = &quot;teams-private-channels-$($now).xlsx&quot;
+
+$ExcelReportSettings = @{
+    Path          = $reportFileName
+    Title         = &quot;Teams Private Channel Report&quot;
+    WorksheetName = &quot;Teams Private Channels&quot;
+    AutoFilter    = $true 
+    AutoSize      = $true
+}
+
+Write-Host &quot;Creating Excel File $reportFileName&quot;
+$teamPrivateChannels | Select-Object Title, Url, StorageUsage, Owner, SiteDefinedSharingCapability `
+| Export-Excel @ExcelReportSettings
+
+# Save to SharePoint
+m365 spo file add --webUrl &quot;https://contoso.sharepoint.com&quot; --folder 'Shared Documents' --path $reportFileName
+
+Write-Host &quot;Uploaded Excel File to SharePoint&quot;
+
+</code></pre>
+<div class="highlight-tool">
+<p>Check out the <strong>CLI for Microsoft 365</strong> to learn more at: <a href="https://aka.ms/cli-m365">https://aka.ms/cli-m365</a></p>
+</div>
+</section>
 </div>
 <h2 id="source-credit">Source Credit</h2>
 <p>Sample first appeared on <a href="https://capacreative.co.uk/2021/02/27/azure-automation-to-the-rescue-session-at-scottish-summit-2021/">Azure Automation to the Rescue – Session at Scottish Summit 2021 | CaPa Creative Ltd</a></p>
@@ -159,6 +212,9 @@ Write-Host &quot;Uploaded Excel File to SharePoint&quot;
 <tbody>
 <tr>
 <td>Paul Bullock</td>
+</tr>
+<tr>
+<td><a href="https://github.com/Adam-it">Adam Wójcik</a></td>
 </tr>
 </tbody>
 </table>
