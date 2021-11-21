@@ -61,9 +61,8 @@ Write-Host "Uploaded Excel File to SharePoint"
 
 ```
 [!INCLUDE [More about PnP PowerShell](../../docfx/includes/MORE-PNPPS.md)]
-***
 
-# [CLI for Microsoft 365](#tab/cli-m365-ps2)
+# [CLI for Microsoft 365](#tab/cli-m365-ps)
 ```powershell
 
 Write-Host "Running Script..."
