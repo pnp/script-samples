@@ -69,9 +69,19 @@ Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Maecenas porttitor con
 
 ```
 [!INCLUDE [More about Azure CLI](../../docfx/includes/MORE-AZURECLI.md)]
+
+
+# [Power Apps PowerShell](#tab/powerapps-ps)
+```powershell
+
+<your powershell script>
+
+```
+[!INCLUDE [More about Power Apps PowerShell](../../docfx/includes/MORE-POWERAPPS.md)]
 ***
 
-***
+
+
 
 ## Source Credit
 
