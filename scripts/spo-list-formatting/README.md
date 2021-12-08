@@ -1,5 +1,5 @@
 ---
-plugin: add-to-gallery-preparation
+plugin: add-to-gallery
 ---
 
 # Export / Import list formatting
@@ -11,7 +11,7 @@ SharePoint Online provides user interface for defining column and view formattin
 - [Show or hide columns in a list or library form](https://docs.microsoft.com/en-us/sharepoint/dev/declarative-customization/list-form-conditional-show-hide) and 
 - [Configure the list form](https://docs.microsoft.com/en-us/sharepoint/dev/declarative-customization/list-form-configuration). 
 
-However, the `Get-PnPSiteTemplate -Handlers Lists` command does not inlclude these customizations. These scripts bridge this gap.
+However, the `Get-PnPSiteTemplate -Handlers Lists` command does not include these customizations. These scripts bridge this gap.
 The Get-ListFormatting script exports:
 - form customizers 
 - list views
@@ -224,9 +224,6 @@ Set-ListFormatting -folderPath $folderPath -listName $list1
 [!INCLUDE [More about PnP PowerShell](../../docfx/includes/MORE-PNPPS.md)]
 
 ***
-
-
-
 
 ## Contributors
 
