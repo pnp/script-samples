@@ -1,0 +1,356 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html lang="en">
+  
+  <head>
+    <meta charset="utf-8">
+    <title>Export / Import list formatting | PnP Samples </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Export / Import list formatting | PnP Samples ">
+    <meta name="generator" content="docfx 2.56.7.0">
+    <meta name="description" content="A sample gallery of scripts to manage all things Microsoft 365.">
+  
+    <!-- Social Media -->
+    <meta property="og:locale" content="en_GB">
+    <meta property="og:title" content="Export / Import list formatting | PnP Samples ">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://pnp.github.io/script-samples">
+    <meta property="og:image" content="https://pnp.github.io/script-samples/assets/social-media-screenshot.png">
+    <meta property="og:image:alt" content="Screenshot example of the PnP Script Samples Site">
+    <meta property="og:site_name" content="PnP Script Samples">
+    <meta property="og:description" content="A sample gallery of scripts to manage all things Microsoft 365.">
+  
+    <link rel="shortcut icon" href="https://c.s-microsoft.com/favicon.ico?v2">
+    <link rel="stylesheet" href="../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../styles/docfx.css">
+    <link rel="stylesheet" href="../styles/main.css">
+    <link rel="stylesheet" href="../styles/extra.css">
+    <link rel="stylesheet" href="../styles/filter.css">
+    <link rel="stylesheet" href="../styles/site.css">
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet"> 
+    <meta property="docfx:navrel" content="../toc.html">
+    <meta property="docfx:tocrel" content="../toc.html">
+    
+    
+    <meta property="docfx:newtab" content="true">
+    <script type="text/javascript">
+      (function(c,l,a,r,i,t,y){
+          c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+          t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+          y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+      })(window, document, "clarity", "script", "8j6pedl344");
+  </script>
+  </head>  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+             <div class="github-mark">
+              <a href="https://github.com/pnp/script-samples">
+                <img src="https://pnp.github.io/script-samples/assets/icons/github-light-64px.png" alt="GitHub Icon Image">
+              </a>
+            </div>
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../assets/logo.svg" alt="">
+              </a>    </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <label class="glyphicon glyphicon-search" for="search-query"></label>
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>      </header>
+      <div role="main" class="container body-content hide-when-search">
+        <div class="article row grid">
+          <div class="col-md-12">
+            <article class="content wrap" id="_content" data-uid="">
+                  <div class="contribution-panel mobile-hide pull-right">
+                      <a href="https://github.com/pnp/script-samples/blob/main/scripts/spo-list-formatting/README.md/#L1" title="Improve this Doc" class="improve-doc-lg"><i class="glyphicon glyphicon-pencil"></i></a>
+                  </div>
+                    <h1 id="export--import-list-formatting">Export / Import list formatting</h1>
+
+<h2 id="summary">Summary</h2>
+<p>SharePoint Online provides user interface for defining column and view formatting and forms configuration:</p>
+<ul>
+<li><a href="https://docs.microsoft.com/en-us/sharepoint/dev/declarative-customization/view-formatting">Use view formatting to customize SharePoint</a>,</li>
+<li><a href="https://docs.microsoft.com/en-us/sharepoint/dev/declarative-customization/list-form-conditional-show-hide">Show or hide columns in a list or library form</a> and</li>
+<li><a href="https://docs.microsoft.com/en-us/sharepoint/dev/declarative-customization/list-form-configuration">Configure the list form</a>.</li>
+</ul>
+<p>However, the <code>Get-PnPSiteTemplate -Handlers Lists</code> command does not include these customizations. These scripts bridge this gap.
+The Get-ListFormatting script exports:</p>
+<ul>
+<li>form customizers</li>
+<li>list views</li>
+<li>list views formatting</li>
+<li>columns formatting</li>
+</ul>
+<p>to a set of json, csv and xml files. The Set-SPOListFormatting applies the exported customizations to an existing list.</p>
+<p><img src="assets/example.png" alt="Example Screenshot"></p>
+<p>Use it with <code>Get-PnPSiteTemplate</code> and <code>Invoke-PnPSiteTemplate</code> for a full export / import capabilities.</p>
+<div class="tabGroup" id="tabgroup_CeZOj-G++Q">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_CeZOj-G++Q_pnpps" role="tab" aria-controls="tabpanel_CeZOj-G++Q_pnpps" data-tab="pnpps" tabindex="0" aria-selected="true">PnP PowerShell</a>
+</li>
+</ul>
+<section id="tabpanel_CeZOj-G++Q_pnpps" role="tabpanel" data-tab="pnpps"><button class="article-clipboard" title="Copy to clipboard" data-toggle="tooltip" data-placement="top" data-clipboard-target="section[id^='tabpanel'][data-tab='pnpps'] pre">
+    <span class="glyphicon glyphicon-copy" aria-hidden="true"></span>
+    <span class="article-clipboard__message done">Copied</span>
+</button>
+
+<pre><code class="lang-powershell">
+function Get-ListFormatting {
+    [CmdletBinding()]
+    param (
+        [Parameter()]
+        [string]
+        $listName,
+        [string]
+        $folderPath
+    )
+
+    $clientContext = Get-PnPContext
+    $list = Get-PnPList $listName -Includes SchemaXml
+
+    # Currently only Item content type is supported. The script may be easily adapted to enumerate through all the available content types
+    $contentType = Get-PnPContentType -List $listName | Where-Object { $_.Name -eq &quot;Item&quot;}
+    $clientContext.Load($list.Views)
+    $clientContext.Load($contentType)
+    $clientContext.Load($contentType.FieldLinks)
+    $clientContext.ExecuteQuery()
+
+    # 1. Get form customizer
+    $contentType.ClientFormCustomFormatter | Out-File &quot;$folderPath\ListFormatting.Form.$listName.json&quot;
+    # 2.Get fieldLinks settings
+    $contentType.FieldLinks | Select-Object Name, Hidden, Id |  Export-Csv  &quot;$folderPath\ListFormatting.ColumnOrder.$listName.csv&quot; -NoTypeInformation
+
+    # 3. Get list views 
+    $listUrl=$list.RootFolder.ServerRelativeUrl+&quot;/&quot;
+    $list.Views | Where-Object { $_.PersonalView -eq $false } | Select-Object Title, Id, @{name = &quot;Url&quot;; expression = { $_.ServerRelativeUrl.Replace($listUrl,&quot;&quot;).Replace(&quot;.aspx&quot;,&quot;&quot;) } } | Export-Csv  &quot;$folderPath\List.Views.$listName.csv&quot; -NoTypeInformation
+    $list.Views | ForEach-Object {
+        $v = Get-PnPView -List $list -Identity $_.Id -Includes HtmlSchemaXml 
+        $v.HtmlSchemaXml |  Out-File &quot;$folderPath\List.View.$listName.$($_.Id).xml&quot;
+    }
+
+    #get list views formatting
+    $views = $list.Views | Where-Object { $null -ne $_.CustomFormatter } 
+    if($null -ne $views){
+        $views | Select-Object Title, Id | Export-Csv  &quot;$folderPath\ListFormatting.Views.$listName.csv&quot; -NoTypeInformation
+        $views | ForEach-Object {
+            $_.CustomFormatter | Out-File &quot;$folderPath\ListFormatting.View.$listName.$($_.Id).json&quot;
+        }
+    }
+
+    #get columns formatting
+    $columns= Get-PnPField -List $listName | Where-Object {$null -ne $_.CustomFormatter } 
+    if($null -ne $columns){
+        $columns | Select-Object InternalName | Export-Csv   &quot;$folderPath\ListFormatting.Columns.$listName.csv&quot; -NoTypeInformation
+        $columns | ForEach-Object {
+            $_.CustomFormatter | Out-File &quot;$folderPath\ListFormatting.Column.$listName.$($_.InternalName).json&quot;
+        }
+    }
+}
+
+function Set-ListFormatting {
+    [CmdletBinding()]
+    param (
+        [Parameter()]
+        [string]
+        $listName,
+        [string]
+        $folderPath
+    )
+    if (Test-Path -Path $folderPath){
+
+        Write-Host &quot;LIST $listName &quot;
+        $clientContext = Get-PnPContext
+        $list = Get-PnPList $listName
+
+        #Get Content Type
+        $contentType = Get-PnPContentType -List $listName | Where-Object { $_.Name -eq &quot;Item&quot; -or $_.Name -eq &quot;Element&quot; }
+        $clientContext.Load($contentType)
+        $clientContext.Load($contentType.FieldLinks)
+        $clientContext.ExecuteQuery()
+
+        # 1. Set form customizers
+        if ($t=Test-Path -Path &quot;$folderPath\ListFormatting.Form.$listName.json&quot; -PathType leaf){
+            Write-Host &quot;Setting form customizers from $folderPath\ListFormatting.Form.$listName.json&quot;
+            $contentType.ClientFormCustomFormatter = (Get-Content -Raw -Path &quot;$folderPath\ListFormatting.Form.$listName.json&quot;).ToString()
+            Write-Host &quot;...done&quot;
+        }
+        # 2.a Set fieldLinks order
+        if ($t=Test-Path -Path &quot;$folderPath\ListFormatting.ColumnOrder.$listName.csv&quot; -PathType leaf) {
+            Write-Host &quot;Setting fields order from $folderPath\ListFormatting.ColumnOrder.$listName.csv&quot;
+
+            $ColumnOrder = (Import-Csv &quot;$folderPath\ListFormatting.ColumnOrder.$listName.csv&quot;).Name
+            $contentType.FieldLinks.Reorder($ColumnOrder)
+            Write-Host &quot;...done&quot;
+        }
+        # 2.b Set fieldLinks.Hidden 
+        if ($t = Test-Path -Path &quot;$folderPath\ListFormatting.ColumnOrder.$listName.csv&quot; -PathType leaf) {
+            Write-Host &quot;Setting hidden fields from $folderPath\ListFormatting.ColumnOrder.$listName.csv&quot;
+            
+            Import-Csv &quot;$folderPath\ListFormatting.ColumnOrder.$listName.csv&quot; | ForEach-Object{
+                $contentType.FieldLinks.GetById($_.Id).Hidden = [System.Convert]::ToBoolean($_.Hidden)
+            }
+            Write-Host &quot;...done&quot;
+        }
+        $contentType.Update(0)
+        $clientContext.ExecuteQuery()
+
+        # 3. Set list views
+        if ($t = Test-Path -Path  &quot;$folderPath\List.Views.$listName.csv&quot; -PathType leaf) {
+            Write-Host &quot;Setting views&quot;
+            
+            #Get All List Views 
+            $clientContext.Load($list.Views)
+            $clientContext.ExecuteQuery()
+            $listUrl=$list.RootFolder.ServerRelativeUrl+&quot;/&quot;
+            $views = $list.Views | Select-Object Title, @{name = &quot;Url&quot;; expression = { $_.ServerRelativeUrl.Replace($listUrl, &quot;&quot;).Replace(&quot;.aspx&quot;, &quot;&quot;)}}
+
+            Import-Csv &quot;$folderPath\List.Views.$listName.csv&quot; | ForEach-Object {
+
+                $xml = [xml]( Get-Content &quot;$folderPath\List.View.$listName.$($_.Id).xml&quot; -Raw)
+                $isDefault = [boolean]$xml.View.DefaultView
+                $fields =  $xml.View.ViewFields.FieldRef.Name 
+                $query = $xml.View.Query.InnerXml
+                $aggregations = $xml.View.Aggregations.InnerXml
+                $viewType2 = $xml.View.ViewType2
+
+                $url = $_.Url
+                $viewTitle = ($views | Where-Object { $_.Url -eq $url } ).Title
+
+                if($null -ne $viewTitle){
+                    Write-Host &quot;Updating view $viewTitle to $($_.Title)&quot;
+                    $v = Set-PnPView -List $listName -Identity $viewTitle -Fields $fields -Values @{Title = $_.Title; ViewQuery = $query; ViewType2 = $viewType2 } -Aggregations $aggregations
+                }
+                else{
+                    Write-Host &quot;Creating view $($_.Title)&quot;
+                    #cannot set view url when creating the list. the following workaroud required
+                    $v = Add-PnPView -List $listName -Title $_.Url  -SetAsDefault:$isDefault -Fields $fields -Query $query -Aggregations $aggregations
+                    $v = Set-PnPView -List $listName -Identity $_.Url -Values @{Title = $_.Title ; ViewType2 = $viewType2} 
+                }
+            }
+        }
+
+        #Set list views formatting
+        if ($t=Test-Path -Path &quot;$folderPath\ListFormatting.Views.$listName.csv&quot; -PathType leaf){
+            Write-Host &quot;Setting  list views formatting&quot;
+
+            #Get All List Views 
+            $clientContext.Load($list.Views)
+            $clientContext.ExecuteQuery()
+            $views = $list.Views.Title
+
+            #Get exported Views Info (Title &amp; Id)
+            Import-Csv &quot;$folderPath\ListFormatting.Views.$listName.csv&quot; | ForEach-Object{
+                #If target list contains the view and the file exists
+                if ($views.Contains($_.Title) ) {
+                    # Update the List View Formatting Definition
+                    $listViewFormattingJSON = Get-Content -Raw -Path &quot;$folderPath\ListFormatting.View.$listName.$($_.Id).json&quot;;
+                    $listViewColumnDefinition = Get-PnPView -List $listName -Identity $_.Title  
+                    $listViewColumnDefinition | Set-PnPView -Values  @{CustomFormatter = $listViewFormattingJSON.ToString() }
+                }
+            }
+        }
+        #Set columns formatting
+        if ($t=Test-Path -Path &quot;$folderPath\ListFormatting.Columns.$listName.csv&quot; -PathType leaf) {
+            Write-Host &quot;Setting columns formatting&quot;
+
+            #Get All List Columns
+            $clientContext.Load($list.Fields)
+            $clientContext.ExecuteQuery()
+            $columns = $list.Fields.InternalName
+
+            Import-Csv &quot;$folderPath\ListFormatting.Columns.$listName.csv&quot;  | ForEach-Object { #$columns.Contains($_.InternalName)
+                if ($columns.Contains($_.InternalName)){
+                    Write-Host &quot;Setting formatter for $($_.InternalName)&quot;
+                    $ColumnFormattingJSON = Get-Content -Raw -Path &quot;$folderPath\ListFormatting.Column.$listName.$($_.InternalName).json&quot;;
+                    $listColumnDefinition = Get-PnPField -List $listName -Identity $_.InternalName
+                    $listColumnDefinition | Set-PnPField -Values @{CustomFormatter = $ColumnFormattingJSON.ToString() }
+                }
+            }
+        }
+        
+    }
+}
+
+
+### Example usage
+$list1= &quot;MyList1&quot;
+$folderPath= &quot;C:\SPO\Templates&quot;
+
+Connect-PnPOnline -Credentials $PSCredentials -Url $siteUrl 
+
+##Export
+Get-PnPSiteTemplate  -Out &quot;$folderPath/ListTemplates.xml&quot; -ListsToExtract $list1 -Handlers Lists 
+Get-ListFormatting -folderPath $folderPath -listName $list1
+
+##Import
+Invoke-PnPSiteTemplate -Path &quot;$folderPath/ListTemplates.xml&quot;
+Set-ListFormatting -folderPath $folderPath -listName $list1
+
+
+</code></pre>
+<div class="highlight-tool">
+<p>Check out the <strong>PnP PowerShell</strong> to learn more at: <a href="https://aka.ms/pnp/powershell">https://aka.ms/pnp/powershell</a></p>
+</div>
+</section>
+</div>
+<h2 id="contributors">Contributors</h2>
+<table>
+<thead>
+<tr>
+<th>Author(s)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Kinga Kazala</td>
+</tr>
+</tbody>
+</table>
+<h2 id="disclaimer">Disclaimer</h2>
+<p><strong>THESE SAMPLES ARE PROVIDED <em>AS IS</em> WITHOUT WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, INCLUDING ANY IMPLIED WARRANTIES OF FITNESS FOR A PARTICULAR PURPOSE, MERCHANTABILITY, OR NON-INFRINGEMENT.</strong></p>
+<img src="https://telemetry.sharepointpnp.com/script-samples/scripts/spo-list-formatting" aria-hidden="true">
+</article>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            <span>Script Samples<br>Generated by <strong><a href='https://dotnet.github.io/docfx' alt='Doc FX Website'>DocFX</a></strong> with <strong><a href='https://ovasquez.github.io/docfx-material' alt='DocFx Material Theme'>Material UI</a></strong></span>
+            
+            <!-- <img src="https://telemetry.sharepointpnp.com/@pnp.github.io/index/" alt="spacer"> -->
+          </div>
+        </div>
+      </footer>    </div>
+    
+    <script type="text/javascript" src="../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+    
+    <script type="text/javascript" src="../styles/clipboard.min.js"></script>
+    <script type="text/javascript" src="../styles/isotope.pkgd.min.js"></script>
+    <script type="text/javascript" src="../styles/loadsamples.js"></script>
+    <script type="text/javascript" src="../styles/filtersamples.js"></script>
+
+  </body>
+</html>
