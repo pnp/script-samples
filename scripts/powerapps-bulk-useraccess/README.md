@@ -6,7 +6,7 @@ plugin: add-to-gallery
 
 ## Summary
 
-This powershell script will Add/Remove/Modify mutiple(bulk) users access to/from one or multiple PowerApps from CSV file....
+This PowerShell script will Add/Remove/Modify multiple(bulk) users access to/from one or multiple PowerApps from CSV file....
 
 
 CSV file columns details
@@ -15,19 +15,21 @@ CSV file columns details
 |---|---|---|
 | AppName  | PowerApps App Id   |   This can checking details of the app from apps.powerapps.com and selecting the app |
 | PrincipalDisplayName  | User Display name   |   |
-|  PrincipalEmail | Email id of user or group id or external user pricipal name   |   |
+|  PrincipalEmail | Email id of user or group id or external user principal name   |   |
 |  PrincipalType | User or Group  |   |
 |  RoleType | CanEdit, CanView, Remove |  CanEdit will give co-owner access ~~ CanView will give user access ~~ Remove will remove user from targeted PowerApp |
-|  Environment | Power Platform Enviorment ID  |   |
+|  Environment | Power Platform Environment ID  |   |
                                        
-You can download input reference file at [here](assets/SampleInput.csv)
+You can download input reference file at [here](assets/InputCSV.csv)
 
 Screenshot of Input file for quick reference
+
 ![Sample Input file Screenshot](assets/SampleInput.png)
 
 
 Screenshot of Output file for quick reference
-![Sample Output file Screenshot](assets/Sampleoutput.png)
+
+![Sample Output file Screenshot](assets/SampleOutPut.png)
 
 
 ## Implementation
