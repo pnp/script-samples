@@ -127,10 +127,8 @@ Catch {
 $outputArray  | Export-Csv -Path $outputPath -Force -Encoding utf8BOM -Delimiter "|"
 
 ```
+[!INCLUDE [More about PnP PowerShell](../../docfx/includes/MORE-PNPPS.md)]
 ***
-
-## Source Credit
-
 
 ## Contributors
 
