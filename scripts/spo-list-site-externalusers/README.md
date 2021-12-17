@@ -56,6 +56,53 @@ Write-Host "Completed."
 ```
 [!INCLUDE [More about CLI for Microsoft 365](../../docfx/includes/MORE-CLIM365.md)]
 
+# [SPO Management Shell](#tab/spoms-ps)
+
+```powershell
+
+$fileExportPath = "<PUTYOURPATHHERE.csv>"
+
+Connect-SPOService https://<yourorg>-admin.sharepoint.com
+
+$results = @()
+Write-host "Retrieving all sites and check external users..."
+$allSPOSites = Get-SPOSite -Limit ALL
+$siteCount = $allSPOSites.Count
+
+Write-Host "Processing $siteCount sites..."
+#Loop through each site
+$siteCounter = 0
+
+foreach ($site in $allSPOSites) {
+  $siteCounter++
+  Write-Host "Processing $($site.Url)... ($siteCounter/$siteCount)"
+
+  Write-host "Retrieving all external users ..."
+
+  $users = Get-SPOExternalUser -SiteUrl $($site.Url)
+
+  Write-host "  $($users.Count) external users ..." -ForegroundColor Yellow
+
+  foreach ($user in $users) {
+    
+    $results = [pscustomobject][ordered]@{
+      DisplayName = $user.DisplayName
+      Email       = $user.Email
+      WhenCreated = $user.WhenCreated
+      Url         = $site.Url
+    }
+
+    $results | Export-Csv -Path $fileExportPath -NoTypeInformation -Append
+  }
+}
+
+
+Write-Host "Completed."
+
+```
+[!INCLUDE [More about SPO Management Shell](../../docfx/includes/MORE-SPOMS.md)]
+
+***
 
 ## Source Credit
 
@@ -66,6 +113,7 @@ Sample first appeared on [List all external users in all site collections | CLI 
 | Author(s) |
 |-----------|
 | Albert-Jan Schot |
+| Paul Bullock |
 
 
 [!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
