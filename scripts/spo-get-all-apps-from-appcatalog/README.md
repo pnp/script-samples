@@ -2,7 +2,7 @@
 plugin: add-to-gallery
 ---
 
-# Get SharePoint List Or Library Permissions And Export It To CSV
+# Get All Apps From The App Catalog And Export It To CSV
 
 ## Summary
 
