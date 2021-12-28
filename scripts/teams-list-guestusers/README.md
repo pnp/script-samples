@@ -5,9 +5,8 @@ plugin: add-to-gallery
 # List guests within Teams in a tenant
 
 ## Summary
+
 List all guests in Microsoft Teams teams in the tenant and exports the results in a CSV.
- 
-![Example Screenshot](assets/example.png)
 
 # [MicrosoftTeams PowerShell](#tab/teamsps)
 ```powershell
@@ -40,6 +39,8 @@ foreach ($team in $teams){
     Write-host "there are no external user added to any team in your organization" -ForegroundColor yellow
  }
 ```
+[!INCLUDE [More about Microsoft Teams PowerShell](../../docfx/includes/MORE-TEAMSPS.md)]
+***
 
 ## Contributors
 
