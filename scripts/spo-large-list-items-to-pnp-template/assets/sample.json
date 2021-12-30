@@ -1,15 +1,15 @@
 [
     {
-      "name": "spo-list-items-large-lists",
+      "name": "spo-large-list-items-to-pnp-template",
       "source": "pnp",
-      "title": "Get/add/update/delete list items in large lists",
-      "shortDescription": "Get/add/update/delete items in large SharePoint list",
-      "url": "spo-list-items-large-lists/README.html",
+      "title": "Add Large List items to PnP Template",
+      "shortDescription": "Add Large list items to PnP Template using PnP command",
+      "url": "spo-large-list-items-to-pnp-template/README.html",
       "longDescription": [
-        "Get/add/update/delete items in large SharePoint list using batch. PnP PowerShell and CLI examples"
+        ""
       ],
-      "creationDateTime": "2021-09-24",
-      "updateDateTime": "2021-09-27",
+      "creationDateTime": "2021-12-29",
+      "updateDateTime": "2021-12-29",
       "products": [
         "SharePoint"
       ],
@@ -17,30 +17,27 @@
         {
           "key": "pnp-powerShell",
           "value": "1.7.0"
-        },
-        {
-          "key": "cli-for-microsoft365",
-          "value": "3.7.0"
         }
       ],
       "categories": [
-        "Data"
+        "Data",
+        "Provisioning"
       ],
       "tags":[],
       "thumbnails": [
         {
           "type": "image",
           "order": 100,
-          "url": "spo-list-items-large-lists/assets/preview.png",
+          "url": "spo-large-list-items-to-pnp-template/assets/preview.png",
           "alt": ""
         }
       ],
       "authors": [
         {
-          "gitHubAccount": "ValerasNarbutas",
+          "gitHubAccount": "Jitenparmar",
           "company": "",
-          "pictureUrl": "https://avatars.githubusercontent.com/u/16476453?s=400&v=4",
-          "name": "Valeras Narbutas"
+          "pictureUrl": "https://avatars.githubusercontent.com/u/7124132?v=4",
+          "name": "Jiten Parmar"
         }
       ]
     }

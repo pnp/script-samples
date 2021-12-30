@@ -5,6 +5,7 @@ plugin: add-to-gallery
 # Add Large List items to PnP Template
 
 ## Summary
+
 Add Large list items to PnP Template using PnP command [Add-PnPDataRowsToSiteTemplate](https://docs.microsoft.com/en-us/powershell/module/sharepoint-pnp/add-pnpdatarowstositetemplate?view=sharepoint-ps).
 
 
@@ -61,12 +62,14 @@ Catch {}
 Disconnect-PnPOnline
 ```
 [!INCLUDE [More about PnP PowerShell](../../docfx/includes/MORE-PNPPS.md)]
+***
 
 ## Contributors
 
 | Author(s) |
 |-----------|
 |[Jiten Parmar](https://github.com/jitenparmar)|
+
 
 [!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
 <img src="https://telemetry.sharepointpnp.com/script-samples/scripts/spo-large-list-items-to-pnp-template" aria-hidden="true" />
