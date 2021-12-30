@@ -1,5 +1,4 @@
-﻿
----
+﻿---
 plugin: add-to-gallery
 ---
 
