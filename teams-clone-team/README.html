@@ -102,12 +102,11 @@
 
 # 2021-11-02 Added better logging Teams and  provision validation
 # 2021-11-02 Added IncludeContent switch
+# 2021-12-29 Improved reporting\performance on clone team operation.
 [CmdletBinding()]
 param (
     [Parameter(Mandatory = $true)]
     [string]$Tenant ,
-    [Parameter(Mandatory = $true)]
-    [string]$Url,
     [Parameter(Mandatory = $true)]
     [string]$Team ,
     [Parameter(Mandatory = $true)]
@@ -197,6 +196,7 @@ begin {
     if ($null -ne $tmp) {
         throw &quot;PartsToClone : The following values are duplicated: $($tmp.Name -join ', ')&quot;
     }
+    $Url= &quot;https://&quot; + $tenant.ToLower().Replace(&quot;.onmicrosoft.com&quot;,&quot;.sharepoint.com&quot;)
     Write-Log &quot;Start&quot;
     Write-Log &quot; Connecting to $Url&quot;
     Connect-PnPOnline -Url $Url -Interactive -Tenant $Tenant
@@ -207,7 +207,13 @@ process {
 
     Write-Log &quot;   Get Team by name or Id [$team]&quot;
     $existingTeam = Get-PnPMicrosoft365Group  -IncludeSiteUrl | Where-object { $_.HasTeam -and (($_.id -eq $Team) -or ($_.Displayname -eq $Team)) } | Select-Object Id, DisplayName, SiteUrl
-   
+    if ($existingTeam.Length -gt 1)
+    {
+        Write-Log (&quot;    Hum... It seems you have [&quot; + $existingTeam.Length + &quot;] named [$Team]. Freaky!!!&quot;)
+        $selectedTeam = $existingTeam[0]
+        Write-Log (&quot;    Selecting the first on the list ... id[{0}],name[{1}],url[{2}]&quot; -f $selectedTeam.id,$selectedTeam.DisplayName,$selectedTeam.SiteUrl )
+        $existingTeam = $selectedTeam
+    }
     $cloneUrl = &quot;https://graph.microsoft.com/beta/teams/$($existingTeam.Id)/clone&quot;  
    
     $NewTeamDescription = $NewTeamDescription.Trim()
@@ -249,11 +255,16 @@ process {
     $result = Invoke-RestMethod -Headers @{Authorization = &quot;Bearer $accesstoken&quot;; &quot;Content-Type&quot; = &quot;application/json&quot; } `
         -Uri $getUrl  -Method Get 
 
-    while ($result.status -eq &quot;inProgress&quot;) {
-        Start-Sleep 5    
+    while( ($result.status -eq &quot;inProgress&quot;)-or ($result.status -eq &quot;Pending&quot;)) {
+        Start-Sleep 6    
         $result = Invoke-RestMethod -Headers @{Authorization = &quot;Bearer $accesstoken&quot;; &quot;Content-Type&quot; = &quot;application/json&quot; } `
             -Uri $getUrl  -Method Get 
-        Write-Log (&quot;   Provisioning team ...&quot; + $result.status)
+        Write-Log (&quot;   Cloning team ...&quot; + $result.status)
+        Write-Log (&quot;    Current Status&quot;)
+        $objs = $result |select-object @{l=&quot;Operation&quot;;e={$_.operationType}},createdDateTime,lastActionDateTime,status,attemptsCount,error 
+        $info= &quot;   &quot; + ($objs|out-string)
+        Write-Log (&quot;    `n`r $info `n`r`n`r&quot;)
+        Write-Log (&quot;   Cloning team ...&quot; + $result.status)
     }  
 
     if ($IncludeContent) {

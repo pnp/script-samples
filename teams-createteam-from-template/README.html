@@ -4,15 +4,15 @@
   
   <head>
     <meta charset="utf-8">
-    <title>Get Teams Templates | PnP Samples </title>
+    <title>Create Team from template | PnP Samples </title>
     <meta name="viewport" content="width=device-width">
-    <meta name="title" content="Get Teams Templates | PnP Samples ">
+    <meta name="title" content="Create Team from template | PnP Samples ">
     <meta name="generator" content="docfx 2.56.7.0">
     <meta name="description" content="A sample gallery of scripts to manage all things Microsoft 365.">
   
     <!-- Social Media -->
     <meta property="og:locale" content="en_GB">
-    <meta property="og:title" content="Get Teams Templates | PnP Samples ">
+    <meta property="og:title" content="Create Team from template | PnP Samples ">
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://pnp.github.io/script-samples">
     <meta property="og:image" content="https://pnp.github.io/script-samples/assets/social-media-screenshot.png">
@@ -76,14 +76,14 @@
           <div class="col-md-12">
             <article class="content wrap" id="_content" data-uid="">
                   <div class="contribution-panel mobile-hide pull-right">
-                      <a href="https://github.com/pnp/script-samples/blob/main/scripts/teams-get-templates/README.md/#L1" title="Improve this Doc" class="improve-doc-lg"><i class="glyphicon glyphicon-pencil"></i></a>
+                      <a href="https://github.com/pnp/script-samples/blob/main/scripts/teams-createteam-from-template/README.md/#L1" title="Improve this Doc" class="improve-doc-lg"><i class="glyphicon glyphicon-pencil"></i></a>
                   </div>
-                    <h1 id="get-teams-templates">Get Teams Templates</h1>
+                    <h1 id="create-team-from-template">Create Team from template</h1>
 
 <p><img src="assets/header.png" alt="Outputs"></p>
 <h2 id="summary">Summary</h2>
-<p>Get Teams Templates</p>
-<p>This script allow us to collect\export current tenant Teams Templates .</p>
+<p>Create Team from template</p>
+<p>This script allow us to create a Teams based on a template.</p>
 <p>The script uses Teams Native API  and is a subset of the SPO powershell packages with content (PnPCandy) concept already been used across many projects.</p>
 <p>Excelsior, hum? :P</p>
 <div class="tabGroup" id="tabgroup_CeZOj-G++Q">
@@ -104,23 +104,24 @@ param (
     [string]$Tenant ,
     [Parameter(Mandatory = $False)]
     [string]$StoredCredentials,
-    [Parameter(Mandatory = $False)]
+    [Parameter(Mandatory = $True)]
     [string]$TeamTemplateNameOrId,
+    [ValidateSet(&quot;ExportTemplate&quot;, &quot;ApplyTemplate&quot;)]
     [Parameter(Mandatory = $False)]
-    [string]$ExportPath = &quot;.\&quot;
+    [string]$Option = &quot;ExportTemplate&quot;,
+    [Parameter(Mandatory = $False)]
+    [string]$ExportPath = &quot;.\&quot;,
+    [Parameter(Mandatory = $False)]
+    [string]$ExportedTemplateName = &quot;newteam.json&quot;
 )
 begin {
     $ErrorActionPreference = &quot;Stop&quot;
-    $defaultResource= &quot;https://api.spaces.skype.com&quot;
-    $defaultAuthRedirect= &quot;https://login.microsoftonline.com/common/oauth2/nativeclient&quot;
-    $defaultClientId= &quot;1fec8e78-bce4-4aaf-ab1b-5451cc387264&quot;
+    $defaultResource = &quot;https://api.spaces.skype.com&quot;
+    $defaultAuthRedirect = &quot;https://login.microsoftonline.com/common/oauth2/nativeclient&quot;
+    ##Teams native app id
+    $defaultClientId = &quot;1fec8e78-bce4-4aaf-ab1b-5451cc387264&quot;
+    $ExportPath = Resolve-Path $ExportPath
 
-    function Write-Log($msg) {
-        
-        $message = &quot;$($env:MainFunctionName)$($env:FunctionName) $msg&quot;
-        $message = $message.Trim()
-        Write-Output $message
-    }
     function ShowOAuthWindow {
         param (
             [string]$WindowTitle,
@@ -150,11 +151,8 @@ begin {
         $form.Controls.Add($web)
 
         $docComp = {
-            $global:uri = $web.Url.AbsoluteUri
-            $global:web = $web
-            Write-Host  $web.Url
-            if ($global:uri -match &quot;error=[^&amp;]*|access_token=[^&amp;]*|id_token=[^&amp;]*|code=[^&amp;]*&quot;) { 
-                Write-Host &quot;close&quot;
+            $uri = $web.Url.AbsoluteUri
+            if ($uri -match &quot;error=[^&amp;]*|access_token=[^&amp;]*|id_token=[^&amp;]*|code=[^&amp;]*&quot;) { 
                 $response = [Web.HttpUtility]::ParseQueryString($web.Url.Query)
 
                 # Create a body for REST API request
@@ -179,7 +177,13 @@ begin {
         #return tokens
         $script:jsonResponse
     }
-
+    function Write-Log($msg) 
+    {
+        
+        $message = &quot;$($env:MainFunctionName)$($env:FunctionName) $msg&quot;
+        $message = $message.Trim()
+        Write-Output $message
+    }
     function Get-TenantId([string]$Tenant) {
         #Get TenantId !
         $obj = (Invoke-WebRequest https://login.windows.net/$Tenant/.well-known/openid-configuration | ConvertFrom-Json)
@@ -193,8 +197,8 @@ begin {
             $p = [System.Runtime.InteropServices.Marshal]::PtrToStringAuto([System.Runtime.InteropServices.Marshal]::SecureStringToBSTR($Credentials.Password))
             #Get access token
             $body = @{
-                &quot;resource&quot;   = &quot;https://api.spaces.skype.com&quot; # resource
-                &quot;client_id&quot;  = &quot;1fec8e78-bce4-4aaf-ab1b-5451cc387264&quot; # teams web app id
+                &quot;resource&quot;   =  $defaultResource # resource
+                &quot;client_id&quot;  = $defaultClientId # teams web app id
                 &quot;grant_type&quot; = &quot;password&quot;
                 &quot;username&quot;   = $Credentials.UserName #username
                 &quot;password&quot;   = $p #clearpassword
@@ -204,7 +208,7 @@ begin {
             $regularTokens = Invoke-RestMethod -Uri $url -Body $body -Method Post 
         }
         else {
-            $regularTokens = ShowOAuthWindow
+            $regularTokens = ShowOAuthWindow -WindowTitle &quot;Connect to Teams&quot;
         }
         # get Skype Token needed to access Teams Native API
         $regularHeadersAuth = @{
@@ -237,17 +241,67 @@ begin {
         $mainTokens | Add-Member -Name &quot;templatesTokens&quot; -MemberType NoteProperty -Value $templatesTokens
         $mainTokens.teamsTokens | Add-Member  -Name &quot;headers&quot; -MemberType NoteProperty -Value  $skypeHeadersAuth
         $mainTokens.templatesTokens | Add-Member  -Name &quot;headers&quot; -MemberType NoteProperty -Value  $templatesHeadersAuth
+        $mainTokens.requestTokens | Add-Member  -Name &quot;headers&quot; -MemberType NoteProperty -Value  $regularHeadersAuth
         $mainTokens
     }
+
+    function Get-TeamsTemplates() {
+        Write-Log &quot; Get all Templates Start&quot;
+        $url = &quot;https://teams.microsoft.com/fabric/emea/templates/api/teamtemplates/v1.0/en-us&quot;
+        $allTemplates = @((Invoke-RestMethod -Uri $url  -Headers $headers  -Method Get).value) 
+        #Build token Object
+    
+        $templatesDefinitions = @();
+        $allTemplates | ForEach-Object {
+            $t = $_
+            $t | Add-Member -Name &quot;TeamDefinition&quot;  -MemberType NoteProperty -Value &quot;&quot;
+            $serviceUrl = $tokens.teamsTokens.regionGtms.teamsAndChannelsProvisioningService.replace(&quot;/api&quot;, &quot;&quot;)
+            $url = $serviceUrl + $t.&quot;@odata.id&quot;
+            $definition = @((Invoke-RestMethod -Uri $url  -Headers $headers  -Method Get).value) 
+            $t.teamDefinition = $definition[0].teamDefinition
+            $templatesDefinitions += $definition[0].teamDefinition
+        }
+        #CammelCase all Properties
+        $templates = @();
+        $allTemplates | ForEach-Object {
+            $t = $_
+            $newObj = [PSCustomObject]::new()
+            $t | Get-Member -MemberType Properties | ForEach-Object {
+                $name = ($_.Name.substring(0, 1).toupper() + $_.Name.substring(1, $_.Name.length - 1))
+                
+                $newObj | Add-Member -Name $name  -MemberType NoteProperty -Value  $t.&quot;$name&quot;
+            }
+            $templates += $newObj
+        }
+        $allTemplates = $templates
+        if (($null -ne $TeamTemplateNameOrId) -and ($TeamTemplateNameOrId -ne &quot;&quot;)) {
+            Write-Log &quot;  Get specific template [$TeamTemplateNameOrId]&quot;  
+            $allTemplates = $templates | Where-object { ($_.id -eq $TeamTemplateNameOrId) -or ($_.name -eq $TeamTemplateNameOrId) }
+        }
+        $allTemplates = @($allTemplates | Select-Object Id, Name, Description, ShortDescription, ChannelCount, AppCount, IconUri, Scope, TeamDefinition, &quot;@odata.id&quot;, ModifiedBy, ModifiedOn)
+    
+        if ($allTemplates.Length -gt 0) {
+            Write-Log &quot;  [$($allTemplates.Length)] Template(s) found&quot;
+        }
+        else {
+            Write-Log &quot;  No Template(s) found&quot;
+        }
+        $script:selectedTemplate = $allTemplates
+        Write-Log &quot; Get all Templates End&quot;
+    }
+   
+    $env:functionName = &quot;&quot;
+    $env:MainFunctionName = &quot;&quot;
+
 
     $msg = &quot;`n`r`n`r
 
     █▀█ █▄░█ █▀█ █▀▀ ▄▀█ █▄░█ █▀▄ █▄█
-    █▀▀ █░▀█ █▀▀ █▄▄ █▀█ █░▀█ █▄▀ ░█░  `n    MSTeamsToolSet: `n`r    Get MSTeams Teams Templates    `n`n    ...aka ... [teams-get-templates]
+    █▀▀ █░▀█ █▀▀ █▄▄ █▀█ █░▀█ █▄▀ ░█░  `n    MSTeamsToolSet: `n`r    Create MSTeam from template    `n`n    ...aka ... [teams-createteam-from-template]
     `n&quot;
     $msg += ('#' * 70) + &quot;`n&quot;
     Write-Output  $msg
-
+    $env:functionName = &quot;[Create-Team-From-Template]&quot;
     ## Validate if Tenant value is ok
     if ($Tenant -notmatch '.onmicrosoft.com') {
         $msg = &quot;Provided Tenant is not valid. Please use the following format [Tenant].onmicrosoft.com. Example:pnpcady.onmicrosoft.com&quot;
@@ -273,59 +327,72 @@ process {
     Write-Log &quot; Get Teams Tokens&quot;
     $tokens = Get-TeamsApiTokens -Credentials $creds -Tenant $Tenant
     $headers = $tokens.templatesTokens.headers
-
-    Write-Log &quot; Get all Templates&quot;
-    $url = &quot;https://teams.microsoft.com/fabric/emea/templates/api/teamtemplates/v1.0/en-us&quot;
-    $allTemplates = @((Invoke-RestMethod -Uri $url  -Headers $headers  -Method Get).value) 
-    #Build token Object
-
-    $templatesDefinitions = @();
-    $allTemplates | ForEach-Object {
-        $t = $_
-        $t | Add-Member -Name &quot;TeamDefinition&quot;  -MemberType NoteProperty -Value &quot;&quot;
-        $serviceUrl = $tokens.teamsTokens.regionGtms.teamsAndChannelsProvisioningService.replace(&quot;/api&quot;, &quot;&quot;)
-        $url = $serviceUrl + $t.&quot;@odata.id&quot;
-        $definition = @((Invoke-RestMethod -Uri $url  -Headers $headers  -Method Get).value) 
-        $t.teamDefinition = $definition[0].teamDefinition
-        $templatesDefinitions += $definition[0].teamDefinition
-    }
-    #CammelCase all Properties
-    $templates = @();
-    $allTemplates | ForEach-Object {
-        $t = $_
-        $newObj = [PSCustomObject]::new()
-        $t | Get-Member -MemberType Properties | ForEach-Object {
-            $obj = $_
-            $name = ($_.Name.substring(0, 1).toupper() + $_.Name.substring(1, $_.Name.length - 1))
+    Write-log  &quot; Option[$Option] selected&quot;
+    switch ($Option) {
+        &quot;ExportTemplate&quot; { 
             
-            $newObj | Add-Member -Name $name  -MemberType NoteProperty -Value  $t.&quot;$name&quot;
+            Get-TeamsTemplates
+            $template = $script:selectedTemplate
+            if ($template.Length -gt 0) {
+                $templateDef = $template[0].TeamDefinition
+                $requestBodyTmp = $templateDef | ConvertTo-Json -Compress -Depth 10
+                $requestBodyTmp |  Set-Content -Path &quot;$ExportPath\$ExportedTemplateName&quot; -Force 
+                Write-log  &quot; Template exported at [$ExportPath] &quot;
+                Write-log  &quot; Modify content at will, after, use the ApplyTemplate option &quot;
+            }else {
+                
+            }
         }
-        $templates += $newObj
+        &quot;ApplyTemplate&quot; {
+            if (-Not(Test-Path &quot;$ExportPath\$ExportedTemplateName&quot;)) {
+                Write-log  &quot; Template[$ExportedTemplateName] not found at [$ExportPath] !&quot;
+                throw
+            }
+            else {
+                Write-log  &quot; Template[$ExportPath\$ExportedTemplateName] found.&quot;
+                $requestBody = Get-Content -Path &quot;$ExportPath\$ExportedTemplateName&quot; -Raw
+                $accessToken = $tokens.templatesTokens.access_token
+                $headers = @{
+                    &quot;authorization&quot;   = (&quot;Bearer $accessToken&quot;)
+                    &quot;accept&quot;          = &quot;application/json&quot;
+                    &quot;accept-encoding&quot; = &quot;gzip, deflate, br&quot;
+                } 
+                Write-log  &quot; Create team based in template[$ExportedTemplateName] found.`n`r Content: `n`r $requestBody  `n`r&quot;
+                $responseData = Invoke-RestMethod -UseBasicParsing   -Uri &quot;https://teams.microsoft.com/fabric/emea/templates/api/team&quot; -ContentType &quot;application/json&quot;  -Headers $headers -Method Post -Body  $requestBody 
+                        
+                #Team creation is a long-running operation. After the POST , 
+                #ee need to GET the operation to see if it's 'running' or 'succeeded' or 'failed'. 
+                #We should continue to GET until the status is not 'running'. 
+                #The recommended delay between GETs is 5 seconds.   
+                Start-Sleep 10
+                
+                $getUrl = &quot;https://teams.microsoft.com/fabric/emea/templates/api/workflow/status/{0}/team&quot; -f $responseData.workflowId 
+                $result = Invoke-RestMethod -Headers @{Authorization = &quot;Bearer $accesstoken&quot;; &quot;Content-Type&quot; = &quot;application/json&quot; } `
+                    -Uri $getUrl  -Method Get 
+                
+                while (($result.status -eq &quot;inProgress&quot;) -or ($result.status -eq &quot;Pending&quot;)) {
+                    Start-Sleep 5    
+                    $result = Invoke-RestMethod -Headers @{Authorization = &quot;Bearer $accesstoken&quot;; &quot;Content-Type&quot; = &quot;application/json&quot; } `
+                        -Uri $getUrl  -Method Get 
+                    Write-Log (&quot;   Provisioning team ...&quot; + $result.status)
+                    Write-Log (&quot;    Current Status&quot;)
+                    $objs = $result.apps |select-object @{l=&quot;Name&quot;;e={&quot;Apps&quot;}},index,status,updateTimestamp 
+                    $objs += $result.channels |select-object  @{l=&quot;Name&quot;;e={&quot;Channels&quot;}},index,status,updateTimestamp
+                    $info= &quot;   &quot; + ($objs|out-string)
+                    Write-Log (&quot;    `n`r $info `n`r`n`r&quot;)
+                    Write-Log (&quot;   Provisioning team ...&quot; + $result.status)
+                }  
+                Write-Log (&quot;   Team provisioned&quot;)
+            }
+        }
     }
-    $allTemplates = $templates
-    if (($null -ne $TeamTemplateNameOrId) -and ($TeamTemplateNameOrId -ne &quot;&quot;)) {
-        Write-Log &quot; Get specific template [$TeamTemplateNameOrId]&quot;  
-        $allTemplates = $templates | Where-object { ($_.id -eq $TeamTemplateNameOrId) -or ($_.name -eq $TeamTemplateNameOrId) }
-    }
-    $allTemplates = $allTemplates | Select-Object Id, Name, Description, ShortDescription, ChannelCount, AppCount, IconUri, Scope, TeamDefinition, &quot;@odata.id&quot;, ModifiedBy, ModifiedOn
-
-    if ($null -ne $allTemplates) {
-        Write-Log &quot; [$($allTemplates.Length)] Templates(s) were found&quot;
-    }
-    else {
-        Write-Log &quot; No Templates(s) were found&quot;
-    }
-    $ExportPath = Resolve-Path $ExportPath
+ 
+ 
     
-    $allTemplates |  Export-Csv -Path &quot;$ExportPath\TeamsTemplates.csv&quot; -Force -NoTypeInformation
-    $templatesDefinitions |  Export-Csv -Path &quot;$ExportPath\TeamsTemplatesDefinitions.csv&quot; -Force -NoTypeInformation
-    Write-Log  &quot; Template(s) info exported at [$ExportPath] &quot;
-    $allTemplates | Format-Table
 }
-end{
-    Write-Log  &quot;All done.&quot;
+end {
+    Write-Log &quot;All done&quot;
 }
-
 
 
 </code></pre>
@@ -349,7 +416,7 @@ end{
 </table>
 <h2 id="disclaimer">Disclaimer</h2>
 <p><strong>THESE SAMPLES ARE PROVIDED <em>AS IS</em> WITHOUT WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, INCLUDING ANY IMPLIED WARRANTIES OF FITNESS FOR A PARTICULAR PURPOSE, MERCHANTABILITY, OR NON-INFRINGEMENT.</strong></p>
-<img src="https://telemetry.sharepointpnp.com/script-samples/scripts/teams-get-templates" aria-hidden="true">
+<img src="https://telemetry.sharepointpnp.com/script-samples/scripts/teams-createteam-from-template" aria-hidden="true">
 </article>
           </div>
         </div>
