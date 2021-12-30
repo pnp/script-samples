@@ -16,6 +16,8 @@ PnP PowerShell
 - Create a new file
 - Copy a script  below
 
+[!INCLUDE [Delete Warning](../../docfx/includes/DELETE-WARN.md)]
+
 # [PnP PowerShell](#tab/pnpps)
 ```powershell
 
@@ -70,7 +72,7 @@ $Folder = $Library.RootFolder
 
 write-host $("End time " + (Get-Date))
 ```
-[!INCLUDE [More about CLI for Microsoft 365](../../docfx/includes/MORE-CLIM365.md)]
+[!INCLUDE [More about PnP PowerShell](../../docfx/includes/MORE-PNPPS.md)]
 ***
 
 ## Contributors
