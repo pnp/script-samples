@@ -1,17 +1,14 @@
-﻿
----
+﻿---
 plugin: add-to-gallery
 ---
-
-
-      
+   
 # Create Team from template
+
 ![Outputs](assets/header.png)
+
 ## Summary
 
 Create Team from template
-  
-
 
 This script allow us to create a Teams based on a template.  
 
@@ -333,8 +330,3 @@ end {
 
 [!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
 <img src="https://telemetry.sharepointpnp.com/script-samples/scripts/teams-createteam-from-template" aria-hidden="true" />
-
-
-
-
-

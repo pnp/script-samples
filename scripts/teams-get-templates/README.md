@@ -1,9 +1,6 @@
-﻿
----
+﻿---
 plugin: add-to-gallery
 ---
-
-
       
 # Get Teams Templates
 ![Outputs](assets/header.png)
@@ -11,8 +8,6 @@ plugin: add-to-gallery
 
 Get Teams Templates 
   
-
-
 This script allow us to collect\export current tenant Teams Templates .  
 
 The script uses Teams Native API  and is a subset of the SPO powershell packages with content (PnPCandy) concept already been used across many projects.  
@@ -23,8 +18,6 @@ Excelsior, hum? :P
 # [PnP PowerShell](#tab/pnpps)
 
 ```powershell
-
-
 
 [CmdletBinding()]
 param (

@@ -1,11 +1,11 @@
-
 ---
 plugin: add-to-gallery
 ---
-
       
 # Clone a Microsoft Team
+
 ![Outputs](assets/header.png)
+
 ## Summary
 
 This script allow us to clone an existing team into a new one with changed properties.  
