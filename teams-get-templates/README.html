@@ -1,0 +1,384 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html lang="en">
+  
+  <head>
+    <meta charset="utf-8">
+    <title>Get Teams Templates | PnP Samples </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Get Teams Templates | PnP Samples ">
+    <meta name="generator" content="docfx 2.56.7.0">
+    <meta name="description" content="A sample gallery of scripts to manage all things Microsoft 365.">
+  
+    <!-- Social Media -->
+    <meta property="og:locale" content="en_GB">
+    <meta property="og:title" content="Get Teams Templates | PnP Samples ">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://pnp.github.io/script-samples">
+    <meta property="og:image" content="https://pnp.github.io/script-samples/assets/social-media-screenshot.png">
+    <meta property="og:image:alt" content="Screenshot example of the PnP Script Samples Site">
+    <meta property="og:site_name" content="PnP Script Samples">
+    <meta property="og:description" content="A sample gallery of scripts to manage all things Microsoft 365.">
+  
+    <link rel="shortcut icon" href="https://c.s-microsoft.com/favicon.ico?v2">
+    <link rel="stylesheet" href="../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../styles/docfx.css">
+    <link rel="stylesheet" href="../styles/main.css">
+    <link rel="stylesheet" href="../styles/extra.css">
+    <link rel="stylesheet" href="../styles/filter.css">
+    <link rel="stylesheet" href="../styles/site.css">
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet"> 
+    <meta property="docfx:navrel" content="../toc.html">
+    <meta property="docfx:tocrel" content="../toc.html">
+    
+    
+    <meta property="docfx:newtab" content="true">
+    <script type="text/javascript">
+      (function(c,l,a,r,i,t,y){
+          c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+          t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+          y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+      })(window, document, "clarity", "script", "8j6pedl344");
+  </script>
+  </head>  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+             <div class="github-mark">
+              <a href="https://github.com/pnp/script-samples">
+                <img src="https://pnp.github.io/script-samples/assets/icons/github-light-64px.png" alt="GitHub Icon Image">
+              </a>
+            </div>
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../assets/logo.svg" alt="">
+              </a>    </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <label class="glyphicon glyphicon-search" for="search-query"></label>
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>      </header>
+      <div role="main" class="container body-content hide-when-search">
+        <div class="article row grid">
+          <div class="col-md-12">
+            <article class="content wrap" id="_content" data-uid="">
+                  <div class="contribution-panel mobile-hide pull-right">
+                      <a href="https://github.com/pnp/script-samples/blob/main/scripts/teams-get-templates/README.md/#L1" title="Improve this Doc" class="improve-doc-lg"><i class="glyphicon glyphicon-pencil"></i></a>
+                  </div>
+                    <h1 id="get-teams-templates">Get Teams Templates</h1>
+
+<p><img src="assets/header.png" alt="Outputs"></p>
+<h2 id="summary">Summary</h2>
+<p>Get Teams Templates</p>
+<p>This script allow us to collect\export current tenant Teams Templates .</p>
+<p>The script uses Teams Native API  and is a subset of the SPO powershell packages with content (PnPCandy) concept already been used across many projects.</p>
+<p>Excelsior, hum? :P</p>
+<div class="tabGroup" id="tabgroup_CeZOj-G++Q">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_CeZOj-G++Q_pnpps" role="tab" aria-controls="tabpanel_CeZOj-G++Q_pnpps" data-tab="pnpps" tabindex="0" aria-selected="true">PnP PowerShell</a>
+</li>
+</ul>
+<section id="tabpanel_CeZOj-G++Q_pnpps" role="tabpanel" data-tab="pnpps"><button class="article-clipboard" title="Copy to clipboard" data-toggle="tooltip" data-placement="top" data-clipboard-target="section[id^='tabpanel'][data-tab='pnpps'] pre">
+    <span class="glyphicon glyphicon-copy" aria-hidden="true"></span>
+    <span class="article-clipboard__message done">Copied</span>
+</button>
+
+<pre><code class="lang-powershell">
+
+
+[CmdletBinding()]
+param (
+    [Parameter(Mandatory = $True)]
+    [string]$Tenant ,
+    [Parameter(Mandatory = $False)]
+    [string]$StoredCredentials,
+    [Parameter(Mandatory = $False)]
+    [string]$TeamTemplateNameOrId,
+    [Parameter(Mandatory = $False)]
+    [string]$ExportPath = &quot;.\&quot;
+)
+begin {
+    $ErrorActionPreference = &quot;Stop&quot;
+    $defaultResource= &quot;https://api.spaces.skype.com&quot;
+    $defaultAuthRedirect= &quot;https://login.microsoftonline.com/common/oauth2/nativeclient&quot;
+    $defaultClientId= &quot;1fec8e78-bce4-4aaf-ab1b-5451cc387264&quot;
+
+    function Write-Log($msg) {
+        
+        $message = &quot;$($env:MainFunctionName)$($env:FunctionName) $msg&quot;
+        $message = $message.Trim()
+        Write-Output $message
+    }
+    function ShowOAuthWindow {
+        param (
+            [string]$WindowTitle,
+            ## Default value : resource for teams
+            [string]$Resource = $defaultResource ,
+            ## Default value : edirect for native teams app
+            [string]$Auth_Redirect = $defaultAuthRedirect,
+            [string]$ClientId = $defaultClientId,
+            [string]$Tenant = $Tenant,
+            [bool]$ForceMFA = $false
+        )
+        if ([String]::IsNullOrEmpty($Tenant)) {
+            $Tenant = &quot;common&quot;
+        }
+        # Create the url
+        $request_id = (New-Guid).ToString()
+        $url = &quot;https://login.microsoftonline.com/$Tenant/oauth2/authorize?resource=$Resource&amp;client_id=$ClientId&amp;response_type=code&amp;haschrome=1&amp;redirect_uri=$auth_redirect&amp;client-request-id=$request_id&amp;prompt=select_account&amp;scope=openid profile&quot;
+        
+        if ($ForceMFA) {
+            $url += &quot;&amp;amr_values=mfa&quot;
+        }
+        
+        Add-Type -AssemblyName System.Windows.Forms
+        $form = New-Object -TypeName System.Windows.Forms.Form -Property @{Width = 600; Height = 800 }
+        $form.Text = $WindowTitle
+        $web = New-Object -TypeName System.Windows.Forms.WebBrowser -Property @{Width = 580; Height = 780; Url = ($URL -f ($Scope -join &quot;%20&quot;)) }
+        $form.Controls.Add($web)
+
+        $docComp = {
+            $global:uri = $web.Url.AbsoluteUri
+            $global:web = $web
+            Write-Host  $web.Url
+            if ($global:uri -match &quot;error=[^&amp;]*|access_token=[^&amp;]*|id_token=[^&amp;]*|code=[^&amp;]*&quot;) { 
+                Write-Host &quot;close&quot;
+                $response = [Web.HttpUtility]::ParseQueryString($web.Url.Query)
+
+                # Create a body for REST API request
+                $body = @{
+                    client_id    = $ClientId
+                    grant_type   = &quot;authorization_code&quot;
+                    code         = $response[&quot;code&quot;]
+                    redirect_uri = $Auth_Redirect
+                }
+                # Dispose the control
+                $form.Controls[0].Dispose()
+      
+                # Set the content type and call the Microsoft Online authentication API
+                $contentType = &quot;application/x-www-form-urlencoded&quot;
+                $script:jsonResponse = Invoke-RestMethod -UseBasicParsing -Uri &quot;https://login.microsoftonline.com/$Tenant/oauth2/token&quot; -ContentType $contentType -Method POST -Body $body
+                $form.Close() 
+            }
+        }
+        $web.Add_DocumentCompleted($docComp)
+        $form.Add_Shown( { $form.Activate() })
+        $form.ShowDialog() | Out-Null
+        #return tokens
+        $script:jsonResponse
+    }
+
+    function Get-TenantId([string]$Tenant) {
+        #Get TenantId !
+        $obj = (Invoke-WebRequest https://login.windows.net/$Tenant/.well-known/openid-configuration | ConvertFrom-Json)
+        $tenantId = $obj.token_endpoint.Split('/')[3]
+        $tenantId
+    }
+    function Get-TeamsApiTokens([PSCredential] $Credentials, [string] $Tenant) {
+        $tenantId = Get-TenantId -Tenant $Tenant
+        if ($null -ne $Credentials) {
+            #Access Token
+            $p = [System.Runtime.InteropServices.Marshal]::PtrToStringAuto([System.Runtime.InteropServices.Marshal]::SecureStringToBSTR($Credentials.Password))
+            #Get access token
+            $body = @{
+                &quot;resource&quot;   = &quot;https://api.spaces.skype.com&quot; # resource
+                &quot;client_id&quot;  = &quot;1fec8e78-bce4-4aaf-ab1b-5451cc387264&quot; # teams web app id
+                &quot;grant_type&quot; = &quot;password&quot;
+                &quot;username&quot;   = $Credentials.UserName #username
+                &quot;password&quot;   = $p #clearpassword
+                &quot;scope&quot;      = &quot;user_impersonation&quot; #scope
+            }
+            $url = &quot;https://login.microsoftonline.com/%7B$tenantId%7D/oauth2/token&quot;
+            $regularTokens = Invoke-RestMethod -Uri $url -Body $body -Method Post 
+        }
+        else {
+            $regularTokens = ShowOAuthWindow
+        }
+        # get Skype Token needed to access Teams Native API
+        $regularHeadersAuth = @{
+            &quot;Authorization&quot; = (&quot;Bearer &quot; + $regularTokens.access_token)
+        }
+        $url = &quot;https://authsvc.teams.microsoft.com/v1.0/authz&quot;
+        $teamsTokens = Invoke-RestMethod -Uri $url -Headers $regularHeadersAuth  -Method Post 
+
+        $skypeHeadersAuth = @{
+            &quot;Authorization&quot; = (&quot;Bearer &quot; + $regularTokens.access_token)
+            &quot;x-skypetoken&quot;  = $teamsTokens.tokens.skypeToken
+        }
+
+        $body = @{
+            &quot;grant_type&quot;    = &quot;refresh_token&quot;
+            &quot;refresh_token&quot; = $regularTokens.refresh_token
+            &quot;scope&quot;         = &quot;https://templates.teams.microsoft.com/.default&quot;
+
+        }
+        $url = &quot;https://login.microsoftonline.com/%7B$tenantId%7D/oauth2/v2.0/token&quot;
+        $templatesTokens = Invoke-RestMethod -Uri $url -Body $body -Headers $regularHeadersAuth  -Method Post 
+
+        $templatesHeadersAuth = @{
+            &quot;Authorization&quot; = (&quot;Bearer &quot; + $templatesTokens.access_token)
+        }
+        
+        $mainTokens = [PSCustomObject]::new()
+        $mainTokens | Add-Member -Name &quot;requestTokens&quot; -MemberType NoteProperty -Value $regularTokens
+        $mainTokens | Add-Member -Name &quot;teamsTokens&quot; -MemberType NoteProperty -Value $teamsTokens
+        $mainTokens | Add-Member -Name &quot;templatesTokens&quot; -MemberType NoteProperty -Value $templatesTokens
+        $mainTokens.teamsTokens | Add-Member  -Name &quot;headers&quot; -MemberType NoteProperty -Value  $skypeHeadersAuth
+        $mainTokens.templatesTokens | Add-Member  -Name &quot;headers&quot; -MemberType NoteProperty -Value  $templatesHeadersAuth
+        $mainTokens
+    }
+
+    $msg = &quot;`n`r`n`r
+
+    █▀█ █▄░█ █▀█ █▀▀ ▄▀█ █▄░█ █▀▄ █▄█
+    █▀▀ █░▀█ █▀▀ █▄▄ █▀█ █░▀█ █▄▀ ░█░  `n    MSTeamsToolSet: `n`r    Get MSTeams Teams Templates    `n`n    ...aka ... [teams-get-templates]
+    `n&quot;
+    $msg += ('#' * 70) + &quot;`n&quot;
+    Write-Output  $msg
+
+    ## Validate if Tenant value is ok
+    if ($Tenant -notmatch '.onmicrosoft.com') {
+        $msg = &quot;Provided Tenant is not valid. Please use the following format [Tenant].onmicrosoft.com. Example:pnpcady.onmicrosoft.com&quot;
+        throw $msg
+    }
+    
+    ## Validate if StoredCredentials value is ok
+    $creds = $null
+    if (![String]::IsNullOrEmpty($StoredCredentials)) {
+        $creds = Get-PnPStoredCredential -Name $StoredCredentials -ErrorAction SilentlyContinue
+        if ($null -eq $creds) {
+            $msg = &quot;Provided credentials [$StoredCredentials] not found  `n`r&quot;
+            $msg += &quot;You can use [Add-PnPStoredCredential] to adds a credential to the Windows Credential Manager `n`r&quot;
+            $msg += &quot;Link [https://docs.microsoft.com/en-us/powershell/module/sharepoint-pnp/add-pnpstoredcredential?view=sharepoint-ps]`n`r&quot;
+            throw $msg
+        }
+    }
+    $url = &quot;https://&quot; + $Tenant.ToLower().Replace(&quot;.onmicrosoft.com&quot;, &quot;.sharepoint.com&quot;)
+
+    Write-Log &quot;Connecting to $Url&quot;
+}
+process {
+    Write-Log &quot; Get Teams Tokens&quot;
+    $tokens = Get-TeamsApiTokens -Credentials $creds -Tenant $Tenant
+    $headers = $tokens.templatesTokens.headers
+
+    Write-Log &quot; Get all Templates&quot;
+    $url = &quot;https://teams.microsoft.com/fabric/emea/templates/api/teamtemplates/v1.0/en-us&quot;
+    $allTemplates = @((Invoke-RestMethod -Uri $url  -Headers $headers  -Method Get).value) 
+    #Build token Object
+
+    $templatesDefinitions = @();
+    $allTemplates | ForEach-Object {
+        $t = $_
+        $t | Add-Member -Name &quot;TeamDefinition&quot;  -MemberType NoteProperty -Value &quot;&quot;
+        $serviceUrl = $tokens.teamsTokens.regionGtms.teamsAndChannelsProvisioningService.replace(&quot;/api&quot;, &quot;&quot;)
+        $url = $serviceUrl + $t.&quot;@odata.id&quot;
+        $definition = @((Invoke-RestMethod -Uri $url  -Headers $headers  -Method Get).value) 
+        $t.teamDefinition = $definition[0].teamDefinition
+        $templatesDefinitions += $definition[0].teamDefinition
+    }
+    #CammelCase all Properties
+    $templates = @();
+    $allTemplates | ForEach-Object {
+        $t = $_
+        $newObj = [PSCustomObject]::new()
+        $t | Get-Member -MemberType Properties | ForEach-Object {
+            $obj = $_
+            $name = ($_.Name.substring(0, 1).toupper() + $_.Name.substring(1, $_.Name.length - 1))
+            
+            $newObj | Add-Member -Name $name  -MemberType NoteProperty -Value  $t.&quot;$name&quot;
+        }
+        $templates += $newObj
+    }
+    $allTemplates = $templates
+    if (($null -ne $TeamTemplateNameOrId) -and ($TeamTemplateNameOrId -ne &quot;&quot;)) {
+        Write-Log &quot; Get specific template [$TeamTemplateNameOrId]&quot;  
+        $allTemplates = $templates | Where-object { ($_.id -eq $TeamTemplateNameOrId) -or ($_.name -eq $TeamTemplateNameOrId) }
+    }
+    $allTemplates = $allTemplates | Select-Object Id, Name, Description, ShortDescription, ChannelCount, AppCount, IconUri, Scope, TeamDefinition, &quot;@odata.id&quot;, ModifiedBy, ModifiedOn
+
+    if ($null -ne $allTemplates) {
+        Write-Log &quot; [$($allTemplates.Length)] Templates(s) were found&quot;
+    }
+    else {
+        Write-Log &quot; No Templates(s) were found&quot;
+    }
+    $ExportPath = Resolve-Path $ExportPath
+    
+    $allTemplates |  Export-Csv -Path &quot;$ExportPath\TeamsTemplates.csv&quot; -Force -NoTypeInformation
+    $templatesDefinitions |  Export-Csv -Path &quot;$ExportPath\TeamsTemplatesDefinitions.csv&quot; -Force -NoTypeInformation
+    Write-Log  &quot; Template(s) info exported at [$ExportPath] &quot;
+    $allTemplates | Format-Table
+}
+end{
+    Write-Log  &quot;All done.&quot;
+}
+
+
+
+</code></pre>
+<div class="highlight-tool">
+<p>Check out the <strong>PnP PowerShell</strong> to learn more at: <a href="https://aka.ms/pnp/powershell">https://aka.ms/pnp/powershell</a></p>
+</div>
+</section>
+</div>
+<h2 id="contributors">Contributors</h2>
+<table>
+<thead>
+<tr>
+<th>Author(s)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Rodrigo Pinto</td>
+</tr>
+</tbody>
+</table>
+<h2 id="disclaimer">Disclaimer</h2>
+<p><strong>THESE SAMPLES ARE PROVIDED <em>AS IS</em> WITHOUT WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, INCLUDING ANY IMPLIED WARRANTIES OF FITNESS FOR A PARTICULAR PURPOSE, MERCHANTABILITY, OR NON-INFRINGEMENT.</strong></p>
+<img src="https://telemetry.sharepointpnp.com/script-samples/scripts/teams-get-templates" aria-hidden="true">
+</article>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            <span>Script Samples<br>Generated by <strong><a href='https://dotnet.github.io/docfx' alt='Doc FX Website'>DocFX</a></strong> with <strong><a href='https://ovasquez.github.io/docfx-material' alt='DocFx Material Theme'>Material UI</a></strong></span>
+            
+            <!-- <img src="https://telemetry.sharepointpnp.com/@pnp.github.io/index/" alt="spacer"> -->
+          </div>
+        </div>
+      </footer>    </div>
+    
+    <script type="text/javascript" src="../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+    
+    <script type="text/javascript" src="../styles/clipboard.min.js"></script>
+    <script type="text/javascript" src="../styles/isotope.pkgd.min.js"></script>
+    <script type="text/javascript" src="../styles/loadsamples.js"></script>
+    <script type="text/javascript" src="../styles/filtersamples.js"></script>
+
+  </body>
+</html>
