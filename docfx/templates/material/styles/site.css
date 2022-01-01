@@ -127,4 +127,11 @@
     background-repeat: no-repeat; */
 }
 
+.sample-thumbnail[data-products^="powerapps"] .sample-preview,
+.sample-thumbnail[data-products^="power apps"] .sample-preview {
+    background: rgb(237,237,237);
+    background: linear-gradient(90deg, rgba(237,237,237,1) 0%, rgba(222,126,194,1) 77%);
+}
+
+
 /* //Data driven backgrounds */
