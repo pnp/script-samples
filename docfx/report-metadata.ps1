@@ -23,6 +23,21 @@ function DispTick{
     return "-"
 }
 
+function DispNope{
+    [CmdletBinding()]
+    param (
+        [Parameter()]
+        [bool]
+        $in
+    )
+
+    if($in -eq $true){
+        return "`u{1F937}"
+    }
+
+    return "-"
+}
+
 function ResolveLink{
     param (
         [string]
@@ -64,8 +79,8 @@ $files = Get-ChildItem -Path $dir -Recurse -Include README.md
 Write-Host "$($files.Length) found"
 
 "# Metadata Report of Samples"  | Out-File $ReportFile -Force
-"| Sample | Description (Short) | Categories | Tags | Metadata | Image URL |" | Out-File $reportFile -Append
-"|------|:--------:|:--------:|:----------:|:-----------:|:--------:|"  | Out-File $reportFile -Append
+"| Sample | Description (Short) | Products | Categories | Tags | Metadata | Image URL |" | Out-File $reportFile -Append
+"|------|--------|:--------:|:--------:|:----------:|:-----------:|:--------:|"  | Out-File $reportFile -Append
 
 $matrixRows = @()
 $sampleCount = 0
@@ -78,19 +93,27 @@ $files | Foreach-Object {
         return
     }
 
-    $sampleJsonObj = GetTitleFromSampleJson -SamplePath $_.Directory -DefaultReturn $_.Directory.Name
+    $sampleJsonObj = GetJsonFromSampleJson -SamplePath $_.Directory -DefaultReturn $_.Directory.Name
 
     $title = $sampleJsonObj.title
-    $dirName = $_.Directory.Name 
-    
+    $dirName = $_.Directory.Name
+    $imgUrl = $sampleJsonObj.thumbnails[0].Url
+    $imgStatus = DispNope -in $true
+
+    if($imgUrl -like "https://raw.githubusercontent.com/pnp/script-samples/main/scripts/*"){
+        $imgStatus = DispTick -in $true
+    }
+
+
     $sampleCount++
     
     $status = [PSCustomObject]@{
         Link = "[$($title)]($(ResolveLink $dirName))"
         Description = $sampleJsonObj.shortDescription
-        Categories = $sampleJsonObj.categories
-        Tags = $sampleJsonObj.tags
-        Metadata = $sampleJsonObj.metadata
+        Products = $($sampleJsonObj.products -join ',')
+        Categories = $($sampleJsonObj.categories -join ', ')
+        Tags = $($sampleJsonObj.tags -join ', ')
+        Metadata = $($sampleJsonObj.metadata.key -join ', ')
         ImageUrl = $sampleJsonObj.thumbnails[0].Url
     }
 
@@ -102,7 +125,7 @@ $files | Foreach-Object {
 
 $matrixRows | ForEach-Object{
 
-    $row = "| {0} | {1} | {2} | {3} | {4} | {5} |" -f $_.Link, (DispTick $_.PnPPS), (DispTick $_.CLIPS), (DispTick $_.CLIBash), (DispTick $_.GraphSDK), (DispTick $_.SPOMS)
+    $row = "| {0} | {1} | {2} | {3} | {4} | {5} |" -f $_.Link, $_.Description, $_.Products, $_.Categories, $_.Tags, $_.Metadata, $imgStatus
     Write-Host $row
 
     $row | Out-File $reportFile -Append
