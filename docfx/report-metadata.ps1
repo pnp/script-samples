@@ -91,10 +91,12 @@ $files | Foreach-Object {
         $sourceCreditReference = DispTick
     }
 
-    if($sampleJsonObj.references){
-        $referenceCount = $sampleJsonObj.references.length
+    if($sampleJsonObj.PSobject.Properties.name -match "references"){
+        if($sampleJsonObj.references){
+            $referenceCount = $sampleJsonObj.references.length
+        }
     }
-
+    
     $sampleCount++
     
     $status = [PSCustomObject]@{
