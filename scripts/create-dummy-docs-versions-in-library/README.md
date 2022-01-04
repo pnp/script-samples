@@ -35,13 +35,12 @@ Note about two available options
 - Upload the dummy files directly on the SP library, you can provide this path in "$Folder"
 - Create a dummy folder first and upload the file inside that folder, you can provide the root path in "$SiteRelativeURL"
 
-
 ## Implementation
 
 - Open Windows PowerShell ISE
 - Create a new file
 - Write a script as below,
-- Change the variables to target to your enviorment, site, document library, document path, max count
+- Change the variables to target to your environment, site, document library, document path, max count
 - Run the script.
  
 ## Screenshot of Output 
@@ -55,8 +54,6 @@ Note about two available options
 
 # [PnP PowerShell](#tab/pnpps)
 ```powershell
-
-
 
 function ensureLibraryIsUsingMinorVersions
 {
@@ -109,7 +106,6 @@ $FileName = $FilePath.BaseName #Inorder to get the filename for the manipulation
 $LogTime = Get-Date -Format "MM-dd-yyyy_hh-mm-ss"
 $LogFile = 'D:\SP\repos\myscriptsamples\'+"FileFolderCreation_"+$LogTime+".txt"
 
- 
 
  if($MethodCall -eq "FOLDER" -or $MethodCall -eq "FILE")
  {
@@ -198,14 +194,9 @@ catch
  write-host "Please type either File or Folder" -foregroundcolor Red
  }
 
-
-
-
-
 ```
 [!INCLUDE [More about PnP PowerShell](../../docfx/includes/MORE-PNPPS.md)]
 ***
-
 
 ## Contributors
 
