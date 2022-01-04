@@ -102,7 +102,7 @@ $files | Foreach-Object {
         Metadata = $($sampleJsonObj.metadata.key -join ', ')
         ImageStatus = $imgStatus
         HasSourceCredit = $sourceCreditReference
-        ReferenceCount = $($references.Count)
+        ReferenceCount = $($references.length)
     }
 
     $matrixRows += $status
