@@ -80,6 +80,7 @@ $files | Foreach-Object {
     $imgStatus = ""
     $sourceCreditReference = "-"
     $referenceCount = 0 
+    $tags = ""
 
     if($imgUrl -like "https://raw.githubusercontent.com/pnp/script-samples/main/scripts/*"){
         $imgStatus = DispTick
@@ -96,6 +97,12 @@ $files | Foreach-Object {
             $referenceCount = $sampleJsonObj.references.length
         }
     }
+
+    if($sampleJsonObj.PSobject.Properties.name -match "tags"){
+        if($sampleJsonObj.tags){
+            $tags = $sampleJsonObj.tags.join(", ")
+        }
+    }
     
     $sampleCount++
     
@@ -104,7 +111,7 @@ $files | Foreach-Object {
         Description = $sampleJsonObj.shortDescription
         Products = $($sampleJsonObj.products -join ', ')
         Categories = $($sampleJsonObj.categories -join ', ')
-        Tags = $($sampleJsonObj.tags -join ', ')
+        Tags = $tags
         Metadata = $($sampleJsonObj.metadata.key -join ', ')
         ImageStatus = $imgStatus
         HasSourceCredit = $sourceCreditReference
