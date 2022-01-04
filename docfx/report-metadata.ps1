@@ -9,33 +9,11 @@ param(
 )
 
 function DispTick{
-    [CmdletBinding()]
-    param (
-        [Parameter()]
-        [bool]
-        $in
-    )
-
-    if($in -eq $true){
-        return "`u{1F44D}"
-    }
-
-    return "-"
+    return "`u{1F44D}"
 }
 
 function DispNope{
-    [CmdletBinding()]
-    param (
-        [Parameter()]
-        [bool]
-        $in
-    )
-
-    if($in -eq $true){
-        return "`u{1F937}"
-    }
-
-    return "-"
+    return "`u{1F937}"
 }
 
 function ResolveLink{
@@ -79,8 +57,8 @@ $files = Get-ChildItem -Path $dir -Recurse -Include README.md
 Write-Host "$($files.Length) found"
 
 "# Metadata Report of Samples"  | Out-File $ReportFile -Force
-"| Sample | Description (Short) | Products | Categories | Tags | Metadata | Image URL |" | Out-File $reportFile -Append
-"|------|--------|:--------:|:--------:|:----------:|:-----------:|:--------:|"  | Out-File $reportFile -Append
+"| Sample | Products | Categories | Tags | Metadata | Image URL | Source Credit | Reference Count |" | Out-File $reportFile -Append
+"|--------|:--------:|:----------:|:----:|:--------:|:---------:|:-------------:|:---------------:|"  | Out-File $reportFile -Append
 
 $matrixRows = @()
 $sampleCount = 0
@@ -95,26 +73,36 @@ $files | Foreach-Object {
 
     $sampleJsonObj = GetJsonFromSampleJson -SamplePath $_.Directory -DefaultReturn $_.Directory.Name
 
+    $content = Get-Content -Path $_.FullName -Raw
     $title = $sampleJsonObj.title
     $dirName = $_.Directory.Name
-    $imgUrl = $sampleJsonObj.thumbnails[0].Url
-    $imgStatus = DispNope -in $true
+    $imgUrl = $sampleJsonObj.thumbnails[0].url
+    $imgStatus = ""
+    $sourceCreditReference = "-"
+    $references = $sampleJsonObj.references
 
     if($imgUrl -like "https://raw.githubusercontent.com/pnp/script-samples/main/scripts/*"){
-        $imgStatus = DispTick -in $true
+        $imgStatus = DispTick
+    }else{
+        $imgStatus = DispNope
     }
 
+    if($content.Contains("#tab/cli-m365-ps")){
+        $sourceCreditReference = DispTick
+    }
 
     $sampleCount++
     
     $status = [PSCustomObject]@{
         Link = "[$($title)]($(ResolveLink $dirName))"
         Description = $sampleJsonObj.shortDescription
-        Products = $($sampleJsonObj.products -join ',')
+        Products = $($sampleJsonObj.products -join ', ')
         Categories = $($sampleJsonObj.categories -join ', ')
         Tags = $($sampleJsonObj.tags -join ', ')
         Metadata = $($sampleJsonObj.metadata.key -join ', ')
-        ImageUrl = $sampleJsonObj.thumbnails[0].Url
+        ImageStatus = $imgStatus
+        HasSourceCredit = $sourceCreditReference
+        ReferenceCount = $($references.Count)
     }
 
     $matrixRows += $status
@@ -125,9 +113,11 @@ $files | Foreach-Object {
 
 $matrixRows | ForEach-Object{
 
-    $row = "| {0} | {1} | {2} | {3} | {4} | {5} | {6} |" -f $_.Link, $_.Description, $_.Products, $_.Categories, $_.Tags, $_.Metadata, $imgStatus
+    $row = "| {0} | {1} | {2} | {3} | {4} | {5} | {6} | {7} |" -f $_.Link, $_.Products, $_.Categories, $_.Tags, $_.Metadata, $_.ImageStatus, $_.HasSourceCredit, $_.ReferenceCount
     Write-Host $row
 
     $row | Out-File $reportFile -Append
 }
 
+"`nThere are **{0}** script scenarios with metadata in the site | Generated: {1} `n`n" -f $sampleCount, [System.DateTime]::Now.ToString("dd MMM yyyy hh:mm:ss") `
+    | Out-File $reportFile -Append
