@@ -100,7 +100,7 @@ $files | Foreach-Object {
 
     if($sampleJsonObj.PSobject.Properties.name -match "tags"){
         if($sampleJsonObj.tags){
-            $tags = $sampleJsonObj.tags.join(", ")
+            $tags = $sampleJsonObj.tags -join ', '
         }
     }
     
