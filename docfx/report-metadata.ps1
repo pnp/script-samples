@@ -79,7 +79,7 @@ $files | Foreach-Object {
     $imgUrl = $sampleJsonObj.thumbnails[0].url
     $imgStatus = ""
     $sourceCreditReference = "-"
-    $references = $sampleJsonObj.references
+    $referenceCount = 0 
 
     if($imgUrl -like "https://raw.githubusercontent.com/pnp/script-samples/main/scripts/*"){
         $imgStatus = DispTick
@@ -89,6 +89,10 @@ $files | Foreach-Object {
 
     if($content.Contains("#tab/cli-m365-ps")){
         $sourceCreditReference = DispTick
+    }
+
+    if($sampleJsonObj.references){
+        $referenceCount = $sampleJsonObj.references.length
     }
 
     $sampleCount++
@@ -102,7 +106,7 @@ $files | Foreach-Object {
         Metadata = $($sampleJsonObj.metadata.key -join ', ')
         ImageStatus = $imgStatus
         HasSourceCredit = $sourceCreditReference
-        ReferenceCount = $($references.length)
+        ReferenceCount = $referenceCount
     }
 
     $matrixRows += $status
@@ -119,5 +123,6 @@ $matrixRows | ForEach-Object{
     $row | Out-File $reportFile -Append
 }
 
-"`nThere are **{0}** script scenarios with metadata in the site | Generated: {1} `n`n" -f $sampleCount, [System.DateTime]::Now.ToString("dd MMM yyyy hh:mm:ss") `
-    | Out-File $reportFile -Append
+$summary = "`nThere are **{0}** script scenarios with metadata in the site | Generated: {1} `n`n" -f $sampleCount, [System.DateTime]::Now.ToString("dd MMM yyyy hh:mm:ss")
+Write-Host $summary
+$summary | Out-File $reportFile -Append
