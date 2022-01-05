@@ -1,47 +1,53 @@
 [
-    {
-      "name": "aad-guest-signin-activity",
-      "source": "pnp",
-      "title": "Inventory Guest Sign-In Activity with CLI for M365 and Microsoft Graph",
-      "shortDescription": "Inventories Guest accounts from Azure Active Directory to query all Guest accounts and signInActivity and saves report to SharePoint List",
-      "url": "aad-guest-signin-activity/README.html",
-      "longDescription": [
-        "Inventories Guest accounts from Azure Active Directory using the CLI for Microsoft 365, Microsoft Graph, and PowerShell's Invoke-RestMethod to query all Guest accounts and signInActivity"
-      ],
-      "creationDateTime": "2021-12-21",
-      "updateDateTime": "2021-12-21",
-      "products": [
-        "SharePoint",
-        "Graph",
-        "Azure"
-      ],
-      "metadata": [
-        {
-          "key": "cli-for-microsoft365",
-          "value": "3.7.0"
-        }
-      ],
-      "categories": [
-        "Data",
-        "Report"
-      ],
-      "tags":[
-      ],
-      "thumbnails": [
-        {
-          "type": "image",
-          "order": 100,
-          "url": "https://raw.githubusercontent.com/pnp/script-samples/main/scripts/aad-guest-signin-activity/assets/preview.png",
-          "alt": ""
-        }
-      ],
-      "authors": [
-        {
-          "gitHubAccount": "pkskelly",
-          "company": "ThreeWill, LLC",
-          "pictureUrl": "https://avatars.githubusercontent.com/u/5527235?v=4",
-          "name": "Pete Skelly"
-        }
-      ]
-    }
-  ]
+  {
+    "name": "aad-guest-signin-activity",
+    "source": "pnp",
+    "title": "Inventory Guest Sign-In Activity with CLI for M365 and Microsoft Graph",
+    "shortDescription": "Inventories Guest accounts from Azure Active Directory to query all Guest accounts and signInActivity and saves report to SharePoint List",
+    "url": "aad-guest-signin-activity/README.html",
+    "longDescription": [
+      "Inventories Guest accounts from Azure Active Directory using the CLI for Microsoft 365, Microsoft Graph, and PowerShell's Invoke-RestMethod to query all Guest accounts and signInActivity"
+    ],
+    "creationDateTime": "2021-12-21",
+    "updateDateTime": "2021-12-21",
+    "products": [
+      "SharePoint",
+      "Graph",
+      "Azure"
+    ],
+    "metadata": [
+      {
+        "key": "cli-for-microsoft365",
+        "value": "3.7.0"
+      }
+    ],
+    "categories": [
+      "Data",
+      "Report"
+    ],
+    "tags": [],
+    "thumbnails": [
+      {
+        "type": "image",
+        "order": 100,
+        "url": "https://raw.githubusercontent.com/pnp/script-samples/main/scripts/aad-guest-signin-activity/assets/preview.png",
+        "alt": ""
+      }
+    ],
+    "authors": [
+      {
+        "gitHubAccount": "pkskelly",
+        "company": "ThreeWill, LLC",
+        "pictureUrl": "https://avatars.githubusercontent.com/u/5527235?v=4",
+        "name": "Pete Skelly"
+      }
+    ],
+    "references": [
+      {
+        "name": "Want to learn more about CLI for Microsoft 365 and the commands",
+        "description": "Check out the CLI for Microsoft 365 site to get started and for the reference to the commands.",
+        "url": "https://aka.ms/cli-m365"
+      }
+    ]
+  }
+]
