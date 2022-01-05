@@ -4,7 +4,7 @@
 param(
     [string]$BaseDir = "C:\Git\contrib\script-samples\",
     [string]$ScriptFolder = "scripts",
-    [string]$ReportFile = "metadata-report.md",
+    [string]$ReportFile = "metadata.md",
     [string]$AssetsFolder = "assets"
 )
 
