@@ -3,7 +3,9 @@ plugin: add-to-gallery
 ---
      
 # Export a csv report on all Microsoft Stream videos
+
 ![Outputs](assets/header.png)
+
 ## Summary
 
 Export a report on all Microsoft Stream (Classic) videos (all videos and videos not yet migrated to the new Stream (build on SharePoint))
@@ -12,7 +14,7 @@ Microsoft Stream (Classic) will be retired soon , therefore we need to gather a 
 This script allow us to export a list with all videos detailed in our tenant .
 
 
-The script is a subset of the SPO powershell packages with content (PnPCandy) concept already been used across many projects.  
+The script is a subset of the SPO PowerShell packages with content (PnPCandy) concept already been used across many projects.  
 
 
 Excelsior, hum? :P  
@@ -20,7 +22,6 @@ Excelsior, hum? :P
 # [PnP PowerShell](#tab/pnpps)
 
 ```powershell
-
 
 [CmdletBinding()]
 param (
