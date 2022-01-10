@@ -11,8 +11,6 @@ Often we will have to iterate a lot of site collections in order to query if thi
 There are a number of ways to speed up the process (divide&conquer using multiple scripts or fan in / fan out in Azure Functions) but I have had the ForEach-Object -parallel on my to do list since I saw it here: https://devblogs.microsoft.com/powershell/powershell-foreach-object-parallel-feature/
 
 
-
-
 ## Implementation
 
 - Open Windows PowerShell ISE
@@ -23,9 +21,6 @@ There are a number of ways to speed up the process (divide&conquer using multipl
  
 ## Screenshot of Output 
 
- 
-
--
 ![Example Screenshot](assets/preview.png)
 
 # [PnP PowerShell](#tab/pnpps)
@@ -124,8 +119,6 @@ if($true)
     $sequentialtimespan = $end - $start
     Write-Host "Running sequentially total time:$sequentialtimespan " -ForegroundColor Green
 }
-
-
 
 
 Write-Host "Starting parallel run" -ForegroundColor Blue
