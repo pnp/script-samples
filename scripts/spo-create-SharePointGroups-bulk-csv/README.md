@@ -17,6 +17,12 @@ This script shows how to create multiple groups in SharePoint for different site
 - Then we provide the path of the file as input to the PowerShell when prompted in the window when executed.
 
 Download Sample CSV from this [link](assets/SampleInput.csv)
+
+### Execution Image and output Image
+
+![ExecutionImage](assets/SampleExecution.png)
+
+![OutPutImage](assets/OutPut.png)
  
 # [PnP PowerShell](#tab/pnpps)
 ```powershell
@@ -31,10 +37,6 @@ for ($index = 0; $index -lt $importedFile.Count; $index++) {
 }
 
 ```
-### Execution Image and output Image
-![ExecutionImage](assets/SampleExecution.png)
-![OutPutImage](assets/OutPut.png)
-
 [!INCLUDE [More about PnP PowerShell](../../docfx/includes/MORE-PNPPS.md)]
 ***
 
@@ -46,4 +48,4 @@ for ($index = 0; $index -lt $importedFile.Count; $index++) {
 | Kunj Sangani |
 
 [!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
-<img src="https://telemetry.sharepointpnp.com/script-samples/scripts/spo-create-SharePointGroups-bulk-csv" aria-hidden="true" />
+<img src="https://telemetry.sharepointpnp.com/script-samples/scripts/spo-create-sharepointgroups-bulk-csv" aria-hidden="true" />
