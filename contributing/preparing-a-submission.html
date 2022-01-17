@@ -101,7 +101,7 @@
 <li><strong>Article Title</strong> - the title for your script</li>
 <li><strong>Summary</strong> - for briefly describing what the script does</li>
 <li><strong>Image</strong>, ideally named &quot;example.png&quot; in an assets folder, presenting the end result of the operation. The more visual the better.</li>
-<li><strong>Script</strong> - minimum of at least one type. We support: PnP PowerShell, Microsoft 365 CLI, Graph PowerShell SDK, SPO PowerShell, if there are other types you wish to include, please raise an issue, we may need to tweak the site to accommodate the library.</li>
+<li><strong>Script</strong> - minimum of at least one type. We support a wide range of script types, if this is not listed in the template file, we can add support for that type when you submit your PR.</li>
 <li><strong>Contributors</strong> - your name, or if a joint submission those you have worked with - so that we can attribute credit for the submission.</li>
 </ul>
 <p>We add the disclaimer statement at the bottom.</p>
@@ -164,6 +164,21 @@
 <li><strong>README.md</strong> - Sample Readme with the structure, remove the dummy text and update the areas for your submission</li>
 <li><strong>assets/example.png</strong> - image for the sample, simply replace with a screenshot to show in the article</li>
 </ul>
+<h3 id="script-quality">Script Quality</h3>
+<p>In the PnP Script Samples, we do not place any specific quality requirements on the scripts themselves. To help guide you for suggested ways to present your scripts:</p>
+<ul>
+<li>Indent the scripts when encapsulating blocks in curly braces - this make it easier to read the blocks and understand the script</li>
+<li>Use comments, if you feel the script isn't clear by itself what it is doing. However, do not overload the script with comments either.</li>
+<li>Use good naming for variables to understand what is being stored</li>
+<li>Check the script works as you would expect it to, preferably include a screenshot of the end result, to help guide the reader.</li>
+<li>Remove any lines that show details of <strong>your</strong> tenant, e.g. usernames, passwords, URLs (replace with Contoso).</li>
+</ul>
+<div class="NOTE">
+<h5>Note</h5>
+<p>If you would like an example, please refer to the following script: <a href="https://pnp.github.io/script-samples/spo-generate-demo-events/README.html">Generate Demo Events for SharePoint Events List | PnP Script Samples</a> <br>
+Please note: this isn't an expected sample style, quality or format, or a gold standard just an idea if you feel you need some ideas on how to present your script. <br><br>
+We fully understand that there any multiple styles and approaches, and <strong>we are happy to accept the submission in your style</strong> 😊</p>
+</div>
 <h3 id="optional-files">Optional files</h3>
 <ul>
 <li><strong>assets/template.sample.json</strong> - this is a metadata file used for the gallery views, this is optional <em>DO NOT HAVE TO COMPLETE THIS</em></li>
