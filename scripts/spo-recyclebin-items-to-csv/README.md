@@ -106,14 +106,100 @@ Main
 
 ```
 [!INCLUDE [More about PnP PowerShell](../../docfx/includes/MORE-PNPPS.md)]
-***
 
+
+# [CLI for Microsoft 365](#tab/cli-m365-ps)
+```powershell
+
+#Global Variable Declaration
+$DateTime = "_{0:MM_dd_yy}_{0:HH_mm_ss}" -f (Get-Date)
+$BasePath = "C:\workspace\a_Local\cli_sample\"
+$CSVPath = $BasePath + "RecycleBinItems" + $DateTime + ".csv"
+$global:RecycleBinItems = @()
+
+Function Login() {
+    $m365Status = m365 status
+    if ($m365Status -eq "Logged Out") {
+        m365 login
+    }
+}
+
+Function ConnectToSPSite() {
+    try {
+        $SiteUrl = Read-Host "Please enter SiteURL"
+        if ($SiteUrl) {
+            
+            GetRecycleBinItems($SiteUrl)
+        }
+        else {
+            Write-Host "Site URL is empty" -ForegroundColor Red
+        }
+    }
+    catch {
+        Write-Host "Error in connecting to Site:'$($SiteUrl)'" $_.Exception.Message -ForegroundColor Red               
+    } 
+}
+
+#Read recycle bin items and export to CSV
+Function GetRecycleBinItems($siteUrl) {
+    try {
+        Write-Host "Enter F to read first stage items " -ForegroundColor Magenta
+        Write-Host "Enter S to read second stage items " -ForegroundColor Magenta
+        Write-Host "Enter B to read both stage items " -ForegroundColor Magenta
+        $stage = Read-Host "Enter stage"
+        $stage = $stage.ToLower()
+        
+        if ($stage -eq 'f' -or $stage -eq 'b') {
+            Write-Host "Reading items from 'FirstStage'..." -ForegroundColor Yellow
+            $first = m365 spo site recyclebinitem list --siteUrl $siteUrl
+            $first = $first | ConvertFrom-Json
+            Write-Host "Items retrieved successfully from FirstStage" -ForegroundColor Green
+        }
+        
+        if ($stage -eq 's' -or $stage -eq 'b') {
+            Write-Host "Reading items from 'SecondStage'..." -ForegroundColor Yellow
+            $second = m365 spo site recyclebinitem list --siteUrl $siteUrl --secondary
+            $second = $second | ConvertFrom-Json
+            Write-Host "Items retrieved successfully from SecondStage" -ForegroundColor Green
+        }
+
+        if ($stage -eq 'f') {
+            $global:RecycleBinItems = $first
+        }
+        elseif ($stage -eq 's') {
+            $global:RecycleBinItems = $second
+        }
+        else {
+            $global:RecycleBinItems = @($first + $second)
+        }
+
+    }
+    catch {
+        Write-Host "Error in getting recycle bin items from :'$($siteUrl)'" $_.Exception.Message -ForegroundColor Red                 
+    }
+    Write-Host "Exporting to CSV..." -ForegroundColor Yellow
+    $global:RecycleBinItems | Export-Csv $CSVPath -NoTypeInformation -Append
+    Write-Host "Exported to CSV successfully" -ForegroundColor Green
+}
+
+Function Main {
+    Login
+    ConnectToSPSite
+}
+
+Main
+
+```
+[!INCLUDE [More about CLI for Microsoft 365](../../docfx/includes/MORE-CLIM365.md)]
+
+***
 
 ## Contributors
 
 | Author(s) |
 |-----------|
 | Chandani Prajapati |
+| [Adam Wójcik](https://github.com/Adam-it)|
 
 [!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
 <img src="https://telemetry.sharepointpnp.com/script-samples/scripts/spo-recyclebin-items-to-csv" aria-hidden="true" />
