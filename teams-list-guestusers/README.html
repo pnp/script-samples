@@ -82,10 +82,14 @@
 
 <h2 id="summary">Summary</h2>
 <p>List all guests in Microsoft Teams teams in the tenant and exports the results in a CSV.</p>
+<p>PnP PowerShell script uses Microsoft Graph behind the scenes to get all teams and guest users. it requires an application/user that has been granted the Microsoft Graph API permission : Group.Read.All or Group.ReadWrite.All</p>
 <div class="tabGroup" id="tabgroup_CeZOj-G++Q">
 <ul role="tablist">
 <li role="presentation">
 <a href="#tabpanel_CeZOj-G++Q_teamsps" role="tab" aria-controls="tabpanel_CeZOj-G++Q_teamsps" data-tab="teamsps" tabindex="0" aria-selected="true">MicrosoftTeams PowerShell</a>
+</li>
+<li role="presentation">
+<a href="#tabpanel_CeZOj-G++Q_pnpps" role="tab" aria-controls="tabpanel_CeZOj-G++Q_pnpps" data-tab="pnpps" tabindex="-1">PnP PowerShell</a>
 </li>
 </ul>
 <section id="tabpanel_CeZOj-G++Q_teamsps" role="tabpanel" data-tab="teamsps"><button class="article-clipboard" title="Copy to clipboard" data-toggle="tooltip" data-placement="top" data-clipboard-target="section[id^='tabpanel'][data-tab='teamsps'] pre">
@@ -126,6 +130,51 @@ foreach ($team in $teams){
 <p>Check out the <strong>Microsoft Teams PowerShell</strong> to learn more at: <a href="https://docs.microsoft.com/en-us/microsoftteams/teams-powershell-overview">https://docs.microsoft.com/en-us/microsoftteams/teams-powershell-overview</a></p>
 </div>
 </section>
+<section id="tabpanel_CeZOj-G++Q_pnpps" role="tabpanel" data-tab="pnpps" aria-hidden="true" hidden="hidden"><button class="article-clipboard" title="Copy to clipboard" data-toggle="tooltip" data-placement="top" data-clipboard-target="section[id^='tabpanel'][data-tab='pnpps'] pre">
+    <span class="glyphicon glyphicon-copy" aria-hidden="true"></span>
+    <span class="article-clipboard__message done">Copied</span>
+</button>
+
+<pre><code class="lang-powershell">#Connect as an application/user that has been granted Microsoft Graph API permissions : Group.Read.All or Group.ReadWrite.All
+$siteUrl = &quot;https://contoso-admin.sharepoint.com&quot;
+Connect-PnPOnline -Url $siteUrl -Interactive
+
+$teams = @()
+$externalteams = @()
+$teams = Get-PnPTeamsTeam
+foreach ($team in $teams)
+{
+  $groupid = $team.groupid
+  $users = Get-PnPTeamsUser -Team $groupid -Role Guest
+  $extcount = $users.count
+  if($extcount -gt 0)
+  {
+    foreach ($extuser in $users)
+    {
+        $externalteams += [pscustomobject]@{
+        ExtUser   = $extuser.UserPrincipalName
+        GroupID   = $groupid
+        TeamName  = $team.DisplayName
+        } 
+    }
+  }
+}
+ if ($externalteams.Count -gt 0)
+ {
+    Write-Host &quot;Exporting the guest members in teams results..&quot;
+    $externalteams | Export-Csv -Path &quot;GuestUsersFromTeams.csv&quot; -NoTypeInformation
+    Write-Host &quot;Completed.&quot;
+ }
+ else
+ {
+    Write-host &quot;there are no external user added to any team in your organization&quot; -ForegroundColor yellow
+ }
+
+</code></pre>
+<div class="highlight-tool">
+<p>Check out the <strong>PnP PowerShell</strong> to learn more at: <a href="https://aka.ms/pnp/powershell">https://aka.ms/pnp/powershell</a></p>
+</div>
+</section>
 </div>
 <h2 id="contributors">Contributors</h2>
 <table>
@@ -137,6 +186,9 @@ foreach ($team in $teams){
 <tbody>
 <tr>
 <td><a href="https://github.com/jitenparmar">Jiten Parmar</a></td>
+</tr>
+<tr>
+<td><a href="https://github.com/LeonArmston">Leon Armston</a></td>
 </tr>
 </tbody>
 </table>
