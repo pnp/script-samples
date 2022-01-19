@@ -8,6 +8,8 @@ plugin: add-to-gallery
 
 List all guests in Microsoft Teams teams in the tenant and exports the results in a CSV.
 
+PnP PowerShell script uses Microsoft Graph behind the scenes to get all teams and guest users. it requires an application/user that has been granted the Microsoft Graph API permission : Group.Read.All or Group.ReadWrite.All
+
 # [MicrosoftTeams PowerShell](#tab/teamsps)
 ```powershell
 Install-Module MicrosoftTeams
@@ -40,6 +42,46 @@ foreach ($team in $teams){
  }
 ```
 [!INCLUDE [More about Microsoft Teams PowerShell](../../docfx/includes/MORE-TEAMSPS.md)]
+
+# [PnP PowerShell](#tab/pnpps)
+```powershell
+#Connect as an application/user that has been granted Microsoft Graph API permissions : Group.Read.All or Group.ReadWrite.All
+$siteUrl = "https://contoso-admin.sharepoint.com"
+Connect-PnPOnline -Url $siteUrl -Interactive
+
+$teams = @()
+$externalteams = @()
+$teams = Get-PnPTeamsTeam
+foreach ($team in $teams)
+{
+  $groupid = $team.groupid
+  $users = Get-PnPTeamsUser -Team $groupid -Role Guest
+  $extcount = $users.count
+  if($extcount -gt 0)
+  {
+    foreach ($extuser in $users)
+    {
+        $externalteams += [pscustomobject]@{
+        ExtUser   = $extuser.UserPrincipalName
+        GroupID   = $groupid
+        TeamName  = $team.DisplayName
+        } 
+    }
+  }
+}
+ if ($externalteams.Count -gt 0)
+ {
+    Write-Host "Exporting the guest members in teams results.."
+    $externalteams | Export-Csv -Path "GuestUsersFromTeams.csv" -NoTypeInformation
+    Write-Host "Completed."
+ }
+ else
+ {
+    Write-host "there are no external user added to any team in your organization" -ForegroundColor yellow
+ }
+
+```
+[!INCLUDE [More about PnP PowerShell](../../docfx/includes/MORE-PNPPS.md)]
 ***
 
 ## Contributors
@@ -47,6 +89,7 @@ foreach ($team in $teams){
 | Author(s) |
 |-----------|
 | [Jiten Parmar](https://github.com/jitenparmar) |
+| [Leon Armston](https://github.com/LeonArmston) |
 
 
 [!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
