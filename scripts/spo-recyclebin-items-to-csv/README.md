@@ -192,6 +192,10 @@ Main
 ```
 [!INCLUDE [More about CLI for Microsoft 365](../../docfx/includes/MORE-CLIM365.md)]
 
+> [!note]
+> CLI version of this script is in the latest CLI for Microsoft 365 release which is still considered as beta, use v4.4.0 or higher
+
+
 ***
 
 ## Contributors
