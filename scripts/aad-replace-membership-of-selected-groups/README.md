@@ -119,7 +119,7 @@ Replace-Membership $fileInput $oldUser $newUser
 
 # [PnP PowerShell](#tab/pnpps)
 ```powershell
-$adminUrl = "https://reshmeeauckloo-admin.sharepoint.com"
+$adminUrl = "https://contoso-admin.sharepoint.com"
 $fileInput = "<PUTYOURPATHHERE.csv>"
 $oldUser = "upnOfOldUser"
 $newUser = "upnOfNewUser"
@@ -211,12 +211,14 @@ Replace-Membership $fileInput $oldUser $newUser
 [!INCLUDE [More about PnP PowerShell](../../docfx/includes/MORE-PNPPS.md)]
 ***
 
+**CSV Format**
 ```csv
 id
 <groupId>
 <groupId>
 <groupId>
 ```
+
 ## Source Credit
 
 Sample first appeared on [Replace a user's membership in selected Microsoft 365 Groups or Teams | CLI for Microsoft 365](https://pnp.github.io/cli-microsoft365/sample-scripts/aad/replace-membership-of-selected-groups/)
