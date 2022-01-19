@@ -1,50 +1,60 @@
 [
-    {
-      "name": "get-all-site-collections-subwebs",
-      "source": "pnp",
-      "title": "How to to get all site collections with their sub webs",
-      "shortDescription": "Get site collections with all the sub-webs",
-      "url": "get-all-site-collections-subwebs/README.html",
-      "longDescription": [
-      ],
-      "creationDateTime": "2021-05-05",
-      "updateDateTime": "2021-10-10",
-      "products": [
-        "SharePoint"
-      ],
-      "metadata": [
-        {
-          "key": "PnP-PowerShell",
-          "value": "1.5.0"
-        },
-        {
-          "key": "cli-for-microsoft365",
-          "value": "3.7.0"
-        }
-
-      ],
-      "categories": [
-        "Report"
-      ],
-      "thumbnails": [
-        {
-          "type": "image",
-          "order": 100,
-          "url": "get-all-site-collections-subwebs/assets/preview.png",
-          "alt": ""
-        }
-      ],
-      "authors": [
-        {
-          "gitHubAccount": "Adam-it",
-          "pictureUrl": "https://avatars.githubusercontent.com/u/58668583?v=4",
-          "name": "Adam Wójcik"
-        },
-        {
-          "gitHubAccount": "chandaniprajapati",
-          "pictureUrl": "https://avatars.githubusercontent.com/u/52065929?v=4",
-          "name": "Chandani Prajapati"
-        }
-      ]
-    }
-  ]
+  {
+    "name": "get-all-site-collections-subwebs",
+    "source": "pnp",
+    "title": "How to to get all site collections with their sub webs",
+    "shortDescription": "Get site collections with all the sub-webs",
+    "url": "https://pnp.github.io/script-samples/get-all-site-collections-subwebs/README.html",
+    "longDescription": [],
+    "creationDateTime": "2021-05-05",
+    "updateDateTime": "2021-10-10",
+    "products": [
+      "SharePoint"
+    ],
+    "metadata": [
+      {
+        "key": "PNP-POWERSHELL",
+        "value": "1.5.0"
+      },
+      {
+        "key": "CLI-FOR-MICROSOFT365",
+        "value": "3.7.0"
+      }
+    ],
+    "categories": [
+      "Report"
+    ],
+    "thumbnails": [
+      {
+        "type": "image",
+        "order": 100,
+        "url": "https://raw.githubusercontent.com/pnp/script-samples/main/scripts/get-all-site-collections-subwebs/assets/preview.png",
+        "alt": ""
+      }
+    ],
+    "authors": [
+      {
+        "gitHubAccount": "Adam-it",
+        "pictureUrl": "https://avatars.githubusercontent.com/u/58668583?v=4",
+        "name": "Adam Wójcik"
+      },
+      {
+        "gitHubAccount": "chandaniprajapati",
+        "pictureUrl": "https://avatars.githubusercontent.com/u/52065929?v=4",
+        "name": "Chandani Prajapati"
+      }
+    ],
+    "references": [
+      {
+        "name": "Want to learn more about PnP PowerShell and the cmdlets",
+        "description": "Check out the PnP PowerShell site to get started and for the reference to the cmdlets.",
+        "url": "https://aka.ms/pnp/powershell"
+      },
+      {
+        "name": "Want to learn more about CLI for Microsoft 365 and the commands",
+        "description": "Check out the CLI for Microsoft 365 site to get started and for the reference to the commands.",
+        "url": "https://aka.ms/cli-m365"
+      }
+    ]
+  }
+]

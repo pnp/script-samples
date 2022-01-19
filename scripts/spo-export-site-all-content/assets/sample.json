@@ -1,42 +1,49 @@
 [
-    {
-      "name": "spo-export-site-all-content",
-      "source": "pnp",
-      "title": "Export all content from an existing SharePoint site",
-      "shortDescription": "This script shows how to export all content from an existing SharePoint site ",
-      "url": "spo-export-site-all-content/README.html",
-      "longDescription": [
-        "This script shows how to export all content from an existing SharePoint site. The script is a subset of the PnPCandy concept (SPO powershell packages with content). Main idea here is to actually migrate content from one site to another . The script will crawl Document libraries, export content to a local folder and prepare a pnptemplate ready to import ",
-      ],
-      "creationDateTime": "2021-10-19",
-      "updateDateTime": "2021-10-19",
-      "products": [
-        "SharePoint"
-      ],
-      "metadata": [
-        {
-          "key": "pnp-powerShell",
-          "value": "1.5.0,1.7.0"
-        }
-      ],
-      "categories": [
-        "Data"
-      ],
-      "tags":[],
-      "thumbnails": [
-        {
-          "type": "image",
-          "order": 100,
-          "url": "spo-export-site-all-content/assets/preview.png",
-          "alt": ""
-        }
-      ],
-      "authors": [
-        {
-          "gitHubAccount": "scoutmanpt",
-          "pictureUrl": "https://avatars.githubusercontent.com/u/7837053?v=4",
-          "name": "Rodrigo Pinto"
-        }
-      ]
-    }
-  ]
+  {
+    "name": "spo-export-site-all-content",
+    "source": "pnp",
+    "title": "Export all content from an existing SharePoint site",
+    "shortDescription": "This script shows how to export all content from an existing SharePoint site ",
+    "url": "https://pnp.github.io/script-samples/spo-export-site-all-content/README.html",
+    "longDescription": [
+      "This script shows how to export all content from an existing SharePoint site. The script is a subset of the PnPCandy concept (SPO powershell packages with content). Main idea here is to actually migrate content from one site to another . The script will crawl Document libraries, export content to a local folder and prepare a pnptemplate ready to import "
+    ],
+    "creationDateTime": "2021-10-19",
+    "updateDateTime": "2021-10-19",
+    "products": [
+      "SharePoint"
+    ],
+    "metadata": [
+      {
+        "key": "PNP-POWERSHELL",
+        "value": "1.5.0,1.7.0"
+      }
+    ],
+    "categories": [
+      "Data"
+    ],
+    "tags": [],
+    "thumbnails": [
+      {
+        "type": "image",
+        "order": 100,
+        "url": "https://raw.githubusercontent.com/pnp/script-samples/main/scripts/spo-export-site-all-content/assets/preview.png",
+        "alt": ""
+      }
+    ],
+    "authors": [
+      {
+        "gitHubAccount": "scoutmanpt",
+        "pictureUrl": "https://avatars.githubusercontent.com/u/7837053?v=4",
+        "name": "Rodrigo Pinto"
+      }
+    ],
+    "references": [
+      {
+        "name": "Want to learn more about PnP PowerShell and the cmdlets",
+        "description": "Check out the PnP PowerShell site to get started and for the reference to the cmdlets.",
+        "url": "https://aka.ms/pnp/powershell"
+      }
+    ]
+  }
+]

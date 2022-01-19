@@ -2,11 +2,11 @@
 plugin: add-to-gallery
 ---
 
-# Delete a library with more than 5k files or folders. 
+# Delete a library exceeding the list threshold limit. Remove the files and folders before deleting the library.  
 
 ## Summary
 
-Trying to delete a library containing more than 5k items results in the message "The attempted operation is prohibited because it exceeds the list view threshold" from the UI and using the cmdlet Remove-PnPList. The script was tested deleting a library containing more than 113 k files and sub folders. 
+Trying to delete a library exceeding the list view threshold results in the message "The attempted operation is prohibited because it exceeds the list view threshold" from the UI and using the cmdlet Remove-PnPList. The script was tested deleting a library containing more than 113 k files/nested folders. 
 
 PnP PowerShell
 
@@ -15,6 +15,8 @@ PnP PowerShell
 - Open Windows PowerShell ISE
 - Create a new file
 - Copy a script  below
+
+[!INCLUDE [Delete Warning](../../docfx/includes/DELETE-WARN.md)]
 
 # [PnP PowerShell](#tab/pnpps)
 ```powershell
@@ -70,7 +72,7 @@ $Folder = $Library.RootFolder
 
 write-host $("End time " + (Get-Date))
 ```
-[!INCLUDE [More about CLI for Microsoft 365](../../docfx/includes/MORE-CLIM365.md)]
+[!INCLUDE [More about PnP PowerShell](../../docfx/includes/MORE-PNPPS.md)]
 ***
 
 ## Contributors

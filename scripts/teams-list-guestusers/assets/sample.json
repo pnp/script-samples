@@ -1,44 +1,50 @@
 [
-    {
-      "name": "teams-list-guestusers",
-      "source": "pnp",
-      "title": "List guests within Teams in a tenant",
-      "shortDescription": "List all guests in Microsoft Teams teams in the tenant and exports the results in a CSV.",
-      "url": "teams-list-guestusers/README.html",
-      "longDescription": [
-        ""
-      ],
-      "creationDateTime": "2021-12-24",
-      "updateDateTime": "2021-12-24",
-      "products": [
-        "Teams"
-      ],
-      "metadata": [
-        {
-          "key": "microsoftteams-powershell",
-          "value":"3.0.0"
-        }
-      ],
-      "categories": [
-        "Report"
-      ],
-      "tags":[
-      ],
-      "thumbnails": [
-        {
-          "type": "image",
-          "order": 100,
-          "url": "teams-list-guestusers/assets/preview.png",
-          "alt": ""
-        }
-      ],
-      "authors": [
-        {
-          "gitHubAccount": "Jitenparmar",
-          "company": "",
-          "pictureUrl": "https://avatars.githubusercontent.com/u/7124132?v=4",
-          "name": "Jiten Parmar"
-        }
-      ]
-    }
-  ]
+  {
+    "name": "teams-list-guestusers",
+    "source": "pnp",
+    "title": "List guests within Teams in a tenant",
+    "shortDescription": "List all guests in Microsoft Teams teams in the tenant and exports the results in a CSV.",
+    "url": "https://pnp.github.io/script-samples/teams-list-guestusers/README.html",
+    "longDescription": [
+      ""
+    ],
+    "creationDateTime": "2021-12-24",
+    "updateDateTime": "2021-12-24",
+    "products": [
+      "Teams"
+    ],
+    "metadata": [
+      {
+        "key": "MICROSOFTTEAMS-POWERSHELL",
+        "value": "3.0.0"
+      }
+    ],
+    "categories": [
+      "Report"
+    ],
+    "tags": [],
+    "thumbnails": [
+      {
+        "type": "image",
+        "order": 100,
+        "url": "https://raw.githubusercontent.com/pnp/script-samples/main/scripts/teams-list-guestusers/assets/preview.png",
+        "alt": ""
+      }
+    ],
+    "authors": [
+      {
+        "gitHubAccount": "Jitenparmar",
+        "company": "",
+        "pictureUrl": "https://avatars.githubusercontent.com/u/7124132?v=4",
+        "name": "Jiten Parmar"
+      }
+    ],
+    "references": [
+      {
+        "name": "Want to learn more about Microsoft Teams PowerShell and the cmdlets",
+        "description": "Check out the Microsoft Teams PowerShell documentation site to get started and for the reference to the cmdlets.",
+        "url": "https://docs.microsoft.com/en-us/microsoftteams/teams-powershell-overview"
+      }
+    ]
+  }
+]

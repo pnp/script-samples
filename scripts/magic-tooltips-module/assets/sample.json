@@ -1,59 +1,66 @@
 [
-    {
-      "name": "magic-tooltips-module",
-      "source": "pnp",
-      "title": "Get Started with Tooltip for Connected Account",
-      "shortDescription": "The Magic Tooltips module can be installed to help determine the account that is connected to Microsoft 365 or Azure.",
-      "url": "magic-tooltips-module/README.html",
-      "longDescription": [],
-      "creationDateTime": "2021-06-21",
-      "updateDateTime": "2021-06-21",
-      "products": [
-        "SharePoint",
-        "Office",
-        "Graph",
-        "PowerApps",
-        "Teams",
-        "Power Automate",
-        "Microsoft Todo"
-      ],
-      "metadata": [
-        {
-          "key": "powershell",
-          "value": "7.2.0"
-        },
-        {
-          "key": "cli-for-microsoft365",
-          "value": "3.7.0"
-        }
-      ],
-      "categories": [
-        "Modernize",
-        "Data",
-        "Deploy",
-        "Provision",
-        "Configure",
-        "Report"
-      ],
-      "tags":[
-        "magic tooltips",
-        "magic"
-      ],
-      "thumbnails": [
-        {
-          "type": "image",
-          "order": 100,
-          "url": "magic-tooltips-module/assets/preview.png",
-          "alt": "Preview of the mogic tool tips module"
-        }
-      ],
-      "authors": [
-        {
-          "gitHubAccount": "pschaeflein",
-          "company": "AddIn365",
-          "pictureUrl": "https://avatars.githubusercontent.com/u/8008013?v=4",
-          "name": "Paul Schaeflein"
-        }
-      ]
-    }
-  ]
+  {
+    "name": "magic-tooltips-module",
+    "source": "pnp",
+    "title": "Get Started with Tooltip for Connected Account",
+    "shortDescription": "The Magic Tooltips module can be installed to help determine the account that is connected to Microsoft 365 or Azure.",
+    "url": "https://pnp.github.io/script-samples/magic-tooltips-module/README.html",
+    "longDescription": [],
+    "creationDateTime": "2021-06-21",
+    "updateDateTime": "2021-06-21",
+    "products": [
+      "SharePoint",
+      "Office",
+      "Graph",
+      "PowerApps",
+      "Teams",
+      "Power Automate",
+      "Microsoft Todo"
+    ],
+    "metadata": [
+      {
+        "key": "POWERSHELL",
+        "value": "7.2.0"
+      },
+      {
+        "key": "CLI-FOR-MICROSOFT365",
+        "value": "3.7.0"
+      }
+    ],
+    "categories": [
+      "Modernize",
+      "Data",
+      "Deploy",
+      "Provision",
+      "Configure",
+      "Report"
+    ],
+    "tags": [
+      "magic tooltips",
+      "magic"
+    ],
+    "thumbnails": [
+      {
+        "type": "image",
+        "order": 100,
+        "url": "https://raw.githubusercontent.com/pnp/script-samples/main/scripts/magic-tooltips-module/assets/preview.png",
+        "alt": "Preview of the mogic tool tips module"
+      }
+    ],
+    "authors": [
+      {
+        "gitHubAccount": "pschaeflein",
+        "company": "AddIn365",
+        "pictureUrl": "https://avatars.githubusercontent.com/u/8008013?v=4",
+        "name": "Paul Schaeflein"
+      }
+    ],
+    "references": [
+      {
+        "name": "Want to learn more about CLI for Microsoft 365 and the commands",
+        "description": "Check out the CLI for Microsoft 365 site to get started and for the reference to the commands.",
+        "url": "https://aka.ms/cli-m365"
+      }
+    ]
+  }
+]

@@ -1,42 +1,49 @@
 [
-    {
-      "name": "teams-force-filestab-provision",
-      "source": "pnp",
-      "title": "Force Team Files Tab Provision",
-      "shortDescription": "This script allow us to force Files tab provision, usefull for migrations or even for your Team's governance toolset..",
-      "url": "teams-force-filestab-provision/README.html",
-      "longDescription": [
-        "Sometimes when we create a Team , the Files Tab is not immediately provisioned, this enforce that provision. The script is a subset of the SPO powershell packages with content (PnPCandy) concept already been used across many projects."
-      ],
-      "creationDateTime": "2021-11-02",
-      "updateDateTime": "2021-11-02",
-      "products": [
-        "Teams"
-      ],
-      "metadata": [
-        {
-          "key": "pnp-powerShell",
-          "value": "1.5.0,1.7.0"
-        }
-      ],
-      "categories": [
-        "Data"
-      ],
-      "tags":[],
-      "thumbnails": [
-        {
-          "type": "image",
-          "order": 100,
-          "url": "teams-force-filestab-provision/assets/preview.png",
-          "alt": ""
-        }
-      ],
-      "authors": [
-        {
-          "gitHubAccount": "scoutmanpt",
-          "pictureUrl": "https://avatars.githubusercontent.com/u/7837053?v=4",
-          "name": "Rodrigo Pinto"
-        }
-      ]
-    }
-  ]
+  {
+    "name": "teams-force-filestab-provision",
+    "source": "pnp",
+    "title": "Force Team Files Tab Provision",
+    "shortDescription": "This script allow us to force Files tab provision, usefull for migrations or even for your Team's governance toolset..",
+    "url": "https://pnp.github.io/script-samples/teams-force-filestab-provision/README.html",
+    "longDescription": [
+      "Sometimes when we create a Team , the Files Tab is not immediately provisioned, this enforce that provision. The script is a subset of the SPO powershell packages with content (PnPCandy) concept already been used across many projects."
+    ],
+    "creationDateTime": "2021-11-02",
+    "updateDateTime": "2021-11-02",
+    "products": [
+      "Teams"
+    ],
+    "metadata": [
+      {
+        "key": "PNP-POWERSHELL",
+        "value": "1.5.0,1.7.0"
+      }
+    ],
+    "categories": [
+      "Data"
+    ],
+    "tags": [],
+    "thumbnails": [
+      {
+        "type": "image",
+        "order": 100,
+        "url": "https://raw.githubusercontent.com/pnp/script-samples/main/scripts/teams-force-filestab-provision/assets/preview.png",
+        "alt": ""
+      }
+    ],
+    "authors": [
+      {
+        "gitHubAccount": "scoutmanpt",
+        "pictureUrl": "https://avatars.githubusercontent.com/u/7837053?v=4",
+        "name": "Rodrigo Pinto"
+      }
+    ],
+    "references": [
+      {
+        "name": "Want to learn more about PnP PowerShell and the cmdlets",
+        "description": "Check out the PnP PowerShell site to get started and for the reference to the cmdlets.",
+        "url": "https://aka.ms/pnp/powershell"
+      }
+    ]
+  }
+]
