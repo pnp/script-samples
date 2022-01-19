@@ -120,9 +120,9 @@ Replace-Membership $fileInput $oldUser $newUser
 # [PnP PowerShell](#tab/pnpps)
 ```powershell
 $adminUrl = "https://reshmeeauckloo-admin.sharepoint.com"
-$fileInput = "C:\Scripts\replace membership\Groups.csv"
-$oldUser = "testuser2@reshmeeauckloo.onmicrosoft.com"
-$newUser = "testuser1@reshmeeauckloo.onmicrosoft.com"
+$fileInput = "<PUTYOURPATHHERE.csv>"
+$oldUser = "upnOfOldUser"
+$newUser = "upnOfNewUser"
 
 Connect-PnPOnline -Url $adminUrl -Interactive
 
