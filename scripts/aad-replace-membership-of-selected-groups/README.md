@@ -118,6 +118,7 @@ Replace-Membership $fileInput $oldUser $newUser
 [!INCLUDE [More about CLI for Microsoft 365](../../docfx/includes/MORE-CLIM365.md)]
 
 # [PnP PowerShell](#tab/pnpps)
+```powershell
 $adminUrl = "https://reshmeeauckloo-admin.sharepoint.com"
 $fileInput = "C:\Scripts\replace membership\Groups.csv"
 $oldUser = "testuser2@reshmeeauckloo.onmicrosoft.com"
