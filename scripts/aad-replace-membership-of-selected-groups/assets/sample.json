@@ -7,7 +7,7 @@
     "title": "Replace a user's membership in selected Microsoft 365 Groups or Teams",
     "url": "https://pnp.github.io/script-samples/aad-replace-membership-of-selected-groups/README.html",
     "creationDateTime": "2021-05-04",
-    "updateDateTime": "2021-05-04",
+    "updateDateTime": "2022-01-19",
     "shortDescription": "Replace the membership of a user for a selected list of Groups",
     "longDescription": null,
     "products": [
@@ -27,6 +27,10 @@
       {
         "key": "CLI-FOR-MICROSOFT365",
         "value": "3.7.0"
+      },
+      {
+        "key": "PNP-POWERSHELL",
+        "value": "1.9.0"
       }
     ],
     "thumbnails": [
@@ -40,6 +44,12 @@
     ],
     "authors": [
       {
+        "gitHubAccount": "reshmee011",
+        "company": "",
+        "pictureUrl": "https://avatars.githubusercontent.com/u/7693852?v=4",
+        "name": "Reshmee Auckloo"
+      },
+      {
         "name": "Patrick Lamber",
         "gitHubAccount": "plamber",
         "company": "Expertsinside AG",
@@ -51,6 +61,7 @@
         "company": "Microsoft",
         "pictureUrl": "https://avatars.githubusercontent.com/u/10485065?v=4"
       }
+
     ],
     "references": [
       {
@@ -62,6 +73,11 @@
         "name": "Replace a user's membership in selected Microsoft 365 Groups or Teams",
         "description": "This sample first appeared on the CLI for Microsoft 365 documentation site",
         "url": "https://pnp.github.io/cli-microsoft365/sample-scripts/aad/replace-membership-of-selected-groups/"
+      },
+      {
+        "name": "Want to learn more about PnP PowerShell and the cmdlets",
+        "description": "Check out the PnP PowerShell site to get started and for the reference to the cmdlets.",
+        "url": "https://aka.ms/pnp/powershell"
       }
     ]
   }
