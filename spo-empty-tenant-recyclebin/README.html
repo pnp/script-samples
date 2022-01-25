@@ -94,6 +94,9 @@
 <li role="presentation">
 <a href="#tabpanel_CeZOj-G++Q_cli-m365-bash" role="tab" aria-controls="tabpanel_CeZOj-G++Q_cli-m365-bash" data-tab="cli-m365-bash" tabindex="-1">CLI for Microsoft 365 using Bash</a>
 </li>
+<li role="presentation">
+<a href="#tabpanel_CeZOj-G++Q_pnpps" role="tab" aria-controls="tabpanel_CeZOj-G++Q_pnpps" data-tab="pnpps" tabindex="-1">PnP PowerShell</a>
+</li>
 </ul>
 <section id="tabpanel_CeZOj-G++Q_cli-m365-ps" role="tabpanel" data-tab="cli-m365-ps"><button class="article-clipboard" title="Copy to clipboard" data-toggle="tooltip" data-placement="top" data-clipboard-target="section[id^='tabpanel'][data-tab='cli-m365-ps'] pre">
     <span class="glyphicon glyphicon-copy" aria-hidden="true"></span>
@@ -153,6 +156,38 @@ done
 <p>Check out the <strong>CLI for Microsoft 365</strong> to learn more at: <a href="https://aka.ms/cli-m365">https://aka.ms/cli-m365</a></p>
 </div>
 </section>
+<section id="tabpanel_CeZOj-G++Q_pnpps" role="tabpanel" data-tab="pnpps" aria-hidden="true" hidden="hidden"><button class="article-clipboard" title="Copy to clipboard" data-toggle="tooltip" data-placement="top" data-clipboard-target="section[id^='tabpanel'][data-tab='pnpps'] pre">
+    <span class="glyphicon glyphicon-copy" aria-hidden="true"></span>
+    <span class="article-clipboard__message done">Copied</span>
+</button>
+
+<pre><code class="lang-powershell">Connect-PnPOnline -Url 'https://contoso-admin.sharepoint.com' -Interactive #Change to your tenant admin site address
+
+$deletedSites = Get-PnPTenantRecycleBinItem
+$deletedSites | Format-Table Url
+
+if ($deletedSites.Count -eq 0) 
+{ 
+    break 
+}
+
+Read-Host -Prompt &quot;Press Enter to start deleting (CTRL + C to exit)&quot;
+
+$progress = 0
+$total = $deletedSites.Count
+
+foreach ($deletedSite in $deletedSites)
+{
+  $progress++
+  Write-Host $progress / $total&quot;:&quot; $deletedSite.Url
+  Clear-PnPTenantRecycleBinItem -Url $deletedSite.Url -Wait -Force
+}
+
+</code></pre>
+<div class="highlight-tool">
+<p>Check out the <strong>PnP PowerShell</strong> to learn more at: <a href="https://aka.ms/pnp/powershell">https://aka.ms/pnp/powershell</a></p>
+</div>
+</section>
 </div>
 <h2 id="source-credit">Source Credit</h2>
 <p>Sample first appeared on <a href="https://pnp.github.io/cli-microsoft365/sample-scripts/spo/empty-tenant-recyclebin/">Empty the tenant recycle bin | CLI for Microsoft 365</a></p>
@@ -166,6 +201,9 @@ done
 <tbody>
 <tr>
 <td>Laura Kokkarinen</td>
+</tr>
+<tr>
+<td><a href="https://github.com/LeonArmston">Leon Armston</a></td>
 </tr>
 </tbody>
 </table>

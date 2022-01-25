@@ -7,7 +7,7 @@
     "title": "Empty the tenant recycle bin",
     "url": "https://pnp.github.io/script-samples/spo-empty-tenant-recyclebin/README.html",
     "creationDateTime": "2021-01-13",
-    "updateDateTime": "2021-01-13",
+    "updateDateTime": "2022-01-24",
     "shortDescription": "Script that removes sites from the tenant recycle bin",
     "longDescription": null,
     "products": [
@@ -25,6 +25,10 @@
       {
         "key": "CLI-FOR-MICROSOFT365",
         "value": "3.7.0"
+      },
+      {
+        "key": "PNP-POWERSHELL",
+        "value": "1.9.0"
       }
     ],
     "thumbnails": [
@@ -37,6 +41,12 @@
       }
     ],
     "authors": [
+      {
+        "gitHubAccount": "LeonArmston",
+        "company": "Intelogy",
+        "pictureUrl": "https://avatars.githubusercontent.com/u/12968962?v=4",
+        "name": "Leon Armston"
+      },
       {
         "gitHubAccount": "LauraKokkarinen",
         "pictureUrl": "https://avatars.githubusercontent.com/u/41330990?v=4",
@@ -54,6 +64,11 @@
         "name": "Empty the tenant recycle bin",
         "description": "This sample first appeared on the CLI for Microsoft 365 documentation site",
         "url": "https://pnp.github.io/cli-microsoft365/sample-scripts/spo/empty-tenant-recyclebin/"
+      },
+      {
+        "name": "Want to learn more about PnP PowerShell and the cmdlets",
+        "description": "Check out the PnP PowerShell site to get started and for the reference to the cmdlets.",
+        "url": "https://aka.ms/pnp/powershell"
       }
     ]
   }
