@@ -57,6 +57,33 @@ for deletedsite in "${deletedsites[@]}"; do
 done
 ```
 [!INCLUDE [More about CLI for Microsoft 365](../../docfx/includes/MORE-CLIM365.md)]
+
+# [PnP PowerShell](#tab/pnpps)
+```powershell
+Connect-PnPOnline -Url 'https://contoso-admin.sharepoint.com' -Interactive #Change to your tenant admin site address
+
+$deletedSites = Get-PnPTenantRecycleBinItem
+$deletedSites | Format-Table Url
+
+if ($deletedSites.Count -eq 0) 
+{ 
+    break 
+}
+
+Read-Host -Prompt "Press Enter to start deleting (CTRL + C to exit)"
+
+$progress = 0
+$total = $deletedSites.Count
+
+foreach ($deletedSite in $deletedSites)
+{
+  $progress++
+  Write-Host $progress / $total":" $deletedSite.Url
+  Clear-PnPTenantRecycleBinItem -Url $deletedSite.Url -Wait -Force
+}
+
+```
+[!INCLUDE [More about PnP PowerShell](../../docfx/includes/MORE-PNPPS.md)]
 ***
 
 ## Source Credit
@@ -68,6 +95,7 @@ Sample first appeared on [Empty the tenant recycle bin | CLI for Microsoft 365](
 | Author(s) |
 |-----------|
 | Laura Kokkarinen |
+| [Leon Armston](https://github.com/LeonArmston)|
 
 
 [!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
