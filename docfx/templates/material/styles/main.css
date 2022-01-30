@@ -791,6 +791,12 @@ p.sample-title {
   display: -webkit-box !important;
 }
 
+@media screen and (max-width: 385px) {
+  p.sample-title {
+    -webkit-line-clamp: 2;
+  }
+}
+
 
 .producttype-item:first-child{
   z-index: 50;
