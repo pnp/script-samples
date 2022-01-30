@@ -784,6 +784,11 @@ pre{
 
 p.sample-title {
   margin-top: 0.2em;
+  margin-top: 0.2em;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  display: -webkit-box !important;
 }
 
 
