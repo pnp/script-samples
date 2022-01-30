@@ -25,8 +25,6 @@ $SiteURL = "https://yourtenantname.sharepoint.com/sites/SiteCollection"
 $LibraryName = "YourLibraryName"
 $ErrorActionPreference="Stop"
 
-Connect-PnPOnline –Url $siteUrl -interactive
-
 write-host $("Start time " + (Get-Date))
 
 Connect-PnPOnline -URL $SiteURL -Interactive
@@ -73,6 +71,47 @@ $Folder = $Library.RootFolder
 write-host $("End time " + (Get-Date))
 ```
 [!INCLUDE [More about PnP PowerShell](../../docfx/includes/MORE-PNPPS.md)]
+
+
+# [CLI for Microsoft 365](#tab/cli-m365-ps)
+```powershell
+
+$siteUrl = "https://yourtenantname.sharepoint.com/sites/SiteCollection"
+$libraryName = "YourLibraryName"
+
+write-host $("Start time " + (Get-Date))
+
+$m365Status = m365 status
+if ($m365Status -eq "Logged Out") {
+    m365 login
+}
+
+#Remove all subfolders
+$folders = m365 spo folder list --webUrl $siteUrl --parentFolderUrl $libraryName | ConvertFrom-Json
+foreach($folder in $folders) {
+    if(($folder.Name -ne "Forms") -and (-Not($folder.Name.StartsWith("_")))) {
+        #Delete the folder
+        m365 spo folder remove --webUrl $siteUrl --folderUrl $folder.ServerRelativeUrl --confirm
+        Write-Host -f Green ("Deleted Folder: '{0}' at '{1}'" -f $folder.Name, $folder.ServerRelativeUrl)
+    }
+}
+
+#Remove all files
+$files = m365 spo file list --webUrl $siteUrl --folder $libraryName | ConvertFrom-Json
+foreach($file in $files) {
+    #Delete File
+    m365 spo file remove --webUrl $siteUrl --url $file.ServerRelativeUrl --confirm
+    Write-Host -f Green ("Deleted File: '{0}' at '{1}'" -f $file.Name, $file.ServerRelativeUrl)     
+}
+
+m365 spo list remove --webUrl $siteUrl --title $libraryName --confirm
+Write-Host ("Library {0} deleted" -f $libraryName)
+
+write-host $("End time " + (Get-Date))
+
+```
+[!INCLUDE [More about CLI for Microsoft 365](../../docfx/includes/MORE-CLIM365.md)]
+
 ***
 
 ## Contributors
@@ -80,6 +119,7 @@ write-host $("End time " + (Get-Date))
 | Author(s) |
 |-----------|
 | Reshmee Auckloo |
+| [Adam Wójcik](https://github.com/Adam-it)|
 
 [!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
 <img src="https://telemetry.sharepointpnp.com/script-samples/scripts/spo-remove-large-library" aria-hidden="true" />
