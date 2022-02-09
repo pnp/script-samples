@@ -57,8 +57,8 @@ $files = Get-ChildItem -Path $dir -Recurse -Include README.md
 Write-Host "$($files.Length) found"
 
 "# Metadata Report of Samples"  | Out-File $ReportFile -Force
-"| Sample | Products | Categories | Tags | Metadata | Image URL | Source Credit | Reference Count |" | Out-File $reportFile -Append
-"|--------|:--------:|:----------:|:----:|:--------:|:---------:|:-------------:|:---------------:|"  | Out-File $reportFile -Append
+"| Sample | Products | Categories | Tags | Metadata | URL | Image URL | Source Credit | Reference Count |" | Out-File $reportFile -Append
+"|--------|:--------:|:----------:|:----:|:--------:|:---------:|:---------:|:-------------:|:---------------:|"  | Out-File $reportFile -Append
 
 $matrixRows = @()
 $sampleCount = 0
@@ -77,7 +77,9 @@ $files | Foreach-Object {
     $title = $sampleJsonObj.title
     $dirName = $_.Directory.Name
     $imgUrl = $sampleJsonObj.thumbnails[0].url
+    $sampleUrl = $sampleJsonObj.url
     $imgStatus = ""
+    $sampleUrlStatus = ""
     $sourceCreditReference = "-"
     $referenceCount = 0 
     $tags = ""
@@ -86,6 +88,12 @@ $files | Foreach-Object {
         $imgStatus = DispTick
     }else{
         $imgStatus = DispNope
+    }
+
+    if($sampleUrl -like "https://pnp.github.io/script-samples/*"){
+        $sampleUrlStatus = DispTick
+    }else{
+        $sampleUrlStatus = DispNope
     }
 
     if($content.Contains("#tab/cli-m365-ps")){
@@ -113,6 +121,7 @@ $files | Foreach-Object {
         Categories = $($sampleJsonObj.categories -join ', ')
         Tags = $tags
         Metadata = $($sampleJsonObj.metadata.key -join ', ')
+        URL = $sampleUrlStatus
         ImageStatus = $imgStatus
         HasSourceCredit = $sourceCreditReference
         ReferenceCount = $referenceCount
@@ -126,7 +135,7 @@ $files | Foreach-Object {
 
 $matrixRows | ForEach-Object{
 
-    $row = "| {0} | {1} | {2} | {3} | {4} | {5} | {6} | {7} |" -f $_.Link, $_.Products, $_.Categories, $_.Tags, $_.Metadata, $_.ImageStatus, $_.HasSourceCredit, $_.ReferenceCount
+    $row = "| {0} | {1} | {2} | {3} | {4} | {5} | {6} | {7} | {8} |" -f $_.Link, $_.Products, $_.Categories, $_.Tags, $_.Metadata, $_.sampleUrlStatus, $_.ImageStatus, $_.HasSourceCredit, $_.ReferenceCount
     Write-Host $row
 
     $row | Out-File $reportFile -Append
