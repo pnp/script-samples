@@ -135,7 +135,7 @@ $files | Foreach-Object {
 
 $matrixRows | ForEach-Object{
 
-    $row = "| {0} | {1} | {2} | {3} | {4} | {5} | {6} | {7} | {8} |" -f $_.Link, $_.Products, $_.Categories, $_.Tags, $_.Metadata, $_.sampleUrlStatus, $_.ImageStatus, $_.HasSourceCredit, $_.ReferenceCount
+    $row = "| {0} | {1} | {2} | {3} | {4} | {5} | {6} | {7} | {8} |" -f $_.Link, $_.Products, $_.Categories, $_.Tags, $_.Metadata, $_.URL, $_.ImageStatus, $_.HasSourceCredit, $_.ReferenceCount
     Write-Host $row
 
     $row | Out-File $reportFile -Append
