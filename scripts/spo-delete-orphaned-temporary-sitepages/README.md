@@ -5,10 +5,14 @@ plugin: add-to-gallery
 # Delete orphaned temporary site pages
 
 ## Summary
+
 Locate, take ownership of, and delete temporary orphaned pages from /SitePages library.
+
+[!INCLUDE [Delete Warning](../../docfx/includes/DELETE-WARN.md)]
 
 # [PnP PowerShell](#tab/pnpps)
 ```powershell
+
 $SiteURL = "https://{tenant}.sharepoint.com/sites/{site}"
 $ListName = "Site Pages"
 
