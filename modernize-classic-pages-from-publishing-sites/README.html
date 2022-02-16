@@ -82,15 +82,14 @@
 
 <h2 id="summary">Summary</h2>
 <p>This is a <strong>Modernizing classic pages from publishing sites</strong> example to show the conversion of an on-premises 2013 publishing page over to SharePoint Online modern sites - this includes the extraction of the mapping files and conversion process.</p>
-<div class="NOTE">
-<h5>Note</h5>
-<p>This script uses the older <a href="https://www.powershellgallery.com/packages/SharePointPnPPowerShellOnline/3.29.2101.0">SharePoint PnP PowerShell Online module</a></p>
-</div>
 <p><img src="assets/transform.jpg" alt="Example Screenshot"></p>
 <div class="tabGroup" id="tabgroup_CeZOj-G++Q">
 <ul role="tablist">
 <li role="presentation">
 <a href="#tabpanel_CeZOj-G++Q_pnpps" role="tab" aria-controls="tabpanel_CeZOj-G++Q_pnpps" data-tab="pnpps" tabindex="0" aria-selected="true">PnP PowerShell</a>
+</li>
+<li role="presentation">
+<a href="#tabpanel_CeZOj-G++Q_pnppsv2" role="tab" aria-controls="tabpanel_CeZOj-G++Q_pnppsv2" data-tab="pnppsv2" tabindex="-1">PnP PowerShell V2</a>
 </li>
 </ul>
 <section id="tabpanel_CeZOj-G++Q_pnpps" role="tabpanel" data-tab="pnpps"><button class="article-clipboard" title="Copy to clipboard" data-toggle="tooltip" data-placement="top" data-clipboard-target="section[id^='tabpanel'][data-tab='pnpps'] pre">
@@ -139,6 +138,68 @@ ConvertTo-PnPClientSidePage -Identity &quot;Quality-Cherry-Cake.aspx&quot; -Publ
 </code></pre>
 <div class="highlight-tool">
 <p>Check out the <strong>PnP PowerShell</strong> to learn more at: <a href="https://aka.ms/pnp/powershell">https://aka.ms/pnp/powershell</a></p>
+</div>
+
+<div class="NOTE">
+<h5>Note</h5>
+<p>This script uses the older <a href="https://www.powershellgallery.com/packages/SharePointPnPPowerShellOnline/3.29.2101.0">SharePoint PnP PowerShell Online module</a></p>
+</div>
+</section>
+<section id="tabpanel_CeZOj-G++Q_pnppsv2" role="tabpanel" data-tab="pnppsv2" aria-hidden="true" hidden="hidden"><button class="article-clipboard" title="Copy to clipboard" data-toggle="tooltip" data-placement="top" data-clipboard-target="section[id^='tabpanel'][data-tab='pnppsv2'] pre">
+    <span class="glyphicon glyphicon-copy" aria-hidden="true"></span>
+    <span class="article-clipboard__message done">Copied</span>
+</button>
+
+<pre><code class="lang-powershell">
+#-----------------------------
+# Publishing Portal Commands
+#-----------------------------
+
+$sp13Conn = Connect-PnPOnline http://portal2013/en -Credentials OnPrem -ReturnConnection -TransformationOnPrem
+$spOnlineConn = Connect-PnPOnline https://contoso.sharepoint.com/sites/PnPKatchup -Interactive -ReturnConnection
+
+# Exporting Page Layout File
+#------------------------------
+# Example based on a page
+Export-PnPPageMapping `
+    -CustomPageLayoutMapping `
+    -PublishingPage &quot;Quality-Cherry-Cake.aspx&quot; `
+    -Folder &quot;C:\temp\Demo&quot; `
+    -Connection $sp13Conn
+
+# Example based to export all the layouts
+Export-PnPPageMapping `
+    -CustomPageLayoutMapping `
+    -Folder &quot;C:\temp\Demo&quot; `
+    -Connection $sp13Conn `
+    -BuiltInWebPartMapping
+
+
+# Transforming Page based on Exported Content
+#-----------------------------------------------
+ConvertTo-PnPPage -Identity &quot;Quality-Cherry-Cake.aspx&quot; -PublishingPage `
+    -TargetConnection $spOnlineConn -Connection $sp13Conn `
+    -Overwrite `
+    -PageLayoutMapping C:\temp\Demo\custompagelayoutmapping-f3629db3-3e4d-48c4-b904-6fffab6dbb65-quality-cherry-cake.xml `
+    -UserMappingFile C:\temp\Demo\usermapping.csv `
+    -UrlMappingFile C:\temp\Demo\urlmapping.csv `
+    -KeepPageCreationModificationInformation `
+    -DisablePageComments `
+    -LogType Console
+
+
+</code></pre>
+<div class="highlight-tool">
+<p>Check out the <strong>PnP PowerShell</strong> to learn more at: <a href="https://aka.ms/pnp/powershell">https://aka.ms/pnp/powershell</a></p>
+</div>
+
+<div class="NOTE">
+<h5>Note</h5>
+<p>This script uses:</p>
+<ul>
+<li>the PnP.PowerShell module - tested with v1.9.0</li>
+<li>requires PowerShell 7 to run</li>
+</ul>
 </div>
 </section>
 </div>
