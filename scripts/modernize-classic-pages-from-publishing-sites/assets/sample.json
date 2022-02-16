@@ -9,14 +9,14 @@
       "Show process of conversion of an on-premises 2013 publishing page over to SharePoint Online modern sites"
     ],
     "creationDateTime": "2021-05-11",
-    "updateDateTime": "2021-05-11",
+    "updateDateTime": "2022-02-16",
     "products": [
       "SharePoint"
     ],
     "metadata": [
       {
         "key": "PNP-POWERSHELL",
-        "value": "1.5.0"
+        "value": "1.9.0"
       }
     ],
     "categories": [
@@ -27,14 +27,14 @@
         "type": "image",
         "order": 100,
         "url": "https://raw.githubusercontent.com/pnp/script-samples/main/scripts/modernize-classic-pages-from-publishing-sites/assets/preview.png",
-        "alt": ""
+        "alt": "Preview of the transformed pages"
       }
     ],
     "authors": [
       {
         "gitHubAccount": "pkbullock",
         "company": "CaPa Creative Ltd",
-        "pictureUrl": "https://avatars.githubusercontent.com/u/8781041?v=4",
+        "pictureUrl": "https://github.com/pkbullock.png",
         "name": "Paul Bullock"
       }
     ],
@@ -43,6 +43,11 @@
         "name": "Want to learn more about PnP PowerShell and the cmdlets",
         "description": "Check out the PnP PowerShell site to get started and for the reference to the cmdlets.",
         "url": "https://aka.ms/pnp/powershell"
+      },
+      {
+        "name": "Want to learn more about modernizing classic pages",
+        "description": "Check out the Microsoft documentation for Transform classic pages to modern pages to get started.",
+        "url": "https://docs.microsoft.com/en-us/sharepoint/dev/transform/modernize-userinterface-site-pages"
       }
     ]
   }
