@@ -7,7 +7,7 @@
     "title": "List all teams and teams members in Microsoft Teams in the tenant",
     "url": "https://pnp.github.io/script-samples/teams-export-teams-information/README.html",
     "creationDateTime": "2020-02-22",
-    "updateDateTime": "2020-02-22",
+    "updateDateTime": "2020-02-23",
     "shortDescription": "List all teams and teams members in Microsoft Teams in the tenant and exports the results in a CSV",
     "longDescription": null,
     "products": [
@@ -17,12 +17,18 @@
       "Data"
     ],
     "tags": [
-      "Microsoft Teams"
+      "Microsoft Teams",
+      "Microsoft 365",
+      "PowerShell"
     ],
     "metadata": [
       {
         "key": "PNP-POWERSHELL",
         "value": "1.9.0"
+      },
+      {
+        "key": "CLI-FOR-MICROSOFT365",
+        "value": "4.3.0"
       }
     ],
     "thumbnails": [
@@ -47,7 +53,7 @@
         "name": "Want to learn more about PnP PowerShell and the cmdlets",
         "description": "Check out the PnP PowerShell site to get started and for the reference to the cmdlets.",
         "url": "https://aka.ms/pnp/powershell"
-      }            
+      }
     ]
   }
 ]

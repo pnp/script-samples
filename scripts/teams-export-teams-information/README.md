@@ -82,7 +82,79 @@ StartProcessing
 ```
 [!INCLUDE [More about PnP PowerShell](../../docfx/includes/MORE-PNPPS.md)]
 
+# [CLI for Microsoft 365](#tab/cli-m365-ps)
+```powershell
+$adminSiteURL = "https://domain-admin.sharepoint.com/"
+$userName = "chandani@domain.onmicrosoft.com"
+$password = "Ngdevelop@Ankit"
+$secureStringPwd = $password | ConvertTo-SecureString -AsPlainText -Force 
+$creds = New-Object System.Management.Automation.PSCredential -ArgumentList $userName, $secureStringPwd
+$dateTime = "_{0:MM_dd_yy}_{0:HH_mm_ss}" -f (Get-Date)
+$basePath = "E:\Contribution\PnP-Scripts\TeamsInformation\Logs\"
+$csvPath = $basePath + "\TeamReportsM365" + $dateTime + ".csv"
+$global:TeamReports = @()
+$siteURL = "https://domain.sharepoint.com/"
 
+Function Login
+{
+    Write-Host "Connecting to Tenant Admin Site '$($adminSiteURL)'" -f Yellow   
+    $m365Status = m365 status
+    if ($m365Status -eq "Logged Out") {
+        m365 login
+    }
+    Write-Host "Connecting successfully!..." -f Green
+}
+
+
+Function GetTeamsInformation {
+    try {
+        Write-Host "Getting teams information..."  -ForegroundColor Yellow
+        #get teams information    
+        $teams = m365 teams team list -o json | ConvertFrom-Json 
+        Write-Host "Getting teams information successfully!"  -ForegroundColor Green
+        try {
+            Write-Host "Getting teams user information..."  -ForegroundColor Yellow 	 
+            foreach ($team in $teams) { 
+                #get users as per teams  			
+                $teamsUsers = m365 teams user list --teamId $team.id -o 'json' | ConvertFrom-Json 
+               
+                foreach ($teamsUser in $teamsUsers) {
+                    $global:TeamReports += New-Object PSObject -Property ([ordered]@{  
+                            'Team ID'                           = $team.id
+                            'Team MailNickname'                 = $team.MailNickname              
+                            'Team Name'                         = $team.displayName 
+                            'Team Description'                  = $team.description                              
+                            'User Id'                           = $teamsUser.id 
+                            'User Email'                        = $teamsUser.userPrincipalName 
+                            'User Name'                         = $teamsUser.displayName
+                            'User Type'                         = $teamsUser.userType                                      
+                        })
+                } 
+            } 
+            Write-Host "Getting teams user information successfully!"  -ForegroundColor Green	 						
+        } 
+        catch {
+            Write-Host "Error in getting teams user information:" $_.Exception.Message -ForegroundColor Red                 
+        } 
+    }	 
+    catch {
+        Write-Host "Error in getting teams information:" $_.Exception.Message -ForegroundColor Red                 
+    }  	
+    Write-Host "Exporting to CSV..."  -ForegroundColor Yellow 
+    $global:TeamReports | Export-Csv $csvPath -NoTypeInformation -Append
+    Write-Host "Exported to CSV successfully!"  -ForegroundColor Green	 
+}
+
+Function StartProcessing {
+    Login($creds); 
+    GetTeamsInformation         
+}
+
+StartProcessing
+```
+[!INCLUDE [More about CLI for Microsoft 365](../../docfx/includes/MORE-CLIM365.md)]
+
+***
 ## Contributors
 
 | Author(s) |
