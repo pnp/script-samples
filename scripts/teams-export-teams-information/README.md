@@ -9,7 +9,7 @@ List all teams and teams members in Microsoft Teams in the tenant and exports th
 # [PnP PowerShell](#tab/pnpps)
 ```powershell
 $adminSiteURL = "https://domain-admin.sharepoint.com/"
-$userName = "chandani@domain.onmicrosoft.com"
+$userName = "user@domain.onmicrosoft.com"
 $password = "********"
 $secureStringPwd = $password | ConvertTo-SecureString -AsPlainText -Force 
 $creds = New-Object System.Management.Automation.PSCredential -ArgumentList $userName, $secureStringPwd
@@ -85,8 +85,8 @@ StartProcessing
 # [CLI for Microsoft 365](#tab/cli-m365-ps)
 ```powershell
 $adminSiteURL = "https://domain-admin.sharepoint.com/"
-$userName = "chandani@domain.onmicrosoft.com"
-$password = "Ngdevelop@Ankit"
+$userName = "user@domain.onmicrosoft.com"
+$password = "********"
 $secureStringPwd = $password | ConvertTo-SecureString -AsPlainText -Force 
 $creds = New-Object System.Management.Automation.PSCredential -ArgumentList $userName, $secureStringPwd
 $dateTime = "_{0:MM_dd_yy}_{0:HH_mm_ss}" -f (Get-Date)
