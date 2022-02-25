@@ -33,6 +33,19 @@ listId=$(m365 spo list get --webUrl $site -t "$listName" -o json | jq ".Id")
 m365 spo list set --webUrl $site -i $listId -t $listName --hidden true
 ```
 [!INCLUDE [More about CLI for Microsoft 365](../../docfx/includes/MORE-CLIM365.md)]
+
+# [PnP PowerShell](#tab/pnpps)
+```powershell
+$listName = "listname"
+$site = "https://contoso.sharepoint.com"
+
+Connect-PnPOnline -url $site -Interactive
+$list = Get-PnPList -Identity $listName
+Set-PnPList -Identity $list -Hidden:$true
+
+```
+[!INCLUDE [More about PnP PowerShell](../../docfx/includes/MORE-PNPPS.md)]
+
 ***
 
 ## Source Credit
@@ -44,7 +57,7 @@ Sample first appeared on [Hide SharePoint list from Site Contents | CLI for Micr
 | Author(s) |
 |-----------|
 | David Ramalho |
-
+| Leon Armston |
 
 [!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
 <img src="https://telemetry.sharepointpnp.com/script-samples/scripts/spo-hide-list-from-site-contents" aria-hidden="true" />
