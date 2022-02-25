@@ -33,7 +33,6 @@ Write-output "App Catalog Created on " $site
 
 ```
 [!INCLUDE [More about PnP PowerShell](../../docfx/includes/MORE-PNPPS.md)]
-***
 
 # [SPO Management Shell](#tab/spoms-ps)
 
