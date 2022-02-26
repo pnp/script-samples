@@ -9,7 +9,7 @@
       "Script to generate Team's full report, gathering all Teams,Channels,Tabs available info. The script is a subset of the SPO powershell packages with content (PnPCandy) concept already been used across many projects."
     ],
     "creationDateTime": "2021-11-02",
-    "updateDateTime": "2021-11-02",
+    "updateDateTime": "2022-02-26",
     "products": [
       "Teams"
     ],
@@ -17,6 +17,10 @@
       {
         "key": "PNP-POWERSHELL",
         "value": "1.5.0,1.7.0"
+      },
+      {
+        "key": "CLI-FOR-MICROSOFT365",
+        "value": "3.7.0"
       }
     ],
     "categories": [
@@ -33,6 +37,12 @@
     ],
     "authors": [
       {
+        "gitHubAccount": "reshmee011",
+        "company": "",
+        "pictureUrl": "https://avatars.githubusercontent.com/u/7693852?v=4",
+        "name": "Reshmee Auckloo"
+      },
+      {
         "gitHubAccount": "scoutmanpt",
         "pictureUrl": "https://avatars.githubusercontent.com/u/7837053?v=4",
         "name": "Rodrigo Pinto"
@@ -43,6 +53,11 @@
         "name": "Want to learn more about PnP PowerShell and the cmdlets",
         "description": "Check out the PnP PowerShell site to get started and for the reference to the cmdlets.",
         "url": "https://aka.ms/pnp/powershell"
+      },
+      {
+        "name": "Want to learn more about CLI for Microsoft 365 and the commands",
+        "description": "Check out the CLI for Microsoft 365 site to get started and for the reference to the commands.",
+        "url": "https://aka.ms/cli-m365"
       }
     ]
   }

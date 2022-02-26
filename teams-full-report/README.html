@@ -107,6 +107,9 @@ TabDisplayName,TabWebUrl, TeamsAppId</p>
 <li role="presentation">
 <a href="#tabpanel_CeZOj-G++Q_pnpps" role="tab" aria-controls="tabpanel_CeZOj-G++Q_pnpps" data-tab="pnpps" tabindex="0" aria-selected="true">PnP PowerShell</a>
 </li>
+<li role="presentation">
+<a href="#tabpanel_CeZOj-G++Q_cli-m365-ps" role="tab" aria-controls="tabpanel_CeZOj-G++Q_cli-m365-ps" data-tab="cli-m365-ps" tabindex="-1">CLI for Microsoft 365</a>
+</li>
 </ul>
 <section id="tabpanel_CeZOj-G++Q_pnpps" role="tabpanel" data-tab="pnpps"><button class="article-clipboard" title="Copy to clipboard" data-toggle="tooltip" data-placement="top" data-clipboard-target="section[id^='tabpanel'][data-tab='pnpps'] pre">
     <span class="glyphicon glyphicon-copy" aria-hidden="true"></span>
@@ -296,6 +299,183 @@ process {
 <p>Check out the <strong>PnP PowerShell</strong> to learn more at: <a href="https://aka.ms/pnp/powershell">https://aka.ms/pnp/powershell</a></p>
 </div>
 </section>
+<section id="tabpanel_CeZOj-G++Q_cli-m365-ps" role="tabpanel" data-tab="cli-m365-ps" aria-hidden="true" hidden="hidden"><button class="article-clipboard" title="Copy to clipboard" data-toggle="tooltip" data-placement="top" data-clipboard-target="section[id^='tabpanel'][data-tab='cli-m365-ps'] pre">
+    <span class="glyphicon glyphicon-copy" aria-hidden="true"></span>
+    <span class="article-clipboard__message done">Copied</span>
+</button>
+
+<pre><code class="lang-powershell">
+[CmdletBinding()]
+param (
+    [Parameter(Mandatory = $True)]
+    [string]$Tenant,
+    [Parameter(Mandatory = $False)]
+    [string]$Team,
+    [Parameter(Mandatory = $False)]
+    [string]$ExportPath= &quot;.\&quot;
+)
+begin {
+    $ErrorActionPreference = &quot;Stop&quot;   
+    
+    function Capitalize($objMain) {
+        if ($null -ne $objMain) {
+            #test if its an array of objects
+            $objMain.foreach({
+                    $obj = $_
+                    $members = $obj | Get-Member -MemberType NoteProperty
+                    $members | ForEach-Object {
+           
+                        $name = [regex]::replace($_.Name, '(^|_)(.)', { $args[0].Groups[2].Value.ToUpper() })
+                        $value = $obj.PSObject.Properties[$_.Name].value
+                        $obj.PSObject.Properties.Remove($_.Name)
+                        # add a new NoteProperty 'fqdn'
+                        $obj | Add-Member -Name $name  -Value $value -MemberType NoteProperty -Force 
+                        $added = $obj.PSObject.Properties[$name]
+                    }
+                })
+           
+        }
+        $objMain
+    }
+    function Get-UserInfo($obj)
+    {
+        $Info=&quot; &quot;
+      
+        $obj |Select-Object @{n = 'Users'; e = {'[' +  $_.DisplayName + ':' + $_.UserPrincipalName +']' } } | ForEach-Object { $Info += $_.Users +&quot;;&quot;  }
+        $Info= $Info.Substring(0,$Info.Length-1).Trim()
+        $Info
+    }
+    
+    ## Validate if Tenant value is ok
+    if ($Tenant -notmatch '.onmicrosoft.com') {
+        $msg = &quot;Provided Tenant is not valid. Please use the following format [Tenant].onmicrosoft.com. Example:pnpcady.onmicrosoft.com&quot;
+        throw $msg
+    }
+    $tenantPrefix = $Tenant.ToLower().Replace(&quot;.onmicrosoft.com&quot;, &quot;&quot;)
+    $url = &quot;https://$tenantPrefix-admin.sharepoint.com&quot;
+ 
+}
+
+process {
+   $m365Status = m365 status
+  if ($m365Status -eq &quot;Logged Out&quot;) {
+    m365 login
+}
+
+    Write-Output &quot; Getting Team(s) $Team&quot;
+    $listOfTeams = m365 teams team list -o json | ConvertFrom-Json 
+
+    if (($null -ne $Team) -and ($Team -ne &quot;&quot;))
+    {
+        $listOfTeams =  $listOfTeams | Where-object {($_.id -eq $Team) -or ($_.Displayname -eq $Team)}
+    }
+    
+    if($null -ne $listOfTeams)
+    {
+        $teamCount = $listOfTeams.Count
+        Write-Output &quot;Processing $teamCount teams...&quot;
+    }
+    else {
+        Write-Output &quot; No Team(s) found&quot;
+    }
+   
+                                                       
+    $list = @()  
+    $listOfTeams | ForEach-Object {
+        $tm = $_
+
+        Write-Output &quot;  Team:$($tm.displayName)&quot;
+
+        Write-Output &quot;   Get group details&quot;
+        $Group = m365 aad o365group get --id $tm.id --includeSiteUrl -o json | ConvertFrom-Json
+ 
+        $tm | Add-Member -Name &quot;Visibility&quot; -MemberType NoteProperty -Value $Group.Visibility  -Force
+        $tm | Add-Member -Name &quot;SiteUrl&quot; -MemberType NoteProperty -Value $Group.SiteUrl  -Force
+        $tm | Add-Member -Name &quot;Classification&quot; -MemberType NoteProperty -Value $Group.Classification  -Force
+        $tm | Add-Member -Name &quot;CreatedDateTime&quot; -MemberType NoteProperty -Value $Group.CreatedDateTime  -Force
+        $tm | Add-Member -Name &quot;DeletedDateTime&quot; -MemberType NoteProperty -Value $Group.DeletedDateTime  -Force
+        $tm | Add-Member -Name &quot;Mail&quot; -MemberType NoteProperty -Value $Group.Mail  -Force
+        $tm | Add-Member -Name &quot;MailEnabled&quot; -MemberType NoteProperty -Value $Group.MailEnabled  -Force
+        $tm | Add-Member -Name &quot;MailNickname&quot; -MemberType NoteProperty -Value $Group.MailNickname  -Force
+        $tm | Add-Member -Name &quot;RenewedDateTime&quot; -MemberType NoteProperty -Value $Group.RenewedDateTime  -Force
+        $tm | Add-Member -Name &quot;SecurityEnabled&quot; -MemberType NoteProperty -Value $Group.SecurityEnabled  -Force
+        $tm | Add-Member -Name &quot;SecurityIdentified&quot; -MemberType NoteProperty -Value $Group.SecurityIdentified  -Force
+        $tm | Add-Member -Name &quot;Theme&quot; -MemberType NoteProperty -Value $Group.Theme  -Force
+       
+        Write-Output &quot;   Get membership (Owners,Members,Guests)&quot; 
+        $Owners =  m365 teams user list --teamId $tm.id --role Owner  -o json | ConvertFrom-Json
+        $OwnersInfo= Get-UserInfo -obj $Owners
+
+        $Members = m365 teams user list --teamId $tm.id --role Member  -o json | ConvertFrom-Json
+        $MembersInfo= Get-UserInfo -obj $Members 
+        
+        $Guests =  m365 teams user list --teamId $tm.id --role Guest -o json | ConvertFrom-Json
+        $GuestsInfo= Get-UserInfo -obj $Guests 
+
+        $tm | Add-Member -Name &quot;Owners&quot; -MemberType NoteProperty -Value $Owners  -Force
+        $tm | Add-Member -Name &quot;OwnersInfo&quot; -MemberType NoteProperty -Value $OwnersInfo  -Force
+        $tm | Add-Member -Name &quot;Members&quot; -MemberType NoteProperty -Value $Members  -Force
+        $tm | Add-Member -Name &quot;MembersInfo&quot; -MemberType NoteProperty -Value $MembersInfo  -Force
+        $tm | Add-Member -Name &quot;Guest&quot; -MemberType NoteProperty -Value $Guests  -Force    
+        $tm | Add-Member -Name &quot;GuestInfo&quot; -MemberType NoteProperty -Value $GuestsInfo  -Force 
+
+        Write-Output &quot;   Membership (Owners,Members,Guests) collected ! &quot; 
+        
+        
+        #get all channels
+        Write-Output &quot;   Getting Channels&quot;
+        $allChannels = m365 teams channel list --teamId $tm.id | ConvertFrom-Json
+        $allChannels = Capitalize -obj $allChannels
+        
+        Write-Output &quot;    Get Primary Channel&quot; 
+        $primaryChannel = m365 teams channel get --teamId $tm.id --primary
+        $allChannels | ForEach-object {   
+            [PsObject] $chn = [PsObject]  $_
+    
+            Write-Output (&quot;    [&quot; + $chn.DisplayName + &quot;] Getting Tabs&quot;)
+            $isPrimaryChannel = ($primaryChannel.id -eq $chn.Id)
+            $tabs = m365 teams tab list --teamId $tm.id --channelId $chn.Id -o json | ConvertFrom-Json
+            $tabs = Capitalize -obj $tabs
+            $chn | Add-Member -Name &quot;Tabs&quot; -MemberType NoteProperty -Value  $tabs  -Force
+              Write-Output (&quot;    [&quot; + $chn.DisplayName + &quot;] Tabs collected !&quot;)
+
+        }
+        Write-Output &quot;   All Channels collected!&quot;
+        
+        $tm | Add-Member -Name &quot;Channels&quot; -MemberType NoteProperty -Value $allChannels -Force
+    }
+    m365 logout
+    Write-Output &quot;Disconnected&quot;
+
+    $exportTeams = $listOfTeams |  Sort-Object Id
+   
+    $teams = $exportTeams |Select-Object @{n = 'TeamId'; e = { $_.Id } } ,  @{n = 'TeamDisplayName'; e = { $_.DisplayName } } ,  @{n = 'TeamDescription'; e = { $_.Description } },  `
+    Visibility, SiteUrl, Classification, CreatedDateTime, DeletedDateTime, `
+    Mail, MailEnabled, MailNickname, RenewedDateTime, SecurityEnabled, SecurityIdentified, Theme , OwnersInfo, MembersInfo, GuestsInfo 
+    
+    $teamsChannels = $exportTeams | Select-Object @{n = 'TeamId'; e = { $_.Id } }, @{n = 'TeamDisplayName'; e = { $_.DisplayName } } , @{n = 'TeamDescription'; e = { $_.Description } } -ExpandProperty Channels| Select-Object $_.Channels  
+    $teamsChannels = $teamsChannels| Select-Object TeamDisplayName,  @{n = 'ChannelId'; e = { $_.Id } } , @{n = 'ChannelDisplayName'; e = { $_.DisplayName } } ,  @{n = 'ChannelDescription'; e = { $_.Description } }  , `
+                                      CreatedDateTime, Email, IdIsFavoriteByDefault, MembershipType, ModerationSettings, WebUrl, Tabs
+
+    $teamsChannelsTabs =$teamsChannels | Select-Object  TeamDisplayName, ChannelDisplayName  -ExpandProperty Tabs
+    $teamsChannelsTabs =$teamsChannelsTabs | Select-Object  TeamDisplayName,ChannelDisplayName,@{n = 'TabId'; e = { $_.Id } },@{n = 'TabDisplayName'; e = { $_.DisplayName } }  , @{n = 'TabWebUrl'; e = { $_.WebUrl } }  -ExpandProperty TeamsApp
+    $teamsChannelsTabs =$teamsChannelsTabs | Select-Object  TeamDisplayName,ChannelDisplayName,TabId, TabDisplayName,TabWebUrl, @{n = 'TeamsAppId'; e = { $_.Id } } 
+
+    $teamsChannels = $teamsChannels | Select-Object TeamDisplayName,ChannelId,	ChannelDisplayName,	ChannelDescription,	CreatedDateTime, Email,	IdIsFavoriteByDefault,	MembershipType,	 ModerationSettings,WebUrl
+    Write-Output &quot;Export all Teams info&quot;
+    $path= (Resolve-path -Path $ExportPath).Path
+    $teams |  Export-Csv -Path &quot;$path\Teams.csv&quot; -Force
+    $teamsChannels |Export-Csv -Path &quot;$path\TeamsChannels.csv&quot; -Force
+    $teamsChannelsTabs |  Export-Csv -Path &quot;$path\TeamsChannelsTabs.csv&quot; -Force
+    Write-Output &quot;All Teams info exported at [$path] &quot;
+
+}
+
+</code></pre>
+<div class="highlight-tool">
+<p>Check out the <strong>CLI for Microsoft 365</strong> to learn more at: <a href="https://aka.ms/cli-m365">https://aka.ms/cli-m365</a></p>
+</div>
+</section>
 </div>
 <h2 id="contributors">Contributors</h2>
 <table>
@@ -305,6 +485,9 @@ process {
 </tr>
 </thead>
 <tbody>
+<tr>
+<td><a href="https://github.com/reshmee011">Reshmee Auckloo</a></td>
+</tr>
 <tr>
 <td>Rodrigo Pinto</td>
 </tr>
