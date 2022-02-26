@@ -224,7 +224,7 @@ process {
 [CmdletBinding()]
 param (
     [Parameter(Mandatory = $True)]
-    [string]$Tenant ,#reshmeeauckloo.onmicrosoft.com
+    [string]$Tenant,
     [Parameter(Mandatory = $False)]
     [string]$Team,
     [Parameter(Mandatory = $False)]
