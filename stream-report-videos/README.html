@@ -82,7 +82,7 @@
 
 <p><img src="assets/header.png" alt="Outputs"></p>
 <h2 id="summary">Summary</h2>
-<p>Export a report on all Microsoft Stream (Classic) videos (all videos and videos not yet migrated to the new Stream (build on SharePoint))</p>
+<p>Export a report on all Microsoft Stream (Classic) videos (build on SharePoint)</p>
 <p>Microsoft Stream (Classic) will be retired soon , therefore we need to gather a list of all videos info for a mid-term migration<br>
 This script allow us to export a list with all videos detailed in our tenant .</p>
 <p>The script is a subset of the SPO PowerShell packages with content (PnPCandy) concept already been used across many projects.</p>
@@ -92,6 +92,9 @@ This script allow us to export a list with all videos detailed in our tenant .</
 <li role="presentation">
 <a href="#tabpanel_CeZOj-G++Q_pnpps" role="tab" aria-controls="tabpanel_CeZOj-G++Q_pnpps" data-tab="pnpps" tabindex="0" aria-selected="true">PnP PowerShell</a>
 </li>
+<li role="presentation">
+<a href="#tabpanel_CeZOj-G++Q_pnpps2" role="tab" aria-controls="tabpanel_CeZOj-G++Q_pnpps2" data-tab="pnpps2" tabindex="-1">PnP PowerShell Alternative</a>
+</li>
 </ul>
 <section id="tabpanel_CeZOj-G++Q_pnpps" role="tabpanel" data-tab="pnpps"><button class="article-clipboard" title="Copy to clipboard" data-toggle="tooltip" data-placement="top" data-clipboard-target="section[id^='tabpanel'][data-tab='pnpps'] pre">
     <span class="glyphicon glyphicon-copy" aria-hidden="true"></span>
@@ -99,6 +102,7 @@ This script allow us to export a list with all videos detailed in our tenant .</
 </button>
 
 <pre><code class="lang-powershell">
+
 [CmdletBinding()]
 param (
     [Parameter(Mandatory = $False)]
@@ -413,6 +417,179 @@ end {
 <p>Check out the <strong>PnP PowerShell</strong> to learn more at: <a href="https://aka.ms/pnp/powershell">https://aka.ms/pnp/powershell</a></p>
 </div>
 </section>
+<section id="tabpanel_CeZOj-G++Q_pnpps2" role="tabpanel" data-tab="pnpps2" aria-hidden="true" hidden="hidden"><button class="article-clipboard" title="Copy to clipboard" data-toggle="tooltip" data-placement="top" data-clipboard-target="section[id^='tabpanel'][data-tab='pnpps2'] pre">
+    <span class="glyphicon glyphicon-copy" aria-hidden="true"></span>
+    <span class="article-clipboard__message done">Copied</span>
+</button>
+
+<pre><code class="lang-powershell">
+[CmdletBinding()]
+param (
+    [parameter(Position=0,Mandatory=$False)] 
+    [string]$OutputCsvFileName,
+
+    [parameter(Position=1,Mandatory=$False)] 
+    [switch]$OpenFileWhenComplete = $False
+)
+
+
+# ----------------------------------------------------------------------------------------------
+function Show-OAuthWindowStream {
+    param (
+        [string]$Url,
+        [string]$WindowTitle
+    )
+       
+    $Source = `
+@&quot;
+    [DllImport(&quot;wininet.dll&quot;, SetLastError = true)]
+    public static extern bool InternetSetOption(IntPtr hInternet, int dwOption, IntPtr lpBuffer, int lpdwBufferLength);
+&quot;@
+
+    $WebBrowser = Add-Type -memberDefinition $Source -passthru -name $('WebBrowser'+[guid]::newGuid().ToString('n'))
+    $INTERNET_OPTION_END_BROWSER_SESSION = 42
+    # Clear the current session
+    $WebBrowser::InternetSetOption([IntPtr]::Zero, $INTERNET_OPTION_END_BROWSER_SESSION, [IntPtr]::Zero, 0) | out-null
+
+    Add-Type -AssemblyName System.Windows.Forms
+    $Form = New-Object -TypeName System.Windows.Forms.Form -Property @{Width = 600; Height = 800 }
+
+    $Script:web = New-Object -TypeName System.Windows.Forms.WebBrowser -Property @{Width = 580; Height = 780; Url = ($URL -f ($Scope -join &quot;%20&quot;)) }
+    $Web.ScriptErrorsSuppressed = $True
+    $Form.Controls.Add($Web)
+    $Featured = {
+        $Head = $Web.Document.GetElementsByTagName(&quot;head&quot;)[0];
+        $ScriptEl = $Web.Document.CreateElement(&quot;script&quot;);
+        $Element = $ScriptEl.DomElement;
+
+        # Javascript function to get the sessionInfo including the Token
+        $Element.text = `
+@'
+        function CaptureToken() { 
+            if( typeof sessionInfo === undefined ) {
+                return '';
+            } else {
+                outputString = '{';
+                outputString += '&quot;AccessToken&quot;:&quot;' + sessionInfo.AccessToken + '&quot;,';
+                outputString += '&quot;TenantId&quot;:&quot;' + sessionInfo.UserClaim.TenantId + '&quot;,';
+                outputString += '&quot;ApiGatewayUri&quot;:&quot;' + sessionInfo.ApiGatewayUri + '&quot;,';
+                outputString += '&quot;ApiGatewayVersion&quot;:&quot;' + sessionInfo.ApiGatewayVersion + '&quot;';
+                outputString += '}';
+
+                return outputString;
+            }
+        }
+'@;
+
+        $Head.AppendChild($ScriptEl);
+        $TenantInfoString = $Web.Document.InvokeScript(&quot;CaptureToken&quot;);
+            
+        if( [string]::IsNullOrEmpty( $TenantInfoString ) -eq $False ) {
+            $TenantInfo = ConvertFrom-Json $TenantInfoString
+            if ($TenantInfo.AccessToken.length -ne 0 ) {
+                $Script:tenantInfo = $TenantInfo;
+                $Form.Controls[0].Dispose()
+                $Form.Close()
+                $Form.Dispose()
+            }
+        }
+
+    }
+    $Web.add_DocumentCompleted($Featured)
+    $Form.AutoScaleMode = 'Dpi'
+    $Form.ShowIcon = $False
+    $Form.Text = $WindowTitle
+    $Form.AutoSizeMode = 'GrowAndShrink'
+    $Form.StartPosition = 'CenterScreen'
+    $Form.Add_Shown( { $Form.Activate() })
+    $Form.ShowDialog() | Out-Null
+
+    write-output $Script:tenantInfo
+}
+
+# ----------------------------------------------------------------------------------------------
+function Get-RequestedAssets([PSCustomObject]$Token, [string]$Url, [string]$Label) {
+    $Index = 0
+    $MainUrl = $Url
+    $AllItems = @()
+    do {
+        $RestUrl = $MainUrl.Replace(&quot;`$skip=0&quot;, &quot;`$skip=$Index&quot;) 
+            
+        Write-Host &quot;  Fetching ... $($Index) to $($Index+100)&quot;
+        $Items = @((Invoke-RestMethod -Uri $RestUrl -Headers $Token.headers -Method Get).value)
+
+        $AllItems += $Items
+        $Index += 100
+            
+    } until ($Items.Count -lt 100)
+
+    Write-Host &quot;  Fetched $($AllItems.count) items&quot;
+
+    $Assets = $AllItems | Select-Object `
+                            @{Name='Type';Expression={$Label}},`
+                            Id, Name,`
+                            @{Name='Size(MB)';Expression={$_.AssetSize/1MB}}, `
+                            PrivacyMode, State, VideoMigrationStatus, Published, PublishedDate, ContentType, Created, Modified, `
+                            @{name='Media.Duration';Expression={$_.Media.Duration}},`
+                            @{name='Media.Height';Expression={$_.Media.Height}},`
+                            @{name='Media.Width';Expression={$_.Media.Width}},`
+                            @{name='Metrics.Comments';Expression={$_.Metrics.Comments}},`
+                            @{name='Metrics.Likes';Expression={$_.Metrics.Likes}},`
+                            @{name='Metrics.Views';Expression={$_.Metrics.Views}}, `
+                            @{name='ViewVideoUrl';Expression={(&quot;https://web.microsoftstream.com/video/&quot; + $_.Id)}}
+        
+    write-output $Assets
+}
+
+# ----------------------------------------------------------------------------------------------
+function Get-StreamToken() {
+        
+    $TenantInfo = Show-OAuthWindowStream -url &quot;https://web.microsoftstream.com/?noSignUpCheck=1&quot; -WindowTitle  &quot;Please login to Microsoft Stream ...&quot;
+    $Token = $TenantInfo.AccessToken
+    $Headers = @{
+        &quot;Authorization&quot;   = (&quot;Bearer &quot; + $Token)
+        &quot;accept-encoding&quot; = &quot;gzip, deflate, br&quot;
+    }
+    $UrlTenant = $TenantInfo.ApiGatewayUri
+    $ApiVersion = $TenantInfo.ApiGatewayVersion
+        
+    $UrlBase = &quot;$UrlTenant{0}?`$skip=0&amp;`$top=100&amp;adminmode=true&amp;api-version=$ApiVersion&quot; 
+        
+    $RequestToken = [PSCustomObject]::new()
+    $RequestToken | Add-Member  -Name &quot;token&quot; -MemberType NoteProperty -Value  $Token
+    $RequestToken | Add-Member  -Name &quot;headers&quot; -MemberType NoteProperty -Value  $Headers
+    $RequestToken | Add-Member  -Name &quot;tenantInfo&quot; -MemberType NoteProperty -Value $TenantInfo
+        
+    $Urls = [PSCustomObject]::new()
+    $RequestToken | Add-Member  -Name &quot;urls&quot; -MemberType NoteProperty -Value  $Urls
+
+    $RequestToken.urls | Add-Member  -Name &quot;Videos&quot; -MemberType NoteProperty -Value  ($UrlBase -f &quot;videos&quot;)
+    $RequestToken.urls | Add-Member  -Name &quot;Channels&quot; -MemberType NoteProperty -Value   ($UrlBase -f &quot;channels&quot;)
+    $RequestToken.urls | Add-Member  -Name &quot;Groups&quot; -MemberType NoteProperty -Value  ($UrlBase -f &quot;groups&quot;)
+        
+    $UrlBase = $UrlBase.replace(&quot;`$skip=0&amp;&quot;, &quot;&quot;)
+    $RequestToken.urls | Add-Member  -Name &quot;Principals&quot; -MemberType NoteProperty -Value   ($UrlBase -f &quot;principals&quot;)
+
+    write-output $RequestToken
+}
+
+$StreamToken = Get-StreamToken
+$ExtractData = Get-RequestedAssets -token $StreamToken -Url $StreamToken.Urls.Videos -Label &quot;Videos&quot;
+
+if( $OutputCsvFileName ) {
+    $ExtractData | Export-CSV $OutputCsvFileName -NoTypeInformation -Encoding UTF8
+    if( $OpenFileWhenComplete ) {
+        Invoke-Item $OutputCsvFileName
+    }
+} else {
+    write-output $ExtractData
+}
+
+</code></pre>
+<div class="highlight-tool">
+<p>Check out the <strong>PnP PowerShell</strong> to learn more at: <a href="https://aka.ms/pnp/powershell">https://aka.ms/pnp/powershell</a></p>
+</div>
+</section>
 </div>
 <h2 id="contributors">Contributors</h2>
 <table>
@@ -424,6 +601,9 @@ end {
 <tbody>
 <tr>
 <td>Rodrigo Pinto</td>
+</tr>
+<tr>
+<td>Twan van Beers</td>
 </tr>
 </tbody>
 </table>
