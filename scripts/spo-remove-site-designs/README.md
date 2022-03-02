@@ -106,4 +106,4 @@ Sample first appeared on [Delete custom SharePoint site designs | CLI for Micros
 
 
 [!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
-<img src="https://telemetry.sharepointpnp.com/script-samples/scripts/spo-remove-site-designs" aria-hidden="true" />
+<img src="https://pnptelemetry.azurewebsites.net/script-samples/scripts/spo-remove-site-designs" aria-hidden="true" />

@@ -82,4 +82,4 @@ Sample first appeared on [Monitor Site Collections Storage Usage | CLI for Micro
 
 
 [!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
-<img src="https://telemetry.sharepointpnp.com/script-samples/scripts/spo-monitor-site-collection-storage-usage" aria-hidden="true" />
+<img src="https://pnptelemetry.azurewebsites.net/script-samples/scripts/spo-monitor-site-collection-storage-usage" aria-hidden="true" />

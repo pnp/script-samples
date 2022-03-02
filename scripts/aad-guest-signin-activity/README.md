@@ -343,4 +343,4 @@ Sample first appeared on [https://peteskelly.com/cli-graph-signin-actvity/](http
 
 
 [!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
-<img src="https://telemetry.sharepointpnp.com/script-samples/scripts/aad-guest-signin-activity" aria-hidden="true" />
+<img src="https://pnptelemetry.azurewebsites.net/script-samples/scripts/aad-guest-signin-activity" aria-hidden="true" />

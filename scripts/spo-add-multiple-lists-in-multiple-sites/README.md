@@ -80,4 +80,4 @@ Sample first appeared on [Add multiple lists in multiple sites | CLI for Microso
 
 
 [!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
-<img src="https://telemetry.sharepointpnp.com/script-samples/scripts/spo-add-multiple-lists-in-multiple-sites" aria-hidden="true" />
+<img src="https://pnptelemetry.azurewebsites.net/script-samples/scripts/spo-add-multiple-lists-in-multiple-sites" aria-hidden="true" />

@@ -81,4 +81,4 @@ Sample first appeared on [Ensure the Site Assets Library is created | CLI for Mi
 
 
 [!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
-<img src="https://telemetry.sharepointpnp.com/script-samples/scripts/spo-ensure-siteassets-library" aria-hidden="true" />
+<img src="https://pnptelemetry.azurewebsites.net/script-samples/scripts/spo-ensure-siteassets-library" aria-hidden="true" />

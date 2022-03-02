@@ -400,7 +400,8 @@ process {
 | Rodrigo Pinto |
 
 [!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
-<img src="https://telemetry.sharepointpnp.com/script-samples/scripts/teams-full-report" aria-hidden="true" />
+<img src="https://pnptelemetry.azurewebsites.net/script-samples/scripts/teams-full-report" aria-hidden="true" />
+
 
 
 

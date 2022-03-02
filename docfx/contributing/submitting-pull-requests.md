@@ -69,3 +69,5 @@ Before you submit your pull request consider the following guidelines:
   ```shell
   git push origin working-with-files-in-libraries
   ```
+
+<img src="https://pnptelemetry.azurewebsites.net/script-samples/contributing/submitting-pull-requests" aria-hidden="true" />

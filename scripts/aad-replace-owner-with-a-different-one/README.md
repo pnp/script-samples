@@ -152,4 +152,4 @@ Sample first appeared on [Replace an owner in a Microsoft 365 Group or Microsoft
 
 
 [!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
-<img src="https://telemetry.sharepointpnp.com/script-samples/scripts/aad-replace-owner-with-a-different-one" aria-hidden="true" />
+<img src="https://pnptelemetry.azurewebsites.net/script-samples/scripts/aad-replace-owner-with-a-different-one" aria-hidden="true" />

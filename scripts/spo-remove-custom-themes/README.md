@@ -77,4 +77,4 @@ Sample first appeared on [Delete custom color themes from SharePoint | CLI for M
 
 
 [!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
-<img src="https://telemetry.sharepointpnp.com/script-samples/scripts/spo-remove-custom-themes" aria-hidden="true" />
+<img src="https://pnptelemetry.azurewebsites.net/script-samples/scripts/spo-remove-custom-themes" aria-hidden="true" />

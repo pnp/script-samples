@@ -54,4 +54,4 @@ Sample first appeared on [Deploy Microsoft Teams app from Azure DevOps | CLI for
 
 
 [!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
-<img src="https://telemetry.sharepointpnp.com/script-samples/scripts/teams-deploy-teams-app" aria-hidden="true" />
+<img src="https://pnptelemetry.azurewebsites.net/script-samples/scripts/teams-deploy-teams-app" aria-hidden="true" />

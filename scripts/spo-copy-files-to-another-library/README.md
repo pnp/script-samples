@@ -103,4 +103,4 @@ Sample first appeared on [Copy files to another SharePoint Library in another si
 
 
 [!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
-<img src="https://telemetry.sharepointpnp.com/script-samples/scripts/spo-copy-files-to-another-library" aria-hidden="true" />
+<img src="https://pnptelemetry.azurewebsites.net/script-samples/scripts/spo-copy-files-to-another-library" aria-hidden="true" />

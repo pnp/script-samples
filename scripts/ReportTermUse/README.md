@@ -137,4 +137,5 @@ $outputArray  | Export-Csv -Path $outputPath -Force -Encoding utf8BOM -Delimiter
 | [Kasper Bo Larsen](https://github.com/kasperbolarsen|
 
 [!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
-<img src="https://telemetry.sharepointpnp.com/script-samples/scripts/report-private-teams-excel" aria-hidden="true" />
+<img src="https://pnptelemetry.azurewebsites.net/script-samples/scripts/report-private-teams-excel" aria-hidden="true" />
+

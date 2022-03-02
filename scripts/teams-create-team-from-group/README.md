@@ -66,4 +66,4 @@ Sample first appeared on [Create a Microsoft Team with channels from a Microsoft
 
 
 [!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
-<img src="https://telemetry.sharepointpnp.com/script-samples/scripts/teams-create-team-from-group" aria-hidden="true" />
+<img src="https://pnptelemetry.azurewebsites.net/script-samples/scripts/teams-create-team-from-group" aria-hidden="true" />

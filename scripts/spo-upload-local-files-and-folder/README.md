@@ -61,4 +61,4 @@ Sample first appeared on [Upload local files and folders to SharePoint Online | 
 
 
 [!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
-<img src="https://telemetry.sharepointpnp.com/script-samples/scripts/spo-upload-local-files-and-folder" aria-hidden="true" />
+<img src="https://pnptelemetry.azurewebsites.net/script-samples/scripts/spo-upload-local-files-and-folder" aria-hidden="true" />

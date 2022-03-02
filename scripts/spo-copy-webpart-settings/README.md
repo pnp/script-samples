@@ -212,4 +212,4 @@ After that we specify the section, column and order of where the web part is on 
 | Anoop Tatti |
 
 [!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
-<img src="https://telemetry.sharepointpnp.com/script-samples/scripts/spo-copy-webpart-settings" aria-hidden="true" />
+<img src="https://pnptelemetry.azurewebsites.net/script-samples/scripts/spo-copy-webpart-settings" aria-hidden="true" />

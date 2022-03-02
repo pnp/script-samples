@@ -89,4 +89,4 @@ Sample first appeared on [Add a Site Collection Admin using a csv file | CLI for
 
 
 [!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
-<img src="https://telemetry.sharepointpnp.com/script-samples/scripts/spo-add-site-collection-admin-using-csv-file" aria-hidden="true" />
+<img src="https://pnptelemetry.azurewebsites.net/script-samples/scripts/spo-add-site-collection-admin-using-csv-file" aria-hidden="true" />

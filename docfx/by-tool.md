@@ -10,4 +10,4 @@ Find scripts by entering a keyword. You can filter by Tool.
 *--this will be auto generated--*
 
 
-<img src="https://telemetry.sharepointpnp.com/script-samples/bytool" aria-hidden="true" />
+<img src="https://pnptelemetry.azurewebsites.net/script-samples/bytool" aria-hidden="true" />

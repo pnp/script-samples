@@ -60,4 +60,4 @@ Article first appeared on [Testing user preferred language of SharePoint site | 
 
 [!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
 
-<img src="https://telemetry.sharepointpnp.com/script-samples/scripts/user-language-for-site" aria-hidden="true" />
+<img src="https://pnptelemetry.azurewebsites.net/script-samples/scripts/user-language-for-site" aria-hidden="true" />

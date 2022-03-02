@@ -71,4 +71,4 @@ Sample first appeared on [Disable specified Tenant-wide Extension | CLI for Micr
 
 
 [!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
-<img src="https://telemetry.sharepointpnp.com/script-samples/scripts/spo-disable-tenant-wide-extension" aria-hidden="true" />
+<img src="https://pnptelemetry.azurewebsites.net/script-samples/scripts/spo-disable-tenant-wide-extension" aria-hidden="true" />
