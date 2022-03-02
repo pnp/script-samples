@@ -79,4 +79,4 @@ Sample first appeared on [List out all Azure AD Apps along with their KeyCredent
 
 
 [!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
-<img src="https://telemetry.sharepointpnp.com/script-samples/scripts/aad-apps-expird-keys" aria-hidden="true" />
+<img src="https://pnptelemetry.azurewebsites.net/script-samples/scripts/aad-apps-expird-keys" aria-hidden="true" />

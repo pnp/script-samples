@@ -57,4 +57,4 @@ Disconnect-PnPOnline
 
 
 [!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
-<img src="https://telemetry.sharepointpnp.com/script-samples/scripts/reset-files-permission-unique-to-inherited" aria-hidden="true" />
+<img src="https://pnptelemetry.azurewebsites.net/script-samples/scripts/reset-files-permission-unique-to-inherited" aria-hidden="true" />

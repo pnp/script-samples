@@ -53,4 +53,4 @@ Sample first appeared on [Share social champions to Teams | CLI for Microsoft 36
 
 
 [!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
-<img src="https://telemetry.sharepointpnp.com/script-samples/scripts/teams-share-socialchampions" aria-hidden="true" />
+<img src="https://pnptelemetry.azurewebsites.net/script-samples/scripts/teams-share-socialchampions" aria-hidden="true" />

@@ -141,4 +141,5 @@ Sample first appeared on [Remove orphaned redirect sites | CLI for Microsoft 365
 
 
 [!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
-<img src="https://telemetry.sharepointpnp.com/script-samples/scripts/spo-remove-orphaned-redirect-sites" aria-hidden="true" />
+<img src="https://pnptelemetry.azurewebsites.net/script-samples/scripts/spo-remove-orphaned-redirect-sites" aria-hidden="true" />
+

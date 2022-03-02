@@ -41,4 +41,4 @@ Sample first appeared on [Cancel all running flow runs for a flow in an environm
 
 
 [!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
-<img src="https://telemetry.sharepointpnp.com/script-samples/scripts/flow-cancel-all-running-flow-runs" aria-hidden="true" />
+<img src="https://pnptelemetry.azurewebsites.net/script-samples/scripts/flow-cancel-all-running-flow-runs" aria-hidden="true" />

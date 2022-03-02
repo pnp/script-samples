@@ -44,4 +44,4 @@ Sample first appeared on [Replace site collection admin with another user | CLI 
 
 
 [!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
-<img src="https://telemetry.sharepointpnp.com/script-samples/scripts/spo-replace-site-collection-admin" aria-hidden="true" />
+<img src="https://pnptelemetry.azurewebsites.net/script-samples/scripts/spo-replace-site-collection-admin" aria-hidden="true" />

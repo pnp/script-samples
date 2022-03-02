@@ -57,4 +57,4 @@ Sample first appeared on [Bulk add members to Microsoft Teams team from CSV file
 
 
 [!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
-<img src="https://telemetry.sharepointpnp.com/script-samples/scripts/teams-add-bulk-users-teams" aria-hidden="true" />
+<img src="https://pnptelemetry.azurewebsites.net/script-samples/scripts/teams-add-bulk-users-teams" aria-hidden="true" />

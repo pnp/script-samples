@@ -60,4 +60,5 @@ Sample first appeared on [Hide SharePoint list from Site Contents | CLI for Micr
 | Leon Armston |
 
 [!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
-<img src="https://telemetry.sharepointpnp.com/script-samples/scripts/spo-hide-list-from-site-contents" aria-hidden="true" />
+<img src="https://pnptelemetry.azurewebsites.net/script-samples/scripts/spo-hide-list-from-site-contents" aria-hidden="true" />
+

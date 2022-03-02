@@ -102,4 +102,4 @@ Sample first appeared on [Delete all Microsoft 365 groups and SharePoint sites |
 
 
 [!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
-<img src="https://telemetry.sharepointpnp.com/script-samples/scripts/aad-delete-m365-groups-and-sharepoint-sites" aria-hidden="true" />
+<img src="https://pnptelemetry.azurewebsites.net/script-samples/scripts/aad-delete-m365-groups-and-sharepoint-sites" aria-hidden="true" />

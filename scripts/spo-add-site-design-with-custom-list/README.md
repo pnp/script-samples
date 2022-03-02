@@ -448,4 +448,4 @@ $site = $site | ConvertFrom-Json
 
 
 [!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
-<img src="https://telemetry.sharepointpnp.com/script-samples/scripts/spo-add-site-design-with-custom-list" aria-hidden="true" />
+<img src="https://pnptelemetry.azurewebsites.net/script-samples/scripts/spo-add-site-design-with-custom-list" aria-hidden="true" />

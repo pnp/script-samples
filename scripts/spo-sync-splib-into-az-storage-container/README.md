@@ -89,4 +89,4 @@ Sample first appeared on [Sync SharePoint Document Library Documents with Azure 
 
 
 [!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
-<img src="https://telemetry.sharepointpnp.com/script-samples/scripts/spo-sync-splib-into-az-storage-container" aria-hidden="true" />
+<img src="https://pnptelemetry.azurewebsites.net/script-samples/scripts/spo-sync-splib-into-az-storage-container" aria-hidden="true" />

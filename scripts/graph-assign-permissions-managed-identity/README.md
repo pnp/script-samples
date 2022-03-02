@@ -80,4 +80,5 @@ Sample first appeared on  [https://github.com/LuiseFreese/PnPrincessScripts/blob
 
 [!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
 
-<img src="https://telemetry.sharepointpnp.com/script-samples/scripts/graph-assign-permissions-managed-identity" aria-hidden="true" />
+<img src="https://pnptelemetry.azurewebsites.net/script-samples/scripts/graph-assign-permissions-managed-identity" aria-hidden="true" />
+

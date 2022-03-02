@@ -108,4 +108,4 @@ Sample first appeared on [Monitor and notify Microsoft 365 health status | CLI f
 
 
 [!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
-<img src="https://telemetry.sharepointpnp.com/script-samples/scripts/tenant-tenant-monitor-notify-healthstatus" aria-hidden="true" />
+<img src="https://pnptelemetry.azurewebsites.net/script-samples/scripts/tenant-tenant-monitor-notify-healthstatus" aria-hidden="true" />

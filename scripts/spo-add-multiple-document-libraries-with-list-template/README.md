@@ -107,4 +107,5 @@ Inspired by [Invoke-SPOListDesign to create instances of lists/libraires](https:
 
 
 [!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
-<img src="https://telemetry.sharepointpnp.com/script-samples/scripts/spo-add-multiple-document-libraries-with-list-template" aria-hidden="true" />
+<img src="https://pnptelemetry.azurewebsites.net/script-samples/scripts/spo-add-multiple-document-libraries-with-list-template" aria-hidden="true" />
+

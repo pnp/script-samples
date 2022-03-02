@@ -52,4 +52,5 @@ Sample first appeared on [Analyze users for known data breaches with have i been
 
 
 [!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
-<img src="https://telemetry.sharepointpnp.com/script-samples/scripts/aad-analyze-users-hibp" aria-hidden="true" />
+<img src="https://pnptelemetry.azurewebsites.net/script-samples/scripts/aad-analyze-users-hibp" aria-hidden="true" />
+
