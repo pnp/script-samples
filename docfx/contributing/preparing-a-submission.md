@@ -127,6 +127,4 @@ We have worked to keep the folder structure lean and as simple as possible when 
 ```
 ![Folder structure](../assets/contributing/folder-structure-contributors.png)
 
-<img src="https://telemetry.sharepointpnp.com/script-samples/contributing" aria-hidden="true" />
-
 <img src="https://pnptelemetry.azurewebsites.net/script-samples/contributing/preparing-a-submission" aria-hidden="true" />
