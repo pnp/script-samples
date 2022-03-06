@@ -2,11 +2,11 @@
 plugin: add-to-gallery
 ---
 
-# Get permission group report of a site.  
+# Get permission group report of a site
 
 ## Summary
 
-The scripts get group permission report of site and each list on the site and prints it to console and also sends it as an adatpive card to Teams channel specified by webhook.
+The scripts get group permission report of site and each list on the site and prints it to console and also sends it as an adaptive card to Teams channel specified by webhook.
 
 result in console
 
