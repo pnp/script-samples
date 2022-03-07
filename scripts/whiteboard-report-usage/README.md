@@ -14,7 +14,7 @@ This script allow us to export a list of all Whiteboards created in our tenant a
 
 The script exports Geography, Owner ID, Owner UPN, Owner Name, Whiteboard ID, Title, Is Shared, Created, Modified as follows.
 
-![Sample Output file Screenshot](assets/SampleOutPut.png)
+![Sample Output file Screenshot](assets/sample-output.png)
 
 ## Prerequisites
 
@@ -124,8 +124,9 @@ try {
 catch {
     Write-Host -f Red "Error:" $_.Exception.Message
 }
-[!INCLUDE [More about PnP PowerShell](../../docfx/includes/MORE-PNPPS.md)]
 ```
+[!INCLUDE [More about Microsoft Whiteboard Admin](../../docfx/includes/MORE-WHITEBOARD.md)]
+***
 
 ## Contributors
 
