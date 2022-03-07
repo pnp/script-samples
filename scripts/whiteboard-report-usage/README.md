@@ -38,7 +38,7 @@ To get the owner details, this script uses [MSOnline](https://www.powershellgall
 Install-Module -Name MSOnline
 ```
 
-# [PowerShell]
+# [Microsoft Whiteboard Admin](#tab/whiteboard)
 
 ```powershell
 # Import modules
@@ -124,6 +124,7 @@ try {
 catch {
     Write-Host -f Red "Error:" $_.Exception.Message
 }
+[!INCLUDE [More about PnP PowerShell](../../docfx/includes/MORE-PNPPS.md)]
 ```
 
 ## Contributors
