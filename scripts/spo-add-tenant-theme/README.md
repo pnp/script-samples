@@ -131,8 +131,8 @@ Write-Host "Done! :)" -ForegroundColor Green
 
 ```powershell
 
-$adminSiteURL = "https://vtsp-admin.sharepoint.com/"
-$userName = "chandani@vtsp.onmicrosoft.com"
+$adminSiteURL = "https://domain-admin.sharepoint.com/"
+$userName = "chandani@domain.onmicrosoft.com"
 $password = "********"
 $secureStringPwd = $password | ConvertTo-SecureString -AsPlainText -Force 
 $creds = New-Object System.Management.Automation.PSCredential -ArgumentList $userName, $secureStringPwd
