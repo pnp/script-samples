@@ -12,6 +12,10 @@ When working with themes, it is recommended to use the Theme Designer to get sta
 > [!Note]
 > For reference the themes can be generated at: https://aka.ms/themedesigner
 
+
+![Example Theme](assets/example.png)
+
+
 # [PnP PowerShell](#tab/pnpps)
 
 ```powershell
@@ -125,7 +129,6 @@ Write-Host "Done! :)" -ForegroundColor Green
 
 ```
 [!INCLUDE [More about CLI for Microsoft 365](../../docfx/includes/MORE-CLIM365.md)]
-***
 
 # [SPO Management Shell](#tab/spoms-ps)
 
@@ -192,6 +195,7 @@ StartProcessing
 
 ```
 [!INCLUDE [More about SPO Management Shell](../../docfx/includes/MORE-SPOMS.md)]
+***
 
 ## Contributors
 
