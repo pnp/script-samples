@@ -87,6 +87,7 @@ When working with themes, it is recommended to use the Theme Designer to get sta
 <h5>Note</h5>
 <p>For reference the themes can be generated at: <a href="https://aka.ms/themedesigner">https://aka.ms/themedesigner</a></p>
 </div>
+<p><img src="assets/example.png" alt="Example Theme"></p>
 <div class="tabGroup" id="tabgroup_CeZOj-G++Q">
 <ul role="tablist">
 <li role="presentation">
@@ -94,6 +95,9 @@ When working with themes, it is recommended to use the Theme Designer to get sta
 </li>
 <li role="presentation">
 <a href="#tabpanel_CeZOj-G++Q_cli-m365-ps" role="tab" aria-controls="tabpanel_CeZOj-G++Q_cli-m365-ps" data-tab="cli-m365-ps" tabindex="-1">CLI for Microsoft 365 with PowerShell</a>
+</li>
+<li role="presentation">
+<a href="#tabpanel_CeZOj-G++Q_spoms-ps" role="tab" aria-controls="tabpanel_CeZOj-G++Q_spoms-ps" data-tab="spoms-ps" tabindex="-1">SPO Management Shell</a>
 </li>
 </ul>
 <section id="tabpanel_CeZOj-G++Q_pnpps" role="tabpanel" data-tab="pnpps"><button class="article-clipboard" title="Copy to clipboard" data-toggle="tooltip" data-placement="top" data-clipboard-target="section[id^='tabpanel'][data-tab='pnpps'] pre">
@@ -103,7 +107,7 @@ When working with themes, it is recommended to use the Theme Designer to get sta
 
 <pre><code class="lang-powershell">
 $url = &quot;https://contoso-admin.sharepoint.com&quot;
-$themeName = &quot;Demo Branding (Red)&quot;
+$themeName = &quot;Demo Branding (Red) PnP&quot;
 
 # -------------------------------------------------------------
 # Theme Palette  
@@ -219,6 +223,76 @@ Write-Host &quot;Done! :)&quot; -ForegroundColor Green
 <p>Check out the <strong>CLI for Microsoft 365</strong> to learn more at: <a href="https://aka.ms/cli-m365">https://aka.ms/cli-m365</a></p>
 </div>
 </section>
+<section id="tabpanel_CeZOj-G++Q_spoms-ps" role="tabpanel" data-tab="spoms-ps" aria-hidden="true" hidden="hidden"><button class="article-clipboard" title="Copy to clipboard" data-toggle="tooltip" data-placement="top" data-clipboard-target="section[id^='tabpanel'][data-tab='spoms-ps'] pre">
+    <span class="glyphicon glyphicon-copy" aria-hidden="true"></span>
+    <span class="article-clipboard__message done">Copied</span>
+</button>
+
+<pre><code class="lang-powershell">
+$adminSiteURL = &quot;https://domain-admin.sharepoint.com/&quot;
+$userName = &quot;chandani@domain.onmicrosoft.com&quot;
+$password = &quot;********&quot;
+$secureStringPwd = $password | ConvertTo-SecureString -AsPlainText -Force 
+$creds = New-Object System.Management.Automation.PSCredential -ArgumentList $userName, $secureStringPwd
+$themePalette = @{
+    &quot;themePrimary&quot;         = &quot;#b21212&quot;;
+    &quot;themeLighterAlt&quot;      = &quot;#fcf3f3&quot;;
+    &quot;themeLighter&quot;         = &quot;#f3d0d0&quot;;
+    &quot;themeLight&quot;           = &quot;#e8a9a9&quot;;
+    &quot;themeTertiary&quot;        = &quot;#d16060&quot;;
+    &quot;themeSecondary&quot;       = &quot;#bc2727&quot;;
+    &quot;themeDarkAlt&quot;         = &quot;#a11010&quot;;
+    &quot;themeDark&quot;            = &quot;#880e0e&quot;;
+    &quot;themeDarker&quot;          = &quot;#640a0a&quot;;
+    &quot;neutralLighterAlt&quot;    = &quot;#f8f8f8&quot;;
+    &quot;neutralLighter&quot;       = &quot;#f4f4f4&quot;;
+    &quot;neutralLight&quot;         = &quot;#eaeaea&quot;;
+    &quot;neutralQuaternaryAlt&quot; = &quot;#dadada&quot;;
+    &quot;neutralQuaternary&quot;    = &quot;#d0d0d0&quot;;
+    &quot;neutralTertiaryAlt&quot;   = &quot;#c8c8c8&quot;;
+    &quot;neutralTertiary&quot;      = &quot;#c2c2c2&quot;;
+    &quot;neutralSecondary&quot;     = &quot;#858585&quot;;
+    &quot;neutralPrimaryAlt&quot;    = &quot;#4b4b4b&quot;;
+    &quot;neutralPrimary&quot;       = &quot;#333333&quot;;
+    &quot;neutralDark&quot;          = &quot;#272727&quot;;
+    &quot;black&quot;                = &quot;#1d1d1d&quot;;
+    &quot;white&quot;                = &quot;#ffffff&quot;;
+    &quot;bodyBackground&quot;       = &quot;#ffffff&quot;;
+    &quot;bodyText&quot;             = &quot;#333333&quot;;
+}
+$themeName = &quot;Demo Branding (Red) SPO&quot;
+
+Function Login() {
+    [cmdletbinding()]
+    param([parameter(Mandatory = $true, ValueFromPipeline = $true)] $creds)
+    Write-Host &quot;Connecting to Tenant Admin Site '$($adminSiteURL)'&quot; -f Yellow   
+    Connect-SPOService -Url $adminSiteURL -Credential $creds
+    Write-Host &quot;Connecting successfully!...&quot; -f Green 
+}
+
+Function ApplyTheme {
+    try {
+        Write-Host &quot;Applying theme...&quot;  -ForegroundColor Yellow
+        Add-SPOTheme -Identity $themeName -Palette $themePalette -IsInverted $false -Overwrite
+        Write-Host &quot;Done! :)&quot;  -ForegroundColor Green	 						
+    } 
+    catch {
+        Write-Host &quot;Getting error in applying theme:&quot; $_.Exception.Message -ForegroundColor Red                 
+    } 
+}	 
+     
+Function StartProcessing {
+    Login($creds); 
+    ApplyTheme         
+}
+
+StartProcessing
+
+</code></pre>
+<div class="highlight-tool">
+<p>Check out the <strong>SPO Management Shell</strong> to learn more at: <a href="https://docs.microsoft.com/en-us/powershell/sharepoint/sharepoint-online/introduction-sharepoint-online-management-shell?view=sharepoint-ps">Introduction SharePoint Online Management Shell | Microsoft Docs</a></p>
+</div>
+</section>
 </div>
 <h2 id="contributors">Contributors</h2>
 <table>
@@ -233,6 +307,9 @@ Write-Host &quot;Done! :)&quot; -ForegroundColor Green
 </tr>
 <tr>
 <td><a href="https://github.com/Adam-it">Adam Wójcik</a></td>
+</tr>
+<tr>
+<td>Chandani Prajapati</td>
 </tr>
 </tbody>
 </table>
