@@ -70,12 +70,13 @@ $files = Get-ChildItem -Path $dir -Recurse -Include README.md
 
 Write-Host "$($files.Length) found"
 
-"# Metadata Report of Samples"  | Out-File $ReportFile -Force
+"# Report of Samples Command Usage"  | Out-File $ReportFile -Force
 "| Sample | Cmdlets | Detected Cmdlets |" | Out-File $reportFile -Append
 "|--------|:--------:|:--------:|"  | Out-File $reportFile -Append
 
 $matrixRows = @()
 $helpCmds = @()
+$cmdUsage = @()
 $sampleCount = 0
 
 # Get all help files in memory
@@ -83,7 +84,19 @@ $helpFolder = Join-Path -Path $BaseDir -ChildPath $HelpCmdletsFolder
 $helpFiles = Get-ChildItem -Path $helpFolder -Recurse -Include *.json
 $helpFiles | ForEach-Object {
     
-    $helpCmds += Get-Content -Path $_.FullName -Raw | ConvertFrom-Json
+    $cmds = Get-Content -Path $_.FullName -Raw | ConvertFrom-Json
+
+    $helpCmds += $cmds
+
+    $cmdUsage += [PSCustomObject]@{
+        File = $_.Name
+        Cmdlets = $cmds | % {
+            [PSCustomObject]@{ 
+                Command = $_.cmd
+                UsageCount = 0
+            }
+        }
+    }
 }
 
 # Load the exceptions list
@@ -105,13 +118,26 @@ $files | Foreach-Object {
     $content = GetReadme -SamplePath $_.Directory
     $title = GetTitleFromSampleJson -SamplePath $_.Directory -DefaultReturn $_.Directory.Name
 
-
     $cmdletsUsed = ""
     $detectCmds = ""
 
+    # TODO: This can be optimised to reduce the processing time
     $helpCmds | foreach-Object {
         if($content.Contains($_.cmd) -and $_.cmd -ne ""){
             $cmdletsUsed += "{0}, " -f $_.cmd
+
+            $findCmd = $_.cmd
+            # Cmdlet Usage
+            $cmdUsage | ForEach-Object{
+                
+                $existingCmd = $_.Cmdlets | Where-Object { $_.Command -eq $findCmd }
+                if($existingCmd.length -eq 1){
+                    $existingCmd.UsageCount += 1
+                }
+                if($existingCmd.length -gt 1){
+                    Write-Host "Warning: more than one cmdlet found for {0}" -f $findCmd
+                }
+            }
         }
     }
 
@@ -141,8 +167,6 @@ $files | Foreach-Object {
 }
 
 # Output Report
-
-
 $matrixRows | ForEach-Object{
 
     $row = "| {0} | {1} | {2} |" -f $_.Sample, $_.Cmdlets, $_.DetectCmds
@@ -151,9 +175,32 @@ $matrixRows | ForEach-Object{
     $row | Out-File $reportFile -Append
 }
 
-#cmdlets NOT used
+# show cmdlets NOT used
 
+# PnP PowerShell
+"# Overview of Sample Command Usage"  | Out-File $ReportFile -Append
+"| File | Used Cmdlets | Unused Cmdlets |" | Out-File $reportFile -Append
+"|:--------:|--------|--------|"  | Out-File $reportFile -Append
+$cmdUsage | ForEach-Object{
 
+    $usedCommands = $_.Cmdlets | Where-Object { $_.UsageCount -gt 0 } 
+    $unUsedCommands = $_.Cmdlets | Where-Object { $_.UsageCount -eq 0 }
+
+    $usedResult = ""
+    $usedCommands | ForEach-Object { 
+        $usedResult += "{0}, " -f $_.Command 
+    }
+
+    $unUsedResult = ""
+    $unUsedCommands | ForEach-Object { 
+        $UnUsedResult += "{0}, " -f $_.Command 
+    }
+
+    $row = "| {0} | {1} | {2}" -f $_.File, $usedResult, $UnUsedResult
+    Write-Host $row
+
+    $row | Out-File $reportFile -Append
+}
 
 
 $summary = "`nThere are **{0}** script scenarios with metadata in the site | Generated: {1} `n`n" -f $sampleCount, [System.DateTime]::Now.ToString("dd MMM yyyy hh:mm:ss")
