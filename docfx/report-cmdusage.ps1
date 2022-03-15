@@ -178,28 +178,45 @@ $matrixRows | ForEach-Object{
 # show cmdlets NOT used
 
 # PnP PowerShell
-"# Overview of Sample Command Usage"  | Out-File $ReportFile -Append
-"| File | Used Cmdlets | Unused Cmdlets |" | Out-File $reportFile -Append
-"|:--------:|--------|--------|"  | Out-File $reportFile -Append
+"## Overview of Sample Command Usage"  | Out-File $ReportFile -Append
+
 $cmdUsage | ForEach-Object{
 
-    $usedCommands = $_.Cmdlets | Where-Object { $_.UsageCount -gt 0 } 
-    $unUsedCommands = $_.Cmdlets | Where-Object { $_.UsageCount -eq 0 }
+    if($_.File -ne "ignore.help.json" -and $_.File -ne "archive.help.json"){
 
-    $usedResult = ""
-    $usedCommands | ForEach-Object { 
-        $usedResult += "{0}, " -f $_.Command 
-    }
+        $friendlyName = ""
+        switch ($_.File) {
+            "cli.help.json" { $friendlyName = "CLI for Microsoft 365" }
+            "powershell.help.json" { $friendlyName = "PnP PowerShell" }
+            "spoms.help.json" { $friendlyName = "SharePoint Online Management Shell" }
+            Default {}
+        }
 
-    $unUsedResult = ""
-    $unUsedCommands | ForEach-Object { 
-        $UnUsedResult += "{0}, " -f $_.Command 
-    }
 
-    $row = "| {0} | {1} | {2}" -f $_.File, $usedResult, $UnUsedResult
-    Write-Host $row
+        "### $($friendlyName) Usage"  | Out-File $ReportFile -Append
 
-    $row | Out-File $reportFile -Append
+        "| Used Cmdlets | Unused Cmdlets |" | Out-File $reportFile -Append
+        "|--------|--------|"  | Out-File $reportFile -Append
+    
+        $usedCommands = $_.Cmdlets | Where-Object { $_.UsageCount -gt 0 } 
+        $unUsedCommands = $_.Cmdlets | Where-Object { $_.UsageCount -eq 0 }
+
+        $usedResult = ""
+        $usedCommands | ForEach-Object { 
+            $usedResult += "{0}<br />" -f $_.Command 
+        }
+
+        $unUsedResult = ""
+        $unUsedCommands | ForEach-Object { 
+            $UnUsedResult += "{0}<br />" -f $_.Command 
+        }
+
+        $row = "| {0} | {1} |" -f $usedResult, $UnUsedResult
+        Write-Host $row
+
+        $row | Out-File $reportFile -Append
+
+    }   
 }
 
 
