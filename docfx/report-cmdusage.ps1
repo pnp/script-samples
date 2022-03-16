@@ -6,7 +6,6 @@ param(
     [string]$ScriptFolder = "scripts",
     [string]$ReportFile = "cmdusage.md",
     [string]$AssetsFolder = "assets",
-    [string]$HelpCmdletsFolder = "/docfx/assets/help",
     [string]$DocFxFolder = "docfx",
     [string]$HelpFolder = "help",
     [string]$IgnoreFile = "ignore.help.json"
@@ -18,7 +17,7 @@ function ResolveLink{
         $Link
     )
 
-    $markdownLink = "../scripts/{0}/README.md" -f $Link
+    $markdownLink = Join-Path "../" "scripts" $Link "README.md"
     return $markdownLink
 }
 
@@ -124,7 +123,7 @@ $files | Foreach-Object {
 
     $content = GetReadme -SamplePath $_.Directory
     $title = GetTitleFromSampleJson -SamplePath $_.Directory -DefaultReturn $_.Directory.Name
-
+    $dirName = $_.Directory.Name
     $cmdletsUsed = ""
     $detectCmds = ""
 
