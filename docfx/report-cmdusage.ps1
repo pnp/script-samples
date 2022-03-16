@@ -100,7 +100,7 @@ $helpFiles | ForEach-Object {
 }
 
 # Load the exceptions list
-$ignoreFile = "{0}/{1}/{2}" -f (Get-Location), "assets/help", $IgnoreFile
+$ignoreFile = "{0}/{1}/{2}" -f $BaseDir, $HelpCmdletsFolder, $IgnoreFile
 $ignoreHelpCmds = Get-Content -Path $ignoreFile -Raw | ConvertFrom-Json | % { "{0}," -f $_.cmd }
 
 Write-Host "Commands Loaded: $($helpCmds.length)"
