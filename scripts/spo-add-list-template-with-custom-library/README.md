@@ -13,7 +13,7 @@ More about list template
 
 ![Example Screenshot](assets/example.png)
 
-# [PnP PowerShell](#tab/pnpps)
+# [SPO Management Shell](#tab/spoms-ps)
 
 ```powershell
 Import-Module Microsoft.Online.SharePoint.PowerShell
@@ -272,7 +272,7 @@ Stop-Transcript
 > [!Note]
 > SharePoint tenant admin right are required to be able add list design
 
-[!INCLUDE [More about PnP PowerShell](../../docfx/includes/MORE-PNPPS.md)]
+[!INCLUDE [More about SPO Management Shell](../../docfx/includes/MORE-SPOMS.md)]
 
 ***
 ## Source Credit
