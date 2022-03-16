@@ -4,7 +4,7 @@
 param(
     [string]$BaseDir = "C:\Git\contrib\script-samples\",
     [string]$ScriptFolder = "scripts",
-    [string]$ReportFile = "cmd-usage.md",
+    [string]$ReportFile = "cmdusage.md",
     [string]$AssetsFolder = "assets",
     [string]$HelpCmdletsFolder = "/docfx/assets/help",
     [string]$IgnoreFile = "ignore.help.json"
