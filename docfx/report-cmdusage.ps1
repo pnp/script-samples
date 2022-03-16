@@ -7,6 +7,8 @@ param(
     [string]$ReportFile = "cmdusage.md",
     [string]$AssetsFolder = "assets",
     [string]$HelpCmdletsFolder = "/docfx/assets/help",
+    [string]$DocFxFolder = "docfx",
+    [string]$HelpFolder = "help",
     [string]$IgnoreFile = "ignore.help.json"
 )
 
@@ -64,7 +66,7 @@ function GetReadme{
 
 # Check all pages for tabs and three ***
 
-$dir = Join-Path -Path $BaseDir -ChildPath $ScriptFolder
+$dir = Join-Path $BaseDir $ScriptFolder
 
 $files = Get-ChildItem -Path $dir -Recurse -Include README.md
 
@@ -80,8 +82,8 @@ $cmdUsage = @()
 $sampleCount = 0
 
 # Get all help files in memory
-$helpFolder = Join-Path -Path $BaseDir -ChildPath $HelpCmdletsFolder
-$helpFiles = Get-ChildItem -Path $helpFolder -Recurse -Include *.json
+$helpFolderPath = Join-Path $BaseDir $DocFxFolder $AssetsFolder $HelpFolder
+$helpFiles = Get-ChildItem -Path $helpFolderPath -Recurse -Include *.json
 $helpFiles | ForEach-Object {
     
     $cmds = Get-Content -Path $_.FullName -Raw | ConvertFrom-Json
@@ -90,7 +92,7 @@ $helpFiles | ForEach-Object {
 
     $cmdUsage += [PSCustomObject]@{
         File = $_.Name
-        Cmdlets = $cmds | % {
+        Cmdlets = $cmds | ForEach-Object {
             [PSCustomObject]@{ 
                 Command = $_.cmd
                 UsageCount = 0
@@ -100,12 +102,11 @@ $helpFiles | ForEach-Object {
 }
 
 # Load the exceptions list
-$ignoreFile = "{0}/{1}/{2}" -f $BaseDir, $HelpCmdletsFolder, $IgnoreFile
-$ignoreHelpCmds = Get-Content -Path $ignoreFile -Raw | ConvertFrom-Json | % { "{0}," -f $_.cmd }
+$ignoreFile = Join-Path $helpFolderPath $IgnoreFile
+$ignoreHelpCmds = Get-Content -Path $ignoreFile -Raw | ConvertFrom-Json | ForEach-Object { "{0}," -f $_.cmd }
 
 Write-Host "Commands Loaded: $($helpCmds.length)"
 Write-Host "Commands Ignored: $($ignoreHelpCmds)"
-
 
 $files | Foreach-Object {
 
@@ -143,17 +144,19 @@ $files | Foreach-Object {
 
     # Find all PowerShell commands beyond the help content
     $results = $content | Select-String "\s[A-Za-z]+\-[A-Za-z]+\s" -AllMatches
-    $results.Matches | %  { [regex]::Escape($_.Value).Replace("\n","").Replace("\t","").Replace("\r","").replace("\ ","") } | % {
+    $results.Matches | ForEach-Object { 
+        [regex]::Escape($_.Value).Replace("\n","").Replace("\t","").Replace("\r","").replace("\ ","") 
+    } | ForEach-Object {
         
-        # Do not report on ignored cmdlets and already listed commands
-        if(!$ignoreHelpCmds.Contains( $_) -and !$cmdletsUsed.Contains($_)){
-            
-            # De-deplicate
-            if(!$detectCmds.Contains($_)){
-                $detectCmds += "{0}, " -f $_
+            # Do not report on ignored cmdlets and already listed commands
+            if(!$ignoreHelpCmds.Contains( $_) -and !$cmdletsUsed.Contains($_)){
+                
+                # De-deplicate
+                if(!$detectCmds.Contains($_)){
+                    $detectCmds += "{0}, " -f $_
+                }
             }
         }
-    }
 
     $sampleCount++
     
