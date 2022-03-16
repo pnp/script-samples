@@ -83,12 +83,17 @@ $sampleCount = 0
 
 # Get all help files in memory
 $helpFolderPath = Join-Path $BaseDir $DocFxFolder $AssetsFolder $HelpFolder
+
+Write-Host "Help Path: $helpFolderPath"
+
 $helpFiles = Get-ChildItem -Path $helpFolderPath -Recurse -Include *.json
 $helpFiles | ForEach-Object {
     
     $cmds = Get-Content -Path $_.FullName -Raw | ConvertFrom-Json
 
     $helpCmds += $cmds
+
+    Write-Host "Help File: $_.Name Loaded"
 
     $cmdUsage += [PSCustomObject]@{
         File = $_.Name
@@ -105,7 +110,8 @@ $helpFiles | ForEach-Object {
 $ignoreFile = Join-Path $helpFolderPath $IgnoreFile
 $ignoreHelpCmds = Get-Content -Path $ignoreFile -Raw | ConvertFrom-Json | ForEach-Object { "{0}," -f $_.cmd }
 
-Write-Host "Commands Loaded: $($helpCmds.length)"
+Write-Host "Commands for Help Loaded: $($helpCmds.Length)"
+Write-Host "Commands for Count Loaded: $($cmdUsage.Length)"
 Write-Host "Commands Ignored: $($ignoreHelpCmds)"
 
 $files | Foreach-Object {
@@ -132,11 +138,13 @@ $files | Foreach-Object {
             $cmdUsage | ForEach-Object{
                 
                 $existingCmd = $_.Cmdlets | Where-Object { $_.Command -eq $findCmd }
-                if($existingCmd.length -eq 1){
-                    $existingCmd.UsageCount += 1
-                }
-                if($existingCmd.length -gt 1){
-                    Write-Host "Warning: more than one cmdlet found for {0}" -f $findCmd
+                if($existingCmd){
+                    if($existingCmd.Length -eq 1){
+                        $existingCmd.UsageCount += 1
+                    }
+                    if($existingCmd.Length -gt 1){
+                        Write-Host "Warning: more than one cmdlet found for {0}" -f $findCmd
+                    }
                 }
             }
         }
