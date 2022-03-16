@@ -8,7 +8,9 @@ $(document).ready(function () {
   var filterText = $('#sample-listing').data("filter");
   var qsRegex;
   var buttonFilter;
-
+  // var urlParams = new URLSearchParams(window.location.search);
+  // var query = urlParams.get('query');
+  
   // init Isotope
   var $grid = $('#sample-listing').isotope({
     itemSelector: '.sample-thumbnail',
@@ -20,8 +22,11 @@ $(document).ready(function () {
       title: '.sample-title'
     },
     filter: function () {
+      
+      //var urlResult = query ? $(this).data("keywords").match(query): true;
       var searchResult = qsRegex ? $(this).data("keywords").match(qsRegex) : true;
       var buttonResult = buttonFilter ? $(this).is(buttonFilter) : true;
+      
       return searchResult && buttonResult;
     },
 
@@ -132,12 +137,16 @@ $(document).ready(function () {
 
   // See if there are any passed parameters
   try {
-    var urlParams = new URLSearchParams(window.location.search);
-    var query = urlParams.get('query');
-    if (query !== "") {
-      search.val(query).change();
-    }
-
+    
+    // Do not search immediately as grid isn't fully loaded at this point
+    $grid.one( 'arrangeComplete', function() {
+      var urlParams = new URLSearchParams(window.location.search);
+      var query = urlParams.get('query');
+      if (query !== "") {
+        search.val(query).change();
+      }
+    });
+    
   } catch (error) {
     // Be vewy vewy quiet
   }
