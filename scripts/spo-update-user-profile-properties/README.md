@@ -20,7 +20,7 @@ This script shows how to update user profile propeties.
 # [PnP PowerShell](#tab/pnpps)
 ```powershell
 
-$adminSiteURL = "https://vtsp-domain.sharepoint.com/"
+$adminSiteURL = "https://domain-admin.sharepoint.com/"
 $username = "chandani@domain.onmicrosoft.com"
 $password = "********"
 $secureStringPwd = $password | ConvertTo-SecureString -AsPlainText -Force 
