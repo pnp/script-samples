@@ -132,7 +132,6 @@ process {
         }
 
         Write-Host " Modernized $($targetFileName)!"
-        break;
     }
 
     # Write the logs to the folder
