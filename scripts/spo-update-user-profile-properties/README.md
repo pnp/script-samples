@@ -6,7 +6,7 @@ plugin: add-to-gallery
 
 ## Summary
 
-This script shows how to update user profile propeties.
+This script shows how to update user profile properties.
 
 ## Implementation
 
@@ -32,7 +32,7 @@ Function Login() {
      
     Write-Host "Connecting to Tenant Admin Site '$($adminSiteURL)'" -f Yellow   
     Connect-PnPOnline -Url $adminSiteURL -Credentials $Creds
-    Write-Host "Connection Successfull" -f Green 
+    Write-Host "Connection Successful" -f Green 
 }
 
 Function UpdateUserProfileProperties {
@@ -57,7 +57,7 @@ Function StartProcessing {
 StartProcessing
 
 ```
-
+[!INCLUDE [More about PnP PowerShell](../../docfx/includes/MORE-PNPPS.md)]
 ***
 
 ## Contributors
