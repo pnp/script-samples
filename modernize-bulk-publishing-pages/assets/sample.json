@@ -1,0 +1,65 @@
+[
+  {
+    "name": "modernize-bulk-publishing-pages",
+    "source": "pnp",
+    "title": "Bulk Convert Classic Publishing Pages to Modern Pages",
+    "shortDescription": "The sample script converts all SharePoint online classic publishing pages in a site collection to modern pages in a modern site",
+    "url": "https://pnp.github.io/script-samples/modernize-bulk-publishing-pages/README.html",
+    "longDescription": [
+      ""
+    ],
+    "creationDateTime": "2022-03-25",
+    "updateDateTime": "2022-03-25",
+    "products": [
+      "SharePoint"
+    ],
+    "metadata": [
+      {
+        "key": "PNP-POWERSHELL",
+        "value": "1.5.0"
+      }
+    ],
+    "categories": [
+      "Modernize"
+    ],
+    "tags": [
+      "bash",
+      "classic",
+      "Connect-PnPOnline",
+      "ConvertTo-PnPPage",
+      "Get-PnPFile",
+      "Get-PnPList",
+      "Get-PnPListItem",
+      "Get-PnPWeb",
+      "Save-PnPPageConversionLog"
+    ],
+    "thumbnails": [
+      {
+        "type": "image",
+        "order": 100,
+        "url": "https://raw.githubusercontent.com/pnp/script-samples/main/scripts/modernize-bulk-publishing-pages/assets/preview.png",
+        "alt": "Preview of the sample <title>"
+      }
+    ],
+    "authors": [
+      {
+        "gitHubAccount": "pkbullock",
+        "company": "CaPa Creative Ltd",
+        "pictureUrl": "https://github.com/pkbullock.png",
+        "name": "Paul Bullock"
+      }
+    ],
+    "references": [
+      {
+        "name": "Want to learn more about PnP PowerShell and the cmdlets",
+        "description": "Check out the PnP PowerShell site to get started and for the reference to the cmdlets.",
+        "url": "https://aka.ms/pnp/powershell"
+      },
+      {
+        "name": "Want to learn more about Transforming Classic Publishing to Modern Pages",
+        "description": "Classic SharePoint sites typically have classic pages being wiki pages, web part pages, blog pages or publishing pages and these pages cannot present themselves using a modern user interface. A classic site however can host modern pages which enable great end user experiences. You can find inspiration via the SharePoint Look Book as it allows you to discover the modern experiences you can build with SharePoint in Office 365. SharePoint PnP Modernization is part of the PnP Framework and PnP PowerShell to bring page transformation capabilities",
+        "url": "https://docs.microsoft.com/en-us/sharepoint/dev/transform/modernize-userinterface-site-pages"
+      }
+    ]
+  }
+]
