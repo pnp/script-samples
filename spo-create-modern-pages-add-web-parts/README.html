@@ -1,0 +1,345 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html lang="en">
+  
+  <head>
+    <meta charset="utf-8">
+    <title>Create Modern SharePoint Pages and add web parts | PnP Samples </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Create Modern SharePoint Pages and add web parts | PnP Samples ">
+    <meta name="generator" content="docfx 2.56.7.0">
+    <meta name="description" content="A sample gallery of scripts to manage all things Microsoft 365.">
+  
+    <!-- Social Media -->
+    <meta property="og:locale" content="en_GB">
+    <meta property="og:title" content="Create Modern SharePoint Pages and add web parts | PnP Samples ">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://pnp.github.io/script-samples">
+    <meta property="og:image" content="https://pnp.github.io/script-samples/assets/social-media-screenshot.png">
+    <meta property="og:image:alt" content="Screenshot example of the PnP Script Samples Site">
+    <meta property="og:site_name" content="PnP Script Samples">
+    <meta property="og:description" content="A sample gallery of scripts to manage all things Microsoft 365.">
+  
+    <link rel="shortcut icon" href="https://c.s-microsoft.com/favicon.ico?v2">
+    <link rel="stylesheet" href="../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../styles/docfx.css">
+    <link rel="stylesheet" href="../styles/main.css">
+    <link rel="stylesheet" href="../styles/extra.css">
+    <link rel="stylesheet" href="../styles/filter.css">
+    <link rel="stylesheet" href="../styles/site.css">
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet"> 
+    <meta property="docfx:navrel" content="../toc.html">
+    <meta property="docfx:tocrel" content="../toc.html">
+    
+    
+    <meta property="docfx:newtab" content="true">
+    <script type="text/javascript">
+      (function(c,l,a,r,i,t,y){
+          c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+          t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+          y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+      })(window, document, "clarity", "script", "8j6pedl344");
+  </script>
+  </head>  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+             <div class="github-mark">
+              <a href="https://github.com/pnp/script-samples">
+                <img src="https://pnp.github.io/script-samples/assets/icons/github-light-64px.png" alt="GitHub Icon Image">
+              </a>
+            </div>
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../assets/logo.svg" alt="">
+              </a>    </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <label class="glyphicon glyphicon-search" for="search-query"></label>
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>      </header>
+      <div role="main" class="container body-content hide-when-search">
+        <div class="article row grid">
+          <div class="col-md-12">
+            <article class="content wrap" id="_content" data-uid="">
+                  <div class="contribution-panel mobile-hide pull-right">
+                      <a href="https://github.com/pnp/script-samples/blob/main/scripts/spo-create-modern-pages-add-web-parts/README.md/#L1" title="Improve this Doc" class="improve-doc-lg"><i class="glyphicon glyphicon-pencil"></i></a>
+                  </div>
+                    <h1 id="create-modern-sharepoint-pages-and-add-web-parts">Create Modern SharePoint Pages and add web parts</h1>
+
+<h2 id="summary">Summary</h2>
+<p>This sample demonstrates how to create Modern SharePoint Pages without the use of a provisioning engine then add the web parts of the page.
+This shows:</p>
+<ul>
+<li>Creating a page</li>
+<li>Setting up the page header, topic, image and author.</li>
+<li>Adding sections</li>
+<li>Adding Web Parts with some example content</li>
+</ul>
+<div class="full-image-size">
+<p><img src="assets/example.png" alt="Example Screenshot"></p>
+</div>
+<div class="tabGroup" id="tabgroup_CeZOj-G++Q">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_CeZOj-G++Q_pnpps" role="tab" aria-controls="tabpanel_CeZOj-G++Q_pnpps" data-tab="pnpps" tabindex="0" aria-selected="true">PnP PowerShell</a>
+</li>
+</ul>
+<section id="tabpanel_CeZOj-G++Q_pnpps" role="tabpanel" data-tab="pnpps"><button class="article-clipboard" title="Copy to clipboard" data-toggle="tooltip" data-placement="top" data-clipboard-target="section[id^='tabpanel'][data-tab='pnpps'] pre">
+    <span class="glyphicon glyphicon-copy" aria-hidden="true"></span>
+    <span class="article-clipboard__message done">Copied</span>
+</button>
+
+<pre><code class="lang-powershell">
+[CmdletBinding()]
+param (
+  [string]$Tenant = &quot;contoso&quot;,
+  [string]$Site = &quot;Intranet&quot;,
+  [switch]$CleanExistingPage
+)
+begin{
+
+    Connect-PnPOnline &quot;https://$($Tenant).sharepoint.com/sites/$($Site)&quot; -Interactive
+
+    # Add Page
+    $pageParams = @{
+        Name = &quot;Script-Built-Page.aspx&quot;
+        Title = &quot;Baking up a page&quot;
+        HeaderLayoutType = &quot;ColorBlock&quot;
+    }
+
+}
+process {
+
+    if($CleanExistingPage){
+        # Clean Up if repeating script
+        Write-Host &quot;Removing existing page...&quot; -ForegroundColor Yellow
+        Remove-PnPPage $pageParams.Name -Force
+    }
+        
+    Write-Host &quot;Adding new page...&quot;
+    $newPage = Add-PnPPage @pageParams
+
+    # Set the header, topic, image, and person
+    Write-Host &quot;Setting the header, topic, image, and person...&quot;
+    
+    # You can use ?maintenancemode=true on an existing page to help get these values or Use Get-PnPPage and look through the properties in the controls object.
+    $newPage.PageHeader.ImageServerRelativeUrl = &quot;https://cdn.hubblecontent.osi.office.net/m365content/publish/3c506e10-e846-4698-a041-f133fc505b7b/1140201187.jpg&quot;
+    $newPage.PageHeader.TopicHeader = &quot;Example&quot;
+    $newPage.PageHeader.Show
+    $newPage.PageHeader.TranslateX = 49.6248124062031
+    $newPage.PageHeader.TranslateY = 37.5
+    
+    # Authors details will reference the target tenant e.g. domain etc.
+    $newPage.PageHeader.Authors = '[{&quot;id&quot;:&quot;AdeleV@contoso.co.uk&quot;,&quot;email&quot;:&quot;AdeleV@contoso.co.uk&quot;,&quot;name&quot;:&quot;Adele Vance&quot;,&quot;role&quot;:&quot;Retail Manager&quot;}]'
+    $newPage.PageHeader.AuthorByLine = '[&quot;AdeleV@contoso.co.uk&quot;]'
+
+    # Save the page
+    $newPage.Save()
+
+    # Refresh variable
+    $newPage = Get-PnPPage $pageParams.Name
+
+    # Create a one-third right section
+    # Add Text, Image
+    Write-Host &quot;Row 1 - Setting the section and web parts&quot;
+    $newPage | Add-PnPPageSection -SectionTemplate TwoColumnLeft -Order 1
+
+    # Column 1 - Text Web Part
+    $newPage | Add-PnPPageTextPart -Order 1 -Column 1 -Section 1 `
+                -Text @&quot;
+                        &lt;h2&gt;Welcome to the Page Bakery 😊&lt;/h2&gt;
+                        &lt;p&gt;Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Maecenas porttitor congue massa. Fusce posuere, magna sed pulvinar ultricies, purus lectus malesuada libero, sit amet commodo magna eros quis urna. &lt;/p&gt;
+                        &lt;p&gt;&lt;em&gt;Nunc viverra imperdiet enim. Fusce est. Vivamus a tellus. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Proin pharetra nonummy pede. Mauris et orci. Aenean nec lorem. In porttitor. Donec laoreet nonummy augue.​​​​​​​&lt;/em&gt;&lt;/p&gt;
+&quot;@
+
+    # Column 2 - Image Web Part
+
+    # The referenced image uses a stock image
+    $propsBreadImg = '{&quot;title&quot;: &quot;Image&quot;, &quot;description&quot;: &quot;Image&quot;, &quot;dataVersion&quot;: &quot;1.8&quot;, &quot;properties&quot;: {&quot;imageSourceType&quot;:2,&quot;altText&quot;:&quot;&quot;,&quot;overlayText&quot;:&quot;&quot;,&quot;imgWidth&quot;:5616,&quot;imgHeight&quot;:3744,&quot;fixAspectRatio&quot;:false}, &quot;serverProcessedContent&quot;: {&quot;searchablePlainTexts&quot;:{&quot;captionText&quot;:&quot;Baking a lovely page&quot;},&quot;imageSources&quot;:{&quot;imageSource&quot;:&quot;https://cdn.hubblecontent.osi.office.net/m365content/publish/005eb6ca-fe86-4433-921c-126cb23c7adb/576678384.jpg&quot;},&quot;links&quot;:{}}}'
+
+    $newPage | Add-PnPPageWebPart -Order 1 -Column 2 -Section 1 -DefaultWebPartType Image -WebPartProperties $propsBreadImg
+
+    
+
+    # Create a one-third left section
+    # Add Text, Image
+    Write-Host &quot;Row 2 - Setting the section and web parts&quot;
+    $newPage | Add-PnPPageSection -SectionTemplate TwoColumnRight -Order 2 -ZoneEmphasis 2
+
+    # Column 1 - Image Web Part
+    #  Use Get-PnPPage and look through the properties in the controls object, if you want a reference
+    $propsBookImg = '{&quot;title&quot;: &quot;Image&quot;, &quot;description&quot;: &quot;Image&quot;, &quot;dataVersion&quot;: &quot;1.8&quot;, &quot;properties&quot;: {&quot;imageSourceType&quot;:2,&quot;altText&quot;:&quot;&quot;,&quot;overlayText&quot;:&quot;&quot;,&quot;imgWidth&quot;:5616,&quot;imgHeight&quot;:3744,&quot;fixAspectRatio&quot;:false}, &quot;serverProcessedContent&quot;: {&quot;searchablePlainTexts&quot;:{&quot;captionText&quot;:&quot;Showing pages some love&quot;},&quot;imageSources&quot;:{&quot;imageSource&quot;:&quot;https://cdn.hubblecontent.osi.office.net/m365content/publish/0d3ff8a6-8854-4a6a-aee1-b1c7d04bb857/691081033.jpg&quot;},&quot;links&quot;:{}}}'
+
+    $newPage | Add-PnPPageWebPart -Order 1 -Column 1 -Section 2 -DefaultWebPartType Image -WebPartProperties $propsBookImg
+
+    # Column 2 - Text Web Part
+    $newPage | Add-PnPPageTextPart -Order 1 -Column 2 -Section 2 `
+    -Text @&quot;
+            &lt;h2&gt;How you can improve your pages?&lt;/h2&gt;
+            &lt;p&gt;Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Maecenas porttitor congue massa. Fusce posuere, magna sed pulvinar ultricies, purus lectus malesuada libero, sit amet commodo magna eros quis urna. &lt;/p&gt;
+            &lt;p&gt;&lt;strong&gt;&lt;em&gt;Nunc viverra imperdiet enim. Fusce est. Vivamus a tellus. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Proin pharetra nonummy pede. Mauris et orci. Aenean nec lorem. In porttitor. Donec laoreet nonummy augue.​​​​​​​&lt;strong&gt;&lt;/em&gt;&lt;/p&gt;
+&quot;@
+    
+
+    # Create single column section
+    # Add Quick Links inc Icons
+
+    Write-Host &quot;Row 3 - Setting the section and web parts&quot;
+    $newPage | Add-PnPPageSection -SectionTemplate OneColumn -Order 3 -ZoneEmphasis 3
+
+    # Column 1 - Quicklinks Web Part
+    # You can use ?maintenancemode=true on an existing page to help get these values or Use Get-PnPPage and look through the properties in the controls object.
+    $propsLinksWebPart = @&quot;
+    {
+        &quot;title&quot;: &quot;Quick links&quot;,
+        &quot;description&quot;: &quot;Show a collection of links to content such as documents, images, videos, and more in a variety of layouts with options for icons, images, and audience targeting.&quot;,
+        &quot;serverProcessedContent&quot;: {
+          &quot;searchablePlainTexts&quot;: {
+            &quot;title&quot;: &quot;Interesting resources&quot;,
+            &quot;items[0].title&quot;: &quot;How to make a page&quot;,
+            &quot;items[1].title&quot;: &quot;Bringing pages into modern&quot;,
+            &quot;items[2].title&quot;: &quot;Accessibility Considerations in Pages&quot;,
+            &quot;items[3].title&quot;: &quot;Showing your page some love with images&quot;
+          },
+          &quot;links&quot;: {
+            &quot;baseUrl&quot;: &quot;/sites/Intranet&quot;,
+            &quot;items[0].sourceItem.url&quot;: &quot;/sites/Intranet/SitePages/Homepage-Example.aspx&quot;,
+            &quot;items[1].sourceItem.url&quot;: &quot;/sites/Intranet/SitePages/Homepage-Example.aspx&quot;,
+            &quot;items[2].sourceItem.url&quot;: &quot;/sites/Intranet/SitePages/Homepage-Example.aspx&quot;,
+            &quot;items[3].sourceItem.url&quot;: &quot;/sites/Intranet/SitePages/Homepage-Example.aspx&quot;
+          }
+        },
+        &quot;dataVersion&quot;: &quot;2.2&quot;,
+        &quot;properties&quot;: {
+          &quot;items&quot;: [
+            {
+              &quot;thumbnailType&quot;: 2,
+              &quot;id&quot;: 4,
+              &quot;description&quot;: &quot;&quot;,
+              &quot;fabricReactIcon&quot;: { &quot;iconName&quot;: &quot;glimmer&quot;},
+              &quot;altText&quot;: &quot;&quot;,
+              &quot;rawPreviewImageMinCanvasWidth&quot;: 32767
+            },
+            {
+              &quot;thumbnailType&quot;: 2,
+              &quot;id&quot;: 3,
+              &quot;description&quot;: &quot;&quot;,
+              &quot;fabricReactIcon&quot;: { &quot;iconName&quot;: &quot;webappbuilderfragment&quot; },
+              &quot;altText&quot;: &quot;&quot;,
+              &quot;rawPreviewImageMinCanvasWidth&quot;: 32767
+            },
+            {
+              &quot;thumbnailType&quot;: 2,
+              &quot;id&quot;: 2,
+              &quot;description&quot;: &quot;&quot;,
+              &quot;fabricReactIcon&quot;: { &quot;iconName&quot;: &quot;group&quot; },
+              &quot;altText&quot;: &quot;&quot;,
+              &quot;rawPreviewImageMinCanvasWidth&quot;: 32767
+            },
+            {
+              &quot;thumbnailType&quot;: 2,
+              &quot;id&quot;: 1,
+              &quot;description&quot;: &quot;&quot;,
+              &quot;fabricReactIcon&quot;: { &quot;iconName&quot;: &quot;heartfill&quot; },
+              &quot;altText&quot;: &quot;&quot;,
+              &quot;rawPreviewImageMinCanvasWidth&quot;: 32767
+            }
+          ],
+          &quot;isMigrated&quot;: true,
+          &quot;layoutId&quot;: &quot;CompactCard&quot;,
+          &quot;shouldShowThumbnail&quot;: true,
+          &quot;imageWidth&quot;: 100,
+          &quot;buttonLayoutOptions&quot;: {
+            &quot;showDescription&quot;: false,
+            &quot;buttonTreatment&quot;: 2,
+            &quot;iconPositionType&quot;: 2,
+            &quot;textAlignmentVertical&quot;: 2,
+            &quot;textAlignmentHorizontal&quot;: 2,
+            &quot;linesOfText&quot;: 2
+          },
+          &quot;listLayoutOptions&quot;: { &quot;showDescription&quot;: false, &quot;showIcon&quot;: true },
+          &quot;waffleLayoutOptions&quot;: { &quot;iconSize&quot;: 1, &quot;onlyShowThumbnail&quot;: false },
+          &quot;hideWebPartWhenEmpty&quot;: true,
+          &quot;dataProviderId&quot;: &quot;QuickLinks&quot;,
+          &quot;iconPicker&quot;: &quot;glimmer&quot;
+        }
+      }
+&quot;@
+
+    $newPage | Add-PnPPageWebPart -Order 1 -Column 1 -Section 3 -DefaultWebPartType QuickLinks -WebPartProperties $propsLinksWebPart
+
+    Write-Host &quot;Publishing Page and promote Page as News...&quot;
+    $newPage | Set-PnPPage -PromoteAs NewsArticle -Publish
+
+}
+end{
+
+  Write-Host &quot;Done! :)&quot; -ForegroundColor Green
+}
+
+</code></pre>
+<div class="highlight-tool">
+<p>Check out the <strong>PnP PowerShell</strong> to learn more at: <a href="https://aka.ms/pnp/powershell">https://aka.ms/pnp/powershell</a></p>
+</div>
+</section>
+</div>
+<h2 id="contributors">Contributors</h2>
+<table>
+<thead>
+<tr>
+<th>Author(s)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Paul Bullock</td>
+</tr>
+</tbody>
+</table>
+<h2 id="disclaimer">Disclaimer</h2>
+<p><strong>THESE SAMPLES ARE PROVIDED <em>AS IS</em> WITHOUT WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, INCLUDING ANY IMPLIED WARRANTIES OF FITNESS FOR A PARTICULAR PURPOSE, MERCHANTABILITY, OR NON-INFRINGEMENT.</strong></p>
+<img src="https://pnptelemetry.azurewebsites.net/script-samples/scripts/spo-create-modern-pages-add-web-parts" aria-hidden="true">
+</article>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            <span>Script Samples<br>Generated by <strong><a href='https://dotnet.github.io/docfx' alt='Doc FX Website'>DocFX</a></strong> with <strong><a href='https://ovasquez.github.io/docfx-material' alt='DocFx Material Theme'>Material UI</a></strong></span>
+            
+            <!-- <img src="https://telemetry.sharepointpnp.com/@pnp.github.io/index/" alt="spacer"> -->
+          </div>
+        </div>
+      </footer>    </div>
+    
+    <script type="text/javascript" src="../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+    
+    <script type="text/javascript" src="../styles/clipboard.min.js"></script>
+    <script type="text/javascript" src="../styles/isotope.pkgd.min.js"></script>
+    <script type="text/javascript" src="../styles/loadsamples.js"></script>
+    <script type="text/javascript" src="../styles/filtersamples.js"></script>
+
+  </body>
+</html>
