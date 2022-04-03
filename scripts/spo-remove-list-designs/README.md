@@ -13,7 +13,7 @@ Custom list templates can be deleted by removing the list designs and associated
 
 # [PnP PowerShell](#tab/pnpps)
 ```powershell
-$adminSiteUrl = "https://reshmeeauckloo-admin.sharepoint.com/"
+$adminSiteUrl = "https://contoso-admin.sharepoint.com/"
 Connect-PnPOnline -url $adminSiteUrl -Interactive
 
 $listDesignsTokeep = "Test Document Library", "List To Keep"
