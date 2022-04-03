@@ -123,4 +123,4 @@ foreach ($flow in $flows) {
 
 
 [!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
-<img src="https://telemetry.sharepointpnp.com/script-samples/scripts/flow-search-flows-for-connection" aria-hidden="true" />
+<img src="https://pnptelemetry.azurewebsites.net/script-samples/scripts/flow-search-flows-for-connection" aria-hidden="true" />

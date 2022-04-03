@@ -259,4 +259,5 @@ Sample first appeared on [Analyze User Profile Photos using Azure Computer Visio
 
 
 [!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
-<img src="https://telemetry.sharepointpnp.com/script-samples/scripts/aad-analyze-user-profile-photos" aria-hidden="true" />
+<img src="https://pnptelemetry.azurewebsites.net/script-samples/scripts/aad-analyze-user-profile-photos" aria-hidden="true" />
+

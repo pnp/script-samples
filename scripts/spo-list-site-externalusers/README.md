@@ -188,4 +188,4 @@ Sample first appeared on [List all external users in all site collections | CLI 
 
 
 [!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
-<img src="https://telemetry.sharepointpnp.com/script-samples/scripts/spo-list-site-externalusers" aria-hidden="true" />
+<img src="https://pnptelemetry.azurewebsites.net/script-samples/scripts/spo-list-site-externalusers" aria-hidden="true" />

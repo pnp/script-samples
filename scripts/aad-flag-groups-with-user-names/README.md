@@ -96,4 +96,4 @@ Sample first appeared on [Scan for Microsoft 365 Groups created with user's firs
 
 
 [!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
-<img src="https://telemetry.sharepointpnp.com/script-samples/scripts/aad-flag-groups-with-user-names" aria-hidden="true" />
+<img src="https://pnptelemetry.azurewebsites.net/script-samples/scripts/aad-flag-groups-with-user-names" aria-hidden="true" />

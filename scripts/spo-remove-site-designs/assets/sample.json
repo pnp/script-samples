@@ -7,7 +7,7 @@
     "title": "Delete custom SharePoint site designs",
     "url": "https://pnp.github.io/script-samples/spo-remove-site-designs/README.html",
     "creationDateTime": "2020-08-23",
-    "updateDateTime": "2020-08-23",
+    "updateDateTime": "2022-03-23",
     "shortDescription": "Remove Site designs and  site scripts that ends up just hanging around in your tenant. Use the scripts below to get rid of them",
     "longDescription": null,
     "products": [
@@ -20,9 +20,24 @@
       "SharePoint Online",
       "Site Designs",
       "bash",
-      "Imported CLI Sample"
+      "Imported CLI Sample",
+      "m365 spo sitedesign list",
+      "m365 spo sitedesign remove",
+      "Connect-SPOService",
+      "Connect-PnPOnline",
+      "Get-SPOSite",
+      "Get-SPOSiteDesign",
+      "Get-PnPSiteDesign",
+      "Remove-SPOSite",
+      "Remove-SPOSiteDesign",
+      "Remove-PnPSiteScript",
+      "Remove-PnPSiteDesign"
     ],
     "metadata": [
+      {
+        "key": "PNP-POWERSHELL",
+        "value": "1.9.0"
+      },
       {
         "key": "CLI-FOR-MICROSOFT365",
         "value": "3.7.0"
@@ -42,6 +57,12 @@
       }
     ],
     "authors": [
+      {
+        "gitHubAccount": "LeonArmston",
+        "company": "Intelogy",
+        "pictureUrl": "https://avatars.githubusercontent.com/u/12968962?v=4",
+        "name": "Leon Armston"
+      },
       {
         "name": "Laura Kokkarinen",
         "gitHubAccount": "LauraKokkarinen",
@@ -65,6 +86,11 @@
         "name": "Introduction to the SharePoint Online Management Shell",
         "description": "Check out the SPO Management Shell documentation site to get started and for the reference to the cmdlets.",
         "url": "https://docs.microsoft.com/en-us/powershell/sharepoint/sharepoint-online/introduction-sharepoint-online-management-shell?view=sharepoint-ps"
+      },
+      {
+        "name": "Want to learn more about PnP PowerShell and the cmdlets",
+        "description": "Check out the PnP PowerShell site to get started and for the reference to the cmdlets.",
+        "url": "https://aka.ms/pnp/powershell"
       },
       {
         "name": "Delete custom SharePoint site designs",

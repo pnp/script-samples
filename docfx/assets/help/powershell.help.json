@@ -372,12 +372,12 @@
     "helpUrl": "https://pnp.github.io/powershell/cmdlets/Copy-PnPFolder.html"
   },
   {
-    "cmd": "Copy-PnPItemProxy",
-    "helpUrl": "https://pnp.github.io/powershell/cmdlets/Copy-PnPItemProxy.html"
-  },
-  {
     "cmd": "Copy-PnPList",
     "helpUrl": "https://pnp.github.io/powershell/cmdlets/Copy-PnPList.html"
+  },
+  {
+    "cmd": "Copy-PnPTeamsTeam",
+    "helpUrl": "https://pnp.github.io/powershell/cmdlets/Copy-PnPTeamsTeam"
   },
   {
     "cmd": "Deny-PnPTenantServicePrincipalPermissionRequest",
@@ -564,6 +564,10 @@
     "helpUrl": "https://pnp.github.io/powershell/cmdlets/Get-PnPChangeLog.html"
   },
   {
+    "cmd": "Get-PnPCompatibleHubContentTypes",
+    "helpUrl": "https://pnp.github.io/powershell/cmdlets/Get-PnPCompatibleHubContentTypes.html"
+  },
+  {
     "cmd": "Get-PnPConnection",
     "helpUrl": "https://pnp.github.io/powershell/cmdlets/Get-PnPConnection.html"
   },
@@ -574,6 +578,10 @@
   {
     "cmd": "Get-PnPContentTypePublishingHubUrl",
     "helpUrl": "https://pnp.github.io/powershell/cmdlets/Get-PnPContentTypePublishingHubUrl.html"
+  },
+  {
+    "cmd": "Get-PnPContentTypePublishingStatus",
+    "helpUrl": "https://pnp.github.io/powershell/cmdlets/Get-PnPContentTypePublishingStatus.html"
   },
   {
     "cmd": "Get-PnPContext",
@@ -716,6 +724,10 @@
     "helpUrl": "https://pnp.github.io/powershell/cmdlets/Get-PnPList.html"
   },
   {
+    "cmd": "Get-PnPListDesign",
+    "helpUrl": "https://pnp.github.io/powershell/cmdlets/Get-PnPListDesign.html"
+  },
+  {
     "cmd": "Get-PnPListInformationRightsManagement",
     "helpUrl": "https://pnp.github.io/powershell/cmdlets/Get-PnPListInformationRightsManagement.html"
   },
@@ -766,22 +778,6 @@
   {
     "cmd": "Get-PnPNavigationNode",
     "helpUrl": "https://pnp.github.io/powershell/cmdlets/Get-PnPNavigationNode.html"
-  },
-  {
-    "cmd": "Get-PnPOffice365CurrentServiceStatus",
-    "helpUrl": "https://pnp.github.io/powershell/cmdlets/Get-PnPOffice365CurrentServiceStatus.html"
-  },
-  {
-    "cmd": "Get-PnPOffice365HistoricalServiceStatus",
-    "helpUrl": "https://pnp.github.io/powershell/cmdlets/Get-PnPOffice365HistoricalServiceStatus.html"
-  },
-  {
-    "cmd": "Get-PnPOffice365ServiceMessage",
-    "helpUrl": "https://pnp.github.io/powershell/cmdlets/Get-PnPOffice365ServiceMessage.html"
-  },
-  {
-    "cmd": "Get-PnPOffice365Services",
-    "helpUrl": "https://pnp.github.io/powershell/cmdlets/Get-PnPOffice365Services.html"
   },
   {
     "cmd": "Get-PnPOrgAssetsLibrary",
@@ -1272,10 +1268,6 @@
     "helpUrl": "https://pnp.github.io/powershell/cmdlets/Move-PnPFolder.html"
   },
   {
-    "cmd": "Move-PnPItemProxy",
-    "helpUrl": "https://pnp.github.io/powershell/cmdlets/Move-PnPItemProxy.html"
-  },
-  {
     "cmd": "Move-PnPListItemToRecycleBin",
     "helpUrl": "https://pnp.github.io/powershell/cmdlets/Move-PnPListItemToRecycleBin.html"
   },
@@ -1426,6 +1418,10 @@
   {
     "cmd": "Publish-PnPCompanyApp",
     "helpUrl": "https://pnp.github.io/powershell/cmdlets/Publish-PnPCompanyApp.html"
+  },
+  {
+    "cmd": "Publish-PnPContentType",
+    "helpUrl": "https://pnp.github.io/powershell/cmdlets/Publish-PnPContentType.html"
   },
   {
     "cmd": "Publish-PnPSyntexModel",
@@ -1820,6 +1816,10 @@
     "helpUrl": "https://pnp.github.io/powershell/cmdlets/Rename-PnPFolder.html"
   },
   {
+    "cmd": "Rename-PnPTenantSite",
+    "helpUrl": "https://pnp.github.io/powershell/cmdlets/Rename-PnPTenantSite.html"
+  },
+  {
     "cmd": "Repair-PnPSite",
     "helpUrl": "https://pnp.github.io/powershell/cmdlets/Repair-PnPSite.html"
   },
@@ -2074,6 +2074,30 @@
   {
     "cmd": "Set-PnPMasterPage",
     "helpUrl": "https://pnp.github.io/powershell/cmdlets/Set-PnPMasterPage.html"
+  },
+  {
+    "cmd": "Set-PnPMessageCenterAnnouncementAsArchived",
+    "helpUrl": "https://pnp.github.io/powershell/cmdlets/Set-PnPMessageCenterAnnouncementAsArchived.html"
+  },
+  {
+    "cmd": "Set-PnPMessageCenterAnnouncementAsFavorite",
+    "helpUrl": "https://pnp.github.io/powershell/cmdlets/Set-PnPMessageCenterAnnouncementAsFavorite.html"
+  },
+  {
+    "cmd": "Set-PnPMessageCenterAnnouncementAsNotArchived",
+    "helpUrl": "https://pnp.github.io/powershell/cmdlets/Set-PnPMessageCenterAnnouncementAsNotArchived.html"
+  },
+  {
+    "cmd": "Set-PnPMessageCenterAnnouncementAsNotFavorite",
+    "helpUrl": "https://pnp.github.io/powershell/cmdlets/Set-PnPMessageCenterAnnouncementAsNotFavorite.html"
+  },
+  {
+    "cmd": "Set-PnPMessageCenterAnnouncementAsRead",
+    "helpUrl": "https://pnp.github.io/powershell/cmdlets/Set-PnPMessageCenterAnnouncementAsRead.html"
+  },
+  {
+    "cmd": "Set-PnPMessageCenterAnnouncementAsUnread",
+    "helpUrl": "https://pnp.github.io/powershell/cmdlets/Set-PnPMessageCenterAnnouncementAsUnread.html"
   },
   {
     "cmd": "Set-PnPMicrosoft365Group",
@@ -2342,6 +2366,10 @@
   {
     "cmd": "Unpublish-PnPApp",
     "helpUrl": "https://pnp.github.io/powershell/cmdlets/Unpublish-PnPApp.html"
+  },
+  {
+    "cmd": "Unpublish-PnPContentType",
+    "helpUrl": "https://pnp.github.io/powershell/cmdlets/Unpublish-PnPContentType.html"
   },
   {
     "cmd": "Unpublish-PnPSyntexModel",

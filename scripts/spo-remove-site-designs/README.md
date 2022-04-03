@@ -91,6 +91,32 @@ foreach ($siteScript in $siteDesigns)
 ```
 [!INCLUDE [More about SPO Management Shell](../../docfx/includes/MORE-SPOMS.md)]
 
+# [PnP PowerShell](#tab/pnpps)
+
+```powershell
+
+$tenantAdminUrl = "https://contoso-admin.sharepoint.com"
+
+Connect-PnPOnline -Url $tenantAdminUrl -Interactive
+
+$SiteDesignTitlesToKeep = "Cat Lovers United", "Multicolored theme"
+$sitedesigns = Get-PnPSiteDesign
+$sitedesigns = $sitedesigns | where {-not ($sparksjoy -contains $_.Title)}
+$sitedesigns | Format-Table Title, SiteScriptIds, Description
+if ($sitedesigns.Count -eq 0) { break }
+Read-Host -Prompt "Press Enter to start deleting (CTRL + C to exit)"
+$progress = 0
+$total = $sitedesigns.Count
+foreach ($sitedesign in $sitedesigns)
+{
+  $progress++
+  write-host $progress / $total":" $sitedesign.Title
+  Remove-PnPSiteDesign -Identity $sitedesign.Id -Force:$true
+}
+
+```
+[!INCLUDE [More about PnP PowerShell](../../docfx/includes/MORE-PNPPS.md)]
+
 ***
 
 ## Source Credit
@@ -103,7 +129,7 @@ Sample first appeared on [Delete custom SharePoint site designs | CLI for Micros
 |-----------|
 | Laura Kokkarinen |
 | Paul Bullock |
-
+| [Leon Armston](https://github.com/LeonArmston)|
 
 [!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
-<img src="https://telemetry.sharepointpnp.com/script-samples/scripts/spo-remove-site-designs" aria-hidden="true" />
+<img src="https://pnptelemetry.azurewebsites.net/script-samples/scripts/spo-remove-site-designs" aria-hidden="true" />

@@ -89,4 +89,5 @@ $uri=$response.'@odata.nextLink'
 | Russell Gove |
 
 [!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
-<img src="https://telemetry.sharepointpnp.com/script-samples/scripts/graph-download-office-documents-as-pdf" aria-hidden="true" />
+<img src="https://pnptelemetry.azurewebsites.net/script-samples/scripts/graph-download-office-documents-as-pdf" aria-hidden="true" />
+

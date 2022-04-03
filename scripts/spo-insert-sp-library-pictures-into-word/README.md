@@ -101,4 +101,4 @@ Sample first appeared on [Insert pictures in a SharePoint Document Library into 
 
 
 [!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
-<img src="https://telemetry.sharepointpnp.com/script-samples/scripts/spo-insert-sp-library-pictures-into-word" aria-hidden="true" />
+<img src="https://pnptelemetry.azurewebsites.net/script-samples/scripts/spo-insert-sp-library-pictures-into-word" aria-hidden="true" />

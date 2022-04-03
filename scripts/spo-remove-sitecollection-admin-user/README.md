@@ -81,4 +81,4 @@ Sample first appeared on [Remove a Site Collection Admin User from all Site Coll
 
 
 [!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
-<img src="https://telemetry.sharepointpnp.com/script-samples/scripts/spo-remove-siteCollection-admin-user" aria-hidden="true" />
+<img src="https://pnptelemetry.azurewebsites.net/script-samples/scripts/spo-remove-siteCollection-admin-user" aria-hidden="true" />

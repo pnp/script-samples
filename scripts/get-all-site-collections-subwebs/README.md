@@ -122,4 +122,4 @@ Sample first appeared on [How to to get all site collections with their sub webs
 | Adam Wójcik |
 
 [!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
-<img src="https://telemetry.sharepointpnp.com/script-samples/scripts/get-all-site-collections-subwebs" aria-hidden="true" />
+<img src="https://pnptelemetry.azurewebsites.net/script-samples/scripts/get-all-site-collections-subwebs" aria-hidden="true" />

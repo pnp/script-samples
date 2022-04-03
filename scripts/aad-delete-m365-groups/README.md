@@ -82,4 +82,4 @@ Sample first appeared on [Delete all Microsoft 365 groups | CLI for Microsoft 36
 
 
 [!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
-<img src="https://telemetry.sharepointpnp.com/script-samples/scripts/aad-delete-m365-groups" aria-hidden="true" />
+<img src="https://pnptelemetry.azurewebsites.net/script-samples/scripts/aad-delete-m365-groups" aria-hidden="true" />

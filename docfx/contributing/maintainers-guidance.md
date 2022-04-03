@@ -70,6 +70,5 @@ When samples are submitted it is important that contributors are recognized for 
 * The article must list their name, company and GitHub/LinkedIn/Twitter handle - we will encourage their complete this.
 * Promotion to Twitter - their sample will get promoted to Twitter for exposure.
 
-## Spell checker
 
-TBC
+<img src="https://pnptelemetry.azurewebsites.net/script-samples/contributing/maintainers-guidance" aria-hidden="true" />

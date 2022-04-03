@@ -65,4 +65,4 @@ Sample first appeared on [Add custom client-side web part to modern page | CLI f
 
 
 [!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
-<img src="https://telemetry.sharepointpnp.com/script-samples/scripts/spo-add-custom-clientside-webpart-to-modern-page" aria-hidden="true" />
+<img src="https://pnptelemetry.azurewebsites.net/script-samples/scripts/spo-add-custom-clientside-webpart-to-modern-page" aria-hidden="true" />

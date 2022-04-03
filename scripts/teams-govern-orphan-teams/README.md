@@ -104,4 +104,4 @@ Sample first appeared on [Govern orphaned Microsoft Teams | CLI for Microsoft 36
 
 
 [!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
-<img src="https://telemetry.sharepointpnp.com/script-samples/scripts/teams-govern-orphan-teams" aria-hidden="true" />
+<img src="https://pnptelemetry.azurewebsites.net/script-samples/scripts/teams-govern-orphan-teams" aria-hidden="true" />

@@ -8,4 +8,4 @@ Find scripts using libraries such as Graph PowerShell SDK, CLI for Microsoft 365
 
 *--this will be auto generated--*
 
-<img src="https://telemetry.sharepointpnp.com/script-samples" aria-hidden="true" />
+<img src="https://pnptelemetry.azurewebsites.net/script-samples" aria-hidden="true" />

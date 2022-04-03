@@ -202,4 +202,4 @@ Sample first appeared on [Inventory Flows By Creator | CLI for Microsoft 365](ht
 | Pete Skelly |
 
 [!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
-<img src="https://telemetry.sharepointpnp.com/script-samples/scripts/flow-inventory-flows-by-author" aria-hidden="true" />
+<img src="https://pnptelemetry.azurewebsites.net/script-samples/scripts/flow-inventory-flows-by-author" aria-hidden="true" />

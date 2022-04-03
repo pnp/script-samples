@@ -100,4 +100,4 @@ Sample first appeared on [Create a Microsoft Teams team and bulk add members fro
 
 
 [!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
-<img src="https://telemetry.sharepointpnp.com/script-samples/scripts/teams-create-team-and-add-members-and-owners" aria-hidden="true" />
+<img src="https://pnptelemetry.azurewebsites.net/script-samples/scripts/teams-create-team-and-add-members-and-owners" aria-hidden="true" />
