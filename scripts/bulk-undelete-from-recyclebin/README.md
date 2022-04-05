@@ -32,12 +32,37 @@ Connect-PnPOnline -Url  $siteUrl
  }
 
 ```
+[!INCLUDE [More about PnP PowerShell](../../docfx/includes/MORE-PNPPS.md)]
+
+# [CLI for Microsoft 365](#tab/cli-m365-ps)
+```powershell
+# aim of this script is to restore items which were deleted by specific user
+
+$siteURL = "https://tenant.sharepoint.com/sites/Dataverse"
+$userEmailAddress = "user@tenant.onmicrosoft.com"
+
+$m365Status = m365 status
+if ($m365Status -eq "Logged Out") {
+    m365 login
+}
+
+$deletedItems = m365 spo site recyclebinitem list --siteUrl $siteURL --query "[?DeletedByEmail == '$userEmailAddress']" | ConvertFrom-Json
+$deletedItemsIdList = [String]::Join(',', $deletedItems.Id)
+
+Write-Host "Restoring is in progress for Items: $deletedItemsIdList"
+m365 spo site recyclebinitem restore --siteUrl $siteURL --ids $deletedItemsIdList
+Write-Host "Done"
+```
+[!INCLUDE [More about CLI for Microsoft 365](../../docfx/includes/MORE-CLIM365.md)]
+
+***
 
 ## Contributors
 
 | Author(s) |
 |-----------|
 | [Dipen Shah](https://github.com/dips365) |
+| [Adam Wójcik](https://github.com/Adam-it)|
 
 
 [!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
