@@ -87,6 +87,9 @@
 <li role="presentation">
 <a href="#tabpanel_CeZOj-G++Q_pnpps" role="tab" aria-controls="tabpanel_CeZOj-G++Q_pnpps" data-tab="pnpps" tabindex="0" aria-selected="true">PnP PowerShell</a>
 </li>
+<li role="presentation">
+<a href="#tabpanel_CeZOj-G++Q_cli-m365-ps" role="tab" aria-controls="tabpanel_CeZOj-G++Q_cli-m365-ps" data-tab="cli-m365-ps" tabindex="-1">CLI for Microsoft 365</a>
+</li>
 </ul>
 <section id="tabpanel_CeZOj-G++Q_pnpps" role="tabpanel" data-tab="pnpps"><button class="article-clipboard" title="Copy to clipboard" data-toggle="tooltip" data-placement="top" data-clipboard-target="section[id^='tabpanel'][data-tab='pnpps'] pre">
     <span class="glyphicon glyphicon-copy" aria-hidden="true"></span>
@@ -116,6 +119,37 @@ Connect-PnPOnline -Url  $siteUrl
  }
 
 </code></pre>
+<div class="highlight-tool">
+<p>Check out the <strong>PnP PowerShell</strong> to learn more at: <a href="https://aka.ms/pnp/powershell">https://aka.ms/pnp/powershell</a></p>
+</div>
+</section>
+<section id="tabpanel_CeZOj-G++Q_cli-m365-ps" role="tabpanel" data-tab="cli-m365-ps" aria-hidden="true" hidden="hidden"><button class="article-clipboard" title="Copy to clipboard" data-toggle="tooltip" data-placement="top" data-clipboard-target="section[id^='tabpanel'][data-tab='cli-m365-ps'] pre">
+    <span class="glyphicon glyphicon-copy" aria-hidden="true"></span>
+    <span class="article-clipboard__message done">Copied</span>
+</button>
+
+<pre><code class="lang-powershell"># aim of this script is to restore items which were deleted by specific user
+
+$siteURL = &quot;https://tenant.sharepoint.com/sites/Dataverse&quot;
+$userEmailAddress = &quot;user@tenant.onmicrosoft.com&quot;
+
+$m365Status = m365 status
+if ($m365Status -eq &quot;Logged Out&quot;) {
+    m365 login
+}
+
+$deletedItems = m365 spo site recyclebinitem list --siteUrl $siteURL --query &quot;[?DeletedByEmail == '$userEmailAddress']&quot; | ConvertFrom-Json
+$deletedItemsIdList = [String]::Join(',', $deletedItems.Id)
+
+Write-Host &quot;Restoring is in progress for Items: $deletedItemsIdList&quot;
+m365 spo site recyclebinitem restore --siteUrl $siteURL --ids $deletedItemsIdList
+Write-Host &quot;Done&quot;
+</code></pre>
+<div class="highlight-tool">
+<p>Check out the <strong>CLI for Microsoft 365</strong> to learn more at: <a href="https://aka.ms/cli-m365">https://aka.ms/cli-m365</a></p>
+</div>
+</section>
+</div>
 <h2 id="contributors">Contributors</h2>
 <table>
 <thead>
@@ -127,13 +161,14 @@ Connect-PnPOnline -Url  $siteUrl
 <tr>
 <td><a href="https://github.com/dips365">Dipen Shah</a></td>
 </tr>
+<tr>
+<td><a href="https://github.com/Adam-it">Adam Wójcik</a></td>
+</tr>
 </tbody>
 </table>
 <h2 id="disclaimer">Disclaimer</h2>
 <p><strong>THESE SAMPLES ARE PROVIDED <em>AS IS</em> WITHOUT WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, INCLUDING ANY IMPLIED WARRANTIES OF FITNESS FOR A PARTICULAR PURPOSE, MERCHANTABILITY, OR NON-INFRINGEMENT.</strong></p>
 <img src="https://pnptelemetry.azurewebsites.net/script-samples/scripts/bulk-undelete-from-recyclebin" aria-hidden="true">
-</section>
-</div>
 </article>
           </div>
         </div>
