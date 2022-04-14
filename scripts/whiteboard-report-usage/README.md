@@ -45,16 +45,15 @@ Install-Module -Name Microsoft.Graph
 Import-Module WhiteboardAdmin
 Import-Module Microsoft.Graph.Users
 
+$dateTime = (Get-Date).toString("dd-MM-yyyy")
+$invocation = (Get-Variable MyInvocation).Value
+$directoryPath = Split-Path $invocation.MyCommand.Path
+$fileName = "WhiteboardReport-" + $dateTime + ".csv"
+$logFileName = "WhiteboardReport-" + $dateTime + ".log"
+$outputView = $directoryPath + "\" + $fileName
 Start-Transcript -Path ".\$logFileName"
 
 try {
-	$dateTime = (Get-Date).toString("dd-MM-yyyy")
-	$invocation = (Get-Variable MyInvocation).Value
-	$directoryPath = Split-Path $invocation.MyCommand.Path
-	$fileName = "WhiteboardReport-" + $dateTime + ".csv"
-	$logFileName = "WhiteboardReport-" + $dateTime + ".log"
-	$outputView = $directoryPath + "\" + $fileName
-
 	# Connect to Azure AD
 	$Msolcred = Get-credential
 	Connect-MgGraph -Scopes "User.Read.All"
