@@ -1,7 +1,7 @@
 # Export OneDrive Admins
 
 ## Summary
-Have you ever needed to know which Admins have added themselves to which OneDrives? This script exports every OneDrive in the tenant, and the site collection admins of the site. This helps audit which admins have unnecessary access to user OneDrives. 
+Have you ever needed to know which Admins have added themselves to which OneDrives? This script exports every OneDrive in the tenant, and the site collection admins of the site. This helps audit which admins have unnecessary access to user OneDrives. Once you have the report, you can identify unnecessary access by filtering in Excel.
 
 ![Example Screenshot](assets/OneDriveAdmins.png)
 
@@ -58,73 +58,4 @@ foreach ($MySite in $MySites) {
     }
 }
 
-
 ```
-
-[!INCLUDE [More about PnP PowerShell](../../docfx/includes/MORE-PNPPS.md)]
-
-# [CLI for Microsoft 365 using PowerShell](#tab/cli-m365-ps)
-
-```powershell
-
-<your powershell script>
-
-```
-
-# [CLI for Microsoft 365 using Bash](#tab/cli-m365-bash)
-
-```bash
-
-<your bash script>
-
-```
-
-[!INCLUDE [More about CLI for Microsoft 365](../../docfx/includes/MORE-CLIM365.md)]
-
-# [Microsoft Graph PowerShell](#tab/graphps)
-
-```powershell
-
-<your powershell script>
-
-```
-[!INCLUDE [More about Microsoft Graph PowerShell SDK](../../docfx/includes/MORE-GRAPHSDK.md)]
-
-# [SPO Management Shell](#tab/spoms-ps)
-
-```powershell
-
-<your powershell script>
-
-```
-[!INCLUDE [More about SPO Management Shell](../../docfx/includes/MORE-SPOMS.md)]
-
-# [Azure CLI](#tab/azure-cli)
-
-```Azure CLI
-
-<your cli script>  
-
-```
-[!INCLUDE [More about Azure CLI](../../docfx/includes/MORE-AZURECLI.md)]
-
-
-# [Power Apps PowerShell](#tab/powerapps-ps)
-```powershell
-
-<your powershell script>
-
-```
-[!INCLUDE [More about Power Apps PowerShell](../../docfx/includes/MORE-POWERAPPS.md)]
-
-
-# [MicrosoftTeams PowerShell](#tab/teamsps)
-```powershell
-
-<your powershell script>
-
-```
-[!INCLUDE [More about Microsoft Teams PowerShell](../../docfx/includes/MORE-TEAMSPS.md)]
-
-***
-
