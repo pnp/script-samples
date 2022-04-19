@@ -82,6 +82,49 @@ foreach ($team in $teams)
 
 ```
 [!INCLUDE [More about PnP PowerShell](../../docfx/includes/MORE-PNPPS.md)]
+
+# [CLI for Microsoft 365](#tab/cli-m365-ps)
+```powershell
+$m365Status = m365 status
+if ($m365Status -eq "Logged Out") {
+  m365 login
+}
+
+$teams = @()
+$externalteams = @()
+$teams = m365 teams team list | ConvertFrom-Json
+
+foreach ($team in $teams)
+{
+	$id = $team.id
+	$users = m365 teams user list --teamId $id --role Guest | ConvertFrom-Json
+	$extcount = $users.count
+
+  if($extcount -gt 0)
+  {
+    foreach ($extuser in $users)
+    {
+      $externalteams += [pscustomobject]@{
+        ExtUser   = $extuser.userPrincipalName
+        GroupID   = $id
+        TeamName  = $team.displayName
+      } 
+    }    
+  }
+}
+
+if ($externalteams.Count -gt 0)
+{
+	Write-Host "Exporting the guest members in teams results.."
+	$externalteams | Export-Csv -Path "GuestUsersFromTeams.csv" -NoTypeInformation
+	Write-Host "Completed."
+}
+else
+{
+	Write-host "there are no external user added to any team in your organization" -ForegroundColor yellow
+}
+```
+[!INCLUDE [More about CLI for Microsoft 365](../../docfx/includes/MORE-CLIM365.md)]
 ***
 
 ## Contributors
@@ -90,6 +133,7 @@ foreach ($team in $teams)
 |-----------|
 | [Jiten Parmar](https://github.com/jitenparmar) |
 | [Leon Armston](https://github.com/LeonArmston) |
+| [Jasey Waegebaert](https://github.com/Jwaegebaert) |
 
 
 [!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
