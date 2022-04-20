@@ -90,15 +90,15 @@ This script allow us to export a list of all Whiteboards created in our tenant a
 <p>The script exports Geography, Owner ID, Owner UPN, Owner Name, Whiteboard ID, Title, Is Shared, Created, Modified as follows.</p>
 <p><img src="assets/sample-output.png" alt="Sample Output file Screenshot"></p>
 <h2 id="prerequisites">Prerequisites</h2>
-<p>This script uses <a href="https://docs.microsoft.com/en-us/powershell/module/whiteboard/">MicrosoftWhiteboardAdmin</a> PowerShell module.</p>
+<p>This script uses <a href="https://www.powershellgallery.com/packages/WhiteboardAdmin/">WhiteboardAdmin</a> PowerShell module.</p>
 <p>Install the module by running below cmdlet.</p>
 <pre><code class="lang-powershell">Install-Module -Name WhiteboardAdmin
 </code></pre>
 <p>You may need to update your execution policy by running below cmdlet.</p>
 <pre><code class="lang-powershell">Set-ExecutionPolicy RemoteSigned
 </code></pre>
-<p>To get the owner details, this script uses <a href="https://www.powershellgallery.com/packages/MSOnline/">MSOnline</a> PowerShell module.</p>
-<pre><code class="lang-powershell">Install-Module -Name MSOnline
+<p>To get the owner details, this script uses <a href="https://www.powershellgallery.com/packages/Microsoft.Graph/">Microsoft Graph</a> PowerShell module.</p>
+<pre><code class="lang-powershell">Install-Module -Name Microsoft.Graph
 </code></pre>
 <div class="tabGroup" id="tabgroup_CeZOj-G++Q">
 <ul role="tablist">
@@ -113,18 +113,20 @@ This script allow us to export a list of all Whiteboards created in our tenant a
 
 <pre><code class="lang-powershell"># Import modules
 Import-Module WhiteboardAdmin
-Import-Module MSOnline
+Import-Module Microsoft.Graph.Users
+
+$dateTime = (Get-Date).toString(&quot;dd-MM-yyyy&quot;)
+$invocation = (Get-Variable MyInvocation).Value
+$directoryPath = Split-Path $invocation.MyCommand.Path
+$fileName = &quot;WhiteboardReport-&quot; + $dateTime + &quot;.csv&quot;
+$logFileName = &quot;WhiteboardReport-&quot; + $dateTime + &quot;.log&quot;
+$outputView = $directoryPath + &quot;\&quot; + $fileName
+Start-Transcript -Path &quot;.\$logFileName&quot;
 
 try {
-	$dateTime = (Get-Date).toString(&quot;dd-MM-yyyy&quot;)
-	$invocation = (Get-Variable MyInvocation).Value
-	$directoryPath = Split-Path $invocation.MyCommand.Path
-	$fileName = &quot;WhiteboardReport-&quot; + $dateTime + &quot;.csv&quot;
-	$outputView = $directoryPath + &quot;\&quot; + $fileName
-	
 	# Connect to Azure AD
 	$Msolcred = Get-credential
-	Connect-MsolService -Credential $MsolCred
+	Connect-MgGraph -Scopes &quot;User.Read.All&quot;
 
 	# The geography to look for board owners in. Accepted values are: Europe, Australia, or Worldwide (all boards not in australia or europe).
 	$supportedGeographies = @(&quot;Europe&quot;, &quot;Australia&quot;, &quot;Worldwide&quot;)
@@ -133,7 +135,7 @@ try {
 	$whiteboardOwners = @()
 	
 	foreach ($geography in $supportedGeographies) {
-		Write-Host &quot;Getting Whiteboard owners for geography: $($geography) ...&quot;
+		Write-Host &quot;`nGetting Whiteboard owners for geography: $($geography) ...&quot;
 		$geographyOwners = Get-WhiteboardOwners -Geography $geography		
 		
 		foreach ($geographyOwner in $geographyOwners.items) {			
@@ -142,7 +144,7 @@ try {
 			$exportOwner | Add-Member -MemberType NoteProperty -name &quot;OwnerID&quot; -value $geographyOwner
 			
 			try {
-				$ownerInfo = Get-MsolUser -ObjectId $geographyOwner
+				$ownerInfo = Get-MgUser -UserId $geographyOwner -ErrorAction Stop
 				if ($ownerInfo) {
 					$exportOwner | Add-Member -MemberType NoteProperty -name &quot;OwnerUPN&quot; -value $ownerInfo.UserPrincipalName
 					$exportOwner | Add-Member -MemberType NoteProperty -name &quot;OwnerDisplayName&quot; -value $ownerInfo.DisplayName
@@ -163,36 +165,62 @@ try {
 	
 	# Get whiteboards from the Microsoft Whiteboard service by owners
 	foreach ($whiteboardOwner in $whiteboardOwners) {
-		Write-Host &quot;Getting Whiteboards for owner: $($whiteboardOwner.OwnerUPN) ...&quot;
-		$whiteboardInfo = Get-Whiteboard -UserId $whiteboardOwner.OwnerID
+		Write-Host &quot;`nGetting Whiteboards for owner: $($whiteboardOwner.OwnerUPN) ...&quot;
+
+		$retryCount = 0
+		$maxRetries = 3
+		$pauseDuration = 2
+		$processed = $false
 		
-		foreach ($whiteboardInstance in $whiteboardInfo) {
-			$exportWhiteboard = New-Object PSObject
-			$exportWhiteboard | Add-Member -MemberType NoteProperty -name &quot;Geography&quot; -value $whiteboardOwner.Geography
-			$exportWhiteboard | Add-Member -MemberType NoteProperty -name &quot;Owner ID&quot; -value $whiteboardOwner.OwnerID
-			$exportWhiteboard | Add-Member -MemberType NoteProperty -name &quot;Owner UPN&quot; -value $whiteboardOwner.OwnerUPN
-			$exportWhiteboard | Add-Member -MemberType NoteProperty -name &quot;Owner Name&quot; -value $whiteboardOwner.OwnerDisplayName
-			$exportWhiteboard | Add-Member -MemberType NoteProperty -name &quot;Whiteboard ID&quot; -value $whiteboardInstance.id
-			$exportWhiteboard | Add-Member -MemberType NoteProperty -name &quot;Title&quot; -value $whiteboardInstance.title
-			$exportWhiteboard | Add-Member -MemberType NoteProperty -name &quot;Is Shared&quot; -value $whiteboardInstance.isShared
-			$exportWhiteboard | Add-Member -MemberType NoteProperty -name &quot;Created&quot; -value $whiteboardInstance.createdTime
-			$exportWhiteboard | Add-Member -MemberType NoteProperty -name &quot;Modified&quot; -value $whiteboardInstance.lastModifiedTime
-			
-			$whiteboards += $exportWhiteboard
+		while ($processed -ne $true){
+			try {
+				$whiteboardInfo = Get-Whiteboard -UserId $whiteboardOwner.OwnerID
+				
+				foreach ($whiteboardInstance in $whiteboardInfo) {
+					$exportWhiteboard = New-Object PSObject
+					$exportWhiteboard | Add-Member -MemberType NoteProperty -name &quot;Geography&quot; -value $whiteboardOwner.Geography
+					$exportWhiteboard | Add-Member -MemberType NoteProperty -name &quot;Owner ID&quot; -value $whiteboardOwner.OwnerID
+					$exportWhiteboard | Add-Member -MemberType NoteProperty -name &quot;Owner UPN&quot; -value $whiteboardOwner.OwnerUPN
+					$exportWhiteboard | Add-Member -MemberType NoteProperty -name &quot;Owner Name&quot; -value $whiteboardOwner.OwnerDisplayName
+					$exportWhiteboard | Add-Member -MemberType NoteProperty -name &quot;Whiteboard ID&quot; -value $whiteboardInstance.id
+					$exportWhiteboard | Add-Member -MemberType NoteProperty -name &quot;Title&quot; -value $whiteboardInstance.title
+					$exportWhiteboard | Add-Member -MemberType NoteProperty -name &quot;Is Shared&quot; -value $whiteboardInstance.isShared
+					$exportWhiteboard | Add-Member -MemberType NoteProperty -name &quot;Created&quot; -value $whiteboardInstance.createdTime
+					$exportWhiteboard | Add-Member -MemberType NoteProperty -name &quot;Modified&quot; -value $whiteboardInstance.lastModifiedTime
+					
+					$whiteboards += $exportWhiteboard
+				}
+				
+				Write-Host &quot;Found $($whiteboardInfo.Count) Whiteboards owned by: $($whiteboardOwner.OwnerUPN)&quot;
+				$processed = $true
+			} 
+			catch {
+				if ($retryCount -ge $maxRetries){
+					# not going to retry again
+					$processed = $true
+					Write-Host 'Not going to retry...'
+				} 
+				else {
+					$retryCount += 1
+					Write-Host &quot;Retry attempt $retryCount after a $pauseDuration second pause...&quot;
+					Start-Sleep -Seconds $pauseDuration
+				}
+			}
 		}
-		
-		Write-Host &quot;Found $($whiteboards.Count) Whiteboards owned by: $($whiteboardOwner.OwnerUPN)&quot;
 	}
 	
-	Write-Host &quot;Found $($whiteboards.Count) Whiteboards in a tenant.&quot;
+	Write-Host &quot;`nFound $($whiteboards.Count) Whiteboards in a tenant.&quot;
 
 	# Export the result Array to CSV file
 	$whiteboards | sort &quot;Geography&quot; | Export-CSV -Path $outputView -Force -NoTypeInformation
 	
-	Write-Host &quot;Finished&quot;
+	Write-Host &quot;`nFinished&quot;
 }
 catch {
     Write-Host -f Red &quot;Error:&quot; $_.Exception.Message
+}
+finally {
+	Stop-Transcript
 }
 </code></pre>
 <div class="highlight-tool">
