@@ -73,6 +73,54 @@ StartProcessing
 ```
 [!INCLUDE [More about PnP PowerShell](../../docfx/includes/MORE-PNPPS.md)]
 
+# [CLI for Microsoft 365](#tab/cli-m365-ps)
+```powershell
+$dateTime = "_{0:MM_dd_yy}_{0:HH_mm_ss}" -f (Get-Date)
+$basePath = "E:\Contribution\PnP-Scripts\Hubsites\Logs\"
+$csvPath = $basePath + "\HubSites" + $dateTime + ".csv"
+$global:hubSitesReports = @()
+
+Function Login {
+    Write-Host "Connecting to Tenant Site" -f Yellow   
+    $m365Status = m365 status | ConvertFrom-Json
+    if ($m365Status -eq "Logged Out") {
+      m365 login
+    }
+    Write-Host "Connection Successful!" -f Green 
+}
+
+Function GetHubSites {
+    try {
+        Write-Host "Getting hub sites..."  -ForegroundColor Yellow 
+        $pnpHubSites = m365 spo hubsite list | ConvertFrom-Json        
+        Write-Host "Getting hub sites successfully!"  -ForegroundColor Green
+        foreach ($pnpHubSite in $pnpHubSites) {
+            $global:hubSitesReports += New-Object PSObject -Property ([ordered]@{  
+                    'ID'                = $pnpHubSite.ID
+                    'Parent HubSite Id' = $pnpHubSite.ParentHubSiteId              
+                    'Site Id'           = $pnpHubSite.SiteId 
+                    'Site Url'          = $pnpHubSite.SiteUrl
+                    'Title'             = $pnpHubSite.Title                                                                                             
+                })
+        }
+    }
+    catch {
+        Write-Host "Error in getting hub sites information:" $_.Exception.Message -ForegroundColor Red                 
+    }
+    Write-Host "Exporting to CSV..."  -ForegroundColor Yellow 
+    $global:hubSitesReports| Export-Csv $csvPath -NoTypeInformation -Append
+    Write-Host "Exported to CSV successfully!"  -ForegroundColor Green	
+}
+
+Function StartProcessing {
+    Login
+    GetHubSites
+}
+
+StartProcessing
+```
+[!INCLUDE [More about CLI for Microsoft 365](../../docfx/includes/MORE-CLIM365.md)]
+
 ***
 
 ## Contributors
@@ -80,6 +128,7 @@ StartProcessing
 | Author(s) |
 |-----------|
 | Chandani Prajapati (https://github.com/chandaniprajapati) |
+| [Jasey Waegebaert](https://github.com/Jwaegebaert) |
 
 [!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
 <img src="https://pnptelemetry.azurewebsites.net/script-samples/scripts/spo-export-hub-sites-details-to-csv" aria-hidden="true" />
