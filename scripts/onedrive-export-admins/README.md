@@ -1,3 +1,7 @@
+---
+plugin: add-to-gallery
+---
+
 # Export OneDrive Admins
 
 ## Summary
@@ -59,3 +63,16 @@ foreach ($MySite in $MySites) {
 }
 
 ```
+[!INCLUDE [More about PnP PowerShell](../../docfx/includes/MORE-PNPPS.md)]
+***
+
+
+## Contributors
+
+| Author(s) |
+|-----------|
+| Matt Maher |
+
+
+[!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
+<img src="https://pnptelemetry.azurewebsites.net/script-samples/scripts/onedrive-export-admins" aria-hidden="true" />
