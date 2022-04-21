@@ -100,6 +100,9 @@
 <li role="presentation">
 <a href="#tabpanel_CeZOj-G++Q_pnpps" role="tab" aria-controls="tabpanel_CeZOj-G++Q_pnpps" data-tab="pnpps" tabindex="0" aria-selected="true">PnP PowerShell</a>
 </li>
+<li role="presentation">
+<a href="#tabpanel_CeZOj-G++Q_cli-m365-ps" role="tab" aria-controls="tabpanel_CeZOj-G++Q_cli-m365-ps" data-tab="cli-m365-ps" tabindex="-1">CLI for Microsoft 365</a>
+</li>
 </ul>
 <section id="tabpanel_CeZOj-G++Q_pnpps" role="tabpanel" data-tab="pnpps"><button class="article-clipboard" title="Copy to clipboard" data-toggle="tooltip" data-placement="top" data-clipboard-target="section[id^='tabpanel'][data-tab='pnpps'] pre">
     <span class="glyphicon glyphicon-copy" aria-hidden="true"></span>
@@ -160,6 +163,59 @@ StartProcessing
 <p>Check out the <strong>PnP PowerShell</strong> to learn more at: <a href="https://aka.ms/pnp/powershell">https://aka.ms/pnp/powershell</a></p>
 </div>
 </section>
+<section id="tabpanel_CeZOj-G++Q_cli-m365-ps" role="tabpanel" data-tab="cli-m365-ps" aria-hidden="true" hidden="hidden"><button class="article-clipboard" title="Copy to clipboard" data-toggle="tooltip" data-placement="top" data-clipboard-target="section[id^='tabpanel'][data-tab='cli-m365-ps'] pre">
+    <span class="glyphicon glyphicon-copy" aria-hidden="true"></span>
+    <span class="article-clipboard__message done">Copied</span>
+</button>
+
+<pre><code class="lang-powershell">$dateTime = &quot;_{0:MM_dd_yy}_{0:HH_mm_ss}&quot; -f (Get-Date)
+$basePath = &quot;E:\Contribution\PnP-Scripts\Hubsites\Logs\&quot;
+$csvPath = $basePath + &quot;\HubSites&quot; + $dateTime + &quot;.csv&quot;
+$global:hubSitesReports = @()
+
+Function Login {
+    Write-Host &quot;Connecting to Tenant Site&quot; -f Yellow   
+    $m365Status = m365 status | ConvertFrom-Json
+    if ($m365Status -eq &quot;Logged Out&quot;) {
+      m365 login
+    }
+    Write-Host &quot;Connection Successful!&quot; -f Green 
+}
+
+Function GetHubSites {
+    try {
+        Write-Host &quot;Getting hub sites...&quot;  -ForegroundColor Yellow 
+        $pnpHubSites = m365 spo hubsite list | ConvertFrom-Json        
+        Write-Host &quot;Getting hub sites successfully!&quot;  -ForegroundColor Green
+        foreach ($pnpHubSite in $pnpHubSites) {
+            $global:hubSitesReports += New-Object PSObject -Property ([ordered]@{  
+                    'ID'                = $pnpHubSite.ID
+                    'Parent HubSite Id' = $pnpHubSite.ParentHubSiteId              
+                    'Site Id'           = $pnpHubSite.SiteId 
+                    'Site Url'          = $pnpHubSite.SiteUrl
+                    'Title'             = $pnpHubSite.Title                                                                                             
+                })
+        }
+    }
+    catch {
+        Write-Host &quot;Error in getting hub sites information:&quot; $_.Exception.Message -ForegroundColor Red                 
+    }
+    Write-Host &quot;Exporting to CSV...&quot;  -ForegroundColor Yellow 
+    $global:hubSitesReports| Export-Csv $csvPath -NoTypeInformation -Append
+    Write-Host &quot;Exported to CSV successfully!&quot;  -ForegroundColor Green	
+}
+
+Function StartProcessing {
+    Login
+    GetHubSites
+}
+
+StartProcessing
+</code></pre>
+<div class="highlight-tool">
+<p>Check out the <strong>CLI for Microsoft 365</strong> to learn more at: <a href="https://aka.ms/cli-m365">https://aka.ms/cli-m365</a></p>
+</div>
+</section>
 </div>
 <h2 id="contributors">Contributors</h2>
 <table>
@@ -171,6 +227,9 @@ StartProcessing
 <tbody>
 <tr>
 <td>Chandani Prajapati (<a href="https://github.com/chandaniprajapati">https://github.com/chandaniprajapati</a>)</td>
+</tr>
+<tr>
+<td><a href="https://github.com/Jwaegebaert">Jasey Waegebaert</a></td>
 </tr>
 </tbody>
 </table>
