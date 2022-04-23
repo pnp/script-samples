@@ -103,6 +103,9 @@
 <li role="presentation">
 <a href="#tabpanel_CeZOj-G++Q_cli-m365-ps" role="tab" aria-controls="tabpanel_CeZOj-G++Q_cli-m365-ps" data-tab="cli-m365-ps" tabindex="-1">CLI for Microsoft 365</a>
 </li>
+<li role="presentation">
+<a href="#tabpanel_CeZOj-G++Q_spoms-ps" role="tab" aria-controls="tabpanel_CeZOj-G++Q_spoms-ps" data-tab="spoms-ps" tabindex="-1">SPO Management Shell</a>
+</li>
 </ul>
 <section id="tabpanel_CeZOj-G++Q_pnpps" role="tabpanel" data-tab="pnpps"><button class="article-clipboard" title="Copy to clipboard" data-toggle="tooltip" data-placement="top" data-clipboard-target="section[id^='tabpanel'][data-tab='pnpps'] pre">
     <span class="glyphicon glyphicon-copy" aria-hidden="true"></span>
@@ -214,6 +217,66 @@ StartProcessing
 </code></pre>
 <div class="highlight-tool">
 <p>Check out the <strong>CLI for Microsoft 365</strong> to learn more at: <a href="https://aka.ms/cli-m365">https://aka.ms/cli-m365</a></p>
+</div>
+</section>
+<section id="tabpanel_CeZOj-G++Q_spoms-ps" role="tabpanel" data-tab="spoms-ps" aria-hidden="true" hidden="hidden"><button class="article-clipboard" title="Copy to clipboard" data-toggle="tooltip" data-placement="top" data-clipboard-target="section[id^='tabpanel'][data-tab='spoms-ps'] pre">
+    <span class="glyphicon glyphicon-copy" aria-hidden="true"></span>
+    <span class="article-clipboard__message done">Copied</span>
+</button>
+
+<pre><code class="lang-powershell">
+$adminSiteURL = &quot;https://{domain}-admin.sharepoint.com/&quot;
+$username = &quot;USERID&quot;
+$password = &quot;********&quot;
+$secureStringPwd = $password | ConvertTo-SecureString -AsPlainText -Force 
+$creds = New-Object System.Management.Automation.PSCredential -ArgumentList $username, $secureStringPwd
+$dateTime = &quot;_{0:MM_dd_yy}_{0:HH_mm_ss}&quot; -f (Get-Date)
+$basePath = &quot;E:\Contribution\PnP-Scripts\Hubsites\Logs\&quot;
+$csvPath = $basePath + &quot;\HubSites&quot; + $dateTime + &quot;.csv&quot;
+$global:hubSitesReports = @()
+
+Function Login() {
+    [cmdletbinding()]
+    param([parameter(Mandatory = $true, ValueFromPipeline = $true)] $creds)     
+    Write-Host &quot;Connecting to Tenant Admin Site '$($adminSiteURL)'&quot; -f Yellow   
+    Connect-SPOService -Url $adminSiteURL -Credential $creds
+    Write-Host &quot;Connection Successful&quot; -f Green 
+}
+
+Function GetHubSite{    
+    try {
+        Write-Host &quot;Getting hub sites...&quot;  -ForegroundColor Yellow 
+        $pnpHubSites = Get-SPOHubSite | select *          
+        Write-Host &quot;Getting hub sites successfully!&quot;  -ForegroundColor Green
+        foreach ($pnpHubSite in $pnpHubSites) {
+            $global:hubSitesReports += New-Object PSObject -Property ([ordered]@{  
+                    'ID'                = $pnpHubSite.ID
+                    'Parent HubSite Id' = $pnpHubSite.ParentHubSiteId              
+                    'Site Id'           = $pnpHubSite.SiteId 
+                    'Site Url'          = $pnpHubSite.SiteUrl
+                    'Title'             = $pnpHubSite.Title                                                                                             
+                })
+        }
+    }
+    catch {
+        Write-Host &quot;Error in getting hub sites information:&quot; $_.Exception.Message -ForegroundColor Red                 
+    }
+    Write-Host &quot;Exporting to CSV...&quot;  -ForegroundColor Yellow 
+    $global:hubSitesReports| Export-Csv $csvPath -NoTypeInformation -Append
+    Write-Host &quot;Exported to CSV successfully!&quot;  -ForegroundColor Green	
+
+}
+
+Function StartProcessing {
+    Login($creds);
+    GetHubSite
+}
+
+StartProcessing
+
+</code></pre>
+<div class="highlight-tool">
+<p>Check out the <strong>SPO Management Shell</strong> to learn more at: <a href="https://docs.microsoft.com/en-us/powershell/sharepoint/sharepoint-online/introduction-sharepoint-online-management-shell?view=sharepoint-ps">Introduction SharePoint Online Management Shell | Microsoft Docs</a></p>
 </div>
 </section>
 </div>
