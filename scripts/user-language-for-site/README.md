@@ -46,6 +46,44 @@ Invoke-PnPQuery
 
 ```
 [!INCLUDE [More about PnP PowerShell](../../docfx/includes/MORE-PNPPS.md)]
+
+
+# [CLI for Microsoft 365](#tab/cli-m365-ps)
+```powershell
+$siteURL = 'https://tenanttocheck.sharepoint.com/sites/hr-life'
+$userInformationList = 'User Information List'
+
+$m365Status = m365 status
+if ($m365Status -eq "Logged Out") {
+    m365 login
+}
+
+# check what is my current lang
+m365 spo listitem get --listTitle $userInformationList --id 7 --webUrl $siteURL --properties "MUILanguages" # 7 is Me
+
+# -OR- #
+
+$userEmail = "Adam@tenanttocheck.onmicrosoft.com"
+$camlQuery = @"
+<View>
+    <Query>
+        <Where>
+            <Eq>
+                <FieldRef Name='EMail' />
+                <Value Type='Text'>$userEmail</Value>
+            </Eq>
+        </Where>
+    </Query>
+</View>
+"@
+
+m365 spo listitem list --title $userInformationList --webUrl $siteURL --camlQuery $camlQuery
+
+# making the change
+$newLang = "cy-GB" #"en-GB"
+m365 spo listitem set --listTitle $userInformationList --id 7 --webUrl $siteURL --MUILanguages $newLang
+```
+[!INCLUDE [More about CLI for Microsoft 365](../../docfx/includes/MORE-CLIM365.md)]
 ***
 
 ## Source Credit
@@ -57,6 +95,7 @@ Article first appeared on [Testing user preferred language of SharePoint site | 
 | Author(s) |
 |-----------|
 | Paul Bullock |
+| [Adam Wójcik](https://github.com/Adam-it)|
 
 [!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
 
