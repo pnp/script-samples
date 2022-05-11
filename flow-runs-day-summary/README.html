@@ -81,15 +81,19 @@
                     <h1 id="flow-run-day-summary">Flow run day summary</h1>
 
 <h2 id="summary">Summary</h2>
-<p>Powershell script that could run once a day and sends summary (for example adaptive card in teams) with list of all flows runs with total runs count for current day, number of times the flow succeeded and number of times the flow failed</p>
-<p>result in console</p>
+<p>Powershell scripts using CLI for M365 and PnP PowerShell that could run once a day and sends a summary (for example adaptive card in teams) with list of all flows runs with total runs count for current day, number of times the flow succeeded and number of times the flow failed</p>
+<p>result in console (CLI)</p>
 <p><img src="assets/example2.png" alt="run in console"></p>
 <p>result as adaptive card in teams</p>
 <p><img src="assets/example.png" alt="adaptive card in teams"></p>
+<p>Both CLI and PnP PowerShell solutions require a Microsoft Teams channel to be configured with a webhook to accept incoming messages. Follow instructions on Adam the Automators blog here (<a href="https://adamtheautomator.com/teams-webhooks/#Setting_up_a_Webhook_Connector_in_Microsoft_Teams">Setting up a Webhook Connector in Microsoft Teams</a>)</p>
 <div class="tabGroup" id="tabgroup_CeZOj-G++Q">
 <ul role="tablist">
 <li role="presentation">
 <a href="#tabpanel_CeZOj-G++Q_cli-m365-ps" role="tab" aria-controls="tabpanel_CeZOj-G++Q_cli-m365-ps" data-tab="cli-m365-ps" tabindex="0" aria-selected="true">CLI for Microsoft 365 with PowerShell</a>
+</li>
+<li role="presentation">
+<a href="#tabpanel_CeZOj-G++Q_pnpps" role="tab" aria-controls="tabpanel_CeZOj-G++Q_pnpps" data-tab="pnpps" tabindex="-1">PnP PowerShell</a>
 </li>
 </ul>
 <section id="tabpanel_CeZOj-G++Q_cli-m365-ps" role="tabpanel" data-tab="cli-m365-ps"><button class="article-clipboard" title="Copy to clipboard" data-toggle="tooltip" data-placement="top" data-clipboard-target="section[id^='tabpanel'][data-tab='cli-m365-ps'] pre">
@@ -150,6 +154,102 @@ m365 adaptivecard send --url $webhook --card $adaptiveCard --cardData $cardData
 <div class="highlight-tool">
 <p>Check out the <strong>CLI for Microsoft 365</strong> to learn more at: <a href="https://aka.ms/cli-m365">https://aka.ms/cli-m365</a></p>
 </div>
+</section>
+<section id="tabpanel_CeZOj-G++Q_pnpps" role="tabpanel" data-tab="pnpps" aria-hidden="true" hidden="hidden"><button class="article-clipboard" title="Copy to clipboard" data-toggle="tooltip" data-placement="top" data-clipboard-target="section[id^='tabpanel'][data-tab='pnpps'] pre">
+    <span class="glyphicon glyphicon-copy" aria-hidden="true"></span>
+    <span class="article-clipboard__message done">Copied</span>
+</button>
+
+<pre><code class="lang-powershell">
+
+Connect-PnPOnline -Url https://contoso-admin.sharepoint.com -Interactive
+
+$environment = 'Default-d2af3166-e76b-4d03-9942-fbc79d6b69f9' #Change to your Power Automate environment
+
+#Setup an incoming webhook to a Microsoft Team channel and replace $webhook variable
+#https://adamtheautomator.com/teams-webhooks/#Setting_up_a_Webhook_Connector_in_Microsoft_Teams
+$webhook = 'https://leonarmstondev.webhook.office.com/webhookb2/908a4576-7946-405d-b373-0ff49b7244e1@d2af3166-e76b-4d03-9942-fbc79d6b69f9/IncomingWebhook/27f804496eb749158838186717fef3c0/08a5b26d-e908-49af-b8c6-e84d06beda87'
+
+
+$currentDayDate = Get-Date
+$previousDayDate = (Get-Date).AddDays(-1)
+$adaptiveCardDescription = &quot;&quot;
+
+$flows = Get-PnPFlow -Environment $environment
+foreach ($flow in $flows) 
+{
+    $flowRuns = Get-PnPFlowRun -Environment $environment -Flow $flow.Name
+
+    $displayName = $flow.Properties.DisplayName
+    $id = $flow.name
+
+    $todayRuns = $flowRuns.Where({[DateTime]$_.Properties.EndTime -le $currentDayDate -and [DateTime]$_.Properties.EndTime -gt $previousDayDate})
+    
+    $todayRunsCount = 0
+    $todaySuccessRunsCount = 0
+    $todayFailedRunsCount = 0
+    if($todayRuns.Count -gt 0)
+    {
+        $todaySuccessRuns = $todayRuns.Where({$_.Properties.Status -eq 'Succeeded'})
+        $todaySuccessRunsCount = $todaySuccessRuns.Count
+
+        $todayFailedRuns = $todayRuns.Where({$_.Properties.Status -eq 'Failed'})
+        $todayFailedRunsCount = $todayFailedRuns.Count
+
+        $todayRunsCount = $todayRuns.Count
+    }
+
+    Write-Host &quot;$displayName -&gt; Runs: $todayRunsCount , Succeeded: $todaySuccessRunsCount , Failed: $todayFailedRunsCount&quot;
+    $adaptiveCardDescription = $adaptiveCardDescription + &quot;\r- [$displayName](https://us.flow.microsoft.com/manage/environments/$environment/flows/$id/details) -&gt; Runs: $todayRunsCount , Succeeded: $todaySuccessRunsCount , Failed: $todayFailedRunsCount&quot;
+}
+$today = Get-Date -Format &quot;dd/MM/yyyy&quot;
+
+$JSON = [Ordered]@{
+  &quot;type&quot;       = &quot;message&quot;
+  &quot;attachments&quot; = @(
+    @{
+      &quot;contentType&quot; = 'application/vnd.microsoft.card.adaptive'
+      &quot;content&quot;     = [Ordered]@{
+        '$schema' = &quot;&lt;http://adaptivecards.io/schemas/adaptive-card.json&gt;&quot;
+        &quot;type&quot;    = &quot;AdaptiveCard&quot;
+        &quot;version&quot; = &quot;1.3&quot;
+        &quot;body&quot;    = @(
+          [Ordered]@{
+            &quot;type&quot;  = &quot;Container&quot;
+            &quot;items&quot; = @(
+              @{
+			    &quot;type&quot;= &quot;TextBlock&quot;
+			    &quot;size&quot;= &quot;Medium&quot;
+			    &quot;weight&quot;= &quot;Bolder&quot;
+			    &quot;text&quot;= &quot;Today's Power Automate Flow Summary - $today&quot;
+              }
+              @{
+			    &quot;type&quot;= &quot;TextBlock&quot;
+			    &quot;text&quot;= &quot;${adaptiveCardDescription}&quot;
+			    &quot;wrap&quot;= $true
+              }
+            )
+          }
+        )
+      }
+    }
+  )
+} | ConvertTo-JSON -Depth 20
+
+$Params = @{
+  &quot;URI&quot;         = $webhook
+  &quot;Method&quot;      = 'POST'
+  &quot;Body&quot;        = [string]$json.replace(&quot;\\&quot;,&quot;\&quot;);
+  &quot;ContentType&quot; = 'application/json'
+}
+
+Invoke-RestMethod @Params
+</code></pre>
+<div class="highlight-tool">
+<p>Check out the <strong>PnP PowerShell</strong> to learn more at: <a href="https://aka.ms/pnp/powershell">https://aka.ms/pnp/powershell</a></p>
+</div>
+</section>
+</div>
 <h2 id="contributors">Contributors</h2>
 <table>
 <thead>
@@ -159,6 +259,9 @@ m365 adaptivecard send --url $webhook --card $adaptiveCard --cardData $cardData
 </thead>
 <tbody>
 <tr>
+<td><a href="https://github.com/LeonArmston">Leon Armston</a></td>
+</tr>
+<tr>
 <td><a href="https://github.com/Adam-it">Adam Wójcik</a></td>
 </tr>
 </tbody>
@@ -166,8 +269,6 @@ m365 adaptivecard send --url $webhook --card $adaptiveCard --cardData $cardData
 <h2 id="disclaimer">Disclaimer</h2>
 <p><strong>THESE SAMPLES ARE PROVIDED <em>AS IS</em> WITHOUT WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, INCLUDING ANY IMPLIED WARRANTIES OF FITNESS FOR A PARTICULAR PURPOSE, MERCHANTABILITY, OR NON-INFRINGEMENT.</strong></p>
 <img src="https://pnptelemetry.azurewebsites.net/script-samples/scripts/flow-search-flows-for-connection" aria-hidden="true">
-</section>
-</div>
 </article>
           </div>
         </div>
