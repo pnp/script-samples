@@ -66,6 +66,54 @@ StartProcessing
 ```
 [!INCLUDE [More about PnP PowerShell](../../docfx/includes/MORE-PNPPS.md)]
 
+# [SPO Management Shell](#tab/spoms-ps)
+
+```powershell
+
+$AdminSiteURL = "https://{domain}-admin.sharepoint.com/"
+$Username = "USERID"
+$Password = "********"
+$SecureStringPwd = $password | ConvertTo-SecureString -AsPlainText -Force 
+$Creds = New-Object System.Management.Automation.PSCredential -ArgumentList $username, $secureStringPwd
+
+Function Login() {
+    [cmdletbinding()]
+    param([parameter(Mandatory = $true, ValueFromPipeline = $true)] $Creds)     
+    Write-Host "Connecting to Tenant Admin Site '$($adminSiteURL)'" -f Yellow   
+    Connect-SPOService -Url $adminSiteURL -Credential $Creds
+    Write-Host "Connection Successful" -f Green 
+}
+
+Function HubSiteAssociation {  
+    try {  
+        #read site url from user  
+        $SiteUrl = Read-Host 'Enter Site Url'  
+        #read hub site URL from user  
+        $HubSiteUrl = Read-Host 'Enter Hub Site Url'         
+        Write-Host "Connecting to SharePoint site..." -ForegroundColor Yellow  
+        #connect to the SharePoint site  
+        Connect-PnpOnline -Url $SiteUrl -Credentials $Creds     
+        Write-Host "Associate with a hub site..." -ForegroundColor Yellow           
+        #hub site association           
+        Add-SPOHubSiteAssociation $SiteUrl -HubSite $HubSiteUrl   
+        Write-Host "Hub site association completed..." -ForegroundColor Yellow  
+    }  
+    catch {  
+        Write-Host "Error in hub site association:" $_.Exception.Message -ForegroundColor Red  
+    }  
+}
+
+
+Function StartProcessing {
+    Login($Creds);
+    HubSiteAssociation
+}
+
+StartProcessing
+
+```
+[!INCLUDE [More about SPO Management Shell](../../docfx/includes/MORE-SPOMS.md)]
+
 ***
 
 ## Contributors
