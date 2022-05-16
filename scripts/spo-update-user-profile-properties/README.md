@@ -58,6 +58,42 @@ StartProcessing
 
 ```
 [!INCLUDE [More about PnP PowerShell](../../docfx/includes/MORE-PNPPS.md)]
+
+# [CLI for Microsoft 365](#tab/cli-m365-ps)
+```powershell
+$username = "chandani@domain.onmicrosoft.com"
+
+Function Login {
+  Write-Host "Connecting to Tenant Site" -f Yellow   
+  $m365Status = m365 status | ConvertFrom-Json
+  if ($m365Status -eq "Logged Out") {
+    m365 login
+  }
+  Write-Host "Connection Successful!" -f Green 
+}
+
+Function UpdateUserProfileProperties {
+    try {
+        $Location = Read-Host "Enter location" 
+        $Skills = Read-Host "Enter skills by comma seprated(e.g. SPFx, PS)"          
+        Write-Host "Updating user profile Properties for:" $username -f Yellow        
+        m365 spo userprofile set --userName $username --propertyName 'SPS-Location' --propertyValue $Location 
+        m365 spo userprofile set --userName $username --propertyName "SPS-Skills" --propertyValue $Skills       
+        Write-Host "Updated user profile Properties for:" $username -f Green 
+    }
+    catch {
+        Write-Host "Getting error in updating user profile Propertiese:" $_.Exception.Message -ForegroundColor Red                 
+    }  
+}
+
+Function StartProcessing {
+    Login
+    UpdateUserProfileProperties
+}
+
+StartProcessing
+```
+[!INCLUDE [More about CLI for Microsoft 365](../../docfx/includes/MORE-CLIM365.md)]
 ***
 
 ## Contributors
@@ -65,6 +101,7 @@ StartProcessing
 | Author(s) |
 |-----------|
 | Chandani Prajapati |
+| [Jasey Waegebaert](https://github.com/Jwaegebaert) |
 
 [!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
 <img src="https://pnptelemetry.azurewebsites.net/script-samples/scripts/spo-update-user-profile-properties" aria-hidden="true" />
