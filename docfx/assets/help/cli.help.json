@@ -24,24 +24,24 @@
     "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/aad/app/app-add"
   },
   {
-    "cmd": "m365 aad app delete",
-    "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/aad/app/app-delete"
-  },
-  {
     "cmd": "m365 aad app get",
     "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/aad/app/app-get"
+  },
+  {
+    "cmd": "m365 aad app remove",
+    "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/aad/app/app-remove"
   },
   {
     "cmd": "m365 aad app role add",
     "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/aad/app/app-role-add"
   },
   {
-    "cmd": "m365 aad app role delete",
-    "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/aad/app/app-role-delete"
-  },
-  {
     "cmd": "m365 aad app role list",
     "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/aad/app/app-role-list"
+  },
+  {
+    "cmd": "m365 aad app role remove",
+    "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/aad/app/app-role-remove"
   },
   {
     "cmd": "m365 aad app set",
@@ -240,8 +240,20 @@
     "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/aad/user/user-set"
   },
   {
+    "cmd": "m365 aad user signin list",
+    "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/aad/user/user-signin-list"
+  },
+  {
     "cmd": "m365 adaptivecard send",
     "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/adaptivecard/adaptivecard-send"
+  },
+  {
+    "cmd": "m365 app get",
+    "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/app/app-get"
+  },
+  {
+    "cmd": "m365 app open",
+    "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/app/app-open"
   },
   {
     "cmd": "m365 app permission list",
@@ -520,8 +532,20 @@
     "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/planner/bucket/bucket-add"
   },
   {
+    "cmd": "m365 planner bucket get",
+    "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/planner/bucket/bucket-get"
+  },
+  {
     "cmd": "m365 planner bucket list",
     "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/planner/bucket/bucket-list"
+  },
+  {
+    "cmd": "m365 planner bucket remove",
+    "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/planner/bucket/bucket-remove"
+  },
+  {
+    "cmd": "m365 planner bucket set",
+    "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/planner/bucket/bucket-set"
   },
   {
     "cmd": "m365 planner plan add",
@@ -556,12 +580,40 @@
     "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/planner/task/task-list"
   },
   {
+    "cmd": "m365 planner task reference add",
+    "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/planner/task/task-reference-add"
+  },
+  {
+    "cmd": "m365 planner task reference list",
+    "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/planner/task/task-reference-list"
+  },
+  {
     "cmd": "m365 planner task set",
     "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/planner/task/task-set"
   },
   {
+    "cmd": "m365 pp environment list",
+    "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/pp/environment/environment-list"
+  },
+  {
+    "cmd": "m365 pp gateway list",
+    "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/pp/gateway/gateway-list"
+  },
+  {
+    "cmd": "m365 pp managementapp add",
+    "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/pp/managementapp/managementapp-add"
+  },
+  {
+    "cmd": "m365 pp managementapp list",
+    "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/pp/managementapp/managementapp-list"
+  },
+  {
     "cmd": "m365 search externalconnection add",
     "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/search/externalconnection/externalconnection-add"
+  },
+  {
+    "cmd": "m365 search externalconnection list",
+    "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/search/externalconnection/externalconnection-list"
   },
   {
     "cmd": "m365 skype report activitycounts",
@@ -582,6 +634,10 @@
   {
     "cmd": "m365 spfx package generate",
     "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/spfx/package/package-generate"
+  },
+  {
+    "cmd": "m365 spfx project doctor",
+    "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/spfx/project/project-doctor"
   },
   {
     "cmd": "m365 spfx project externalize",
@@ -638,6 +694,10 @@
   {
     "cmd": "m365 spo app retract",
     "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/spo/app/app-retract"
+  },
+  {
+    "cmd": "m365 spo app teamspackage download",
+    "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/spo/app/app-teamspackage-download"
   },
   {
     "cmd": "m365 spo app uninstall",
@@ -736,6 +796,10 @@
     "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/spo/customaction/customaction-set"
   },
   {
+    "cmd": "m365 spo eventreceiver get",
+    "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/spo/eventreceiver/eventreceiver-get"
+  },
+  {
     "cmd": "m365 spo externaluser list",
     "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/spo/externaluser/externaluser-list"
   },
@@ -758,6 +822,10 @@
   {
     "cmd": "m365 spo field get",
     "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/spo/field/field-get"
+  },
+  {
+    "cmd": "m365 spo field list",
+    "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/spo/field/field-list"
   },
   {
     "cmd": "m365 spo field remove",
@@ -972,12 +1040,24 @@
     "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/spo/list/list-remove"
   },
   {
+    "cmd": "m365 spo list roleinheritance break",
+    "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/spo/list/list-roleinheritance-break"
+  },
+  {
+    "cmd": "m365 spo list roleinheritance reset",
+    "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/spo/list/list-roleinheritance-reset"
+  },
+  {
     "cmd": "m365 spo list set",
     "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/spo/list/list-set"
   },
   {
     "cmd": "m365 spo list sitescript get",
     "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/spo/list/list-sitescript-get"
+  },
+  {
+    "cmd": "m365 spo list view add",
+    "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/spo/list/list-view-add"
   },
   {
     "cmd": "m365 spo list view field add",
@@ -1058,6 +1138,14 @@
   {
     "cmd": "m365 spo listitem remove",
     "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/spo/listitem/listitem-remove"
+  },
+  {
+    "cmd": "m365 spo listitem roleinheritance break",
+    "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/spo/listitem/listitem-roleinheritance-break"
+  },
+  {
+    "cmd": "m365 spo listitem roleinheritance reset",
+    "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/spo/listitem/listitem-roleinheritance-reset"
   },
   {
     "cmd": "m365 spo listitem set",
@@ -1226,6 +1314,10 @@
   {
     "cmd": "m365 spo report siteusagestorage",
     "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/spo/report/report-siteusagestorage"
+  },
+  {
+    "cmd": "m365 spo roledefinition list",
+    "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/spo/roledefinition/roledefinition-list"
   },
   {
     "cmd": "m365 spo serviceprincipal grant add",
@@ -1612,12 +1704,32 @@
     "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/teams/channel/channel-list"
   },
   {
+    "cmd": "m365 teams channel member add",
+    "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/teams/channel/channel-member-add"
+  },
+  {
+    "cmd": "m365 teams channel member list",
+    "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/teams/channel/channel-member-list"
+  },
+  {
+    "cmd": "m365 teams channel member remove",
+    "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/teams/channel/channel-member-remove"
+  },
+  {
+    "cmd": "m365 teams channel member set",
+    "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/teams/channel/channel-member-set"
+  },
+  {
     "cmd": "m365 teams channel remove",
     "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/teams/channel/channel-remove"
   },
   {
     "cmd": "m365 teams channel set",
     "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/teams/channel/channel-set"
+  },
+  {
+    "cmd": "m365 teams chat get",
+    "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/teams/chat/chat-get"
   },
   {
     "cmd": "m365 teams chat list",
@@ -1634,14 +1746,6 @@
   {
     "cmd": "m365 teams chat message send",
     "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/teams/chat/chat-message-send"
-  },
-  {
-    "cmd": "m365 teams conversationmember add",
-    "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/teams/conversationmember/conversationmember-add"
-  },
-  {
-    "cmd": "m365 teams conversationmember list",
-    "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/teams/conversationmember/conversationmember-list"
   },
   {
     "cmd": "m365 teams funsettings list",
@@ -1784,10 +1888,6 @@
     "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/teams/user/user-list"
   },
   {
-    "cmd": "m365 tenant auditlog report",
-    "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/tenant/auditlog/auditlog-report"
-  },
-  {
     "cmd": "m365 tenant id get",
     "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/tenant/id/id-get"
   },
@@ -1816,16 +1916,8 @@
     "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/tenant/report/report-servicesusercounts"
   },
   {
-    "cmd": "m365 tenant service list",
-    "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/tenant/service/service-list"
-  },
-  {
-    "cmd": "m365 tenant service message list",
-    "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/tenant/service/service-message-list"
-  },
-  {
-    "cmd": "m365 tenant service report historicalservicestatus",
-    "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/tenant/service/service-report-historicalservicestatus"
+    "cmd": "m365 tenant security alerts list",
+    "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/tenant/security/security-alerts-list"
   },
   {
     "cmd": "m365 tenant serviceannouncement health get",
@@ -1850,10 +1942,6 @@
   {
     "cmd": "m365 tenant serviceannouncement message list",
     "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/tenant/serviceannouncement/serviceannouncement-message-list"
-  },
-  {
-    "cmd": "m365 tenant status list",
-    "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/tenant/status/status-list"
   },
   {
     "cmd": "m365 todo list add",
