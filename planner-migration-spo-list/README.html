@@ -1,0 +1,260 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html lang="en">
+  
+  <head>
+    <meta charset="utf-8">
+    <title>Planner migration to SharePoint list | PnP Samples </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Planner migration to SharePoint list | PnP Samples ">
+    <meta name="generator" content="docfx 2.56.7.0">
+    <meta name="description" content="A sample gallery of scripts to manage all things Microsoft 365.">
+  
+    <!-- Social Media -->
+    <meta property="og:locale" content="en_GB">
+    <meta property="og:title" content="Planner migration to SharePoint list | PnP Samples ">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://pnp.github.io/script-samples">
+    <meta property="og:image" content="https://pnp.github.io/script-samples/assets/social-media-screenshot.png">
+    <meta property="og:image:alt" content="Screenshot example of the PnP Script Samples Site">
+    <meta property="og:site_name" content="PnP Script Samples">
+    <meta property="og:description" content="A sample gallery of scripts to manage all things Microsoft 365.">
+  
+    <link rel="shortcut icon" href="https://c.s-microsoft.com/favicon.ico?v2">
+    <link rel="stylesheet" href="../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../styles/docfx.css">
+    <link rel="stylesheet" href="../styles/main.css">
+    <link rel="stylesheet" href="../styles/extra.css">
+    <link rel="stylesheet" href="../styles/filter.css">
+    <link rel="stylesheet" href="../styles/site.css">
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet"> 
+    <meta property="docfx:navrel" content="../toc.html">
+    <meta property="docfx:tocrel" content="../toc.html">
+    
+    
+    <meta property="docfx:newtab" content="true">
+    <script type="text/javascript">
+      (function(c,l,a,r,i,t,y){
+          c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+          t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+          y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+      })(window, document, "clarity", "script", "8j6pedl344");
+  </script>
+  </head>  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+             <div class="github-mark">
+              <a href="https://github.com/pnp/script-samples">
+                <img src="https://pnp.github.io/script-samples/assets/icons/github-light-64px.png" alt="GitHub Icon Image">
+              </a>
+            </div>
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../assets/logo.svg" alt="">
+              </a>    </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <label class="glyphicon glyphicon-search" for="search-query"></label>
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>      </header>
+      <div role="main" class="container body-content hide-when-search">
+        <div class="article row grid">
+          <div class="col-md-12">
+            <article class="content wrap" id="_content" data-uid="">
+                  <div class="contribution-panel mobile-hide pull-right">
+                      <a href="https://github.com/pnp/script-samples/blob/main/scripts/planner-migration-spo-list/README.md/#L1" title="Improve this Doc" class="improve-doc-lg"><i class="glyphicon glyphicon-pencil"></i></a>
+                  </div>
+                    <h1 id="planner-migration-to-sharepoint-list">Planner migration to SharePoint list</h1>
+
+<h2 id="summary">Summary</h2>
+<p>Use the CLI for Microsoft 365 to migrate an existing plan to a SharePoint Online List with this sample. You can specify the planner plan that you want to migrate and the script will generate a new list for you with the required fields and views. The current sample does migrate all tasks however it skips the following information:</p>
+<ul>
+<li>Categories</li>
+<li>Comments made on tasks</li>
+<li>Attachments</li>
+</ul>
+<div class="tabGroup" id="tabgroup_CeZOj-G++Q">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_CeZOj-G++Q_cli-m365-ps" role="tab" aria-controls="tabpanel_CeZOj-G++Q_cli-m365-ps" data-tab="cli-m365-ps" tabindex="0" aria-selected="true">CLI for Microsoft 365 with PowerShell</a>
+</li>
+</ul>
+<section id="tabpanel_CeZOj-G++Q_cli-m365-ps" role="tabpanel" data-tab="cli-m365-ps"><button class="article-clipboard" title="Copy to clipboard" data-toggle="tooltip" data-placement="top" data-clipboard-target="section[id^='tabpanel'][data-tab='cli-m365-ps'] pre">
+    <span class="glyphicon glyphicon-copy" aria-hidden="true"></span>
+    <span class="article-clipboard__message done">Copied</span>
+</button>
+
+<pre><code class="lang-powershell">param (
+    [Parameter(Mandatory = $true, HelpMessage = &quot;URL of the target site&quot;, Position = 0)]
+    [string]$SiteUrl,
+    [Parameter(Mandatory = $true, HelpMessage = &quot;Groupname or Planner Plan name&quot;, Position = 1)]
+    [string]$PlanGroupName,
+    [Parameter(HelpMessage = &quot;Show progress messages&quot;, Position = 2)]
+    [switch]$ShowProgress,
+    [Parameter(HelpMessage = &quot;Skip List creation (for running multiple migrations without creating the list)&quot;, Position = 3)]
+    [switch]$SkipListCreation
+)
+
+$m365Status = m365 status
+
+if ($m365Status -eq &quot;Logged Out&quot;) {
+    # Connection to Microsoft 365
+    m365 login
+}
+
+$migrationTasks = @()
+$plan = m365 planner plan list --ownerGroupName $PlanGroupName | ConvertFrom-Json
+
+if ($null -ne $plan) {
+    $plannerBuckets = m365 planner bucket list --planId $plan.id | ConvertFrom-Json
+    $plannerTasks = m365 planner task list --planId $plan.id | ConvertFrom-Json
+
+    foreach ($task in $plannerTasks) {
+        $taskDetails = m365 planner task details get --taskId $task.id --query '{description: description, checklist: checklist.*.{isChecked: isChecked, title: title} }' | ConvertFrom-Json
+
+        $assignedUsers = @()
+        foreach ($userId in $($task.assignments | ForEach-Object { $($_).PSObject.Properties.Name })) {
+            $assignedUsers += &quot;{'Key':'i:0#.f|membership|$(m365 aad user get --id $userId --query &quot;userPrincipalName&quot; | ConvertFrom-Json)'}&quot;
+        }
+
+        $checklist = $null;
+
+        foreach ($item in $taskDetails.checklist) {
+            if ($item.isChecked) {
+                $checklist += &quot;[x] &quot; + $item.title + &quot;&lt;br&gt;&quot;;
+            }
+            else {
+                $checklist += &quot;[ ] &quot; + $item.title + &quot;&lt;br&gt;&quot;;
+            }
+        }
+
+        $migrationTasks += [pscustomobject][ordered]@{
+            Title       = $task.title
+            Bucket      = ($plannerBuckets | Where-Object { $_.id -eq $task.bucketId }).Name
+            Progress    = $task.percentComplete
+            Priority    = $task.priority
+            Description = ($task.hasDescription ? $taskDetails.description : ' ')
+            StartDate   = $task.startDateTime
+            DueDate     = $task.dueDateTime
+            Checklist   = $checklist
+            AssignedTo  = $($assignedUsers ? &quot;[$($assignedUsers -join &quot;,&quot;)]&quot; : $null)
+        }
+    }
+
+    Write-Host &quot;Found $($plannerBuckets.length) buckets and $($plannerTasks.length) tasks to migrate&quot;
+
+    if ($false -eq $SkipListCreation) {
+        if ($ShowProgress) {
+            Write-Host &quot;Setting up List&quot;
+        }
+
+        $list = m365 spo list add --title $plan.title --baseTemplate GenericList --webUrl $SiteUrl | ConvertFrom-Json
+
+        $bucketOptions = $plannerBuckets.name -join &quot;&lt;/CHOICE&gt;&lt;CHOICE&gt;&quot;
+        $fieldXml = '&lt;Field DisplayName=\&quot;Bucket\&quot; FillInChoice=\&quot;FALSE\&quot; Format=\&quot;Dropdown\&quot; IsModern=\&quot;TRUE\&quot; Name=\&quot;Bucket\&quot; Title=\&quot;Bucket\&quot; Type=\&quot;Choice\&quot; ID=\&quot;{e5a87c1b-14fe-4a0d-b2a1-69ed51aefe0a}\&quot; SourceID=\&quot;{be343550-aa79-4954-95f7-e7f3e1158888}\&quot; StaticName=\&quot;Bucket\&quot; ColName=\&quot;nvarchar7\&quot; RowOrdinal=\&quot;0\&quot; Version=\&quot;5\&quot;&gt;&lt;CHOICES&gt;&lt;CHOICE&gt;' + $bucketOptions + '&lt;/CHOICE&gt;&lt;/CHOICES&gt;&lt;/Field&gt;';
+        $field = m365 spo field add --webUrl $SiteUrl --listTitle $list.title --xml $fieldXml --options AddToAllContentTypes
+        $field = m365 spo field add --webUrl $SiteUrl --listTitle $list.title --xml '&lt;Field DisplayName=\&quot;Assigned to\&quot; Format=\&quot;Dropdown\&quot; IsModern=\&quot;TRUE\&quot; List=\&quot;UserInfo\&quot; Mult=\&quot;TRUE\&quot; Name=\&quot;AssignedTo\&quot; Title=\&quot;AssignedTo\&quot; Type=\&quot;UserMulti\&quot; UserSelectionMode=\&quot;0\&quot; UserSelectionScope=\&quot;0\&quot; ID=\&quot;{38a2a5a8-5518-4242-9b9b-760777f5e7ea}\&quot; SourceID=\&quot;{50756447-36ab-447e-9b30-859b91aba49d}\&quot; StaticName=\&quot;AssignedTo\&quot; /&gt;' --options AddToAllContentTypes
+        $field = m365 spo field add --webUrl $SiteUrl --listTitle $list.title --xml '&lt;Field DisplayName=\&quot;Start date\&quot; FriendlyDisplayFormat=\&quot;Disabled\&quot; Format=\&quot;DateOnly\&quot; IsModern=\&quot;TRUE\&quot; Name=\&quot;Startdate\&quot; Title=\&quot;Start date\&quot; Type=\&quot;DateTime\&quot; ID=\&quot;{91ff7e76-118b-49e1-85dd-afda84856e96}\&quot; SourceID=\&quot;{50756447-36ab-447e-9b30-859b91aba49d}\&quot; StaticName=\&quot;Startdate\&quot; ColName=\&quot;datetime1\&quot; RowOrdinal=\&quot;0\&quot; /&gt;' --options AddToAllContentTypes
+        $field = m365 spo field add --webUrl $SiteUrl --listTitle $list.title --xml '&lt;Field DisplayName=\&quot;Due date\&quot; FriendlyDisplayFormat=\&quot;Disabled\&quot; Format=\&quot;DateOnly\&quot; IsModern=\&quot;TRUE\&quot; Name=\&quot;Duedate\&quot; Title=\&quot;Due date\&quot; Type=\&quot;DateTime\&quot; ID=\&quot;{23f7955a-1b1b-46f9-8b0f-316dbb37b63e}\&quot; SourceID=\&quot;{50756447-36ab-447e-9b30-859b91aba49d}\&quot; StaticName=\&quot;Duedate\&quot; ColName=\&quot;datetime2\&quot; RowOrdinal=\&quot;0\&quot; /&gt;' --options AddToAllContentTypes
+        $field = m365 spo field add --webUrl $SiteUrl --listTitle $list.title --xml '&lt;Field AppendOnly=\&quot;FALSE\&quot; DisplayName=\&quot;Checklist\&quot; Format=\&quot;Dropdown\&quot; IsModern=\&quot;TRUE\&quot; IsolateStyles=\&quot;TRUE\&quot; Name=\&quot;Checklist\&quot; RichText=\&quot;TRUE\&quot; RichTextMode=\&quot;FullHtml\&quot; Title=\&quot;Checklist\&quot; Type=\&quot;Note\&quot; ID=\&quot;{05f7b70d-eb7c-4428-afe6-ca9f2f22c5af}\&quot; SourceID=\&quot;{50756447-36ab-447e-9b30-859b91aba49d}\&quot; StaticName=\&quot;Checklist\&quot; ColName=\&quot;ntext2\&quot; RowOrdinal=\&quot;0\&quot; CustomFormatter=\&quot;\&quot; Required=\&quot;FALSE\&quot; EnforceUniqueValues=\&quot;FALSE\&quot; Indexed=\&quot;FALSE\&quot; NumLines=\&quot;6\&quot; RestrictedMode=\&quot;TRUE\&quot; Version=\&quot;1\&quot; /&gt;' --options AddToAllContentTypes
+        $field = m365 spo field add --webUrl $SiteUrl --listTitle $list.title --xml '&lt;Field AppendOnly=\&quot;FALSE\&quot; DisplayName=\&quot;Description\&quot; Format=\&quot;Dropdown\&quot; IsModern=\&quot;TRUE\&quot; IsolateStyles=\&quot;FALSE\&quot; Name=\&quot;Description\&quot; RichText=\&quot;FALSE\&quot; RichTextMode=\&quot;Compatible\&quot; Title=\&quot;Description\&quot; Type=\&quot;Note\&quot; ID=\&quot;{50d7e60e-ce7d-4428-afe6-ca9f2f22c5ce}\&quot; SourceID=\&quot;{50756447-36ab-447e-9b30-859b91aba49d}\&quot; StaticName=\&quot;Description\&quot; ColName=\&quot;ntext2\&quot; RowOrdinal=\&quot;0\&quot; /&gt;' --options AddToAllContentTypes
+        $field = m365 spo field add --webUrl $SiteUrl --listTitle $list.title --xml '&lt;Field Type=\&quot;Number\&quot; DisplayName=\&quot;Priority\&quot; Required=\&quot;FALSE\&quot; EnforceUniqueValues=\&quot;FALSE\&quot; Indexed=\&quot;FALSE\&quot; ID=\&quot;{a9639335-a3cf-41d2-a1fb-28d02c8ef09f}\&quot; SourceID=\&quot;{be343550-aa79-4954-95f7-e7f3e1158888}\&quot; StaticName=\&quot;Priority\&quot; Name=\&quot;Priority\&quot; ColName=\&quot;float1\&quot; RowOrdinal=\&quot;0\&quot; CustomFormatter=\&quot;{&amp;quot;$schema&amp;quot;:&amp;quot;https://developer.microsoft.com/json-schemas/sp/v2/column-formatting.schema.json&amp;quot;,&amp;quot;elmType&amp;quot;:&amp;quot;div&amp;quot;,&amp;quot;style&amp;quot;:{&amp;quot;flex-wrap&amp;quot;:&amp;quot;wrap&amp;quot;,&amp;quot;display&amp;quot;:&amp;quot;flex&amp;quot;},&amp;quot;children&amp;quot;:[{&amp;quot;elmType&amp;quot;:&amp;quot;div&amp;quot;,&amp;quot;style&amp;quot;:{&amp;quot;box-sizing&amp;quot;:&amp;quot;border-box&amp;quot;,&amp;quot;padding&amp;quot;:&amp;quot;4px 8px 5px 8px&amp;quot;,&amp;quot;display&amp;quot;:&amp;quot;flex&amp;quot;,&amp;quot;border-radius&amp;quot;:&amp;quot;16px&amp;quot;,&amp;quot;height&amp;quot;:&amp;quot;24px&amp;quot;,&amp;quot;align-items&amp;quot;:&amp;quot;center&amp;quot;,&amp;quot;white-space&amp;quot;:&amp;quot;nowrap&amp;quot;,&amp;quot;overflow&amp;quot;:&amp;quot;hidden&amp;quot;,&amp;quot;margin&amp;quot;:&amp;quot;4px 4px 4px 4px&amp;quot;},&amp;quot;attributes&amp;quot;:{&amp;quot;class&amp;quot;:{&amp;quot;operator&amp;quot;:&amp;quot;:&amp;quot;,&amp;quot;operands&amp;quot;:[{&amp;quot;operator&amp;quot;:&amp;quot;==&amp;quot;,&amp;quot;operands&amp;quot;:[&amp;quot;[$Priority]&amp;quot;,1]},&amp;quot;sp-css-backgroundColor-BgRed sp-css-borderColor-WhiteFont&amp;quot;,{&amp;quot;operator&amp;quot;:&amp;quot;:&amp;quot;,&amp;quot;operands&amp;quot;:[{&amp;quot;operator&amp;quot;:&amp;quot;==&amp;quot;,&amp;quot;operands&amp;quot;:[&amp;quot;[$Priority]&amp;quot;,3]},&amp;quot;sp-css-backgroundColor-BgPeach sp-css-borderColor-PeachFont&amp;quot;,{&amp;quot;operator&amp;quot;:&amp;quot;:&amp;quot;,&amp;quot;operands&amp;quot;:[{&amp;quot;operator&amp;quot;:&amp;quot;==&amp;quot;,&amp;quot;operands&amp;quot;:[&amp;quot;[$Priority]&amp;quot;,5]},&amp;quot;sp-css-backgroundColor-BgGold&amp;quot;,{&amp;quot;operator&amp;quot;:&amp;quot;:&amp;quot;,&amp;quot;operands&amp;quot;:[{&amp;quot;operator&amp;quot;:&amp;quot;==&amp;quot;,&amp;quot;operands&amp;quot;:[&amp;quot;[$Priority]&amp;quot;,9]},&amp;quot;&amp;quot;,{&amp;quot;operator&amp;quot;:&amp;quot;:&amp;quot;,&amp;quot;operands&amp;quot;:[{&amp;quot;operator&amp;quot;:&amp;quot;==&amp;quot;,&amp;quot;operands&amp;quot;:[&amp;quot;[$Priority]&amp;quot;,9]},&amp;quot;sp-css-backgroundColor-BgMintGreen sp-css-borderColor-MintGreenFont&amp;quot;,&amp;quot;sp-field-borderAllRegular sp-field-borderAllSolid sp-css-borderColor-neutralSecondary&amp;quot;]}]}]}]}]}},&amp;quot;children&amp;quot;:[{&amp;quot;elmType&amp;quot;:&amp;quot;span&amp;quot;,&amp;quot;style&amp;quot;:{&amp;quot;line-height&amp;quot;:&amp;quot;16px&amp;quot;,&amp;quot;height&amp;quot;:&amp;quot;14px&amp;quot;},&amp;quot;attributes&amp;quot;:{&amp;quot;iconName&amp;quot;:{&amp;quot;operator&amp;quot;:&amp;quot;:&amp;quot;,&amp;quot;operands&amp;quot;:[{&amp;quot;operator&amp;quot;:&amp;quot;==&amp;quot;,&amp;quot;operands&amp;quot;:[&amp;quot;[$Priority]&amp;quot;,1]},&amp;quot;RingerSolid&amp;quot;,{&amp;quot;operator&amp;quot;:&amp;quot;:&amp;quot;,&amp;quot;operands&amp;quot;:[{&amp;quot;operator&amp;quot;:&amp;quot;==&amp;quot;,&amp;quot;operands&amp;quot;:[&amp;quot;[$Priority]&amp;quot;,3]},&amp;quot;Important&amp;quot;,{&amp;quot;operator&amp;quot;:&amp;quot;:&amp;quot;,&amp;quot;operands&amp;quot;:[{&amp;quot;operator&amp;quot;:&amp;quot;==&amp;quot;,&amp;quot;operands&amp;quot;:[&amp;quot;[$Priority]&amp;quot;,5]},&amp;quot;LocationDot&amp;quot;,{&amp;quot;operator&amp;quot;:&amp;quot;:&amp;quot;,&amp;quot;operands&amp;quot;:[{&amp;quot;operator&amp;quot;:&amp;quot;==&amp;quot;,&amp;quot;operands&amp;quot;:[&amp;quot;[$Priority]&amp;quot;,&amp;quot;&amp;quot;]},&amp;quot;Down&amp;quot;,{&amp;quot;operator&amp;quot;:&amp;quot;:&amp;quot;,&amp;quot;operands&amp;quot;:[{&amp;quot;operator&amp;quot;:&amp;quot;==&amp;quot;,&amp;quot;operands&amp;quot;:[&amp;quot;[$Priority]&amp;quot;,9]},&amp;quot;&amp;quot;,&amp;quot;&amp;quot;]}]}]}]}]},&amp;quot;class&amp;quot;:{&amp;quot;operator&amp;quot;:&amp;quot;:&amp;quot;,&amp;quot;operands&amp;quot;:[{&amp;quot;operator&amp;quot;:&amp;quot;==&amp;quot;,&amp;quot;operands&amp;quot;:[&amp;quot;[$Priority]&amp;quot;,1]},&amp;quot;sp-css-color-WhiteFont&amp;quot;,{&amp;quot;operator&amp;quot;:&amp;quot;:&amp;quot;,&amp;quot;operands&amp;quot;:[{&amp;quot;operator&amp;quot;:&amp;quot;==&amp;quot;,&amp;quot;operands&amp;quot;:[&amp;quot;[$Priority]&amp;quot;,3]},&amp;quot;sp-css-color-PeachFont&amp;quot;,{&amp;quot;operator&amp;quot;:&amp;quot;:&amp;quot;,&amp;quot;operands&amp;quot;:[{&amp;quot;operator&amp;quot;:&amp;quot;==&amp;quot;,&amp;quot;operands&amp;quot;:[&amp;quot;[$Priority]&amp;quot;,5]},&amp;quot;&amp;quot;,{&amp;quot;operator&amp;quot;:&amp;quot;:&amp;quot;,&amp;quot;operands&amp;quot;:[{&amp;quot;operator&amp;quot;:&amp;quot;==&amp;quot;,&amp;quot;operands&amp;quot;:[&amp;quot;[$Priority]&amp;quot;,&amp;quot;&amp;quot;]},&amp;quot;&amp;quot;,{&amp;quot;operator&amp;quot;:&amp;quot;:&amp;quot;,&amp;quot;operands&amp;quot;:[{&amp;quot;operator&amp;quot;:&amp;quot;==&amp;quot;,&amp;quot;operands&amp;quot;:[&amp;quot;[$Priority]&amp;quot;,9]},&amp;quot;sp-css-color-MintGreenFont&amp;quot;,&amp;quot;&amp;quot;]}]}]}]}]}}},{&amp;quot;elmType&amp;quot;:&amp;quot;span&amp;quot;,&amp;quot;style&amp;quot;:{&amp;quot;overflow&amp;quot;:&amp;quot;hidden&amp;quot;,&amp;quot;text-overflow&amp;quot;:&amp;quot;ellipsis&amp;quot;,&amp;quot;padding&amp;quot;:&amp;quot;0 3px&amp;quot;},&amp;quot;txtContent&amp;quot;:&amp;quot;=if(@currentField == 1, ''Urgent'', if(@currentField == 3, ''Important'', if(@currentField == 5, ''Medium'', if(@currentField == 9, '''', ''Low''))))&amp;quot;,&amp;quot;attributes&amp;quot;:{&amp;quot;class&amp;quot;:{&amp;quot;operator&amp;quot;:&amp;quot;:&amp;quot;,&amp;quot;operands&amp;quot;:[{&amp;quot;operator&amp;quot;:&amp;quot;==&amp;quot;,&amp;quot;operands&amp;quot;:[&amp;quot;[$Priority]&amp;quot;,1]},&amp;quot;sp-css-color-WhiteFont&amp;quot;,{&amp;quot;operator&amp;quot;:&amp;quot;:&amp;quot;,&amp;quot;operands&amp;quot;:[{&amp;quot;operator&amp;quot;:&amp;quot;==&amp;quot;,&amp;quot;operands&amp;quot;:[&amp;quot;[$Priority]&amp;quot;,3]},&amp;quot;sp-css-color-PeachFont&amp;quot;,{&amp;quot;operator&amp;quot;:&amp;quot;:&amp;quot;,&amp;quot;operands&amp;quot;:[{&amp;quot;operator&amp;quot;:&amp;quot;==&amp;quot;,&amp;quot;operands&amp;quot;:[&amp;quot;[$Priority]&amp;quot;,5]},&amp;quot;sp-css-color-GoldFont&amp;quot;,{&amp;quot;operator&amp;quot;:&amp;quot;:&amp;quot;,&amp;quot;operands&amp;quot;:[{&amp;quot;operator&amp;quot;:&amp;quot;==&amp;quot;,&amp;quot;operands&amp;quot;:[&amp;quot;[$Priority]&amp;quot;,0]},9,{&amp;quot;operator&amp;quot;:&amp;quot;:&amp;quot;,&amp;quot;operands&amp;quot;:[{&amp;quot;operator&amp;quot;:&amp;quot;==&amp;quot;,&amp;quot;operands&amp;quot;:[&amp;quot;[$Priority]&amp;quot;,9]},&amp;quot;sp-css-color-MintGreenFont&amp;quot;,&amp;quot;&amp;quot;]}]}]}]}]}}}]}]}\&quot; Version=\&quot;23\&quot; /&gt;'  --options AddToAllContentTypes
+        $field = m365 spo field add --webUrl $SiteUrl --listTitle $list.title --xml '&lt;Field CommaSeparator=\&quot;TRUE\&quot; CustomUnitOnRight=\&quot;TRUE\&quot; DisplayName=\&quot;Progress\&quot; Format=\&quot;Dropdown\&quot; IsModern=\&quot;TRUE\&quot; Name=\&quot;Progress\&quot; Percentage=\&quot;FALSE\&quot; Title=\&quot;Progress\&quot; Type=\&quot;Number\&quot; Unit=\&quot;None\&quot; ID=\&quot;{abea0d9d-83b8-4d57-9c68-8b56ad4066c9}\&quot; SourceID=\&quot;{be343550-aa79-4954-95f7-e7f3e1158888}\&quot; StaticName=\&quot;Progress\&quot; ColName=\&quot;float2\&quot; RowOrdinal=\&quot;0\&quot; CustomFormatter=\&quot;{&amp;quot;$schema&amp;quot;:&amp;quot;https://developer.microsoft.com/json-schemas/sp/v2/column-formatting.schema.json&amp;quot;,&amp;quot;elmType&amp;quot;:&amp;quot;div&amp;quot;,&amp;quot;style&amp;quot;:{&amp;quot;flex-wrap&amp;quot;:&amp;quot;wrap&amp;quot;,&amp;quot;display&amp;quot;:&amp;quot;flex&amp;quot;},&amp;quot;children&amp;quot;:[{&amp;quot;elmType&amp;quot;:&amp;quot;div&amp;quot;,&amp;quot;style&amp;quot;:{&amp;quot;box-sizing&amp;quot;:&amp;quot;border-box&amp;quot;,&amp;quot;padding&amp;quot;:&amp;quot;4px 8px 5px 8px&amp;quot;,&amp;quot;display&amp;quot;:&amp;quot;flex&amp;quot;,&amp;quot;border-radius&amp;quot;:&amp;quot;16px&amp;quot;,&amp;quot;height&amp;quot;:&amp;quot;24px&amp;quot;,&amp;quot;align-items&amp;quot;:&amp;quot;center&amp;quot;,&amp;quot;white-space&amp;quot;:&amp;quot;nowrap&amp;quot;,&amp;quot;overflow&amp;quot;:&amp;quot;hidden&amp;quot;,&amp;quot;margin&amp;quot;:&amp;quot;4px 4px 4px 4px&amp;quot;},&amp;quot;attributes&amp;quot;:{&amp;quot;class&amp;quot;:{&amp;quot;operator&amp;quot;:&amp;quot;:&amp;quot;,&amp;quot;operands&amp;quot;:[{&amp;quot;operator&amp;quot;:&amp;quot;==&amp;quot;,&amp;quot;operands&amp;quot;:[&amp;quot;@currentField&amp;quot;,0]},&amp;quot;sp-css-backgroundColor-BgLightGray sp-css-borderColor-LightGrayFont&amp;quot;,{&amp;quot;operator&amp;quot;:&amp;quot;:&amp;quot;,&amp;quot;operands&amp;quot;:[{&amp;quot;operator&amp;quot;:&amp;quot;==&amp;quot;,&amp;quot;operands&amp;quot;:[&amp;quot;@currentField&amp;quot;,50]},&amp;quot;sp-css-backgroundColor-BgGold sp-css-borderColor-GoldFont&amp;quot;,{&amp;quot;operator&amp;quot;:&amp;quot;:&amp;quot;,&amp;quot;operands&amp;quot;:[{&amp;quot;operator&amp;quot;:&amp;quot;==&amp;quot;,&amp;quot;operands&amp;quot;:[&amp;quot;@currentField&amp;quot;,100]},&amp;quot;sp-css-backgroundColor-BgGreen sp-css-borderColor-WhiteFont&amp;quot;,{&amp;quot;operator&amp;quot;:&amp;quot;:&amp;quot;,&amp;quot;operands&amp;quot;:[{&amp;quot;operator&amp;quot;:&amp;quot;==&amp;quot;,&amp;quot;operands&amp;quot;:[&amp;quot;@currentField&amp;quot;,&amp;quot;&amp;quot;]},&amp;quot;&amp;quot;,&amp;quot;sp-field-borderAllRegular sp-field-borderAllSolid sp-css-borderColor-neutralSecondary&amp;quot;]}]}]}]}},&amp;quot;children&amp;quot;:[{&amp;quot;elmType&amp;quot;:&amp;quot;span&amp;quot;,&amp;quot;style&amp;quot;:{&amp;quot;line-height&amp;quot;:&amp;quot;16px&amp;quot;,&amp;quot;height&amp;quot;:&amp;quot;14px&amp;quot;},&amp;quot;attributes&amp;quot;:{&amp;quot;iconName&amp;quot;:{&amp;quot;operator&amp;quot;:&amp;quot;:&amp;quot;,&amp;quot;operands&amp;quot;:[{&amp;quot;operator&amp;quot;:&amp;quot;==&amp;quot;,&amp;quot;operands&amp;quot;:[&amp;quot;@currentField&amp;quot;,0]},&amp;quot;CircleRing&amp;quot;,{&amp;quot;operator&amp;quot;:&amp;quot;:&amp;quot;,&amp;quot;operands&amp;quot;:[{&amp;quot;operator&amp;quot;:&amp;quot;==&amp;quot;,&amp;quot;operands&amp;quot;:[&amp;quot;@currentField&amp;quot;,50]},&amp;quot;CircleHalfFull&amp;quot;,{&amp;quot;operator&amp;quot;:&amp;quot;:&amp;quot;,&amp;quot;operands&amp;quot;:[{&amp;quot;operator&amp;quot;:&amp;quot;==&amp;quot;,&amp;quot;operands&amp;quot;:[&amp;quot;@currentField&amp;quot;,100]},&amp;quot;CircleFill&amp;quot;,{&amp;quot;operator&amp;quot;:&amp;quot;:&amp;quot;,&amp;quot;operands&amp;quot;:[{&amp;quot;operator&amp;quot;:&amp;quot;==&amp;quot;,&amp;quot;operands&amp;quot;:[&amp;quot;@currentField&amp;quot;,&amp;quot;&amp;quot;]},&amp;quot;&amp;quot;,&amp;quot;&amp;quot;]}]}]}]},&amp;quot;class&amp;quot;:{&amp;quot;operator&amp;quot;:&amp;quot;:&amp;quot;,&amp;quot;operands&amp;quot;:[{&amp;quot;operator&amp;quot;:&amp;quot;==&amp;quot;,&amp;quot;operands&amp;quot;:[&amp;quot;@currentField&amp;quot;,0]},&amp;quot;sp-css-color-LightGrayFont&amp;quot;,{&amp;quot;operator&amp;quot;:&amp;quot;:&amp;quot;,&amp;quot;operands&amp;quot;:[{&amp;quot;operator&amp;quot;:&amp;quot;==&amp;quot;,&amp;quot;operands&amp;quot;:[&amp;quot;@currentField&amp;quot;,50]},&amp;quot;sp-css-color-GoldFont&amp;quot;,{&amp;quot;operator&amp;quot;:&amp;quot;:&amp;quot;,&amp;quot;operands&amp;quot;:[{&amp;quot;operator&amp;quot;:&amp;quot;==&amp;quot;,&amp;quot;operands&amp;quot;:[&amp;quot;@currentField&amp;quot;,100]},&amp;quot;sp-css-color-WhiteFont&amp;quot;,{&amp;quot;operator&amp;quot;:&amp;quot;:&amp;quot;,&amp;quot;operands&amp;quot;:[{&amp;quot;operator&amp;quot;:&amp;quot;==&amp;quot;,&amp;quot;operands&amp;quot;:[&amp;quot;@currentField&amp;quot;,&amp;quot;&amp;quot;]},&amp;quot;&amp;quot;,&amp;quot;&amp;quot;]}]}]}]}}},{&amp;quot;elmType&amp;quot;:&amp;quot;span&amp;quot;,&amp;quot;style&amp;quot;:{&amp;quot;overflow&amp;quot;:&amp;quot;hidden&amp;quot;,&amp;quot;text-overflow&amp;quot;:&amp;quot;ellipsis&amp;quot;,&amp;quot;padding&amp;quot;:&amp;quot;0 3px&amp;quot;},&amp;quot;txtContent&amp;quot;:&amp;quot;=if(@currentField == 100, ''Completed'', if(@currentField == 50, ''Completed'', if(@currentField == 0, ''Not started'', '''')))&amp;quot;,&amp;quot;attributes&amp;quot;:{&amp;quot;class&amp;quot;:{&amp;quot;operator&amp;quot;:&amp;quot;:&amp;quot;,&amp;quot;operands&amp;quot;:[{&amp;quot;operator&amp;quot;:&amp;quot;==&amp;quot;,&amp;quot;operands&amp;quot;:[&amp;quot;@currentField&amp;quot;,0]},&amp;quot;sp-field-fontSizeSmall sp-css-color-LightGrayFont&amp;quot;,{&amp;quot;operator&amp;quot;:&amp;quot;:&amp;quot;,&amp;quot;operands&amp;quot;:[{&amp;quot;operator&amp;quot;:&amp;quot;==&amp;quot;,&amp;quot;operands&amp;quot;:[&amp;quot;@currentField&amp;quot;,50]},&amp;quot;sp-field-fontSizeSmall sp-css-color-GoldFont&amp;quot;,{&amp;quot;operator&amp;quot;:&amp;quot;:&amp;quot;,&amp;quot;operands&amp;quot;:[{&amp;quot;operator&amp;quot;:&amp;quot;==&amp;quot;,&amp;quot;operands&amp;quot;:[&amp;quot;@currentField&amp;quot;,100]},&amp;quot;sp-field-fontSizeSmall sp-css-color-WhiteFont&amp;quot;,{&amp;quot;operator&amp;quot;:&amp;quot;:&amp;quot;,&amp;quot;operands&amp;quot;:[{&amp;quot;operator&amp;quot;:&amp;quot;==&amp;quot;,&amp;quot;operands&amp;quot;:[&amp;quot;@currentField&amp;quot;,&amp;quot;&amp;quot;]},&amp;quot;&amp;quot;,&amp;quot;&amp;quot;]}]}]}]}}}]}]}\&quot; Version=\&quot;2\&quot; /&gt;' --options AddToAllContentTypes
+
+        $viewName = &quot;All Items&quot;
+        $viewFields = @(&quot;Progress&quot;, &quot;Priority&quot;, &quot;Assigned_x0020_to&quot;, &quot;Due date&quot;, &quot;Start date&quot;);
+        foreach ($field in $viewFields) {
+            m365 spo list view field add --webUrl $SiteUrl --listTitle  $list.title  --viewTitle $viewName --fieldTitle $field
+        }
+        $view = m365 spo list view set --webUrl $SiteUrl --listTitle $list.title --viewTitle $viewName --ViewQuery '&lt;GroupBy Collapse=\&quot;TRUE\&quot; GroupLimit=\&quot;30\&quot;&gt;&lt;FieldRef Name=\&quot;Bucket\&quot; /&gt;&lt;/GroupBy&gt;&lt;OrderBy&gt;&lt;FieldRef Name=\&quot;ID\&quot; /&gt;&lt;/OrderBy&gt;'
+        $view = m365 spo list view set --webUrl $SiteUrl --listTitle $list.title --viewTitle $viewName --ViewType2 &quot;TILES&quot;
+    }
+
+    Write-Host &quot;Migrating tasks&quot;
+
+    foreach ($migrationTask in $migrationTasks) {
+        $i++
+        if ($ShowProgress) { Write-Host &quot;Processing ($i/$($migrationTasks.length))&quot; }
+
+        $newItem = m365 spo listitem add --webUrl $SiteUrl --listTitle $plan.title --Title $migrationTask.Title --Bucket $migrationTask.Bucket --Progress $migrationTask.Progress --Description $migrationTask.Description --Assigned_x0020_to $migrationTask.AssignedTo --Priority $migrationTask.Priority | ConvertFrom-Json -AsHashtable
+
+        # Fails with an empty date so extra check to prevent issues
+        if ($migrationTask.StartDate) {
+            $updatedItem = m365 spo listitem set --webUrl $SiteUrl --listTitle $plan.title --id $newItem.Id --Start_x0020_date $migrationTask.StartDate
+        }
+        if ($migrationTask.DueDate) {
+            $updatedItem = m365 spo listitem set --webUrl $SiteUrl --listTitle $plan.title --id $newItem.Id --Due_x0020_date $migrationTask.DueDate
+        }
+        if ($migrationTask.Checklist) {
+            $updatedItem = m365 spo listitem set --webUrl $SiteUrl --listTitle $plan.title --id $newItem.Id --Checklist $migrationTask.Checklist
+        }
+    }
+}
+</code></pre>
+<div class="highlight-tool">
+<p>Check out the <strong>CLI for Microsoft 365</strong> to learn more at: <a href="https://aka.ms/cli-m365">https://aka.ms/cli-m365</a></p>
+</div>
+</section>
+</div>
+<h2 id="source-credit">Source Credit</h2>
+<p>Sample first appeared on <a href="https://pnp.github.io/cli-microsoft365/sample-scripts/spo/planner-migrate-sharepoint-list/">Planner migration to SharePoint list | CLI for Microsoft 365</a></p>
+<h2 id="contributors">Contributors</h2>
+<table>
+<thead>
+<tr>
+<th>Author(s)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Albert-Jan Schot</td>
+</tr>
+</tbody>
+</table>
+<h2 id="disclaimer">Disclaimer</h2>
+<p><strong>THESE SAMPLES ARE PROVIDED <em>AS IS</em> WITHOUT WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, INCLUDING ANY IMPLIED WARRANTIES OF FITNESS FOR A PARTICULAR PURPOSE, MERCHANTABILITY, OR NON-INFRINGEMENT.</strong></p>
+<img src="https://pnptelemetry.azurewebsites.net/script-samples/scripts/planner-migration-spo-list" aria-hidden="true">
+</article>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            <span>Script Samples<br>Generated by <strong><a href='https://dotnet.github.io/docfx' alt='Doc FX Website'>DocFX</a></strong> with <strong><a href='https://ovasquez.github.io/docfx-material' alt='DocFx Material Theme'>Material UI</a></strong></span>
+            
+            <!-- <img src="https://telemetry.sharepointpnp.com/@pnp.github.io/index/" alt="spacer"> -->
+          </div>
+        </div>
+      </footer>    </div>
+    
+    <script type="text/javascript" src="../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+    
+    <script type="text/javascript" src="../styles/clipboard.min.js"></script>
+    <script type="text/javascript" src="../styles/isotope.pkgd.min.js"></script>
+    <script type="text/javascript" src="../styles/loadsamples.js"></script>
+    <script type="text/javascript" src="../styles/filtersamples.js"></script>
+
+  </body>
+</html>
