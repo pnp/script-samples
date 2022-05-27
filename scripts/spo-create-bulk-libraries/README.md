@@ -26,7 +26,7 @@ With this sample, you can create a whole bunch of libraries at once. These are f
 ```powershell
 
 # Usage example: 
-#     .\Create-Bulk-Libraries.ps1 -TargetSitePartUrl mytargetsite -PartTenant contoso AmountLibraries 3
+#     .\Create-Bulk-Libraries.ps1 -TargetSitePartUrl mytargetsite -PartTenant contoso -AmountLibraries 3
 
 [CmdletBinding()]
 param (
@@ -87,7 +87,7 @@ process {
 
 ```powershell
 # Usage example: 
-#     .\Create-Bulk-Libraries.ps1 -TargetWebUrl https://contoso.sharepoint.com/sites/Intranet AmountLibraries 3
+#     .\Create-Bulk-Libraries.ps1 -TargetWebUrl https://contoso.sharepoint.com/sites/Intranet -AmountLibraries 3
 
 [CmdletBinding()]
 param (
