@@ -95,15 +95,9 @@
 </thead>
 <tbody>
 <tr>
-<td>TargetSitePartUrl</td>
+<td>TargetWebUrl</td>
 <td>Yes</td>
-<td>Target site</td>
-<td></td>
-</tr>
-<tr>
-<td>Part tenant</td>
-<td>Yes</td>
-<td>Organisation url fragment</td>
+<td>Target SharePoint site</td>
 <td></td>
 </tr>
 <tr>
@@ -143,6 +137,9 @@
 <li role="presentation">
 <a href="#tabpanel_CeZOj-G++Q_pnpps" role="tab" aria-controls="tabpanel_CeZOj-G++Q_pnpps" data-tab="pnpps" tabindex="0" aria-selected="true">PnP PowerShell</a>
 </li>
+<li role="presentation">
+<a href="#tabpanel_CeZOj-G++Q_cli-m365-ps" role="tab" aria-controls="tabpanel_CeZOj-G++Q_cli-m365-ps" data-tab="cli-m365-ps" tabindex="-1">CLI for Microsoft 365 with PowerShell</a>
+</li>
 </ul>
 <section id="tabpanel_CeZOj-G++Q_pnpps" role="tabpanel" data-tab="pnpps"><button class="article-clipboard" title="Copy to clipboard" data-toggle="tooltip" data-placement="top" data-clipboard-target="section[id^='tabpanel'][data-tab='pnpps'] pre">
     <span class="glyphicon glyphicon-copy" aria-hidden="true"></span>
@@ -151,12 +148,12 @@
 
 <pre><code class="lang-powershell">
 # Usage example: 
-#     .\Create-Bulk-Libraries.ps1 -TargetSitePartUrl mytargetsite -PartTenant contoso AmountLibraries 3
+#     .\Create-Bulk-Libraries.ps1 -TargetSitePartUrl mytargetsite -PartTenant contoso -AmountLibraries 3
 
 [CmdletBinding()]
 param (
-    [Parameter(Mandatory = $true, HelpMessage = &quot;Target site e.g. Intranet&quot;)]
-    [string]$TargetSitePartUrl,
+    [Parameter(Mandatory = $true, HelpMessage = &quot;Target site e.g. https://contoso.sharepoint.com/sites/Intranet&quot;)]
+    [string]$TargetWebUrl,
 
     [Parameter(Mandatory = $true, HelpMessage = &quot;Organisation url fragment e.g. contoso &quot;)]
     [string]$PartTenant,
@@ -177,12 +174,9 @@ param (
     [string]$LibraryView = &quot;Parker's Perspective&quot;
 )
 begin {
-    $baseUrl = &quot;https://$($PartTenant).sharepoint.com&quot;
-    $targetSiteUrl = &quot;$($baseUrl)/sites/$($TargetSitePartUrl)&quot;
-
-    Write-Host &quot;`nConnecting to &quot; $targetSiteUrl
+    Write-Host &quot;`nConnecting to &quot; $TargetWebUrl
         
-    Connect-PnPOnline -Url $targetSiteUrl -ReturnConnection -Interactive | Out-Null
+    Connect-PnPOnline -Url $TargetWebUrl -ReturnConnection -Interactive | Out-Null
 }
 process {
     Write-Host &quot;`nCreating new libraries...&quot; -ForegroundColor Cyan
@@ -212,6 +206,67 @@ process {
 <p>Check out the <strong>PnP PowerShell</strong> to learn more at: <a href="https://aka.ms/pnp/powershell">https://aka.ms/pnp/powershell</a></p>
 </div>
 </section>
+<section id="tabpanel_CeZOj-G++Q_cli-m365-ps" role="tabpanel" data-tab="cli-m365-ps" aria-hidden="true" hidden="hidden"><button class="article-clipboard" title="Copy to clipboard" data-toggle="tooltip" data-placement="top" data-clipboard-target="section[id^='tabpanel'][data-tab='cli-m365-ps'] pre">
+    <span class="glyphicon glyphicon-copy" aria-hidden="true"></span>
+    <span class="article-clipboard__message done">Copied</span>
+</button>
+
+<pre><code class="lang-powershell"># Usage example: 
+#     .\Create-Bulk-Libraries.ps1 -TargetWebUrl https://contoso.sharepoint.com/sites/Intranet -AmountLibraries 3
+
+[CmdletBinding()]
+param (
+  [Parameter(Mandatory = $true, HelpMessage = &quot;Target site e.g. https://contoso.sharepoint.com/sites/Intranet&quot;)]
+  [string]$TargetWebUrl,
+
+  [Parameter(Mandatory = $false, HelpMessage = &quot;Amount of libraries to create e.g. 5 &quot;)]
+  [float]$AmountLibraries = 5,
+
+  [Parameter(Mandatory = $false, HelpMessage = &quot;Name for your libraries e.g. Parker's Library &quot;)]
+  [string]$LibraryName = &quot;Parker's Library&quot;,
+
+  [Parameter(Mandatory = $false, HelpMessage = &quot;Library template to use for bulk creation e.g. DocumentLibrary &quot;)]
+  [string]$LibraryTemplate = &quot;DocumentLibrary&quot;,
+
+  [Parameter(Mandatory = $false, HelpMessage = &quot;Fields to add to your library e.g. Description,Status &quot;)]
+  [string[]]$LibraryFields = @(&quot;Description&quot;, &quot;Status&quot;),
+
+  [Parameter(Mandatory = $false, HelpMessage = &quot;View name to add to your library e.g. Parker's Perspective &quot;)]
+  [string]$LibraryView = &quot;Parker's Perspective&quot;
+)
+begin {
+  $m365Status = m365 status
+  if ($m365Status -eq &quot;Logged Out&quot;) {
+    m365 login
+  }
+}
+process {
+  Write-Host &quot;`nCreating new libraries...&quot; -ForegroundColor Cyan
+  Write-Progress -Activity &quot;Library creation&quot; -Status &quot;Creating libraries&quot; -PercentComplete 0
+  
+  for ($counter = 1; $counter -le $AmountLibraries; $counter++ )
+  {
+    $newList = m365 spo list add --webUrl $TargetWebUrl --title &quot;$($LibraryName) $($counter)&quot; --baseTemplate $LibraryTemplate | ConvertFrom-Json
+
+    if ($null -ne $LibraryFields) {
+      foreach ($fieldName in $LibraryFields) {
+        $internalFieldName = $fieldName.replace(' ', '')
+        m365 spo field add --webUrl $TargetWebUrl --listTitle $newList.Title.Replace(&quot;'&quot;, &quot;''&quot;) --xml &quot;&lt;Field Type='Text' DisplayName='$($fieldName)' StaticName='$($internalFieldName)' Name='$($internalFieldName)' /&gt;&quot; | Out-Null
+      }
+    }
+
+    if ($null -ne $LibraryView) {
+      m365 spo list view add --webUrl $TargetWebUrl --listId $newList.Id --title $LibraryView --fields $($LibraryFields -Join &quot;,&quot;) | Out-Null
+    }
+
+    Write-Progress -Activity &quot;Library creation&quot; -Status &quot;$counter libraries created&quot; -PercentComplete (($counter / $AmountLibraries) * 100)
+  }
+
+  Write-Host &quot;`nScript Complete! :)&quot; -ForegroundColor Green
+}
+</code></pre>
+<div class="highlight-tool">
+<p>Check out the <strong>CLI for Microsoft 365</strong> to learn more at: <a href="https://aka.ms/cli-m365">https://aka.ms/cli-m365</a></p>
 </div>
 <h2 id="contributors">Contributors</h2>
 <table>
@@ -224,11 +279,16 @@ process {
 <tr>
 <td>Jasey Waegebaert</td>
 </tr>
+<tr>
+<td>Milan Holemans</td>
+</tr>
 </tbody>
 </table>
 <h2 id="disclaimer">Disclaimer</h2>
 <p><strong>THESE SAMPLES ARE PROVIDED <em>AS IS</em> WITHOUT WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, INCLUDING ANY IMPLIED WARRANTIES OF FITNESS FOR A PARTICULAR PURPOSE, MERCHANTABILITY, OR NON-INFRINGEMENT.</strong></p>
 <img src="https://pnptelemetry.azurewebsites.net/script-samples/scripts/spo-create-bulk-libraries" aria-hidden="true">
+</section>
+</div>
 </article>
           </div>
         </div>
