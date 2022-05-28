@@ -81,7 +81,6 @@ process {
 
 ```
 [!INCLUDE [More about PnP PowerShell](../../docfx/includes/MORE-PNPPS.md)]
-***
 
 # [CLI for Microsoft 365 with PowerShell](#tab/cli-m365-ps)
 
@@ -148,6 +147,7 @@ process {
 | Author(s) |
 |-----------|
 | Jasey Waegebaert |
+| Milan Holemans |
 
 
 [!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
