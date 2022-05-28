@@ -39,7 +39,6 @@ $fieldFormat = $field.CustomFormatter
 # field title with no format - ChoiceFldFormattedViaPowershell
 Set-PnPField -List $listName -Identity "ChoiceFldFormattedViaPowershell" -Values @{CustomFormatter=$fieldFormat}
 
-
 #---method 2 Apply formatting directly from script
 Set-PnPField -List $listName -Identity "ChoiceFldFormattedViaPowershell" -Values @{CustomFormatter=@'
 {
@@ -90,6 +89,77 @@ $fieldToFormat.UpdateAndPushChanges($true)
 > [!Note]
 > In 3rd method i use **$fieldToFormat.UpdateAndPushChanges($true)** but it is perfectly fine to use **Set-PnPField** command as in method 1 and 2
 
+# [CLI for Microsoft 365](#tab/cli-m365-ps)
+```powershell
+#site collection url
+$url="https://thejasey.sharepoint.com/sites/Examplesite"
+
+#list to be exported  
+$listName="Test"
+
+## Connect to SharePoint Online 
+$m365Status = m365 status | ConvertFrom-Json
+if ($m365Status -eq "Logged Out") {
+  m365 login
+}
+
+#----method 1 Apply formatting from existing column sample in sharepoint-------#
+# field title with existing format - ChoiceFld
+$field = m365 spo field get --webUrl $url --listTitle $listName --fieldTitle "ChoiceFld" | ConvertFrom-Json
+
+#copy field format
+$fieldFormat = $field.CustomFormatter.Replace('"', '""')
+
+#apply field format to other column
+# field title with no format - ChoiceFldFormattedViaPowershell
+m365 spo field set --webUrl $url --listTitle $listName --name "ChoiceFldFormattedViaPowershell" --CustomFormatter $fieldFormat
+
+#---method 2 Apply formatting directly from script
+
+$fieldFormat = @'
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/sp/column-formatting.schema.json",
+  "elmType": "div",
+  "style": {
+    "position": "relative"
+  },
+  "children": [
+    {
+      "elmType": "div",
+      "attributes": {
+        "class": "=if([$DueDate] <= @now, 'sp-field-severity--severeWarning', if(1 - Number([$DueDate] - @now) / Number([$DueDate] - [$StartDate]) >= 0.7, 'sp-field-severity--warning', 'sp-field-severity--good'))"
+      },
+      "style": {
+        "min-height": "inherit",
+        "width": "=if([$DueDate] <= @now, '100%', (1 - Number([$DueDate] - @now) / Number([$DueDate] - [$StartDate])) * 100 + '%')"
+      }
+    },
+    {
+      "elmType": "span",
+      "txtContent": "@currentField",
+      "style": {
+        "position": "absolute",
+        "left": "8px"
+      },
+      "attributes": {
+        "class": "ms-fontColor-neutralSecondary"
+      }
+    }
+  ]
+}
+'@
+
+m365 spo field set --webUrl $url --listTitle $listName --name "ChoiceFldFormattedViaPowershell" --CustomFormatter $fieldFormat.Replace('"', '""')
+
+#----method 3 Apply formattin using sample from github-------#
+$webContent = Invoke-WebRequest -Uri 'https://raw.githubusercontent.com/pnp/List-Formatting/master/column-samples/date-range-rag/date-range-rag.json' 
+$fieldFormatFromGit = $webContent.Content 
+
+m365 spo field set --webUrl $url --listTitle $listName --name "GitHubFormatted" --CustomFormatter $fieldFormatFromGit.Replace('"', '""')
+
+```
+[!INCLUDE [More about CLI for Microsoft 365](../../docfx/includes/MORE-CLIM365.md)]
+
 # [JSON](#tab/json)
 
 ```
@@ -137,6 +207,7 @@ $fieldToFormat.UpdateAndPushChanges($true)
 | Author(s) |
 |-----------|
 | Valeras Narbutas |
+| [Jasey Waegebaert](https://github.com/Jwaegebaert) |
 
 
 [!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
