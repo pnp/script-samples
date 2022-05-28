@@ -75,7 +75,7 @@ ning', 'sp-field-severity--good'))"
 '@
 }
 
-#----method 3 Apply formattin using sample from github-------#
+#----method 3 Apply formatting using sample from github-------#
 $webContent = Invoke-WebRequest -Uri 'https://raw.githubusercontent.com/pnp/List-Formatting/master/column-samples/date-range-rag/date-range-rag.json' 
 $fieldFormatFromGit = $webContent.Content 
 
@@ -92,10 +92,10 @@ $fieldToFormat.UpdateAndPushChanges($true)
 # [CLI for Microsoft 365](#tab/cli-m365-ps)
 ```powershell
 #site collection url
-$url="https://thejasey.sharepoint.com/sites/Examplesite"
+$url="https://<tenant>.sharepoint.com"
 
 #list to be exported  
-$listName="Test"
+$listName="ListTitle"
 
 ## Connect to SharePoint Online 
 $m365Status = m365 status | ConvertFrom-Json
@@ -151,7 +151,7 @@ $fieldFormat = @'
 
 m365 spo field set --webUrl $url --listTitle $listName --name "ChoiceFldFormattedViaPowershell" --CustomFormatter $fieldFormat.Replace('"', '""')
 
-#----method 3 Apply formattin using sample from github-------#
+#----method 3 Apply formatting using sample from github-------#
 $webContent = Invoke-WebRequest -Uri 'https://raw.githubusercontent.com/pnp/List-Formatting/master/column-samples/date-range-rag/date-range-rag.json' 
 $fieldFormatFromGit = $webContent.Content 
 
