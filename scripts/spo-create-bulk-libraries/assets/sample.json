@@ -9,7 +9,7 @@
       "With this sample, you can create a whole bunch of libraries at once. These are fairly simple libraries with an extra view and a few extra columns."
     ],
     "creationDateTime": "2022-03-29",
-    "updateDateTime": "2022-03-29",
+    "updateDateTime": "2022-05-27",
     "products": [
       "SharePoint"
     ],
@@ -17,6 +17,10 @@
       {
         "key": "PNP-POWERSHELL",
         "value": "1.9.0"
+      },
+      {
+        "key": "CLI-FOR-MICROSOFT365",
+        "value": "4.3.0"
       }
     ],
     "categories": [
@@ -25,7 +29,16 @@
     ],
     "tags": [
       "bash",
-      "classic"
+      "classic",
+      "m365 login",
+      "m365 status",
+      "m365 spo field add",
+      "m365 spo list add",
+      "m365 spo list view add",
+      "Add-PnPField",
+      "Add-PnPView",
+      "Connect-PnPOnline",
+      "New-PnPList"
     ],
     "thumbnails": [
       {
@@ -36,6 +49,12 @@
       }
     ],
     "authors": [
+      {
+        "gitHubAccount": "milanholemans",
+        "company": "",
+        "pictureUrl": "https://github.com/milanholemans.png",
+        "name": "Milan Holemans"
+      },
       {
         "gitHubAccount": "Jwaegebaert",
         "company": "GMI Group",
