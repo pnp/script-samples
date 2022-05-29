@@ -20,10 +20,10 @@ Scenario inspired by Paul Bullock [Blog post about column formatting](https://ww
 
 ```powershell
 #site collection url
-$url="https://<tenant>.sharepoint.com"
+$url = "https://<tenant>.sharepoint.com"
 
 #list to be exported  
-$listName="ListTitle"
+$listName = "ListTitle"
 
 ## Connect to SharePoint Online site  
 Connect-PnPOnline -Url $Url -Interactive
@@ -92,10 +92,10 @@ $fieldToFormat.UpdateAndPushChanges($true)
 # [CLI for Microsoft 365](#tab/cli-m365-ps)
 ```powershell
 #site collection url
-$url="https://<tenant>.sharepoint.com"
+$url = "https://<tenant>.sharepoint.com"
 
 #list to be exported  
-$listName="ListTitle"
+$listName = "ListTitle"
 
 ## Connect to SharePoint Online 
 $m365Status = m365 status | ConvertFrom-Json
