@@ -47,6 +47,43 @@ foreach($folder in $folders){
 Disconnect-PnPOnline
 ```
 [!INCLUDE [More about PnP PowerShell](../../docfx/includes/MORE-PNPPS.md)]
+
+
+# [CLI for Microsoft 365](#tab/cli-m365-ps)
+```powershell
+#Log in to Microsoft 365
+Write-Host "Connecting to Tenant" -f Yellow
+
+$m365Status = m365 status
+if ($m365Status -eq "Logged out") {
+    m365 login
+}
+
+$siteURL = Read-Host "Please enter Site URL"
+$listName = Read-Host "Please enter list name"
+
+# Get the list
+$list = m365 spo list list --webUrl $siteURL --query "[?RootFolder.Name == '$listName']" --output json | ConvertFrom-Json
+
+# Get all files in the list
+$files = m365 spo file list --webUrl $siteURL --folder $listName --recursive --output json | ConvertFrom-Json
+foreach ($file in $files) {
+    # Avoid error: Cannot convert the JSON string because a dictionary that was converted from the string contains the duplicated keys 'Id' and 'ID'
+    $fileProperties = m365 spo file get --webUrl $siteURL --id $file.UniqueId --asListItem --output json | ForEach-Object { $_.replace("Id", "_Id") } | ConvertFrom-Json
+    
+    if ($fileProperties.ID) {
+        Write-Host "Processing file $($file.ServerRelativeUrl)"
+
+        # Get the list item
+        $listItem = m365 spo listitem get --webUrl $siteURL --listId $list.Id --id $fileProperties.ID --properties "HasUniqueRoleAssignments"
+        if ($listItem.HasUniqueRoleAssignments) {
+            Write-Host "Restoring the role inheritance of list item: $($file.ServerRelativeUrl)"
+            m365 spo listitem roleinheritance reset --webUrl $siteURL --listItemId $fileProperties.ID --listId $list.Id
+        }
+    }
+}
+```
+[!INCLUDE [More about CLI for Microsoft 365](../../docfx/includes/MORE-CLIM365.md)]
 ***
 
 ## Contributors
@@ -54,6 +91,7 @@ Disconnect-PnPOnline
 | Author(s) |
 |-----------|
 | [Dipen Shah](https://github.com/dips365) |
+| [Nanddeep Nachan](https://github.com/nanddeepn) |
 
 
 [!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
