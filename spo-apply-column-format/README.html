@@ -95,6 +95,9 @@
 <a href="#tabpanel_CeZOj-G++Q_pnpps" role="tab" aria-controls="tabpanel_CeZOj-G++Q_pnpps" data-tab="pnpps" tabindex="0" aria-selected="true">PnP PowerShell</a>
 </li>
 <li role="presentation">
+<a href="#tabpanel_CeZOj-G++Q_cli-m365-ps" role="tab" aria-controls="tabpanel_CeZOj-G++Q_cli-m365-ps" data-tab="cli-m365-ps" tabindex="-1">CLI for Microsoft 365</a>
+</li>
+<li role="presentation">
 <a href="#tabpanel_CeZOj-G++Q_json" role="tab" aria-controls="tabpanel_CeZOj-G++Q_json" data-tab="json" tabindex="-1">JSON</a>
 </li>
 </ul>
@@ -104,10 +107,10 @@
 </button>
 
 <pre><code class="lang-powershell">#site collection url
-$url=&quot;https://&lt;tenant&gt;.sharepoint.com&quot;
+$url = &quot;https://&lt;tenant&gt;.sharepoint.com&quot;
 
 #list to be exported  
-$listName=&quot;ListTitle&quot;
+$listName = &quot;ListTitle&quot;
 
 ## Connect to SharePoint Online site  
 Connect-PnPOnline -Url $Url -Interactive
@@ -122,7 +125,6 @@ $fieldFormat = $field.CustomFormatter
 #apply field format to other column
 # field title with no format - ChoiceFldFormattedViaPowershell
 Set-PnPField -List $listName -Identity &quot;ChoiceFldFormattedViaPowershell&quot; -Values @{CustomFormatter=$fieldFormat}
-
 
 #---method 2 Apply formatting directly from script
 Set-PnPField -List $listName -Identity &quot;ChoiceFldFormattedViaPowershell&quot; -Values @{CustomFormatter=@'
@@ -160,7 +162,7 @@ ning', 'sp-field-severity--good'))&quot;
 '@
 }
 
-#----method 3 Apply formattin using sample from github-------#
+#----method 3 Apply formatting using sample from github-------#
 $webContent = Invoke-WebRequest -Uri 'https://raw.githubusercontent.com/pnp/List-Formatting/master/column-samples/date-range-rag/date-range-rag.json' 
 $fieldFormatFromGit = $webContent.Content 
 
@@ -176,6 +178,82 @@ $fieldToFormat.UpdateAndPushChanges($true)
 <div class="NOTE">
 <h5>Note</h5>
 <p>In 3rd method i use <strong>$fieldToFormat.UpdateAndPushChanges($true)</strong> but it is perfectly fine to use <strong>Set-PnPField</strong> command as in method 1 and 2</p>
+</div>
+</section>
+<section id="tabpanel_CeZOj-G++Q_cli-m365-ps" role="tabpanel" data-tab="cli-m365-ps" aria-hidden="true" hidden="hidden"><button class="article-clipboard" title="Copy to clipboard" data-toggle="tooltip" data-placement="top" data-clipboard-target="section[id^='tabpanel'][data-tab='cli-m365-ps'] pre">
+    <span class="glyphicon glyphicon-copy" aria-hidden="true"></span>
+    <span class="article-clipboard__message done">Copied</span>
+</button>
+
+<pre><code class="lang-powershell">#site collection url
+$url = &quot;https://&lt;tenant&gt;.sharepoint.com&quot;
+
+#list to be exported  
+$listName = &quot;ListTitle&quot;
+
+## Connect to SharePoint Online 
+$m365Status = m365 status | ConvertFrom-Json
+if ($m365Status -eq &quot;Logged Out&quot;) {
+  m365 login
+}
+
+#----method 1 Apply formatting from existing column sample in sharepoint-------#
+# field title with existing format - ChoiceFld
+$field = m365 spo field get --webUrl $url --listTitle $listName --fieldTitle &quot;ChoiceFld&quot; | ConvertFrom-Json
+
+#copy field format
+$fieldFormat = $field.CustomFormatter.Replace('&quot;', '&quot;&quot;')
+
+#apply field format to other column
+# field title with no format - ChoiceFldFormattedViaPowershell
+m365 spo field set --webUrl $url --listTitle $listName --name &quot;ChoiceFldFormattedViaPowershell&quot; --CustomFormatter $fieldFormat
+
+#---method 2 Apply formatting directly from script
+
+$fieldFormat = @'
+{
+  &quot;$schema&quot;: &quot;https://developer.microsoft.com/json-schemas/sp/column-formatting.schema.json&quot;,
+  &quot;elmType&quot;: &quot;div&quot;,
+  &quot;style&quot;: {
+    &quot;position&quot;: &quot;relative&quot;
+  },
+  &quot;children&quot;: [
+    {
+      &quot;elmType&quot;: &quot;div&quot;,
+      &quot;attributes&quot;: {
+        &quot;class&quot;: &quot;=if([$DueDate] &lt;= @now, 'sp-field-severity--severeWarning', if(1 - Number([$DueDate] - @now) / Number([$DueDate] - [$StartDate]) &gt;= 0.7, 'sp-field-severity--warning', 'sp-field-severity--good'))&quot;
+      },
+      &quot;style&quot;: {
+        &quot;min-height&quot;: &quot;inherit&quot;,
+        &quot;width&quot;: &quot;=if([$DueDate] &lt;= @now, '100%', (1 - Number([$DueDate] - @now) / Number([$DueDate] - [$StartDate])) * 100 + '%')&quot;
+      }
+    },
+    {
+      &quot;elmType&quot;: &quot;span&quot;,
+      &quot;txtContent&quot;: &quot;@currentField&quot;,
+      &quot;style&quot;: {
+        &quot;position&quot;: &quot;absolute&quot;,
+        &quot;left&quot;: &quot;8px&quot;
+      },
+      &quot;attributes&quot;: {
+        &quot;class&quot;: &quot;ms-fontColor-neutralSecondary&quot;
+      }
+    }
+  ]
+}
+'@
+
+m365 spo field set --webUrl $url --listTitle $listName --name &quot;ChoiceFldFormattedViaPowershell&quot; --CustomFormatter $fieldFormat.Replace('&quot;', '&quot;&quot;')
+
+#----method 3 Apply formatting using sample from github-------#
+$webContent = Invoke-WebRequest -Uri 'https://raw.githubusercontent.com/pnp/List-Formatting/master/column-samples/date-range-rag/date-range-rag.json' 
+$fieldFormatFromGit = $webContent.Content 
+
+m365 spo field set --webUrl $url --listTitle $listName --name &quot;GitHubFormatted&quot; --CustomFormatter $fieldFormatFromGit.Replace('&quot;', '&quot;&quot;')
+
+</code></pre>
+<div class="highlight-tool">
+<p>Check out the <strong>CLI for Microsoft 365</strong> to learn more at: <a href="https://aka.ms/cli-m365">https://aka.ms/cli-m365</a></p>
 </div>
 </section>
 <section id="tabpanel_CeZOj-G++Q_json" role="tabpanel" data-tab="json" aria-hidden="true" hidden="hidden"><button class="article-clipboard" title="Copy to clipboard" data-toggle="tooltip" data-placement="top" data-clipboard-target="section[id^='tabpanel'][data-tab='json'] pre">
@@ -232,6 +310,9 @@ $fieldToFormat.UpdateAndPushChanges($true)
 <tbody>
 <tr>
 <td>Valeras Narbutas</td>
+</tr>
+<tr>
+<td><a href="https://github.com/Jwaegebaert">Jasey Waegebaert</a></td>
 </tr>
 </tbody>
 </table>
