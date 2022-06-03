@@ -75,7 +75,7 @@ foreach ($file in $files) {
         Write-Host "Processing file $($file.ServerRelativeUrl)"
 
         # Get the list item
-        $listItem = m365 spo listitem get --webUrl $siteURL --listId $list.Id --id $fileProperties.ID --properties "HasUniqueRoleAssignments"
+        $listItem = m365 spo listitem get --webUrl $siteURL --listId $list.Id --id $fileProperties.ID --properties "HasUniqueRoleAssignments" | ConvertFrom-Json
         if ($listItem.HasUniqueRoleAssignments) {
             Write-Host "Restoring the role inheritance of list item: $($file.ServerRelativeUrl)"
             m365 spo listitem roleinheritance reset --webUrl $siteURL --listItemId $fileProperties.ID --listId $list.Id
