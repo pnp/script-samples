@@ -150,13 +150,11 @@ process {
 
   $users = m365 spo user list --webUrl $WebUrl | ConvertFrom-Json
   $usersWithMail = $users | Where-Object {$_.Email -ne ""}
-  $usersCount = $usersWithMail.Count
-  Write-Host "Users retrieved. Amount of users to process: $usersCount" -ForegroundColor Cyan
 
-  for ($counter = 1; $counter -le $usersCount; $counter++ ) {    
-    $userMail = $usersWithMail[$counter - 1].Email
+  if ($usersWithMail.GetType().Name -eq "PSCustomObject"){
+    Write-Host "Only one user found. Obtaining details for this specific user" -ForegroundColor Cyan
+    $userProfile = m365 spo userprofile get --userName $usersWithMail.Email | ConvertFrom-Json
 
-    $userProfile = m365 spo userprofile get --userName $userMail | ConvertFrom-Json
     if ($userProfile.Email) {
       $userProfileProperties = $userProfile.UserProfileProperties | ConvertFrom-Json
 
@@ -173,15 +171,41 @@ process {
     } else {
       Write-Host "Details for user with mail $userMail could not be found! Possible causes are that the email address is linked to an external user or group email address." -ForegroundColor Red
     }
-    
-    Write-Progress -Activity "Obtaining user details" -Status "$counter/$usersCount users obtained, currently processing $userMail" -PercentComplete (($counter / $usersWithMail.Count) * 100)
-  }
+      
+  } else {
+    $usersCount = $usersWithMail.Count
+    Write-Host "Users retrieved. Amount of users to process: $usersCount" -ForegroundColor Cyan
 
+    for ($counter = 1; $counter -le $usersCount; $counter++ ) {    
+      $userMail = $usersWithMail[$counter - 1].Email
+
+      $userProfile = m365 spo userprofile get --userName $userMail | ConvertFrom-Json
+      if ($userProfile.Email) {
+        $userProfileProperties = $userProfile.UserProfileProperties | ConvertFrom-Json
+
+        $userDetailsArray += New-Object PSObject -Property ([ordered]@{                   
+          Id            = 1
+          GUID          = ($userProfileProperties | Where-Object {$_.Key -eq 'UserProfile_GUID'}).Value
+          FirstName     = ($userProfileProperties | Where-Object {$_.Key -eq 'FirstName'}).Value
+          LastName      = ($userProfileProperties | Where-Object {$_.Key -eq 'LastName'}).Value
+          WorkEmail     = ($userProfileProperties | Where-Object {$_.Key -eq 'WorkEmail'}).Value 
+          PictureURL    = ($userProfileProperties | Where-Object {$_.Key -eq 'PictureURL'}).Value    
+          Department    = ($userProfileProperties | Where-Object {$_.Key -eq 'Department'}).Value
+          PreferredName = ($userProfileProperties | Where-Object {$_.Key -eq 'PreferredName'}).Value
+        })
+      } else {
+        Write-Host "Details for user with mail $userMail could not be found! Possible causes are that the email address is linked to an external user or group email address." -ForegroundColor Red
+      }
+    
+      Write-Progress -Activity "Obtaining user details" -Status "$counter/$usersCount users obtained, currently processing $userMail" -PercentComplete (($counter / $usersWithMail.Count) * 100)
+    }
+  }
+  
   Write-Host "Exporting to CSV..."  -ForegroundColor Cyan
   $userDetailsArray | Export-Csv $csvPath -NoTypeInformation -Append
   Write-Host "Exported Successfully..." -ForegroundColor Cyan
 
-  Write-Host "`nScript Complete! :)" -ForegroundColor Green
+  Write-Host "Script Complete! :)" -ForegroundColor Green
 }
 ```
 
