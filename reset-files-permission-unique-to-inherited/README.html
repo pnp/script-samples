@@ -87,6 +87,9 @@
 <li role="presentation">
 <a href="#tabpanel_CeZOj-G++Q_pnpps" role="tab" aria-controls="tabpanel_CeZOj-G++Q_pnpps" data-tab="pnpps" tabindex="0" aria-selected="true">PnP PowerShell</a>
 </li>
+<li role="presentation">
+<a href="#tabpanel_CeZOj-G++Q_cli-m365-ps" role="tab" aria-controls="tabpanel_CeZOj-G++Q_cli-m365-ps" data-tab="cli-m365-ps" tabindex="-1">CLI for Microsoft 365</a>
+</li>
 </ul>
 <section id="tabpanel_CeZOj-G++Q_pnpps" role="tabpanel" data-tab="pnpps"><button class="article-clipboard" title="Copy to clipboard" data-toggle="tooltip" data-placement="top" data-clipboard-target="section[id^='tabpanel'][data-tab='pnpps'] pre">
     <span class="glyphicon glyphicon-copy" aria-hidden="true"></span>
@@ -134,6 +137,47 @@ Disconnect-PnPOnline
 <p>Check out the <strong>PnP PowerShell</strong> to learn more at: <a href="https://aka.ms/pnp/powershell">https://aka.ms/pnp/powershell</a></p>
 </div>
 </section>
+<section id="tabpanel_CeZOj-G++Q_cli-m365-ps" role="tabpanel" data-tab="cli-m365-ps" aria-hidden="true" hidden="hidden"><button class="article-clipboard" title="Copy to clipboard" data-toggle="tooltip" data-placement="top" data-clipboard-target="section[id^='tabpanel'][data-tab='cli-m365-ps'] pre">
+    <span class="glyphicon glyphicon-copy" aria-hidden="true"></span>
+    <span class="article-clipboard__message done">Copied</span>
+</button>
+
+<pre><code class="lang-powershell">#Log in to Microsoft 365
+Write-Host &quot;Connecting to Tenant&quot; -f Yellow
+
+$m365Status = m365 status
+if ($m365Status -eq &quot;Logged out&quot;) {
+    m365 login
+}
+
+$siteURL = Read-Host &quot;Please enter Site URL&quot;
+$listName = Read-Host &quot;Please enter list name&quot;
+
+# Get the list
+$list = m365 spo list list --webUrl $siteURL --query &quot;[?RootFolder.Name == '$listName']&quot; --output json | ConvertFrom-Json
+
+# Get all files in the list
+$files = m365 spo file list --webUrl $siteURL --folder $listName --recursive --output json | ConvertFrom-Json
+foreach ($file in $files) {
+    # Avoid error: Cannot convert the JSON string because a dictionary that was converted from the string contains the duplicated keys 'Id' and 'ID'
+    $fileProperties = m365 spo file get --webUrl $siteURL --id $file.UniqueId --asListItem --output json | ForEach-Object { $_.replace(&quot;Id&quot;, &quot;_Id&quot;) } | ConvertFrom-Json
+    
+    if ($fileProperties.ID) {
+        Write-Host &quot;Processing file $($file.ServerRelativeUrl)&quot;
+
+        # Get the list item
+        $listItem = m365 spo listitem get --webUrl $siteURL --listId $list.Id --id $fileProperties.ID --properties &quot;HasUniqueRoleAssignments&quot; | ConvertFrom-Json
+        if ($listItem.HasUniqueRoleAssignments) {
+            Write-Host &quot;Restoring the role inheritance of list item: $($file.ServerRelativeUrl)&quot;
+            m365 spo listitem roleinheritance reset --webUrl $siteURL --listItemId $fileProperties.ID --listId $list.Id
+        }
+    }
+}
+</code></pre>
+<div class="highlight-tool">
+<p>Check out the <strong>CLI for Microsoft 365</strong> to learn more at: <a href="https://aka.ms/cli-m365">https://aka.ms/cli-m365</a></p>
+</div>
+</section>
 </div>
 <h2 id="contributors">Contributors</h2>
 <table>
@@ -145,6 +189,9 @@ Disconnect-PnPOnline
 <tbody>
 <tr>
 <td><a href="https://github.com/dips365">Dipen Shah</a></td>
+</tr>
+<tr>
+<td><a href="https://github.com/nanddeepn">Nanddeep Nachan</a></td>
 </tr>
 </tbody>
 </table>
