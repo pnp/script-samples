@@ -7,7 +7,7 @@
     "title": "Planner migration to SharePoint list",
     "url": "https://pnp.github.io/script-samples/planner-migration-spo-list/README.html",
     "creationDateTime": "2022-05-23",
-    "updateDateTime": "2022-05-23",
+    "updateDateTime": "2022-05-31",
     "shortDescription": "Migrate a planner plan with buckets and tasks to a SharePoint Online list",
     "longDescription": null,
     "products": [
@@ -32,6 +32,10 @@
       {
         "key": "CLI-FOR-MICROSOFT365",
         "value": "4.3.0"
+      },
+      {
+        "key": "PNP-POWERSHELL",
+        "value": "1.10.0"
       }
     ],
     "thumbnails": [
@@ -44,6 +48,12 @@
       }
     ],
     "authors": [
+      {
+        "gitHubAccount": "reshmee011",
+        "company": "",
+        "pictureUrl": "https://avatars.githubusercontent.com/u/7693852?v=4",
+        "name": "Reshmee Auckloo"
+      },
       {
         "name": "Albert-Jan Schot",
         "gitHubAccount": "appieschot",
@@ -61,6 +71,11 @@
         "name": "Planner migration to SharePoint list",
         "description": "This sample first appeared on the CLI for Microsoft 365 documentation site",
         "url": "https://pnp.github.io/cli-microsoft365/sample-scripts/spo/planner-migrate-sharepoint-list/"
+      },
+      {
+        "name": "PnP PowerShell to manage list designs and create lists/libraries using list designs",
+        "description": "Refers to the article for other PnP PowerShell cmdlets",
+        "url": "https://techcommunity.microsoft.com/t5/microsoft-365-pnp-blog/pnp-powershell-to-manage-list-designs-and-create-lists-libraries/ba-p/3225097"
       }
     ]
   }
