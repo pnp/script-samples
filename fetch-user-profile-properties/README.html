@@ -100,6 +100,9 @@ Create a new file and write a script</p>
 <li role="presentation">
 <a href="#tabpanel_CeZOj-G++Q_pnpps" role="tab" aria-controls="tabpanel_CeZOj-G++Q_pnpps" data-tab="pnpps" tabindex="0" aria-selected="true">PnP PowerShell</a>
 </li>
+<li role="presentation">
+<a href="#tabpanel_CeZOj-G++Q_cli-m365-ps" role="tab" aria-controls="tabpanel_CeZOj-G++Q_cli-m365-ps" data-tab="cli-m365-ps" tabindex="-1">CLI for Microsoft 365 with PowerShell</a>
+</li>
 </ul>
 <section id="tabpanel_CeZOj-G++Q_pnpps" role="tabpanel" data-tab="pnpps"><button class="article-clipboard" title="Copy to clipboard" data-toggle="tooltip" data-placement="top" data-clipboard-target="section[id^='tabpanel'][data-tab='pnpps'] pre">
     <span class="glyphicon glyphicon-copy" aria-hidden="true"></span>
@@ -127,7 +130,7 @@ Function Login() {
     Write-Host &quot;Connecting to Tenant Admin Site '$($adminSiteURL)'&quot; -f Yellow | Out-File $LogFile -Append -Force
   
     Connect-PnPOnline -Url $adminSiteURL -Credentials $Creds
-    Write-Host &quot;Connection Successfull&quot; -f Yellow | Out-File $LogFile -Append -Force
+    Write-Host &quot;Connection Successful&quot; -f Yellow | Out-File $LogFile -Append -Force
    
 }
 Function StartProcessing {
@@ -136,7 +139,7 @@ Function StartProcessing {
 }
 
 Function ConnectionToSite() {
-    $siteURL = Read-Host &quot;Please enter site collcetion URL&quot; 
+    $siteURL = Read-Host &quot;Please enter site collection URL&quot; 
   
     try {            
         Write-Host &quot;Connecting to Site '$($siteURL)'&quot; -f Yellow          
@@ -198,6 +201,101 @@ StartProcessing
 <p>Check out the <strong>PnP PowerShell</strong> to learn more at: <a href="https://aka.ms/pnp/powershell">https://aka.ms/pnp/powershell</a></p>
 </div>
 </section>
+<section id="tabpanel_CeZOj-G++Q_cli-m365-ps" role="tabpanel" data-tab="cli-m365-ps" aria-hidden="true" hidden="hidden"><button class="article-clipboard" title="Copy to clipboard" data-toggle="tooltip" data-placement="top" data-clipboard-target="section[id^='tabpanel'][data-tab='cli-m365-ps'] pre">
+    <span class="glyphicon glyphicon-copy" aria-hidden="true"></span>
+    <span class="article-clipboard__message done">Copied</span>
+</button>
+
+<pre><code class="lang-powershell"># Usage example:
+#   .\Fetch-User-Profile-Properties.ps1 -WebUrl &quot;https://contoso.sharepoint.com/sites/Intranet&quot;
+
+[CmdletBinding()]
+param (
+  [Parameter(Mandatory = $true, HelpMessage = &quot;Web url from which to retrieve the users, e.g. https://contoso.sharepoint.com/sites/Intranet&quot;)]
+  [string]$WebUrl
+)
+begin {
+  $m365Status = m365 status
+  if ($m365Status -eq &quot;Logged Out&quot;) {
+    m365 login
+  }
+  Write-Host &quot;Connection Successful!&quot; -f Green 
+}
+process {
+  #variables
+  $basePath = &quot;D:\&quot; #base path where you want to save CSV file(&quot;D:\Scripts\Output\...&quot;)
+
+  $userDetailsArray = @()
+  $dateTime = &quot;{0:MM_dd_yy}_{0:HH_mm_ss}&quot; -f (Get-Date)
+  $csvPath = $basePath + &quot;userdetails-&quot; + $dateTime + &quot;.csv&quot;
+
+  Write-Host &quot;`nRetrieving users from web $WebUrl&quot; -ForegroundColor Cyan
+  Write-Progress -Activity &quot;Obtaining user details&quot; -Status &quot;Obtaining users&quot; -PercentComplete 0
+
+  $users = m365 spo user list --webUrl $WebUrl | ConvertFrom-Json
+  $usersWithMail = $users | Where-Object {$_.Email -ne &quot;&quot;}
+
+  if ($usersWithMail.GetType().Name -eq &quot;PSCustomObject&quot;){
+    Write-Host &quot;Only one user found. Obtaining details for this specific user&quot; -ForegroundColor Cyan
+    $userProfile = m365 spo userprofile get --userName $usersWithMail.Email | ConvertFrom-Json
+
+    if ($userProfile.Email) {
+      $userProfileProperties = $userProfile.UserProfileProperties | ConvertFrom-Json
+
+      $userDetailsArray += New-Object PSObject -Property ([ordered]@{                   
+        Id            = $counter
+        GUID          = ($userProfileProperties | Where-Object {$_.Key -eq 'UserProfile_GUID'}).Value
+        FirstName     = ($userProfileProperties | Where-Object {$_.Key -eq 'FirstName'}).Value
+        LastName      = ($userProfileProperties | Where-Object {$_.Key -eq 'LastName'}).Value
+        WorkEmail     = ($userProfileProperties | Where-Object {$_.Key -eq 'WorkEmail'}).Value 
+        PictureURL    = ($userProfileProperties | Where-Object {$_.Key -eq 'PictureURL'}).Value    
+        Department    = ($userProfileProperties | Where-Object {$_.Key -eq 'Department'}).Value
+        PreferredName = ($userProfileProperties | Where-Object {$_.Key -eq 'PreferredName'}).Value
+      })
+    } else {
+      Write-Host &quot;Details for user with mail $userMail could not be found! Possible causes are that the email address is linked to an external user or group email address.&quot; -ForegroundColor Red
+    }
+      
+  } else {
+    $usersCount = $usersWithMail.Count
+    Write-Host &quot;Users retrieved. Amount of users to process: $usersCount&quot; -ForegroundColor Cyan
+
+    for ($counter = 1; $counter -le $usersCount; $counter++ ) {    
+      $userMail = $usersWithMail[$counter - 1].Email
+
+      $userProfile = m365 spo userprofile get --userName $userMail | ConvertFrom-Json
+      if ($userProfile.Email) {
+        $userProfileProperties = $userProfile.UserProfileProperties | ConvertFrom-Json
+
+        $userDetailsArray += New-Object PSObject -Property ([ordered]@{                   
+          Id            = 1
+          GUID          = ($userProfileProperties | Where-Object {$_.Key -eq 'UserProfile_GUID'}).Value
+          FirstName     = ($userProfileProperties | Where-Object {$_.Key -eq 'FirstName'}).Value
+          LastName      = ($userProfileProperties | Where-Object {$_.Key -eq 'LastName'}).Value
+          WorkEmail     = ($userProfileProperties | Where-Object {$_.Key -eq 'WorkEmail'}).Value 
+          PictureURL    = ($userProfileProperties | Where-Object {$_.Key -eq 'PictureURL'}).Value    
+          Department    = ($userProfileProperties | Where-Object {$_.Key -eq 'Department'}).Value
+          PreferredName = ($userProfileProperties | Where-Object {$_.Key -eq 'PreferredName'}).Value
+        })
+      } else {
+        Write-Host &quot;Details for user with mail $userMail could not be found! Possible causes are that the email address is linked to an external user or group email address.&quot; -ForegroundColor Red
+      }
+    
+      Write-Progress -Activity &quot;Obtaining user details&quot; -Status &quot;$counter/$usersCount users obtained, currently processing $userMail&quot; -PercentComplete (($counter / $usersWithMail.Count) * 100)
+    }
+  }
+  
+  Write-Host &quot;Exporting to CSV...&quot;  -ForegroundColor Cyan
+  $userDetailsArray | Export-Csv $csvPath -NoTypeInformation -Append
+  Write-Host &quot;Exported Successfully...&quot; -ForegroundColor Cyan
+
+  Write-Host &quot;Script Complete! :)&quot; -ForegroundColor Green
+}
+</code></pre>
+<div class="highlight-tool">
+<p>Check out the <strong>CLI for Microsoft 365</strong> to learn more at: <a href="https://aka.ms/cli-m365">https://aka.ms/cli-m365</a></p>
+</div>
+</section>
 </div>
 <h2 id="source-credit">Source Credit</h2>
 <p>Sample first appeared on <a href="https://techcommunity.microsoft.com/t5/microsoft-365-pnp-blog/fetch-user-profile-properties-from-site-collection-and-export-to/ba-p/2232136">Fetch User Profile Properties From Site Collection And Export To CSV Using PNP PowerShell | Microsoft 365 PnP Blog</a></p>
@@ -211,6 +309,9 @@ StartProcessing
 <tbody>
 <tr>
 <td>Chandani Prajapati</td>
+</tr>
+<tr>
+<td>Mathijs Verbeeck</td>
 </tr>
 </tbody>
 </table>
