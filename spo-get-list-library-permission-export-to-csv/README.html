@@ -100,6 +100,9 @@
 <li role="presentation">
 <a href="#tabpanel_CeZOj-G++Q_pnpps" role="tab" aria-controls="tabpanel_CeZOj-G++Q_pnpps" data-tab="pnpps" tabindex="0" aria-selected="true">PnP PowerShell</a>
 </li>
+<li role="presentation">
+<a href="#tabpanel_CeZOj-G++Q_cli-m365-ps" role="tab" aria-controls="tabpanel_CeZOj-G++Q_cli-m365-ps" data-tab="cli-m365-ps" tabindex="-1">CLI for Microsoft 365</a>
+</li>
 </ul>
 <section id="tabpanel_CeZOj-G++Q_pnpps" role="tabpanel" data-tab="pnpps"><button class="article-clipboard" title="Copy to clipboard" data-toggle="tooltip" data-placement="top" data-clipboard-target="section[id^='tabpanel'][data-tab='pnpps'] pre">
     <span class="glyphicon glyphicon-copy" aria-hidden="true"></span>
@@ -222,6 +225,85 @@ StartProcessing
 <p>Check out the <strong>PnP PowerShell</strong> to learn more at: <a href="https://aka.ms/pnp/powershell">https://aka.ms/pnp/powershell</a></p>
 </div>
 </section>
+<section id="tabpanel_CeZOj-G++Q_cli-m365-ps" role="tabpanel" data-tab="cli-m365-ps" aria-hidden="true" hidden="hidden"><button class="article-clipboard" title="Copy to clipboard" data-toggle="tooltip" data-placement="top" data-clipboard-target="section[id^='tabpanel'][data-tab='cli-m365-ps'] pre">
+    <span class="glyphicon glyphicon-copy" aria-hidden="true"></span>
+    <span class="article-clipboard__message done">Copied</span>
+</button>
+
+<pre><code class="lang-powershell"># Usage example:
+# .\Exoprt-ListLibraryPermissions.ps1 -WebUrl &quot;https://contoso.sharepoint.com/sites/Intranet&quot; -ListName &quot;Demo List&quot;
+
+[CmdletBinding()]
+param (
+    [Parameter(Mandatory = $true, HelpMessage = &quot;Please enter Site URL, e.g. https://contoso.sharepoint.com/sites/Intranet&quot;)]
+    [string]$WebUrl,
+    [Parameter(Mandatory = $true, HelpMessage = &quot;Please enter list title&quot;)]
+    [string]$ListName
+)
+begin {
+    #Log in to Microsoft 365
+    Write-Host &quot;Connecting to Tenant&quot; -f Yellow
+
+    $m365Status = m365 status
+    if ($m365Status -eq &quot;Logged Out&quot;) {
+        m365 login
+    }
+
+    Write-Host &quot;Connection Successful!&quot; -f Green 
+}
+process {
+    $listPermissions = @()
+    $dateTime = &quot;{0:MM_dd_yy}_{0:HH_mm_ss}&quot; -f (Get-Date)
+    $csvPath = &quot;$($ListName -replace '\s','_')-permissions-&quot; + $dateTime + &quot;.csv&quot;
+
+    # Gets information about the specific list
+    $listInfo = m365 spo list get --webUrl $WebUrl --title $ListName --withPermissions | ConvertFrom-Json
+
+    # Check if list has unique role permissions
+    $hasUniquePermissions = $listInfo.HasUniqueRoleAssignments
+
+    ForEach ($roleAssignment in $listInfo.RoleAssignments) {
+        $permissionType = $roleAssignment.Member.PrincipalType
+        $permissionLevels = $RoleAssignment.RoleDefinitionBindings | Select-Object -ExpandProperty Name
+
+        If ($permissionType -eq 8) {
+            # Get members of a SharePoint Group
+            $groupMembers = m365 spo group user list --webUrl $WebUrl --groupName $roleAssignment.Member.LoginName | ConvertFrom-Json
+
+            ForEach ($user in $groupMembers.value) {
+                Write-Host &quot;$($user.Title) have $($permissionLevels -join &quot;,&quot;) permission(s) as part of group $($roleAssignment.Member.LoginName)&quot;
+                $listPermissions += New-Object PSObject -Property ([ordered]@{
+                        Title                = $user.Title 
+                        PermissionType       = &quot;SharePoint Group&quot;
+                        PermissionLevels     = $permissionLevels -join &quot;,&quot;
+                        Member               = $roleAssignment.Member.Title     
+                        HasUniquePermissions = $hasUniquePermissions                                     
+                    })  
+            }
+        }
+        Else {
+            Write-Host &quot;$($user.Title) have $($permissionLevels -join &quot;,&quot;) permission(s) as direct permission&quot;
+            $listPermissions += New-Object PSObject -Property ([ordered]@{
+                    Title                = $roleAssignment.Member.Title 
+                    PermissionType       = &quot;User&quot;
+                    PermissionLevels     = $permissionLevels -join &quot;,&quot;
+                    Member               = &quot;Direct Permission&quot;      
+                    HasUniquePermissions = $hasUniquePermissions                             
+                }) 
+        }
+    }
+
+    Write-Host &quot;Exporting the permissions to CSV...&quot;
+    $listPermissions | Export-Csv $csvPath -NoTypeInformation -Append
+}
+end { 
+    Write-Host &quot;Finished&quot;
+}
+</code></pre>
+<div class="highlight-tool">
+<p>Check out the <strong>CLI for Microsoft 365</strong> to learn more at: <a href="https://aka.ms/cli-m365">https://aka.ms/cli-m365</a></p>
+</div>
+</section>
 </div>
 <h2 id="contributors">Contributors</h2>
 <table>
@@ -233,6 +315,9 @@ StartProcessing
 <tbody>
 <tr>
 <td>Chandani Prajapati</td>
+</tr>
+<tr>
+<td><a href="https://github.com/nanddeepn">Nanddeep Nachan</a></td>
 </tr>
 </tbody>
 </table>

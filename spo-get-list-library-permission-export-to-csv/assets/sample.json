@@ -9,7 +9,7 @@
       "This sample read site url and list/library title from user and get permissions with and then export it to CSV with some required details"
     ],
     "creationDateTime": "2021-10-04",
-    "updateDateTime": "2021-10-04",
+    "updateDateTime": "2022-06-02",
     "products": [
       "SharePoint"
     ],
@@ -17,13 +17,24 @@
       {
         "key": "PNP-POWERSHELL",
         "value": "1.5.0"
+      },
+      {
+        "key": "CLI-FOR-MICROSOFT365",
+        "value": "5.3.0"
       }
     ],
     "categories": [
       "Data",
       "Report"
     ],
-    "tags": [],
+    "tags": [
+      "Permission",
+      "Connect-PnPOnline",
+      "Disconnect-PnPOnline",
+      "m365 login",
+      "m365 spo list get",
+      "m365 spo group user list"
+    ],
     "thumbnails": [
       {
         "type": "image",
@@ -33,6 +44,11 @@
       }
     ],
     "authors": [
+      {
+        "gitHubAccount": "nanddeepn",
+        "pictureUrl": "https://github.com/nanddeepn.png",
+        "name": "Nanddeep Nachan"
+      },
       {
         "gitHubAccount": "chandaniprajapati",
         "pictureUrl": "https://avatars.githubusercontent.com/u/52065929?v=4",
@@ -44,6 +60,11 @@
         "name": "Want to learn more about PnP PowerShell and the cmdlets",
         "description": "Check out the PnP PowerShell site to get started and for the reference to the cmdlets.",
         "url": "https://aka.ms/pnp/powershell"
+      },
+      {
+        "name": "Want to learn more about CLI for Microsoft 365 and the commands",
+        "description": "Check out the CLI for Microsoft 365 site to get started and for the reference to the commands.",
+        "url": "https://aka.ms/cli-m365"
       }
     ]
   }
