@@ -208,8 +208,8 @@ process {
   Write-Host "Script Complete! :)" -ForegroundColor Green
 }
 ```
-
 [!INCLUDE [More about CLI for Microsoft 365](../../docfx/includes/MORE-CLIM365.md)]
+***
 
 ## Source Credit
 
