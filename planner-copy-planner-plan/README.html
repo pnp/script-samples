@@ -1,0 +1,267 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html lang="en">
+  
+  <head>
+    <meta charset="utf-8">
+    <title>Copy Planner plan | PnP Samples </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Copy Planner plan | PnP Samples ">
+    <meta name="generator" content="docfx 2.56.7.0">
+    <meta name="description" content="A sample gallery of scripts to manage all things Microsoft 365.">
+  
+    <!-- Social Media -->
+    <meta property="og:locale" content="en_GB">
+    <meta property="og:title" content="Copy Planner plan | PnP Samples ">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://pnp.github.io/script-samples">
+    <meta property="og:image" content="https://pnp.github.io/script-samples/assets/social-media-screenshot.png">
+    <meta property="og:image:alt" content="Screenshot example of the PnP Script Samples Site">
+    <meta property="og:site_name" content="PnP Script Samples">
+    <meta property="og:description" content="A sample gallery of scripts to manage all things Microsoft 365.">
+  
+    <link rel="shortcut icon" href="https://c.s-microsoft.com/favicon.ico?v2">
+    <link rel="stylesheet" href="../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../styles/docfx.css">
+    <link rel="stylesheet" href="../styles/main.css">
+    <link rel="stylesheet" href="../styles/extra.css">
+    <link rel="stylesheet" href="../styles/filter.css">
+    <link rel="stylesheet" href="../styles/site.css">
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet"> 
+    <meta property="docfx:navrel" content="../toc.html">
+    <meta property="docfx:tocrel" content="../toc.html">
+    
+    
+    <meta property="docfx:newtab" content="true">
+    <script type="text/javascript">
+      (function(c,l,a,r,i,t,y){
+          c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+          t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+          y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+      })(window, document, "clarity", "script", "8j6pedl344");
+  </script>
+  </head>  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+             <div class="github-mark">
+              <a href="https://github.com/pnp/script-samples">
+                <img src="https://pnp.github.io/script-samples/assets/icons/github-light-64px.png" alt="GitHub Icon Image">
+              </a>
+            </div>
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../assets/logo.svg" alt="">
+              </a>    </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <label class="glyphicon glyphicon-search" for="search-query"></label>
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>      </header>
+      <div role="main" class="container body-content hide-when-search">
+        <div class="article row grid">
+          <div class="col-md-12">
+            <article class="content wrap" id="_content" data-uid="">
+                  <div class="contribution-panel mobile-hide pull-right">
+                      <a href="https://github.com/pnp/script-samples/blob/main/scripts/planner-copy-planner-plan/README.md/#L1" title="Improve this Doc" class="improve-doc-lg"><i class="glyphicon glyphicon-pencil"></i></a>
+                  </div>
+                    <h1 id="copy-planner-plan">Copy Planner plan</h1>
+
+<h2 id="summary">Summary</h2>
+<p>With this sample, you can copy an existing Planner plan to a specific group. This script will create a new plan with the same name and copy all buckets and tasks.</p>
+<p>Following data will be copied:</p>
+<ul>
+<li>Plan name</li>
+<li>Buckets</li>
+<li>Tasks
+<ul>
+<li>Title</li>
+<li>Notes</li>
+<li>Progress</li>
+<li>Start date</li>
+<li>Due date</li>
+</ul>
+</li>
+</ul>
+<p><img src="assets/example.png" alt="Example Screenshot"></p>
+<h2 id="script-parameters">Script parameters</h2>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Mandatory</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>SourcePlanId</td>
+<td>Yes</td>
+<td>Source Planner plan to copy.</td>
+</tr>
+<tr>
+<td>DestinationGroupId</td>
+<td>Yes</td>
+<td>Destination group ID to copy the plan to.</td>
+</tr>
+</tbody>
+</table>
+<div class="tabGroup" id="tabgroup_CeZOj-G++Q">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_CeZOj-G++Q_cli-m365-ps" role="tab" aria-controls="tabpanel_CeZOj-G++Q_cli-m365-ps" data-tab="cli-m365-ps" tabindex="0" aria-selected="true">CLI for Microsoft 365 with PowerShell</a>
+</li>
+</ul>
+<section id="tabpanel_CeZOj-G++Q_cli-m365-ps" role="tabpanel" data-tab="cli-m365-ps"><button class="article-clipboard" title="Copy to clipboard" data-toggle="tooltip" data-placement="top" data-clipboard-target="section[id^='tabpanel'][data-tab='cli-m365-ps'] pre">
+    <span class="glyphicon glyphicon-copy" aria-hidden="true"></span>
+    <span class="article-clipboard__message done">Copied</span>
+</button>
+
+<pre><code class="lang-powershell"># Usage example:
+# .\Copy-Planner-plan.ps1 -SourcePlanId xqQg5FS2LkCp935s-FIFm2QAFkHM -DestinationGroupId 00000000-0000-0000-0000-000000000000
+
+```powershell
+[CmdletBinding()]
+param (
+  [Parameter(Mandatory = $true, HelpMessage = &quot;Source Planner plan to copy e.g. xqQg5FS2LkCp935s-FIFm2QAFkHM.&quot;)]
+  [string]$SourcePlanId,
+
+  [Parameter(Mandatory = $true, HelpMessage = &quot;Destination group ID to copy the plan to e.g. 00000000-0000-0000-0000-000000000001.&quot;)]
+  [guid]$DestinationGroupId
+)
+begin {
+  Write-Host &quot;Connecting...&quot; -ForegroundColor Yellow   
+  $m365Status = m365 status | ConvertFrom-Json
+
+  if ($m365Status -eq &quot;Logged Out&quot;) {
+    m365 login
+  }
+}
+process {
+  # Get valid ISO date for CLI to work with
+  function Get-IsoDate {
+    param (
+      [Parameter(Mandatory = $true)]
+      [datetime]$Date
+    )
+    if ($Date -eq $null) {
+      return $Date
+    }
+  
+    return $Date.ToString(&quot;o&quot;).Split('.')[0] + &quot;Z&quot;
+  }
+
+  Write-Host &quot;Copying plan...&quot; -ForegroundColor Yellow
+  $ProgressActivity = &quot;Copying Planner plan&quot;
+  Write-Progress -Activity $ProgressActivity -Status &quot;Reading source plan data&quot; -PercentComplete 0
+
+  $plan = m365 planner plan get --id $SourcePlanId | ConvertFrom-Json
+  $buckets = m365 planner bucket list --planId $SourcePlanId | ConvertFrom-Json
+  $tasks = m365 planner task list --planId $SourcePlanId | ConvertFrom-Json
+
+  # Buckets and tasks are fetched in reverse order
+  [array]::Reverse($buckets)
+  [array]::Reverse($tasks)
+
+  Write-Progress -Activity $ProgressActivity -Status &quot;Creating new plan at destination group&quot; -PercentComplete 25
+
+  $clonedPlan = m365 planner plan add --ownerGroupId $DestinationGroupId --title $plan.Title | ConvertFrom-Json
+
+  Write-Progress -Activity $ProgressActivity -Status &quot;Creating buckets&quot; -PercentComplete 50
+
+  # Create mapping object for buckets {Key: sourceId; Value: destinationId}
+  $bucketMapping = @{}
+  foreach ($bucket in $buckets) {
+    $clonedBucket = m365 planner bucket add --planId $clonedPlan.id --name $bucket.name | ConvertFrom-Json
+    $bucketMapping[$bucket.id] = $clonedBucket.id
+  }
+
+  Write-Progress -Activity $ProgressActivity -Status &quot;Creating tasks&quot; -PercentComplete 75
+
+  foreach ($task in $tasks) {
+    $command = &quot;m365 planner task add --planId $($clonedPlan.id) --bucketId $($bucketMapping[$task.bucketId]) --title '$($task.title.Replace(&quot;'&quot;, &quot;''&quot;))' --percentComplete $($task.percentComplete)&quot;
+    
+    # Append optional options when needed
+    if ($task.hasDescription) {
+      $details = m365 planner task details get --taskId $task.id | ConvertFrom-Json
+      $command += &quot; --description '$($details.description.Replace(&quot;'&quot;, &quot;''&quot;))'&quot;
+    }
+    if ($null -ne $task.startDateTime) {
+      $command += &quot; --startDateTime $(Get-IsoDate $task.startDateTime)&quot;
+    }
+    if ($null -ne $task.dueDateTime) {
+      $command += &quot; --dueDateTime $(Get-IsoDate $task.dueDateTime)&quot;
+    }
+
+    Invoke-Expression $command | Out-Null
+  }
+}
+end {
+  Write-Progress -Activity $ProgressActivity -Status &quot;Plan copied!&quot; -PercentComplete 100 -Completed
+  Write-Host &quot;Script completed!&quot; -ForegroundColor Green
+}
+</code></pre>
+<div class="highlight-tool">
+<p>Check out the <strong>CLI for Microsoft 365</strong> to learn more at: <a href="https://aka.ms/cli-m365">https://aka.ms/cli-m365</a></p>
+</div>
+<h2 id="contributors">Contributors</h2>
+<table>
+<thead>
+<tr>
+<th>Author(s)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Milan Holemans</td>
+</tr>
+</tbody>
+</table>
+<h2 id="disclaimer">Disclaimer</h2>
+<p><strong>THESE SAMPLES ARE PROVIDED <em>AS IS</em> WITHOUT WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, INCLUDING ANY IMPLIED WARRANTIES OF FITNESS FOR A PARTICULAR PURPOSE, MERCHANTABILITY, OR NON-INFRINGEMENT.</strong></p>
+<img src="https://pnptelemetry.azurewebsites.net/script-samples/scripts/planner-copy-planner-plan" aria-hidden="true">
+</section>
+</div>
+</article>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            <span>Script Samples<br>Generated by <strong><a href='https://dotnet.github.io/docfx' alt='Doc FX Website'>DocFX</a></strong> with <strong><a href='https://ovasquez.github.io/docfx-material' alt='DocFx Material Theme'>Material UI</a></strong></span>
+            
+            <!-- <img src="https://telemetry.sharepointpnp.com/@pnp.github.io/index/" alt="spacer"> -->
+          </div>
+        </div>
+      </footer>    </div>
+    
+    <script type="text/javascript" src="../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+    
+    <script type="text/javascript" src="../styles/clipboard.min.js"></script>
+    <script type="text/javascript" src="../styles/isotope.pkgd.min.js"></script>
+    <script type="text/javascript" src="../styles/loadsamples.js"></script>
+    <script type="text/javascript" src="../styles/filtersamples.js"></script>
+
+  </body>
+</html>
