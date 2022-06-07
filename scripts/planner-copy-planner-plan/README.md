@@ -33,7 +33,6 @@ Following data will be copied:
 # Usage example:
 # .\Copy-Planner-plan.ps1 -SourcePlanId xqQg5FS2LkCp935s-FIFm2QAFkHM -DestinationGroupId 00000000-0000-0000-0000-000000000000
 
-```powershell
 [CmdletBinding()]
 param (
   [Parameter(Mandatory = $true, HelpMessage = "Source Planner plan to copy e.g. xqQg5FS2LkCp935s-FIFm2QAFkHM.")]
