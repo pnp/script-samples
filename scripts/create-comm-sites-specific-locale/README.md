@@ -65,7 +65,7 @@ $siteTitle = "Pensaerniaeth"
 $lcid = 1106
 
 $m365Status = m365 status
-if ($m365Status -eq "Logged Out") {
+if ($m365Status -match "Logged Out") {
 m365 login
 }
 m365 spo site add --type CommunicationSite --url $newSiteUrl --title $siteTitle --lcid $lcid

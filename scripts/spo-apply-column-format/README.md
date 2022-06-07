@@ -98,8 +98,8 @@ $url = "https://<tenant>.sharepoint.com"
 $listName = "ListTitle"
 
 ## Connect to SharePoint Online 
-$m365Status = m365 status | ConvertFrom-Json
-if ($m365Status -eq "Logged Out") {
+$m365Status = m365 status
+if ($m365Status -match "Logged Out") {
   m365 login
 }
 

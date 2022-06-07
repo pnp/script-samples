@@ -100,9 +100,9 @@ ConnectToSPSite
 ```powershell
 Function Login {
     Write-Host "Connecting to Tenant Site" -f Yellow   
-    $m365Status = m365 status | ConvertFrom-Json
+    $m365Status = m365 status
 
-    if ($m365Status -eq "Logged Out") {
+    if ($m365Status -match "Logged Out") {
       m365 login
     }
 }
