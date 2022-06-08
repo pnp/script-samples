@@ -82,7 +82,7 @@ Function FilterDateField() {
                                                                     <FieldRef Name='Modified'/>
                                                                 </ViewFields>
                                                                 <Query><Where>
-                                                                    <Geq><FieldRef Name='Modified'/><Value Type='DateTime'><Today/></Value></Eq></Where>
+                                                                    <Eq><FieldRef Name='Modified'/><Value Type='DateTime'><Today/></Value></Eq></Where>
                                                                 </Query>
                                                             </View>"
 
@@ -287,7 +287,7 @@ Function FilterDateField() {
                                                                     <FieldRef Name='Modified'/>
                                                                 </ViewFields>
                                                                 <Query><Where>
-                                                                    <Geq><FieldRef Name='Modified'/><Value Type='DateTime'><Today/></Value></Eq></Where>
+                                                                    <Eq><FieldRef Name='Modified'/><Value Type='DateTime'><Today/></Value></Eq></Where>
                                                                 </Query>
                                                             </View>"
 
