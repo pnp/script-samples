@@ -213,6 +213,7 @@ param (
   [Parameter(Mandatory = $true, HelpMessage = "Server relative URL of the folder in which to create the documents")]
   [string]$ServerRelativeUrl,
   [Parameter(Mandatory = $true, HelpMessage = "Type of content to create, possible values are 'file' or 'folder'")]
+  [ValidateSet("File","Folder","file","folder")]
   [string]$Type,
   [Parameter(Mandatory = $true, HelpMessage = "Amount of items to create")]
   [int]$ItemsToCreate,
@@ -227,9 +228,6 @@ begin {
   $m365Status = m365 status 
   if ($m365Status -match "Logged Out") {
     m365 login
-  }
-  if ($Type.ToLower() -ne "file" -and $Type.ToLower() -ne "folder") {
-    throw "Type has to either be 'File' or 'Folder'"
   }
   Write-Host "Initialization done, time to create versions!" -f Green 
 }
