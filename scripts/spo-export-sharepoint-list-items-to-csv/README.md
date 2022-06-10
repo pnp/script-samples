@@ -117,6 +117,112 @@ Stop-Transcript
 
 ```
 [!INCLUDE [More about PnP PowerShell](../../docfx/includes/MORE-PNPPS.md)]
+
+# [CLI for Microsoft 365](#tab/cli-m365-ps)
+```powershell
+# Usage example:
+# .\Exoprt-SPListItems.ps1 -WebUrl "https://contoso.sharepoint.com/sites/Intranet" -ListName "Demo List"
+
+[CmdletBinding()]
+param (
+    [Parameter(Mandatory = $true, HelpMessage = "Please enter Site URL, e.g. https://contoso.sharepoint.com/sites/Intranet")]
+    [string]$WebUrl,
+    [Parameter(Mandatory = $true, HelpMessage = "Please enter list title")]
+    [string]$ListName,
+    [Parameter(Mandatory = $false, HelpMessage = "Include or exclude hidden fields")]
+    [bool]$IncludeHiddenFields = $false,
+    [Parameter(Mandatory = $false, HelpMessage = "Include or exclude readonly fields")]
+    [bool]$IncludeReadOnlyFields = $false
+)
+begin {
+    #Log in to Microsoft 365
+    Write-Host "Connecting to Tenant" -f Yellow
+
+    $m365Status = m365 status
+    if ($m365Status -match "Logged Out") {
+        m365 login
+    }
+
+    Write-Host "Connection Successful!" -f Green 
+}
+process {
+    function EnsureFolder {
+        [CmdletBinding()]
+        param
+        (
+            [Parameter(Mandatory = $true)]
+            [string]$FolderPath
+        )
+        begin {
+            Write-Host "Ensuring folder at $($FolderPath)"
+        }
+        process {
+            if (!(Test-Path $FolderPath)) {
+                New-Item -ItemType Directory -Path $FolderPath -Force
+            }
+        }
+        end {
+            Write-Host "Ensured folder at $($FolderPath)"
+        }
+    }
+
+    $dateTime = "{0:MM_dd_yy}_{0:HH_mm_ss}" -f (Get-Date)
+    $csvPath = "$($ListName -replace '\s','_')-items-" + $dateTime + ".csv"
+
+    # Compose a query path
+    $hiddenFieldsPath = If ($IncludeHiddenFields) { "" } else { "!" }
+    $readonlyFieldsPath = If ($IncludeReadOnlyFields) { "" } else { "!" }
+    $queryPath = "[?" + $hiddenFieldsPath + "Hidden && " + $readonlyFieldsPath + "ReadOnlyField]"
+
+    # Retrieve columns for the specified list
+    $listFields = m365 spo field list --webUrl $WebUrl --listTitle $ListName --query $queryPath | ConvertFrom-Json
+    $listFieldsWithInternalName = $listFields | Select-Object -ExpandProperty InternalName
+    $listFieldsString = $listFieldsWithInternalName -join ','
+
+    if (-not ($listFieldsWithInternalName -ccontains "id")) {
+        $listFieldsString = "ID," + $listFieldsString;
+    }
+    
+    try {
+        EnsureFolder -FolderPath .\$ListName        
+
+        # Get list of items from the specified list
+        $listItems = m365 spo listitem list --webUrl $WebUrl --title $ListName --fields $listFieldsString | ConvertFrom-Json
+        
+        # Loop through the list items 
+        foreach ($listItem in $listItems) {
+            if ($listItem.Attachments) {
+                # Get the list item attachments
+                $attachments = m365 spo listitem attachment list --webUrl $WebUrl --listTitle $ListName --itemId $listItem.ID | ConvertFrom-Json
+                
+                $fileUrls = ""
+                foreach ($attachment in $attachments) {
+                    # Save file to disk
+                    EnsureFolder -FolderPath ".\$($ListName)\Attachments\$($listItem.ID)"
+
+                    Write-Host "Downloading attachment at: Attachments\$($listItem.ID)\$($attachment.FileName)"
+                    m365 spo file get --webUrl $WebUrl --url $attachment.ServerRelativeUrl --asFile --path ".\$($ListName)\Attachments\$($listItem.ID)\$($attachment.FileName)"
+
+                    $fileUrls +=  "Attachments\$($listItem.ID)\$($attachment.FileName);"
+                }
+
+                # Add custom property "AttachmentUrl" to the list item
+                $listItem | Add-Member -MemberType NoteProperty -Name "AttachmentUrl" -Value $fileUrls
+            }
+        }
+
+        # Export list items
+        $listItems | Export-Csv ".\$($ListName)\$($csvPath)" -NoTypeInformation
+    }  
+    catch [Exception] {         
+        Write-Host "Error: $($_.Exception.Message)" -ForegroundColor Red          
+    }
+}
+end { 
+    Write-Host "Finished"
+}
+```
+[!INCLUDE [More about CLI for Microsoft 365](../../docfx/includes/MORE-CLIM365.md)]
 ***
 
 ## Contributors
@@ -124,6 +230,7 @@ Stop-Transcript
 | Author(s) |
 |-----------|
 | Valeras Narbutas |
+| [Nanddeep Nachan](https://github.com/nanddeepn) |
 
 [!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
 <img src="https://pnptelemetry.azurewebsites.net/script-samples/scripts/spo-export-sharepoint-list-items-to-csv" aria-hidden="true" />
