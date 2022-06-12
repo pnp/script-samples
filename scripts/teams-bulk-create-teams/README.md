@@ -79,6 +79,67 @@ end{
 
 [!INCLUDE [More about PnP PowerShell](../../docfx/includes/MORE-PNPPS.md)]
 
+# [CLI for Microsoft 365](#tab/cli-m365-ps)
+```powershell
+# Usage example:
+# .\Create-BulkTeams.ps1 -OwnerEmail "user@contoso.com"
+
+[CmdletBinding()]
+param (
+    [Parameter(Mandatory = $true)]
+    [string]$OwnerEmail,
+    [Parameter(Mandatory = $false)]
+    [string] $SiteListJsonFile = ".\teams.json"
+)
+begin {
+    #Log in to Microsoft 365
+    Write-Host "Connecting to Tenant" -f Yellow
+
+    $m365Status = m365 status
+    if ($m365Status -match "Logged Out") {
+        m365 login
+    }
+
+    Write-Host "Connection Successful!" -f Green
+
+    $sites = Get-Content $SiteListJsonFile -Raw | ConvertFrom-Json
+    $prefixes = "HR", "Finance", "ICT", "Service Desk", "Client Services", "Project Alpha", "Project Beta", "Project Charlie", "Leadership", "Community"
+}
+process {
+    $prefixes | Foreach-Object {
+        $prefix = $_
+
+        $sites | Foreach-Object {
+            $siteTitle = "$($_.SiteTitle.Replace("XXXXX", $prefix))"
+            $mailNickname = "$($_.SiteUrl.Replace("XXXXX", $prefix).Replace(" ",''))"
+
+            # Check if team exists
+            $team = m365 teams team get --name $siteTitle | ConvertFrom-Json
+
+            if (-not $team) {
+                # Create a Microsoft 365 Group
+                Write-Host "Creating group $($siteTitle)"
+                m365 aad o365group add --displayName "$($siteTitle)" --description "Testing Site for $($siteTitle)" --mailNickname $mailNickname --owners "$($OwnerEmail)" --isPrivate (!$_.IsPublic).ToString().ToLowerInvariant()
+
+                # Wait for group creation to complete
+                Start-sleep -Seconds 10
+
+                # Create a new Microsoft Teams team under existing Microsoft 365 group
+                Write-Host "Creating Microsoft Teams team under group $($siteTitle)"
+                m365 aad o365group teamify --mailNickname $mailNickname
+            }
+            else {
+                Write-Host "Microsoft Teams team $($siteTitle) already exists"
+            }
+        }
+    }
+}
+end {
+  Write-Host "Finished" -ForegroundColor Green
+}
+```
+[!INCLUDE [More about CLI for Microsoft 365](../../docfx/includes/MORE-CLIM365.md)]
+
 # [JSON](#tab/json)
 ```json
 [
