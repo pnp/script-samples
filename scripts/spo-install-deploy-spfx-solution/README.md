@@ -2,7 +2,7 @@
 plugin: add-to-gallery
 ---
 
-# Deploy SPFx solution from Azure DevOps
+# Install Solution and Deploy to the SharePoint site
 
 ## Summary
 
