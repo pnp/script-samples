@@ -196,7 +196,7 @@ catch
 
 ```
 [!INCLUDE [More about PnP PowerShell](../../docfx/includes/MORE-PNPPS.md)]
-***
+
 
 # [CLI for Microsoft 365 with PowerShell](#tab/cli-m365-ps)
 
@@ -309,8 +309,8 @@ process {
   Write-Host "Script Complete! :)" -f Green
 }
 ```
-
 [!INCLUDE [More about CLI for Microsoft 365](../../docfx/includes/MORE-CLIM365.md)]
+***
 
 ## Contributors
 
