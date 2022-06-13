@@ -126,6 +126,9 @@ $minorVersionCountBeforeMajor = 3</p>
 <li role="presentation">
 <a href="#tabpanel_CeZOj-G++Q_pnpps" role="tab" aria-controls="tabpanel_CeZOj-G++Q_pnpps" data-tab="pnpps" tabindex="0" aria-selected="true">PnP PowerShell</a>
 </li>
+<li role="presentation">
+<a href="#tabpanel_CeZOj-G++Q_cli-m365-ps" role="tab" aria-controls="tabpanel_CeZOj-G++Q_cli-m365-ps" data-tab="cli-m365-ps" tabindex="-1">CLI for Microsoft 365 with PowerShell</a>
+</li>
 </ul>
 <section id="tabpanel_CeZOj-G++Q_pnpps" role="tabpanel" data-tab="pnpps"><button class="article-clipboard" title="Copy to clipboard" data-toggle="tooltip" data-placement="top" data-clipboard-target="section[id^='tabpanel'][data-tab='pnpps'] pre">
     <span class="glyphicon glyphicon-copy" aria-hidden="true"></span>
@@ -277,6 +280,123 @@ catch
 <p>Check out the <strong>PnP PowerShell</strong> to learn more at: <a href="https://aka.ms/pnp/powershell">https://aka.ms/pnp/powershell</a></p>
 </div>
 </section>
+<section id="tabpanel_CeZOj-G++Q_cli-m365-ps" role="tabpanel" data-tab="cli-m365-ps" aria-hidden="true" hidden="hidden"><button class="article-clipboard" title="Copy to clipboard" data-toggle="tooltip" data-placement="top" data-clipboard-target="section[id^='tabpanel'][data-tab='cli-m365-ps'] pre">
+    <span class="glyphicon glyphicon-copy" aria-hidden="true"></span>
+    <span class="article-clipboard__message done">Copied</span>
+</button>
+
+<pre><code class="lang-powershell"># Usage example:
+#   .\Create-Bulk-Dummy-Documents.ps1 -WebUrl &quot;https://contoso.sharepoint.com/sites/Intranet&quot; -ListTitle &quot;Documents&quot; -ServerRelativeUrl &quot;/sites/intranet/Shared Documents&quot; -Type File -ItemsToCreate 5 -MajorVersions 6 -MinorVersionBeforeMajor 3 -FileToUse &quot;D:\Temp\DummyFile.docx&quot;
+#   .\Create-Bulk-Dummy-Documents.ps1 -WebUrl &quot;https://contoso.sharepoint.com/sites/Intranet&quot; -ListTitle &quot;Documents&quot; -ServerRelativeUrl &quot;/sites/intranet/Shared Documents&quot; -Type Folder -ItemsToCreate 5 -MajorVersions 6 -MinorVersionBeforeMajor 3 -FileToUse &quot;D:\Temp\DummyFile.docx&quot;
+[CmdletBinding()]
+param (
+  [Parameter(Mandatory = $true, HelpMessage = &quot;Web url from which to create the files, e.g. https://contoso.sharepoint.com/sites/Intranet&quot;)]
+  [string]$WebUrl,
+  [Parameter(Mandatory = $true, HelpMessage = &quot;Title of the list on which to create the documents or files&quot;)]
+  [string]$ListTitle,
+  [Parameter(Mandatory = $true, HelpMessage = &quot;Server relative URL of the folder in which to create the documents&quot;)]
+  [string]$ServerRelativeUrl,
+  [Parameter(Mandatory = $true, HelpMessage = &quot;Type of content to create, possible values are 'file' or 'folder'&quot;)]
+  [ValidateSet(&quot;File&quot;,&quot;Folder&quot;,&quot;file&quot;,&quot;folder&quot;)]
+  [string]$Type,
+  [Parameter(Mandatory = $true, HelpMessage = &quot;Amount of items to create&quot;)]
+  [int]$ItemsToCreate,
+  [Parameter(Mandatory = $true, HelpMessage = &quot;Amount of major versions to create&quot;)]
+  [int]$MajorVersions,
+  [Parameter(Mandatory = $true, HelpMessage = &quot;This will define the amount of minor versions that will be created before a major version is added&quot;)]
+  [int]$MinorVersionBeforeMajor,
+  [Parameter(Mandatory = $true, HelpMessage = &quot;Path of the file to use when creating versions&quot;)]
+  [string]$FileToUse
+)
+begin {
+  $m365Status = m365 status 
+  if ($m365Status -match &quot;Logged Out&quot;) {
+    m365 login
+  }
+  Write-Host &quot;Initialization done, time to create versions!&quot; -f Green 
+}
+process {
+  
+  function New-Versions {
+    param (
+      [Parameter(Mandatory = $true)]
+      [string]$FileUrl,
+      [Parameter(Mandatory = $true)]
+      [int]$Counter
+    )
+  
+    # Have to first check out, else it throws an error 'Error: The file &quot;Shared Documents/1.docx&quot; is not checked out'
+    m365 spo file checkout --webUrl $WebUrl --fileUrl $FileUrl | Out-Null
+    m365 spo file checkin --webUrl $WebUrl --fileUrl $FileUrl --type Major --comment &quot;First major version check in&quot; | Out-Null
+    
+    # Creating versions
+    for ($i = 1; $i -lt ($MajorVersions + 1); $i++) {
+      Write-Progress -Activity &quot;Creating versions&quot; -Status &quot;$Counter/$ItemsToCreate files created. Creating major version $i/$MajorVersions&quot; -PercentComplete (($Counter / $ItemsToCreate) * 100)
+      for ($j = 1; $j -lt ($MinorVersionBeforeMajor + 1); $j++) {
+        Write-Progress -Activity &quot;Creating versions&quot; -Status &quot;$Counter/$ItemsToCreate files created. Processing major version $i/$MajorVersions, Creating minor version $j/$MinorVersionBeforeMajor&quot; -PercentComplete (($Counter / $ItemsToCreate) * 100)
+        # Create minor version here
+        m365 spo file checkout --webUrl $WebUrl --fileUrl $FileUrl | Out-Null
+        m365 spo file checkin --webUrl $WebUrl --fileUrl $FileUrl --type Minor --comment &quot;Check in of minor version $j&quot; | Out-Null
+      }
+      m365 spo file checkout --webUrl $WebUrl --fileUrl $FileUrl | Out-Null
+      m365 spo file checkin --webUrl $WebUrl --fileUrl $FileUrl --type Major --comment &quot;Check in of major version $i&quot; | Out-Null
+    }
+  }
+
+  $FileExtension = $FileToUse.Split('.')[$FileToUse.Split('.').Count - 1]
+
+  Write-Host &quot;Starting the script, we are going to create $ItemsToCreate $($type)s in the list with title $ListTitle. They will each have $MajorVersions major versions and $MinorVersionBeforeMajor minor versions before a new major version is added.&quot; -f Green
+  $list = m365 spo list get --webUrl $WebUrl --title $ListTitle | ConvertFrom-Json
+  Write-Host &quot;Obtained the list with title $($list.Title)&quot; -f Green
+
+  if (!$list.EnableMinorVersions) {
+    Write-Host &quot;Have to set properties on list to enable versioning and enable the creation of minor versions&quot; -f Red
+    m365 spo list set --webUrl $WebUrl -i $list.Id --enableVersioning $true --enableMinorVersions $true
+    Write-Host &quot;List properties updated!&quot; -f Green
+  }
+
+  Write-Host &quot;Obtained the folder with server relative url $ServerRelativeUrl&quot; -f Green
+  Write-Host &quot;Time to start the creation process...&quot; -f Green
+  if ($Type.ToLower() -eq &quot;folder&quot;) {
+    $FolderCnt = 1
+    while ($FolderCnt -le $ItemsToCreate) {
+      Write-Progress -Activity &quot;Creating folders&quot; -Status &quot;$FolderCnt/$ItemsToCreate folders created&quot; -PercentComplete (($FolderCnt / $ItemsToCreate) * 100)
+   
+      $FileUrl = &quot;$($ServerRelativeUrl)/$FolderCnt/$FolderCnt.$FileExtension&quot; 
+
+      # Create the folder and add the file
+      m365 spo folder add --webUrl $WebUrl --parentFolderUrl $ServerRelativeUrl --name $FolderCnt | Out-Null
+      m365 spo file add --webUrl $WebUrl --folder &quot;$($ServerRelativeUrl)/$FolderCnt&quot; --path $FileToUse --FileLeafRef $FolderCnt | Out-Null
+
+      # Call function to create the versions
+      New-Versions -FileUrl $FileUrl -Counter $FolderCnt
+
+      $FolderCnt++
+    }
+  } elseif ($Type.ToLower() -eq &quot;file&quot;) {
+    $FileCnt = 1
+    while ($FileCnt -le $ItemsToCreate) {
+      Write-Progress -Activity &quot;Creating files&quot; -Status &quot;$FileCnt/$ItemsToCreate files created&quot; -PercentComplete (($FileCnt / $ItemsToCreate) * 100)
+    
+      $FileUrl = &quot;$($ServerRelativeUrl)/$FileCnt.$FileExtension&quot; 
+
+      # Creating file
+      m365 spo file add --webUrl $WebUrl --folder $ServerRelativeUrl --path $FileToUse --FileLeafRef $FileCnt | Out-Null
+      
+      # Call function to create the versions
+      New-Versions -FileUrl $FileUrl -Counter $FileCnt
+
+      $FileCnt++
+    }
+  }
+
+  Write-Host &quot;Script Complete! :)&quot; -f Green
+}
+</code></pre>
+<div class="highlight-tool">
+<p>Check out the <strong>CLI for Microsoft 365</strong> to learn more at: <a href="https://aka.ms/cli-m365">https://aka.ms/cli-m365</a></p>
+</div>
+</section>
 </div>
 <h2 id="contributors">Contributors</h2>
 <table>
@@ -288,6 +408,9 @@ catch
 <tbody>
 <tr>
 <td>Kasper Larsen</td>
+</tr>
+<tr>
+<td>Mathijs Verbeeck</td>
 </tr>
 </tbody>
 </table>
