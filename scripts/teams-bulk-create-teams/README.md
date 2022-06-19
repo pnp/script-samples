@@ -117,12 +117,32 @@ process {
             $team = m365 teams team get --name $siteTitle | ConvertFrom-Json
 
             if (-not $team) {
-                # Create a Microsoft 365 Group
+                # Create a Microsoft 365 Group                
                 Write-Host "Creating group $($siteTitle)"
+
+                # If the $OwnerEmail is the tenant admin then this will break.
+                # This is a very special case where when we create a new o365group, 
+                # the tenant admin will be by default the member of this group internally. 
+                # Then when we want to add the same user as the owner of this group we will get the following error:
+                # Error: One or more added object references already exist for the following modified properties: 'owners'.
                 m365 aad o365group add --displayName "$($siteTitle)" --description "Testing Site for $($siteTitle)" --mailNickname $mailNickname --owners "$($OwnerEmail)" --isPrivate (!$_.IsPublic).ToString().ToLowerInvariant()
 
-                # Wait for group creation to complete
-                Start-sleep -Seconds 10
+                $group = $null
+                $waitTime = 5
+                $trial = 0
+                $maxRetry = 3
+
+                do {
+                    $trial++
+                    Write-Host "Waiting $waitTime seconds before group provisioning is complete..."
+                    Start-Sleep -Seconds $waitTime
+
+                    $group = m365 aad o365group list --displayName "$($siteTitle)" | ConvertFrom-Json
+                } while ($group -eq $null -and $trial -lt $maxRetry)
+
+                if ($group -eq $null) { 
+                    return
+                }
 
                 # Create a new Microsoft Teams team under existing Microsoft 365 group
                 Write-Host "Creating Microsoft Teams team under group $($siteTitle)"
@@ -135,7 +155,7 @@ process {
     }
 }
 end {
-  Write-Host "Finished" -ForegroundColor Green
+    Write-Host "Finished" -ForegroundColor Green
 }
 ```
 [!INCLUDE [More about CLI for Microsoft 365](../../docfx/includes/MORE-CLIM365.md)]
