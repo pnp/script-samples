@@ -114,6 +114,49 @@ StartProcessing
 ```
 [!INCLUDE [More about SPO Management Shell](../../docfx/includes/MORE-SPOMS.md)]
 
+# [CLI for Microsoft 365](#tab/cli-m365-ps)
+```powershell
+
+Function Login() {
+  Write-Host "Connecting to Tenant Site" -f Yellow   
+  $m365Status = m365 status | ConvertFrom-Json
+  if ($m365Status -eq "Logged Out") {
+    m365 login
+  }
+  Write-Host "Connection Successful!" -f Green 
+}
+
+Function HubSiteAssociation {  
+  try {  
+    #read site url from user  
+    $SiteUrl = Read-Host 'Enter Site Url'  
+    #read hub site url from user  
+    $HubSiteUrl = Read-Host 'Enter Hub Site Url'   
+              
+    #hub site association           
+    Write-Host "Associate with a hub site..." -ForegroundColor Yellow    
+    
+    $hubSitesList = m365 spo hubsite list | ConvertFrom-Json
+    $hubSite = $hubSitesList | Where-Object SiteUrl -Match $HubSiteUrl 
+    m365 spo hubsite connect --url $SiteUrl --hubSiteId $hubSite.SiteId 
+
+    Write-Host "Hub site association completed..." -ForegroundColor Yellow  
+  }  
+  catch {  
+    Write-Host "Error in hub site association:" $_.Exception.Message -ForegroundColor Red  
+  }  
+}
+
+Function StartProcessing {
+  Login
+  HubSiteAssociation
+}
+
+StartProcessing
+
+```
+[!INCLUDE [More about CLI for Microsoft 365](../../docfx/includes/MORE-CLIM365.md)]
+
 ***
 
 ## Contributors
@@ -121,6 +164,7 @@ StartProcessing
 | Author(s) |
 |-----------|
 | Chandani Prajapati (https://github.com/chandaniprajapati) |
+| [Jasey Waegebaert](https://github.com/Jwaegebaert) |
 
 [!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
 <img src="https://pnptelemetry.azurewebsites.net/script-samples/scripts/spo-hub-sites-association" aria-hidden="true" />

@@ -9,7 +9,7 @@
       ""
     ],
     "creationDateTime": "2021-11-03",
-    "updateDateTime": "2021-11-03",
+    "updateDateTime": "2022-05-26",
     "products": [
       "SharePoint"
     ],
@@ -17,6 +17,10 @@
       {
         "key": "PNP-POWERSHELL",
         "value": "1.8.0"
+      },
+      {
+        "key": "CLI-FOR-MICROSOFT365",
+        "value": "4.3.0"
       }
     ],
     "categories": [
@@ -24,7 +28,10 @@
     ],
     "tags": [
       "search",
-      "Submit-PnPSearchQuery"
+      "Submit-PnPSearchQuery",
+      "m365 login",
+      "m365 spo search",
+      "m365 status"
     ],
     "thumbnails": [
       {
@@ -35,6 +42,12 @@
       }
     ],
     "authors": [
+      {
+        "gitHubAccount": "SmitaNachan",
+        "company": "",
+        "pictureUrl": "https://github.com/SmitaNachan.png",
+        "name": "Smita Nachan"
+      },
       {
         "gitHubAccount": "jimmywim",
         "company": "ID Live Ltd",
@@ -47,6 +60,11 @@
         "name": "Want to learn more about PnP PowerShell and the cmdlets",
         "description": "Check out the PnP PowerShell site to get started and for the reference to the cmdlets.",
         "url": "https://aka.ms/pnp/powershell"
+      },
+      {
+        "name": "Want to learn more about CLI for Microsoft 365 and the commands",
+        "description": "Check out the CLI for Microsoft 365 site to get started and for the reference to the commands.",
+        "url": "https://aka.ms/cli-m365"
       }
     ]
   }
