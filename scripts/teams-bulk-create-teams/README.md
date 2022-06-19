@@ -129,13 +129,20 @@ process {
 
                 $group = $null
                 $waitTime = 5
+                $trial = 0
+                $maxRetry = 3
 
                 do {
+                    $trial++
                     Write-Host "Waiting $waitTime seconds before group provisioning is complete..."
                     Start-Sleep -Seconds $waitTime
 
                     $group = m365 aad o365group list --displayName "$($siteTitle)" | ConvertFrom-Json
-                } while ($group -eq $null)
+                } while ($group -eq $null -and $trial -lt $maxRetry)
+
+                if ($group -eq $null) { 
+                    return
+                }
 
                 # Create a new Microsoft Teams team under existing Microsoft 365 group
                 Write-Host "Creating Microsoft Teams team under group $($siteTitle)"
