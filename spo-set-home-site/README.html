@@ -121,19 +121,32 @@ Set-PnPHomeSite -HomeSiteUrl $commSiteUrl
     <span class="article-clipboard__message done">Copied</span>
 </button>
 
-<pre><code class="lang-powershell">
-# Ensure connected to tenant
-$m365Status = m365 status
-if ($m365Status -eq &quot;Logged Out&quot;) {
-    m365 login
+<pre><code class="lang-powershell"># Usage example:
+# .\Set-HomeSiteForSharePointTenant.ps1 -WebUrl &quot;https://contoso.sharepoint.com/sites/Intranet&quot;
+
+[CmdletBinding()]
+param (
+    [Parameter(Mandatory = $true, HelpMessage = &quot;Please enter Site URL, e.g. https://contoso.sharepoint.com/sites/Intranet&quot;)]
+    [string]$WebUrl
+    )
+begin {
+    #Log in to Microsoft 365
+    Write-Host &quot;Connecting to Tenant&quot; -f Yellow
+
+    $m365Status = m365 status
+    if ($m365Status -match &quot;Logged Out&quot;) {
+        m365 login
+    }
+
+    Write-Host &quot;Connection Successful!&quot; -f Green 
 }
-
-# Communication site collection url
-$commSiteUrl = &quot;https://&lt;tenant&gt;.sharepoint.com/communicationsite&quot;
-
-# Set communication site as the home site
-m365 spo homesite set --siteUrl $commSiteUrl
-
+process {
+    # Set the specified site as the Home Site
+    m365 spo homesite set --siteUrl $WebUrl
+}
+end { 
+    Write-Host &quot;Finished&quot;
+}
 </code></pre>
 <div class="highlight-tool">
 <p>Check out the <strong>CLI for Microsoft 365</strong> to learn more at: <a href="https://aka.ms/cli-m365">https://aka.ms/cli-m365</a></p>
@@ -150,6 +163,9 @@ m365 spo homesite set --siteUrl $commSiteUrl
 <tbody>
 <tr>
 <td><a href="https://twitter.com/GaneshSanap20">Ganesh Sanap</a></td>
+</tr>
+<tr>
+<td><a href="https://github.com/SmitaNachan">Smita Nachan</a></td>
 </tr>
 </tbody>
 </table>
