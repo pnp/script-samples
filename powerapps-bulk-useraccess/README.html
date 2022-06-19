@@ -4,15 +4,15 @@
   
   <head>
     <meta charset="utf-8">
-    <title>Add/Remove users(bulk) from PowerApps from CSV file | PnP Samples </title>
+    <title>Add/Remove users(bulk) from Power Apps from CSV file | PnP Samples </title>
     <meta name="viewport" content="width=device-width">
-    <meta name="title" content="Add/Remove users(bulk) from PowerApps from CSV file | PnP Samples ">
+    <meta name="title" content="Add/Remove users(bulk) from Power Apps from CSV file | PnP Samples ">
     <meta name="generator" content="docfx 2.56.7.0">
     <meta name="description" content="A sample gallery of scripts to manage all things Microsoft 365.">
   
     <!-- Social Media -->
     <meta property="og:locale" content="en_GB">
-    <meta property="og:title" content="Add/Remove users(bulk) from PowerApps from CSV file | PnP Samples ">
+    <meta property="og:title" content="Add/Remove users(bulk) from Power Apps from CSV file | PnP Samples ">
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://pnp.github.io/script-samples">
     <meta property="og:image" content="https://pnp.github.io/script-samples/assets/social-media-screenshot.png">
@@ -78,10 +78,10 @@
                   <div class="contribution-panel mobile-hide pull-right">
                       <a href="https://github.com/pnp/script-samples/blob/main/scripts/powerapps-bulk-useraccess/README.md/#L1" title="Improve this Doc" class="improve-doc-lg"><i class="glyphicon glyphicon-pencil"></i></a>
                   </div>
-                    <h1 id="addremove-usersbulk-from-powerapps-from-csv-file">Add/Remove users(bulk) from PowerApps from CSV file</h1>
+                    <h1 id="addremove-usersbulk-from-power-apps-from-csv-file">Add/Remove users(bulk) from Power Apps from CSV file</h1>
 
 <h2 id="summary">Summary</h2>
-<p>This PowerShell script will Add/Remove/Modify multiple(bulk) users access to/from one or multiple PowerApps from CSV file....</p>
+<p>This PowerShell script will Add/Remove/Modify multiple(bulk) users access to/from one or multiple Power Apps from CSV file....</p>
 <p>CSV file columns details</p>
 <table>
 <thead>
@@ -94,7 +94,7 @@
 <tbody>
 <tr>
 <td>AppName</td>
-<td>PowerApps App Id</td>
+<td>Power Apps App Id</td>
 <td>This can checking details of the app from apps.powerapps.com and selecting the app</td>
 </tr>
 <tr>
@@ -136,7 +136,7 @@
 <li>Prepare the input csv file based on instruction above</li>
 <li>update the path in below script</li>
 <li>Save the file and run it</li>
-<li>Make sure you are PowerApps admin to so that you have access to all the apps</li>
+<li>Make sure you are Power Apps admin to so that you have access to all the apps</li>
 </ul>
 <div class="tabGroup" id="tabgroup_CeZOj-G++Q">
 <ul role="tablist">
@@ -151,11 +151,11 @@
 
 <pre><code class="lang-powershell">
 
-#Modules for PowerApps Powershell Commands
+#Modules for Power Apps Powershell Commands
 Install-Module -Name Microsoft.PowerApps.Administration.PowerShell
 Install-Module -Name Microsoft.PowerApps.PowerShell -AllowClobber
 
-#PowerApps Connection
+#Power Apps Connection
 Add-PowerAppsAccount
 $CsvPath = 'D:\SP\repos\InputCSV.csv'
 $currentTime=$(get-date).ToString(&quot;yyyyMMddHHmmss&quot;);    
