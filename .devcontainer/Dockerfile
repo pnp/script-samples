@@ -22,7 +22,12 @@ RUN apt-get update && apt-get install unzip mono-complete wget git -y && \
     echo '#!/bin/bash\nmono /opt/docfx/docfx.exe $@' > /usr/bin/docfx && \
     chmod +x /usr/bin/docfx 
 
-RUN bash ./setup.sh
+WORKDIR /home/
+COPY . .
+
+COPY setup.sh /
+RUN chmod +x /setup.sh
+RUN bash /setup.sh
 
 # [Optional] Uncomment this section to install additional OS packages.
 # RUN apt-get update && export DEBIAN_FRONTEND=noninteractive \

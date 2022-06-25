@@ -59,5 +59,6 @@
 		"github-cli": "latest",
 		"azure-cli": "latest",
 		"powershell": "latest"
-	}
+	},
+	"postCreateCommand": "/bin/bash ./.devcontainer/post-create.sh"
 }

@@ -1,6 +1,4 @@
-
-# copy directory of plugins
-sudo cp -r docfx/plugins /opt/docfx
+#!/usr/bin/env bash
 
 # npm modules
 npm install -g http-server
