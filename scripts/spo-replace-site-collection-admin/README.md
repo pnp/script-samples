@@ -18,7 +18,7 @@ $webUrl = "<spoUrl>"
 
 $m365Status = m365 status
 Write-Host $m365Status
-if ($m365Status -eq "Logged Out") {
+if ($m365Status -match "Logged Out") {
   # Connection to Microsoft 365
   m365 login
   $m365Status = m365 status

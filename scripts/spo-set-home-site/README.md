@@ -33,6 +33,7 @@ Set-PnPHomeSite -HomeSiteUrl $commSiteUrl
 
 # [CLI for Microsoft 365 with PowerShell](#tab/cli-m365-ps)
 ```powershell
+
 # Usage example:
 # .\Set-HomeSiteForSharePointTenant.ps1 -WebUrl "https://contoso.sharepoint.com/sites/Intranet"
 

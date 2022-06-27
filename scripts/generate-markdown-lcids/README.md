@@ -40,7 +40,7 @@ Write-Host "Script Complete! :)" -ForegroundColor Green
 ```powershell
 
 $m365Status = m365 status
-if ($m365Status -eq "Logged Out") {
+if ($m365Status -match "Logged Out") {
     m365 login
 }
 

@@ -85,8 +85,8 @@ foreach ($team in $teams)
 
 # [CLI for Microsoft 365](#tab/cli-m365-ps)
 ```powershell
-$m365Status = m365 status | ConvertFrom-Json
-if ($m365Status -eq "Logged Out") {
+$m365Status = m365 status
+if ($m365Status -match "Logged Out") {
   m365 login
 }
 

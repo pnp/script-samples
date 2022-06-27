@@ -20,7 +20,7 @@ Result in the list
 # [CLI for Microsoft 365 with PowerShell](#tab/cli-m365-ps)
 ```powershell
 $m365Status = m365 status
-if ($m365Status -eq "Logged Out") {
+if ($m365Status -match "Logged Out") {
     m365 login
 }
 

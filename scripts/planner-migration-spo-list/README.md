@@ -28,7 +28,7 @@ param (
 
 $m365Status = m365 status
 
-if ($m365Status -eq "Logged Out") {
+if ($m365Status -match "Logged Out") {
     # Connection to Microsoft 365
     m365 login
 }
