@@ -15,6 +15,7 @@ Following data will be copied:
   * Title
   * Notes
   * Progress
+  * Priority
   * Start date
   * Due date
 
@@ -33,7 +34,6 @@ Following data will be copied:
 # Usage example:
 # .\Copy-Planner-plan.ps1 -SourcePlanId xqQg5FS2LkCp935s-FIFm2QAFkHM -DestinationGroupId 00000000-0000-0000-0000-000000000000
 
-```powershell
 [CmdletBinding()]
 param (
   [Parameter(Mandatory = $true, HelpMessage = "Source Planner plan to copy e.g. xqQg5FS2LkCp935s-FIFm2QAFkHM.")]
@@ -51,19 +51,6 @@ begin {
   }
 }
 process {
-  # Get valid ISO date for CLI to work with
-  function Get-IsoDate {
-    param (
-      [Parameter(Mandatory = $true)]
-      [datetime]$Date
-    )
-    if ($Date -eq $null) {
-      return $Date
-    }
-  
-    return $Date.ToString("o").Split('.')[0] + "Z"
-  }
-
   Write-Host "Copying plan..." -ForegroundColor Yellow
   $ProgressActivity = "Copying Planner plan"
   Write-Progress -Activity $ProgressActivity -Status "Reading source plan data" -PercentComplete 0
@@ -92,18 +79,18 @@ process {
   Write-Progress -Activity $ProgressActivity -Status "Creating tasks" -PercentComplete 75
 
   foreach ($task in $tasks) {
-    $command = "m365 planner task add --planId $($clonedPlan.id) --bucketId $($bucketMapping[$task.bucketId]) --title '$($task.title.Replace("'", "''"))' --percentComplete $($task.percentComplete)"
+    $command = "m365 planner task add --planId $($clonedPlan.id) --bucketId $($bucketMapping[$task.bucketId]) --title '$($task.title.Replace("'", "''"))' --percentComplete $($task.percentComplete)  --priority $($task.priority)"
     
     # Append optional options when needed
     if ($task.hasDescription) {
-      $details = m365 planner task details get --taskId $task.id | ConvertFrom-Json
+      $details = m365 planner task get --id $task.id | ConvertFrom-Json
       $command += " --description '$($details.description.Replace("'", "''"))'"
     }
     if ($null -ne $task.startDateTime) {
-      $command += " --startDateTime $(Get-IsoDate $task.startDateTime)"
+      $command += " --startDateTime $($task.startDateTime)"
     }
     if ($null -ne $task.dueDateTime) {
-      $command += " --dueDateTime $(Get-IsoDate $task.dueDateTime)"
+      $command += " --dueDateTime $($task.dueDateTime)"
     }
 
     Invoke-Expression $command | Out-Null

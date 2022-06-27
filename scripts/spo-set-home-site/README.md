@@ -34,18 +34,32 @@ Set-PnPHomeSite -HomeSiteUrl $commSiteUrl
 # [CLI for Microsoft 365 with PowerShell](#tab/cli-m365-ps)
 ```powershell
 
-# Ensure connected to tenant
-$m365Status = m365 status
-if ($m365Status -match "Logged Out") {
-    m365 login
+# Usage example:
+# .\Set-HomeSiteForSharePointTenant.ps1 -WebUrl "https://contoso.sharepoint.com/sites/Intranet"
+
+[CmdletBinding()]
+param (
+    [Parameter(Mandatory = $true, HelpMessage = "Please enter Site URL, e.g. https://contoso.sharepoint.com/sites/Intranet")]
+    [string]$WebUrl
+    )
+begin {
+    #Log in to Microsoft 365
+    Write-Host "Connecting to Tenant" -f Yellow
+
+    $m365Status = m365 status
+    if ($m365Status -match "Logged Out") {
+        m365 login
+    }
+
+    Write-Host "Connection Successful!" -f Green 
 }
-
-# Communication site collection url
-$commSiteUrl = "https://<tenant>.sharepoint.com/communicationsite"
-
-# Set communication site as the home site
-m365 spo homesite set --siteUrl $commSiteUrl
-
+process {
+    # Set the specified site as the Home Site
+    m365 spo homesite set --siteUrl $WebUrl
+}
+end { 
+    Write-Host "Finished"
+}
 ```
 [!INCLUDE [More about CLI for Microsoft 365](../../docfx/includes/MORE-CLIM365.md)]
 
@@ -56,6 +70,7 @@ m365 spo homesite set --siteUrl $commSiteUrl
 | Author(s) |
 |-----------|
 | [Ganesh Sanap](https://twitter.com/GaneshSanap20) |
+| [Smita Nachan](https://github.com/SmitaNachan) |
 
 
 [!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]

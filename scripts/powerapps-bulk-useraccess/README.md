@@ -2,18 +2,18 @@
 plugin: add-to-gallery
 ---
 
-# Add/Remove users(bulk) from PowerApps from CSV file
+# Add/Remove users(bulk) from Power Apps from CSV file
 
 ## Summary
 
-This PowerShell script will Add/Remove/Modify multiple(bulk) users access to/from one or multiple PowerApps from CSV file....
+This PowerShell script will Add/Remove/Modify multiple(bulk) users access to/from one or multiple Power Apps from CSV file....
 
 
 CSV file columns details
 
 | Column Name   | Details  | Comment  |
 |---|---|---|
-| AppName  | PowerApps App Id   |   This can checking details of the app from apps.powerapps.com and selecting the app |
+| AppName  | Power Apps App Id   |   This can checking details of the app from apps.powerapps.com and selecting the app |
 | PrincipalDisplayName  | User Display name   |   |
 |  PrincipalEmail | Email id of user or group id or external user principal name   |   |
 |  PrincipalType | User or Group  |   |
@@ -39,17 +39,17 @@ Screenshot of Output file for quick reference
 - Prepare the input csv file based on instruction above
 - update the path in below script
 - Save the file and run it
-- Make sure you are PowerApps admin to so that you have access to all the apps
+- Make sure you are Power Apps admin to so that you have access to all the apps
  
 # [Power Apps PowerShell](#tab/powerapps-ps)
 ```powershell
 
 
-#Modules for PowerApps Powershell Commands
+#Modules for Power Apps Powershell Commands
 Install-Module -Name Microsoft.PowerApps.Administration.PowerShell
 Install-Module -Name Microsoft.PowerApps.PowerShell -AllowClobber
 
-#PowerApps Connection
+#Power Apps Connection
 Add-PowerAppsAccount
 $CsvPath = 'D:\SP\repos\InputCSV.csv'
 $currentTime=$(get-date).ToString("yyyyMMddHHmmss");    
