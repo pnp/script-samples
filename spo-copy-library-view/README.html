@@ -87,10 +87,100 @@
 <div class="tabGroup" id="tabgroup_CeZOj-G++Q">
 <ul role="tablist">
 <li role="presentation">
-<a href="#tabpanel_CeZOj-G++Q_pnpps" role="tab" aria-controls="tabpanel_CeZOj-G++Q_pnpps" data-tab="pnpps" tabindex="0" aria-selected="true">PnP PowerShell</a>
+<a href="#tabpanel_CeZOj-G++Q_cli-m365-ps" role="tab" aria-controls="tabpanel_CeZOj-G++Q_cli-m365-ps" data-tab="cli-m365-ps" tabindex="0" aria-selected="true">CLI for Microsoft 365 with PowerShell</a>
+</li>
+<li role="presentation">
+<a href="#tabpanel_CeZOj-G++Q_pnpps" role="tab" aria-controls="tabpanel_CeZOj-G++Q_pnpps" data-tab="pnpps" tabindex="-1">PnP PowerShell</a>
 </li>
 </ul>
-<section id="tabpanel_CeZOj-G++Q_pnpps" role="tabpanel" data-tab="pnpps"><button class="article-clipboard" title="Copy to clipboard" data-toggle="tooltip" data-placement="top" data-clipboard-target="section[id^='tabpanel'][data-tab='pnpps'] pre">
+<section id="tabpanel_CeZOj-G++Q_cli-m365-ps" role="tabpanel" data-tab="cli-m365-ps"><button class="article-clipboard" title="Copy to clipboard" data-toggle="tooltip" data-placement="top" data-clipboard-target="section[id^='tabpanel'][data-tab='cli-m365-ps'] pre">
+    <span class="glyphicon glyphicon-copy" aria-hidden="true"></span>
+    <span class="article-clipboard__message done">Copied</span>
+</button>
+
+<pre><code class="lang-powershell">
+$SourceSite = Read-Host &quot;Enter the source site url from which to copy the view from&quot; #e.g.https://contose.sharepoint.com/sites/test
+$SourceList = Read-Host &quot;Enter the source Library from which to copy the view from&quot; #Documents
+$SourceViewName = Read-Host &quot;Enter the view name to be copied from&quot; #Checked Out FlatView
+
+$destSiteUrl = Read-Host &quot;Enter the destination site url to which to copy the view to&quot; #e.g.https://contose.sharepoint.com/sites/testClone2
+
+$dateTime = (Get-Date).toString(&quot;dd-MM-yyyy&quot;)
+$invocation = (Get-Variable MyInvocation).Value
+$directorypath = Split-Path $invocation.MyCommand.Path
+$fileName = &quot;CheckedOutViewCreationReport-&quot; + $dateTime + &quot;.csv&quot;
+$OutPutView = $directorypath + $fileName
+
+#Arry to Skip System Lists and Libraries
+$SystemLists = @(&quot;Converted Forms&quot;, &quot;Master Page Gallery&quot;, &quot;Customized Reports&quot;, &quot;Form Templates&quot;, &quot;List Template Gallery&quot;, &quot;Theme Gallery&quot;,
+                            &quot;Reporting Templates&quot;, &quot;Solution Gallery&quot;, &quot;Style Library&quot;, &quot;Web Part Gallery&quot;,&quot;Site Assets&quot;, &quot;wfpub&quot;, &quot;Site Pages&quot;, &quot;Images&quot;, &quot;MicroFeed&quot;,&quot;Pages&quot;)
+
+#remove any spaces from view 
+$SourceInternalName = $SourceViewName -replace '\s',''
+
+$m365Status = m365 status
+
+if ($m365Status -eq &quot;Logged Out&quot;) {
+    # Connection to Microsoft 365
+    m365 login
+}
+
+
+$CheckedOutView = m365 spo list view get --webUrl $SourceSite --listTitle $SourceList --viewTitle $SourceViewName |ConvertFrom-Json
+[xml] $listViewXML = $CheckedOutView.ListViewXml
+
+#Array to Hold Result - PSObjects
+
+$ViewCollection = @()
+
+$fieldsArr = @();
+
+$listViewXML.View.ViewFields.FieldRef |  ForEach-Object {
+ $fieldsArr +=$_.Name;
+}
+
+$viewScope=1 #enum recursive = 1 , RecursiveAll = 2, FilesOnly = 3
+
+#retrieving only document libraries from destination libraries
+ $lists= m365 spo list list --webUrl $destSiteUrl | ConvertFrom-Json  
+  foreach ($list in ($lists | Where-Object {$_.BaseTemplate -eq 101 -and $_.Hidden -eq $false -and $SystemLists -notcontains $_.Title})) {
+   $viewInL =  m365 spo list view get --webUrl $destSiteUrl --listTitle $list.Title --viewTitle $SourceViewName
+   #create view only if not present
+   if(!$viewInl)
+   {
+
+     $ExportVw = New-Object PSObject
+     $ExportVw | Add-Member -MemberType NoteProperty -name &quot;Site URL&quot; -value $destSiteUrl
+     $ExportVw | Add-Member -MemberType NoteProperty -name &quot;Library Name&quot; -value $list.Title
+     $ExportVw | Add-Member -MemberType NoteProperty -name &quot;View Name&quot; -value $SourceViewName
+
+    #create view
+     m365 spo list view add --webUrl $destSiteUrl --listTitle $list.Title --title $SourceInternalName  --fields ($fieldsArr -join &quot;,&quot;) --rowLimit $CheckedOutView.RowLimit
+     $viewInL = m365 spo list view get --webUrl $destSiteUrl --listTitle $list.Title --viewTitle $SourceInternalName  
+    
+
+     if($viewInL)
+     {
+       # Update the list view name to the display name and change the scope to recursive so that all files are displayed without any folders.
+      m365 spo list view set --webUrl $destSiteUrl --listTitle $list.Title  --viewTitle $SourceInternalName --Title $SourceViewName --ViewQuery $CheckedOutView.ViewQuery.Replace('&quot;','\&quot;') --Scope $viewScope
+      
+      #m365 spo list view set --webUrl https://reshmeeauckloo.sharepoint.com/sites/TestClone2 --listTitle &quot;Documents&quot; --viewTitle &quot;FlatView&quot; --Title &quot;FlatView1&quot;
+      #Set-PnPView -List $list.Title -Identity $SourceInternalName -Values @{Scope=$viewScope;Title=$SourceViewName}   
+     }
+      $ViewCollection += $ExportVw
+    }
+   }
+
+#Export the result Array to CSV file
+$ViewCollection | Export-CSV $OutPutView -Force -NoTypeInformation
+
+m365 logout
+</code></pre>
+<div class="highlight-tool">
+<p>Check out the <strong>CLI for Microsoft 365</strong> to learn more at: <a href="https://aka.ms/cli-m365">https://aka.ms/cli-m365</a></p>
+</div>
+</section>
+<section id="tabpanel_CeZOj-G++Q_pnpps" role="tabpanel" data-tab="pnpps" aria-hidden="true" hidden="hidden"><button class="article-clipboard" title="Copy to clipboard" data-toggle="tooltip" data-placement="top" data-clipboard-target="section[id^='tabpanel'][data-tab='pnpps'] pre">
     <span class="glyphicon glyphicon-copy" aria-hidden="true"></span>
     <span class="article-clipboard__message done">Copied</span>
 </button>
@@ -178,7 +268,7 @@ Disconnect-PnPOnline
 </thead>
 <tbody>
 <tr>
-<td>Reshmee Auckloo</td>
+<td><a href="https://github.com/reshmee011">Reshmee Auckloo</a></td>
 </tr>
 </tbody>
 </table>
