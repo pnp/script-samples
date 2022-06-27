@@ -193,7 +193,7 @@ $siteColumn = &quot;EffectiveDate&quot;
 $reportOnly = $true # If $true, just report. If $false, take action.
 
 $m365Status = m365 status
-if ($m365Status -eq &quot;Logged Out&quot;) {
+if ($m365Status -match &quot;Logged Out&quot;) {
     m365 login
 }
 

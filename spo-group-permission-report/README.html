@@ -109,7 +109,7 @@ $webhook = ' https://contoso.webhook.office.com/webhookb2/1204eba2-061c-4442-969
 
 try { 
     $m365Status = m365 status
-    if ($m365Status -eq &quot;Logged Out&quot;) {
+    if ($m365Status -match &quot;Logged Out&quot;) {
         m365 login
     }
     

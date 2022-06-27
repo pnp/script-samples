@@ -165,7 +165,7 @@ $listName = &quot;LargeListTitle&quot;
 
 
 $m365Status = m365 status
-if ($m365Status -eq &quot;Logged Out&quot;) {
+if ($m365Status -match &quot;Logged Out&quot;) {
   Write-Host &quot;Logging in the User!&quot;
   m365 login --authType browser
 }

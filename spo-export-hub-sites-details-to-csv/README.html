@@ -178,8 +178,8 @@ $global:hubSitesReports = @()
 
 Function Login {
     Write-Host &quot;Connecting to Tenant Site&quot; -f Yellow   
-    $m365Status = m365 status | ConvertFrom-Json
-    if ($m365Status -eq &quot;Logged Out&quot;) {
+    $m365Status = m365 status
+    if ($m365Status -match &quot;Logged Out&quot;) {
       m365 login
     }
     Write-Host &quot;Connection Successful!&quot; -f Green 

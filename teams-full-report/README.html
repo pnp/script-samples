@@ -358,7 +358,7 @@ begin {
 
 process {
    $m365Status = m365 status
-  if ($m365Status -eq &quot;Logged Out&quot;) {
+  if ($m365Status -match &quot;Logged Out&quot;) {
     m365 login
 }
 

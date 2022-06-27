@@ -95,7 +95,7 @@
 
 <pre><code class="lang-powershell">$m365Status = m365 status
 
-if ($m365Status -eq &quot;Logged Out&quot;) {
+if ($m365Status -match &quot;Logged Out&quot;) {
   # Connection to Microsoft 365
   m365 login
 }

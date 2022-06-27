@@ -183,8 +183,8 @@ foreach ($team in $teams)
     <span class="article-clipboard__message done">Copied</span>
 </button>
 
-<pre><code class="lang-powershell">$m365Status = m365 status | ConvertFrom-Json
-if ($m365Status -eq &quot;Logged Out&quot;) {
+<pre><code class="lang-powershell">$m365Status = m365 status
+if ($m365Status -match &quot;Logged Out&quot;) {
   m365 login
 }
 
