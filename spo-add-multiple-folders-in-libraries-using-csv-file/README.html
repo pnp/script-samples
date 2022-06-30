@@ -113,6 +113,9 @@
 <li role="presentation">
 <a href="#tabpanel_CeZOj-G++Q_cli-m365-ps" role="tab" aria-controls="tabpanel_CeZOj-G++Q_cli-m365-ps" data-tab="cli-m365-ps" tabindex="0" aria-selected="true">CLI for Microsoft 365</a>
 </li>
+<li role="presentation">
+<a href="#tabpanel_CeZOj-G++Q_pnpps" role="tab" aria-controls="tabpanel_CeZOj-G++Q_pnpps" data-tab="pnpps" tabindex="-1">PnP PowerShell</a>
+</li>
 </ul>
 <section id="tabpanel_CeZOj-G++Q_cli-m365-ps" role="tabpanel" data-tab="cli-m365-ps"><button class="article-clipboard" title="Copy to clipboard" data-toggle="tooltip" data-placement="top" data-clipboard-target="section[id^='tabpanel'][data-tab='cli-m365-ps'] pre">
     <span class="glyphicon glyphicon-copy" aria-hidden="true"></span>
@@ -152,7 +155,63 @@ function Add-FoldersToMultipleLibraries {
         m365 spo folder add --webUrl $site --parentFolderUrl $($row.libName) --name $($row.folderName)
     }
 }
+
 </code></pre>
+<div class="highlight-tool">
+<p>Check out the <strong>CLI for Microsoft 365</strong> to learn more at: <a href="https://aka.ms/cli-m365">https://aka.ms/cli-m365</a></p>
+</div>
+</section>
+<section id="tabpanel_CeZOj-G++Q_pnpps" role="tabpanel" data-tab="pnpps" aria-hidden="true" hidden="hidden"><button class="article-clipboard" title="Copy to clipboard" data-toggle="tooltip" data-placement="top" data-clipboard-target="section[id^='tabpanel'][data-tab='pnpps'] pre">
+    <span class="glyphicon glyphicon-copy" aria-hidden="true"></span>
+    <span class="article-clipboard__message done">Copied</span>
+</button>
+
+<pre><code class="lang-powershell">
+#Config Variables
+$SiteURL = &quot;https://contoso.sharepoint.com/sites/Ops&quot;
+$CSVFilePath = &quot;C:\Temp\Folders.csv&quot;
+ 
+Try {
+    #Connect to PnP Online
+    Connect-PnPOnline -Url $SiteURL -Interactive
+    $Web = Get-PnPWeb
+ 
+    #Get the CSV file
+    $CSVFile = Import-Csv $CSVFilePath
+  
+    #Read CSV file and create folders
+    ForEach($Row in $CSVFile)
+    {
+        #Get the Document Library and its site relative URL
+        $Library = Get-PnPList -Identity $Row.libName -Includes RootFolder
+        If($Web.ServerRelativeUrl -eq &quot;/&quot;)
+        {
+            $LibrarySiteRelativeURL = $Library.RootFolder.ServerRelativeUrl
+        }
+        else
+        {
+            $LibrarySiteRelativeURL = $Library.RootFolder.ServerRelativeUrl.Replace($Web.ServerRelativeUrl,'')
+        }
+        #Replace Invalid Characters from Folder Name, If any
+        $FolderName = $Row.folderName
+        $FolderName = [RegEx]::Replace($FolderName, &quot;[{0}]&quot; -f ([RegEx]::Escape([String]'\&quot;*:&lt;&gt;?/\|')), '_')
+ 
+        #Frame the Folder Name
+        $FolderURL = $LibrarySiteRelativeURL+&quot;/&quot;+$FolderName
+ 
+        #Create Folder if it doesn't exist
+        Resolve-PnPFolder -SiteRelativePath $FolderURL | Out-Null
+        Write-host &quot;Ensured Folder:&quot;$FolderName -f Green
+    }
+}
+catch {
+    write-host &quot;Error: $($_.Exception.Message)&quot; -foregroundcolor Red
+}
+
+</code></pre>
+<div class="highlight-tool">
+<p>Check out the <strong>PnP PowerShell</strong> to learn more at: <a href="https://aka.ms/pnp/powershell">https://aka.ms/pnp/powershell</a></p>
+</div>
 </section>
 </div>
 
@@ -190,10 +249,63 @@ function Add-FoldersToMultipleLibraries {
 <div class="tabGroup" id="tabgroup_CeZOj-G++Q-1">
 <ul role="tablist">
 <li role="presentation">
-<a href="#tabpanel_CeZOj-G++Q-1_cli-m365-ps2" role="tab" aria-controls="tabpanel_CeZOj-G++Q-1_cli-m365-ps2" data-tab="cli-m365-ps2" tabindex="0" aria-selected="true">CLI for Microsoft 365</a>
+<a href="#tabpanel_CeZOj-G++Q-1_pnpps2" role="tab" aria-controls="tabpanel_CeZOj-G++Q-1_pnpps2" data-tab="pnpps2" tabindex="0" aria-selected="true">PnP PowerShell</a>
+</li>
+<li role="presentation">
+<a href="#tabpanel_CeZOj-G++Q-1_cli-m365-ps2" role="tab" aria-controls="tabpanel_CeZOj-G++Q-1_cli-m365-ps2" data-tab="cli-m365-ps2" tabindex="-1">CLI for Microsoft 365</a>
 </li>
 </ul>
-<section id="tabpanel_CeZOj-G++Q-1_cli-m365-ps2" role="tabpanel" data-tab="cli-m365-ps2"><button class="article-clipboard" title="Copy to clipboard" data-toggle="tooltip" data-placement="top" data-clipboard-target="section[id^='tabpanel'][data-tab='cli-m365-ps2'] pre">
+<section id="tabpanel_CeZOj-G++Q-1_pnpps2" role="tabpanel" data-tab="pnpps2"><button class="article-clipboard" title="Copy to clipboard" data-toggle="tooltip" data-placement="top" data-clipboard-target="section[id^='tabpanel'][data-tab='pnpps2'] pre">
+    <span class="glyphicon glyphicon-copy" aria-hidden="true"></span>
+    <span class="article-clipboard__message done">Copied</span>
+</button>
+
+<pre><code class="lang-powershell">
+#Config Variables
+$CSVFilePath = &quot;C:\Temp\Folders.csv&quot;
+ 
+Try {
+    
+ 
+    #Get the CSV file
+    $CSVFile = Import-Csv $CSVFilePath
+  
+    #Read CSV file and create folders
+    ForEach($Row in $CSVFile)
+    {
+        $SiteURL = $Row.site
+        #Connect to PnP Online
+        Connect-PnPOnline -Url $SiteURL -Interactive
+        $Web = Get-PnPWeb
+        #Get the Document Library and its site relative URL
+        $Library = Get-PnPList -Identity $Row.libName -Includes RootFolder
+        If($Web.ServerRelativeUrl -eq &quot;/&quot;)
+        {
+            $LibrarySiteRelativeURL = $Library.RootFolder.ServerRelativeUrl
+        }
+        else
+        {
+            $LibrarySiteRelativeURL = $Library.RootFolder.ServerRelativeUrl.Replace($Web.ServerRelativeUrl,'')
+        }
+        #Replace Invalid Characters from Folder Name, If any
+        $FolderName = $Row.folderName
+        $FolderName = [RegEx]::Replace($FolderName, &quot;[{0}]&quot; -f ([RegEx]::Escape([String]'\&quot;*:&lt;&gt;?/\|')), '_')
+ 
+        #Frame the Folder Name
+        $FolderURL = $LibrarySiteRelativeURL+&quot;/&quot;+$FolderName
+ 
+        #Create Folder if it doesn't exist
+        Resolve-PnPFolder -SiteRelativePath $FolderURL | Out-Null
+        Write-host &quot;Ensured Folder:&quot;$FolderName -f Green
+    }
+}
+catch {
+    write-host &quot;Error: $($_.Exception.Message)&quot; -foregroundcolor Red
+}
+
+</code></pre>
+</section>
+<section id="tabpanel_CeZOj-G++Q-1_cli-m365-ps2" role="tabpanel" data-tab="cli-m365-ps2" aria-hidden="true" hidden="hidden"><button class="article-clipboard" title="Copy to clipboard" data-toggle="tooltip" data-placement="top" data-clipboard-target="section[id^='tabpanel'][data-tab='cli-m365-ps2'] pre">
     <span class="glyphicon glyphicon-copy" aria-hidden="true"></span>
     <span class="article-clipboard__message done">Copied</span>
 </button>
@@ -247,6 +359,9 @@ function Add-FoldersToMultipleLibrariesInMultipleSites {
 <tbody>
 <tr>
 <td>Veronique Lengelle</td>
+</tr>
+<tr>
+<td><a href="https://github.com/jitenparmar">Jiten Parmar</a></td>
 </tr>
 </tbody>
 </table>
