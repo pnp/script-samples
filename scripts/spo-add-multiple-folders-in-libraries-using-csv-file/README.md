@@ -16,7 +16,8 @@ Below is an example of the format needed for your .csv file:
  
 > [!important]
 > Make sure your target libraries contained in the file do exist in SharePoint Online.
- 
+
+
 # [CLI for Microsoft 365](#tab/cli-m365-ps)
 ```powershell
 <#
@@ -52,7 +53,57 @@ function Add-FoldersToMultipleLibraries {
         m365 spo folder add --webUrl $site --parentFolderUrl $($row.libName) --name $($row.folderName)
     }
 }
+
 ```
+[!INCLUDE [More about CLI for Microsoft 365](../../docfx/includes/MORE-CLIM365.md)]
+
+
+# [PnP PowerShell](#tab/pnpps)
+```powershell
+
+#Config Variables
+$SiteURL = "https://contoso.sharepoint.com/sites/Ops"
+$CSVFilePath = "C:\Temp\Folders.csv"
+ 
+Try {
+    #Connect to PnP Online
+    Connect-PnPOnline -Url $SiteURL -Interactive
+    $Web = Get-PnPWeb
+ 
+    #Get the CSV file
+    $CSVFile = Import-Csv $CSVFilePath
+  
+    #Read CSV file and create folders
+    ForEach($Row in $CSVFile)
+    {
+        #Get the Document Library and its site relative URL
+        $Library = Get-PnPList -Identity $Row.libName -Includes RootFolder
+        If($Web.ServerRelativeUrl -eq "/")
+        {
+            $LibrarySiteRelativeURL = $Library.RootFolder.ServerRelativeUrl
+        }
+        else
+        {
+            $LibrarySiteRelativeURL = $Library.RootFolder.ServerRelativeUrl.Replace($Web.ServerRelativeUrl,'')
+        }
+        #Replace Invalid Characters from Folder Name, If any
+        $FolderName = $Row.folderName
+        $FolderName = [RegEx]::Replace($FolderName, "[{0}]" -f ([RegEx]::Escape([String]'\"*:<>?/\|')), '_')
+ 
+        #Frame the Folder Name
+        $FolderURL = $LibrarySiteRelativeURL+"/"+$FolderName
+ 
+        #Create Folder if it doesn't exist
+        Resolve-PnPFolder -SiteRelativePath $FolderURL | Out-Null
+        Write-host "Ensured Folder:"$FolderName -f Green
+    }
+}
+catch {
+    write-host "Error: $($_.Exception.Message)" -foregroundcolor Red
+}
+
+```
+[!INCLUDE [More about PnP PowerShell](../../docfx/includes/MORE-PNPPS.md)]
 ***
 
 
@@ -67,6 +118,53 @@ Below is an example of the format needed for your .csv file:
 > [!important]
 > Make sure your target libraries & sites contained in the file do exist in SharePoint Online.
  
+
+ # [PnP PowerShell](#tab/pnpps2)
+```powershell
+
+#Config Variables
+$CSVFilePath = "C:\Temp\Folders.csv"
+ 
+Try {
+    
+ 
+    #Get the CSV file
+    $CSVFile = Import-Csv $CSVFilePath
+  
+    #Read CSV file and create folders
+    ForEach($Row in $CSVFile)
+    {
+        $SiteURL = $Row.site
+        #Connect to PnP Online
+        Connect-PnPOnline -Url $SiteURL -Interactive
+        $Web = Get-PnPWeb
+        #Get the Document Library and its site relative URL
+        $Library = Get-PnPList -Identity $Row.libName -Includes RootFolder
+        If($Web.ServerRelativeUrl -eq "/")
+        {
+            $LibrarySiteRelativeURL = $Library.RootFolder.ServerRelativeUrl
+        }
+        else
+        {
+            $LibrarySiteRelativeURL = $Library.RootFolder.ServerRelativeUrl.Replace($Web.ServerRelativeUrl,'')
+        }
+        #Replace Invalid Characters from Folder Name, If any
+        $FolderName = $Row.folderName
+        $FolderName = [RegEx]::Replace($FolderName, "[{0}]" -f ([RegEx]::Escape([String]'\"*:<>?/\|')), '_')
+ 
+        #Frame the Folder Name
+        $FolderURL = $LibrarySiteRelativeURL+"/"+$FolderName
+ 
+        #Create Folder if it doesn't exist
+        Resolve-PnPFolder -SiteRelativePath $FolderURL | Out-Null
+        Write-host "Ensured Folder:"$FolderName -f Green
+    }
+}
+catch {
+    write-host "Error: $($_.Exception.Message)" -foregroundcolor Red
+}
+
+```
 # [CLI for Microsoft 365](#tab/cli-m365-ps2)
 ```powershell
 <#
@@ -113,6 +211,8 @@ Sample first appeared on [Add multiple folders in libraries using a csv file | C
 | Author(s) |
 |-----------|
 | Veronique Lengelle |
+| [Jiten Parmar](https://github.com/jitenparmar) |
+
 
 
 [!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
