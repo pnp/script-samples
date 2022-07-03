@@ -123,11 +123,87 @@ process{
 [!INCLUDE [More about PnP PowerShell](../../docfx/includes/MORE-PNPPS.md)]
 ***
 
+# [CLI for Microsoft 365](#tab/cli-m365-ps)
+
+```powershell
+
+[CmdletBinding()]
+param (
+    [Parameter(Mandatory = $true, HelpMessage = "Please enter Site URL, e.g. https://contoso.sharepoint.com/sites/Intranet")]
+    [string]$SiteUrl
+)
+begin {
+    #Log in to Microsoft 365
+    Write-Host "Connecting to Tenant" -f Yellow
+
+    $m365Status = m365 status
+    if ($m365Status -match "Logged Out") {
+        m365 login
+    }
+
+    Write-Host "Connection Successful!" -f Green 
+}
+process {
+    # Get information about the specific site collection
+    $web = m365 spo web get -u $SiteUrl | ConvertFrom-Json
+
+    # Get all modern pages in the given site
+    # Avoid error: Cannot convert the JSON string because a dictionary that was converted from the string contains the duplicated keys 'Id' and 'ID'
+    $modernPages = m365 spo page list --webUrl $SiteUrl | ForEach-Object { $_.replace("Id", "_Id") } | ConvertFrom-Json
+
+    $resultColl = @()
+    
+    ForEach ($modernPage in $modernPages) {
+        $moderationStatusString = ""
+        $promotedLevel = ""
+
+        Write-Host " Processing page $($modernPage.ServerRelativeUrl)" -ForegroundColor Cyan
+
+        switch ($modernPage.ListItemAllFields.PromotedState) {
+            0 { $promotedLevel = "Page" }
+            1 { $promotedLevel = "News" }
+            2 { $promotedLevel = "News" }
+            Default {}
+        }
+
+        switch ($modernPage.ListItemAllFields._ModerationStatus) {
+            0 { $moderationStatusString = "Approved" }
+            1 { $moderationStatusString = "Denied Approval" }
+            2 { $moderationStatusString = "Pending Approval" }
+            3 { $moderationStatusString = "Draft" }
+            4 { $moderationStatusString = "Scheduled Approval" }
+            Default {}
+        }
+
+        $result = New-Object PSObject -Property ([ordered]@{
+                "Site Title"        = $web.Title
+                "Site URL"          = $web.Url
+                "Page FileName"     = $modernPage.Name
+                "Page Relative URL" = $modernPage.ServerRelativeUrl
+                "Scheduled Date"    = $modernPage.ListItemAllFields.OData__PublishStartDate
+                "IsNews"            = $promotedLevel
+                "Approval Status"   = $moderationStatusString
+                "Version"           = $modernPage.UIVersionLabel
+            })
+
+        $resultColl += $result
+    }
+
+    $resultColl | ConvertTo-Csv -NoTypeInformation | Out-File -FilePath "Page-Status-Report.csv"
+}
+end { 
+    Write-Host "Finished"
+}
+
+```
+[!INCLUDE [More about CLI for Microsoft 365](../../docfx/includes/MORE-CLIM365.md)]
+
 ## Contributors
 
 | Author(s) |
 |-----------|
 | Paul Bullock |
+| [Nanddeep Nachan](https://github.com/nanddeepn) |
 
 
 [!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
