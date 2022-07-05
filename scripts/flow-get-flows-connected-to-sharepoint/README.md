@@ -8,7 +8,7 @@ plugin: add-to-gallery
 
 This script will generate a csv listing all flows which connect to SharePoint.
  
-# [PnP Powershell](#tab/pnpps)
+# [Power Apps PowerShell](#tab/powerapps-ps)
 ```powershell
 $environment="Default-9eec07e6-f6f8-4e24-b4c7-c5868500b417"
 Connect-AzureAD
@@ -65,6 +65,10 @@ foreach ($flow in $flows){
 
 }
 $results | Export-Csv -NoTypeInformation -Path [locationOfYourCsv]
+```
+[!INCLUDE [More about Power Apps PowerShell](../../docfx/includes/MORE-POWERAPPS.md)]
+***
+
 ## Contributors
 
 | Author(s) |
