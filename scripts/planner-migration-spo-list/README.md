@@ -256,6 +256,7 @@ Sample first appeared on [Planner migration to SharePoint list | CLI for Microso
 |-----------|
 | Albert-Jan Schot |
 | [Reshmee Auckloo](https://github.com/reshmee011)|
+| Jasey Waegebaert |
 
 
 [!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
