@@ -7,7 +7,7 @@
     "title": "Planner migration to SharePoint list",
     "url": "https://pnp.github.io/script-samples/planner-migration-spo-list/README.html",
     "creationDateTime": "2022-05-23",
-    "updateDateTime": "2022-05-31",
+    "updateDateTime": "2022-07-03",
     "shortDescription": "Migrate a planner plan with buckets and tasks to a SharePoint Online list",
     "longDescription": null,
     "products": [
@@ -26,7 +26,15 @@
       "Security",
       "m365 login",
       "m365 status",
-      "m365 planner plan list"
+      "m365 planner plan list",
+      "m365 planner bucket list",
+      "m365 planner task list",
+      "m365 planner task get",
+      "m365 aad user get",
+      "m365 spo list add",
+      "m365 spo field add",
+      "m365 spo listitem add",
+      "m365 spo listitem set"
     ],
     "metadata": [
       {
@@ -48,6 +56,12 @@
       }
     ],
     "authors": [
+      {
+        "gitHubAccount": "Jwaegebaert",
+        "company": "GMI Group",
+        "pictureUrl": "https://github.com/Jwaegebaert.png",
+        "name": "Jasey Waegebaert"
+      },
       {
         "gitHubAccount": "reshmee011",
         "company": "",
