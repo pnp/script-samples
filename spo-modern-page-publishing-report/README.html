@@ -103,6 +103,9 @@ This is useful for scenarios where you are either about to launch an Intranet or
 <li role="presentation">
 <a href="#tabpanel_CeZOj-G++Q_pnpps" role="tab" aria-controls="tabpanel_CeZOj-G++Q_pnpps" data-tab="pnpps" tabindex="0" aria-selected="true">PnP PowerShell</a>
 </li>
+<li role="presentation">
+<a href="#tabpanel_CeZOj-G++Q_cli-m365-ps" role="tab" aria-controls="tabpanel_CeZOj-G++Q_cli-m365-ps" data-tab="cli-m365-ps" tabindex="-1">CLI for Microsoft 365</a>
+</li>
 </ul>
 <section id="tabpanel_CeZOj-G++Q_pnpps" role="tabpanel" data-tab="pnpps"><button class="article-clipboard" title="Copy to clipboard" data-toggle="tooltip" data-placement="top" data-clipboard-target="section[id^='tabpanel'][data-tab='pnpps'] pre">
     <span class="glyphicon glyphicon-copy" aria-hidden="true"></span>
@@ -205,6 +208,85 @@ process{
 <p>Check out the <strong>PnP PowerShell</strong> to learn more at: <a href="https://aka.ms/pnp/powershell">https://aka.ms/pnp/powershell</a></p>
 </div>
 </section>
+<section id="tabpanel_CeZOj-G++Q_cli-m365-ps" role="tabpanel" data-tab="cli-m365-ps" aria-hidden="true" hidden="hidden"><button class="article-clipboard" title="Copy to clipboard" data-toggle="tooltip" data-placement="top" data-clipboard-target="section[id^='tabpanel'][data-tab='cli-m365-ps'] pre">
+    <span class="glyphicon glyphicon-copy" aria-hidden="true"></span>
+    <span class="article-clipboard__message done">Copied</span>
+</button>
+
+<pre><code class="lang-powershell">
+[CmdletBinding()]
+param (
+    [Parameter(Mandatory = $true, HelpMessage = &quot;Please enter Site URL, e.g. https://contoso.sharepoint.com/sites/Intranet&quot;)]
+    [string]$SiteUrl
+)
+begin {
+    #Log in to Microsoft 365
+    Write-Host &quot;Connecting to Tenant&quot; -f Yellow
+
+    $m365Status = m365 status
+    if ($m365Status -match &quot;Logged Out&quot;) {
+        m365 login
+    }
+
+    Write-Host &quot;Connection Successful!&quot; -f Green 
+}
+process {
+    # Get information about the specific site collection
+    $web = m365 spo web get -u $SiteUrl | ConvertFrom-Json
+
+    # Get all modern pages in the given site
+    # Avoid error: Cannot convert the JSON string because a dictionary that was converted from the string contains the duplicated keys 'Id' and 'ID'
+    $modernPages = m365 spo page list --webUrl $SiteUrl | ForEach-Object { $_.replace(&quot;Id&quot;, &quot;_Id&quot;) } | ConvertFrom-Json
+
+    $resultColl = @()
+    
+    ForEach ($modernPage in $modernPages) {
+        $moderationStatusString = &quot;&quot;
+        $promotedLevel = &quot;&quot;
+
+        Write-Host &quot; Processing page $($modernPage.ServerRelativeUrl)&quot; -ForegroundColor Cyan
+
+        switch ($modernPage.ListItemAllFields.PromotedState) {
+            0 { $promotedLevel = &quot;Page&quot; }
+            1 { $promotedLevel = &quot;News&quot; }
+            2 { $promotedLevel = &quot;News&quot; }
+            Default {}
+        }
+
+        switch ($modernPage.ListItemAllFields.OData__ModerationStatus) {
+            0 { $moderationStatusString = &quot;Approved&quot; }
+            1 { $moderationStatusString = &quot;Denied Approval&quot; }
+            2 { $moderationStatusString = &quot;Pending Approval&quot; }
+            3 { $moderationStatusString = &quot;Draft&quot; }
+            4 { $moderationStatusString = &quot;Scheduled Approval&quot; }
+            Default {}
+        }
+
+        $result = New-Object PSObject -Property ([ordered]@{
+                &quot;Site Title&quot;        = $web.Title
+                &quot;Site URL&quot;          = $web.Url
+                &quot;Page FileName&quot;     = $modernPage.Name
+                &quot;Page Relative URL&quot; = $modernPage.ServerRelativeUrl
+                &quot;Scheduled Date&quot;    = $modernPage.ListItemAllFields.OData__PublishStartDate
+                &quot;IsNews&quot;            = $promotedLevel
+                &quot;Approval Status&quot;   = $moderationStatusString
+                &quot;Version&quot;           = $modernPage.UIVersionLabel
+            })
+
+        $resultColl += $result
+    }
+
+    $resultColl | ConvertTo-Csv -NoTypeInformation | Out-File -FilePath &quot;Page-Status-Report.csv&quot;
+}
+end { 
+    Write-Host &quot;Finished&quot;
+}
+
+</code></pre>
+<div class="highlight-tool">
+<p>Check out the <strong>CLI for Microsoft 365</strong> to learn more at: <a href="https://aka.ms/cli-m365">https://aka.ms/cli-m365</a></p>
+</div>
+</section>
 </div>
 <h2 id="contributors">Contributors</h2>
 <table>
@@ -216,6 +298,9 @@ process{
 <tbody>
 <tr>
 <td>Paul Bullock</td>
+</tr>
+<tr>
+<td><a href="https://github.com/nanddeepn">Nanddeep Nachan</a></td>
 </tr>
 </tbody>
 </table>
