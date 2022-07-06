@@ -166,7 +166,7 @@ process {
             Default {}
         }
 
-        switch ($modernPage.ListItemAllFields._ModerationStatus) {
+        switch ($modernPage.ListItemAllFields.OData__ModerationStatus) {
             0 { $moderationStatusString = "Approved" }
             1 { $moderationStatusString = "Denied Approval" }
             2 { $moderationStatusString = "Pending Approval" }
