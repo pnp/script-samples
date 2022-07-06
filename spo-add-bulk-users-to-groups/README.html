@@ -1,0 +1,246 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html lang="en">
+  
+  <head>
+    <meta charset="utf-8">
+    <title>Add Bulk Users to SharePoint Site Groups | PnP Samples </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Add Bulk Users to SharePoint Site Groups | PnP Samples ">
+    <meta name="generator" content="docfx 2.56.7.0">
+    <meta name="description" content="A sample gallery of scripts to manage all things Microsoft 365.">
+  
+    <!-- Social Media -->
+    <meta property="og:locale" content="en_GB">
+    <meta property="og:title" content="Add Bulk Users to SharePoint Site Groups | PnP Samples ">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://pnp.github.io/script-samples">
+    <meta property="og:image" content="https://pnp.github.io/script-samples/assets/social-media-screenshot.png">
+    <meta property="og:image:alt" content="Screenshot example of the PnP Script Samples Site">
+    <meta property="og:site_name" content="PnP Script Samples">
+    <meta property="og:description" content="A sample gallery of scripts to manage all things Microsoft 365.">
+  
+    <link rel="shortcut icon" href="https://c.s-microsoft.com/favicon.ico?v2">
+    <link rel="stylesheet" href="../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../styles/docfx.css">
+    <link rel="stylesheet" href="../styles/main.css">
+    <link rel="stylesheet" href="../styles/extra.css">
+    <link rel="stylesheet" href="../styles/filter.css">
+    <link rel="stylesheet" href="../styles/site.css">
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet"> 
+    <meta property="docfx:navrel" content="../toc.html">
+    <meta property="docfx:tocrel" content="../toc.html">
+    
+    
+    <meta property="docfx:newtab" content="true">
+    <script type="text/javascript">
+      (function(c,l,a,r,i,t,y){
+          c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+          t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+          y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+      })(window, document, "clarity", "script", "8j6pedl344");
+  </script>
+  </head>  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+             <div class="github-mark">
+              <a href="https://github.com/pnp/script-samples">
+                <img src="https://pnp.github.io/script-samples/assets/icons/github-light-64px.png" alt="GitHub Icon Image">
+              </a>
+            </div>
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../assets/logo.svg" alt="">
+              </a>    </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <label class="glyphicon glyphicon-search" for="search-query"></label>
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>      </header>
+      <div role="main" class="container body-content hide-when-search">
+        <div class="article row grid">
+          <div class="col-md-12">
+            <article class="content wrap" id="_content" data-uid="">
+                  <div class="contribution-panel mobile-hide pull-right">
+                      <a href="https://github.com/pnp/script-samples/blob/main/scripts/spo-add-bulk-users-to-groups/README.md/#L1" title="Improve this Doc" class="improve-doc-lg"><i class="glyphicon glyphicon-pencil"></i></a>
+                  </div>
+                    <h1 id="add-bulk-users-to-sharepoint-site-groups">Add Bulk Users to SharePoint Site Groups</h1>
+
+<h2 id="summary">Summary</h2>
+<p>This sample shows how to add bulk users to SharePoint site groups from CSV.</p>
+<h2 id="bulk-users-csv">Bulk Users CSV</h2>
+<table>
+<thead>
+<tr>
+<th>SiteURL</th>
+<th>GroupName</th>
+<th>Users</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="https://domain.sharepoint.com/sites/SPFxLearning/">https://domain.sharepoint.com/sites/SPFxLearning/</a></td>
+<td>SPFx Users</td>
+<td>user2@domain.onmicrosoft.com</td>
+</tr>
+<tr>
+<td><a href="https://domain.sharepoint.com/sites/PowerShellLearning/">https://domain.sharepoint.com/sites/PowerShellLearning/</a></td>
+<td>PowerShell Users</td>
+<td>chandani@domain.onmicrosoft.com</td>
+</tr>
+<tr>
+<td><a href="https://domain.sharepoint.com/sites/PowerPlatformLearning/">https://domain.sharepoint.com/sites/PowerPlatformLearning/</a></td>
+<td>Power Users</td>
+<td>chandani@domain.onmicrosoft.com</td>
+</tr>
+</tbody>
+</table>
+<p>You can download input CSV reference file at <a href="assets/DummyInput.csv">here</a>.</p>
+<p><img src="assets/preview.png" alt="Example Screenshot"></p>
+<h2 id="implementation">Implementation</h2>
+<p>Open Windows Powershell ISE
+Create a new file and write a script</p>
+<p>Now we will see all the steps which we required to achieve the solution:</p>
+<ol>
+<li>Create a function to read a CSV file and store it in a global variable.</li>
+<li>Create a function to connect the O365 admin site.</li>
+<li>Create a function to add users to a group, in this first we will be looping all elements and connecting to the particular site. After that, we will check if the current user exists in the current group. If not exists then we will add it.</li>
+</ol>
+<div class="tabGroup" id="tabgroup_CeZOj-G++Q">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_CeZOj-G++Q_pnpps" role="tab" aria-controls="tabpanel_CeZOj-G++Q_pnpps" data-tab="pnpps" tabindex="0" aria-selected="true">PnP PowerShell</a>
+</li>
+</ul>
+<section id="tabpanel_CeZOj-G++Q_pnpps" role="tabpanel" data-tab="pnpps"><button class="article-clipboard" title="Copy to clipboard" data-toggle="tooltip" data-placement="top" data-clipboard-target="section[id^='tabpanel'][data-tab='pnpps'] pre">
+    <span class="glyphicon glyphicon-copy" aria-hidden="true"></span>
+    <span class="article-clipboard__message done">Copied</span>
+</button>
+
+<pre><code class="lang-powershell">
+$AdminSiteURL = &quot;https://domain-admin.sharepoint.com/&quot;
+$Username = &quot;chandani@domain.onmicrosoft.com&quot;
+$Password = &quot;********&quot;
+$SecureStringPwd = $password | ConvertTo-SecureString -AsPlainText -Force 
+$Creds = New-Object System.Management.Automation.PSCredential -ArgumentList $username, $secureStringPwd
+$CSVPath = &quot;E:\Contribution\PnP-Scripts\bulk-add-users-to-group\SP-Usres.csv&quot;
+$global:CSVData = @()
+
+Function Login() {
+    [cmdletbinding()]
+    param([parameter(Mandatory = $true, ValueFromPipeline = $true)] $Creds)     
+    Write-Host &quot;Connecting to Tenant Admin Site '$($AdminSiteURL)'&quot; -ForegroundColor Yellow   
+    Connect-PnPOnline -Url $AdminSiteURL -Credentials $Creds
+    Write-Host &quot;Connection Successful!&quot; -ForegroundColor Green 
+    ReadCSVFile
+}
+
+Function ReadCSVFile() {
+    Write-Host &quot;Reading CSV file...&quot; -ForegroundColor Yellow   
+    $global:CSVData = Import-Csv $CSVPath
+    Write-Host &quot;Reading CSV file successfully!&quot; -ForegroundColor Green   
+    AddUsersToGroups
+}
+
+Function AddUsersToGroups() {
+    ForEach ($CurrentItem in $CSVData) {
+        Try {
+            #Connect to SharePoint Online Site
+            Write-host &quot;Connecting to Site: &quot;$CurrentItem.SiteURL
+            Connect-PnPOnline -Url $CurrentItem.SiteURL -Credentials $Creds
+  
+            #Get the group
+            $Group = Get-PnPGroup -Identity $CurrentItem.GroupName
+  
+            #Get group members
+            $GroupMembers = Get-PnPGroupMembers -Identity $Group | select Email
+            
+            #Check if user is exists in a group or not
+            $IsUserExists = $GroupMembers -match $CurrentItem.Users
+            if ($IsUserExists.Length) {
+                Write-Host &quot;User $($CurrentItem.Users) is already exists in $($Group.Title)&quot; -ForegroundColor Yellow                
+            }
+            else {
+                Write-Host &quot;Adding User $($CurrentItem.Users) to $($Group.Title)&quot; -ForegroundColor Yellow  
+                Add-PnPGroupMember -LoginName $CurrentItem.Users -Identity $Group
+                Write-host &quot;Added User $($CurrentItem.Users) to $($Group.Title)&quot; -ForegroundColor Green
+            }                        
+        }
+        Catch {
+            write-host &quot;Error Adding User to Group:&quot; $_.Exception.Message -ForegroundColor Red 
+        }
+    }
+}
+
+Function StartProcessing {
+    Login($Creds);    
+}
+
+StartProcessing
+
+</code></pre>
+<div class="highlight-tool">
+<p>Check out the <strong>PnP PowerShell</strong> to learn more at: <a href="https://aka.ms/pnp/powershell">https://aka.ms/pnp/powershell</a></p>
+</div>
+<h2 id="contributors">Contributors</h2>
+<table>
+<thead>
+<tr>
+<th>Author(s)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Chandani Prajapati</td>
+</tr>
+</tbody>
+</table>
+<h2 id="disclaimer">Disclaimer</h2>
+<p><strong>THESE SAMPLES ARE PROVIDED <em>AS IS</em> WITHOUT WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, INCLUDING ANY IMPLIED WARRANTIES OF FITNESS FOR A PARTICULAR PURPOSE, MERCHANTABILITY, OR NON-INFRINGEMENT.</strong></p>
+<img src="https://pnptelemetry.azurewebsites.net/script-samples/scripts/spo-add-bulk-users-to-groups" aria-hidden="true">
+</section>
+</div>
+</article>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            <span>Script Samples<br>Generated by <strong><a href='https://dotnet.github.io/docfx' alt='Doc FX Website'>DocFX</a></strong> with <strong><a href='https://ovasquez.github.io/docfx-material' alt='DocFx Material Theme'>Material UI</a></strong></span>
+            
+            <!-- <img src="https://telemetry.sharepointpnp.com/@pnp.github.io/index/" alt="spacer"> -->
+          </div>
+        </div>
+      </footer>    </div>
+    
+    <script type="text/javascript" src="../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+    
+    <script type="text/javascript" src="../styles/clipboard.min.js"></script>
+    <script type="text/javascript" src="../styles/isotope.pkgd.min.js"></script>
+    <script type="text/javascript" src="../styles/loadsamples.js"></script>
+    <script type="text/javascript" src="../styles/filtersamples.js"></script>
+
+  </body>
+</html>
