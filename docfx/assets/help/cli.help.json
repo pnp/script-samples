@@ -120,6 +120,10 @@
     "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/aad/o365group/o365group-recyclebinitem-list"
   },
   {
+    "cmd": "m365 aad o365group recyclebinitem remove",
+    "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/aad/o365group/o365group-recyclebinitem-remove"
+  },
+  {
     "cmd": "m365 aad o365group recyclebinitem restore",
     "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/aad/o365group/o365group-recyclebinitem-restore"
   },
@@ -552,10 +556,6 @@
     "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/planner/plan/plan-add"
   },
   {
-    "cmd": "m365 planner plan details get",
-    "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/planner/plan/plan-details-get"
-  },
-  {
     "cmd": "m365 planner plan get",
     "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/planner/plan/plan-get"
   },
@@ -564,12 +564,24 @@
     "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/planner/plan/plan-list"
   },
   {
+    "cmd": "m365 planner plan remove",
+    "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/planner/plan/plan-remove"
+  },
+  {
     "cmd": "m365 planner task add",
     "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/planner/task/task-add"
   },
   {
-    "cmd": "m365 planner task details get",
-    "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/planner/task/task-details-get"
+    "cmd": "m365 planner task checklistitem add",
+    "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/planner/task/task-checklistitem-add"
+  },
+  {
+    "cmd": "m365 planner task checklistitem list",
+    "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/planner/task/task-checklistitem-list"
+  },
+  {
+    "cmd": "m365 planner task checklistitem remove",
+    "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/planner/task/task-checklistitem-remove"
   },
   {
     "cmd": "m365 planner task get",
@@ -588,8 +600,24 @@
     "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/planner/task/task-reference-list"
   },
   {
+    "cmd": "m365 planner task reference remove",
+    "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/planner/task/task-reference-remove"
+  },
+  {
+    "cmd": "m365 planner task remove",
+    "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/planner/task/task-remove"
+  },
+  {
     "cmd": "m365 planner task set",
     "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/planner/task/task-set"
+  },
+  {
+    "cmd": "m365 planner tenant settings list",
+    "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/planner/tenant/tenant-settings-list"
+  },
+  {
+    "cmd": "m365 planner tenant settings set",
+    "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/planner/tenant/tenant-settings-set"
   },
   {
     "cmd": "m365 pp environment list",
@@ -610,6 +638,10 @@
   {
     "cmd": "m365 search externalconnection add",
     "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/search/externalconnection/externalconnection-add"
+  },
+  {
+    "cmd": "m365 search externalconnection get",
+    "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/search/externalconnection/externalconnection-get"
   },
   {
     "cmd": "m365 search externalconnection list",
@@ -798,6 +830,10 @@
   {
     "cmd": "m365 spo eventreceiver get",
     "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/spo/eventreceiver/eventreceiver-get"
+  },
+  {
+    "cmd": "m365 spo eventreceiver list",
+    "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/spo/eventreceiver/eventreceiver-list"
   },
   {
     "cmd": "m365 spo externaluser list",
@@ -1316,8 +1352,16 @@
     "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/spo/report/report-siteusagestorage"
   },
   {
+    "cmd": "m365 spo roledefinition get",
+    "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/spo/roledefinition/roledefinition-get"
+  },
+  {
     "cmd": "m365 spo roledefinition list",
     "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/spo/roledefinition/roledefinition-list"
+  },
+  {
+    "cmd": "m365 spo roledefinition remove",
+    "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/spo/roledefinition/roledefinition-remove"
   },
   {
     "cmd": "m365 spo serviceprincipal grant add",
@@ -1690,6 +1734,10 @@
   {
     "cmd": "m365 teams app update",
     "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/teams/app/app-update"
+  },
+  {
+    "cmd": "m365 teams cache remove",
+    "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/teams/cache/cache-remove"
   },
   {
     "cmd": "m365 teams channel add",
