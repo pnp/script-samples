@@ -121,7 +121,6 @@ process{
 
 ```
 [!INCLUDE [More about PnP PowerShell](../../docfx/includes/MORE-PNPPS.md)]
-***
 
 # [CLI for Microsoft 365](#tab/cli-m365-ps)
 
@@ -197,6 +196,7 @@ end {
 
 ```
 [!INCLUDE [More about CLI for Microsoft 365](../../docfx/includes/MORE-CLIM365.md)]
+***
 
 ## Contributors
 
