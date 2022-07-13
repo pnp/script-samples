@@ -85,4 +85,4 @@ Disconnect-PnPOnline
 | [Ramin Ahmadi](https://github.com/ahmadiramin) |
 
 [!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
-<img src="https://pnptelemetry.azurewebsites.net/script-samples/scripts/spo-export-sharepoint-list-items-to-csv" aria-hidden="true" />
+<img src="https://pnptelemetry.azurewebsites.net/script-samples/scripts/spo-export-termstore-terms-to-csv" aria-hidden="true" />
