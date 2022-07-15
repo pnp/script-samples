@@ -7,6 +7,8 @@ plugin: add-to-gallery
 ## Summary
 
 This script shows how you can check if external users are added to site groups. It will show all external users across all site collections and the site groups they where added to.
+
+![Example Screenshot](assets/example.png)
  
 # [CLI for Microsoft 365 with PowerShell](#tab/cli-m365-ps)
 ```powershell
