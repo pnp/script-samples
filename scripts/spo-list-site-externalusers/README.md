@@ -34,7 +34,7 @@ foreach ($site in $allSPOSites) {
 
   Write-host "Retrieving all external users ..."
 
-  $users = m365 spo user list --webUrl $site.Url --output json --query "value[?contains(LoginName,'#ext#')]" | ConvertFrom-Json
+  $users = m365 spo user list --webUrl $site.Url --output json --query "[?contains(LoginName,'#ext#')]" | ConvertFrom-Json
 
   foreach ($user in $users) {
     $externalUserObject = m365 spo externaluser list --siteUrl $site.url -o json --query "[?AcceptedAs == '$($user.Email)']" | ConvertFrom-Json
@@ -185,6 +185,7 @@ Sample first appeared on [List all external users in all site collections | CLI 
 | Albert-Jan Schot |
 | Paul Bullock |
 | Chandani Prajapati |
+| Martin Lingstuyl |
 
 
 [!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
