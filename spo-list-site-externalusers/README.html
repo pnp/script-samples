@@ -123,7 +123,7 @@ foreach ($site in $allSPOSites) {
 
   Write-host &quot;Retrieving all external users ...&quot;
 
-  $users = m365 spo user list --webUrl $site.Url --output json --query &quot;value[?contains(LoginName,'#ext#')]&quot; | ConvertFrom-Json
+  $users = m365 spo user list --webUrl $site.Url --output json --query &quot;[?contains(LoginName,'#ext#')]&quot; | ConvertFrom-Json
 
   foreach ($user in $users) {
     $externalUserObject = m365 spo externaluser list --siteUrl $site.url -o json --query &quot;[?AcceptedAs == '$($user.Email)']&quot; | ConvertFrom-Json
@@ -290,6 +290,9 @@ StartProcessing
 </tr>
 <tr>
 <td>Chandani Prajapati</td>
+</tr>
+<tr>
+<td>Martin Lingstuyl</td>
 </tr>
 </tbody>
 </table>
