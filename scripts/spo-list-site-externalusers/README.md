@@ -185,6 +185,7 @@ Sample first appeared on [List all external users in all site collections | CLI 
 | Albert-Jan Schot |
 | Paul Bullock |
 | Chandani Prajapati |
+| Martin Lingstuyl |
 
 
 [!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
