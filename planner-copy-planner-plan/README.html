@@ -125,6 +125,9 @@
 <li role="presentation">
 <a href="#tabpanel_CeZOj-G++Q_cli-m365-ps" role="tab" aria-controls="tabpanel_CeZOj-G++Q_cli-m365-ps" data-tab="cli-m365-ps" tabindex="0" aria-selected="true">CLI for Microsoft 365 with PowerShell</a>
 </li>
+<li role="presentation">
+<a href="#tabpanel_CeZOj-G++Q_pnpps" role="tab" aria-controls="tabpanel_CeZOj-G++Q_pnpps" data-tab="pnpps" tabindex="-1">PnP PowerShell</a>
+</li>
 </ul>
 <section id="tabpanel_CeZOj-G++Q_cli-m365-ps" role="tabpanel" data-tab="cli-m365-ps"><button class="article-clipboard" title="Copy to clipboard" data-toggle="tooltip" data-placement="top" data-clipboard-target="section[id^='tabpanel'][data-tab='cli-m365-ps'] pre">
     <span class="glyphicon glyphicon-copy" aria-hidden="true"></span>
@@ -204,6 +207,88 @@ end {
 <div class="highlight-tool">
 <p>Check out the <strong>CLI for Microsoft 365</strong> to learn more at: <a href="https://aka.ms/cli-m365">https://aka.ms/cli-m365</a></p>
 </div>
+</section>
+<section id="tabpanel_CeZOj-G++Q_pnpps" role="tabpanel" data-tab="pnpps" aria-hidden="true" hidden="hidden"><button class="article-clipboard" title="Copy to clipboard" data-toggle="tooltip" data-placement="top" data-clipboard-target="section[id^='tabpanel'][data-tab='pnpps'] pre">
+    <span class="glyphicon glyphicon-copy" aria-hidden="true"></span>
+    <span class="article-clipboard__message done">Copied</span>
+</button>
+
+<pre><code class="lang-powershell"># Usage example:
+# .\Copy-Planner-plan.ps1 -SourcePlanId 73RAujmtbEKfwfA20Sb46ZgAB_Vi -DestinationGroupId 00000000-0000-0000-0000-000000000000 -AdminUrl https://contoso-admin.sharepoint.com
+
+[CmdletBinding()]
+param (
+  [Parameter(Mandatory = $true, HelpMessage = &quot;Source Planner plan to copy e.g. xqQg5FS2LkCp935s-FIFm2QAFkHM.&quot;)]
+  [string]$SourcePlanId,
+
+  [Parameter(Mandatory = $true, HelpMessage = &quot;Destination group ID to copy the plan to e.g. 00000000-0000-0000-0000-000000000001.&quot;)]
+  [string]$DestinationGroupId,
+
+  [Parameter(Mandatory = $true, HelpMessage = &quot;The Url of the SharePoint Admin Centre, e.g.https://contoso-admin.sharepoint.com  &quot;)]
+  [string]$AdminUrl
+)
+
+Begin  {
+    Connect-PnPOnline -Url $AdminUrl -Interactive
+}
+
+process {
+  Write-Host &quot;Copying plan...&quot; -ForegroundColor Yellow
+  $ProgressActivity = &quot;Copying Planner plan&quot;
+  Write-Progress -Activity $ProgressActivity -Status &quot;Reading source plan data&quot; -PercentComplete 0
+
+  $plan = Get-PnPPlannerPlan -Id $SourcePlanId
+  $buckets = Get-PnPPlannerBucket -PlanId $SourcePlanId 
+  $tasks = Get-PnPPlannerTask -PlanId $SourcePlanId 
+
+  # Buckets and tasks are fetched in reverse order
+  [array]::Reverse($buckets)
+  [array]::Reverse($tasks)
+
+  Write-Progress -Activity $ProgressActivity -Status &quot;Creating new plan at destination group&quot; -PercentComplete 25
+
+  $clonedPlan = New-PnPPlannerPlan -Group $DestinationGroupId -Title $plan.Title
+
+  Write-Progress -Activity $ProgressActivity -Status &quot;Creating buckets&quot; -PercentComplete 50
+
+  # Create mapping object for buckets {Key: sourceId; Value: destinationId}
+  $bucketMapping = @{}
+  foreach ($bucket in $buckets) {
+    $clonedBucket = Add-PnPPlannerBucket -PlanId $clonedPlan.id -Name $bucket.name 
+    $bucketMapping[$bucket.id] = $clonedBucket.id
+  }
+
+  Write-Progress -Activity $ProgressActivity -Status &quot;Creating tasks&quot; -PercentComplete 75
+
+  foreach ($task in $tasks) {
+    $command = &quot;Add-PnPPlannerTask -planId $($clonedPlan.id) -bucket $($bucketMapping[$task.bucketId]) -Title '$($task.title.Replace(&quot;'&quot;, &quot;''&quot;))' -PercentComplete $($task.percentComplete)  -Priority $($task.priority)&quot;
+    
+    # Append optional options when needed
+    if ($task.hasDescription) {
+      $details = Get-PnPPlannerTask -TaskId $task.id
+      $command += &quot; -Description '$($details.description.Replace(&quot;'&quot;, &quot;''&quot;))'&quot;
+    }
+    if ($null -ne $task.startDateTime) {
+      $command += &quot; -StartDateTime '&quot;+ $(get-date -date $task.StartDateTime -Format 'dd/MM/yyyy HH:mm') + &quot;'&quot;
+    }
+    if ($null -ne $task.dueDateTime) {
+      $command += &quot; -DueDateTime '&quot; + $(get-date -date $task.dueDateTime -Format 'dd/MM/yyyy HH:mm') +&quot;'&quot;
+    }
+
+    Invoke-Expression $command | Out-Null
+  }
+}
+end {
+  Write-Progress -Activity $ProgressActivity -Status &quot;Plan copied!&quot; -PercentComplete 100 -Completed
+  Write-Host &quot;Script completed!&quot; -ForegroundColor Green
+}
+
+</code></pre>
+<div class="highlight-tool">
+<p>Check out the <strong>PnP PowerShell</strong> to learn more at: <a href="https://aka.ms/pnp/powershell">https://aka.ms/pnp/powershell</a></p>
+</div>
+</section>
+</div>
 <h2 id="contributors">Contributors</h2>
 <table>
 <thead>
@@ -215,13 +300,14 @@ end {
 <tr>
 <td>Milan Holemans</td>
 </tr>
+<tr>
+<td><a href="https://github.com/reshmee011">Reshmee Auckloo</a></td>
+</tr>
 </tbody>
 </table>
 <h2 id="disclaimer">Disclaimer</h2>
 <p><strong>THESE SAMPLES ARE PROVIDED <em>AS IS</em> WITHOUT WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, INCLUDING ANY IMPLIED WARRANTIES OF FITNESS FOR A PARTICULAR PURPOSE, MERCHANTABILITY, OR NON-INFRINGEMENT.</strong></p>
 <img src="https://pnptelemetry.azurewebsites.net/script-samples/scripts/planner-copy-planner-plan" aria-hidden="true">
-</section>
-</div>
 </article>
           </div>
         </div>
