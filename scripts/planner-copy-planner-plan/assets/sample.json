@@ -9,7 +9,7 @@
       "With this sample, you can copy an existing Planner plan to a specific group. This script will create a new plan with the same name and copy all buckets and tasks."
     ],
     "creationDateTime": "2022-06-05",
-    "updateDateTime": "2022-06-22",
+    "updateDateTime": "2022-07-09",
     "products": [
       "Planner"
     ],
@@ -17,6 +17,10 @@
       {
         "key": "CLI-FOR-MICROSOFT365",
         "value": "5.4.0"
+      },
+      {
+        "key": "PNP-POWERSHELL",
+        "value": "1.11.0"
       }
     ],
     "categories": [
@@ -34,7 +38,14 @@
       "m365 planner task get",
       "m365 planner plan add",
       "m365 planner bucket add",
-      "m365 planner task add"
+      "m365 planner task add",
+      "Add-PnPPlannerBucket",
+      "Add-PnPPlannerTask",
+      "Connect-PnPOnline",
+      "Get-PnPPlannerBucket",
+      "Get-PnPPlannerPlan",
+      "Get-PnPPlannerTask",
+      "New-PnPPlannerPlan"
     ],
     "thumbnails": [
       {
@@ -45,6 +56,12 @@
       }
     ],
     "authors": [
+      {
+        "gitHubAccount": "reshmee011",
+        "company": "",
+        "pictureUrl": "https://avatars.githubusercontent.com/u/7693852?v=4",
+        "name": "Reshmee Auckloo"
+      },
       {
         "gitHubAccount": "milanholemans",
         "company": "",
@@ -57,6 +74,11 @@
         "name": "Want to learn more about CLI for Microsoft 365 and the commands",
         "description": "Check out the CLI for Microsoft 365 site to get started and for the reference to the commands.",
         "url": "https://aka.ms/cli-m365"
+      },
+      {
+        "name": "Want to learn more about PnP PowerShell and the cmdlets",
+        "description": "Check out the PnP PowerShell site to get started and for the reference to the cmdlets.",
+        "url": "https://aka.ms/pnp/powershell"
       }
     ]
   }
