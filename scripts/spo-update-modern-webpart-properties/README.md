@@ -97,7 +97,7 @@ Function Update-CCWebpartProperties() {
 
 }
 
-Update-CCWebpartProperties -SiteURL https://contentandcodedev.sharepoint.com/sites/hays -Pages "PnPSamples" -WebPartIdentity "HelloWorld" -PropertyKey "description" -PropertyValue "Sharing is caring!"
+Update-CCWebpartProperties -SiteURL https://contoso.sharepoint.com/sites/test -Pages "PnPSamples" -WebPartIdentity "HelloWorld" -PropertyKey "description" -PropertyValue "Sharing is caring!"
 
 # More examples
 <#
@@ -124,7 +124,7 @@ Update-CCWebpartProperties -SiteURL https://contoso.sharepoint.com -WebPartIdent
 
 ```
 [!INCLUDE [More about PnP PowerShell](../../docfx/includes/MORE-PNPPS.md)]
-
+***
 
 ## Contributors
 
