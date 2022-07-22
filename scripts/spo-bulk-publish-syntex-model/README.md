@@ -20,21 +20,20 @@ This script sample will publish Syntex Document Understanding Models to many lib
 ###### Declare and Initialize Variables ######  
 
 #Change To Reflect Your Syntex Content Center
-$syntexContentCentre = "https://$tenantName.sharepoint.com/sites/HRContentCenter" 
+$syntexContentCentre = "https://contoso.sharepoint.com/sites/HRContentCenter" 
 
 #Path to CSV file
 $csvFilePath = "Libraries.csv"
 
+###### DO NOT EDIT BELOW THIS LINE #####
 
-# log file will be saved in same directory script was started from
-$saveDir = (Resolve-path ".\")  
-$currentTime= $(get-date).ToString("yyyyddMMHHmmss")  
+## log file will be saved in same directory script was started from
+$saveDir = (Resolve-Path ".\")  
+$currentTime= $(Get-Date).ToString("yyyyddMMHHmmss")  
 $logFilePath=".\log-"+$currentTime+".log"  
 
 ## Start the Transcript  
 Start-Transcript -Path $logFilePath 
-
-
 
 ## Connect to your Syntex Content Centre
 Connect-PnPOnline -Url $syntexContentCentre -Interactive
