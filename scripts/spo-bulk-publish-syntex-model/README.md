@@ -10,6 +10,7 @@ This script sample will publish Syntex Document Understanding Models to many lib
 
 ## Implementation
 
+- Create CSV file using the format supplied below and modify to reflect the values of your sites/libraries that you wish to deploy Syntex models to.
 - Open Windows PowerShell ISE
 - Edit Script and add required parameters for Syntex Content Centre URL and path to CSV file
 - Press run
