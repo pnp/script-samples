@@ -6,7 +6,7 @@ plugin: add-to-gallery
 
 ## Summary
 
-This script sample will ublish Syntex Document Understanding Models to many libraries using the batching functionality of PnP PowerShell
+This script sample will publish Syntex Document Understanding Models to many libraries using the batching functionality of PnP PowerShell. *Currently only document understanding models can be templated and rolled out to many sites
 
 ## Implementation
 
@@ -74,7 +74,7 @@ Stop-Transcript
 
 # [CSV file](#tab/csv)
 ```csv
-Model,TargetSiteUrl;TargetWebServerRelativeUrl;TargetLibraryServerRelativeUrl
+Model;TargetSiteUrl;TargetWebServerRelativeUrl;TargetLibraryServerRelativeUrl
 Aviation Incident Report;https://contoso.sharepoint.com/sites/Retail;/sites/Retail;/sites/Retail/shared%20documents
 Refinement Rules Example;https://contoso.sharepoint.com/sites/SalesAndMarketing;/sites/SalesAndMarketing;/sites/SalesAndMarketing/shared%20documents
 
