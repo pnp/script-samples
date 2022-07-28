@@ -1,11 +1,8 @@
 ---
-plugin: add-to-gallery-preparation
+plugin: add-to-gallery
 ---
 
 # Request Reindex of SharePoint User Profile Properties
-
-> [!Note]
-> This is a submission helper template please find the [contributor guidance](/docfx/contribute.md) to help you write this scenario.
 
 ## Summary
 
@@ -171,70 +168,6 @@ Request-PnPReindexUserProfile -url https://contoso.sharepoint.com/sites/IT -Docu
 
 ```
 [!INCLUDE [More about PnP PowerShell](../../docfx/includes/MORE-PNPPS.md)]
-
-# [CLI for Microsoft 365 using PowerShell](#tab/cli-m365-ps)
-
-```powershell
-
-<your powershell script>
-
-```
-
-# [CLI for Microsoft 365 using Bash](#tab/cli-m365-bash)
-
-```bash
-
-<your bash script>
-
-```
-
-[!INCLUDE [More about CLI for Microsoft 365](../../docfx/includes/MORE-CLIM365.md)]
-
-# [Microsoft Graph PowerShell](#tab/graphps)
-
-```powershell
-
-<your powershell script>
-
-```
-[!INCLUDE [More about Microsoft Graph PowerShell SDK](../../docfx/includes/MORE-GRAPHSDK.md)]
-
-# [SPO Management Shell](#tab/spoms-ps)
-
-```powershell
-
-<your powershell script>
-
-```
-[!INCLUDE [More about SPO Management Shell](../../docfx/includes/MORE-SPOMS.md)]
-
-# [Azure CLI](#tab/azure-cli)
-
-```Azure CLI
-
-<your cli script>  
-
-```
-[!INCLUDE [More about Azure CLI](../../docfx/includes/MORE-AZURECLI.md)]
-
-
-# [Power Apps PowerShell](#tab/powerapps-ps)
-```powershell
-
-<your powershell script>
-
-```
-[!INCLUDE [More about Power Apps PowerShell](../../docfx/includes/MORE-POWERAPPS.md)]
-
-
-# [MicrosoftTeams PowerShell](#tab/teamsps)
-```powershell
-
-<your powershell script>
-
-```
-[!INCLUDE [More about Microsoft Teams PowerShell](../../docfx/includes/MORE-TEAMSPS.md)]
-
 ***
 
 
@@ -251,4 +184,4 @@ Sample first appeared on [https://github.com/wobba/SPO-Trigger-Reindex](https://
 
 
 [!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
-<img src="https://pnptelemetry.azurewebsites.net/script-samples/scripts/template-script-submission" aria-hidden="true" />
+<img src="https://pnptelemetry.azurewebsites.net/script-samples/scripts/spo-request-pnp-reindex-user-profile" aria-hidden="true" />
