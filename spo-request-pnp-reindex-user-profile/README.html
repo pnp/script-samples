@@ -1,0 +1,303 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html lang="en">
+  
+  <head>
+    <meta charset="utf-8">
+    <title>Request Reindex of SharePoint User Profile Properties | PnP Samples </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Request Reindex of SharePoint User Profile Properties | PnP Samples ">
+    <meta name="generator" content="docfx 2.56.7.0">
+    <meta name="description" content="A sample gallery of scripts to manage all things Microsoft 365.">
+  
+    <!-- Social Media -->
+    <meta property="og:locale" content="en_GB">
+    <meta property="og:title" content="Request Reindex of SharePoint User Profile Properties | PnP Samples ">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://pnp.github.io/script-samples">
+    <meta property="og:image" content="https://pnp.github.io/script-samples/assets/social-media-screenshot.png">
+    <meta property="og:image:alt" content="Screenshot example of the PnP Script Samples Site">
+    <meta property="og:site_name" content="PnP Script Samples">
+    <meta property="og:description" content="A sample gallery of scripts to manage all things Microsoft 365.">
+  
+    <link rel="shortcut icon" href="https://c.s-microsoft.com/favicon.ico?v2">
+    <link rel="stylesheet" href="../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../styles/docfx.css">
+    <link rel="stylesheet" href="../styles/main.css">
+    <link rel="stylesheet" href="../styles/extra.css">
+    <link rel="stylesheet" href="../styles/filter.css">
+    <link rel="stylesheet" href="../styles/site.css">
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet"> 
+    <meta property="docfx:navrel" content="../toc.html">
+    <meta property="docfx:tocrel" content="../toc.html">
+    
+    
+    <meta property="docfx:newtab" content="true">
+    <script type="text/javascript">
+      (function(c,l,a,r,i,t,y){
+          c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+          t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+          y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+      })(window, document, "clarity", "script", "8j6pedl344");
+  </script>
+  </head>  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+             <div class="github-mark">
+              <a href="https://github.com/pnp/script-samples">
+                <img src="https://pnp.github.io/script-samples/assets/icons/github-light-64px.png" alt="GitHub Icon Image">
+              </a>
+            </div>
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../assets/logo.svg" alt="">
+              </a>    </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <label class="glyphicon glyphicon-search" for="search-query"></label>
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>      </header>
+      <div role="main" class="container body-content hide-when-search">
+        <div class="article row grid">
+          <div class="col-md-12">
+            <article class="content wrap" id="_content" data-uid="">
+                  <div class="contribution-panel mobile-hide pull-right">
+                      <a href="https://github.com/pnp/script-samples/blob/main/scripts/spo-request-pnp-reindex-user-profile/README.md/#L1" title="Improve this Doc" class="improve-doc-lg"><i class="glyphicon glyphicon-pencil"></i></a>
+                  </div>
+                    <h1 id="request-reindex-of-sharepoint-user-profile-properties">Request Reindex of SharePoint User Profile Properties</h1>
+
+<h2 id="summary">Summary</h2>
+<p>This function, Request-PnPReindexUserProfile, triggers a full crawl of each user's profile properties. The index should run in the next couple of hours.</p>
+<p><img src="assets/example.png" alt="Example Screenshot"></p>
+<h2 id="implementation">Implementation</h2>
+<p>Save this script to a PSM1 module file, like reindexusers.psm1. Then import the module file with Import-Module:</p>
+<pre><code class="lang-powershell">
+Import-Module reindexusers.psm1 -Verbose
+
+</code></pre>
+<p>The -Verbose switch lists the functions that are imported.</p>
+<p>Once the module is imported the function Request-PnPReindexUserProfile will be loaded and ready to use.</p>
+<div class="tabGroup" id="tabgroup_CeZOj-G++Q">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_CeZOj-G++Q_pnpps" role="tab" aria-controls="tabpanel_CeZOj-G++Q_pnpps" data-tab="pnpps" tabindex="0" aria-selected="true">PnP PowerShell</a>
+</li>
+</ul>
+<section id="tabpanel_CeZOj-G++Q_pnpps" role="tabpanel" data-tab="pnpps"><button class="article-clipboard" title="Copy to clipboard" data-toggle="tooltip" data-placement="top" data-clipboard-target="section[id^='tabpanel'][data-tab='pnpps'] pre">
+    <span class="glyphicon glyphicon-copy" aria-hidden="true"></span>
+    <span class="article-clipboard__message done">Copied</span>
+</button>
+
+<pre><code class="lang-powershell">
+&lt;# Script to trigger the Re-index of SPO user profiles
+Original Author: Mikael Svenson - @mikaelsvenson
+Blog: http://techmikael.com
+Original code: https://github.com/wobba/SPO-Trigger-Reindex 
+Modified by Todd Klindt - @toddklindt
+v1.0 - 7/25/2022
+Blog: https://www.toddklindt.com
+
+#&gt;
+function Request-PnPReindexUserProfile {
+&lt;#
+.SYNOPSIS
+Script to trigger re-indexing of all user profiles
+
+.Description
+If you perform search schema mappings after profiles exist you have to update the last modified time on a profile for it to be re-indexed.
+This script ensures all profiles are updated with a new time stamp. Once the import job completes allow 4-24h for profiles to be updated in search.
+
+If used in automation replace Connect-PnPOnline with something which works for you. 
+
+A temp file will be created on the file system where you execute the command. That temp file will also be uploaded to the &quot;Shared Documents&quot; library in the site you pass in the -url parameter. The account you connect with must have write permission to the -url site and have the SharePoint Admin role in the tenant. 
+
+.Parameter url
+The site you will use to host the import file. Can be any site you have write access to. DO NOT use the admin site.
+
+.PARAMETER DocumentLibrary
+If you don't want the temporary file uploaded to the Shared Documents library of your site, specific a different library here. Use Get-PnPList after connecting to get a list of the available document libraries. 
+
+.Example 
+Request-PnPReindexUserProfile -url https://contoso.sharepoint.com
+
+.Example 
+Request-PnPReindexUserProfile -url https://contoso.sharepoint.com/sites/IT -DocumentLibrary Foo
+
+
+#&gt;    
+    [CmdletBinding()]
+    param (
+        # URL of the site to store the job definition file and any log files. In the form of https://contoso.sharepoint.com
+        [Parameter(Mandatory = $true, ValueFromPipeline = $true)][string]$url,
+        # Optional - Name of the Document Library in the site to store the job definition and log files. Should look like &quot;Shared Documents&quot; If no value is passed the oldest document library in the site will be used. That's usually &quot;Shared Documents&quot;
+        [string]$DocumentLibrary
+    )
+    
+    begin {
+        
+    }
+    
+    process {
+        # In case they didn't heed our warning and tried to use the Admin site
+        $url = $url.Replace(&quot;-admin.&quot;,&quot;.&quot;)
+
+        # Need the current location so we know where to save the temp file
+        $tempPath = Get-Location
+
+        # Make sure they have the PnP.PowerShell module installed
+        $hasPnP = (Get-Module PnP.PowerShell -ListAvailable).Length
+        if ($hasPnP -eq 0) {
+            Write-Output &quot;This script requires PnP PowerShell, please install it&quot;
+            Write-Output &quot;Install-Module PnP.PowerShell&quot;
+            return
+        }
+
+        # Replace connection method as needed
+        try {
+            Connect-PnPOnline -Url $url -Interactive
+        }
+        catch {
+            Write-Error &quot;Could not connect to $url&quot;
+            Write-Error $_
+            return
+        }
+        
+        Write-Output &quot;Retrieving all user profiles&quot;
+        try {
+            $ProfileList = Submit-PnPSearchQuery -Query '-AccountName:spofrm -AccountName:spoapp -AccountName:app@sharepoint -AccountName:spocrawler -AccountName:spocrwl -PreferredName:&quot;Foreign Principal&quot;' -SourceId &quot;b09a7990-05ea-4af9-81ef-edfab16c4e31&quot; -SelectProperties &quot;aadobjectid&quot;, &quot;department&quot;, &quot;write&quot; -All -TrimDuplicates:$false -RelevantResults -ErrorAction Stop
+        }
+        catch {
+            Write-Error &quot;Error with Submit-PnPSearchQuery&quot;
+            Write-Error &quot;Please check connection and permissions to $url and try again&quot;
+            Write-Error $_
+            return
+        }
+
+        # Put the template file together
+        $fragmentTemplate = &quot;{{&quot;&quot;IdName&quot;&quot;: &quot;&quot;{0}&quot;&quot;,&quot;&quot;Department&quot;&quot;: &quot;&quot;{1}&quot;&quot;}}&quot;;
+        $accountFragments = @();
+        
+        foreach ($Profile in $ProfileList) {
+            $aadId =  $Profile.aadobjectid + &quot;&quot;
+            $dept = $Profile.department + &quot;&quot;
+            if(-not [string]::IsNullOrWhiteSpace($aadId) -and $aadId -ne &quot;00000000-0000-0000-0000-000000000000&quot;) {
+                $accountFragments += [string]::Format($fragmentTemplate,$aadId,$dept)
+            }
+        }
+
+        Write-Output &quot;Found $($accountFragments.Count) profiles&quot;
+        $json = &quot;{&quot;&quot;value&quot;&quot;:[&quot; + ($accountFragments -join ',') + &quot;]}&quot;
+        
+        $propertyMap = @{}
+        $propertyMap.Add(&quot;Department&quot;, &quot;Department&quot;)
+        
+        $filename = &quot;upa-batch-trigger&quot;;
+
+        Set-Content -Path &quot;$tempPath\$filename.txt&quot; -value $json
+
+        Write-Output &quot;Kicking off import job - Please be patient and allow for 4-24h before profiles are updates in search.`n`nDo NOT re-run because you are impatient!&quot;
+
+        if([string]::IsNullOrWhiteSpace($DocumentLibrary)) {
+            # Find default doclib to store the job file and logs in since one was not passed
+            $DocumentLibraryObj = (Get-PnPList -Includes IsSystemList | Where-Object -Property IsSystemList -EQ -Value $false | Where-Object -Property BaseType -EQ -Value &quot;DocumentLibrary“ | Sort-Object -Property Created)[0]
+            $Ignore = Get-PnPProperty -ClientObject $DocumentLibraryObj -Property RootFolder
+            $DocumentLibraryName = $DocumentLibraryObj.RootFolder.Name
+        } else {
+            $DocumentLibraryName = $DocumentLibrary
+        }
+
+        Write-Verbose &quot;Using $DocumentLibraryName&quot;
+        try {
+            $job = New-PnPUPABulkImportJob -UserProfilePropertyMapping $propertyMap -IdType CloudId -IdProperty &quot;IdName&quot; -Folder $DocumentLibraryName -Path &quot;$tempPath\$filename.txt&quot;
+        }
+        catch {
+            Write-Error &quot;Could not upload $tempPath\$($filename.txt) to $url&quot;
+            Write-Error $_
+            return
+        }
+        
+        Remove-Item -Path &quot;$tempPath\$filename.txt&quot;
+        
+        if(-not [string]::IsNullOrWhiteSpace($job)) {
+            Write-Output &quot;You can check the status of your job with: Get-PnPUPABulkImportStatus -JobId $($job.JobId)&quot;
+            $job
+        }
+                
+    }
+    
+    end {
+        
+    }
+}
+
+</code></pre>
+<div class="highlight-tool">
+<p>Check out the <strong>PnP PowerShell</strong> to learn more at: <a href="https://aka.ms/pnp/powershell">https://aka.ms/pnp/powershell</a></p>
+</div>
+</section>
+</div>
+<h2 id="source-credit">Source Credit</h2>
+<p>Sample first appeared on <a href="https://github.com/wobba/SPO-Trigger-Reindex">https://github.com/wobba/SPO-Trigger-Reindex</a>. Copied and modified with Mikael's blessing.</p>
+<h2 id="contributors">Contributors</h2>
+<table>
+<thead>
+<tr>
+<th>Author(s)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Mikael Svenson</td>
+</tr>
+<tr>
+<td>Todd Klindt</td>
+</tr>
+</tbody>
+</table>
+<h2 id="disclaimer">Disclaimer</h2>
+<p><strong>THESE SAMPLES ARE PROVIDED <em>AS IS</em> WITHOUT WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, INCLUDING ANY IMPLIED WARRANTIES OF FITNESS FOR A PARTICULAR PURPOSE, MERCHANTABILITY, OR NON-INFRINGEMENT.</strong></p>
+<img src="https://pnptelemetry.azurewebsites.net/script-samples/scripts/spo-request-pnp-reindex-user-profile" aria-hidden="true">
+</article>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            <span>Script Samples<br>Generated by <strong><a href='https://dotnet.github.io/docfx' alt='Doc FX Website'>DocFX</a></strong> with <strong><a href='https://ovasquez.github.io/docfx-material' alt='DocFx Material Theme'>Material UI</a></strong></span>
+            
+            <!-- <img src="https://telemetry.sharepointpnp.com/@pnp.github.io/index/" alt="spacer"> -->
+          </div>
+        </div>
+      </footer>    </div>
+    
+    <script type="text/javascript" src="../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+    
+    <script type="text/javascript" src="../styles/clipboard.min.js"></script>
+    <script type="text/javascript" src="../styles/isotope.pkgd.min.js"></script>
+    <script type="text/javascript" src="../styles/loadsamples.js"></script>
+    <script type="text/javascript" src="../styles/filtersamples.js"></script>
+
+  </body>
+</html>
