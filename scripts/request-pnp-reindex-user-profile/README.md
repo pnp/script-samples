@@ -247,7 +247,7 @@ Sample first appeared on [https://github.com/wobba/SPO-Trigger-Reindex](https://
 | Author(s) |
 |-----------|
 | Mikael Svenson |
-| Todd Klindt |
+| [Todd Klindt](https://www.toddklindt.com)|
 
 
 [!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
