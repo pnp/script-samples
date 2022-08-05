@@ -2,13 +2,14 @@
 plugin: add-to-gallery-preparation
 ---
 
-# Restore items from SharePoint Recycle bin in bulk
+# Restore large amount of items from SharePoint Recycle bin in bulk
 
 ## Summary
 
 Restores items from the recycle bin based on its unique ID, a GUID.  
 Attempts in batches of "x" items (default 10), if a failure occurs, not all items are restored, therefore will attempt to restore the items in the batch individually before grabbing the next batch. The results of the restore can be saved to a CSV file.
 
+Script allows to restore in batches of 100 if you wish, however, if failures are found it could take a longer overall, as script falls back to restoring each item individually to ensure all are restored and report the error item(s).
 ### Prerequisites
 
 - Obtained details of the items to restore from the sites recycle bin in a csv file.
@@ -35,6 +36,7 @@ CSV Output
 $Path = "$PSScriptRoot\recyclebin.csv"
 # Output file
 $OutputFile = "$PSScriptRoot\recyclebinresults.csv"
+
 $NoInBatch = 10
 
 $ErrorActionPreference = 'Stop'
