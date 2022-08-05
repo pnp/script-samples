@@ -25,7 +25,7 @@ Screen Output
 ![Screen Output](assets/screen-output.png)
 
 CSV Output
-![CSV Output](assets/screen-output.png)
+![CSV Output](assets/csv-output.png)
 
 
 # [PnP PowerShell](#tab/pnpps)
