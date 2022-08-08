@@ -1,5 +1,5 @@
 ---
-plugin: add-to-gallery-preparation
+plugin: add-to-gallery
 ---
 
 # Restore large amount of items from SharePoint Recycle bin in bulk
@@ -23,9 +23,11 @@ Script allows to restore in batches of 100 if you wish, however, if failures are
 
 ### Screenshots
 Screen Output
+
 ![Screen Output](assets/screen-output.png)
 
 CSV Output
+
 ![CSV Output](assets/csv-output.png)
 
 
@@ -145,8 +147,8 @@ function Restore-RecycleBinItems {
 Write-Information -MessageData:"Processing file $Path and restoring recycle bin items in batches of $NoInBatch..."
 Start-Processing -csvFilePath:$Path -processBatchCount:$NoInBatch | Export-Csv $OutputFile -NoTypeInformation
 ```
-
 [!INCLUDE [More about PnP PowerShell](../../docfx/includes/MORE-PNPPS.md)]
+***
 
 ## Contributors
 
