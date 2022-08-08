@@ -98,7 +98,7 @@
     <span class="article-clipboard__message done">Copied</span>
 </button>
 
-<pre><code class="lang-powershell">Connect-PnPOnline -Url https://yourtenant.sharepoint.com/sites/Yoursite/ -UseWebLogin
+<pre><code class="lang-powershell">Connect-PnPOnline -Url https://yourtenant.sharepoint.com/sites/Yoursite/ -Interactive
 $ray = &quot;folder1&quot;,
        &quot;folder2&quot;,
        &quot;folder3&quot;
@@ -106,17 +106,19 @@ $ray = &quot;folder1&quot;,
 foreach ($name in $ray) {
 
     #create page
-    Add-PnPClientSidePage -Name $name -LayoutType Article -HeaderLayoutType NoImage -CommentsEnabled:$false
+    Add-PnPPage -Name $name -LayoutType Article -HeaderLayoutType NoImage -CommentsEnabled:$false
     
     #add sections
-    Add-PnPClientSidePageSection -Page $name -SectionTemplate TwoColumn -Order 1
+    Add-PnPPageSection -Page $name -SectionTemplate TwoColumn -Order 1
     
     #add text webpart
-    Add-PnPClientSideText -Page $name -Section 1 -Column 1 -Text &quot; &quot;
+    Add-PnPPageTextPart -Page $name -Section 1 -Column 1 -Text &quot;This is $name&quot;
     
     #add doclib
-    Add-PnPClientSideWebPart -Page $name -DefaultWebPartType List -Section 1 -Column 2 -WebPartProperties @{isDocumentLibrary=&quot;true&quot;;selectedListId=&quot;1fa1fb45-e53b-4ea1-9325-ddca7afe986e&quot;;selectedFolderPath=&quot;/$name&quot;;hideCommandBar=&quot;false&quot;}
-    $page = Get-PnPClientSidePage -Identity $name
+    $DocLib = Get-PnPList -Identity Documents
+    $DocLibID = $DocLib.id.tostring()
+    Add-PnPPageWebPart -Page $name -DefaultWebPartType List -Section 1 -Column 1 -WebPartProperties @{isDocumentLibrary=&quot;true&quot;;selectedListId=&quot;$($DocLibID)&quot;;selectedFolderPath=&quot;/$name&quot;;hideCommandBar=&quot;false&quot;}
+    $page = Get-PnPPage -Identity $name
     $page.Publish()
 }
 
@@ -181,6 +183,9 @@ foreach ($name in $ray) {
 </tr>
 <tr>
 <td><a href="https://github.com/Adam-it">Adam Wójcik</a></td>
+</tr>
+<tr>
+<td><a href="https://www.toddklindt.com">Todd Klindt</a></td>
 </tr>
 </tbody>
 </table>
