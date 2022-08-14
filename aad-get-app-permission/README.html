@@ -1,0 +1,330 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html lang="en">
+  
+  <head>
+    <meta charset="utf-8">
+    <title>Get Azure AD app permission info (delegated or application) | PnP Samples </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Get Azure AD app permission info (delegated or application) | PnP Samples ">
+    <meta name="generator" content="docfx 2.56.7.0">
+    <meta name="description" content="A sample gallery of scripts to manage all things Microsoft 365.">
+  
+    <!-- Social Media -->
+    <meta property="og:locale" content="en_GB">
+    <meta property="og:title" content="Get Azure AD app permission info (delegated or application) | PnP Samples ">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://pnp.github.io/script-samples">
+    <meta property="og:image" content="https://pnp.github.io/script-samples/assets/social-media-screenshot.png">
+    <meta property="og:image:alt" content="Screenshot example of the PnP Script Samples Site">
+    <meta property="og:site_name" content="PnP Script Samples">
+    <meta property="og:description" content="A sample gallery of scripts to manage all things Microsoft 365.">
+  
+    <link rel="shortcut icon" href="https://c.s-microsoft.com/favicon.ico?v2">
+    <link rel="stylesheet" href="../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../styles/docfx.css">
+    <link rel="stylesheet" href="../styles/main.css">
+    <link rel="stylesheet" href="../styles/extra.css">
+    <link rel="stylesheet" href="../styles/filter.css">
+    <link rel="stylesheet" href="../styles/site.css">
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet"> 
+    <meta property="docfx:navrel" content="../toc.html">
+    <meta property="docfx:tocrel" content="../toc.html">
+    
+    
+    <meta property="docfx:newtab" content="true">
+    <script type="text/javascript">
+      (function(c,l,a,r,i,t,y){
+          c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+          t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+          y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+      })(window, document, "clarity", "script", "8j6pedl344");
+  </script>
+  </head>  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+             <div class="github-mark">
+              <a href="https://github.com/pnp/script-samples">
+                <img src="https://pnp.github.io/script-samples/assets/icons/github-light-64px.png" alt="GitHub Icon Image">
+              </a>
+            </div>
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../assets/logo.svg" alt="">
+              </a>    </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <label class="glyphicon glyphicon-search" for="search-query"></label>
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>      </header>
+      <div role="main" class="container body-content hide-when-search">
+        <div class="article row grid">
+          <div class="col-md-12">
+            <article class="content wrap" id="_content" data-uid="">
+                  <div class="contribution-panel mobile-hide pull-right">
+                      <a href="https://github.com/pnp/script-samples/blob/main/scripts/aad-get-app-permission/README.md/#L1" title="Improve this Doc" class="improve-doc-lg"><i class="glyphicon glyphicon-pencil"></i></a>
+                  </div>
+                    <h1 id="get-azure-ad-app-permission-info-delegated-or-application">Get Azure AD app permission info (delegated or application)</h1>
+
+<h2 id="summary">Summary</h2>
+<p>When creating or interpreting an Azure AD (AAD) app manifest or even to get existing permissions for a Microsoft app, you would like to have info about them, such as the resource id or if the permission requires admin consent. This script can be useful, because if you have permission name (or a piece of it) and the permission type (user or application context), it's enough to get the info you want!</p>
+<p><img src="assets/example.png" alt="Example Screenshot"></p>
+<p>By default, the script has only registered Microsoft Graph and SharePoint Online Microsoft AAD apps (with their respective appId property). Feel free to add any other API listed <a href="https://docs.microsoft.com/en-us/troubleshoot/azure/active-directory/verify-first-party-apps-sign-in#application-ids-for-commonly-used-microsoft-applications">here</a> in the <code>AadApis</code> class!</p>
+<div class="tabGroup" id="tabgroup_CeZOj-G++Q">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_CeZOj-G++Q_cli-m365-ps" role="tab" aria-controls="tabpanel_CeZOj-G++Q_cli-m365-ps" data-tab="cli-m365-ps" tabindex="0" aria-selected="true">CLI for Microsoft 365 using PowerShell</a>
+</li>
+<li role="presentation">
+<a href="#tabpanel_CeZOj-G++Q_graphps" role="tab" aria-controls="tabpanel_CeZOj-G++Q_graphps" data-tab="graphps" tabindex="-1">Microsoft Graph PowerShell</a>
+</li>
+</ul>
+<section id="tabpanel_CeZOj-G++Q_cli-m365-ps" role="tabpanel" data-tab="cli-m365-ps"><button class="article-clipboard" title="Copy to clipboard" data-toggle="tooltip" data-placement="top" data-clipboard-target="section[id^='tabpanel'][data-tab='cli-m365-ps'] pre">
+    <span class="glyphicon glyphicon-copy" aria-hidden="true"></span>
+    <span class="article-clipboard__message done">Copied</span>
+</button>
+
+<pre><code class="lang-powershell">
+# User Input
+$api = &quot;Microsoft Graph&quot; # Or &quot;SharePoint&quot;
+$permission = &quot;Sites.Read.All&quot; # Can be &quot;Read&quot; if seeking more permissions
+
+# Connect to Microsoft 365
+if ($(m365 status) -match &quot;Logged Out&quot;) {
+  m365 login
+}
+
+# Configure the CLI to output as JSON on each execution
+$m365output = m365 cli config get --key output
+if ($m365output -notmatch &quot;json&quot;) {
+    m365 cli config set --key output --value json
+}
+
+# Get CLI commands JSON output converted as objects
+function Get-CLIValue {
+    [cmdletbinding()]
+    param(
+        [parameter(Mandatory = $true, ValueFromPipeline = $true)]
+        $input
+    )
+    
+    $output = $input | ConvertFrom-Json
+    if ($null -ne $output.error) {
+        throw $output.error
+    }
+    return $output
+}
+
+# Dedicated class to store Azure AD (AAD) Enterprise Microsoft Apps as valid param inputs 
+class AadApis : System.Management.Automation.IValidateSetValuesGenerator {
+    [String[]] GetValidValues() {
+        $Global:aadApis = @{
+            &quot;SharePoint&quot; = &quot;00000003-0000-0ff1-ce00-000000000000&quot;
+            &quot;Microsoft Graph&quot; = &quot;00000003-0000-0000-c000-000000000000&quot;
+        }
+
+        return ($Global:aadApis).Keys
+    }
+}
+
+# Method to get delegated or application permissions from a registered AAD MS App, based on name
+function Get-AADPermission {
+    [cmdletbinding()]
+    param(
+        [parameter(Mandatory)]
+        [ValidateSet([AadApis], IgnoreCase = $false)]
+        $ApiName,
+        [parameter(Mandatory)]
+        $PermissionName,
+        [parameter(Mandatory = $false)]
+        [Switch]$Delegated,
+        [parameter(Mandatory = $false)]
+        [Switch]$Application
+    )
+
+    try {
+        $sp = m365 aad sp get --appId ($Global:aadApis)[$ApiName] | Get-CLIValue
+
+        if ($Delegated) {
+            $permissionsInfo = $sp.oauth2PermissionScopes | Where-Object { $_.value -match $PermissionName }
+        }
+        elseif ($Application) {
+            $permissionsInfo = $sp.appRoles | Where-Object { $_.value -match $PermissionName }
+        }
+        else {
+            throw &quot;Please define if seeked permission is a delegated (-Scope) or an application (-Role) one&quot;
+        }
+
+        if ($permissionsInfo) {
+            Write-Host &quot;AAD app info:&quot;
+            Write-Host ($sp | Select-Object id, appId, displayName | Format-List | Out-String)
+            Write-Host &quot;-----------&quot;
+            Write-Host &quot;Permissions info:&quot;
+
+            foreach ($perm in $permissionsInfo) {
+                Write-Host ($perm | Format-List | Out-String)
+            }
+        }
+        else {
+            $permissionType = (&amp;{If($Delegated -eq $true) {&quot;Delegated&quot;} Else {&quot;Application&quot;}})
+            
+            Write-Warning &quot;No $($permissionType) permission named [$($PermissionName)] found for $($ApiName) App&quot;
+        }
+    }
+    catch {
+        Write-Error $_.Exception
+    }
+}
+
+# Run the command
+Get-AADPermission -ApiName $api -PermissionName $permission -Application
+
+</code></pre>
+<div class="highlight-tool">
+<p>Check out the <strong>CLI for Microsoft 365</strong> to learn more at: <a href="https://aka.ms/cli-m365">https://aka.ms/cli-m365</a></p>
+</div>
+</section>
+<section id="tabpanel_CeZOj-G++Q_graphps" role="tabpanel" data-tab="graphps" aria-hidden="true" hidden="hidden"><button class="article-clipboard" title="Copy to clipboard" data-toggle="tooltip" data-placement="top" data-clipboard-target="section[id^='tabpanel'][data-tab='graphps'] pre">
+    <span class="glyphicon glyphicon-copy" aria-hidden="true"></span>
+    <span class="article-clipboard__message done">Copied</span>
+</button>
+
+<pre><code class="lang-powershell">
+# User Input
+$api = &quot;Microsoft Graph&quot; # Or &quot;SharePoint&quot;
+$permission = &quot;Sites.Read.All&quot; # Can be &quot;Read&quot; if seeking more permissions
+
+# Connect to Microsoft 365
+# Requesting permission to read Azure AD (AAD) Apps
+Connect-MgGraph -Scopes &quot;Application.Read.All&quot;
+
+# Dedicated class to store AAD Enterprise Microsoft Apps as valid param inputs 
+class AadApis : System.Management.Automation.IValidateSetValuesGenerator {
+    [String[]] GetValidValues() {
+        $Global:aadApis = @{
+            &quot;SharePoint&quot; = &quot;00000003-0000-0ff1-ce00-000000000000&quot;
+            &quot;Microsoft Graph&quot; = &quot;00000003-0000-0000-c000-000000000000&quot;
+        }
+
+        return ($Global:aadApis).Keys
+    }
+}
+
+# Method to get delegated or application permissions from a registered AAD MS App, based on name
+function Get-AADPermission {
+    [cmdletbinding()]
+    param(
+        [parameter(Mandatory)]
+        [ValidateSet([AadApis], IgnoreCase = $false)]
+        $ApiName,
+        [parameter(Mandatory)]
+        $PermissionName,
+        [parameter(Mandatory = $false)]
+        [Switch]$Delegated,
+        [parameter(Mandatory = $false)]
+        [Switch]$Application
+    )
+
+    try {
+        $sp = Get-MgServicePrincipal -Filter &quot;AppId eq '$(($Global:aadApis)[$ApiName])'&quot;
+
+        if ($Delegated) {
+            $permissionsInfo = $sp.Oauth2PermissionScopes | Where-Object { $_.value -match $PermissionName }
+        }
+        elseif ($Application) {
+            $permissionsInfo = $sp.AppRoles | Where-Object { $_.value -match $PermissionName }
+        }
+        else {
+            throw &quot;Please define if seeked permission is a delegated (-Scope) or an application (-Role) one&quot;
+        }
+
+        if ($permissionsInfo) {
+            Write-Host &quot;AAD app info:&quot;
+            Write-Host ($sp | Select-Object id, appId, displayName | Format-List | Out-String)
+            Write-Host &quot;-----------&quot;
+            Write-Host &quot;Permissions info:&quot;
+            
+            foreach ($perm in $permissionsInfo) {
+                Write-Host ($perm | Format-List | Out-String)
+            }
+        }
+        else {
+            $permissionType = (&amp;{If($Delegated -eq $true) {&quot;Delegated&quot;} Else {&quot;Application&quot;}})
+            
+            Write-Warning &quot;No $($permissionType) permission named [$($PermissionName)] found for $($ApiName) App&quot;
+        }
+    }
+    catch {
+        Write-Error $_.Exception
+    }
+}
+
+# Run the command
+Get-AADPermission -ApiName $api -PermissionName $permission -Application
+
+</code></pre>
+<div class="highlight-tool">
+<p>Check out the <strong>Microsoft Graph PowerShell SDK</strong> to learn more at: <a href="https://docs.microsoft.com/en-us/graph/powershell/get-started">https://docs.microsoft.com/en-us/graph/powershell/get-started</a></p>
+</div>
+</section>
+</div>
+<h2 id="contributors">Contributors</h2>
+<table>
+<thead>
+<tr>
+<th>Author(s)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="https://github.com/michaelmaillot">Michaël Maillot</a></td>
+</tr>
+</tbody>
+</table>
+<h2 id="disclaimer">Disclaimer</h2>
+<p><strong>THESE SAMPLES ARE PROVIDED <em>AS IS</em> WITHOUT WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, INCLUDING ANY IMPLIED WARRANTIES OF FITNESS FOR A PARTICULAR PURPOSE, MERCHANTABILITY, OR NON-INFRINGEMENT.</strong></p>
+<img src="https://pnptelemetry.azurewebsites.net/script-samples/scripts/aad-get-app-permission" aria-hidden="true">
+</article>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            <span>Script Samples<br>Generated by <strong><a href='https://dotnet.github.io/docfx' alt='Doc FX Website'>DocFX</a></strong> with <strong><a href='https://ovasquez.github.io/docfx-material' alt='DocFx Material Theme'>Material UI</a></strong></span>
+            
+            <!-- <img src="https://telemetry.sharepointpnp.com/@pnp.github.io/index/" alt="spacer"> -->
+          </div>
+        </div>
+      </footer>    </div>
+    
+    <script type="text/javascript" src="../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+    
+    <script type="text/javascript" src="../styles/clipboard.min.js"></script>
+    <script type="text/javascript" src="../styles/isotope.pkgd.min.js"></script>
+    <script type="text/javascript" src="../styles/loadsamples.js"></script>
+    <script type="text/javascript" src="../styles/filtersamples.js"></script>
+
+  </body>
+</html>
