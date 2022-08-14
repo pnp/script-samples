@@ -1,5 +1,5 @@
 ---
-plugin: add-to-gallery-preparation
+plugin: add-to-gallery
 ---
 
 # Get Azure AD app permission info (delegated or application)
@@ -112,8 +112,8 @@ function Get-AADPermission {
 Get-AADPermission -ApiName $api -PermissionName $permission -Application
 
 ```
-
 [!INCLUDE [More about CLI for Microsoft 365](../../docfx/includes/MORE-CLIM365.md)]
+
 
 # [Microsoft Graph PowerShell](#tab/graphps)
 
@@ -193,6 +193,8 @@ Get-AADPermission -ApiName $api -PermissionName $permission -Application
 
 ```
 [!INCLUDE [More about Microsoft Graph PowerShell SDK](../../docfx/includes/MORE-GRAPHSDK.md)]
+***
+
 
 ## Contributors
 
@@ -202,4 +204,4 @@ Get-AADPermission -ApiName $api -PermissionName $permission -Application
 
 
 [!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
-<img src="https://pnptelemetry.azurewebsites.net/script-samples/scripts/template-script-submission" aria-hidden="true" />
+<img src="https://pnptelemetry.azurewebsites.net/script-samples/scripts/aad-get-app-permission" aria-hidden="true" />
