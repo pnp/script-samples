@@ -16,11 +16,11 @@ This script will export all Checked-Out files in all SharePoint Online sites ass
 ### Screenshots
 Screen Output
 
-![Screen Output](assets/screenoutput.png)
+![Screen Output](assets/screen-output.png)
 
 CSV Output
 
-![CSV Output](assets/csvoutput.png)
+![CSV Output](assets/csv-output.png)
 
 # [PnP PowerShell](#tab/pnpps)
 ```powershell
