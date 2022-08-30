@@ -18,7 +18,7 @@ This script can be used to monitor the health status of your SharePoint tenant. 
 4. The script cleans the cache list of issues that have been resolved. 
 
 ### Prerequisites
-1. I created an adaptive card using the [Adaptive Card Designer](https://adaptivecards.io/designer/). Save [the included JSON file](./assets/adaptive-card.json) to the location where you execute your script.
+1. I created an adaptive card using the [Adaptive Card Designer](https://adaptivecards.io/designer/). Save [the included JSON file](assets/adaptive-card.json) to the location where you execute your script.
 2. Create an Incoming Webhook in a Microsoft Teams Channel and use that URL in here.
 
 ### When using on an Azure Function
@@ -94,4 +94,4 @@ Sample first appeared on [Blimped | Getting notified of service incidents in Mic
 
 
 [!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
-<img src="https://pnptelemetry.azurewebsites.net/script-samples/scripts/tenant-tenant-monitor-notify-healthstatus" aria-hidden="true" />
+<img src="https://pnptelemetry.azurewebsites.net/script-samples/scripts/tenant-monitor-notify-healthstatus" aria-hidden="true" />
