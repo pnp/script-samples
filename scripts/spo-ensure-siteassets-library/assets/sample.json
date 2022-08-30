@@ -7,7 +7,7 @@
     "title": "Ensure the Site Assets Library is created",
     "url": "https://pnp.github.io/script-samples/spo-ensure-siteassets-library/README.html",
     "creationDateTime": "2020-09-04",
-    "updateDateTime": "2020-09-04",
+    "updateDateTime": "2022-08-26",
     "shortDescription": "Ensuring when creating a new modern SharePoint site using the CLI/REST API that the Site Assets library is created",
     "longDescription": null,
     "products": [
@@ -16,7 +16,10 @@
     "categories": [
       "Deploy"
     ],
-    "tags": [],
+    "tags": [
+      "m365 spo list get",
+      "m365 util accesstoken get"
+    ],
     "metadata": [
       {
         "key": "CLI-FOR-MICROSOFT365",
@@ -34,16 +37,16 @@
     ],
     "authors": [
       {
-        "gitHubAccount": "phillipharding",
-        "pictureUrl": "https://avatars.githubusercontent.com/u/7671418?v=4",
-        "name": "Phillip Allan-Harding",
-        "company": null
-      },
-      {
         "name": "Martin Lingstuyl",
         "gitHubAccount": "martinlingstuyl",
         "company": "I4-YOU Business Solutions b.v.",
         "pictureUrl": "https://avatars.githubusercontent.com/u/5267487?s=400&u=dbb983e7bd20e98e8115aca75faa2d457ad32cb5&v=4"
+      },
+      {
+        "gitHubAccount": "phillipharding",
+        "pictureUrl": "https://avatars.githubusercontent.com/u/7671418?v=4",
+        "name": "Phillip Allan-Harding",
+        "company": null
       }
     ],
     "references": [
