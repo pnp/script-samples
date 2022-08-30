@@ -112,20 +112,15 @@ function EnsureSiteAssetsLibrary {
     https://&lt;tenant&gt;.sharepoint.com/sites/&lt;sitename&gt;/_api/web/Lists/EnsureSiteAssetsLibrary/
     which returns an SPList
   #&gt;
-  $list = $null
-
   Write-Host &quot;-&gt; Ensure Site Assets library: $siteUrl&quot;
-  $lists = m365 spo list list --webUrl &quot;$siteUrl&quot; -o json | ConvertFrom-Json
-  if (($null -ne $lists) -and ($null -ne $lists.value)) {
-    $list = $lists.value | Where-Object { $_.Title -eq &quot;Site Assets&quot; }
-  }
+  $list = m365 spo list get --webUrl $siteUrl --title &quot;Site Assets&quot; | ConvertFrom-Json
 
   if ($null -eq $list) {
     Write-Host &quot;...Creating Site Assets library&quot;
 
     try {
       $resource = ($siteUrl -split &quot;/&quot;)[2]
-      $accessToken = m365 util accesstoken get --resource &quot;https://$resource&quot;
+      $accessToken = m365 util accesstoken get --resource &quot;https://$resource&quot; --output text
     }
     catch {
       throw &quot;!! Unable to get AccessToken for EnsureSiteAssetsLibrary at '$siteUrl'`nERROR: $_&quot;
@@ -166,6 +161,9 @@ function EnsureSiteAssetsLibrary {
 <tbody>
 <tr>
 <td>Phillip Allan-Harding</td>
+</tr>
+<tr>
+<td>Martin Lingstuyl</td>
 </tr>
 </tbody>
 </table>
