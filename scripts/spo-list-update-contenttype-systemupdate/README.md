@@ -21,54 +21,32 @@ PnP PowerShell
 # [PnP PowerShell](#tab/pnpps)
 ```powershell
 
-$SiteURL = "https://yourtenantname.sharepoint.com/sites/SiteCollection"
-$LibraryName = "YourLibraryName"
-$ErrorActionPreference="Stop"
+#Config Variables
+$SiteURL = "https://yourtenantname.sharepoint.com/teams/TEAM-CommercialServices/"
 
-write-host $("Start time " + (Get-Date))
 
-Connect-PnPOnline -URL $SiteURL -Interactive
-#Get the web & Root folder of the library
-$Web = Get-PnPWeb
-$Library = Get-PnPList -Identity $LibraryName -Includes RootFolder
-$Folder = $Library.RootFolder
+Connect-PnPOnline -url $SiteURL  -Interactive
+$list = "Finance" 
+#FolderRelativeURL= "/Finance&CSCollaboration"
+ 
+Try {
 
-#Get the site relative path of the Folder
-    If($Folder.Context.web.ServerRelativeURL -eq "/")
-    {
-        $FolderSiteRelativeURL = $Folder.ServerRelativeUrl
-    }
-    Else
-    {      
-        $FolderSiteRelativeURL = $Folder.ServerRelativeUrl.Replace($Folder.Context.web.ServerRelativeURL,[string]::Empty)
-    }
+ #$CAMLQuery = "<View Scope='RecursiveAll'><Query><Where><Eq><FieldRef Name='FileDirRef'/><Value Type='Text'>$FolderRelativeURL</Value></Eq></Where></Query></View>"
+ $CAMLQuery = "<View ><Query><Where><Eq><FieldRef Name='ContentType'/><Value Type='Text'>Finance Email</Value></Eq></Where></Query></View>"
+#Read more: https://www.sharepointdiary.com/2017/02/sharepoint-online-get-list-items-from-folder-using-powershell.html#ixzz7c7bU0GFH
+  $items = Get-PnPListItem -List $list -IncludeContentType -Query  $CAMLQuery
+  
+  forEach($listItem in $items){ 
+   
+     Set-PnPListItem -UpdateType SystemUpdate -List  $list -ContentType "Finance Email" -Identity $listItem
+  
+  }
 
-    #Remove all files
-    $Files = Get-PnPFolderItem -FolderSiteRelativeUrl $FolderSiteRelativeURL -ItemType File
-    ForEach ($File in $Files)
-    {
-        #Delete File
-        Remove-PnPFile -ServerRelativeUrl $File.ServerRelativeURL -Force 
-        Write-Host -f Green ("Deleted File: '{0}' at '{1}'" -f $File.Name, $File.ServerRelativeURL)     
-    }
+}
+catch {
+    write-host "Error: $($_.Exception.Message)" -foregroundcolor Red
+}
 
-    #Remove all subfolders
-    $SubFolders = Get-PnPFolderItem -FolderSiteRelativeUrl $FolderSiteRelativeURL -ItemType Folder
-    Foreach($SubFolder in $SubFolders)
-    {
-       #Exclude "Forms" and Hidden folders
-        If(($SubFolder.Name -ne "Forms") -and (-Not($SubFolder.Name.StartsWith("_"))))
-        {
-            #Delete the folder
-            Remove-PnPFolder -Name $SubFolder.Name -Folder $FolderSiteRelativeURL -Force 
-            Write-Host -f Green ("Deleted Folder: '{0}' at '{1}'" -f $SubFolder.Name, $SubFolder.ServerRelativeURL)
-        }
-    }
-
- Remove-PnPList -Identity $LibraryName -Force
- Write-Host ("Library {0} deleted" -f $LibraryName)
-
-write-host $("End time " + (Get-Date))
 ```
 [!INCLUDE [More about PnP PowerShell](../../docfx/includes/MORE-PNPPS.md)]
 
