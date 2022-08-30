@@ -1,0 +1,214 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html lang="en">
+  
+  <head>
+    <meta charset="utf-8">
+    <title>Get notified in Microsoft Teams about SharePoint health incidents | PnP Samples </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Get notified in Microsoft Teams about SharePoint health incidents | PnP Samples ">
+    <meta name="generator" content="docfx 2.56.7.0">
+    <meta name="description" content="A sample gallery of scripts to manage all things Microsoft 365.">
+  
+    <!-- Social Media -->
+    <meta property="og:locale" content="en_GB">
+    <meta property="og:title" content="Get notified in Microsoft Teams about SharePoint health incidents | PnP Samples ">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://pnp.github.io/script-samples">
+    <meta property="og:image" content="https://pnp.github.io/script-samples/assets/social-media-screenshot.png">
+    <meta property="og:image:alt" content="Screenshot example of the PnP Script Samples Site">
+    <meta property="og:site_name" content="PnP Script Samples">
+    <meta property="og:description" content="A sample gallery of scripts to manage all things Microsoft 365.">
+  
+    <link rel="shortcut icon" href="https://c.s-microsoft.com/favicon.ico?v2">
+    <link rel="stylesheet" href="../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../styles/docfx.css">
+    <link rel="stylesheet" href="../styles/main.css">
+    <link rel="stylesheet" href="../styles/extra.css">
+    <link rel="stylesheet" href="../styles/filter.css">
+    <link rel="stylesheet" href="../styles/site.css">
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet"> 
+    <meta property="docfx:navrel" content="../toc.html">
+    <meta property="docfx:tocrel" content="../toc.html">
+    
+    
+    <meta property="docfx:newtab" content="true">
+    <script type="text/javascript">
+      (function(c,l,a,r,i,t,y){
+          c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+          t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+          y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+      })(window, document, "clarity", "script", "8j6pedl344");
+  </script>
+  </head>  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+             <div class="github-mark">
+              <a href="https://github.com/pnp/script-samples">
+                <img src="https://pnp.github.io/script-samples/assets/icons/github-light-64px.png" alt="GitHub Icon Image">
+              </a>
+            </div>
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../assets/logo.svg" alt="">
+              </a>    </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <label class="glyphicon glyphicon-search" for="search-query"></label>
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>      </header>
+      <div role="main" class="container body-content hide-when-search">
+        <div class="article row grid">
+          <div class="col-md-12">
+            <article class="content wrap" id="_content" data-uid="">
+                  <div class="contribution-panel mobile-hide pull-right">
+                      <a href="https://github.com/pnp/script-samples/blob/main/scripts/tenant-health-notify-teams/README.md/#L1" title="Improve this Doc" class="improve-doc-lg"><i class="glyphicon glyphicon-pencil"></i></a>
+                  </div>
+                    <h1 id="get-notified-in-microsoft-teams-about-sharepoint-health-incidents">Get notified in Microsoft Teams about SharePoint health incidents</h1>
+
+<h2 id="summary">Summary</h2>
+<p>This script can be used to monitor the health status of your SharePoint tenant. If service incidents occur, a notification is sent to a Microsoft Teams channel. For notifications, the script posts an Adaptive Card to an Incoming Webhook. The script caches health incidents in a SharePoint list.</p>
+<p><img src="assets/example.png" alt="Example Screenshot"></p>
+<h3 id="script-overview">Script Overview</h3>
+<ol>
+<li>This script uses the command <a href="https://pnp.github.io/cli-microsoft365/cmd/tenant/serviceannouncement/serviceannouncement-healthissue-list/">tenant serviceannouncement healthissue list</a> to get a list of unresolved SharePoint health issues.</li>
+<li>The script caches the id of the health issues in a SharePoint list. The SharePoint list is created if it does not exist.</li>
+<li>The script posts an adaptive card (from a JSON file) as notification to a Microsoft Teams Incoming Webhook for every unresolved issue.</li>
+<li>The script cleans the cache list of issues that have been resolved.</li>
+</ol>
+<h3 id="prerequisites">Prerequisites</h3>
+<ol>
+<li>I created an adaptive card using the <a href="https://adaptivecards.io/designer/">Adaptive Card Designer</a>. Save <a href="assets/adaptive-card.json">the included JSON file</a> to the location where you execute your script.</li>
+<li>Create an Incoming Webhook in a Microsoft Teams Channel and use that URL in here.</li>
+</ol>
+<h3 id="when-using-on-an-azure-function">When using on an Azure Function</h3>
+<p>This script can be run on a local machine, but it can also be easily integrated in an Azure Function on the PowerShell stack. To do this, Managed Identity can be enabled on the Azure Function, and permissions can be assigned. To do this:</p>
+<ol>
+<li>Create an Azure Function and enable Identity</li>
+<li>Assign the Identity the required permissions, using the following (copy/paste the object ID from the identity):</li>
+</ol>
+<pre><code class="lang-sh">m365 login
+m365 aad approleassignment add --objectId &quot;&lt;paste the object id here&gt;&quot; --resource &quot;Microsoft Graph&quot; --scope &quot;ServiceHealth.Read.All&quot;
+m365 aad approleassignment add --objectId &quot;&lt;paste the object id here&gt;&quot; --resource &quot;SharePoint&quot; --scope &quot;SharePoint.FullControl.All&quot;
+</code></pre>
+<ol start="3">
+<li>Create a TimerTriggered Azure Functions project, and <a href="https://www.blimped.nl/how-to-run-the-cli-for-microsoft365-on-an-azure-function/">following the instructions here</a>, add the code and deploy it to your Function App.</li>
+</ol>
+<p>For more instructions, follow the code on the <a href="https://www.blimped.nl/getting-notified-of-service-incidents-in-microsoft-teams/">referenced blog</a>.</p>
+<div class="tabGroup" id="tabgroup_CeZOj-G++Q">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_CeZOj-G++Q_cli-m365-ps" role="tab" aria-controls="tabpanel_CeZOj-G++Q_cli-m365-ps" data-tab="cli-m365-ps" tabindex="0" aria-selected="true">CLI for Microsoft 365 with PowerShell</a>
+</li>
+</ul>
+<section id="tabpanel_CeZOj-G++Q_cli-m365-ps" role="tabpanel" data-tab="cli-m365-ps"><button class="article-clipboard" title="Copy to clipboard" data-toggle="tooltip" data-placement="top" data-clipboard-target="section[id^='tabpanel'][data-tab='cli-m365-ps'] pre">
+    <span class="glyphicon glyphicon-copy" aria-hidden="true"></span>
+    <span class="article-clipboard__message done">Copied</span>
+</button>
+
+<pre><code class="lang-powershell">$sharePointUrl = &quot;https://contoso.sharepoint.com&quot;
+$webUrl = &quot;/sites/contoso&quot;
+$incomingWebhookURL = &quot;&lt;paste your incoming webhook URL&gt;&quot;
+
+m365 login
+# Or use the following on an Azure Function with managed identity enabled 
+# m365 login --authType identity
+
+m365 spo set --url $sharePointUrl
+
+$list = m365 spo list get --webUrl $webUrl --title HealthIssuesSent | ConvertFrom-Json
+
+if ($null -eq $list) {
+    $list = m365 spo list add --webUrl $webUrl --title HealthIssuesSent --baseTemplate GenericList | ConvertFrom-Json
+}
+
+$cachedIssues = m365 spo listitem list --webUrl $webUrl --listId $list.Id --fields &quot;Id,Title&quot; | ConvertFrom-Json
+
+$issues = m365 tenant serviceannouncement healthissue list --service &quot;SharePoint Online&quot; --query &quot;[?!isResolved]&quot; | ConvertFrom-Json
+
+foreach ($issue in $issues) {
+    $savedIssue = $cachedIssues | Where-Object { $_.Title -eq $issue.id }
+
+    if ($null -eq $savedIssue) {
+        #@adaptive-card.json references the local file that should be stored in the location where you execute your script.
+        m365 adaptivecard send --card `@adaptive-card.json --url $incomingWebhookURL --cardData &quot;{ \`&quot;title\`&quot;: \`&quot;A health incident occurred on SharePoint\`&quot;, \`&quot;description\`&quot;: \`&quot;$($issue.Title)\`&quot;, \`&quot;issueId\`&quot;: \`&quot;$($issue.id)\`&quot;, \`&quot;issueTimestamp\`&quot;: \`&quot;$($issue.startDateTime.ToString(&quot;yyyy-MM-ddTHH:mm:ssZ&quot;))\`&quot;, \`&quot;viewUrl\`&quot;: \`&quot;https://admin.microsoft.com/Adminportal/Home#/servicehealth/:/alerts/$($issue.id)\`&quot;, \`&quot;properties\`&quot;:[{\`&quot;key\`&quot;:\`&quot;Classification\`&quot;,\`&quot;value\`&quot;:\`&quot;$($issue.classification)\`&quot;},{\`&quot;key\`&quot;:\`&quot;Feature Group\`&quot;,\`&quot;value\`&quot;:\`&quot;$($issue.featureGroup)\`&quot;},{\`&quot;key\`&quot;:\`&quot;Feature\`&quot;,\`&quot;value\`&quot;:\`&quot;$($issue.feature)\`&quot;}] }&quot;
+
+        m365 spo listitem add --webUrl $webUrl --listId $list.Id --Title $issue.id | out-null
+    } 
+}
+
+foreach ($cachedIssue in $cachedIssues) {
+    $isResolved = @($issues | Where-Object { $_.id -eq $cachedIssue.Title }).Count -eq 0
+
+    if ($isResolved -eq $true) {
+        m365 spo listitem remove --webUrl $webUrl --listId $list.Id --id $cachedIssue.Id --confirm | out-null
+    }
+}
+</code></pre>
+<div class="highlight-tool">
+<p>Check out the <strong>CLI for Microsoft 365</strong> to learn more at: <a href="https://aka.ms/cli-m365">https://aka.ms/cli-m365</a></p>
+</div>
+<h2 id="source-credit">Source Credit</h2>
+<p>Sample first appeared on <a href="https://www.blimped.nl/getting-notified-of-service-incidents-in-microsoft-teams/">Blimped | Getting notified of service incidents in Microsoft Teams</a></p>
+<h2 id="contributors">Contributors</h2>
+<table>
+<thead>
+<tr>
+<th>Author(s)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Martin Lingstuyl</td>
+</tr>
+</tbody>
+</table>
+<h2 id="disclaimer">Disclaimer</h2>
+<p><strong>THESE SAMPLES ARE PROVIDED <em>AS IS</em> WITHOUT WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, INCLUDING ANY IMPLIED WARRANTIES OF FITNESS FOR A PARTICULAR PURPOSE, MERCHANTABILITY, OR NON-INFRINGEMENT.</strong></p>
+<img src="https://pnptelemetry.azurewebsites.net/script-samples/scripts/tenant-monitor-notify-healthstatus" aria-hidden="true">
+</section>
+</div>
+</article>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            <span>Script Samples<br>Generated by <strong><a href='https://dotnet.github.io/docfx' alt='Doc FX Website'>DocFX</a></strong> with <strong><a href='https://ovasquez.github.io/docfx-material' alt='DocFx Material Theme'>Material UI</a></strong></span>
+            
+            <!-- <img src="https://telemetry.sharepointpnp.com/@pnp.github.io/index/" alt="spacer"> -->
+          </div>
+        </div>
+      </footer>    </div>
+    
+    <script type="text/javascript" src="../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+    
+    <script type="text/javascript" src="../styles/clipboard.min.js"></script>
+    <script type="text/javascript" src="../styles/isotope.pkgd.min.js"></script>
+    <script type="text/javascript" src="../styles/loadsamples.js"></script>
+    <script type="text/javascript" src="../styles/filtersamples.js"></script>
+
+  </body>
+</html>
