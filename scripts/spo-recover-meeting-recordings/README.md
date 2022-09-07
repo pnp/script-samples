@@ -85,7 +85,7 @@ Disconnect-pnponline
 
 
 ```
-[!INCLUDE [More about PnP PowerShell](../../docfx/includes/MORE-PNPPS.md)]
+[More about PnP PowerShell](../../docfx/includes/MORE-PNPPS.md)
 
 
 ## Source Credit
@@ -106,5 +106,5 @@ Used various sources for pieces of the script above , thank you kindly.
 | Jason Baxter 
 
 
-[!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
+[DISCLAIMER](../../docfx/includes/DISCLAIMER.md)
 <img src="https://pnptelemetry.azurewebsites.net/script-samples/scripts/template-script-submission" aria-hidden="true" />
