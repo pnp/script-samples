@@ -3,11 +3,39 @@
 ## Summary
 
 With the new 120 day expiration policy , some customers have been caught unaware. What do you do if you need to recover across thousands of accounts.
-
-![Example Screenshot](assets/example.png)
-
 This is supposed to be run in stages , i suggest using this as a sample to build your own script/s. I suggest you copy and paste each stage at a time.
 
+### Recycle bin before restoration
+
+![Recycle bin before restoration](assets/Recyclebin1_unrestored.png)
+
+### Grant Access to One Drive
+
+  ![Grant Access to One Drive](assets/GrantAccessToOnedrive.png)
+
+### Looping Through One Drive's
+
+  ![Looping Through One Drive's](assets/LoopingthroughOnedrive.png)
+
+### Restoration of files
+
+![Restoration of files](assets/RestoringFiles.png)
+
+### Recycle bin After Restores
+
+![Recycle bin After Restores](assets/RecylebinAfterRestore.png)
+
+### Recordings Folder After Restores
+
+![Recordings Folder After Restores](assets/RecordingsFolderAfterRestore.png)
+
+### Remove Access
+
+![Remove Access to One Drive](assets/RemoveAccess.png)
+
+### Testing Access
+
+![Testing Access](assets/TestingAccess.png)
 
 # [PnP PowerShell](#tab/pnpps)
 
@@ -19,14 +47,14 @@ $Tenant="TenantName"
 
 # 2 Connect to the SharePoint Admin Service consider using an App registration or a Service account.
 Connect-spoService -url https://$Tenant-admin.sharepoint.com 
-# 3.1 Get all the Onedrive URLS
+# 3.1 Get all the OneDrive URLS
 Get-SPOSite -IncludePersonalSite $True -limit all -Filter "Url -like '-my.sharepoint.com/personal/'"|Select Url,LockState,Status,LastContentModifiedDate,Title,Owner |Export-Csv c:\temp\sites.csv -NoTypeInformation
 
-# 3.2 Get any Deleted Onedrive's
-Get-SPODeletedSite -IncludeOnlyPersonalSite |Select Url,LockState,Status,LastContentModifiedDate,Title,Owner |Export-Csv c:\temp\DeletedOnedrivesites.csv
+# 3.2 Get any Deleted OneDrive's
+Get-SPODeletedSite -IncludeOnlyPersonalSite |Select Url,LockState,Status,LastContentModifiedDate,Title,Owner |Export-Csv c:\temp\DeletedOnedrivesites.csv -NoTypeInformation
 
 # 3.3 Get SPO Teams
-$teams=Get-SPOSite -limit all -Template "GROUP#0" -IncludePersonalSite:$false|Select Url,LockState,Status,LastContentModifiedDate,Title,Owner |Export-Csv c:\temp\Teamssites.csv
+$teams=Get-SPOSite -limit all -Template "GROUP#0" -IncludePersonalSite:$false|Select Url,LockState,Status,LastContentModifiedDate,Title,Owner |Export-Csv c:\temp\Teamssites.csv -NoTypeInformation
 
 # 4 import CSV'sharepoint
 
@@ -34,12 +62,12 @@ $Sites = import-csv -path c:\temp\sites.csv
 $DeletedSites = import-csv -path c:\temp\DeletedOnedrivesites.csv
 $TeamsSites= import-csv -path c:\temp\Teamssites.csv
 
-# 4.1 Restore deleted Onedrive's (Optional)
+# 4.1 Restore deleted OneDrive's (Optional)
 foreach ($DLsite in $DeletedSites){
 	Restore-SPODeleted	-identity $DLsite.url
 	}
 
-# 5 Grant access to Onedrive & Repeat for Deleted Sites
+# 5 Grant access to OneDrive & Repeat for Deleted Sites
 foreach ($site in $Sites){
 Set-SPOUser -Site $site.Url -LoginName $SiteCollAdmin -IsSiteCollectionAdmin $True
 write-host "Granting Access to "$site.Url
@@ -98,12 +126,14 @@ Used various sources for pieces of the script above , thank you kindly.
 
 [https://techcognizance.com](https://techcognizance.com/2021/05/16/restore-items-from-onedrive-recycle-bin-using-powershell/)
 
+[joseinazusa](https://github.com/joseinazusa/powershell-recursive-folder-restore/blob/master/recursive-recyclebin-restore.ps1)
+
 
 ## Contributors
 
 | Author(s) |
 |-----------|
-| Jason Baxter 
+| Jason Baxter|
 
 
 [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)
