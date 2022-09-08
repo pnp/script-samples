@@ -1,0 +1,243 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html lang="en">
+  
+  <head>
+    <meta charset="utf-8">
+    <title>Microsoft Graph PowerShell SDK for Common Operations | PnP Samples </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Microsoft Graph PowerShell SDK for Common Operations | PnP Samples ">
+    <meta name="generator" content="docfx 2.56.7.0">
+    <meta name="description" content="A sample gallery of scripts to manage all things Microsoft 365.">
+  
+    <!-- Social Media -->
+    <meta property="og:locale" content="en_GB">
+    <meta property="og:title" content="Microsoft Graph PowerShell SDK for Common Operations | PnP Samples ">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://pnp.github.io/script-samples">
+    <meta property="og:image" content="https://pnp.github.io/script-samples/assets/social-media-screenshot.png">
+    <meta property="og:image:alt" content="Screenshot example of the PnP Script Samples Site">
+    <meta property="og:site_name" content="PnP Script Samples">
+    <meta property="og:description" content="A sample gallery of scripts to manage all things Microsoft 365.">
+  
+    <link rel="shortcut icon" href="https://c.s-microsoft.com/favicon.ico?v2">
+    <link rel="stylesheet" href="../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../styles/docfx.css">
+    <link rel="stylesheet" href="../styles/main.css">
+    <link rel="stylesheet" href="../styles/extra.css">
+    <link rel="stylesheet" href="../styles/filter.css">
+    <link rel="stylesheet" href="../styles/site.css">
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet"> 
+    <meta property="docfx:navrel" content="../toc.html">
+    <meta property="docfx:tocrel" content="../toc.html">
+    
+    
+    <meta property="docfx:newtab" content="true">
+    <script type="text/javascript">
+      (function(c,l,a,r,i,t,y){
+          c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+          t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+          y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+      })(window, document, "clarity", "script", "8j6pedl344");
+  </script>
+  </head>  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+             <div class="github-mark">
+              <a href="https://github.com/pnp/script-samples">
+                <img src="https://pnp.github.io/script-samples/assets/icons/github-light-64px.png" alt="GitHub Icon Image">
+              </a>
+            </div>
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../assets/logo.svg" alt="">
+              </a>    </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <label class="glyphicon glyphicon-search" for="search-query"></label>
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>      </header>
+      <div role="main" class="container body-content hide-when-search">
+        <div class="article row grid">
+          <div class="col-md-12">
+            <article class="content wrap" id="_content" data-uid="">
+                  <div class="contribution-panel mobile-hide pull-right">
+                      <a href="https://github.com/pnp/script-samples/blob/main/scripts/graph-common-operations/README.md/#L1" title="Improve this Doc" class="improve-doc-lg"><i class="glyphicon glyphicon-pencil"></i></a>
+                  </div>
+                    <h1 id="microsoft-graph-powershell-sdk-for-common-operations">Microsoft Graph PowerShell SDK for Common Operations</h1>
+
+<h2 id="summary">Summary</h2>
+<p>Examples of installing specific modules, see how authentication works (both in Delegated and App-only permissions scenarios for any CRUD operation), find permissions (discover cmdlets based on URLs, identify permissions required for apps based on cmdlets used), differentiate between beta and v1 endpoints, obtain Auth sign-in information and run reports using Out-GridView that dumps results into CSV file. Gallery has 40+ PowerShell modules, 17,500+ cmdlets, and supports PowerShell 5.1 and 7+.</p>
+<p><img src="assets/example.png" alt="Example Screenshot"></p>
+<div class="tabGroup" id="tabgroup_CeZOj-G++Q">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_CeZOj-G++Q_graphps" role="tab" aria-controls="tabpanel_CeZOj-G++Q_graphps" data-tab="graphps" tabindex="0" aria-selected="true">Microsoft Graph PowerShell</a>
+</li>
+</ul>
+<section id="tabpanel_CeZOj-G++Q_graphps" role="tabpanel" data-tab="graphps"><button class="article-clipboard" title="Copy to clipboard" data-toggle="tooltip" data-placement="top" data-clipboard-target="section[id^='tabpanel'][data-tab='graphps'] pre">
+    <span class="glyphicon glyphicon-copy" aria-hidden="true"></span>
+    <span class="article-clipboard__message done">Copied</span>
+</button>
+
+<pre><code class="lang-powershell">
+#region Find Module based on Command
+Find-Module -Command 'Get-MGUserMessage'
+#endregion
+
+#region Install Modules
+@('Microsoft.Graph.Authentication', 'Microsoft.Graph.Identity.DirectoryManagement', 'Microsoft.Graph.Mail', 'Microsoft.Graph.Reports', 'Microsoft.Graph.Teams', 'Microsoft.Graph.Users') | `
+    % {Install-Module $_ -Force}
+#endregion
+
+#region Get Mail Delegated
+Disconnect-MgGraph
+Connect-MgGraph -Scopes 'Mail.Read'
+
+$messages = Get-MgUserMessage -UserId 'user@tenant.onmicrosoft.com'
+$messages.Subject
+
+$messages = Get-MgUserMessage -UserId 'AdeleV@tenant.onmicrosoft.com'
+#endregion
+
+#region Get Mail App-Only
+Disconnect-MgGraph
+Connect-MgGraph -ClientId '' `
+                -CertificateThumbprint '' `
+                -TenantId ''
+
+$messages = Get-MgUserMessage -UserId 'user@tenant.onmicrosoft.com'
+$messages.Subject
+
+$messages = Get-MgUserMessage -UserId 'AdeleV@tenant.onmicrosoft.com'
+$messages.Subject
+#endregion
+
+#region Send Teams Chat
+Disconnect-MgGraph
+Connect-MgGraph -Scopes 'Chat.ReadWrite'
+
+$admin = Get-MgUser -Filter &quot;UserPrincipalName eq 'admin@tenant.onmicrosoft.com'&quot;
+$message = @{
+    Content = &quot;Nik Demoing PoSh Graph SDK - $([System.DateTime]::Now.ToString())!&quot;
+}
+New-MgChatMessage -ChatId '19:68b82c1d-c086-4b99-9fd0-ec7c7f222941_9abce74d-d108-475f-a2cb-bbb82f484982@unq.gbl.spaces' `
+                  -Body $message
+#endregion
+
+#region Find Permissions
+Find-MgGraphCommand -Uri '/security/alerts'
+
+Find-MgGraphCommand -Command 'Get-MgDirectorySetting' | select Permissions
+#endregion
+
+#region Beta Endpoint - Groups Naming Policy
+Disconnect-MgGraph
+Connect-MgGraph -Scopes 'Directory.ReadWrite.All'
+
+Get-MgDirectorySetting
+Get-MgProfile
+
+Select-MgProfile -Name beta
+Get-MgDirectorySetting
+#endregion
+
+#region Retrieve Basic Auth SignIn Info
+Disconnect-MgGraph
+Connect-MgGraph -ClientId '' `
+                -CertificateThumbprint '' `
+                -TenantId ''
+
+$period = -7 # Past 7 days
+$date = (get-date).AddDays($period)
+$sDate = $date.ToString(&quot;yyyy-MM-dd&quot;)
+$auditInfo = Get-MgAuditLogSignIn -Filter &quot;CreatedDateTime ge $sDate and clientAppUsed ne 'Browser' and clientAppUsed ne 'Mobile Apps and Desktop clients'&quot; -All
+#endregion
+
+#region Reports
+
+$path = &quot;C:\Demos\Report.csv&quot;
+
+# Attempt to call the Mailbox Usage Activity report cmdlet
+New-Item -Path 'C:\Demos\Report.csv' -Force
+Get-MgReportMailboxUsageDetail -Period &quot;D180&quot; `
+    -OutFile $path
+
+# Define URL to the Teams Activity report endpoint
+New-Item -Path 'C:\Demos\Report.csv' -Force
+$url = &quot;https://graph.microsoft.com/v1.0/reports/getMailboxUsageDetail(period='D180')&quot;
+Invoke-MgGraphRequest -Method GET `
+    -Uri $url `
+    -OutputFilePath $path
+
+Import-CSV $path | Out-GridView
+#endregion
+
+</code></pre>
+<div class="highlight-tool">
+<p>Check out the <strong>Microsoft Graph PowerShell SDK</strong> to learn more at: <a href="https://docs.microsoft.com/en-us/graph/powershell/get-started">https://docs.microsoft.com/en-us/graph/powershell/get-started</a></p>
+</div>
+<h2 id="source-credit">Source Credit</h2>
+<p>Sample first appeared on <a href="https://www.youtube.com/watch?v=ib3BrVNQkFM&amp;t=260s">Using the Microsoft Graph PowerShell SDK for common operations | YouTube</a></p>
+<h2 id="contributors">Contributors</h2>
+<table>
+<thead>
+<tr>
+<th>Author(s)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Nik Charlebois</td>
+</tr>
+</tbody>
+</table>
+<h2 id="disclaimer">Disclaimer</h2>
+<p><strong>THESE SAMPLES ARE PROVIDED <em>AS IS</em> WITHOUT WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, INCLUDING ANY IMPLIED WARRANTIES OF FITNESS FOR A PARTICULAR PURPOSE, MERCHANTABILITY, OR NON-INFRINGEMENT.</strong></p>
+<img src="https://pnptelemetry.azurewebsites.net/script-samples/scripts/graph-common-operations" aria-hidden="true">
+</section>
+</div>
+</article>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            <span>Script Samples<br>Generated by <strong><a href='https://dotnet.github.io/docfx' alt='Doc FX Website'>DocFX</a></strong> with <strong><a href='https://ovasquez.github.io/docfx-material' alt='DocFx Material Theme'>Material UI</a></strong></span>
+            
+            <!-- <img src="https://telemetry.sharepointpnp.com/@pnp.github.io/index/" alt="spacer"> -->
+          </div>
+        </div>
+      </footer>    </div>
+    
+    <script type="text/javascript" src="../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+    
+    <script type="text/javascript" src="../styles/clipboard.min.js"></script>
+    <script type="text/javascript" src="../styles/isotope.pkgd.min.js"></script>
+    <script type="text/javascript" src="../styles/loadsamples.js"></script>
+    <script type="text/javascript" src="../styles/filtersamples.js"></script>
+
+  </body>
+</html>
