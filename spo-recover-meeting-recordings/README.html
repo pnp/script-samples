@@ -1,0 +1,242 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html lang="en">
+  
+  <head>
+    <meta charset="utf-8">
+    <title>Recover Deleted Teams Meeting Recordings | PnP Samples </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Recover Deleted Teams Meeting Recordings | PnP Samples ">
+    <meta name="generator" content="docfx 2.56.7.0">
+    <meta name="description" content="A sample gallery of scripts to manage all things Microsoft 365.">
+  
+    <!-- Social Media -->
+    <meta property="og:locale" content="en_GB">
+    <meta property="og:title" content="Recover Deleted Teams Meeting Recordings | PnP Samples ">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://pnp.github.io/script-samples">
+    <meta property="og:image" content="https://pnp.github.io/script-samples/assets/social-media-screenshot.png">
+    <meta property="og:image:alt" content="Screenshot example of the PnP Script Samples Site">
+    <meta property="og:site_name" content="PnP Script Samples">
+    <meta property="og:description" content="A sample gallery of scripts to manage all things Microsoft 365.">
+  
+    <link rel="shortcut icon" href="https://c.s-microsoft.com/favicon.ico?v2">
+    <link rel="stylesheet" href="../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../styles/docfx.css">
+    <link rel="stylesheet" href="../styles/main.css">
+    <link rel="stylesheet" href="../styles/extra.css">
+    <link rel="stylesheet" href="../styles/filter.css">
+    <link rel="stylesheet" href="../styles/site.css">
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet"> 
+    <meta property="docfx:navrel" content="../toc.html">
+    <meta property="docfx:tocrel" content="../toc.html">
+    
+    
+    <meta property="docfx:newtab" content="true">
+    <script type="text/javascript">
+      (function(c,l,a,r,i,t,y){
+          c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+          t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+          y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+      })(window, document, "clarity", "script", "8j6pedl344");
+  </script>
+  </head>  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+             <div class="github-mark">
+              <a href="https://github.com/pnp/script-samples">
+                <img src="https://pnp.github.io/script-samples/assets/icons/github-light-64px.png" alt="GitHub Icon Image">
+              </a>
+            </div>
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../assets/logo.svg" alt="">
+              </a>    </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <label class="glyphicon glyphicon-search" for="search-query"></label>
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>      </header>
+      <div role="main" class="container body-content hide-when-search">
+        <div class="article row grid">
+          <div class="col-md-12">
+            <article class="content wrap" id="_content" data-uid="">
+                  <div class="contribution-panel mobile-hide pull-right">
+                      <a href="https://github.com/pnp/script-samples/blob/main/scripts/spo-recover-meeting-recordings/README.md/#L1" title="Improve this Doc" class="improve-doc-lg"><i class="glyphicon glyphicon-pencil"></i></a>
+                  </div>
+                    <h1 id="recover-deleted-teams-meeting-recordings">Recover Deleted Teams Meeting Recordings</h1>
+
+<h2 id="summary">Summary</h2>
+<p>With the new 120 day expiration policy , some customers have been caught unaware. What do you do if you need to recover across thousands of accounts.
+This is supposed to be run in stages , i suggest using this as a sample to build your own script/s. I suggest you copy and paste each stage at a time.</p>
+<h3 id="recycle-bin-before-restoration">Recycle bin before restoration</h3>
+<p><img src="assets/Recyclebin1_unrestored.png" alt="Recycle bin before restoration"></p>
+<h3 id="grant-access-to-one-drive">Grant Access to One Drive</h3>
+<p><img src="assets/GrantAccessToOnedrive.png" alt="Grant Access to One Drive"></p>
+<h3 id="looping-through-one-drives">Looping Through One Drive's</h3>
+<p><img src="assets/LoopingthroughOnedrive.png" alt="Looping Through One Drive's"></p>
+<h3 id="restoration-of-files">Restoration of files</h3>
+<p><img src="assets/RestoringFiles.png" alt="Restoration of files"></p>
+<h3 id="recycle-bin-after-restores">Recycle bin After Restores</h3>
+<p><img src="assets/RecylebinAfterRestore.png" alt="Recycle bin After Restores"></p>
+<h3 id="recordings-folder-after-restores">Recordings Folder After Restores</h3>
+<p><img src="assets/RecordingsFolderAfterRestore.png" alt="Recordings Folder After Restores"></p>
+<h3 id="remove-access">Remove Access</h3>
+<p><img src="assets/RemoveAccess.png" alt="Remove Access to One Drive"></p>
+<h3 id="testing-access">Testing Access</h3>
+<p><img src="assets/TestingAccess.png" alt="Testing Access"></p>
+<div class="tabGroup" id="tabgroup_CeZOj-G++Q">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_CeZOj-G++Q_pnpps" role="tab" aria-controls="tabpanel_CeZOj-G++Q_pnpps" data-tab="pnpps" tabindex="0" aria-selected="true">PnP PowerShell</a>
+</li>
+</ul>
+<section id="tabpanel_CeZOj-G++Q_pnpps" role="tabpanel" data-tab="pnpps"><button class="article-clipboard" title="Copy to clipboard" data-toggle="tooltip" data-placement="top" data-clipboard-target="section[id^='tabpanel'][data-tab='pnpps'] pre">
+    <span class="glyphicon glyphicon-copy" aria-hidden="true"></span>
+    <span class="article-clipboard__message done">Copied</span>
+</button>
+
+<pre><code class="lang-powershell">
+# 1 Variables
+$SiteCollAdmin=&quot;admin@Tenant.onmicrosoft.com&quot;
+$Tenant=&quot;TenantName&quot;
+
+# 2 Connect to the SharePoint Admin Service consider using an App registration or a Service account.
+Connect-spoService -url https://$Tenant-admin.sharepoint.com 
+# 3.1 Get all the OneDrive URLS
+Get-SPOSite -IncludePersonalSite $True -limit all -Filter &quot;Url -like '-my.sharepoint.com/personal/'&quot;|Select Url,LockState,Status,LastContentModifiedDate,Title,Owner |Export-Csv c:\temp\sites.csv -NoTypeInformation
+
+# 3.2 Get any Deleted OneDrive's
+Get-SPODeletedSite -IncludeOnlyPersonalSite |Select Url,LockState,Status,LastContentModifiedDate,Title,Owner |Export-Csv c:\temp\DeletedOnedrivesites.csv -NoTypeInformation
+
+# 3.3 Get SPO Teams
+$teams=Get-SPOSite -limit all -Template &quot;GROUP#0&quot; -IncludePersonalSite:$false|Select Url,LockState,Status,LastContentModifiedDate,Title,Owner |Export-Csv c:\temp\Teamssites.csv -NoTypeInformation
+
+# 4 import CSV'sharepoint
+
+$Sites = import-csv -path c:\temp\sites.csv
+$DeletedSites = import-csv -path c:\temp\DeletedOnedrivesites.csv
+$TeamsSites= import-csv -path c:\temp\Teamssites.csv
+
+# 4.1 Restore deleted OneDrive's (Optional)
+foreach ($DLsite in $DeletedSites){
+	Restore-SPODeleted	-identity $DLsite.url
+	}
+
+# 5 Grant access to OneDrive &amp; Repeat for Deleted Sites
+foreach ($site in $Sites){
+Set-SPOUser -Site $site.Url -LoginName $SiteCollAdmin -IsSiteCollectionAdmin $True
+write-host &quot;Granting Access to &quot;$site.Url
+}
+
+
+# 5.1 Repeat for Deleted Sites
+foreach ($DLsite in $DeletedSites){
+Set-SPOUser -Site $site.Url -LoginName $SiteCollAdmin -IsSiteCollectionAdmin $True
+write-host &quot;Granting Access to &quot;$site.Url
+}
+
+# 6 Main Function --- Restore-SPODeleted items Per Site.---
+
+foreach ($site in $Sites){
+Connect-pnponline -url $site.Url -interactive
+Write-host &quot;Connected to &quot;$site.url
+Write-host &quot;--------------------------------&quot;
+
+#For All *.mp4 use the line below
+#$Deleteditems=Get-PnPRecycleBinItem |? LeafName -like '*.mp4' |Restore-PnPRecycleBinItem -force
+#Restore just Meeting recordings that haven't been renamed.
+
+$count=Get-PnPRecycleBinItem |? LeafName -like '*Meeting Recording.mp4'
+if ($count.count -le 0){
+Write-host &quot;Found Nothing , So do Nothing.&quot;}
+
+if ( $count.count -gt 0){
+$Restore=Get-PnPRecycleBinItem |? LeafName -like '*Meeting Recording.mp4' |Restore-PnPRecycleBinItem -force
+Write-host &quot;Restored&quot; $count.count}
+Write-host &quot;===============================&quot;
+}
+
+# 7 Removing Access to Onedrive &amp; Repeat for Deleted Sites
+foreach ($site in $Sites){
+Set-SPOUser -site $Site.url -LoginName $SiteCollAdmin -IsSiteCollectionAdmin $False
+write-host &quot;Removing Access to &quot;$site.Url
+}
+
+
+# 8
+Disconnect-pnponline
+
+
+</code></pre>
+<div class="highlight-tool">
+<p>Check out the <strong>PnP PowerShell</strong> to learn more at: <a href="https://aka.ms/pnp/powershell">https://aka.ms/pnp/powershell</a></p>
+</div>
+<h2 id="source-credit">Source Credit</h2>
+<p>Used various sources for pieces of the script above, thank you kindly.</p>
+<p><a href="https://www.sharepointdiary.com/2017/02/sharepoint-online-remove-site-collection-administrator-using-powershell.html">www.sharepointdiary.com</a></p>
+<p><a href="https://www.sharepointdiary.com/2017/04/gain-admin-permission-to-onedrive-for-business-sites-using-powershell.html">www.sharepointdiary.com</a></p>
+<p><a href="https://techcognizance.com/2021/05/16/restore-items-from-onedrive-recycle-bin-using-powershell/">https://techcognizance.com</a></p>
+<p><a href="https://github.com/joseinazusa/powershell-recursive-folder-restore/blob/master/recursive-recyclebin-restore.ps1">joseinazusa</a></p>
+<h2 id="contributors">Contributors</h2>
+<table>
+<thead>
+<tr>
+<th>Author(s)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Jason Baxter</td>
+</tr>
+</tbody>
+</table>
+<h2 id="disclaimer">Disclaimer</h2>
+<p><strong>THESE SAMPLES ARE PROVIDED <em>AS IS</em> WITHOUT WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, INCLUDING ANY IMPLIED WARRANTIES OF FITNESS FOR A PARTICULAR PURPOSE, MERCHANTABILITY, OR NON-INFRINGEMENT.</strong></p>
+<img src="https://pnptelemetry.azurewebsites.net/script-samples/scripts/spo-recover-meeting-recordings" aria-hidden="true">
+</section>
+</div>
+</article>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            <span>Script Samples<br>Generated by <strong><a href='https://dotnet.github.io/docfx' alt='Doc FX Website'>DocFX</a></strong> with <strong><a href='https://ovasquez.github.io/docfx-material' alt='DocFx Material Theme'>Material UI</a></strong></span>
+            
+            <!-- <img src="https://telemetry.sharepointpnp.com/@pnp.github.io/index/" alt="spacer"> -->
+          </div>
+        </div>
+      </footer>    </div>
+    
+    <script type="text/javascript" src="../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+    
+    <script type="text/javascript" src="../styles/clipboard.min.js"></script>
+    <script type="text/javascript" src="../styles/isotope.pkgd.min.js"></script>
+    <script type="text/javascript" src="../styles/loadsamples.js"></script>
+    <script type="text/javascript" src="../styles/filtersamples.js"></script>
+
+  </body>
+</html>
