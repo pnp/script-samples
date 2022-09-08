@@ -1,3 +1,7 @@
+---
+plugin: add-to-gallery
+---
+
 # Recover Deleted Teams Meeting Recordings
 
 ## Summary
@@ -113,12 +117,12 @@ Disconnect-pnponline
 
 
 ```
-[More about PnP PowerShell](../../docfx/includes/MORE-PNPPS.md)
+[!INCLUDE [More about PnP PowerShell](../../docfx/includes/MORE-PNPPS.md)]
 
 
 ## Source Credit
 
-Used various sources for pieces of the script above , thank you kindly.
+Used various sources for pieces of the script above, thank you kindly.
 
 [www.sharepointdiary.com](https://www.sharepointdiary.com/2017/02/sharepoint-online-remove-site-collection-administrator-using-powershell.html)
 
@@ -136,5 +140,5 @@ Used various sources for pieces of the script above , thank you kindly.
 | Jason Baxter|
 
 
-[DISCLAIMER](../../docfx/includes/DISCLAIMER.md)
-<img src="https://pnptelemetry.azurewebsites.net/script-samples/scripts/template-script-submission" aria-hidden="true" />
+[!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
+<img src="https://pnptelemetry.azurewebsites.net/script-samples/scripts/spo-recover-meeting-recordings" aria-hidden="true" />
