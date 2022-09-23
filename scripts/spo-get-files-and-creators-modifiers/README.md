@@ -1,5 +1,5 @@
 ---
-plugin: add-to-gallery-preparation
+plugin: add-to-gallery
 ---
 
 # Get all files in a Document Library along with Created By and Modified By
@@ -30,9 +30,7 @@ $LibraryList | ForEach-Object{Get-PnPListItem -List $_.RootFolder.Name | Where-O
 
 ```
 [!INCLUDE [More about PnP PowerShell](../../docfx/includes/MORE-PNPPS.md)]
-## Source Credit
-
-Sample first appeared on [https://pnp.github.io/cli-microsoft365/sample-scripts/spo/add-app-catalog/](https://pnp.github.io/cli-microsoft365/sample-scripts/spo/add-app-catalog/)
+***
 
 ## Contributors
 
@@ -41,4 +39,4 @@ Sample first appeared on [https://pnp.github.io/cli-microsoft365/sample-scripts/
 | [Todd Klindt](https://www.toddklindt.com)|
 
 [!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
-<img src="https://pnptelemetry.azurewebsites.net/script-samples/scripts/template-script-submission" aria-hidden="true" />
+<img src="https://pnptelemetry.azurewebsites.net/script-samples/scripts/spo-get-files-and-creators-modifiers" aria-hidden="true" />
