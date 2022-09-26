@@ -1,0 +1,204 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html lang="en">
+  
+  <head>
+    <meta charset="utf-8">
+    <title>Get users by license and review last signed in | PnP Samples </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Get users by license and review last signed in | PnP Samples ">
+    <meta name="generator" content="docfx 2.56.7.0">
+    <meta name="description" content="A sample gallery of scripts to manage all things Microsoft 365.">
+  
+    <!-- Social Media -->
+    <meta property="og:locale" content="en_GB">
+    <meta property="og:title" content="Get users by license and review last signed in | PnP Samples ">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://pnp.github.io/script-samples">
+    <meta property="og:image" content="https://pnp.github.io/script-samples/assets/social-media-screenshot.png">
+    <meta property="og:image:alt" content="Screenshot example of the PnP Script Samples Site">
+    <meta property="og:site_name" content="PnP Script Samples">
+    <meta property="og:description" content="A sample gallery of scripts to manage all things Microsoft 365.">
+  
+    <link rel="shortcut icon" href="https://c.s-microsoft.com/favicon.ico?v2">
+    <link rel="stylesheet" href="../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../styles/docfx.css">
+    <link rel="stylesheet" href="../styles/main.css">
+    <link rel="stylesheet" href="../styles/extra.css">
+    <link rel="stylesheet" href="../styles/filter.css">
+    <link rel="stylesheet" href="../styles/site.css">
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet"> 
+    <meta property="docfx:navrel" content="../toc.html">
+    <meta property="docfx:tocrel" content="../toc.html">
+    
+    
+    <meta property="docfx:newtab" content="true">
+    <script type="text/javascript">
+      (function(c,l,a,r,i,t,y){
+          c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+          t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+          y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+      })(window, document, "clarity", "script", "8j6pedl344");
+  </script>
+  </head>  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+             <div class="github-mark">
+              <a href="https://github.com/pnp/script-samples">
+                <img src="https://pnp.github.io/script-samples/assets/icons/github-light-64px.png" alt="GitHub Icon Image">
+              </a>
+            </div>
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../assets/logo.svg" alt="">
+              </a>    </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <label class="glyphicon glyphicon-search" for="search-query"></label>
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>      </header>
+      <div role="main" class="container body-content hide-when-search">
+        <div class="article row grid">
+          <div class="col-md-12">
+            <article class="content wrap" id="_content" data-uid="">
+                  <div class="contribution-panel mobile-hide pull-right">
+                      <a href="https://github.com/pnp/script-samples/blob/main/scripts/graph-get-license-and-signins/README.md/#L1" title="Improve this Doc" class="improve-doc-lg"><i class="glyphicon glyphicon-pencil"></i></a>
+                  </div>
+                    <h1 id="get-users-by-license-and-review-last-signed-in">Get users by license and review last signed in</h1>
+
+<h2 id="summary">Summary</h2>
+<p>In this example, I had a scenario, where we (a charity) received an under utilization email from Microsoft, that 47% of the tenant was utilized and that for a charity subscription I needed to improve to 85% or unassign licenses - fair enough, this is a free offering, not going to argue this. So to obtain this information, went via the Microsoft Graph to extract the needed information so I can allow others in the organization to review the information and remove any unused users.</p>
+<p>This way of filtering could be useful for the community where projects may request changes to licenses, you may want to query for users using a specific license.</p>
+<p>Note: This</p>
+<p>The Microsoft Graph returned the SKU ID, so you will need to refer to the following reference for translating this into the product you are filtering for.
+<a href="https://learn.microsoft.com/en-us/azure/active-directory/enterprise-users/licensing-service-plan-reference">Product names and service plan identifiers for licensing - Azure AD - Microsoft Entra | Microsoft Learn</a></p>
+<p><img src="assets/example.png" alt="Example Screenshot"></p>
+<div class="tabGroup" id="tabgroup_CeZOj-G++Q">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_CeZOj-G++Q_graphps" role="tab" aria-controls="tabpanel_CeZOj-G++Q_graphps" data-tab="graphps" tabindex="0" aria-selected="true">Microsoft Graph PowerShell</a>
+</li>
+</ul>
+<section id="tabpanel_CeZOj-G++Q_graphps" role="tabpanel" data-tab="graphps"><button class="article-clipboard" title="Copy to clipboard" data-toggle="tooltip" data-placement="top" data-clipboard-target="section[id^='tabpanel'][data-tab='graphps'] pre">
+    <span class="glyphicon glyphicon-copy" aria-hidden="true"></span>
+    <span class="article-clipboard__message done">Copied</span>
+</button>
+
+<pre><code class="lang-powershell">
+# Finding the Module
+Find-MgGraphCommand -command Get-MgUser | Select -First 1 -ExpandProperty Permissions
+
+# Note: Details user and application sign-in activity for a tenant (directory). You must have an Azure AD Premium P1 or P2 license to download sign-in logs using the Microsoft Graph API.
+# Reference: https://learn.microsoft.com/en-us/graph/api/resources/signin?view=graph-rest-1.0
+
+# Connect (you will need admin permissions for this)
+Connect-MgGraph -Scopes User.Read.All,Directory.Read.All,AuditLog.Read.All
+
+# Get Details about your session
+Get-MgContext
+
+# License SkuIds https://learn.microsoft.com/en-us/azure/active-directory/enterprise-users/licensing-service-plan-reference
+# Some Common Ones
+# E1 - 18181a46-0d4e-45cd-891e-60aabd171b4e
+# E2 - 6634e0ce-1a9f-428c-a498-f84ec7b8aa2e
+# E3 - 6fd2c87f-b296-42f0-b197-1e91e994b900
+# E5 - c7df2760-2c81-4ef7-b578-5b5392b571df
+# E5 (Without Audio Conferencing) - 26d45bd9-adf1-46cd-a9e1-51e9a5524128 
+
+$license = &quot;6634e0ce-1a9f-428c-a498-f84ec7b8aa2e&quot; # E2 License (Charity)
+
+# For more information about the filter query check out the following resource:
+#   https://learn.microsoft.com/en-us/graph/filter-query-parameter?context=graph%2Fapi%2F1.0&amp;view=graph-rest-1.0
+$filter = &quot;assignedLicenses/any(s:s/skuId eq &quot; + $license + &quot;)&quot;
+
+# Licenses
+Select-MgProfile -Name &quot;beta&quot;
+
+# The -All Flag returns all, so avoid whilst testing out your query
+$users = Get-MgUser -Property &quot;displayName&quot;,&quot;signInActivity&quot;,&quot;assignedLicenses&quot;,&quot;accountEnabled&quot;
+$users
+
+# Unfiltered List
+$users = Get-MgUser -Property &quot;displayName&quot;,&quot;signInActivity&quot;,&quot;assignedLicenses&quot;,&quot;accountEnabled&quot; | Select DisplayName,accountEnabled,signInActivity,assignedLicenses
+$users
+
+# High recommend looking at the graph explorer to help you understand the properties you can query
+#   https://developer.microsoft.com/en-us/graph/graph-explorer
+#   e.g. https://graph.microsoft.com/beta/users?$select=displayName,signInActivity&amp;$filter=assignedLicenses/any(s:s/skuId eq  '6634e0ce-1a9f-428c-a498-f84ec7b8aa2e')
+
+# Filtered List
+$users = Get-MgUser -Property &quot;displayName&quot;,&quot;signInActivity&quot;,&quot;assignedLicenses&quot;,&quot;accountEnabled&quot; -Filter $filter -All `
+    | Select DisplayName,assignedLicenses,signInActivity,accountEnabled -ExpandProperty signInActivity
+
+# Export the list to CSV File
+$users | Export-Csv -Path &quot;users.csv&quot; -NoTypeInformation
+
+# Sign-out, recommended
+Disconnect-MgGraph
+
+</code></pre>
+<div class="highlight-tool">
+<p>Check out the <strong>Microsoft Graph PowerShell SDK</strong> to learn more at: <a href="https://docs.microsoft.com/en-us/graph/powershell/get-started">https://docs.microsoft.com/en-us/graph/powershell/get-started</a></p>
+</div>
+</section>
+</div>
+<h2 id="contributors">Contributors</h2>
+<table>
+<thead>
+<tr>
+<th>Author(s)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Paul Bullock</td>
+</tr>
+</tbody>
+</table>
+<h2 id="disclaimer">Disclaimer</h2>
+<p><strong>THESE SAMPLES ARE PROVIDED <em>AS IS</em> WITHOUT WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, INCLUDING ANY IMPLIED WARRANTIES OF FITNESS FOR A PARTICULAR PURPOSE, MERCHANTABILITY, OR NON-INFRINGEMENT.</strong></p>
+<img src="https://pnptelemetry.azurewebsites.net/script-samples/scripts/graph-get-license-and-signins" aria-hidden="true">
+</article>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            <span>Script Samples<br>Generated by <strong><a href='https://dotnet.github.io/docfx' alt='Doc FX Website'>DocFX</a></strong> with <strong><a href='https://ovasquez.github.io/docfx-material' alt='DocFx Material Theme'>Material UI</a></strong></span>
+            
+            <!-- <img src="https://telemetry.sharepointpnp.com/@pnp.github.io/index/" alt="spacer"> -->
+          </div>
+        </div>
+      </footer>    </div>
+    
+    <script type="text/javascript" src="../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+    
+    <script type="text/javascript" src="../styles/clipboard.min.js"></script>
+    <script type="text/javascript" src="../styles/isotope.pkgd.min.js"></script>
+    <script type="text/javascript" src="../styles/loadsamples.js"></script>
+    <script type="text/javascript" src="../styles/filtersamples.js"></script>
+
+  </body>
+</html>

@@ -1,0 +1,60 @@
+[
+  {
+    "name": "graph-get-license-and-signins",
+    "source": "pnp",
+    "title": "Get users by license and review last signed in",
+    "shortDescription": "Obtain a report via the Microsoft Graph to extract the license and last signedin information to support a license review, for others to help remove any unused users",
+    "url": "https://pnp.github.io/script-samples/graph-get-license-and-signins/README.html",
+    "longDescription": [
+      ""
+    ],
+    "creationDateTime": "2022-09-26",
+    "updateDateTime": "2022-09-26",
+    "products": [
+      "Office",
+      "Graph"
+    ],
+    "metadata": [
+      {
+        "key": "GRAPH-POWERSHELL",
+        "value": "1.9.2"
+      }
+    ],
+    "categories": [
+      "Report"
+    ],
+    "tags": [
+      "bash",
+      "classic",
+      "Find-MgGraphCommand ",
+      "Connect-MgGraph",
+      "Get-MgContext",
+      "Select-MgProfile",
+      "Get-MgUser",
+      "Disconnect-MgGraph"
+    ],
+    "thumbnails": [
+      {
+        "type": "image",
+        "order": 100,
+        "url": "https://raw.githubusercontent.com/pnp/script-samples/main/scripts/graph-get-license-and-signins/assets/preview.png",
+        "alt": "Preview of the sample Get users by license review last signed in"
+      }
+    ],
+    "authors": [
+      {
+        "gitHubAccount": "pkbullock",
+        "company": "CaPa Creative Ltd",
+        "pictureUrl": "https://github.com/pkbullock.png",
+        "name": "Paul Bullock"
+      }
+    ],
+    "references": [
+      {
+        "name": "Want to learn more about Microsoft Graph PowerShell SDK and the cmdlets",
+        "description": "Check out the Microsoft Graph PowerShell SDK documentation site to get started and for the reference to the cmdlets.",
+        "url": "https://docs.microsoft.com/en-us/graph/powershell/get-started"
+      }
+    ]
+  }
+]
