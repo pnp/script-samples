@@ -2,13 +2,13 @@
 plugin: add-to-gallery
 ---
 
-# Delete a library exceeding the list threshold limit. Remove the files and folders before deleting the library.  
+# Create a Quick Links web part with items defined in a datasource  
 
 ## Summary
 
 This script will enable you to create a Quick Links web part where the items are defined in some kind of data source, in this case a SharePoint list. However it could just as well be a csv or similar.
 
-The script contains both the setup for the data source (SP List) as well as the Quick Links creator. 
+The script contains both the setup for the data source (SP List) as well as the Quick Links creator.
 
 Please be advised that this script only enables you to specify the title, the URL and the icon for each item/Quick link.
 
@@ -20,8 +20,6 @@ PnP PowerShell
 - Open VS Code
 - Create a new file
 - Copy a script  below
-
-[!INCLUDE [Delete Warning](../../docfx/includes/DELETE-WARN.md)]
 
 # [PnP PowerShell](#tab/pnpps)
 ```powershell
@@ -112,10 +110,6 @@ $targetpage = Get-PnPPage -Web  $web -Identity "home.aspx" -Connection $destinat
  
 
 Add-PnPPageWebPart -Page $targetpage -DefaultWebPartType "QuickLinks" -WebPartProperties $jsonPropsQuickLinks -Connection $portalConn
-
-
-
-
 
 ```
 [!INCLUDE [More about CLI for Microsoft 365](../../docfx/includes/MORE-CLIM365.md)]
