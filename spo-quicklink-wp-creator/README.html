@@ -104,9 +104,6 @@
 </button>
 
 <pre><code class="lang-powershell">
-  
-
-
 function Create-QuickLinkList ($siteUrl , $ListName)
 {
     $connection = Connect-PnPOnline -Url $siteUrl -ReturnConnection -Interactive
@@ -137,18 +134,12 @@ $siteUrl = &quot;https://YourTenantName.sharepoint.com/sites/QuickLinksTest&quot
 $ListName = &quot;QuickLinkDefinitions&quot;
 Create-QuickLinkList -siteUrl $siteUrl -ListName $ListName
 
-
-
-
-
 function Create-PropertiesJson ($webparttitle, $QuickLinksitems)
 {
   $base = '{&quot;controlType&quot;:3,&quot;id&quot;:&quot;00000000-0000-0000-0000-000000000000&quot;,&quot;position&quot;:{&quot;zoneIndex&quot;:1,&quot;sectionIndex&quot;:1,&quot;controlIndex&quot;:1,&quot;layoutIndex&quot;:1},&quot;webPartId&quot;:&quot;00000000-0000-0000-0000-000000000000&quot;,&quot;webPartData&quot;:{&quot;id&quot;:&quot;00000000-0000-0000-0000-000000000000&quot;,&quot;instanceId&quot;:&quot;00000000-0000-0000-0000-000000000000&quot;,&quot;title&quot;:&quot;Quick links&quot;,&quot;description&quot;:&quot;Add links to important documents and pages.&quot;,'
   $imageSources = '&quot;imageSources&quot;:{},'
   $componentDependencies = '&quot;componentDependencies&quot;:{&quot;layoutComponentId&quot;:&quot;706e33c8-af37-4e7b-9d22-6e5694d92a6f&quot;}},&quot;dataVersion&quot;:&quot;2.2&quot;,'
   $end = '&quot;hideWebPartWhenEmpty&quot;:true,&quot;dataProviderId&quot;:&quot;QuickLinks&quot;,&quot;webId&quot;:&quot;00000000-0000-0000-0000-000000000000&quot;,&quot;siteId&quot;:&quot;00000000-0000-0000-0000-000000000000&quot;}},&quot;emphasis&quot;:{},&quot;reservedHeight&quot;:164,&quot;reservedWidth&quot;:744}'
-  
-   
   
   $links = '&quot;links&quot;:{&quot;baseUrl&quot;:&quot;&quot;,'
   $serverProcessedContent = '&quot;serverProcessedContent&quot;:{&quot;htmlStrings&quot;:{},&quot;searchablePlainTexts&quot;:{&quot;title&quot;:&quot;' + $webparttitle + '&quot;,'
@@ -193,7 +184,7 @@ Add-PnPPageWebPart -Page $targetpage -DefaultWebPartType &quot;QuickLinks&quot; 
 
 </code></pre>
 <div class="highlight-tool">
-<p>Check out the <strong>CLI for Microsoft 365</strong> to learn more at: <a href="https://aka.ms/cli-m365">https://aka.ms/cli-m365</a></p>
+<p>Check out the <strong>PnP PowerShell</strong> to learn more at: <a href="https://aka.ms/pnp/powershell">https://aka.ms/pnp/powershell</a></p>
 </div>
 </section>
 </div>
