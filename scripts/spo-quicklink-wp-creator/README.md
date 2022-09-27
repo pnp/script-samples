@@ -24,9 +24,6 @@ PnP PowerShell
 # [PnP PowerShell](#tab/pnpps)
 ```powershell
 
-  
-
-
 function Create-QuickLinkList ($siteUrl , $ListName)
 {
     $connection = Connect-PnPOnline -Url $siteUrl -ReturnConnection -Interactive
@@ -57,18 +54,12 @@ $siteUrl = "https://YourTenantName.sharepoint.com/sites/QuickLinksTest"
 $ListName = "QuickLinkDefinitions"
 Create-QuickLinkList -siteUrl $siteUrl -ListName $ListName
 
-
-
-
-
 function Create-PropertiesJson ($webparttitle, $QuickLinksitems)
 {
   $base = '{"controlType":3,"id":"00000000-0000-0000-0000-000000000000","position":{"zoneIndex":1,"sectionIndex":1,"controlIndex":1,"layoutIndex":1},"webPartId":"00000000-0000-0000-0000-000000000000","webPartData":{"id":"00000000-0000-0000-0000-000000000000","instanceId":"00000000-0000-0000-0000-000000000000","title":"Quick links","description":"Add links to important documents and pages.",'
   $imageSources = '"imageSources":{},'
   $componentDependencies = '"componentDependencies":{"layoutComponentId":"706e33c8-af37-4e7b-9d22-6e5694d92a6f"}},"dataVersion":"2.2",'
   $end = '"hideWebPartWhenEmpty":true,"dataProviderId":"QuickLinks","webId":"00000000-0000-0000-0000-000000000000","siteId":"00000000-0000-0000-0000-000000000000"}},"emphasis":{},"reservedHeight":164,"reservedWidth":744}'
-  
-   
   
   $links = '"links":{"baseUrl":"",'
   $serverProcessedContent = '"serverProcessedContent":{"htmlStrings":{},"searchablePlainTexts":{"title":"' + $webparttitle + '",'
@@ -112,8 +103,7 @@ $targetpage = Get-PnPPage -Web  $web -Identity "home.aspx" -Connection $destinat
 Add-PnPPageWebPart -Page $targetpage -DefaultWebPartType "QuickLinks" -WebPartProperties $jsonPropsQuickLinks -Connection $portalConn
 
 ```
-[!INCLUDE [More about CLI for Microsoft 365](../../docfx/includes/MORE-CLIM365.md)]
-
+[!INCLUDE [More about PnP PowerShell](../../docfx/includes/MORE-PNPPS.md)]
 ***
 
 ## Contributors
