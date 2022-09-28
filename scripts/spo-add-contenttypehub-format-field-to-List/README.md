@@ -104,10 +104,10 @@ param(
 ```
 
 ## Results running the script 
-When accessing to Content Type Hub the following content should be avaliable
+When accessing to Content Type Hub the following content should be available
 ![Content Type Hub Screenshot](assets/ContentTypeHub.PNG)
 
-When accessing to created custom List the new Content Type Hub should be avaliable.
+When accessing to created custom List the new Content Type Hub should be available.
 ![Content Type List Screenshot](assets/ContentTypeHubList.PNG)
 
 
@@ -119,9 +119,9 @@ When accessing to created custom List the new Content Type Hub should be avaliab
 
 | Author(s) |
 |-----------|
-| [André Lage](https://github.com/aaclage) |
+| [AndrÃ© Lage](https://github.com/aaclage) |
 
 
 [!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
-<img src="https://pnptelemetry.azurewebsites.net/script-samples/scripts/spo-add-multiple-document-libraries-with-list-template" aria-hidden="true" />
+<img src="https://pnptelemetry.azurewebsites.net/script-samples/scripts/spo-add-contenttypehub-format-field-to-List" aria-hidden="true" />
 
