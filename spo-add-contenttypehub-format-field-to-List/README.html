@@ -1,0 +1,242 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html lang="en">
+  
+  <head>
+    <meta charset="utf-8">
+    <title>Add Content Type Hub with calendar format field to List | PnP Samples </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Add Content Type Hub with calendar format field to List | PnP Samples ">
+    <meta name="generator" content="docfx 2.56.7.0">
+    <meta name="description" content="A sample gallery of scripts to manage all things Microsoft 365.">
+  
+    <!-- Social Media -->
+    <meta property="og:locale" content="en_GB">
+    <meta property="og:title" content="Add Content Type Hub with calendar format field to List | PnP Samples ">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://pnp.github.io/script-samples">
+    <meta property="og:image" content="https://pnp.github.io/script-samples/assets/social-media-screenshot.png">
+    <meta property="og:image:alt" content="Screenshot example of the PnP Script Samples Site">
+    <meta property="og:site_name" content="PnP Script Samples">
+    <meta property="og:description" content="A sample gallery of scripts to manage all things Microsoft 365.">
+  
+    <link rel="shortcut icon" href="https://c.s-microsoft.com/favicon.ico?v2">
+    <link rel="stylesheet" href="../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../styles/docfx.css">
+    <link rel="stylesheet" href="../styles/main.css">
+    <link rel="stylesheet" href="../styles/extra.css">
+    <link rel="stylesheet" href="../styles/filter.css">
+    <link rel="stylesheet" href="../styles/site.css">
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet"> 
+    <meta property="docfx:navrel" content="../toc.html">
+    <meta property="docfx:tocrel" content="../toc.html">
+    
+    
+    <meta property="docfx:newtab" content="true">
+    <script type="text/javascript">
+      (function(c,l,a,r,i,t,y){
+          c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+          t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+          y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+      })(window, document, "clarity", "script", "8j6pedl344");
+  </script>
+  </head>  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+             <div class="github-mark">
+              <a href="https://github.com/pnp/script-samples">
+                <img src="https://pnp.github.io/script-samples/assets/icons/github-light-64px.png" alt="GitHub Icon Image">
+              </a>
+            </div>
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../assets/logo.svg" alt="">
+              </a>    </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <label class="glyphicon glyphicon-search" for="search-query"></label>
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>      </header>
+      <div role="main" class="container body-content hide-when-search">
+        <div class="article row grid">
+          <div class="col-md-12">
+            <article class="content wrap" id="_content" data-uid="">
+                  <div class="contribution-panel mobile-hide pull-right">
+                      <a href="https://github.com/pnp/script-samples/blob/main/scripts/spo-add-contenttypehub-format-field-to-List/README.md/#L1" title="Improve this Doc" class="improve-doc-lg"><i class="glyphicon glyphicon-pencil"></i></a>
+                  </div>
+                    <h1 id="add-content-type-hub-with-calendar-format-field-to-list">Add Content Type Hub with calendar format field to List</h1>
+
+<h2 id="summary">Summary</h2>
+<p>This script will create Content Type Hub with custom calendar List field formatting and include in destination site and associated custom List.</p>
+<ul>
+<li>Retrieve custom calendar Formatting json from <a href="https://github.com/pnp/List-Formatting/">https://github.com/pnp/List-Formatting/</a>.</li>
+<li>Creates custom content type in Hub site.</li>
+<li>Adds new field &quot;CalendarDemo&quot; to new content type Hub.</li>
+<li>Publish custom Content Type and add to destination site.</li>
+<li>Create Custom Lists with enable content type.</li>
+<li>Remove default Item Content and include custom Content Type from Hub.</li>
+<li>Add fields &quot;Title,CalendarDemo&quot; in default View.</li>
+</ul>
+<p>More about List Formatting github repository.
+<a href="https://github.com/pnp/List-Formatting/">https://github.com/pnp/List-Formatting/</a></p>
+<p><img src="assets/ContentTypeHubFormatField.gif" alt="Example Screenshot"></p>
+<div class="tabGroup" id="tabgroup_CeZOj-G++Q">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_CeZOj-G++Q_pnpps" role="tab" aria-controls="tabpanel_CeZOj-G++Q_pnpps" data-tab="pnpps" tabindex="0" aria-selected="true">PnP PowerShell</a>
+</li>
+</ul>
+<section id="tabpanel_CeZOj-G++Q_pnpps" role="tabpanel" data-tab="pnpps"><button class="article-clipboard" title="Copy to clipboard" data-toggle="tooltip" data-placement="top" data-clipboard-target="section[id^='tabpanel'][data-tab='pnpps'] pre">
+    <span class="glyphicon glyphicon-copy" aria-hidden="true"></span>
+    <span class="article-clipboard__message done">Copied</span>
+</button>
+
+<pre><code class="lang-powershell">[CmdletBinding()]
+param(
+  [Parameter( Mandatory=$false,HelpMessage=&quot;json format custom calendar field.&quot;)]
+  [string]$FieldFormatUrl=&quot;https://raw.githubusercontent.com/pnp/List-Formatting/25e27c252be744fabe6ea312ccc526b4d676fbae/column-samples/generic-neumorphism/generic-neumorphism-calendar.json&quot;,
+  [Parameter(Mandatory=$false,HelpMessage=&quot;Custom Content Type Name&quot;)]
+  [String]$ContentTypeName=&quot;Custom calendar Format&quot;,
+  [Parameter(Mandatory=$false,HelpMessage=&quot;List Name to create&quot;)]
+  [String]$ListName=&quot;PnP List calendar Format&quot;,
+  [Parameter(Mandatory=$true,HelpMessage=&quot;Destination Site Url&quot;)]
+  [String]$DestinationSiteUrl=&quot;https://contoso.sharepoint.com&quot;
+)
+
+    Begin
+    {
+        #Connect to destination SharePoint Site
+        Connect-PnPOnline -Url $DestinationSiteUrl -Interactive
+        
+        #Get Content Type Hub Site associated to destination site   
+        $HubUrl = Get-PnPContentTypePublishingHubUrl
+
+        #Connect to destination SharePoint Site Hub        
+        Connect-PnPOnline -Url $HubUrl -Interactive
+    }
+    Process
+    {
+        try
+        {
+            #https://github.com/pnp/List-Formatting/pull/559/files
+            #Get Calendar json Formatting from Github List Repository
+            $formattingCalendarDemo = Invoke-WebRequest -Uri $FieldFormatUrl
+
+            #Content Type Name
+            #Content Type Based on CT &quot;Item&quot;
+            #Create new Content Type 
+            $ContentTypeGroupName = $ContentTypeName
+            $ParentContentType = Get-PnPContentType | Where-Object { $_.Name -eq &quot;Item&quot; }
+            $CustomContentType = Add-PnPContentType -Name $ContentTypeGroupName -Description $ContentTypeGroupName -Group $ContentTypeGroupName -ParentContentType $ParentContentType
+
+            #Create field &quot;CalendarDemo&quot;
+            #Add list formatting &quot;formattingCalendarDemo&quot;
+            $Customfield= Add-PnPField -Type DateTime -InternalName &quot;CalendarDemo&quot; -DisplayName &quot;CalendarDemo&quot; -Group &quot;Custom Columns&quot;
+            $Field | Set-PnPField -Values @{CustomFormatter = $formattingCalendarDemo.Content; DefaultValue=&quot;[today]&quot; } -Identity $Customfield.Id
+            Add-PnPFieldToContentType -Field $Customfield.Id -ContentType $CustomContentType.Name
+
+            #Publish Content Type in Hub and destination site
+            Publish-PnPContentType -ContentType $CustomContentType.Id 
+            Add-PnPContentTypesFromContentTypeHub -ContentTypes $CustomContentType.Id -Site $DestinationSiteUrl
+
+            #Connect to DestinationSiteUrl
+            Connect-PnPOnline -Url $DestinationSiteUrl -Interactive
+            
+            #Create List with EnableContentTypes
+            New-PnPList -Title $ListName -Template GenericList -Url &quot;lists/$($ListName.Replace(&quot; &quot;,&quot;&quot;&quot;))&quot; -EnableContentTypes  | Out-Null
+            
+            #Remove default Item Content Type
+            #Add Content Type to List
+            Remove-PnPContentTypeFromList -List $ListName -ContentType &quot;Item&quot;
+            Add-PnPContentTypeToList -List $ListName -ContentType $ContentTypeName
+        
+            #Add fields to default View
+            Set-PnPView -List $ListName -Identity (Get-PnPView -List $ListName).Id -Fields &quot;Title&quot;,&quot;CalendarDemo&quot; | Out-Null
+        }
+        catch{
+            Write-Output &quot;Something threw an exception or used Write-Error&quot;
+            Write-Output $_
+        }
+        finally{
+            # Disconnect the context  
+            Disconnect-PnPOnline  
+        }
+    }
+    End
+    {
+        # Disconnect the context  
+        Disconnect-PnPOnline  
+        Write-Host &quot;END&quot; -BackgroundColor Red
+    }
+
+</code></pre>
+<h2 id="results-running-the-script">Results running the script</h2>
+<p>When accessing to Content Type Hub the following content should be available
+<img src="assets/ContentTypeHub.PNG" alt="Content Type Hub Screenshot"></p>
+<p>When accessing to created custom List the new Content Type Hub should be available.
+<img src="assets/ContentTypeHubList.PNG" alt="Content Type List Screenshot"></p>
+<div class="highlight-tool">
+<p>Check out the <strong>PnP PowerShell</strong> to learn more at: <a href="https://aka.ms/pnp/powershell">https://aka.ms/pnp/powershell</a></p>
+</div>
+</section>
+</div>
+<h2 id="contributors">Contributors</h2>
+<table>
+<thead>
+<tr>
+<th>Author(s)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="https://github.com/aaclage">André Lage</a></td>
+</tr>
+</tbody>
+</table>
+<h2 id="disclaimer">Disclaimer</h2>
+<p><strong>THESE SAMPLES ARE PROVIDED <em>AS IS</em> WITHOUT WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, INCLUDING ANY IMPLIED WARRANTIES OF FITNESS FOR A PARTICULAR PURPOSE, MERCHANTABILITY, OR NON-INFRINGEMENT.</strong></p>
+<img src="https://pnptelemetry.azurewebsites.net/script-samples/scripts/spo-add-contenttypehub-format-field-to-List" aria-hidden="true">
+</article>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            <span>Script Samples<br>Generated by <strong><a href='https://dotnet.github.io/docfx' alt='Doc FX Website'>DocFX</a></strong> with <strong><a href='https://ovasquez.github.io/docfx-material' alt='DocFx Material Theme'>Material UI</a></strong></span>
+            
+            <!-- <img src="https://telemetry.sharepointpnp.com/@pnp.github.io/index/" alt="spacer"> -->
+          </div>
+        </div>
+      </footer>    </div>
+    
+    <script type="text/javascript" src="../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+    
+    <script type="text/javascript" src="../styles/clipboard.min.js"></script>
+    <script type="text/javascript" src="../styles/isotope.pkgd.min.js"></script>
+    <script type="text/javascript" src="../styles/loadsamples.js"></script>
+    <script type="text/javascript" src="../styles/filtersamples.js"></script>
+
+  </body>
+</html>
