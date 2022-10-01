@@ -81,7 +81,6 @@ ExportTerms
 m365 logout  
 
 ```
-
 [!INCLUDE [More about CLI for Microsoft 365](../../docfx/includes/MORE-CLIM365.md)]
 
 
@@ -147,7 +146,7 @@ Disconnect-PnPOnline
 
 ```
 [!INCLUDE [More about PnP PowerShell](../../docfx/includes/MORE-PNPPS.md)]
-
+***
 
 ## Contributors
 
