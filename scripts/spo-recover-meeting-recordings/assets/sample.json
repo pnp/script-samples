@@ -1,0 +1,69 @@
+[
+  {
+    "name": "spo-recover-meeting-recordings",
+    "source": "pnp",
+    "title": "SPO Recover Deleted Meeting Recordings",
+    "shortDescription": "With the new 120 day expiration meeting recording policy - what do you do if you need to recover across thousands of accounts.",
+    "url": "https://pnp.github.io/script-samples/spo-recover-meeting-recordings/README.html",
+    "longDescription": [
+      "With the new 120 day expiration policy, some customers have been caught unaware. What do you do if you need to recover across thousands of accounts."
+    ],
+    "creationDateTime": "2022-09-07",
+    "updateDateTime": "2022-09-07",
+    "products": [
+      "SharePoint",
+      "Teams"
+    ],
+    "metadata": [
+      {
+        "key": "PNP-POWERSHELL",
+        "value": "1.11.0"
+      },
+      {
+        "key": "SPO-MANAGEMENT-SHELL",
+        "value": "16.0.21116.12000"
+      }
+    ],
+    "categories": [
+      "Report",
+      "Security"
+    ],
+    "tags": [
+      "bash",
+      "classic",
+      "Get-PnPRecycleBinItem",
+      "Restore-PnPRecycleBinItem",
+      "Get-SPODeletedSite",
+      "Get-SPOSite",
+      "Set-SPOUser"
+    ],
+    "thumbnails": [
+      {
+        "type": "image",
+        "order": 100,
+        "url": "https://raw.githubusercontent.com/pnp/script-samples/main/scripts/spo-recover-meeting-recordings/assets/preview.png",
+        "alt": "Preview of the sample SPO Recover Deleted Meeting Recordings"
+      }
+    ],
+    "authors": [
+      {
+        "gitHubAccount": "Jasonwbaxter",
+        "company": "Microsoft",
+        "pictureUrl": "https://avatars.githubusercontent.com/u/68377916?s=96&v=4",
+        "name": "Jason Baxter"
+      }
+    ],
+    "references": [
+      {
+        "name": "Want to learn more about PnP PowerShell and the cmdlets",
+        "description": "Check out the PnP PowerShell site to get started and for the reference to the cmdlets.",
+        "url": "https://aka.ms/pnp/powershell"
+      },
+      {
+        "name": "Introduction to the SharePoint Online Management Shell",
+        "description": "Check out the SPO Management Shell documentation site to get started and for the reference to the cmdlets.",
+        "url": "https://docs.microsoft.com/en-us/powershell/sharepoint/sharepoint-online/introduction-sharepoint-online-management-shell?view=sharepoint-ps"
+      }
+    ]
+  }
+]

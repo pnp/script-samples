@@ -1,0 +1,75 @@
+[
+  {
+    "name": "graph-common-operations",
+    "source": "pnp",
+    "title": "Microsoft Graph PowerShell SDK for Common Operations",
+    "shortDescription": "Examples of common operations covering installation, authentication, permissions, differentiate between endpoints, CRUD operations are more...",
+    "url": "https://pnp.github.io/script-samples/graph-common-operations/README.html",
+    "longDescription": [
+      ""
+    ],
+    "creationDateTime": "2022-09-08",
+    "updateDateTime": "2022-09-08",
+    "products": [
+      "Office",
+      "Graph",
+      "Teams"
+    ],
+    "metadata": [
+      {
+        "key": "GRAPH-POWERSHELL",
+        "value": "1.11.1"
+      }
+    ],
+    "categories": [
+      "Data",
+      "Report",
+      "Security"
+    ],
+    "tags": [
+      "bash",
+      "classic",
+      "Connect-MgGraph",
+      "Disconnect-MgGraph",
+      "Get-MgUserMessage",
+      "Get-MgUser",
+      "New-MgChatMessage",
+      "Find-MgGraphCommand",
+      "Get-MgDirectorySetting",
+      "Get-MgProfile",
+      "Select-MgProfile",
+      "Get-MgDirectorySetting",
+      "Get-MgAuditLogSignIn",
+      "Get-MgReportMailboxUsageDetail",
+      "Invoke-MgGraphRequest"
+    ],
+    "thumbnails": [
+      {
+        "type": "image",
+        "order": 100,
+        "url": "https://raw.githubusercontent.com/pnp/script-samples/main/scripts/graph-common-operations/assets/preview.png",
+        "alt": "Preview of the sample Microsoft Graph PowerShell SDK for Common Operations"
+      }
+    ],
+    "authors": [
+      {
+        "gitHubAccount": "nikcharlebois",
+        "company": "Microsoft",
+        "pictureUrl": "https://github.com/nikcharlebois.png",
+        "name": "Nik Charlebois"
+      }
+    ],
+    "references": [
+      {
+        "name": "Want to learn more about Microsoft Graph PowerShell SDK and the cmdlets",
+        "description": "Check out the Microsoft Graph PowerShell SDK documentation site to get started and for the reference to the cmdlets.",
+        "url": "https://docs.microsoft.com/en-us/graph/powershell/get-started"
+      },
+      {
+        "name": "Using the Microsoft Graph PowerShell SDK for common operations",
+        "description": "Demonstration of installing modules, see how authentication works (both in Delegated and App-only permissions scenarios for any CRUD operation), find permissions (discover cmdlets based on URLs, identify permissions required for apps based on cmdlets used), differentiate between beta and v1 endpoints, obtain Auth sign-in information and run reports using Out-GridView that dumps results into CSV file.",
+        "url": "https://www.youtube.com/watch?v=ib3BrVNQkFM&t=260s"
+      }
+    ]
+  }
+]

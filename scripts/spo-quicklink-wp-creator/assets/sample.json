@@ -1,0 +1,61 @@
+[
+  {
+    "name": "spo-quicklink-wp-creator",
+    "source": "pnp",
+    "title": "Create a Quick Links web part with items defined in a datasource",
+    "shortDescription": "This script will enable you to create a Quick Links web part where the items are defined in some kind of data source",
+    "url": "https://pnp.github.io/script-samples/spo-quicklink-wp-creator/README.html",
+    "longDescription": [
+      "This script will enable you to create a Quick Links web part where the items are defined in some kind of data source, in this case a SharePoint list. However it could just as well be a csv or similar."
+    ],
+    "creationDateTime": "2022-09-27",
+    "updateDateTime": "2022-09-27",
+    "products": [
+      "SharePoint"
+    ],
+    "metadata": [
+      {
+        "key": "PNP-POWERSHELL",
+        "value": "1.8.0"
+      }
+    ],
+    "categories": [
+      "Data"
+    ],
+    "tags": [
+      "Add-PnPField",
+      "Add-PnPListItem",
+      "Add-PnPPage",
+      "Add-PnPPageWebPart",
+      "Connect-PnPOnline",
+      "Disconnect-PnPOnline",
+      "Get-PnPList",
+      "Get-PnPListItem",
+      "Get-PnPPage",
+      "Get-PnPWeb",
+      "New-PnPList"
+    ],
+    "thumbnails": [
+      {
+        "type": "image",
+        "order": 100,
+        "url": "https://raw.githubusercontent.com/pnp/script-samples/main/scripts/spo-quicklink-wp-creator/assets/preview.png",
+        "alt": ""
+      }
+    ],
+    "authors": [
+      {
+        "gitHubAccount": "kasperbolarsen",
+        "pictureUrl": "https://avatars.githubusercontent.com/u/20593570?v=4",
+        "name": "Kasper Larsen"
+      }
+    ],
+    "references": [
+      {
+        "name": "Want to learn more about PnP PowerShell and the cmdlets",
+        "description": "Check out the PnP PowerShell site to get started and for the reference to the cmdlets.",
+        "url": "https://aka.ms/pnp/powershell"
+      }
+    ]
+  }
+]
