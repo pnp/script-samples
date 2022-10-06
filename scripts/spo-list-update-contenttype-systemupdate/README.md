@@ -2,11 +2,11 @@
 plugin: add-to-gallery
 ---
 
-# Update content type with system update of files in folder .
+# Update content type of files in folder with system update .
 
 ## Summary
 
-Update content type with system update option to avoid updating modified and modified by properties for all files in a folder within a library to a custom content type.
+Update content type with system update option for all files in a folder within a library to a custom content type to avoid updating modified and modified by properties.
 
 ## Implementation
 
@@ -19,9 +19,9 @@ Update content type with system update option to avoid updating modified and mod
 ```powershell
 
 #Config Variables
-$SiteURL = "https://yourtenantname.sharepoint.com/sites/{siteName}"
+$SiteURL = "https://tenant.sharepoint.com/sites/Estimator"
 $ListName = "Documents" 
-$FolderServerRelativePath= "/sites/Estimator/Shared Documents/LineManagement*"
+$FolderServerRelativePath= "/sites/Estimator/Shared Documents/LineManagement"
 $NewContentType = "Legal"
 
 Connect-PnPOnline -url $SiteURL  -Interactive
@@ -29,9 +29,9 @@ Connect-PnPOnline -url $SiteURL  -Interactive
 Try {
 
   #Get all files from folder
-   Get-PnPListItem -List $ListName -PageSize 2000 | Where {$_.FieldValues.FileRef -like $FolderServerRelativePath -and $_.FileSystemObjectType -eq "File"  } | ForEach-Object {
-     Write-host $_.FieldValues.FileRef
-     Set-PnPListItem -UpdateType SystemUpdate -List  $ListName -ContentType $NewContentType -Identity $_
+   Get-PnPListItem -List $ListName -PageSize 2000 | Where {$_.FieldValues.FileRef -like "$FolderServerRelativePath*" -and $_.FileSystemObjectType -eq "File"  } | ForEach-Object {
+    Write-host $_.FieldValues.FileRef
+   Set-PnPListItem -UpdateType SystemUpdate -List  $ListName -ContentType $NewContentType -Identity $_
   }
 }
 catch {
