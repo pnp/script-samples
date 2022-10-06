@@ -6,7 +6,7 @@ plugin: add-to-gallery
 
 ## Summary
 
-Update content type with system update option to avoid updating modified and modified by properties for all files in a folder within a library to custom content type.
+Update content type with system update option to avoid updating modified and modified by properties for all files in a folder within a library to a custom content type.
 
 ## Implementation
 
@@ -20,26 +20,23 @@ Update content type with system update option to avoid updating modified and mod
 
 #Config Variables
 $SiteURL = "https://yourtenantname.sharepoint.com/sites/{siteName}"
-$list = "listA" 
-$FolderRelativeURL= "/LineManagement"
-$NewContentType = "Content Type A"
+$ListName = "Documents" 
+$FolderServerRelativePath= "/sites/Estimator/Shared Documents/LineManagement*"
+$NewContentType = "Legal"
 
 Connect-PnPOnline -url $SiteURL  -Interactive
  
 Try {
 
- $CAMLQuery = "<View Scope='RecursiveAll'><Query><Where><Eq><FieldRef Name='FileDirRef'/><Value Type='Text'>$FolderRelativeURL</Value></Eq></Where></Query></View>"
-
- $items = Get-PnPListItem -List $list -IncludeContentType -Query  $CAMLQuery
-  
-  forEach($listItem in $items){   
-     Set-PnPListItem -UpdateType SystemUpdate -List  $list -ContentType "Content Type A" -Identity $listItem
+  #Get all files from folder
+   Get-PnPListItem -List $ListName -PageSize 2000 | Where {$_.FieldValues.FileRef -like $FolderServerRelativePath -and $_.FileSystemObjectType -eq "File"  } | ForEach-Object {
+     Write-host $_.FieldValues.FileRef
+     Set-PnPListItem -UpdateType SystemUpdate -List  $ListName -ContentType $NewContentType -Identity $_
   }
 }
 catch {
     write-host "Error: $($_.Exception.Message)" -foregroundcolor Red
 }
-
 ```
 [!INCLUDE [More about PnP PowerShell](../../docfx/includes/MORE-PNPPS.md)]
 
