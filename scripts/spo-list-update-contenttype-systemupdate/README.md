@@ -2,7 +2,7 @@
 plugin: add-to-gallery
 ---
 
-# Update content type of files in folder with system update .
+# Update content type of files in folder with system update
 
 ## Summary
 
@@ -49,4 +49,4 @@ catch {
 | [Reshmee Auckloo](https://github.com/reshme011) |
 
 [!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
-
+<img src="https://pnptelemetry.azurewebsites.net/script-samples/scripts/spo-list-update-contenttype-systemupdate" aria-hidden="true" />
