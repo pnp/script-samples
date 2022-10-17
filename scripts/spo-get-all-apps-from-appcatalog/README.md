@@ -61,14 +61,55 @@ StartProcessing
 
 ```
 [!INCLUDE [More about PnP PowerShell](../../docfx/includes/MORE-PNPPS.md)]
-***
 
+# [CLI for Microsoft 365](#tab/cli-m365-ps)
+```powershell
+$basePath = "C:\workspace\a_Local\cli_sample"
+$dateTime = "{0:MM_dd_yy}_{0:HH_mm_ss}" -f (Get-Date)
+$csvPath = $basePath + "\apps" + $dateTime + ".csv"
+
+Function Login
+{
+    #connect to O365 admin site
+    Write-Host "Connecting to Tenant" -f Yellow 
+  
+    $m365Status = m365 status
+    if ($m365Status -match "Logged Out") {
+        m365 login
+    }
+}
+
+
+Function ExportAllApps
+{
+    Write-Host "Getting apps..." -f Yellow 
+    $AllApps = m365 spo app list
+    $AllApps = $AllApps | ConvertFrom-Json
+    Write-Host "Successfully fetched all apps" -f Green
+
+    Write-Host "Exporting..." -f Yellow
+    $AllApps | select-object ID,AppCatalogVersion,CanUpgrade,Deployed,InstalledVersion,IsClientSideSolution,Title | Export-Csv -Path $csvPath -NoTypeInformation -Append   
+    Write-Host "Exported successfully" -f Green
+}
+
+Function StartProcessing {
+    Login
+    ExportAllApps
+}
+
+StartProcessing
+
+```
+[!INCLUDE [More about CLI for Microsoft 365](../../docfx/includes/MORE-CLIM365.md)]
+
+***
 
 ## Contributors
 
 | Author(s) |
 |-----------|
 | Chandani Prajapati |
+| [Adam Wójcik](https://github.com/Adam-it)|
 
 [!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
-<img src="https://telemetry.sharepointpnp.com/script-samples/scripts/spo-get-all-apps-from-appcatalog" aria-hidden="true" />
+<img src="https://pnptelemetry.azurewebsites.net/script-samples/scripts/spo-get-all-apps-from-appcatalog" aria-hidden="true" />

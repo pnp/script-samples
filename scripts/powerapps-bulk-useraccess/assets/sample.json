@@ -1,43 +1,51 @@
 [
-    {
-      "name": "powerapps-bulk-useraccess",
-      "source": "pnp",
-      "title": "Add/Remove users(bulk) from PowerApps from CSV file",
-      "shortDescription": "Script which will help to provide bulk access to PowerApps from csv format",
-      "url": "powerapps-bulk-useraccess/README.html",
-      "longDescription": [
-        "This powershell script will Add/Remove/Modify mutiple(bulk) users access to/from one or multiple PowerApps from CSV file...."
-      ],
-      "creationDateTime": "2021-12-10",
-      "updateDateTime": "2021-12-10",
-      "products": [
-        "PowerApps"
-      ],
-      "metadata": [
-        {
-          "key": "powerapps-ps",
-          "value": "2.0.0"
-        }
-      ],
-      "categories": [
-        "Data",
-        "Report"
-      ],
-      "tags":[],
-      "thumbnails": [
-        {
-          "type": "image",
-          "order": 100,
-          "url": "powerapps-bulk-useraccess/assets/SampleOutPut.png",
-          "alt": ""
-        }
-      ],
-      "authors": [
-        {
-          "gitHubAccount": "siddharth-vaghasia",
-          "pictureUrl": "https://avatars.githubusercontent.com/u/9557557?s=400&u=cbb0afefedb5a1d5db510a2e5e6579c8e6fc66ad&v=4",
-          "name": "Siddharth Vaghasia"
-        }
-      ]
-    }
-  ]
+  {
+    "name": "powerapps-bulk-useraccess",
+    "source": "pnp",
+    "title": "Add/Remove users(bulk) from Power Apps from CSV file",
+    "shortDescription": "Script which will help to provide bulk access to Power Apps from csv format",
+    "url": "https://pnp.github.io/script-samples/powerapps-bulk-useraccess/README.html",
+    "longDescription": [
+      "This powershell script will Add/Remove/Modify multiple(bulk) users access to/from one or multiple PowerApps from CSV file...."
+    ],
+    "creationDateTime": "2021-12-10",
+    "updateDateTime": "2022-06-13",
+    "products": [
+      "PowerApps"
+    ],
+    "metadata": [
+      {
+        "key": "POWERAPPS-POWERSHELL",
+        "value": "2.0.0"
+      }
+    ],
+    "categories": [
+      "Data",
+      "Report",
+      "Security"
+    ],
+    "tags": [],
+    "thumbnails": [
+      {
+        "type": "image",
+        "order": 100,
+        "url": "https://raw.githubusercontent.com/pnp/script-samples/main/scripts/powerapps-bulk-useraccess/assets/SampleOutPut.png",
+        "alt": ""
+      }
+    ],
+    "authors": [
+      {
+        "gitHubAccount": "siddharth-vaghasia",
+        "pictureUrl": "https://avatars.githubusercontent.com/u/9557557?s=400&u=cbb0afefedb5a1d5db510a2e5e6579c8e6fc66ad&v=4",
+        "name": "Siddharth Vaghasia"
+      }
+    ],
+    "references": [
+      {
+        "name": "Want to learn more about Power Apps PowerShell and the cmdlets",
+        "description": "Check out the Power Apps PowerShell documentation site to get started and for the reference to the cmdlets.",
+        "url": "https://docs.microsoft.com/en-us/power-platform/admin/powerapps-powershell"
+      }
+    ]
+  }
+]

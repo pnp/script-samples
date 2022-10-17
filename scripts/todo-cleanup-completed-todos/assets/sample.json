@@ -5,7 +5,7 @@
     "version": null,
     "source": "pnp",
     "title": "Cleanup completed Microsoft To Do tasks",
-    "url": "todo-cleanup-completed-todos/README.html",
+    "url": "https://pnp.github.io/script-samples/todo-cleanup-completed-todos/README.html",
     "creationDateTime": "2021-02-26",
     "updateDateTime": "2021-02-26",
     "shortDescription": "This script iterates across all of the task lists and removes the tasks that have been marked as complete",
@@ -18,11 +18,15 @@
     ],
     "tags": [
       "Microsoft To Do",
-      "bash"
+      "bash",
+      "Imported CLI Sample",
+      "m365 todo list list",
+      "m365 todo task list",
+      "m365 todo task remove"
     ],
     "metadata": [
       {
-        "key": "cli-for-microsoft365",
+        "key": "CLI-FOR-MICROSOFT365",
         "value": "3.7.0"
       }
     ],
@@ -30,7 +34,7 @@
       {
         "type": "image",
         "order": 100,
-        "url": "todo-cleanup-completed-todos/assets/preview.png",
+        "url": "https://raw.githubusercontent.com/pnp/script-samples/main/scripts/todo-cleanup-completed-todos/assets/preview.png",
         "alt": "preview image for the sample",
         "slides": null
       }
@@ -43,6 +47,17 @@
         "pictureUrl": "https://avatars.githubusercontent.com/u/11563347?v=4"
       }
     ],
-    "references": null
+    "references": [
+      {
+        "name": "Want to learn more about CLI for Microsoft 365 and the commands",
+        "description": "Check out the CLI for Microsoft 365 site to get started and for the reference to the commands.",
+        "url": "https://aka.ms/cli-m365"
+      },
+      {
+        "name": "Cleanup completed Microsoft To Do tasks",
+        "description": "This sample first appeared on the CLI for Microsoft 365 documentation site",
+        "url": "https://pnp.github.io/cli-microsoft365/sample-scripts/todo/cleanup-completed-todos/"
+      }
+    ]
   }
 ]

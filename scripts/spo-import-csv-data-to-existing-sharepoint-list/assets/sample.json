@@ -1,42 +1,49 @@
 [
-    {
-      "name": "spo-import-csv-data-to-existing-sharepoint-list",
-      "source": "pnp",
-      "title": "Import CSV to an existing SharePoint List",
-      "shortDescription": "This script shows how to import a CSV to an existing SharePoint list without explicitly enumerating all list fields ",
-      "url": "spo-import-csv-data-to-existing-sharepoint-list/README.html",
-      "longDescription": [
-        "This script shows how to import a CSV to a SharePoint list  . Main idea here is use PnP-AddListItem without needing to enumerate each and every field in the code . "
-      ],
-      "creationDateTime": "2021-10-16",
-      "updateDateTime": "2021-10-16",
-      "products": [
-        "SharePoint"
-      ],
-      "metadata": [
-        {
-          "key": "pnp-powerShell",
-          "value": "1.5.0,1.7.0"
-        }
-      ],
-      "categories": [
-        "Data"
-      ],
-      "tags":[],
-      "thumbnails": [
-        {
-          "type": "image",
-          "order": 100,
-          "url": "spo-import-csv-data-to-existing-sharepoint-list/assets/preview.png",
-          "alt": ""
-        }
-      ],
-      "authors": [
-        {
-          "gitHubAccount": "scoutmanpt",
-          "pictureUrl": "https://avatars.githubusercontent.com/u/7837053?v=4",
-          "name": "Rodrigo Pinto"
-        }
-      ]
-    }
-  ]
+  {
+    "name": "spo-import-csv-data-to-existing-sharepoint-list",
+    "source": "pnp",
+    "title": "Import CSV to an existing SharePoint List",
+    "shortDescription": "This script shows how to import a CSV to an existing SharePoint list without explicitly enumerating all list fields ",
+    "url": "https://pnp.github.io/script-samples/spo-import-csv-data-to-existing-sharepoint-list/README.html",
+    "longDescription": [
+      "This script shows how to import a CSV to a SharePoint list  . Main idea here is use PnP-AddListItem without needing to enumerate each and every field in the code . "
+    ],
+    "creationDateTime": "2021-10-16",
+    "updateDateTime": "2021-10-16",
+    "products": [
+      "SharePoint"
+    ],
+    "metadata": [
+      {
+        "key": "PNP-POWERSHELL",
+        "value": "1.5.0,1.7.0"
+      }
+    ],
+    "categories": [
+      "Data"
+    ],
+    "tags": [],
+    "thumbnails": [
+      {
+        "type": "image",
+        "order": 100,
+        "url": "https://raw.githubusercontent.com/pnp/script-samples/main/scripts/spo-import-csv-data-to-existing-sharepoint-list/assets/preview.png",
+        "alt": ""
+      }
+    ],
+    "authors": [
+      {
+        "gitHubAccount": "scoutmanpt",
+        "pictureUrl": "https://avatars.githubusercontent.com/u/7837053?v=4",
+        "name": "Rodrigo Pinto"
+      }
+    ],
+    "references": [
+      {
+        "name": "Want to learn more about PnP PowerShell and the cmdlets",
+        "description": "Check out the PnP PowerShell site to get started and for the reference to the cmdlets.",
+        "url": "https://aka.ms/pnp/powershell"
+      }
+    ]
+  }
+]

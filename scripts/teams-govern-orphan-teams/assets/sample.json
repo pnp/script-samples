@@ -5,7 +5,7 @@
     "version": null,
     "source": "pnp",
     "title": "Govern orphaned Microsoft Teams",
-    "url": "teams-govern-orphan-teams/README.html",
+    "url": "https://pnp.github.io/script-samples/teams-govern-orphan-teams/README.html",
     "creationDateTime": "2020-08-23",
     "updateDateTime": "2020-08-23",
     "shortDescription": "This script finds those teams that no longer have an owner",
@@ -19,11 +19,15 @@
     "tags": [
       "Microsoft Teams",
       "Governance",
-      "bash"
+      "bash",
+      "Imported CLI Sample",
+      "m365 aad o365group get",
+      "m365 teams team list",
+      "m365 teams user list"
     ],
     "metadata": [
       {
-        "key": "cli-for-microsoft365",
+        "key": "CLI-FOR-MICROSOFT365",
         "value": "3.7.0"
       }
     ],
@@ -31,7 +35,7 @@
       {
         "type": "image",
         "order": 100,
-        "url": "teams-govern-orphan-teams/assets/preview.png",
+        "url": "https://raw.githubusercontent.com/pnp/script-samples/main/scripts/teams-govern-orphan-teams/assets/preview.png",
         "alt": "preview image for the sample",
         "slides": null
       }
@@ -44,6 +48,17 @@
         "pictureUrl": "https://avatars.githubusercontent.com/u/11973653?v=4"
       }
     ],
-    "references": null
+    "references": [
+      {
+        "name": "Want to learn more about CLI for Microsoft 365 and the commands",
+        "description": "Check out the CLI for Microsoft 365 site to get started and for the reference to the commands.",
+        "url": "https://aka.ms/cli-m365"
+      },
+      {
+        "name": "Govern orphaned Microsoft Teams",
+        "description": "This sample first appeared on the CLI for Microsoft 365 documentation site",
+        "url": "https://pnp.github.io/cli-microsoft365/sample-scripts/teams/govern-orphan-teams/"
+      }
+    ]
   }
 ]

@@ -1,45 +1,72 @@
 [
-    {
-      "name": "spo-export-sharepoint-list-items-to-csv",
-      "source": "pnp",
-      "title": "Export SharePoint List Data to CSV with attachments",
-      "shortDescription": "This script sample shows how to export SharePoint list to CSV with attachments",
-      "url": "spo-export-sharepoint-list-items-to-csv/README.html",
-      "longDescription": [
-        "This script sample shows how to export SharePoint list to CSV. Script checks if list items have attachments and save is to disk."
-      ],
-      "creationDateTime": "2021-09-26",
-      "updateDateTime": "2021-09-26",
-      "products": [
-        "SharePoint"
-      ],
-      "metadata": [
-        {
-          "key": "pnp-powerShell",
-          "value": "1.7.0"
-        }
-      ],
-      "categories": [
-        "Data", 
-        "Migration",
-        "Archive"
-      ],
-      "tags":[],
-      "thumbnails": [
-        {
-          "type": "image",
-          "order": 100,
-          "url": "spo-export-sharepoint-list-items-to-csv/assets/preview.png",
-          "alt": ""
-        }
-      ],
-      "authors": [
-        {
-          "gitHubAccount": "ValerasNarbutas",
-          "company": "",
-          "pictureUrl": "https://avatars.githubusercontent.com/u/16476453?s=400&v=4",
-          "name": "Valeras Narbutas"
-        }
-      ]
-    }
-  ]
+  {
+    "name": "spo-export-sharepoint-list-items-to-csv",
+    "source": "pnp",
+    "title": "Export SharePoint List Data to CSV with attachments",
+    "shortDescription": "This script sample shows how to export SharePoint list to CSV with attachments",
+    "url": "https://pnp.github.io/script-samples/spo-export-sharepoint-list-items-to-csv/README.html",
+    "longDescription": [
+      "This script sample shows how to export SharePoint list to CSV. Script checks if list items have attachments and save is to disk."
+    ],
+    "creationDateTime": "2021-09-26",
+    "updateDateTime": "2022-06-10",
+    "products": [
+      "SharePoint"
+    ],
+    "metadata": [
+      {
+        "key": "PNP-POWERSHELL",
+        "value": "1.7.0"
+      },
+      {
+        "key": "CLI-FOR-MICROSOFT365",
+        "value": "5.3.0"
+      }
+    ],
+    "categories": [
+      "Data",
+      "Migration",
+      "Archive"
+    ],
+    "tags": [
+      "m365 login",
+      "m365 spo field list",
+      "m365 spo listitem list",
+      "m365 spo listitem attachment list",
+      "m365 spo file get"
+    ],
+    "thumbnails": [
+      {
+        "type": "image",
+        "order": 100,
+        "url": "https://raw.githubusercontent.com/pnp/script-samples/main/scripts/spo-export-sharepoint-list-items-to-csv/assets/preview.png",
+        "alt": ""
+      }
+    ],
+    "authors": [
+      {
+        "gitHubAccount": "nanddeepn",
+        "pictureUrl": "https://github.com/nanddeepn.png",
+        "name": "Nanddeep Nachan"
+      },
+      {
+        "gitHubAccount": "ValerasNarbutas",
+        "company": "",
+        "pictureUrl": "https://avatars.githubusercontent.com/u/16476453?s=400&v=4",
+        "name": "Valeras Narbutas"
+      }
+    ],
+    "references": [
+      {
+        "name": "Want to learn more about PnP PowerShell and the cmdlets",
+        "description": "Check out the PnP PowerShell site to get started and for the reference to the cmdlets.",
+        "url": "https://aka.ms/pnp/powershell"
+      },
+      {
+        "name": "Want to learn more about CLI for Microsoft 365 and the commands",
+        "description": "Check out the CLI for Microsoft 365 site to get started and for the reference to the commands.",
+        "url": "https://aka.ms/cli-m365"
+      }
+    ]
+  }
+]

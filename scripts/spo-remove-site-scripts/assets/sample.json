@@ -5,7 +5,7 @@
     "version": null,
     "source": "pnp",
     "title": "Delete custom SharePoint site scripts",
-    "url": "spo-remove-site-scripts/README.html",
+    "url": "https://pnp.github.io/script-samples/spo-remove-site-scripts/README.html",
     "creationDateTime": "2020-08-23",
     "updateDateTime": "2020-08-23",
     "shortDescription": "Remove Site scripts that ends up just hanging around in your tenant. Use the scripts below to get rid of them",
@@ -19,15 +19,23 @@
     "tags": [
       "SharePoint Online",
       "Site Scripts",
-      "bash"
+      "bash",
+      "Imported CLI Sample",
+      "m365 spo sitescript list",
+      "m365 spo sitescript remove",
+      "Connect-SPOService",
+      "Get-SPOSite",
+      "Get-SPOSiteScript",
+      "Remove-SPOSite",
+      "Remove-SPOSiteScript"
     ],
     "metadata": [
       {
-        "key": "cli-for-microsoft365",
+        "key": "CLI-FOR-MICROSOFT365",
         "value": "3.7.0"
       },
       {
-        "key": "SPO-Management-Shell",
+        "key": "SPO-MANAGEMENT-SHELL",
         "value": "16.0.21116.12000"
       }
     ],
@@ -35,7 +43,7 @@
       {
         "type": "image",
         "order": 100,
-        "url": "spo-remove-site-scripts/assets/preview.png",
+        "url": "https://raw.githubusercontent.com/pnp/script-samples/main/scripts/spo-remove-site-scripts/assets/preview.png",
         "alt": "preview image for the sample",
         "slides": null
       }
@@ -54,6 +62,22 @@
         "name": "Paul Bullock"
       }
     ],
-    "references": null
+    "references": [
+      {
+        "name": "Want to learn more about CLI for Microsoft 365 and the commands",
+        "description": "Check out the CLI for Microsoft 365 site to get started and for the reference to the commands.",
+        "url": "https://aka.ms/cli-m365"
+      },
+      {
+        "name": "Introduction to the SharePoint Online Management Shell",
+        "description": "Check out the SPO Management Shell documentation site to get started and for the reference to the cmdlets.",
+        "url": "https://docs.microsoft.com/en-us/powershell/sharepoint/sharepoint-online/introduction-sharepoint-online-management-shell?view=sharepoint-ps"
+      },
+      {
+        "name": "Delete custom SharePoint site scripts",
+        "description": "This sample first appeared on the CLI for Microsoft 365 documentation site",
+        "url": "https://pnp.github.io/cli-microsoft365/sample-scripts/spo/remove-site-scripts/"
+      }
+    ]
   }
 ]

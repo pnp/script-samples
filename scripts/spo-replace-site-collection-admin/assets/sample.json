@@ -5,7 +5,7 @@
     "version": null,
     "source": "pnp",
     "title": "Replace site collection admin with another user",
-    "url": "spo-replace-site-collection-admin/README.html",
+    "url": "https://pnp.github.io/script-samples/spo-replace-site-collection-admin/README.html",
     "creationDateTime": "2021-05-15",
     "updateDateTime": "2021-05-15",
     "shortDescription": "The script removes a user from a site collection and adds a new one as site collection admin",
@@ -14,15 +14,21 @@
       "SharePoint"
     ],
     "categories": [
-      "Configure"
+      "Configure",
+      "Security"
     ],
     "tags": [
       "SharePoint Online",
-      "Governance"
+      "Governance",
+      "Imported CLI Sample",
+      "m365 login",
+      "m365 status",
+      "m365 spo site classic set",
+      "m365 spo user remove"
     ],
     "metadata": [
       {
-        "key": "cli-for-microsoft365",
+        "key": "CLI-FOR-MICROSOFT365",
         "value": "3.7.0"
       }
     ],
@@ -30,7 +36,7 @@
       {
         "type": "image",
         "order": 100,
-        "url": "spo-replace-site-collection-admin/assets/preview.png",
+        "url": "https://raw.githubusercontent.com/pnp/script-samples/main/scripts/spo-replace-site-collection-admin/assets/preview.png",
         "alt": "preview image for the sample",
         "slides": null
       }
@@ -43,6 +49,17 @@
         "pictureUrl": "https://avatars.githubusercontent.com/u/18241305?v=4"
       }
     ],
-    "references": null
+    "references": [
+      {
+        "name": "Want to learn more about CLI for Microsoft 365 and the commands",
+        "description": "Check out the CLI for Microsoft 365 site to get started and for the reference to the commands.",
+        "url": "https://aka.ms/cli-m365"
+      },
+      {
+        "name": "Replace site collection admin with another user",
+        "description": "This sample first appeared on the CLI for Microsoft 365 documentation site",
+        "url": "https://pnp.github.io/cli-microsoft365/sample-scripts/spo/replace-site-collection-admin/"
+      }
+    ]
   }
 ]

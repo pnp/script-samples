@@ -5,7 +5,7 @@
     "version": null,
     "source": "pnp",
     "title": "Copy files to another SharePoint Library in another site",
-    "url": "spo-copy-files-to-another-library/README.html",
+    "url": "https://pnp.github.io/script-samples/spo-copy-files-to-another-library/README.html",
     "creationDateTime": "2021-04-20",
     "updateDateTime": "2021-04-20",
     "shortDescription": "Copy all files and folders from source library to a different library in different SharePoint site ",
@@ -18,11 +18,18 @@
     ],
     "tags": [
       "SharePoint Online",
-      "Files"
+      "Files",
+      "Imported CLI Sample",
+      "m365 login",
+      "m365 status",
+      "m365 spo file copy",
+      "m365 spo file list",
+      "m365 spo folder copy",
+      "m365 spo folder list"
     ],
     "metadata": [
       {
-        "key": "cli-for-microsoft365",
+        "key": "CLI-FOR-MICROSOFT365",
         "value": "3.7.0"
       }
     ],
@@ -30,7 +37,7 @@
       {
         "type": "image",
         "order": 100,
-        "url": "spo-copy-files-to-another-library/assets/preview.png",
+        "url": "https://raw.githubusercontent.com/pnp/script-samples/main/scripts/spo-copy-files-to-another-library/assets/preview.png",
         "alt": "preview image for the sample",
         "slides": null
       }
@@ -55,6 +62,17 @@
         "pictureUrl": "https://avatars.githubusercontent.com/u/11563347?v=4"
       }
     ],
-    "references": null
+    "references": [
+      {
+        "name": "Want to learn more about CLI for Microsoft 365 and the commands",
+        "description": "Check out the CLI for Microsoft 365 site to get started and for the reference to the commands.",
+        "url": "https://aka.ms/cli-m365"
+      },
+      {
+        "name": "Copy files to another SharePoint Library in another site",
+        "description": "This sample first appeared on the CLI for Microsoft 365 documentation site",
+        "url": "https://pnp.github.io/cli-microsoft365/sample-scripts/spo/copy-files-to-another-library/"
+      }
+    ]
   }
 ]

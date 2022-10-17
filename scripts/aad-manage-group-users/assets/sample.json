@@ -5,7 +5,7 @@
     "version": null,
     "source": "pnp",
     "title": "Bulk add/remove users to Microsoft Teams and Microsoft 365 Groups",
-    "url": "aad-manage-group-users/README.html",
+    "url": "https://pnp.github.io/script-samples/aad-manage-group-users/README.html",
     "creationDateTime": "2020-08-23",
     "updateDateTime": "2020-08-23",
     "shortDescription": "Script to add/remove bulk users to/from Microsoft Teams team or Microsoft 365 group",
@@ -16,16 +16,22 @@
       "Teams"
     ],
     "categories": [
-      "Configure"
+      "Configure",
+      "Security"
     ],
     "tags": [
       "Microsoft 365 Groups",
       "Microsoft Teams",
-      "Governance"
+      "Governance",
+      "Imported CLI Sample",
+      "m365 aad o365group list",
+      "m365 aad o365group user add",
+      "m365 aad o365group user remove",
+      "m365 aad user get"
     ],
     "metadata": [
       {
-        "key": "cli-for-microsoft365",
+        "key": "CLI-FOR-MICROSOFT365",
         "value": "3.7.0"
       }
     ],
@@ -33,7 +39,7 @@
       {
         "type": "image",
         "order": 100,
-        "url": "aad-manage-group-users/assets/preview.png",
+        "url": "https://raw.githubusercontent.com/pnp/script-samples/main/scripts/aad-manage-group-users/assets/preview.png",
         "alt": "preview image for the sample",
         "slides": null
       }
@@ -46,6 +52,17 @@
         "pictureUrl": "https://avatars.githubusercontent.com/u/21008316?v=4"
       }
     ],
-    "references": null
+    "references": [
+      {
+        "name": "Want to learn more about CLI for Microsoft 365 and the commands",
+        "description": "Check out the CLI for Microsoft 365 site to get started and for the reference to the commands.",
+        "url": "https://aka.ms/cli-m365"
+      },
+      {
+        "name": "Bulk add/remove users to Microsoft Teams and Microsoft 365 Groups",
+        "description": "This sample first appeared on the CLI for Microsoft 365 documentation site",
+        "url": "https://pnp.github.io/cli-microsoft365/sample-scripts/aad/manage-group-users/"
+      }
+    ]
   }
 ]

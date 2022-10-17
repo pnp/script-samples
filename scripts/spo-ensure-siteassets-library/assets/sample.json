@@ -5,34 +5,43 @@
     "version": null,
     "source": "pnp",
     "title": "Ensure the Site Assets Library is created",
-    "url": "spo-ensure-siteassets-library/README.html",
+    "url": "https://pnp.github.io/script-samples/spo-ensure-siteassets-library/README.html",
     "creationDateTime": "2020-09-04",
-    "updateDateTime": "2020-09-04",
+    "updateDateTime": "2022-08-26",
     "shortDescription": "Ensuring when creating a new modern SharePoint site using the CLI/REST API that the Site Assets library is created",
     "longDescription": null,
     "products": [
       "SharePoint"
     ],
     "categories": [
-      "Deploy"      
+      "Deploy"
     ],
-    "tags": [],
+    "tags": [
+      "m365 spo list get",
+      "m365 util accesstoken get"
+    ],
     "metadata": [
       {
-        "key": "cli-for-microsoft365",
-        "value": "3.7.0"
+        "key": "CLI-FOR-MICROSOFT365",
+        "value": "5.6.0"
       }
     ],
     "thumbnails": [
       {
         "type": "image",
         "order": 100,
-        "url": "spo-ensure-siteassets-library/assets/preview.png",
+        "url": "https://raw.githubusercontent.com/pnp/script-samples/main/scripts/spo-ensure-siteassets-library/assets/preview.png",
         "alt": "preview image for the sample",
         "slides": null
       }
     ],
     "authors": [
+      {
+        "name": "Martin Lingstuyl",
+        "gitHubAccount": "martinlingstuyl",
+        "company": "I4-YOU Business Solutions b.v.",
+        "pictureUrl": "https://avatars.githubusercontent.com/u/5267487?s=400&u=dbb983e7bd20e98e8115aca75faa2d457ad32cb5&v=4"
+      },
       {
         "gitHubAccount": "phillipharding",
         "pictureUrl": "https://avatars.githubusercontent.com/u/7671418?v=4",
@@ -40,6 +49,17 @@
         "company": null
       }
     ],
-    "references": null
+    "references": [
+      {
+        "name": "Want to learn more about CLI for Microsoft 365 and the commands",
+        "description": "Check out the CLI for Microsoft 365 site to get started and for the reference to the commands.",
+        "url": "https://aka.ms/cli-m365"
+      },
+      {
+        "name": "Ensure the Site Assets Library is created",
+        "description": "This sample first appeared on the CLI for Microsoft 365 documentation site",
+        "url": "https://pnp.github.io/cli-microsoft365/sample-scripts/spo/ensure-siteassets-library/"
+      }
+    ]
   }
 ]

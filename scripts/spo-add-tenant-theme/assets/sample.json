@@ -1,53 +1,79 @@
 [
-    {
-      "name": "spo-add-tenant-theme",
-      "source": "pnp",
-      "title": "Add a tenant theme to SharePoint Online",
-      "shortDescription": "This is example for adding a SharePoint Theme as an option for modern sites in the tenant",
-      "url": "spo-add-tenant-theme/README.html",
-      "longDescription": [
-        ""
-      ],
-      "creationDateTime": "2021-10-02",
-      "updateDateTime": "2021-11-01",
-      "products": [
-        "SharePoint"
-      ],
-      "metadata": [
-        {
-          "key": "pnp-powerShell",
-          "value": "1.7.0"
-        },
-        {
-          "key": "cli-for-microsoft365",
-          "value": "6.14.22"
-        }
-      ],
-      "categories": [
-        "Deploy"
-      ],
-      "tags":[
-      ],
-      "thumbnails": [
-        {
-          "type": "image",
-          "order": 100,
-          "url": "spo-add-tenant-theme/assets/preview.png",
-          "alt": ""
-        }
-      ],
-      "authors": [
-        {
-          "gitHubAccount": "Adam-it",
-          "pictureUrl": "https://avatars.githubusercontent.com/u/58668583?v=4",
-          "name": "Adam Wójcik"
-        },
-        {
-          "gitHubAccount": "pkbullock",
-          "company": "CaPa Creative Ltd",
-          "pictureUrl": "https://avatars.githubusercontent.com/u/8781041?v=4",
-          "name": "Paul Bullock"
-        }
-      ]
-    }
-  ]
+  {
+    "name": "spo-add-tenant-theme",
+    "source": "pnp",
+    "title": "Add a tenant theme to SharePoint Online",
+    "shortDescription": "This is example for adding a SharePoint Theme as an option for modern sites in the tenant",
+    "url": "https://pnp.github.io/script-samples/spo-add-tenant-theme/README.html",
+    "longDescription": [
+      ""
+    ],
+    "creationDateTime": "2021-10-02",
+    "updateDateTime": "2022-03-13",
+    "products": [
+      "SharePoint"
+    ],
+    "metadata": [
+      {
+        "key": "PNP-POWERSHELL",
+        "value": "1.7.0"
+      },
+      {
+        "key": "CLI-FOR-MICROSOFT365",
+        "value": "6.14.22"
+      },
+      {
+        "key": "SPO-MANAGEMENT-SHELL",
+        "value": "16.0.21116.12000"
+      }
+    ],
+    "categories": [
+      "Deploy"
+    ],
+    "tags": [],
+    "thumbnails": [
+      {
+        "type": "image",
+        "order": 100,
+        "url": "https://raw.githubusercontent.com/pnp/script-samples/main/scripts/spo-add-tenant-theme/assets/preview.png",
+        "alt": ""
+      }
+    ],
+    "authors": [
+      {
+        "gitHubAccount": "chandaniprajapati",
+        "company": "Rapid Circle",
+        "pictureUrl": "https://avatars.githubusercontent.com/u/52065929?v=4",
+        "name": "Chandani Prajapati"
+      },
+      {
+        "gitHubAccount": "Adam-it",
+        "pictureUrl": "https://avatars.githubusercontent.com/u/58668583?v=4",
+        "name": "Adam Wójcik"
+      },
+      {
+        "gitHubAccount": "pkbullock",
+        "company": "CaPa Creative Ltd",
+        "pictureUrl": "https://avatars.githubusercontent.com/u/8781041?v=4",
+        "name": "Paul Bullock"
+      }
+    ],
+    "references": [
+      {
+        "name": "Want to learn more about PnP PowerShell and the cmdlets",
+        "description": "Check out the PnP PowerShell site to get started and for the reference to the cmdlets.",
+        "url": "https://aka.ms/pnp/powershell"
+      },
+      {
+        "name": "Want to learn more about CLI for Microsoft 365 and the commands",
+        "description": "Check out the CLI for Microsoft 365 site to get started and for the reference to the commands.",
+        "url": "https://aka.ms/cli-m365"
+      },
+      {
+        "name": "Introduction to the SharePoint Online Management Shell",
+        "description": "Check out the SPO Management Shell documentation site to get started and for the reference to the cmdlets.",
+        "url": "https://docs.microsoft.com/en-us/powershell/sharepoint/sharepoint-online/introduction-sharepoint-online-management-shell?view=sharepoint-ps"
+      }
+    ]
+  }
+]

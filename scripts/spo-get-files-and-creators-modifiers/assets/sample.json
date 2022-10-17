@@ -1,0 +1,58 @@
+[
+  {
+    "name": "spo-get-files-and-creators-modifiers",
+    "source": "pnp",
+    "title": "Get all files in a Document Library along with Created By and Modified By",
+    "shortDescription": "When connected to a site with Connect-PnPOnline this script will walk through the site's document libraries, list each file, when it was created and by whom, and when it was last modified by whom",
+    "url": "https://pnp.github.io/script-samples/spo-get-files-and-creators-modifiers/README.html",
+    "longDescription": [
+      ""
+    ],
+    "creationDateTime": "2022-09-23",
+    "updateDateTime": "2022-09-23",
+    "products": [
+      "SharePoint"
+    ],
+    "metadata": [
+      {
+        "key": "PNP-POWERSHELL",
+        "value": "1.5.0"
+      }
+    ],
+    "categories": [
+      "Report"
+    ],
+    "tags": [
+      "bash",
+      "classic",
+      "Connect-PnPOnline",
+      "Get-PnPList",
+      "Get-PnPListItem",
+      "Get-PnPTenant",
+      "Get-PnPTenantSite"
+    ],
+    "thumbnails": [
+      {
+        "type": "image",
+        "order": 100,
+        "url": "https://raw.githubusercontent.com/pnp/script-samples/main/scripts/spo-get-files-and-creators-modifiers/assets/preview.png",
+        "alt": "Preview of the sample Get all files in a Document Library along with Created By and Modified By"
+      }
+    ],
+    "authors": [
+      {
+        "gitHubAccount": "ToddKlindt",
+        "company": "Sympraxis Consulting",
+        "pictureUrl": "https://github.com/ToddKlindt.png",
+        "name": "Todd Klindt"
+      }
+    ],
+    "references": [
+      {
+        "name": "Want to learn more about PnP PowerShell and the cmdlets",
+        "description": "Check out the PnP PowerShell site to get started and for the reference to the cmdlets.",
+        "url": "https://aka.ms/pnp/powershell"
+      }
+    ]
+  }
+]

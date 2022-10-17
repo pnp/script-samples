@@ -1,44 +1,71 @@
 [
-    {
-      "name": "teams-bulk-create-teams",
-      "source": "pnp",
-      "title": "Bulk Create Teams with JSON File",
-      "shortDescription": "Create teams in an environment to test governance scenarios making over a 1000 teams - this sample script can generate the required teams.",
-      "url": "teams-bulk-create-teams/README.html",
-      "longDescription": [
-        ""
-      ],
-      "creationDateTime": "2021-06-24",
-      "updateDateTime": "2021-06-24",
-      "products": [
-        "Teams"
-      ],
-      "metadata": [
-        {
-          "key": "pnp-powerShell",
-          "value": "1.5.0"
-        }
-      ],
-      "categories": [
-        "Provision"
-      ],
-      "tags":[
-      ],
-      "thumbnails": [
-        {
-          "type": "image",
-          "order": 100,
-          "url": "teams-bulk-create-teams/assets/preview.png",
-          "alt": ""
-        }
-      ],
-      "authors": [
-        {
-          "gitHubAccount": "pkbullock",
-          "company": "CaPa Creative Ltd",
-          "pictureUrl": "https://avatars.githubusercontent.com/u/8781041?v=4",
-          "name": "Paul Bullock"
-        }
-      ]
-    }
-  ]
+  {
+    "name": "teams-bulk-create-teams",
+    "source": "pnp",
+    "title": "Bulk Create Teams with JSON File",
+    "shortDescription": "Create teams in an environment to test governance scenarios making over a 1000 teams - this sample script can generate the required teams.",
+    "url": "https://pnp.github.io/script-samples/teams-bulk-create-teams/README.html",
+    "longDescription": [
+      ""
+    ],
+    "creationDateTime": "2021-06-24",
+    "updateDateTime": "2022-06-19",
+    "products": [
+      "Teams",
+      "Security"
+    ],
+    "metadata": [
+      {
+        "key": "PNP-POWERSHELL",
+        "value": "1.5.0"
+      },
+      {
+        "key": "CLI-FOR-MICROSOFT365",
+        "value": "5.3.0"
+      }
+    ],
+    "categories": [
+      "Provision"
+    ],
+    "tags": [
+      "m365 login",
+      "m365 teams team get",
+      "m365 aad o365group add",
+      "m365 aad o365group list",
+      "m365 aad o365group teamify"
+    ],
+    "thumbnails": [
+      {
+        "type": "image",
+        "order": 100,
+        "url": "https://raw.githubusercontent.com/pnp/script-samples/main/scripts/teams-bulk-create-teams/assets/preview.png",
+        "alt": ""
+      }
+    ],
+    "authors": [
+      {
+        "gitHubAccount": "nanddeepn",
+        "pictureUrl": "https://github.com/nanddeepn.png",
+        "name": "Nanddeep Nachan"
+      },
+      {
+        "gitHubAccount": "pkbullock",
+        "company": "CaPa Creative Ltd",
+        "pictureUrl": "https://avatars.githubusercontent.com/u/8781041?v=4",
+        "name": "Paul Bullock"
+      }
+    ],
+    "references": [
+      {
+        "name": "Want to learn more about PnP PowerShell and the cmdlets",
+        "description": "Check out the PnP PowerShell site to get started and for the reference to the cmdlets.",
+        "url": "https://aka.ms/pnp/powershell"
+      },
+      {
+        "name": "Want to learn more about CLI for Microsoft 365 and the commands",
+        "description": "Check out the CLI for Microsoft 365 site to get started and for the reference to the commands.",
+        "url": "https://aka.ms/cli-m365"
+      }
+    ]
+  }
+]

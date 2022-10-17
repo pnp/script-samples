@@ -1,10 +1,11 @@
 ---
 plugin: add-to-gallery
 ---
-
       
 # Clone a Microsoft Team
+
 ![Outputs](assets/header.png)
+
 ## Summary
 
 This script allow us to clone an existing team into a new one with changed properties.  
@@ -25,12 +26,11 @@ Excelsior, hum? :P
 
 # 2021-11-02 Added better logging Teams and  provision validation
 # 2021-11-02 Added IncludeContent switch
+# 2021-12-29 Improved reporting\performance on clone team operation.
 [CmdletBinding()]
 param (
     [Parameter(Mandatory = $true)]
     [string]$Tenant ,
-    [Parameter(Mandatory = $true)]
-    [string]$Url,
     [Parameter(Mandatory = $true)]
     [string]$Team ,
     [Parameter(Mandatory = $true)]
@@ -120,6 +120,7 @@ begin {
     if ($null -ne $tmp) {
         throw "PartsToClone : The following values are duplicated: $($tmp.Name -join ', ')"
     }
+    $Url= "https://" + $tenant.ToLower().Replace(".onmicrosoft.com",".sharepoint.com")
     Write-Log "Start"
     Write-Log " Connecting to $Url"
     Connect-PnPOnline -Url $Url -Interactive -Tenant $Tenant
@@ -130,7 +131,13 @@ process {
 
     Write-Log "   Get Team by name or Id [$team]"
     $existingTeam = Get-PnPMicrosoft365Group  -IncludeSiteUrl | Where-object { $_.HasTeam -and (($_.id -eq $Team) -or ($_.Displayname -eq $Team)) } | Select-Object Id, DisplayName, SiteUrl
-   
+    if ($existingTeam.Length -gt 1)
+    {
+        Write-Log ("    Hum... It seems you have [" + $existingTeam.Length + "] named [$Team]. Freaky!!!")
+        $selectedTeam = $existingTeam[0]
+        Write-Log ("    Selecting the first on the list ... id[{0}],name[{1}],url[{2}]" -f $selectedTeam.id,$selectedTeam.DisplayName,$selectedTeam.SiteUrl )
+        $existingTeam = $selectedTeam
+    }
     $cloneUrl = "https://graph.microsoft.com/beta/teams/$($existingTeam.Id)/clone"  
    
     $NewTeamDescription = $NewTeamDescription.Trim()
@@ -172,11 +179,16 @@ process {
     $result = Invoke-RestMethod -Headers @{Authorization = "Bearer $accesstoken"; "Content-Type" = "application/json" } `
         -Uri $getUrl  -Method Get 
 
-    while ($result.status -eq "inProgress") {
-        Start-Sleep 5    
+    while( ($result.status -eq "inProgress")-or ($result.status -eq "Pending")) {
+        Start-Sleep 6    
         $result = Invoke-RestMethod -Headers @{Authorization = "Bearer $accesstoken"; "Content-Type" = "application/json" } `
             -Uri $getUrl  -Method Get 
-        Write-Log ("   Provisioning team ..." + $result.status)
+        Write-Log ("   Cloning team ..." + $result.status)
+        Write-Log ("    Current Status")
+        $objs = $result |select-object @{l="Operation";e={$_.operationType}},createdDateTime,lastActionDateTime,status,attemptsCount,error 
+        $info= "   " + ($objs|out-string)
+        Write-Log ("    `n`r $info `n`r`n`r")
+        Write-Log ("   Cloning team ..." + $result.status)
     }  
 
     if ($IncludeContent) {
@@ -205,4 +217,5 @@ process {
 | Rodrigo Pinto |
 
 [!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
-<img src="https://telemetry.sharepointpnp.com/script-samples/scripts/teams-clone-team" aria-hidden="true" />
+<img src="https://pnptelemetry.azurewebsites.net/script-samples/scripts/teams-clone-team" aria-hidden="true" />
+

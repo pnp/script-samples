@@ -1,45 +1,74 @@
 [
-    {
-      "name": "spo-modern-page-publishing-report",
-      "source": "pnp",
-      "title": "SharePoint Modern Page Publishing Report",
-      "shortDescription": "Scan through modern pages within a site and reports out the publishing status of the pages",
-      "url": "spo-modern-page-publishing-report/README.html",
-      "longDescription": [
-        ""
-      ],
-      "creationDateTime": "2021-11-10",
-      "updateDateTime": "2021-11-10",
-      "products": [
-        "SharePoint"
-      ],
-      "metadata": [
-        {
-          "key": "pnp-powerShell",
-          "value": "1.8.0"
-        }
-      ],
-      "categories": [
-        "Configure",
-        "Report"
-      ],
-      "tags":[
-      ],
-      "thumbnails": [
-        {
-          "type": "image",
-          "order": 100,
-          "url": "spo-modern-page-publishing-report/assets/preview.png",
-          "alt": ""
-        }
-      ],
-      "authors": [
-        {
-          "gitHubAccount": "pkbullock",
-          "company": "CaPa Creative Ltd",
-          "pictureUrl": "https://avatars.githubusercontent.com/u/8781041?v=4",
-          "name": "Paul Bullock"
-        }
-      ]
-    }
-  ]
+  {
+    "name": "spo-modern-page-publishing-report",
+    "source": "pnp",
+    "title": "SharePoint Modern Page Publishing Report",
+    "shortDescription": "Scan through modern pages within a site and reports out the publishing status of the pages",
+    "url": "https://pnp.github.io/script-samples/spo-modern-page-publishing-report/README.html",
+    "longDescription": [
+      ""
+    ],
+    "creationDateTime": "2021-11-10",
+    "updateDateTime": "2022-07-06",
+    "products": [
+      "SharePoint"
+    ],
+    "metadata": [
+      {
+        "key": "PNP-POWERSHELL",
+        "value": "1.8.0"
+      },
+      {
+        "key": "CLI-FOR-MICROSOFT365",
+        "value": "5.3.0"
+      }
+    ],
+    "categories": [
+      "Configure",
+      "Report"
+    ],
+    "tags": [
+      "m365 login",
+      "m365 spo web get",
+      "m365 spo page list",
+      "m365 status",
+      "Connect-PnPOnline",
+      "Get-PnPList",
+      "Get-PnPListItem",
+      "Get-PnPWeb"
+    ],
+    "thumbnails": [
+      {
+        "type": "image",
+        "order": 100,
+        "url": "https://raw.githubusercontent.com/pnp/script-samples/main/scripts/spo-modern-page-publishing-report/assets/preview.png",
+        "alt": ""
+      }
+    ],
+    "authors": [
+      {
+        "gitHubAccount": "nanddeepn",
+        "pictureUrl": "https://github.com/nanddeepn.png",
+        "name": "Nanddeep Nachan"
+      },
+      {
+        "gitHubAccount": "pkbullock",
+        "company": "CaPa Creative Ltd",
+        "pictureUrl": "https://avatars.githubusercontent.com/u/8781041?v=4",
+        "name": "Paul Bullock"
+      }
+    ],
+    "references": [
+      {
+        "name": "Want to learn more about PnP PowerShell and the cmdlets",
+        "description": "Check out the PnP PowerShell site to get started and for the reference to the cmdlets.",
+        "url": "https://aka.ms/pnp/powershell"
+      },
+      {
+        "name": "Want to learn more about CLI for Microsoft 365 and the commands",
+        "description": "Check out the CLI for Microsoft 365 site to get started and for the reference to the commands.",
+        "url": "https://aka.ms/cli-m365"
+      }
+    ]
+  }
+]

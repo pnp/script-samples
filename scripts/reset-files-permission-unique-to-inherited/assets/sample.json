@@ -1,47 +1,83 @@
 [
-    {
-      "name": "reset-files-permission-unique-to-inherited",
-      "source": "pnp",
-      "title": "Reset files permission unique to inheritance",
-      "shortDescription": "Reset bulk file permissions  from unique to parent folder inheritance.",
-      "url": "reset-files-permission-unique-to-inherited/README.html",
-      "longDescription": [
-        ""
-      ],
-      "creationDateTime": "2021-08-11",
-      "updateDateTime": "2021-08-11",
-      "products": [
-        "SharePoint"
-      ],
-      "metadata": [
-        {
-          "key": "pnp-powerShell",
-          "value": "1.5.0"
-        }
-      ],
-      "categories": [
-        "Data"
-      ],
-      "tags":[
-        "Permission",
-        "Unique Permission",
-        "Permission Inheritance"
-      ],
-      "thumbnails": [
-        {
-          "type": "image",
-          "order": 100,
-          "url": "reset-files-permission-unique-to-inherited/assets/preview.png",
-          "alt": ""
-        }
-      ],
-      "authors": [
-        {
-          "gitHubAccount": "dips365",
-          "company": "Rapid Circle",
-          "pictureUrl": "https://avatars.githubusercontent.com/u/40450958?v=4",
-          "name": "Dipen Shah"
-        }
-      ]
-    }
-  ]
+  {
+    "name": "reset-files-permission-unique-to-inherited",
+    "source": "pnp",
+    "title": "Reset files permission unique to inheritance",
+    "shortDescription": "Reset bulk file permissions  from unique to parent folder inheritance.",
+    "url": "https://pnp.github.io/script-samples/reset-files-permission-unique-to-inherited/README.html",
+    "longDescription": [
+      ""
+    ],
+    "creationDateTime": "2021-08-11",
+    "updateDateTime": "2022-06-01",
+    "products": [
+      "SharePoint"
+    ],
+    "metadata": [
+      {
+        "key": "PNP-POWERSHELL",
+        "value": "1.5.0"
+      },
+      {
+        "key": "CLI-FOR-MICROSOFT365",
+        "value": "3.7.0"
+      }
+    ],
+    "categories": [
+      "Data",
+      "Security"
+    ],
+    "tags": [
+      "Permission",
+      "Unique Permission",
+      "Permission Inheritance",
+      "Connect-PnPOnline",
+      "Disconnect-PnPOnline",
+      "Get-PnPContext",
+      "Get-PnPFolder",
+      "Get-PnPList",
+      "Get-PnPListItem",
+      "Get-PnPProperty",
+      "m365 login",
+      "m365 status",
+      "m365 spo list list",
+      "m365 spo file list",
+      "m365 spo file get",
+      "m365 spo listitem get",
+      "m365 spo listitem roleinheritance reset"
+    ],
+    "thumbnails": [
+      {
+        "type": "image",
+        "order": 100,
+        "url": "https://raw.githubusercontent.com/pnp/script-samples/main/scripts/reset-files-permission-unique-to-inherited/assets/preview.png",
+        "alt": ""
+      }
+    ],
+    "authors": [
+      {
+        "gitHubAccount": "nanddeepn",
+        "pictureUrl": "https://github.com/nanddeepn.png",
+        "name": "Nanddeep Nachan"
+      },
+      {
+        "gitHubAccount": "dips365",
+        "company": "Rapid Circle",
+        "pictureUrl": "https://avatars.githubusercontent.com/u/40450958?v=4",
+        "name": "Dipen Shah"
+      }      
+    ],
+    "references": [
+      {
+        "name": "Want to learn more about PnP PowerShell and the cmdlets",
+        "description": "Check out the PnP PowerShell site to get started and for the reference to the cmdlets.",
+        "url": "https://aka.ms/pnp/powershell"
+      },
+      {
+        "name": "Want to learn more about CLI for Microsoft 365 and the commands",
+        "description": "Check out the CLI for Microsoft 365 site to get started and for the reference to the commands.",
+        "url": "https://aka.ms/cli-m365"
+      }
+    ]
+  }
+]

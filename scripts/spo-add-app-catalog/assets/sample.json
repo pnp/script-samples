@@ -1,60 +1,85 @@
 [
-    {
-      "name": "spo-add-app-catalog",
-      "source": "pnp",
-      "title": "Add App Catalog to SharePoint site",
-      "shortDescription": "Deploy certain SharePoint solution to a specific site",
-      "url": "spo-add-app-catalog/README.html",
-      "longDescription": [
-        "hen you just want to deploy certain SharePoint solution to a specific site, it's required to create an app catalog for that site."
-      ],
-      "creationDateTime": "2021-05-11",
-      "updateDateTime": "2021-05-11",
-      "products": [
-        "SharePoint"
-      ],
-      "metadata": [
-        {
-          "key": "cli-for-microsoft365",
-          "value": "3.7.0"
-        },
-        {
-          "key": "PnP-PowerShell",
-          "value": "1.5.0"
-        }
-      ],
-      "categories": [
-        "Deploy",
-        "Configure"
-      ],
-      "thumbnails": [
-        {
-          "type": "image",
-          "order": 100,
-          "url": "spo-add-app-catalog/assets/preview.png",
-          "alt": "This sample does not contain a preview image"
-        }
-      ],
-      "authors": [
-        {
-          "name": "David Ramalho",
-          "gitHubAccount": "",
-          "company": "SharePoint Tricks",
-          "pictureUrl": "https://i1.wp.com/pbs.twimg.com/profile_images/1060671490847326208/zyudunZr_200x200.jpg?zoom=1.25&ssl=1"
-        },
-        {
-          "gitHubAccount": "pkbullock",
-          "company": "CaPa Creative Ltd",
-          "pictureUrl": "https://avatars.githubusercontent.com/u/8781041?v=4",
-          "name": "Paul Bullock"
-        }
-      ],
-      "references": [
-        {
-          "name": "Sample first appeared on SPO Add App Catalog",
-          "description": "",
-          "url": "https://pnp.github.io/cli-microsoft365/sample-scripts/spo/add-app-catalog/"
-        }
-      ]
-    }
-  ]
+  {
+    "name": "spo-add-app-catalog",
+    "source": "pnp",
+    "title": "Add App Catalog to SharePoint site",
+    "shortDescription": "Deploy certain SharePoint solution to a specific site",
+    "url": "https://pnp.github.io/script-samples/spo-add-app-catalog/README.html",
+    "longDescription": [
+      "When you just want to deploy certain SharePoint solution to a specific site, it's required to create an app catalog for that site."
+    ],
+    "creationDateTime": "2021-05-11",
+    "updateDateTime": "2022-02-21",
+    "products": [
+      "SharePoint"
+    ],
+    "metadata": [
+      {
+        "key": "CLI-FOR-MICROSOFT365",
+        "value": "3.7.0"
+      },
+      {
+        "key": "PNP-POWERSHELL",
+        "value": "1.5.0"
+      },
+      {
+        "key": "SPO-MANAGEMENT-SHELL",
+        "value": "16.0.21116.12000"
+      }
+    ],
+    "categories": [
+      "Deploy",
+      "Configure"
+    ],
+    "thumbnails": [
+      {
+        "type": "image",
+        "order": 100,
+        "url": "https://raw.githubusercontent.com/pnp/script-samples/main/scripts/spo-add-app-catalog/assets/preview.png",
+        "alt": "This sample does not contain a preview image"
+      }
+    ],
+    "authors": [
+      {
+        "name": "Chandani Prajapati",
+        "gitHubAccount": "chandaniprajapati",
+        "company": "Rapid Circle",
+        "pictureUrl": "https://avatars.githubusercontent.com/u/52065929?v=4"
+      },
+      {
+        "name": "David Ramalho",
+        "gitHubAccount": "",
+        "company": "SharePoint Tricks",
+        "pictureUrl": "https://i1.wp.com/pbs.twimg.com/profile_images/1060671490847326208/zyudunZr_200x200.jpg?zoom=1.25&ssl=1"
+      },
+      {
+        "gitHubAccount": "pkbullock",
+        "company": "CaPa Creative Ltd",
+        "pictureUrl": "https://avatars.githubusercontent.com/u/8781041?v=4",
+        "name": "Paul Bullock"
+      }
+    ],
+    "references": [
+      {
+        "name": "Introduction to the SharePoint Online Management Shell",
+        "description": "Check out the SPO Management Shell documentation site to get started and for the reference to the cmdlets.",
+        "url": "https://docs.microsoft.com/en-us/powershell/sharepoint/sharepoint-online/introduction-sharepoint-online-management-shell?view=sharepoint-ps"
+      },
+      {
+        "name": "Want to learn more about CLI for Microsoft 365 and the commands",
+        "description": "Check out the CLI for Microsoft 365 site to get started and for the reference to the commands.",
+        "url": "https://aka.ms/cli-m365"
+      },
+      {
+        "name": "Want to learn more about PnP PowerShell and the cmdlets",
+        "description": "Check out the PnP PowerShell site to get started and for the reference to the cmdlets.",
+        "url": "https://aka.ms/pnp/powershell"
+      },
+      {
+        "name": "Add App Catalog to SharePoint site",
+        "description": "This sample first appeared on the CLI for Microsoft 365 documentation site",
+        "url": "https://pnp.github.io/cli-microsoft365/sample-scripts/spo/add-app-catalog/"
+      }
+    ]
+  }
+]

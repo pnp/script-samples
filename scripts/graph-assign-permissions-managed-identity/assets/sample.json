@@ -4,7 +4,7 @@
     "source": "pnp",
     "title": "Assign Graph permissions to a Managed Identity",
     "shortDescription": "A sample of script to provision Azure Function including storage account, resource group, and assign permissions",
-    "url": "graph-assign-permissions-managed-identity/README.html",
+    "url": "https://pnp.github.io/script-samples/graph-assign-permissions-managed-identity/README.html",
     "longDescription": [
       ""
     ],
@@ -17,14 +17,15 @@
     ],
     "metadata": [
       {
-        "key": "azure-cli",
-        "value":"2.27.0"
+        "key": "AZURE-CLI",
+        "value": "2.27.0"
       }
     ],
     "categories": [
-      "Provision"
+      "Provision",
+      "Security"
     ],
-    "tags":[
+    "tags": [
       "functions",
       "azure"
     ],
@@ -32,7 +33,7 @@
       {
         "type": "image",
         "order": 100,
-        "url": "graph-assign-permissions-managed-identity/assets/preview.png",
+        "url": "https://raw.githubusercontent.com/pnp/script-samples/main/scripts/graph-assign-permissions-managed-identity/assets/preview.png",
         "alt": ""
       }
     ],
@@ -42,6 +43,13 @@
         "gitHubAccount": "LuiseFreese",
         "company": "Luise Freese",
         "pictureUrl": "https://avatars.githubusercontent.com/u/49960482?v=4"
+      }
+    ],
+    "references": [
+      {
+        "name": "Want to learn more about Azure CLI and the commands",
+        "description": "Check out the Azure CLI documentation site to get started and for the reference to the commands.",
+        "url": "https://docs.microsoft.com/en-us/cli/azure/"
       }
     ]
   }

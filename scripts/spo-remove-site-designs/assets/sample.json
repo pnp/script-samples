@@ -5,9 +5,9 @@
     "version": null,
     "source": "pnp",
     "title": "Delete custom SharePoint site designs",
-    "url": "spo-remove-site-designs/README.html",
+    "url": "https://pnp.github.io/script-samples/spo-remove-site-designs/README.html",
     "creationDateTime": "2020-08-23",
-    "updateDateTime": "2020-08-23",
+    "updateDateTime": "2022-03-23",
     "shortDescription": "Remove Site designs and  site scripts that ends up just hanging around in your tenant. Use the scripts below to get rid of them",
     "longDescription": null,
     "products": [
@@ -19,15 +19,31 @@
     "tags": [
       "SharePoint Online",
       "Site Designs",
-      "bash"
+      "bash",
+      "Imported CLI Sample",
+      "m365 spo sitedesign list",
+      "m365 spo sitedesign remove",
+      "Connect-SPOService",
+      "Connect-PnPOnline",
+      "Get-SPOSite",
+      "Get-SPOSiteDesign",
+      "Get-PnPSiteDesign",
+      "Remove-SPOSite",
+      "Remove-SPOSiteDesign",
+      "Remove-PnPSiteScript",
+      "Remove-PnPSiteDesign"
     ],
     "metadata": [
       {
-        "key": "cli-for-microsoft365",
+        "key": "PNP-POWERSHELL",
+        "value": "1.9.0"
+      },
+      {
+        "key": "CLI-FOR-MICROSOFT365",
         "value": "3.7.0"
       },
       {
-        "key": "SPO-Management-Shell",
+        "key": "SPO-MANAGEMENT-SHELL",
         "value": "16.0.21116.12000"
       }
     ],
@@ -35,12 +51,18 @@
       {
         "type": "image",
         "order": 100,
-        "url": "spo-remove-site-designs/assets/preview.png",
+        "url": "https://raw.githubusercontent.com/pnp/script-samples/main/scripts/spo-remove-site-designs/assets/preview.png",
         "alt": "preview image for the sample",
         "slides": null
       }
     ],
     "authors": [
+      {
+        "gitHubAccount": "LeonArmston",
+        "company": "Intelogy",
+        "pictureUrl": "https://avatars.githubusercontent.com/u/12968962?v=4",
+        "name": "Leon Armston"
+      },
       {
         "name": "Laura Kokkarinen",
         "gitHubAccount": "LauraKokkarinen",
@@ -54,6 +76,27 @@
         "name": "Paul Bullock"
       }
     ],
-    "references": null
+    "references": [
+      {
+        "name": "Want to learn more about CLI for Microsoft 365 and the commands",
+        "description": "Check out the CLI for Microsoft 365 site to get started and for the reference to the commands.",
+        "url": "https://aka.ms/cli-m365"
+      },
+      {
+        "name": "Introduction to the SharePoint Online Management Shell",
+        "description": "Check out the SPO Management Shell documentation site to get started and for the reference to the cmdlets.",
+        "url": "https://docs.microsoft.com/en-us/powershell/sharepoint/sharepoint-online/introduction-sharepoint-online-management-shell?view=sharepoint-ps"
+      },
+      {
+        "name": "Want to learn more about PnP PowerShell and the cmdlets",
+        "description": "Check out the PnP PowerShell site to get started and for the reference to the cmdlets.",
+        "url": "https://aka.ms/pnp/powershell"
+      },
+      {
+        "name": "Delete custom SharePoint site designs",
+        "description": "This sample first appeared on the CLI for Microsoft 365 documentation site",
+        "url": "https://pnp.github.io/cli-microsoft365/sample-scripts/spo/remove-site-designs/"
+      }
+    ]
   }
 ]

@@ -1,42 +1,58 @@
 [
-    {
-      "name": "spo-recyclebin-items-to-csv",
-      "source": "pnp",
-      "title": "Get SharePoint Site Recycle Bin Items And Export It To CSV",
-      "shortDescription": "This script sample shows how to get recycle bin items from SharePoint site and export it to CSV",
-      "url": "spo-recyclebin-items-to-csv/README.html",
-      "longDescription": [
-        "This sample read site url from user and also read recycle bin stage value from user and then export it to CSV"
-      ],
-      "creationDateTime": "2021-07-13",
-      "updateDateTime": "2021-07-13",
-      "products": [
-        "SharePoint"
-      ],
-      "metadata": [
-        {
-          "key": "pnp-powerShell",
-          "value": "1.5.0"
-        }
-      ],
-      "categories": [
-        "Data"
-      ],
-      "tags":[],
-      "thumbnails": [
-        {
-          "type": "image",
-          "order": 100,
-          "url": "spo-recyclebin-items-to-csv/assets/preview.png",
-          "alt": ""
-        }
-      ],
-      "authors": [
-        {
-          "gitHubAccount": "chandaniprajapati",
-          "pictureUrl": "https://avatars.githubusercontent.com/u/52065929?v=4",
-          "name": "Chandani Prajapati"
-        }
-      ]
-    }
-  ]
+  {
+    "name": "spo-recyclebin-items-to-csv",
+    "source": "pnp",
+    "title": "Get SharePoint Site Recycle Bin Items And Export It To CSV",
+    "shortDescription": "This script sample shows how to get recycle bin items from SharePoint site and export it to CSV",
+    "url": "https://pnp.github.io/script-samples/spo-recyclebin-items-to-csv/README.html",
+    "longDescription": [
+      "This sample read site url from user and also read recycle bin stage value from user and then export it to CSV"
+    ],
+    "creationDateTime": "2021-07-13",
+    "updateDateTime": "2022-01-18",
+    "products": [
+      "SharePoint"
+    ],
+    "metadata": [
+      {
+        "key": "PNP-POWERSHELL",
+        "value": "1.5.0"
+      },
+      {
+        "key": "cli-for-microsoft365",
+        "value": "4.4.0"
+      }
+    ],
+    "categories": [
+      "Data"
+    ],
+    "tags": [],
+    "thumbnails": [
+      {
+        "type": "image",
+        "order": 100,
+        "url": "https://raw.githubusercontent.com/pnp/script-samples/main/scripts/spo-recyclebin-items-to-csv/assets/preview.png",
+        "alt": ""
+      }
+    ],
+    "authors": [
+      {
+        "gitHubAccount": "Adam-it",
+        "pictureUrl": "https://avatars.githubusercontent.com/u/58668583?v=4",
+        "name": "Adam Wójcik"
+      },
+      {
+        "gitHubAccount": "chandaniprajapati",
+        "pictureUrl": "https://avatars.githubusercontent.com/u/52065929?v=4",
+        "name": "Chandani Prajapati"
+      }
+    ],
+    "references": [
+      {
+        "name": "Want to learn more about PnP PowerShell and the cmdlets",
+        "description": "Check out the PnP PowerShell site to get started and for the reference to the cmdlets.",
+        "url": "https://aka.ms/pnp/powershell"
+      }
+    ]
+  }
+]

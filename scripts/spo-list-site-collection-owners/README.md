@@ -14,7 +14,7 @@ $fileExportPath = "<PUTYOURPATHHERE.csv>"
 
 $m365Status = m365 status
 
-if ($m365Status -eq "Logged Out") {
+if ($m365Status -match "Logged Out") {
   # Connection to Microsoft 365
   m365 login
 }
@@ -61,4 +61,4 @@ Sample first appeared on [List site collection owners | CLI for Microsoft 365](h
 
 
 [!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
-<img src="https://telemetry.sharepointpnp.com/script-samples/scripts/spo-list-site-collection-owners" aria-hidden="true" />
+<img src="https://pnptelemetry.azurewebsites.net/script-samples/scripts/spo-list-site-collection-owners" aria-hidden="true" />

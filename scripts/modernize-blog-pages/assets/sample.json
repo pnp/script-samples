@@ -1,42 +1,55 @@
 [
-    {
-      "name": "modernize-blog-pages",
-      "source": "pnp",
-      "title": "Modernize Blog Pages",
-      "shortDescription": "Converts all blog pages in a site",
-      "url": "modernize-blog-pages/README.html",
-      "longDescription": [
-        "Converts all blog pages in a site"
-      ],
-      "creationDateTime": "2021-05-11",
-      "updateDateTime": "2021-05-11",
-      "products": [
-        "SharePoint"
-      ],
-      "metadata": [
-        {
-          "key": "PnP-PowerShell",
-          "value": "1.5.0"
-        }
-      ],
-      "categories": [
-        "Modernize"
-      ],
-      "thumbnails": [
-        {
-          "type": "image",
-          "order": 100,
-          "url": "modernize-blog-pages/assets/preview.png",
-          "alt": "This sample does not contain a preview image"
-        }
-      ],
-      "authors": [
-        {
-          "gitHubAccount": "pkbullock",
-          "company": "CaPa Creative Ltd",
-          "pictureUrl": "https://avatars.githubusercontent.com/u/8781041?v=4",
-          "name": "Paul Bullock"
-        }
-      ]
-    }
-  ]
+  {
+    "name": "modernize-blog-pages",
+    "source": "pnp",
+    "title": "Modernize Blog Pages",
+    "shortDescription": "Converts all blog pages in a site",
+    "url": "https://pnp.github.io/script-samples/modernize-blog-pages/README.html",
+    "longDescription": [
+      "Converts all blog pages in a site"
+    ],
+    "creationDateTime": "2021-05-11",
+    "updateDateTime": "2021-05-11",
+    "products": [
+      "SharePoint"
+    ],
+    "metadata": [
+      {
+        "key": "PNP-POWERSHELL",
+        "value": "1.5.0"
+      }
+    ],
+    "categories": [
+      "Modernize"
+    ],
+    "tags": [
+      "Connect-PnPOnline",
+      "ConvertTo-PnPClientSidePage",
+      "Get-PnPList",
+      "Get-PnPListItem"
+    ],
+    "thumbnails": [
+      {
+        "type": "image",
+        "order": 100,
+        "url": "https://raw.githubusercontent.com/pnp/script-samples/main/scripts/modernize-blog-pages/assets/preview.png",
+        "alt": "This sample does not contain a preview image"
+      }
+    ],
+    "authors": [
+      {
+        "gitHubAccount": "pkbullock",
+        "company": "CaPa Creative Ltd",
+        "pictureUrl": "https://avatars.githubusercontent.com/u/8781041?v=4",
+        "name": "Paul Bullock"
+      }
+    ],
+    "references": [
+      {
+        "name": "Want to learn more about PnP PowerShell and the cmdlets",
+        "description": "Check out the PnP PowerShell site to get started and for the reference to the cmdlets.",
+        "url": "https://aka.ms/pnp/powershell"
+      }
+    ]
+  }
+]

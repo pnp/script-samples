@@ -5,7 +5,7 @@
     "version": null,
     "source": "pnp",
     "title": "Delete all (non-group connected) modern SharePoint sites",
-    "url": "spo-delete-non-group-connected-modern-sites/README.html",
+    "url": "https://pnp.github.io/script-samples/spo-delete-non-group-connected-modern-sites/README.html",
     "creationDateTime": "2021-01-16",
     "updateDateTime": "2021-01-16",
     "shortDescription": "This script handles deletion of remaining modern non-group sites: communication sites and groupless team sites",
@@ -19,11 +19,13 @@
     "tags": [
       "SharePoint Online",
       "Microsoft 365 groups",
-      "bash"
+      "bash",
+      "Imported CLI Sample",
+      "m365 spo site classic list"
     ],
     "metadata": [
       {
-        "key": "cli-for-microsoft365",
+        "key": "CLI-FOR-MICROSOFT365",
         "value": "3.7.0"
       }
     ],
@@ -31,7 +33,7 @@
       {
         "type": "image",
         "order": 100,
-        "url": "spo-delete-non-group-connected-modern-sites/assets/preview.png",
+        "url": "https://raw.githubusercontent.com/pnp/script-samples/main/scripts/spo-delete-non-group-connected-modern-sites/assets/preview.png",
         "alt": "preview image for the sample",
         "slides": null
       }
@@ -44,6 +46,17 @@
         "company": "Sulava"
       }
     ],
-    "references": null
+    "references": [
+      {
+        "name": "Want to learn more about CLI for Microsoft 365 and the commands",
+        "description": "Check out the CLI for Microsoft 365 site to get started and for the reference to the commands.",
+        "url": "https://aka.ms/cli-m365"
+      },
+      {
+        "name": "Delete all (non-group connected) modern SharePoint sites",
+        "description": "This sample first appeared on the CLI for Microsoft 365 documentation site",
+        "url": "https://pnp.github.io/cli-microsoft365/sample-scripts/spo/delete-non-group-connected-modern-sites/"
+      }
+    ]
   }
 ]

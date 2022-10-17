@@ -38,7 +38,7 @@ function Get-TeamMembers(
 
 Write-Host "Ensure logged in"
 $m365Status = m365 status
-if ($m365Status -eq "Logged Out") {
+if ($m365Status -match "Logged Out") {
     Write-Host "Logging in the User!"
     m365 login --authType browser
 }
@@ -58,4 +58,4 @@ Sample first appeared on [List all team members in Microsoft Teams teams in the 
 
 
 [!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
-<img src="https://telemetry.sharepointpnp.com/script-samples/scripts/teams-list-all-teammembers-teams" aria-hidden="true" />
+<img src="https://pnptelemetry.azurewebsites.net/script-samples/scripts/teams-list-all-teammembers-teams" aria-hidden="true" />

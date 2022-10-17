@@ -5,7 +5,7 @@
     "version": null,
     "source": "pnp",
     "title": "Monitor and notify Microsoft 365 health status",
-    "url": "tenant-monitor-notify-healthstatus/README.html",
+    "url": "https://pnp.github.io/script-samples/tenant-monitor-notify-healthstatus/README.html",
     "creationDateTime": "2021-02-26",
     "updateDateTime": "2021-02-26",
     "shortDescription": "This is a script which monitors the health status of your Microsoft 365 tenant",
@@ -20,11 +20,20 @@
       "Governance",
       "Microsoft 365 Health Status",
       "IT Pro",
-      "Health Status Monitoring"
+      "Health Status Monitoring",
+      "Imported CLI Sample",
+      "m365 outlook mail send",
+      "m365 spo field add",
+      "m365 spo list add",
+      "m365 spo list get",
+      "m365 spo listitem add",
+      "m365 spo listitem list",
+      "m365 spo listitem remove",
+      "m365 tenant status list"
     ],
     "metadata": [
       {
-        "key": "cli-for-microsoft365",
+        "key": "CLI-FOR-MICROSOFT365",
         "value": "3.7.0"
       }
     ],
@@ -32,7 +41,7 @@
       {
         "type": "image",
         "order": 100,
-        "url": "tenant-monitor-notify-healthstatus/assets/preview.png",
+        "url": "https://raw.githubusercontent.com/pnp/script-samples/main/scripts/tenant-monitor-notify-healthstatus/assets/preview.png",
         "alt": "preview image for the sample",
         "slides": null
       }
@@ -45,6 +54,17 @@
         "pictureUrl": "https://avatars.githubusercontent.com/u/10369964?v=4"
       }
     ],
-    "references": null
+    "references": [
+      {
+        "name": "Want to learn more about CLI for Microsoft 365 and the commands",
+        "description": "Check out the CLI for Microsoft 365 site to get started and for the reference to the commands.",
+        "url": "https://aka.ms/cli-m365"
+      },
+      {
+        "name": "Monitor and notify Microsoft 365 health status",
+        "description": "This sample first appeared on the CLI for Microsoft 365 documentation site",
+        "url": "https://pnp.github.io/cli-microsoft365/sample-scripts/tenant/tenant-monitor-notify-healthstatus/"
+      }
+    ]
   }
 ]

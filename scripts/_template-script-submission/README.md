@@ -78,9 +78,17 @@ Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Maecenas porttitor con
 
 ```
 [!INCLUDE [More about Power Apps PowerShell](../../docfx/includes/MORE-POWERAPPS.md)]
+
+
+# [MicrosoftTeams PowerShell](#tab/teamsps)
+```powershell
+
+<your powershell script>
+
+```
+[!INCLUDE [More about Microsoft Teams PowerShell](../../docfx/includes/MORE-TEAMSPS.md)]
+
 ***
-
-
 
 
 ## Source Credit
@@ -95,4 +103,4 @@ Sample first appeared on [https://pnp.github.io/cli-microsoft365/sample-scripts/
 
 
 [!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
-<img src="https://telemetry.sharepointpnp.com/script-samples/scripts/template-script-submission" aria-hidden="true" />
+<img src="https://pnptelemetry.azurewebsites.net/script-samples/scripts/template-script-submission" aria-hidden="true" />

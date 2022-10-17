@@ -4,19 +4,23 @@
     "source": "pnp",
     "title": "Get All Apps From The App Catalog And Export It To CSV",
     "shortDescription": "This script sample shows how to get all apps from the app catalog and export it to CSV.",
-    "url": "spo-get-all-apps-from-appcatalog/README.html",
+    "url": "https://pnp.github.io/script-samples/spo-get-all-apps-from-appcatalog/README.html",
     "longDescription": [
       "In This script sample, first we will connect to the SharePoint admin site, get all apps from the app catalog and export it to CSV with all required details."
     ],
     "creationDateTime": "2021-12-15",
-    "updateDateTime": "2021-12-15",
+    "updateDateTime": "2022-01-25",
     "products": [
       "SharePoint"
     ],
     "metadata": [
       {
-        "key": "pnp-powerShell",
+        "key": "PNP-POWERSHELL",
         "value": "1.5.0"
+      },
+      {
+        "key": "cli-for-microsoft365",
+        "value": "4.4.0"
       }
     ],
     "categories": [
@@ -28,15 +32,27 @@
       {
         "type": "image",
         "order": 100,
-        "url": "spo-get-all-apps-from-appcatalog/assets/preview.png",
+        "url": "https://raw.githubusercontent.com/pnp/script-samples/main/scripts/spo-get-all-apps-from-appcatalog/assets/preview.png",
         "alt": ""
       }
     ],
     "authors": [
       {
+        "gitHubAccount": "Adam-it",
+        "pictureUrl": "https://avatars.githubusercontent.com/u/58668583?v=4",
+        "name": "Adam Wójcik"
+      },
+      {
         "gitHubAccount": "chandaniprajapati",
         "pictureUrl": "https://avatars.githubusercontent.com/u/52065929?v=4",
         "name": "Chandani Prajapati"
+      }
+    ],
+    "references": [
+      {
+        "name": "Want to learn more about PnP PowerShell and the cmdlets",
+        "description": "Check out the PnP PowerShell site to get started and for the reference to the cmdlets.",
+        "url": "https://aka.ms/pnp/powershell"
       }
     ]
   }

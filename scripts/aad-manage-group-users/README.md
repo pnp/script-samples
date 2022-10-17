@@ -74,4 +74,4 @@ Sample first appeared on [Bulk add/remove users to Microsoft Teams and Microsoft
 
 
 [!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
-<img src="https://telemetry.sharepointpnp.com/script-samples/scripts/aad-manage-group-users" aria-hidden="true" />
+<img src="https://pnptelemetry.azurewebsites.net/script-samples/scripts/aad-manage-group-users" aria-hidden="true" />

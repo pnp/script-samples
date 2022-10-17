@@ -1,51 +1,68 @@
 [
-    {
-      "name": "spo-list-items-with-caml-query",
-      "source": "pnp",
-      "title": "Read SharePoint List Items Using CAML Query",
-      "shortDescription": "This script sample shows how to get SharePoint list items using CAML query with different types of fields",
-      "url": "spo-list-items-with-caml-query/README.html",
-      "longDescription": [
-        "This sample read SharePoint list items using CAML query with different types of fields like Text, Date, Choice, Lookup, User, and some advanced concepts like BeginsWith and Contains."
-      ],
-      "creationDateTime": "2021-07-19",
-      "updateDateTime": "2021-11-01",
-      "products": [
-        "SharePoint"
-      ],
-      "metadata": [
-        {
-          "key": "pnp-powerShell",
-          "value": "1.5.0"
-        },
-        {
-          "key": "cli-for-microsoft365",
-          "value": "6.14.22"
-        }
-      ],
-      "categories": [
-        "Data"
-      ],
-      "tags":[],
-      "thumbnails": [
-        {
-          "type": "image",
-          "order": 100,
-          "url": "spo-list-items-with-caml-query/assets/preview.png",
-          "alt": ""
-        }
-      ],
-      "authors": [
-        {
-          "gitHubAccount": "Adam-it",
-          "pictureUrl": "https://avatars.githubusercontent.com/u/58668583?v=4",
-          "name": "Adam Wójcik"
-        },
-        {
-          "gitHubAccount": "chandaniprajapati",
-          "pictureUrl": "https://avatars.githubusercontent.com/u/52065929?v=4",
-          "name": "Chandani Prajapati"
-        }
-      ]
-    }
-  ]
+  {
+    "name": "spo-list-items-with-caml-query",
+    "source": "pnp",
+    "title": "Read SharePoint List Items Using CAML Query",
+    "shortDescription": "This script sample shows how to get SharePoint list items using CAML query with different types of fields",
+    "url": "https://pnp.github.io/script-samples/spo-list-items-with-caml-query/README.html",
+    "longDescription": [
+      "This sample read SharePoint list items using CAML query with different types of fields like Text, Date, Choice, Lookup, User, and some advanced concepts like BeginsWith and Contains."
+    ],
+    "creationDateTime": "2021-07-19",
+    "updateDateTime": "2022-06-13",
+    "products": [
+      "SharePoint"
+    ],
+    "metadata": [
+      {
+        "key": "PNP-POWERSHELL",
+        "value": "1.5.0"
+      },
+      {
+        "key": "CLI-FOR-MICROSOFT365",
+        "value": "6.14.22"
+      }
+    ],
+    "categories": [
+      "Data"
+    ],
+    "tags": [],
+    "thumbnails": [
+      {
+        "type": "image",
+        "order": 100,
+        "url": "https://raw.githubusercontent.com/pnp/script-samples/main/scripts/spo-list-items-with-caml-query/assets/preview.png",
+        "alt": ""
+      }
+    ],
+    "authors": [
+      {
+        "gitHubAccount": "jagopauwels",
+        "pictureUrl": "https://github.com/jagopauwels.png",
+        "name": "Jago Pauwels"
+      },
+      {
+        "gitHubAccount": "Adam-it",
+        "pictureUrl": "https://avatars.githubusercontent.com/u/58668583?v=4",
+        "name": "Adam Wójcik"
+      },
+      {
+        "gitHubAccount": "chandaniprajapati",
+        "pictureUrl": "https://avatars.githubusercontent.com/u/52065929?v=4",
+        "name": "Chandani Prajapati"
+      }
+    ],
+    "references": [
+      {
+        "name": "Want to learn more about PnP PowerShell and the cmdlets",
+        "description": "Check out the PnP PowerShell site to get started and for the reference to the cmdlets.",
+        "url": "https://aka.ms/pnp/powershell"
+      },
+      {
+        "name": "Want to learn more about CLI for Microsoft 365 and the commands",
+        "description": "Check out the CLI for Microsoft 365 site to get started and for the reference to the commands.",
+        "url": "https://aka.ms/cli-m365"
+      }
+    ]
+  }
+]

@@ -196,6 +196,120 @@ catch
 
 ```
 [!INCLUDE [More about PnP PowerShell](../../docfx/includes/MORE-PNPPS.md)]
+
+
+# [CLI for Microsoft 365 with PowerShell](#tab/cli-m365-ps)
+
+```powershell
+# Usage example:
+#   .\Create-Bulk-Dummy-Documents.ps1 -WebUrl "https://contoso.sharepoint.com/sites/Intranet" -ListTitle "Documents" -ServerRelativeUrl "/sites/intranet/Shared Documents" -Type File -ItemsToCreate 5 -MajorVersions 6 -MinorVersionBeforeMajor 3 -FileToUse "D:\Temp\DummyFile.docx"
+#   .\Create-Bulk-Dummy-Documents.ps1 -WebUrl "https://contoso.sharepoint.com/sites/Intranet" -ListTitle "Documents" -ServerRelativeUrl "/sites/intranet/Shared Documents" -Type Folder -ItemsToCreate 5 -MajorVersions 6 -MinorVersionBeforeMajor 3 -FileToUse "D:\Temp\DummyFile.docx"
+[CmdletBinding()]
+param (
+  [Parameter(Mandatory = $true, HelpMessage = "Web url from which to create the files, e.g. https://contoso.sharepoint.com/sites/Intranet")]
+  [string]$WebUrl,
+  [Parameter(Mandatory = $true, HelpMessage = "Title of the list on which to create the documents or files")]
+  [string]$ListTitle,
+  [Parameter(Mandatory = $true, HelpMessage = "Server relative URL of the folder in which to create the documents")]
+  [string]$ServerRelativeUrl,
+  [Parameter(Mandatory = $true, HelpMessage = "Type of content to create, possible values are 'file' or 'folder'")]
+  [ValidateSet("File","Folder","file","folder")]
+  [string]$Type,
+  [Parameter(Mandatory = $true, HelpMessage = "Amount of items to create")]
+  [int]$ItemsToCreate,
+  [Parameter(Mandatory = $true, HelpMessage = "Amount of major versions to create")]
+  [int]$MajorVersions,
+  [Parameter(Mandatory = $true, HelpMessage = "This will define the amount of minor versions that will be created before a major version is added")]
+  [int]$MinorVersionBeforeMajor,
+  [Parameter(Mandatory = $true, HelpMessage = "Path of the file to use when creating versions")]
+  [string]$FileToUse
+)
+begin {
+  $m365Status = m365 status 
+  if ($m365Status -match "Logged Out") {
+    m365 login
+  }
+  Write-Host "Initialization done, time to create versions!" -f Green 
+}
+process {
+  
+  function New-Versions {
+    param (
+      [Parameter(Mandatory = $true)]
+      [string]$FileUrl,
+      [Parameter(Mandatory = $true)]
+      [int]$Counter
+    )
+  
+    # Have to first check out, else it throws an error 'Error: The file "Shared Documents/1.docx" is not checked out'
+    m365 spo file checkout --webUrl $WebUrl --fileUrl $FileUrl | Out-Null
+    m365 spo file checkin --webUrl $WebUrl --fileUrl $FileUrl --type Major --comment "First major version check in" | Out-Null
+    
+    # Creating versions
+    for ($i = 1; $i -lt ($MajorVersions + 1); $i++) {
+      Write-Progress -Activity "Creating versions" -Status "$Counter/$ItemsToCreate files created. Creating major version $i/$MajorVersions" -PercentComplete (($Counter / $ItemsToCreate) * 100)
+      for ($j = 1; $j -lt ($MinorVersionBeforeMajor + 1); $j++) {
+        Write-Progress -Activity "Creating versions" -Status "$Counter/$ItemsToCreate files created. Processing major version $i/$MajorVersions, Creating minor version $j/$MinorVersionBeforeMajor" -PercentComplete (($Counter / $ItemsToCreate) * 100)
+        # Create minor version here
+        m365 spo file checkout --webUrl $WebUrl --fileUrl $FileUrl | Out-Null
+        m365 spo file checkin --webUrl $WebUrl --fileUrl $FileUrl --type Minor --comment "Check in of minor version $j" | Out-Null
+      }
+      m365 spo file checkout --webUrl $WebUrl --fileUrl $FileUrl | Out-Null
+      m365 spo file checkin --webUrl $WebUrl --fileUrl $FileUrl --type Major --comment "Check in of major version $i" | Out-Null
+    }
+  }
+
+  $FileExtension = $FileToUse.Split('.')[$FileToUse.Split('.').Count - 1]
+
+  Write-Host "Starting the script, we are going to create $ItemsToCreate $($type)s in the list with title $ListTitle. They will each have $MajorVersions major versions and $MinorVersionBeforeMajor minor versions before a new major version is added." -f Green
+  $list = m365 spo list get --webUrl $WebUrl --title $ListTitle | ConvertFrom-Json
+  Write-Host "Obtained the list with title $($list.Title)" -f Green
+
+  if (!$list.EnableMinorVersions) {
+    Write-Host "Have to set properties on list to enable versioning and enable the creation of minor versions" -f Red
+    m365 spo list set --webUrl $WebUrl -i $list.Id --enableVersioning $true --enableMinorVersions $true
+    Write-Host "List properties updated!" -f Green
+  }
+
+  Write-Host "Obtained the folder with server relative url $ServerRelativeUrl" -f Green
+  Write-Host "Time to start the creation process..." -f Green
+  if ($Type.ToLower() -eq "folder") {
+    $FolderCnt = 1
+    while ($FolderCnt -le $ItemsToCreate) {
+      Write-Progress -Activity "Creating folders" -Status "$FolderCnt/$ItemsToCreate folders created" -PercentComplete (($FolderCnt / $ItemsToCreate) * 100)
+   
+      $FileUrl = "$($ServerRelativeUrl)/$FolderCnt/$FolderCnt.$FileExtension" 
+
+      # Create the folder and add the file
+      m365 spo folder add --webUrl $WebUrl --parentFolderUrl $ServerRelativeUrl --name $FolderCnt | Out-Null
+      m365 spo file add --webUrl $WebUrl --folder "$($ServerRelativeUrl)/$FolderCnt" --path $FileToUse --FileLeafRef $FolderCnt | Out-Null
+
+      # Call function to create the versions
+      New-Versions -FileUrl $FileUrl -Counter $FolderCnt
+
+      $FolderCnt++
+    }
+  } elseif ($Type.ToLower() -eq "file") {
+    $FileCnt = 1
+    while ($FileCnt -le $ItemsToCreate) {
+      Write-Progress -Activity "Creating files" -Status "$FileCnt/$ItemsToCreate files created" -PercentComplete (($FileCnt / $ItemsToCreate) * 100)
+    
+      $FileUrl = "$($ServerRelativeUrl)/$FileCnt.$FileExtension" 
+
+      # Creating file
+      m365 spo file add --webUrl $WebUrl --folder $ServerRelativeUrl --path $FileToUse --FileLeafRef $FileCnt | Out-Null
+      
+      # Call function to create the versions
+      New-Versions -FileUrl $FileUrl -Counter $FileCnt
+
+      $FileCnt++
+    }
+  }
+
+  Write-Host "Script Complete! :)" -f Green
+}
+```
+[!INCLUDE [More about CLI for Microsoft 365](../../docfx/includes/MORE-CLIM365.md)]
 ***
 
 ## Contributors
@@ -203,6 +317,7 @@ catch
 | Author(s) |
 |-----------|
 | Kasper Larsen|
+| Mathijs Verbeeck|
 
 [!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
-<img src="https://telemetry.sharepointpnp.com/script-samples/scripts/create-dummy-docs-versions-in-library" aria-hidden="true" />
+<img src="https://pnptelemetry.azurewebsites.net/script-samples/scripts/create-dummy-docs-versions-in-library" aria-hidden="true" />

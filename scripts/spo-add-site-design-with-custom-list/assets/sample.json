@@ -1,51 +1,78 @@
 [
-    {
-      "name": "spo-add-site-design-with-custom-list",
-      "source": "pnp",
-      "title": "Creates and apply custom site design with custom column types",
-      "shortDescription": "Script that creates and applies custom site design with custom column types",
-      "url": "spo-add-site-design-with-custom-list/README.html",
-      "longDescription": [
-        "Script that creates and applies custom site design with custom column types. It will also creates custom list using new content type"
-      ],
-      "creationDateTime": "2021-10-03",
-      "updateDateTime": "2021-11-03",
-      "products": [
-        "SharePoint"
-      ],
-      "metadata": [
-        {
-          "key": "pnp-powerShell",
-          "value": "1.7.0"
-        },
-        {
-          "key": "cli-for-microsoft365",
-          "value": "4.1.0"
-        }
-      ],
-      "categories": [
-        "Modernize",
-        "Deploy",
-        "Provision"
-      ],
-      "tags":[
-        "modern"
-      ],
-      "thumbnails": [
-        {
-          "type": "image",
-          "order": 100,
-          "url": "spo-add-site-design-with-custom-list/assets/preview.png",
-          "alt": ""
-        }
-      ],
-      "authors": [
-        {
-          "gitHubAccount": "ValerasNarbutas",
-          "company": "",
-          "pictureUrl": "https://avatars.githubusercontent.com/u/16476453?s=400&v=4",
-          "name": "Valeras Narbutas"
-        }
-      ]
-    }
-  ]
+  {
+    "name": "spo-add-site-design-with-custom-list",
+    "source": "pnp",
+    "title": "Creates and apply custom site design with custom column types",
+    "shortDescription": "Script that creates and applies custom site design with custom column types",
+    "url": "https://pnp.github.io/script-samples/spo-add-site-design-with-custom-list/README.html",
+    "longDescription": [
+      "Script that creates and applies custom site design with custom column types. It will also creates custom list using new content type"
+    ],
+    "creationDateTime": "2021-10-03",
+    "updateDateTime": "2021-11-03",
+    "products": [
+      "SharePoint"
+    ],
+    "metadata": [
+      {
+        "key": "PNP-POWERSHELL",
+        "value": "1.7.0"
+      },
+      {
+        "key": "CLI-FOR-MICROSOFT365",
+        "value": "4.1.0"
+      }
+    ],
+    "categories": [
+      "Modernize",
+      "Deploy",
+      "Provision"
+    ],
+    "tags": [
+      "modern",
+      "m365 login",
+      "m365 logout",
+      "m365 status",
+      "m365 spo site get",
+      "m365 spo sitedesign add",
+      "m365 spo sitedesign apply",
+      "m365 spo sitedesign set",
+      "m365 spo sitescript add",
+      "Add-PnPSiteDesign",
+      "Add-PnPSiteScript",
+      "Connect-PnPOnline",
+      "Disconnect-PnPOnline",
+      "Invoke-PnPSiteDesign",
+      "Set-PnPSite",
+      "Set-PnPSiteDesign"
+    ],
+    "thumbnails": [
+      {
+        "type": "image",
+        "order": 100,
+        "url": "https://raw.githubusercontent.com/pnp/script-samples/main/scripts/spo-add-site-design-with-custom-list/assets/preview.png",
+        "alt": ""
+      }
+    ],
+    "authors": [
+      {
+        "gitHubAccount": "ValerasNarbutas",
+        "company": "",
+        "pictureUrl": "https://avatars.githubusercontent.com/u/16476453?s=400&v=4",
+        "name": "Valeras Narbutas"
+      }
+    ],
+    "references": [
+      {
+        "name": "Want to learn more about PnP PowerShell and the cmdlets",
+        "description": "Check out the PnP PowerShell site to get started and for the reference to the cmdlets.",
+        "url": "https://aka.ms/pnp/powershell"
+      },
+      {
+        "name": "Want to learn more about CLI for Microsoft 365 and the commands",
+        "description": "Check out the CLI for Microsoft 365 site to get started and for the reference to the commands.",
+        "url": "https://aka.ms/cli-m365"
+      }
+    ]
+  }
+]

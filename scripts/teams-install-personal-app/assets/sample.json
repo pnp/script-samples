@@ -5,7 +5,7 @@
     "version": null,
     "source": "pnp",
     "title": "Deploy Microsoft Teams personal app and add it to users",
-    "url": "teams-install-personal-app/README.html",
+    "url": "https://pnp.github.io/script-samples/teams-install-personal-app/README.html",
     "creationDateTime": "2020-10-24",
     "updateDateTime": "2020-10-24",
     "shortDescription": "Installs or updates a Microsoft Teams app from a provided zipped manifest",
@@ -17,11 +17,20 @@
       "Deploy"
     ],
     "tags": [
-      "Microsoft Teams"
+      "Microsoft Teams",
+      "Imported CLI Sample",
+      "m365 login",
+      "m365 status",
+      "m365 aad user get",
+      "m365 teams app list",
+      "m365 teams app publish",
+      "m365 teams app update",
+      "m365 teams user app add",
+      "m365 teams user app list"
     ],
     "metadata": [
       {
-        "key": "cli-for-microsoft365",
+        "key": "CLI-FOR-MICROSOFT365",
         "value": "3.7.0"
       }
     ],
@@ -29,7 +38,7 @@
       {
         "type": "image",
         "order": 100,
-        "url": "teams-install-personal-app/assets/preview.png",
+        "url": "https://raw.githubusercontent.com/pnp/script-samples/main/scripts/teams-install-personal-app/assets/preview.png",
         "alt": "preview image for the sample",
         "slides": null
       }
@@ -42,6 +51,17 @@
         "pictureUrl": "https://avatars.githubusercontent.com/u/7620955?v=4"
       }
     ],
-    "references": null
+    "references": [
+      {
+        "name": "Want to learn more about CLI for Microsoft 365 and the commands",
+        "description": "Check out the CLI for Microsoft 365 site to get started and for the reference to the commands.",
+        "url": "https://aka.ms/cli-m365"
+      },
+      {
+        "name": "Deploy Microsoft Teams personal app and add it to users",
+        "description": "This sample first appeared on the CLI for Microsoft 365 documentation site",
+        "url": "https://pnp.github.io/cli-microsoft365/sample-scripts/teams/install-personal-app/"
+      }
+    ]
   }
 ]

@@ -1,47 +1,62 @@
 [
-    {
-      "name": "spo-add-list-template-with-custom-library",
-      "source": "pnp",
-      "title": "Creates and apply custom list template",
-      "shortDescription": "Script that creates and applies custom list template with custom document library, site columns and site content types",
-      "url": "spo-add-list-template-with-custom-library/README.html",
-      "longDescription": [
-        "Script that creates and applies custom list template with custom document library, site columns and site content types. It will also creates custom library using new content types"
-      ],
-      "creationDateTime": "2021-10-28",
-      "updateDateTime": "2021-10-28",
-      "products": [
-        "SharePoint"
-      ],
-      "metadata": [
-        {
-          "key": "pnp-powerShell",
-          "value": "1.8.0"
-        }
-      ],
-      "categories": [
-        "Modernize",
-        "Deploy",
-        "Provision"
-      ],
-      "tags":[
-        "modern"
-      ],
-      "thumbnails": [
-        {
-          "type": "image",
-          "order": 100,
-          "url": "spo-add-list-template-with-custom-library/assets/preview.png",
-          "alt": ""
-        }
-      ],
-      "authors": [
-        {
-          "gitHubAccount": "reshmee011",
-          "company": "",
-          "pictureUrl": "https://avatars.githubusercontent.com/u/7693852?v=4",
-          "name": "Reshmee Auckloo"
-        }
-      ]
-    }
-  ]
+  {
+    "name": "spo-add-list-template-with-custom-library",
+    "source": "pnp",
+    "title": "Creates and apply custom list template",
+    "shortDescription": "Script that creates and applies custom list template with custom document library, site columns and site content types",
+    "url": "https://pnp.github.io/script-samples/spo-add-list-template-with-custom-library/README.html",
+    "longDescription": [
+      "Script that creates and applies custom list template with custom document library, site columns and site content types. It will also creates custom library using new content types"
+    ],
+    "creationDateTime": "2021-10-28",
+    "updateDateTime": "2021-10-28",
+    "products": [
+      "SharePoint"
+    ],
+    "metadata": [
+      {
+        "key": "SPO-MANAGEMENT-SHELL",
+        "value": "16.0.21116.12000"
+      }
+
+    ],
+    "categories": [
+      "Modernize",
+      "Deploy",
+      "Provision"
+    ],
+    "tags": [
+      "modern",
+      "Connect-PnPOnline",
+      "Disconnect-PnPOnline",
+      "Add-SPOSiteScript",
+      "Connect-SPOService",
+      "Get-SPOSite",
+      "Get-SPOSiteScript",
+      "Get-SPOSiteScriptFromList"
+    ],
+    "thumbnails": [
+      {
+        "type": "image",
+        "order": 100,
+        "url": "https://raw.githubusercontent.com/pnp/script-samples/main/scripts/spo-add-list-template-with-custom-library/assets/preview.png",
+        "alt": ""
+      }
+    ],
+    "authors": [
+      {
+        "gitHubAccount": "reshmee011",
+        "company": "",
+        "pictureUrl": "https://avatars.githubusercontent.com/u/7693852?v=4",
+        "name": "Reshmee Auckloo"
+      }
+    ],
+    "references": [
+      {
+        "name": "Introduction to the SharePoint Online Management Shell",
+        "description": "Check out the SPO Management Shell documentation site to get started and for the reference to the cmdlets.",
+        "url": "https://docs.microsoft.com/en-us/powershell/sharepoint/sharepoint-online/introduction-sharepoint-online-management-shell?view=sharepoint-ps"
+      }
+    ]
+  }
+]

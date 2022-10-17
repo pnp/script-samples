@@ -49,7 +49,7 @@ Function Login() {
     Write-Host "Connecting to Tenant Admin Site '$($adminSiteURL)'" -f Yellow | Out-File $LogFile -Append -Force
   
     Connect-PnPOnline -Url $adminSiteURL -Credentials $Creds
-    Write-Host "Connection Successfull" -f Yellow | Out-File $LogFile -Append -Force
+    Write-Host "Connection Successful" -f Yellow | Out-File $LogFile -Append -Force
    
 }
 Function StartProcessing {
@@ -58,7 +58,7 @@ Function StartProcessing {
 }
 
 Function ConnectionToSite() {
-    $siteURL = Read-Host "Please enter site collcetion URL" 
+    $siteURL = Read-Host "Please enter site collection URL" 
   
     try {            
         Write-Host "Connecting to Site '$($siteURL)'" -f Yellow          
@@ -116,7 +116,99 @@ Function GetUserProfileProperties($username) {
 StartProcessing
 
 ```
+
 [!INCLUDE [More about PnP PowerShell](../../docfx/includes/MORE-PNPPS.md)]
+
+# [CLI for Microsoft 365 with PowerShell](#tab/cli-m365-ps)
+
+```powershell
+# Usage example:
+#   .\Fetch-User-Profile-Properties.ps1 -WebUrl "https://contoso.sharepoint.com/sites/Intranet"
+
+[CmdletBinding()]
+param (
+  [Parameter(Mandatory = $true, HelpMessage = "Web url from which to retrieve the users, e.g. https://contoso.sharepoint.com/sites/Intranet")]
+  [string]$WebUrl
+)
+begin {
+  $m365Status = m365 status
+  if ($m365Status -match "Logged Out") {
+    m365 login
+  }
+  Write-Host "Connection Successful!" -f Green 
+}
+process {
+  #variables
+  $basePath = "D:\" #base path where you want to save CSV file("D:\Scripts\Output\...")
+
+  $userDetailsArray = @()
+  $dateTime = "{0:MM_dd_yy}_{0:HH_mm_ss}" -f (Get-Date)
+  $csvPath = $basePath + "userdetails-" + $dateTime + ".csv"
+
+  Write-Host "`nRetrieving users from web $WebUrl" -ForegroundColor Cyan
+  Write-Progress -Activity "Obtaining user details" -Status "Obtaining users" -PercentComplete 0
+
+  $users = m365 spo user list --webUrl $WebUrl | ConvertFrom-Json
+  $usersWithMail = $users | Where-Object {$_.Email -ne ""}
+
+  if ($usersWithMail.GetType().Name -eq "PSCustomObject"){
+    Write-Host "Only one user found. Obtaining details for this specific user" -ForegroundColor Cyan
+    $userProfile = m365 spo userprofile get --userName $usersWithMail.Email | ConvertFrom-Json
+
+    if ($userProfile.Email) {
+      $userProfileProperties = $userProfile.UserProfileProperties | ConvertFrom-Json
+
+      $userDetailsArray += New-Object PSObject -Property ([ordered]@{                   
+        Id            = $counter
+        GUID          = ($userProfileProperties | Where-Object {$_.Key -eq 'UserProfile_GUID'}).Value
+        FirstName     = ($userProfileProperties | Where-Object {$_.Key -eq 'FirstName'}).Value
+        LastName      = ($userProfileProperties | Where-Object {$_.Key -eq 'LastName'}).Value
+        WorkEmail     = ($userProfileProperties | Where-Object {$_.Key -eq 'WorkEmail'}).Value 
+        PictureURL    = ($userProfileProperties | Where-Object {$_.Key -eq 'PictureURL'}).Value    
+        Department    = ($userProfileProperties | Where-Object {$_.Key -eq 'Department'}).Value
+        PreferredName = ($userProfileProperties | Where-Object {$_.Key -eq 'PreferredName'}).Value
+      })
+    } else {
+      Write-Host "Details for user with mail $userMail could not be found! Possible causes are that the email address is linked to an external user or group email address." -ForegroundColor Red
+    }
+      
+  } else {
+    $usersCount = $usersWithMail.Count
+    Write-Host "Users retrieved. Amount of users to process: $usersCount" -ForegroundColor Cyan
+
+    for ($counter = 1; $counter -le $usersCount; $counter++ ) {    
+      $userMail = $usersWithMail[$counter - 1].Email
+
+      $userProfile = m365 spo userprofile get --userName $userMail | ConvertFrom-Json
+      if ($userProfile.Email) {
+        $userProfileProperties = $userProfile.UserProfileProperties | ConvertFrom-Json
+
+        $userDetailsArray += New-Object PSObject -Property ([ordered]@{                   
+          Id            = 1
+          GUID          = ($userProfileProperties | Where-Object {$_.Key -eq 'UserProfile_GUID'}).Value
+          FirstName     = ($userProfileProperties | Where-Object {$_.Key -eq 'FirstName'}).Value
+          LastName      = ($userProfileProperties | Where-Object {$_.Key -eq 'LastName'}).Value
+          WorkEmail     = ($userProfileProperties | Where-Object {$_.Key -eq 'WorkEmail'}).Value 
+          PictureURL    = ($userProfileProperties | Where-Object {$_.Key -eq 'PictureURL'}).Value    
+          Department    = ($userProfileProperties | Where-Object {$_.Key -eq 'Department'}).Value
+          PreferredName = ($userProfileProperties | Where-Object {$_.Key -eq 'PreferredName'}).Value
+        })
+      } else {
+        Write-Host "Details for user with mail $userMail could not be found! Possible causes are that the email address is linked to an external user or group email address." -ForegroundColor Red
+      }
+    
+      Write-Progress -Activity "Obtaining user details" -Status "$counter/$usersCount users obtained, currently processing $userMail" -PercentComplete (($counter / $usersWithMail.Count) * 100)
+    }
+  }
+  
+  Write-Host "Exporting to CSV..."  -ForegroundColor Cyan
+  $userDetailsArray | Export-Csv $csvPath -NoTypeInformation -Append
+  Write-Host "Exported Successfully..." -ForegroundColor Cyan
+
+  Write-Host "Script Complete! :)" -ForegroundColor Green
+}
+```
+[!INCLUDE [More about CLI for Microsoft 365](../../docfx/includes/MORE-CLIM365.md)]
 ***
 
 ## Source Credit
@@ -128,6 +220,7 @@ Sample first appeared on [Fetch User Profile Properties From Site Collection And
 | Author(s) |
 |-----------|
 | Chandani Prajapati |
+| Mathijs Verbeeck |
 
 [!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
-<img src="https://telemetry.sharepointpnp.com/script-samples/scripts/template-script-submission" aria-hidden="true" />
+<img src="https://pnptelemetry.azurewebsites.net/script-samples/scripts/template-script-submission" aria-hidden="true" />

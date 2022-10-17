@@ -5,7 +5,7 @@
     "version": null,
     "source": "pnp",
     "title": "Delete all Microsoft 365 groups",
-    "url": "aad-delete-m365-groups/README.html",
+    "url": "https://pnp.github.io/script-samples/aad-delete-m365-groups/README.html",
     "creationDateTime": "2021-03-15",
     "updateDateTime": "2021-03-15",
     "shortDescription": "Use this script to delete the Microsoft 365 groups you no longer need",
@@ -16,16 +16,20 @@
       "Office"
     ],
     "categories": [
-      "Provision"
+      "Provision",
+      "Security"
     ],
     "tags": [
       "SharePoint Online",
       "Microsoft 365 Groups",
-      "bash"
+      "bash",
+      "Imported CLI Sample",
+      "m365 aad o365group list",
+      "m365 aad o365group remove"
     ],
     "metadata": [
       {
-        "key": "cli-for-microsoft365",
+        "key": "CLI-FOR-MICROSOFT365",
         "value": "3.7.0"
       }
     ],
@@ -33,7 +37,7 @@
       {
         "type": "image",
         "order": 100,
-        "url": "aad-delete-m365-groups/assets/preview.png",
+        "url": "https://raw.githubusercontent.com/pnp/script-samples/main/scripts/aad-delete-m365-groups/assets/preview.png",
         "alt": "preview image for the sample",
         "slides": null
       }
@@ -46,6 +50,17 @@
         "pictureUrl": "https://avatars.githubusercontent.com/u/41330990?v=4"
       }
     ],
-    "references": null
+    "references": [
+      {
+        "name": "Want to learn more about CLI for Microsoft 365 and the commands",
+        "description": "Check out the CLI for Microsoft 365 site to get started and for the reference to the commands.",
+        "url": "https://aka.ms/cli-m365"
+      },
+      {
+        "name": "Delete all Microsoft 365 groups",
+        "description": "This sample first appeared on the CLI for Microsoft 365 documentation site",
+        "url": "https://pnp.github.io/cli-microsoft365/sample-scripts/aad/delete-m365-groups/"
+      }
+    ]
   }
 ]

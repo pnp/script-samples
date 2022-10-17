@@ -1,0 +1,49 @@
+[
+  {
+    "name": "teams-get-templates",
+    "source": "pnp",
+    "title": "Collect and export Teams templates",
+    "shortDescription": "This script allow us to collect and export current tenant Teams Templates",
+    "url": "https://pnp.github.io/script-samples/teams-get-templates/README.html",
+    "longDescription": [
+      "Currently there's no out of the box way of exporting current teams templates. The script uses Teams Native API and is a subset of the SPO powershell packages with content (PnPCandy) concept already been used across many projects."
+    ],
+    "creationDateTime": "2021-12-29",
+    "updateDateTime": "2021-12-29",
+    "products": [
+      "Teams"
+    ],
+    "metadata": [
+      {
+        "key": "PNP-POWERSHELL",
+        "value": "1.5.0,1.7.0"
+      }
+    ],
+    "categories": [
+      "Data"
+    ],
+    "tags": [],
+    "thumbnails": [
+      {
+        "type": "image",
+        "order": 100,
+        "url": "https://raw.githubusercontent.com/pnp/script-samples/main/scripts/teams-get-templates/assets/preview.png",
+        "alt": ""
+      }
+    ],
+    "authors": [
+      {
+        "gitHubAccount": "scoutmanpt",
+        "pictureUrl": "https://avatars.githubusercontent.com/u/7837053?v=4",
+        "name": "Rodrigo Pinto"
+      }
+    ],
+    "references": [
+      {
+        "name": "Want to learn more about PnP PowerShell and the cmdlets",
+        "description": "Check out the PnP PowerShell site to get started and for the reference to the cmdlets.",
+        "url": "https://aka.ms/pnp/powershell"
+      }
+    ]
+  }
+]

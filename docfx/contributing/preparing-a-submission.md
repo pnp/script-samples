@@ -20,7 +20,7 @@ The minimum we need for the submission is:
 - **Article Title** - the title for your script
 - **Summary** - for briefly describing what the script does
 - **Image**, ideally named "example.png" in an assets folder, presenting the end result of the operation. The more visual the better.
-- **Script** - minimum of at least one type. We support: PnP PowerShell, Microsoft 365 CLI, Graph PowerShell SDK, SPO PowerShell, if there are other types you wish to include, please raise an issue, we may need to tweak the site to accommodate the library.
+- **Script** - minimum of at least one type. We support a wide range of script types, if this is not listed in the template file, we can add support for that type when you submit your PR.
 - **Contributors** - your name, or if a joint submission those you have worked with - so that we can attribute credit for the submission.
 
 We add the disclaimer statement at the bottom.
@@ -95,6 +95,22 @@ The template submission folder contains:
 - **README.md** - Sample Readme with the structure, remove the dummy text and update the areas for your submission
 - **assets/example.png** - image for the sample, simply replace with a screenshot to show in the article
 
+### Script Quality
+
+In the PnP Script Samples, we do not place any specific quality requirements on the scripts themselves. To help guide you for suggested ways to present your scripts:
+
+- Indent the scripts when encapsulating blocks in curly braces - this make it easier to read the blocks and understand the script
+- Use comments, if you feel the script isn't clear by itself what it is doing. However, do not overload the script with comments either.
+- Use good naming for variables to understand what is being stored
+- Check the script works as you would expect it to, preferably include a screenshot of the end result, to help guide the reader.
+- Remove any lines that show details of **your** tenant, e.g. usernames, passwords, URLs (replace with Contoso).
+
+
+> [!note]
+> If you would like an example, please refer to the following script: [Generate Demo Events for SharePoint Events List | PnP Script Samples](https://pnp.github.io/script-samples/spo-generate-demo-events/README.html) <br />
+> Please note: this isn't an expected sample style, quality or format, or a gold standard just an idea if you feel you need some ideas on how to present your script. <br /><br />
+> We fully understand that there any multiple styles and approaches, and __we are happy to accept the submission in your style__ 😊
+
 ### Optional files
 
 - **assets/template.sample.json** - this is a metadata file used for the gallery views, this is optional *DO NOT HAVE TO COMPLETE THIS*
@@ -111,4 +127,4 @@ We have worked to keep the folder structure lean and as simple as possible when 
 ```
 ![Folder structure](../assets/contributing/folder-structure-contributors.png)
 
-<img src="https://telemetry.sharepointpnp.com/script-samples/contributing" aria-hidden="true" />
+<img src="https://pnptelemetry.azurewebsites.net/script-samples/contributing/preparing-a-submission" aria-hidden="true" />

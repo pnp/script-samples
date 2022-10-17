@@ -5,7 +5,7 @@
     "version": null,
     "source": "pnp",
     "title": "List all application customizers in a tenant",
-    "url": "spo-list-all-application-customizers/README.html",
+    "url": "https://pnp.github.io/script-samples/spo-list-all-application-customizers/README.html",
     "creationDateTime": "2021-01-17",
     "updateDateTime": "2021-01-17",
     "shortDescription": "Script to list out all the Application Customizers in all the sites in the tenant",
@@ -19,11 +19,14 @@
     "tags": [
       "SharePoint Online",
       "Governance",
-      "bash"
+      "bash",
+      "Imported CLI Sample",
+      "m365 spo search",
+      "m365 spo customaction list"
     ],
     "metadata": [
       {
-        "key": "cli-for-microsoft365",
+        "key": "CLI-FOR-MICROSOFT365",
         "value": "3.7.0"
       }
     ],
@@ -31,7 +34,7 @@
       {
         "type": "image",
         "order": 100,
-        "url": "spo-list-all-application-customizers/assets/preview.png",
+        "url": "https://raw.githubusercontent.com/pnp/script-samples/main/scripts/spo-list-all-application-customizers/assets/preview.png",
         "alt": "preview image for the sample",
         "slides": null
       }
@@ -44,6 +47,17 @@
         "pictureUrl": "https://avatars.githubusercontent.com/u/20379311?v=4"
       }
     ],
-    "references": null
+    "references": [
+      {
+        "name": "Want to learn more about CLI for Microsoft 365 and the commands",
+        "description": "Check out the CLI for Microsoft 365 site to get started and for the reference to the commands.",
+        "url": "https://aka.ms/cli-m365"
+      },
+      {
+        "name": "List all application customizers in a tenant",
+        "description": "This sample first appeared on the CLI for Microsoft 365 documentation site",
+        "url": "https://pnp.github.io/cli-microsoft365/sample-scripts/spo/list-all-application-customizers/"
+      }
+    ]
   }
 ]

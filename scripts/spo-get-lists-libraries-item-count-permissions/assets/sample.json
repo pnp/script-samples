@@ -5,7 +5,7 @@
     "version": null,
     "source": "pnp",
     "title": "Export all List and Libraries with Item count and Permission in CSV",
-    "url": "spo-get-lists-libraries-item-count-permissions/README.html",
+    "url": "https://pnp.github.io/script-samples/spo-get-lists-libraries-item-count-permissions/README.html",
     "creationDateTime": "2021-10-08",
     "updateDateTime": "2021-10-27",
     "shortDescription": "Get all lists and Libraries along with total Item count and permissions and export it in CSV",
@@ -16,15 +16,14 @@
     "categories": [
       "Data"
     ],
-    "tags": [
-    ],
+    "tags": [],
     "metadata": [
       {
-        "key": "pnp-powerShell",
+        "key": "PNP-POWERSHELL",
         "value": "1.5.0"
       },
       {
-        "key": "cli-for-microsoft365",
+        "key": "CLI-FOR-MICROSOFT365",
         "value": "3.7.0"
       }
     ],
@@ -32,7 +31,7 @@
       {
         "type": "image",
         "order": 100,
-        "url": "spo-get-lists-libraries-item-count-permissions/assets/preview.png",
+        "url": "https://raw.githubusercontent.com/pnp/script-samples/main/scripts/spo-get-lists-libraries-item-count-permissions/assets/preview.png",
         "alt": "preview image for the sample",
         "slides": null
       }
@@ -50,6 +49,17 @@
         "pictureUrl": "https://avatars.githubusercontent.com/u/40450958?v=4"
       }
     ],
-    "references": null
+    "references": [
+      {
+        "name": "Want to learn more about PnP PowerShell and the cmdlets",
+        "description": "Check out the PnP PowerShell site to get started and for the reference to the cmdlets.",
+        "url": "https://aka.ms/pnp/powershell"
+      },
+      {
+        "name": "Want to learn more about CLI for Microsoft 365 and the commands",
+        "description": "Check out the CLI for Microsoft 365 site to get started and for the reference to the commands.",
+        "url": "https://aka.ms/cli-m365"
+      }
+    ]
   }
 ]

@@ -5,7 +5,7 @@
     "version": null,
     "source": "pnp",
     "title": "Export conversations from Microsoft Teams Channels",
-    "url": "teams-export-teams-conversations/README.html",
+    "url": "https://pnp.github.io/script-samples/teams-export-teams-conversations/README.html",
     "creationDateTime": "2021-01-29",
     "updateDateTime": "2021-01-29",
     "shortDescription": "This script shows an example for Microsoft 365 to export the conversations from Microsoft Teams Channels",
@@ -18,11 +18,16 @@
     ],
     "tags": [
       "Microsoft Teams",
-      "PowerShell"
+      "PowerShell",
+      "Imported CLI Sample",
+      "m365 teams channel list",
+      "m365 teams message list",
+      "m365 teams message reply list",
+      "m365 teams team list"
     ],
     "metadata": [
       {
-        "key": "cli-for-microsoft365",
+        "key": "CLI-FOR-MICROSOFT365",
         "value": "3.7.0"
       }
     ],
@@ -30,7 +35,7 @@
       {
         "type": "image",
         "order": 100,
-        "url": "teams-export-teams-conversations/assets/preview.png",
+        "url": "https://raw.githubusercontent.com/pnp/script-samples/main/scripts/teams-export-teams-conversations/assets/preview.png",
         "alt": "preview image for the sample",
         "slides": null
       }
@@ -43,6 +48,17 @@
         "pictureUrl": "https://avatars.githubusercontent.com/u/21008316?v=4"
       }
     ],
-    "references": null
+    "references": [
+      {
+        "name": "Want to learn more about CLI for Microsoft 365 and the commands",
+        "description": "Check out the CLI for Microsoft 365 site to get started and for the reference to the commands.",
+        "url": "https://aka.ms/cli-m365"
+      },
+      {
+        "name": "Export conversations from Microsoft Teams Channels",
+        "description": "This sample first appeared on the CLI for Microsoft 365 documentation site",
+        "url": "https://pnp.github.io/cli-microsoft365/sample-scripts/teams/export-teams-conversations/"
+      }
+    ]
   }
 ]

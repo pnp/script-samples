@@ -5,7 +5,7 @@
     "version": null,
     "source": "pnp",
     "title": "Remove a Site Collection Admin User from all Site Collections",
-    "url": "spo-remove-sitecollection-admin-user/README.html",
+    "url": "https://pnp.github.io/script-samples/spo-remove-sitecollection-admin-user/README.html",
     "creationDateTime": "2021-04-19",
     "updateDateTime": "2021-04-19",
     "shortDescription": "This script will remove the designated user for every site in the tenant if he/she is a Site Collection Admin",
@@ -14,15 +14,20 @@
       "SharePoint"
     ],
     "categories": [
-      "Configure"
+      "Configure",
+      "Security"
     ],
     "tags": [
       "SharePoint Online",
-      "Governance"
+      "Governance",
+      "Imported CLI Sample",
+      "m365 spo site classic list",
+      "m365 spo user list",
+      "m365 spo user remove"
     ],
     "metadata": [
       {
-        "key": "cli-for-microsoft365",
+        "key": "CLI-FOR-MICROSOFT365",
         "value": "3.7.0"
       }
     ],
@@ -30,7 +35,7 @@
       {
         "type": "image",
         "order": 100,
-        "url": "spo-remove-sitecollection-admin-user/assets/preview.png",
+        "url": "https://raw.githubusercontent.com/pnp/script-samples/main/scripts/spo-remove-sitecollection-admin-user/assets/preview.png",
         "alt": "preview image for the sample",
         "slides": null
       }
@@ -43,6 +48,17 @@
         "pictureUrl": "https://avatars.githubusercontent.com/u/25181757?v=4"
       }
     ],
-    "references": null
+    "references": [
+      {
+        "name": "Want to learn more about CLI for Microsoft 365 and the commands",
+        "description": "Check out the CLI for Microsoft 365 site to get started and for the reference to the commands.",
+        "url": "https://aka.ms/cli-m365"
+      },
+      {
+        "name": "Remove a Site Collection Admin User from all Site Collections",
+        "description": "This sample first appeared on the CLI for Microsoft 365 documentation site",
+        "url": "https://pnp.github.io/cli-microsoft365/sample-scripts/spo/remove-siteCollection-admin-user/"
+      }
+    ]
   }
 ]

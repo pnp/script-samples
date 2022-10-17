@@ -1,46 +1,57 @@
 [
-    {
-      "name": "spo-provision-homepage",
-      "source": "pnp",
-      "title": "Provision Home Page to a SharePoint site",
-      "shortDescription": "The script exports the page from a source site and provisions it to a destination site",
-      "url": "spo-provision-homepage/README.html",
-      "longDescription": [
-        "The script exports the page from a source site and provisions it to a destination site."
-      ],
-      "creationDateTime": "2021-09-02",
-      "updateDateTime": "2021-09-02",
-      "products": [
-        "SharePoint"
-      ],
-      "metadata": [
-        {
-          "key": "pnp-powerShell",
-          "value": "1.5.0"
-        }
-      ],
-      "categories": [
-        "Data",
-        "Provision"
-      ],
-      "tags":[
-        "classic"
-      ],
-      "thumbnails": [
-        {
-          "type": "image",
-          "order": 100,
-          "url": "spo-provision-homepage/assets/preview.png",
-          "alt": "preview image showing there is no preview"
-        }
-      ],
-      "authors": [
-        {
-          "gitHubAccount": "reshmee011",
-          "company": "",
-          "pictureUrl": "https://avatars.githubusercontent.com/u/7693852?v=4",
-          "name": "Reshmee Auckloo"
-        }
-      ]
-    }
-  ]
+  {
+    "name": "spo-provision-homepage",
+    "source": "pnp",
+    "title": "Provision Home Page to a SharePoint site",
+    "shortDescription": "The script exports the page from a source site and provisions it to a destination site",
+    "url": "https://pnp.github.io/script-samples/spo-provision-homepage/README.html",
+    "longDescription": [
+      "The script exports the page from a source site and provisions it to a destination site."
+    ],
+    "creationDateTime": "2021-09-02",
+    "updateDateTime": "2021-09-02",
+    "products": [
+      "SharePoint"
+    ],
+    "metadata": [
+      {
+        "key": "PNP-POWERSHELL",
+        "value": "1.5.0"
+      }
+    ],
+    "categories": [
+      "Data",
+      "Provision"
+    ],
+    "tags": [
+      "classic",
+      "Connect-PnPOnline",
+      "Export-PnPPage",
+      "Invoke-PnPSiteTemplate",
+      "Set-PnPHomePage"
+    ],
+    "thumbnails": [
+      {
+        "type": "image",
+        "order": 100,
+        "url": "https://raw.githubusercontent.com/pnp/script-samples/main/scripts/spo-provision-homepage/assets/preview.png",
+        "alt": "preview image showing there is no preview"
+      }
+    ],
+    "authors": [
+      {
+        "gitHubAccount": "reshmee011",
+        "company": "",
+        "pictureUrl": "https://avatars.githubusercontent.com/u/7693852?v=4",
+        "name": "Reshmee Auckloo"
+      }
+    ],
+    "references": [
+      {
+        "name": "Want to learn more about PnP PowerShell and the cmdlets",
+        "description": "Check out the PnP PowerShell site to get started and for the reference to the cmdlets.",
+        "url": "https://aka.ms/pnp/powershell"
+      }
+    ]
+  }
+]

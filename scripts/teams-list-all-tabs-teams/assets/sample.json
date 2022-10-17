@@ -5,7 +5,7 @@
     "version": null,
     "source": "pnp",
     "title": "List all tabs in Microsoft Teams teams in the tenant",
-    "url": "teams-list-all-tabs-teams/README.html",
+    "url": "https://pnp.github.io/script-samples/teams-list-all-tabs-teams/README.html",
     "creationDateTime": "2021-02-06",
     "updateDateTime": "2021-02-06",
     "shortDescription": "List all tabs in Microsoft Teams teams in the tenant and exports the results in a CSV",
@@ -18,11 +18,17 @@
     ],
     "tags": [
       "Microsoft Teams",
-      "Governance"
+      "Governance",
+      "Imported CLI Sample",
+      "m365 login",
+      "m365 status",
+      "m365 teams channel list",
+      "m365 teams tab list",
+      "m365 teams team list"
     ],
     "metadata": [
       {
-        "key": "cli-for-microsoft365",
+        "key": "CLI-FOR-MICROSOFT365",
         "value": "3.7.0"
       }
     ],
@@ -30,7 +36,7 @@
       {
         "type": "image",
         "order": 100,
-        "url": "teams-list-all-tabs-teams/assets/preview.png",
+        "url": "https://raw.githubusercontent.com/pnp/script-samples/main/scripts/teams-list-all-tabs-teams/assets/preview.png",
         "alt": "preview image for the sample",
         "slides": null
       }
@@ -49,6 +55,17 @@
         "pictureUrl": "https://avatars.githubusercontent.com/u/18241305?v=4"
       }
     ],
-    "references": null
+    "references": [
+      {
+        "name": "Want to learn more about CLI for Microsoft 365 and the commands",
+        "description": "Check out the CLI for Microsoft 365 site to get started and for the reference to the commands.",
+        "url": "https://aka.ms/cli-m365"
+      },
+      {
+        "name": "List all tabs in Microsoft Teams teams in the tenant",
+        "description": "This sample first appeared on the CLI for Microsoft 365 documentation site",
+        "url": "https://pnp.github.io/cli-microsoft365/sample-scripts/teams/list-all-tabs-teams/"
+      }
+    ]
   }
 ]

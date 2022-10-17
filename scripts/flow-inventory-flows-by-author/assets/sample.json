@@ -5,7 +5,7 @@
     "version": null,
     "source": "pnp",
     "title": "Inventory Flows By Creator",
-    "url": "flow-inventory-flows-by-author/README.html",
+    "url": "https://pnp.github.io/script-samples/flow-inventory-flows-by-author/README.html",
     "creationDateTime": "2020-08-23",
     "updateDateTime": "2021-01-16",
     "shortDescription": "This script retrieves Flows and maps creator information from Azure AD to list Flows by owner, state and trigger type",
@@ -19,11 +19,16 @@
     "tags": [
       "Power Automate",
       "Azure Active Directory",
-      "bash"
+      "bash",
+      "Imported CLI Sample",
+      "m365 status",
+      "m365 aad user get",
+      "m365 flow list",
+      "m365 flow environment list"
     ],
     "metadata": [
       {
-        "key": "cli-for-microsoft365",
+        "key": "CLI-FOR-MICROSOFT365",
         "value": "3.7.0"
       }
     ],
@@ -31,7 +36,7 @@
       {
         "type": "image",
         "order": 100,
-        "url": "flow-inventory-flows-by-author/assets/preview.png",
+        "url": "https://raw.githubusercontent.com/pnp/script-samples/main/scripts/flow-inventory-flows-by-author/assets/preview.png",
         "alt": "preview image for the sample",
         "slides": null
       }
@@ -44,6 +49,17 @@
         "pictureUrl": "https://avatars.githubusercontent.com/u/5527235?v=4"
       }
     ],
-    "references": null
+    "references": [
+      {
+        "name": "Want to learn more about CLI for Microsoft 365 and the commands",
+        "description": "Check out the CLI for Microsoft 365 site to get started and for the reference to the commands.",
+        "url": "https://aka.ms/cli-m365"
+      },
+      {
+        "name": "Inventory Flows By Creator",
+        "description": "This sample first appeared on the CLI for Microsoft 365 documentation site",
+        "url": "https://pnp.github.io/cli-microsoft365/sample-scripts/flow/inventory-flows-by-author/"
+      }
+    ]
   }
 ]

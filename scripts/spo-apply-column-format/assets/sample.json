@@ -1,44 +1,73 @@
 [
-    {
-      "name": "spo-apply-column-format",
-      "source": "pnp",
-      "title": "Script allow copy column format in SharePoint and apply to different column.",
-      "shortDescription": "Copy column format from column or web sample and apply to different column",
-      "url": "spo-apply-column-format/README.html",
-      "longDescription": [],
-      "creationDateTime": "2021-09-29",
-      "updateDateTime": "2021-09-29",
-      "products": [
-        "SharePoint"
-      ],
-      "metadata": [
-        {
-          "key": "pnp-powerShell",
-          "value": "1.7.0"
-        }
-      ],
-      "categories": [
-        "Deploy",
-        "Configure"
-      ],
-      "tags":[
-        "modern"
-      ],
-      "thumbnails": [
-        {
-          "type": "image",
-          "order": 100,
-          "url": "spo-apply-column-format/assets/preview.png",
-          "alt": ""
-        }
-      ],
-      "authors": [
-        {
-          "gitHubAccount": "ValerasNarbutas",
-          "company": "",
-          "pictureUrl": "https://avatars.githubusercontent.com/u/16476453?v=4",
-          "name": "Valeras Narbutas"
-        }
-      ]
-    }
-  ]
+  {
+    "name": "spo-apply-column-format",
+    "source": "pnp",
+    "title": "Script allow copy column format in SharePoint and apply to different column.",
+    "shortDescription": "Copy column format from column or web sample and apply to different column",
+    "url": "https://pnp.github.io/script-samples/spo-apply-column-format/README.html",
+    "longDescription": [],
+    "creationDateTime": "2021-09-29",
+    "updateDateTime": "2022-05-28",
+    "products": [
+      "SharePoint"
+    ],
+    "metadata": [
+      {
+        "key": "PNP-POWERSHELL",
+        "value": "1.7.0"
+      },
+      {
+        "key": "cli-for-microsoft365",
+        "value": "5.2.0"
+      }
+    ],
+    "categories": [
+      "Deploy",
+      "Configure"
+    ],
+    "tags": [
+      "modern",
+      "Connect-PnPOnline",
+      "Get-PnPField",
+      "Set-PnPField",
+      "m365 login",
+      "m365 status",
+      "m365 spo field get",
+      "m365 spo field set"
+    ],
+    "thumbnails": [
+      {
+        "type": "image",
+        "order": 100,
+        "url": "https://raw.githubusercontent.com/pnp/script-samples/main/scripts/spo-apply-column-format/assets/preview.png",
+        "alt": ""
+      }
+    ],
+    "authors": [
+      {
+        "gitHubAccount": "Jwaegebaert",
+        "company": "GMI Group",
+        "pictureUrl": "https://github.com/Jwaegebaert.png",
+        "name": "Jasey Waegebaert"
+      },  
+      {
+        "gitHubAccount": "ValerasNarbutas",
+        "company": "",
+        "pictureUrl": "https://avatars.githubusercontent.com/u/16476453?v=4",
+        "name": "Valeras Narbutas"
+      }
+    ],
+    "references": [
+      {
+        "name": "Want to learn more about PnP PowerShell and the cmdlets",
+        "description": "Check out the PnP PowerShell site to get started and for the reference to the cmdlets.",
+        "url": "https://aka.ms/pnp/powershell"
+      },
+      {
+        "name": "Want to learn more about CLI for Microsoft 365 and the commands",
+        "description": "Check out the CLI for Microsoft 365 site to get started and for the reference to the commands.",
+        "url": "https://aka.ms/cli-m365"
+      }
+    ]
+  }
+]

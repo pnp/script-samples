@@ -1,0 +1,72 @@
+[
+  {
+    "schema": null,
+    "name": "tenant-health-notify-teams",
+    "version": null,
+    "source": "pnp",
+    "title": "Get notified in Microsoft Teams about SharePoint health incidents",
+    "url": "https://pnp.github.io/script-samples/tenant-health-notify-teams/README.html",
+    "creationDateTime": "2022-08-25",
+    "updateDateTime": "2022-08-25",
+    "shortDescription": "This script monitors your SharePoint health status and sends a notifications to a Microsoft Teams channel.",
+    "longDescription": null,
+    "products": [
+      "SharePoint",
+      "Teams",
+      "Office"
+    ],
+    "categories": [
+      "Report"      
+    ],
+    "tags": [
+      "Governance",
+      "Microsoft 365 Health Status",
+      "IT Pro",
+      "Azure Function",
+      "Health Status Monitoring",
+      "Imported CLI Sample",
+      "m365 spo set",
+      "m365 spo list get",
+      "m365 spo list add",
+      "m365 spo listitem list",
+      "m365 spo listitem add",
+      "m365 spo listitem remove",
+      "m365 tenant serviceannouncement healthissue list"
+    ],
+    "metadata": [
+      {
+        "key": "CLI-FOR-MICROSOFT365",
+        "value": "5.6.0"
+      }
+    ],
+    "thumbnails": [
+      {
+        "type": "image",
+        "order": 100,
+        "url": "https://raw.githubusercontent.com/pnp/script-samples/main/scripts/tenant-health-notify-teams/assets/preview.png",
+        "alt": "preview image for the sample",
+        "slides": null
+      }
+    ],
+    "authors": [
+      {
+        "name": "Martin Lingstuyl",
+        "gitHubAccount": "martinlingstuyl",
+        "company": "I4-YOU Business Solutions b.v.",
+        "pictureUrl": "https://avatars.githubusercontent.com/u/5267487?v=4"
+      }
+    ],
+    "references": [
+      {
+        "name": "Want to learn more about CLI for Microsoft 365 and the commands",
+        "description": "Check out the CLI for Microsoft 365 site to get started and for the reference to the commands.",
+        "url": "https://aka.ms/cli-m365"
+      },
+      {
+        "name": "Getting notified of service incidents in Microsoft Teams",
+        "description": "This sample first appeared on the Blimped blog",
+        "url": "https://www.blimped.nl/getting-notified-of-service-incidents-in-microsoft-teams/"
+      }
+    ]
+  }
+]

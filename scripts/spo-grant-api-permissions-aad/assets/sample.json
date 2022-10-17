@@ -5,7 +5,7 @@
     "version": null,
     "source": "pnp",
     "title": "Grant API permissions to SharePoint Azure AD Application",
-    "url": "spo-grant-api-permissions-aad/README.html",
+    "url": "https://pnp.github.io/script-samples/spo-grant-api-permissions-aad/README.html",
     "creationDateTime": "2021-03-19",
     "updateDateTime": "2021-03-19",
     "shortDescription": "Reduce steps for configuring SPFx web parts to use Microsoft Graph",
@@ -15,17 +15,21 @@
       "Graph"
     ],
     "categories": [
-      "Configure"
+      "Configure",
+      "Security"
     ],
     "tags": [
       "SharePoint Online",
       "Azure Active Directory",
       "Microsoft Graph",
-      "bash"
+      "bash",
+      "Imported CLI Sample",
+      "m365 login",
+      "m365 spo serviceprincipal grant add"
     ],
     "metadata": [
       {
-        "key": "cli-for-microsoft365",
+        "key": "CLI-FOR-MICROSOFT365",
         "value": "3.7.0"
       }
     ],
@@ -33,7 +37,7 @@
       {
         "type": "image",
         "order": 100,
-        "url": "spo-grant-api-permissions-aad/assets/preview.png",
+        "url": "https://raw.githubusercontent.com/pnp/script-samples/main/scripts/spo-grant-api-permissions-aad/assets/preview.png",
         "alt": "preview image for the sample",
         "slides": null
       }
@@ -46,6 +50,17 @@
         "pictureUrl": "https://avatars.githubusercontent.com/u/44271458?v=4"
       }
     ],
-    "references": null
+    "references": [
+      {
+        "name": "Want to learn more about CLI for Microsoft 365 and the commands",
+        "description": "Check out the CLI for Microsoft 365 site to get started and for the reference to the commands.",
+        "url": "https://aka.ms/cli-m365"
+      },
+      {
+        "name": "Grant API permissions to SharePoint Azure AD Application",
+        "description": "This sample first appeared on the CLI for Microsoft 365 documentation site",
+        "url": "https://pnp.github.io/cli-microsoft365/sample-scripts/spo/grant-api-permissions-aad/"
+      }
+    ]
   }
 ]

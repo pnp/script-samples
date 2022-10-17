@@ -31,7 +31,7 @@ Write-Host "Done! :-)" -ForegroundColor Green
 ```powershell
 
 $m365Status = m365 status
-if ($m365Status -eq "Logged Out") {
+if ($m365Status -match "Logged Out") {
     m365 login
 }
 
@@ -60,4 +60,4 @@ Sample first appeared on [Prevent document library deletion | CaPa Creative Ltd]
 
 
 [!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
-<img src="https://telemetry.sharepointpnp.com/script-samples/scripts/remove-delete-option-library" aria-hidden="true" />
+<img src="https://pnptelemetry.azurewebsites.net/script-samples/scripts/remove-delete-option-library" aria-hidden="true" />

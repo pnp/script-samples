@@ -1,0 +1,82 @@
+[
+  {
+    "name": "aad-get-app-permission",
+    "source": "pnp",
+    "title": "Get Azure AD app permission info (delegated or application)",
+    "shortDescription": "Get any existing delegated or application permission info associated to a Microsoft AAD app from its name",
+    "url": "https://pnp.github.io/script-samples/aad-get-app-permission/README.html",
+    "longDescription": [
+      ""
+    ],
+    "creationDateTime": "2022-08-10",
+    "updateDateTime": "2022-08-10",
+    "products": [
+      "SharePoint",
+      "Graph",
+      "Azure"
+    ],
+    "metadata": [
+      {
+        "key": "CLI-FOR-MICROSOFT365",
+        "value": "5.5.0"
+      },
+      {
+        "key": "GRAPH-POWERSHELL",
+        "value": "1.11.0"
+      },
+      {
+        "key": "POWERSHELL",
+        "value": "7.2.1"
+      }
+    ],
+    "categories": [
+      "Data",
+      "Configure",
+      "Report",
+      "Security"
+    ],
+    "tags": [
+      "classic",
+      "m365 login",
+      "m365 status",
+      "m365 aad sp get",
+      "m365 cli config get",
+      "m365 cli config set",
+      "Connect-MgGraph",
+      "Get-MgServicePrincipal"
+    ],
+    "thumbnails": [
+      {
+        "type": "image",
+        "order": 100,
+        "url": "https://raw.githubusercontent.com/pnp/script-samples/main/scripts/aad-get-app-permission/assets/preview.png",
+        "alt": "Preview of the sample Get Azure AD app permission info (delegated or application)"
+      }
+    ],
+    "authors": [
+      {
+        "gitHubAccount": "michaelmaillot",
+        "company": "onepoint",
+        "pictureUrl": "https://github.com/michaelmaillot.png",
+        "name": "Michaël Maillot"
+      }
+    ],
+    "references": [
+      {
+        "name": "Want to learn more about PnP PowerShell and the cmdlets",
+        "description": "Check out the PnP PowerShell site to get started and for the reference to the cmdlets.",
+        "url": "https://aka.ms/pnp/powershell"
+      },
+      {
+        "name": "Want to learn more about CLI for Microsoft 365 and the commands",
+        "description": "Check out the CLI for Microsoft 365 site to get started and for the reference to the commands.",
+        "url": "https://aka.ms/cli-m365"
+      },
+      {
+        "name": "Want to learn more about Microsoft Graph PowerShell SDK and the cmdlets",
+        "description": "Check out the Microsoft Graph PowerShell SDK documentation site to get started and for the reference to the cmdlets.",
+        "url": "https://docs.microsoft.com/en-us/graph/powershell/get-started"
+      }
+    ]
+  }
+]

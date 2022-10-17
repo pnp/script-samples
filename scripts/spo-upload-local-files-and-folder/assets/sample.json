@@ -5,7 +5,7 @@
     "version": null,
     "source": "pnp",
     "title": "Upload local files and folders to SharePoint Online",
-    "url": "spo-upload-local-files-and-folder/README.html",
+    "url": "https://pnp.github.io/script-samples/spo-upload-local-files-and-folder/README.html",
     "creationDateTime": "2021-04-13",
     "updateDateTime": "2021-04-13",
     "shortDescription": "This script shows how to upload files located on a local folder to a SharePoint Online library or subfolder",
@@ -17,11 +17,16 @@
       "Data"
     ],
     "tags": [
-      "SharePoint Migration"
+      "SharePoint Migration",
+      "Imported CLI Sample",
+      "m365 login",
+      "m365 status",
+      "m365 spo file add",
+      "m365 spo folder add"
     ],
     "metadata": [
       {
-        "key": "cli-for-microsoft365",
+        "key": "CLI-FOR-MICROSOFT365",
         "value": "3.7.0"
       }
     ],
@@ -29,7 +34,7 @@
       {
         "type": "image",
         "order": 100,
-        "url": "spo-upload-local-files-and-folder/assets/preview.png",
+        "url": "https://raw.githubusercontent.com/pnp/script-samples/main/scripts/spo-upload-local-files-and-folder/assets/preview.png",
         "alt": "preview image for the sample",
         "slides": null
       }
@@ -48,6 +53,17 @@
         "pictureUrl": "https://avatars.githubusercontent.com/u/58668583?v=4"
       }
     ],
-    "references": null
+    "references": [
+      {
+        "name": "Want to learn more about CLI for Microsoft 365 and the commands",
+        "description": "Check out the CLI for Microsoft 365 site to get started and for the reference to the commands.",
+        "url": "https://aka.ms/cli-m365"
+      },
+      {
+        "name": "Upload local files and folders to SharePoint Online",
+        "description": "This sample first appeared on the CLI for Microsoft 365 documentation site",
+        "url": "https://pnp.github.io/cli-microsoft365/sample-scripts/spo/upload-local-files-and-folder/"
+      }
+    ]
   }
 ]

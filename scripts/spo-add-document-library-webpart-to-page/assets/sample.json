@@ -1,53 +1,70 @@
 [
-    {
-      "name": "spo-add-document-library-webpart-to-page",
-      "source": "pnp",
-      "title": "Add a document library web part to a page",
-      "shortDescription": "Add a document library web part to a page (and only show a specific folder)",
-      "url": "spo-add-document-library-webpart-to-page/README.html",
-      "longDescription": [
-        ""
-      ],
-      "creationDateTime": "2021-06-18",
-      "updateDateTime": "2021-11-10",
-      "products": [
-        "SharePoint"
-      ],
-      "metadata": [
-        {
-          "key": "pnp-powerShell",
-          "value": "1.5.0"
-        },
-        {
-          "key": "cli-for-microsoft365",
-          "value": "6.14.22"
-        }
-      ],
-      "categories": [
-        "Configure"
-      ],
-      "tags":[
-      ],
-      "thumbnails": [
-        {
-          "type": "image",
-          "order": 100,
-          "url": "spo-add-document-library-webpart-to-page/assets/preview.png",
-          "alt": ""
-        }
-      ],
-      "authors": [
-        {
-          "gitHubAccount": "Adam-it",
-          "pictureUrl": "https://avatars.githubusercontent.com/u/58668583?v=4",
-          "name": "Adam Wójcik"
-        },
-        {
-          "gitHubAccount": "Marijnsomers",
-          "company": "Mijn 365 Coach",
-          "pictureUrl": "https://avatars.githubusercontent.com/u/47852415?v=4",
-          "name": "Marijn Somers"
-        }
-      ]
-    }
-  ]
+  {
+    "name": "spo-add-document-library-webpart-to-page",
+    "source": "pnp",
+    "title": "Add a document library web part to a page",
+    "shortDescription": "Add a document library web part to a page (and only show a specific folder)",
+    "url": "https://pnp.github.io/script-samples/spo-add-document-library-webpart-to-page/README.html",
+    "longDescription": [
+      ""
+    ],
+    "creationDateTime": "2021-06-18",
+    "updateDateTime": "2022-08-01",
+    "products": [
+      "SharePoint"
+    ],
+    "metadata": [
+      {
+        "key": "PNP-POWERSHELL",
+        "value": "1.11.0"
+      },
+      {
+        "key": "CLI-FOR-MICROSOFT365",
+        "value": "6.14.22"
+      }
+    ],
+    "categories": [
+      "Configure"
+    ],
+    "tags": [],
+    "thumbnails": [
+      {
+        "type": "image",
+        "order": 100,
+        "url": "https://raw.githubusercontent.com/pnp/script-samples/main/scripts/spo-add-document-library-webpart-to-page/assets/preview.png",
+        "alt": ""
+      }
+    ],
+    "authors": [
+      {
+        "gitHubAccount": "ToddKlindt",
+        "company": "",
+        "pictureUrl": "https://github.com/ToddKlindt.png",
+        "name": "Todd Klindt"
+      },
+      {
+        "gitHubAccount": "Adam-it",
+        "pictureUrl": "https://avatars.githubusercontent.com/u/58668583?v=4",
+        "name": "Adam Wójcik"
+      },
+      {
+        "gitHubAccount": "Marijnsomers",
+        "company": "Mijn 365 Coach",
+        "pictureUrl": "https://avatars.githubusercontent.com/u/47852415?v=4",
+        "name": "Marijn Somers"
+      }
+    ],
+    "references": [
+      {
+        "name": "Want to learn more about PnP PowerShell and the cmdlets",
+        "description": "Check out the PnP PowerShell site to get started and for the reference to the cmdlets.",
+        "url": "https://aka.ms/pnp/powershell"
+      },
+      {
+        "name": "Want to learn more about CLI for Microsoft 365 and the commands",
+        "description": "Check out the CLI for Microsoft 365 site to get started and for the reference to the commands.",
+        "url": "https://aka.ms/cli-m365"
+      }
+    ]
+  }
+]

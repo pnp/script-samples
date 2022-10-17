@@ -1,0 +1,78 @@
+[
+  {
+    "name": "spo-create-bulk-libraries",
+    "source": "pnp",
+    "title": "Bulk library generation",
+    "shortDescription": "With this sample, you can create a whole bunch of libraries at once.",
+    "url": "https://pnp.github.io/script-samples/spo-create-bulk-libraries/README.html",
+    "longDescription": [
+      "With this sample, you can create a whole bunch of libraries at once. These are fairly simple libraries with an extra view and a few extra columns."
+    ],
+    "creationDateTime": "2022-03-29",
+    "updateDateTime": "2022-05-27",
+    "products": [
+      "SharePoint"
+    ],
+    "metadata": [
+      {
+        "key": "PNP-POWERSHELL",
+        "value": "1.9.0"
+      },
+      {
+        "key": "CLI-FOR-MICROSOFT365",
+        "value": "4.3.0"
+      }
+    ],
+    "categories": [
+      "Data",
+      "Provision"
+    ],
+    "tags": [
+      "bash",
+      "classic",
+      "m365 login",
+      "m365 status",
+      "m365 spo field add",
+      "m365 spo list add",
+      "m365 spo list view add",
+      "Add-PnPField",
+      "Add-PnPView",
+      "Connect-PnPOnline",
+      "New-PnPList"
+    ],
+    "thumbnails": [
+      {
+        "type": "image",
+        "order": 100,
+        "url": "https://raw.githubusercontent.com/pnp/script-samples/main/scripts/spo-create-bulk-libraries/assets/preview.png",
+        "alt": "Preview of the sample bulk library generation"
+      }
+    ],
+    "authors": [
+      {
+        "gitHubAccount": "milanholemans",
+        "company": "",
+        "pictureUrl": "https://github.com/milanholemans.png",
+        "name": "Milan Holemans"
+      },
+      {
+        "gitHubAccount": "Jwaegebaert",
+        "company": "GMI Group",
+        "pictureUrl": "https://github.com/Jwaegebaert.png",
+        "name": "Jasey Waegebaert"
+      }
+    ],
+    "references": [
+      {
+        "name": "Want to learn more about PnP PowerShell and the cmdlets",
+        "description": "Check out the PnP PowerShell site to get started and for the reference to the cmdlets.",
+        "url": "https://aka.ms/pnp/powershell"
+      },
+      {
+        "name": "Want to learn more about CLI for Microsoft 365 and the commands",
+        "description": "Check out the CLI for Microsoft 365 site to get started and for the reference to the commands.",
+        "url": "https://aka.ms/cli-m365"
+      }
+    ]
+  }
+]

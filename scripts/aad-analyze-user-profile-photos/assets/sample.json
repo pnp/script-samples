@@ -5,10 +5,10 @@
     "version": null,
     "source": "pnp",
     "title": "Analyze User Profile Photos using Azure Computer Vision API",
-    "url": "aad-analyze-user-profile-photos/README.html",
+    "url": "https://pnp.github.io/script-samples/aad-analyze-user-profile-photos/README.html",
     "creationDateTime": "2020-11-05",
     "updateDateTime": "2020-11-05",
-    "shortDescription": "This script uses Azure Cognitive Service API to analyze user profile pictures and assess whether they meet the standards of the organization",
+    "shortDescription": "This script uses Azure Cognitive Service API to analyze user profile pictures and check they meet the standards of the organization",
     "longDescription": null,
     "products": [
       "AzureAD"
@@ -20,11 +20,14 @@
       "Azure",
       "Computer Vision API",
       "Microsoft 365",
-      "PowerShell"
+      "PowerShell",
+      "Imported CLI Sample",
+      "m365 aad user list",
+      "m365 util accesstoken get"
     ],
     "metadata": [
       {
-        "key": "cli-for-microsoft365",
+        "key": "CLI-FOR-MICROSOFT365",
         "value": "3.7.0"
       }
     ],
@@ -32,7 +35,7 @@
       {
         "type": "image",
         "order": 100,
-        "url": "aad-analyze-user-profile-photos/assets/preview.png",
+        "url": "https://raw.githubusercontent.com/pnp/script-samples/main/scripts/aad-analyze-user-profile-photos/assets/preview.png",
         "alt": "preview image for the sample",
         "slides": null
       }
@@ -45,6 +48,17 @@
         "pictureUrl": "https://avatars.githubusercontent.com/u/21008316?v=4"
       }
     ],
-    "references": null
+    "references": [
+      {
+        "name": "Want to learn more about CLI for Microsoft 365 and the commands",
+        "description": "Check out the CLI for Microsoft 365 site to get started and for the reference to the commands.",
+        "url": "https://aka.ms/cli-m365"
+      },
+      {
+        "name": "Analyze User Profile Photos using Azure Computer Vision API",
+        "description": "This sample first appeared on the CLI for Microsoft 365 documentation site",
+        "url": "https://pnp.github.io/cli-microsoft365/sample-scripts/aad/analyze-user-profile-photos/"
+      }
+    ]
   }
 ]

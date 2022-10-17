@@ -1,0 +1,70 @@
+[
+  {
+    "name": "whiteboard-report-usage",
+    "source": "powershell",
+    "title": "Export a csv report on all Whiteboards",
+    "shortDescription": "Export a report on all Whiteboard owners and it's usage.",
+    "url": "https://pnp.github.io/script-samples/whiteboard-report-usage/README.html",
+    "longDescription": [
+      "This script allow us to export a list of all Whiteboards created in our tenant and it's owner."
+    ],
+    "creationDateTime": "2022-03-06",
+    "updateDateTime": "2022-04-14",
+    "products": [
+      "Office",
+      "Whiteboard"
+    ],
+    "metadata": [
+      {
+        "key": "MICROSOFTWHITEBOARDADMIN",
+        "value": "1.6.0"
+      },
+      {
+        "key": "GRAPH-POWERSHELL",
+        "value": "1.9.5"
+      }
+    ],
+    "categories": [
+      "Data",
+      "Report"
+    ],
+    "tags": [
+      "Whiteboard",
+      "Report",
+      "Connect-MgGraph",
+      "Get-MgUser"
+    ],
+    "thumbnails": [
+      {
+        "type": "image",
+        "order": 100,
+        "url": "https://raw.githubusercontent.com/pnp/script-samples/main/scripts/whiteboard-report-usage/assets/preview.png",
+        "alt": "Preview of the sample Export a csv report on all Whiteboards"
+      }
+    ],
+    "authors": [
+      {
+        "gitHubAccount": "nanddeepn",
+        "pictureUrl": "https://github.com/nanddeepn.png",
+        "name": "Nanddeep Nachan"
+      },
+      {
+        "gitHubAccount": "SmitaNachan",
+        "pictureUrl": "https://github.com/SmitaNachan.png",
+        "name": "Smita Nachan"
+      }
+    ],
+    "references": [
+      {
+        "name": "Want to learn more about Whiteboard Admin cmdlets",
+        "description": "Check out the Whiteboard Admin cmdlets documentation site to get started and for the reference to the commands.",
+        "url": "https://docs.microsoft.com/en-us/powershell/module/whiteboard/?view=whiteboard-ps"
+      },
+      {
+        "name": "Alterative approach to reporting Whiteboards with PowerShell with Graph PowerShell",
+        "description": "Blog: Whiteboard Nears End of Transition to OneDrive | Office IT Pros ](https://office365itpros.com/2022/03/10/whiteboard-transition-ending/",
+        "url": "https://office365itpros.com/2022/03/10/whiteboard-transition-ending"
+      }
+    ]
+  }
+]

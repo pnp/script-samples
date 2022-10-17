@@ -5,7 +5,7 @@
     "version": null,
     "source": "pnp",
     "title": "Recognize most active users for a specific Team",
-    "url": "teams-recognize-most-active-users-specific-team/README.html",
+    "url": "https://pnp.github.io/script-samples/teams-recognize-most-active-users-specific-team/README.html",
     "creationDateTime": "2021-08-03",
     "updateDateTime": "2021-08-03",
     "shortDescription": "Retrieves all activities for a specific Microsoft Teams Team and shares the top 3 contributors based on their score ",
@@ -19,11 +19,17 @@
     ],
     "tags": [
       "Microsoft Teams",
-      "Adoption"
+      "Adoption",
+      "Imported CLI Sample",
+      "m365 aad user get",
+      "m365 adaptivecard send",
+      "m365 teams channel list",
+      "m365 teams message list",
+      "m365 teams message reply list"
     ],
     "metadata": [
       {
-        "key": "cli-for-microsoft365",
+        "key": "CLI-FOR-MICROSOFT365",
         "value": "3.7.0"
       }
     ],
@@ -31,7 +37,7 @@
       {
         "type": "image",
         "order": 100,
-        "url": "teams-recognize-most-active-users-specific-team/assets/preview.png",
+        "url": "https://raw.githubusercontent.com/pnp/script-samples/main/scripts/teams-recognize-most-active-users-specific-team/assets/preview.png",
         "alt": "preview image for the sample",
         "slides": null
       }
@@ -44,6 +50,17 @@
         "pictureUrl": "https://avatars.githubusercontent.com/u/15227781?v=4"
       }
     ],
-    "references": null
+    "references": [
+      {
+        "name": "Want to learn more about CLI for Microsoft 365 and the commands",
+        "description": "Check out the CLI for Microsoft 365 site to get started and for the reference to the commands.",
+        "url": "https://aka.ms/cli-m365"
+      },
+      {
+        "name": "Recognize most active users for a specific Team",
+        "description": "This sample first appeared on the CLI for Microsoft 365 documentation site",
+        "url": "https://pnp.github.io/cli-microsoft365/sample-scripts/teams/recognize-most-active-users-specific-team/"
+      }
+    ]
   }
 ]

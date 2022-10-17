@@ -1,43 +1,71 @@
 [
-    {
-      "name": "spo-get-and-export-list-fields",
-      "source": "pnp",
-      "title": "Get SharePoint List Fields With Required properties And Export It To CSV",
-      "shortDescription": "This script sample shows how to get list fields with some required propertiesand export it to CSV ",
-      "url": "spo-get-and-export-list-fields/README.html",
-      "longDescription": [
-        "This sample read site url and list/library title from user and fetch some required field properties and then export it to CSV"
-      ],
-      "creationDateTime": "2021-10-13",
-      "updateDateTime": "2021-10-13",
-      "products": [
-        "SharePoint"
-      ],
-      "metadata": [
-        {
-          "key": "pnp-powerShell",
-          "value": "1.5.0"
-        }
-      ],
-      "categories": [
-        "Data",
-        "Report"
-      ],
-      "tags":[],
-      "thumbnails": [
-        {
-          "type": "image",
-          "order": 100,
-          "url": "spo-get-and-export-list-fields/assets/preview.png",
-          "alt": ""
-        }
-      ],
-      "authors": [
-        {
-          "gitHubAccount": "chandaniprajapati",
-          "pictureUrl": "https://avatars.githubusercontent.com/u/52065929?v=4",
-          "name": "Chandani Prajapati"
-        }
-      ]
-    }
-  ]
+  {
+    "name": "spo-get-and-export-list-fields",
+    "source": "pnp",
+    "title": "Get SharePoint List Fields With Required properties And Export It To CSV",
+    "shortDescription": "This script sample shows how to get list fields with some required propertiesand export it to CSV ",
+    "url": "https://pnp.github.io/script-samples/spo-get-and-export-list-fields/README.html",
+    "longDescription": [
+      "This sample read site url and list/library title from user and fetch some required field properties and then export it to CSV"
+    ],
+    "creationDateTime": "2021-10-13",
+    "updateDateTime": "2022-05-27",
+    "products": [
+      "SharePoint"
+    ],
+    "metadata": [
+      {
+        "key": "PNP-POWERSHELL",
+        "value": "1.5.0"
+      },
+      {
+        "key": "CLI-FOR-MICROSOFT365",
+        "value": "3.7.0"
+      }
+    ],
+    "categories": [
+      "Data",
+      "Report"
+    ],
+    "tags": [
+      "m365 login",
+      "m365 status",
+      "m365 spo field get",
+      "m365 spo field list",
+      "Connect-PnPOnline",
+      "Get-PnPField"
+    ],
+    "thumbnails": [
+      {
+        "type": "image",
+        "order": 100,
+        "url": "https://raw.githubusercontent.com/pnp/script-samples/main/scripts/spo-get-and-export-list-fields/assets/preview.png",
+        "alt": ""
+      }
+    ],
+    "authors": [
+      {
+        "gitHubAccount": "nanddeepn",
+        "pictureUrl": "https://github.com/nanddeepn.png",
+        "name": "Nanddeep Nachan"
+      },
+      {
+        "gitHubAccount": "chandaniprajapati",
+        "pictureUrl": "https://avatars.githubusercontent.com/u/52065929?v=4",
+        "name": "Chandani Prajapati"
+      }
+    ],
+    "references": [
+      {
+        "name": "Want to learn more about PnP PowerShell and the cmdlets",
+        "description": "Check out the PnP PowerShell site to get started and for the reference to the cmdlets.",
+        "url": "https://aka.ms/pnp/powershell"
+      },
+      {
+        "name": "Want to learn more about CLI for Microsoft 365 and the commands",
+        "description": "Check out the CLI for Microsoft 365 site to get started and for the reference to the commands.",
+        "url": "https://aka.ms/cli-m365"
+      }
+    ]
+  }
+]

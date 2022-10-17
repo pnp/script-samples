@@ -40,4 +40,4 @@ Sample first appeared on [Resubmit all failed flow runs for a flow in an environ
 
 
 [!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
-<img src="https://telemetry.sharepointpnp.com/script-samples/scripts/flow-resubmit-all-failed-flow-runs" aria-hidden="true" />
+<img src="https://pnptelemetry.azurewebsites.net/script-samples/scripts/flow-resubmit-all-failed-flow-runs" aria-hidden="true" />

@@ -74,7 +74,7 @@ $listName = "LargeListTitle"
 
 
 $m365Status = m365 status
-if ($m365Status -eq "Logged Out") {
+if ($m365Status -match "Logged Out") {
   Write-Host "Logging in the User!"
   m365 login --authType browser
 }
@@ -134,4 +134,4 @@ for ($i = 0; $i -lt $pageNumber; $i++)
 | Valeras Narbutas |
 
 [!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
-<img src="https://telemetry.sharepointpnp.com/script-samples/scripts/spo-list-items-large-lists" aria-hidden="true" />
+<img src="https://pnptelemetry.azurewebsites.net/script-samples/scripts/spo-list-items-large-lists" aria-hidden="true" />

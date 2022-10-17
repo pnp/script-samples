@@ -1,0 +1,57 @@
+[
+  {
+    "name": "spo-request-pnp-reindex-user-profile",
+    "source": "pnp",
+    "title": "Request Reindex of SharePoint User Profile Properties",
+    "shortDescription": "This function, Request-PnPReindexUserProfile, triggers a full crawl of each user's profile properties.",
+    "url": "https://pnp.github.io/script-samples/spo-request-pnp-reindex-user-profile/README.html",
+    "longDescription": [
+      ""
+    ],
+    "creationDateTime": "2022-07-28",
+    "updateDateTime": "2022-08-01",
+    "products": [
+      "SharePoint"
+    ],
+    "metadata": [
+      {
+        "key": "PNP-POWERSHELL",
+        "value": "1.11.0"
+      }
+    ],
+    "categories": [
+      "Configure"
+    ],
+    "tags": [
+      "Connect-PnPOnline",
+      "Get-PnPList",
+      "Get-PnPProperty",
+      "Get-PnPUPABulkImportStatus",
+      "New-PnPUPABulkImportJob",
+      "Submit-PnPSearchQuery"
+    ],
+    "thumbnails": [
+      {
+        "type": "image",
+        "order": 100,
+        "url": "https://raw.githubusercontent.com/pnp/script-samples/main/scripts/spo-request-pnp-reindex-user-profile/assets/preview.png",
+        "alt": "Preview of the sample Request Reindex of SharePoint User Profile Properties"
+      }
+    ],
+    "authors": [
+      {
+        "gitHubAccount": "ToddKlindt",
+        "company": "",
+        "pictureUrl": "https://github.com/ToddKlindt.png",
+        "name": "Todd Klindt"
+      }
+    ],
+    "references": [
+      {
+        "name": "Want to learn more about PnP PowerShell and the cmdlets",
+        "description": "Check out the PnP PowerShell site to get started and for the reference to the cmdlets.",
+        "url": "https://aka.ms/pnp/powershell"
+      }
+    ]
+  }
+]

@@ -5,7 +5,7 @@
     "version": null,
     "source": "pnp",
     "title": "List all team members in Microsoft Teams teams in the tenant",
-    "url": "teams-list-all-teammembers-teams/README.html",
+    "url": "https://pnp.github.io/script-samples/teams-list-all-teammembers-teams/README.html",
     "creationDateTime": "2021-08-21",
     "updateDateTime": "2021-08-21",
     "shortDescription": "List all team members in Microsoft Teams teams in the tenant",
@@ -14,15 +14,20 @@
       "Teams"
     ],
     "categories": [
-      "Data"
+      "Data",
+      "Security"
     ],
     "tags": [
       "Microsoft Teams",
-      "Governance"
+      "Governance",
+      "Imported CLI Sample",
+      "m365 login",
+      "m365 status",
+      "m365 teams user list"
     ],
     "metadata": [
       {
-        "key": "cli-for-microsoft365",
+        "key": "CLI-FOR-MICROSOFT365",
         "value": "3.7.0"
       }
     ],
@@ -30,17 +35,30 @@
       {
         "type": "image",
         "order": 100,
-        "url": "teams-list-all-teammembers-teams/assets/preview.png",
+        "url": "https://raw.githubusercontent.com/pnp/script-samples/main/scripts/teams-list-all-teammembers-teams/assets/preview.png",
         "alt": "preview image for the sample",
         "slides": null
       }
     ],
-    "authors":[{
-      "name": "Sudharsan Kesavanarayanan",
-      "gitHubAccount": "sudharsank",
-      "company": "NTT Digital Business Solutions",
-      "pictureUrl": "https://avatars.githubusercontent.com/u/10280385?v=4"
-    }],
-    "references": null
+    "authors": [
+      {
+        "name": "Sudharsan Kesavanarayanan",
+        "gitHubAccount": "sudharsank",
+        "company": "NTT Digital Business Solutions",
+        "pictureUrl": "https://avatars.githubusercontent.com/u/10280385?v=4"
+      }
+    ],
+    "references": [
+      {
+        "name": "Want to learn more about CLI for Microsoft 365 and the commands",
+        "description": "Check out the CLI for Microsoft 365 site to get started and for the reference to the commands.",
+        "url": "https://aka.ms/cli-m365"
+      },
+      {
+        "name": "List all team members in Microsoft Teams teams in the tenant",
+        "description": "This sample first appeared on the CLI for Microsoft 365 documentation site",
+        "url": "https://pnp.github.io/cli-microsoft365/sample-scripts/teams/list-all-teammembers-teams/"
+      }
+    ]
   }
 ]

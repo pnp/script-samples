@@ -5,7 +5,7 @@
     "version": null,
     "source": "pnp",
     "title": "Scan for Microsoft 365 Groups created with user's first or last name",
-    "url": "aad-flag-groups-with-user-names/README.html",
+    "url": "https://pnp.github.io/script-samples/aad-flag-groups-with-user-names/README.html",
     "creationDateTime": "2020-08-23",
     "updateDateTime": "2020-08-23",
     "shortDescription": "This sample script scans the Microsoft 365 groups that may contain user's first or last name as the group mail",
@@ -15,16 +15,20 @@
       "Office"
     ],
     "categories": [
-      "Report"
+      "Report",
+      "Security"
     ],
     "tags": [
       "Microsoft 365 Group",
       "Governance",
-      "bash"
+      "bash",
+      "Imported CLI Sample",
+      "m365 aad o365group list",
+      "m365 aad user list"
     ],
     "metadata": [
       {
-        "key": "cli-for-microsoft365",
+        "key": "CLI-FOR-MICROSOFT365",
         "value": "3.7.0"
       }
     ],
@@ -32,7 +36,7 @@
       {
         "type": "image",
         "order": 100,
-        "url": "aad-flag-groups-with-user-names/assets/preview.png",
+        "url": "https://raw.githubusercontent.com/pnp/script-samples/main/scripts/aad-flag-groups-with-user-names/assets/preview.png",
         "alt": "preview image for the sample",
         "slides": null
       }
@@ -45,6 +49,17 @@
         "pictureUrl": "https://avatars.githubusercontent.com/u/21008316?v=4"
       }
     ],
-    "references": null
+    "references": [
+      {
+        "name": "Want to learn more about CLI for Microsoft 365 and the commands",
+        "description": "Check out the CLI for Microsoft 365 site to get started and for the reference to the commands.",
+        "url": "https://aka.ms/cli-m365"
+      },
+      {
+        "name": "Scan for Microsoft 365 Groups created with user's first or last name",
+        "description": "This sample first appeared on the CLI for Microsoft 365 documentation site",
+        "url": "https://pnp.github.io/cli-microsoft365/sample-scripts/aad/flag-groups-with-user-names/"
+      }
+    ]
   }
 ]

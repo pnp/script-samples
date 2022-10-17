@@ -94,14 +94,55 @@ ConnectToSPSite
 
 ```
 [!INCLUDE [More about PnP PowerShell](../../docfx/includes/MORE-PNPPS.md)]
-***
 
+
+# [CLI for Microsoft 365](#tab/cli-m365-ps)
+```powershell
+Function Login {
+    Write-Host "Connecting to Tenant Site" -f Yellow   
+    $m365Status = m365 status
+
+    if ($m365Status -match "Logged Out") {
+      m365 login
+    }
+}
+
+Function ExportListFields {
+    $webUrl = Read-Host "Please enter Site URL"
+    $listTitle = Read-Host "Please enter list name"
+
+    try {
+        $listFields = m365 spo field list --webUrl $webUrl --listTitle $listTitle --output json | ConvertFrom-Json
+
+        $listFieldsReports = @()
+
+        foreach ($listField in $listFields) {
+            Write-Host "Processing field: $($listField.Title) - $($listField.Id)"
+            $field = m365 spo field get --webUrl $webUrl --listTitle $listTitle --id $listField.Id --output json | ConvertFrom-Json
+            $listFieldsReports += $field
+        }
+    
+        $dateTime = "_{0:MM_dd_yy}_{0:HH_mm_ss}" -f (Get-Date)
+        $csvPath = ".\ListFields" + $dateTime + ".csv"
+        $listFieldsReports | ConvertTo-Csv -NoTypeInformation | Out-File -FilePath "SearchResults.csv"
+    }
+    catch {
+        Write-Host "Error in getting list fields: " $_.Exception.Message -ForegroundColor Red                 
+    }
+}
+
+Login
+ExportListFields
+```
+[!INCLUDE [More about CLI for Microsoft 365](../../docfx/includes/MORE-CLIM365.md)]
+***
 
 ## Contributors
 
 | Author(s) |
 |-----------|
 | Chandani Prajapati |
+| Nanddeep Nachan |
 
 [!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
-<img src="https://telemetry.sharepointpnp.com/script-samples/scripts/spo-get-and-export-list-fields" aria-hidden="true" />
+<img src="https://pnptelemetry.azurewebsites.net/script-samples/scripts/spo-get-and-export-list-fields" aria-hidden="true" />

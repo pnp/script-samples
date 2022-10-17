@@ -8,7 +8,9 @@ $(document).ready(function () {
   var filterText = $('#sample-listing').data("filter");
   var qsRegex;
   var buttonFilter;
-
+  // var urlParams = new URLSearchParams(window.location.search);
+  // var query = urlParams.get('query');
+  
   // init Isotope
   var $grid = $('#sample-listing').isotope({
     itemSelector: '.sample-thumbnail',
@@ -20,12 +22,15 @@ $(document).ready(function () {
       title: '.sample-title'
     },
     filter: function () {
+      
+      //var urlResult = query ? $(this).data("keywords").match(query): true;
       var searchResult = qsRegex ? $(this).data("keywords").match(qsRegex) : true;
       var buttonResult = buttonFilter ? $(this).is(buttonFilter) : true;
+      
       return searchResult && buttonResult;
     },
 
-    fitRows:{
+    fitRows: {
       columnWidth: '.grid-sizer'
     }
 
@@ -89,8 +94,8 @@ $(document).ready(function () {
       filter.filter('.active').each(function () {
         filters.push($(this).data("filter"));
       });
-      //filters = filters.join(', ');    //OR
-      filters = filters.join('');         //AND
+
+      filters = filters.join('');
       buttonFilter = filters;
       $grid.isotope();
 
@@ -100,7 +105,20 @@ $(document).ready(function () {
   search.on('change keyup paste', debounce(function () {
     qsRegex = new RegExp(search.val(), 'gi');
     $grid.isotope();
-  }, 200));
+
+    // Update the URL
+    var url = window.location.href;
+    var urlParts = url.split("?");
+    var searchVal = search.val();
+    var newUrl = urlParts[0];
+
+    if (searchVal.length > 0) {
+      var newUrl = urlParts[0] + "?query=" +searchVal;  
+    } 
+    
+    window.history.pushState({}, "", newUrl);
+
+    }, 200));
 
   // debounce so filtering doesn't happen every millisecond
   function debounce(fn, threshold) {
@@ -119,12 +137,16 @@ $(document).ready(function () {
 
   // See if there are any passed parameters
   try {
-    var urlParams = new URLSearchParams(window.location.search);
-    var query = urlParams.get('query');
-    if (query !== "") {
-      search.val(query).change();
-    }
-
+    
+    // Do not search immediately as grid isn't fully loaded at this point
+    $grid.one( 'arrangeComplete', function() {
+      var urlParams = new URLSearchParams(window.location.search);
+      var query = urlParams.get('query');
+      if (query !== "") {
+        search.val(query).change();
+      }
+    });
+    
   } catch (error) {
     // Be vewy vewy quiet
   }

@@ -1,45 +1,59 @@
 [
-    {
-      "name": "spo-import-taxonomy-terms-labels",
-      "source": "pnp",
-      "title": "Import taxonomy terms and labels into a term set",
-      "shortDescription": "The sample is a small set of terms to showcase the use case but the requirement was to import 100s of terms with labels into SharePoint Online.",
-      "url": "spo-import-taxonomy-terms-labels/README.html",
-      "longDescription": [
-        "The sample is a small set of terms to showcase the use case but the requirement was to import 100s of terms with labels into SharePoint Online."
-      ],
-      "creationDateTime": "2021-08-07",
-      "updateDateTime": "2021-08-07",
-      "products": [
-        "SharePoint"
-      ],
-      "metadata": [
-        {
-          "key": "pnp-powerShell",
-          "value": "1.5.0"
-        }
-      ],
-      "categories": [
-        "Data"
-      ],
-      "tags":[
-        "classic"
-      ],
-      "thumbnails": [
-        {
-          "type": "image",
-          "order": 100,
-          "url": "spo-import-taxonomy-terms-labels/assets/preview.png",
-          "alt": "preview image showing there is no preview"
-        }
-      ],
-      "authors": [
-        {
-          "gitHubAccount": "reshmee011",
-          "company": "",
-          "pictureUrl": "https://avatars.githubusercontent.com/u/7693852?v=4",
-          "name": "Reshmee Auckloo"
-        }
-      ]
-    }
-  ]
+  {
+    "name": "spo-import-taxonomy-terms-labels",
+    "source": "pnp",
+    "title": "Import taxonomy terms and labels into a term set",
+    "shortDescription": "The sample is a small set of terms to showcase the use case but the requirement was to import 100s of terms with labels into SharePoint Online.",
+    "url": "https://pnp.github.io/script-samples/spo-import-taxonomy-terms-labels/README.html",
+    "longDescription": [
+      "The sample is a small set of terms to showcase the use case but the requirement was to import 100s of terms with labels into SharePoint Online."
+    ],
+    "creationDateTime": "2021-08-07",
+    "updateDateTime": "2021-08-07",
+    "products": [
+      "SharePoint"
+    ],
+    "metadata": [
+      {
+        "key": "PNP-POWERSHELL",
+        "value": "1.5.0"
+      }
+    ],
+    "categories": [
+      "Data"
+    ],
+    "tags": [
+      "classic",
+      "Connect-PnPOnline",
+      "Get-PnPTerm",
+      "Get-PnPTermGroup",
+      "Get-PnPTermLabel",
+      "Import-PnPTermSet",
+      "New-PnPTerm",
+      "New-PnPTermGroup"
+    ],
+    "thumbnails": [
+      {
+        "type": "image",
+        "order": 100,
+        "url": "https://raw.githubusercontent.com/pnp/script-samples/main/scripts/spo-import-taxonomy-terms-labels/assets/preview.png",
+        "alt": "preview image showing there is no preview"
+      }
+    ],
+    "authors": [
+      {
+        "gitHubAccount": "reshmee011",
+        "company": "",
+        "pictureUrl": "https://avatars.githubusercontent.com/u/7693852?v=4",
+        "name": "Reshmee Auckloo"
+      }
+    ],
+    "references": [
+      {
+        "name": "Want to learn more about PnP PowerShell and the cmdlets",
+        "description": "Check out the PnP PowerShell site to get started and for the reference to the cmdlets.",
+        "url": "https://aka.ms/pnp/powershell"
+      }
+    ]
+  }
+]

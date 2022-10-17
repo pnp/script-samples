@@ -89,4 +89,4 @@ Sample first appeared on [Delete all (non-group connected) modern SharePoint sit
 
 
 [!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
-<img src="https://telemetry.sharepointpnp.com/script-samples/scripts/spo-delete-non-group-connected-modern-sites" aria-hidden="true" />
+<img src="https://pnptelemetry.azurewebsites.net/script-samples/scripts/spo-delete-non-group-connected-modern-sites" aria-hidden="true" />

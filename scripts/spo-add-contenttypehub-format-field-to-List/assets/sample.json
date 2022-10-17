@@ -1,0 +1,85 @@
+[
+  {
+    "name": "spo-add-contenttypehub-format-field-to-List",
+    "source": "pnp",
+    "title": "Add Content Type Hub with calendar format field to List",
+    "shortDescription": "This script will create Content Type Hub with custom calendar List field formatting and include in destination site and associated custom List",
+    "url": "https://pnp.github.io/script-samples/spo-add-contenttypehub-format-field-to-List/README.html",
+    "longDescription": [
+      "This script will create Content Type Hub with custom calendar List field formatting and include in destination site and associated custom List. "
+    ],
+    "creationDateTime": "2022-09-28",
+    "updateDateTime": "2022-09-28",
+    "products": [
+      "SharePoint"
+    ],
+    "metadata": [
+      {
+        "key": "PNP-POWERSHELL",
+        "value": "1.11.0"
+      }
+    ],
+    "categories": [
+      "Deploy",
+      "Provision"
+    ],
+    "tags": [
+      "Connect-PnPOnline",
+      "Get-PnPContentTypePublishingHubUrl",
+      "Invoke-WebRequest",
+      "Get-PnPContentType",
+      "Add-PnPContentType",
+      "Add-PnPField",
+      "Set-PnPField",
+      "Add-PnPFieldToContentType",
+      "Publish-PnPContentType",
+      "Add-PnPContentTypesFromContentTypeHub",
+      "New-PnPList",
+      "Remove-PnPContentTypeFromList",
+      "Add-PnPContentTypeToList",
+      "Set-PnPView",
+      "Disconnect-PnPOnline"
+    ],
+    "thumbnails": [
+      {
+        "type": "image",
+        "order": 100,
+        "url": "https://raw.githubusercontent.com/pnp/script-samples/main/scripts/spo-add-contenttypehub-format-field-to-List/assets/preview.png",
+        "alt": ""
+      },
+      {
+        "type": "image",
+        "order": 100,
+        "url": "https://raw.githubusercontent.com/pnp/script-samples/main/scripts/spo-add-contenttypehub-format-field-to-List/assets/ContentTypeHub.PNG",
+        "alt": ""
+      },
+      {
+        "type": "image",
+        "order": 101,
+        "url": "https://raw.githubusercontent.com/pnp/script-samples/main/scripts/spo-add-contenttypehub-format-field-to-List/assets/ContentTypeHubList.PNG",
+        "alt": ""
+      },
+      {
+        "type": "image",
+        "order": 102,
+        "url": "https://raw.githubusercontent.com/pnp/script-samples/main/scripts/spo-add-contenttypehub-format-field-to-List/assets/ContentTypeHubFormatField.gif",
+        "alt": ""
+      }
+    ],
+    "authors": [
+      {
+        "gitHubAccount": "aaclage",
+        "company": "",
+        "pictureUrl": "https://avatars.githubusercontent.com/u/8522348?v=4",
+        "name": "André Lage"
+      }
+    ],
+    "references": [
+      {
+        "name": "Want to learn more about PnP PowerShell and the cmdlets",
+        "description": "Check out the PnP PowerShell site to get started and for the reference to the cmdlets.",
+        "url": "https://aka.ms/pnp/powershell"
+      }
+    ]
+  }
+]

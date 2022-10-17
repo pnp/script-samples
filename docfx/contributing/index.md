@@ -77,4 +77,4 @@ e.g.
 If you are interested in helping to maintain the repository please check out the [maintainers guidance](maintainers-guidance.md).
 
 
-<img src="https://telemetry.sharepointpnp.com/script-samples/contributing" aria-hidden="true" />
+<img src="https://pnptelemetry.azurewebsites.net/script-samples/contributing" aria-hidden="true" />

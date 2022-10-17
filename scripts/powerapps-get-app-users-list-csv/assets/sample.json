@@ -1,43 +1,51 @@
 [
-    {
-      "name": "powerapps-get-app-users-list-csv",
-      "source": "pnp",
-      "title": "Export all PowerApps details and its Role assignments from Tenant in CSV format",
-      "shortDescription": "This script sample how to export all the PowerApps details and its role assignment in csv format",
-      "url": "powerapps-get-app-users-list-csv/README.html",
-      "longDescription": [
-        "This powershell script will export all the powerapps of all its environment in a particular tenant and its role assignments(user access details) in csv format."
-      ],
-      "creationDateTime": "2021-12-02",
-      "updateDateTime": "2021-12-02",
-      "products": [
-        "PowerApps"
-      ],
-      "metadata": [
-        {
-          "key": "powerapps-ps",
-          "value": "2.0.0"
-        }
-      ],
-      "categories": [
-        "Data",
-        "Report"
-      ],
-      "tags":[],
-      "thumbnails": [
-        {
-          "type": "image",
-          "order": 100,
-          "url": "powerapps-get-app-users-list-csv/assets/SampleOutPut.png",
-          "alt": ""
-        }
-      ],
-      "authors": [
-        {
-          "gitHubAccount": "siddharth-vaghasia",
-          "pictureUrl": "https://avatars.githubusercontent.com/u/9557557?s=400&u=cbb0afefedb5a1d5db510a2e5e6579c8e6fc66ad&v=4",
-          "name": "Siddharth Vaghasia"
-        }
-      ]
-    }
-  ]
+  {
+    "name": "powerapps-get-app-users-list-csv",
+    "source": "pnp",
+    "title": "Export all PowerApps details and its Role assignments from Tenant in CSV format",
+    "shortDescription": "This script sample how to export all the PowerApps details and its role assignment in csv format",
+    "url": "https://pnp.github.io/script-samples/powerapps-get-app-users-list-csv/README.html",
+    "longDescription": [
+      "This powershell script will export all the powerapps of all its environment in a particular tenant and its role assignments(user access details) in csv format."
+    ],
+    "creationDateTime": "2021-12-02",
+    "updateDateTime": "2021-12-02",
+    "products": [
+      "PowerApps"
+    ],
+    "metadata": [
+      {
+        "key": "POWERAPPS-POWERSHELL",
+        "value": "2.0.0"
+      }
+    ],
+    "categories": [
+      "Data",
+      "Report",
+      "Security"
+    ],
+    "tags": [],
+    "thumbnails": [
+      {
+        "type": "image",
+        "order": 100,
+        "url": "https://raw.githubusercontent.com/pnp/script-samples/main/scripts/powerapps-get-app-users-list-csv/assets/SampleOutPut.png",
+        "alt": ""
+      }
+    ],
+    "authors": [
+      {
+        "gitHubAccount": "siddharth-vaghasia",
+        "pictureUrl": "https://avatars.githubusercontent.com/u/9557557?s=400&u=cbb0afefedb5a1d5db510a2e5e6579c8e6fc66ad&v=4",
+        "name": "Siddharth Vaghasia"
+      }
+    ],
+    "references": [
+      {
+        "name": "Want to learn more about Power Apps PowerShell and the cmdlets",
+        "description": "Check out the Power Apps PowerShell documentation site to get started and for the reference to the cmdlets.",
+        "url": "https://docs.microsoft.com/en-us/power-platform/admin/powerapps-powershell"
+      }
+    ]
+  }
+]

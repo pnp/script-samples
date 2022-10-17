@@ -51,6 +51,24 @@ foreach ($row in $search.ResultRows) {
 $itemsToSave | Export-Csv -Path "SearchResults.csv" -NoTypeInformation
 ```
 [!INCLUDE [More about PnP PowerShell](../../docfx/includes/MORE-PNPPS.md)]
+
+
+# [CLI for Microsoft 365](#tab/cli-m365-ps)
+```powershell
+#Log in to Microsoft 365
+Write-Host "Connecting to Tenant" -f Yellow 
+
+$m365Status = m365 status
+if ($m365Status -match "Logged Out") {
+    m365 login
+}
+
+$query = "PromotedState:2"
+$properties = "Title,Path,Author"
+
+m365 spo search --queryText $query --selectProperties $properties --allResults --output csv | Out-File -FilePath "SearchResults.csv"
+```
+[!INCLUDE [More about CLI for Microsoft 365](../../docfx/includes/MORE-CLIM365.md)]
 ***
 
 
@@ -59,6 +77,7 @@ $itemsToSave | Export-Csv -Path "SearchResults.csv" -NoTypeInformation
 | Author(s) |
 |-----------|
 | James Love |
+| Smita Nachan |
 
 [!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
-<img src="https://telemetry.sharepointpnp.com/script-samples/scripts/spo-search-export-to-csv" aria-hidden="true" />
+<img src="https://pnptelemetry.azurewebsites.net/script-samples/scripts/spo-search-export-to-csv" aria-hidden="true" />

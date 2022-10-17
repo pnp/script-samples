@@ -5,7 +5,7 @@
     "version": null,
     "source": "pnp",
     "title": "Add custom client-side web part to modern page",
-    "url": "spo-add-custom-clientside-webpart-to-modern-page/README.html",
+    "url": "https://pnp.github.io/script-samples/spo-add-custom-clientside-webpart-to-modern-page/README.html",
     "creationDateTime": "2020-08-23",
     "updateDateTime": "2020-08-23",
     "shortDescription": "Programmatically add custom web part to a modern page",
@@ -22,11 +22,13 @@
       "Modern page",
       "WebPart Properties",
       "JSON",
-      "bash"
+      "bash",
+      "Imported CLI Sample",
+      "m365 spo page clientsidewebpart add"
     ],
     "metadata": [
       {
-        "key": "cli-for-microsoft365",
+        "key": "CLI-FOR-MICROSOFT365",
         "value": "3.7.0"
       }
     ],
@@ -34,7 +36,7 @@
       {
         "type": "image",
         "order": 100,
-        "url": "spo-add-custom-clientside-webpart-to-modern-page/assets/preview.png",
+        "url": "https://raw.githubusercontent.com/pnp/script-samples/main/scripts/spo-add-custom-clientside-webpart-to-modern-page/assets/preview.png",
         "alt": "preview image for the sample",
         "slides": null
       }
@@ -47,6 +49,17 @@
         "pictureUrl": "https://avatars.githubusercontent.com/u/8345556?v=4"
       }
     ],
-    "references": null
+    "references": [
+      {
+        "name": "Want to learn more about CLI for Microsoft 365 and the commands",
+        "description": "Check out the CLI for Microsoft 365 site to get started and for the reference to the commands.",
+        "url": "https://aka.ms/cli-m365"
+      },
+      {
+        "name": "Add custom client-side web part to modern page",
+        "description": "This sample first appeared on the CLI for Microsoft 365 documentation site",
+        "url": "https://pnp.github.io/cli-microsoft365/sample-scripts/spo/add-custom-clientside-webpart-to-modern-page/"
+      }
+    ]
   }
 ]

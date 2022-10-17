@@ -5,7 +5,7 @@
     "version": null,
     "source": "pnp",
     "title": "List all Microsoft Teams team's Owners and Members",
-    "url": "teams-list-teams-owners-and-members/README.html",
+    "url": "https://pnp.github.io/script-samples/teams-list-teams-owners-and-members/README.html",
     "creationDateTime": "2021-03-20",
     "updateDateTime": "2021-10-11",
     "shortDescription": "This script allows you to list all Teams team's owners and members and export them into a CSV file.",
@@ -14,19 +14,32 @@
       "Teams"
     ],
     "categories": [
-      "Report"
+      "Report",
+      "Security"
     ],
     "tags": [
       "Microsoft Teams",
-      "Governance"
+      "Governance",
+      "Imported CLI Sample",
+      "m365 login",
+      "m365 status",
+      "m365 cli config set",
+      "m365 teams team get",
+      "m365 teams team list",
+      "m365 teams user list",
+      "Connect-PnPOnline",
+      "Disconnect-PnPOnline",
+      "Get-PnPMicrosoft365Group",
+      "Get-PnPMicrosoft365GroupMember",
+      "Get-PnPMicrosoft365GroupOwner"
     ],
     "metadata": [
       {
-        "key": "cli-for-microsoft365",
+        "key": "CLI-FOR-MICROSOFT365",
         "value": "3.7.0"
       },
       {
-        "key": "pnp-powerShell",
+        "key": "PNP-POWERSHELL",
         "value": "1.5.0"
       }
     ],
@@ -34,7 +47,7 @@
       {
         "type": "image",
         "order": 100,
-        "url": "teams-list-teams-owners-and-members/assets/preview.png",
+        "url": "https://raw.githubusercontent.com/pnp/script-samples/main/scripts/teams-list-teams-owners-and-members/assets/preview.png",
         "alt": "preview image for the sample",
         "slides": null
       }
@@ -53,6 +66,22 @@
         "pictureUrl": "https://avatars.githubusercontent.com/u/18241305?v=4"
       }
     ],
-    "references": null
+    "references": [
+      {
+        "name": "Want to learn more about CLI for Microsoft 365 and the commands",
+        "description": "Check out the CLI for Microsoft 365 site to get started and for the reference to the commands.",
+        "url": "https://aka.ms/cli-m365"
+      },
+      {
+        "name": "Want to learn more about PnP PowerShell and the cmdlets",
+        "description": "Check out the PnP PowerShell site to get started and for the reference to the cmdlets.",
+        "url": "https://aka.ms/pnp/powershell"
+      },
+      {
+        "name": "List all Microsoft Teams team's Owners and Members",
+        "description": "This sample first appeared on the CLI for Microsoft 365 documentation site",
+        "url": "https://pnp.github.io/cli-microsoft365/sample-scripts/teams/list-teams-owners-and-members/"
+      }
+    ]
   }
 ]

@@ -1,40 +1,46 @@
 [
-    {
-      "name": "ReportTermUse",
-      "source": "pnp",
-      "title": "Report of where a Term is used",
-      "shortDescription": "Lists all the places where a specific Term ID is used",
-      "url": "ReportTermUse/README.html",
-      "longDescription": [
-      ],
-      "creationDateTime": "2021-12-13",
-      "updateDateTime": "2021-12-13",
-      "products": [
-        "SharePoint"
-      ],
-      "metadata": [
-        {
-          "key": "pnp-powerShell",
-          "value": "1.5.0"
-        }
-      ],
-      "categories": [
-        "Report"
-      ],
-      "thumbnails": [
-        {
-          "type": "image",
-          "order": 100,
-          "url": "ReportTermUse/assets/preview.png",
-          "alt": "sample preview of Term use report"
-        }
-      ],
-      "authors": [
-        {
-          "gitHubAccount": "Kasper Larsen",
-          "pictureUrl": "https://avatars.githubusercontent.com/u/20593570?s=400&u=f9a4d5137685d8c3fcc60394fc193f3e8156f678&v=4",
-          "name": "Kasper Bo Larsen"
-        }
-      ]
-    }
-  ]
+  {
+    "name": "ReportTermUse",
+    "source": "pnp",
+    "title": "Report of where a Term is used",
+    "shortDescription": "Lists all the places where a specific Term ID is used",
+    "url": "https://pnp.github.io/script-samples/ReportTermUse/README.html",
+    "longDescription": [],
+    "creationDateTime": "2021-12-13",
+    "updateDateTime": "2021-12-13",
+    "products": [
+      "SharePoint"
+    ],
+    "metadata": [
+      {
+        "key": "PNP-POWERSHELL",
+        "value": "1.5.0"
+      }
+    ],
+    "categories": [
+      "Report"
+    ],
+    "thumbnails": [
+      {
+        "type": "image",
+        "order": 100,
+        "url": "https://raw.githubusercontent.com/pnp/script-samples/main/scripts/ReportTermUse/assets/preview.png",
+        "alt": "sample preview of Term use report"
+      }
+    ],
+    "authors": [
+      {
+        "gitHubAccount": "Kasper Larsen",
+        "pictureUrl": "https://avatars.githubusercontent.com/u/20593570?s=400&u=f9a4d5137685d8c3fcc60394fc193f3e8156f678&v=4",
+        "name": "Kasper Bo Larsen"
+      }
+    ],
+    "references": [
+      {
+        "name": "Want to learn more about PnP PowerShell and the cmdlets",
+        "description": "Check out the PnP PowerShell site to get started and for the reference to the cmdlets.",
+        "url": "https://aka.ms/pnp/powershell"
+      }
+    ]
+  }
+]

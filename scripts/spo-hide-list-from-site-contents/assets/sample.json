@@ -5,9 +5,9 @@
     "version": null,
     "source": "pnp",
     "title": "Hide SharePoint list from Site Contents",
-    "url": "spo-hide-list-from-site-contents/README.html",
+    "url": "https://pnp.github.io/script-samples/spo-hide-list-from-site-contents/README.html",
     "creationDateTime": "2020-08-23",
-    "updateDateTime": "2020-08-23",
+    "updateDateTime": "2022-02-23",
     "shortDescription": "Hide the SharePoint list from the UI this script will hide a specific list from the site contents",
     "longDescription": null,
     "products": [
@@ -19,31 +19,64 @@
     "tags": [
       "SharePoint Online",
       "Hide List",
-      "bash"
+      "bash",
+      "Imported CLI Sample",
+      "m365 login",
+      "m365 spo list get",
+      "m365 spo list set",
+      "Connect-PnPOnline",
+      "Get-PnPList",
+      "Set-PnPList"
     ],
     "metadata": [
       {
-        "key": "cli-for-microsoft365",
+        "key": "CLI-FOR-MICROSOFT365",
         "value": "3.7.0"
+      },
+      {
+        "key": "PNP-POWERSHELL",
+        "value": "1.9.0"
       }
     ],
     "thumbnails": [
       {
         "type": "image",
         "order": 100,
-        "url": "spo-hide-list-from-site-contents/assets/preview.png",
+        "url": "https://raw.githubusercontent.com/pnp/script-samples/main/scripts/spo-hide-list-from-site-contents/assets/preview.png",
         "alt": "preview image for the sample",
         "slides": null
       }
     ],
     "authors": [
       {
+        "gitHubAccount": "LeonArmston",
+        "company": "Intelogy",
+        "pictureUrl": "https://avatars.githubusercontent.com/u/12968962?v=4",
+        "name": "Leon Armston"
+      },
+      {
         "name": "David Ramalho",
         "gitHubAccount": "",
         "company": "SharePoint Tricks",
         "pictureUrl": "https://i1.wp.com/pbs.twimg.com/profile_images/1060671490847326208/zyudunZr_200x200.jpg?zoom=1.25&ssl=1"
-      },
+      }
     ],
-    "references": null
+    "references": [
+      {
+        "name": "Want to learn more about CLI for Microsoft 365 and the commands",
+        "description": "Check out the CLI for Microsoft 365 site to get started and for the reference to the commands.",
+        "url": "https://aka.ms/cli-m365"
+      },
+      {
+        "name": "Want to learn more about PnP PowerShell and the cmdlets",
+        "description": "Check out the PnP PowerShell site to get started and for the reference to the cmdlets.",
+        "url": "https://aka.ms/pnp/powershell"
+      },
+      {
+        "name": "Hide SharePoint list from Site Contents",
+        "description": "This sample first appeared on the CLI for Microsoft 365 documentation site",
+        "url": "https://pnp.github.io/cli-microsoft365/sample-scripts/spo/hide-list-from-site-contents/"
+      }
+    ]
   }
 ]

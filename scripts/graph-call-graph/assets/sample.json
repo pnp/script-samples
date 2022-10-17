@@ -1,59 +1,90 @@
 [
-    {
-      "name": "graph-call-graph",
-      "source": "pnp",
-      "title": "Authenticate with and call the Microsoft Graph",
-      "shortDescription": "Obtain a new access token for the Microsoft Graph and use it an HTTP request, or connect to the Graph",
-      "url": "graph-call-graph/README.html",
-      "longDescription": [
-        ""
-      ],
-      "creationDateTime": "2021-08-23",
-      "updateDateTime": "2021-05-11",
-      "products": [
-        "Graph"
-      ],
-      "metadata": [
-        {
-          "key": "cli-for-microsoft365",
-          "value": "3.7.0"
-        },
-        {
-          "key": "pnp-powerShell",
-          "value": "1.5.0"
-        },
-        {
-          "key": "graph-powerShell",
-          "value": "1.0.0"
-        }
-      ],
-      "categories": [
-        "Configure"
-      ],
-      "thumbnails": [
-        {
-          "type": "image",
-          "order": 100,
-          "url": "graph-call-graph/assets/preview.png",
-          "alt": "Image of the result of calling the graph"
-        }
-      ],
-      "tags":[
-        "bash"
-      ],
-      "authors": [
-        {
-          "gitHubAccount": "garrytrinder",
-          "company": "",
-          "pictureUrl": "https://avatars.githubusercontent.com/u/11563347?v=4",
-          "name": "Garry Trinder"
-        },
-        {
-          "gitHubAccount": "pkbullock",
-          "company": "CaPa Creative Ltd",
-          "pictureUrl": "https://avatars.githubusercontent.com/u/8781041?v=4",
-          "name": "Paul Bullock"
-        }
-      ]
-    }
-  ]
+  {
+    "name": "graph-call-graph",
+    "source": "pnp",
+    "title": "Authenticate with and call the Microsoft Graph",
+    "shortDescription": "Obtain a new access token for the Microsoft Graph and use it an HTTP request, or connect to the Graph",
+    "url": "https://pnp.github.io/script-samples/graph-call-graph/README.html",
+    "longDescription": [
+      ""
+    ],
+    "creationDateTime": "2021-08-23",
+    "updateDateTime": "2021-05-11",
+    "products": [
+      "Graph"
+    ],
+    "metadata": [
+      {
+        "key": "CLI-FOR-MICROSOFT365",
+        "value": "3.7.0"
+      },
+      {
+        "key": "PNP-POWERSHELL",
+        "value": "1.5.0"
+      },
+      {
+        "key": "GRAPH-POWERSHELL",
+        "value": "1.0.0"
+      }
+    ],
+    "categories": [
+      "Configure"
+    ],
+    "thumbnails": [
+      {
+        "type": "image",
+        "order": 100,
+        "url": "https://raw.githubusercontent.com/pnp/script-samples/main/scripts/graph-call-graph/assets/preview.png",
+        "alt": "Image of the result of calling the graph"
+      }
+    ],
+    "tags": [
+      "bash",
+      "Imported CLI Sample",
+      "m365 util accesstoken get",
+      "Connect-PnPOnline",
+      "Get-PnPGraphAccessToken",
+      "Invoke-RestMethod",
+      "Connect-MgGraph",
+      "Get-MgContext",
+      "Get-MgUser",
+      "Disconnect-MgGraph"
+    ],
+    "authors": [
+      {
+        "gitHubAccount": "garrytrinder",
+        "company": "",
+        "pictureUrl": "https://avatars.githubusercontent.com/u/11563347?v=4",
+        "name": "Garry Trinder"
+      },
+      {
+        "gitHubAccount": "pkbullock",
+        "company": "CaPa Creative Ltd",
+        "pictureUrl": "https://avatars.githubusercontent.com/u/8781041?v=4",
+        "name": "Paul Bullock"
+      }
+    ],
+    "references": [
+      {
+        "name": "Want to learn more about CLI for Microsoft 365 and the commands",
+        "description": "Check out the CLI for Microsoft 365 site to get started and for the reference to the commands.",
+        "url": "https://aka.ms/cli-m365"
+      },
+      {
+        "name": "Want to learn more about PnP PowerShell and the cmdlets",
+        "description": "Check out the PnP PowerShell site to get started and for the reference to the cmdlets.",
+        "url": "https://aka.ms/pnp/powershell"
+      },
+      {
+        "name": "Want to learn more about Microsoft Graph PowerShell SDK and the cmdlets",
+        "description": "Check out the Microsoft Graph PowerShell SDK documentation site to get started and for the reference to the cmdlets.",
+        "url": "https://docs.microsoft.com/en-us/graph/powershell/get-started"
+      },
+      {
+        "name": "Authenticate with and call the Microsoft Graph",
+        "description": "This sample first appeared on the CLI for Microsoft 365 documentation site",
+        "url": "https://pnp.github.io/cli-microsoft365/sample-scripts/graph/call-graph/"
+      }
+    ]
+  }
+]

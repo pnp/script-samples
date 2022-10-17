@@ -1,47 +1,57 @@
 [
-    {
-      "name": "spo-copy-webpart-settings",
-      "source": "pnp",
-      "title": "Copy Custom Web Part Settings",
-      "shortDescription": "Script to copy custom SPFx web part settings from one page to other pages",
-      "url": "spo-copy-webpart-settings/README.html",
-      "longDescription": [
-        "Script to copy custom SPFx web part settings from one page to other pages"
-      ],
-      "creationDateTime": "2021-07-05",
-      "updateDateTime": "2021-07-05",
-      "products": [
-        "SharePoint"
-      ],
-      "metadata": [
-        {
-          "key": "PnP-PowerShell",
-          "value": "1.5.0"
-        }
-      ],
-      "categories": [
-        "Configure"
-      ],
-      "tags": [
-        "Modern page",
-        "SPFx",
-        "Web Part Settings"
-      ],
-      "thumbnails": [
-        {
-          "type": "image",
-          "order": 100,
-          "url": "spo-copy-webpart-settings/assets/preview.png",
-          "alt": "This sample does not contain a preview image"
-        }
-      ],
-      "authors": [
-        {
-          "gitHubAccount": "anoopt",
-          "company": "Content + Cloud",
-          "pictureUrl": "https://avatars.githubusercontent.com/u/9694225?v=4",
-          "name": "Anoop Tatti"
-        }
-      ]
-    }
-  ]
+  {
+    "name": "spo-copy-webpart-settings",
+    "source": "pnp",
+    "title": "Copy Custom Web Part Settings",
+    "shortDescription": "Script to copy custom SPFx web part settings from one page to other pages",
+    "url": "https://pnp.github.io/script-samples/spo-copy-webpart-settings/README.html",
+    "longDescription": [
+      "Script to copy custom SPFx web part settings from one page to other pages"
+    ],
+    "creationDateTime": "2021-07-05",
+    "updateDateTime": "2021-07-05",
+    "products": [
+      "SharePoint"
+    ],
+    "metadata": [
+      {
+        "key": "PNP-POWERSHELL",
+        "value": "1.5.0"
+      }
+    ],
+    "categories": [
+      "Configure"
+    ],
+    "tags": [
+      "Modern page",
+      "SPFx",
+      "Web Part Settings",
+      "Connect-PnPOnline",
+      "Disconnect-PnPOnline",
+      "Get-PnPPage"
+    ],
+    "thumbnails": [
+      {
+        "type": "image",
+        "order": 100,
+        "url": "https://raw.githubusercontent.com/pnp/script-samples/main/scripts/spo-copy-webpart-settings/assets/preview.png",
+        "alt": "This sample does not contain a preview image"
+      }
+    ],
+    "authors": [
+      {
+        "gitHubAccount": "anoopt",
+        "company": "Content + Cloud",
+        "pictureUrl": "https://avatars.githubusercontent.com/u/9694225?v=4",
+        "name": "Anoop Tatti"
+      }
+    ],
+    "references": [
+      {
+        "name": "Want to learn more about PnP PowerShell and the cmdlets",
+        "description": "Check out the PnP PowerShell site to get started and for the reference to the cmdlets.",
+        "url": "https://aka.ms/pnp/powershell"
+      }
+    ]
+  }
+]

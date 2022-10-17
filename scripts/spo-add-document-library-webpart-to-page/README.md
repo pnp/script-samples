@@ -14,7 +14,7 @@ The sample creating the page, adding the web parts and includes repeating this f
 
 # [PnP PowerShell](#tab/pnpps)
 ```powershell
-Connect-PnPOnline -Url https://yourtenant.sharepoint.com/sites/Yoursite/ -UseWebLogin
+Connect-PnPOnline -Url https://yourtenant.sharepoint.com/sites/Yoursite/ -Interactive
 $ray = "folder1",
        "folder2",
        "folder3"
@@ -22,17 +22,19 @@ $ray = "folder1",
 foreach ($name in $ray) {
 
     #create page
-    Add-PnPClientSidePage -Name $name -LayoutType Article -HeaderLayoutType NoImage -CommentsEnabled:$false
+    Add-PnPPage -Name $name -LayoutType Article -HeaderLayoutType NoImage -CommentsEnabled:$false
     
     #add sections
-    Add-PnPClientSidePageSection -Page $name -SectionTemplate TwoColumn -Order 1
+    Add-PnPPageSection -Page $name -SectionTemplate TwoColumn -Order 1
     
     #add text webpart
-    Add-PnPClientSideText -Page $name -Section 1 -Column 1 -Text " "
+    Add-PnPPageTextPart -Page $name -Section 1 -Column 1 -Text "This is $name"
     
     #add doclib
-    Add-PnPClientSideWebPart -Page $name -DefaultWebPartType List -Section 1 -Column 2 -WebPartProperties @{isDocumentLibrary="true";selectedListId="1fa1fb45-e53b-4ea1-9325-ddca7afe986e";selectedFolderPath="/$name";hideCommandBar="false"}
-    $page = Get-PnPClientSidePage -Identity $name
+    $DocLib = Get-PnPList -Identity Documents
+    $DocLibID = $DocLib.id.tostring()
+    Add-PnPPageWebPart -Page $name -DefaultWebPartType List -Section 1 -Column 1 -WebPartProperties @{isDocumentLibrary="true";selectedListId="$($DocLibID)";selectedFolderPath="/$name";hideCommandBar="false"}
+    $page = Get-PnPPage -Identity $name
     $page.Publish()
 }
 
@@ -45,7 +47,7 @@ foreach ($name in $ray) {
 $site = "https://yourtenant.sharepoint.com/sites/Yoursite/"
 
 $m365Status = m365 status
-if ($m365Status -eq "Logged Out") {
+if ($m365Status -match "Logged Out") {
     m365 login
 }
 
@@ -85,6 +87,7 @@ Sample first appeared on [Use PnP Powershell to add a document library webpart t
 |-----------|
 | Marijn Somers |
 | [Adam Wójcik](https://github.com/Adam-it)|
+| [Todd Klindt](https://www.toddklindt.com)|
 
 [!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
-<img src="https://telemetry.sharepointpnp.com/script-samples/scripts/template-script-submission" aria-hidden="true" />
+<img src="https://pnptelemetry.azurewebsites.net/script-samples/scripts/template-script-submission" aria-hidden="true" />

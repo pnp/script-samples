@@ -82,7 +82,7 @@ Function FilterDateField() {
                                                                     <FieldRef Name='Modified'/>
                                                                 </ViewFields>
                                                                 <Query><Where>
-                                                                    <Geq><FieldRef Name='Modified'/><Value Type='DateTime'><Today/></Value></Eq></Where>
+                                                                    <Eq><FieldRef Name='Modified'/><Value Type='DateTime'><Today/></Value></Eq></Where>
                                                                 </Query>
                                                             </View>"
 
@@ -249,7 +249,7 @@ $ListName = "ListName"
 
 Function loginToTenant() {
     $m365Status = m365 status
-    if ($m365Status -eq "Logged Out") {
+    if ($m365Status -match "Logged Out") {
         m365 login
     }
 }
@@ -287,7 +287,7 @@ Function FilterDateField() {
                                                                     <FieldRef Name='Modified'/>
                                                                 </ViewFields>
                                                                 <Query><Where>
-                                                                    <Geq><FieldRef Name='Modified'/><Value Type='DateTime'><Today/></Value></Eq></Where>
+                                                                    <Eq><FieldRef Name='Modified'/><Value Type='DateTime'><Today/></Value></Eq></Where>
                                                                 </Query>
                                                             </View>"
 
@@ -452,6 +452,7 @@ Main
 |-----------|
 | Chandani Prajapati |
 | [Adam Wójcik](https://github.com/Adam-it)|
+| Jago Pauwels |
 
 [!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
-<img src="https://telemetry.sharepointpnp.com/script-samples/scripts/spo-list-items-with-caml-query" aria-hidden="true" />
+<img src="https://pnptelemetry.azurewebsites.net/script-samples/scripts/spo-list-items-with-caml-query" aria-hidden="true" />

@@ -1,46 +1,72 @@
 [
-    {
-      "schema": null,
-      "name": "flow-runs-day-summary",
-      "version": null,
-      "source": "pnp",
-      "title": "Flows runs day summary",
-      "url": "flow-runs-day-summary/README.html",
-      "creationDateTime": "2021-10-27",
-      "updateDateTime": "2021-10-27",
-      "shortDescription": "This script creates a report of all flow runs from current day and sends the report as an adaptive card to the provided url",
-      "longDescription": null,
-      "products": [
-        "Power Automate"
-      ],
-      "categories": [
-        "Report"
-      ],
-      "tags": [
-        "Power Automate"
-      ],
-      "metadata": [
-        {
-          "key": "cli-for-microsoft365",
-          "value": "3.7.0"
-        }
-      ],
-      "thumbnails": [
-        {
-          "type": "image",
-          "order": 100,
-          "url": "flow-runs-day-summary/assets/preview.png",
-          "alt": "preview image for the sample",
-          "slides": null
-        }
-      ],
-      "authors": [
-        {
-            "gitHubAccount": "Adam-it",
-            "pictureUrl": "https://avatars.githubusercontent.com/u/58668583?v=4",
-            "name": "Adam Wójcik"
-        }
-      ],
-      "references": null
-    }
-  ]
+  {
+    "schema": null,
+    "name": "flow-runs-day-summary",
+    "version": null,
+    "source": "pnp",
+    "title": "Flows runs day summary",
+    "url": "https://pnp.github.io/script-samples/flow-runs-day-summary/README.html",
+    "creationDateTime": "2021-10-27",
+    "updateDateTime": "2022-05-11",
+    "shortDescription": "This script creates a report of all flow runs from current day and sends the report as an adaptive card to the provided url",
+    "longDescription": null,
+    "products": [
+      "Power Automate"
+    ],
+    "categories": [
+      "Report"
+    ],
+    "tags": [
+      "Power Automate",
+      "m365 login",
+      "m365 status",
+      "m365 adaptivecard send",
+      "m365 flow list",
+      "m365 flow run list"
+    ],
+    "metadata": [
+      {
+        "key": "PNP-POWERSHELL",
+        "value": "1.10.0"
+      },
+      {
+        "key": "CLI-FOR-MICROSOFT365",
+        "value": "3.7.0"
+      }
+    ],
+    "thumbnails": [
+      {
+        "type": "image",
+        "order": 100,
+        "url": "https://raw.githubusercontent.com/pnp/script-samples/main/scripts/flow-runs-day-summary/assets/preview.png",
+        "alt": "preview image for the sample",
+        "slides": null
+      }
+    ],
+    "authors": [
+       {
+        "gitHubAccount": "LeonArmston",
+        "company": "Intelogy",
+        "pictureUrl": "https://avatars.githubusercontent.com/u/12968962?v=4",
+        "name": "Leon Armston"
+      },
+      {
+        "gitHubAccount": "Adam-it",
+        "pictureUrl": "https://avatars.githubusercontent.com/u/58668583?v=4",
+        "name": "Adam Wójcik"
+      }
+    ],
+    "references": [
+      {
+        "name": "Want to learn more about CLI for Microsoft 365 and the commands",
+        "description": "Check out the CLI for Microsoft 365 site to get started and for the reference to the commands.",
+        "url": "https://aka.ms/cli-m365"
+      },
+       {
+        "name": "Want to learn more about PnP PowerShell and the cmdlets",
+        "description": "Check out the PnP PowerShell site to get started and for the reference to the cmdlets.",
+        "url": "https://aka.ms/pnp/powershell"
+      }
+    ]
+  }
+]

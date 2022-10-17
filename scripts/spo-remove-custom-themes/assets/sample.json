@@ -5,9 +5,9 @@
     "version": null,
     "source": "pnp",
     "title": "Delete custom color themes from SharePoint",
-    "url": "spo-remove-custom-themes/README.html",
+    "url": "https://pnp.github.io/script-samples/spo-remove-custom-themes/README.html",
     "creationDateTime": "2020-08-23",
-    "updateDateTime": "2020-08-23",
+    "updateDateTime": "2022-06-13",
     "shortDescription": "Creating a lot of beautiful themes lately and testing them but don’t want to keep them anymore, this script is for you",
     "longDescription": null,
     "products": [
@@ -19,24 +19,39 @@
     "tags": [
       "SharePoint Online",
       "Themes",
-      "bash"
+      "bash",
+      "Imported CLI Sample",
+      "m365 spo theme list",
+      "m365 spo theme remove",
+      "Get-PnPTenantTheme",
+      "Remove-PnPTenantTheme"
     ],
     "metadata": [
       {
-        "key": "cli-for-microsoft365",
+        "key": "CLI-FOR-MICROSOFT365",
         "value": "3.7.0"
+      },
+      {
+        "key": "PNP-POWERSHELL",
+        "value": "1.10.0"
       }
     ],
     "thumbnails": [
       {
         "type": "image",
         "order": 100,
-        "url": "spo-remove-custom-themes/assets/preview.png",
+        "url": "https://raw.githubusercontent.com/pnp/script-samples/main/scripts/spo-remove-custom-themes/assets/preview.png",
         "alt": "preview image for the sample",
         "slides": null
       }
     ],
     "authors": [
+      {
+        "gitHubAccount": "LeonArmston",
+        "company": "Intelogy",
+        "pictureUrl": "https://avatars.githubusercontent.com/u/12968962?v=4",
+        "name": "Leon Armston"
+      },
       {
         "name": "Laura Kokkarinen",
         "gitHubAccount": "LauraKokkarinen",
@@ -44,6 +59,22 @@
         "pictureUrl": "https://avatars.githubusercontent.com/u/41330990?v=4"
       }
     ],
-    "references": null
+    "references": [
+      {
+        "name": "Want to learn more about CLI for Microsoft 365 and the commands",
+        "description": "Check out the CLI for Microsoft 365 site to get started and for the reference to the commands.",
+        "url": "https://aka.ms/cli-m365"
+      },
+      {
+        "name": "Want to learn more about PnP PowerShell and the cmdlets",
+        "description": "Check out the PnP PowerShell site to get started and for the reference to the cmdlets.",
+        "url": "https://aka.ms/pnp/powershell"
+      },
+      {
+        "name": "Delete custom color themes from SharePoint",
+        "description": "This sample first appeared on the CLI for Microsoft 365 documentation site",
+        "url": "https://pnp.github.io/cli-microsoft365/sample-scripts/spo/remove-custom-themes/"
+      }
+    ]
   }
 ]

@@ -1,42 +1,51 @@
 [
-    {
-      "name": "teams-clone-team",
-      "source": "pnp",
-      "title": "Clone a Microsoft Team",
-      "shortDescription": "This script allow us to clone an existing team (structure and content!) into a new one with changed properties.",
-      "url": "teams-clone-team/README.html",
-      "longDescription": [
-        "On the new to be 'cloned' team we can define name, description, visibility and 'parts to clone' ('Apps','Tabs','Settings','Channels',  'Members'). We can actually clone content also,The script is a subset of the SPO powershell packages with content (PnPCandy) concept already been used across many projects."
-      ],
-      "creationDateTime": "2021-10-25",
-      "updateDateTime": "2021-10-25",
-      "products": [
-        "Teams"
-      ],
-      "metadata": [
-        {
-          "key": "pnp-powerShell",
-          "value": "1.5.0,1.7.0"
-        }
-      ],
-      "categories": [
-        "Data"
-      ],
-      "tags":[],
-      "thumbnails": [
-        {
-          "type": "image",
-          "order": 100,
-          "url": "teams-clone-team/assets/preview.png",
-          "alt": ""
-        }
-      ],
-      "authors": [
-        {
-          "gitHubAccount": "scoutmanpt",
-          "pictureUrl": "https://avatars.githubusercontent.com/u/7837053?v=4",
-          "name": "Rodrigo Pinto"
-        }
-      ]
-    }
-  ]
+  {
+    "name": "teams-clone-team",
+    "source": "pnp",
+    "title": "Clone a Microsoft Team with\\without content",
+    "shortDescription": "This script allow us to clone an existing team (structure and content!) into a new one with changed attributes including content.",
+    "url": "https://pnp.github.io/script-samples/teams-clone-team/README.html",
+    "longDescription": [
+      "On the new to be 'cloned' team we can define name, description, visibility and 'parts to clone' ('Apps','Tabs','Settings','Channels',  'Members'). We can actually clone content also. The script is a subset of the SPO powershell packages with content (PnPCandy) concept already been used across many projects."
+    ],
+    "creationDateTime": "2021-10-25",
+    "updateDateTime": "2021-12-29",
+    "products": [
+      "Teams"
+    ],
+    "metadata": [
+      {
+        "key": "PNP-POWERSHELL",
+        "value": "1.5.0,1.7.0"
+      }
+    ],
+    "categories": [
+      "Data",
+      "Deploy",
+      "Provision"
+    ],
+    "tags": [],
+    "thumbnails": [
+      {
+        "type": "image",
+        "order": 100,
+        "url": "https://raw.githubusercontent.com/pnp/script-samples/main/scripts/teams-clone-team/assets/preview.png",
+        "alt": ""
+      }
+    ],
+    "authors": [
+      {
+        "gitHubAccount": "scoutmanpt",
+        "pictureUrl": "https://avatars.githubusercontent.com/u/7837053?v=4",
+        "name": "Rodrigo Pinto"
+      }
+    ],
+    "references": [
+      {
+        "name": "Want to learn more about PnP PowerShell and the cmdlets",
+        "description": "Check out the PnP PowerShell site to get started and for the reference to the cmdlets.",
+        "url": "https://aka.ms/pnp/powershell"
+      }
+    ]
+  }
+]

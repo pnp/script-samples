@@ -1,48 +1,59 @@
 [
-    {
-      "name": "spo-extract-modern-pages",
-      "source": "pnp",
-      "title": "Extract Modern Pages to Individual Provisioning Files",
-      "shortDescription": "Script that extracts all the pages in the pages library",
-      "url": "spo-extract-modern-pages/README.html",
-      "longDescription": [
-        "Script that extracts all the pages in the pages library as provisioning files for selective applying to a site"
-      ],
-      "creationDateTime": "2021-09-03",
-      "updateDateTime": "2021-09-03",
-      "products": [
-        "SharePoint"
-      ],
-      "metadata": [
-        {
-          "key": "pnp-powerShell",
-          "value": "1.7.0"
-        }
-      ],
-      "categories": [
-        "Modernize",
-        "Data",
-        "Deploy",
-        "Provision"
-      ],
-      "tags":[
-        "modern"
-      ],
-      "thumbnails": [
-        {
-          "type": "image",
-          "order": 100,
-          "url": "spo-extract-modern-pages/assets/preview.png",
-          "alt": ""
-        }
-      ],
-      "authors": [
-        {
-          "gitHubAccount": "pkbullock",
-          "company": "",
-          "pictureUrl": "https://avatars.githubusercontent.com/u/8781041?v=4",
-          "name": "Paul Bullock"
-        }
-      ]
-    }
-  ]
+  {
+    "name": "spo-extract-modern-pages",
+    "source": "pnp",
+    "title": "Extract Modern Pages to Individual Provisioning Files",
+    "shortDescription": "Script that extracts all the pages in the pages library",
+    "url": "https://pnp.github.io/script-samples/spo-extract-modern-pages/README.html",
+    "longDescription": [
+      "Script that extracts all the pages in the pages library as provisioning files for selective applying to a site"
+    ],
+    "creationDateTime": "2021-09-03",
+    "updateDateTime": "2021-09-03",
+    "products": [
+      "SharePoint"
+    ],
+    "metadata": [
+      {
+        "key": "PNP-POWERSHELL",
+        "value": "1.7.0"
+      }
+    ],
+    "categories": [
+      "Modernize",
+      "Data",
+      "Deploy",
+      "Provision"
+    ],
+    "tags": [
+      "modern",
+      "Connect-PnPOnline",
+      "Export-PnPPage",
+      "Get-PnPList",
+      "Get-PnPListItem"
+    ],
+    "thumbnails": [
+      {
+        "type": "image",
+        "order": 100,
+        "url": "https://raw.githubusercontent.com/pnp/script-samples/main/scripts/spo-extract-modern-pages/assets/preview.png",
+        "alt": ""
+      }
+    ],
+    "authors": [
+      {
+        "gitHubAccount": "pkbullock",
+        "company": "",
+        "pictureUrl": "https://avatars.githubusercontent.com/u/8781041?v=4",
+        "name": "Paul Bullock"
+      }
+    ],
+    "references": [
+      {
+        "name": "Want to learn more about PnP PowerShell and the cmdlets",
+        "description": "Check out the PnP PowerShell site to get started and for the reference to the cmdlets.",
+        "url": "https://aka.ms/pnp/powershell"
+      }
+    ]
+  }
+]

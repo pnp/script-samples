@@ -5,7 +5,7 @@
     "version": null,
     "source": "pnp",
     "title": "Setup example site",
-    "url": "spo-setup-example-site/README.html",
+    "url": "https://pnp.github.io/script-samples/spo-setup-example-site/README.html",
     "creationDateTime": "2021-04-10",
     "updateDateTime": "2021-10-19",
     "shortDescription": "This script is a good starting point for a setup script to create site with some assets like columns, content types, lists, navigation",
@@ -24,15 +24,58 @@
       "Create Content type",
       "Create List",
       "Modify View",
-      "Modify Navigation"
+      "Modify Navigation",
+      "Imported CLI Sample",
+      "m365 login",
+      "m365 status",
+      "m365 spo contenttype add",
+      "m365 spo contenttype field set",
+      "m365 spo contenttype get",
+      "m365 spo field add",
+      "m365 spo field get",
+      "m365 spo folder add",
+      "m365 spo folder get",
+      "m365 spo list add",
+      "m365 spo list contenttype add",
+      "m365 spo list get",
+      "m365 spo list set",
+      "m365 spo list view field add",
+      "m365 spo list view list",
+      "m365 spo navigation node add",
+      "m365 spo navigation node list",
+      "m365 spo navigation node remove",
+      "m365 spo site add",
+      "m365 spo site get",
+      "Add-PnPContentType",
+      "Add-PnPContentTypeToList",
+      "Add-PnPField",
+      "Add-PnPFieldFromXml",
+      "Add-PnPFieldToContentType",
+      "Add-PnPFolder",
+      "Add-PnPNavigationNode",
+      "Connect-PnPOnline",
+      "Disconnect-PnPOnline",
+      "Get-PnPContentType",
+      "Get-PnPField",
+      "Get-PnPFolder",
+      "Get-PnPList",
+      "Get-PnPNavigationNode",
+      "Get-PnPTenant",
+      "Get-PnPTenantSite",
+      "Get-PnPView",
+      "New-PnPList",
+      "New-PnPSite",
+      "Remove-PnPNavigationNode",
+      "Set-PnPList",
+      "Set-PnPView"
     ],
     "metadata": [
       {
-        "key": "cli-for-microsoft365",
+        "key": "CLI-FOR-MICROSOFT365",
         "value": "3.7.0"
       },
       {
-        "key": "pnp-powerShell",
+        "key": "PNP-POWERSHELL",
         "value": "1.5.0"
       }
     ],
@@ -40,7 +83,7 @@
       {
         "type": "image",
         "order": 100,
-        "url": "spo-setup-example-site/assets/preview.png",
+        "url": "https://raw.githubusercontent.com/pnp/script-samples/main/scripts/spo-setup-example-site/assets/preview.png",
         "alt": "preview image for the sample",
         "slides": null
       }
@@ -59,6 +102,22 @@
         "pictureUrl": "https://avatars.githubusercontent.com/u/58668583?v=4"
       }
     ],
-    "references": null
+    "references": [
+      {
+        "name": "Want to learn more about CLI for Microsoft 365 and the commands",
+        "description": "Check out the CLI for Microsoft 365 site to get started and for the reference to the commands.",
+        "url": "https://aka.ms/cli-m365"
+      },
+      {
+        "name": "Want to learn more about PnP PowerShell and the cmdlets",
+        "description": "Check out the PnP PowerShell site to get started and for the reference to the cmdlets.",
+        "url": "https://aka.ms/pnp/powershell"
+      },
+      {
+        "name": "Setup example site",
+        "description": "This sample first appeared on the CLI for Microsoft 365 documentation site",
+        "url": "https://pnp.github.io/cli-microsoft365/sample-scripts/spo/setup-example-site/"
+      }
+    ]
   }
 ]

@@ -29,20 +29,15 @@ function EnsureSiteAssetsLibrary {
     https://<tenant>.sharepoint.com/sites/<sitename>/_api/web/Lists/EnsureSiteAssetsLibrary/
     which returns an SPList
   #>
-  $list = $null
-
   Write-Host "-> Ensure Site Assets library: $siteUrl"
-  $lists = m365 spo list list --webUrl "$siteUrl" -o json | ConvertFrom-Json
-  if (($null -ne $lists) -and ($null -ne $lists.value)) {
-    $list = $lists.value | Where-Object { $_.Title -eq "Site Assets" }
-  }
+  $list = m365 spo list get --webUrl $siteUrl --title "Site Assets" | ConvertFrom-Json
 
   if ($null -eq $list) {
     Write-Host "...Creating Site Assets library"
 
     try {
       $resource = ($siteUrl -split "/")[2]
-      $accessToken = m365 util accesstoken get --resource "https://$resource"
+      $accessToken = m365 util accesstoken get --resource "https://$resource" --output text
     }
     catch {
       throw "!! Unable to get AccessToken for EnsureSiteAssetsLibrary at '$siteUrl'`nERROR: $_"
@@ -78,7 +73,8 @@ Sample first appeared on [Ensure the Site Assets Library is created | CLI for Mi
 | Author(s) |
 |-----------|
 | Phillip Allan-Harding |
+| Martin Lingstuyl |
 
 
 [!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
-<img src="https://telemetry.sharepointpnp.com/script-samples/scripts/spo-ensure-siteassets-library" aria-hidden="true" />
+<img src="https://pnptelemetry.azurewebsites.net/script-samples/scripts/spo-ensure-siteassets-library" aria-hidden="true" />

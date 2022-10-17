@@ -63,6 +63,31 @@ for theme in "${themestoremove[@]}"; do
 done
 ```
 [!INCLUDE [More about CLI for Microsoft 365](../../docfx/includes/MORE-CLIM365.md)]
+
+# [PnP PowerShell](#tab/pnpps)
+
+```powershell
+
+$SPOAdmminSite = 'https://contoso-admin.sharepoint.com'
+$themesToKeep = "Contoso Explorers", "Multicolored theme"
+
+Connect-PnPOnline -Url $SPOAdmminSite -Interactive
+$themes = Get-PnPTenantTheme
+$themes = $themes | where {-not ($themesToKeep -contains $_.name)}
+$themes | Format-Table name
+if ($themes.Count -eq 0) { break }
+Read-Host -Prompt "Press Enter to start deleting $($themes.Count) themes (CTRL + C to exit)"
+$progress = 0
+$total = $themes.Count
+foreach ($theme in $themes)
+{
+  $progress++
+  write-host $progress / $total":" $theme.name
+  Remove-PnPTenantTheme -Identity "$($theme.name)"
+}
+
+```
+[!INCLUDE [More about PnP PowerShell](../../docfx/includes/MORE-PNPPS.md)]
 ***
 
 ## Source Credit
@@ -74,7 +99,8 @@ Sample first appeared on [Delete custom color themes from SharePoint | CLI for M
 | Author(s) |
 |-----------|
 | Laura Kokkarinen |
+| [Leon Armston](https://github.com/LeonArmston)|
 
 
 [!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
-<img src="https://telemetry.sharepointpnp.com/script-samples/scripts/spo-remove-custom-themes" aria-hidden="true" />
+<img src="https://pnptelemetry.azurewebsites.net/script-samples/scripts/spo-remove-custom-themes" aria-hidden="true" />

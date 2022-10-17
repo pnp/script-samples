@@ -5,7 +5,7 @@
     "version": null,
     "source": "pnp",
     "title": "List all tenant-wide extensions",
-    "url": "spo-list-tenant-wide-extensions/README.html",
+    "url": "https://pnp.github.io/script-samples/spo-list-tenant-wide-extensions/README.html",
     "creationDateTime": "2020-08-23",
     "updateDateTime": "2020-08-23",
     "shortDescription": "Script lists all tenant-wide extensions deployed in the tenant",
@@ -19,11 +19,14 @@
     "tags": [
       "SharePoint Online",
       "Tenant Wide Extension",
-      "bash"
+      "bash",
+      "Imported CLI Sample",
+      "m365 spo listitem list",
+      "m365 spo tenant appcatalogurl get"
     ],
     "metadata": [
       {
-        "key": "cli-for-microsoft365",
+        "key": "CLI-FOR-MICROSOFT365",
         "value": "3.7.0"
       }
     ],
@@ -31,7 +34,7 @@
       {
         "type": "image",
         "order": 100,
-        "url": "spo-list-tenant-wide-extensions/assets/preview.png",
+        "url": "https://raw.githubusercontent.com/pnp/script-samples/main/scripts/spo-list-tenant-wide-extensions/assets/preview.png",
         "alt": "preview image for the sample",
         "slides": null
       }
@@ -44,6 +47,17 @@
         "pictureUrl": "https://avatars.githubusercontent.com/u/34408892?v=4"
       }
     ],
-    "references": null
+    "references": [
+      {
+        "name": "Want to learn more about PnP PowerShell and the cmdlets",
+        "description": "Check out the PnP PowerShell site to get started and for the reference to the cmdlets.",
+        "url": "https://aka.ms/pnp/powershell"
+      },
+      {
+        "name": "List all tenant-wide extensions",
+        "description": "This sample first appeared on the CLI for Microsoft 365 documentation site",
+        "url": "https://pnp.github.io/cli-microsoft365/sample-scripts/spo/list-tenant-wide-extensions/"
+      }
+    ]
   }
 ]

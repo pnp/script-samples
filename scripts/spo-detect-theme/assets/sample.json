@@ -5,7 +5,7 @@
     "version": null,
     "source": "pnp",
     "title": "Detect Installed Theme",
-    "url": "spo-detect-theme/README.html",
+    "url": "https://pnp.github.io/script-samples/spo-detect-theme/README.html",
     "creationDateTime": "2021-10-13",
     "updateDateTime": "2021-10-13",
     "shortDescription": "This script will detect install theme for particular site",
@@ -18,11 +18,15 @@
     ],
     "tags": [
       "SharePoint Online",
-      "SPO Theme"
+      "SPO Theme",
+      "Connect-PnPOnline",
+      "Get-PnPTenant",
+      "Get-PnPTenantTheme",
+      "Get-PnPWeb"
     ],
     "metadata": [
       {
-        "key": "pnp-powerShell",
+        "key": "PNP-POWERSHELL",
         "value": "1.7.0"
       }
     ],
@@ -30,7 +34,7 @@
       {
         "type": "image",
         "order": 100,
-        "url": "spo-detect-theme/assets/preview.png",
+        "url": "https://raw.githubusercontent.com/pnp/script-samples/main/scripts/spo-detect-theme/assets/preview.png",
         "alt": "preview image for the sample",
         "slides": null
       }
@@ -43,6 +47,12 @@
         "company": "Rapid Circle"
       }
     ],
-    "references": null
+    "references": [
+      {
+        "name": "Want to learn more about PnP PowerShell and the cmdlets",
+        "description": "Check out the PnP PowerShell site to get started and for the reference to the cmdlets.",
+        "url": "https://aka.ms/pnp/powershell"
+      }
+    ]
   }
 ]

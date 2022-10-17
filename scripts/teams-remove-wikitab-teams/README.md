@@ -84,4 +84,4 @@ Sample first appeared on [Remove Wiki tab in a Microsoft Teams channel | CLI for
 | Rabia Williams |
 
 [!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
-<img src="https://telemetry.sharepointpnp.com/script-samples/scripts/teams-remove-wikitab-teams" aria-hidden="true" />
+<img src="https://pnptelemetry.azurewebsites.net/script-samples/scripts/teams-remove-wikitab-teams" aria-hidden="true" />

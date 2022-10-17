@@ -1,43 +1,76 @@
 [
-    {
-      "name": "spo-get-list-library-permission-export-to-csv",
-      "source": "pnp",
-      "title": "Get SharePoint List Or Library Permissions And Export It To CSV",
-      "shortDescription": "This script sample shows how to get permission for list/library and export it to CSV with some required details",
-      "url": "spo-get-list-library-permission-export-to-csv/README.html",
-      "longDescription": [
-        "This sample read site url and list/library title from user and get permissions with and then export it to CSV with some required details"
-      ],
-      "creationDateTime": "2021-10-04",
-      "updateDateTime": "2021-10-04",
-      "products": [
-        "SharePoint"
-      ],
-      "metadata": [
-        {
-          "key": "pnp-powerShell",
-          "value": "1.5.0"
-        }
-      ],
-      "categories": [
-        "Data",
-        "Report"
-      ],
-      "tags":[],
-      "thumbnails": [
-        {
-          "type": "image",
-          "order": 100,
-          "url": "spo-get-list-library-permission-export-to-csv/assets/example.png",
-          "alt": ""
-        }
-      ],
-      "authors": [
-        {
-          "gitHubAccount": "chandaniprajapati",
-          "pictureUrl": "https://avatars.githubusercontent.com/u/52065929?v=4",
-          "name": "Chandani Prajapati"
-        }
-      ]
-    }
-  ]
+  {
+    "name": "spo-get-list-library-permission-export-to-csv",
+    "source": "pnp",
+    "title": "Get SharePoint List Or Library Permissions And Export It To CSV",
+    "shortDescription": "This script sample shows how to get permission for list/library and export it to CSV with some required details",
+    "url": "https://pnp.github.io/script-samples/spo-get-list-library-permission-export-to-csv/README.html",
+    "longDescription": [
+      "This sample read site url and list/library title from user and get permissions with and then export it to CSV with some required details"
+    ],
+    "creationDateTime": "2021-10-04",
+    "updateDateTime": "2022-06-02",
+    "products": [
+      "SharePoint"
+    ],
+    "metadata": [
+      {
+        "key": "PNP-POWERSHELL",
+        "value": "1.5.0"
+      },
+      {
+        "key": "CLI-FOR-MICROSOFT365",
+        "value": "5.3.0"
+      }
+    ],
+    "categories": [
+      "Data",
+      "Report",
+      "Security"
+    ],
+    "tags": [
+      "Permission",
+      "Connect-PnPOnline",
+      "Disconnect-PnPOnline",
+      "m365 login",
+      "m365 spo list get",
+      "m365 spo group user list",
+      "m365 status",
+      "Get-PnPGroup",
+      "Get-PnPGroupMember",
+      "Get-PnPProperty"
+    ],
+    "thumbnails": [
+      {
+        "type": "image",
+        "order": 100,
+        "url": "https://raw.githubusercontent.com/pnp/script-samples/main/scripts/spo-get-list-library-permission-export-to-csv/assets/example.png",
+        "alt": ""
+      }
+    ],
+    "authors": [
+      {
+        "gitHubAccount": "nanddeepn",
+        "pictureUrl": "https://github.com/nanddeepn.png",
+        "name": "Nanddeep Nachan"
+      },
+      {
+        "gitHubAccount": "chandaniprajapati",
+        "pictureUrl": "https://avatars.githubusercontent.com/u/52065929?v=4",
+        "name": "Chandani Prajapati"
+      }
+    ],
+    "references": [
+      {
+        "name": "Want to learn more about PnP PowerShell and the cmdlets",
+        "description": "Check out the PnP PowerShell site to get started and for the reference to the cmdlets.",
+        "url": "https://aka.ms/pnp/powershell"
+      },
+      {
+        "name": "Want to learn more about CLI for Microsoft 365 and the commands",
+        "description": "Check out the CLI for Microsoft 365 site to get started and for the reference to the commands.",
+        "url": "https://aka.ms/cli-m365"
+      }
+    ]
+  }
+]

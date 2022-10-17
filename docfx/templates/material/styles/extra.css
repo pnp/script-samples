@@ -518,6 +518,7 @@ li.md-nav__item .md-nav__link:active, li.md-nav__item .md-nav__link:hover {
 }
 
 .producttype-item, .sampletype-item {
+    min-width: 42px;
     width: 42px;
     height: 42px;
     background-color: #F7F7FC;
@@ -932,7 +933,7 @@ TODO: Move styles
     text-overflow:ellipsis;
     overflow:hidden;
     display: -webkit-box !important;
-    -webkit-line-clamp: 3;
+    -webkit-line-clamp: 2;
     -webkit-box-orient: vertical;
     white-space: normal;
     /* height: 65px;

@@ -1,42 +1,61 @@
 [
-    {
-      "name": "modernize-classic-pages-from-publishing-sites",
-      "source": "pnp",
-      "title": " Modernizing classic pages from on-premises sites",
-      "shortDescription": "Conversion of an on-premises 2013 publishing page to the modern experience",
-      "url": "modernize-classic-pages-from-publishing-sites/README.html",
-      "longDescription": [
-        "Show process of conversion of an on-premises 2013 publishing page over to SharePoint Online modern sites"
-      ],
-      "creationDateTime": "2021-05-11",
-      "updateDateTime": "2021-05-11",
-      "products": [
-        "SharePoint"
-      ],
-      "metadata": [
-        {
-          "key": "PnP-PowerShell",
-          "value": "1.5.0"
-        }
-      ],
-      "categories": [
-        "Modernize"
-      ],
-      "thumbnails": [
-        {
-          "type": "image",
-          "order": 100,
-          "url": "modernize-classic-pages-from-publishing-sites/assets/preview.png",
-          "alt": ""
-        }
-      ],
-      "authors": [
-        {
-          "gitHubAccount": "pkbullock",
-          "company": "CaPa Creative Ltd",
-          "pictureUrl": "https://avatars.githubusercontent.com/u/8781041?v=4",
-          "name": "Paul Bullock"
-        }
-      ]
-    }
-  ]
+  {
+    "name": "modernize-classic-pages-from-publishing-sites",
+    "source": "pnp",
+    "title": " Modernizing classic pages from on-premises sites",
+    "shortDescription": "Conversion of an on-premises 2013 publishing page to the modern experience",
+    "url": "https://pnp.github.io/script-samples/modernize-classic-pages-from-publishing-sites/README.html",
+    "longDescription": [
+      "Show process of conversion of an on-premises 2013 publishing page over to SharePoint Online modern sites"
+    ],
+    "creationDateTime": "2021-05-11",
+    "updateDateTime": "2022-02-16",
+    "products": [
+      "SharePoint"
+    ],
+    "metadata": [
+      {
+        "key": "PNP-POWERSHELL",
+        "value": "1.9.0"
+      }
+    ],
+    "categories": [
+      "Modernize"
+    ],
+    "tags": [
+      "Connect-PnPOnline",
+      "ConvertTo-PnPClientSidePage",
+      "ConvertTo-PnPPage",
+      "Export-PnPPage",
+      "Export-PnPPageMapping"
+    ],
+    "thumbnails": [
+      {
+        "type": "image",
+        "order": 100,
+        "url": "https://raw.githubusercontent.com/pnp/script-samples/main/scripts/modernize-classic-pages-from-publishing-sites/assets/preview.png",
+        "alt": "Preview of the transformed pages"
+      }
+    ],
+    "authors": [
+      {
+        "gitHubAccount": "pkbullock",
+        "company": "CaPa Creative Ltd",
+        "pictureUrl": "https://github.com/pkbullock.png",
+        "name": "Paul Bullock"
+      }
+    ],
+    "references": [
+      {
+        "name": "Want to learn more about PnP PowerShell and the cmdlets",
+        "description": "Check out the PnP PowerShell site to get started and for the reference to the cmdlets.",
+        "url": "https://aka.ms/pnp/powershell"
+      },
+      {
+        "name": "Want to learn more about modernizing classic pages",
+        "description": "Check out the Microsoft documentation for Transform classic pages to modern pages to get started.",
+        "url": "https://docs.microsoft.com/en-us/sharepoint/dev/transform/modernize-userinterface-site-pages"
+      }
+    ]
+  }
+]

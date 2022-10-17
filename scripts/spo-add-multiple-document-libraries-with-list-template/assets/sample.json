@@ -1,47 +1,62 @@
 [
-    {
-      "name": "spo-add-multiple-document-libraries-with-list-template",
-      "source": "pnp",
-      "title": "Creates multiple document libraries by applying custom list template",
-      "shortDescription": "Script that creates multiple libraries by applying custom list template with custom document library, site columns and site content types",
-      "url": "spo-add-multiple-document-libraries-with-list-template/README.html",
-      "longDescription": [
-        "Script that creates and applies custom list template with custom document library, site columns and site content types. It will also creates custom library using new content types"
-      ],
-      "creationDateTime": "2021-11-01",
-      "updateDateTime": "2021-11-02",
-      "products": [
-        "SharePoint"
-      ],
-      "metadata": [
-        {
-          "key": "pnp-powerShell",
-          "value": "1.8.0"
-        }
-      ],
-      "categories": [
-        "Modernize",
-        "Deploy",
-        "Provision"
-      ],
-      "tags":[
-        "modern"
-      ],
-      "thumbnails": [
-        {
-          "type": "image",
-          "order": 100,
-          "url": "spo-add-list-template-with-custom-library/assets/preview.png",
-          "alt": ""
-        }
-      ],
-      "authors": [
-        {
-          "gitHubAccount": "reshmee011",
-          "company": "",
-          "pictureUrl": "https://avatars.githubusercontent.com/u/7693852?v=4",
-          "name": "Reshmee Auckloo"
-        }
-      ]
-    }
-  ]
+  {
+    "name": "spo-add-multiple-document-libraries-with-list-template",
+    "source": "pnp",
+    "title": "Creates multiple document libraries by applying custom list template",
+    "shortDescription": "Script that creates multiple libraries by applying custom list template with custom document library, site columns and site content types",
+    "url": "https://pnp.github.io/script-samples/spo-add-multiple-document-libraries-with-list-template/README.html",
+    "longDescription": [
+      "Script that creates and applies custom list template with custom document library, site columns and site content types. It will also creates custom library using new content types"
+    ],
+    "creationDateTime": "2021-11-01",
+    "updateDateTime": "2021-11-02",
+    "products": [
+      "SharePoint"
+    ],
+    "metadata": [
+      {
+        "key": "PNP-POWERSHELL",
+        "value": "1.8.0"
+      }
+    ],
+    "categories": [
+      "Modernize",
+      "Deploy",
+      "Provision"
+    ],
+    "tags": [
+      "modern",
+      "Add-PnPNavigationNode",
+      "Connect-PnPOnline",
+      "Disconnect-PnPOnline",
+      "Get-PnPField",
+      "Get-PnPList",
+      "Invoke-PnPQuery",
+      "Set-PnPList",
+      "Connect-SPOService"
+    ],
+    "thumbnails": [
+      {
+        "type": "image",
+        "order": 100,
+        "url": "https://raw.githubusercontent.com/pnp/script-samples/main/scripts/spo-add-list-template-with-custom-library/assets/preview.png",
+        "alt": ""
+      }
+    ],
+    "authors": [
+      {
+        "gitHubAccount": "reshmee011",
+        "company": "",
+        "pictureUrl": "https://avatars.githubusercontent.com/u/7693852?v=4",
+        "name": "Reshmee Auckloo"
+      }
+    ],
+    "references": [
+      {
+        "name": "Want to learn more about PnP PowerShell and the cmdlets",
+        "description": "Check out the PnP PowerShell site to get started and for the reference to the cmdlets.",
+        "url": "https://aka.ms/pnp/powershell"
+      }
+    ]
+  }
+]

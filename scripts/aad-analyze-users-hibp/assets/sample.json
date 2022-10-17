@@ -1,0 +1,67 @@
+[
+  {
+    "schema": null,
+    "name": "aad-analyze-users-hibp",
+    "version": null,
+    "source": "pnp",
+    "title": "Analyze users for known data breaches with have i been pwned",
+    "url": "https://pnp.github.io/script-samples/aad-analyze-users-hibp/README.html",
+    "creationDateTime": "2022-01-21",
+    "updateDateTime": "2022-02-11",
+    "shortDescription": "Validate all your users against known breaches with the have i been pwned api. That way you can quickly scan if your users are part of any known breaches",
+    "longDescription": null,
+    "products": [
+      "AzureAD"
+    ],
+    "categories": [
+      "Report",
+      "Security"
+    ],
+    "tags": [
+      "Azure",
+      "Microsoft 365",
+      "PowerShell",
+      "Imported CLI Sample",
+      "Security",
+      "m365 login",
+      "m365 status",
+      "m365 aad user hibp",
+      "m365 aad user list"
+    ],
+    "metadata": [
+      {
+        "key": "CLI-FOR-MICROSOFT365",
+        "value": "4.3.0"
+      }
+    ],
+    "thumbnails": [
+      {
+        "type": "image",
+        "order": 100,
+        "url": "https://raw.githubusercontent.com/pnp/script-samples/main/scripts/aad-analyze-users-hibp/assets/preview.png",
+        "alt": "preview image for the sample",
+        "slides": null
+      }
+    ],
+    "authors": [
+      {
+        "name": "Albert-Jan Schot",
+        "gitHubAccount": "appieschot",
+        "company": "Blis.digital",
+        "pictureUrl": "https://avatars.githubusercontent.com/u/15227781?v=4"
+      }
+    ],
+    "references": [
+      {
+        "name": "Want to learn more about CLI for Microsoft 365 and the commands",
+        "description": "Check out the CLI for Microsoft 365 site to get started and for the reference to the commands.",
+        "url": "https://aka.ms/cli-m365"
+      },
+      {
+        "name": "Analyze users for known data breaches with have i been pwned",
+        "description": "This sample first appeared on the CLI for Microsoft 365 documentation site",
+        "url": "https://pnp.github.io/cli-microsoft365/sample-scripts/aad/analyze-users-haveibeenpwnd/"
+      }
+    ]
+  }
+]

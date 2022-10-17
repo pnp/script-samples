@@ -5,9 +5,9 @@
     "version": null,
     "source": "pnp",
     "title": "Add multiple folders in libraries using a csv file",
-    "url": "spo-add-multiple-folders-in-libraries-using-csv-file/README.html",
+    "url": "https://pnp.github.io/script-samples/spo-add-multiple-folders-in-libraries-using-csv-file/README.html",
     "creationDateTime": "2021-05-10",
-    "updateDateTime": "2021-05-10",
+    "updateDateTime": "2022-06-29",
     "shortDescription": "This script will create the folders (not nested) into the libraries provided in the .csv file.",
     "longDescription": null,
     "products": [
@@ -18,24 +18,36 @@
     ],
     "tags": [
       "SharePoint Online",
-      "Governance"
+      "Governance",
+      "Imported CLI Sample",
+      "m365 spo folder add"
     ],
     "metadata": [
       {
-        "key": "cli-for-microsoft365",
+        "key": "CLI-FOR-MICROSOFT365",
         "value": "3.7.0"
+      },
+      {
+        "key": "PNP-POWERSHELL",
+        "value": "1.10.0"
       }
     ],
     "thumbnails": [
       {
         "type": "image",
         "order": 100,
-        "url": "spo-add-multiple-folders-in-libraries-using-csv-file/assets/preview.png",
+        "url": "https://raw.githubusercontent.com/pnp/script-samples/main/scripts/spo-add-multiple-folders-in-libraries-using-csv-file/assets/preview.png",
         "alt": "preview image for the sample",
         "slides": null
       }
     ],
     "authors": [
+      {
+        "gitHubAccount": "Jitenparmar",
+        "company": "",
+        "pictureUrl": "https://avatars.githubusercontent.com/u/7124132?v=4",
+        "name": "Jiten Parmar"
+      },
       {
         "name": "Veronique Lengelle",
         "gitHubAccount": "veronicageek",
@@ -43,6 +55,22 @@
         "pictureUrl": "https://avatars.githubusercontent.com/u/25181757?v=4"
       }
     ],
-    "references": null
+    "references": [
+      {
+        "name": "Want to learn more about CLI for Microsoft 365 and the commands",
+        "description": "Check out the CLI for Microsoft 365 site to get started and for the reference to the commands.",
+        "url": "https://aka.ms/cli-m365"
+      },
+      {
+        "name": "Add multiple folders in libraries using a csv file",
+        "description": "This sample first appeared on the CLI for Microsoft 365 documentation site",
+        "url": "https://pnp.github.io/cli-microsoft365/sample-scripts/spo/add-multiple-folders-in-libraries-using-csv-file/"
+      },
+      {
+        "name": "Want to learn more about PnP PowerShell and the cmdlets",
+        "description": "Check out the PnP PowerShell site to get started and for the reference to the cmdlets.",
+        "url": "https://aka.ms/pnp/powershell"
+      }
+    ]
   }
 ]

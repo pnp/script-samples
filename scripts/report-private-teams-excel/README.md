@@ -69,7 +69,7 @@ Write-Host "Running Script..."
 
 # Ensure login
 $m365Status = m365 status
-if ($m365Status -eq "Logged Out") {
+if ($m365Status -match "Logged Out") {
 m365 login
 }
 
@@ -120,4 +120,5 @@ Sample first appeared on [Azure Automation to the Rescue – Session at Scottish
 | [Adam Wójcik](https://github.com/Adam-it)|
 
 [!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
-<img src="https://telemetry.sharepointpnp.com/script-samples/scripts/report-private-teams-excel" aria-hidden="true" />
+<img src="https://pnptelemetry.azurewebsites.net/script-samples/scripts/report-private-teams-excel" aria-hidden="true" />
+

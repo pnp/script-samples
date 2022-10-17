@@ -1,45 +1,71 @@
 [
-    {
-      "name": "spo-search-export-to-csv",
-      "source": "pnp",
-      "title": "Run A Search Query And Export To CSV",
-      "shortDescription": "Perform a search query (such as 'Show me all News Posts in this tenant') and export the results to CSV.",
-      "url": "spo-search-export-to-csv/README.html",
-      "longDescription": [
-        ""
-      ],
-      "creationDateTime": "2021-11-03",
-      "updateDateTime": "2021-11-03",
-      "products": [
-        "SharePoint"
-      ],
-      "metadata": [
-        {
-          "key": "pnp-powerShell",
-          "value": "1.8.0"
-        }
-      ],
-      "categories": [
-        "Report"
-      ],
-      "tags":[
-        "search"
-      ],
-      "thumbnails": [
-        {
-          "type": "image",
-          "order": 100,
-          "url": "spo-search-export-to-csv/assets/preview.png",
-          "alt": ""
-        }
-      ],
-      "authors": [
-        {
-          "gitHubAccount": "jimmywim",
-          "company": "ID Live Ltd",
-          "pictureUrl": "https://avatars.githubusercontent.com/u/3036301?v=4",
-          "name": "Jim Love"
-        }
-      ]
-    }
-  ]
+  {
+    "name": "spo-search-export-to-csv",
+    "source": "pnp",
+    "title": "Run A Search Query And Export To CSV",
+    "shortDescription": "Perform a search query (such as 'Show me all News Posts in this tenant') and export the results to CSV.",
+    "url": "https://pnp.github.io/script-samples/spo-search-export-to-csv/README.html",
+    "longDescription": [
+      ""
+    ],
+    "creationDateTime": "2021-11-03",
+    "updateDateTime": "2022-05-26",
+    "products": [
+      "SharePoint"
+    ],
+    "metadata": [
+      {
+        "key": "PNP-POWERSHELL",
+        "value": "1.8.0"
+      },
+      {
+        "key": "CLI-FOR-MICROSOFT365",
+        "value": "4.3.0"
+      }
+    ],
+    "categories": [
+      "Report"
+    ],
+    "tags": [
+      "search",
+      "Submit-PnPSearchQuery",
+      "m365 login",
+      "m365 spo search",
+      "m365 status"
+    ],
+    "thumbnails": [
+      {
+        "type": "image",
+        "order": 100,
+        "url": "https://raw.githubusercontent.com/pnp/script-samples/main/scripts/spo-search-export-to-csv/assets/preview.png",
+        "alt": ""
+      }
+    ],
+    "authors": [
+      {
+        "gitHubAccount": "SmitaNachan",
+        "company": "",
+        "pictureUrl": "https://github.com/SmitaNachan.png",
+        "name": "Smita Nachan"
+      },
+      {
+        "gitHubAccount": "jimmywim",
+        "company": "ID Live Ltd",
+        "pictureUrl": "https://avatars.githubusercontent.com/u/3036301?v=4",
+        "name": "Jim Love"
+      }
+    ],
+    "references": [
+      {
+        "name": "Want to learn more about PnP PowerShell and the cmdlets",
+        "description": "Check out the PnP PowerShell site to get started and for the reference to the cmdlets.",
+        "url": "https://aka.ms/pnp/powershell"
+      },
+      {
+        "name": "Want to learn more about CLI for Microsoft 365 and the commands",
+        "description": "Check out the CLI for Microsoft 365 site to get started and for the reference to the commands.",
+        "url": "https://aka.ms/cli-m365"
+      }
+    ]
+  }
+]

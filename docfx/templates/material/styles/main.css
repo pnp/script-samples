@@ -362,7 +362,7 @@ p {
 }
 
 .content p {
-  margin-top: 1rem;
+  margin-top: 0.5rem;
   margin-bottom: 0;
   word-wrap: break-word;
 }
@@ -784,6 +784,17 @@ pre{
 
 p.sample-title {
   margin-top: 0.2em;
+  margin-top: 0.2em;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  display: -webkit-box !important;
+}
+
+@media screen and (max-width: 385px) {
+  p.sample-title {
+    -webkit-line-clamp: 2;
+  }
 }
 
 

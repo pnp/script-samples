@@ -1,0 +1,58 @@
+[
+  {
+    "name": "spo-delete-orphaned-temporary-sitepages",
+    "source": "pnp",
+    "title": "Delete orphaned temporary pages from Site Pages",
+    "shortDescription": "Script to clean up temporary pages from Site Pages library",
+    "url": "https://pnp.github.io/script-samples/spo-delete-orphaned-temporary-sitepages/README.html",
+    "longDescription": [
+      "Script to clean up orphaned temporary pages from Site Pages (/sitepages) library. For example zz5yfe8u.aspx."
+    ],
+    "creationDateTime": "2022-02-14",
+    "updateDateTime": "2022-02-14",
+    "products": [
+      "SharePoint"
+    ],
+    "metadata": [
+      {
+        "key": "PNP-POWERSHELL",
+        "value": "1.5.0"
+      }
+    ],
+    "categories": [
+      "Deploy"
+    ],
+    "tags": [
+      "Modern page",
+      "Site Pages",
+      "Connect-PnPOnline",
+      "Disconnect-PnPOnline",
+      "Get-PnPContext",
+      "Get-PnPList",
+      "Invoke-PnPQuery"
+    ],
+    "thumbnails": [
+      {
+        "type": "image",
+        "order": 100,
+        "url": "https://raw.githubusercontent.com/pnp/script-samples/main/scripts/spo-delete-orphaned-temporary-sitepages/assets/preview.png",
+        "alt": "An image showing orphaned temporary pages in a Site Pages library."
+      }
+    ],
+    "authors": [
+      {
+        "gitHubAccount": "brianpmccullough",
+        "company": "(Not Listed)",
+        "pictureUrl": "https://avatars.githubusercontent.com/u/8305245?v=4",
+        "name": "Brian P. McCullough"
+      }
+    ],
+    "references": [
+      {
+        "name": "Want to learn more about PnP PowerShell and the cmdlets",
+        "description": "Check out the PnP PowerShell site to get started and for the reference to the cmdlets.",
+        "url": "https://aka.ms/pnp/powershell"
+      }
+    ]
+  }
+]
