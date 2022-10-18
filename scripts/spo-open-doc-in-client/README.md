@@ -18,7 +18,7 @@ One of the most common requests from customers is that any Office document shoul
  
 ## Screenshot of Output 
 
-![Example Screenshot](assets/preview.png)
+![Example Screenshot](assets/example.png)
 
 # [PnP PowerShell](#tab/pnpps)
 ```powershell
