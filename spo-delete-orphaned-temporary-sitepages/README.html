@@ -91,6 +91,9 @@
 <li role="presentation">
 <a href="#tabpanel_CeZOj-G++Q_pnpps" role="tab" aria-controls="tabpanel_CeZOj-G++Q_pnpps" data-tab="pnpps" tabindex="0" aria-selected="true">PnP PowerShell</a>
 </li>
+<li role="presentation">
+<a href="#tabpanel_CeZOj-G++Q_cli-m365-ps" role="tab" aria-controls="tabpanel_CeZOj-G++Q_cli-m365-ps" data-tab="cli-m365-ps" tabindex="-1">CLI for Microsoft 365 using PowerShell</a>
+</li>
 </ul>
 <section id="tabpanel_CeZOj-G++Q_pnpps" role="tabpanel" data-tab="pnpps"><button class="article-clipboard" title="Copy to clipboard" data-toggle="tooltip" data-placement="top" data-clipboard-target="section[id^='tabpanel'][data-tab='pnpps'] pre">
     <span class="glyphicon glyphicon-copy" aria-hidden="true"></span>
@@ -155,6 +158,62 @@ $filesProcessed | select ServerRelativeUrl, Exists, UIVersionLabel | Export-Csv 
 <p>Check out the <strong>PnP PowerShell</strong> to learn more at: <a href="https://aka.ms/pnp/powershell">https://aka.ms/pnp/powershell</a></p>
 </div>
 </section>
+<section id="tabpanel_CeZOj-G++Q_cli-m365-ps" role="tabpanel" data-tab="cli-m365-ps" aria-hidden="true" hidden="hidden"><button class="article-clipboard" title="Copy to clipboard" data-toggle="tooltip" data-placement="top" data-clipboard-target="section[id^='tabpanel'][data-tab='cli-m365-ps'] pre">
+    <span class="glyphicon glyphicon-copy" aria-hidden="true"></span>
+    <span class="article-clipboard__message done">Copied</span>
+</button>
+
+<pre><code class="lang-powershell">
+$SiteURL = &quot;https://{tenant}.sharepoint.com/sites/{site}&quot;
+$listName = &quot;Site Pages&quot;
+
+$m365Status = m365 status
+if ($m365Status -match &quot;Logged Out&quot;) {
+  Write-Host &quot;Logging in the User!&quot;
+  m365 login --authType browser
+}
+
+$filesProcessed = @()
+
+$pages = m365 spo page list -u $SiteURL | ForEach-Object { $_.replace(&quot;Id&quot;, &quot;_Id&quot;) } | ConvertFrom-Json
+$list =  m365 spo list get -u $SiteURL -t $listName | ConvertFrom-Json
+$checkedOutPages = $pages | ? CheckOutType -eq 0
+
+foreach ($page in $checkedOutPages){
+ $fileServerRelativeUrl = [string]::Concat($list.ParentWebUrl, $page.ServerRelativePath.DecodedUrl.Replace($list.ParentWebUrl, &quot;&quot;))
+
+    #8 random characters seem to be used for temporary page names.  Be careful - if a valid page was created with valid 8 character name, that page would be deleted as well.  TODO: figure out a way to avoid valid pages?
+    $tempPageSampleUrlForThisSite = $list.RootFolder.ServerRelativeUrl  + &quot;/zz5yfe8u.aspx&quot;
+
+    if ($fileServerRelativeUrl.Length -ne $tempPageSampleUrlForThisSite.Length) {
+        Write-Host &quot;Skipping $fileServerRelativeUrl&quot; -ForegroundColor Green
+    } else {
+        if(!$page.IsPageCheckedOutToCurrentUser){
+        #take over check out
+            m365 spo file checkin  --webUrl $SiteUrl --fileUrl $page.ServerRelativeUrl
+            m365 spo file checkout  --webUrl $SiteUrl --fileUrl $page.ServerRelativeUrl
+       }
+
+ $filesProcessed += [PSCustomObject]@{
+            ServerRelativeUrl = $page.ServerRelativeUrl
+            Exists = $page.Exists
+            UIVersionLabel = $page.UIVersionLabel
+        }
+  m365 spo page remove -u $SiteURL -n $page.Name --confirm
+ }
+}
+
+$nowString = [System.DateTime]::Now.ToString(&quot;yyyyMMdd_hhmm&quot;)
+$path = &quot;$env:USERPROFILE\Desktop\PS1\Get-FilesWithNoCheckin_$nowString.csv&quot;
+$filesProcessed | select ServerRelativeUrl, Exists, UIVersionLabel | Export-Csv $path -NoTypeInformation
+
+## Disconnect the context  
+m365 logout  
+</code></pre>
+<div class="highlight-tool">
+<p>Check out the <strong>CLI for Microsoft 365</strong> to learn more at: <a href="https://aka.ms/cli-m365">https://aka.ms/cli-m365</a></p>
+</div>
+</section>
 </div>
 <h2 id="contributors">Contributors</h2>
 <table>
@@ -166,6 +225,9 @@ $filesProcessed | select ServerRelativeUrl, Exists, UIVersionLabel | Export-Csv 
 <tbody>
 <tr>
 <td><a href="https://github.com/brianpmccullough">Brian P. McCullough</a></td>
+</tr>
+<tr>
+<td><a href="https://github.com/reshmee011">Reshmee Auckloo</a></td>
 </tr>
 </tbody>
 </table>

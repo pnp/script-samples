@@ -9,7 +9,7 @@
       "Script to clean up orphaned temporary pages from Site Pages (/sitepages) library. For example zz5yfe8u.aspx."
     ],
     "creationDateTime": "2022-02-14",
-    "updateDateTime": "2022-02-14",
+    "updateDateTime": "2022-10-18",
     "products": [
       "SharePoint"
     ],
@@ -17,6 +17,10 @@
       {
         "key": "PNP-POWERSHELL",
         "value": "1.5.0"
+      },
+      {
+        "key": "CLI-FOR-MICROSOFT365",
+        "value": "5.9.0"
       }
     ],
     "categories": [
@@ -29,7 +33,15 @@
       "Disconnect-PnPOnline",
       "Get-PnPContext",
       "Get-PnPList",
-      "Invoke-PnPQuery"
+      "Invoke-PnPQuery",
+      "m365 login",
+      "m365 status",
+      "m365 spo page list",
+      "m365 spo page remove",
+      "m365 logout",
+      "m365 spo file checkin",
+      "m365 spo file checkout",
+      "m365 spo list get"
     ],
     "thumbnails": [
       {
@@ -41,17 +53,28 @@
     ],
     "authors": [
       {
+        "gitHubAccount": "reshmee011",
+        "company": "",
+        "pictureUrl": "https://avatars.githubusercontent.com/u/7693852?v=4",
+        "name": "Reshmee Auckloo"
+      },
+      {
         "gitHubAccount": "brianpmccullough",
         "company": "(Not Listed)",
         "pictureUrl": "https://avatars.githubusercontent.com/u/8305245?v=4",
         "name": "Brian P. McCullough"
-      }
+      }      
     ],
     "references": [
       {
         "name": "Want to learn more about PnP PowerShell and the cmdlets",
         "description": "Check out the PnP PowerShell site to get started and for the reference to the cmdlets.",
         "url": "https://aka.ms/pnp/powershell"
+      },
+      {
+        "name": "Want to learn more about CLI for Microsoft 365 and the commands",
+        "description": "Check out the CLI for Microsoft 365 site to get started and for the reference to the commands.",
+        "url": "https://aka.ms/cli-m365"
       }
     ]
   }
