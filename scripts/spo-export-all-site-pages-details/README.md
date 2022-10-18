@@ -2,7 +2,7 @@
 plugin: add-to-gallery
 ---
 
-# Get All Site Pages Details
+# Export all site pages details from Site Pages library
 
 ## Summary
 
