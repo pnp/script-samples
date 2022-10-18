@@ -113,4 +113,4 @@ $hits | Export-Csv -Path C:\temp\searchwebpartswithtrimming.csv -Encoding UTF8 -
 | Kasper Larsen, Fellowmind|
 
 [!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
-<img src="https://pnptelemetry.azurewebsites.net/script-samples/scripts/spo-updateSearchResultWebParts" aria-hidden="true" />
+<img src="https://pnptelemetry.azurewebsites.net/script-samples/scripts/spo-update-search-result-webparts" aria-hidden="true" />

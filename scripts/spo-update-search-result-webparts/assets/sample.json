@@ -1,10 +1,10 @@
 [
   {
-    "name": "spo-updateSearchResultWebParts",
+    "name": "spo-update-search-result-webparts",
     "source": "pnp",
-    "title": "Locate all classic search web parts where the duplicate trimming is enabled (which it most likely shouldn't)",
+    "title": "Sample on how to locate the classic Search Result Web part and check the Remove Duplicates setting",
     "shortDescription": "Locate all the pages where a classic SearchResultWebPart is used, and if the Remove Duplicates setting is True (which is the default) log the location in the csv file",
-    "url": "https://pnp.github.io/script-samples/spo-updateSearchResultWebParts/README.html",
+    "url": "https://pnp.github.io/script-samples/spo-update-search-result-webparts/README.html",
     "longDescription": [
       "Locate all the pages where a classic SearchResultWebPart is used, and if the Remove Duplicates setting is True (which is the default) log the location in the csv file. The duplicate algoritm is basically broken and will often trim records that are NOT duplicates"
     ],
@@ -27,7 +27,7 @@
       {
         "type": "image",
         "order": 100,
-        "url": "https://raw.githubusercontent.com/pnp/script-samples/main/scripts/spo-updateSearchResultWebParts/assets/preview.png",
+        "url": "https://raw.githubusercontent.com/pnp/script-samples/main/scripts/spo-update-search-result-webparts/assets/preview.png",
         "alt": "Preview image of the sample for running jobs in parallel"
       }
     ],
