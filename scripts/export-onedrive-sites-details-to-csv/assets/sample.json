@@ -9,7 +9,7 @@
       "This script exports all onedrive sites."
     ],
     "creationDateTime": "2022-10-18",
-    "updateDateTime": "2022-10-18",
+    "updateDateTime": "2022-10-19",
     "products": [
       "SharePoint"
     ],
@@ -17,10 +17,21 @@
       {
         "key": "PNP-POWERSHELL",
         "value": "1.11.0"
+      },
+      {
+        "key": "SPO-MANAGEMENT-SHELL",
+        "value": "16.0.21116.12000"
       }
     ],
     "categories": [
       "Report"
+    ],
+    "tags": [
+      "SharePoint Online",
+      "Connect-SPOService",
+      "Connect-PnPOnline",
+      "Get-SPOSite",
+      "Get-PnPTenantSite"
     ],
     "thumbnails": [
       {
@@ -42,6 +53,11 @@
         "name": "Want to learn more about PnP PowerShell and the cmdlets",
         "description": "Check out the PnP PowerShell site to get started and for the reference to the cmdlets.",
         "url": "https://aka.ms/pnp/powershell"
+      },
+      {
+        "name": "Introduction to the SharePoint Online Management Shell",
+        "description": "Check out the SPO Management Shell documentation site to get started and for the reference to the cmdlets.",
+        "url": "https://docs.microsoft.com/en-us/powershell/sharepoint/sharepoint-online/introduction-sharepoint-online-management-shell?view=sharepoint-ps"
       }
     ]
   }
