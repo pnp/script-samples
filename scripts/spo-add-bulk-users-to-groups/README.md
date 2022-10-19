@@ -94,9 +94,69 @@ Function StartProcessing {
 }
 
 StartProcessing
-
 ```
 [!INCLUDE [More about PnP PowerShell](../../docfx/includes/MORE-PNPPS.md)]
+
+# [SPO Management Shell](#tab/spoms-ps)
+
+```powershell
+$AdminSiteURL = "https://domain-admin.sharepoint.com/"
+$Username = "chandani@domain.onmicrosoft.com"
+$Password = "********"
+$SecureStringPwd = $password | ConvertTo-SecureString -AsPlainText -Force 
+$Creds = New-Object System.Management.Automation.PSCredential -ArgumentList $username, $secureStringPwd
+$CSVPath = "E:\Contribution\PnP-Scripts\bulk-add-users-to-group\SP_Dummy_Users.csv"
+$global:CSVData = @()
+
+Function Login() {
+    [cmdletbinding()]
+    param([parameter(Mandatory = $true, ValueFromPipeline = $true)] $Creds)     
+    Write-Host "Connecting to Tenant Admin Site '$($AdminSiteURL)'" -f Yellow   
+    Connect-SPOService -Url $AdminSiteURL -Credential $Creds
+    Write-Host "Connection Successful!" -f Green 
+    ReadCSVFile
+}
+
+Function ReadCSVFile() {
+    Write-Host "Reading CSV file..." -ForegroundColor Yellow   
+    $global:CSVData = Import-Csv $CSVPath
+    Write-Host "Reading CSV file successfully!" -ForegroundColor Green   
+    AddUsersToGroups
+}
+
+Function AddUsersToGroups() {
+    ForEach ($CurrentItem in $CSVData) {
+        Try {
+            #Connect to SharePoint Online Site
+            Write-host "Connecting to Site: "$CurrentItem.SiteURL
+            $Site = Get-SPOSite -Identity $CurrentItem.SiteURL
+  
+            #Get group members
+            $GroupMembers = Get-SPOUser -Site $CurrentItem.SiteURL -Group $CurrentItem.GroupName | select Email
+            $IsUserExists = $GroupMembers -match $CurrentItem.Users
+            if ($IsUserExists.Length) {
+                Write-Host "User $($CurrentItem.Users) is already exists in $($Group.Title)" -ForegroundColor Yellow                
+            }
+            else {
+                Write-Host "Adding User $($CurrentItem.Users) to $($CurrentItem.GroupName)" -ForegroundColor Yellow  
+                Add-SPOUser -LoginName $CurrentItem.Users -Group  $CurrentItem.GroupName -Site $CurrentItem.SiteURL
+                Write-host "Added User $($CurrentItem.Users) to $($CurrentItem.GroupName)" -ForegroundColor Green
+            }                        
+        }
+        Catch {
+            write-host -f Red "Error Adding User to Group:" $_.Exception.Message
+        }
+    }
+}
+
+Function StartProcessing {
+    Login($Creds); 
+}
+
+StartProcessing
+```
+[!INCLUDE [More about SPO Management Shell](../../docfx/includes/MORE-SPOMS.md)]
+
 
 ## Contributors
 

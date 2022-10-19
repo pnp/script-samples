@@ -9,7 +9,7 @@
       "Add bulk users to SharePoint site groups by reading CSV."
     ],
     "creationDateTime": "2022-07-05",
-    "updateDateTime": "2022-07-05",
+    "updateDateTime": "2022-10-19",
     "products": [
       "SharePoint"
     ],
@@ -17,6 +17,10 @@
       {
         "key": "PNP-POWERSHELL",
         "value": "1.10.0"
+      },
+      {
+        "key": "SPO-MANAGEMENT-SHELL",
+        "value": "16.0.21116.12000"
       }
     ],
     "categories": [
@@ -24,10 +28,14 @@
       "Security"
     ],
     "tags": [
-      "Add-PnPGroupMember",
       "Connect-PnPOnline",
+      "Add-PnPGroupMember",
       "Get-PnPGroup",
-      "Get-PnPGroupMember"
+      "Get-PnPGroupMember",
+      "Connect-SPOService",
+      "Get-SPOSite",
+      "Get-SPOUser",
+      "Add-SPOUser"
     ],
     "thumbnails": [
       {
@@ -50,6 +58,11 @@
         "name": "Want to learn more about PnP PowerShell and the cmdlets",
         "description": "Check out the PnP PowerShell site to get started and for the reference to the cmdlets.",
         "url": "https://aka.ms/pnp/powershell"
+      },
+      {
+        "name": "Introduction to the SharePoint Online Management Shell",
+        "description": "Check out the SPO Management Shell documentation site to get started and for the reference to the cmdlets.",
+        "url": "https://docs.microsoft.com/en-us/powershell/sharepoint/sharepoint-online/introduction-sharepoint-online-management-shell?view=sharepoint-ps"
       }
     ]
   }
