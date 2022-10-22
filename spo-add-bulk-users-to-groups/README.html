@@ -125,6 +125,9 @@ Create a new file and write a script</p>
 <li role="presentation">
 <a href="#tabpanel_CeZOj-G++Q_pnpps" role="tab" aria-controls="tabpanel_CeZOj-G++Q_pnpps" data-tab="pnpps" tabindex="0" aria-selected="true">PnP PowerShell</a>
 </li>
+<li role="presentation">
+<a href="#tabpanel_CeZOj-G++Q_spoms-ps" role="tab" aria-controls="tabpanel_CeZOj-G++Q_spoms-ps" data-tab="spoms-ps" tabindex="-1">SPO Management Shell</a>
+</li>
 </ul>
 <section id="tabpanel_CeZOj-G++Q_pnpps" role="tabpanel" data-tab="pnpps"><button class="article-clipboard" title="Copy to clipboard" data-toggle="tooltip" data-placement="top" data-clipboard-target="section[id^='tabpanel'][data-tab='pnpps'] pre">
     <span class="glyphicon glyphicon-copy" aria-hidden="true"></span>
@@ -191,10 +194,73 @@ Function StartProcessing {
 }
 
 StartProcessing
-
 </code></pre>
 <div class="highlight-tool">
 <p>Check out the <strong>PnP PowerShell</strong> to learn more at: <a href="https://aka.ms/pnp/powershell">https://aka.ms/pnp/powershell</a></p>
+</div>
+</section>
+<section id="tabpanel_CeZOj-G++Q_spoms-ps" role="tabpanel" data-tab="spoms-ps" aria-hidden="true" hidden="hidden"><button class="article-clipboard" title="Copy to clipboard" data-toggle="tooltip" data-placement="top" data-clipboard-target="section[id^='tabpanel'][data-tab='spoms-ps'] pre">
+    <span class="glyphicon glyphicon-copy" aria-hidden="true"></span>
+    <span class="article-clipboard__message done">Copied</span>
+</button>
+
+<pre><code class="lang-powershell">$AdminSiteURL = &quot;https://domain-admin.sharepoint.com/&quot;
+$Username = &quot;chandani@domain.onmicrosoft.com&quot;
+$Password = &quot;********&quot;
+$SecureStringPwd = $password | ConvertTo-SecureString -AsPlainText -Force 
+$Creds = New-Object System.Management.Automation.PSCredential -ArgumentList $username, $secureStringPwd
+$CSVPath = &quot;E:\Contribution\PnP-Scripts\bulk-add-users-to-group\SP_Dummy_Users.csv&quot;
+$global:CSVData = @()
+
+Function Login() {
+    [cmdletbinding()]
+    param([parameter(Mandatory = $true, ValueFromPipeline = $true)] $Creds)     
+    Write-Host &quot;Connecting to Tenant Admin Site '$($AdminSiteURL)'&quot; -f Yellow   
+    Connect-SPOService -Url $AdminSiteURL -Credential $Creds
+    Write-Host &quot;Connection Successful!&quot; -f Green 
+    ReadCSVFile
+}
+
+Function ReadCSVFile() {
+    Write-Host &quot;Reading CSV file...&quot; -ForegroundColor Yellow   
+    $global:CSVData = Import-Csv $CSVPath
+    Write-Host &quot;Reading CSV file successfully!&quot; -ForegroundColor Green   
+    AddUsersToGroups
+}
+
+Function AddUsersToGroups() {
+    ForEach ($CurrentItem in $CSVData) {
+        Try {
+            #Connect to SharePoint Online Site
+            Write-host &quot;Connecting to Site: &quot;$CurrentItem.SiteURL
+            $Site = Get-SPOSite -Identity $CurrentItem.SiteURL
+  
+            #Get group members
+            $GroupMembers = Get-SPOUser -Site $CurrentItem.SiteURL -Group $CurrentItem.GroupName | select Email
+            $IsUserExists = $GroupMembers -match $CurrentItem.Users
+            if ($IsUserExists.Length) {
+                Write-Host &quot;User $($CurrentItem.Users) is already exists in $($Group.Title)&quot; -ForegroundColor Yellow                
+            }
+            else {
+                Write-Host &quot;Adding User $($CurrentItem.Users) to $($CurrentItem.GroupName)&quot; -ForegroundColor Yellow  
+                Add-SPOUser -LoginName $CurrentItem.Users -Group  $CurrentItem.GroupName -Site $CurrentItem.SiteURL
+                Write-host &quot;Added User $($CurrentItem.Users) to $($CurrentItem.GroupName)&quot; -ForegroundColor Green
+            }                        
+        }
+        Catch {
+            write-host -f Red &quot;Error Adding User to Group:&quot; $_.Exception.Message
+        }
+    }
+}
+
+Function StartProcessing {
+    Login($Creds); 
+}
+
+StartProcessing
+</code></pre>
+<div class="highlight-tool">
+<p>Check out the <strong>SPO Management Shell</strong> to learn more at: <a href="https://docs.microsoft.com/en-us/powershell/sharepoint/sharepoint-online/introduction-sharepoint-online-management-shell?view=sharepoint-ps">Introduction SharePoint Online Management Shell | Microsoft Docs</a></p>
 </div>
 <h2 id="contributors">Contributors</h2>
 <table>
