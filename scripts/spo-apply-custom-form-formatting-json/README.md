@@ -26,7 +26,7 @@ Well, if in doubt just spin up an Azure Function and call it from your provision
  
 ## Screenshot of Output 
 
-![Example Screenshot](assets/preview.png)
+![Example Screenshot](assets/example.png)
 
 # [PnP PowerShell](#tab/pnpps)
 ```powershell
@@ -162,9 +162,6 @@ Push-OutputBinding -Name Response -Value ([HttpResponseContext]@{
     StatusCode = $HttpStatusCode
     Body = $body
 })
-
-   
-   
 
 ```
 [!INCLUDE [More about PnP PowerShell](../../docfx/includes/MORE-PNPPS.md)]
