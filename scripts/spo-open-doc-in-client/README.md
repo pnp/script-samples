@@ -2,7 +2,7 @@
 plugin: add-to-gallery
 ---
 
-# Sample on how to locate the classic Search Result Web part and check the Remove Duplicates setting
+# Open Office documents in the Client
 
 ## Summary
 
@@ -15,8 +15,8 @@ One of the most common requests from customers is that any Office document shoul
 - Write a script as below,
 - Change the variables to target to your environment
 - Run the script.
- 
-## Screenshot of Output 
+
+## Screenshot of Output
 
 ![Example Screenshot](assets/example.png)
 
