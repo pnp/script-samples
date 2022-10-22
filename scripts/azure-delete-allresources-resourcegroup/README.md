@@ -11,9 +11,11 @@ There will be cases where you want to delete all resources from a resource group
  The below script will delete all the resources from a resource group.
 
 Resource to be deleted from the specific resource group:
+
 ![Example Screenshot](assets/example.png)
 
 Script execution sample screen:
+
 ![Example Screenshot](assets/example2.png)
 
 > [!WARNING]
@@ -67,3 +69,7 @@ executeDeleteAzureResources
 | Author(s) |
 |-----------|
 | Arjun Menon |
+
+
+[!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
+<img src="https://pnptelemetry.azurewebsites.net/script-samples/scripts/azure-delete-allresources-resourcegroup" aria-hidden="true" />
