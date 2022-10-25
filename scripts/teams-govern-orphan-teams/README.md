@@ -40,7 +40,7 @@ $teams | Format-Table -AutoSize
 ```
 [!INCLUDE [More about CLI for Microsoft 365](../../docfx/includes/MORE-CLIM365.md)]
  
-# [Microsoft 365 CLI with Bash](#tab/m365cli-bash)
+# [CLI for Microsoft 365 with Bash](#tab/m365cli-bash)
 ```bash
 #!/bin/bash
 
