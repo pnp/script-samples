@@ -1,0 +1,331 @@
+{
+    "$schema": "https://developer.microsoft.com/json-schemas/sp/site-design-script-actions.schema.json",
+    "actions": [{
+                "verb": "createSPList",
+                "listName": "FolderTest4",
+                "templateType": 100,
+                "color": "6",
+                "icon": "3",
+                "subactions": [{
+                            "verb": "addSPFieldXml",
+                            "schemaXml": "<Field ID=\"{fa564e0f-0c70-4ab9-b863-0177e6ddd247}\" Name=\"Title\" SourceID=\"http://schemas.microsoft.com/sharepoint/v3\" StaticName=\"Title\" Group=\"_TronoxCustome\" Type=\"Text\" Display
+                            Name = \"FileSharePath\" Required=\"TRUE\" FromBaseType=\"TRUE\" DelayActivateTemplateBinding=\"GROUP,SPSPERS,SITEPAGEPUBLISHING\" CustomFormatter=\"\" EnforceUniqueValues=\"FALSE\" Indexed=\"FALSE\" MaxLength=\"255\"
+                            Sealed = \"FALSE\" Hidden=\"FALSE\" PITarget=\"\" PrimaryPITarget=\"\" PIAttribute=\"\" PrimaryPIAttribute=\"\" Aggregation=\"\" Node=\"\" />"
+                        },
+                        {
+                            "verb": "addSPFieldXml",
+                            "schemaXml": "<Field Type=\"Text\" DisplayName=\"Level2\" Required=\"FALSE\" EnforceUniqueValues=\"FALSE\" Indexed=\"TRUE\" MaxLength=\"255\" ID=\"{9c8bb553-1558-44bd-8e5b-048363d4f3f6}\" StaticName=\"Leve
+                            l2\ " Name=\"Level2\" Hidden=\"FALSE\" Customization=\"\" ReadOnly=\"FALSE\" PITarget=\"\" PrimaryPITarget=\"\" PIAttribute=\"\" PrimaryPIAttribute=\"\" Aggregation=\"\" Node=\"\" />"
+                        },
+                        {
+                            "verb": "addSPFieldXml",
+                            "schemaXml": "<Field Type=\"Text\" DisplayName=\"Level3\" Required=\"FALSE\" EnforceUniqueValues=\"FALSE\" Indexed=\"TRUE\" MaxLength=\"255\" ID=\"{f214fb6c-faee-4088-a1cd-3bd5cf5f1fba}\" StaticName=\"Leve
+                            l3\ " Name=\"Level3\" Hidden=\"FALSE\" Customization=\"\" ReadOnly=\"FALSE\" PITarget=\"\" PrimaryPITarget=\"\" PIAttribute=\"\" PrimaryPIAttribute=\"\" Aggregation=\"\" Node=\"\" />"
+                        },
+                        {
+                            "verb": "addSPFieldXml",
+                            "schemaXml": "<Field Type=\"Text\" DisplayName=\"Level4\" Required=\"FALSE\" EnforceUniqueValues=\"FALSE\" Indexed=\"TRUE\" MaxLength=\"255\" ID=\"{32d1ca42-ca9a-4d75-8b14-9d0face72d1d}\" StaticName=\"Leve
+                            l4\ " Name=\"Level4\" Hidden=\"FALSE\" Customization=\"\" ReadOnly=\"FALSE\" PITarget=\"\" PrimaryPITarget=\"\" PIAttribute=\"\" PrimaryPIAttribute=\"\" Aggregation=\"\" Node=\"\" />"
+                        },
+                        {
+                            "verb": "addSPFieldXml",
+                            "schemaXml": "<Field Type=\"Text\" DisplayName=\"Level5\" Required=\"FALSE\" EnforceUniqueValues=\"FALSE\" Indexed=\"TRUE\" MaxLength=\"255\" ID=\"{718ab74d-71ab-408d-8945-0400f5516e4a}\" StaticName=\"Leve
+                            l5\ " Name=\"Level5\" Hidden=\"FALSE\" Customization=\"\" ReadOnly=\"FALSE\" PITarget=\"\" PrimaryPITarget=\"\" PIAttribute=\"\" PrimaryPIAttribute=\"\" Aggregation=\"\" Node=\"\" />"
+                        },
+                        {
+                            "verb": "addSPFieldXml",
+                            "schemaXml": "<Field Type=\"Text\" DisplayName=\"Level6\" Required=\"FALSE\" EnforceUniqueValues=\"FALSE\" Indexed=\"TRUE\" MaxLength=\"255\" ID=\"{e0dc4cc1-f3aa-4c5c-a0bc-71d417cff3e8}\" StaticName=\"Leve
+                            l6\ " Name=\"Level6\" Hidden=\"FALSE\" Customization=\"\" ReadOnly=\"FALSE\" PITarget=\"\" PrimaryPITarget=\"\" PIAttribute=\"\" PrimaryPIAttribute=\"\" Aggregation=\"\" Node=\"\" />"
+                        },
+                        {
+                            "verb": "addSPFieldXml",
+                            "schemaXml": "<Field Type=\"Text\" DisplayName=\"Level7\" Required=\"FALSE\" EnforceUniqueValues=\"FALSE\" Indexed=\"TRUE\" MaxLength=\"255\" ID=\"{806ddad8-30d3-4cf4-9ba2-d5b39eb22d29}\" StaticName=\"Leve
+                            l7\ " Name=\"Level7\" Hidden=\"FALSE\" Customization=\"\" ReadOnly=\"FALSE\" PITarget=\"\" PrimaryPITarget=\"\" PIAttribute=\"\" PrimaryPIAttribute=\"\" Aggregation=\"\" Node=\"\" />"
+                        },
+                        {
+                            "verb": "addSPFieldXml",
+                            "schemaXml": "<Field Type=\"Text\" DisplayName=\"Level8\" Required=\"FALSE\" EnforceUniqueValues=\"FALSE\" Indexed=\"TRUE\" MaxLength=\"255\" ID=\"{16cd7658-c164-443a-84dc-b7c22f33f1d2}\" StaticName=\"Leve
+                            l8\ " Name=\"Level8\" Hidden=\"FALSE\" Customization=\"\" ReadOnly=\"FALSE\" PITarget=\"\" PrimaryPITarget=\"\" PIAttribute=\"\" PrimaryPIAttribute=\"\" Aggregation=\"\" Node=\"\" />"
+                        },
+                        {
+                            "verb": "addSPFieldXml",
+                            "schemaXml": "<Field Type=\"Text\" DisplayName=\"Level9\" Required=\"FALSE\" EnforceUniqueValues=\"FALSE\" Indexed=\"TRUE\" MaxLength=\"255\" ID=\"{541c8e0c-79c1-47e0-8fd5-b127959cc135}\" StaticName=\"Leve
+                            l9\ " Name=\"Level9\" Hidden=\"FALSE\" Customization=\"\" ReadOnly=\"FALSE\" PITarget=\"\" PrimaryPITarget=\"\" PIAttribute=\"\" PrimaryPIAttribute=\"\" Aggregation=\"\" Node=\"\" />"
+                        },
+                        {
+                            "verb": "addSPFieldXml",
+                            "schemaXml": "<Field Type=\"Text\" DisplayName=\"Level10\" Required=\"FALSE\" EnforceUniqueValues=\"FALSE\" Indexed=\"TRUE\" MaxLength=\"255\" ID=\"{5607a919-37d1-44f1-a329-399d176296a2}\" StaticName=\"Lev
+                            el10\ " Name=\"Level10\" Hidden=\"FALSE\" Customization=\"\" ReadOnly=\"FALSE\" PITarget=\"\" PrimaryPITarget=\"\" PIAttribute=\"\" PrimaryPIAttribute=\"\" Aggregation=\"\" Node=\"\" />"
+                        },
+                        {
+                            "verb": "addSPFieldXml",
+                            "schemaXml": "<Field Type=\"Text\" DisplayName=\"Level11\" Required=\"FALSE\" EnforceUniqueValues=\"FALSE\" Indexed=\"TRUE\" MaxLength=\"255\" ID=\"{2070e841-58e8-40be-a4f6-66117caf6e27}\" StaticName=\"Lev
+                            el11\ " Name=\"Level11\" Hidden=\"FALSE\" Customization=\"\" ReadOnly=\"FALSE\" PITarget=\"\" PrimaryPITarget=\"\" PIAttribute=\"\" PrimaryPIAttribute=\"\" Aggregation=\"\" Node=\"\" />"
+                        },
+                        {
+                            "verb": "addSPFieldXml",
+                            "schemaXml": "<Field Type=\"Text\" DisplayName=\"Level12\" Required=\"FALSE\" EnforceUniqueValues=\"FALSE\" Indexed=\"TRUE\" MaxLength=\"255\" ID=\"{5847fe75-97c0-4004-9332-4d97c16ed7c4}\" StaticName=\"Lev
+                            el12\ " Name=\"Level12\" Hidden=\"FALSE\" Customization=\"\" ReadOnly=\"FALSE\" PITarget=\"\" PrimaryPITarget=\"\" PIAttribute=\"\" PrimaryPIAttribute=\"\" Aggregation=\"\" Node=\"\" />"
+                        },
+                        {
+                            "verb": "addSPFieldXml",
+                            "schemaXml": "<Field Type=\"Text\" DisplayName=\"Level1\" Required=\"FALSE\" EnforceUniqueValues=\"FALSE\" Indexed=\"TRUE\" MaxLength=\"255\" ID=\"{0a3c4f09-ca3e-45d3-943b-1eefd7377423}\" StaticName=\"Leve
+                            l1\ " Name=\"Level1\" Hidden=\"FALSE\" Customization=\"\" ReadOnly=\"FALSE\" PITarget=\"\" PrimaryPITarget=\"\" PIAttribute=\"\" PrimaryPIAttribute=\"\" Aggregation=\"\" Node=\"\" />"
+                        },
+                        {
+                            "verb": "addSPFieldXml",
+                            "schemaXml": "<Field Type=\"Text\" DisplayName=\"Level13\" Required=\"FALSE\" EnforceUniqueValues=\"FALSE\" Indexed=\"TRUE\" MaxLength=\"255\" ID=\"{060eab49-3e24-4b62-b847-428cd6cc6b22}\" StaticName=\"Lev
+                            el13\ " Name=\"Level13\" Hidden=\"FALSE\" Customization=\"\" ReadOnly=\"FALSE\" PITarget=\"\" PrimaryPITarget=\"\" PIAttribute=\"\" PrimaryPIAttribute=\"\" Aggregation=\"\" Node=\"\" />"
+                        },
+                        {
+                            "verb": "addSPFieldXml",
+                            "schemaXml": "<Field Type=\"Text\" DisplayName=\"Level14\" Required=\"FALSE\" EnforceUniqueValues=\"FALSE\" Indexed=\"TRUE\" MaxLength=\"255\" ID=\"{469851f1-2c07-44b5-8359-ce1967edf72c}\" StaticName=\"Lev
+                            el14\ " Name=\"Level14\" Hidden=\"FALSE\" Customization=\"\" ReadOnly=\"FALSE\" PITarget=\"\" PrimaryPITarget=\"\" PIAttribute=\"\" PrimaryPIAttribute=\"\" Aggregation=\"\" Node=\"\" />"
+                        },
+                        {
+                            "verb": "addSPFieldXml",
+                            "schemaXml": "<Field Type=\"Text\" DisplayName=\"Level15\" Required=\"FALSE\" EnforceUniqueValues=\"FALSE\" Indexed=\"TRUE\" MaxLength=\"255\" ID=\"{2704a46a-b2bb-4e97-b86e-eb93f8e56a10}\" StaticName=\"Lev
+                            el15\ " Name=\"Level15\" Hidden=\"FALSE\" Customization=\"\" ReadOnly=\"FALSE\" PITarget=\"\" PrimaryPITarget=\"\" PIAttribute=\"\" PrimaryPIAttribute=\"\" Aggregation=\"\" Node=\"\" />"
+                        },
+                        {
+                            "verb": "addSPFieldXml",
+                            "schemaXml": "<Field Type=\"Text\" DisplayName=\"SharePointSite\" Required=\"FALSE\" EnforceUniqueValues=\"FALSE\" Indexed=\"FALSE\" MaxLength=\"255\" ID=\"{229c3c90-92a2-4d34-9a9e-7f8dd8cc6391}\" StaticNa
+                            me = \"SharePointSite\" Name=\"SharePointSite\" Hidden=\"FALSE\" Customization=\"\" ReadOnly=\"FALSE\" PITarget=\"\" PrimaryPITarget=\"\" PIAttribute=\"\" PrimaryPIAttribute=\"\" Aggregation=\"\" Node=\"\" />"
+                        },
+                        {
+                            "verb": "addSPFieldXml",
+                            "schemaXml": "<Field Type=\"Text\" DisplayName=\"DocLibrary\" Required=\"FALSE\" EnforceUniqueValues=\"FALSE\" Indexed=\"FALSE\" MaxLength=\"255\" ID=\"{d26a4e30-c69a-4581-a2a0-03cce7cb7af3}\" StaticName=\
+  "
+                            DocLibrary\ " Name=\"DocLibrary\" Hidden=\"FALSE\" Customization=\"\" ReadOnly=\"FALSE\" PITarget=\"\" PrimaryPITarget=\"\" PIAttribute=\"\" PrimaryPIAttribute=\"\" Aggregation=\"\" Node=\"\" />"
+                        },
+                        {
+                            "verb": "addSPFieldXml",
+                            "schemaXml": "<Field Type=\"Text\" DisplayName=\"DocSubFolder\" Required=\"FALSE\" EnforceUniqueValues=\"FALSE\" Indexed=\"FALSE\" MaxLength=\"255\" ID=\"{d3cd1557-a481-4e9b-91a0-73a574e1f5fa}\" StaticName = \"DocSubFolder\" Name=\"DocSubFolder\" Hidden=\"FALSE\" Customization=\"\" ReadOnly=\"FALSE\" PITarget=\"\" PrimaryPITarget=\"\" PIAttribute=\"\" PrimaryPIAttribute=\"\" Aggregation=\"\" Node=\"\" />"
+                        },
+                        {
+                            "verb": "addSPFieldXml",
+                            "schemaXml": "<Field Type=\"Number\" DisplayName=\"Level\" Required=\"FALSE\" EnforceUniqueValues=\"FALSE\" Indexed=\"FALSE\" ID=\"{9fdfd22c-da76-48b7-b173-7dfec7a91351}\" StaticName=\"Level\" Name=\"Level\
+                            " />"
+                        },
+                        {
+                            "verb": "addSPFieldXml",
+                            "schemaXml": "<Field Type=\"Text\" DisplayName=\"Level16\" Required=\"FALSE\" EnforceUniqueValues=\"FALSE\" Indexed=\"TRUE\" MaxLength=\"255\" ID=\"{9bfbb642-3a60-40b1-a671-250badd809ca}\" StaticName=\"Lev
+                            el16\ " Name=\"Level16\" />"
+                        },
+                        {
+                            "verb": "addSPFieldXml",
+                            "schemaXml": "<Field Type=\"Text\" DisplayName=\"Level17\" Required=\"FALSE\" EnforceUniqueValues=\"FALSE\" Indexed=\"TRUE\" MaxLength=\"255\" ID=\"{f6bd5662-abe9-4711-bc16-e5807b8e8d71}\" StaticName=\"Lev
+                            el17\ " Name=\"Level17\" />"
+                        },
+                        {
+                            "verb": "addSPFieldXml",
+                            "schemaXml": "<Field Type=\"Text\" DisplayName=\"Level18\" Required=\"FALSE\" EnforceUniqueValues=\"FALSE\" Indexed=\"TRUE\" MaxLength=\"255\" ID=\"{1b17f203-1eaa-4497-89be-713e02dd9d97}\" StaticName=\"Lev
+                            el18\ " Name=\"Level18\" />"
+                        },
+                        {
+                            "verb": "addSPFieldXml",
+                            "schemaXml": "<Field Type=\"Text\" DisplayName=\"Level19\" Required=\"FALSE\" EnforceUniqueValues=\"FALSE\" Indexed=\"TRUE\" MaxLength=\"255\" ID=\"{c9b1b446-c789-4bcb-9810-408da4d80d6e}\" StaticName=\"Lev
+                            el19\ " Name=\"Level19\" />"
+                        },
+                        {
+                            "verb": "addSPFieldXml",
+                            "schemaXml": "<Field Type=\"Text\" DisplayName=\"Level20\" Required=\"FALSE\" EnforceUniqueValues=\"FALSE\" Indexed=\"TRUE\" MaxLength=\"255\" ID=\"{47e099bf-ec0e-4258-ba4e-4d6a153551d1}\" StaticName=\"Lev
+                            el20\ " Name=\"Level20\" />"
+                        },
+                        {
+                            "verb": "addSPFieldXml",
+                            "schemaXml": "<Field ID=\"{bc91a437-52e7-49e1-8c4e-4698904b2b6d}\" ReadOnly=\"TRUE\" Type=\"Computed\" Name=\"LinkTitleNoMenu\" DisplayName=\"FileSharePath\" Dir=\"\" DisplayNameSrcField=\"Title\" Authorin
+                            gInfo = \"(linked to item)\" EnableLookup=\"TRUE\" ListItemMenuAllowed=\"Prohibited\" LinkToItemAllowed=\"Prohibited\" SourceID=\"http://schemas.microsoft.com/sharepoint/v3\" StaticName=\"LinkTitleNoMenu\" FromBaseTyp
+                            e = \"TRUE\"><FieldRefs><FieldRef Name=\"Title\" /><FieldRef Name=\"LinkFilenameNoMenu\" /></FieldRefs><DisplayPattern><IfEqual><Expr1><LookupColumn Name=\"FSObjType\" /></Expr1><Expr2>1</Expr2><Then><Field Name=\"Lin
+                            kFilenameNoMenu\ " /></Then><Else><HTML><![CDATA[<a onfocus=\"OnLink(this)\" href=\"]]></HTML><URL /><HTML><![CDATA[\" onclick=\"EditLink2(this,]]></HTML><Counter Type=\"View\" /><HTML><![CDATA[);return false;\" targ
+                            et = \"_self\">]]></HTML><Column HTMLEncode=\"TRUE\" Name=\"Title\" Default=\"(no title)\" /><IfEqual><Expr1><GetVar Name=\"ShowAccessibleIcon\" /></Expr1><Expr2>1</Expr2><Then><HTML><![CDATA[<img src=\"/_layouts/15/i
+                            mages / blank.gif ? rev = 47\ " class=\"ms-hidden\" border=\"0\" width=\"1\" height=\"1\" alt=\"Use SHIFT+ENTER to open the menu (new window).\"/>]]></HTML></Then></IfEqual><HTML><![CDATA[</a>]]></HTML><IfNew><HTML><![CDAT
+                            A[ < img src = \"/_layouts/1033/images/new.gif\" alt=\"]]></HTML><HTML>New</HTML><HTML><![CDATA[\" class=\"ms-newgif\" />]]></HTML></IfNew></Else></IfEqual></DisplayPattern></Field>"
+                            },
+                            {
+                                "verb": "addSPFieldXml",
+                                "schemaXml": "<Field ID=\"{82642ec8-ef9b-478f-acf9-31f7d45fbc31}\" DisplayName=\"FileSharePath\" Description=\"\" Name=\"LinkTitle\" SourceID=\"http://schemas.microsoft.com/sharepoint/v3\" StaticName=\"Lin
+                                kTitle\ " Type=\"Computed\" ReadOnly=\"TRUE\" FromBaseType=\"TRUE\" Width=\"150\" DisplayNameSrcField=\"Title\" Sealed=\"FALSE\"><FieldRefs><FieldRef Name=\"Title\" /><FieldRef Name=\"LinkTitleNoMenu\" /><FieldRef Na
+                                me = \"_EditMenuTableStart2\" /><FieldRef Name=\"_EditMenuTableEnd\" /></FieldRefs><DisplayPattern><FieldSwitch><Expr><GetVar Name=\"FreeForm\" /></Expr><Case Value=\"TRUE\"><Field Name=\"LinkTitleNoMenu\" /></Case><D
+                                efault > < HTML > < ![CDATA[ < div class = \"ms-vb itx\" onmouseover=\"OnItem(this)\" CTXName=\"ctx]]></HTML><Field Name=\"_EditMenuTableStart2\" /><HTML><![CDATA[\">]]></HTML><Field Name=\"LinkTitleNoMenu\" /><HTML><![CDATA[ <
+                                        /div>]]></HTML > < HTML > < ![CDATA[ < div class = \"s4-ctx\" onmouseover=\"OnChildItem(this.parentNode); return false;\">]]></HTML><HTML><![CDATA[<span>&nbsp;</span>]]></HTML><HTML><![CDATA[<a onfocus=\"OnChildItem(this.par
+                                                entNode.parentNode);
+                                            return false;\
+                                            " onclick=\"PopMenuFromChevron(event); return false;\" href=\"javascript:;\" title=\"Open Menu\"></a>]]></HTML><HTML><![CDATA[<span>&nbsp;</span>]]></HTML><HTML><![CDATA[</div>]]>< /
+                                            HTML > < /Default></FieldSwitch > < /DisplayPattern></Field > "
+                                        }, {
+                                            "verb": "addSPFieldXml",
+                                            "schemaXml": "<Field ID=\"{5f190d91-3dbc-4489-9878-3c092caf35b6}\" Hidden=\"TRUE\" ReadOnly=\"TRUE\" Type=\"Computed\" Name=\"LinkTitle2\" DisplayName=\"FileSharePath\" DisplayNameSrcField=\"Title\" ClassI
+                                            nfo = \"Menu\" AuthoringInfo=\"(linked to item with edit menu) (old)\" SourceID=\"http://schemas.microsoft.com/sharepoint/v3\" StaticName=\"LinkTitle2\" FromBaseType=\"TRUE\"><FieldRefs><FieldRef Name=\"Title\" /><Fie
+                                            ldRef Name = \"LinkTitleNoMenu\" /><FieldRef Name=\"_EditMenuTableStart\" /><FieldRef Name=\"_EditMenuTableEnd\" /></FieldRefs><DisplayPattern><FieldSwitch><Expr><GetVar Name=\"FreeForm\" /></Expr><Case Value=\"TRUE\" >
+                                            < Field Name = \"LinkTitleNoMenu\" /></Case><Default><Field Name=\"_EditMenuTableStart\" /><SetVar Name=\"ShowAccessibleIcon\" Value=\"1\" /><Field Name=\"LinkTitleNoMenu\" /><SetVar Name=\"ShowAccessibleIcon\" Value=\
+                                            "0\" /><Field Name=\"_EditMenuTableEnd\" /></Default></FieldSwitch></DisplayPattern></Field>"
+                                        }, {
+                                            "verb": "addContentType",
+                                            "name": "Item",
+                                            "id": "0x01",
+                                            "fieldRefsXml": [
+                                                "<FieldRef ID=\"{fa564e0f-0c70-4ab9-b863-0177e6ddd247}\" Name=\"Title\" DisplayName=\"FileSharePath\" Required=\"TRUE\" Hidden=\"FALSE\" PITarget=\"\" PrimaryPITarget=\"\" PIAttribute=\"\" PrimaryPIAttri
+                                                bute = \"\" Aggregation=\"\" Node=\"\" />",
+                                                "<FieldRef ID=\"{229c3c90-92a2-4d34-9a9e-7f8dd8cc6391}\" Name=\"SharePointSite\" Required=\"FALSE\" Hidden=\"FALSE\" ReadOnly=\"FALSE\" PITarget=\"\" PrimaryPITarget=\"\" PIAttribute=\"\" PrimaryPIAttrib
+                                                ute = \"\" Aggregation=\"\" Node=\"\" />",
+                                                "<FieldRef ID=\"{d26a4e30-c69a-4581-a2a0-03cce7cb7af3}\" Name=\"DocLibrary\" Required=\"FALSE\" Hidden=\"FALSE\" ReadOnly=\"FALSE\" PITarget=\"\" PrimaryPITarget=\"\" PIAttribute=\"\" PrimaryPIAttribute=\
+                                                "\" Aggregation=\"\" Node=\"\" />",
+                                                "<FieldRef ID=\"{d3cd1557-a481-4e9b-91a0-73a574e1f5fa}\" Name=\"DocSubFolder\" Required=\"FALSE\" Hidden=\"FALSE\" ReadOnly=\"FALSE\" PITarget=\"\" PrimaryPITarget=\"\" PIAttribute=\"\" PrimaryPIAttribut
+                                                e = \"\" Aggregation=\"\" Node=\"\" />",
+                                                "<FieldRef ID=\"{9c8bb553-1558-44bd-8e5b-048363d4f3f6}\" Name=\"Level2\" DisplayName=\"Level2\" Required=\"FALSE\" Hidden=\"FALSE\" ReadOnly=\"FALSE\" PITarget=\"\" PrimaryPITarget=\"\" PIAttribute=\"\" 
+                                                PrimaryPIAttribute = \"\" Aggregation=\"\" Node=\"\" />",
+                                                "<FieldRef ID=\"{f214fb6c-faee-4088-a1cd-3bd5cf5f1fba}\" Name=\"Level3\" DisplayName=\"Level3\" Required=\"FALSE\" Hidden=\"FALSE\" ReadOnly=\"FALSE\" PITarget=\"\" PrimaryPITarget=\"\" PIAttribute=\"\" 
+                                                PrimaryPIAttribute = \"\" Aggregation=\"\" Node=\"\" />",
+                                                "<FieldRef ID=\"{32d1ca42-ca9a-4d75-8b14-9d0face72d1d}\" Name=\"Level4\" DisplayName=\"Level4\" Required=\"FALSE\" Hidden=\"FALSE\" ReadOnly=\"FALSE\" PITarget=\"\" PrimaryPITarget=\"\" PIAttribute=\"\" 
+                                                PrimaryPIAttribute = \"\" Aggregation=\"\" Node=\"\" />",
+                                                "<FieldRef ID=\"{718ab74d-71ab-408d-8945-0400f5516e4a}\" Name=\"Level5\" DisplayName=\"Level5\" Required=\"FALSE\" Hidden=\"FALSE\" ReadOnly=\"FALSE\" PITarget=\"\" PrimaryPITarget=\"\" PIAttribute=\"\" 
+                                                PrimaryPIAttribute = \"\" Aggregation=\"\" Node=\"\" />",
+                                                "<FieldRef ID=\"{e0dc4cc1-f3aa-4c5c-a0bc-71d417cff3e8}\" Name=\"Level6\" DisplayName=\"Level6\" Required=\"FALSE\" Hidden=\"FALSE\" ReadOnly=\"FALSE\" PITarget=\"\" PrimaryPITarget=\"\" PIAttribute=\"\" 
+                                                PrimaryPIAttribute = \"\" Aggregation=\"\" Node=\"\" />",
+                                                "<FieldRef ID=\"{806ddad8-30d3-4cf4-9ba2-d5b39eb22d29}\" Name=\"Level7\" DisplayName=\"Level7\" Required=\"FALSE\" Hidden=\"FALSE\" ReadOnly=\"FALSE\" PITarget=\"\" PrimaryPITarget=\"\" PIAttribute=\"\" 
+                                                PrimaryPIAttribute = \"\" Aggregation=\"\" Node=\"\" />",
+                                                "<FieldRef ID=\"{16cd7658-c164-443a-84dc-b7c22f33f1d2}\" Name=\"Level8\" DisplayName=\"Level8\" Required=\"FALSE\" Hidden=\"FALSE\" ReadOnly=\"FALSE\" PITarget=\"\" PrimaryPITarget=\"\" PIAttribute=\"\" 
+                                                PrimaryPIAttribute = \"\" Aggregation=\"\" Node=\"\" />",
+                                                "<FieldRef ID=\"{541c8e0c-79c1-47e0-8fd5-b127959cc135}\" Name=\"Level9\" DisplayName=\"Level9\" Required=\"FALSE\" Hidden=\"FALSE\" ReadOnly=\"FALSE\" PITarget=\"\" PrimaryPITarget=\"\" PIAttribute=\"\" 
+                                                PrimaryPIAttribute = \"\" Aggregation=\"\" Node=\"\" />",
+                                                "<FieldRef ID=\"{5607a919-37d1-44f1-a329-399d176296a2}\" Name=\"Level10\" DisplayName=\"Level10\" Required=\"FALSE\" Hidden=\"FALSE\" ReadOnly=\"FALSE\" PITarget=\"\" PrimaryPITarget=\"\" PIAttribute=\"\
+  "
+                                                PrimaryPIAttribute = \"\" Aggregation=\"\" Node=\"\" />",
+                                                "<FieldRef ID=\"{2070e841-58e8-40be-a4f6-66117caf6e27}\" Name=\"Level11\" DisplayName=\"Level11\" Required=\"FALSE\" Hidden=\"FALSE\" ReadOnly=\"FALSE\" PITarget=\"\" PrimaryPITarget=\"\" PIAttribute=\"\
+  "
+                                                PrimaryPIAttribute = \"\" Aggregation=\"\" Node=\"\" />",
+                                                "<FieldRef ID=\"{5847fe75-97c0-4004-9332-4d97c16ed7c4}\" Name=\"Level12\" DisplayName=\"Level12\" Required=\"FALSE\" Hidden=\"FALSE\" ReadOnly=\"FALSE\" PITarget=\"\" PrimaryPITarget=\"\" PIAttribute=\"\
+  "
+                                                PrimaryPIAttribute = \"\" Aggregation=\"\" Node=\"\" />",
+                                                "<FieldRef ID=\"{0a3c4f09-ca3e-45d3-943b-1eefd7377423}\" Name=\"Level1\" DisplayName=\"Level1\" Required=\"FALSE\" Hidden=\"FALSE\" ReadOnly=\"FALSE\" PITarget=\"\" PrimaryPITarget=\"\" PIAttribute=\"\" 
+                                                PrimaryPIAttribute = \"\" Aggregation=\"\" Node=\"\" />",
+                                                "<FieldRef ID=\"{060eab49-3e24-4b62-b847-428cd6cc6b22}\" Name=\"Level13\" DisplayName=\"Level13\" Required=\"FALSE\" Hidden=\"FALSE\" ReadOnly=\"FALSE\" PITarget=\"\" PrimaryPITarget=\"\" PIAttribute=\"\
+  "
+                                                PrimaryPIAttribute = \"\" Aggregation=\"\" Node=\"\" />",
+                                                "<FieldRef ID=\"{469851f1-2c07-44b5-8359-ce1967edf72c}\" Name=\"Level14\" DisplayName=\"Level14\" Required=\"FALSE\" Hidden=\"FALSE\" ReadOnly=\"FALSE\" PITarget=\"\" PrimaryPITarget=\"\" PIAttribute=\"\
+  "
+                                                PrimaryPIAttribute = \"\" Aggregation=\"\" Node=\"\" />",
+                                                "<FieldRef ID=\"{2704a46a-b2bb-4e97-b86e-eb93f8e56a10}\" Name=\"Level15\" DisplayName=\"Level15\" Required=\"FALSE\" Hidden=\"FALSE\" ReadOnly=\"FALSE\" PITarget=\"\" PrimaryPITarget=\"\" PIAttribute=\"\
+  "
+                                                PrimaryPIAttribute = \"\" Aggregation=\"\" Node=\"\" />",
+                                                "<FieldRef ID=\"{82642ec8-ef9b-478f-acf9-31f7d45fbc31}\" Name=\"LinkTitle\" DisplayName=\"Title\" Required=\"FALSE\" Hidden=\"TRUE\" ReadOnly=\"TRUE\" PITarget=\"\" PrimaryPITarget=\"\" PIAttribute=\"\" 
+                                                PrimaryPIAttribute = \"\" Aggregation=\"\" Node=\"\" />",
+                                                "<FieldRef ID=\"{9fdfd22c-da76-48b7-b173-7dfec7a91351}\" Name=\"Level\" Required=\"FALSE\" />",
+                                                "<FieldRef ID=\"{9bfbb642-3a60-40b1-a671-250badd809ca}\" Name=\"Level16\" DisplayName=\"Level16\" Required=\"FALSE\" />",
+                                                "<FieldRef ID=\"{f6bd5662-abe9-4711-bc16-e5807b8e8d71}\" Name=\"Level17\" DisplayName=\"Level17\" Required=\"FALSE\" />",
+                                                "<FieldRef ID=\"{1b17f203-1eaa-4497-89be-713e02dd9d97}\" Name=\"Level18\" DisplayName=\"Level18\" Required=\"FALSE\" />",
+                                                "<FieldRef ID=\"{c9b1b446-c789-4bcb-9810-408da4d80d6e}\" Name=\"Level19\" DisplayName=\"Level19\" Required=\"FALSE\" />",
+                                                "<FieldRef ID=\"{47e099bf-ec0e-4258-ba4e-4d6a153551d1}\" Name=\"Level20\" DisplayName=\"Level20\" Required=\"FALSE\" />"
+                                            ]
+                                        }, {
+                                            "verb": "addContentType",
+                                            "name": "Folder",
+                                            "id": "0x0120"
+                                        }, {
+                                            "verb": "addSPView",
+                                            "name": "All Items",
+                                            "viewFields": [
+                                                "ID",
+                                                "Level",
+                                                "LinkTitle",
+                                                "SharePointSite",
+                                                "DocLibrary",
+                                                "DocSubFolder",
+                                                "Level1",
+                                                "Level2",
+                                                "Level3",
+                                                "Level4",
+                                                "Level5",
+                                                "Level6",
+                                                "Level7",
+                                                "Level8",
+                                                "Level9",
+                                                "Level10",
+                                                "Level11",
+                                                "Level12",
+                                                "Level13",
+                                                "Level14",
+                                                "Level15",
+                                                "Level16",
+                                                "Level17",
+                                                "Level18",
+                                                "Level19",
+                                                "Level20"
+                                            ],
+                                            "query": "",
+                                            "rowLimit": 30,
+                                            "isPaged": true,
+                                            "replaceViewFields": true
+                                        }, {
+                                            "verb": "addSPView",
+                                            "name": "Grouped",
+                                            "viewFields": [
+                                                "ID",
+                                                "Level",
+                                                "LinkTitle",
+                                                "Level1",
+                                                "Level2",
+                                                "Level3",
+                                                "Level4",
+                                                "Level5",
+                                                "Level6",
+                                                "Level7",
+                                                "Level8",
+                                                "Level9",
+                                                "Level10",
+                                                "Level11",
+                                                "Level12",
+                                                "Level13",
+                                                "Level14",
+                                                "Level15",
+                                                "SharePointSite",
+                                                "DocLibrary",
+                                                "DocSubFolder",
+                                                "Level16",
+                                                "Level17",
+                                                "Level18",
+                                                "Level19",
+                                                "Level20"
+                                            ],
+                                            "query": "<GroupBy Collapse=\"TRUE\" GroupLimit=\"30\"><FieldRef Name=\"Level1\" /><FieldRef Name=\"Level2\" /></GroupBy><Where><And><Eq><FieldRef Name=\"Level1\" /><Value Type=\"Text\">ACC</Value></Eq><Eq >
+                                                < FieldRef Name = \"Level2\" /><Value Type=\"Text\">ACC Monthly Reports</Value></Eq></And></Where>",
+                                            "rowLimit": 30,
+                                            "isPaged": true,
+                                            "makeDefault": true,
+                                            "replaceViewFields": true
+                                        }, {
+                                            "verb": "addSPView",
+                                            "name": "Migration Export",
+                                            "viewFields": [
+                                                "LinkTitle",
+                                                "Modified",
+                                                "Editor",
+                                                "SharePointSite",
+                                                "DocLibrary",
+                                                "DocSubFolder",
+                                                "Level1",
+                                                "Level2",
+                                                "Level3",
+                                                "Level4",
+                                                "Level5",
+                                                "Level6",
+                                                "Level7",
+                                                "Level8",
+                                                "Level9",
+                                                "Level10",
+                                                "Level11",
+                                                "Level12",
+                                                "Level13",
+                                                "Level14",
+                                                "Level15"
+                                            ],
+                                            "query": "",
+                                            "rowLimit": 30,
+                                            "isPaged": true,
+                                            "replaceViewFields": true
+                                        }
+                                    ]
+                                }
+                            ]
+                        }
