@@ -10,7 +10,7 @@ This script will generate a csv listing all flows which connect to SharePoint.
  
 # [Power Apps PowerShell](#tab/powerapps-ps)
 ```powershell
-$environment="Default-9eec07e6-f6f8-4e24-b4c7-c5868500b417"
+$environment="{Your EnvironmentName}"
 Connect-AzureAD
 $flows=Get-AdminFlow -EnvironmentName $environment
 $results=@()
