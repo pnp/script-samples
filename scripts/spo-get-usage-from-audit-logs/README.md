@@ -6,7 +6,7 @@ plugin: add-to-gallery
 
 ## Summary
 
-Say we have a user who has written a lot of flows and powerbi reports and is complaaining tha she is getting throttled in sharepoint quite often.
+Say we have a user who has written a lot of flows and PowerBI reports and is complaining that she is getting throttled in SharePoint quite often.
 
 We need to see all the calls being made by that user and/or to particular sites to attempt to narrow down the issues.
 
@@ -56,5 +56,5 @@ $outputArray | Export-Csv "c:\Temp\IOCounts.csv" -NoTypeInformation
 | Russell Gove |
 
 [!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
-<img src="https://pnptelemetry.azurewebsites.net/script-samples/scripts/graph-download-office-documents-as-pdf" aria-hidden="true" />
+<img src="https://pnptelemetry.azurewebsites.net/script-samples/scripts/spo-get-usage-from-audit-logs" aria-hidden="true" />
 
