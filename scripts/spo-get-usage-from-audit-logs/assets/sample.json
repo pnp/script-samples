@@ -2,10 +2,10 @@
     "name": "spo-get-usage-from-audit-logs",
     "source": "pnp",
     "title": "Gets usage from a particular user(s) or site(s) from the Unified Audit Log",
-    "shortDescription": "Script to download files in a doclib to a local drive and convert Office Documents to PDF",
+    "shortDescription": "This script will scan the ULS Logs for the last week looking for all access by a user an or to a site and create an excel file summarizing the activity",
     "url": "https://pnp.github.io/script-samples/spo-get-usage-from-audit-logs/README.html",
     "longDescription": [
-        "Say we have a user who has written a lot of flows and powerbi reports and is complaaining tha she is getting throttled in sharepoint quite often.",
+        "Say we have a user who has written a lot of flows and powerbi reports and is complaining tha she is getting throttled in sharepoint quite often.",
         "We need to see all the calls being mad by that user and/or to particular sites to attempt to narrow down the issues.",
         "This script will scan the ULS Logs for the last week looking for all access by a user an or to a site and create an excel file summarizing the activity."
     ],

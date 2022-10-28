@@ -2,12 +2,10 @@
     "name": "spo-copy-directory-structure-to-sharepoint-list",
     "source": "pnp",
     "title": "Copy the folder structure of a directory to a SharePoint list",
-    "shortDescription": "Copies the folder structure of a directory to a SharePoint list",
+    "shortDescription": "Copies the folder structure of a directory to a SharePoint list and trigger an migration using the Migration Manager",
     "url": "https://pnp.github.io/script-samples/spo-copy-directory-structure-to-sharepoint-list/README.html",
     "longDescription": [
-        "Say we have a user who has written a lot of flows and PowerBI reports and is complaining tha she is getting throttled in SharePoint quite often.",
-        "We need to see all the calls being mad by that user and/or to particular sites to attempt to narrow down the issues.",
-        "This script will scan the ULS Logs for the last week looking for all access by a user an or to a site and create an excel file summarizing the activity."
+        "Migrate file shares to SharePoint? Get all the individual directories int a SharePoint list so that we can trigger an migration using the SharePoint Migration Manager"
     ],
     "creationDateTime": "2022-10-28",
     "updateDateTime": "2022-10-28",
