@@ -2,16 +2,16 @@
 plugin: add-to-gallery
 ---
 
-# Copies the structure of a directory to a sharepoint list
+# Copies the structure of a directory to a SharePoint list
 
 ## Summary
 
-Say we are trying to migrate file shares to Sharepoint. We want to get all the individual directories int a SharePoint list so that we can somehow trigger an migration using the SharePoint Migration Manager (https://tenant-admin.sharepoint.com/_layouts/15/online/AdminHome.aspx#/migration/fileshare).
+Say we are trying to migrate file shares to SharePoint. We want to get all the individual directories int a SharePoint list so that we can somehow trigger an migration using the SharePoint Migration Manager (https://tenant-admin.SharePoint.com/_layouts/15/online/AdminHome.aspx#/migration/fileshare).
 
-This script will scan a selectd file share for all folders and create an entry in a sharepoint list for each folder found. This list then can be used to trigger migrations on specific folders to specific sharepoint location in a number of different ways. (PowerApps,PowerAutomate, SPFX, export to excel.
+This script will scan a selected file share for all folders and create an entry in a SharePoint list for each folder found. This list then can be used to trigger migrations on specific folders to specific SharePoint location in a number of different ways. (PowerApps,PowerAutomate, SPFX, export to excel.
 
-Before running the script we must first create a SharePoint list to hold the foldder structure. I created an empty list and renamed the Title column to FileSharePath.
-I then added 20 text columns (my directory is 20 levels deep) name Level1...Level20 ande added an index to each (so we can filter on them easily). I also added a number column called Level that represents the depth in the hierarchy and 3 additional columns (SharePointSite, DocLibrary and DocSubfolder) that a user can enter into the list online to facilitate migrations using the SharePoint Migration Service.
+Before running the script we must first create a SharePoint list to hold the folder structure. I created an empty list and renamed the Title column to FileSharePath.
+I then added 20 text columns (my directory is 20 levels deep) name Level1...Level20 and added an index to each (so we can filter on them easily). I also added a number column called Level that represents the depth in the hierarchy and 3 additional columns (SharePointSite, DocLibrary and DocSubfolder) that a user can enter into the list online to facilitate migrations using the SharePoint Migration Service.
 
 The final list is shown below:
 ![Example Screenshot](assets/LISTSTRUCTURE.PNG)
@@ -19,12 +19,12 @@ The final list is shown below:
 After running the script the list will be populated with one row for each folder in your
 fileshare.
 
-So now you can go to the list and enter the url for a sharepoint site, a document library and an optional subfolder for each directory. 
+So now you can go to the list and enter the url for a SharePoint site, a document library and an optional subfolder for each directory. 
 
-There are multile ways to trigger a migration with this info. The simplest is to create a view with just the FileSharePath, Modified, ModifiedBy, SharePointSite and doclib and Docsubfolder.
-This matches the columns required by the Migration Manger as documented at https://learn.microsoft.com/en-us/sharepointmigration/mm-bulk-upload-format-csv-json. (Note that Modified, ModifiedBy are not used by the tool, they are just used as filler). You can then export this list as a csv, remove all rows that dont have a valid SharePointSite and doclib and Docsubfolder and upload it to the Migration Manager.
+There are multiple ways to trigger a migration with this info. The simplest is to create a view with just the FileSharePath, Modified, ModifiedBy, SharePointSite and doclib and Docsubfolder.
+This matches the columns required by the Migration Manger as documented at https://learn.microsoft.com/en-us/SharePointmigration/mm-bulk-upload-format-csv-json. (Note that Modified, ModifiedBy are not used by the tool, they are just used as filler). You can then export this list as a csv, remove all rows that dont have a valid SharePointSite and doclib and Docsubfolder and upload it to the Migration Manager.
 
-A flow can also be created to automatically trigger a migration when the SharePointSite and doclib and Docsubfolder are updated. The flow needs use 'Send and Http Request to SharePoint' to Post Data to tenant-admin.sharepoint.com/_api/MigrationCenterServices/Tasks/BatchCreate.
+A flow can also be created to automatically trigger a migration when the SharePointSite and doclib and Docsubfolder are updated. The flow needs use 'Send and Http Request to SharePoint' to Post Data to tenant-admin.SharePoint.com/_api/MigrationCenterServices/Tasks/BatchCreate.
 The body of the request should contain 
 ```json
 {
@@ -67,7 +67,7 @@ The body of the request should contain
             "SourceUri": "\\\\server\\share\\folder",
             "SourceListName": "",
             "SourceListRelativePath": "",
-            "TargetSiteUrl": "https://tenant.sharepoint.com/sites/site",
+            "TargetSiteUrl": "https://tenant.SharePoint.com/sites/site",
             "TargetListName": "testlib",
             "TargetListRelativePath": "folder"
         }
@@ -82,17 +82,13 @@ The body of the request should contain
 
 ```
 
-
-
-
-
 # [PnP PowerShell](#tab/pnpps)
 
 ```powershell
 CLS
 $count = 0
 $rootpath = "\\server\fileshare"
-Connect-PnPOnline -Url "https://tenant.sharepoint.com/sites/site with the targetlist" -Interactive
+Connect-PnPOnline -Url "https://tenant.SharePoint.com/sites/site with the targetlist" -Interactive
 $list = Get-PnPList  "FolderTest4"
 $Batch = new-PnPBatch
 function add-listitemwithLevels {
@@ -209,5 +205,5 @@ $subfolders = get-folders -path $rootpath -level 1
 | Russell Gove |
 
 [!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
-<img src="https://pnptelemetry.azurewebsites.net/script-samples/scripts/graph-download-office-documents-as-pdf" aria-hidden="true" />
+<img src="https://pnptelemetry.azurewebsites.net/script-samples/scripts/spo-copy-directory-structure-to-sharepoint-list" aria-hidden="true" />
 
