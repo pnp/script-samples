@@ -1,0 +1,47 @@
+[{
+    "name": "spo-get-usage-from-audit-logs",
+    "source": "pnp",
+    "title": "Gets usage from a particular user(s) or site(s) from the Unified Audit Log",
+    "shortDescription": "This script will scan the ULS Logs for the last week looking for all access by a user an or to a site and create an excel file summarizing the activity",
+    "url": "https://pnp.github.io/script-samples/spo-get-usage-from-audit-logs/README.html",
+    "longDescription": [
+        "Say we have a user who has written a lot of flows and powerbi reports and is complaining tha she is getting throttled in sharepoint quite often.",
+        "We need to see all the calls being mad by that user and/or to particular sites to attempt to narrow down the issues.",
+        "This script will scan the ULS Logs for the last week looking for all access by a user an or to a site and create an excel file summarizing the activity."
+    ],
+    "creationDateTime": "2022-10-28",
+    "updateDateTime": "2022-10-28",
+    "products": [
+        "SharePoint",
+        "Graph"
+    ],
+    "metadata": [{
+        "key": "PNP-POWERSHELL",
+        "value": "1.11.0"
+      }],
+    "categories": [
+        "Report"
+    ],
+    "tags": [
+        "Unified Audit Logs",
+        "ULS",
+        "PDF"
+    ],
+    "thumbnails": [{
+        "type": "image",
+        "order": 100,
+        "url": "https://raw.githubusercontent.com/pnp/script-samples/main/scripts/spo-get-usage-from-audit-logs/assets/preview.png",
+        "alt": "This sample does not contain a preview image"
+    }],
+    "authors": [{
+        "gitHubAccount": "russgove",
+        "company": "",
+        "pictureUrl": "https://avatars.githubusercontent.com/u/2412956?v=4",
+        "name": "Russell Gove"
+    }],
+    "references": [{
+        "name": "Want to learn more about the Microsoft Graph",
+        "description": "Check out the documentation site to get started and for the reference to the endpoints.",
+        "url": "https://developer.microsoft.com/en-us/graph/graph-explorer"
+    }]
+}]

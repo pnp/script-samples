@@ -1,0 +1,322 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html lang="en">
+  
+  <head>
+    <meta charset="utf-8">
+    <title>Copies the structure of a directory to a SharePoint list | PnP Samples </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Copies the structure of a directory to a SharePoint list | PnP Samples ">
+    <meta name="generator" content="docfx 2.56.7.0">
+    <meta name="description" content="A sample gallery of scripts to manage all things Microsoft 365.">
+  
+    <!-- Social Media -->
+    <meta property="og:locale" content="en_GB">
+    <meta property="og:title" content="Copies the structure of a directory to a SharePoint list | PnP Samples ">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://pnp.github.io/script-samples">
+    <meta property="og:image" content="https://pnp.github.io/script-samples/assets/social-media-screenshot.png">
+    <meta property="og:image:alt" content="Screenshot example of the PnP Script Samples Site">
+    <meta property="og:site_name" content="PnP Script Samples">
+    <meta property="og:description" content="A sample gallery of scripts to manage all things Microsoft 365.">
+  
+    <link rel="shortcut icon" href="https://c.s-microsoft.com/favicon.ico?v2">
+    <link rel="stylesheet" href="../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../styles/docfx.css">
+    <link rel="stylesheet" href="../styles/main.css">
+    <link rel="stylesheet" href="../styles/extra.css">
+    <link rel="stylesheet" href="../styles/filter.css">
+    <link rel="stylesheet" href="../styles/site.css">
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet"> 
+    <meta property="docfx:navrel" content="../toc.html">
+    <meta property="docfx:tocrel" content="../toc.html">
+    
+    
+    <meta property="docfx:newtab" content="true">
+    <script type="text/javascript">
+      (function(c,l,a,r,i,t,y){
+          c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+          t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+          y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+      })(window, document, "clarity", "script", "8j6pedl344");
+  </script>
+  </head>  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+             <div class="github-mark">
+              <a href="https://github.com/pnp/script-samples">
+                <img src="https://pnp.github.io/script-samples/assets/icons/github-light-64px.png" alt="GitHub Icon Image">
+              </a>
+            </div>
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../assets/logo.svg" alt="">
+              </a>    </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <label class="glyphicon glyphicon-search" for="search-query"></label>
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>      </header>
+      <div role="main" class="container body-content hide-when-search">
+        <div class="article row grid">
+          <div class="col-md-12">
+            <article class="content wrap" id="_content" data-uid="">
+                  <div class="contribution-panel mobile-hide pull-right">
+                      <a href="https://github.com/pnp/script-samples/blob/main/scripts/spo-copy-directory-structure-to-sharepoint-list/README.md/#L1" title="Improve this Doc" class="improve-doc-lg"><i class="glyphicon glyphicon-pencil"></i></a>
+                  </div>
+                    <h1 id="copies-the-structure-of-a-directory-to-a-sharepoint-list">Copies the structure of a directory to a SharePoint list</h1>
+
+<h2 id="summary">Summary</h2>
+<p>Say we are trying to migrate file shares to SharePoint. We want to get all the individual directories int a SharePoint list so that we can somehow trigger an migration using the SharePoint Migration Manager (<a href="https://tenant-admin.SharePoint.com/_layouts/15/online/AdminHome.aspx#/migration/fileshare">https://tenant-admin.SharePoint.com/_layouts/15/online/AdminHome.aspx#/migration/fileshare</a>).</p>
+<p>This script will scan a selected file share for all folders and create an entry in a SharePoint list for each folder found. This list then can be used to trigger migrations on specific folders to specific SharePoint location in a number of different ways. (PowerApps,PowerAutomate, SPFX, export to excel.</p>
+<p>Before running the script we must first create a SharePoint list to hold the folder structure. I created an empty list and renamed the Title column to FileSharePath.
+I then added 20 text columns (my directory is 20 levels deep) name Level1...Level20 and added an index to each (so we can filter on them easily). I also added a number column called Level that represents the depth in the hierarchy and 3 additional columns (SharePointSite, DocLibrary and DocSubfolder) that a user can enter into the list online to facilitate migrations using the SharePoint Migration Service.</p>
+<p>The final list is shown below:
+<img src="assets/LISTSTRUCTURE.PNG" alt="Example Screenshot"></p>
+<p>After running the script the list will be populated with one row for each folder in your
+fileshare.</p>
+<p>So now you can go to the list and enter the url for a SharePoint site, a document library and an optional subfolder for each directory.</p>
+<p>There are multiple ways to trigger a migration with this info. The simplest is to create a view with just the FileSharePath, Modified, ModifiedBy, SharePointSite and doclib and Docsubfolder.
+This matches the columns required by the Migration Manger as documented at <a href="https://learn.microsoft.com/en-us/SharePointmigration/mm-bulk-upload-format-csv-json">https://learn.microsoft.com/en-us/SharePointmigration/mm-bulk-upload-format-csv-json</a>. (Note that Modified, ModifiedBy are not used by the tool, they are just used as filler). You can then export this list as a csv, remove all rows that dont have a valid SharePointSite and doclib and Docsubfolder and upload it to the Migration Manager.</p>
+<p>A flow can also be created to automatically trigger a migration when the SharePointSite and doclib and Docsubfolder are updated. The flow needs use 'Send and Http Request to SharePoint' to Post Data to tenant-admin.SharePoint.com/_api/MigrationCenterServices/Tasks/BatchCreate.
+The body of the request should contain</p>
+<pre><code class="lang-json">{
+    &quot;taskSettings&quot;: {
+        &quot;AgentGroupName&quot;: &quot;&quot;,
+        &quot;AzureActiveDirectoryLkp&quot;: true,
+        &quot;CustomAzureAccessKey&quot;: &quot;&quot;,
+        &quot;CustomAzureDeletionAfterMig&quot;: false,
+        &quot;CustomAzureStorageAccount&quot;: &quot;&quot;,
+        &quot;DateCreated&quot;: &quot;2020-01-26T17:42:25.634Z&quot;,
+        &quot;DateModified&quot;: &quot;2020-01-26T17:42:25.634Z&quot;,
+        &quot;EnableIncremental&quot;: false,
+        &quot;EnableUserMappings&quot;: false,
+        &quot;Encrypted&quot;: true,
+        &quot;FilterOutHiddenFiles&quot;: false,
+        &quot;FilterOutPathSpecialCharacters&quot;: false,
+        &quot;IgnoredFileExtensions&quot;: &quot;&quot;,
+        &quot;InvalidCharsReplacement&quot;: &quot;&quot;,
+        &quot;MigrateAllWebStructures&quot;: false,
+        &quot;MigrateOneNoteNotebook&quot;: true,
+        &quot;MigrateSchema&quot;: true,
+        &quot;PreservePermissionForFileShare&quot;: false,
+        &quot;PreserveUserPermissionForOnPrem&quot;: true,
+        &quot;ReplaceInvalidChars&quot;: false,
+        &quot;ScanOnly&quot;: false,
+        &quot;SkipListWithAudienceEnabled&quot;: true,
+        &quot;StartMigrationAutomaticallyWhenNoScanIssue&quot;: false,
+        &quot;Tags&quot;: [],
+        &quot;TurnOnDateCreatedFilter&quot;: false,
+        &quot;TurnOnDateModifiedFilter&quot;: false,
+        &quot;TurnOnExtensionFilter&quot;: false,
+        &quot;UseCustomAzureStorage&quot;: false,
+        &quot;UserMappingCSVFile&quot;: &quot;&quot;,
+        &quot;VersionNumsPreserved&quot;: 10
+    },
+    &quot;taskDefinitions&quot;: [
+        {
+            &quot;Name&quot;: &quot;testmig&quot;,
+            &quot;Type&quot;: 0,
+            &quot;SourceUri&quot;: &quot;\\\\server\\share\\folder&quot;,
+            &quot;SourceListName&quot;: &quot;&quot;,
+            &quot;SourceListRelativePath&quot;: &quot;&quot;,
+            &quot;TargetSiteUrl&quot;: &quot;https://tenant.SharePoint.com/sites/site&quot;,
+            &quot;TargetListName&quot;: &quot;testlib&quot;,
+            &quot;TargetListRelativePath&quot;: &quot;folder&quot;
+        }
+     
+    ],
+    &quot;mmTaskSettings&quot;: {
+        &quot;ScheduledType&quot;: 0,
+        &quot;ScheduledTimeUtc&quot;: &quot;1901-01-02T00:00:00.000Z&quot;,
+        &quot;AgentGroupName&quot;: &quot;Default&quot;
+    }
+}
+
+</code></pre>
+<div class="tabGroup" id="tabgroup_CeZOj-G++Q">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_CeZOj-G++Q_pnpps" role="tab" aria-controls="tabpanel_CeZOj-G++Q_pnpps" data-tab="pnpps" tabindex="0" aria-selected="true">PnP PowerShell</a>
+</li>
+</ul>
+<section id="tabpanel_CeZOj-G++Q_pnpps" role="tabpanel" data-tab="pnpps"><button class="article-clipboard" title="Copy to clipboard" data-toggle="tooltip" data-placement="top" data-clipboard-target="section[id^='tabpanel'][data-tab='pnpps'] pre">
+    <span class="glyphicon glyphicon-copy" aria-hidden="true"></span>
+    <span class="article-clipboard__message done">Copied</span>
+</button>
+
+<pre><code class="lang-powershell">CLS
+$count = 0
+$rootpath = &quot;\\server\fileshare&quot;
+Connect-PnPOnline -Url &quot;https://tenant.SharePoint.com/sites/site with the targetlist&quot; -Interactive
+$list = Get-PnPList  &quot;FolderTest4&quot;
+$Batch = new-PnPBatch
+function add-listitemwithLevels {
+    PARAM (
+        [PARAMETER(Mandatory = $True, Position = 0, HelpMessage = &quot;Path&quot;)][String]$path,
+        [PARAMETER(Mandatory = $True, Position = 0, HelpMessage = &quot;Level&quot;)][String]$level,
+        [PARAMETER(Mandatory = $True, Position = 0, HelpMessage = &quot;level1&quot;)][String]$level1,
+        [PARAMETER(Mandatory = $false, Position = 0, HelpMessage = &quot;level2&quot;)][String]$level2,
+        [PARAMETER(Mandatory = $false, Position = 0, HelpMessage = &quot;level3&quot;)][String]$level3,
+        [PARAMETER(Mandatory = $false, Position = 0, HelpMessage = &quot;level4&quot;)][String]$level4,
+        [PARAMETER(Mandatory = $false, Position = 0, HelpMessage = &quot;level5&quot;)][String]$level5,
+        [PARAMETER(Mandatory = $false, Position = 0, HelpMessage = &quot;level6&quot;)][String]$level6,
+        [PARAMETER(Mandatory = $false, Position = 0, HelpMessage = &quot;level7&quot;)][String]$level7,
+        [PARAMETER(Mandatory = $false, Position = 0, HelpMessage = &quot;level8&quot;)][String]$level8,
+        [PARAMETER(Mandatory = $false, Position = 0, HelpMessage = &quot;level9&quot;)][String]$level9,
+        [PARAMETER(Mandatory = $false, Position = 0, HelpMessage = &quot;level10&quot;)][String]$level10,
+        [PARAMETER(Mandatory = $false, Position = 0, HelpMessage = &quot;level11&quot;)][String]$level11,
+        [PARAMETER(Mandatory = $false, Position = 0, HelpMessage = &quot;level12&quot;)][String]$level12,
+        [PARAMETER(Mandatory = $false, Position = 0, HelpMessage = &quot;level13&quot;)][String]$level13,
+        [PARAMETER(Mandatory = $false, Position = 0, HelpMessage = &quot;level14&quot;)][String]$level14,
+        [PARAMETER(Mandatory = $false, Position = 0, HelpMessage = &quot;level15&quot;)][String]$level15,
+        [PARAMETER(Mandatory = $false, Position = 0, HelpMessage = &quot;level16&quot;)][String]$level16,
+        [PARAMETER(Mandatory = $false, Position = 0, HelpMessage = &quot;level17&quot;)][String]$level17,
+        [PARAMETER(Mandatory = $false, Position = 0, HelpMessage = &quot;level18&quot;)][String]$level18,
+        [PARAMETER(Mandatory = $false, Position = 0, HelpMessage = &quot;level19&quot;)][String]$level19,
+        [PARAMETER(Mandatory = $false, Position = 0, HelpMessage = &quot;level20&quot;)][String]$level20
+    
+    )
+   
+    Add-PnPListItem -List $list -Values     @{&quot;Title&quot; = $path; &quot;Level&quot; = $level; &quot;Level1&quot; = $level1; &quot;Level2&quot; = $level2; &quot;Level3&quot; = $level3; &quot;Level4&quot; = $level4; &quot;Level5&quot; = $level5; &quot;Level6&quot; = $level6; &quot;Level7&quot; = $level7; &quot;Level8&quot; = $level8; &quot;Level9&quot; = $level9; &quot;Level10&quot; = $level10; &quot;Level11&quot; = $level11; &quot;Level12&quot; = $level12; &quot;Level13&quot; = $level13; &quot;Level14&quot; = $level14; &quot;Level15&quot; = $level15; &quot;Level16&quot; = $level16; &quot;Level17&quot; = $level17; &quot;Level18&quot; = $level18; &quot;Level19&quot; = $level19; &quot;Level20&quot; = $level20 } -Batch $Batch
+    $Global:count = $Global:count + 1
+    if ( $Global:count -eq 500) {
+        Invoke-PnpBatch $Batch
+        $Batch = new-PnPBatch
+        $Global:count = 0
+    }
+
+}
+function get-folders {
+    PARAM (
+        [PARAMETER(Mandatory = $True, Position = 0, HelpMessage = &quot;Path&quot;)][String]$path,
+        [PARAMETER(Mandatory = $True, Position = 0, HelpMessage = &quot;Level&quot;)][Int32]$level
+    )
+
+    $items = Get-ChildItem $path -Directory
+    foreach ($item in $items) {
+        if ($item.Mode -eq &quot;d-----&quot;) {
+            $itemname = $item.Name
+            $fullpath = &quot;$path\$itemname&quot;
+            switch ($level) {
+                1 { $level1 = $itemname }
+                2 { $level2 = $itemname }
+                3 { $level3 = $itemname }
+                4 { $level4 = $itemname }
+                5 { $level5 = $itemname }
+                6 { $level6 = $itemname }
+                7 { $level7 = $itemname }
+                8 { $level8 = $itemname }
+                9 { $level9 = $itemname }
+                10 { $level10 = $itemname }
+                11 { $level11 = $itemname }
+                12 { $level12 = $itemname }
+                13 { $level13 = $itemname }
+                14 { $level14 = $itemname }
+                15 { $level15 = $itemname }
+                16 { $level16 = $itemname }
+                17 { $level17 = $itemname }
+                18 { $level18 = $itemname }
+                19 { $level19 = $itemname }
+                20 { $level20 = $itemname }
+                Default { Write-Host &quot;Level $level reached&quot; }
+            }
+            add-listitemwithLevels -path $fullpath -level $level  -level1 $level1  -level2 $level2  -level3 $level3  -level4 $level4  -level5 $level5  -level6 $level6  -level7 $level7  -level8 $level8  -level9 $level9  -level10 $level10  -level11 $level11  -level12 $level12  -level13 $level13  -level14 $level14 -level15 $level15  -level16 $level16  -level17 $level17  -level18 $level18  -level19 $level19  -level20 $level20 
+            get-folders -path $fullpath -level ($level + 1) 
+        }
+
+    }
+}
+
+$level1 = &quot;&quot;
+$level2 = &quot;&quot;
+$level3 = &quot;&quot;
+$level4 = &quot;&quot;
+$level5 = &quot;&quot;
+$level6 = &quot;&quot;
+$level7 = &quot;&quot;
+$level8 = &quot;&quot;
+$level9 = &quot;&quot;
+$level10 = &quot;&quot;
+$level11 = &quot;&quot;
+$level12 = &quot;&quot;
+$level13 = &quot;&quot;
+$level14 = &quot;&quot;
+$level15 = &quot;&quot;
+$level16 = &quot;&quot;
+$level17 = &quot;&quot;
+$level18 = &quot;&quot;
+$level19 = &quot;&quot;
+$level20 = &quot;&quot;
+
+$subfolders = get-folders -path $rootpath -level 1
+
+
+    # End
+
+</code></pre>
+<div class="highlight-tool">
+<p>Check out the <strong>PnP PowerShell</strong> to learn more at: <a href="https://aka.ms/pnp/powershell">https://aka.ms/pnp/powershell</a></p>
+</div>
+</section>
+</div>
+<h2 id="contributors">Contributors</h2>
+<table>
+<thead>
+<tr>
+<th>Author(s)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Russell Gove</td>
+</tr>
+</tbody>
+</table>
+<h2 id="disclaimer">Disclaimer</h2>
+<p><strong>THESE SAMPLES ARE PROVIDED <em>AS IS</em> WITHOUT WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, INCLUDING ANY IMPLIED WARRANTIES OF FITNESS FOR A PARTICULAR PURPOSE, MERCHANTABILITY, OR NON-INFRINGEMENT.</strong></p>
+<img src="https://pnptelemetry.azurewebsites.net/script-samples/scripts/spo-copy-directory-structure-to-sharepoint-list" aria-hidden="true">
+</article>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            <span>Script Samples<br>Generated by <strong><a href='https://dotnet.github.io/docfx' alt='Doc FX Website'>DocFX</a></strong> with <strong><a href='https://ovasquez.github.io/docfx-material' alt='DocFx Material Theme'>Material UI</a></strong></span>
+            
+            <!-- <img src="https://telemetry.sharepointpnp.com/@pnp.github.io/index/" alt="spacer"> -->
+          </div>
+        </div>
+      </footer>    </div>
+    
+    <script type="text/javascript" src="../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+    
+    <script type="text/javascript" src="../styles/clipboard.min.js"></script>
+    <script type="text/javascript" src="../styles/isotope.pkgd.min.js"></script>
+    <script type="text/javascript" src="../styles/loadsamples.js"></script>
+    <script type="text/javascript" src="../styles/filtersamples.js"></script>
+
+  </body>
+</html>
