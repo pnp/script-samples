@@ -264,7 +264,9 @@ $level19 = &quot;&quot;
 $level20 = &quot;&quot;
 
 $subfolders = get-folders -path $rootpath -level 1
-
+ if ( $Global:count-gt 0){
+  Invoke-PnpBatch $Batch
+}
 
     # End
 
