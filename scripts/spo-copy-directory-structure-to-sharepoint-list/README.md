@@ -21,6 +21,8 @@ fileshare.
 
 So now you can go to the list and enter the url for a SharePoint site, a document library and an optional subfolder for each directory. 
 
+Note: The longest path in the directory structure cannot exceed 260 characters!
+
 There are multiple ways to trigger a migration with this info. The simplest is to create a view with just the FileSharePath, Modified, ModifiedBy, SharePointSite and doclib and Docsubfolder.
 This matches the columns required by the Migration Manger as documented at https://learn.microsoft.com/en-us/SharePointmigration/mm-bulk-upload-format-csv-json. (Note that Modified, ModifiedBy are not used by the tool, they are just used as filler). You can then export this list as a csv, remove all rows that dont have a valid SharePointSite and doclib and Docsubfolder and upload it to the Migration Manager.
 
