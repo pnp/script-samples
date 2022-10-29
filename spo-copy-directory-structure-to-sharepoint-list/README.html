@@ -90,6 +90,7 @@ I then added 20 text columns (my directory is 20 levels deep) name Level1...Leve
 <p>After running the script the list will be populated with one row for each folder in your
 fileshare.</p>
 <p>So now you can go to the list and enter the url for a SharePoint site, a document library and an optional subfolder for each directory.</p>
+<p>Note: The longest path in the directory structure cannot exceed 260 characters!</p>
 <p>There are multiple ways to trigger a migration with this info. The simplest is to create a view with just the FileSharePath, Modified, ModifiedBy, SharePointSite and doclib and Docsubfolder.
 This matches the columns required by the Migration Manger as documented at <a href="https://learn.microsoft.com/en-us/SharePointmigration/mm-bulk-upload-format-csv-json">https://learn.microsoft.com/en-us/SharePointmigration/mm-bulk-upload-format-csv-json</a>. (Note that Modified, ModifiedBy are not used by the tool, they are just used as filler). You can then export this list as a csv, remove all rows that dont have a valid SharePointSite and doclib and Docsubfolder and upload it to the Migration Manager.</p>
 <p>A flow can also be created to automatically trigger a migration when the SharePointSite and doclib and Docsubfolder are updated. The flow needs use 'Send and Http Request to SharePoint' to Post Data to tenant-admin.SharePoint.com/_api/MigrationCenterServices/Tasks/BatchCreate.
