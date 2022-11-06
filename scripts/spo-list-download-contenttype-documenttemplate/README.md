@@ -24,7 +24,6 @@ $url = 'https://contoso.sharepoint.com/sites/clientfacing'
 $libraryName = 'Documents'
 $LocalPathForDownload = "c:\temp\"
 
-
 Connect-PnPOnline -Url $url -Interactive
 
 $list = Get-PnPList -Identity $libraryName -Includes ContentTypes
