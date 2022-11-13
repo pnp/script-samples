@@ -303,3 +303,26 @@ $(function (){
         });
     }
 });
+
+// Function to get the repositories statistics in GitHub
+// Fetch GitHub repository facts
+$(function () {
+    var repoName = "pnp/script-samples";
+    var url = "https://api.github.com/repos/" + repoName;
+    var repoStats = {
+        "forks": 0,
+        "stars": 0,
+        "watchers": 0
+    };
+
+    $.getJSON(url, function (data) {
+        repoStats.forks = data.forks_count;
+        repoStats.stars = data.stargazers_count;
+        repoStats.watchers = data.subscribers_count;
+
+        // Update the stats
+        $(".github-forks").text(repoStats.forks);
+        $(".github-stars").text(repoStats.stars);
+        $(".github-watchers").text(repoStats.watchers);
+    });
+});
