@@ -162,3 +162,53 @@
 
 
 /* //Data driven backgrounds */
+
+/* GitHub Facts Implementation */
+
+/* horizontal bullet list */
+.github-wrapper{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    align-items: center;
+    align-content: center;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+.github-icon{
+    margin-right: 10px;
+}
+.github-icon img{
+    height: 40px;
+}
+.github-mark a,
+.github-mark a:hover,
+.github-mark a:visited{
+    color: white;
+}
+
+ul.github-facts {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    overflow: hidden;
+
+    color: rgb(237,237,237);
+}
+
+ul.github-facts li {
+    float: left;
+    margin: 0 10px 0 0;
+    padding: 0;
+    line-height: 1.5;
+    font-size: 12px;
+    text-align: left;
+    color: rgb(237,237,237);
+}
+
+.github-repository{
+    font-size: 18px;
+    margin: 5px 10px 0 0;
+}
