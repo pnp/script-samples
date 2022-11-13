@@ -12,7 +12,9 @@ This sample shows how to add dummy files and folders into a library. The script 
 ## Implementation
  
 Open Windows Powershell ISE
+
 Create a new file, e.g. TestDoc.docx and save it to a file server location , e.g. C:/Temp
+
 A loop within another loop using while is used to create the number of specified files within each of the specified number of folders. 
 
 # [PnP PowerShell](#tab/pnpps)
