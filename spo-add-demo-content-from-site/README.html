@@ -1,0 +1,302 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html lang="en">
+  
+  <head>
+    <meta charset="utf-8">
+    <title>Add demo content from a website such as Wikipedia | PnP Samples </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Add demo content from a website such as Wikipedia | PnP Samples ">
+    <meta name="generator" content="docfx 2.56.7.0">
+    <meta name="description" content="A sample gallery of scripts to manage all things Microsoft 365.">
+  
+    <!-- Social Media -->
+    <meta property="og:locale" content="en_GB">
+    <meta property="og:title" content="Add demo content from a website such as Wikipedia | PnP Samples ">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://pnp.github.io/script-samples">
+    <meta property="og:image" content="https://pnp.github.io/script-samples/assets/social-media-screenshot.png">
+    <meta property="og:image:alt" content="Screenshot example of the PnP Script Samples Site">
+    <meta property="og:site_name" content="PnP Script Samples">
+    <meta property="og:description" content="A sample gallery of scripts to manage all things Microsoft 365.">
+  
+    <link rel="shortcut icon" href="https://c.s-microsoft.com/favicon.ico?v2">
+    <link rel="stylesheet" href="../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../styles/docfx.css">
+    <link rel="stylesheet" href="../styles/main.css">
+    <link rel="stylesheet" href="../styles/extra.css">
+    <link rel="stylesheet" href="../styles/filter.css">
+    <link rel="stylesheet" href="../styles/site.css">
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet"> 
+    <meta property="docfx:navrel" content="../toc.html">
+    <meta property="docfx:tocrel" content="../toc.html">
+    
+    
+    <meta property="docfx:newtab" content="true">
+    <script type="text/javascript">
+      (function(c,l,a,r,i,t,y){
+          c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+          t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+          y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+      })(window, document, "clarity", "script", "8j6pedl344");
+  </script>
+  </head>  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+             <div class="github-mark">
+              <a href="https://github.com/pnp/script-samples" title="Go to repository">
+               <div class="github-wrapper">
+                  <div class="github-icon">
+                    <img src="https://pnp.github.io/script-samples/assets/icons/github-light-64px.png" alt="GitHub Icon Image">
+                  </div>
+                  <div class="github-repository">
+                    <span>GitHub</span>
+                    <ul class="github-facts">
+                      <li>
+                        <i class="fa fa-code-fork" aria-hidden="true"></i>
+                        <span class="github-forks"></span>
+                      </li>
+                      <li>
+                        <i class="fa fa-star-o" aria-hidden="true"></i>
+                        <span class="github-stars"></span>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </a>
+            </div>
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../assets/logo.svg" alt="">
+              </a>    </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <label class="glyphicon glyphicon-search" for="search-query"></label>
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>      </header>
+      <div role="main" class="container body-content hide-when-search">
+        <div class="article row grid">
+          <div class="col-md-12">
+            <article class="content wrap" id="_content" data-uid="">
+                  <div class="contribution-panel mobile-hide pull-right">
+                      <a href="https://github.com/pnp/script-samples/blob/main/scripts/spo-add-demo-content-from-site/README.md/#L1" title="Improve this Doc" class="improve-doc-lg"><i class="glyphicon glyphicon-pencil"></i></a>
+                  </div>
+                    <h1 id="add-demo-content-from-a-website-such-as-wikipedia">Add demo content from a website such as Wikipedia</h1>
+
+<h2 id="summary">Summary</h2>
+<p>This sample shows how you can generate a set of demo content from a website such as Wikipedia. This is intended to build content for testing, especially for systems such as Viva Topics. The content may not render perfectly but build out a load of documents in the environment.</p>
+<h2 id="implementation">Implementation</h2>
+<p>Install Pandoc using the instructions on <a href="https://pandoc.org/installing.html">their site</a>.</p>
+<p>Open Windows Powershell ISE</p>
+<p>Navigate to the script folder</p>
+<p>Run the command and have some patience (it takes a while for a lot of docs) - examples are in the script below</p>
+<div class="tabGroup" id="tabgroup_CeZOj-G++Q">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_CeZOj-G++Q_pnpps" role="tab" aria-controls="tabpanel_CeZOj-G++Q_pnpps" data-tab="pnpps" tabindex="0" aria-selected="true">PnP PowerShell</a>
+</li>
+</ul>
+<section id="tabpanel_CeZOj-G++Q_pnpps" role="tabpanel" data-tab="pnpps"><button class="article-clipboard" title="Copy to clipboard" data-toggle="tooltip" data-placement="top" data-clipboard-target="section[id^='tabpanel'][data-tab='pnpps'] pre">
+    <span class="glyphicon glyphicon-copy" aria-hidden="true"></span>
+    <span class="article-clipboard__message done">Copied</span>
+</button>
+
+<pre><code class="lang-powershell">
+&lt;#
+    .SYNOPSIS
+    The script used Pandoc to generate Word files from a set of html files.
+
+    .DESCRIPTION
+    Have you ever needed to have a large amount of documents but didn't just want to duplicate the same thing?
+    This is especially useful for generating content to try with Viva Topics.
+    The script will crawl through a website defined in the properties, extract the HTML, save that as a Word document using Pandoc and upload that to a defined SharePoint library.
+    Properties allow you to define how many files to generate and how many layers to go.
+
+    Pre-requisites:
+        - Pandoc must be installed - https://pandoc.org/installing.html
+    
+    .EXAMPLE
+    .\GenerateDocs.ps1 -TargetUrl https://contoso.sharepoint.com/sites/DemoContent-SharePoint -WebUrl &quot;https://www.mcd79.com&quot;
+
+    .EXAMPLE
+    .\GenerateDocs.ps1 -TargetUrl https://contoso.sharepoint.com/sites/DemoContent-SharePoint -TargetLibrary &quot;Content&quot; -WebUrl &quot;https://www.mcd79.com&quot;
+
+    .EXAMPLE
+    .\GenerateDocs.ps1 -TargetUrl https://contoso.sharepoint.com/sites/DemoContent-SharePoint -WebUrl &quot;https://www.wikipedia.org&quot; -WebExtension &quot;wiki/SharePoint&quot;
+
+    .EXAMPLE
+    .\GenerateDocs.ps1 -TargetUrl https://contoso.sharepoint.com/sites/DemoContent-SharePoint -WebUrl &quot;https://www.wikipedia.org&quot; -WebExtension &quot;wiki/SharePoint&quot; -maxLinks 5000 -maxLevels 5
+
+    .PARAMETER WebUrl
+    The base URL of the webpage to be inventoried e.g. https://www.wikipedia.org
+
+    .PARAMETER WebExtension
+    An optional parameter to define a specific page to start from e.g. wiki/SharePoint
+
+    .PARAMETER TargetUrl
+    The URL of the SharePoint Online site where the content should be loaded.
+
+    .PARAMETER TargetLibrary
+    The URL of the SharePoint Online site where the content should be loaded.
+
+    .PARAMETER MaxLinks
+    The maximum number of links to navigate through
+
+    .PARAMETER MaxLevels
+    The maximum number of levels to traverse
+#&gt;
+
+[CmdletBinding()]
+param(
+    [parameter(Mandatory = $true)][string]$WebUrl,
+    [parameter(Mandatory = $false)][string]$WebExtension = &quot;&quot;,
+    [parameter(Mandatory = $true)][string]$TargetUrl,
+    [parameter(Mandatory = $false)][string]$TargetLibrary = &quot;Shared Documents&quot;,
+    [parameter(Mandatory = $false)][int]$maxLinks = 200,
+    [parameter(Mandatory = $false)][int]$maxLevels = 5
+)
+
+
+$Script:maxLinks = $maxLinks
+$Script:maxLevels = $maxLevels
+$Script:numberLinks = 0
+
+$Script:linksVisited = @()
+Function CrawlLink($site, $level) {
+    Try {
+        Write-Output &quot;Crawling $site&quot;
+        $request = Invoke-WebRequest $site
+        $content = $request.Content
+
+        $pattern = '[\\/]'
+        $htmlName = $site -replace 'http://', ''
+        $htmlName = $htmlName -replace 'https://', ''
+        $htmlName = $htmlName -replace $pattern, '-'
+        $outputFile = &quot;./outputs/$htmlName.html&quot;
+        $outputDoc = &quot;./outputs/$htmlName.docx&quot;
+
+        $content | Out-File -Path $outputFile
+        $exe = &quot;pandoc.exe&quot;
+        &amp;$exe $outputFile -o $outputDoc -f html -t docx
+        Add-PnPFile -Path $outputDoc -Folder $targetLibrary
+        Remove-Item -Path $outputFile
+        Remove-Item -Path $outputDoc
+        #pandoc  -s -S $outputFile -o $outputDoc
+
+        $domain = ($site.Replace(&quot;http://&quot;, &quot;&quot;).Replace(&quot;https://&quot;, &quot;&quot;)).Split('/')[0]
+        $start = 0
+        $end = 0
+        $start = $content.IndexOf(&quot;&lt;a &quot;, $end)
+        while ($start -ge 0) {
+            if ($start -ge 0) {
+                #Write-Output $start
+
+                # Get the position of of the beginning of the link. The +6 is to go past the href=&quot;
+                $start = $content.IndexOf(&quot;href=&quot;, $start) + 6
+                if ($start -ge 6) {
+                    $end = $content.IndexOf(&quot;&quot;&quot;&quot;, $start)
+                    $end2 = $content.IndexOf(&quot;'&quot;, $start)
+                    if ($end2 -lt $end -and $end2 -ne -1) {
+                        $end = $end2
+                    }
+                    if ($end -ge $start) {
+                        
+                        $link = $content.Substring($start, $end – $start)
+                        
+                        # Handle case where link is relative
+                        if ($link.StartsWith(&quot;/&quot;)) {
+                            $link = $site.Split('/')[0] + &quot;//&quot; + $domain + $link
+                        }
+                        if ($Script:numberLinks -le $Script:maxLinks -and $level -le $Script:maxLevels) {
+                            if (($Script:linksVisited -notcontains $link) -and $link.StartsWith(&quot;https:&quot;)) {
+                                $Script:numberLinks++
+                                $newDomain = ($link.Replace(&quot;http://&quot;, &quot;&quot;).Replace(&quot;https://&quot;, &quot;&quot;)).Split('/')[0]
+                                Write-Output &quot;$newDomain - $WebUrl&quot;
+
+                                if ($newDomain -eq $WebUrl.Replace(&quot;http://&quot;, &quot;&quot;).Replace(&quot;https://&quot;, &quot;&quot;)) {
+                                    #Write-Output $Script:numberLinks&quot;[&quot;$level&quot;] – &quot;$link -BackgroundColor Blue -ForegroundColor White
+                                    $Script:linksVisited += $link
+                                    CrawlLink $link ([int]($level + 1))
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            $start = $content.IndexOf(&quot;&lt;a &quot;, $end)
+        }
+    }
+    Catch [system.exception] {
+        Write-Output &quot;ERROR: $_&quot;
+    }
+}
+
+Connect-PnPOnline $TargetUrl -Interactive
+CrawlLink &quot;$WebUrl/$extension&quot; 0
+
+</code></pre>
+<div class="highlight-tool">
+<p>Check out the <strong>PnP PowerShell</strong> to learn more at: <a href="https://aka.ms/pnp/powershell">https://aka.ms/pnp/powershell</a></p>
+</div>
+<h2 id="contributors">Contributors</h2>
+<table>
+<thead>
+<tr>
+<th>Author(s)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="https://github.com/kevmcdonk">Kevin McDonnell</a></td>
+</tr>
+</tbody>
+</table>
+<h2 id="disclaimer">Disclaimer</h2>
+<p><strong>THESE SAMPLES ARE PROVIDED <em>AS IS</em> WITHOUT WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, INCLUDING ANY IMPLIED WARRANTIES OF FITNESS FOR A PARTICULAR PURPOSE, MERCHANTABILITY, OR NON-INFRINGEMENT.</strong></p>
+<img src="https://pnptelemetry.azurewebsites.net/script-samples/scripts/spo-add-demo-content-from-site" aria-hidden="true">
+</section>
+</div>
+</article>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            <span>Script Samples<br>Generated by <strong><a href='https://dotnet.github.io/docfx' alt='Doc FX Website'>DocFX</a></strong> with <strong><a href='https://ovasquez.github.io/docfx-material' alt='DocFx Material Theme'>Material UI</a></strong></span>
+            
+            <!-- <img src="https://telemetry.sharepointpnp.com/@pnp.github.io/index/" alt="spacer"> -->
+          </div>
+        </div>
+      </footer>    </div>
+    
+    <script type="text/javascript" src="../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+    
+    <script type="text/javascript" src="../styles/clipboard.min.js"></script>
+    <script type="text/javascript" src="../styles/isotope.pkgd.min.js"></script>
+    <script type="text/javascript" src="../styles/loadsamples.js"></script>
+    <script type="text/javascript" src="../styles/filtersamples.js"></script>
+
+  </body>
+</html>
