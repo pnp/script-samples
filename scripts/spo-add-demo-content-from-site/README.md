@@ -2,7 +2,7 @@
 plugin: add-to-gallery
 ---
 
-# Add demo content files to a SharePoint library
+# Add demo content from a website such as Wikipedia
 
 ## Summary
 
@@ -37,16 +37,16 @@ Run the command and have some patience (it takes a while for a lot of docs) - ex
         - Pandoc must be installed - https://pandoc.org/installing.html
     
     .EXAMPLE
-    .\GenerateDocs.ps1 -TargetUrl https://cpsdemos.sharepoint.com/sites/DemoContent-SharePoint -WebUrl "https://www.mcd79.com"
+    .\GenerateDocs.ps1 -TargetUrl https://contoso.sharepoint.com/sites/DemoContent-SharePoint -WebUrl "https://www.mcd79.com"
 
     .EXAMPLE
-    .\GenerateDocs.ps1 -TargetUrl https://cpsdemos.sharepoint.com/sites/DemoContent-SharePoint -TargetLibrary "Content" -WebUrl "https://www.mcd79.com"
+    .\GenerateDocs.ps1 -TargetUrl https://contoso.sharepoint.com/sites/DemoContent-SharePoint -TargetLibrary "Content" -WebUrl "https://www.mcd79.com"
 
     .EXAMPLE
-    .\GenerateDocs.ps1 -TargetUrl https://cpsdemos.sharepoint.com/sites/DemoContent-SharePoint -WebUrl "https://www.wikipedia.org" -WebExtension "wiki/SharePoint"
+    .\GenerateDocs.ps1 -TargetUrl https://contoso.sharepoint.com/sites/DemoContent-SharePoint -WebUrl "https://www.wikipedia.org" -WebExtension "wiki/SharePoint"
 
     .EXAMPLE
-    .\GenerateDocs.ps1 -TargetUrl https://cpsdemos.sharepoint.com/sites/DemoContent-SharePoint -WebUrl "https://www.wikipedia.org" -WebExtension "wiki/SharePoint" -maxLinks 5000 -maxLevels 5
+    .\GenerateDocs.ps1 -TargetUrl https://contoso.sharepoint.com/sites/DemoContent-SharePoint -WebUrl "https://www.wikipedia.org" -WebExtension "wiki/SharePoint" -maxLinks 5000 -maxLevels 5
 
     .PARAMETER WebUrl
     The base URL of the webpage to be inventoried e.g. https://www.wikipedia.org
