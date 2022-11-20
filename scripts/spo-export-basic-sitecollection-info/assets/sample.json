@@ -3,10 +3,10 @@
     "name": "spo-export-basic-sitecollection-info",
     "source": "pnp",
     "title": "Sample showing how to export basic site collection properties to a CSV file",
-    "shortDescription": "Sample showing how to export basic site collection properties to a CSV file",
+    "shortDescription": "Sample showing how to export basic site collection properties to a CSV file for stakeholders which do not have access to the SharePoint Admin Center",
     "url": "https://pnp.github.io/script-samples/spo-export-basic-sitecollection-info/README.html",
     "longDescription": [
-      "Often we will have to provide a raport containing various Site Collection properties to stakeholdes which do not have access to the SharePoint Admin Center. This samples shows an export of a few basic properties but it can expanded without too much hassle."
+      "Often we will have to provide a report containing various Site Collection properties to stakeholders which do not have access to the SharePoint Admin Center. This samples shows an export of a few basic properties but it can expanded without too much hassle."
     ],
     "creationDateTime": "2022-11-18",
     "updateDateTime": "2022-11-18",
@@ -22,7 +22,14 @@
     "categories": [
       "Data"
     ],
-    "tags": [],
+    "tags": [
+      "Connect-PnPOnline",
+      "Get-PnPProperty",
+      "Get-PnPSite",
+      "Get-PnPTenant",
+      "Get-PnPTenantSite",
+      "Get-PnPWeb"
+    ],
     "thumbnails": [
       {
         "type": "image",

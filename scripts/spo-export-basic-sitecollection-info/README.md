@@ -6,9 +6,7 @@ plugin: add-to-gallery
 
 ## Summary
 
-Often we will have to provide a raport containing various Site Collection properties to stakeholdes which do not have access to the SharePoint Admin Center. This samples shows an export of a few basic properties but it can expanded without too much hassle.
-
-
+Often we will have to provide a report containing various Site Collection properties to stakeholders which do not have access to the SharePoint Admin Center. This samples shows an export of a few basic properties but it can expanded without too much hassle.
 
 ## Implementation
 
@@ -25,15 +23,12 @@ Often we will have to provide a raport containing various Site Collection proper
 # [PnP PowerShell](#tab/pnpps)
 ```powershell
 
-
-
 $SharePointAdminUrl = "https://yourtenant-admin.sharepoint.com"
 
 #connect to the admin site using one of the many options provided by Connect-PnPOnline
 #Connect-PnPOnline -Url $SharePointAdminUrl -Interactive
 #Connect-PnPOnline -Url $SharePointAdminUrl -ClientId XXXX -Tenant 'contoso.onmicrosoft.com' -Thumbprint YYYYY
 Connect-PnPOnline -Url $SharePointAdminUrl -UseWebLogin
-
 
 $allsites = Get-PnPTenantSite -Detailed 
 Write-Host $allsites.Count
