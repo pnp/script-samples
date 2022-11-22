@@ -1,5 +1,5 @@
 ---
-plugin: add-to-gallery-preparation
+plugin: add-to-gallery
 ---
 
 # Deploy sppkgs and install apps
