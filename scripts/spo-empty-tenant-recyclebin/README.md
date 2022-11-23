@@ -10,54 +10,6 @@ Your deleted modern SharePoint sites are not going to disappear from the UI befo
  
 [!INCLUDE [Delete Warning](../../docfx/includes/DELETE-WARN.md)]
 
-# [CLI for Microsoft 365 using PowerShell](#tab/cli-m365-ps)
-```powershell
-$deletedSites = m365 spo tenant recyclebinitem list -o json | ConvertFrom-Json
-$deletedSites | Format-Table Url
-
-if ($deletedSites.Count -eq 0) { break }
-
-Read-Host -Prompt "Press Enter to start deleting (CTRL + C to exit)"
-
-$progress = 0
-$total = $deletedSites.Count
-
-foreach ($deletedSite in $deletedSites)
-{
-  $progress++
-  Write-Host $progress / $total":" $deletedSite.Url
-  m365 spo tenant recyclebinitem remove -u $deletedSite.Url --confirm
-}
-```
-[!INCLUDE [More about CLI for Microsoft 365](../../docfx/includes/MORE-CLIM365.md)]
-
-# [CLI for Microsoft 365 using Bash](#tab/cli-m365-bash)
-```bash
-#!/bin/bash
-
-# requires jq: https://stedolan.github.io/jq/
-
-deletedsites=( $(m365 spo tenant recyclebinitem list -o json | jq -r '.[].Url') )
-
-if [ ${#deletedsites[@]} = 0 ]; then
-  exit 1
-fi
-
-printf '%s\n' "${deletedsites[@]}"
-echo "Press Enter to start deleting (CTRL + C to exit)"
-read foo
-
-progress=0
-total=${#deletedsites[@]}
-
-for deletedsite in "${deletedsites[@]}"; do
-  ((progress++))
-  printf '%s / %s:%s\n' "$progress" "$total" "$deletedsite"
-  m365 spo tenant recyclebinitem remove -u $deletedsite --confirm
-done
-```
-[!INCLUDE [More about CLI for Microsoft 365](../../docfx/includes/MORE-CLIM365.md)]
-
 # [PnP PowerShell](#tab/pnpps)
 ```powershell
 Connect-PnPOnline -Url 'https://contoso-admin.sharepoint.com' -Interactive #Change to your tenant admin site address
@@ -94,7 +46,6 @@ Sample first appeared on [Empty the tenant recycle bin | CLI for Microsoft 365](
 
 | Author(s) |
 |-----------|
-| Laura Kokkarinen |
 | [Leon Armston](https://github.com/LeonArmston)|
 
 
