@@ -36,7 +36,7 @@ if($spacesFeature.DefinitionId -eq $null) {
     Write-host "Activating Feature ($featureId)..." 
 	
     # Activate the site feature eature
-    Enable-PnPFeature -Scope Site -Identity $FeatureId -Force
+    Enable-PnPFeature -Scope $featureScope -Identity $FeatureId -Force
  
     Write-host -f Green "Feature ($featureId) has been activated Successfully!"
 }
