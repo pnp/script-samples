@@ -192,6 +192,7 @@ else {
 | Author(s) |
 |-----------|
 | [Ganesh Sanap](https://ganeshsanapblogs.wordpress.com/about) |
+| Dan Toft |
 
 [!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
 <img src="https://pnptelemetry.azurewebsites.net/script-samples/scripts/spo-activate-site-feature" aria-hidden="true" />
