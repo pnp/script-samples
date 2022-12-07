@@ -114,13 +114,150 @@
 
 <pre><code class="lang-powershell">
 # SharePoint online site url
-$siteUrl = &quot;https://&lt;tenant&gt;.sharepoint.com/contoso&quot;
+$siteUrl = Read-Host -Prompt &quot;Enter your site url (e.g https://&lt;tenant&gt;.sharepoint.com/contoso)&quot;;
 
 # Scope of feature: Web or Site
-$featureScope = &quot;Web&quot;
+$scopes = @(&quot;Web&quot;, &quot;Site&quot;)
+Write-Host &quot;Select the feature scope:&quot;
+for ($count = 1; $count -le $scopes.Count; $count++) {
+    Write-Host &quot;[$count] -&quot; $scopes[$count - 1];
+}
+
+$featureScope = $scopes[(Read-Host -Prompt &quot;Type (1/2)&quot;) - 1]
+
+$siteFeatures = @(
+    @{Name = &quot;DocumentRoutingResources&quot;; Id = &quot;0c8a9a47-22a9-4798-82f1-00e62a96006e&quot; },
+    @{Name = &quot;PublishingPrerequisites&quot;; Id = &quot;a392da98-270b-4e85-9769-04c0fde267aa&quot; },
+    @{Name = &quot;HelpCollectionRemoveDefault&quot;; Id = &quot;232b3f94-9d6e-4ed6-8d55-04d5a44ac449&quot; },
+    @{Name = &quot;PublishingSite&quot;; Id = &quot;f6924d36-2fa8-4f0b-b16d-06b7250180fa&quot; },
+    @{Name = &quot;EnhancedTheming&quot;; Id = &quot;068bc832-4951-11dc-8314-0800200c9a66&quot; },
+    @{Name = &quot;TenantSitesList&quot;; Id = &quot;3019c9b4-e371-438d-98f6-0a08c34d06eb&quot; },
+    @{Name = &quot;Ratings&quot;; Id = &quot;915c240e-a6cc-49b8-8b2c-0bff8b553ed3&quot; },
+    @{Name = &quot;Preservation&quot;; Id = &quot;bfc789aa-87ba-4d79-afc7-0c7e45dae01a&quot; },
+    @{Name = &quot;WebPartAdderGroups&quot;; Id = &quot;2ed1c45e-a73b-4779-ae81-1524e4de467a&quot; },
+    @{Name = &quot;SPListNextSiteOptOut&quot;; Id = &quot;e3540c7d-6bea-403c-a224-1a12eafee4c4&quot; },
+    @{Name = &quot;PremiumSite&quot;; Id = &quot;8581a8a7-cf16-4770-ac54-260265ddb0b2&quot; },
+    @{Name = &quot;GlobalHold&quot;; Id = &quot;2a6bf8e8-10b5-42f2-9d3e-267dfb0de8d4&quot; },
+    @{Name = &quot;CTypes&quot;; Id = &quot;695b6570-a48b-4a8e-8ea5-26ea7fc1d162&quot; },
+    @{Name = &quot;SocialSite&quot;; Id = &quot;4326e7fc-f35a-4b0f-927c-36264b0a4cf0&quot; },
+    @{Name = &quot;MixedRealityResources&quot;; Id = &quot;f4c52091-703d-431c-ac2d-41f9f257052a&quot; },
+    @{Name = &quot;Navigation&quot;; Id = &quot;89e0306d-453b-4ec5-8d68-42067cdbf98e&quot; },
+    @{Name = &quot;PublishingMobile&quot;; Id = &quot;57cc6207-aebf-426e-9ece-45946ea82e4a&quot; },
+    @{Name = &quot;ShareWithEveryone&quot;; Id = &quot;10f73b29-5779-46b3-85a8-4817a6e9a6c2&quot; },
+    @{Name = &quot;ItemFormRecommendations&quot;; Id = &quot;39d18bbf-6e0f-4321-8f16-4e3b51212393&quot; },
+    @{Name = &quot;FastEndUserHelpCollection&quot;; Id = &quot;6e8f2b8d-d765-4e69-84ea-5702574c11d6&quot; },
+    @{Name = &quot;Fields&quot;; Id = &quot;ca7bd552-10b1-4563-85b9-5ed1d39c962a&quot; },
+    @{Name = &quot;SearchDrivenContent&quot;; Id = &quot;592ccb4a-9304-49ab-aab1-66638198bb58&quot; },
+    @{Name = &quot;VisioWebAccess&quot;; Id = &quot;9fec40ea-a949-407d-be09-6cba26470a0c&quot; },
+    @{Name = &quot;MediaWebPart&quot;; Id = &quot;5b79b49a-2da6-4161-95bd-7375c1995ef9&quot; },
+    @{Name = &quot;SearchTaxonomyRefinementWebPartsHtml&quot;; Id = &quot;8c34f59f-8dfb-4a39-9a08-7497237e3dc4&quot; },
+    @{Name = &quot;BizAppsSiteTemplates&quot;; Id = &quot;4248e21f-a816-4c88-8cab-79d82201da7b&quot; },
+    @{Name = &quot;ViewFormPagesLockDown&quot;; Id = &quot;7c637b23-06c4-472d-9a9a-7c175762c5c4&quot; },
+    @{Name = &quot;EnterpriseWikiSecondPhase&quot;; Id = &quot;3f6680ba-94db-4c92-a5b6-7d5c66f467a7&quot; },
+    @{Name = &quot;PortalLayouts&quot;; Id = &quot;5f3b0127-2f1d-4cfd-8dd2-85ad1fb00bfc&quot; },
+    @{Name = &quot;SharePointHomeCache&quot;; Id = &quot;94280101-dc63-4b83-842a-8707b1afb62d&quot; },
+    @{Name = &quot;IssueTrackingWorkflow&quot;; Id = &quot;fde5d850-671e-4143-950a-87b473922dc7&quot; },
+    @{Name = &quot;ProjectBasedPolicy&quot;; Id = &quot;2fcd5f8a-26b7-4a6a-9755-918566dba90a&quot; },
+    @{Name = &quot;PublishingLayouts&quot;; Id = &quot;d3f51be2-38a8-4e44-ba84-940d35be1566&quot; },
+    @{Name = &quot;PublishingResources&quot;; Id = &quot;aebc918d-b20f-4a11-a1db-9ed84d79c87e&quot; },
+    @{Name = &quot;spoguestintegration&quot;; Id = &quot;9836d446-3785-4579-8480-a27d5c965b19&quot; },
+    @{Name = &quot;HtmlDesign&quot;; Id = &quot;a4c654e4-a8da-4db3-897c-a386048f7157&quot; },
+    @{Name = &quot;Translation&quot;; Id = &quot;4e7276bc-e7ab-4951-9c4b-a74d44205c32&quot; },
+    @{Name = &quot;ExcelServerWebPart&quot;; Id = &quot;4c42ab64-55af-4c7c-986a-ac216a6e0c0e&quot; },
+    @{Name = &quot;SearchWebParts&quot;; Id = &quot;eaf6a128-0482-4f71-9a2f-b1c650680e77&quot; },
+    @{Name = &quot;BizAppsCTypes&quot;; Id = &quot;43f41342-1a37-4372-8ca0-b44d881e4434&quot; },
+    @{Name = &quot;LocationBasedPolicy&quot;; Id = &quot;063c26fa-3ccc-4180-8a84-b6f98e991df3&quot; },
+    @{Name = &quot;RecordResources&quot;; Id = &quot;5bccb9a4-b903-4fd1-8620-b795fa33c9ba&quot; },
+    @{Name = &quot;SearchTaxonomyRefinementWebParts&quot;; Id = &quot;67ae7d04-6731-42dd-abe1-ba2a5eaa3b48&quot; },
+    @{Name = &quot;BasicWebParts&quot;; Id = &quot;00bfea71-1c5e-4a24-b310-ba51c3eb7a57&quot; },
+    @{Name = &quot;EnterpriseWikiLayouts&quot;; Id = &quot;a942a218-fa43-4d11-9d85-c01e3e3a37cb&quot; },
+    @{Name = &quot;IPFSSiteFeatures&quot;; Id = &quot;c88c4ff1-dbf5-4649-ad9f-c6c426ebcbf5&quot; },
+    @{Name = &quot;OpenInClient&quot;; Id = &quot;8a4b8de2-6fd8-41e9-923c-c7c3c00f8295&quot; },
+    @{Name = &quot;BizAppsFields&quot;; Id = &quot;5a979115-6b71-45a5-9881-cdc872051a69&quot; },
+    @{Name = &quot;MossChart&quot;; Id = &quot;875d1044-c0cf-4244-8865-d2a0039c2a49&quot; },
+    @{Name = &quot;LocalSiteDirectoryControl&quot;; Id = &quot;14aafd3a-fcb9-4bb7-9ad7-d8e36b663bbd&quot; },
+    @{Name = &quot;ExcelServerSite&quot;; Id = &quot;3cb475e7-4e87-45eb-a1f3-db96ad7cf313&quot; },
+    @{Name = &quot;AccSrvSolutionGallery&quot;; Id = &quot;744b5fd3-3b09-4da6-9bd1-de18315b045d&quot; },
+    @{Name = &quot;AssetLibrary&quot;; Id = &quot;4bcccd62-dcaf-46dc-a7d4-e38277ef33f4&quot; },
+    @{Name = &quot;SitePageResources&quot;; Id = &quot;ff77ac56-88d0-4147-b865-e84f5f03fc42&quot; },
+    @{Name = &quot;TaxonomyFieldAdded&quot;; Id = &quot;73ef14b1-13a9-416b-a9b5-ececa2b0604c&quot; },
+    @{Name = &quot;SearchExtensions&quot;; Id = &quot;5eac763d-fbf5-4d6f-a76b-eded7dd7b0a5&quot; },
+    @{Name = &quot;SearchTemplatesandResources&quot;; Id = &quot;8b2c6bcb-c47f-4f17-8127-f8eae47a44dd&quot; },
+    @{Name = &quot;Reporting&quot;; Id = &quot;7094bd89-2cfe-490a-8c7e-fbace37b4a34&quot; }    
+)
+
+$webFeatures = @(
+    @{Name = &quot;WebPageLibrary&quot;; Id = &quot;00bfea71-c796-4402-9f2f-0eb9a6e71b18&quot; },
+    @{Name = &quot;BizAppsListTemplates&quot;; Id = &quot;065c78be-5231-477e-a972-14177cc5b3c7&quot; },
+    @{Name = &quot;IssuesList&quot;; Id = &quot;00bfea71-5932-4f9c-ad71-1557e5751100&quot; },
+    @{Name = &quot;DocumentLibraryInstance&quot;; Id = &quot;b77b6484-364e-4356-8c72-1bb55b81c6b3&quot; },
+    @{Name = &quot;RollupPages&quot;; Id = &quot;dffaae84-60ee-413a-9600-1cf431cf0560&quot; },
+    @{Name = &quot;PublishingWeb&quot;; Id = &quot;94c94ca6-b32f-4da9-a9e3-1f3d343d7ecb&quot; },
+    @{Name = &quot;PremiumWeb&quot;; Id = &quot;0806d127-06e6-447a-980e-2e90b03101b8&quot; },
+    @{Name = &quot;WorkflowHistoryList&quot;; Id = &quot;00bfea71-4ea5-48d4-a4ad-305cf7030140&quot; },
+    @{Name = &quot;ReportListTemplate&quot;; Id = &quot;2510d73f-7109-4ccc-8a1c-314894deeb3a&quot; },
+    @{Name = &quot;MixedReality&quot;; Id = &quot;2ac9c540-6db4-4155-892c-3273957f1926&quot; },
+    @{Name = &quot;PromotedLinksList&quot;; Id = &quot;192efa95-e50c-475e-87ab-361cede5dd7f&quot; },
+    @{Name = &quot;NoCodeWorkflowLibrary&quot;; Id = &quot;00bfea71-f600-43f6-a895-40c0de7b0117&quot; },
+    @{Name = &quot;DefaultSPGroupsSiteMaster&quot;; Id = &quot;d5a4ed08-27b9-4142-9804-45dec6fda126&quot; },
+    @{Name = &quot;SurveysList&quot;; Id = &quot;00bfea71-eb8a-40b1-80c7-506be7590102&quot; },
+    @{Name = &quot;RecommendedItems&quot;; Id = &quot;780ac353-eaf8-4ac2-8c47-536d93c03fd6&quot; },
+    @{Name = &quot;GroupifyMenuButton&quot;; Id = &quot;5007df5b-1eea-49f8-9c02-5debc81ce3f2&quot; },
+    @{Name = &quot;GridList&quot;; Id = &quot;00bfea71-3a1d-41d3-a0ee-651d11570120&quot; },
+    @{Name = &quot;Publishing&quot;; Id = &quot;22a9ef51-737b-4ff2-9346-694633fe4416&quot; },
+    @{Name = &quot;MaintenanceLogs&quot;; Id = &quot;8c6f9096-388d-4eed-96ff-698b3ec46fc4&quot; },
+    @{Name = &quot;GanttTasksList&quot;; Id = &quot;00bfea71-513d-4ca0-96c2-6a47775c0119&quot; },
+    @{Name = &quot;SiteNotebook&quot;; Id = &quot;f151bb39-7c3b-414f-bb36-6bf18872052f&quot; },
+    @{Name = &quot;09cce83d-4d4e-42fb-a0e3-6ffdffbf0e61&quot;; Id = &quot;09cce83d-4d4e-42fb-a0e3-6ffdffbf0e61&quot; },
+    @{Name = &quot;LinksList&quot;; Id = &quot;00bfea71-2062-426c-90bf-714c59600103&quot; },
+    @{Name = &quot;TemplateExtensions&quot;; Id = &quot;de12eebe-9114-4a4a-b7da-7585dc36a907&quot; },
+    @{Name = &quot;workflowProcessList&quot;; Id = &quot;00bfea71-2d77-4a75-9fca-76516689e21a&quot; },
+    @{Name = &quot;TasksList&quot;; Id = &quot;00bfea71-a83e-497e-9ba0-7a5c597d0107&quot; },
+    @{Name = &quot;SitePages&quot;; Id = &quot;b6917cb1-93a0-4b97-a84d-7cf49975d4ec&quot; },
+    @{Name = &quot;TeamCollab&quot;; Id = &quot;00bfea71-4ea5-48d4-a4ad-7ea5c011abe5&quot; },
+    @{Name = &quot;AccSvcAddAccessApp&quot;; Id = &quot;d2b9ec23-526b-42c5-87b6-852bd83e0364&quot; },
+    @{Name = &quot;BaseWeb&quot;; Id = &quot;99fe402e-89a0-45aa-9163-85342e865dc8&quot; },
+    @{Name = &quot;WorkflowTask&quot;; Id = &quot;57311b7a-9afd-4ff0-866e-9393ad6647b1&quot; },
+    @{Name = &quot;HierarchyTasksList&quot;; Id = &quot;f9ce21f8-f437-4f7e-8bc6-946378c850f0&quot; },
+    @{Name = &quot;TaskListNewsFeed&quot;; Id = &quot;ff13819a-a9ac-46fb-8163-9d53357ef98d&quot; },
+    @{Name = &quot;AnnouncementsList&quot;; Id = &quot;00bfea71-d1ce-42de-9c63-a44004ce0104&quot; },
+    @{Name = &quot;DefaultSPGroupsAsync&quot;; Id = &quot;e233eb34-e720-4ff9-9f53-a5aabc706d12&quot; },
+    @{Name = &quot;MUIWeb&quot;; Id = &quot;9eabd738-48b1-4a40-a109-aa75458ed7ea&quot; },
+    @{Name = &quot;PictureLibrary&quot;; Id = &quot;00bfea71-52d4-45b3-b544-b1c71b620109&quot; },
+    @{Name = &quot;WorkflowServiceStore&quot;; Id = &quot;2c63df2b-ceab-42c6-aeff-b3968162d4b1&quot; },
+    @{Name = &quot;ContactsList&quot;; Id = &quot;00bfea71-7e6d-4186-9ba8-c047ac750105&quot; },
+    @{Name = &quot;CustomList&quot;; Id = &quot;00bfea71-de22-43b2-a848-c05709900100&quot; },
+    @{Name = &quot;DocumentLibrary&quot;; Id = &quot;00bfea71-e717-4e80-aa17-d0c71b360101&quot; },
+    @{Name = &quot;DiscussionsList&quot;; Id = &quot;00bfea71-6a49-43fa-b535-d15c05500108&quot; },
+    @{Name = &quot;DataSourceLibrary&quot;; Id = &quot;00bfea71-f381-423d-b9d1-da7a54c50110&quot; },
+    @{Name = &quot;DataConnectionLibrary&quot;; Id = &quot;00bfea71-dbd7-4f72-b8cb-da7ac0440130&quot; },
+    @{Name = &quot;ExternalList&quot;; Id = &quot;00bfea71-9549-43f8-b978-e47e54a10600&quot; },
+    @{Name = &quot;GroupHomepage&quot;; Id = &quot;e3dc7334-cec0-4d2c-8b90-e4857698fc4e&quot; },
+    @{Name = &quot;EventsList&quot;; Id = &quot;00bfea71-ec85-4903-972d-ebe475780106&quot; },
+    @{Name = &quot;XmlFormLibrary&quot;; Id = &quot;00bfea71-1e1d-4562-b56a-f05371bb0115&quot; },
+    @{Name = &quot;IPFSWebFeatures&quot;; Id = &quot;a0e5a010-1329-49d4-9e09-f280cdbed37d&quot; },
+    @{Name = &quot;Viewers&quot;; Id = &quot;fa6a1bcc-fb4b-446b-8460-f4de5f7411d5&quot; }    
+)
 
 # SharePoint Feature ID: E.g. Spaces feature ID
-$featureId = &quot;2ac9c540-6db4-4155-892c-3273957f1926&quot;	
+$featureId = &quot;&quot;
+Write-Host &quot;Select the feature to activate:&quot;
+if ($featureScope -eq &quot;Web&quot;) {
+    for ($count = 1; $count -le $webFeatures.Count; $count++) {
+        Write-Host &quot;[$count] -&quot; ($webFeatures[$count - 1].Name);
+    }
+    
+    $featureId = $webFeatures[(Read-Host -Prompt &quot;Feature to activate&quot;) - 1].Id
+}
+else {
+    for ($count = 1; $count -le $siteFeatures.Count; $count++) {
+        Write-Host &quot;[$count] -&quot; $siteFeatures[$count - 1].Name;
+    }
+    
+    $featureId = $siteFeatures[(Read-Host -Prompt &quot;Feature to activate&quot;) - 1].Id
+}
+
+
 
 # Connect to SharePoint Online site  
 Connect-PnPOnline -Url $siteUrl -Interactive
@@ -133,7 +270,7 @@ if($spacesFeature.DefinitionId -eq $null) {
     Write-host &quot;Activating Feature ($featureId)...&quot; 
 	
     # Activate the site feature eature
-    Enable-PnPFeature -Scope Site -Identity $FeatureId -Force
+    Enable-PnPFeature -Scope $featureScope -Identity $FeatureId -Force
  
     Write-host -f Green &quot;Feature ($featureId) has been activated Successfully!&quot;
 }
@@ -157,6 +294,9 @@ else {
 <tbody>
 <tr>
 <td><a href="https://ganeshsanapblogs.wordpress.com/about">Ganesh Sanap</a></td>
+</tr>
+<tr>
+<td>Dan Toft</td>
 </tr>
 </tbody>
 </table>
