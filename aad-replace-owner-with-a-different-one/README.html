@@ -102,95 +102,10 @@
 <div class="tabGroup" id="tabgroup_CeZOj-G++Q">
 <ul role="tablist">
 <li role="presentation">
-<a href="#tabpanel_CeZOj-G++Q_cli-m365-ps" role="tab" aria-controls="tabpanel_CeZOj-G++Q_cli-m365-ps" data-tab="cli-m365-ps" tabindex="0" aria-selected="true">CLI for Microsoft 365 with PowerShell</a>
-</li>
-<li role="presentation">
-<a href="#tabpanel_CeZOj-G++Q_pnpps" role="tab" aria-controls="tabpanel_CeZOj-G++Q_pnpps" data-tab="pnpps" tabindex="-1">PnP PowerShell</a>
+<a href="#tabpanel_CeZOj-G++Q_pnpps" role="tab" aria-controls="tabpanel_CeZOj-G++Q_pnpps" data-tab="pnpps" tabindex="0" aria-selected="true">PnP PowerShell</a>
 </li>
 </ul>
-<section id="tabpanel_CeZOj-G++Q_cli-m365-ps" role="tabpanel" data-tab="cli-m365-ps"><button class="article-clipboard" title="Copy to clipboard" data-toggle="tooltip" data-placement="top" data-clipboard-target="section[id^='tabpanel'][data-tab='cli-m365-ps'] pre">
-    <span class="glyphicon glyphicon-copy" aria-hidden="true"></span>
-    <span class="article-clipboard__message done">Copied</span>
-</button>
-
-<pre><code class="lang-powershell"># This script replaces an owner with a different person in all Microsoft 365 Groups
-$oldUser = &quot;oldUserUpn&quot;
-$newUser = &quot;newUserUpn&quot;
-# Parameters end
-
-$m365Status = m365 status
-
-if ($m365Status -match &quot;Logged Out&quot;) {
-  # Connection to Microsoft 365
-  m365 login
-}
-
-# configure the CLI to output JSON on each execution
-m365 cli config set --key output --value json
-m365 cli config set --key errorOutput --value stdout
-m365 cli config set --key showHelpOnFailure --value false
-m365 cli config set --key printErrorsAsPlainText --value false
-
-function Get-CLIValue {
-  [cmdletbinding()]
-  param(
-    [parameter(Mandatory = $true, ValueFromPipeline = $true)]
-    $input
-  )
-    $output = $input | ConvertFrom-Json
-    if ($output.error -ne $null) {
-      throw $output.error
-    }
-    return $output
-}
-
-function Replace-Owner {
-    [cmdletbinding()]
-    param(
-        [parameter(Mandatory = $true)]
-        $oldUser,
-        [parameter(Mandatory = $true)]
-        $newUser
-    )
-    $groupsToProcess = m365 aad o365group list | Get-CLIValue  
-    $i = 0
-    $groupsToProcess | ForEach-Object {
-        $group = $_
-        $i++
-        Write-Host &quot;Processing Group ($($group.id)) - $($group.displayName) - ($i/$($groupsToProcess.Length))&quot; -ForegroundColor DarkGray
- 
-        $hasOwner = $null
-        # verify if the old user is in the owners list
-        $hasOwner = m365 aad o365group user list --groupId $group.id --query &quot;[?userType=='Owner' &amp;&amp; userPrincipalName=='$oldUser'].[id]&quot; | Get-CLIValue
-        if ($hasOwner -ne $null) {
-            Write-Host &quot;Found $oldUser&quot; -ForegroundColor Green
-            try {
-                Write-Host &quot;Granting $newUser owner rights&quot;
-                m365 aad o365group user add --groupId $group.id --userName $newUser --role Owner | Get-CLIValue
-            }
-            catch  {
-                Write-Host $_.Exception.Message -ForegroundColor White
-            }
-
-            try {
-                Write-Host &quot;Removing $oldUser permissions...&quot;
-                m365 aad o365group user remove --groupId $group.id --userName $oldUser --confirm $false | Get-CLIValue
-            }
-            catch  {
-                Write-Host $_.Exception.Message -ForegroundColor Red
-                continue
-            }
-        }
-    }
-}
-
-Replace-Owner $oldUser $newUser
-</code></pre>
-<div class="highlight-tool">
-<p>Check out the <strong>CLI for Microsoft 365</strong> to learn more at: <a href="https://aka.ms/cli-m365">https://aka.ms/cli-m365</a></p>
-</div>
-</section>
-<section id="tabpanel_CeZOj-G++Q_pnpps" role="tabpanel" data-tab="pnpps" aria-hidden="true" hidden="hidden"><button class="article-clipboard" title="Copy to clipboard" data-toggle="tooltip" data-placement="top" data-clipboard-target="section[id^='tabpanel'][data-tab='pnpps'] pre">
+<section id="tabpanel_CeZOj-G++Q_pnpps" role="tabpanel" data-tab="pnpps"><button class="article-clipboard" title="Copy to clipboard" data-toggle="tooltip" data-placement="top" data-clipboard-target="section[id^='tabpanel'][data-tab='pnpps'] pre">
     <span class="glyphicon glyphicon-copy" aria-hidden="true"></span>
     <span class="article-clipboard__message done">Copied</span>
 </button>
@@ -248,8 +163,6 @@ Disconnect-PnPOnline
 </div>
 </section>
 </div>
-<h2 id="source-credit">Source Credit</h2>
-<p>Sample first appeared on <a href="https://pnp.github.io/cli-microsoft365/sample-scripts/aad/replace-owner-with-a-different-one/">Replace an owner in a Microsoft 365 Group or Microsoft Team | CLI for Microsoft 365</a></p>
 <h2 id="contributors">Contributors</h2>
 <table>
 <thead>
@@ -258,12 +171,6 @@ Disconnect-PnPOnline
 </tr>
 </thead>
 <tbody>
-<tr>
-<td>Alan Eardley</td>
-</tr>
-<tr>
-<td>Patrick Lamber</td>
-</tr>
 <tr>
 <td>Reshmee Auckloo</td>
 </tr>

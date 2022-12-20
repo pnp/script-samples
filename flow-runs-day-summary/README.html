@@ -107,72 +107,10 @@
 <div class="tabGroup" id="tabgroup_CeZOj-G++Q">
 <ul role="tablist">
 <li role="presentation">
-<a href="#tabpanel_CeZOj-G++Q_cli-m365-ps" role="tab" aria-controls="tabpanel_CeZOj-G++Q_cli-m365-ps" data-tab="cli-m365-ps" tabindex="0" aria-selected="true">CLI for Microsoft 365 with PowerShell</a>
-</li>
-<li role="presentation">
-<a href="#tabpanel_CeZOj-G++Q_pnpps" role="tab" aria-controls="tabpanel_CeZOj-G++Q_pnpps" data-tab="pnpps" tabindex="-1">PnP PowerShell</a>
+<a href="#tabpanel_CeZOj-G++Q_pnpps" role="tab" aria-controls="tabpanel_CeZOj-G++Q_pnpps" data-tab="pnpps" tabindex="0" aria-selected="true">PnP PowerShell</a>
 </li>
 </ul>
-<section id="tabpanel_CeZOj-G++Q_cli-m365-ps" role="tabpanel" data-tab="cli-m365-ps"><button class="article-clipboard" title="Copy to clipboard" data-toggle="tooltip" data-placement="top" data-clipboard-target="section[id^='tabpanel'][data-tab='cli-m365-ps'] pre">
-    <span class="glyphicon glyphicon-copy" aria-hidden="true"></span>
-    <span class="article-clipboard__message done">Copied</span>
-</button>
-
-<pre><code class="lang-powershell">
-$m365Status = m365 status
-if ($m365Status -match &quot;Logged Out&quot;) {
-    m365 login
-}
-
-$environment = 'Default-2942bb31-1d49-4da6-8d3d-d0f9e1141234'
-$adaptiveCard = '{\&quot;type\&quot;:\&quot;AdaptiveCard\&quot;,\&quot;body\&quot;:[{\&quot;type\&quot;:\&quot;TextBlock\&quot;,\&quot;size\&quot;:\&quot;Medium\&quot;,\&quot;weight\&quot;:\&quot;Bolder\&quot;,\&quot;text\&quot;:\&quot;${title}\&quot;},{\&quot;type\&quot;:\&quot;TextBlock\&quot;,\&quot;text\&quot;:\&quot;${description}\&quot;,\&quot;wrap\&quot;:true}],\&quot;$schema\&quot;:\&quot;http://adaptivecards.io/schemas/adaptive-card.json\&quot;,\&quot;version\&quot;:\&quot;1.3\&quot;}'
-$webhook = 'https://contoso.webhook.office.com/webhookb2/1204eba2-061c-4442-9696-2a725cb2d094@2942bb31-1d49-4da6-8d3d-d0f9e1141486/IncomingWebhook/6e54c3958bde444e96fec9ecad356993/be11f523-2a4d-4eae-9d42-277410893c41'
-
-$flows = m365 flow list --environment $environment --output json
-$flows = $flows | ConvertFrom-Json
-$currentDayDate = Get-Date
-$previousDayDate = (Get-Date).AddDays(-1)
-
-$adaptiveCardDescription = &quot;&quot;
-foreach ($flow in $flows) 
-{
-    $flowRuns = m365 flow run list --environment $environment --flow $flow.name --output json
-    $flowRuns = $flowRuns | ConvertFrom-Json
-
-    $displayName = $flow.displayName
-    $id = $flow.name
-
-    $todayRuns = $flowRuns.Where({[DateTime]$_.properties.endTime -le $currentDayDate -and [DateTime]$_.properties.endTime -gt $previousDayDate})
-    
-    $todayRunsCount = 0
-    $todaySuccessRunsCount = 0
-    $todayFailedRunsCount = 0
-    if($todayRuns.Count -gt 0)
-    {
-        $todaySuccessRuns = $todayRuns.Where({$_.status -eq 'Succeeded'})
-        $todaySuccessRunsCount = $todaySuccessRuns.Count
-
-        $todayFailedRuns = $todayRuns.Where({$_.status -eq 'Failed'})
-        $todayFailedRunsCount = $todayFailedRuns.Count
-
-        $todayRunsCount = $todayRuns.Count
-    }
-
-    Write-Host &quot;$displayName -&gt; Runs: $todayRunsCount , Succeeded: $todaySuccessRunsCount , Failed: $todayFailedRunsCount&quot;
-    $adaptiveCardDescription = $adaptiveCardDescription + &quot;\r- [$displayName](https://us.flow.microsoft.com/manage/environments/$environment/flows/$id/details) -&gt; Runs: $todayRunsCount , Succeeded: $todaySuccessRunsCount , Failed: $todayFailedRunsCount&quot;
-}
-
-$today = Get-Date -Format &quot;MM/dd/yyyy&quot;
-$cardData = '{\&quot;title\&quot;: \&quot;Flows summary - ' + $today + '\&quot; ,\&quot;description\&quot;:\&quot;' + $adaptiveCardDescription + '\&quot;}'
-
-m365 adaptivecard send --url $webhook --card $adaptiveCard --cardData $cardData
-
-</code></pre>
-<div class="highlight-tool">
-<p>Check out the <strong>CLI for Microsoft 365</strong> to learn more at: <a href="https://aka.ms/cli-m365">https://aka.ms/cli-m365</a></p>
-</div>
-</section>
-<section id="tabpanel_CeZOj-G++Q_pnpps" role="tabpanel" data-tab="pnpps" aria-hidden="true" hidden="hidden"><button class="article-clipboard" title="Copy to clipboard" data-toggle="tooltip" data-placement="top" data-clipboard-target="section[id^='tabpanel'][data-tab='pnpps'] pre">
+<section id="tabpanel_CeZOj-G++Q_pnpps" role="tabpanel" data-tab="pnpps"><button class="article-clipboard" title="Copy to clipboard" data-toggle="tooltip" data-placement="top" data-clipboard-target="section[id^='tabpanel'][data-tab='pnpps'] pre">
     <span class="glyphicon glyphicon-copy" aria-hidden="true"></span>
     <span class="article-clipboard__message done">Copied</span>
 </button>
@@ -277,9 +215,6 @@ Invoke-RestMethod @Params
 <tbody>
 <tr>
 <td><a href="https://github.com/LeonArmston">Leon Armston</a></td>
-</tr>
-<tr>
-<td><a href="https://github.com/Adam-it">Adam Wójcik</a></td>
 </tr>
 </tbody>
 </table>

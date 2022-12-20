@@ -106,74 +106,10 @@
 <div class="tabGroup" id="tabgroup_CeZOj-G++Q">
 <ul role="tablist">
 <li role="presentation">
-<a href="#tabpanel_CeZOj-G++Q_cli-m365-ps" role="tab" aria-controls="tabpanel_CeZOj-G++Q_cli-m365-ps" data-tab="cli-m365-ps" tabindex="0" aria-selected="true">CLI for Microsoft 365 using PowerShell</a>
-</li>
-<li role="presentation">
-<a href="#tabpanel_CeZOj-G++Q_cli-m365-bash" role="tab" aria-controls="tabpanel_CeZOj-G++Q_cli-m365-bash" data-tab="cli-m365-bash" tabindex="-1">CLI for Microsoft 365 using Bash</a>
-</li>
-<li role="presentation">
-<a href="#tabpanel_CeZOj-G++Q_pnpps" role="tab" aria-controls="tabpanel_CeZOj-G++Q_pnpps" data-tab="pnpps" tabindex="-1">PnP PowerShell</a>
+<a href="#tabpanel_CeZOj-G++Q_pnpps" role="tab" aria-controls="tabpanel_CeZOj-G++Q_pnpps" data-tab="pnpps" tabindex="0" aria-selected="true">PnP PowerShell</a>
 </li>
 </ul>
-<section id="tabpanel_CeZOj-G++Q_cli-m365-ps" role="tabpanel" data-tab="cli-m365-ps"><button class="article-clipboard" title="Copy to clipboard" data-toggle="tooltip" data-placement="top" data-clipboard-target="section[id^='tabpanel'][data-tab='cli-m365-ps'] pre">
-    <span class="glyphicon glyphicon-copy" aria-hidden="true"></span>
-    <span class="article-clipboard__message done">Copied</span>
-</button>
-
-<pre><code class="lang-powershell">$deletedSites = m365 spo tenant recyclebinitem list -o json | ConvertFrom-Json
-$deletedSites | Format-Table Url
-
-if ($deletedSites.Count -eq 0) { break }
-
-Read-Host -Prompt &quot;Press Enter to start deleting (CTRL + C to exit)&quot;
-
-$progress = 0
-$total = $deletedSites.Count
-
-foreach ($deletedSite in $deletedSites)
-{
-  $progress++
-  Write-Host $progress / $total&quot;:&quot; $deletedSite.Url
-  m365 spo tenant recyclebinitem remove -u $deletedSite.Url --confirm
-}
-</code></pre>
-<div class="highlight-tool">
-<p>Check out the <strong>CLI for Microsoft 365</strong> to learn more at: <a href="https://aka.ms/cli-m365">https://aka.ms/cli-m365</a></p>
-</div>
-</section>
-<section id="tabpanel_CeZOj-G++Q_cli-m365-bash" role="tabpanel" data-tab="cli-m365-bash" aria-hidden="true" hidden="hidden"><button class="article-clipboard" title="Copy to clipboard" data-toggle="tooltip" data-placement="top" data-clipboard-target="section[id^='tabpanel'][data-tab='cli-m365-bash'] pre">
-    <span class="glyphicon glyphicon-copy" aria-hidden="true"></span>
-    <span class="article-clipboard__message done">Copied</span>
-</button>
-
-<pre><code class="lang-bash">#!/bin/bash
-
-# requires jq: https://stedolan.github.io/jq/
-
-deletedsites=( $(m365 spo tenant recyclebinitem list -o json | jq -r '.[].Url') )
-
-if [ ${#deletedsites[@]} = 0 ]; then
-  exit 1
-fi
-
-printf '%s\n' &quot;${deletedsites[@]}&quot;
-echo &quot;Press Enter to start deleting (CTRL + C to exit)&quot;
-read foo
-
-progress=0
-total=${#deletedsites[@]}
-
-for deletedsite in &quot;${deletedsites[@]}&quot;; do
-  ((progress++))
-  printf '%s / %s:%s\n' &quot;$progress&quot; &quot;$total&quot; &quot;$deletedsite&quot;
-  m365 spo tenant recyclebinitem remove -u $deletedsite --confirm
-done
-</code></pre>
-<div class="highlight-tool">
-<p>Check out the <strong>CLI for Microsoft 365</strong> to learn more at: <a href="https://aka.ms/cli-m365">https://aka.ms/cli-m365</a></p>
-</div>
-</section>
-<section id="tabpanel_CeZOj-G++Q_pnpps" role="tabpanel" data-tab="pnpps" aria-hidden="true" hidden="hidden"><button class="article-clipboard" title="Copy to clipboard" data-toggle="tooltip" data-placement="top" data-clipboard-target="section[id^='tabpanel'][data-tab='pnpps'] pre">
+<section id="tabpanel_CeZOj-G++Q_pnpps" role="tabpanel" data-tab="pnpps"><button class="article-clipboard" title="Copy to clipboard" data-toggle="tooltip" data-placement="top" data-clipboard-target="section[id^='tabpanel'][data-tab='pnpps'] pre">
     <span class="glyphicon glyphicon-copy" aria-hidden="true"></span>
     <span class="article-clipboard__message done">Copied</span>
 </button>
@@ -216,9 +152,6 @@ foreach ($deletedSite in $deletedSites)
 </tr>
 </thead>
 <tbody>
-<tr>
-<td>Laura Kokkarinen</td>
-</tr>
 <tr>
 <td><a href="https://github.com/LeonArmston">Leon Armston</a></td>
 </tr>

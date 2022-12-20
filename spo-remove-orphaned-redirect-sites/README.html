@@ -106,102 +106,10 @@
 <div class="tabGroup" id="tabgroup_CeZOj-G++Q">
 <ul role="tablist">
 <li role="presentation">
-<a href="#tabpanel_CeZOj-G++Q_cli-m365-ps" role="tab" aria-controls="tabpanel_CeZOj-G++Q_cli-m365-ps" data-tab="cli-m365-ps" tabindex="0" aria-selected="true">CLI for Microsoft 365 with PowerShell</a>
-</li>
-<li role="presentation">
-<a href="#tabpanel_CeZOj-G++Q_m365cli-bash" role="tab" aria-controls="tabpanel_CeZOj-G++Q_m365cli-bash" data-tab="m365cli-bash" tabindex="-1">CLI for Microsoft 365 with Bash</a>
-</li>
-<li role="presentation">
-<a href="#tabpanel_CeZOj-G++Q_pnpps" role="tab" aria-controls="tabpanel_CeZOj-G++Q_pnpps" data-tab="pnpps" tabindex="-1">PnP PowerShell</a>
+<a href="#tabpanel_CeZOj-G++Q_pnpps" role="tab" aria-controls="tabpanel_CeZOj-G++Q_pnpps" data-tab="pnpps" tabindex="0" aria-selected="true">PnP PowerShell</a>
 </li>
 </ul>
-<section id="tabpanel_CeZOj-G++Q_cli-m365-ps" role="tabpanel" data-tab="cli-m365-ps"><button class="article-clipboard" title="Copy to clipboard" data-toggle="tooltip" data-placement="top" data-clipboard-target="section[id^='tabpanel'][data-tab='cli-m365-ps'] pre">
-    <span class="glyphicon glyphicon-copy" aria-hidden="true"></span>
-    <span class="article-clipboard__message done">Copied</span>
-</button>
-
-<pre><code class="lang-powershell">$sites = m365 spo site classic list --t &quot;REDIRECTSITE#0&quot; --output json | ConvertFrom-Json
-
-$sites | ForEach-Object {
-  Write-Host -f Green &quot;Processing redirect site: &quot; $_.Url
-  $siteUrl = $_.Url
-
-  $redirectSite = Invoke-WebRequest -Uri $_.Url -MaximumRedirection 0 -SkipHttpErrorCheck
-  $body = $null
-  $siteUrl = $_.Url
-
-  if($redirectSite.StatusCode -eq 308) {
-    Try {
-      [string]$newUrl = $redirectSite.Headers.Location;
-      Write-Host -f Green &quot; Redirects to: &quot; $newUrl
-      $body = Invoke-WebRequest -Uri $newUrl -SkipHttpErrorCheck
-    }
-    Catch{
-     Write-Host $_.Exception
-    }
-    Finally {
-      If($body.StatusCode -eq &quot;200&quot;){
-       Write-host -f Yellow &quot;  Target location still exists&quot;
-      }
-      If($body.StatusCode -eq &quot;404&quot;){
-        Write-Host -f Red &quot;  Target location no longer exists, should be removed&quot;
-        m365 spo site remove --url $siteUrl
-      }
-    }
-  }
-}
-</code></pre>
-<div class="highlight-tool">
-<p>Check out the <strong>CLI for Microsoft 365</strong> to learn more at: <a href="https://aka.ms/cli-m365">https://aka.ms/cli-m365</a></p>
-</div>
-</section>
-<section id="tabpanel_CeZOj-G++Q_m365cli-bash" role="tabpanel" data-tab="m365cli-bash" aria-hidden="true" hidden="hidden"><button class="article-clipboard" title="Copy to clipboard" data-toggle="tooltip" data-placement="top" data-clipboard-target="section[id^='tabpanel'][data-tab='m365cli-bash'] pre">
-    <span class="glyphicon glyphicon-copy" aria-hidden="true"></span>
-    <span class="article-clipboard__message done">Copied</span>
-</button>
-
-<pre><code class="lang-bash">#!/bin/bash
-
-# requires jq: https://stedolan.github.io/jq/
-clear
-sitestoremove=()
-while read site; do
- siteUrl=$(echo ${site} | jq -r '.Url')
- echo &quot;Checking old URL for redirect&quot; $siteUrl
- redirectsite=$(curl -I -L --max-redirs 0 --silent --user-agent &quot;Mozilla/5.0 (X11; Linux x86_64; rv:58.0) Gecko/20100101 Firefox/58.0&quot; $siteUrl | sed -En 's/^location: (.*)/\1/p')
-
- echo &quot;Redirects to&quot; $redirectsite
- redirect_status=$(curl --write-out %{http_code} --silent --output /dev/null --user-agent &quot;Mozilla/5.0 (X11; Linux x86_64; rv:58.0) Gecko/20100101 Firefox/58.0&quot; ${redirectsite%$'\r'})
-
- if [[ &quot;$redirect_status&quot; -ne 404 ]] ; then
-   echo &quot;URL exists: $redirectsite&quot;
- else
-   echo &quot;URL does not exist: $redirectsite&quot;
-   sitestoremove+=(&quot;$siteUrl&quot;)
- fi
-
-done &lt; &lt;(m365 spo site classic list --t &quot;REDIRECTSITE#0&quot; -o json | jq -c '.[]')
-
-if [ ${#sitestoremove[@]} = 0 ]; then
-  exit 1
-fi
-
-printf '%s\n' &quot;${sitestoremove[@]}&quot;s
-echo &quot;Press Enter to start deleting (CTRL + C to exit)&quot;
-read foo
-
-for site in &quot;${sitestoremove[@]}&quot;; do
-   siteUrl=$(echo ${site} | jq -r '.Url')
-  echo &quot;Deleting site...&quot;
-  echo $siteUrl
-   m365 spo site classic remove --url $siteUrl
-done
-</code></pre>
-<div class="highlight-tool">
-<p>Check out the <strong>CLI for Microsoft 365</strong> to learn more at: <a href="https://aka.ms/cli-m365">https://aka.ms/cli-m365</a></p>
-</div>
-</section>
-<section id="tabpanel_CeZOj-G++Q_pnpps" role="tabpanel" data-tab="pnpps" aria-hidden="true" hidden="hidden"><button class="article-clipboard" title="Copy to clipboard" data-toggle="tooltip" data-placement="top" data-clipboard-target="section[id^='tabpanel'][data-tab='pnpps'] pre">
+<section id="tabpanel_CeZOj-G++Q_pnpps" role="tabpanel" data-tab="pnpps"><button class="article-clipboard" title="Copy to clipboard" data-toggle="tooltip" data-placement="top" data-clipboard-target="section[id^='tabpanel'][data-tab='pnpps'] pre">
     <span class="glyphicon glyphicon-copy" aria-hidden="true"></span>
     <span class="article-clipboard__message done">Copied</span>
 </button>
@@ -247,8 +155,6 @@ $sites | ForEach-Object {
 </div>
 </section>
 </div>
-<h2 id="source-credit">Source Credit</h2>
-<p>Sample first appeared on <a href="https://pnp.github.io/cli-microsoft365/sample-scripts/spo/remove-orphaned-redirect-sites/">Remove orphaned redirect sites | CLI for Microsoft 365</a></p>
 <h2 id="contributors">Contributors</h2>
 <table>
 <thead>
@@ -257,9 +163,6 @@ $sites | ForEach-Object {
 </tr>
 </thead>
 <tbody>
-<tr>
-<td><a href="https://github.com/appieschot">Albert-Jan Schot</a></td>
-</tr>
 <tr>
 <td><a href="https://github.com/LeonArmston">Leon Armston</a></td>
 </tr>

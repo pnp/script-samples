@@ -104,45 +104,10 @@
 <div class="tabGroup" id="tabgroup_CeZOj-G++Q">
 <ul role="tablist">
 <li role="presentation">
-<a href="#tabpanel_CeZOj-G++Q_cli-m365-ps" role="tab" aria-controls="tabpanel_CeZOj-G++Q_cli-m365-ps" data-tab="cli-m365-ps" tabindex="0" aria-selected="true">CLI for Microsoft 365 with PowerShell</a>
-</li>
-<li role="presentation">
-<a href="#tabpanel_CeZOj-G++Q_pnpps" role="tab" aria-controls="tabpanel_CeZOj-G++Q_pnpps" data-tab="pnpps" tabindex="-1">PnP PowerShell</a>
+<a href="#tabpanel_CeZOj-G++Q_pnpps" role="tab" aria-controls="tabpanel_CeZOj-G++Q_pnpps" data-tab="pnpps" tabindex="0" aria-selected="true">PnP PowerShell</a>
 </li>
 </ul>
-<section id="tabpanel_CeZOj-G++Q_cli-m365-ps" role="tabpanel" data-tab="cli-m365-ps"><button class="article-clipboard" title="Copy to clipboard" data-toggle="tooltip" data-placement="top" data-clipboard-target="section[id^='tabpanel'][data-tab='cli-m365-ps'] pre">
-    <span class="glyphicon glyphicon-copy" aria-hidden="true"></span>
-    <span class="article-clipboard__message done">Copied</span>
-</button>
-
-<pre><code class="lang-powershell">
-Write-Output &quot;Getting environment info...&quot;
-$environment = m365 flow environment list --query '[?contains(displayName,`default`)] .name'
-
-Write-Output &quot;Getting Flows info...&quot;
-$flows = m365 flow list --environment $environment --asAdmin --output json | ConvertFrom-JSON
-
-Write-Output &quot;Found $($flows.Count) Flows to export...&quot;
-
-$flows | ForEach-Object {
-    Write-Output &quot;Exporting as ZIP &amp; JSON... $($_.displayName)&quot;
-    $filename = $_.displayName.Replace(&quot; &quot;,&quot;&quot;)
-    $timestamp = Get-Date -Format &quot;yyyymmddhhmmss&quot;
-    $exportPath = &quot;$($filename)_$($timestamp)&quot;
-    $flowId = $_.Name
-    
-    m365 flow export --id $flowId --environment $environment --packageDisplayName $_.displayName --path &quot;$exportPath.zip&quot;
-    m365 flow export --id $flowId --environment $environment --format json --path &quot;$exportPath.json&quot;
-}
-
-Write-Output &quot;Complete&quot;
-
-</code></pre>
-<div class="highlight-tool">
-<p>Check out the <strong>CLI for Microsoft 365</strong> to learn more at: <a href="https://aka.ms/cli-m365">https://aka.ms/cli-m365</a></p>
-</div>
-</section>
-<section id="tabpanel_CeZOj-G++Q_pnpps" role="tabpanel" data-tab="pnpps" aria-hidden="true" hidden="hidden"><button class="article-clipboard" title="Copy to clipboard" data-toggle="tooltip" data-placement="top" data-clipboard-target="section[id^='tabpanel'][data-tab='pnpps'] pre">
+<section id="tabpanel_CeZOj-G++Q_pnpps" role="tabpanel" data-tab="pnpps"><button class="article-clipboard" title="Copy to clipboard" data-toggle="tooltip" data-placement="top" data-clipboard-target="section[id^='tabpanel'][data-tab='pnpps'] pre">
     <span class="glyphicon glyphicon-copy" aria-hidden="true"></span>
     <span class="article-clipboard__message done">Copied</span>
 </button>
@@ -175,7 +140,6 @@ foreach ($flow in $flows) {
 </section>
 </div>
 <h2 id="source-credit">Source Credit</h2>
-<p>Sample first appeared on <a href="https://pnp.github.io/cli-microsoft365/sample-scripts/flow/export-all-flows-in-environment/">Export all flows in environment | CLI for Microsoft 365</a></p>
 <p>Added PnP PowerShell version from <a href="https://www.leonarmston.com/2021/01/testing-out-the-new-power-automate-flow-commands-in-pnp-powershell-bonus-script-export-all-flows-using-pnp-powershell/">PnP.PowerShell + Bonus Script: Export all Flows using PnP.PowerShell</a></p>
 <h2 id="contributors">Contributors</h2>
 <table>
@@ -185,9 +149,6 @@ foreach ($flow in $flows) {
 </tr>
 </thead>
 <tbody>
-<tr>
-<td>Garry Trinder</td>
-</tr>
 <tr>
 <td>Luise Freese</td>
 </tr>

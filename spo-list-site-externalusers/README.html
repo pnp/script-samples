@@ -102,69 +102,13 @@
 <div class="tabGroup" id="tabgroup_CeZOj-G++Q">
 <ul role="tablist">
 <li role="presentation">
-<a href="#tabpanel_CeZOj-G++Q_cli-m365-ps" role="tab" aria-controls="tabpanel_CeZOj-G++Q_cli-m365-ps" data-tab="cli-m365-ps" tabindex="0" aria-selected="true">CLI for Microsoft 365 with PowerShell</a>
-</li>
-<li role="presentation">
-<a href="#tabpanel_CeZOj-G++Q_spoms-ps" role="tab" aria-controls="tabpanel_CeZOj-G++Q_spoms-ps" data-tab="spoms-ps" tabindex="-1">SPO Management Shell</a>
+<a href="#tabpanel_CeZOj-G++Q_spoms-ps" role="tab" aria-controls="tabpanel_CeZOj-G++Q_spoms-ps" data-tab="spoms-ps" tabindex="0" aria-selected="true">SPO Management Shell</a>
 </li>
 <li role="presentation">
 <a href="#tabpanel_CeZOj-G++Q_pnpps" role="tab" aria-controls="tabpanel_CeZOj-G++Q_pnpps" data-tab="pnpps" tabindex="-1">PnP PowerShell</a>
 </li>
 </ul>
-<section id="tabpanel_CeZOj-G++Q_cli-m365-ps" role="tabpanel" data-tab="cli-m365-ps"><button class="article-clipboard" title="Copy to clipboard" data-toggle="tooltip" data-placement="top" data-clipboard-target="section[id^='tabpanel'][data-tab='cli-m365-ps'] pre">
-    <span class="glyphicon glyphicon-copy" aria-hidden="true"></span>
-    <span class="article-clipboard__message done">Copied</span>
-</button>
-
-<pre><code class="lang-powershell">$fileExportPath = &quot;&lt;PUTYOURPATHHERE.csv&gt;&quot;
-
-$m365Status = m365 status
-
-if ($m365Status -match &quot;Logged Out&quot;) {
-  # Connection to Microsoft 365
-  m365 login
-}
-
-$results = @()
-Write-host &quot;Retrieving all sites and check external users...&quot;
-$allSPOSites = m365 spo site classic list -o json | ConvertFrom-Json
-$siteCount = $allSPOSites.Count
-
-Write-Host &quot;Processing $siteCount sites...&quot;
-#Loop through each site
-$siteCounter = 0
-
-foreach ($site in $allSPOSites) {
-  $siteCounter++
-  Write-Host &quot;Processing $($site.Url)... ($siteCounter/$siteCount)&quot;
-
-  Write-host &quot;Retrieving all external users ...&quot;
-
-  $users = m365 spo user list --webUrl $site.Url --output json --query &quot;[?contains(LoginName,'#ext#')]&quot; | ConvertFrom-Json
-
-  foreach ($user in $users) {
-    $externalUserObject = m365 spo externaluser list --siteUrl $site.url -o json --query &quot;[?AcceptedAs == '$($user.Email)']&quot; | ConvertFrom-Json
-
-    $results += [pscustomobject][ordered]@{
-      UserPrincipalName = $user.UserPrincipalName
-      Email             = $user.Email
-      InvitedAs         = $externalUserObject.InvitedAs
-      WhenCreated       = $externalUserObject.WhenCreated
-      InvitedBy         = $externalUserObject.InvitedBy
-      Url               = $site.Url
-    }
-  }
-}
-
-Write-Host &quot;Exporting file to $fileExportPath...&quot;
-$results | Export-Csv -Path $fileExportPath -NoTypeInformation
-Write-Host &quot;Completed.&quot;
-</code></pre>
-<div class="highlight-tool">
-<p>Check out the <strong>CLI for Microsoft 365</strong> to learn more at: <a href="https://aka.ms/cli-m365">https://aka.ms/cli-m365</a></p>
-</div>
-</section>
-<section id="tabpanel_CeZOj-G++Q_spoms-ps" role="tabpanel" data-tab="spoms-ps" aria-hidden="true" hidden="hidden"><button class="article-clipboard" title="Copy to clipboard" data-toggle="tooltip" data-placement="top" data-clipboard-target="section[id^='tabpanel'][data-tab='spoms-ps'] pre">
+<section id="tabpanel_CeZOj-G++Q_spoms-ps" role="tabpanel" data-tab="spoms-ps"><button class="article-clipboard" title="Copy to clipboard" data-toggle="tooltip" data-placement="top" data-clipboard-target="section[id^='tabpanel'][data-tab='spoms-ps'] pre">
     <span class="glyphicon glyphicon-copy" aria-hidden="true"></span>
     <span class="article-clipboard__message done">Copied</span>
 </button>
@@ -299,9 +243,6 @@ StartProcessing
 </tr>
 </thead>
 <tbody>
-<tr>
-<td>Albert-Jan Schot</td>
-</tr>
 <tr>
 <td>Paul Bullock</td>
 </tr>

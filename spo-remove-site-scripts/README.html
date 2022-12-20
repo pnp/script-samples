@@ -106,85 +106,10 @@
 <div class="tabGroup" id="tabgroup_CeZOj-G++Q">
 <ul role="tablist">
 <li role="presentation">
-<a href="#tabpanel_CeZOj-G++Q_cli-m365-ps" role="tab" aria-controls="tabpanel_CeZOj-G++Q_cli-m365-ps" data-tab="cli-m365-ps" tabindex="0" aria-selected="true">CLI for Microsoft 365 with PowerShell</a>
-</li>
-<li role="presentation">
-<a href="#tabpanel_CeZOj-G++Q_m365cli-bash" role="tab" aria-controls="tabpanel_CeZOj-G++Q_m365cli-bash" data-tab="m365cli-bash" tabindex="-1">CLI for Microsoft 365 with Bash</a>
-</li>
-<li role="presentation">
-<a href="#tabpanel_CeZOj-G++Q_spoms-ps" role="tab" aria-controls="tabpanel_CeZOj-G++Q_spoms-ps" data-tab="spoms-ps" tabindex="-1">SPO Management Shell</a>
+<a href="#tabpanel_CeZOj-G++Q_spoms-ps" role="tab" aria-controls="tabpanel_CeZOj-G++Q_spoms-ps" data-tab="spoms-ps" tabindex="0" aria-selected="true">SPO Management Shell</a>
 </li>
 </ul>
-<section id="tabpanel_CeZOj-G++Q_cli-m365-ps" role="tabpanel" data-tab="cli-m365-ps"><button class="article-clipboard" title="Copy to clipboard" data-toggle="tooltip" data-placement="top" data-clipboard-target="section[id^='tabpanel'][data-tab='cli-m365-ps'] pre">
-    <span class="glyphicon glyphicon-copy" aria-hidden="true"></span>
-    <span class="article-clipboard__message done">Copied</span>
-</button>
-
-<pre><code class="lang-powershell">$sparksjoy = &quot;Project Site&quot;, &quot;Issues List&quot;
-$siteScripts = m365 spo sitescript list -o json | ConvertFrom-Json
-$siteScripts = $siteScripts | where {  -not ($sparksjoy -contains $_.Title)}
-if ($siteScripts.Count -eq 0) { break }
-$siteScripts | Format-Table Title, SiteScriptIds, Description
-Read-Host -Prompt &quot;Press Enter to start deleting (CTRL + C to exit)&quot;
-$progress = 0
-$total = $siteScripts.Count
-foreach ($siteScript in $siteScripts)
-{
-  $progress++
-  Write-Host $progress / $total&quot;:&quot; $siteScript.Title
-  m365 spo sitescript remove -i $siteScript.Id --confirm
-}
-</code></pre>
-<div class="highlight-tool">
-<p>Check out the <strong>CLI for Microsoft 365</strong> to learn more at: <a href="https://aka.ms/cli-m365">https://aka.ms/cli-m365</a></p>
-</div>
-</section>
-<section id="tabpanel_CeZOj-G++Q_m365cli-bash" role="tabpanel" data-tab="m365cli-bash" aria-hidden="true" hidden="hidden"><button class="article-clipboard" title="Copy to clipboard" data-toggle="tooltip" data-placement="top" data-clipboard-target="section[id^='tabpanel'][data-tab='m365cli-bash'] pre">
-    <span class="glyphicon glyphicon-copy" aria-hidden="true"></span>
-    <span class="article-clipboard__message done">Copied</span>
-</button>
-
-<pre><code class="lang-bash">#!/bin/bash
-
-# requires jq: https://stedolan.github.io/jq/
-
-sparksjoy=(&quot;Project Site&quot;  &quot;Issues List&quot;)
-sitesscriptstoremove=()
-while read script; do
- scriptTitle=$(echo ${script} | jq -r '.Title')
-  exists=true
-  for keep in &quot;${sparksjoy[@]}&quot;; do
-    if [ &quot;$keep&quot; == &quot;$scriptTitle&quot; ] ; then
-      exists=false
-      break
-    fi
-  done
-  if [ &quot;$exists&quot; = true ]; then
-    echo $scriptTitle
-    sitesscriptstoremove+=(&quot;$script&quot;)
-  fi
-
-done &lt; &lt;(m365 spo sitescript list -o json | jq -c '.[]')
-
-if [ ${#sitesscriptstoremove[@]} = 0 ]; then
-  exit 1
-fi
-
-echo &quot;Press Enter to start deleting (CTRL + C to exit)&quot;
-read foo
-
-for script in &quot;${sitesscriptstoremove[@]}&quot;; do
-  scriptTitle=$(echo ${script} | jq -r '.Title')
-  scriptId=$(echo ${script} | jq -r '.Id')
-  echo &quot;Deleting Site script...&quot;  $scriptTitle
-  m365 spo sitescript remove --id $scriptId --confirm
-done
-</code></pre>
-<div class="highlight-tool">
-<p>Check out the <strong>CLI for Microsoft 365</strong> to learn more at: <a href="https://aka.ms/cli-m365">https://aka.ms/cli-m365</a></p>
-</div>
-</section>
-<section id="tabpanel_CeZOj-G++Q_spoms-ps" role="tabpanel" data-tab="spoms-ps" aria-hidden="true" hidden="hidden"><button class="article-clipboard" title="Copy to clipboard" data-toggle="tooltip" data-placement="top" data-clipboard-target="section[id^='tabpanel'][data-tab='spoms-ps'] pre">
+<section id="tabpanel_CeZOj-G++Q_spoms-ps" role="tabpanel" data-tab="spoms-ps"><button class="article-clipboard" title="Copy to clipboard" data-toggle="tooltip" data-placement="top" data-clipboard-target="section[id^='tabpanel'][data-tab='spoms-ps'] pre">
     <span class="glyphicon glyphicon-copy" aria-hidden="true"></span>
     <span class="article-clipboard__message done">Copied</span>
 </button>
@@ -214,8 +139,6 @@ foreach ($siteScript in $siteScripts)
 </div>
 </section>
 </div>
-<h2 id="source-credit">Source Credit</h2>
-<p>Sample first appeared on <a href="https://pnp.github.io/cli-microsoft365/sample-scripts/spo/remove-site-scripts/">Delete custom SharePoint site scripts | CLI for Microsoft 365</a></p>
 <h2 id="contributors">Contributors</h2>
 <table>
 <thead>
@@ -224,9 +147,6 @@ foreach ($siteScript in $siteScripts)
 </tr>
 </thead>
 <tbody>
-<tr>
-<td>Laura Kokkarinen</td>
-</tr>
 <tr>
 <td>Paul Bullock</td>
 </tr>

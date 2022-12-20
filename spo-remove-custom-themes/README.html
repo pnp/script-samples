@@ -102,81 +102,10 @@
 <div class="tabGroup" id="tabgroup_CeZOj-G++Q">
 <ul role="tablist">
 <li role="presentation">
-<a href="#tabpanel_CeZOj-G++Q_cli-m365-ps" role="tab" aria-controls="tabpanel_CeZOj-G++Q_cli-m365-ps" data-tab="cli-m365-ps" tabindex="0" aria-selected="true">CLI for Microsoft 365 with PowerShell</a>
-</li>
-<li role="presentation">
-<a href="#tabpanel_CeZOj-G++Q_m365cli-bash" role="tab" aria-controls="tabpanel_CeZOj-G++Q_m365cli-bash" data-tab="m365cli-bash" tabindex="-1">CLI for Microsoft 365 with Bash</a>
-</li>
-<li role="presentation">
-<a href="#tabpanel_CeZOj-G++Q_pnpps" role="tab" aria-controls="tabpanel_CeZOj-G++Q_pnpps" data-tab="pnpps" tabindex="-1">PnP PowerShell</a>
+<a href="#tabpanel_CeZOj-G++Q_pnpps" role="tab" aria-controls="tabpanel_CeZOj-G++Q_pnpps" data-tab="pnpps" tabindex="0" aria-selected="true">PnP PowerShell</a>
 </li>
 </ul>
-<section id="tabpanel_CeZOj-G++Q_cli-m365-ps" role="tabpanel" data-tab="cli-m365-ps"><button class="article-clipboard" title="Copy to clipboard" data-toggle="tooltip" data-placement="top" data-clipboard-target="section[id^='tabpanel'][data-tab='cli-m365-ps'] pre">
-    <span class="glyphicon glyphicon-copy" aria-hidden="true"></span>
-    <span class="article-clipboard__message done">Copied</span>
-</button>
-
-<pre><code class="lang-powershell">$sparksjoy = &quot;Cat Lovers United&quot;, &quot;Multicolored theme&quot;
-$themes = m365 spo theme list -o json | ConvertFrom-Json
-$themes = $themes | where {-not ($sparksjoy -contains $_.name)}
-$themes | Format-Table name
-if ($themes.Count -eq 0) { break }
-Read-Host -Prompt &quot;Press Enter to start deleting (CTRL + C to exit)&quot;
-$progress = 0
-$total = $themes.Count
-foreach ($theme in $themes)
-{
-  $progress++
-  write-host $progress / $total&quot;:&quot; $theme.name
-  m365 spo theme remove --name &quot;$($theme.name)&quot; --confirm
-}
-</code></pre>
-<div class="highlight-tool">
-<p>Check out the <strong>CLI for Microsoft 365</strong> to learn more at: <a href="https://aka.ms/cli-m365">https://aka.ms/cli-m365</a></p>
-</div>
-</section>
-<section id="tabpanel_CeZOj-G++Q_m365cli-bash" role="tabpanel" data-tab="m365cli-bash" aria-hidden="true" hidden="hidden"><button class="article-clipboard" title="Copy to clipboard" data-toggle="tooltip" data-placement="top" data-clipboard-target="section[id^='tabpanel'][data-tab='m365cli-bash'] pre">
-    <span class="glyphicon glyphicon-copy" aria-hidden="true"></span>
-    <span class="article-clipboard__message done">Copied</span>
-</button>
-
-<pre><code class="lang-bash">#!/bin/bash
-
-# requires jq: https://stedolan.github.io/jq/
-
-sparksjoy=(&quot;Cat Lovers United&quot; &quot;Multicolored theme&quot;)
-themestoremove=()
-while read theme; do
-  exists=false
-  for keep in &quot;${sparksjoy[@]}&quot;; do
-    if [ &quot;$keep&quot; == &quot;$theme&quot; ] ; then
-      exists=true
-      break
-    fi
-  done
-  if [ &quot;$exists&quot; = false ]; then
-    themestoremove+=(&quot;$theme&quot;)
-  fi
-done &lt; &lt;(m365 spo theme list -o json | jq -r '.[].name')
-
-if [ ${#themestoremove[@]} = 0 ]; then
-  exit 1
-fi
-
-printf '%s\n' &quot;${themestoremove[@]}&quot;
-echo &quot;Press Enter to start deleting (CTRL + C to exit)&quot;
-read foo
-
-for theme in &quot;${themestoremove[@]}&quot;; do
-  echo &quot;Deleting $theme...&quot;
-  m365 spo theme remove --name &quot;$theme&quot; --confirm
-done
-</code></pre>
-<div class="highlight-tool">
-<p>Check out the <strong>CLI for Microsoft 365</strong> to learn more at: <a href="https://aka.ms/cli-m365">https://aka.ms/cli-m365</a></p>
-</div>
-</section>
-<section id="tabpanel_CeZOj-G++Q_pnpps" role="tabpanel" data-tab="pnpps" aria-hidden="true" hidden="hidden"><button class="article-clipboard" title="Copy to clipboard" data-toggle="tooltip" data-placement="top" data-clipboard-target="section[id^='tabpanel'][data-tab='pnpps'] pre">
+<section id="tabpanel_CeZOj-G++Q_pnpps" role="tabpanel" data-tab="pnpps"><button class="article-clipboard" title="Copy to clipboard" data-toggle="tooltip" data-placement="top" data-clipboard-target="section[id^='tabpanel'][data-tab='pnpps'] pre">
     <span class="glyphicon glyphicon-copy" aria-hidden="true"></span>
     <span class="article-clipboard__message done">Copied</span>
 </button>
@@ -206,8 +135,6 @@ foreach ($theme in $themes)
 </div>
 </section>
 </div>
-<h2 id="source-credit">Source Credit</h2>
-<p>Sample first appeared on <a href="https://pnp.github.io/cli-microsoft365/sample-scripts/spo/remove-custom-themes/">Delete custom color themes from SharePoint | CLI for Microsoft 365</a></p>
 <h2 id="contributors">Contributors</h2>
 <table>
 <thead>
@@ -216,9 +143,6 @@ foreach ($theme in $themes)
 </tr>
 </thead>
 <tbody>
-<tr>
-<td>Laura Kokkarinen</td>
-</tr>
 <tr>
 <td><a href="https://github.com/LeonArmston">Leon Armston</a></td>
 </tr>
