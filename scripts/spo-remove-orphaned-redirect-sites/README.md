@@ -10,82 +10,6 @@ Changing the URL of a site results in a new site type: a Redirect Site. However 
 
 [!INCLUDE [Delete Warning](../../docfx/includes/DELETE-WARN.md)]
  
-# [CLI for Microsoft 365 with PowerShell](#tab/cli-m365-ps)
-```powershell
-$sites = m365 spo site classic list --t "REDIRECTSITE#0" --output json | ConvertFrom-Json
-
-$sites | ForEach-Object {
-  Write-Host -f Green "Processing redirect site: " $_.Url
-  $siteUrl = $_.Url
-
-  $redirectSite = Invoke-WebRequest -Uri $_.Url -MaximumRedirection 0 -SkipHttpErrorCheck
-  $body = $null
-  $siteUrl = $_.Url
-
-  if($redirectSite.StatusCode -eq 308) {
-    Try {
-      [string]$newUrl = $redirectSite.Headers.Location;
-      Write-Host -f Green " Redirects to: " $newUrl
-      $body = Invoke-WebRequest -Uri $newUrl -SkipHttpErrorCheck
-    }
-    Catch{
-     Write-Host $_.Exception
-    }
-    Finally {
-      If($body.StatusCode -eq "200"){
-       Write-host -f Yellow "  Target location still exists"
-      }
-      If($body.StatusCode -eq "404"){
-        Write-Host -f Red "  Target location no longer exists, should be removed"
-        m365 spo site remove --url $siteUrl
-      }
-    }
-  }
-}
-```
-[!INCLUDE [More about CLI for Microsoft 365](../../docfx/includes/MORE-CLIM365.md)]
- 
-# [CLI for Microsoft 365 with Bash](#tab/m365cli-bash)
-```bash
-#!/bin/bash
-
-# requires jq: https://stedolan.github.io/jq/
-clear
-sitestoremove=()
-while read site; do
- siteUrl=$(echo ${site} | jq -r '.Url')
- echo "Checking old URL for redirect" $siteUrl
- redirectsite=$(curl -I -L --max-redirs 0 --silent --user-agent "Mozilla/5.0 (X11; Linux x86_64; rv:58.0) Gecko/20100101 Firefox/58.0" $siteUrl | sed -En 's/^location: (.*)/\1/p')
-
- echo "Redirects to" $redirectsite
- redirect_status=$(curl --write-out %{http_code} --silent --output /dev/null --user-agent "Mozilla/5.0 (X11; Linux x86_64; rv:58.0) Gecko/20100101 Firefox/58.0" ${redirectsite%$'\r'})
-
- if [[ "$redirect_status" -ne 404 ]] ; then
-   echo "URL exists: $redirectsite"
- else
-   echo "URL does not exist: $redirectsite"
-   sitestoremove+=("$siteUrl")
- fi
-
-done < <(m365 spo site classic list --t "REDIRECTSITE#0" -o json | jq -c '.[]')
-
-if [ ${#sitestoremove[@]} = 0 ]; then
-  exit 1
-fi
-
-printf '%s\n' "${sitestoremove[@]}"s
-echo "Press Enter to start deleting (CTRL + C to exit)"
-read foo
-
-for site in "${sitestoremove[@]}"; do
-   siteUrl=$(echo ${site} | jq -r '.Url')
-  echo "Deleting site..."
-  echo $siteUrl
-   m365 spo site classic remove --url $siteUrl
-done
-```
-[!INCLUDE [More about CLI for Microsoft 365](../../docfx/includes/MORE-CLIM365.md)]
-
 # [PnP PowerShell](#tab/pnpps)
 ```powershell
 $tenantAdminUrl = "https://contoso-admin.sharepoint.com" # Change to your tenant
@@ -128,15 +52,10 @@ $sites | ForEach-Object {
 
 ***
 
-## Source Credit
-
-Sample first appeared on [Remove orphaned redirect sites | CLI for Microsoft 365](https://pnp.github.io/cli-microsoft365/sample-scripts/spo/remove-orphaned-redirect-sites/)
-
 ## Contributors
 
 | Author(s) |
 |-----------|
-| [Albert-Jan Schot](https://github.com/appieschot)|
 | [Leon Armston](https://github.com/LeonArmston)|
 
 

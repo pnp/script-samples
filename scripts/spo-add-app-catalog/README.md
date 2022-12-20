@@ -10,18 +10,6 @@ When you just want to deploy certain SharePoint solution to a specific site, it'
 
 ![Example Screenshot](assets/example.png)
 
-# [CLI for Microsoft 365 using PowerShell](#tab/cli-m365-ps)
-
-```powershell
-
-$site = "https://contoso.sharepoint.com/sites/site"
-m365 login
-m365 spo site appcatalog add --url $site
-Write-output "App Catalog Created on " $site
-
-```
-[!INCLUDE [More about CLI for Microsoft 365](../../docfx/includes/MORE-CLIM365.md)]
-
 # [PnP PowerShell](#tab/pnpps)
 
 ```powershell
@@ -70,15 +58,11 @@ StartProcessing
 ```
 [!INCLUDE [More about SPO Management Shell](../../docfx/includes/MORE-SPOMS.md)]
 ***
-## Source Credit
-
-Sample first appeared on [https://pnp.github.io/cli-microsoft365/sample-scripts/spo/add-app-catalog/](https://pnp.github.io/cli-microsoft365/sample-scripts/spo/add-app-catalog/)
 
 ## Contributors
 
 | Author(s) |
 |-----------|
-| David Ramalho |
 | Paul Bullock |
 | Chandani Prajapati |
 
