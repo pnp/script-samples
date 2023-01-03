@@ -24,6 +24,10 @@
     "helpUrl": "https://pnp.github.io/powershell/cmdlets/Add-PnPAzureADGroupOwner.html"
   },
   {
+    "cmd": "Add-PnPAzureADServicePrincipalAppRole",
+    "helpUrl": "https://pnp.github.io/powershell/cmdlets/Add-PnPAzureADServicePrincipalAppRole.html"
+  },
+  {
     "cmd": "Add-PnPContentType",
     "helpUrl": "https://pnp.github.io/powershell/cmdlets/Add-PnPContentType.html"
   },
@@ -158,6 +162,10 @@
   {
     "cmd": "Add-PnPPage",
     "helpUrl": "https://pnp.github.io/powershell/cmdlets/Add-PnPPage.html"
+  },
+  {
+    "cmd": "Add-PnPPageImageWebPart",
+    "helpUrl": "https://pnp.github.io/powershell/cmdlets/Add-PnPPageImageWebPart.html"
   },
   {
     "cmd": "Add-PnPPageSection",
@@ -388,12 +396,16 @@
     "helpUrl": "https://pnp.github.io/powershell/cmdlets/Copy-PnPFolder.html"
   },
   {
+    "cmd": "Copy-PnPItemProxy",
+    "helpUrl": "https://pnp.github.io/powershell/cmdlets/Copy-PnPItemProxy.html"
+  },
+  {
     "cmd": "Copy-PnPList",
     "helpUrl": "https://pnp.github.io/powershell/cmdlets/Copy-PnPList.html"
   },
   {
     "cmd": "Copy-PnPTeamsTeam",
-    "helpUrl": "https://pnp.github.io/powershell/cmdlets/Copy-PnPTeamsTeam"
+    "helpUrl": "https://pnp.github.io/powershell/cmdlets/Copy-PnPTeamsTeam.html"
   },
   {
     "cmd": "Deny-PnPTenantServicePrincipalPermissionRequest",
@@ -410,6 +422,10 @@
   {
     "cmd": "Disable-PnPPageScheduling",
     "helpUrl": "https://pnp.github.io/powershell/cmdlets/Disable-PnPPageScheduling.html"
+  },
+  {
+    "cmd": "Disable-PnPPowerShellTelemetry",
+    "helpUrl": "https://pnp.github.io/powershell/cmdlets/Disable-PnPPowerShellTelemetry.html"
   },
   {
     "cmd": "Disable-PnPSharingForNonOwnersOfSite",
@@ -442,6 +458,10 @@
   {
     "cmd": "Enable-PnPPageScheduling",
     "helpUrl": "https://pnp.github.io/powershell/cmdlets/Enable-PnPPageScheduling.html"
+  },
+  {
+    "cmd": "Enable-PnPPowerShellTelemetry",
+    "helpUrl": "https://pnp.github.io/powershell/cmdlets/Enable-PnPPowerShellTelemetry.html"
   },
   {
     "cmd": "Enable-PnPSiteClassification",
@@ -536,6 +556,14 @@
     "helpUrl": "https://pnp.github.io/powershell/cmdlets/Get-PnPAvailableSiteClassification.html"
   },
   {
+    "cmd": "Get-PnPAzureADActivityReportDirectoryAudit",
+    "helpUrl": "https://pnp.github.io/powershell/cmdlets/Get-PnPAzureADActivityReportDirectoryAudit.html"
+  },
+  {
+    "cmd": "Get-PnPAzureADActivityReportSignIn",
+    "helpUrl": "https://pnp.github.io/powershell/cmdlets/Get-PnPAzureADActivityReportSignIn.html"
+  },
+  {
     "cmd": "Get-PnPAzureADApp",
     "helpUrl": "https://pnp.github.io/powershell/cmdlets/Get-PnPAzureADApp.html"
   },
@@ -558,6 +586,18 @@
   {
     "cmd": "Get-PnPAzureADGroupOwner",
     "helpUrl": "https://pnp.github.io/powershell/cmdlets/Get-PnPAzureADGroupOwner.html"
+  },
+  {
+    "cmd": "Get-PnPAzureADServicePrincipal",
+    "helpUrl": "https://pnp.github.io/powershell/cmdlets/Get-PnPAzureADServicePrincipal.html"
+  },
+  {
+    "cmd": "Get-PnPAzureADServicePrincipalAssignedAppRole",
+    "helpUrl": "https://pnp.github.io/powershell/cmdlets/Get-PnPAzureADServicePrincipalAssignedAppRole.html"
+  },
+  {
+    "cmd": "Get-PnPAzureADServicePrincipalAvailableAppRole",
+    "helpUrl": "https://pnp.github.io/powershell/cmdlets/Get-PnPAzureADServicePrincipalAvailableAppRole.html"
   },
   {
     "cmd": "Get-PnPAzureADUser",
@@ -618,6 +658,10 @@
   {
     "cmd": "Get-PnPDeletedMicrosoft365Group",
     "helpUrl": "https://pnp.github.io/powershell/cmdlets/Get-PnPDeletedMicrosoft365Group.html"
+  },
+  {
+    "cmd": "Get-PnPDeletedTeam",
+    "helpUrl": "https://pnp.github.io/powershell/cmdlets/Get-PnPDeletedTeam.html"
   },
   {
     "cmd": "Get-PnPDiagnostics",
@@ -786,6 +830,10 @@
   {
     "cmd": "Get-PnPMessageCenterAnnouncement",
     "helpUrl": "https://pnp.github.io/powershell/cmdlets/Get-PnPMessageCenterAnnouncement.html"
+  },
+  {
+    "cmd": "Get-PnPMicrosoft365ExpiringGroup",
+    "helpUrl": "https://pnp.github.io/powershell/cmdlets/Get-PnPMicrosoft365ExpiringGroup.html"
   },
   {
     "cmd": "Get-PnPMicrosoft365Group",
@@ -1070,6 +1118,10 @@
   {
     "cmd": "Get-PnPTeamsTab",
     "helpUrl": "https://pnp.github.io/powershell/cmdlets/Get-PnPTeamsTab.html"
+  },
+  {
+    "cmd": "Get-PnPTeamsTag",
+    "helpUrl": "https://pnp.github.io/powershell/cmdlets/Get-PnPTeamsTag.html"
   },
   {
     "cmd": "Get-PnPTeamsTeam",
@@ -1548,10 +1600,6 @@
     "helpUrl": "https://pnp.github.io/powershell/cmdlets/Remove-PnPAzureADApp.html"
   },
   {
-    "cmd": "Remove-PnPAzureADAppSitePermission",
-    "helpUrl": "https://pnp.github.io/powershell/cmdlets/Remove-PnPAzureADAppSitePermission.html"
-  },
-  {
     "cmd": "Remove-PnPAzureADGroup",
     "helpUrl": "https://pnp.github.io/powershell/cmdlets/Remove-PnPAzureADGroup.html"
   },
@@ -1562,6 +1610,10 @@
   {
     "cmd": "Remove-PnPAzureADGroupOwner",
     "helpUrl": "https://pnp.github.io/powershell/cmdlets/Remove-PnPAzureADGroupOwner.html"
+  },
+  {
+    "cmd": "Remove-PnPAzureADServicePrincipalAssignedAppRole",
+    "helpUrl": "https://pnp.github.io/powershell/cmdlets/Remove-PnPAzureADServicePrincipalAssignedAppRole.html"
   },
   {
     "cmd": "Remove-PnPContentType",
@@ -1812,6 +1864,10 @@
     "helpUrl": "https://pnp.github.io/powershell/cmdlets/Remove-PnPTeamsTab.html"
   },
   {
+    "cmd": "Remove-PnPTeamsTag",
+    "helpUrl": "https://pnp.github.io/powershell/cmdlets/Remove-PnPTeamsTag.html"
+  },
+  {
     "cmd": "Remove-PnPTeamsTeam",
     "helpUrl": "https://pnp.github.io/powershell/cmdlets/Remove-PnPTeamsTeam.html"
   },
@@ -1960,12 +2016,16 @@
     "helpUrl": "https://pnp.github.io/powershell/cmdlets/Restore-PnPRecycleBinItem.html"
   },
   {
-    "cmd": "Restore-PnPTenantDeletedSite",
-    "helpUrl": "https://pnp.github.io/powershell/cmdlets/Restore-PnPTenantDeletedSite.html"
-  },
-  {
     "cmd": "Restore-PnPTenantRecycleBinItem",
     "helpUrl": "https://pnp.github.io/powershell/cmdlets/Restore-PnPTenantRecycleBinItem.html"
+  },
+  {
+    "cmd": "Restore-PnPTenantSite",
+    "helpUrl": "https://pnp.github.io/powershell/cmdlets/Restore-PnPTenantSite.html"
+  },
+  {
+    "cmd": "Revoke-PnPAzureADAppSitePermission",
+    "helpUrl": "https://pnp.github.io/powershell/cmdlets/Revoke-PnPAzureADAppSitePermission.html"
   },
   {
     "cmd": "Revoke-PnPHubSiteRights",
@@ -2114,6 +2174,10 @@
   {
     "cmd": "Set-PnPHubSite",
     "helpUrl": "https://pnp.github.io/powershell/cmdlets/Set-PnPHubSite.html"
+  },
+  {
+    "cmd": "Set-PnPImageListItemColumn",
+    "helpUrl": "https://pnp.github.io/powershell/cmdlets/Set-PnPImageListItemColumn.html"
   },
   {
     "cmd": "Set-PnPIndexedProperties",
@@ -2328,6 +2392,10 @@
     "helpUrl": "https://pnp.github.io/powershell/cmdlets/Set-PnPTeamsTab.html"
   },
   {
+    "cmd": "Set-PnPTeamsTag",
+    "helpUrl": "https://pnp.github.io/powershell/cmdlets/Set-PnPTeamsTag.html"
+  },
+  {
     "cmd": "Set-PnPTeamsTeam",
     "helpUrl": "https://pnp.github.io/powershell/cmdlets/Set-PnPTeamsTeam.html"
   },
@@ -2398,6 +2466,10 @@
   {
     "cmd": "Set-PnPView",
     "helpUrl": "https://pnp.github.io/powershell/cmdlets/Set-PnPView.html"
+  },
+  {
+    "cmd": "Set-PnPVivaConnectionsDashboardACE",
+    "helpUrl": "https://pnp.github.io/powershell/cmdlets/Set-PnPVivaConnectionsDashboardACE.html"
   },
   {
     "cmd": "Set-PnPWeb",
@@ -2506,9 +2578,5 @@
   {
     "cmd": "Update-PnPUserType",
     "helpUrl": "https://pnp.github.io/powershell/cmdlets/Update-PnPUserType.html"
-  },
-  {
-    "cmd": "Update-PnPVivaConnectionsDashboardACE",
-    "helpUrl": "https://pnp.github.io/powershell/cmdlets/Update-PnPVivaConnectionsDashboardACE.html"
   }
 ]
