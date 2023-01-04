@@ -6,7 +6,7 @@ plugin: add-to-gallery
 
 ## Summary
 
-Add Large list items to PnP Template using PnP command [Add-PnPDataRowsToSiteTemplate](https://docs.microsoft.com/en-us/powershell/module/sharepoint-pnp/add-pnpdatarowstositetemplate?view=sharepoint-ps).
+Add Large list items to PnP Template using PnP command [Add-PnPDataRowsToSiteTemplate](https://pnp.github.io/powershell/cmdlets/Add-PnPDataRowsToProvisioningTemplate.html).
 
 
 ## Implementation
