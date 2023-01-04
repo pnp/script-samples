@@ -97,8 +97,10 @@ $files | Foreach-Object {
 
     #Write-Host $content
     $matchResults = $content | Select-String "#tab/" -AllMatches
-    $AllTabs += $matchResults.Matches.Count
-    
+    if($matchResults){
+        $AllTabs += $matchResults.Matches.Count
+    }
+        
     if($content.Contains("#tab/pnpps")){  
         $PnPPS = $true
         $sampleCount++
