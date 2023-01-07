@@ -44,7 +44,9 @@ foreach ($package in $packagesFiles) {
   $App = Add-PnPApp -Path ("{0}/{1}" -f $sppkgFolder, $package.PSChildName) -Scope Site -Publish -Overwrite
 
   #Install app
-  Install-PnPApp -Identity $App.Id -Scope Site
+  if($null -eq $App.InstalledVersion) {
+    Install-PnPApp -Identity $App.Id -Scope Site
+  }
 }
 
 Disconnect-PnPOnline
