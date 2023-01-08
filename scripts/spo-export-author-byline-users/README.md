@@ -2,7 +2,7 @@
 plugin: add-to-gallery
 ---
 
-# Sample showing hwo to eExtract the employees shown on modern pages ( Author byline )  in a selection of Site Collections to CSV
+# Sample showing how to Extract the employees shown on modern pages (Author byline) in a selection of Site Collections to CSV
 
 ## Summary
 
@@ -16,7 +16,7 @@ One of my customs requested that we removed a specific employee from the modern 
 - Change the variables to target to your environment
 - Run the script.
  
-## Screenshot of Output 
+## Screenshot of Output
 
 ![Example Screenshot](assets/preview.png)
 
