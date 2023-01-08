@@ -30,15 +30,19 @@ az login --service-principal `
 ```
 ### Screenshots
 _Image1: Empty SharePoint Library_
+
 ![SharePointLibrary](assets/SharePointLibrary.png)
 
 _Image2: File sitting in local folder around 9 Megabytes in size._
+
 ![FileUpload](assets/FileToUpload.png)
 
 _Image3: Uploading file to SharePoint_
+
 ![FileUploading](assets/Uploading.png)
 
 _Image4: Files uploaded as user and App Registration_
+
 ![AfterUpload](assets/AfterUpload.png)
 
 # [Azure CLI](#tab/azure-cli)
