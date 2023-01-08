@@ -154,7 +154,7 @@ Start-Processing -csvFilePath:$Path -processBatchCount:$NoInBatch | Export-Csv $
 
 | Author(s)                                      |
 | ---------------------------------------------- |
-| [Paul Matthews](https://gitub.com/pmatthews05) |
+| [Paul Matthews](https://github.com/pmatthews05) |
 
 [!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
-<img src="https://pnptelemetry.azurewebsites.net/script-samples/scripts/template-script-submission" aria-hidden="true" />
+<img src="https://pnptelemetry.azurewebsites.net/script-samples/scripts/bulk-restore-from-recycle-bin" aria-hidden="true" />
