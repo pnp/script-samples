@@ -10,6 +10,15 @@ The script reads list of SharePoint site collection URLs from a CSV and enables 
 
 ![Example Screenshot](assets/preview.png)
 
+## Implementation
+
+- Create csv file with the list of site collection URLs to enable app catalog
+- Open Windows PowerShell ISE
+- Create a new file
+- Copy the code below
+- Save the file and run it
+- Make sure you must have access to the app catalog to apply
+
 # [SPO Management Shell](#tab/spoms-ps)
 
 ```powershell
