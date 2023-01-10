@@ -1,0 +1,263 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html lang="en">
+  
+  <head>
+    <meta charset="utf-8">
+    <title>Create Dynamic Install and Uninstall Azure AD Groups using Graph | PnP Samples </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Create Dynamic Install and Uninstall Azure AD Groups using Graph | PnP Samples ">
+    <meta name="generator" content="docfx 2.56.7.0">
+    <meta name="description" content="A sample gallery of scripts to manage all things Microsoft 365.">
+  
+    <!-- Social Media -->
+    <meta property="og:locale" content="en_GB">
+    <meta property="og:title" content="Create Dynamic Install and Uninstall Azure AD Groups using Graph | PnP Samples ">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://pnp.github.io/script-samples">
+    <meta property="og:image" content="https://pnp.github.io/script-samples/assets/social-media-screenshot.png">
+    <meta property="og:image:alt" content="Screenshot example of the PnP Script Samples Site">
+    <meta property="og:site_name" content="PnP Script Samples">
+    <meta property="og:description" content="A sample gallery of scripts to manage all things Microsoft 365.">
+  
+    <link rel="shortcut icon" href="https://c.s-microsoft.com/favicon.ico?v2">
+    <link rel="stylesheet" href="../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../styles/docfx.css">
+    <link rel="stylesheet" href="../styles/main.css">
+    <link rel="stylesheet" href="../styles/extra.css">
+    <link rel="stylesheet" href="../styles/filter.css">
+    <link rel="stylesheet" href="../styles/site.css">
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet"> 
+    <meta property="docfx:navrel" content="../toc.html">
+    <meta property="docfx:tocrel" content="../toc.html">
+    
+    
+    <meta property="docfx:newtab" content="true">
+    <script type="text/javascript">
+      (function(c,l,a,r,i,t,y){
+          c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+          t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+          y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+      })(window, document, "clarity", "script", "8j6pedl344");
+  </script>
+  </head>  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+             <div class="github-mark">
+              <a href="https://github.com/pnp/script-samples" title="Go to repository">
+               <div class="github-wrapper">
+                  <div class="github-icon">
+                    <img src="https://pnp.github.io/script-samples/assets/icons/github-light-64px.png" alt="GitHub Icon Image">
+                  </div>
+                  <div class="github-repository">
+                    <span>GitHub</span>
+                    <ul class="github-facts">
+                      <li>
+                        <i class="fa fa-code-fork" aria-hidden="true"></i>
+                        <span class="github-forks"></span>
+                      </li>
+                      <li>
+                        <i class="fa fa-star-o" aria-hidden="true"></i>
+                        <span class="github-stars"></span>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </a>
+            </div>
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../assets/logo.svg" alt="">
+              </a>    </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <label class="glyphicon glyphicon-search" for="search-query"></label>
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>      </header>
+      <div role="main" class="container body-content hide-when-search">
+        <div class="article row grid">
+          <div class="col-md-12">
+            <article class="content wrap" id="_content" data-uid="">
+                  <div class="contribution-panel mobile-hide pull-right">
+                      <a href="https://github.com/pnp/script-samples/blob/main/scripts/aad-graph-create-dynamic-groups-project-visio/README.md/#L1" title="Improve this Doc" class="improve-doc-lg"><i class="glyphicon glyphicon-pencil"></i></a>
+                  </div>
+                    <h1 id="create-dynamic-install-and-uninstall-azure-ad-groups-using-graph">Create Dynamic Install and Uninstall Azure AD Groups using Graph</h1>
+
+<h2 id="summary">Summary</h2>
+<p>When deploying Microsoft Visio and Microsoft Project via Intune, license management can be a lot of work.  This script will create dynamic user groups based on the user having an enabled license for each application (or not for the uninstall groups)</p>
+<p><img src="assets/example.png" alt="Example Screenshot"></p>
+<div class="tabGroup" id="tabgroup_CeZOj-G++Q">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_CeZOj-G++Q_graphps" role="tab" aria-controls="tabpanel_CeZOj-G++Q_graphps" data-tab="graphps" tabindex="0" aria-selected="true">Microsoft Graph PowerShell</a>
+</li>
+</ul>
+<section id="tabpanel_CeZOj-G++Q_graphps" role="tabpanel" data-tab="graphps"><button class="article-clipboard" title="Copy to clipboard" data-toggle="tooltip" data-placement="top" data-clipboard-target="section[id^='tabpanel'][data-tab='graphps'] pre">
+    <span class="glyphicon glyphicon-copy" aria-hidden="true"></span>
+    <span class="article-clipboard__message done">Copied</span>
+</button>
+
+<pre><code class="lang-powershell">
+##Install Modules if missing
+if (Get-Module -ListAvailable -Name microsoft.graph.groups) {
+    Write-Host &quot;Microsoft Graph Groups Module Already Installed&quot;
+} 
+else {
+    try {
+        Install-Module -Name microsoft.graph.groups -Scope CurrentUser -Repository PSGallery -Force -AllowClobber 
+    }
+    catch [Exception] {
+        $_.message 
+    }
+}
+
+##Import Module
+Import-Module Microsoft.Graph.Groups
+
+
+##Connect to Graph
+Select-MgProfile -Name Beta
+Connect-MgGraph -Scopes Group.ReadWrite.All
+
+##Note: Removing a license does not remove the plan ID, it just disables it, hence the check that is it enabled
+
+##Create Visio Install Group - User has service plan and it is enabled
+write-host &quot;Creating Visio Install Group&quot; -ForegroundColor Green
+try {
+    $visioinstall = New-MGGroup -DisplayName &quot;Visio-Install&quot;  `
+        -Description &quot;Dynamic group for Licensed Visio Users&quot; `
+        -MailEnabled:$False `
+        -MailNickName &quot;visiousers&quot; `
+        -SecurityEnabled `
+        -GroupTypes &quot;DynamicMembership&quot; `
+        -MembershipRule &quot;(user.assignedPlans -any (assignedPlan.servicePlanId -eq &quot;&quot;663a804f-1c30-4ff0-9915-9db84f0d1cea&quot;&quot; -and assignedPlan.capabilityStatus -eq &quot;&quot;Enabled&quot;&quot;))&quot; `
+        -MembershipRuleProcessingState &quot;On&quot;
+}
+catch {
+    Write-Error $_.Exception
+}
+
+$groupidvi = $visioinstall.id
+write-host &quot;Visio Install Group Created - $groupidvi&quot; -ForegroundColor Green
+
+##Create Visio Uninstall Group - User does NOT have service plan and it is not enabled
+write-host &quot;Creating Visio Uninstall Group&quot; -ForegroundColor Green
+try {
+    $visiouninstall = New-MGGroup -DisplayName &quot;Visio-Uninstall&quot; `
+        -Description &quot;Dynamic group for users without Visio license&quot; `
+        -MailEnabled:$False `
+        -MailNickName &quot;visiouninstall&quot; `
+        -SecurityEnabled `
+        -GroupTypes &quot;DynamicMembership&quot; `
+        -MembershipRule &quot;(user.assignedPlans -all (assignedPlan.servicePlanId -ne &quot;&quot;663a804f-1c30-4ff0-9915-9db84f0d1cea&quot;&quot; -and assignedPlan.capabilityStatus -ne &quot;&quot;Enabled&quot;&quot;))&quot; `
+        -MembershipRuleProcessingState &quot;On&quot;
+}
+catch {
+    Write-Error $_.Exception
+}
+$groupidvu = $visiouninstall.id
+write-host &quot;Visio Uninstall Group Created - $groupidvu&quot; -ForegroundColor Green
+       
+
+##Create Project Install Group - User has service plan and it is enabled
+write-host &quot;Creating Project Install Group&quot; -ForegroundColor Green
+try {
+    $projectinstall = New-MGGroup -DisplayName &quot;Project-Install&quot; `
+        -Description &quot;Dynamic group for Licensed Project Users&quot; `
+        -MailEnabled:$False `
+        -MailNickName &quot;projectinstall&quot; `
+        -SecurityEnabled `
+        -GroupTypes &quot;DynamicMembership&quot; `
+        -MembershipRule &quot;(user.assignedPlans -any (assignedPlan.servicePlanId -eq &quot;&quot;fafd7243-e5c1-4a3a-9e40-495efcb1d3c3&quot;&quot; -and assignedPlan.capabilityStatus -eq &quot;&quot;Enabled&quot;&quot;))&quot; `
+        -MembershipRuleProcessingState &quot;On&quot;
+}
+catch {
+    Write-Error $_.Exception
+}
+$groupidpi = $projectinstall.id
+write-host &quot;Project Install Group Created - $groupidpi&quot; -ForegroundColor Green
+       
+##Create Project Uninstall Group - User does NOT have service plan and it is not enabled
+write-host &quot;Creating Project Uninstall Group&quot; -ForegroundColor Green
+try {
+    $projectuninstall = New-MGGroup -DisplayName &quot;Project-Uninstall&quot; `
+        -Description &quot;Dynamic group for users without Project license&quot; `
+        -MailEnabled:$False `
+        -MailNickName &quot;projectuninstall&quot; `
+        -SecurityEnabled `
+        -GroupTypes &quot;DynamicMembership&quot; `
+        -MembershipRule &quot;(user.assignedPlans -all (assignedPlan.servicePlanId -ne &quot;&quot;fafd7243-e5c1-4a3a-9e40-495efcb1d3c3&quot;&quot; -and assignedPlan.capabilityStatus -ne &quot;&quot;Enabled&quot;&quot;))&quot; `
+        -MembershipRuleProcessingState &quot;On&quot;
+}
+catch {
+    Write-Error $_.Exception
+}
+$groupidpu = $projectuninstall.id
+write-host &quot;Project Uninstall Group Created - $groupidpu&quot; -ForegroundColor Green
+       
+</code></pre>
+<div class="highlight-tool">
+<p>Check out the <strong>Microsoft Graph PowerShell SDK</strong> to learn more at: <a href="https://docs.microsoft.com/en-us/graph/powershell/get-started">https://docs.microsoft.com/en-us/graph/powershell/get-started</a></p>
+</div>
+</section>
+</div>
+<h2 id="contributors">Contributors</h2>
+<table>
+<thead>
+<tr>
+<th>Author(s)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="https://github.com/andrew-s-taylor">Andrew Taylor</a></td>
+</tr>
+</tbody>
+</table>
+<h2 id="disclaimer">Disclaimer</h2>
+<p><strong>THESE SAMPLES ARE PROVIDED <em>AS IS</em> WITHOUT WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, INCLUDING ANY IMPLIED WARRANTIES OF FITNESS FOR A PARTICULAR PURPOSE, MERCHANTABILITY, OR NON-INFRINGEMENT.</strong></p>
+<img src="https://pnptelemetry.azurewebsites.net/script-samples/scripts/aad-graph-create-dynamic-groups-project-visio" aria-hidden="true">
+</article>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            <span>Script Samples<br>Generated by <strong><a href='https://dotnet.github.io/docfx' alt='Doc FX Website'>DocFX</a></strong> with <strong><a href='https://ovasquez.github.io/docfx-material' alt='DocFx Material Theme'>Material UI</a></strong></span>
+            
+            <!-- <img src="https://telemetry.sharepointpnp.com/@pnp.github.io/index/" alt="spacer"> -->
+          </div>
+        </div>
+      </footer>    </div>
+    
+    <script type="text/javascript" src="../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+    
+    <script type="text/javascript" src="../styles/clipboard.min.js"></script>
+    <script type="text/javascript" src="../styles/isotope.pkgd.min.js"></script>
+    <script type="text/javascript" src="../styles/loadsamples.js"></script>
+    <script type="text/javascript" src="../styles/filtersamples.js"></script>
+
+  </body>
+</html>
