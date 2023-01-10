@@ -1,15 +1,15 @@
 [
   {
-    "name": "<foldername>",
+    "name": "aad-graph-create-dynamic-groups-project-visio",
     "source": "pnp",
-    "title": "<title>",
-    "shortDescription": "",
-    "url": "https://pnp.github.io/script-samples/<foldername>/README.html",
+    "title": "Create Dynamic Install and Uninstall Azure AD Groups using Graph",
+    "shortDescription": "Script will create dynamic user groups based on the user having an enabled license for each application",
+    "url": "https://pnp.github.io/script-samples/aad-graph-create-dynamic-groups-project-visio/README.html",
     "longDescription": [
       ""
     ],
-    "creationDateTime": "2022-01-10",
-    "updateDateTime": "2022-01-10",
+    "creationDateTime": "2023-01-10",
+    "updateDateTime": "2023-01-10",
     "products": [
       "SharePoint",
       "Office",
@@ -22,50 +22,12 @@
     ],
     "metadata": [
       {
-        "key": "PNP-POWERSHELL",
-        "value": "1.11.0"
-      },
-      {
-        "key": "CLI-FOR-MICROSOFT365",
-        "value": "5.6.0"
-      },
-      {
         "key": "GRAPH-POWERSHELL",
         "value": "1.0.0"
-      },
-      {
-        "key": "SPO-MANAGEMENT-SHELL",
-        "value": "16.0.21116.12000"
-      },
-      {
-        "key": "AZURE-CLI",
-        "value": "2.27.0"
-      },
-      {
-        "key": "MICROSOFTTEAMS-POWERSHELL",
-        "value": "3.0.0"
-      },
-      {
-        "key": "POWERAPPS-POWERSHELL",
-        "value": "2.0.0"
-      },
-      {
-        "key": "POWERSHELL",
-        "value": "7.2.0"
-      },
-      {
-        "key": "MICROSOFTWHITEBOARDADMIN",
-        "value": "1.5.0"
       }
     ],
     "categories": [
-      "Modernize",
-      "Data",
-      "Deploy",
-      "Provision",
-      "Configure",
-      "Report",
-      "Security"
+      "Configure"      
     ],
     "tags": [
       "bash",
@@ -75,16 +37,16 @@
       {
         "type": "image",
         "order": 100,
-        "url": "https://raw.githubusercontent.com/pnp/script-samples/main/scripts/<foldername>/assets/preview.png",
-        "alt": "Preview of the sample <title>"
+        "url": "https://raw.githubusercontent.com/pnp/script-samples/main/scripts/aad-graph-create-dynamic-groups-project-visio/assets/preview.png",
+        "alt": "Preview of the sample Create Dynamic Install and Uninstall Azure AD Groups using Graph"
       }
     ],
     "authors": [
       {
-        "gitHubAccount": "pkbullock",
+        "gitHubAccount": "andrew-s-taylor",
         "company": "CaPa Creative Ltd",
-        "pictureUrl": "https://github.com/pkbullock.png",
-        "name": "Paul Bullock"
+        "pictureUrl": "https://github.com/andrew-s-taylor.png",
+        "name": "Andrew Taylor"
       }
     ],
     "references": [
