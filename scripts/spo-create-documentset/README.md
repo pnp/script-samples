@@ -2,7 +2,7 @@
 plugin: add-to-gallery
 ---
 
-# Create Documentset with PnP PowerShell 
+# Create Documentset in SharePoint Library 
 
 ## Summary
 
