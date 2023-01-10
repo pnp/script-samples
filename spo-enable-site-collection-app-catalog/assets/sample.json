@@ -1,0 +1,80 @@
+[
+  {
+    "name": "spo-enable-site-collection-app-catalog",
+    "source": "pnp",
+    "title": "Enable Site Collection App Catalog on a specific sites using CSV",
+    "shortDescription": "Enable Site Collection App Catalog on list of SharePoint sites from CSV",
+    "url": "https://pnp.github.io/script-samples/spo-enable-site-collection-app-catalog/README.html",
+    "longDescription": [
+      "The script reads list of SharePoint site collection URLs from a CSV and enables the Site collection app catalog on them."
+    ],
+    "creationDateTime": "2023-01-09",
+    "updateDateTime": "2023-01-09",
+    "products": [
+      "SharePoint"
+    ],
+    "metadata": [
+      {
+        "key": "SPO-MANAGEMENT-SHELL",
+        "value": "16.0.23109.12000"
+      },
+      {
+        "key": "PNP-POWERSHELL",
+        "value": "1.12.0"
+      },
+      {
+        "key": "CLI-FOR-MICROSOFT365",
+        "value": "6.2.0"
+      }
+    ],
+    "tags": [
+      "m365 login",
+      "m365 logout",
+      "m365 status",
+      "m365 spo site appcatalog add",
+      "Add-PnPSiteCollectionAppCatalog",
+      "Connect-PnPOnline",
+      "Disconnect-PnPOnline",
+      "Add-SPOSiteCollectionAppCatalog",
+      "Connect-SPOService",
+      "Disconnect-SPOService",
+      "Get-SPOSite"
+    ],
+    "categories": [
+      "Deploy",
+      "Configure"
+    ],
+    "thumbnails": [
+      {
+        "type": "image",
+        "order": 100,
+        "url": "https://raw.githubusercontent.com/pnp/script-samples/main/scripts/spo-enable-site-collection-app-catalog/assets/preview.png",
+        "alt": "Enable Site Collection App Catalog on a specific sites using CSV"
+      }
+    ],
+    "authors": [
+      {
+        "gitHubAccount": "nanddeepn",
+        "pictureUrl": "https://github.com/nanddeepn.png",
+        "name": "Nanddeep Nachan"
+      }
+    ],
+    "references": [
+      {
+        "name": "Introduction to the SharePoint Online Management Shell",
+        "description": "Check out the SPO Management Shell documentation site to get started and for the reference to the cmdlets.",
+        "url": "https://docs.microsoft.com/en-us/powershell/sharepoint/sharepoint-online/introduction-sharepoint-online-management-shell?view=sharepoint-ps"
+      },
+      {
+        "name": "Want to learn more about PnP PowerShell and the cmdlets",
+        "description": "Check out the PnP PowerShell site to get started and for the reference to the cmdlets.",
+        "url": "https://aka.ms/pnp/powershell"
+      },
+      {
+        "name": "Want to learn more about CLI for Microsoft 365 and the commands",
+        "description": "Check out the CLI for Microsoft 365 site to get started and for the reference to the commands.",
+        "url": "https://aka.ms/cli-m365"
+      }
+    ]
+  }
+]
