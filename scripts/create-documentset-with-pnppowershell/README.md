@@ -15,7 +15,7 @@ You need to have a SharePoint site with a document library, the documentset and 
 - Open Visual Studio Code
 - Create a new file
 - Write a script as below,
-- Change the variables to target to your enviorment, site, document library, document path, max count
+- Change the variables to target to your environment, site, document library, metadata
 - Run the script.
  
 ## Screenshot of Output 
