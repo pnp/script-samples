@@ -80,6 +80,58 @@ $uri=$response.'@odata.nextLink'
 
 ```
 [!INCLUDE [More about PnP PowerShell](../../docfx/includes/MORE-PNPPS.md)]
+
+# [CLI for Microsoft 365](#tab/cli-m365-ps)
+```powershell
+# The Graph Drive ID found at https://tenant.sharepoint.com/sites/sitename/_api/v2.0/drives
+# TODO: Enter value
+$driveid = ""
+
+# The , three-part, Graph Site ID found at from https://tenant.sharepoint.com/sites/sitename/_api/v2.0/sites/root
+# TODO: Enter value
+$siteid = "" # from https://tenant.sharepoint.com/sites/sitename/_api/v2.0/sites/root
+
+$m365Status = m365 status
+if ($m365Status -match "Logged Out") {
+   m365 login
+}
+
+$filestoconvert = 'xlsx', 'docx', 'pptx'
+$uri = "https://graph.microsoft.com/v1.0/sites/$siteid/drives/$driveid/root/children"
+do {
+   $response = m365 request --url $uri | ConvertFrom-Json
+
+   foreach ($item in $response.value) {
+      Write-Host $item.name
+      if ($item.name.Contains('.')) {
+         $fname = $item.name.Substring(0, $item.name.LastIndexOf("."))
+         $fext = $item.name.Substring($item.name.LastIndexOf(".") + 1)
+      }
+      else {
+         $fname = $item.name
+         $fext = ''
+      }
+
+      if ($filestoconvert.Contains($fext.ToLower())) {
+         $uri = "https://graph.microsoft.com/v1.0/sites/$siteid/drives/$driveid/items/" + $item.id + "/content?format=pdf"
+         $outfile = "C:\temp\$fname.pdf"
+      }
+      else {
+         $uri = "https://graph.microsoft.com/v1.0/sites/$siteid/drives/$driveid/items/" + $item.id + "/content"
+         $outfile = "C:\temp\" + $item.name
+      }
+      m365 request --url $uri --filePath $outfile
+
+   }
+
+   $uri = ''
+   if ($null -ne $response['@odata.nextLink']){
+      $uri = $response['@odata.nextLink']
+   }
+      
+}while ($uri -ne '')
+```
+[!INCLUDE [More about CLI for Microsoft 365](../../docfx/includes/MORE-CLIM365.md)]
 ***
 
 ## Contributors
@@ -87,6 +139,7 @@ $uri=$response.'@odata.nextLink'
 | Author(s) |
 |-----------|
 | Russell Gove |
+| [Adam Wójcik](https://github.com/Adam-it)|
 
 [!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
 <img src="https://pnptelemetry.azurewebsites.net/script-samples/scripts/graph-download-office-documents-as-pdf" aria-hidden="true" />
