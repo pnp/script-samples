@@ -13,39 +13,38 @@ More about site design
 
   ![Example Screenshot](assets/example.png)
 
-# [SPO Management Shell](#tab/spoms-ps)
+# [PnP PowerShell](#tab/pnpps)
 
 ```powershell
-
 $adminSiteUrl = "https://tenant-admin.sharepoint.com/"
-$siteUrl = "https://tenant.sharepoint.com/teams/D-team-Site"
-$siteScriptFile = "C:\temp\TeamSite1.json";
+$siteUrl = "https://tenant.sharepoint.com/sites/Project"
+#path where to store the site script
+$siteScriptFile = "C:\temp\ProjectSite1.json";
 $relativeListUrls = "/Lists/Issue tracker list", "/Lists/Progress tracker list";
-$siteScriptTitle = "Test Team Site Common Script"
-$siteDesignTitle = "Test Team Site Design"
+$siteScriptTitle = "Test Project Site Common Script"
+$siteDesignTitle = "Test Project Site Design"
 $webTemplate = "64" #64 = Team Site, 68 = Communication Site, 1 = Groupless Team Site
-$siteDesignDescription = "Test team site design with external sharing disabled and Open Access and Site Member Access library with views"
-$previewImageUrl =  "https://tenant.sharepoint.com/sites/Assets/siteDesign-logo.png"
+$siteDesignDescription = "Test project site design with external sharing disabled and Issue tracker and progress tracker"
+$previewImageUrl =  "https://tenant.sharepoint.com/sites/Project/Assets/siteicon.png"
 
 Connect-PnPOnline -url $siteUrl -interactive
 #Team Site, only once and modify to include options to remove links and other actions
-$extracted = Get-PnPSiteScriptFromWeb –Url $siteUrl -IncludeTheme -IncludeBranding -IncludeSiteExternalSharingCapability –IncludeRegionalSettings -IncludeLinksToExportedItems –IncludedLists $relativeListUrls
+$extracted = Get-PnPSiteScriptFromWeb –Url $siteUrl -Lists $relativeListUrls -IncludeRegionalSettings -IncludeSiteExternalSharingCapability -IncludeTheme -IncludeLinksToExportedItems -IncludeBranding
 $extracted | Out-File $siteScriptFile
 
 $siteScript =  Add-PnPSiteScript -Title $siteScriptTitle -Content (Get-Content $siteScriptFile -Raw)
 
 $siteDesign = Add-PnPSiteDesign -SiteScriptIds $siteScript.Id -Title $siteDesignTitle -WebTemplate $webTemplate -Description $siteDesignDescription -PreviewImageUrl $previewImageUrl 
 
-Grant-PnPSiteDesignRights -Identity  -Principals "test1@tenant.sharepoint.com"
-
+Grant-PnPSiteDesignRights -Identity $siteDesign -Principals "testuser1@tenant.onmicrosoft.com"
 
 ```
-![Results Screenshot](assets/results.png)
+![Results Screenshot](assets/preview.png)
 
 > [!Note]
-> SharePoint tenant admin right are required to be able add list design
+> SharePoint tenant admin right are required to be able add site design
 
-[!INCLUDE [More about SPO Management Shell](../../docfx/includes/MORE-SPOMS.md)]
+[!INCLUDE [More about PnP PowerShell](../../docfx/includes/MORE-PNPPS.md)]
 
 ***
 
