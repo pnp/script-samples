@@ -50,7 +50,6 @@ DocFx is case sensitive with the markdown files and in compilation of the site, 
 
 Spaces should be replaced with hyphens as well.
 
-
 ## Images and previews
 
 When creating images and previews, please follow this guidance:
@@ -70,5 +69,12 @@ When samples are submitted it is important that contributors are recognized for 
 * The article must list their name, company and GitHub/LinkedIn/Twitter handle - we will encourage their complete this.
 * Promotion to Twitter - their sample will get promoted to Twitter for exposure.
 
+## Reports
+
+There are a series of reports that are generated to help with the maintenance of the site, these are:
+
+* [Matrix of Sample Distribution by Tool](https://pnp.github.io/script-samples/matrix.html)
+* [Report of Samples Command Usage](https://pnp.github.io/script-samples/cmdusage.html)
+* [Metadata Report of Samples](https://pnp.github.io/script-samples/metadata.html)
 
 <img src="https://pnptelemetry.azurewebsites.net/script-samples/contributing/maintainers-guidance" aria-hidden="true" />
