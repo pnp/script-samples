@@ -106,6 +106,9 @@ stored on a local file share in case of network outages. We want the local copie
 <li role="presentation">
 <a href="#tabpanel_CeZOj-G++Q_pnpps" role="tab" aria-controls="tabpanel_CeZOj-G++Q_pnpps" data-tab="pnpps" tabindex="0" aria-selected="true">PnP PowerShell</a>
 </li>
+<li role="presentation">
+<a href="#tabpanel_CeZOj-G++Q_cli-m365-ps" role="tab" aria-controls="tabpanel_CeZOj-G++Q_cli-m365-ps" data-tab="cli-m365-ps" tabindex="-1">CLI for Microsoft 365</a>
+</li>
 </ul>
 <section id="tabpanel_CeZOj-G++Q_pnpps" role="tabpanel" data-tab="pnpps"><button class="article-clipboard" title="Copy to clipboard" data-toggle="tooltip" data-placement="top" data-clipboard-target="section[id^='tabpanel'][data-tab='pnpps'] pre">
     <span class="glyphicon glyphicon-copy" aria-hidden="true"></span>
@@ -181,6 +184,63 @@ $uri=$response.'@odata.nextLink'
 <p>Check out the <strong>PnP PowerShell</strong> to learn more at: <a href="https://aka.ms/pnp/powershell">https://aka.ms/pnp/powershell</a></p>
 </div>
 </section>
+<section id="tabpanel_CeZOj-G++Q_cli-m365-ps" role="tabpanel" data-tab="cli-m365-ps" aria-hidden="true" hidden="hidden"><button class="article-clipboard" title="Copy to clipboard" data-toggle="tooltip" data-placement="top" data-clipboard-target="section[id^='tabpanel'][data-tab='cli-m365-ps'] pre">
+    <span class="glyphicon glyphicon-copy" aria-hidden="true"></span>
+    <span class="article-clipboard__message done">Copied</span>
+</button>
+
+<pre><code class="lang-powershell"># The Graph Drive ID found at https://tenant.sharepoint.com/sites/sitename/_api/v2.0/drives
+# TODO: Enter value
+$driveid = &quot;&quot;
+
+# The , three-part, Graph Site ID found at from https://tenant.sharepoint.com/sites/sitename/_api/v2.0/sites/root
+# TODO: Enter value
+$siteid = &quot;&quot; # from https://tenant.sharepoint.com/sites/sitename/_api/v2.0/sites/root
+
+$m365Status = m365 status
+if ($m365Status -match &quot;Logged Out&quot;) {
+   m365 login
+}
+
+$filestoconvert = 'xlsx', 'docx', 'pptx'
+$uri = &quot;https://graph.microsoft.com/v1.0/sites/$siteid/drives/$driveid/root/children&quot;
+do {
+   $response = m365 request --url $uri | ConvertFrom-Json
+
+   foreach ($item in $response.value) {
+      Write-Host $item.name
+      if ($item.name.Contains('.')) {
+         $fname = $item.name.Substring(0, $item.name.LastIndexOf(&quot;.&quot;))
+         $fext = $item.name.Substring($item.name.LastIndexOf(&quot;.&quot;) + 1)
+      }
+      else {
+         $fname = $item.name
+         $fext = ''
+      }
+
+      if ($filestoconvert.Contains($fext.ToLower())) {
+         $uri = &quot;https://graph.microsoft.com/v1.0/sites/$siteid/drives/$driveid/items/&quot; + $item.id + &quot;/content?format=pdf&quot;
+         $outfile = &quot;C:\temp\$fname.pdf&quot;
+      }
+      else {
+         $uri = &quot;https://graph.microsoft.com/v1.0/sites/$siteid/drives/$driveid/items/&quot; + $item.id + &quot;/content&quot;
+         $outfile = &quot;C:\temp\&quot; + $item.name
+      }
+      m365 request --url $uri --filePath $outfile
+
+   }
+
+   $uri = ''
+   if ($null -ne $response['@odata.nextLink']){
+      $uri = $response['@odata.nextLink']
+   }
+      
+}while ($uri -ne '')
+</code></pre>
+<div class="highlight-tool">
+<p>Check out the <strong>CLI for Microsoft 365</strong> to learn more at: <a href="https://aka.ms/cli-m365">https://aka.ms/cli-m365</a></p>
+</div>
+</section>
 </div>
 <h2 id="contributors">Contributors</h2>
 <table>
@@ -192,6 +252,9 @@ $uri=$response.'@odata.nextLink'
 <tbody>
 <tr>
 <td>Russell Gove</td>
+</tr>
+<tr>
+<td><a href="https://github.com/Adam-it">Adam Wójcik</a></td>
 </tr>
 </tbody>
 </table>
