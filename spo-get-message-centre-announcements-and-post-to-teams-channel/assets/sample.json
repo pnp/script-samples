@@ -1,0 +1,45 @@
+[{
+    "name": "spo-get-message-centre-announcements-and-post-to-teams-channel",
+    "source": "pnp",
+    "title": "This script allows you to retrieve Message Centre announcements and post to teams",
+    "shortDescription": "This script allows you to retrieve Message Centre announcements and post to teams.",
+    "url": "https://pnp.github.io/script-samples/spo-get-message-centre-announcements-and-post-to-teams-channel/README.html",
+    "longDescription": [
+        "This script allows you to connect to your SharePoint Online tenant and retrieve Message Centre announcements.",
+         "It then connects to Microsoft Teams and loops through the announcements, posting them to a specific Teams channel."
+    ],
+    "creationDateTime": "2023-01-11",
+    "updateDateTime": "2023-01-11",
+    "products": [
+        "SharePoint",
+        "Teams"
+    ],
+    "metadata": [{
+        "key": "PNP-POWERSHELL",
+        "value": "1.12.0"
+      }],
+    "categories": [
+        "Report"
+    ],
+    "tags": [
+        "SharePoint",
+        "Teams"
+    ],
+    "thumbnails": [{
+        "type": "image",
+        "order": 100,
+        "url": "https://raw.githubusercontent.com/pnp/script-samples/main/scripts/spo-get-message-centre-announcements-and-post-to-teams-channel/assets/preview.png",
+        "alt": "This sample does not contain a preview image"
+    }],
+    "authors": [{
+        "gitHubAccount": "valerasnarbutas",
+        "company": "",
+        "pictureUrl": "https://avatars.githubusercontent.com/u/16476453?s=96&v=4",
+        "name": "Valeras Narbutas"
+    }],
+    "references": [{
+        "name": "Want to learn more about the Microsoft Graph",
+        "description": "Check out the documentation site to get started and for the reference to the endpoints.",
+        "url": "https://developer.microsoft.com/en-us/graph/graph-explorer"
+    }]
+}]
