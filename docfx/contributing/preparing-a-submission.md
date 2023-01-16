@@ -8,13 +8,13 @@ Thank you for considering contributing to this repository. In order to help you 
 ## Where Do I Start?
 
 First, you need to ensure you have a GitHub account. If you don't have one, you can create one for free.
-Then find the repository at [https://github.com/pnp/script-samples](https://github.com/pnp/script-samples) and click the "Fork" button in the top right corner.
+Then find the repository at [https://github.com/pnp/script-samples](https://github.com/pnp/script-samples) and click the ["Fork"](https://docs.github.com/en/get-started/quickstart/fork-a-repo) button in the top right corner.
 
 Before you can submit, you need to make sure you are setup with a "fork" of the repository in your own account, please navigate to [Submitting Pull Requests](submitting-pull-requests.md) for setup information.
 
 ### Submission Template Files
 
-There is a template submission folder called "_template-script-submission" in [_template-script-submission | GitHub - PnP Script Samples](https://github.com/pnp/script-samples/tree/main/scripts/_template-script-submission).
+There is a template submission folder called **"_template-script-submission"** in [_template-script-submission | GitHub - PnP Script Samples](https://github.com/pnp/script-samples/tree/main/scripts/_template-script-submission).
 
 The template submission folder contains:
 
@@ -43,7 +43,7 @@ The minimum we need for the submission is:
 
 We add the disclaimer statement at the bottom.
 
-### Markdown
+### What is Markdown?
 
 This repository uses a text based markup called "Markdown" which allows you to write articles/pages quickly without having to worry about the presentation of the page. Even this page is written using this - we use a site generator to turn this into a page automatically.
 
@@ -145,7 +145,6 @@ You will need to have a screenshot picture of your sample in action in the `READ
 You are free to submit updates to existing samples, if you find an issue or could benefit from improvements.
 
 When you update existing samples, please update also `README.md` file accordingly with information on provided changes and with your author details
-
 
 ### Sample Folder Naming
 

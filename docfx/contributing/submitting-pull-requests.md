@@ -12,11 +12,20 @@ Here's a high-level process for submitting new samples or updates to existing on
 6. Create a pull request in your own fork and target the `main` branch
 7. Fill up the provided PR template with the requested details
 
-## Want to practice the setup?
+
+## When the sample is submitted
+
+We will review the submission, make small tweaks if required and provide feedback if needed for anything large. If the submission is approved, we will merge it into the `main` branch and it will be published to the [PnP Script Samples](https://pnp.github.io/script-samples/) site.
+
+Once published, we will begin to promote the sample on social media, see our details on [Recognizing Contributors](recognition.md).
+
+## Other tips
+
+### Want to practice the setup?
 
 If you feel insecure about that process or are new to GitHub, please consider to attend the [Sharing Is Caring sessions from the PnP team](https://pnp.github.io/sharing-is-caring/#pnp-sic-events) in which the Microsoft 365 PnP team provides hands-on guidance for first time contributors.
 
-## Submission Guidelines
+### Submission Guidelines
 
 Before you submit your pull request consider the following guidelines:
 
@@ -40,7 +49,7 @@ Before you submit your pull request consider the following guidelines:
   git checkout -b working-with-files-in-libraries main
   ```
 
-## Keeping your fork up to date
+### Keeping your fork up to date
 
 * Ensure your fork is updated and not behind the upstream **script-samples** repo. Refer to these resources for more information on syncing your repo:
   * [GitHub Help: Syncing a Fork](https://help.github.com/articles/syncing-a-fork/)

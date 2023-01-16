@@ -1,6 +1,6 @@
 # How Can I Contribute
 
-If you'd like to contribute to this repository, please read the following guidelines. Contributors are **more than welcome** to share their learnings with others in this centralized location.
+If you'd like to contribute to this repository, please read the following guidelines. Contributors are **more than welcome** to share their scripts with others in this centralized location.
 
 ## How can I contribute
 
@@ -31,12 +31,9 @@ In the PnP Script Samples, we do not place any specific quality requirements on 
 
 Whenever you are submitting any changes to the SharePoint repositories, please follow these recommendations.
 
-* Always fork the repository to your own account before making your modifications
-* Do not combine multiple changes to one pull request. For example, submit any samples and documentation updates using separate PRs
-* If your pull request shows merge conflicts, make sure to update your local master to be a mirror of what's in the main repo before making your modifications
-* If you are submitting multiple samples, please create a specific PR for each of them
-* If you are submitting typo or documentation fix, you can combine modifications to single PR where suitable
-
+* Always [fork the repository](https://docs.github.com/en/get-started/quickstart/fork-a-repo) to your own account before making your modifications
+* Do not combine multiple changes to one [pull request](https://docs.github.com/en/pull-requests). For example, submit any samples and documentation updates using separate PRs. If you do no worries, this is a preference to help us organize the PRs.
+* If your pull request shows merge conflicts, make sure to update your local master to be a mirror of what's in the main repo before making your modifications. In your fork, GitHub shows a sync button to update your branch.
 
 
 <img src="https://pnptelemetry.azurewebsites.net/script-samples/how-can-i-contribute" aria-hidden="true" />
