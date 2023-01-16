@@ -105,9 +105,27 @@
                     <h1 id="preparing-a-submission">Preparing a submission</h1>
 
 <p>Thank you for considering contributing to this repository. In order to help you get started, we have prepared this guide to provide you with the information you need to prepare your submission.</p>
-<h2 id="markdown">Markdown</h2>
-<p>This repository uses a text based markup called &quot;Markdown&quot; which allows you to write articles/pages quickly without having to worry about the presentation of the page. Even this page is written using this - we use a site generator to turn this into a page automatically.</p>
-<p>If you want to learn more about Markdown checkout this guide by Bob German on Tech Community - <a href="https://techcommunity.microsoft.com/t5/microsoft-365-pnp-blog/what-s-up-with-markdown/ba-p/2323834">What's up with Markdown?</a></p>
+<div class="NOTE">
+<h5>Note</h5>
+<p>If you miss anything on your submission, please don't worry, we will check and make the tweaks to the submission for you, we may reach out within the Pull Request to check some details with you. We do not want to put you off contributing, we want to make it as easy as possible for you to contribute.</p>
+</div>
+<h2 id="where-do-i-start">Where Do I Start?</h2>
+<p>First, you need to ensure you have a GitHub account. If you don't have one, you can create one for free.
+Then find the repository at <a href="https://github.com/pnp/script-samples">https://github.com/pnp/script-samples</a> and click the <a href="https://docs.github.com/en/get-started/quickstart/fork-a-repo">&quot;Fork&quot;</a> button in the top right corner.</p>
+<p>Before you can submit, you need to make sure you are setup with a &quot;fork&quot; of the repository in your own account, please navigate to <a href="submitting-pull-requests.html">Submitting Pull Requests</a> for setup information.</p>
+<h3 id="submission-template-files">Submission Template Files</h3>
+<p>There is a template submission folder called <strong>&quot;_template-script-submission&quot;</strong> in <a href="https://github.com/pnp/script-samples/tree/main/scripts/_template-script-submission">_template-script-submission | GitHub - PnP Script Samples</a>.</p>
+<p>The template submission folder contains:</p>
+<ul>
+<li><strong>README.md</strong> - Sample Readme with the structure, remove the dummy text and update the areas for your submission</li>
+<li><strong>assets/example.png</strong> - image for the sample, simply replace with a screenshot to show in the article</li>
+</ul>
+<div class="NOTE">
+<h5>Note</h5>
+<p>If you would like an example, please refer to the following script: <a href="https://pnp.github.io/script-samples/spo-generate-demo-events/README.html">Generate Demo Events for SharePoint Events List | PnP Script Samples</a> <br>
+Please note: this isn't an expected sample style, quality or format, or a gold standard just an idea if you feel you need some ideas on how to present your script. <br><br>
+We fully understand that there any multiple styles and approaches, and <strong>we are happy to accept the submission in your style</strong> 😊</p>
+</div>
 <h2 id="page-structure">Page Structure</h2>
 <p>The page follows a standard format, we have created a graphic to explain the layout and the markdown for each section:</p>
 <div class="full-image-size">
@@ -122,7 +140,10 @@
 <li><strong>Contributors</strong> - your name, or if a joint submission those you have worked with - so that we can attribute credit for the submission.</li>
 </ul>
 <p>We add the disclaimer statement at the bottom.</p>
-<h2 id="key-elements-of-markdown-we-use">Key elements of Markdown we use</h2>
+<h3 id="what-is-markdown">What is Markdown?</h3>
+<p>This repository uses a text based markup called &quot;Markdown&quot; which allows you to write articles/pages quickly without having to worry about the presentation of the page. Even this page is written using this - we use a site generator to turn this into a page automatically.</p>
+<p>If you want to learn more about Markdown checkout this guide by Bob German on Tech Community - <a href="https://techcommunity.microsoft.com/t5/microsoft-365-pnp-blog/what-s-up-with-markdown/ba-p/2323834">What's up with Markdown?</a></p>
+<h3 id="key-elements-of-markdown-we-use">Key elements of Markdown we use</h3>
 <pre><code class="lang-markdown">
 # Heading 1
 ## Heading 2
@@ -173,41 +194,44 @@
 <p>We add an additional block to provide guidance back to the tool guiding site:</p>
 <pre><code class="lang-markdown">[!INCLUDE [More about CLI for Microsoft 365](../../docfx/includes/MORE-CLIM365.md)]
 </code></pre>
-<h2 id="submission-template-files">Submission Template Files</h2>
-<p>There is a template submission folder called &quot;_template-script-submission&quot; in <a href="https://github.com/pnp/script-samples/tree/main/scripts/_template-script-submission">_template-script-submission | GitHub - PnP Script Samples</a>.</p>
-<p>Before you can submit, you need to make sure you are setup with a &quot;fork&quot; of the repository in your own account, please navigate to <a href="submitting-pull-requests.html">Submitting Pull Requests</a> for setup information.</p>
-<p>The template submission folder contains:</p>
-<ul>
-<li><strong>README.md</strong> - Sample Readme with the structure, remove the dummy text and update the areas for your submission</li>
-<li><strong>assets/example.png</strong> - image for the sample, simply replace with a screenshot to show in the article</li>
-</ul>
-<h3 id="script-quality">Script Quality</h3>
-<p>In the PnP Script Samples, we do not place any specific quality requirements on the scripts themselves. To help guide you for suggested ways to present your scripts:</p>
-<ul>
-<li>Indent the scripts when encapsulating blocks in curly braces - this make it easier to read the blocks and understand the script</li>
-<li>Use comments, if you feel the script isn't clear by itself what it is doing. However, do not overload the script with comments either.</li>
-<li>Use good naming for variables to understand what is being stored</li>
-<li>Check the script works as you would expect it to, preferably include a screenshot of the end result, to help guide the reader.</li>
-<li>Remove any lines that show details of <strong>your</strong> tenant, e.g. usernames, passwords, URLs (replace with Contoso).</li>
-</ul>
-<div class="NOTE">
-<h5>Note</h5>
-<p>If you would like an example, please refer to the following script: <a href="https://pnp.github.io/script-samples/spo-generate-demo-events/README.html">Generate Demo Events for SharePoint Events List | PnP Script Samples</a> <br>
-Please note: this isn't an expected sample style, quality or format, or a gold standard just an idea if you feel you need some ideas on how to present your script. <br><br>
-We fully understand that there any multiple styles and approaches, and <strong>we are happy to accept the submission in your style</strong> 😊</p>
-</div>
-<h3 id="optional-files">Optional files</h3>
+<h2 id="optional-files">Optional files</h2>
 <ul>
 <li><strong>assets/template.sample.json</strong> - this is a metadata file used for the gallery views, this is optional <em>DO NOT HAVE TO COMPLETE THIS</em></li>
 <li><strong>assets/preview.png</strong> - we generate a preview from the example.png file, you do not have to update this.</li>
 </ul>
-<h3 id="folder-structure">Folder Structure</h3>
+<h2 id="folder-structure">Folder Structure</h2>
 <p>We have worked to keep the folder structure lean and as simple as possible when submitting scripts:</p>
 <pre><code class="lang-markdown">
 +--- script-folder-title - *folder for the script based on the title of your sample, please all lowercase and spaces as hyphens*
   |___ assets - *sub folder for any images or assets you need to support your sample*
 </code></pre>
 <p><img src="../assets/contributing/folder-structure-contributors.png" alt="Folder structure"></p>
+<h2 id="sample-naming-and-structure-guidelines">Sample Naming and Structure Guidelines</h2>
+<p>When you are submitting a new sample, it has to follow up below guidelines</p>
+<h3 id="readme-file">ReadMe File</h3>
+<p>You will need to have a <code>README.md</code> file for your contribution, which is based on <a href="/../scripts/template-script-submission/README.md">the provided template</a> under the <code>scripts</code> folder. Please copy this template to your project and update it accordingly. Your <code>README.md</code> must be named exactly <code>README.md</code> -- with capital letters -- as this is the information we use to make your sample public.</p>
+<p>Please update the image source at the bottom of the template, the <code>src</code> attribute according with the repository name and folder information. For example, if your sample is named <code>sampleA</code> in the <code>scripts</code> folder, you should update the <code>src</code> attribute to <code>https://pnptelemetry.azurewebsites.net/script-samples/scripts/sampleA</code></p>
+<p>We use this for tracking your samples usage and popularity.</p>
+<h3 id="screenshot-optional">Screenshot (optional)</h3>
+<p>You will need to have a screenshot picture of your sample in action in the <code>README.md</code> file (&quot;pics or it didn't happen&quot;). The preview image must be located in the <code>/assets/</code> folder in the root your you solution.</p>
+<h3 id="sample-updates">Sample Updates</h3>
+<p>You are free to submit updates to existing samples, if you find an issue or could benefit from improvements.</p>
+<p>When you update existing samples, please update also <code>README.md</code> file accordingly with information on provided changes and with your author details</p>
+<h3 id="sample-folder-naming">Sample Folder Naming</h3>
+<p>When submitting a new sample solution, please name the sample solution folder accordingly</p>
+<p>Do not use words such as <code>sample</code>, <code>script</code> or <code>ps</code> in the folder or sample name</p>
+<p>Do not use period/dot in the folder name of the provided sample</p>
+<h3 id="remove-environment-or-sensitive-details">Remove environment or sensitive details</h3>
+<p>Please be sure to remove all of your password, usernames and tenant addresses from the sample scripts - this is to maintain the security of your tenant. Examples include replacing the organisation name with Contoso e.g. <a href="https://contoso.sharepoint.com">https://contoso.sharepoint.com</a> giving the details of the type of address but hiding the key information.</p>
+<h3 id="destructive-scripts">Destructive scripts</h3>
+<p>We are happy to accept scripts that bulk delete or remove, delete an artefact but we will add a warning message to ensure that the reader is aware to ensure they understanding the implications of running the script.</p>
+<p>e.g.</p>
+<div class="WARNING">
+<h5>Warning</h5>
+<p>Please be aware this script contains a command that will remove or delete an artefact, ensure you test and understanding the implications of running the script.</p>
+</div>
+<h3 id="we-track-the-samples-usage">We Track the Samples Usage</h3>
+<p>The <code>README</code> template contains a specific tracking image at the bottom of the file with an <code>img</code> tag, where the <code>src</code> attribute points to <code>https://pnptelemetry.azurewebsites.net/script-samples/samples/readme-template</code>. This is a transparent image which is used to track viewership of individual samples in GitHub.</p>
 <img src="https://pnptelemetry.azurewebsites.net/script-samples/contributing/preparing-a-submission" aria-hidden="true">
 </article>
           </div>

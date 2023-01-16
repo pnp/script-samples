@@ -4,15 +4,15 @@
   
   <head>
     <meta charset="utf-8">
-    <title>Contributing | PnP Samples </title>
+    <title>Contributing - Getting Started | PnP Samples </title>
     <meta name="viewport" content="width=device-width">
-    <meta name="title" content="Contributing | PnP Samples ">
+    <meta name="title" content="Contributing - Getting Started | PnP Samples ">
     <meta name="generator" content="docfx 2.56.7.0">
     <meta name="description" content="A sample gallery of scripts to manage all things Microsoft 365.">
   
     <!-- Social Media -->
     <meta property="og:locale" content="en_GB">
-    <meta property="og:title" content="Contributing | PnP Samples ">
+    <meta property="og:title" content="Contributing - Getting Started | PnP Samples ">
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://pnp.github.io/script-samples">
     <meta property="og:image" content="https://pnp.github.io/script-samples/assets/social-media-screenshot.png">
@@ -102,79 +102,31 @@
                   <div class="contribution-panel mobile-hide pull-right">
                       <a href="https://github.com/pnp/script-samples/blob/main/docfx/contributing/index.md/#L1" title="Improve this Doc" class="improve-doc-lg"><i class="glyphicon glyphicon-pencil"></i></a>
                   </div>
-                    <h1 id="contributing">Contributing</h1>
+                    <h1 id="contributing---getting-started">Contributing - Getting Started</h1>
 
-<p>If you'd like to contribute to this repository, please read the following guidelines. Contributors are <strong>more than welcome</strong> to share their learnings with others in this centralized location.</p>
+<p>PnP Script Samples is part of the wider <a href="https://pnp.github.io/">PnP</a> community and is a place where you can find and share scripts that help you to automate your work with Microsoft 365. The repository is maintained by the community and we welcome contributions from everyone.</p>
+<p>Typically, we have support for the following types of scripts:</p>
+<ul>
+<li>PnP PowerShell</li>
+<li>CLI for Microsoft 365</li>
+<li>Microsoft Graph PowerShell SDK</li>
+<li>SPO Management Shell</li>
+<li>Azure CLI</li>
+<li>Power Apps PowerShell SDK</li>
+<li>Teams PowerShell SDK</li>
+<li>Microsoft Whiteboard PowerShell SDK</li>
+</ul>
+<p>We can add more, if there is script that is not in the above list. Please reach out and raise an <a href="https://github.com/pnp/script-samples/issues">issue</a> with the details of the type of script sample you wish to submit.</p>
 <div class="NOTE">
 <h5>Note</h5>
 <p>The repository can be found at <a href="https://github.com/pnp/script-samples">https://github.com/pnp/script-samples</a></p>
 </div>
-<h2 id="how-can-i-contribute">How can I contribute</h2>
-<p>There are ways to contribute:</p>
-<ul>
-<li>Create a scenario e.g. Upload a document to SharePoint, then add your script to the scenario</li>
-<li>Extend an existing scenario that does NOT have an example for the tool e.g. a scenario containing only CLI for Microsoft 365 sample, you can submit an updated scenario with a PnP PowerShell equivalent</li>
-<li>Logging an <a href="https://github.com/pnp/script-samples/issues">issue in GitHub</a> if you have feedback about the site or samples</li>
-</ul>
-<div class="full-image-size">
-<p><img src="../assets/contributing/ways-to-contribute.png" alt="Ways to contribute"></p>
-</div>
-<p>To get started quickly, check out the <a href="preparing-a-submission.html">Preparing a submission guide</a></p>
-<blockquote>
-<p><em>Please register your idea in the issue list and assign to yourself, there maybe others considering similar scripts.</em></p>
-</blockquote>
+<h2 id="introductory-video">Introductory video</h2>
+<div class="embeddedvideo"><iframe src="https://www.youtube-nocookie.com/embed/cB2aideuHlk" frameborder="0" allowfullscreen="true"></iframe></div>
 <h2 id="code-of-conduct">Code of Conduct</h2>
 <p>This project has adopted the <a href="https://opensource.microsoft.com/codeofconduct/">Microsoft Open Source Code of Conduct</a>.
 For more information, see the <a href="https://opensource.microsoft.com/codeofconduct/faq/">Code of Conduct FAQ</a> or contact <a href="mailto:opencode@microsoft.com">opencode@microsoft.com</a> with any additional questions or comments.</p>
 <p><strong>Remember that this repository is maintained by community members who volunteer their time to help. Be courteous and patient.</strong></p>
-<h2 id="signing-the-cla">Signing the CLA</h2>
-<p>Before we can accept your pull requests you will be asked to sign electronically Contributor License Agreement (CLA), which is a pre-requisite for any contributions all PnP repositories. This will be one-time process, so for any future contributions you will not be asked to re-sign anything. After the CLA has been signed, our PnP core team members will have a look at your submission for a final verification of the submission. <strong>Please do not delete your development branch until the submission has been closed.</strong></p>
-<p>You can find Microsoft CLA from the following address - <a href="https://cla.microsoft.com">https://cla.microsoft.com</a>.</p>
-<h2 id="typos-issues-bugs-and-contributions">Typos, Issues, Bugs and contributions</h2>
-<p>Whenever you are submitting any changes to the SharePoint repositories, please follow these recommendations.</p>
-<ul>
-<li>Always fork the repository to your own account before making your modifications</li>
-<li>Do not combine multiple changes to one pull request. For example, submit any samples and documentation updates using separate PRs</li>
-<li>If your pull request shows merge conflicts, make sure to update your local master to be a mirror of what's in the main repo before making your modifications</li>
-<li>If you are submitting multiple samples, please create a specific PR for each of them</li>
-<li>If you are submitting typo or documentation fix, you can combine modifications to single PR where suitable</li>
-</ul>
-<h2 id="sample-naming-and-structure-guidelines">Sample Naming and Structure Guidelines</h2>
-<p>When you are submitting a new sample, it has to follow up below guidelines</p>
-<ul>
-<li>You will need to have a <code>README.md</code> file for your contribution, which is based on <a href="/../scripts/template-script-submission/README.md">the provided template</a> under the <code>scripts</code> folder. Please copy this template to your project and update it accordingly. Your <code>README.md</code> must be named exactly <code>README.md</code> -- with capital letters -- as this is the information we use to make your sample public.
-<ul>
-<li>You will need to have a screenshot picture of your sample in action in the <code>README.md</code> file (&quot;pics or it didn't happen&quot;). The preview image must be located in the <code>/assets/</code> folder in the root your you solution.</li>
-</ul>
-</li>
-<li>The <code>README</code> template contains a specific tracking image at the bottom of the file with an <code>img</code> tag, where the <code>src</code> attribute points to <code>https://telemetry.sharepointpnp.com/script-samples/samples/readme-template</code>. This is a transparent image which is used to track viewership of individual samples in GitHub.
-<ul>
-<li>Update the image <code>src</code> attribute according with the repository name and folder information. For example, if your sample is named <code>sampleA</code> in the <code>scripts</code> folder, you should update the <code>src</code> attribute to <code>https://telemetry.sharepointpnp.com/script-samples/scripts/sampleA</code></li>
-</ul>
-</li>
-<li>If you find an existing sample which is similar to yours, please extend the existing one rather than submitting a new similar sample
-<ul>
-<li>For example, if you use Office Graph with React, please add a new web part to the existing solution, rather than introducing a completely new solution</li>
-<li>When you update existing samples, please update also <code>README.md</code> file accordingly with information on provided changes and with your author details</li>
-</ul>
-</li>
-<li>When submitting a new sample solution, please name the sample solution folder accordingly
-<ul>
-<li>Do not use words such as <code>sample</code>, <code>script</code> or <code>ps</code> in the folder or sample name</li>
-<li>If your solution is demonstrating multiple technologies, please use functional terms as the name for the solution folder</li>
-</ul>
-</li>
-<li>Do not use period/dot in the folder name of the provided sample</li>
-</ul>
-<h2 id="remove-environment-or-sensitive-details">Remove environment or sensitive details</h2>
-<p>Please be sure to remove all of your password, usernames and tenant addresses from the sample scripts - this is to maintain the security of your tenant. Examples include replacing the organisation name with Contoso e.g. <a href="https://contoso.sharepoint.com">https://contoso.sharepoint.com</a> giving the details of the type of address but hiding the key information.</p>
-<h3 id="destructive-scripts">Destructive scripts</h3>
-<p>We are happy to accept scripts that bulk delete or remove, delete an artefact but we will add a warning message to ensure that the reader is aware to ensure they understanding the implications of running the script.</p>
-<p>e.g.</p>
-<div class="WARNING">
-<h5>Warning</h5>
-<p>Please be aware this script contains a command that will remove or delete an artefact, ensure you test and understanding the implications of running the script.</p>
-</div>
 <h2 id="repository-maintainers">Repository Maintainers</h2>
 <p>If you are interested in helping to maintain the repository please check out the <a href="maintainers-guidance.html">maintainers guidance</a>.</p>
 <img src="https://pnptelemetry.azurewebsites.net/script-samples/contributing" aria-hidden="true">
