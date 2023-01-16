@@ -6,9 +6,9 @@ plugin: add-to-gallery
 
 ## Summary
 
-Craete an Azure AD app, add permissions and connect it to SharePoint Online.
+Create an Azure AD app, add permissions and connect it to SharePoint Online.
 
-# [Azure](#tab/azurecli)
+# [Azure AD](#tab/azuread)
 
 ```powershell
 Install-Module AzureAD
