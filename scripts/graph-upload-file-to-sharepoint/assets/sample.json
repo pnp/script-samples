@@ -1,0 +1,60 @@
+[
+  {
+    "name": "graph-upload-file-to-sharepoint",
+    "source": "pnp",
+    "title": "Uploads a large file to SharePoint using MS Graph REST API and PowerShell ",
+    "shortDescription": "Uploads a large file to SharePoint using MS Graph REST API",
+    "url": "https://pnp.github.io/script-samples/graph-upload-file-to-sharepoint/README.html",
+    "longDescription": [
+      ""
+    ],
+    "creationDateTime": "2023-01-07",
+    "updateDateTime": "2023-01-07",
+    "products": [
+      "SharePoint",
+      "Graph"
+    ],
+    "metadata": [
+      {
+        "key": "AZURE-CLI",
+        "value": "2.43.0"
+      }
+    ],
+    "categories": [
+      "Data"
+    ],
+    "tags": [
+      "REST API",
+      "upload",
+      "Microsoft Graph"
+    ],
+    "thumbnails": [
+      {
+        "type": "image",
+        "order": 100,
+        "url": "https://raw.githubusercontent.com/pnp/script-samples/main/scripts/graph-upload-file-to-sharepoint/assets/Uploading.png",
+        "alt": "Uploading a large file to SharePoint via MS Graph REST API"
+      }
+    ],
+    "authors": [
+      {
+        "gitHubAccount": "pmatthews05",
+        "Company": "CF Code Ltd",
+        "pictureUrl": "https://github.com/pmatthews05.png",
+        "name": "Paul Matthews"
+      }
+    ],
+    "references": [
+      {
+        "name": "Want to learn more about Azure CLI and the commands",
+        "description": "Check out the Azure CLI documentation site to get started and for the reference to the commands.",
+        "url": "https://learn.microsoft.com/en-us/cli/azure/"
+      },
+      {
+        "name": "Want to learn more about driveItem: createUploadSession",
+        "description": "Check out the MS Graph Rest API driveItem: createUploadSession documentation.",
+        "url": "https://learn.microsoft.com/en-us/graph/api/driveitem-createuploadsession"
+      }
+    ]
+  }
+]

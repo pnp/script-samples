@@ -9,7 +9,7 @@
       "Script to download files in a doclib to a local drive and convert Office Documents to PDF"
     ],
     "creationDateTime": "2021-08-13",
-    "updateDateTime": "2021-08-13",
+    "updateDateTime": "2023-01-15",
     "products": [
       "SharePoint",
       "Graph"
@@ -18,6 +18,10 @@
       {
         "key": "POWERSHELL",
         "value": "7.2.0"
+      },
+      {
+        "key": "cli-for-microsoft365",
+        "value": "6.1.0"
       }
     ],
     "categories": [
@@ -42,6 +46,11 @@
         "company": "",
         "pictureUrl": "https://avatars.githubusercontent.com/u/2412956?v=4",
         "name": "Russell Gove"
+      },
+      {
+        "gitHubAccount": "Adam-it",
+        "pictureUrl": "https://avatars.githubusercontent.com/u/58668583?v=4",
+        "name": "Adam Wójcik"
       }
     ],
     "references": [
@@ -49,6 +58,11 @@
         "name": "Want to learn more about the Microsoft Graph",
         "description": "Check out the documentation site to get started and for the reference to the endpoints.",
         "url": "https://developer.microsoft.com/en-us/graph/graph-explorer"
+      },
+      {
+        "name": "Want to learn more about CLI for Microsoft 365 and the commands",
+        "description": "Check out the CLI for Microsoft 365 site to get started and for the reference to the commands.",
+        "url": "https://aka.ms/cli-m365"
       }
     ]
   }
