@@ -10,7 +10,7 @@ Microsoft Stream (Classic) is scheduled to be retired. More information on this 
 
 [Migration Overview - Stream (Classic) to Stream (on SharePoint)](https://learn.microsoft.com/stream/streamnew/stream-classic-to-new-migration-overview)
 
-In addition to migrating the video, this retirement may also involve replacing Stream (Classic) Web Parts embedded within SharePoint pages.
+In addition to migrating the videos, this retirement may also involve replacing Stream (Classic) Web Parts embedded within SharePoint pages.
 
 ![Stream (Classic) Web Parts](./assets/stream.png)
 
