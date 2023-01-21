@@ -18,6 +18,15 @@ This sample script helps you understand how many Stream (Classic) Web Parts are 
 
 ![Example Screenshot](./assets/example.png)
 
+The following is a sample of the output CSV.
+
+```csv
+"WebPartInstanceId","SourceType","SourceVideo","SourceURL","PageTitle","PageURL","PageEditor"
+"0f82b46f-4dbc-408c-afab-d97a26737dee","BROWSE",,"https://web.microsoftstream.com/embed/browse?app=SPO&displayMode=buttons&showDescription=true&sort=trending","Home.aspx","https://contoso.sharepoint.com/sites/ListFormatting/SitePages/Home.aspx","Tetsuya Kawahara"
+"e2e80eca-a5f0-4d7b-9dae-bf1cba05d62a","VIDEO","How to format columns","https://web.microsoftstream.com/embed/video/1234567-abcd-5678-abcd-012345abcde?app=SPO&autoplay=false&preload=none","AboutListFormatting.aspx","https://contoso.sharepoint.com/sites/ListFormatting/SitePages/AboutListFormatting.aspx","Adele Vance"
+"cbd36541-826a-48d1-bd8c-75588851a88f","CHANNEL",,"https://web.microsoftstream.com/embed/channel/1234567-abcd-5678-abcd-012345abcde?app=SPO&sort=trending","ColumnFormatting.aspx","https://contoso.sharepoint.com/sites/ListFormatting/SitePages/ColumnFormatting.aspx","Alex Wilber"
+```
+
 # [PnP PowerShell](#tab/pnpps)
 
 ```powershell
