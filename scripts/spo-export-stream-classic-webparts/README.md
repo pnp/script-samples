@@ -14,7 +14,7 @@ In addition to migrating the video, this retirement may also involve replacing S
 
 ![Stream (Classic) Web Parts](./assets/stream.png)
 
-This sample script helps you understand how many Stream (Classic) Web Parts are being used by your site by outputting a CSV file of the Stream (Classic) Web Parts and the pages that use them. The CSV file is created on the desktop.
+This sample script helps you understand how many Stream (Classic) Web Parts are being used by your site by outputting a CSV file of the Stream (Classic) Web Parts and the pages that use them. The CSV file is created in the Report-StreamClassicWebParts folder in My Documents.
 
 ![Example Screenshot](./assets/example.png)
 
@@ -27,6 +27,16 @@ param(
     [string]$siteUrl
 )
 
+$csvFolderPath = "$([Environment]::GetFolderPath("MyDocuments"))\Report-StreamClassicWebParts"
+$logFolderPath = "$([Environment]::GetFolderPath("MyDocuments"))\Report-StreamClassicWebParts\log"
+
+# Create the log and csv folder if they don't exist
+if(!(Test-Path $csvFolderPath)){New-Item -ItemType Directory -Path $csvFolderPath}
+if(!(Test-Path $logFolderPath)){New-Item -ItemType Directory -Path $logFolderPath}
+
+# Start logging
+Start-Transcript -Path "$logFolderPath\$($(Get-Date).ToString("yyyyMMdd-HHmmss")).log"
+
 # Connect to SharePoint site
 try {
     Write-Host "Connecting to SharePoint site...Started" -ForegroundColor Yellow
@@ -35,6 +45,7 @@ try {
 }
 catch {
     Write-Error "Error connecting to $($siteUrl). Error message: $_.Exception.Message"
+    Stop-Transcript
     return
 }
 
@@ -81,7 +92,7 @@ try {
     try {
         $site = Get-PnPWeb
         $timeStamp = (Get-Date).ToString("yyyyMMdd-HHmmss")
-        $csvFilePath = "$([Environment]::GetFolderPath("Desktop"))\$($site.Title)-ClassicStreamWebParts-$timeStamp.csv"
+        $csvFilePath = "$csvFolderPath\$($site.Title)-ClassicStreamWebParts-$timeStamp.csv"
 
         Write-Host "Exporting to CSV file...Started" -ForegroundColor Yellow
         $streamWebParts | Export-Csv $csvFilePath -ErrorAction Stop
@@ -100,6 +111,7 @@ catch {
 }
 finally {
     Disconnect-PnPOnline
+    Stop-Transcript
 }
 ```
 [!INCLUDE [More about PnP PowerShell](../../docfx/includes/MORE-PNPPS.md)]
