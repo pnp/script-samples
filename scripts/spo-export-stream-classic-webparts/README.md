@@ -21,10 +21,10 @@ This sample script helps you understand how many Stream (Classic) Web Parts are 
 # [PnP PowerShell](#tab/pnpps)
 
 ```powershell
-# Usage example1 : If you do not want to open the folder with the CSV file after the script is complete
+# Usage example1 : If you do not want to open the folder with the CSV file after the script is completed.
 # .\spo-export-stream-classic-webparts.ps1 -siteUrl "https://contoso.sharepoint.com/PnPScriptSamples"
 #
-# Usage example2 : If you want to open the folder with the CSV file after the script is completed
+# Usage example2 : If you want to open the folder with the CSV file after the script is completed.
 # .\spo-export-stream-classic-webparts.ps1 -siteUrl "https://contoso.sharepoint.com/PnPScriptSamples" -openFolder
 
 [CmdletBinding()]
