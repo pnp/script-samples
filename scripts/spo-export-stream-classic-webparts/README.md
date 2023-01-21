@@ -21,6 +21,9 @@ This sample script helps you understand how many Stream (Classic) Web Parts are 
 # [PnP PowerShell](#tab/pnpps)
 
 ```powershell
+# Usage example:
+# .\spo-export-stream-classic-webparts.ps1 -siteUrl "https://contoso.sharepoint.com/PnPScriptSamples"
+
 [CmdletBinding()]
 param(
     [parameter(Mandatory = $true, HelpMessage = "URL of the SharePoint site, e.g.https://contoso.sharepoint.com/PnPScriptSamples")]
