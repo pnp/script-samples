@@ -21,13 +21,18 @@ This sample script helps you understand how many Stream (Classic) Web Parts are 
 # [PnP PowerShell](#tab/pnpps)
 
 ```powershell
-# Usage example:
+# Usage example1 : If you do not want to open the folder with the CSV file after the script is complete
 # .\spo-export-stream-classic-webparts.ps1 -siteUrl "https://contoso.sharepoint.com/PnPScriptSamples"
+#
+# Usage example2 : If you want to open the folder with the CSV file after the script is completed
+# .\spo-export-stream-classic-webparts.ps1 -siteUrl "https://contoso.sharepoint.com/PnPScriptSamples" -openFolder
 
 [CmdletBinding()]
 param(
     [parameter(Mandatory = $true, HelpMessage = "URL of the SharePoint site, e.g.https://contoso.sharepoint.com/PnPScriptSamples")]
-    [string]$siteUrl
+    [string]$siteUrl,
+    [parameter(HelpMessage = "If true, open the folder containing the CSV file after the script completes. Default is false")]
+    [switch]$openFolder = $false
 )
 
 $csvFolderPath = "$([Environment]::GetFolderPath("MyDocuments"))\Report-StreamClassicWebParts"
@@ -101,8 +106,14 @@ try {
         $streamWebParts | Export-Csv $csvFilePath -ErrorAction Stop
         Write-Host "Exporting to CSV file...Completed" -ForegroundColor Green
 
-        Write-Host "CSV file was created in the following location."
-        Write-Host $csvFilePath
+        Write-Host "-".PadRight(50,"-")
+        Write-Host "CSV file is located at:" -ForegroundColor Green
+        Write-Host $csvFilePath -ForegroundColor Green
+        Write-Host "-".PadRight(50,"-")
+
+        if ($openFolder) {
+            Invoke-Item -Path $csvFolderPath
+        }
     }
     catch {
         Write-Error "Error exporting stream web parts to $($csvFilePath). Error message: $_.Exception.Message"
@@ -123,7 +134,7 @@ finally {
 ## Contributors
 
 | Author(s)        |
-|------------------|
+| ---------------- |
 | Tetsuya Kawahara |
 
 [!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
