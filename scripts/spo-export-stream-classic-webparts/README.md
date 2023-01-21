@@ -21,7 +21,7 @@ This sample script helps you understand how many Stream (Classic) Web Parts are 
 The following is a sample of the output CSV.
 
 ```csv
-"WebPartInstanceId","SourceType","SourceVideo","SourceURL","PageTitle","PageURL","PageEditor"
+"WebPartInstanceId","SourceType","SourceVideoTitle","SourceURL","PageTitle","PageURL","PageEditor"
 "0f82b46f-4dbc-408c-afab-d97a26737dee","BROWSE",,"https://web.microsoftstream.com/embed/browse?app=SPO&displayMode=buttons&showDescription=true&sort=trending","Home.aspx","https://contoso.sharepoint.com/sites/ListFormatting/SitePages/Home.aspx","Tetsuya Kawahara"
 "e2e80eca-a5f0-4d7b-9dae-bf1cba05d62a","VIDEO","How to format columns","https://web.microsoftstream.com/embed/video/1234567-abcd-5678-abcd-012345abcde?app=SPO&autoplay=false&preload=none","AboutListFormatting.aspx","https://contoso.sharepoint.com/sites/ListFormatting/SitePages/AboutListFormatting.aspx","Adele Vance"
 "cbd36541-826a-48d1-bd8c-75588851a88f","CHANNEL",,"https://web.microsoftstream.com/embed/channel/1234567-abcd-5678-abcd-012345abcde?app=SPO&sort=trending","ColumnFormatting.aspx","https://contoso.sharepoint.com/sites/ListFormatting/SitePages/ColumnFormatting.aspx","Alex Wilber"
@@ -40,7 +40,7 @@ The following is a sample of the output CSV.
 param(
     [parameter(Mandatory = $true, HelpMessage = "URL of the SharePoint site, e.g.https://contoso.sharepoint.com/PnPScriptSamples")]
     [string]$siteUrl,
-    [parameter(HelpMessage = "If true, open the folder containing the CSV file after the script completes. Default is false")]
+    [parameter(Mandatory = $false, HelpMessage = "If true, open the folder containing the CSV file after the script completes. Default is false")]
     [switch]$openFolder = $false
 )
 
@@ -48,8 +48,8 @@ $csvFolderPath = "$([Environment]::GetFolderPath("MyDocuments"))\StreamClassicWe
 $logFolderPath = "$([Environment]::GetFolderPath("MyDocuments"))\StreamClassicWebPartsReport\log"
 
 # Create the log and csv folder if they don't exist
-if(!(Test-Path $csvFolderPath)){New-Item -ItemType Directory -Path $csvFolderPath}
-if(!(Test-Path $logFolderPath)){New-Item -ItemType Directory -Path $logFolderPath}
+if (!(Test-Path $csvFolderPath)) { New-Item -ItemType Directory -Path $csvFolderPath }
+if (!(Test-Path $logFolderPath)) { New-Item -ItemType Directory -Path $logFolderPath }
 
 # Start logging
 $timeStamp = (Get-Date).ToString("yyyyMMdd-HHmmss")
@@ -91,7 +91,7 @@ try {
                 $streamWebPart = [PSCustomObject]@{
                     WebPartInstanceId = $control.InstanceId
                     SourceType        = $controlProperties.sourceType
-                    SourceVideo       = $controlProperties.videoTitle
+                    SourceVideoTitle  = $controlProperties.videoTitle
                     SourceURL         = [regex]::Matches($controlProperties.embedCode, 'src="(.+?)"')[0].Value -replace 'src="', '' -replace '"', ''
                     PageTitle         = $item["FileLeafRef"]
                     PageURL           = "$($rootUrl)$($item["FileRef"])"
@@ -115,10 +115,10 @@ try {
         $streamWebParts | Export-Csv $csvFilePath -ErrorAction Stop
         Write-Host "Exporting to CSV file...Completed" -ForegroundColor Green
 
-        Write-Host "-".PadRight(50,"-")
+        Write-Host "-".PadRight(50, "-")
         Write-Host "CSV file is located at:" -ForegroundColor Green
         Write-Host $csvFilePath -ForegroundColor Green
-        Write-Host "-".PadRight(50,"-")
+        Write-Host "-".PadRight(50, "-")
 
         if ($openFolder) {
             Invoke-Item -Path $csvFolderPath
