@@ -23,7 +23,7 @@ The following is a description of the CSV columns and a sample CSV output.
 | Column Name       | Description                                                                       |
 | ----------------- | --------------------------------------------------------------------------------- |
 | WebPartInstanceId | Instance Id of the Stream (Classic) Web Part.                                     |
-| SourceType        | Type of source (BROWSE,VIDEO,CHANNEL) in the Stream (Classic) Web Part            |
+| SourceType        | Type of source (BROWSE,VIDEO,CHANNEL) in the Stream (Classic) Web Part.           |
 | SourceVideoTitle  | Title of the video (when SourceType is 'VIDEO') in the Stream (Classic) Web Part. |
 | SourceURL         | URL of the source in the Stream (Classic) Web Part.                               |
 | PageTitle         | Title of the page where Stream (Classic) Web Part is embedded.                    |
@@ -154,7 +154,7 @@ finally {
 
 | Author(s)        |
 |------------------|
-| Tetsuya Kawahara |
+| [Tetsuya Kawahara](https://github.com/tecchan1107) |
 
 [!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
 <img src="https://pnptelemetry.azurewebsites.net/script-samples/scripts/spo-export-stream-classic-webparts" aria-hidden="true" />
