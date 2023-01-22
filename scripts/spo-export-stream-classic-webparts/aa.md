@@ -1,0 +1,9 @@
+| Column Name       | Description                                                                                                                                                               |
+| ----------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| WebPartInstanceId | The value of this column is set to the Instance Id of the Stream (Classic) Web Part.                                                                                      |
+| SourceType        | The value of this column is set to the Source Type of the Stream (Classic) Web Part and has the following 3 values.<ul><li>BROWSE</li><li>VIDEO</li><li>CHANNEL</li></ul> |
+| SourceVideoTitle  | The value of this column is set to the title of the video set in the Stream (Classic) Web Part. However, it is set only when SourceType is "VIDEO".                       |
+| SourceURL         | The value of this column is set to the URL of the source set for the Stream (Classic) Web Part.                                                                           |
+| PageTitle         | The value of this column is set to the title of the page in which the Stream (Classic) Web Part is embedded.                                                              |
+| PageURL           | The value of this column is set to the URL of the page where the Stream (Classic) Web Part is embedded.                                                                   |
+| PageEditor        | The value of this column is set to the name of the editor of the page in which the Stream (Classic) Web Part is embedded.                                                 |
