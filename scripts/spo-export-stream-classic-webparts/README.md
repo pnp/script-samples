@@ -140,7 +140,6 @@ try {
 }
 catch {
     Write-Error "Error getting SitePages. Error message: $_.Exception.Message"
-    return
 }
 finally {
     Disconnect-PnPOnline
