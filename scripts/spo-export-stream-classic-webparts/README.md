@@ -20,15 +20,15 @@ This sample script helps you understand how many Stream (Classic) Web Parts are 
 
 The following is a description of the CSV columns and a sample CSV output.
 
-| Column Name       | Description                                                                                                                                                               |
-| ----------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| WebPartInstanceId | The value of this column is set to the Instance Id of the Stream (Classic) Web Part.                                                                                      |
-| SourceType        | The value of this column is set to the Source Type of the Stream (Classic) Web Part and has the following 3 values.<ul><li>BROWSE</li><li>VIDEO</li><li>CHANNEL</li></ul> |
-| SourceVideoTitle  | The value of this column is set to the title of the video set in the Stream (Classic) Web Part. However, it is set only when SourceType is "VIDEO".                       |
-| SourceURL         | The value of this column is set to the URL of the source set for the Stream (Classic) Web Part.                                                                           |
-| PageTitle         | The value of this column is set to the title of the page in which the Stream (Classic) Web Part is embedded.                                                              |
-| PageURL           | The value of this column is set to the URL of the page where the Stream (Classic) Web Part is embedded.                                                                   |
-| PageEditor        | The value of this column is set to the name of the editor of the page in which the Stream (Classic) Web Part is embedded.                                                 |
+| Column Name       | Description                                                                       |
+| ----------------- | --------------------------------------------------------------------------------- |
+| WebPartInstanceId | Instance Id of the Stream (Classic) Web Part.                                     |
+| SourceType        | Type of source (BROWSE,VIDEO,CHANNEL) in the Stream (Classic) Web Part            |
+| SourceVideoTitle  | Title of the video (when SourceType is 'VIDEO') in the Stream (Classic) Web Part. |
+| SourceURL         | URL of the source in the Stream (Classic) Web Part.                               |
+| PageTitle         | Title of the page where Stream (Classic) Web Part is embedded.                    |
+| PageURL           | URL of the page where Stream (Classic) Web Part is embedded.                      |
+| PageEditor        | Editor of the page where Stream (Classic) Web Part is embedded.                   |
 
 ```csv
 "WebPartInstanceId","SourceType","SourceVideoTitle","SourceURL","PageTitle","PageURL","PageEditor"
