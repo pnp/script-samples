@@ -41,16 +41,17 @@ foreach ($announcement in $announcements) {
 
 # [CLI for Microsoft 365 with PowerShell](#tab/cli-m365-ps)
 
-As of now, CLI for M365 does not support sending message on the Teams channel. As a workaround, you need to [create incoming webhook](https://learn.microsoft.com/en-us/microsoftteams/platform/webhooks-and-connectors/how-to/add-incoming-webhook) which  lets external applications to share content in Microsoft Teams channels.
-
 ```powershell
-# Example: .\Send-MessageCenterAnnouncementsToMSTeams.ps1 -Category "planForChange" -IncomingWebhookUrl "https://contoso.webhook.office.com/webhookb2/72e6dbda-4965-4516-9454-c3adf90aaf01@de348bc7-1aeb-4406-8cb3-97db021cadb4/IncomingWebhook/fb1ca3be60c94e00b7afb2510cd681ee/e1251b10-1ba4-49e3-b35a-933e3f21772b"
+# Example: .\Send-MessageCenterAnnouncementsToMSTeams.ps1 -Category "planForChange" -TeamName "Team Name" -ChannelName "Channel Name"
 
 [CmdletBinding()]
 param (
     [Parameter(Mandatory = $false, HelpMessage = "Specify category of the message center announcement")]
     [string]$Category = "planForChange",
-    [parameter(Mandatory = $true)][string]$IncomingWebhookUrl
+    [Parameter(Mandatory = $true, HelpMessage = "Specify the display name of the team to which the channel belongs to")]
+    [string]$TeamName,
+    [Parameter(Mandatory = $true, HelpMessage = "Specify the display name of the channel to post the message center announcements")]
+    [string]$ChannelName
 )
 
 begin {
@@ -69,31 +70,22 @@ process {
     $announcements = m365 tenant serviceannouncement message list --query "[?category == '$($Category)']" | ConvertFrom-Json
     Write-Host "Found $($announcements.Count) announcements to post to MS Teams channel"
 
+    # Get information about Microsoft Teams team with name
+    $teamInfo = m365 teams team get --name $TeamName | ConvertFrom-Json
+
+    # Get information about Microsoft Teams team channel with name
+    $channelInfo = m365 teams channel get --teamId $teamInfo.id --name $ChannelName | ConvertFrom-Json
+
     # Loop through the announcements and post to Teams channel
     foreach ($announcement in $announcements) {
         Write-Host "Sending message $($announcement.Title)..."
-		
-        $jsonBody = [PSCustomObject][Ordered]@{
-            "@type"      = "MessageCard"
-            "@context"   = "http://schema.org/extensions"
-            "summary"    = $announcement.Title
-            "themeColor" = '0078D7'
-            "title"      = $announcement.Title
-            "text"       = $announcement.body.content
-        }		
 
-        $parameters = @{
-            "URI"         = $IncomingWebhookUrl
-            "Method"      = 'POST'
-            "Body"        = ConvertTo-Json $jsonBody
-            "ContentType" = 'application/json'
-        }
-
-        Invoke-RestMethod @parameters | Out-Null
+        $message = "$($announcement.Title): $($announcement.Description)"
+        m365 teams message send --teamId $teamInfo.id --channelId $channelInfo.id --message $message
     }
 }
 end {
-    #m365 logout
+    m365 logout
     Write-Host "Finished" -ForegroundColor Green
 }
 ```
