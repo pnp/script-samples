@@ -54,6 +54,15 @@ param(
     [switch]$openFolder = $false
 )
 
+# Check if PnP PowerShell is installed
+$module = Get-Module -Name PnP.PowerShell* -ListAvailable
+if(!$module) {
+    Write-Error "PnP PowerShell is not installed. Please install PnP PowerShell and try again."
+    Write-Error "https://pnp.github.io/powershell/"
+    return
+}
+
+# Define folder paths for CSV and log files
 $csvFolderPath = "$([Environment]::GetFolderPath("MyDocuments"))\StreamClassicWebPartsReport"
 $logFolderPath = "$([Environment]::GetFolderPath("MyDocuments"))\StreamClassicWebPartsReport\log"
 
