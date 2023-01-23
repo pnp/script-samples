@@ -114,6 +114,9 @@ $outputPath = &quot;C:\temp\whereisthatTermidused.csv&quot;</p>
 <li role="presentation">
 <a href="#tabpanel_CeZOj-G++Q_pnpps" role="tab" aria-controls="tabpanel_CeZOj-G++Q_pnpps" data-tab="pnpps" tabindex="0" aria-selected="true">PnP PowerShell</a>
 </li>
+<li role="presentation">
+<a href="#tabpanel_CeZOj-G++Q_cli-m365-ps" role="tab" aria-controls="tabpanel_CeZOj-G++Q_cli-m365-ps" data-tab="cli-m365-ps" tabindex="-1">CLI for Microsoft 365</a>
+</li>
 </ul>
 <section id="tabpanel_CeZOj-G++Q_pnpps" role="tabpanel" data-tab="pnpps"><button class="article-clipboard" title="Copy to clipboard" data-toggle="tooltip" data-placement="top" data-clipboard-target="section[id^='tabpanel'][data-tab='pnpps'] pre">
     <span class="glyphicon glyphicon-copy" aria-hidden="true"></span>
@@ -227,6 +230,99 @@ $outputArray  | Export-Csv -Path $outputPath -Force -Encoding utf8BOM -Delimiter
 <p>Check out the <strong>PnP PowerShell</strong> to learn more at: <a href="https://aka.ms/pnp/powershell">https://aka.ms/pnp/powershell</a></p>
 </div>
 </section>
+<section id="tabpanel_CeZOj-G++Q_cli-m365-ps" role="tabpanel" data-tab="cli-m365-ps" aria-hidden="true" hidden="hidden"><button class="article-clipboard" title="Copy to clipboard" data-toggle="tooltip" data-placement="top" data-clipboard-target="section[id^='tabpanel'][data-tab='cli-m365-ps'] pre">
+    <span class="glyphicon glyphicon-copy" aria-hidden="true"></span>
+    <span class="article-clipboard__message done">Copied</span>
+</button>
+
+<pre><code class="lang-powershell">
+
+#Set Variables
+$targetTermSetId = &quot;cca0fb68-25e6-4b83-a998-9ad4e82c68f8&quot;
+$targetTermId = &quot;6816b2d7-ea71-4906-8f25-e45acc32ede2&quot;
+$outputPath = &quot;C:\temp\whereisthatTermidused.csv&quot; 
+
+#Get Credentials to connect
+$m365Status = m365 status
+if ($m365Status -match &quot;Logged Out&quot;) {
+   m365 login
+}
+
+function LookForTermInWeb ($webUrl, $title)
+{
+    $lists = m365 spo list list --webUrl $webUrl | ConvertFrom-Json
+    foreach($list in $lists)
+    {
+        if ($list.Hidden -eq 'False') { continue }
+        $taxfields = m365 spo field list --webUrl $webUrl --listTitle $list.Title  | ConvertFrom-Json
+        foreach($taxfield in $taxfields)
+        {
+            if($taxfield.TypeAsString -eq &quot;TaxonomyFieldType&quot; -and $taxfield.TermSetId -eq $targetTermSetId)
+            {
+                $listitems = m365 spo listitem list --listTitle $list.Title --webUrl $webUrl | ConvertFrom-Json
+                foreach($listitem in $listitems)
+                {
+                    $field = $listitem.&quot;$($taxfield.InternalName)&quot;
+                    if($field)
+                    {
+                        $termguid = $field.TermGuid
+                        if($termguid -and $termguid -eq $targetTermId)
+                        {
+                            $element = &quot;&quot; | Select-Object SiteUrl, Title, ListTitle, fieldname, fieldvalue
+                            $element.SiteUrl = $webUrl
+                            $element.Title =  $title
+                            $element.ListTitle = $list.Title
+                            $element.fieldname = $taxfield.Title
+                            $element.fieldvalue = $field.Label
+                            $outputArray.Add($element) | Out-Null
+                        }
+                    }
+                    
+                }
+            }
+        }
+    }
+}
+
+$outputArray = [System.Collections.ArrayList]@()
+ 
+Try {
+    #Connect to PnP Online
+    $SitesCollections = m365 spo site list | ConvertFrom-Json
+
+    $index = 0
+    #Loop through each site collection
+    ForEach($Site in $SitesCollections) 
+    { 
+        Write-host -ForegroundColor Green &quot;$($Site.Url ) , number $index of $($SitesCollections.Count)&quot;
+        $index++
+        Try 
+        {
+            LookForTermInWeb -webUrl $Site.Url -title $Site.Title
+            $SubSites = m365 spo web list --url $Site.Url | ConvertFrom-Json
+            ForEach ($web in $SubSites)
+            {
+                Write-host &quot;Web  : $($Web.Url)&quot;
+                LookForTermInWeb -webUrl $Web.Url -title $Site.Title
+            }
+        }
+        Catch {
+            write-host -f Red &quot;`tError:&quot; $_.Exception.Message
+        }
+    }
+}
+Catch {
+    write-host -f Red &quot;Error:&quot; $_.Exception.Message
+}
+
+$outputArray  | Export-Csv -Path $outputPath -Force -Encoding utf8BOM -Delimiter &quot;|&quot;
+
+
+</code></pre>
+<div class="highlight-tool">
+<p>Check out the <strong>CLI for Microsoft 365</strong> to learn more at: <a href="https://aka.ms/cli-m365">https://aka.ms/cli-m365</a></p>
+</div>
+</section>
 </div>
 <h2 id="contributors">Contributors</h2>
 <table>
@@ -237,13 +333,16 @@ $outputArray  | Export-Csv -Path $outputPath -Force -Encoding utf8BOM -Delimiter
 </thead>
 <tbody>
 <tr>
-<td>[Kasper Bo Larsen](<a href="https://github.com/kasperbolarsen%7C">https://github.com/kasperbolarsen|</a></td>
+<td><a href="https://github.com/kasperbolarsen">Kasper Bo Larsen</a></td>
+</tr>
+<tr>
+<td><a href="https://github.com/Adam-it">Adam Wójcik</a></td>
 </tr>
 </tbody>
 </table>
 <h2 id="disclaimer">Disclaimer</h2>
 <p><strong>THESE SAMPLES ARE PROVIDED <em>AS IS</em> WITHOUT WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, INCLUDING ANY IMPLIED WARRANTIES OF FITNESS FOR A PARTICULAR PURPOSE, MERCHANTABILITY, OR NON-INFRINGEMENT.</strong></p>
-<img src="https://pnptelemetry.azurewebsites.net/script-samples/scripts/report-private-teams-excel" aria-hidden="true">
+<img src="https://pnptelemetry.azurewebsites.net/script-samples/scripts/report-term-use" aria-hidden="true">
 </article>
           </div>
         </div>
