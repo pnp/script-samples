@@ -1,0 +1,58 @@
+[
+  {
+    "name": "spo-grant-app-site-permission",
+    "source": "pnp",
+    "title": "Grant permissions for a given Azure Active Directory application registration",
+    "shortDescription": "Simplifies the process of granting FullControl or Manage permissions for an application registration in a SharePoint site collection",
+    "url": "https://pnp.github.io/script-samples/spo-grant-app-site-permission/README.html",
+    "longDescription": [
+      ""
+    ],
+    "creationDateTime": "2023-01-22",
+    "updateDateTime": "2023-01-22",
+    "products": [
+      "SharePoint",
+      "Azure"
+    ],
+    "metadata": [
+      {
+        "key": "PNP-POWERSHELL",
+        "value": "1.11.0"
+      }
+    ],
+    "categories": [
+      "Configure",
+      "Security"
+    ],
+    "tags": [
+      "Connect-PnPOnline",
+      "Get-PnPAzureADApp",
+      "Get-PnPAzureADAppSitePermission",
+      "Grant-PnPAzureADAppSitePermission",
+      "Set-PnPAzureADAppSitePermission"
+    ],
+    "thumbnails": [
+      {
+        "type": "image",
+        "order": 100,
+        "url": "https://raw.githubusercontent.com/pnp/script-samples/main/scripts/spo-grant-app-site-permission/assets/preview.png",
+        "alt": "Preview of the sample Grant permissions for a given Azure Active Directory application registration"
+      }
+    ],
+    "authors": [
+      {
+        "gitHubAccount": "mromiszewski",
+        "company": "",
+        "pictureUrl": "https://github.com/mromiszewski.png",
+        "name": "Michał Romiszewski"
+      }
+    ],
+    "references": [
+      {
+        "name": "Want to learn more about PnP PowerShell and the cmdlets",
+        "description": "Check out the PnP PowerShell site to get started and for the reference to the cmdlets.",
+        "url": "https://aka.ms/pnp/powershell"
+      }
+    ]
+  }
+]

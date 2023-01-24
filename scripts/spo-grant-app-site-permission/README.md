@@ -1,10 +1,11 @@
 ---
-plugin: add-to-gallery-preparation
+plugin: add-to-gallery
 ---
 
 # Grant permissions for a given Azure Active Directory application registration
 
 ## Summary
+
 This script simplifies the process of granting `FullControl` or `Manage` permissions for an application registration in a SharePoint site collection, specifically when used in conjunction with the Azure Active Directory SharePoint application permission `Sites.Selected`.
 
 # [PnP PowerShell](#tab/pnpps)
