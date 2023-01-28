@@ -2,7 +2,7 @@
 plugin: add-to-gallery
 ---
 
-# Create and add list template to SharePoint site with content types,site columns and list views 
+# Creates and apply site designs
 
 ## Summary
 
