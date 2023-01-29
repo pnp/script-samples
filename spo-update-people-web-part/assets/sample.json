@@ -1,0 +1,55 @@
+[
+  {
+    "name": "spo-update-people-web-part",
+    "source": "pnp",
+    "title": "Sample showing how to ensure that the Role/Title in each People web part is updated",
+    "shortDescription": "Sample showing how to ensure that the Role/Title in each People web is updated",
+    "url": "https://pnp.github.io/script-samples/spo-update-people-web-part/README.html",
+    "longDescription": [
+      "Not entirely sure if the Role/Title field shown in the People Web part is supposed to be updated by MS on some sort of schedule. If that is the case this trigger either has an error or takes forever to be triggered. This script will ensure that the title is correct, at least for now."
+    ],
+    "creationDateTime": "2023-01-26",
+    "updateDateTime": "2023-01-26",
+    "products": [
+      "SharePoint"
+    ],
+    "metadata": [
+      {
+        "key": "PNP-POWERSHELL",
+        "value": "1.10.0"
+      }
+    ],
+    "categories": [
+      "Data"
+    ],
+    "tags": [
+      "Connect-PnPOnline",
+      "Get-PnPUserProfileProperty",
+      "Export-Csv",
+      "Get-PnPClientSidePage",
+      "Get-PnPTenantSite"
+    ],
+    "thumbnails": [
+      {
+        "type": "image",
+        "order": 100,
+        "url": "https://raw.githubusercontent.com/pnp/script-samples/main/scripts/spo-update-people-web-part/assets/preview.png",
+        "alt": "Preview image of the sample showing how to ensure that the Role/Title in each People web part is updated"
+      }
+    ],
+    "authors": [
+      {
+        "gitHubAccount": "Kasperbolarsen",
+        "pictureUrl": "https://avatars.githubusercontent.com/u/20593570?s=400&u=f9a4d5137685d8c3fcc60394fc193f3e8156f678&v=4",
+        "name": "Kasper Larsen"
+      }
+    ],
+    "references": [
+      {
+        "name": "Want to learn more about PnP PowerShell and the cmdlets",
+        "description": "Check out the PnP PowerShell site to get started and for the reference to the cmdlets.",
+        "url": "https://aka.ms/pnp/powershell"
+      }
+    ]
+  }
+]
