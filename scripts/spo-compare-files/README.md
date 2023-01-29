@@ -2,7 +2,7 @@
 plugin: add-to-gallery
 ---
 
-# Get and compare documents hash from diferent tenants
+# Get and compare documents hash from different tenants
 
 ## Summary
 
