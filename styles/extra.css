@@ -380,7 +380,10 @@ li.md-nav__item .md-nav__link:active, li.md-nav__item .md-nav__link:hover {
 }
 
 .filter-section .search-input-wrapper {
-    margin: 20px 0;
+    margin-top:25px;
+    margin-bottom: 20px;
+    margin-left: 20px;
+
     max-width: 320px;
     min-width: 320px;
 }
@@ -422,8 +425,8 @@ li.md-nav__item .md-nav__link:active, li.md-nav__item .md-nav__link:hover {
 }
 
 .search-input-wrapper:focus-within {
-    border: 1px solid #0078D4;
-    outline: 1px solid #0078D4;
+    border: 1px solid #428e92;
+    outline: 1px solid #428e92;
 }
 
 .search-input-wrapper:focus-within .icon-container {
@@ -506,23 +509,22 @@ li.md-nav__item .md-nav__link:active, li.md-nav__item .md-nav__link:hover {
 }
 
 .producttype-item.active, .sampletype-item.active {
-    border: 1px solid #0078d4;
-    background-color: #ffffff;
-    color: #0078D4;
+    background-color: #428e92;
+    color: #ffffff;
 }
 
 .producttype-item:hover, .sampletype-item:hover {
-    border: 1px solid #0078d4;
-    background-color: #ffffff;
-    color: #0078D4;
+    border: 1px solid #3b7d81;
+    background-color: #F7F7FC;
+    color: #34393e;
 }
 
 .producttype-item, .sampletype-item {
     min-width: 42px;
     width: 42px;
     height: 42px;
-    background-color: #F7F7FC;
-    border: 1px solid #ffffff;
+    /* background-color: #f0feff; */
+    border: 1px solid #f5f5f5;
     border-radius: 25px;
     transition: all 0.3s ease-in-out;
     cursor: pointer;
@@ -542,7 +544,7 @@ li.md-nav__item .md-nav__link:active, li.md-nav__item .md-nav__link:hover {
 
 .producttype-item::after, .sampletype-item::after  {
     content: attr(title);
-    background-color: #0078D4;
+    background-color: #428e92;
     color: #ffffff;
     font-size: 14px;
     border-radius: 2px;
@@ -724,7 +726,7 @@ TODO: Move styles
     /* transition: all 0.3s ease-in-out; */
     transition: background 0.4s, box-shadow 0.4s;
     /* box-shadow: 0 20px 10px -15px rgb(197 192 249 / 20%); */
-    background-color: rgba(255, 255, 255, 0.8);
+    /* background-color: rgba(255, 255, 255, 0.8); */
     text-align: center;
     height: auto;
     /* box-shadow: 0 0 4px 2px rgb(0 0 0 / 5%); */
@@ -1074,11 +1076,19 @@ TODO: Move styles
 
 .filter-section .filter-list{
     margin: 20px 0;
+    margin-right: 20px;
 }
 
 .well{
-    background-color: inherit;
+    /* background-color: inherit; */
     border: 0;
+    /* margin-bottom: 0; */
+    padding: 0;
+    margin-top: 10px;
+
+    --webkit-box-shadow: none;
+    box-shadow: none;
+
 }
 
 p.sample-title {
