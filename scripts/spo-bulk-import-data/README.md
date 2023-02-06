@@ -97,9 +97,6 @@ Catch {
 }
 
 ```
-![Results Screenshot](assets/preview.png)
-
-
 [!INCLUDE [More about PnP PowerShell](../../docfx/includes/MORE-PNPPS.md)]
 
 ***
