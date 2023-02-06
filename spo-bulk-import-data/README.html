@@ -1,0 +1,249 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html lang="en">
+  
+  <head>
+    <meta charset="utf-8">
+    <title>Bulk import data from multiple files to multiple lists | PnP Samples </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Bulk import data from multiple files to multiple lists | PnP Samples ">
+    <meta name="generator" content="docfx 2.56.7.0">
+    <meta name="description" content="A sample gallery of scripts to manage all things Microsoft 365.">
+  
+    <!-- Social Media -->
+    <meta property="og:locale" content="en_GB">
+    <meta property="og:title" content="Bulk import data from multiple files to multiple lists | PnP Samples ">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://pnp.github.io/script-samples">
+    <meta property="og:image" content="https://pnp.github.io/script-samples/assets/social-media-screenshot.png">
+    <meta property="og:image:alt" content="Screenshot example of the PnP Script Samples Site">
+    <meta property="og:site_name" content="PnP Script Samples">
+    <meta property="og:description" content="A sample gallery of scripts to manage all things Microsoft 365.">
+  
+    <link rel="shortcut icon" href="https://c.s-microsoft.com/favicon.ico?v2">
+    <link rel="stylesheet" href="../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../styles/docfx.css">
+    <link rel="stylesheet" href="../styles/main.css">
+    <link rel="stylesheet" href="../styles/extra.css">
+    <link rel="stylesheet" href="../styles/filter.css">
+    <link rel="stylesheet" href="../styles/site.css">
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet"> 
+    <meta property="docfx:navrel" content="../toc.html">
+    <meta property="docfx:tocrel" content="../toc.html">
+    
+    
+    <meta property="docfx:newtab" content="true">
+    <script type="text/javascript">
+      (function(c,l,a,r,i,t,y){
+          c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+          t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+          y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+      })(window, document, "clarity", "script", "8j6pedl344");
+  </script>
+  </head>  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+             <div class="github-mark">
+              <a href="https://github.com/pnp/script-samples" title="Go to repository">
+               <div class="github-wrapper">
+                  <div class="github-icon">
+                    <img src="https://pnp.github.io/script-samples/assets/icons/github-light-64px.png" alt="GitHub Icon Image">
+                  </div>
+                  <div class="github-repository">
+                    <span>GitHub</span>
+                    <ul class="github-facts">
+                      <li>
+                        <i class="fa fa-code-fork" aria-hidden="true"></i>
+                        <span class="github-forks"></span>
+                      </li>
+                      <li>
+                        <i class="fa fa-star-o" aria-hidden="true"></i>
+                        <span class="github-stars"></span>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </a>
+            </div>
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../assets/logo.svg" alt="">
+              </a>    </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <label class="glyphicon glyphicon-search" for="search-query"></label>
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>      </header>
+      <div role="main" class="container body-content hide-when-search">
+        <div class="article row grid">
+          <div class="col-md-12">
+            <article class="content wrap" id="_content" data-uid="">
+                  <div class="contribution-panel mobile-hide pull-right">
+                      <a href="https://github.com/pnp/script-samples/blob/main/scripts/spo-bulk-import-data/README.md/#L1" title="Improve this Doc" class="improve-doc-lg"><i class="glyphicon glyphicon-pencil"></i></a>
+                  </div>
+                    <h1 id="bulk-import-data-from-multiple-files-to-multiple-lists">Bulk import data from multiple files to multiple lists</h1>
+
+<h2 id="summary">Summary</h2>
+<p>The script can help import test data in bulk into multiple lists in SharePoint Online.</p>
+<p><img src="assets/example.png" alt="Example Screenshot"></p>
+<div class="tabGroup" id="tabgroup_CeZOj-G++Q">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_CeZOj-G++Q_pnpps" role="tab" aria-controls="tabpanel_CeZOj-G++Q_pnpps" data-tab="pnpps" tabindex="0" aria-selected="true">PnP PowerShell</a>
+</li>
+</ul>
+<section id="tabpanel_CeZOj-G++Q_pnpps" role="tabpanel" data-tab="pnpps"><button class="article-clipboard" title="Copy to clipboard" data-toggle="tooltip" data-placement="top" data-clipboard-target="section[id^='tabpanel'][data-tab='pnpps'] pre">
+    <span class="glyphicon glyphicon-copy" aria-hidden="true"></span>
+    <span class="article-clipboard__message done">Copied</span>
+</button>
+
+<pre><code class="lang-powershell">#The script is to import sample data into a test environment for one or multiple lists
+$config = @{ lists = @(&quot;Product Types&quot;,&quot;Managers&quot;, &quot;Products&quot;,&quot;Product Feedback&quot; ) }
+
+
+#Config Variables
+$SiteURL = &quot;https://tenant.sharepoint.com/teams/test&quot;
+#the file names need to match the list names provided in the lists array.
+$path = &quot;E:\Sample_Data\&quot;
+
+
+#Function to get Lookup ID from Lookup Value
+Function Get-LookupID($listName, $LookupFieldName, $LookupValue)
+{
+    #Get Parent Lookup List and Field from Child Lookup Field's Schema XML
+    $LookupField =  Get-PnPField -List $listName -Identity $LookupFieldName
+    [Xml]$Schema = $LookupField.SchemaXml
+    $ParentListID = $Schema.Field.Attributes[&quot;List&quot;].'#text'
+    $ParentField  = $Schema.field.Attributes[&quot;ShowField&quot;].'#text'
+    $ParentLookupItem  = Get-PnPListItem -List $ParentListID -Fields $ParentField | Where {$_[$ParentField] -eq $LookupValue} | Select -First 1
+    If($ParentLookupItem -ne $Null)  { Return $ParentLookupItem[&quot;ID&quot;] }  Else  { Return $Null }
+}
+
+Try {
+    #Connect to the Site
+    Connect-PnPOnline -URL $SiteURL -Interactive
+
+
+    foreach($listName in $config.lists){
+      $CSVFilePath = &quot;{0}{1}{2}{3}&quot; -f  $path,&quot;\&quot;,$listName ,&quot;.csv&quot;
+      #Get the data from CSV file
+      $CSVData = Import-CSV $CSVFilePath
+
+      #Get the List to Add Items
+      $List = Get-PnPList -Identity $listName
+
+       #Get fields to Update from the List - Skip Read only, hidden fields, content type and attachments
+       $ListFields = Get-PnPField -List $listName | Where { (-Not ($_.ReadOnlyField)) -and (-Not ($_.Hidden)) -and ($_.InternalName -ne  &quot;ContentType&quot;) -and ($_.InternalName -ne  &quot;Attachments&quot;) }
+
+       #Loop through each Row in the CSV file and update the matching list item ID
+       ForEach($Row in $CSVData){
+         #Frame the List Item to update
+         $ItemValue = @{}           
+         $CSVFields = $Row | Get-Member -MemberType NoteProperty | Select -ExpandProperty Name
+         #Map each field from CSV to target list
+         Foreach($CSVField in $CSVFields){
+            $MappedField = $ListFields | Where {$_.InternalName -eq $CSVField}
+            If($MappedField -ne $Null){
+               $FieldName = $MappedField.InternalName
+                #Check if the Field value is not Null
+                If($Row.$CSVField -ne $Null){
+                    #Handle Special Fields
+                    $FieldType  = $MappedField.TypeAsString
+                    If($FieldType -eq &quot;User&quot; -or $FieldType -eq &quot;UserMulti&quot;){ #People Picker Field
+                        $PeoplePickerValues = $Row.$FieldName.Split(&quot;,&quot;)
+                        $ItemValue.add($FieldName,$PeoplePickerValues)
+                    }
+                    ElseIf($FieldType -eq &quot;Lookup&quot; -or $FieldType -eq &quot;LookupMulti&quot;){ #Lookup Field
+                        $LookupIDs = $Row.$FieldName.Split(&quot;,&quot;) | ForEach-Object { Get-LookupID -ListName $listName -LookupFieldName $FieldName -LookupValue $_ }               
+                        $ItemValue.Add($FieldName,$LookupIDs)
+                    }
+                    ElseIf($FieldType -eq &quot;DateTime&quot;){
+                       if($Row.$FieldName -ne &quot;&quot;){
+                          $datetime = [datetime]::ParseExact( $Row.$FieldName, 'dd/MM/yyyy', $null)
+                         $ItemValue.Add($FieldName,$datetime)
+                      }
+                    }
+                    Else{
+                        #Get Source Field Value and add to Hashtable
+                        $ItemValue.Add($FieldName,$Row.$FieldName)
+                    }
+                }
+            }
+        }
+        Write-host &quot;Adding List item with values:&quot;
+        $ItemValue | Format-Table
+        #Add New List Item
+        Add-PnPListItem -List $listName -Values $ItemValue | Out-Null
+    }
+  }
+}
+Catch {
+    write-host &quot;Error: $($_.Exception.Message)&quot; -foregroundcolor Red
+}
+
+</code></pre>
+<div class="highlight-tool">
+<p>Check out the <strong>PnP PowerShell</strong> to learn more at: <a href="https://aka.ms/pnp/powershell">https://aka.ms/pnp/powershell</a></p>
+</div>
+</section>
+</div>
+<h2 id="contributors">Contributors</h2>
+<table>
+<thead>
+<tr>
+<th>Author(s)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Reshmee Auckloo</td>
+</tr>
+</tbody>
+</table>
+<h2 id="disclaimer">Disclaimer</h2>
+<p><strong>THESE SAMPLES ARE PROVIDED <em>AS IS</em> WITHOUT WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, INCLUDING ANY IMPLIED WARRANTIES OF FITNESS FOR A PARTICULAR PURPOSE, MERCHANTABILITY, OR NON-INFRINGEMENT.</strong></p>
+<img src="https://pnptelemetry.azurewebsites.net/script-samples/scripts/spo-bulk-import-data" aria-hidden="true">
+</article>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            <span>Script Samples<br>Generated by <strong><a href='https://dotnet.github.io/docfx' alt='Doc FX Website'>DocFX</a></strong> with <strong><a href='https://ovasquez.github.io/docfx-material' alt='DocFx Material Theme'>Material UI</a></strong></span>
+            
+            <!-- <img src="https://telemetry.sharepointpnp.com/@pnp.github.io/index/" alt="spacer"> -->
+          </div>
+        </div>
+      </footer>    </div>
+    
+    <script type="text/javascript" src="../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+    
+    <script type="text/javascript" src="../styles/clipboard.min.js"></script>
+    <script type="text/javascript" src="../styles/isotope.pkgd.min.js"></script>
+    <script type="text/javascript" src="../styles/loadsamples.js"></script>
+    <script type="text/javascript" src="../styles/filtersamples.js"></script>
+
+  </body>
+</html>
