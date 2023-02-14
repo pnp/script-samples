@@ -1,0 +1,54 @@
+[
+  {
+    "name": "spo-get-items-not-indexed-since-last-update",
+    "source": "pnp",
+    "title": "Pinpoint the items/docs that hasn't been indexed yet",
+    "shortDescription": "Pinpoint the items/docs that hasn't been indexed yet since the last time the item was updated",
+    "url": "https://pnp.github.io/script-samples/spo-get-items-not-indexed-since-last-update/README.html",
+    "longDescription": [
+      "Pinpoint the items/docs that hasn't been indexed yet since the last time the item was updated. Usefull for debugging issues where Search seems slow and your results seems wrong"
+    ],
+    "creationDateTime": "2023-02-14",
+    "updateDateTime": "2023-02-14",
+    "products": [
+      "SharePoint"
+    ],
+    "metadata": [
+      {
+        "key": "PNP-POWERSHELL",
+        "value": "1.12.0"
+      }
+    ],
+    "categories": [
+      "Data"
+    ],
+    "tags": [
+      "Connect-PnPOnline",
+      "Get-PnPList",
+      "Get-PnPListItem",
+      "Get-PnPSearchCrawlLog"
+    ],
+    "thumbnails": [
+      {
+        "type": "image",
+        "order": 100,
+        "url": "https://raw.githubusercontent.com/pnp/script-samples/main/scripts/spo-get-items-not-indexed-since-last-update/assets/preview.png",
+        "alt": ""
+      }
+    ],
+    "authors": [
+      {
+        "gitHubAccount": "kasperbolarsen",
+        "pictureUrl": "https://avatars.githubusercontent.com/u/20593570?v=4",
+        "name": "Kasper Larsen"
+      }
+    ],
+    "references": [
+      {
+        "name": "Want to learn more about PnP PowerShell and the cmdlets",
+        "description": "Check out the PnP PowerShell site to get started and for the reference to the cmdlets.",
+        "url": "https://aka.ms/pnp/powershell"
+      }
+    ]
+  }
+]
