@@ -2,7 +2,7 @@
 plugin: add-to-gallery
 ---
 
-# Bulk Email Send from CSV
+# Bulk Email Send from CSV using Microsoft Graph API
 
 ## Summary
 
@@ -14,7 +14,7 @@ Below is table to showcase what all fields are required to add in csv and its de
 | Column Name | Details  | Comment  |
 |---|---|---|
 | Sender | The email sender |   This can be any email id of your own or any other user's email id |
-| Receiver | Receipient email addresses | You can specify multiple email ids here separated with comma (,)   |
+| Receiver | Recipient email addresses | You can specify multiple email ids here separated with comma (,)   |
 | CC | CC email addresses|  You can specify multiple email ids here separated with comma (,) |
 | BCC| BCC email addresses|  You can specify multiple email ids here separated with comma (,) |
 | Subject | Subject of email | |
@@ -27,7 +27,7 @@ Please keep file in the same location as script.
 Also the attachments referred in csv should match the file path of your local machine.
 
 ## Permissions
-As the script use App Regisration Application Permission, please make sure you are have given below permission for the Azure AD App
+As the script use App Registration Application Permission, please make sure you are have given below permission for the Azure AD App
 
 ![Permission](assets/API_Permissions.png)
 ![Script Screenshot](assets/running-script.png)
@@ -146,5 +146,5 @@ As the script use App Regisration Application Permission, please make sure you a
 | [Siddharth Vaghasia](https://github.com/siddharth-vaghasia) |
 
 [!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
-TODO <img src="https://pnptelemetry.azurewebsites.net/script-samples/scripts/powerapps-bulk-useraccess" aria-hidden="true" />
+<img src="https://pnptelemetry.azurewebsites.net/script-samples/scripts/graph-send-email-from-csv-onbehalf-of-user" aria-hidden="true" />
 
