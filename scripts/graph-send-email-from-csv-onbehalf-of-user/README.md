@@ -30,7 +30,6 @@ Also the attachments referred in csv should match the file path of your local ma
 As the script use App Registration Application Permission, please make sure you are have given below permission for the Azure AD App
 
 ![Permission](assets/API_Permissions.png)
-![Script Screenshot](assets/running-script.png)
 
 ## Implementation
 
