@@ -32,11 +32,14 @@ Get-PnPTenantSite -Detailed | select url | ForEach-Object {
      $ExportVw | Add-Member -MemberType NoteProperty -name "Site URL" -value $Site.url
      $ExportVw | Add-Member -MemberType NoteProperty -name "Package Name" -value $packageName      
       
-      $isAppCat = Get-PnPSiteCollectionAppCatalog -CurrentSite
-      if(!$isAppCat){
-        Add-PnPSiteCollectionAppCatalog 
-        Start-Sleep -Seconds 5 
-      }
+#ensure app catalog
+      if(!(Get-PnPSiteCollectionAppCatalog -CurrentSite)){
+        Add-PnPSiteCollectionAppCatalog
+      }
+     while(!(Get-PnPSiteCollectionAppCatalog -CurrentSite)){
+        Start-Sleep -Seconds 20
+     }
+
     add-pnpapp -Path $packagePath -Scope Site -Overwrite -Publish
      Start-Sleep -Seconds 5       # Get the current version of the SPFx package
     $currentPackage = Get-PnPApp -Identity $packageName -Scope Site
