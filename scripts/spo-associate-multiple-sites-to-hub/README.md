@@ -6,7 +6,7 @@ plugin: add-to-gallery
 
 ## Summary
 
-This PowerShell script can be used to  associate mutilple sites to associated site collection with the provided as input in array...
+This PowerShell script can be used to  associate mutilple site collections to HUB site. you can provide list of site collection urls in the array.
 
 ## Implementation
 
@@ -55,7 +55,7 @@ This PowerShell script can be used to  associate mutilple sites to associated si
 
 | Author(s) |
 |-----------|
-| [Siddharth Vaghasia](https://github.com/siddharth-vaghasia) |
+| [Siddharth Vaghasia](https://github.com/siddharth-vaghasia)
 
 [!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
 TODO <img src="https://pnptelemetry.azurewebsites.net/script-samples/scripts/spo-associate-multiple-sites-to-hub" aria-hidden="true" />
