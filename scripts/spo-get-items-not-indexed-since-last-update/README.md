@@ -6,9 +6,7 @@ plugin: add-to-gallery
 
 ## Summary
 
-This script will enable you to pinpoint the items/docs that hasn't been indexed yet. This can be a usefull tool if it looks like Search is kinda slow, and your results seems wrong.
-
-PnP PowerShell
+This script will enable you to pinpoint the items/docs that hasn't been indexed yet. This can be a useful tool if it looks like Search is kinda slow, and your results seems wrong.
 
 ## Implementation
 
