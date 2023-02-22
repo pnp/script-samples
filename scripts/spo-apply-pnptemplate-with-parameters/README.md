@@ -2,7 +2,9 @@
 plugin: add-to-gallery
 ---
 
-# This sample shows how you can extract a PnP Provisioning template , update the XML and use parameters with Invoke-PnPSiteTemplate in order to name a Document Library and a View according to your requirements. In this sample the title of the library and the view is based on the LocaleId of the Site Collection where we apply the template.
+# Use Invoke-PnPSiteTemplate with parameters
+
+This sample shows how you can extract a PnP Provisioning template , update the XML and use parameters with Invoke-PnPSiteTemplate in order to name a Document Library and a View according to your requirements. In this sample the title of the library and the view is based on the LocaleId of the Site Collection where we apply the template.
 
 ## Summary
 
