@@ -58,4 +58,4 @@ This PowerShell script can be used to  associate mutilple site collections to HU
 | [Siddharth Vaghasia](https://github.com/siddharth-vaghasia)
 
 [!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
-TODO <img src="https://pnptelemetry.azurewebsites.net/script-samples/scripts/spo-associate-multiple-sites-to-hub" aria-hidden="true" />
+<img src="https://pnptelemetry.azurewebsites.net/script-samples/scripts/spo-associate-multiple-sites-to-hub" aria-hidden="true" />
