@@ -1,0 +1,328 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html lang="en">
+  
+  <head>
+    <meta charset="utf-8">
+    <title>Use Invoke-PnPSiteTemplate with parameters | PnP Samples </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Use Invoke-PnPSiteTemplate with parameters | PnP Samples ">
+    <meta name="generator" content="docfx 2.56.7.0">
+    <meta name="description" content="A sample gallery of scripts to manage all things Microsoft 365.">
+  
+    <!-- Social Media -->
+    <meta property="og:locale" content="en_GB">
+    <meta property="og:title" content="Use Invoke-PnPSiteTemplate with parameters | PnP Samples ">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://pnp.github.io/script-samples">
+    <meta property="og:image" content="https://pnp.github.io/script-samples/assets/social-media-screenshot.png">
+    <meta property="og:image:alt" content="Screenshot example of the PnP Script Samples Site">
+    <meta property="og:site_name" content="PnP Script Samples">
+    <meta property="og:description" content="A sample gallery of scripts to manage all things Microsoft 365.">
+  
+    <link rel="shortcut icon" href="https://c.s-microsoft.com/favicon.ico?v2">
+    <link rel="stylesheet" href="../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../styles/docfx.css">
+    <link rel="stylesheet" href="../styles/main.css">
+    <link rel="stylesheet" href="../styles/extra.css">
+    <link rel="stylesheet" href="../styles/filter.css">
+    <link rel="stylesheet" href="../styles/site.css">
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet"> 
+    <meta property="docfx:navrel" content="../toc.html">
+    <meta property="docfx:tocrel" content="../toc.html">
+    
+    
+    <meta property="docfx:newtab" content="true">
+    <script type="text/javascript">
+      (function(c,l,a,r,i,t,y){
+          c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+          t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+          y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+      })(window, document, "clarity", "script", "8j6pedl344");
+  </script>
+  </head>  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+             <div class="github-mark">
+              <a href="https://github.com/pnp/script-samples" title="Go to repository">
+               <div class="github-wrapper">
+                  <div class="github-icon">
+                    <img src="https://pnp.github.io/script-samples/assets/icons/github-light-64px.png" alt="GitHub Icon Image">
+                  </div>
+                  <div class="github-repository">
+                    <span>GitHub</span>
+                    <ul class="github-facts">
+                      <li>
+                        <i class="fa fa-code-fork" aria-hidden="true"></i>
+                        <span class="github-forks"></span>
+                      </li>
+                      <li>
+                        <i class="fa fa-star-o" aria-hidden="true"></i>
+                        <span class="github-stars"></span>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </a>
+            </div>
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../assets/logo.svg" alt="">
+              </a>    </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <label class="glyphicon glyphicon-search" for="search-query"></label>
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>      </header>
+      <div role="main" class="container body-content hide-when-search">
+        <div class="article row grid">
+          <div class="col-md-12">
+            <article class="content wrap" id="_content" data-uid="">
+                  <div class="contribution-panel mobile-hide pull-right">
+                      <a href="https://github.com/pnp/script-samples/blob/main/scripts/spo-apply-pnptemplate-with-parameters/README.md/#L1" title="Improve this Doc" class="improve-doc-lg"><i class="glyphicon glyphicon-pencil"></i></a>
+                  </div>
+                    <h1 id="use-invoke-pnpsitetemplate-with-parameters">Use Invoke-PnPSiteTemplate with parameters</h1>
+
+<p>This sample shows how you can extract a PnP Provisioning template , update the XML and use parameters with Invoke-PnPSiteTemplate in order to name a Document Library and a View according to your requirements. In this sample the title of the library and the view is based on the LocaleId of the Site Collection where we apply the template.</p>
+<h2 id="summary">Summary</h2>
+<p>Rather then creating a PnP Provisioning Template for each supported language this sample shows how to manage the naming using parameters when using Invoke-PnPSiteTemplate.</p>
+<h2 id="implementation">Implementation</h2>
+<ul>
+<li>Open VS Code</li>
+<li>Create a new file</li>
+<li>Copy the code below,</li>
+<li>Change the variables to target to your environment</li>
+<li>Run the script.</li>
+</ul>
+<h2 id="screenshot-of-output">Screenshot of Output</h2>
+<p><img src="assets/preview.png" alt="Example Screenshot"></p>
+<div class="tabGroup" id="tabgroup_CeZOj-G++Q">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_CeZOj-G++Q_pnpps" role="tab" aria-controls="tabpanel_CeZOj-G++Q_pnpps" data-tab="pnpps" tabindex="0" aria-selected="true">PnP PowerShell</a>
+</li>
+</ul>
+<section id="tabpanel_CeZOj-G++Q_pnpps" role="tabpanel" data-tab="pnpps"><button class="article-clipboard" title="Copy to clipboard" data-toggle="tooltip" data-placement="top" data-clipboard-target="section[id^='tabpanel'][data-tab='pnpps'] pre">
+    <span class="glyphicon glyphicon-copy" aria-hidden="true"></span>
+    <span class="article-clipboard__message done">Copied</span>
+</button>
+
+<pre><code class="lang-powershell">
+# Extract PnP Provisioning template and apply it using Parameter , using PS7.3 and PnP.Powershell 1.12*
+# Made by Kasper Larsen, Fellowmind DK
+
+
+
+
+#extract XML from the source site
+function Extract-PnPSiteTemplate 
+{
+    param ([Parameter(Mandatory=$true)][string]$sourceSiteUrl,[Parameter(Mandatory=$true)][string]$path)
+
+    #connect using one of the options, Interactive if running supervised, and clientid, tenant and thumbprint if unsupervised
+    $conn = Connect-PnPOnline -Url $sourceSiteUrl -ReturnConnection -Interactive -ForceAuthentication
+    $dummy = Get-PnPSiteTemplate -Out $path -Schema V202103 -Connection $conn -force -ListsToExtract &quot;TBD&quot; -ExcludeHandlers Navigation
+
+    #Injecting the parameter , in this case &quot;ListTitle&quot; into the XML.
+    #This can be done by editing the XML by hand or by code like this:
+    [XML]$content = Get-Content -Path $path -Encoding utf8BOM
+    $Namespace = New-Object -TypeName &quot;Xml.XmlNamespaceManager&quot; -ArgumentList $content.NameTable
+    $Namespace.AddNamespace(&quot;pnp&quot;, $content.DocumentElement.NamespaceURI)
+    
+
+    
+    $nodes = $content.SelectNodes(&quot;//pnp:Views&quot;, $Namespace)
+    foreach($node in $nodes.View)
+    {
+        $DisplayName = $node.GetAttribute(&quot;DisplayName&quot;)
+        if($DisplayName -eq &quot;All Documents (without Folders)&quot;)
+        {
+            $node.SetAttribute(&quot;DisplayName&quot;,&quot;{parameter:ViewDisplayName}&quot;)  
+        }
+    }
+    
+    
+    $nodes = $content.SelectNodes(&quot;//pnp:ListInstance&quot;, $Namespace)
+    foreach($node in $nodes)
+    {
+        $title = $node.GetAttribute(&quot;Title&quot;)
+        if($title)
+        {
+            $node.SetAttribute(&quot;Title&quot;,&quot;{parameter:ListTitle}&quot;)
+        }
+        $DocumentTemplate = $node.GetAttribute(&quot;DocumentTemplate&quot;)
+        if($DocumentTemplate)
+        {
+           $node.SetAttribute(&quot;DocumentTemplate&quot;,&quot;{site}/{parameter:ListTitle}/Forms/template.dotx&quot;)
+        }
+        $Url = $node.GetAttribute(&quot;Url&quot;)
+        if($Url)
+        {
+           $node.SetAttribute(&quot;Url&quot;,&quot;{parameter:ListTitle}&quot;)
+        }
+        $DefaultNewFormUrl = $node.GetAttribute(&quot;DefaultNewFormUrl&quot;)
+        if($DefaultNewFormUrl)
+        {
+           $node.SetAttribute(&quot;DefaultNewFormUrl&quot;,&quot;{site}/{parameter:ListTitle}/Forms/Upload.aspx&quot;)
+        }
+        $DefaultEditFormUrl = $node.GetAttribute(&quot;DefaultEditFormUrl&quot;)
+        if($DefaultEditFormUrl)
+        {
+           $node.SetAttribute(&quot;DefaultEditFormUrl&quot;,&quot;{site}/{parameter:ListTitle}/Forms/EditForm.aspx&quot;)
+        }
+        $DefaultDisplayFormUrl = $node.GetAttribute(&quot;DefaultDisplayFormUrl&quot;)
+        if($DefaultDisplayFormUrl)
+        {
+           $node.SetAttribute(&quot;DefaultDisplayFormUrl&quot;,&quot;{site}/{parameter:ListTitle}/Forms/DispForm.aspx&quot;)
+        }
+        
+    }
+    $content.Save($path) 
+   
+    
+}
+
+
+function Apply-PnPSiteTemplate 
+{
+    param ([Parameter(Mandatory=$true)][string]$targetSiteUrl,[Parameter(Mandatory=$true)][string]$SPAdminSiteUrl,[Parameter(Mandatory=$true)][string]$path)
+    # Precondition: The site collection in $targetSiteUrl is expected to exist already
+    
+    #Getting the site collection properties in order to get the LocaleID 
+    $SPAdminConn = Connect-PnPOnline -Url $SPAdminSiteUrl -ReturnConnection -Interactive
+    $siteprops = Get-PnPTenantSite -Identity $targetSiteUrl -Connection $SPAdminConn| Select -Property * 
+
+    $targetConn = Connect-PnPOnline -Url $targetSiteUrl -ReturnConnection -Interactive 
+    
+    switch ($siteprops.LocaleId) 
+    {
+        1030
+        { 
+            Write-Host &quot;The library should be in English (simplyfied)&quot; -ForegroundColor Green
+            Invoke-PnPSiteTemplate -Path $path -Parameters @{&quot;ListTitle&quot; = &quot;Document Library&quot;;&quot;ViewDisplayName&quot;=&quot;All Documents (without Folders)&quot;} -Connection $targetConn 
+        }
+        1031
+        {
+            Write-Host &quot;The library should be in German&quot; -ForegroundColor Green
+            Invoke-PnPSiteTemplate -Path $path -Parameters @{&quot;ListTitle&quot; = &quot;Dokumentenbibliothek&quot;;&quot;ViewDisplayName&quot;=&quot;Alles Documenten (kein mappen)&quot;} -Connection $targetConn 
+        }
+        1033
+        {
+            Write-Host &quot;The library should be in Danish&quot; -ForegroundColor Green
+            Invoke-PnPSiteTemplate -Path $path -Parameters @{&quot;ListTitle&quot; = &quot;Dokumentbibliotek&quot;;&quot;ViewDisplayName&quot;=&quot;Alle Dokumenter (uden foldere)&quot;} -Connection $targetConn -ClearNavigation
+        }
+        1038
+        {
+            Write-Host &quot;The library should be in Hungarian&quot; -ForegroundColor Green
+            Invoke-PnPSiteTemplate -Path $path -Parameters @{&quot;ListTitle&quot; = &quot;dokumentumtár&quot;;&quot;ViewDisplayName&quot;=&quot;Minden dokumentum (mappák nélkül)&quot;} -Connection $targetConn -ClearNavigation
+        }
+        Default 
+        {
+            Throw &quot;No LocaleId found&quot;
+        }
+    }
+
+
+}
+
+# the title of the new Template Site Collection
+$newsiteTitle =  &quot;test&quot; 
+# the URL of the new Template Site Collection
+$newsiteUrl = &quot;https://[Tenant].sharepoint.com/sites/test&quot; 
+# the primary site collection owner of the new Template Site Collection
+$owner =  &quot;Admin@[Tenant].onmicrosoft.com&quot;
+$provisionTargetSite =  &quot;https://[Tenant].sharepoint.com/sites/XXXXXXX&quot;
+
+$SharePointAdminUrl =  &quot;https://[Tenant]-admin.sharepoint.com/&quot; 
+$conn = Connect-PnPOnline -Url $SharePointAdminUrl -Interactive -ReturnConnection
+$res = New-PnPTenantSite -Title $newsiteTitle -Url $newsiteUrl -Owner $owner -TimeZone 3 -Connection $conn -Template &quot;STS#3&quot;
+
+#this loop is required as the time it take to get the new template site ready varies 
+$success = $false
+while ($success -eq $false) 
+{
+    try {
+        $conn = Connect-PnPOnline -Url $newsiteUrl -Interactive -ReturnConnection -ErrorAction Stop
+        Get-PnPWeb -Connection $conn -ErrorAction Stop
+        $success = $true
+    }
+    catch {
+        Start-Sleep -Seconds 10
+    }    
+}
+
+# Adding a new Document Library. This library is the target of the parameters in the provisioning and is names according to the LocaleID of the receiving site collection
+$res = New-PnPList -Title &quot;TBD&quot; -Template DocumentLibrary -Connection $conn
+#adding a view as the title of this view is also handled using parameters
+Add-PnPView -List $res -Title &quot;All Documents (without Folders)&quot; -SetAsDefault -Query &quot;&quot; -Fields &quot;Title&quot; -Connection $conn
+
+Extract-PnPSiteTemplate -sourceSiteUrl $newsiteUrl -path &quot;C:\temp\PnPProvisioningUsingParameters.xml&quot;
+Apply-PnPSiteTemplate -targetSiteUrl $provisionTargetSite  -SPAdminSiteUrl $SharePointAdminUrl -path &quot;C:\temp\PnPProvisioningUsingParameters.xml&quot;
+
+
+</code></pre>
+<div class="highlight-tool">
+<p>Check out the <strong>PnP PowerShell</strong> to learn more at: <a href="https://aka.ms/pnp/powershell">https://aka.ms/pnp/powershell</a></p>
+</div>
+</section>
+</div>
+<h2 id="contributors">Contributors</h2>
+<table>
+<thead>
+<tr>
+<th>Author(s)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Kasper Larsen, Fellowmind</td>
+</tr>
+</tbody>
+</table>
+<h2 id="disclaimer">Disclaimer</h2>
+<p><strong>THESE SAMPLES ARE PROVIDED <em>AS IS</em> WITHOUT WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, INCLUDING ANY IMPLIED WARRANTIES OF FITNESS FOR A PARTICULAR PURPOSE, MERCHANTABILITY, OR NON-INFRINGEMENT.</strong></p>
+<img src="https://pnptelemetry.azurewebsites.net/script-samples/scripts/spo-apply-pnptemplate-with-parameters" aria-hidden="true">
+</article>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            <span>Script Samples<br>Generated by <strong><a href='https://dotnet.github.io/docfx' alt='Doc FX Website'>DocFX</a></strong> with <strong><a href='https://ovasquez.github.io/docfx-material' alt='DocFx Material Theme'>Material UI</a></strong></span>
+            
+            <!-- <img src="https://telemetry.sharepointpnp.com/@pnp.github.io/index/" alt="spacer"> -->
+          </div>
+        </div>
+      </footer>    </div>
+    
+    <script type="text/javascript" src="../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+    
+    <script type="text/javascript" src="../styles/clipboard.min.js"></script>
+    <script type="text/javascript" src="../styles/isotope.pkgd.min.js"></script>
+    <script type="text/javascript" src="../styles/loadsamples.js"></script>
+    <script type="text/javascript" src="../styles/filtersamples.js"></script>
+
+  </body>
+</html>
