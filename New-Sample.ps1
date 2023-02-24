@@ -1,54 +1,115 @@
-$scriptFolder = "script"
-$sampleTemplate = "_template-script-submission"
+<# 
+----------------------------------------------------------------------------
 
-# Copy the template to the script folder under the new name
+    Title: Generate new Script Sample
+    Website:
 
-# Request a foldername from the user
-$folderName = Read-Host "Enter the folder name for the script e.g. spo-get-list-items or graph-export-teams"
-$scriptTitle = Read-Host "Enter the title for the script e.g. Generate a list of SharePoint Sites"
+    References:
 
-# Request from user if they want to create a new script or update an existing one
-$scriptAction = Read-Host "Do you want to create a new script or update an existing one? (new/update)"
+        https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_functions_advanced_parameters?view=powershell-7.3
+        https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_functions_argument_completion?view=powershell-7.3 
+ 
+    .\New-Sample.ps1 -ScriptFolderName a-test-folder -ScriptTitle "Test Script" -ScriptTool PnPPowerShell -AuthorFullName "Paul Bullock" -GitHubId "pkbullock
 
-$tabBlocks = @{
-    "PnP-PowerShell" = $scriptTitle
-    "Cli-For-Microsoft-365" = $scriptFolder
-    "SPO-Management-Shell" = $scriptAction
-}
+----------------------------------------------------------------------------
+#>
+
+[CmdletBinding()]
+param (
+
+    [Parameter(Mandatory,
+        HelpMessage = "The folder name for the script e.g. spo-get-list-items or graph-export-teams")]
+    [Alias("FolderName")]
+    [string] $ScriptFolderName,
+
+    [Parameter(Mandatory,
+        HelpMessage = "The title for the script e.g. Generate a list of SharePoint Sites")]
+    [Alias("Title")]
+    [string] $ScriptTitle,
+
+    [ArgumentCompletions('PnPPowerShell', 'CliForMicrosoft365', 'SPOManagementShell', 'All')]
+    [Parameter(Mandatory,
+        HelpMessage = "The tool used to run the script e.g. PnP-PowerShell, Cli-For-Microsoft-365, SPO-Management-Shell")]
+    [Alias("Tool")]
+    [string] $ScriptTool,
+
+    [Parameter(Mandatory,
+        HelpMessage = "The name of the script author e.g. Paul Bullock")]
+    [Alias("MyName", "Author")]
+    [string] $AuthorFullName,
+
+    [Parameter(Mandatory,
+        HelpMessage = "Your GitHub ID, e.g. pkbullock, this is only for attribution on the sample")]
+    [Alias("GHID", "AuthorId")]
+    [string] $GitHubId
+
+)
+begin{
+
+    # ------------------------------------------------------------------------------
+    # Global Variables
+    # ------------------------------------------------------------------------------
+    $mainScriptFolder = "scripts"
+    $sampleTemplateFolder = "_template-script-submission"
+    $sampleAssetsFolder = "assets"
+    $jsonSample = "sample.json"
 
 
-function New-ScriptInstance {
-    param{
-        [Parameter(Mandatory = $true)]
-        [string]$newScriptFolderName
+    # Todo: Example on all the tool tab types
+    $tabBlocks = @{
+        "PnP-PowerShell" = $scriptTitle
+        "Cli-For-Microsoft-365" = $scriptFolder
+        "SPO-Management-Shell" = $scriptAction
     }
 
-    $templateSrc = "{0}\{1}" -f $scriptFolder, $sampleTemplate
 
-    Copy-Item 
+    # ------------------------------------------------------------------------------
+    # Introduction
+    # ------------------------------------------------------------------------------
+
+
+    Write-Host @"
+    
+    ██████  ███    ██ ██████      ███████  ██████ ██████  ██ ██████  ████████     ███████  █████  ███    ███ ██████  ██      ███████ ███████ 
+    ██   ██ ████   ██ ██   ██     ██      ██      ██   ██ ██ ██   ██    ██        ██      ██   ██ ████  ████ ██   ██ ██      ██      ██      
+    ██████  ██ ██  ██ ██████      ███████ ██      ██████  ██ ██████     ██        ███████ ███████ ██ ████ ██ ██████  ██      █████   ███████ 
+    ██      ██  ██ ██ ██               ██ ██      ██   ██ ██ ██         ██             ██ ██   ██ ██  ██  ██ ██      ██      ██           ██ 
+    ██      ██   ████ ██          ███████  ██████ ██   ██ ██ ██         ██        ███████ ██   ██ ██      ██ ██      ███████ ███████ ███████                                                                                                                  
+"@
+
+    Write-Host " Welcome to PnP Script Samples, this script will help you generate a new script sample" -ForegroundColor Green
+    
+    # ------------------------------------------------------------------------------
+    
+}
+process {
+
+
+    
+    # Request from user if they want to create a new script or update an existing one
+    # $scriptAction = Read-Host "Do you want to create a new script or update an existing one? (new/update)"
+
+    
+
+    # Copy the template to the script folder under the new name
+    $templateSrc = "{0}\{1}" -f $mainScriptFolder, $sampleTemplateFolder
+    $targetFolder = "{0}\{1}" -f $mainScriptFolder, $ScriptFolderName
+
+    Copy-Item -Path $templateSrc -Destination $targetFolder -Recurse -Force
+
+
+    # Create a new script from the template
+
+    # Update the script with the new information such as Title, FolderName, Tool
+
+    # Update the sample.json file with the new information such as Title, FolderName, Tool, GitHub Details
+
+
+    # Request user navigate to the new folder
+
+
 
 }
-
-
-
-
-if ($scriptAction -eq "new") {
-    <# Action to perform if the condition is true #>
-    New-Script
+end{
+    Write-Host "---- Done! :) ----" -ForegroundColor Green
 }
-
-if ($scriptAction -eq "update") {
-    <# Action to perform if the condition is true #>
-    Update-Script
-}
-
-# Update an existing script
-function Update-Script {
-    <# Function to update an existing script #>
-}
-
-# Create a new script
-function New-Script {
-    <# Function to create a new script #>
-}
-
