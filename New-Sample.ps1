@@ -77,7 +77,7 @@ begin{
     ██      ██   ████ ██          ███████  ██████ ██   ██ ██ ██         ██        ███████ ██   ██ ██      ██ ██      ███████ ███████ ███████                                                                                                                  
 "@
 
-    Write-Host " Welcome to PnP Script Samples, this script will help you generate a new script sample" -ForegroundColor Green
+    Write-Host " Welcome to PnP Script Samples, this script will generate a new script sample" -ForegroundColor Green
     
     # ------------------------------------------------------------------------------
     
@@ -96,10 +96,14 @@ process {
     $targetFolder = "{0}\{1}" -f $mainScriptFolder, $ScriptFolderName
 
     Copy-Item -Path $templateSrc -Destination $targetFolder -Recurse -Force
-
+    Write-Host "Copied sample template to $targetFolder" -ForegroundColor Green
 
     # Create a new script from the template
 
+    # Rename the template.sample.json file to sample.json
+    
+
+    
     # Update the script with the new information such as Title, FolderName, Tool
 
     # Update the sample.json file with the new information such as Title, FolderName, Tool, GitHub Details
