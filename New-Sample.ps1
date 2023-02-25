@@ -53,11 +53,23 @@ begin{
     $sampleTemplateFolder = "_template-script-submission"
     $sampleAssetsFolder = "assets"
     $jsonSample = "sample.json"
+    $jsonSampleTemplate = "template.sample.json"
+    $pluginName = "plugin: add-to-gallery-preparation"
+    $readmeTitle = "# <title>"
+    $readmeFile = "README.md"
+
+    switch ($ScriptTool) {
+        "PnPPowerShell" {  }
+        "CliForMicrosoft365" {  }
+        "SPOManagementShell" {  }
+        "All" {  }
+        Default {}
+    }
 
 
     # Todo: Example on all the tool tab types
     $tabBlocks = @{
-        "PnP-PowerShell" = $scriptTitle
+        "PnPPowerShell" = $scriptTitle
         "Cli-For-Microsoft-365" = $scriptFolder
         "SPO-Management-Shell" = $scriptAction
     }
@@ -66,7 +78,6 @@ begin{
     # ------------------------------------------------------------------------------
     # Introduction
     # ------------------------------------------------------------------------------
-
 
     Write-Host @"
     
@@ -83,35 +94,33 @@ begin{
     
 }
 process {
-
-
     
     # Request from user if they want to create a new script or update an existing one
     # $scriptAction = Read-Host "Do you want to create a new script or update an existing one? (new/update)"
-
-    
 
     # Copy the template to the script folder under the new name
     $templateSrc = "{0}\{1}" -f $mainScriptFolder, $sampleTemplateFolder
     $targetFolder = "{0}\{1}" -f $mainScriptFolder, $ScriptFolderName
 
     Copy-Item -Path $templateSrc -Destination $targetFolder -Recurse -Force
-    Write-Host "Copied sample template to $targetFolder" -ForegroundColor Green
+    Write-Host " Copied sample template to $targetFolder" -ForegroundColor Green
 
     # Create a new script from the template
 
     # Rename the template.sample.json file to sample.json
-    
+    $scriptJsonTemplate = "{0}\{1}\{2}" -f $targetFolder, $sampleAssetsFolder, $jsonSampleTemplate
+    Rename-Item $scriptJsonTemplate -NewName $jsonSample
 
-    
+
     # Update the script with the new information such as Title, FolderName, Tool
 
+
     # Update the sample.json file with the new information such as Title, FolderName, Tool, GitHub Details
+    $scriptJson = "{0}\{1}\{2}" -f $targetFolder, $sampleAssetsFolder, $jsonSample
 
 
     # Request user navigate to the new folder
-
-
+    
 
 }
 end{
