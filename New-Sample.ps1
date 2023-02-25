@@ -58,6 +58,10 @@ begin{
     $jsonSampleTemplate = "template.sample.json"
     $readmeFile = "README.md"
 
+    # ------------------------------------------------------------------------------
+    # README Variables
+    # ------------------------------------------------------------------------------
+
     $pluginDefaultName = "plugin: add-to-gallery-preparation"
     $pluginActiveName = "plugin: add-to-gallery"
     $readmeDefaultTitle = "<title>"
@@ -67,14 +71,27 @@ begin{
     $readmeSourceCreditTitle = "## Source Credit"
     $readmeSourceCreditText = "Sample first appeared on [https://pnp.github.io/cli-microsoft365/sample-scripts/spo/add-app-catalog/](https://pnp.github.io/cli-microsoft365/sample-scripts/spo/add-app-catalog/)"
 
-    switch ($ScriptTool) {
-        "PnPPowerShell" {  }
-        "CliForMicrosoft365" {  }
-        "SPOManagementShell" {  }
-        "All" {  }
-        Default {}
-    }
+    $scriptBlockEnding = "***"
+    $psScriptPlaceholderReplaceHeader = "`powershell"
+    $psScriptBashPlaceholderReplaceHeader = "bash"
+    $psScriptPlaceholderReplaceFooter = "``"
+    $psScriptPlaceholderReplaceBody = "<your script>"
 
+    $psScriptBlock = @"
+```````powershell
+
+<your script>  
+
+```````
+"@
+
+    $bashScriptBlock = @"
+```````bash
+
+<your script>  
+
+```````
+"@
 
     # Todo: Example on all the tool tab types
     $tabBlocks = @{
@@ -150,7 +167,26 @@ process {
         $replaceNewLinesRNLv2 = "{0}{1}{2}" -f "`r`n", "`r`n", "`r`n"
         $readmeContent = $readmeContent.Replace($replaceNewLinesRNLv2, "`r`n`r`n")
     }
+
+    # Tool Script Blocks
+    $readmeContent = $readmeContent.Replace($psScriptPlaceholderReplaceHeader, "")
+    $readmeContent = $readmeContent.Replace($psScriptBashPlaceholderReplaceHeader, "")
+    $readmeContent = $readmeContent.Replace($psScriptPlaceholderReplaceFooter, "")
+    $readmeContent = $readmeContent.Replace($psScriptPlaceholderReplaceBody, "")
+    $replaceNewLinesRN = "{0}{1}{2}{3}{4}{5}" -f "`r`n", "`r`n", "`r`n", "`r`n","`r`n","`r`n" 
+    $readmeContent = $readmeContent.Replace($replaceNewLinesRN, "`n")
     
+    $newBlock = "{0}{1}" -f $psScriptBlock, $scriptBlockEnding # Test
+    $readmeContent = $readmeContent.Replace($scriptBlockEnding, $newBlock)
+
+    switch ($ScriptTool) {
+        "PnPPowerShell" {  }
+        "CliForMicrosoft365" {  }
+        "SPOManagementShell" {  }
+        "All" {  }
+        Default {}
+    }
+
     # Save README.md File
     $readmeContent | Out-File $readmeFilePath
 
