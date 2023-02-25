@@ -20,7 +20,7 @@ Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Maecenas porttitor con
 
 ```powershell
 
-<your powershell script>
+<your script>
 
 ```
 [!INCLUDE [More about PnP PowerShell](../../docfx/includes/MORE-PNPPS.md)]
@@ -29,25 +29,25 @@ Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Maecenas porttitor con
 
 ```powershell
 
-<your powershell script>
+<your script>
 
 ```
+[!INCLUDE [More about CLI for Microsoft 365](../../docfx/includes/MORE-CLIM365.md)]
 
 # [CLI for Microsoft 365 using Bash](#tab/cli-m365-bash)
 
 ```bash
 
-<your bash script>
+<your script>
 
 ```
-
 [!INCLUDE [More about CLI for Microsoft 365](../../docfx/includes/MORE-CLIM365.md)]
 
 # [Microsoft Graph PowerShell](#tab/graphps)
 
 ```powershell
 
-<your powershell script>
+<your script>
 
 ```
 [!INCLUDE [More about Microsoft Graph PowerShell SDK](../../docfx/includes/MORE-GRAPHSDK.md)]
@@ -56,25 +56,24 @@ Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Maecenas porttitor con
 
 ```powershell
 
-<your powershell script>
+<your script>
 
 ```
 [!INCLUDE [More about SPO Management Shell](../../docfx/includes/MORE-SPOMS.md)]
 
 # [Azure CLI](#tab/azure-cli)
 
-```Azure CLI
+```powershell
 
-<your cli script>  
+<your script>  
 
 ```
 [!INCLUDE [More about Azure CLI](../../docfx/includes/MORE-AZURECLI.md)]
 
-
 # [Power Apps PowerShell](#tab/powerapps-ps)
 ```powershell
 
-<your powershell script>
+<your script>
 
 ```
 [!INCLUDE [More about Power Apps PowerShell](../../docfx/includes/MORE-POWERAPPS.md)]
@@ -83,7 +82,7 @@ Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Maecenas porttitor con
 # [MicrosoftTeams PowerShell](#tab/teamsps)
 ```powershell
 
-<your powershell script>
+<your script>
 
 ```
 [!INCLUDE [More about Microsoft Teams PowerShell](../../docfx/includes/MORE-TEAMSPS.md)]
