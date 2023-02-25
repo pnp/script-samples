@@ -41,7 +41,9 @@ param (
     [Parameter(Mandatory,
         HelpMessage = "Your GitHub ID, e.g. pkbullock, this is only for attribution on the sample")]
     [Alias("GHID", "AuthorId")]
-    [string] $GitHubId
+    [string] $GitHubId,
+
+    [switch]$KeepSourceCredit
 
 )
 begin{
@@ -54,9 +56,16 @@ begin{
     $sampleAssetsFolder = "assets"
     $jsonSample = "sample.json"
     $jsonSampleTemplate = "template.sample.json"
-    $pluginName = "plugin: add-to-gallery-preparation"
-    $readmeTitle = "# <title>"
     $readmeFile = "README.md"
+
+    $pluginDefaultName = "plugin: add-to-gallery-preparation"
+    $pluginActiveName = "plugin: add-to-gallery"
+    $readmeDefaultTitle = "<title>"
+    $readmeDefaultTelemetryLink = "https://pnptelemetry.azurewebsites.net/script-samples/scripts/template-script-submission"
+    $readmeDefaultAuthorName = "<-you->"
+
+    $readmeSourceCreditTitle = "## Source Credit"
+    $readmeSourceCreditText = "Sample first appeared on [https://pnp.github.io/cli-microsoft365/sample-scripts/spo/add-app-catalog/](https://pnp.github.io/cli-microsoft365/sample-scripts/spo/add-app-catalog/)"
 
     switch ($ScriptTool) {
         "PnPPowerShell" {  }
@@ -98,21 +107,58 @@ process {
     # Request from user if they want to create a new script or update an existing one
     # $scriptAction = Read-Host "Do you want to create a new script or update an existing one? (new/update)"
 
+    # ------------------------------------------------------------------------------
+    # Create the sample files
+    # ------------------------------------------------------------------------------
+
     # Copy the template to the script folder under the new name
     $templateSrc = "{0}\{1}" -f $mainScriptFolder, $sampleTemplateFolder
     $targetFolder = "{0}\{1}" -f $mainScriptFolder, $ScriptFolderName
 
+    # Nesting Problem, need to test and create teh directory first then copy the contents
+
     Copy-Item -Path $templateSrc -Destination $targetFolder -Recurse -Force
     Write-Host " Copied sample template to $targetFolder" -ForegroundColor Green
-
-    # Create a new script from the template
 
     # Rename the template.sample.json file to sample.json
     $scriptJsonTemplate = "{0}\{1}\{2}" -f $targetFolder, $sampleAssetsFolder, $jsonSampleTemplate
     Rename-Item $scriptJsonTemplate -NewName $jsonSample
 
+    # ------------------------------------------------------------------------------
+    # Update the README file
+    # ------------------------------------------------------------------------------
 
-    # Update the script with the new information such as Title, FolderName, Tool
+    # Update the readme.md with the new information such as Title, FolderName, Tool
+    $readmeFilePath = "{0}\{1}" -f $targetFolder, $readmeFile
+    $readmeContent = Get-Content $readmeFilePath -Raw
+    $ScriptTelemetryLink = "https://pnptelemetry.azurewebsites.net/script-samples/scripts/$ScriptFolderName"
+
+    # Title
+    $readmeContent = $readmeContent.Replace($readmeDefaultTitle, $ScriptTitle)
+    # Plugin
+    $readmeContent = $readmeContent.Replace($pluginDefaultName, $pluginActiveName)
+    # Author
+    $readmeContent = $readmeContent.Replace($readmeDefaultAuthorName, $AuthorFullName)
+    # Telemetry
+    $readmeContent = $readmeContent.Replace($readmeDefaultTelemetryLink, $ScriptTelemetryLink)
+    # Source Credit
+    if(!$KeepSourceCredit){
+        $readmeContent = $readmeContent.Replace($readmeSourceCreditTitle, "")
+        $readmeContent = $readmeContent.Replace($readmeSourceCreditText, "")
+        $replaceNewLinesRN = "{0}{1}{2}{3}" -f "`r`n", "`r`n", "`r`n", "`r`n" 
+        $readmeContent = $readmeContent.Replace($replaceNewLinesRN, "`n")
+        $replaceNewLinesRNLv2 = "{0}{1}{2}" -f "`r`n", "`r`n", "`r`n"
+        $readmeContent = $readmeContent.Replace($replaceNewLinesRNLv2, "`r`n`r`n")
+    }
+    
+    # Save README.md File
+    $readmeContent | Out-File $readmeFilePath
+
+    Write-Host " Populated the README file in $targetFolder" -ForegroundColor Green
+
+    # ------------------------------------------------------------------------------
+    # Update the sample.json file
+    # ------------------------------------------------------------------------------
 
 
     # Update the sample.json file with the new information such as Title, FolderName, Tool, GitHub Details
