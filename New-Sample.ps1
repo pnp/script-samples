@@ -73,7 +73,7 @@ begin{
 
     $scriptBlockEnding = "***"
     $psScriptPlaceholderReplaceHeader = "`powershell"
-    $psScriptBashPlaceholderReplaceHeader = "bash"
+    $psScriptBashPlaceholderReplaceHeader = "``````bash"
     $psScriptPlaceholderReplaceFooter = "``"
     $psScriptPlaceholderReplaceBody = "<your script>"
 
@@ -95,10 +95,110 @@ begin{
 
     # Todo: Example on all the tool tab types
     $tabBlocks = @{
-        "PnPPowerShell" = $scriptTitle
-        "Cli-For-Microsoft-365" = $scriptFolder
-        "SPO-Management-Shell" = $scriptAction
+        "PnPPowerShell" = [PSCustomObject]@{
+            Tab = "# [PnP PowerShell](#tab/pnpps)"
+            IncludeBlock = "[!INCLUDE [More about PnP PowerShell](../../docfx/includes/MORE-PNPPS.md)]"
+            ScriptBlock  = $psScriptBlock
+            Reference = [PSCustomObject]@{
+                "name" = "Want to learn more about PnP PowerShell and the cmdlets"
+                "description" = "Check out the PnP PowerShell site to get started and for the reference to the cmdlets."
+                "url" = "https://aka.ms/pnp/powershell"
+            }
+            Metadata = [PSCustomObject]@{
+            }
+        }
+        
+        "CliForMicrosoft365" = [PSCustomObject]@{
+            Tab = "# [CLI for Microsoft 365 using PowerShell](#tab/cli-m365-ps)"
+            IncludeBlock = "[!INCLUDE [More about CLI for Microsoft 365](../../docfx/includes/MORE-CLIM365.md)]"
+            ScriptBlock  = $psScriptBlock
+            Reference = [PSCustomObject]@{
+                "name" = "Want to learn more about CLI for Microsoft 365 and the commands"
+                "description" = "Check out the CLI for Microsoft 365 site to get started and for the reference to the commands."
+                "url" = "https://aka.ms/cli-m365"
+            }
+            Metadata = [PSCustomObject]@{
+            }
+        }
+        "SPOManagementShell"  = [PSCustomObject]@{
+            Tab = "# [SPO Management Shell](#tab/spoms-ps)"
+            IncludeBlock = "[!INCLUDE [More about SPO Management Shell](../../docfx/includes/MORE-SPOMS.md)]"
+            ScriptBlock  = $psScriptBlock
+            Reference = [PSCustomObject]@{
+                "name" = "Introduction to the SharePoint Online Management Shell"
+                "description" = "Check out the SPO Management Shell documentation site to get started and for the reference to the cmdlets."
+                "url" = "https://docs.microsoft.com/en-us/powershell/sharepoint/sharepoint-online/introduction-sharepoint-online-management-shell?view=sharepoint-ps"
+            }
+            Metadata = [PSCustomObject]@{
+            }
+        }
+
+        "CliForMicrosoft365Bash"  = [PSCustomObject]@{
+            Tab = "# [CLI for Microsoft 365 using Bash](#tab/cli-m365-bash)"
+            IncludeBlock = "[!INCLUDE [More about CLI for Microsoft 365](../../docfx/includes/MORE-CLIM365.md)]"
+            ScriptBlock  = $psScriptBlock
+            Reference = [PSCustomObject]@{
+                "name" = "Want to learn more about CLI for Microsoft 365 and the commands"
+                "description" = "Check out the CLI for Microsoft 365 site to get started and for the reference to the commands."
+                "url" = "https://aka.ms/cli-m365"  
+            }
+            Metadata = [PSCustomObject]@{
+            }
+        }
+
+        "MicrosoftGraphPowerShell"  = [PSCustomObject]@{
+            Tab = "# [Microsoft Graph PowerShell](#tab/graphps)"
+            IncludeBlock = "[!INCLUDE [More about Microsoft Graph PowerShell SDK](../../docfx/includes/MORE-GRAPHSDK.md)]"
+            ScriptBlock  = $psScriptBlock
+            Reference = [PSCustomObject]@{
+                "name" = "Want to learn more about Microsoft Graph PowerShell SDK and the cmdlets"
+                "description" = "Check out the Microsoft Graph PowerShell SDK documentation site to get started and for the reference to the cmdlets."
+                "url" = "https://docs.microsoft.com/en-us/graph/powershell/get-started"
+            }
+            Metadata = [PSCustomObject]@{
+            }
+        }
+
+        "AzureCli"  = [PSCustomObject]@{
+            Tab = "# [Azure CLI](#tab/azure-cli)"
+            IncludeBlock = "[!INCLUDE [More about Azure CLI](../../docfx/includes/MORE-AZURECLI.md)]"
+            ScriptBlock  = $psScriptBlock
+            Reference = [PSCustomObject]@{
+                "name" = "Want to learn more about Azure CLI and the commands"
+                "description" = "Check out the Azure CLI documentation site to get started and for the reference to the commands."
+                "url" = "https://docs.microsoft.com/en-us/cli/azure/"
+            }
+            Metadata = [PSCustomObject]@{
+            }
+        }
+
+        "PowerAppsPowerShell" = [PSCustomObject]@{
+            Tab = "# [Power Apps PowerShell](#tab/powerapps-ps)"
+            IncludeBlock = "[!INCLUDE [More about Power Apps PowerShell](../../docfx/includes/MORE-POWERAPPS.md)]"
+            ScriptBlock  = $psScriptBlock
+            Reference = [PSCustomObject]@{
+                "name" = "Want to learn more about Power Apps PowerShell and the cmdlets"
+                "description" = "Check out the Power Apps PowerShell documentation site to get started and for the reference to the cmdlets."
+                "url" = "https://docs.microsoft.com/en-us/power-platform/admin/powerapps-powershell"
+            }
+            Metadata = [PSCustomObject]@{
+            }
+        }
+
+        "MicrosoftTeamsPowerShell" = [PSCustomObject]@{
+            Tab = "# [MicrosoftTeams PowerShell](#tab/teamsps)"
+            IncludeBlock = "[!INCLUDE [More about Microsoft Teams PowerShell](../../docfx/includes/MORE-TEAMSPS.md)]"
+            ScriptBlock  = $psScriptBlock
+            Reference = [PSCustomObject]@{
+                "name" = "Want to learn more about Microsoft Teams PowerShell and the cmdlets"
+                "description" = "Check out the Microsoft Teams PowerShell documentation site to get started and for the reference to the cmdlets."
+                "url" = "https://docs.microsoft.com/en-us/microsoftteams/teams-powershell-overview"
+            }
+            Metadata = [PSCustomObject]@{
+            }
+        }
     }
+
 
 
     # ------------------------------------------------------------------------------
@@ -173,14 +273,41 @@ process {
     $readmeContent = $readmeContent.Replace($psScriptBashPlaceholderReplaceHeader, "")
     $readmeContent = $readmeContent.Replace($psScriptPlaceholderReplaceFooter, "")
     $readmeContent = $readmeContent.Replace($psScriptPlaceholderReplaceBody, "")
-    $replaceNewLinesRN = "{0}{1}{2}{3}{4}{5}" -f "`r`n", "`r`n", "`r`n", "`r`n","`r`n","`r`n" 
-    $readmeContent = $readmeContent.Replace($replaceNewLinesRN, "`n")
-    
-    $newBlock = "{0}{1}" -f $psScriptBlock, $scriptBlockEnding # Test
-    $readmeContent = $readmeContent.Replace($scriptBlockEnding, $newBlock)
 
+    # Remove all tabs
+    $readmeContent = $readmeContent.Replace($tabBlocks.PnPPowerShell.Tab, "")
+    $readmeContent = $readmeContent.Replace($tabBlocks.CliForMicrosoft365.Tab, "")
+    $readmeContent = $readmeContent.Replace($tabBlocks.CliForMicrosoft365Bash.Tab, "")
+    $readmeContent = $readmeContent.Replace($tabBlocks.SPOManagementShell.Tab, "")
+    $readmeContent = $readmeContent.Replace($tabBlocks.AzureCli.Tab, "")
+    $readmeContent = $readmeContent.Replace($tabBlocks.MicrosoftGraphPowerShell.Tab, "")
+    $readmeContent = $readmeContent.Replace($tabBlocks.MicrosoftTeamsPowerShell.Tab, "")
+    $readmeContent = $readmeContent.Replace($tabBlocks.PowerAppsPowerShell.Tab, "")
+    
+    # Remove all tab includes
+    $readmeContent = $readmeContent.Replace($tabBlocks.PnPPowerShell.IncludeBlock, "")
+    $readmeContent = $readmeContent.Replace($tabBlocks.CliForMicrosoft365.IncludeBlock, "")
+    $readmeContent = $readmeContent.Replace($tabBlocks.SPOManagementShell.IncludeBlock, "")
+    $readmeContent = $readmeContent.Replace($tabBlocks.AzureCli.IncludeBlock, "")
+    $readmeContent = $readmeContent.Replace($tabBlocks.MicrosoftGraphPowerShell.IncludeBlock, "")
+    $readmeContent = $readmeContent.Replace($tabBlocks.MicrosoftTeamsPowerShell.IncludeBlock, "")
+    $readmeContent = $readmeContent.Replace($tabBlocks.PowerAppsPowerShell.IncludeBlock, "")
+    
+    # Clean up the new lines
+    $replaceNewLinesRN = "{0}{1}{2}{3}{4}{5}" -f "`r`n", "`r`n", "`r`n", "`r`n","`r`n","`r`n" 
+    $readmeContent = $readmeContent.Replace($replaceNewLinesRN, "")
+    
     switch ($ScriptTool) {
-        "PnPPowerShell" {  }
+        "PnPPowerShell" { 
+
+            $newBlock = "`n{0}`n`n{1}`n{2}`n{3}" -f $tabBlocks.PnPPowerShell.Tab, `
+                                    $tabBlocks.PnPPowerShell.ScriptBlock, `
+                                    $tabBlocks.PnPPowerShell.IncludeBlock, `
+                                    $scriptBlockEnding
+
+            $readmeContent = $readmeContent.Replace($scriptBlockEnding, $newBlock)
+
+         }
         "CliForMicrosoft365" {  }
         "SPOManagementShell" {  }
         "All" {  }

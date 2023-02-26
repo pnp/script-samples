@@ -65,7 +65,7 @@ Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Maecenas porttitor con
 
 ```powershell
 
-<your script>  
+<your script>
 
 ```
 [!INCLUDE [More about Azure CLI](../../docfx/includes/MORE-AZURECLI.md)]
@@ -78,8 +78,8 @@ Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Maecenas porttitor con
 ```
 [!INCLUDE [More about Power Apps PowerShell](../../docfx/includes/MORE-POWERAPPS.md)]
 
-
 # [MicrosoftTeams PowerShell](#tab/teamsps)
+
 ```powershell
 
 <your script>
