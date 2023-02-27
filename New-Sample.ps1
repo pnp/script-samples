@@ -27,11 +27,12 @@ param (
     [Alias("Title")]
     [string] $ScriptTitle,
 
-    [ArgumentCompletions('PnPPowerShell', 'CliForMicrosoft365', 'SPOManagementShell', 'All')]
+    [ValidateSet('PnPPowerShell', 'CliForMicrosoft365', 'SPOManagementShell', 'CliForMicrosoft365Bash', `
+             'MicrosoftGraphPowerShell', 'AzureCli', 'PowerAppsPowerShell', 'MicrosoftTeamsPowerShell', 'All')]
     [Parameter(Mandatory,
         HelpMessage = "The tool used to run the script e.g. PnP-PowerShell, Cli-For-Microsoft-365, SPO-Management-Shell")]
     [Alias("Tool")]
-    [string] $ScriptTool,
+    [string[]] $ScriptTool,
 
     [Parameter(Mandatory,
         HelpMessage = "The name of the script author e.g. Paul Bullock")]
@@ -308,9 +309,74 @@ process {
             $readmeContent = $readmeContent.Replace($scriptBlockEnding, $newBlock)
 
          }
-        "CliForMicrosoft365" {  }
-        "SPOManagementShell" {  }
-        "All" {  }
+        "CliForMicrosoft365" { 
+
+            $newBlock = "`n{0}`n`n{1}`n{2}`n{3}" -f $tabBlocks.CliForMicrosoft365.Tab, `
+                                    $tabBlocks.CliForMicrosoft365.ScriptBlock, `
+                                    $tabBlocks.CliForMicrosoft365.IncludeBlock, `
+                                    $scriptBlockEnding
+
+            $readmeContent = $readmeContent.Replace($scriptBlockEnding, $newBlock)
+         }
+        "CliForMicrosoft365Bash" {
+
+            $newBlock = "`n{0}`n`n{1}`n{2}`n{3}" -f $tabBlocks.CliForMicrosoft365Bash.Tab, `
+                                    $tabBlocks.CliForMicrosoft365Bash.ScriptBlock, `
+                                    $tabBlocks.CliForMicrosoft365Bash.IncludeBlock, `
+                                    $scriptBlockEnding
+
+            $readmeContent = $readmeContent.Replace($scriptBlockEnding, $newBlock)
+          }
+        "SPOManagementShell" {
+
+            $newBlock = "`n{0}`n`n{1}`n{2}`n{3}" -f $tabBlocks.SPOManagementShell.Tab, `
+                                    $tabBlocks.SPOManagementShell.ScriptBlock, `
+                                    $tabBlocks.SPOManagementShell.IncludeBlock, `
+                                    $scriptBlockEnding
+
+            $readmeContent = $readmeContent.Replace($scriptBlockEnding, $newBlock)
+
+          }
+        "MicrosoftGraphPowerShell" { 
+
+            $newBlock = "`n{0}`n`n{1}`n{2}`n{3}" -f $tabBlocks.MicrosoftGraphPowerShell.Tab, `
+                                    $tabBlocks.MicrosoftGraphPowerShell.ScriptBlock, `
+                                    $tabBlocks.MicrosoftGraphPowerShell.IncludeBlock, `
+                                    $scriptBlockEnding
+
+            $readmeContent = $readmeContent.Replace($scriptBlockEnding, $newBlock)
+
+         }
+        "AzureCli" { 
+
+            $newBlock = "`n{0}`n`n{1}`n{2}`n{3}" -f $tabBlocks.AzureCli.Tab, `
+            $tabBlocks.AzureCli.ScriptBlock, `
+            $tabBlocks.AzureCli.IncludeBlock, `
+            $scriptBlockEnding
+
+            $readmeContent = $readmeContent.Replace($scriptBlockEnding, $newBlock)
+
+         }
+        "PowerAppsPowerShell" { 
+
+            $newBlock = "`n{0}`n`n{1}`n{2}`n{3}" -f $tabBlocks.PowerAppsPowerShell.Tab, `
+            $tabBlocks.PowerAppsPowerShell.ScriptBlock, `
+            $tabBlocks.PowerAppsPowerShell.IncludeBlock, `
+            $scriptBlockEnding
+
+            $readmeContent = $readmeContent.Replace($scriptBlockEnding, $newBlock)
+
+         }
+        "MicrosoftTeamsPowerShell" { 
+
+            $newBlock = "`n{0}`n`n{1}`n{2}`n{3}" -f $tabBlocks.MicrosoftTeamsPowerShell.Tab, `
+                                    $tabBlocks.MicrosoftTeamsPowerShell.ScriptBlock, `
+                                    $tabBlocks.MicrosoftTeamsPowerShell.IncludeBlock, `
+                                    $scriptBlockEnding
+
+            $readmeContent = $readmeContent.Replace($scriptBlockEnding, $newBlock)
+
+          }
         Default {}
     }
 
