@@ -9,7 +9,13 @@
         https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_functions_advanced_parameters?view=powershell-7.3
         https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_functions_argument_completion?view=powershell-7.3 
  
-    .\New-Sample.ps1 -ScriptFolderName a-test-folder -ScriptTitle "Test Script" -ScriptTool PnPPowerShell -AuthorFullName "Paul Bullock" -GitHubId "pkbullock
+        
+    .\New-Sample.ps1 -ScriptFolderName a-test-folder -ScriptTitle "Test Script" -ScriptTool PnPPowerShell `
+        -AuthorFullName "Paul Bullock" -GitHubId "pkbullock"
+
+    .\New-Sample.ps1 -ScriptFolderName a-test-folder -ScriptTitle "Test Script" `
+        -ScriptTool PnPPowerShell,CliForMicrosoft365,SPOManagementShell  `
+        -AuthorFullName "Paul Bullock" -GitHubId "pkbullock"
 
 ----------------------------------------------------------------------------
 #>
@@ -17,6 +23,7 @@
 [CmdletBinding()]
 param (
 
+    #[ValidatePattern("")]
     [Parameter(Mandatory,
         HelpMessage = "The folder name for the script e.g. spo-get-list-items or graph-export-teams")]
     [Alias("FolderName")]
@@ -383,7 +390,7 @@ process {
     # Save README.md File
     $readmeContent | Out-File $readmeFilePath
 
-    Write-Host " Populated the README file in $targetFolder" -ForegroundColor Green
+    Write-Host " - Populated the README file in $targetFolder"
 
     # ------------------------------------------------------------------------------
     # Update the sample.json file
@@ -393,11 +400,125 @@ process {
     # Update the sample.json file with the new information such as Title, FolderName, Tool, GitHub Details
     $scriptJson = "{0}\{1}\{2}" -f $targetFolder, $sampleAssetsFolder, $jsonSample
 
+    $json = Get-Content $scriptJson | ConvertFrom-Json
 
-    # Request user navigate to the new folder
+    # Title
+    $json.Title = $ScriptTitle
+
+    # Name
+    $json.Name = $ScriptFolderName
     
+    # Url
+    $json.Url = $json.Url.Replace("<foldername>", $ScriptFolderName)
+
+    # Dates (created and modified)
+    $json.creationDateTime = Get-Date -Format "yyyy-MM-dd"
+    $json.updateDateTime = Get-Date -Format "yyyy-MM-dd"
+    
+    # Metadata
+    $json.Metadata = @()
+    switch ($ScriptTool) {
+        "PnPPowerShell" { 
+            $json.Metadata += [PSCustomObject]@{
+                key = "PNP-POWERSHELL"
+                value = "1.11.0"
+            }
+         }
+        "CliForMicrosoft365" { 
+            $json.Metadata += [PSCustomObject]@{
+                key = "CLI-FOR-MICROSOFT365"
+                value = "5.6.0"
+            }
+         }
+        "CliForMicrosoft365Bash" {
+            $json.Metadata += [PSCustomObject]@{
+                key = "CLI-FOR-MICROSOFT365"
+                value = "5.6.0"
+            }
+         }
+        "SPOManagementShell" {
+            $json.Metadata += [PSCustomObject]@{
+                key = "SPO-MANAGEMENT-SHELL"
+                value = "16.0.21116.12000"
+            }
+        }
+        "MicrosoftGraphPowerShell" { 
+            $json.Metadata += [PSCustomObject]@{
+                key = "GRAPH-POWERSHELL"
+                value = "1.0.0"
+            }
+         }
+        "AzureCli" { 
+            $json.Metadata += [PSCustomObject]@{
+                key = "AZURE-CLI"
+                value = "2.27.0"
+            }
+        }
+        "PowerAppsPowerShell" { 
+            $json.Metadata += [PSCustomObject]@{
+                key = "POWERAPPS-POWERSHELL"
+                value = "2.0.0"
+            }
+        }
+        "MicrosoftTeamsPowerShell" { 
+            $json.Metadata += [PSCustomObject]@{
+                key = "MICROSOFTTEAMS-POWERSHELL"
+                value = "3.0.0"
+            }
+        }
+        Default {}
+    }
+
+    # Thumbnails
+    $json.Thumbnails[0].Url = $json.Thumbnails[0].Url.Replace('<foldername>', $ScriptFolderName)
+    $json.Thumbnails[0].Alt = $json.Thumbnails[0].Alt.Replace('<title>', $ScriptTitle)
+    
+    # Authors
+    $json.authors[0].gitHubAccount = $GitHubId
+    $json.authors[0].pictureUrl = $json.authors[0].pictureUrl.replace("<github-username>", $GitHubId)
+    $json.authors[0].Name = $AuthorFullName
+
+    # References
+    $json.References = @()
+    switch ($ScriptTool) {
+        "PnPPowerShell" { 
+            $json.References += $tabBlocks.PnPPowerShell.Reference
+         }
+        "CliForMicrosoft365" { 
+            $json.References += $tabBlocks.CliForMicrosoft365.Reference
+         }
+        "CliForMicrosoft365Bash" {
+            $json.References += $tabBlocks.CliForMicrosoft365.Reference
+         }
+        "SPOManagementShell" {
+            $json.References += $tabBlocks.SPOManagementShell.Reference
+        }
+        "MicrosoftGraphPowerShell" { 
+            $json.References += $tabBlocks.MicrosoftGraphPowerShell.Reference
+         }
+        "AzureCli" { 
+            $json.References += $tabBlocks.AzureCli.Reference
+        }
+        "PowerAppsPowerShell" { 
+            $json.References += $tabBlocks.PowerAppsPowerShell.Reference
+        }
+        "MicrosoftTeamsPowerShell" { 
+            $json.References += $tabBlocks.MicrosoftTeamsPowerShell.Reference
+        }
+        Default {}
+    }
+
+    # Save Sample.json file
+    $jsonArr = [System.Collections.ArrayList]@()
+    $jsonArr += $json
+    ConvertTo-Json -InputObject $jsonArr -Depth 10 | Out-File $scriptJson
+
+    Write-Host " - Populated the sample.json file in $targetFolder/assets"
+
+    $finalPath = Join-Path -Path "$(Get-Location)" -ChildPath $targetFolder
+    Write-Host " Sample setup complete, please go to $finalPath " -ForegroundColor Cyan
 
 }
 end{
-    Write-Host "---- Done! :) ----" -ForegroundColor Green
+    Write-Host "`n---- Done! :) ----" -ForegroundColor Green
 }
