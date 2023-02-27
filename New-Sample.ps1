@@ -9,11 +9,13 @@
         https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_functions_advanced_parameters?view=powershell-7.3
         https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_functions_argument_completion?view=powershell-7.3 
  
-        
+
     .\New-Sample.ps1 -ScriptFolderName a-test-folder -ScriptTitle "Test Script" -ScriptTool PnPPowerShell `
+        -ScriptShortDescription "This is a test script for checking the script" `
         -AuthorFullName "Paul Bullock" -GitHubId "pkbullock"
 
     .\New-Sample.ps1 -ScriptFolderName a-test-folder -ScriptTitle "Test Script" `
+        -ScriptShortDescription "This is a test script for checking the script" `
         -ScriptTool PnPPowerShell,CliForMicrosoft365,SPOManagementShell  `
         -AuthorFullName "Paul Bullock" -GitHubId "pkbullock"
 
@@ -33,6 +35,11 @@ param (
         HelpMessage = "The title for the script e.g. Generate a list of SharePoint Sites")]
     [Alias("Title")]
     [string] $ScriptTitle,
+
+    [Parameter(Mandatory,
+        HelpMessage = "The description for the script")]
+    [Alias("Description")]
+    [string] $ScriptShortDescription,
 
     [ValidateSet('PnPPowerShell', 'CliForMicrosoft365', 'SPOManagementShell', 'CliForMicrosoft365Bash', `
              'MicrosoftGraphPowerShell', 'AzureCli', 'PowerAppsPowerShell', 'MicrosoftTeamsPowerShell', 'All')]
@@ -407,6 +414,9 @@ process {
 
     # Name
     $json.Name = $ScriptFolderName
+
+    # Description
+    $json.ShortDescription = $ScriptShortDescription
     
     # Url
     $json.Url = $json.Url.Replace("<foldername>", $ScriptFolderName)
