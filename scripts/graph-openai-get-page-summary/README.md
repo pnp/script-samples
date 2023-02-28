@@ -6,7 +6,7 @@ plugin: add-to-gallery
 
 ## Summary
 
-This the Microsoft Graph PowerShell SDK is used to retrieve the text content of a SharePoint page and preprocess it to remove any html tags. Then, the preprocessed text is passed to the Open AI API, which uses a machine learning algorithm to generate a summary of the content in multiple languages.
+This sample uses the Microsoft Graph PowerShell SDK to retrieve the text content of a SharePoint page and preprocess it to remove any html tags. Then, the preprocessed text is passed to the Open AI API, which uses a machine learning algorithm to generate a summary of the content in multiple languages.
 
 ## Pre-requisites
 
