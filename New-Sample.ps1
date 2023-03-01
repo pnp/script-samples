@@ -2,22 +2,27 @@
 ----------------------------------------------------------------------------
 
     Title: Generate new Script Sample
-    Website:
+    Website: https://pnp.github.io/script-samples/
 
     References:
 
         https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_functions_advanced_parameters?view=powershell-7.3
         https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_functions_argument_completion?view=powershell-7.3 
  
+    Examples:
 
-    .\New-Sample.ps1 -ScriptFolderName a-test-folder -ScriptTitle "Test Script" -ScriptTool PnPPowerShell `
-        -ScriptShortDescription "This is a test script for checking the script" `
-        -AuthorFullName "Paul Bullock" -GitHubId "pkbullock"
+        .\New-Sample.ps1 -ScriptFolderName a-test-folder -ScriptTitle "Test Script" -ScriptTool PnPPowerShell `
+            -ScriptShortDescription "This is a test script for checking the script" `
+            -AuthorFullName "Paul Bullock" -GitHubId "pkbullock"
 
-    .\New-Sample.ps1 -ScriptFolderName a-test-folder -ScriptTitle "Test Script" `
-        -ScriptShortDescription "This is a test script for checking the script" `
-        -ScriptTool PnPPowerShell,CliForMicrosoft365,SPOManagementShell  `
-        -AuthorFullName "Paul Bullock" -GitHubId "pkbullock"
+        .\New-Sample.ps1 -ScriptFolderName a-test-folder -ScriptTitle "Test Script" `
+            -ScriptShortDescription "This is a test script for checking the script" `
+            -ScriptTool PnPPowerShell,CliForMicrosoft365,SPOManagementShell  `
+            -AuthorFullName "Paul Bullock" -GitHubId "pkbullock"
+
+    To remove the generated sample:
+
+        remove-item scripts/a-test-folder -Recurse -Force
 
 ----------------------------------------------------------------------------
 #>
