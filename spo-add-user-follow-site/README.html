@@ -1,0 +1,274 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html lang="en">
+  
+  <head>
+    <meta charset="utf-8">
+    <title>Add users to follow SharePoint Sites | PnP Samples </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Add users to follow SharePoint Sites | PnP Samples ">
+    <meta name="generator" content="docfx 2.56.7.0">
+    <meta name="description" content="A sample gallery of scripts to manage all things Microsoft 365.">
+  
+    <!-- Social Media -->
+    <meta property="og:locale" content="en_GB">
+    <meta property="og:title" content="Add users to follow SharePoint Sites | PnP Samples ">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://pnp.github.io/script-samples">
+    <meta property="og:image" content="https://pnp.github.io/script-samples/assets/social-media-screenshot.png">
+    <meta property="og:image:alt" content="Screenshot example of the PnP Script Samples Site">
+    <meta property="og:site_name" content="PnP Script Samples">
+    <meta property="og:description" content="A sample gallery of scripts to manage all things Microsoft 365.">
+  
+    <link rel="shortcut icon" href="https://c.s-microsoft.com/favicon.ico?v2">
+    <link rel="stylesheet" href="../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../styles/docfx.css">
+    <link rel="stylesheet" href="../styles/main.css">
+    <link rel="stylesheet" href="../styles/extra.css">
+    <link rel="stylesheet" href="../styles/filter.css">
+    <link rel="stylesheet" href="../styles/site.css">
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet"> 
+    <meta property="docfx:navrel" content="../toc.html">
+    <meta property="docfx:tocrel" content="../toc.html">
+    
+    
+    <meta property="docfx:newtab" content="true">
+    <script type="text/javascript">
+      (function(c,l,a,r,i,t,y){
+          c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+          t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+          y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+      })(window, document, "clarity", "script", "8j6pedl344");
+  </script>
+  </head>  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+             <div class="github-mark">
+              <a href="https://github.com/pnp/script-samples" title="Go to repository">
+               <div class="github-wrapper">
+                  <div class="github-icon">
+                    <img src="https://pnp.github.io/script-samples/assets/icons/github-light-64px.png" alt="GitHub Icon Image">
+                  </div>
+                  <div class="github-repository">
+                    <span>GitHub</span>
+                    <ul class="github-facts">
+                      <li>
+                        <i class="fa fa-code-fork" aria-hidden="true"></i>
+                        <span class="github-forks"></span>
+                      </li>
+                      <li>
+                        <i class="fa fa-star-o" aria-hidden="true"></i>
+                        <span class="github-stars"></span>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </a>
+            </div>
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../assets/logo.svg" alt="">
+              </a>    </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <label class="glyphicon glyphicon-search" for="search-query"></label>
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>      </header>
+      <div role="main" class="container body-content hide-when-search">
+        <div class="article row grid">
+          <div class="col-md-12">
+            <article class="content wrap" id="_content" data-uid="">
+                  <div class="contribution-panel mobile-hide pull-right">
+                      <a href="https://github.com/pnp/script-samples/blob/main/scripts/spo-add-user-follow-site/README.md/#L1" title="Improve this Doc" class="improve-doc-lg"><i class="glyphicon glyphicon-pencil"></i></a>
+                  </div>
+                    <h1 id="add-users-to-follow-sharepoint-sites">Add users to follow SharePoint Sites</h1>
+
+<h2 id="summary">Summary</h2>
+<p>This script helps M365 admin to provision follow SharePoint Online sites to users and display in Out of the box SharePoint Site  https://[ domain]/_layouts/15/sharepoint.aspx?v=following.
+When users are created and they access the first time to Out of Box SharePoint sites, by default no sites appear since there are no following sites, this provision script will help and provide initial list of sites to access.</p>
+<p><img src="assets/preview.png" alt="Example Screenshot"></p>
+<h2 id="implementation">Implementation</h2>
+<ul>
+<li>Save script to support file &quot;Add-FollowUserSite.ps1.ps1&quot;</li>
+<li>Open Windows PowerShell</li>
+<li>Change console path where file is saved</li>
+<li>Include following parameters <strong>&quot;UsersMail&quot;</strong> (List of Users Mails), <strong>&quot;SitesUrl&quot;</strong> (List of SharePoint Url to follow)</li>
+<li>Press enter to execute line command</li>
+<li>Accept Microspft Graph permission request</li>
+</ul>
+<p><img src="assets/example.png" alt="Example Screenshot"></p>
+<div class="tabGroup" id="tabgroup_CeZOj-G++Q">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_CeZOj-G++Q_graphps" role="tab" aria-controls="tabpanel_CeZOj-G++Q_graphps" data-tab="graphps" tabindex="0" aria-selected="true">Microsoft Graph PowerShell</a>
+</li>
+</ul>
+<section id="tabpanel_CeZOj-G++Q_graphps" role="tabpanel" data-tab="graphps"><button class="article-clipboard" title="Copy to clipboard" data-toggle="tooltip" data-placement="top" data-clipboard-target="section[id^='tabpanel'][data-tab='graphps'] pre">
+    <span class="glyphicon glyphicon-copy" aria-hidden="true"></span>
+    <span class="article-clipboard__message done">Copied</span>
+</button>
+
+<pre><code class="lang-powershell"># Example: .\Add-FollowUserSite.ps1 -UsersMail &quot;user1@[domain].com&quot;,&quot;user2@[domain].com&quot;,&quot;user3@[domain].com&quot; -SitesUrl &quot;https://[domain].sharepoint.com&quot;
+
+[CmdletBinding()]
+param(
+[Parameter(Mandatory=$true,HelpMessage=&quot;List of Users Mails&quot;)]
+  [String[]]$UsersMail=@(&quot;user1@[domain].com&quot;,&quot;user2@[domain].com&quot;,&quot;user3@[domain].com&quot;),
+  [Parameter(Mandatory=$true,HelpMessage=&quot;List of SharePoint Url to follow&quot;)]
+  [String[]]$SitesUrl=@(&quot;https://[domain].sharepoint.com&quot;)
+)
+
+Begin{
+
+    # Validate Modules ffor Microsoft graph users exist
+    if (Get-Module -ListAvailable -Name microsoft.graph.users) {
+        Write-Host &quot;Microsoft Graph Users Module Already Installed&quot;
+    } 
+    else {
+        try {
+            Install-Module -Name microsoft.graph.users -Scope CurrentUser -Repository PSGallery -Force -AllowClobber 
+        }
+        catch [Exception] {
+            $_.message 
+        }
+    }
+    # Validate Modules ffor Microsoft graph users exist
+    if (Get-Module -ListAvailable -Name microsoft.graph.sites) {
+        Write-Host &quot;Microsoft Graph Sites Module Already Installed&quot;
+    } 
+    else {
+        try {
+            Install-Module -Name microsoft.graph.sites -Scope CurrentUser -Repository PSGallery -Force -AllowClobber 
+        }
+        catch [Exception] {
+            $_.message 
+        }
+    }
+
+    # Import Modules Microsoft.Graph.users and Microsoft.Graph.sites to be used
+    Import-Module Microsoft.Graph.users
+    Import-Module Microsoft.Graph.sites
+
+    Write-Host &quot;Connecting to Tenant&quot; -f Yellow
+    Connect-MgGraph -Scopes &quot;Sites.ReadWrite.All&quot;, &quot;User.Read.All&quot;
+
+    Write-Host &quot;Connection Successful!&quot; -f Green
+}
+Process{
+    $count = 0
+
+    $UsersMail | foreach {
+
+        #Get user Graph properties
+        $mail = $_
+
+        $user = Get-MgUser -ConsistencyLevel eventual -Count 1 -Search ([string]::Format('&quot;Mail:{0}&quot;',$mail))
+        $SitesUrl | foreach {
+
+            #Get Site Graph properties
+            $domain = ([System.Uri]$_).Host
+            $AbsolutePath = ([System.Uri]$_).AbsolutePath
+            $uriSite = [string]::Format('https://graph.microsoft.com/v1.0/sites/{0}:{1}',$domain,$AbsolutePath)
+            $site = Invoke-MgGraphRequest -Method GET $uriSite
+
+#Create Body for Post request
+$body = @'
+    {
+        &quot;value&quot;: [
+            {
+                &quot;id&quot;: &quot;{$SiteID}&quot;
+            }
+        ]
+    }
+'@.Replace('{$SiteID}',$site.id)
+            
+            #Graph call that include user to follow site
+            $uriFollow = [string]::Format('https://graph.microsoft.com/v1.0/users/{0}/followedSites/add',$user.Id)
+           
+            #Include follow option from user to SharePoint Site
+            try{
+                $response = Invoke-MgGraphRequest -Method POST $uriFollow -Body $body -ContentType &quot;application/json&quot;
+                Write-Host &quot;User '$($user.DisplayName)' is following site '$($AbsolutePath)'&quot; -f Green
+            }
+            catch {
+                Write-Error $_.Exception
+            } 
+            
+        }
+        
+        $count += 1 
+        #progress bar
+        Write-Progress -Activity 'Add users to follow site(s)' -Status &quot;Adding user '$($user.DisplayName)' to follow sites... ($($count)/$($UsersMail.Count))&quot; -PercentComplete (($count / $UsersMail.Count) * 100)
+    }
+}
+End {
+    Disconnect-MgGraph
+    Write-Host &quot;Finished&quot; -ForegroundColor Green
+}
+       
+</code></pre>
+<div class="highlight-tool">
+<p>Check out the <strong>Microsoft Graph PowerShell SDK</strong> to learn more at: <a href="https://docs.microsoft.com/en-us/graph/powershell/get-started">https://docs.microsoft.com/en-us/graph/powershell/get-started</a></p>
+</div>
+</section>
+</div>
+<h2 id="contributors">Contributors</h2>
+<table>
+<thead>
+<tr>
+<th>Author(s)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="https://github.com/aaclage">Andre Lage</a></td>
+</tr>
+</tbody>
+</table>
+<h2 id="disclaimer">Disclaimer</h2>
+<p><strong>THESE SAMPLES ARE PROVIDED <em>AS IS</em> WITHOUT WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, INCLUDING ANY IMPLIED WARRANTIES OF FITNESS FOR A PARTICULAR PURPOSE, MERCHANTABILITY, OR NON-INFRINGEMENT.</strong></p>
+<img src="https://pnptelemetry.azurewebsites.net/script-samples/scripts/spo-add-user-follow-site" aria-hidden="true">
+</article>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            <span>Script Samples<br>Generated by <strong><a href='https://dotnet.github.io/docfx' alt='Doc FX Website'>DocFX</a></strong> with <strong><a href='https://ovasquez.github.io/docfx-material' alt='DocFx Material Theme'>Material UI</a></strong></span>
+            
+            <!-- <img src="https://telemetry.sharepointpnp.com/@pnp.github.io/index/" alt="spacer"> -->
+          </div>
+        </div>
+      </footer>    </div>
+    
+    <script type="text/javascript" src="../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+    
+    <script type="text/javascript" src="../styles/clipboard.min.js"></script>
+    <script type="text/javascript" src="../styles/isotope.pkgd.min.js"></script>
+    <script type="text/javascript" src="../styles/loadsamples.js"></script>
+    <script type="text/javascript" src="../styles/filtersamples.js"></script>
+
+  </body>
+</html>
