@@ -20,7 +20,7 @@ This sample uses the Microsoft Graph PowerShell SDK to retrieve the text content
 # [Microsoft Graph PowerShell](#tab/graphps)
 ```powershell
 
-# A script to get summary of a SharePoint site page
+# A script to get summary of a SharePoint site page using GPT-3.5 turbo
 # The script accepts the following parameters:
 # SiteAbsoluteUrl, PageName
 
@@ -36,14 +36,13 @@ Param(
 function Connect-Graph {
 
     Write-Host "Connecting to Microsoft Graph.";
-
+    
     # Select Microsoft Graph beta endpoint
     Select-MgProfile -Name "beta"
     # Connect to Microsoft Graph
     Connect-MgGraph -Scopes "Sites.Read.All"
 }
 
-# function to get the site Id
 function Get-SiteId {
     
     Write-Host "Getting site Id.";
@@ -105,21 +104,16 @@ function Get-PageSummary {
         [string]$PageContent
     )
 
-    $openai_api_key = "sk-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx";
-    $openai_api_endpoint = "https://api.openai.com/v1/completions";
+    $openai_api_key = "sk-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx";
+    $openai_api_endpoint = "https://api.openai.com/v1/chat/completions";
 
-    $data = @{
-        "model"             = "text-davinci-003";
-        "prompt"            = "1 short sentence summary in English, French and Spanish of this: {{content}}.'English: 'xxx' \n French: 'xxx' \n Spanish: 'xxx'";
-        "temperature"       = 0.7;
-        "max_tokens"        = 256;
-        "top_p"             = 1.0;
-        "frequency_penalty" = 0.0;
-        "presence_penalty"  = 0.;
-    }
-
-    $data["prompt"] = $data["prompt"].Replace("{{content}}", $PageContent);
-
+    $data = @{}
+    $data["model"] = "gpt-3.5-turbo";
+    $data["messages"] = @(@{});
+    $data["messages"][0]["role"] = "user";
+    $messageContent = "1 short sentence summary in English, French and Spanish of this: {{content}}. Output format: 'English: 'xxx' `n French: 'xxx' `n Spanish: 'xxx'";
+    $data["messages"][0]["content"] = $messageContent.Replace("{{content}}", $PageContent);
+    
     $headers = @{
         "Content-Type"  = "application/json"
         "Authorization" = "Bearer " + $openai_api_key
@@ -130,7 +124,7 @@ function Get-PageSummary {
     $response = Invoke-WebRequest -Method Post -Uri $openai_api_endpoint -Headers $headers -Body ($data | ConvertTo-Json);
 
     if ($response -and $response.StatusCode -eq 200) {
-        $result = $response.Content | ConvertFrom-Json | Select-Object -ExpandProperty "choices" | Select-Object -ExpandProperty "text";
+        $result = $response.Content | ConvertFrom-Json | Select-Object -ExpandProperty choices | Select-Object -ExpandProperty message | Select-Object -ExpandProperty content;
     } else {
         $result = $null;
     }
@@ -158,21 +152,18 @@ Write-Host "`n ### End of page summary ###"
 
 <#
 
-Example usage: .\get-page-summary.ps1 -SiteAbsoluteUrl "https://contoso.sharepoint.com/sites/teamsite" -PageName "UK-News-1.aspx"
-
-Sample output:
-
+Example usage: .\get-page-summary-using-gpt-3.5-turbo.ps1 -SiteAbsoluteUrl "https://contoso.sharepoint.com/sites/teamsite" -PageName "UK-News-1.aspx"
 Welcome To Microsoft Graph!
 Getting site Id.
 Getting page content.
 Calling OpenAI API to get page summary.
 ### Page summary ###
 
-English: UK and EU are progressing towards an agreement on post-Brexit trade rules in Northern Ireland.
-French: Le Royaume-Uni et l'Union européenne progressent vers un accord sur les règles commerciales post-Brexit en Irlande du Nord.
-Spanish: Reino Unido y la UE están avanzando hacia un acuerdo sobre las normas comerciales post-Brexit en Irlanda del Norte.
+English: UK and EU are close to revising post-Brexit trade rules for Northern Ireland, but a deal is not yet guaranteed, says Irish Prime Minister Leo Varadkar.
+French: Le Royaume-Uni et l'UE sont proches de réviser les règles commerciales post-Brexit pour l'Irlande du Nord, mais un accord n'est pas encore garanti, a déclaré le Premier ministre irlandais Leo Varadkar.
+Spanish: El Reino Unido y la UE están cerca de revisar las normas comerciales posteriores al Brexit para Irlanda del Norte, pero aún no se garantiza el acuerdo, dice el primer ministro irlandés Leo Varadkar.
 
-### End of page summary ###
+ ### End of page summary ###
 
 #>
 
