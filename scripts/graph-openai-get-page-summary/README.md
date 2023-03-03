@@ -92,6 +92,7 @@ function Get-PageContent {
 
     $pageContent = $pageContent -replace "<[^>]+>", "";
     $pageContent = $pageContent -replace "&nbsp;", " ";
+    $pageContent = [System.Text.Encoding]::UTF8.GetString([System.Text.Encoding]::Convert([System.Text.Encoding]::UTF8, [System.Text.Encoding]::GetEncoding(1252), [System.Text.Encoding]::UTF8.GetBytes($pageContent)));
 
     return $pageContent;
 }
