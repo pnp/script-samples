@@ -141,6 +141,21 @@ article h4 {
   border-bottom: 2px solid #ddd;
 }
 
+@media only screen and (max-width: 768px){
+  .article {
+    margin-top: 0 !important;
+  }
+
+  article h1, article h2, article h3, article h4{
+    margin-top: 15px !important;
+  }
+
+  #filters {
+    margin-bottom: -10px;
+  }
+}
+
+
 /* NAVBAR */
 
 .navbar-brand > img {
@@ -214,6 +229,8 @@ article h4 {
 .navbar-inverse .navbar-toggle:hover {
   background-color: var(--highlight-dark);
 }
+
+
 
 /* SIDEBAR */
 
@@ -840,3 +857,4 @@ p.sample-title {
   height: 45px;
   margin-top: 5px;
 }
+
