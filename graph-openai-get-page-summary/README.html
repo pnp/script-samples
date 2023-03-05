@@ -121,7 +121,7 @@
 </button>
 
 <pre><code class="lang-powershell">
-# A script to get summary of a SharePoint site page
+# A script to get summary of a SharePoint site page using GPT-3.5 turbo
 # The script accepts the following parameters:
 # SiteAbsoluteUrl, PageName
 
@@ -137,14 +137,13 @@ Param(
 function Connect-Graph {
 
     Write-Host &quot;Connecting to Microsoft Graph.&quot;;
-
+    
     # Select Microsoft Graph beta endpoint
     Select-MgProfile -Name &quot;beta&quot;
     # Connect to Microsoft Graph
     Connect-MgGraph -Scopes &quot;Sites.Read.All&quot;
 }
 
-# function to get the site Id
 function Get-SiteId {
     
     Write-Host &quot;Getting site Id.&quot;;
@@ -194,6 +193,7 @@ function Get-PageContent {
 
     $pageContent = $pageContent -replace &quot;&lt;[^&gt;]+&gt;&quot;, &quot;&quot;;
     $pageContent = $pageContent -replace &quot;&amp;nbsp;&quot;, &quot; &quot;;
+    $pageContent = [System.Text.Encoding]::UTF8.GetString([System.Text.Encoding]::Convert([System.Text.Encoding]::UTF8, [System.Text.Encoding]::GetEncoding(1252), [System.Text.Encoding]::UTF8.GetBytes($pageContent)));
 
     return $pageContent;
 }
@@ -206,21 +206,16 @@ function Get-PageSummary {
         [string]$PageContent
     )
 
-    $openai_api_key = &quot;sk-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx&quot;;
-    $openai_api_endpoint = &quot;https://api.openai.com/v1/completions&quot;;
+    $openai_api_key = &quot;sk-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx&quot;;
+    $openai_api_endpoint = &quot;https://api.openai.com/v1/chat/completions&quot;;
 
-    $data = @{
-        &quot;model&quot;             = &quot;text-davinci-003&quot;;
-        &quot;prompt&quot;            = &quot;1 short sentence summary in English, French and Spanish of this: {{content}}.'English: 'xxx' \n French: 'xxx' \n Spanish: 'xxx'&quot;;
-        &quot;temperature&quot;       = 0.7;
-        &quot;max_tokens&quot;        = 256;
-        &quot;top_p&quot;             = 1.0;
-        &quot;frequency_penalty&quot; = 0.0;
-        &quot;presence_penalty&quot;  = 0.;
-    }
-
-    $data[&quot;prompt&quot;] = $data[&quot;prompt&quot;].Replace(&quot;{{content}}&quot;, $PageContent);
-
+    $data = @{}
+    $data[&quot;model&quot;] = &quot;gpt-3.5-turbo&quot;;
+    $data[&quot;messages&quot;] = @(@{});
+    $data[&quot;messages&quot;][0][&quot;role&quot;] = &quot;user&quot;;
+    $messageContent = &quot;1 short sentence summary in English, French and Spanish of this: {{content}}. Output format: 'English: 'xxx' `n French: 'xxx' `n Spanish: 'xxx'&quot;;
+    $data[&quot;messages&quot;][0][&quot;content&quot;] = $messageContent.Replace(&quot;{{content}}&quot;, $PageContent);
+    
     $headers = @{
         &quot;Content-Type&quot;  = &quot;application/json&quot;
         &quot;Authorization&quot; = &quot;Bearer &quot; + $openai_api_key
@@ -231,7 +226,7 @@ function Get-PageSummary {
     $response = Invoke-WebRequest -Method Post -Uri $openai_api_endpoint -Headers $headers -Body ($data | ConvertTo-Json);
 
     if ($response -and $response.StatusCode -eq 200) {
-        $result = $response.Content | ConvertFrom-Json | Select-Object -ExpandProperty &quot;choices&quot; | Select-Object -ExpandProperty &quot;text&quot;;
+        $result = $response.Content | ConvertFrom-Json | Select-Object -ExpandProperty choices | Select-Object -ExpandProperty message | Select-Object -ExpandProperty content;
     } else {
         $result = $null;
     }
@@ -259,21 +254,18 @@ Write-Host &quot;`n ### End of page summary ###&quot;
 
 &lt;#
 
-Example usage: .\get-page-summary.ps1 -SiteAbsoluteUrl &quot;https://contoso.sharepoint.com/sites/teamsite&quot; -PageName &quot;UK-News-1.aspx&quot;
-
-Sample output:
-
+Example usage: .\get-page-summary-using-gpt-3.5-turbo.ps1 -SiteAbsoluteUrl &quot;https://contoso.sharepoint.com/sites/teamsite&quot; -PageName &quot;UK-News-1.aspx&quot;
 Welcome To Microsoft Graph!
 Getting site Id.
 Getting page content.
 Calling OpenAI API to get page summary.
 ### Page summary ###
 
-English: UK and EU are progressing towards an agreement on post-Brexit trade rules in Northern Ireland.
-French: Le Royaume-Uni et l'Union européenne progressent vers un accord sur les règles commerciales post-Brexit en Irlande du Nord.
-Spanish: Reino Unido y la UE están avanzando hacia un acuerdo sobre las normas comerciales post-Brexit en Irlanda del Norte.
+English: UK and EU are close to revising post-Brexit trade rules for Northern Ireland, but a deal is not yet guaranteed, says Irish Prime Minister Leo Varadkar.
+French: Le Royaume-Uni et l'UE sont proches de réviser les règles commerciales post-Brexit pour l'Irlande du Nord, mais un accord n'est pas encore garanti, a déclaré le Premier ministre irlandais Leo Varadkar.
+Spanish: El Reino Unido y la UE están cerca de revisar las normas comerciales posteriores al Brexit para Irlanda del Norte, pero aún no se garantiza el acuerdo, dice el primer ministro irlandés Leo Varadkar.
 
-### End of page summary ###
+ ### End of page summary ###
 
 #&gt;
 
