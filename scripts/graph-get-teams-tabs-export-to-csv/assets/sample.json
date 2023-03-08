@@ -19,10 +19,6 @@
         "value": "3.7.0"
       },
       {
-        "key": "PNP-POWERSHELL",
-        "value": "1.7.0"
-      },
-      {
         "key": "GRAPH-POWERSHELL",
         "value": "1.0.0"
       }
@@ -39,12 +35,7 @@
       }
     ],
     "tags": [
-      "bash",
-      "Imported CLI Sample",
       "m365 util accesstoken get",
-      "Connect-PnPOnline",
-      "Get-PnPGraphAccessToken",
-      "Invoke-RestMethod",
       "Connect-MgGraph",
       "Get-MgContext",
       "Disconnect-MgGraph"
@@ -64,19 +55,9 @@
         "url": "https://aka.ms/cli-m365"
       },
       {
-        "name": "Want to learn more about PnP PowerShell and the cmdlets",
-        "description": "Check out the PnP PowerShell site to get started and for the reference to the cmdlets.",
-        "url": "https://aka.ms/pnp/powershell"
-      },
-      {
         "name": "Want to learn more about Microsoft Graph PowerShell SDK and the cmdlets",
         "description": "Check out the Microsoft Graph PowerShell SDK documentation site to get started and for the reference to the cmdlets.",
         "url": "https://docs.microsoft.com/en-us/graph/powershell/get-started"
-      },
-      {
-        "name": "Authenticate with and call the Microsoft Graph",
-        "description": "This sample first appeared on the CLI for Microsoft 365 documentation site",
-        "url": "https://pnp.github.io/cli-microsoft365/sample-scripts/graph/call-graph/"
       }
     ]
   }
