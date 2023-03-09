@@ -14,6 +14,8 @@ Create test users using MS Graph API from list or ask ChatGPT to generate test u
 - An Open AI API key which can be done by [creating an account](https://platform.openai.com/signup/) for using Open AI API
     - Once the key is obatined, set the value of `$openai_api_key` in the script with that key
 
+![Example Screenshot](assets/example.png)
+
 # [Microsoft Graph PowerShell](#tab/graphps)
 
 ```powershell
