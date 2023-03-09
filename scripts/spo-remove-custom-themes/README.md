@@ -43,4 +43,4 @@ foreach ($theme in $themes)
 
 
 [!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
-<img src="https://pnptelemetry.azurewebsites.net/script-samples/scripts/spo-remove-custom-themes" aria-hidden="true" />
+<img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/spo-remove-custom-themes" aria-hidden="true" />

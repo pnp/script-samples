@@ -98,4 +98,4 @@ Sample first appeared on [The many ways to set UK Locale in SharePoint](https://
 | Valeras Narbutas |
 
 [!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
-<img src="https://pnptelemetry.azurewebsites.net/script-samples/scripts/spo-set-sharepoint-regional-settings" aria-hidden="true" />
+<img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/spo-set-sharepoint-regional-settings" aria-hidden="true" />

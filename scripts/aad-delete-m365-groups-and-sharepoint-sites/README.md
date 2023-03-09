@@ -48,4 +48,4 @@ Remove-PnPTenantDeletedSite -Identity $_.Url -Force
 
 
 [!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
-<img src="https://pnptelemetry.azurewebsites.net/script-samples/scripts/aad-delete-m365-groups-and-sharepoint-sites" aria-hidden="true" />
+<img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/aad-delete-m365-groups-and-sharepoint-sites" aria-hidden="true" />

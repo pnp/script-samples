@@ -36,4 +36,4 @@ Whenever you are submitting any changes to the SharePoint repositories, please f
 * If your pull request shows merge conflicts, make sure to update your local master to be a mirror of what's in the main repo before making your modifications. In your fork, GitHub shows a sync button to update your branch.
 
 
-<img src="https://pnptelemetry.azurewebsites.net/script-samples/how-can-i-contribute" aria-hidden="true" />
+<img src="https://m365-visitor-stats.azurewebsites.net/script-samples/how-can-i-contribute" aria-hidden="true" />

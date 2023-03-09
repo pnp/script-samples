@@ -120,5 +120,5 @@ Sample first appeared on [Azure Automation to the Rescue – Session at Scottish
 | [Adam Wójcik](https://github.com/Adam-it)|
 
 [!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
-<img src="https://pnptelemetry.azurewebsites.net/script-samples/scripts/report-private-teams-excel" aria-hidden="true" />
+<img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/report-private-teams-excel" aria-hidden="true" />
 

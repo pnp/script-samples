@@ -41,4 +41,4 @@ Set-PnPListItem -List "Logo Universe" -Identity 12 -Values @{"Image" = "{'type':
 | [Ganesh Sanap](https://ganeshsanapblogs.wordpress.com/about) |
 
 [!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
-<img src="https://pnptelemetry.azurewebsites.net/script-samples/scripts/spo-add-update-image-column" aria-hidden="true" />
+<img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/spo-add-update-image-column" aria-hidden="true" />

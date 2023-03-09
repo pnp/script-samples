@@ -107,4 +107,4 @@ $Output | Export-Csv  -Path c:\temp\PeopleWebPartUsers.csv -Encoding utf8NoBOM -
 | Kasper Larsen, Fellowmind|
 
 [!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
-<img src="https://pnptelemetry.azurewebsites.net/script-samples/scripts/spo-export-basic-sitecollection-info" aria-hidden="true" />
+<img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/spo-export-basic-sitecollection-info" aria-hidden="true" />

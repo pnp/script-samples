@@ -184,4 +184,4 @@ Sample first appeared on [https://github.com/wobba/SPO-Trigger-Reindex](https://
 
 
 [!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
-<img src="https://pnptelemetry.azurewebsites.net/script-samples/scripts/spo-request-pnp-reindex-user-profile" aria-hidden="true" />
+<img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/spo-request-pnp-reindex-user-profile" aria-hidden="true" />

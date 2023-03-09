@@ -141,4 +141,4 @@ Used various sources for pieces of the script above, thank you kindly.
 
 
 [!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
-<img src="https://pnptelemetry.azurewebsites.net/script-samples/scripts/spo-recover-meeting-recordings" aria-hidden="true" />
+<img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/spo-recover-meeting-recordings" aria-hidden="true" />

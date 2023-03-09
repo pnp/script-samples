@@ -30,4 +30,4 @@ If the sample you wish to contribute is stored in your own GitHub repository, yo
     git push origin main
     ```
 
-<img src="https://pnptelemetry.azurewebsites.net/script-samples/contributing/merging-existing-project" aria-hidden="true" />
+<img src="https://m365-visitor-stats.azurewebsites.net/script-samples/contributing/merging-existing-project" aria-hidden="true" />

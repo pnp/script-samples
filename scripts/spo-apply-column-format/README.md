@@ -211,4 +211,4 @@ m365 spo field set --webUrl $url --listTitle $listName --name "GitHubFormatted" 
 
 
 [!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
-<img src="https://pnptelemetry.azurewebsites.net/script-samples/scripts/spo-apply-column-format" aria-hidden="true" />
+<img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/spo-apply-column-format" aria-hidden="true" />
