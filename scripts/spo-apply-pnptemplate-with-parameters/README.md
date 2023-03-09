@@ -188,4 +188,4 @@ Apply-PnPSiteTemplate -targetSiteUrl $provisionTargetSite  -SPAdminSiteUrl $Shar
 | Kasper Larsen, Fellowmind|
 
 [!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
-<img src="https://pnptelemetry.azurewebsites.net/script-samples/scripts/spo-apply-pnptemplate-with-parameters" aria-hidden="true" />
+<img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/spo-apply-pnptemplate-with-parameters" aria-hidden="true" />

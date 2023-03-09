@@ -77,4 +77,4 @@ There are a series of reports that are generated to help with the maintenance of
 * [Report of Samples Command Usage](https://pnp.github.io/script-samples/cmdusage.html)
 * [Metadata Report of Samples](https://pnp.github.io/script-samples/metadata.html)
 
-<img src="https://pnptelemetry.azurewebsites.net/script-samples/contributing/maintainers-guidance" aria-hidden="true" />
+<img src="https://m365-visitor-stats.azurewebsites.net/script-samples/contributing/maintainers-guidance" aria-hidden="true" />

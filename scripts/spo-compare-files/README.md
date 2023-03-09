@@ -43,4 +43,4 @@ if ($hash1 -eq $hash2) {
 | [Valeras Narbutas](https://github.com/ValerasNarbutas)|
 
 [!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
-<img src="https://pnptelemetry.azurewebsites.net/script-samples/scripts/spo-compare-files" aria-hidden="true" />
+<img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/spo-compare-files" aria-hidden="true" />

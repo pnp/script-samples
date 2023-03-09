@@ -31,4 +31,4 @@ Set-PnPList -Identity $list -Hidden:$true
 
 
 [!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
-<img src="https://pnptelemetry.azurewebsites.net/script-samples/scripts/spo-hide-list-from-site-contents" aria-hidden="true" />
+<img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/spo-hide-list-from-site-contents" aria-hidden="true" />

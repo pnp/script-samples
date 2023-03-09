@@ -34,4 +34,4 @@ For more information, see the [Code of Conduct FAQ](https://opensource.microsoft
 If you are interested in helping to maintain the repository please check out the [maintainers guidance](maintainers-guidance.md).
 
 
-<img src="https://pnptelemetry.azurewebsites.net/script-samples/contributing" aria-hidden="true" />
+<img src="https://m365-visitor-stats.azurewebsites.net/script-samples/contributing" aria-hidden="true" />

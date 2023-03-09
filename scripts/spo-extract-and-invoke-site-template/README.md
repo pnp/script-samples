@@ -39,5 +39,5 @@ Understand more about this script by reading this Microsoft 365 Platform Communi
 
 
 [!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
-<img src="https://pnptelemetry.azurewebsites.net/script-samples/scripts/spo-extract-and-invoke-site-template" aria-hidden="true" />
+<img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/spo-extract-and-invoke-site-template" aria-hidden="true" />
 

@@ -145,4 +145,4 @@ ExportListFields
 | Nanddeep Nachan |
 
 [!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
-<img src="https://pnptelemetry.azurewebsites.net/script-samples/scripts/spo-get-and-export-list-fields" aria-hidden="true" />
+<img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/spo-get-and-export-list-fields" aria-hidden="true" />

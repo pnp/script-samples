@@ -85,7 +85,7 @@ begin{
     $pluginDefaultName = "plugin: add-to-gallery-preparation"
     $pluginActiveName = "plugin: add-to-gallery"
     $readmeDefaultTitle = "<title>"
-    $readmeDefaultTelemetryLink = "https://pnptelemetry.azurewebsites.net/script-samples/scripts/template-script-submission"
+    $readmeDefaultTelemetryLink = "https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/template-script-submission"
     $readmeDefaultAuthorName = "<-you->"
 
     $readmeSourceCreditTitle = "## Source Credit"
@@ -271,7 +271,7 @@ process {
     # Update the readme.md with the new information such as Title, FolderName, Tool
     $readmeFilePath = "{0}\{1}" -f $targetFolder, $readmeFile
     $readmeContent = Get-Content $readmeFilePath -Raw
-    $ScriptTelemetryLink = "https://pnptelemetry.azurewebsites.net/script-samples/scripts/$ScriptFolderName"
+    $ScriptTelemetryLink = "https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/$ScriptFolderName"
 
     # Title
     $readmeContent = $readmeContent.Replace($readmeDefaultTitle, $ScriptTitle)

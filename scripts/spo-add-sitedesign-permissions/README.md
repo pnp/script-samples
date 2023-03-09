@@ -56,5 +56,5 @@ Grant-PnPSiteDesignRights -Identity $siteDesign -Principals "testuser1@tenant.on
 
 
 [!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
-<img src="https://pnptelemetry.azurewebsites.net/script-samples/scripts/spo-add-sitedesign-permissions" aria-hidden="true" />
+<img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/spo-add-sitedesign-permissions" aria-hidden="true" />
 

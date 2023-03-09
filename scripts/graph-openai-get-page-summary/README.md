@@ -183,4 +183,4 @@ Spanish: El Reino Unido y la UE están cerca de revisar las normas comerciales p
 
 
 [!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
-<img src="https://pnptelemetry.azurewebsites.net/script-samples/scripts/graph-openai-get-page-summary" aria-hidden="true" />
+<img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/graph-openai-get-page-summary" aria-hidden="true" />

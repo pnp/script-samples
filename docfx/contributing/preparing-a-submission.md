@@ -132,7 +132,7 @@ When you are submitting a new sample, it has to follow up below guidelines
 
 You will need to have a `README.md` file for your contribution, which is based on [the provided template](/../scripts/template-script-submission/README.md) under the `scripts` folder. Please copy this template to your project and update it accordingly. Your `README.md` must be named exactly `README.md` -- with capital letters -- as this is the information we use to make your sample public.
 
-Please update the image source at the bottom of the template, the `src` attribute according with the repository name and folder information. For example, if your sample is named `sampleA` in the `scripts` folder, you should update the `src` attribute to `https://pnptelemetry.azurewebsites.net/script-samples/scripts/sampleA`
+Please update the image source at the bottom of the template, the `src` attribute according with the repository name and folder information. For example, if your sample is named `sampleA` in the `scripts` folder, you should update the `src` attribute to `https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/sampleA`
 
 We use this for tracking your samples usage and popularity.
 
@@ -169,6 +169,6 @@ e.g.
 
 ### We Track the Samples Usage
 
-The `README` template contains a specific tracking image at the bottom of the file with an `img` tag, where the `src` attribute points to `https://pnptelemetry.azurewebsites.net/script-samples/samples/readme-template`. This is a transparent image which is used to track viewership of individual samples in GitHub.
+The `README` template contains a specific tracking image at the bottom of the file with an `img` tag, where the `src` attribute points to `https://m365-visitor-stats.azurewebsites.net/script-samples/samples/readme-template`. This is a transparent image which is used to track viewership of individual samples in GitHub.
 
-<img src="https://pnptelemetry.azurewebsites.net/script-samples/contributing/preparing-a-submission" aria-hidden="true" />
+<img src="https://m365-visitor-stats.azurewebsites.net/script-samples/contributing/preparing-a-submission" aria-hidden="true" />

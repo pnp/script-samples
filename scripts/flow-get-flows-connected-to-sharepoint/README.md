@@ -76,4 +76,4 @@ $results | Export-Csv -NoTypeInformation -Path [locationOfYourCsv]
 | Russell Gove |
 
 [!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
-<img src="https://pnptelemetry.azurewebsites.net/script-samples/scripts/flow-get-flows-connected-to-sharepoint" aria-hidden="true" />
+<img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/flow-get-flows-connected-to-sharepoint" aria-hidden="true" />

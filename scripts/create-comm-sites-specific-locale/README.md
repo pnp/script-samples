@@ -91,4 +91,4 @@ Article first appeared on [https://www.pkbullock.com/blog/2018/create-communicat
 
 [!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
 
-<img src="https://pnptelemetry.azurewebsites.net/script-samples/scripts/create-comm-sites-specific-locale" aria-hidden="true" />
+<img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/create-comm-sites-specific-locale" aria-hidden="true" />
