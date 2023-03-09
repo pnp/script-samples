@@ -1,0 +1,274 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html lang="en">
+  
+  <head>
+    <meta charset="utf-8">
+    <title>Create test users using MS Graph API from list or ask ChatGPT to generate test users | PnP Samples </title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" "="">
+    <meta name="title" content="Create test users using MS Graph API from list or ask ChatGPT to generate test users | PnP Samples ">
+    <meta name="generator" content="docfx 2.56.7.0">
+    <meta name="description" content="A sample gallery of scripts to manage all things Microsoft 365.">
+  
+    <!-- Social Media -->
+    <meta property="og:locale" content="en_GB">
+    <meta property="og:title" content="Create test users using MS Graph API from list or ask ChatGPT to generate test users | PnP Samples ">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://pnp.github.io/script-samples">
+    <meta property="og:image" content="https://pnp.github.io/script-samples/assets/social-media-screenshot.png">
+    <meta property="og:image:alt" content="Screenshot example of the PnP Script Samples Site">
+    <meta property="og:site_name" content="PnP Script Samples">
+    <meta property="og:description" content="A sample gallery of scripts to manage all things Microsoft 365.">
+  
+    <link rel="shortcut icon" href="https://c.s-microsoft.com/favicon.ico?v2">
+    <link rel="stylesheet" href="../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../styles/docfx.css">
+    <link rel="stylesheet" href="../styles/main.css">
+    <link rel="stylesheet" href="../styles/extra.css">
+    <link rel="stylesheet" href="../styles/filter.css">
+    <link rel="stylesheet" href="../styles/site.css">
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet"> 
+    <meta property="docfx:navrel" content="../toc.html">
+    <meta property="docfx:tocrel" content="../toc.html">
+    
+    
+    <meta property="docfx:newtab" content="true">
+    <script type="text/javascript">
+      (function(c,l,a,r,i,t,y){
+          c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+          t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+          y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+      })(window, document, "clarity", "script", "8j6pedl344");
+  </script>
+  </head>  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+             <div class="github-mark">
+              <a href="https://github.com/pnp/script-samples" title="Go to repository">
+               <div class="github-wrapper">
+                  <div class="github-icon">
+                    <img src="https://pnp.github.io/script-samples/assets/icons/github-light-64px.png" alt="GitHub Icon Image">
+                  </div>
+                  <div class="github-repository">
+                    <span>GitHub</span>
+                    <ul class="github-facts">
+                      <li>
+                        <i class="fa fa-code-fork" aria-hidden="true"></i>
+                        <span class="github-forks"></span>
+                      </li>
+                      <li>
+                        <i class="fa fa-star-o" aria-hidden="true"></i>
+                        <span class="github-stars"></span>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </a>
+            </div>
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../assets/logo.svg" alt="">
+              </a>    </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <label class="glyphicon glyphicon-search" for="search-query"></label>
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>      </header>
+      <div role="main" class="container body-content hide-when-search">
+        <div class="article row grid">
+          <div class="col-md-12">
+            <article class="content wrap" id="_content" data-uid="">
+                  <div class="contribution-panel mobile-hide pull-right">
+                      <a href="https://github.com/pnp/script-samples/blob/main/scripts/graph-create-test-users-with-chat-gpt/README.md/#L1" title="Improve this Doc" class="improve-doc-lg"><i class="glyphicon glyphicon-pencil"></i></a>
+                  </div>
+                    <h1 id="create-test-users-using-ms-graph-api-from-list-or-ask-chatgpt-to-generate-test-users">Create test users using MS Graph API from list or ask ChatGPT to generate test users</h1>
+
+<h2 id="summary">Summary</h2>
+<p>Create test users using MS Graph API from list or ask ChatGPT to generate test users. This script uses the <a href="https://openai.com/blog/chatgpt/">ChatGPT</a> model from OpenAI to generate a list of users. The script can also use a list of users that you provide.</p>
+<h2 id="pre-requisites">Pre-requisites</h2>
+<ul>
+<li><code>Microsoft.Graph.Sites</code> PowerShell module</li>
+<li>An Open AI API key which can be done by <a href="https://platform.openai.com/signup/">creating an account</a> for using Open AI API
+<ul>
+<li>Once the key is obatined, set the value of <code>$openai_api_key</code> in the script with that key</li>
+</ul>
+</li>
+</ul>
+<p><img src="assets/example.png" alt="Example Screenshot"></p>
+<div class="tabGroup" id="tabgroup_CeZOj-G++Q">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_CeZOj-G++Q_graphps" role="tab" aria-controls="tabpanel_CeZOj-G++Q_graphps" data-tab="graphps" tabindex="0" aria-selected="true">Microsoft Graph PowerShell</a>
+</li>
+</ul>
+<section id="tabpanel_CeZOj-G++Q_graphps" role="tabpanel" data-tab="graphps"><button class="article-clipboard" title="Copy to clipboard" data-toggle="tooltip" data-placement="top" data-clipboard-target="section[id^='tabpanel'][data-tab='graphps'] pre">
+    <span class="glyphicon glyphicon-copy" aria-hidden="true"></span>
+    <span class="article-clipboard__message done">Copied</span>
+</button>
+
+<pre><code class="lang-powershell">
+# Check if Microsoft.Graph module is already installed, if not install it
+if (-not(Get-Module Microsoft.Graph)) {
+    Install-Module -Name Microsoft.Graph
+}
+
+# Connect to Microsoft Graph API with admin credentials
+Connect-MgGraph -Scopes &quot;User.ReadWrite.All&quot;
+
+# Configure variables
+$domain = &quot;mydomain.onmicrosoft.com&quot; # change to your domain
+$askOpenAI = $true # change to $false if you want to use the list of users above
+$numUsers = 20 # change to integer value
+$openai_api_key = &quot;sk-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx&quot;;
+
+# Get list of users from OpenAI API or use the list of users above
+if ($askOpenAI -eq $true) {
+    $numUsers = 20 # change to integer value
+    $users = Get-ListOfUsers -numUsers $numUsers -openai_api_key $openai_api_key
+}else {
+    # List of users to create
+    $users = @(
+        &quot;Alice Smith&quot;,
+        &quot;Bob Johnson&quot;,
+        &quot;Charlie Brown&quot;
+    )
+    # Number of users to create, change value to any number you want, just not exceeding the number of users in the list
+    $numUsers = $users.Count # change to integer value
+}
+
+# list of users to create in the format of &quot;FirstName LastName&quot; using $numUsers
+$users = $users | Select-Object -First $numUsers
+
+# Loop through the list of users and create their accounts
+foreach ($user in $users) {
+ 
+    $name = $user.Split(&quot; &quot;)
+    $givenName = $name[0].Trim()
+    $surname = $name[1].Trim()
+    $displayName = $user.Trim()
+    $userPrincipalName = $name[0].ToLower() + &quot;.&quot; + $name[1].ToLower() + &quot;@&quot; + $domain
+    $mailNickName = $givenName.Substring(0,3).ToLower() + $surname.Substring(0,3).ToLower() + (Get-Random -Minimum 100 -Maximum 999).ToString()
+    $PasswordProfile = @{
+        Password = 'MyPassword123!'
+        }
+
+    $user = New-MgUser -AccountEnabled `
+        -DisplayName $displayName `
+        -MailNickName $mailNickName `
+        -givenName $givenName `
+        -surname $surname `
+        -userPrincipalName $userPrincipalName `
+        -PasswordProfile $PasswordProfile 
+
+    Write-Host &quot;User created: $($user.DisplayName) ($($user.UserPrincipalName))&quot;
+}
+
+
+# function to get user names from a list of users in format &quot;FirstName LastName&quot;
+function Get-ListOfUsers {
+    
+    param(
+        [Parameter(Mandatory = $true)]
+        [string]$numUsers
+        [Parameter(Mandatory = $true)]
+        [string]$openai_api_key
+    )
+
+    # $openai_api_key = &quot;sk-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx&quot;;
+    $openai_api_endpoint = &quot;https://api.openai.com/v1/chat/completions&quot;;
+
+    $data = @{}
+    $data[&quot;model&quot;] = &quot;gpt-3.5-turbo&quot;;
+    $data[&quot;messages&quot;] = @(@{});
+    $data[&quot;messages&quot;][0][&quot;role&quot;] = &quot;user&quot;;
+    $messageContent = &quot;create list of test users in format 'FirstName LastName' separated by :. Number or records to create: $numUsers &quot;;
+    $data[&quot;messages&quot;][0][&quot;content&quot;] = $messageContent;
+    
+    $headers = @{
+        &quot;Content-Type&quot;  = &quot;application/json&quot;
+        &quot;Authorization&quot; = &quot;Bearer &quot; + $openai_api_key
+    }
+
+    Write-Host &quot;Calling OpenAI API to get list of users.&quot;;
+
+    $response = Invoke-WebRequest -Method Post -Uri $openai_api_endpoint -Headers $headers -Body ($data | ConvertTo-Json);
+
+    if ($response -and $response.StatusCode -eq 200) {
+        $responseObject = $response.Content | ConvertFrom-Json
+        $result  = $responseObject.choices[0].message.content.Split(&quot;,&quot;)
+        $result  = $result.split(&quot;:&quot;)
+        
+
+        } else {
+        $result = $null;
+    }
+    return $result;
+}
+
+
+</code></pre>
+<div class="highlight-tool">
+<p>Check out the <strong>Microsoft Graph PowerShell SDK</strong> to learn more at: <a href="https://docs.microsoft.com/en-us/graph/powershell/get-started">https://docs.microsoft.com/en-us/graph/powershell/get-started</a></p>
+</div>
+</section>
+</div>
+<h2 id="contributors">Contributors</h2>
+<table>
+<thead>
+<tr>
+<th>Author(s)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Valeras Narbutas</td>
+</tr>
+</tbody>
+</table>
+<h2 id="disclaimer">Disclaimer</h2>
+<p><strong>THESE SAMPLES ARE PROVIDED <em>AS IS</em> WITHOUT WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, INCLUDING ANY IMPLIED WARRANTIES OF FITNESS FOR A PARTICULAR PURPOSE, MERCHANTABILITY, OR NON-INFRINGEMENT.</strong></p>
+<img src="https://pnptelemetry.azurewebsites.net/script-samples/scripts/graph-create-test-users-with-chat-gpt" aria-hidden="true">
+</article>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            <span>Script Samples<br>Generated by <strong><a href='https://dotnet.github.io/docfx' alt='Doc FX Website'>DocFX</a></strong> with <strong><a href='https://ovasquez.github.io/docfx-material' alt='DocFx Material Theme'>Material UI</a></strong></span>
+            
+            <!-- <img src="https://telemetry.sharepointpnp.com/@pnp.github.io/index/" alt="spacer"> -->
+          </div>
+        </div>
+      </footer>    </div>
+    
+    <script type="text/javascript" src="../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+    
+    <script type="text/javascript" src="../styles/clipboard.min.js"></script>
+    <script type="text/javascript" src="../styles/isotope.pkgd.min.js"></script>
+    <script type="text/javascript" src="../styles/loadsamples.js"></script>
+    <script type="text/javascript" src="../styles/filtersamples.js"></script>
+
+  </body>
+</html>
