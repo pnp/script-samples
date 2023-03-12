@@ -78,5 +78,8 @@ Sample first appeared on [List out all Azure AD Apps along with their KeyCredent
 | Srinivas Varukala |
 
 
+
+<img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/aad-apps-expird-keys?labelText=Visitors" class="img-visitor" aria-hidden="true" />
+
+
 [!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
-<img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/aad-apps-expird-keys" aria-hidden="true" />

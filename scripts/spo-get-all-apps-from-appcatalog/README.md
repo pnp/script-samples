@@ -111,5 +111,8 @@ StartProcessing
 | Chandani Prajapati |
 | [Adam Wójcik](https://github.com/Adam-it)|
 
+
+<img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/spo-get-all-apps-from-appcatalog?labelText=Visitors" class="img-visitor" aria-hidden="true" />
+
+
 [!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
-<img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/spo-get-all-apps-from-appcatalog" aria-hidden="true" />

@@ -106,6 +106,9 @@ Inspired by [Invoke-SPOListDesign to create instances of lists/libraires](https:
 | Reshmee Auckloo |
 
 
-[!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
-<img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/spo-add-multiple-document-libraries-with-list-template" aria-hidden="true" />
 
+<img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/spo-add-multiple-document-libraries-with-list-template?labelText=Visitors" class="img-visitor" aria-hidden="true" />
+
+
+
+[!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]

@@ -94,5 +94,8 @@ foreach ($file in $files) {
 | [Nanddeep Nachan](https://github.com/nanddeepn) |
 
 
+
+<img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/reset-files-permission-unique-to-inherited?labelText=Visitors" class="img-visitor" aria-hidden="true" />
+
+
 [!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
-<img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/reset-files-permission-unique-to-inherited" aria-hidden="true" />

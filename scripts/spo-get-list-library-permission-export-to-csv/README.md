@@ -217,5 +217,8 @@ end {
 | Chandani Prajapati |
 | [Nanddeep Nachan](https://github.com/nanddeepn) |
 
+
+<img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/spo-get-list-library-permission-export-to-csv?labelText=Visitors" class="img-visitor" aria-hidden="true" />
+
+
 [!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
-<img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/spo-get-list-library-permission-export-to-csv" aria-hidden="true" />

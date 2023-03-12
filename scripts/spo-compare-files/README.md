@@ -42,5 +42,7 @@ if ($hash1 -eq $hash2) {
 |-----------|
 | [Valeras Narbutas](https://github.com/ValerasNarbutas)|
 
+
+<img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/spo-compare-files?labelText=Visitors" class="img-visitor" aria-hidden="true" />
+
 [!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
-<img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/spo-compare-files" aria-hidden="true" />

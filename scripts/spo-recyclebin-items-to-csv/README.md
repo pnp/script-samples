@@ -205,5 +205,8 @@ Main
 | Chandani Prajapati |
 | [Adam Wójcik](https://github.com/Adam-it)|
 
+
+<img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/spo-recyclebin-items-to-csv?labelText=Visitors" class="img-visitor" aria-hidden="true" />
+
+
 [!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
-<img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/spo-recyclebin-items-to-csv" aria-hidden="true" />

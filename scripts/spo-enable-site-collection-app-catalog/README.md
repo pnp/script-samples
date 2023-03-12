@@ -135,5 +135,8 @@ https://contoso.sharepoint.com/sites/Retail
 |-----------|
 | [Nanddeep Nachan](https://github.com/nanddeepn) |
 
+
+<img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/spo-enable-site-collection-app-catalog?labelText=Visitors" class="img-visitor" aria-hidden="true" />
+
+
 [!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
-<img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/spo-enable-site-collection-app-catalog" aria-hidden="true" />

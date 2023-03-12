@@ -116,6 +116,9 @@ ConvertTo-PnPPage -Identity "Quality-Cherry-Cake.aspx" -PublishingPage `
 |-----------|
 | Paul Bullock |
 
-[!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
 
-<img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/modernize-classic-pages-from-publishing-sites" aria-hidden="true" />
+
+<img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/modernize-classic-pages-from-publishing-sites?labelText=Visitors" class="img-visitor" aria-hidden="true" />
+
+
+[!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]

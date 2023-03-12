@@ -319,5 +319,8 @@ process {
 | Kasper Larsen|
 | Mathijs Verbeeck|
 
+
+<img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/create-dummy-docs-versions-in-library?labelText=Visitors" class="img-visitor" aria-hidden="true" />
+
+
 [!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
-<img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/create-dummy-docs-versions-in-library" aria-hidden="true" />

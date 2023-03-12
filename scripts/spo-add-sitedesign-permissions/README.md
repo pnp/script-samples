@@ -55,6 +55,9 @@ Grant-PnPSiteDesignRights -Identity $siteDesign -Principals "testuser1@tenant.on
 | Reshmee Auckloo |
 
 
-[!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
-<img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/spo-add-sitedesign-permissions" aria-hidden="true" />
 
+<img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/spo-add-sitedesign-permissions?labelText=Visitors" class="img-visitor" aria-hidden="true" />
+
+
+
+[!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]

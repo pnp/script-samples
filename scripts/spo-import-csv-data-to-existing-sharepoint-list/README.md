@@ -88,6 +88,9 @@ end{
 |-----------|
 | Rodrigo Pinto |
 
-[!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
-<img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/spo-import-csv-data-to-existing-sharepoint-list" aria-hidden="true" />
 
+<img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/spo-import-csv-data-to-existing-sharepoint-list?labelText=Visitors" class="img-visitor" aria-hidden="true" />
+
+
+
+[!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]

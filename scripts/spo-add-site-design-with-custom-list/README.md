@@ -447,5 +447,8 @@ $site = $site | ConvertFrom-Json
 | Valeras Narbutas |
 
 
+
+<img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/spo-add-site-design-with-custom-list?labelText=Visitors" class="img-visitor" aria-hidden="true" />
+
+
 [!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
-<img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/spo-add-site-design-with-custom-list" aria-hidden="true" />

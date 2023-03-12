@@ -50,6 +50,9 @@ Added PnP PowerShell version from [PnP.PowerShell + Bonus Script: Export all Flo
 | Luise Freese |
 | [Leon Armston](https://github.com/LeonArmston) |
 
-[!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
-<img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/flow-export-all-flows-in-environment" aria-hidden="true" />
 
+<img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/flow-export-all-flows-in-environment?labelText=Visitors" class="img-visitor" aria-hidden="true" />
+
+
+
+[!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]

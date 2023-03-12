@@ -121,5 +121,8 @@ Sample first appeared on [How to to get all site collections with their sub webs
 | Chandani Prajapati |
 | Adam Wójcik |
 
+
+<img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/get-all-site-collections-subwebs?labelText=Visitors" class="img-visitor" aria-hidden="true" />
+
+
 [!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
-<img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/get-all-site-collections-subwebs" aria-hidden="true" />

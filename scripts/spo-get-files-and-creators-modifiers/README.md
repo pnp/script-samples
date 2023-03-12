@@ -38,5 +38,7 @@ $LibraryList | ForEach-Object{Get-PnPListItem -List $_.RootFolder.Name | Where-O
 |-----------|
 | [Todd Klindt](https://www.toddklindt.com)|
 
+
+<img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/spo-get-files-and-creators-modifiers?labelText=Visitors" class="img-visitor" aria-hidden="true" />
+
 [!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
-<img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/spo-get-files-and-creators-modifiers" aria-hidden="true" />

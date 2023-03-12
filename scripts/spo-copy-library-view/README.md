@@ -175,5 +175,8 @@ Disconnect-PnPOnline
 |-----------|
 | [Reshmee Auckloo](https://github.com/reshmee011)|
 
+
+<img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/spo-copy-library-view?labelText=Visitors" class="img-visitor" aria-hidden="true" />
+
+
 [!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
-<img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/spo-copy-library-view" aria-hidden="true" />

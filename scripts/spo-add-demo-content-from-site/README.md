@@ -164,6 +164,9 @@ CrawlLink "$WebUrl/$extension" 0
 |-----------|
 | [Kevin McDonnell](https://github.com/kevmcdonk)|
 
-[!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
 
-<img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/spo-add-demo-content-from-site" aria-hidden="true" />
+
+<img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/spo-add-demo-content-from-site?labelText=Visitors" class="img-visitor" aria-hidden="true" />
+
+
+[!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]

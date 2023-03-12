@@ -57,5 +57,7 @@ This PowerShell script can be used to  associate mutilple site collections to HU
 |-----------|
 | [Siddharth Vaghasia](https://github.com/siddharth-vaghasia)
 
+
+<img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/spo-associate-multiple-sites-to-hub?labelText=Visitors" class="img-visitor" aria-hidden="true" />
+
 [!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
-<img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/spo-associate-multiple-sites-to-hub" aria-hidden="true" />

@@ -454,5 +454,8 @@ Main
 | [Adam Wójcik](https://github.com/Adam-it)|
 | Jago Pauwels |
 
+
+<img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/spo-list-items-with-caml-query?labelText=Visitors" class="img-visitor" aria-hidden="true" />
+
+
 [!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
-<img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/spo-list-items-with-caml-query" aria-hidden="true" />

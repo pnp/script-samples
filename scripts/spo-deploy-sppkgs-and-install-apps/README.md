@@ -65,5 +65,8 @@ Write-Host ("DONE") -ForegroundColor Green
 | ----------------------------------------- |
 | [Matteo Serpi](https://github.com/srpmtt) |
 
+
+<img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/spo-deploy-sppkgs-and-install-apps?labelText=Visitors" class="img-visitor" aria-hidden="true" />
+
+
 [!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
-<img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/spo-deploy-sppkgs-and-install-apps" aria-hidden="true" />

@@ -48,5 +48,8 @@ catch {
 |-----------|
 | [Reshmee Auckloo](https://github.com/reshme011) |
 
+
+<img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/spo-list-update-contenttype-systemupdate?labelText=Visitors" class="img-visitor" aria-hidden="true" />
+
+
 [!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
-<img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/spo-list-update-contenttype-systemupdate" aria-hidden="true" />

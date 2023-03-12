@@ -97,6 +97,9 @@ Article first appeared on [Testing user preferred language of SharePoint site | 
 | Paul Bullock |
 | [Adam Wójcik](https://github.com/Adam-it)|
 
-[!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
 
-<img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/user-language-for-site" aria-hidden="true" />
+
+<img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/user-language-for-site?labelText=Visitors" class="img-visitor" aria-hidden="true" />
+
+
+[!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]

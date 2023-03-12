@@ -81,6 +81,9 @@ Catch {
 |-----------|
 | [Reshmee Auckloo](https://github.com/reshmee011)|
 
-[!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
 
-<img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/spo-add-dummy-folders-and-files" aria-hidden="true" />
+
+<img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/spo-add-dummy-folders-and-files?labelText=Visitors" class="img-visitor" aria-hidden="true" />
+
+
+[!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]

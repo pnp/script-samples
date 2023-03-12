@@ -109,5 +109,8 @@ Remove-WebPartFromPages -SiteURL https://contoso.sharepoint.com -WebPartIds "New
 |-----------|
 | [Ramin Ahmadi](https://github.com/ahmadiramin) |
 
+
+<img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/spo-remove-webpart-from-pages?labelText=Visitors" class="img-visitor" aria-hidden="true" />
+
+
 [!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
-<img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/spo-remove-webpart-from-pages" aria-hidden="true" />

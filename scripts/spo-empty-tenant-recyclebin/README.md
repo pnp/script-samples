@@ -49,6 +49,9 @@ Sample first appeared on [Empty the tenant recycle bin | CLI for Microsoft 365](
 | [Leon Armston](https://github.com/LeonArmston)|
 
 
-[!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
-<img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/spo-empty-tenant-recyclebin" aria-hidden="true" />
 
+<img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/spo-empty-tenant-recyclebin?labelText=Visitors" class="img-visitor" aria-hidden="true" />
+
+
+
+[!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]

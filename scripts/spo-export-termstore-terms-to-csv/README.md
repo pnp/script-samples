@@ -155,5 +155,8 @@ Disconnect-PnPOnline
 | [Ramin Ahmadi](https://github.com/ahmadiramin) |
 | [Reshmee Auckloo](https://github.com/reshmee011) |
 
+
+<img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/spo-export-termstore-terms-to-csv?labelText=Visitors" class="img-visitor" aria-hidden="true" />
+
+
 [!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
-<img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/spo-export-termstore-terms-to-csv" aria-hidden="true" />

@@ -194,6 +194,9 @@ while ($fileLength -gt ($end + 1)) {
 | ----------------------------------------------- |
 | [Paul Matthews](https://github.com/pmatthews05) |
 
-[!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
 
-<img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/graph-upload-file-to-sharepoint" aria-hidden="true" />
+
+<img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/graph-upload-file-to-sharepoint?labelText=Visitors" class="img-visitor" aria-hidden="true" />
+
+
+[!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]

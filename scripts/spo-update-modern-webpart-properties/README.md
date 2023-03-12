@@ -132,5 +132,8 @@ Update-CCWebpartProperties -SiteURL https://contoso.sharepoint.com -WebPartIdent
 |-----------|
 | [Ramin Ahmadi](https://github.com/ahmadiramin) |
 
+
+<img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/spo-update-modern-webpart-properties?labelText=Visitors" class="img-visitor" aria-hidden="true" />
+
+
 [!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
-<img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/spo-update-modern-webpart-properties" aria-hidden="true" />

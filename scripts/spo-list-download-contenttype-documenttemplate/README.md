@@ -44,5 +44,8 @@ foreach($CT in $list.ContentTypes | Where-Object{$_.ReadOnly -ne $false})
 |-----------|
 | [Leon Armston](https://github.com/LeonArmston) |
 
+
+<img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/spo-list-download-contenttype-documenttemplate?labelText=Visitors" class="img-visitor" aria-hidden="true" />
+
+
 [!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
-<img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/spo-list-download-contenttype-documenttemplate" aria-hidden="true" />

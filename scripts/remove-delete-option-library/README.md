@@ -59,5 +59,8 @@ Sample first appeared on [Prevent document library deletion | CaPa Creative Ltd]
 | [Adam Wójcik](https://github.com/Adam-it)|
 
 
+
+<img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/remove-delete-option-library?labelText=Visitors" class="img-visitor" aria-hidden="true" />
+
+
 [!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
-<img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/remove-delete-option-library" aria-hidden="true" />

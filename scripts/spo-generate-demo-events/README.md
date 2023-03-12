@@ -122,5 +122,8 @@ Training Event: Using Teams,25,12:00,13:00,This is a corporate event for everyon
 | Adam Wójcik |
 
 
+
+<img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/spo-generate-demo-events?labelText=Visitors" class="img-visitor" aria-hidden="true" />
+
+
 [!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
-<img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/spo-generate-demo-events" aria-hidden="true" />

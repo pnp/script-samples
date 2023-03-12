@@ -74,6 +74,9 @@ write-host -ForegroundColor Magenta "Successful!!"
 |-----------|
 | Siddharth Vaghasia |
 
-[!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
-<img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/powerapps-get-app-users-list-csv" aria-hidden="true" />
 
+<img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/powerapps-get-app-users-list-csv?labelText=Visitors" class="img-visitor" aria-hidden="true" />
+
+
+
+[!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]

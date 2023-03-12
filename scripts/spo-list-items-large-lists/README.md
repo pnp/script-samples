@@ -133,5 +133,8 @@ for ($i = 0; $i -lt $pageNumber; $i++)
 |-----------|
 | Valeras Narbutas |
 
+
+<img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/spo-list-items-large-lists?labelText=Visitors" class="img-visitor" aria-hidden="true" />
+
+
 [!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
-<img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/spo-list-items-large-lists" aria-hidden="true" />

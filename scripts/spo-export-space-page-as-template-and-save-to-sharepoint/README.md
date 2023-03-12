@@ -98,5 +98,8 @@ process {
 | Valeras Narbutas |
 
 
+
+<img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/spo-export-space-page-as-template-and-save-to-sharepoint?labelText=Visitors" class="img-visitor" aria-hidden="true" />
+
+
 [!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
-<img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/spo-export-space-page-as-template-and-save-to-sharepoint" aria-hidden="true" />

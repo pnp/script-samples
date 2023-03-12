@@ -93,5 +93,8 @@ Sample first appeared on [Blimped | Getting notified of service incidents in Mic
 | Martin Lingstuyl |
 
 
+
+<img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/tenant-monitor-notify-healthstatus?labelText=Visitors" class="img-visitor" aria-hidden="true" />
+
+
 [!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
-<img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/tenant-monitor-notify-healthstatus" aria-hidden="true" />

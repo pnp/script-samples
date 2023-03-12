@@ -183,5 +183,7 @@ Sample first appeared on [https://github.com/wobba/SPO-Trigger-Reindex](https://
 | [Todd Klindt](https://www.toddklindt.com)|
 
 
+
+<img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/spo-request-pnp-reindex-user-profile?labelText=Visitors" class="img-visitor" aria-hidden="true" />
+
 [!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
-<img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/spo-request-pnp-reindex-user-profile" aria-hidden="true" />

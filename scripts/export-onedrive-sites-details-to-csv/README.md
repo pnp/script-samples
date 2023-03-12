@@ -107,5 +107,7 @@ StartProcessing
 | Chandani Prajapati |
 
 
+
+<img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/export-onedrive-sites-details-to-csv?labelText=Visitors" class="img-visitor" aria-hidden="true" />
+
 [!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
-<img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/export-onedrive-sites-details-to-csv" aria-hidden="true" />

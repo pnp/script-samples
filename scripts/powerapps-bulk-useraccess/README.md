@@ -165,6 +165,9 @@ write-host -ForegroundColor Green "Successfully Script Completed"
 |-----------|
 | [Siddharth Vaghasia](https://github.com/siddharth-vaghasia) |
 
-[!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
-<img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/powerapps-bulk-useraccess" aria-hidden="true" />
 
+<img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/powerapps-bulk-useraccess?labelText=Visitors" class="img-visitor" aria-hidden="true" />
+
+
+
+[!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]

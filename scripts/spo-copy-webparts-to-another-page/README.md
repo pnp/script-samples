@@ -98,5 +98,8 @@ StartProcessing
 |-----------|
 | Chandani Prajapati |
 
+
+<img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/spo-copy-webparts-to-another-page?labelText=Visitors" class="img-visitor" aria-hidden="true" />
+
+
 [!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
-<img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/spo-copy-webparts-to-another-page" aria-hidden="true" />

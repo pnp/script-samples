@@ -106,5 +106,8 @@ $Output | Export-Csv  -Path c:\temp\PeopleWebPartUsers.csv -Encoding utf8NoBOM -
 |-----------|
 | Kasper Larsen, Fellowmind|
 
+
+<img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/spo-export-basic-sitecollection-info?labelText=Visitors" class="img-visitor" aria-hidden="true" />
+
+
 [!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
-<img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/spo-export-basic-sitecollection-info" aria-hidden="true" />

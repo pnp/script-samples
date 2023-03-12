@@ -182,5 +182,7 @@ Spanish: El Reino Unido y la UE están cerca de revisar las normas comerciales p
 | Anoop Tatti |
 
 
+
+<img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/graph-openai-get-page-summary?labelText=Visitors" class="img-visitor" aria-hidden="true" />
+
 [!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
-<img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/graph-openai-get-page-summary" aria-hidden="true" />

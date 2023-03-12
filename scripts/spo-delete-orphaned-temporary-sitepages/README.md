@@ -127,6 +127,9 @@ m365 logout
 | [Brian P. McCullough](https://github.com/brianpmccullough) |
 | [Reshmee Auckloo](https://github.com/reshmee011)|
 
-[!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
-<img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/spo-delete-orphaned-temporary-sitepages" aria-hidden="true" />
 
+<img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/spo-delete-orphaned-temporary-sitepages?labelText=Visitors" class="img-visitor" aria-hidden="true" />
+
+
+
+[!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]

@@ -30,5 +30,7 @@ Set-PnPList -Identity $list -Hidden:$true
 | Leon Armston |
 
 
+
+<img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/spo-hide-list-from-site-contents?labelText=Visitors" class="img-visitor" aria-hidden="true" />
+
 [!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
-<img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/spo-hide-list-from-site-contents" aria-hidden="true" />

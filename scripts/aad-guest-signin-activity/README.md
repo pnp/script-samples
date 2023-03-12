@@ -342,5 +342,8 @@ Sample first appeared on [https://peteskelly.com/cli-graph-signin-actvity/](http
 | [Pete Skelly](https://github.com/pkskelly) |
 
 
+
+<img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/aad-guest-signin-activity?labelText=Visitors" class="img-visitor" aria-hidden="true" />
+
+
 [!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
-<img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/aad-guest-signin-activity" aria-hidden="true" />

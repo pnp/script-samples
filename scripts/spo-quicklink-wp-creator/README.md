@@ -112,6 +112,9 @@ Add-PnPPageWebPart -Page $targetpage -DefaultWebPartType "QuickLinks" -WebPartPr
 |-----------|
 | [Kasper Larsen](https://github.com/kasperbolarsen)|
 
-[!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
-<img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/spo-quicklink-wp-creator" aria-hidden="true" />
 
+<img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/spo-quicklink-wp-creator?labelText=Visitors" class="img-visitor" aria-hidden="true" />
+
+
+
+[!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]

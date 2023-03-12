@@ -54,6 +54,9 @@ $teamsWithWiki.GetEnumerator() | select description, id, displayName, tenatId  |
 |-----------|
 | Valeras Narbutas|
 
-[!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
 
-<img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/graph-get-teams-tabs-export-to-csv" aria-hidden="true" />
+
+<img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/graph-get-teams-tabs-export-to-csv?labelText=Visitors" class="img-visitor" aria-hidden="true" />
+
+
+[!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]

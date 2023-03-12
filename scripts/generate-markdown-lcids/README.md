@@ -72,6 +72,9 @@ Write-Host "Script Complete! :)" -ForegroundColor Green
 | Paul Bullock |
 | [Adam Wójcik](https://github.com/Adam-it)|
 
-[!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
 
-<img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/generate-markdown-lcids" aria-hidden="true" />
+
+<img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/generate-markdown-lcids?labelText=Visitors" class="img-visitor" aria-hidden="true" />
+
+
+[!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]

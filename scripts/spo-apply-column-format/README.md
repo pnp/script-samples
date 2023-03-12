@@ -210,5 +210,8 @@ m365 spo field set --webUrl $url --listTitle $listName --name "GitHubFormatted" 
 | [Jasey Waegebaert](https://github.com/Jwaegebaert) |
 
 
+
+<img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/spo-apply-column-format?labelText=Visitors" class="img-visitor" aria-hidden="true" />
+
+
 [!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
-<img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/spo-apply-column-format" aria-hidden="true" />

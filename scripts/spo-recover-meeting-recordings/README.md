@@ -140,5 +140,7 @@ Used various sources for pieces of the script above, thank you kindly.
 | Jason Baxter|
 
 
+
+<img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/spo-recover-meeting-recordings?labelText=Visitors" class="img-visitor" aria-hidden="true" />
+
 [!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
-<img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/spo-recover-meeting-recordings" aria-hidden="true" />

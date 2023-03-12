@@ -102,5 +102,8 @@ if ($associatedSites -and $associatedSites.Count -gt 0) {
 |-----------|
 | [Arash Aghajani](https://github.com/arashaghajani) |
 
-[!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
+
 <img src="https://m365-visitor-stats.azurewebsites.net/spo-export-checked-out-files-in-all-sites-associated-with-a-hub-site-to-csv" aria-hidden="true" />
+
+
+[!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]

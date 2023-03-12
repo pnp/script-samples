@@ -86,5 +86,8 @@ $Output | Export-Csv  -Path c:\temp\AuthorbylineUsers.csv -Encoding utf8BOM -For
 |-----------|
 | Kasper Larsen, Fellowmind|
 
+
+<img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/spo-export-author-byline-users?labelText=Visitors" class="img-visitor" aria-hidden="true" />
+
+
 [!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
-<img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/spo-export-author-byline-users" aria-hidden="true" />

@@ -185,5 +185,8 @@ Sample first appeared on [Clean Up Unwanted Site Columns from Content Types and 
 | Marc D Anderson |
 | Adam Wójcik |
 
+
+<img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/spo-copy-files-to-another-library?labelText=Visitors" class="img-visitor" aria-hidden="true" />
+
+
 [!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
-<img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/spo-copy-files-to-another-library" aria-hidden="true" />

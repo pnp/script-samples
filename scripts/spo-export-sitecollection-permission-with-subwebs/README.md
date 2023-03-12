@@ -145,5 +145,8 @@ ConnectToSPSite
 |-----------|
 | Chandani Prajapati |
 
+
+<img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/spo-export-sitecollection-permission-with-subwebs?labelText=Visitors" class="img-visitor" aria-hidden="true" />
+
+
 [!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
-<img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/spo-export-sitecollection-permission-with-subwebs" aria-hidden="true" />

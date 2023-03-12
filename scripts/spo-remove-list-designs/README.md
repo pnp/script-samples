@@ -48,5 +48,7 @@ foreach ($listDesign in $listDesigns)
 | [Reshmee Auckloo](https://github.com/reshmee011)|
 
 
-[!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
+
 <img src="https://telemetry.sharepointpnp.com/script-samples/scripts/spo-remove-list-designs" aria-hidden="true" />
+
+[!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]

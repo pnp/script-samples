@@ -112,5 +112,8 @@ $hits | Export-Csv -Path C:\temp\searchwebpartswithtrimming.csv -Encoding UTF8 -
 |-----------|
 | Kasper Larsen, Fellowmind|
 
+
+<img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/spo-update-search-result-webparts?labelText=Visitors" class="img-visitor" aria-hidden="true" />
+
+
 [!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
-<img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/spo-update-search-result-webparts" aria-hidden="true" />

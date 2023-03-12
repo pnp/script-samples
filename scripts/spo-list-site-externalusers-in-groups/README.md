@@ -107,5 +107,8 @@ $results | Export-Csv -Path "./pnp-external-users-in-sitegroups.csv" -NoTypeInfo
 | Bart-Jan Dekker |
 
 
+
+<img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/spo-list-site-externalusers-in-groups?labelText=Visitors" class="img-visitor" aria-hidden="true" />
+
+
 [!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
-<img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/spo-list-site-externalusers-in-groups" aria-hidden="true" />

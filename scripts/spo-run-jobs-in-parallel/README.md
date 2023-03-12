@@ -165,5 +165,8 @@ Write-Host "Running parallel total time:$timespan " -ForegroundColor Blue
 |-----------|
 | Kasper Larsen, Fellowmind|
 
+
+<img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/run-jobs-in-parallel?labelText=Visitors" class="img-visitor" aria-hidden="true" />
+
+
 [!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
-<img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/run-jobs-in-parallel" aria-hidden="true" />

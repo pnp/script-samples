@@ -122,5 +122,7 @@ Sample first appeared on [Using the Microsoft Graph PowerShell SDK for common op
 | Nik Charlebois |
 
 
+
+<img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/graph-common-operations?labelText=Visitors" class="img-visitor" aria-hidden="true" />
+
 [!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
-<img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/graph-common-operations" aria-hidden="true" />

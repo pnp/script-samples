@@ -162,5 +162,8 @@ Function GenerateReport {
 |-----------|
 | Chandani Prajapati |
 | Reshmee Auckloo |
+
+<img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/spo-export-site-usage-reports?labelText=Visitors" class="img-visitor" aria-hidden="true" />
+
+
 [!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
-<img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/spo-export-site-usage-reports" aria-hidden="true" />

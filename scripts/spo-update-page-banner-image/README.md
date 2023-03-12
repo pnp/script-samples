@@ -35,5 +35,8 @@ Set-PnPPage -Identity "Open-Door-Policy" -HeaderType Custom -ServerRelativeImage
 |-----------|
 | [Ganesh Sanap](https://ganeshsanapblogs.wordpress.com/about) |
 
+
+<img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/spo-update-page-banner-image?labelText=Visitors" class="img-visitor" aria-hidden="true" />
+
+
 [!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
-<img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/spo-update-page-banner-image" aria-hidden="true" />

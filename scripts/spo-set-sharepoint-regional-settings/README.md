@@ -97,5 +97,8 @@ Sample first appeared on [The many ways to set UK Locale in SharePoint](https://
 | Inspired by Paul Bullock |
 | Valeras Narbutas |
 
+
+<img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/spo-set-sharepoint-regional-settings?labelText=Visitors" class="img-visitor" aria-hidden="true" />
+
+
 [!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
-<img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/spo-set-sharepoint-regional-settings" aria-hidden="true" />

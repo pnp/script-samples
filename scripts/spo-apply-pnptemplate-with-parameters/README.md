@@ -187,5 +187,8 @@ Apply-PnPSiteTemplate -targetSiteUrl $provisionTargetSite  -SPAdminSiteUrl $Shar
 |-----------|
 | Kasper Larsen, Fellowmind|
 
+
+<img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/spo-apply-pnptemplate-with-parameters?labelText=Visitors" class="img-visitor" aria-hidden="true" />
+
+
 [!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
-<img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/spo-apply-pnptemplate-with-parameters" aria-hidden="true" />

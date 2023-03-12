@@ -71,5 +71,8 @@ Disconnect-PnPOnline
 |[Jiten Parmar](https://github.com/jitenparmar)|
 
 
+
+<img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/spo-large-list-items-to-pnp-template?labelText=Visitors" class="img-visitor" aria-hidden="true" />
+
+
 [!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
-<img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/spo-large-list-items-to-pnp-template" aria-hidden="true" />

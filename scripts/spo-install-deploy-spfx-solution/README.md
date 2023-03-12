@@ -88,5 +88,8 @@ m365 spo app install --id $spfxApp.ID --siteUrl https://$(tenant).sharepoint.com
 |[Nanddeep Nachan](https://github.com/nanddeepn)|
 
 
+
+<img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/spo-install-deploy-spfx-solution?labelText=Visitors" class="img-visitor" aria-hidden="true" />
+
+
 [!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
-<img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/spo-install-deploy-spfx-solution" aria-hidden="true" />
