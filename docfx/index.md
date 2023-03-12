@@ -8,4 +8,4 @@ Find scenarios and scripts here using tools such as ***PnP PowerShell, CLI for M
 
 *--this will be auto generated--*
 
-<img src="https://m365-visitor-stats.azurewebsites.net/script-samples" aria-hidden="true" />
+<img src="https://m365-visitor-stats.azurewebsites.net/script-samples" class="img-visitor" aria-hidden="true" />

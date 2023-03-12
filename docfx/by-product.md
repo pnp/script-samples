@@ -10,4 +10,4 @@ Find scripts by entering a keyword. You can filter by product.
 *--this will be auto generated--*
 
 
-<img src="https://m365-visitor-stats.azurewebsites.net/script-samples/byproduct" aria-hidden="true" />
+<img src="https://m365-visitor-stats.azurewebsites.net/script-samples/byproduct" class="img-visitor" aria-hidden="true" />
