@@ -4,16 +4,13 @@ plugin: add-to-gallery
 
 # Using a PnP Site Template including files and list items
 
-> [!Note]
-> This is a submission helper template please find the [contributor guidance](/docfx/contribute.md) to help you write this scenario.
-
 ## Summary
 
-Sometime you are required to create a site including some specific files and/or list items. You can do this in servaral ways, but in this sample we are using the PnP Provisioning Engine
+Sometime you are required to create a site including some specific files and/or list items. You can do this in several ways, but in this sample we are using the PnP Provisioning Engine
 
 ![Example Screenshot](assets/example.png)
 
-The files and list items are "imbedded" in the .pnp file and thus portable.
+The files and list items are "embedded" in the .pnp file and thus portable.
 
 # [PnP PowerShell](#tab/pnpps)
 
