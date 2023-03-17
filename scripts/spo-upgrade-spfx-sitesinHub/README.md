@@ -2,7 +2,7 @@
 plugin: add-to-gallery
 ---
 
-# Uploads and upgrades spfx package in all sites of a hub
+# Uploads and upgrades spfx package in all sites of a hub using the site collection app catalog
 
 ## Summary
 
@@ -21,9 +21,17 @@ $directorypath = Split-Path $invocation.MyCommand.Path
 $fileName = "\IntranetUpgradeSPFx-" + $dateTime + ".csv"
 $OutPutView = $directorypath + $fileName
 $packageName = "Intranet SPFx solution"
-$packagePath = "C:\temp\spfx-intranet-spo.sppkg" Connect-PnPOnline $adminCenterURL -Interactive $adminConnection  = Get-PnPConnection
-$ViewCollection = @() $HubSiteID = (Get-PnPTenantSite  $hubSiteUrl).HubSiteId
+$packagePath = "C:\temp\spfx-intranet-spo.sppkg" Connect-PnPOnline $adminCenterURL -Interactive 
+
+$adminConnection  = Get-PnPConnection
+
+#collection to save the list of sites where the deployment or upgrades of SPFx solution happened for auditing
+$ViewCollection = @() 
+
+#retrieves the hub site id
+$HubSiteID = (Get-PnPTenantSite  $hubSiteUrl).HubSiteId
 #Get all site collections associated with the hub site
+
 Get-PnPTenantSite -Detailed | select url | ForEach-Object {
   $Site = Get-PnPTenantSite $_.url
   If($Site.HubSiteId -eq $HubSiteId){
@@ -32,7 +40,7 @@ Get-PnPTenantSite -Detailed | select url | ForEach-Object {
      $ExportVw | Add-Member -MemberType NoteProperty -name "Site URL" -value $Site.url
      $ExportVw | Add-Member -MemberType NoteProperty -name "Package Name" -value $packageName      
       
-#ensure app catalog
+#ensure app catalog exists, deploy the app catalog at the site level if it is not case.
       if(!(Get-PnPSiteCollectionAppCatalog -CurrentSite)){
         Add-PnPSiteCollectionAppCatalog
       }
@@ -77,5 +85,5 @@ $ViewCollection | Export-CSV $OutPutView -Force -NoTypeInformation #Disconnect-
 
 
 [!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
-<img src="https://pnptelemetry.azurewebsites.net/script-samples/scripts/spo-upgrade-deploy-spfx-sitesinhub" aria-hidden="true" />
+<img src="https://pnptelemetry.azurewebsites.net/script-samples/scripts/spo-upgrade-deploy-spfx-allsites-hub" aria-hidden="true" />
 
