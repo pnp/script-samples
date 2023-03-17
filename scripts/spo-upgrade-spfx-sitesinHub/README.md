@@ -6,7 +6,7 @@ plugin: add-to-gallery
 
 ## Summary
 
-At the time of the submitting the sample there is no concept of a hub site app catalog 
+At the time of the submitting the sample there is no concept of a hub site level app catalog. You may want to install or upgrade a SPFx solution to all sites within a hub for example all sites linked to the intranet hub. This sample is applicable for a SPFx solution that needs to be deployed and upgraded across all sites in a hub. 
 
   ![Example Screenshot](assets/example.png)
 
@@ -20,7 +20,7 @@ $invocation = (Get-Variable MyInvocation).Value
 $directorypath = Split-Path $invocation.MyCommand.Path
 $fileName = "\IntranetUpgradeSPFx-" + $dateTime + ".csv"
 $OutPutView = $directorypath + $fileName
-$packageName = "AddIn365 Intranet SPO Creative Kit SPFx solution"
+$packageName = "Intranet SPFx solution"
 $packagePath = "C:\temp\spfx-intranet-spo.sppkg" Connect-PnPOnline $adminCenterURL -Interactive $adminConnection  = Get-PnPConnection
 $ViewCollection = @() $HubSiteID = (Get-PnPTenantSite  $hubSiteUrl).HubSiteId
 #Get all site collections associated with the hub site
@@ -77,5 +77,5 @@ $ViewCollection | Export-CSV $OutPutView -Force -NoTypeInformation #Disconnect-
 
 
 [!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
-<img src="https://pnptelemetry.azurewebsites.net/script-samples/scripts/spo-add-sitedesign-permissions" aria-hidden="true" />
+<img src="https://pnptelemetry.azurewebsites.net/script-samples/scripts/spo-upgrade-deploy-spfx-sitesinhub" aria-hidden="true" />
 
