@@ -145,5 +145,5 @@ As the script use App Registration Application Permission, please make sure you 
 | [Siddharth Vaghasia](https://github.com/siddharth-vaghasia) |
 
 [!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
-<img src="https://pnptelemetry.azurewebsites.net/script-samples/scripts/graph-send-email-from-csv-onbehalf-of-user" aria-hidden="true" />
+<img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/graph-send-email-from-csv-onbehalf-of-user" aria-hidden="true" />
 

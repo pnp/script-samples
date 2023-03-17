@@ -108,4 +108,4 @@ StartProcessing
 
 
 [!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
-<img src="https://pnptelemetry.azurewebsites.net/script-samples/scripts/export-onedrive-sites-details-to-csv" aria-hidden="true" />
+<img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/export-onedrive-sites-details-to-csv" aria-hidden="true" />

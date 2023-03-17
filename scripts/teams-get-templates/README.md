@@ -260,7 +260,7 @@ end{
 | Rodrigo Pinto |
 
 [!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
-<img src="https://pnptelemetry.azurewebsites.net/script-samples/scripts/teams-get-templates" aria-hidden="true" />
+<img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/teams-get-templates" aria-hidden="true" />
 
 
 

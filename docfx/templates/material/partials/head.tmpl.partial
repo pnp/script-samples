@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <title>{{#title}}{{title}}{{/title}}{{^title}}{{>partials/title}}{{/title}} {{#_appTitle}}| {{_appTitle}} {{/_appTitle}}</title>
-  <meta name="viewport" content="width=device-width">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"">
   <meta name="title" content="{{#title}}{{title}}{{/title}}{{^title}}{{>partials/title}}{{/title}} {{#_appTitle}}| {{_appTitle}} {{/_appTitle}}">
   <meta name="generator" content="docfx {{_docfxVersion}}">
   {{#_description}}<meta name="description" content="{{_description}}">{{/_description}}
@@ -16,6 +16,7 @@
   <meta property="og:image" content="https://pnp.github.io/script-samples/assets/social-media-screenshot.png" />
   <meta property="og:image:alt" content="Screenshot example of the PnP Script Samples Site" />
   <meta property="og:site_name" content="PnP Script Samples" />
+  <meta name="msvalidate.01" content="04EFEDA66EC42C08A1247C979E2F9ADD" />
   {{#_description}}<meta property="og:description" content="{{_description}}" />{{/_description}}
 
   <link rel="shortcut icon" href="{{{_appFaviconPath}}}{{^_appFaviconPath}}favicon.ico{{/_appFaviconPath}}">

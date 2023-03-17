@@ -53,4 +53,4 @@ Sample idea first appeared on [https://www.leonarmston.com/2022/02/use-sites-sel
 
 
 [!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
-<img src="https://pnptelemetry.azurewebsites.net/script-samples/scripts/spo-grant-app-site-permission" aria-hidden="true" />
+<img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/spo-grant-app-site-permission" aria-hidden="true" />

@@ -46,6 +46,18 @@
       "default",
       "templates/material"
     ],
+    "sitemap": {
+      "baseUrl": "https://pnp.github.io/script-samples/",
+      "priority": 1.0,
+      "changefreq": "daily",
+      "fileOptions":{
+        "../scripts/_template-script-submission/**.md": {
+            "baseUrl": "https://pnp.github.io/script-samples/",
+            "changefreq": "never",
+            "priority": 0.1
+        }
+    }
+    },
     "postProcessors": ["FrontMatterProcessor"],
     "markdownEngineName": "markdig",
     "noLangKeyword": false,

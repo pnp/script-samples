@@ -1,0 +1,56 @@
+[
+  {
+    "name": "spo-apply-pnptemplate-with-parameters",
+    "source": "pnp",
+    "title": "Use Invoke-PnPSiteTemplate with parameters",
+    "shortDescription": "Sample showing how create a PnP Template and ADD parameters then use Invoke-PnPSiteTemplate with parameters",
+    "url": "https://pnp.github.io/script-samples/spo-apply-pnptemplate-with-parameters/README.html",
+    "longDescription": [
+      "Extract a PnP Provisioning Template, inject parameter tags, and apply the template using Invoke-PnPSiteTemplate -Parameters in order to name the Library and View in the current language ( LocaleId)"
+    ],
+    "creationDateTime": "2023-02-21",
+    "updateDateTime": "2023-02-21",
+    "products": [
+      "SharePoint"
+    ],
+    "metadata": [
+      {
+        "key": "PNP-POWERSHELL",
+        "value": "1.12.0"
+      }
+    ],
+    "categories": [
+      "Data"
+    ],
+    "tags": [
+      "Connect-PnPOnline",
+      "Get-PnPProperty",
+      "Invoke-PnPSiteTemplate",
+      "New-PnPTenantSite",
+      "Get-PnPTenantSite",
+      "Add-PnPView"
+    ],
+    "thumbnails": [
+      {
+        "type": "image",
+        "order": 100,
+        "url": "https://raw.githubusercontent.com/pnp/script-samples/main/scripts/spo-apply-pnptemplate-with-parameters/assets/preview.png",
+        "alt": "Preview image of the sample Use Invoke-PnPSiteTemplate with parameters"
+      }
+    ],
+    "authors": [
+      {
+        "gitHubAccount": "Kasperbolarsen",
+        "pictureUrl": "https://avatars.githubusercontent.com/u/20593570?s=400&u=f9a4d5137685d8c3fcc60394fc193f3e8156f678&v=4",
+        "name": "Kasper Larsen"
+      }
+    ],
+    "references": [
+      {
+        "name": "Want to learn more about PnP PowerShell and the cmdlets",
+        "description": "Check out the PnP PowerShell site to get started and for the reference to the cmdlets.",
+        "url": "https://aka.ms/pnp/powershell"
+      }
+    ]
+  }
+]

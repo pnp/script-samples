@@ -209,5 +209,5 @@ $subfolders = get-folders -path $rootpath -level 1
 | Russell Gove |
 
 [!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
-<img src="https://pnptelemetry.azurewebsites.net/script-samples/scripts/spo-copy-directory-structure-to-sharepoint-list" aria-hidden="true" />
+<img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/spo-copy-directory-structure-to-sharepoint-list" aria-hidden="true" />
 

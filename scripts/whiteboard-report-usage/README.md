@@ -168,4 +168,4 @@ finally {
 [Reporting Whiteboards with PowerShell with Graph PowerShell - Whiteboard Nears End of Transition to OneDrive | Office IT Pros ](https://office365itpros.com/2022/03/10/whiteboard-transition-ending/)
 
 [!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
-<img src="https://pnptelemetry.azurewebsites.net/script-samples/scripts/whiteboard-report-usage" aria-hidden="true" />
+<img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/whiteboard-report-usage" aria-hidden="true" />

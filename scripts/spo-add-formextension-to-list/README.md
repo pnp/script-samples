@@ -84,4 +84,4 @@ Write-Host "Updated content type successfully!"  -ForegroundColor Cyan
 | [Siddharth Vaghasia](https://www.linkedin.com/in/siddharthvaghasia/)|
 
 [!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
-<img src="https://pnptelemetry.azurewebsites.net/script-samples/scripts/spo-add-formextension-to-list" aria-hidden="true" />
+<img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/spo-add-formextension-to-list" aria-hidden="true" />

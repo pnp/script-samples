@@ -85,4 +85,4 @@ Before we can accept your pull requests you will be asked to sign electronically
 
 You can find Microsoft CLA from the following address - https://cla.microsoft.com.
 
-<img src="https://pnptelemetry.azurewebsites.net/script-samples/contributing/submitting-pull-requests" aria-hidden="true" />
+<img src="https://m365-visitor-stats.azurewebsites.net/script-samples/contributing/submitting-pull-requests" aria-hidden="true" />

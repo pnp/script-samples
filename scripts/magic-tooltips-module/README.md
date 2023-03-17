@@ -38,4 +38,4 @@ The Magic Tooltips module provides for configuring its triggers and display. Com
 
 [!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
 
-<img src="https://pnptelemetry.azurewebsites.net/script-samples/scripts/magic-tooltips-module" aria-hidden="true" />
+<img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/magic-tooltips-module" aria-hidden="true" />

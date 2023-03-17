@@ -108,4 +108,4 @@ $results | Export-Csv -Path "./pnp-external-users-in-sitegroups.csv" -NoTypeInfo
 
 
 [!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
-<img src="https://pnptelemetry.azurewebsites.net/script-samples/scripts/spo-list-site-externalusers-in-groups" aria-hidden="true" />
+<img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/spo-list-site-externalusers-in-groups" aria-hidden="true" />

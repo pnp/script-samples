@@ -226,5 +226,5 @@ $outputArray  | Export-Csv -Path $outputPath -Force -Encoding utf8BOM -Delimiter
 | [Adam Wójcik](https://github.com/Adam-it)|
 
 [!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
-<img src="https://pnptelemetry.azurewebsites.net/script-samples/scripts/report-term-use" aria-hidden="true" />
+<img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/report-term-use" aria-hidden="true" />
 

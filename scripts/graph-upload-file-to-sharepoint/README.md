@@ -196,4 +196,4 @@ while ($fileLength -gt ($end + 1)) {
 
 [!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
 
-<img src="https://pnptelemetry.azurewebsites.net/script-samples/scripts/graph-upload-file-to-sharepoint" aria-hidden="true" />
+<img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/graph-upload-file-to-sharepoint" aria-hidden="true" />

@@ -95,4 +95,4 @@ foreach ($file in $files) {
 
 
 [!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
-<img src="https://pnptelemetry.azurewebsites.net/script-samples/scripts/reset-files-permission-unique-to-inherited" aria-hidden="true" />
+<img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/reset-files-permission-unique-to-inherited" aria-hidden="true" />
