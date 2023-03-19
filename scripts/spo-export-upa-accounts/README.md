@@ -4,9 +4,6 @@ plugin: add-to-gallery
 
 # Export User Profiles to csv
 
-> [!Note]
-> This is a submission helper template please find the [contributor guidance](/docfx/contribute.md) to help you write this scenario.
-
 ## Summary
 
 Sometimes you will have to export all or a sub set of the account in the User Profiles in order to do some validation or cleaning. This is where this script sample comes in handy.
@@ -18,8 +15,6 @@ The sample is an update of an existing script by Salaudeen Rajack , see https://
 # [PnP PowerShell](#tab/pnpps)
 
 ```powershell
-
-
 
 $adminsiteUrl = "https://contoso-admin.sharepoint.com/"
 $conn = Connect-PnPOnline -Url $adminsiteUrl -Interactive -ReturnConnection
@@ -82,13 +77,9 @@ $UserProfileData | Export-Csv $CSVPath -Encoding utf8BOM -Delimiter "|"
    
 write-host -f Green "User Profiles Data Exported Successfully to:" $CSVPath
 
-
-
-
 ```
 [!INCLUDE [More about PnP PowerShell](../../docfx/includes/MORE-PNPPS.md)]
 ***
-
 
 ## Contributors
 
