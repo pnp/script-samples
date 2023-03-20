@@ -9,7 +9,7 @@
       "Sometimes you will have to export all or a sub set of the account in the User Profiles in order to do some validation or cleaning. This is where this script sample comes in handy.      The sample is an update of an existing script by Salaudeen Rajack , see https://www.sharepointdiary.com/2017/08/sharepoint-online-export-user-profile-properties-to-csv-using-powershell.html#ixzz7vvoXWaLr"
     ],
     "creationDateTime": "2023-03-15",
-    "updateDateTime": "2023-03-15",
+    "updateDateTime": "2023-03-20",
     "products": [
       "SharePoint"
       
@@ -18,6 +18,10 @@
       {
         "key": "PNP-POWERSHELL",
         "value": "1.12.0"
+      },
+      {
+        "key":"CLI-FOR-MICROSOFT365",
+        "value":"6.3.0"
       }
     ],
     "categories": [
@@ -25,7 +29,8 @@
       "Report"
     ],
     "tags": [
-      "<Cmdlets-Used>"
+      "m365 aad user list",
+      "m365 aad user get"
     ],
     "thumbnails": [
       {
@@ -41,6 +46,12 @@
         "company": "",
         "pictureUrl": "https://github.com/kasperbolarsen.png",
         "name": "Kasper Larsen"
+      },
+      {
+        "gitHubAccount": "valerasnarbutas",
+        "company": "Macaw",
+        "pictureUrl": "https://github.com/valerasnarbutas.png",
+        "name": "Valeras Narbutas"
       }
     ],
     "references": [

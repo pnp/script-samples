@@ -79,6 +79,26 @@ write-host -f Green "User Profiles Data Exported Successfully to:" $CSVPath
 
 ```
 [!INCLUDE [More about PnP PowerShell](../../docfx/includes/MORE-PNPPS.md)]
+
+# [CLI for Microsoft 365](#tab/cli-m365-ps)
+```powershell
+
+m365 login --authType deviceCode
+
+# Get all users and their properties, add properties as needed with --properties and separate with comma
+m365 aad user list --properties "displayName,mail"
+
+# Get all users and their properties and export to csv
+m365 aad user list --output csv --properties "displayName,mail,givenName,jobTitle,mail,mobilePhone,officeLocation,preferredLanguage,surname,userPrincipalName,id" > users.csv
+
+# Get current user with all properties
+m365 aad user get --id "@meId"
+
+# get any user with all properties
+m365 aad user get --id "UserID"
+
+```
+[!INCLUDE [More about CLI for Microsoft 365](../../docfx/includes/MORE-CLIM365.md)]
 ***
 
 ## Contributors
@@ -86,6 +106,7 @@ write-host -f Green "User Profiles Data Exported Successfully to:" $CSVPath
 | Author(s) |
 |-----------|
 | Kasper Larsen |
+| Valeras Narbutas |
 
 [!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
 <img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/spo-export-upa-accounts" aria-hidden="true" />
