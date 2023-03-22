@@ -8,6 +8,8 @@ plugin: add-to-gallery
 
 This sample script shows how to update the banner image at the top of the SharePoint online modern page using PnP PowerShell.
 
+Scenario inspired from this blog post: [Update SharePoint Page Banner Image using PnP PowerShell](https://ganeshsanapblogs.wordpress.com/2023/03/22/update-sharepoint-page-banner-image-using-pnp-powershell/)
+
 ![Outupt Screenshot](assets/output.png)
 
 # [PnP PowerShell](#tab/pnpps)
