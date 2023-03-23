@@ -120,11 +120,14 @@ $siteUrl = &quot;https://contoso.sharepoint.com/sites/SPConnect&quot;
 # Connect to SharePoint Online site  
 Connect-PnPOnline -Url $siteUrl -Interactive
 
+# Get uniqueid of file you're referencing (without this part your image won't appear in PowerApps (browser or mobile app) or Microsoft Lists (iOS app))
+$imageFileUniqueId = (Get-PnPFile -Url &quot;SiteAssets/Lists/dbc6f551-252b-462f-8002-c8f88d0d12d5/PnP-PowerShell-Blue.png&quot; -AsListItem)[&quot;UniqueId&quot;]
+
 # Create new list item with image column
-Add-PnPListItem -List &quot;Logo Universe&quot; -Values @{&quot;Title&quot; = &quot;PnP PowerShell&quot;; &quot;Image&quot; = &quot;{'type':'thumbnail','fileName':'PnP-PowerShell-Blue.png','fieldName':'Image','serverUrl':'https://contoso.sharepoint.com','serverRelativeUrl':'/sites/SPConnect/SiteAssets/Lists/dbc6f551-252b-462f-8002-c8f88d0d12d5/PnP-PowerShell-Blue.png'}&quot;}
+Add-PnPListItem -List &quot;Logo Universe&quot; -Values @{&quot;Title&quot; = &quot;PnP PowerShell&quot;; &quot;Image&quot; = &quot;{'type':'thumbnail','fileName':'PnP-PowerShell-Blue.png','fieldName':'Image','serverUrl':'https://contoso.sharepoint.com','serverRelativeUrl':'/sites/SPConnect/SiteAssets/Lists/dbc6f551-252b-462f-8002-c8f88d0d12d5/PnP-PowerShell-Blue.png', 'id':'$($imageFileUniqueId)'}&quot;}
 
 # Update list item with image column
-Set-PnPListItem -List &quot;Logo Universe&quot; -Identity 12 -Values @{&quot;Image&quot; = &quot;{'type':'thumbnail','fileName':'PnP-PowerShell-Blue.png','fieldName':'Image','serverUrl':'https://contoso.sharepoint.com','serverRelativeUrl':'/sites/SPConnect/SiteAssets/Lists/dbc6f551-252b-462f-8002-c8f88d0d12d5/PnP-PowerShell-Green.png'}&quot;}
+Set-PnPListItem -List &quot;Logo Universe&quot; -Identity 12 -Values @{&quot;Image&quot; = &quot;{'type':'thumbnail','fileName':'PnP-PowerShell-Blue.png','fieldName':'Image','serverUrl':'https://contoso.sharepoint.com','serverRelativeUrl':'/sites/SPConnect/SiteAssets/Lists/dbc6f551-252b-462f-8002-c8f88d0d12d5/PnP-PowerShell-Green.png', 'id':'$($imageFileUniqueId)'}&quot;}
 
 </code></pre>
 <div class="highlight-tool">
@@ -142,6 +145,9 @@ Set-PnPListItem -List &quot;Logo Universe&quot; -Identity 12 -Values @{&quot;Ima
 <tbody>
 <tr>
 <td><a href="https://ganeshsanapblogs.wordpress.com/about">Ganesh Sanap</a></td>
+</tr>
+<tr>
+<td><a href="https://mattjimison.com">Matt Jimison</a></td>
 </tr>
 </tbody>
 </table>
