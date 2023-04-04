@@ -47,6 +47,9 @@ Set-PnPView -List $listName -Identity $viewName -Values @{CustomFormatter = $jso
 
 ```powershell
 
+# SharePoint online site URL
+$siteUrl = "https://contoso.sharepoint.com/sites/SPConnect"
+
 # Display name of SharePoint list
 $listName = "Ganesh Sanap Blogs"
 
