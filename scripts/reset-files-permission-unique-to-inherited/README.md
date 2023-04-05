@@ -19,13 +19,29 @@ Connect-PnPOnline -Url $siteURL -Credentials (Get-Credential)
 $listName = "Document Library"
 #Get the Context
 $Context = Get-PnPContext
-## Get all folders from given list
-$Folders = Get-PnPFolder -List $listName
+
+try {
+    ## Get all folders from given list
+    $folders = Get-PnPFolder -List $listName
+}
+catch {
+    ## Do this if a terminating exception happens
+    Write-Host "Error: $($_.Exception.Message)" -ForegroundColor Red
+    try {
+        Write-Host "Trying to use Get-PnPListItem" -ForegroundColor Yellow
+        #Treat the folder as item, and the item attribute is Folder (FileSystemObjectType -eq "Folder")  
+    $folders = Get-PnPListItem -List $listName -PageSize 500 -Fields FileLeafRef | Where {$_.FileSystemObjectType -eq "Folder"}
+    }
+    catch {
+        Write-Host "Error: $($_.Exception.Message)" -ForegroundColor Red
+    }
+}
+
 Write-Output "Total Folder found $($Folders.Count)"
 ## Traverse all files from all folders.
 foreach($folder in $folders){
     Write-Host "get all files from folder '$($folder.Name)'" -ForegroundColor DarkGreen
-    $files = Get-PnPListItem -List $listName -FolderServerRelativeUrl $folder.ServerRelativeUrl
+    $files = Get-PnPListItem -List $listName -FolderServerRelativeUrl $folder.ServerRelativeUrl -PageSize 500 
     Write-Host "Total Files found $($Files.Count) in folder $($folder.Name)" -ForegroundColor DarkGreen
     foreach ($file in $files){
         ## Check object type is file or folder.If file than do process else do nothing.
@@ -92,6 +108,7 @@ foreach ($file in $files) {
 |-----------|
 | [Dipen Shah](https://github.com/dips365) |
 | [Nanddeep Nachan](https://github.com/nanddeepn) |
+| [Valeras Narbutas](https://github.com/ValerasNarbutas) |
 
 
 [!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
