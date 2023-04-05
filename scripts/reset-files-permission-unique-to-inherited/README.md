@@ -79,7 +79,8 @@ $siteURL = Read-Host "Please enter Site URL"
 $listName = Read-Host "Please enter list name"
 
 # Get the list
-$list = m365 spo list list --webUrl $siteURL --query "[?RootFolder.Name == '$listName']" --output json | ConvertFrom-Json
+$list  = m365 spo list get --title $listName --webUrl $siteURL --withPermissions --output json | ConvertFrom-Json
+
 
 # Get all files in the list
 $files = m365 spo file list --webUrl $siteURL --folder $listName --recursive --output json | ConvertFrom-Json
