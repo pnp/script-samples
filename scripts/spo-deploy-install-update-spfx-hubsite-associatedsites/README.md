@@ -13,7 +13,7 @@ At the time of the submitting the sample there is no concept of a hub site app c
 ### Prerequisites
 
 - The user account that runs the script must have SharePoint Online tenant administrator access.
-- Before running the script, edit the script and update the variable values in the Config Variable section, such as Admin Center URL, Hub Site URL, the CSV output file path and alternatively the sppkgFolder. 
+- Before running the script, edit the script and update the variable values in the Config Variable section, such as Admin Center URL, Hub Site URL, the CSV output file path and alternatively the sppkg Folder. 
 
 The script will
 - Get the hub site ID using the Get-PnPTenantSite cmdlet.
@@ -113,8 +113,6 @@ Get-PnPTenantSite -Detailed | select url | ForEach-Object {
 $ViewCollection | Export-CSV $OutPutView -Force -NoTypeInformation
 Disconnect-PnPOnline
 ```
-![Results Screenshot](assets/preview.png)
-
 > [!Note]
 > SharePoint admin right are required to run the script
 
