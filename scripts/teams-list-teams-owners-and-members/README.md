@@ -11,7 +11,8 @@ This script allows you to list all Teams team's owners and members and export th
 # [PnP PowerShell](#tab/pnpps)
 ```powershell
 $AdminCenterURL="https://contoso-admin.sharepoint.com/"
-#Connect to SharePoint Online admin centre
+
+#Connect to SharePoint Online admin center
 Connect-PnPOnline -Url $AdminCenterURL -Interactive
 
 $dateTime = (Get-Date).toString("dd-MM-yyyy")
@@ -45,8 +46,8 @@ $m365GroupCollection | sort "Group Name" |Export-CSV $OutPutView -Force -NoTypeI
 Disconnect-PnPOnline
 ```
 [!INCLUDE [More about PnP PowerShell](../../docfx/includes/MORE-PNPPS.md)]
-***
 
+***
 
 ## Contributors
 

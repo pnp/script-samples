@@ -117,7 +117,7 @@ param (
   [Parameter(Mandatory = $true, HelpMessage = "Destination group ID to copy the plan to e.g. 00000000-0000-0000-0000-000000000001.")]
   [string]$DestinationGroupId,
 
-  [Parameter(Mandatory = $true, HelpMessage = "The Url of the SharePoint Admin Centre, e.g.https://contoso-admin.sharepoint.com  ")]
+  [Parameter(Mandatory = $true, HelpMessage = "The Url of the SharePoint Admin Center, e.g.https://contoso-admin.sharepoint.com  ")]
   [string]$AdminUrl
 )
 

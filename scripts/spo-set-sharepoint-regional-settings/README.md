@@ -35,7 +35,7 @@ Start-Transcript -Path $logFilePath
 Connect-PnPOnline -Url $Url -Interactive
 
 
-### Set Sharepoint site time zone with Pnp Powershell 
+### Set SharePoint site time zone with Pnp Powershell 
 $localeId = 2057 # UK
 $timeZoneId = 2 # London
 
