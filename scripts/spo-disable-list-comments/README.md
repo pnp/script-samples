@@ -26,18 +26,36 @@ $listName = "Comments List"
 
 # Connect to SharePoint online site
 Connect-PnPOnline -Url $siteUrl -Interactive
-
-# Get the SharePoint online list 
-$list = Get-PnPList -Identity $listName
  
-# Disable SharePoint online list Comments
-$list.DisableCommenting = $true
-$list.Update()
-Invoke-PnPQuery
+# Disable SharePoint online list comments
+Set-PnPList -Identity $listName -DisableCommenting $true
 
 ```
 
 [!INCLUDE [More about PnP PowerShell](../../docfx/includes/MORE-PNPPS.md)]
+
+# [CLI for Microsoft 365](#tab/cli-m365-ps)
+
+```powershell
+
+# SharePoint online site URL
+$siteUrl = "https://contoso.sharepoint.com/sites/SPConnect"
+
+# Display name of SharePoint list
+$listName = "Comments List"
+
+# Get Credentials to connect
+$m365Status = m365 status
+if ($m365Status -match "Logged Out") {
+   m365 login
+}
+
+# Disable SharePoint online list comments
+m365 spo list set --webUrl $siteUrl --title $listName --disableCommenting true
+
+```
+
+[!INCLUDE [More about CLI for Microsoft 365](../../docfx/includes/MORE-CLIM365.md)]
 
 ***
 
