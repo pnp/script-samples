@@ -7,7 +7,7 @@
     "title": "Delete custom SharePoint site scripts",
     "url": "https://pnp.github.io/script-samples/spo-remove-site-scripts/README.html",
     "creationDateTime": "2020-08-23",
-    "updateDateTime": "2020-08-23",
+    "updateDateTime": "2023-04-21",
     "shortDescription": "Remove Site scripts that ends up just hanging around in your tenant. Use the scripts below to get rid of them",
     "longDescription": null,
     "products": [
@@ -23,12 +23,27 @@
       "Get-SPOSite",
       "Get-SPOSiteScript",
       "Remove-SPOSite",
-      "Remove-SPOSiteScript"
+      "Remove-SPOSiteScript",
+      "Connect-PnPOnline",
+      "Get-PnPSiteScript",
+      "Remove-PnPSiteScript",
+      "m365 status",
+      "m365 login",
+      "m365 spo sitescript list",
+      "m365 spo sitescript remove"
     ],
     "metadata": [
       {
         "key": "SPO-MANAGEMENT-SHELL",
         "value": "16.0.21116.12000"
+      },
+      {
+        "key": "PNP-POWERSHELL",
+        "value": "1.12.0"
+      },
+      {
+        "key":"CLI-FOR-MICROSOFT365",
+        "value":"6.3.0"
       }
     ],
     "thumbnails": [
@@ -46,6 +61,12 @@
         "company": "",
         "pictureUrl": "https://avatars.githubusercontent.com/u/8781041?v=4",
         "name": "Paul Bullock"
+      },
+      {
+        "gitHubAccount": "ganesh-sanap",
+        "company": "",
+        "pictureUrl": "https://avatars.githubusercontent.com/u/25476310?v=4",
+        "name": "Ganesh Sanap"
       }
     ],
     "references": [
@@ -53,6 +74,16 @@
         "name": "Introduction to the SharePoint Online Management Shell",
         "description": "Check out the SPO Management Shell documentation site to get started and for the reference to the cmdlets.",
         "url": "https://docs.microsoft.com/en-us/powershell/sharepoint/sharepoint-online/introduction-sharepoint-online-management-shell?view=sharepoint-ps"
+      },
+      {
+        "name": "Want to learn more about PnP PowerShell and the cmdlets",
+        "description": "Check out the PnP PowerShell site to get started and for the reference to the cmdlets.",
+        "url": "https://aka.ms/pnp/powershell"
+      },
+      {
+        "name": "Want to learn more about CLI for Microsoft 365 and the commands",
+        "description": "Check out the CLI for Microsoft 365 site to get started and for the reference to the commands.",
+        "url": "https://aka.ms/cli-m365"
       }
     ]
   }
