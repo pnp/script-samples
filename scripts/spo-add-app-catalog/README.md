@@ -57,6 +57,26 @@ StartProcessing
 
 ```
 [!INCLUDE [More about SPO Management Shell](../../docfx/includes/MORE-SPOMS.md)]
+
+# [CLI for Microsoft 365](#tab/cli-m365-ps)
+
+```powershell
+
+# SharePoint online site URL
+$siteUrl = "https://contoso.sharepoint.com/sites/SPConnect"
+
+# Get Credentials to connect
+$m365Status = m365 status
+if ($m365Status -match "Logged Out") {
+   m365 login
+}
+
+# Add site collection app catalog
+m365 spo site appcatalog add --siteUrl $siteUrl
+
+```
+[!INCLUDE [More about CLI for Microsoft 365](../../docfx/includes/MORE-CLIM365.md)]
+
 ***
 
 ## Contributors
@@ -65,6 +85,7 @@ StartProcessing
 |-----------|
 | Paul Bullock |
 | Chandani Prajapati |
+| [Ganesh Sanap](https://ganeshsanapblogs.wordpress.com/about) |
 
 [!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
 
