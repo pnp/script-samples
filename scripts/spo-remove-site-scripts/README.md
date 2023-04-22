@@ -83,7 +83,7 @@ if ($m365Status -match "Logged Out") {
 $keepThese = "Base Site Settings", "English Region", "Standard Site Columns", "Standard Libraries"
 
 # Get all site scripts from the current tenant
-$siteScripts = m365 spo sitescript list
+$siteScripts = m365 spo sitescript list | ConvertFrom-Json
 
 $siteScripts = $siteScripts | Where-Object { -not ($keepThese -contains $_.Title)}
 
