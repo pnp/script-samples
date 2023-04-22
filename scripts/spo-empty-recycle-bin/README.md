@@ -6,7 +6,7 @@ plugin: add-to-gallery
 
 ## Summary
 
-This sample script shows how to empty SharePoint online site first stage and second stage recycle bin using PnP PowerShell.
+This sample script shows how to empty SharePoint online site first stage and second stage recycle bin.
 
 Scenario inspired from this blog post: [SharePoint Online: Empty Recycle Bin using PnP PowerShell](https://ganeshsanapblogs.wordpress.com/2023/03/29/empty-sharepoint-online-recycle-bin-using-pnp-powershell/)
 
@@ -32,8 +32,29 @@ Clear-PnPRecycleBinItem -SecondStageOnly
 Clear-PnPRecycleBinItem -All
 
 ```
-
 [!INCLUDE [More about PnP PowerShell](../../docfx/includes/MORE-PNPPS.md)]
+
+# [CLI for Microsoft 365](#tab/cli-m365-ps)
+
+```powershell
+
+# SharePoint online site URL
+$siteUrl = "https://contoso.sharepoint.com/sites/SPConnect"
+
+# Get Credentials to connect
+$m365Status = m365 status
+if ($m365Status -match "Logged Out") {
+   m365 login
+}
+
+# Empty first stage recycle bin in SharePoint site permanently
+m365 spo site recyclebinitem clear --siteUrl $siteUrl
+
+# Empty second stage recycle bin in SharePoint site
+m365 spo site recyclebinitem clear --siteUrl $siteUrl --secondary
+
+```
+[!INCLUDE [More about CLI for Microsoft 365](../../docfx/includes/MORE-CLIM365.md)]
 
 ***
 
