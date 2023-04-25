@@ -2,11 +2,11 @@
 plugin: add-to-gallery
 ---
 
-# Retrieve Message Centre announcements and post to MS Teams channel
+# Retrieve Message Center announcements and post to MS Teams channel
 
 ## Summary
 
-This script allows you to connect to your SharePoint Online tenant and retrieve Message Centre announcements. It then connects to Microsoft Teams and loops through the announcements, posting them to a specific Teams channel.
+This script allows you to connect to your SharePoint Online tenant and retrieve Message Center announcements. It then connects to Microsoft Teams and loops through the announcements, posting them to a specific Teams channel.
 
 ![Example Screenshot](assets/preview.png)
 
@@ -24,7 +24,7 @@ This script allows you to connect to your SharePoint Online tenant and retrieve 
 # Connect to SharePoint Online
 Connect-PnPOnline -Url https://yourTenantName.sharepoint.com/ -Interactive 
 
-# Get Message Centre announcements
+# Get Message Center announcements
 $announcements = Get-PnPMessageCenterAnnouncement | Where-Object { $_.Category -eq "PlanForChange" } | Select-Object Title, Description
 
 # Connect to teams
@@ -66,7 +66,7 @@ begin {
     Write-Host "Connection Successful!" -f Green
 }
 process {
-    # Get Message Centre announcements
+    # Get Message Center announcements
     $announcements = m365 tenant serviceannouncement message list --query "[?category == '$($Category)']" | ConvertFrom-Json
     Write-Host "Found $($announcements.Count) announcements to post to MS Teams channel"
 

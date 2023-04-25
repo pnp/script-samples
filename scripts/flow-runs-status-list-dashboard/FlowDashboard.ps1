@@ -19,8 +19,7 @@ $environment = $envs[1].name
 # Status - single line of text
 # lastRunTime - single line of text
 
-
-# replace tenant name and user name or use Sharepoint list url.
+# replace tenant name and user name or use SharePoint list url.
 $weburl  = "https://{TenantName}.sharepoint.com/personal/{Username}/"
 
 $listName = "FlowDashboard"
@@ -30,10 +29,8 @@ $flows = m365 flow list --environment $environment    --output json | ConvertFro
 # display number of flows
 Write-Host "Found $($flows.Count) Flows to check..." -ForegroundColor Magenta
 
- 
 # find existing itesm on the dashboard
 $items = m365 spo listitem list --title  $listName  --webUrl $weburl   --output json | ConvertFrom-Json
-
 
 foreach ($flow in $flows) {
    

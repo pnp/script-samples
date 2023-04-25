@@ -6,9 +6,9 @@ plugin: add-to-gallery
 
 ## Summary
 
-Say we are trying to migrate file shares to SharePoint. We want to get all the individual directories int a SharePoint list so that we can somehow trigger an migration using the SharePoint Migration Manager (https://tenant-admin.SharePoint.com/_layouts/15/online/AdminHome.aspx#/migration/fileshare).
+Say we are trying to migrate file shares to SharePoint. We want to get all the individual directories into a SharePoint list so that we can somehow trigger a migration using the SharePoint Migration Manager (https://tenant-admin.SharePoint.com/_layouts/15/online/AdminHome.aspx#/migration/fileshare).
 
-This script will scan a selected file share for all folders and create an entry in a SharePoint list for each folder found. This list then can be used to trigger migrations on specific folders to specific SharePoint location in a number of different ways. (PowerApps,PowerAutomate, SPFX, export to excel.
+This script will scan a selected file share for all folders and create an entry in a SharePoint list for each folder found. This list then can be used to trigger migrations on specific folders to specific SharePoint location in a number of different ways (PowerApps, PowerAutomate, SPFX, export to excel).
 
 Before running the script we must first create a SharePoint list to hold the folder structure. I created an empty list and renamed the Title column to FileSharePath.
 I then added 20 text columns (my directory is 20 levels deep) name Level1...Level20 and added an index to each (so we can filter on them easily). I also added a number column called Level that represents the depth in the hierarchy and 3 additional columns (SharePointSite, DocLibrary and DocSubfolder) that a user can enter into the list online to facilitate migrations using the SharePoint Migration Service.

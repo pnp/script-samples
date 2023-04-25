@@ -25,7 +25,7 @@ The script reads list of SharePoint site collection URLs from a CSV and enables 
 # Example: .\Enable-SiteCollectionAppCatalog.ps1 -AdminUrl "https://contoso-admin.sharepoint.com" -CsvPath ".\SiteURLs.csv"
 [CmdletBinding()]
 param (
-    [Parameter(Mandatory = $true, HelpMessage = "URL of the SharePoint Admin Centre, e.g.https://contoso-admin.sharepoint.com")]
+    [Parameter(Mandatory = $true, HelpMessage = "URL of the SharePoint Admin Center, e.g.https://contoso-admin.sharepoint.com")]
     [string]$AdminUrl,
     [Parameter(Mandatory = $false, HelpMessage = "Path to CSV file with list of SharePoint sites to enable Site Collection App Catalog")]
     [string]$CsvPath = ".\SiteURLs.csv"
@@ -57,7 +57,7 @@ end {
 # Example: .\Enable-SiteCollectionAppCatalog.ps1 -AdminUrl "https://contoso-admin.sharepoint.com" -CsvPath ".\SiteURLs.csv"
 [CmdletBinding()]
 param (
-    [Parameter(Mandatory = $true, HelpMessage = "URL of the SharePoint Admin Centre, e.g.https://contoso-admin.sharepoint.com")]
+    [Parameter(Mandatory = $true, HelpMessage = "URL of the SharePoint Admin Center, e.g.https://contoso-admin.sharepoint.com")]
     [string]$AdminUrl,
     [Parameter(Mandatory = $false, HelpMessage = "Path to CSV file with list of SharePoint sites to enable Site Collection App Catalog")]
     [string]$CsvPath = ".\SiteURLs.csv"
@@ -65,7 +65,7 @@ param (
 
 begin  {
     Write-Host "Connecting to SharePoint Admin Site '$($AdminUrl)'" -f Yellow
-    Connect-PnPOnline -Url $TenantAdminURL
+    Connect-PnPOnline -Url $AdminUrl
 }
 process {
     $data = Import-Csv -Path $CsvPath

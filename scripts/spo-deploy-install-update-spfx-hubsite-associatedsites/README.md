@@ -6,34 +6,34 @@ plugin: add-to-gallery
 
 ## Summary
 
-At the time of the submitting the sample there is no concept of a hub site app catalog. You may want to install or upgrade a SPFx solution to all sites within a hub for example all sites linked to the intranet hub. This sample is applicable for a SPFx solution that needs to be deployed and upgraded across all sites in a hub. 
+At the time of submitting this script sample there is no concept of a hub site app catalog. However you may want to install or upgrade a SPFx solution to all sites within a hub for example all sites linked to the intranet hub. This sample is applicable for a SPFx solution that needs to be deployed and upgraded across all sites in a hub. 
 
-  ![Example Screenshot](assets/example.png)
+![Example Screenshot](assets/example.png)
 
 ### Prerequisites
 
 - The user account that runs the script must have SharePoint Online tenant administrator access.
-- Before running the script, edit the script and update the variable values in the Config Variable section, such as Admin Center URL, Hub Site URL, the CSV output file path and alternatively the sppkg Folder. 
+- Before running the script, edit the script and update the variable values in the Config Variables section, such as Admin Center URL, Hub Site URL, the CSV output file path and alternatively the sppkg packages Folder. 
 
-The script will
+The script will:
 - Get the hub site ID using the Get-PnPTenantSite cmdlet.
-- Get all site collections associated with the hub site using the Get-PnPTenantSite cmdlet.
-- For each site collection, check if it’s associated with the hub site using the site’s HubSiteId property.
+- Get all site collections in the tenant using the Get-PnPTenantSite cmdlet.
+- For each site collection, check if it's associated with the hub site using the site's HubSiteId property.
 - Connect to the site using Connect-PnPOnline.
 - Check if the site collection app catalog exists. If it doesn’t, create it using Add-PnPSiteCollectionAppCatalog.
-- Deploy the SPFx package using Add-pnpapp.
+- Deploy the SPFx package using Add-PnPApp.
 - Check if the package is already installed on the site using Get-PnPApp.
 - If the package is not installed, install it using Install-PnPApp.
 - If a newer version of the package is available, update the package using Update-PnPApp.
-- Export the site collection URL, package name, and package version to a CSV file for a record of what’s updated 
+- Export the site collection URL, package name, and package version to a CSV file for a record of what's updated.
 
-The script does not cover admin consent to app permissions. A global administrator will have to grant admin consent as required by the SPFx solutions. 
+The script does not cover admin consent to app permissions. A global administrator will have to grant admin consent if required by the SPFx solutions. 
 
 # [PnP PowerShell](#tab/pnpps)
 
 ```powershell
 #Config variables
-$adminCenterURL=https://tenant-admin.sharepoint.com
+$adminCenterURL = "https://tenant-admin.sharepoint.com"
 $fileName = "\IntranetUpgradeSPFx-" + $dateTime + ".csv"
 $hubSiteUrl = "https://tenant.sharepoint.com/sites/u-intranet"
 $OutPutView = $directorypath + $fileName
@@ -51,6 +51,7 @@ Connect-PnPOnline $adminCenterURL -Interactive
 #collection to save the list of sites where the deployment or upgrades of SPFx solution happened for auditing
 $ViewCollection = @() 
 $HubSiteID = (Get-PnPTenantSite $hubSiteUrl).HubSiteId
+
 #Get all site collections associated with the hub site
 Get-PnPTenantSite -Detailed | select url | ForEach-Object {
   $Site = Get-PnPTenantSite $_.url
@@ -73,7 +74,7 @@ Get-PnPTenantSite -Detailed | select url | ForEach-Object {
             Start-Sleep -Seconds 20
          }
          #deploy sppkg
-         Add-pnpapp -Path ("{0}/{1}" -f $sppkgFolder , $package.PSChildName) -Scope Site -Overwrite -Publish
+         Add-PnPApp -Path ("{0}/{1}" -f $sppkgFolder , $package.PSChildName) -Scope Site -Overwrite -Publish
 
          Start-Sleep -Seconds 5
 
@@ -114,7 +115,7 @@ $ViewCollection | Export-CSV $OutPutView -Force -NoTypeInformation
 Disconnect-PnPOnline
 ```
 > [!Note]
-> SharePoint admin right are required to run the script
+> SharePoint admin rights are required to run the script
 
 [!INCLUDE [More about PnP PowerShell](../../docfx/includes/MORE-PNPPS.md)]
 
@@ -128,8 +129,9 @@ Sample first appeared on [Deploying and Installing SharePoint Framework (SPFx) s
 | Author(s) |
 |-----------|
 | Reshmee Auckloo |
+| [Ganesh Sanap](https://ganeshsanapblogs.wordpress.com/) |
 
 
 [!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
-<img src="https://pnptelemetry.azurewebsites.net/script-samples/scripts/spo-deploy-install-update-spfx-hubsite-associatedsites" aria-hidden="true" />
+<img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/spo-deploy-install-update-spfx-hubsite-associatedsites" aria-hidden="true" />
 

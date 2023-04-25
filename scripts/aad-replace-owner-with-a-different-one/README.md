@@ -14,7 +14,7 @@ Find all the Microsoft 365 Groups that a user is an Owner of and replace them wi
 $AdminCenterURL="https://contoso-admin.sharepoint.com/"
 $oldOwnerUPN = Read-Host "Enter the old owner UPN to be replaced with" #testUser1@contose.onmicrosoft.com
 $newOwnerUPN = Read-Host "Enter the new owner UPN to  replace with" #testuser2@contoso.onmicrosoft.com
-#Connect to SharePoint Online admin centre
+#Connect to SharePoint Online admin center
 Connect-PnPOnline -Url $AdminCenterURL -Interactive
 
 $dateTime = (Get-Date).toString("dd-MM-yyyy")

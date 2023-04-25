@@ -12,7 +12,7 @@ This script sample will publish Syntex Document Understanding Models to many lib
 
 - Create CSV file using the format supplied below and modify to reflect the values of your sites/libraries that you wish to deploy Syntex models to.
 - Open Windows PowerShell ISE
-- Edit Script and add required parameters for Syntex Content Centre URL and path to CSV file
+- Edit Script and add required parameters for Syntex Content Center URL and path to CSV file
 - Press run
 
 # [PnP PowerShell](#tab/pnpps)
@@ -21,7 +21,7 @@ This script sample will publish Syntex Document Understanding Models to many lib
 ###### Declare and Initialize Variables ######  
 
 #Change To Reflect Your Syntex Content Center
-$syntexContentCentre = "https://contoso.sharepoint.com/sites/HRContentCenter" 
+$syntexContentCenter = "https://contoso.sharepoint.com/sites/HRContentCenter" 
 
 #Path to CSV file
 $csvFilePath = "Libraries.csv"
@@ -36,8 +36,8 @@ $logFilePath=".\log-"+$currentTime+".log"
 ## Start the Transcript  
 Start-Transcript -Path $logFilePath 
 
-## Connect to your Syntex Content Centre
-Connect-PnPOnline -Url $syntexContentCentre -Interactive
+## Connect to your Syntex Content Center
+Connect-PnPOnline -Url $syntexContentCenter -Interactive
 
 ## Import CSV file
 $libraries = Import-Csv -Path $csvFilePath -Delimiter ";"

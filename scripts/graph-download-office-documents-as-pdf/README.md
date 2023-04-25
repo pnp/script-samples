@@ -23,9 +23,9 @@ $clientid=''
 # TODO: Enter value
 $clientsecret=''
 
-# The Sharepoint tentant
+# The SharePoint tentant
 # TODO: Enter value
-$tenant="????.sharepoint.com"
+$tenant="<tenant>.sharepoint.com"
 
 # The azure tenant ID
 # TODO: Enter value

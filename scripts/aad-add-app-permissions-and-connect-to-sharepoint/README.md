@@ -32,17 +32,17 @@ $svcprincipalSharePoint.AppRoles | FT ID, DisplayName
 # Show the Delegated Permissions
 $svcprincipalSharePoint.Oauth2Permissions | FT ID, UserConsentDisplayName
 
-$Sharepoint = New-Object -TypeName "Microsoft.Open.AzureAD.Model.RequiredResourceAccess"
-$Sharepoint.ResourceAppId = $svcprincipalSharePoint.AppId
+$SharePoint = New-Object -TypeName "Microsoft.Open.AzureAD.Model.RequiredResourceAccess"
+$SharePoint.ResourceAppId = $svcprincipalSharePoint.AppId
 
 # Add permissions to the app
 $applicationPermissions = New-Object -TypeName "Microsoft.Open.AzureAD.Model.ResourceAccess" -ArgumentList "9bff6588-13f2-4c48-bbf2-ddab62256b36","Scope" # Read and write items and lists in all site collections
 $delegatedPermission = New-Object -TypeName "Microsoft.Open.AzureAD.Model.ResourceAccess" -ArgumentList "2cfdc887-d7b4-4798-9b33-3d98d6b95dd2","Scope" # Read and write your files
-$Sharepoint.ResourceAccess = $delegatedPermission , $applicationPermissions
+$SharePoint.ResourceAccess = $delegatedPermission , $applicationPermissions
 
 $ADApplication = Get-AzureADApplication -All $true | ? { $_.AppId -match $newApp.AppId }
  
-Set-AzureADApplication -ObjectId $ADApplication.ObjectId -RequiredResourceAccess $Sharepoint
+Set-AzureADApplication -ObjectId $ADApplication.ObjectId -RequiredResourceAccess $SharePoint
 
 
 # Connect to SharePoint Online
