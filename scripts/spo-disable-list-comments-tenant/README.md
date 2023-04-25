@@ -12,6 +12,26 @@ Scenario inspired from this blog post: [How to Enable/Disable the commenting in 
 
 ![Outupt Screenshot](assets/output.png)
 
+# [SPO Management Shell](#tab/spoms-ps)
+
+```powershell
+
+# SharePoint online admin site url
+$siteUrl = "https://<tenant>-admin.sharepoint.com/"	
+
+# Connect to SharePoint Online site  
+Connect-SPOService -Url $siteUrl
+
+# To disable comments on list items
+Set-SPOTenant -CommentsOnListItemsDisabled $true
+
+# To enable comments on list items
+Set-SPOTenant -CommentsOnListItemsDisabled $false
+
+```
+
+[!INCLUDE [More about SPO Management Shell](../../docfx/includes/MORE-SPOMS.md)]
+
 # [PnP PowerShell](#tab/pnpps)
 
 ```powershell
