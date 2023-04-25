@@ -114,7 +114,7 @@
 <pre><code class="lang-powershell">$AdminCenterURL=&quot;https://contoso-admin.sharepoint.com/&quot;
 $oldOwnerUPN = Read-Host &quot;Enter the old owner UPN to be replaced with&quot; #testUser1@contose.onmicrosoft.com
 $newOwnerUPN = Read-Host &quot;Enter the new owner UPN to  replace with&quot; #testuser2@contoso.onmicrosoft.com
-#Connect to SharePoint Online admin centre
+#Connect to SharePoint Online admin center
 Connect-PnPOnline -Url $AdminCenterURL -Interactive
 
 $dateTime = (Get-Date).toString(&quot;dd-MM-yyyy&quot;)

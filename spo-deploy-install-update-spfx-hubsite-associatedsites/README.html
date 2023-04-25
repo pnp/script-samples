@@ -99,27 +99,27 @@
                     <h1 id="deploys-and-installs-sharepoint-framework-spfx-solutions-to-hub-site-and-associated-sites">Deploys and Installs SharePoint Framework (SPFx) solutions to Hub Site and Associated Sites</h1>
 
 <h2 id="summary">Summary</h2>
-<p>At the time of the submitting the sample there is no concept of a hub site app catalog. You may want to install or upgrade a SPFx solution to all sites within a hub for example all sites linked to the intranet hub. This sample is applicable for a SPFx solution that needs to be deployed and upgraded across all sites in a hub.</p>
+<p>At the time of submitting this script sample there is no concept of a hub site app catalog. However you may want to install or upgrade a SPFx solution to all sites within a hub for example all sites linked to the intranet hub. This sample is applicable for a SPFx solution that needs to be deployed and upgraded across all sites in a hub.</p>
 <p><img src="assets/example.png" alt="Example Screenshot"></p>
 <h3 id="prerequisites">Prerequisites</h3>
 <ul>
 <li>The user account that runs the script must have SharePoint Online tenant administrator access.</li>
-<li>Before running the script, edit the script and update the variable values in the Config Variable section, such as Admin Center URL, Hub Site URL, the CSV output file path and alternatively the sppkg Folder.</li>
+<li>Before running the script, edit the script and update the variable values in the Config Variables section, such as Admin Center URL, Hub Site URL, the CSV output file path and alternatively the sppkg packages Folder.</li>
 </ul>
-<p>The script will</p>
+<p>The script will:</p>
 <ul>
 <li>Get the hub site ID using the Get-PnPTenantSite cmdlet.</li>
-<li>Get all site collections associated with the hub site using the Get-PnPTenantSite cmdlet.</li>
-<li>For each site collection, check if it’s associated with the hub site using the site’s HubSiteId property.</li>
+<li>Get all site collections in the tenant using the Get-PnPTenantSite cmdlet.</li>
+<li>For each site collection, check if it's associated with the hub site using the site's HubSiteId property.</li>
 <li>Connect to the site using Connect-PnPOnline.</li>
 <li>Check if the site collection app catalog exists. If it doesn’t, create it using Add-PnPSiteCollectionAppCatalog.</li>
-<li>Deploy the SPFx package using Add-pnpapp.</li>
+<li>Deploy the SPFx package using Add-PnPApp.</li>
 <li>Check if the package is already installed on the site using Get-PnPApp.</li>
 <li>If the package is not installed, install it using Install-PnPApp.</li>
 <li>If a newer version of the package is available, update the package using Update-PnPApp.</li>
-<li>Export the site collection URL, package name, and package version to a CSV file for a record of what’s updated</li>
+<li>Export the site collection URL, package name, and package version to a CSV file for a record of what's updated.</li>
 </ul>
-<p>The script does not cover admin consent to app permissions. A global administrator will have to grant admin consent as required by the SPFx solutions.</p>
+<p>The script does not cover admin consent to app permissions. A global administrator will have to grant admin consent if required by the SPFx solutions.</p>
 <div class="tabGroup" id="tabgroup_CeZOj-G++Q">
 <ul role="tablist">
 <li role="presentation">
@@ -132,7 +132,7 @@
 </button>
 
 <pre><code class="lang-powershell">#Config variables
-$adminCenterURL=https://tenant-admin.sharepoint.com
+$adminCenterURL = &quot;https://tenant-admin.sharepoint.com&quot;
 $fileName = &quot;\IntranetUpgradeSPFx-&quot; + $dateTime + &quot;.csv&quot;
 $hubSiteUrl = &quot;https://tenant.sharepoint.com/sites/u-intranet&quot;
 $OutPutView = $directorypath + $fileName
@@ -150,6 +150,7 @@ Connect-PnPOnline $adminCenterURL -Interactive
 #collection to save the list of sites where the deployment or upgrades of SPFx solution happened for auditing
 $ViewCollection = @() 
 $HubSiteID = (Get-PnPTenantSite $hubSiteUrl).HubSiteId
+
 #Get all site collections associated with the hub site
 Get-PnPTenantSite -Detailed | select url | ForEach-Object {
   $Site = Get-PnPTenantSite $_.url
@@ -172,7 +173,7 @@ Get-PnPTenantSite -Detailed | select url | ForEach-Object {
             Start-Sleep -Seconds 20
          }
          #deploy sppkg
-         Add-pnpapp -Path (&quot;{0}/{1}&quot; -f $sppkgFolder , $package.PSChildName) -Scope Site -Overwrite -Publish
+         Add-PnPApp -Path (&quot;{0}/{1}&quot; -f $sppkgFolder , $package.PSChildName) -Scope Site -Overwrite -Publish
 
          Start-Sleep -Seconds 5
 
@@ -214,7 +215,7 @@ Disconnect-PnPOnline
 </code></pre>
 <div class="NOTE">
 <h5>Note</h5>
-<p>SharePoint admin right are required to run the script</p>
+<p>SharePoint admin rights are required to run the script</p>
 </div>
 <div class="highlight-tool">
 <p>Check out the <strong>PnP PowerShell</strong> to learn more at: <a href="https://aka.ms/pnp/powershell">https://aka.ms/pnp/powershell</a></p>
@@ -234,11 +235,14 @@ Disconnect-PnPOnline
 <tr>
 <td>Reshmee Auckloo</td>
 </tr>
+<tr>
+<td><a href="https://ganeshsanapblogs.wordpress.com/">Ganesh Sanap</a></td>
+</tr>
 </tbody>
 </table>
 <h2 id="disclaimer">Disclaimer</h2>
 <p><strong>THESE SAMPLES ARE PROVIDED <em>AS IS</em> WITHOUT WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, INCLUDING ANY IMPLIED WARRANTIES OF FITNESS FOR A PARTICULAR PURPOSE, MERCHANTABILITY, OR NON-INFRINGEMENT.</strong></p>
-<img src="https://pnptelemetry.azurewebsites.net/script-samples/scripts/spo-deploy-install-update-spfx-hubsite-associatedsites" aria-hidden="true">
+<img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/spo-deploy-install-update-spfx-hubsite-associatedsites" aria-hidden="true">
 </article>
           </div>
         </div>

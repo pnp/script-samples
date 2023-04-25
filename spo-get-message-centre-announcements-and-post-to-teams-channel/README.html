@@ -4,15 +4,15 @@
   
   <head>
     <meta charset="utf-8">
-    <title>Retrieve Message Centre announcements and post to MS Teams channel | PnP Samples </title>
+    <title>Retrieve Message Center announcements and post to MS Teams channel | PnP Samples </title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" "="">
-    <meta name="title" content="Retrieve Message Centre announcements and post to MS Teams channel | PnP Samples ">
+    <meta name="title" content="Retrieve Message Center announcements and post to MS Teams channel | PnP Samples ">
     <meta name="generator" content="docfx 2.56.7.0">
     <meta name="description" content="A sample gallery of scripts to manage all things Microsoft 365.">
   
     <!-- Social Media -->
     <meta property="og:locale" content="en_GB">
-    <meta property="og:title" content="Retrieve Message Centre announcements and post to MS Teams channel | PnP Samples ">
+    <meta property="og:title" content="Retrieve Message Center announcements and post to MS Teams channel | PnP Samples ">
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://pnp.github.io/script-samples">
     <meta property="og:image" content="https://pnp.github.io/script-samples/assets/social-media-screenshot.png">
@@ -96,10 +96,10 @@
                   <div class="contribution-panel mobile-hide pull-right">
                       <a href="https://github.com/pnp/script-samples/blob/main/scripts/spo-get-message-centre-announcements-and-post-to-teams-channel/README.md/#L1" title="Improve this Doc" class="improve-doc-lg"><i class="glyphicon glyphicon-pencil"></i></a>
                   </div>
-                    <h1 id="retrieve-message-centre-announcements-and-post-to-ms-teams-channel">Retrieve Message Centre announcements and post to MS Teams channel</h1>
+                    <h1 id="retrieve-message-center-announcements-and-post-to-ms-teams-channel">Retrieve Message Center announcements and post to MS Teams channel</h1>
 
 <h2 id="summary">Summary</h2>
-<p>This script allows you to connect to your SharePoint Online tenant and retrieve Message Centre announcements. It then connects to Microsoft Teams and loops through the announcements, posting them to a specific Teams channel.</p>
+<p>This script allows you to connect to your SharePoint Online tenant and retrieve Message Center announcements. It then connects to Microsoft Teams and loops through the announcements, posting them to a specific Teams channel.</p>
 <p><img src="assets/preview.png" alt="Example Screenshot"></p>
 <h2 id="implementation">Implementation</h2>
 <ul>
@@ -126,7 +126,7 @@
 <pre><code class="lang-powershell"># Connect to SharePoint Online
 Connect-PnPOnline -Url https://yourTenantName.sharepoint.com/ -Interactive 
 
-# Get Message Centre announcements
+# Get Message Center announcements
 $announcements = Get-PnPMessageCenterAnnouncement | Where-Object { $_.Category -eq &quot;PlanForChange&quot; } | Select-Object Title, Description
 
 # Connect to teams
@@ -172,7 +172,7 @@ begin {
     Write-Host &quot;Connection Successful!&quot; -f Green
 }
 process {
-    # Get Message Centre announcements
+    # Get Message Center announcements
     $announcements = m365 tenant serviceannouncement message list --query &quot;[?category == '$($Category)']&quot; | ConvertFrom-Json
     Write-Host &quot;Found $($announcements.Count) announcements to post to MS Teams channel&quot;
 
