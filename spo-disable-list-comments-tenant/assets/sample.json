@@ -6,11 +6,15 @@
     "url": "https://pnp.github.io/script-samples/spo-disable-list-comments-tenant/README.html",
     "longDescription": [],
     "creationDateTime": "2022-10-11",
-    "updateDateTime": "2022-10-11",
+    "updateDateTime": "2023-04-20",
     "products": [
         "SharePoint"
     ],
     "metadata": [{
+        "key": "SPO-MANAGEMENT-SHELL",
+        "value": "16.0.23508.12000"
+      },
+      {
         "key": "PNP-POWERSHELL",
         "value": "1.11.0"
     }],
@@ -20,7 +24,9 @@
     "tags": [
         "modern",
         "Connect-PnPOnline",
-        "Set-PnPTenant"
+        "Set-PnPTenant",
+        "Connect-SPOService",
+        "Set-SPOTenant"
     ],
     "thumbnails": [{
         "type": "image",
@@ -35,6 +41,11 @@
         "name": "Ganesh Sanap"
     }],
     "references": [{
+      "name": "Introduction to the SharePoint Online Management Shell",
+      "description": "Check out the SPO Management Shell documentation site to get started and for the reference to the cmdlets.",
+      "url": "https://docs.microsoft.com/en-us/powershell/sharepoint/sharepoint-online/introduction-sharepoint-online-management-shell?view=sharepoint-ps"
+    },
+    {
         "name": "Want to learn more about PnP PowerShell and the cmdlets",
         "description": "Check out the PnP PowerShell site to get started and for the reference to the cmdlets.",
         "url": "https://aka.ms/pnp/powershell"
