@@ -25,11 +25,11 @@ Read-Host -Prompt "Press Enter to start deleting (CTRL + C to exit)"
 $progress = 0
 $total = $siteDesigns.Count
 
-foreach ($siteScript in $siteDesigns)
+foreach ($siteDesign in $siteDesigns)
 {
   $progress++
-  Write-Host $progress / $total":" $siteScript.Title
-  Remove-SPOSiteDesign $siteScript.Id
+  Write-Host $progress / $total":" $siteDesign.Title
+  Remove-SPOSiteDesign $siteDesign.Id
 }
 ```
 [!INCLUDE [More about SPO Management Shell](../../docfx/includes/MORE-SPOMS.md)]
@@ -60,6 +60,41 @@ foreach ($sitedesign in $sitedesigns)
 ```
 [!INCLUDE [More about PnP PowerShell](../../docfx/includes/MORE-PNPPS.md)]
 
+# [CLI for Microsoft 365](#tab/cli-m365-ps)
+
+```powershell
+
+# Get Credentials to connect
+$m365Status = m365 status
+if ($m365Status -match "Logged Out") {
+   m365 login
+}
+
+$keepThese = "Register the new site", "Corporate Basic Site", "Corporate Internal Site"
+
+# Get all site designs from the current tenant
+$siteDesigns = m365 spo sitedesign list | ConvertFrom-Json
+
+$siteDesigns = $siteDesigns | Where-Object { -not ($keepThese -contains $_.Title)}
+
+if ($siteDesigns.Count -eq 0) { break }
+
+$siteDesigns | Format-Table Title, SiteScriptIds, Description
+
+Read-Host -Prompt "Press Enter to start deleting (CTRL + C to exit)"
+$progress = 0
+$total = $siteDesigns.Count
+
+foreach ($siteDesign in $siteDesigns)
+{
+  $progress++
+  Write-Host $progress / $total":" $siteDesign.Title
+  m365 spo sitedesign remove --id $siteDesign.Id
+}
+
+```
+[!INCLUDE [More about CLI for Microsoft 365](../../docfx/includes/MORE-CLIM365.md)]
+
 ***
 
 ## Contributors
@@ -68,6 +103,7 @@ foreach ($sitedesign in $sitedesigns)
 |-----------|
 | Paul Bullock |
 | [Leon Armston](https://github.com/LeonArmston)|
+| [Ganesh Sanap](https://ganeshsanapblogs.wordpress.com/about) |
 
 [!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
 <img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/spo-remove-site-designs" aria-hidden="true" />
