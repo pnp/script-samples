@@ -112,6 +112,9 @@
 <li role="presentation">
 <a href="#tabpanel_CeZOj-G++Q_pnpps" role="tab" aria-controls="tabpanel_CeZOj-G++Q_pnpps" data-tab="pnpps" tabindex="-1">PnP PowerShell</a>
 </li>
+<li role="presentation">
+<a href="#tabpanel_CeZOj-G++Q_cli-m365-ps" role="tab" aria-controls="tabpanel_CeZOj-G++Q_cli-m365-ps" data-tab="cli-m365-ps" tabindex="-1">CLI for Microsoft 365</a>
+</li>
 </ul>
 <section id="tabpanel_CeZOj-G++Q_spoms-ps" role="tabpanel" data-tab="spoms-ps"><button class="article-clipboard" title="Copy to clipboard" data-toggle="tooltip" data-placement="top" data-clipboard-target="section[id^='tabpanel'][data-tab='spoms-ps'] pre">
     <span class="glyphicon glyphicon-copy" aria-hidden="true"></span>
@@ -131,11 +134,11 @@ Read-Host -Prompt &quot;Press Enter to start deleting (CTRL + C to exit)&quot;
 $progress = 0
 $total = $siteDesigns.Count
 
-foreach ($siteScript in $siteDesigns)
+foreach ($siteDesign in $siteDesigns)
 {
   $progress++
-  Write-Host $progress / $total&quot;:&quot; $siteScript.Title
-  Remove-SPOSiteDesign $siteScript.Id
+  Write-Host $progress / $total&quot;:&quot; $siteDesign.Title
+  Remove-SPOSiteDesign $siteDesign.Id
 }
 </code></pre>
 <div class="highlight-tool">
@@ -172,6 +175,45 @@ foreach ($sitedesign in $sitedesigns)
 <p>Check out the <strong>PnP PowerShell</strong> to learn more at: <a href="https://aka.ms/pnp/powershell">https://aka.ms/pnp/powershell</a></p>
 </div>
 </section>
+<section id="tabpanel_CeZOj-G++Q_cli-m365-ps" role="tabpanel" data-tab="cli-m365-ps" aria-hidden="true" hidden="hidden"><button class="article-clipboard" title="Copy to clipboard" data-toggle="tooltip" data-placement="top" data-clipboard-target="section[id^='tabpanel'][data-tab='cli-m365-ps'] pre">
+    <span class="glyphicon glyphicon-copy" aria-hidden="true"></span>
+    <span class="article-clipboard__message done">Copied</span>
+</button>
+
+<pre><code class="lang-powershell">
+# Get Credentials to connect
+$m365Status = m365 status
+if ($m365Status -match &quot;Logged Out&quot;) {
+   m365 login
+}
+
+$keepThese = &quot;Register the new site&quot;, &quot;Corporate Basic Site&quot;, &quot;Corporate Internal Site&quot;
+
+# Get all site designs from the current tenant
+$siteDesigns = m365 spo sitedesign list | ConvertFrom-Json
+
+$siteDesigns = $siteDesigns | Where-Object { -not ($keepThese -contains $_.Title)}
+
+if ($siteDesigns.Count -eq 0) { break }
+
+$siteDesigns | Format-Table Title, SiteScriptIds, Description
+
+Read-Host -Prompt &quot;Press Enter to start deleting (CTRL + C to exit)&quot;
+$progress = 0
+$total = $siteDesigns.Count
+
+foreach ($siteDesign in $siteDesigns)
+{
+  $progress++
+  Write-Host $progress / $total&quot;:&quot; $siteDesign.Title
+  m365 spo sitedesign remove --id $siteDesign.Id
+}
+
+</code></pre>
+<div class="highlight-tool">
+<p>Check out the <strong>CLI for Microsoft 365</strong> to learn more at: <a href="https://aka.ms/cli-m365">https://aka.ms/cli-m365</a></p>
+</div>
+</section>
 </div>
 <h2 id="contributors">Contributors</h2>
 <table>
@@ -186,6 +228,9 @@ foreach ($sitedesign in $sitedesigns)
 </tr>
 <tr>
 <td><a href="https://github.com/LeonArmston">Leon Armston</a></td>
+</tr>
+<tr>
+<td><a href="https://ganeshsanapblogs.wordpress.com/about">Ganesh Sanap</a></td>
 </tr>
 </tbody>
 </table>
