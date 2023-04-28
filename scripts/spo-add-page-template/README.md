@@ -6,7 +6,7 @@ plugin: add-to-gallery
 
 ## Summary
 
-This sample script shows how to add a page template to a SharePoint Online site collection using PnP PowerShell.
+This sample script shows how to add a page template to a SharePoint Online site collection using PnP PowerShell and CLI for Microsoft 365.
 
 ![Example Screenshot](assets/example.gif)
 
@@ -58,12 +58,34 @@ Stop-Transcript
 ```
 [!INCLUDE [More about PnP PowerShell](../../docfx/includes/MORE-PNPPS.md)]
 
+# [CLI for Microsoft 365](#tab/cli-m365-ps)
+
+```powershell
+
+# SharePoint online site URL
+$siteUrl = "https://contoso.sharepoint.com/sites/SPConnect"
+
+# Name of page template to add
+$pageTemplateName = "pagetemplate.aspx"
+
+# Get Credentials to connect
+$m365Status = m365 status
+if ($m365Status -match "Logged Out") {
+   m365 login
+}
+
+# Add page template to SharePoint online site
+m365 spo page add --name $pageTemplateName --webUrl $siteUrl --promoteAs Template
+
+```
+[!INCLUDE [More about CLI for Microsoft 365](../../docfx/includes/MORE-CLIM365.md)]
+
 ## Contributors
 
 | Author(s) |
 |-----------|
 | [@Expiscornovus](https://twitter.com/expiscornovus) |
-
+| [Ganesh Sanap](https://ganeshsanapblogs.wordpress.com/about) |
 
 [!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
 <img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/spo-add-page-template" aria-hidden="true" />
