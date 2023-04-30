@@ -12,6 +12,26 @@ Scenario inspired from this blog post: [Set up a home site in SharePoint Online]
 
 ![Outupt Screenshot](assets/output.png)
 
+# [SPO Management Shell](#tab/spoms-ps)
+
+```powershell
+
+# SharePoint tenant admin site collection url
+$adminSiteUrl = "https://<tenant>-admin.sharepoint.com"
+
+# Communication site collection url
+$commSiteUrl = "https://<tenant>.sharepoint.com/communicationsite"
+
+# Connect to SharePoint Online site
+Connect-SPOService -Url $adminSiteUrl
+
+# Set communication site as the home site
+Set-SPOHomeSite -HomeSiteUrl $commSiteUrl
+
+```
+
+[!INCLUDE [More about SPO Management Shell](../../docfx/includes/MORE-SPOMS.md)]
+
 # [PnP PowerShell](#tab/pnpps)
 
 ```powershell
@@ -22,7 +42,7 @@ $adminSiteUrl = "https://<tenant>-admin.sharepoint.com"
 # Communication site collection url
 $commSiteUrl = "https://<tenant>.sharepoint.com/communicationsite"
 
-# Connect to SharePoint Online site  
+# Connect to SharePoint Online site
 Connect-PnPOnline -Url $adminSiteUrl -Interactive
 
 # Set communication site as the home site
