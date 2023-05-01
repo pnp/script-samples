@@ -99,13 +99,16 @@
                     <h1 id="remove-title-area-from-sharepoint-page">Remove Title Area from SharePoint Page</h1>
 
 <h2 id="summary">Summary</h2>
-<p>This sample script shows how to remove the title area at the top of the page from SharePoint online site page using PnP PowerShell.</p>
+<p>This sample script shows how to remove the title area at the top of the page from SharePoint online site page using PnP PowerShell and CLI for Microsoft 365.</p>
 <p>Scenario inspired from this blog post: <a href="https://ganeshsanapblogs.wordpress.com/2021/03/26/sharepoint-online-create-a-blank-page-without-header-and-title/">SharePoint Online: Create a blank page without header &amp; title</a></p>
 <p><img src="assets/output.png" alt="Outupt Screenshot"></p>
 <div class="tabGroup" id="tabgroup_CeZOj-G++Q">
 <ul role="tablist">
 <li role="presentation">
 <a href="#tabpanel_CeZOj-G++Q_pnpps" role="tab" aria-controls="tabpanel_CeZOj-G++Q_pnpps" data-tab="pnpps" tabindex="0" aria-selected="true">PnP PowerShell</a>
+</li>
+<li role="presentation">
+<a href="#tabpanel_CeZOj-G++Q_cli-m365-ps" role="tab" aria-controls="tabpanel_CeZOj-G++Q_cli-m365-ps" data-tab="cli-m365-ps" tabindex="-1">CLI for Microsoft 365</a>
 </li>
 </ul>
 <section id="tabpanel_CeZOj-G++Q_pnpps" role="tabpanel" data-tab="pnpps"><button class="article-clipboard" title="Copy to clipboard" data-toggle="tooltip" data-placement="top" data-clipboard-target="section[id^='tabpanel'][data-tab='pnpps'] pre">
@@ -117,11 +120,14 @@
 # SharePoint online site url
 $siteUrl = &quot;https://contoso.sharepoint.com/sites/SPConnect&quot;	
 
-# Connect to SharePoint Online site  
+# Name of the site page
+$pageName = &quot;MyPage&quot;
+
+# Connect to SharePoint Online site
 Connect-PnPOnline -Url $siteUrl -Interactive
 
 # Set site page layout to remove title area
-Set-PnPPage -Identity &quot;MyPage&quot; -LayoutType Home
+Set-PnPPage -Identity $pageName -LayoutType Home
 
 # Use below command to bring back the page title area
 # Set-PnPPage -Identity &quot;MyPage&quot; -LayoutType Article
@@ -129,6 +135,35 @@ Set-PnPPage -Identity &quot;MyPage&quot; -LayoutType Home
 </code></pre>
 <div class="highlight-tool">
 <p>Check out the <strong>PnP PowerShell</strong> to learn more at: <a href="https://aka.ms/pnp/powershell">https://aka.ms/pnp/powershell</a></p>
+</div>
+</section>
+<section id="tabpanel_CeZOj-G++Q_cli-m365-ps" role="tabpanel" data-tab="cli-m365-ps" aria-hidden="true" hidden="hidden"><button class="article-clipboard" title="Copy to clipboard" data-toggle="tooltip" data-placement="top" data-clipboard-target="section[id^='tabpanel'][data-tab='cli-m365-ps'] pre">
+    <span class="glyphicon glyphicon-copy" aria-hidden="true"></span>
+    <span class="article-clipboard__message done">Copied</span>
+</button>
+
+<pre><code class="lang-powershell">
+# SharePoint online site URL
+$siteUrl = &quot;https://contoso.sharepoint.com/sites/wlive&quot;
+
+# Name of the site page
+$pageName = &quot;MyPage.aspx&quot;
+
+# Get Credentials to connect
+$m365Status = m365 status
+if ($m365Status -match &quot;Logged Out&quot;) {
+   m365 login
+}
+
+# Set site page layout to remove title area
+m365 spo page set --name $pageName --webUrl $siteUrl --layoutType Home
+
+# Use below command to bring back the page title area
+# m365 spo page set --name $pageName --webUrl $siteUrl --layoutType Article
+
+</code></pre>
+<div class="highlight-tool">
+<p>Check out the <strong>CLI for Microsoft 365</strong> to learn more at: <a href="https://aka.ms/cli-m365">https://aka.ms/cli-m365</a></p>
 </div>
 </section>
 </div>
