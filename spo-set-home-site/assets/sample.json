@@ -7,11 +7,15 @@
     "url": "https://pnp.github.io/script-samples/spo-set-home-site/README.html",
     "longDescription": [],
     "creationDateTime": "2022-01-18",
-    "updateDateTime": "2022-06-12",
+    "updateDateTime": "2023-04-30",
     "products": [
       "SharePoint"
     ],
     "metadata": [
+      {
+        "key": "SPO-MANAGEMENT-SHELL",
+        "value": "16.0.23508.12000"
+      },
       {
         "key": "PNP-POWERSHELL",
         "value": "1.9.0"
@@ -26,6 +30,10 @@
     ],
     "tags": [
       "modern",
+      "SharePoint Online",
+      "Home Site",
+      "Connect-SPOService",
+      "Set-SPOHomeSite",
       "m365 login",
       "m365 status",
       "m365 spo homesite set",
@@ -42,19 +50,24 @@
     ],
     "authors": [
       {
-        "gitHubAccount": "SmitaNachan",
-        "company": "",
-        "pictureUrl": "https://github.com/SmitaNachan.png",
-        "name": "Smita Nachan"
-      },
-      {
         "gitHubAccount": "ganesh-sanap",
         "company": "",
         "pictureUrl": "https://avatars.githubusercontent.com/u/25476310?v=4",
         "name": "Ganesh Sanap"
-      }      
+      },
+      {
+        "gitHubAccount": "SmitaNachan",
+        "company": "",
+        "pictureUrl": "https://github.com/SmitaNachan.png",
+        "name": "Smita Nachan"
+      }         
     ],
     "references": [
+      {
+        "name": "Introduction to the SharePoint Online Management Shell",
+        "description": "Check out the SPO Management Shell documentation site to get started and for the reference to the cmdlets.",
+        "url": "https://docs.microsoft.com/en-us/powershell/sharepoint/sharepoint-online/introduction-sharepoint-online-management-shell?view=sharepoint-ps"
+      },
       {
         "name": "Want to learn more about PnP PowerShell and the cmdlets",
         "description": "Check out the PnP PowerShell site to get started and for the reference to the cmdlets.",
