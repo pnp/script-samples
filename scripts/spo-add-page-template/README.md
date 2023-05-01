@@ -79,6 +79,7 @@ m365 spo page add --name $pageTemplateName --webUrl $siteUrl --promoteAs Templat
 
 ```
 [!INCLUDE [More about CLI for Microsoft 365](../../docfx/includes/MORE-CLIM365.md)]
+***
 
 ## Contributors
 
