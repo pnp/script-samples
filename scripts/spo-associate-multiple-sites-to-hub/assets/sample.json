@@ -3,13 +3,13 @@
     "name": "spo-associate-multiple-sites-to-hub",
     "source": "pnp",
     "title": "Associate Multiple Site Collections to Hub Site",
-    "shortDescription": "This script can be used to associate multiple site collections to Hub site; you can provide list of site collection urls in the array.",
+    "shortDescription": "This PowerShell script can be used to associate mutilple site collections to Hub site. You can provide list of site collection URLs in an array.",
     "url": "https://pnp.github.io/script-samples/spo-associate-multiple-sites-to-hub/README.html",
     "longDescription": [
       ""
     ],
     "creationDateTime": "2023-02-17",
-    "updateDateTime": "2023-02-17",
+    "updateDateTime": "2023-05-01",
     "products": [
       "SharePoint"
     ],
@@ -17,13 +17,33 @@
       {
         "key": "PNP-POWERSHELL",
         "value": "1.11.0"
+      },
+      {
+        "key": "SPO-MANAGEMENT-SHELL",
+        "value": "16.0.23508.12000"
+      },
+      {
+        "key":"CLI-FOR-MICROSOFT365",
+        "value":"6.6.0"
       }
     ],
     "categories": [
       "Configure"
     ],
     "tags": [
-      "<Cmdlets-Used>"
+      "SharePoint Online",
+      "Hub Site",
+      "Connect-SPOService",
+      "Add-SPOHubSiteAssociation",
+      "Disconnect-SPOService",
+      "Connect-PnPOnline",
+      "Add-PnPHubSiteAssociation",
+      "Disconnect-PnPOnline",
+      "m365 status",
+      "m365 login",
+      "m365 spo hubsite get",
+      "m365 spo site hubsite connect",
+      "m365 logout"
     ],
     "thumbnails": [
       {
@@ -34,6 +54,12 @@
       }
     ],
     "authors": [
+      {
+        "gitHubAccount": "ganesh-sanap",
+        "company": "",
+        "pictureUrl": "https://avatars.githubusercontent.com/u/25476310?v=4",
+        "name": "Ganesh Sanap"
+      },
       {
         "gitHubAccount": "siddharth-vaghasia",
         "company": "",
@@ -46,6 +72,16 @@
         "name": "Want to learn more about PnP PowerShell and the cmdlets",
         "description": "Check out the PnP PowerShell site to get started and for the reference to the cmdlets.",
         "url": "https://aka.ms/pnp/powershell"
+      },
+      {
+        "name": "Introduction to the SharePoint Online Management Shell",
+        "description": "Check out the SPO Management Shell documentation site to get started and for the reference to the cmdlets.",
+        "url": "https://docs.microsoft.com/en-us/powershell/sharepoint/sharepoint-online/introduction-sharepoint-online-management-shell?view=sharepoint-ps"
+      },
+      {
+        "name": "Want to learn more about CLI for Microsoft 365 and the commands",
+        "description": "Check out the CLI for Microsoft 365 site to get started and for the reference to the commands.",
+        "url": "https://aka.ms/cli-m365"
       }
     ]
   }
