@@ -99,18 +99,24 @@
                     <h1 id="associate-multiple-site-collections-to-hub-site">Associate Multiple Site Collections to Hub Site</h1>
 
 <h2 id="summary">Summary</h2>
-<p>This PowerShell script can be used to  associate mutilple site collections to HUB site. you can provide list of site collection urls in the array.</p>
+<p>This PowerShell script can be used to associate mutilple site collections to Hub site. You can provide list of site collection URLs in an array.</p>
 <h2 id="implementation">Implementation</h2>
 <ul>
 <li>Open Windows PowerShell ISE</li>
 <li>Create a new file</li>
-<li>Update the parameters with site collection urls and hub site url</li>
+<li>Update the parameters with site collection URLs and hub site URL</li>
 <li>Save the file and run it</li>
 </ul>
 <div class="tabGroup" id="tabgroup_CeZOj-G++Q">
 <ul role="tablist">
 <li role="presentation">
 <a href="#tabpanel_CeZOj-G++Q_pnpps" role="tab" aria-controls="tabpanel_CeZOj-G++Q_pnpps" data-tab="pnpps" tabindex="0" aria-selected="true">PnP PowerShell</a>
+</li>
+<li role="presentation">
+<a href="#tabpanel_CeZOj-G++Q_spoms-ps" role="tab" aria-controls="tabpanel_CeZOj-G++Q_spoms-ps" data-tab="spoms-ps" tabindex="-1">SPO Management Shell</a>
+</li>
+<li role="presentation">
+<a href="#tabpanel_CeZOj-G++Q_cli-m365-ps" role="tab" aria-controls="tabpanel_CeZOj-G++Q_cli-m365-ps" data-tab="cli-m365-ps" tabindex="-1">CLI for Microsoft 365</a>
 </li>
 </ul>
 <section id="tabpanel_CeZOj-G++Q_pnpps" role="tabpanel" data-tab="pnpps"><button class="article-clipboard" title="Copy to clipboard" data-toggle="tooltip" data-placement="top" data-clipboard-target="section[id^='tabpanel'][data-tab='pnpps'] pre">
@@ -119,38 +125,130 @@
 </button>
 
 <pre><code class="lang-powershell">
-	#Parameters
+# Parameters
 
-     #Provide Hub Site URL
-	$HubSiteURL = &quot;https://******.sharepoint.com/sites/**********&quot;
+# Provide SharePoint online Hub site URL
+$HubSiteURL = &quot;https://******.sharepoint.com/sites/**********&quot;
 
-	#Array of site collections to associate site with
-    $arrSCs = @(&quot;https://******.sharepoint.com/sites/**********&quot;, &quot;https://******.sharepoint.com/sites/**********&quot;, &quot;https://******.sharepoint.com/sites/**********&quot;)
+# Array of site collections to associate with hub site
+$arrSCs = @(&quot;https://******.sharepoint.com/sites/**********&quot;, &quot;https://******.sharepoint.com/sites/**********&quot;, &quot;https://******.sharepoint.com/sites/**********&quot;)
 
-	#get admin user credentials
-	$creds = (Get-Credential)
+# Get admin user credentials
+$creds = (Get-Credential)
 
-	function AssociateHubSite{
-		try{
-			foreach ($SC in $arrSCs){ 
-				Write-Host &quot;Connecting site collection &quot; $SC 
-				Connect-PnPOnline -Url $SC -Credentials $creds
-				Add-PnPHubSiteAssociation -Site $SC -HubSite $HubSiteURL -ErrorAction Stop
-				Write-Host &quot;Hub site associated with site collection:&quot; $SC -ForegroundColor Green            
-			}
+function AssociateHubSite {
+	try {
+		foreach ($SC in $arrSCs) { 
+			Write-Host &quot;Connecting site collection: &quot; $SC 
+			Connect-PnPOnline -Url $SC -Credentials $creds
+			Add-PnPHubSiteAssociation -Site $SC -HubSite $HubSiteURL -ErrorAction Stop
+			Write-Host &quot;Hub site associated with site collection: &quot; $SC -ForegroundColor Green            
 		}
-		catch {
-			Write-Host &quot;Error in associating hub site $($SC) :&quot; $_.Exception.Message -ForegroundColor Red
-		}   
-		
-		#Disconnect sharepoint connection
-		Disconnect-PnPOnline
 	}
+	catch {
+		Write-Host &quot;Error in associating hub site $($SC): &quot; $_.Exception.Message -ForegroundColor Red
+	}   
+	
+	# Disconnect SharePoint online connection
+	Disconnect-PnPOnline
+}
 
-	AssociateHubSite
+AssociateHubSite
+
 </code></pre>
 <div class="highlight-tool">
 <p>Check out the <strong>PnP PowerShell</strong> to learn more at: <a href="https://aka.ms/pnp/powershell">https://aka.ms/pnp/powershell</a></p>
+</div>
+</section>
+<section id="tabpanel_CeZOj-G++Q_spoms-ps" role="tabpanel" data-tab="spoms-ps" aria-hidden="true" hidden="hidden"><button class="article-clipboard" title="Copy to clipboard" data-toggle="tooltip" data-placement="top" data-clipboard-target="section[id^='tabpanel'][data-tab='spoms-ps'] pre">
+    <span class="glyphicon glyphicon-copy" aria-hidden="true"></span>
+    <span class="article-clipboard__message done">Copied</span>
+</button>
+
+<pre><code class="lang-powershell">
+# SharePoint tenant admin site collection URL
+$adminSiteUrl = &quot;https://contoso-admin.sharepoint.com&quot;
+
+# SharePoint online Hub site URL
+$hubSiteURL = &quot;https://contoso.sharepoint.com/sites/communicationhubsite&quot;
+
+# Array of site collections to associate with hub site
+$arrayOfSites = @(&quot;https://contoso.sharepoint.com/sites/siteA&quot;, &quot;https://contoso.sharepoint.com/sites/siteB&quot;, &quot;https://contoso.sharepoint.com/sites/siteC&quot;)
+
+# Connect to SharePoint Online admin site  
+Connect-SPOService -Url $adminSiteUrl
+
+function AssociateHubSite {
+	try {
+		foreach ($site in $arrayOfSites) { 
+			Write-Host &quot;Associating site collection: &quot; $site 
+			
+			# Associating site collection with hub site
+			Add-SPOHubSiteAssociation -Site $site -HubSite $hubSiteURL -ErrorAction Stop
+			
+			Write-Host &quot;Hub site associated with site collection: &quot; $site -ForegroundColor Green            
+		}
+	}
+	catch {
+		Write-Host &quot;Error in associating hub site $($site): &quot; $_.Exception.Message -ForegroundColor Red
+	}   
+	
+	# Disconnect SharePoint online connection
+	Disconnect-SPOService
+}
+
+AssociateHubSite
+
+</code></pre>
+<div class="highlight-tool">
+<p>Check out the <strong>SPO Management Shell</strong> to learn more at: <a href="https://docs.microsoft.com/en-us/powershell/sharepoint/sharepoint-online/introduction-sharepoint-online-management-shell?view=sharepoint-ps">Introduction SharePoint Online Management Shell | Microsoft Docs</a></p>
+</div>
+</section>
+<section id="tabpanel_CeZOj-G++Q_cli-m365-ps" role="tabpanel" data-tab="cli-m365-ps" aria-hidden="true" hidden="hidden"><button class="article-clipboard" title="Copy to clipboard" data-toggle="tooltip" data-placement="top" data-clipboard-target="section[id^='tabpanel'][data-tab='cli-m365-ps'] pre">
+    <span class="glyphicon glyphicon-copy" aria-hidden="true"></span>
+    <span class="article-clipboard__message done">Copied</span>
+</button>
+
+<pre><code class="lang-powershell">
+# SharePoint online Hub site URL
+$hubSiteURL = &quot;https://contoso.sharepoint.com/sites/communicationhubsite&quot;
+
+# Array of site collections to associate site with hub site
+$arrayOfSites = @(&quot;https://contoso.sharepoint.com/sites/siteA&quot;, &quot;https://contoso.sharepoint.com/sites/siteB&quot;, &quot;https://contoso.sharepoint.com/sites/siteC&quot;)
+
+# Get Credentials to connect
+$m365Status = m365 status
+if ($m365Status -match &quot;Logged Out&quot;) {
+   m365 login
+}
+
+# Get information about the specified hub site
+$hubSiteDetails = m365 spo hubsite get --url $hubSiteURL | ConvertFrom-Json
+
+function AssociateHubSite {
+	try {
+		foreach ($site in $arrayOfSites) { 
+			Write-Host &quot;Associating site collection: &quot; $site 
+			
+			# Associating site collection with hub site
+			m365 spo site hubsite connect --siteUrl $site --id $hubSiteDetails.ID
+			
+			Write-Host &quot;Hub site associated with site collection: &quot; $site -ForegroundColor Green            
+		}
+	}
+	catch {
+		Write-Host &quot;Error in associating hub site $($site): &quot; $_.Exception.Message -ForegroundColor Red
+	}   
+	
+	# Disconnect SharePoint online connection
+	m365 logout
+}
+
+AssociateHubSite
+
+</code></pre>
+<div class="highlight-tool">
+<p>Check out the <strong>CLI for Microsoft 365</strong> to learn more at: <a href="https://aka.ms/cli-m365">https://aka.ms/cli-m365</a></p>
 </div>
 </section>
 </div>
@@ -164,6 +262,9 @@
 <tbody>
 <tr>
 <td><a href="https://github.com/siddharth-vaghasia">Siddharth Vaghasia</a></td>
+</tr>
+<tr>
+<td><a href="https://ganeshsanapblogs.wordpress.com/about">Ganesh Sanap</a></td>
 </tr>
 </tbody>
 </table>
