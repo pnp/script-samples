@@ -1,5 +1,5 @@
 ---
-plugin: add-to-gallery-preparation
+plugin: add-to-gallery
 ---
 
 # Enable and Disable App Bar in SharePoint Online
@@ -15,7 +15,18 @@ This script sample demonstrates how to enable and disable the App Bar on SharePo
 
 ```powershell
 
-<your script>
+
+# SharePoint online Site url
+$siteUrl = "https://contoso.sharepoint.com/sites/AmanSite"
+
+# Connect to SharePoint online site
+Connect-PnPOnline -Url $siteUrl -Interactive
+
+# Set Temporarily Disable App Bar True in Order to Disable
+Set-PnPTemporarilyDisableAppBar $true
+
+# Set Temporarily Disable App Bar True in Order to Enable
+Set-PnPTemporarilyDisableAppBar $false
 
 ```
 
@@ -23,8 +34,8 @@ This script sample demonstrates how to enable and disable the App Bar on SharePo
 
 ```powershell
 
-# Connect to SPOService using Tenant URL
-Connect-SPOService "https://contoso.sharepoint.com"
+# Connect to SPOService using Site URL
+Connect-SPOService "https://contoso.sharepoint.com/sites/AmanSite"
 
 # Set Temporarily Disable App Bar True in Order to Disable
 Set-SPOTemporarilyDisableAppBar $true
@@ -34,15 +45,11 @@ Set-SPOTemporarilyDisableAppBar $false
 
 ```
 
-## Source Credit
-
-Sample first appeared on [https://pnp.github.io/cli-microsoft365/sample-scripts/spo/add-app-catalog/](https://pnp.github.io/cli-microsoft365/sample-scripts/spo/add-app-catalog/)
-
 ## Contributors
 
-| Author(s) |
+| Author |
 |-----------|
-| <-you-> |
+| [Aman Panjwani](https://www.linkedin.com/in/aman-17-panjwani/) |
 
 
 [!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
