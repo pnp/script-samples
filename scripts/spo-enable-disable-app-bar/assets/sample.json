@@ -1,51 +1,50 @@
 [
   {
-    "name": "spo-add-user-follow-site",
+    "name": "spo-enable-disable-app-bar",
     "source": "pnp",
-    "title": "Add users to follow SharePoint Sites",
-    "shortDescription": "This script helps M365 admin to provision follow SharePoint Online sites to users and display in Out of the box SharePoint Site /_layouts/15/sharepoint.aspx?v=following.",
-    "url": "https://pnp.github.io/script-samples/spo-add-user-follow-site/README.html",
+    "title": "Enable and Disable App Bar in SharePoint Online",
+    "shortDescription": "This script sample demonstrates how to enable and disable the App Bar on SharePoint online sites by utilizing PnP PowerShell and SPO Management Shell.",
+    "url": "https://pnp.github.io/script-samples/spo-enable-disable-app-bar/README.html",
     "longDescription": [
-      "This script helps M365 admin to provision follow SharePoint Online sites to users and display in Out of the box SharePoint Site"
+      "This Scripts Helps SharePoint Users to Enable or Disable App Bar Across SharePoint sites"
     ],
-    "creationDateTime": "2023-03-01",
-    "updateDateTime": "2023-03-01",
+    "creationDateTime": "2023-05-03",
+    "updateDateTime": "2023-05-04",
     "products": [
-      "SharePoint",
-      "Graph"
+      "SharePoint"
     ],
     "metadata": [
       {
-        "key": "GRAPH-POWERSHELL",
-        "value": "1.22.0"
+        "key": "PNP-POWERSHELL",
+        "value": "1.9.0"
       }
     ],
     "categories": [
       "Configure"
     ],
     "tags": [
-      "classic"
+      "TemporarilyDisableAppBar"
     ],
     "thumbnails": [
       {
         "type": "image",
         "order": 100,
-        "url": "https://raw.githubusercontent.com/pnp/script-samples/main/scripts/spo-add-user-follow-site/assets/preview.png",
-        "alt": ""
+        "url": "https://raw.githubusercontent.com/pnp/script-samples/main/scripts/spo-enable-disable-app-bar/assets/preview.png",
+        "alt": "Enable and Disable App Bar in SharePoint Online"
       }
     ],
     "authors": [
       {
-        "gitHubAccount": "aaclage",
-        "pictureUrl": "https://github.com/aaclage.png",
-        "name": "Andre Lage"
+        "gitHubAccount": "Amanp17",
+        "pictureUrl": "https://github.com/Amanp17.png",
+        "name": "Aman Panjwani"
       }
     ],
     "references": [
       {
-        "name": "Want to learn more about Microsoft Graph PowerShell SDK and the cmdlets",
-        "description": "Check out the Microsoft Graph PowerShell SDK documentation site to get started and for the reference to the cmdlets.",
-        "url": "https://docs.microsoft.com/en-us/graph/powershell/get-started"
+        "name": "Want to learn more about PnP PowerShell and the cmdlets",
+        "description": "Check out the PnP PowerShell site to get started and for the reference to the cmdlets.",
+        "url": "https://aka.ms/pnp/powershell"
       }
     ]
   }
