@@ -49,8 +49,8 @@ Invoke-PnPQuery
 Write-Host -ForegroundColor Green "All done"
 
 ```
-
 [!INCLUDE [More about PnP PowerShell](../../docfx/includes/MORE-PNPPS.md)]
+***
 
 ## Contributors
 
@@ -59,4 +59,4 @@ Write-Host -ForegroundColor Green "All done"
 | Dan Toft(https://blog.dan-toft.dk) |
 
 [!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
-<img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/spo-activate-site-feature" aria-hidden="true" />
+<img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/spo-document-sets-modern-new-form" aria-hidden="true" />
