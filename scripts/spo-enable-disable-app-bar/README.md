@@ -29,6 +29,7 @@ Set-PnPTemporarilyDisableAppBar $true
 Set-PnPTemporarilyDisableAppBar $false
 
 ```
+[!INCLUDE [More about PnP PowerShell](../../docfx/includes/MORE-PNPPS.md)]
 
 # [SPO Management Shell](#tab/spoms-ps)
 
@@ -44,6 +45,9 @@ Set-SPOTemporarilyDisableAppBar $true
 Set-SPOTemporarilyDisableAppBar $false
 
 ```
+[!INCLUDE [More about SPO Management Shell](../../docfx/includes/MORE-SPOMS.md)]
+
+***
 
 ## Contributors
 
@@ -53,4 +57,4 @@ Set-SPOTemporarilyDisableAppBar $false
 
 
 [!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
-<img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/template-script-submission" aria-hidden="true" />
+<img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/spo-enable-disable-app-bar" aria-hidden="true" />
