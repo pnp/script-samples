@@ -35,7 +35,7 @@ begin{
     Write-Host "Connecting to " $sourceSiteUrl
     
     # For MFA Tenants - Interactive opens a browser window
-    $sourceConnection = Connect-PnPOnline -Url $sourceSiteUrl  -ReturnConnection -Interactive
+    Connect-PnPOnline -Url $sourceSiteUrl -Interactive
     $filter = '<View>' +
                 '<Query>' +
                     '<Where>' +
@@ -66,7 +66,7 @@ process{
     $webTitle = $web.Title
     $webUrl = $web.Url
     
-    $pages = Get-PnPListItem -List "SitePages" -Connection $sourceConnection -Query $filter
+    $pages = Get-PnPListItem -List "SitePages" -Query $filter
             
     Foreach($page in $pages){
 
@@ -89,7 +89,7 @@ process{
             $wpTitle = $_.title
             Write-Host "Web Part Title: $($wpTitle)"
 
-            $serverContent = $_.ServerProcessedContent | ConvertFrom-Json
+            $serverContent = $_.ServerProcessedContent | ConvertFrom-Json -AsHashTable
             $itemCount = $serverContent.links.Count
 
             #{htmlStrings, searchablePlainTexts, imageSources, links...}
@@ -103,17 +103,21 @@ process{
                 $lnkTitle = $serverContent.searchablePlainTexts.$titlePath
                 $lnkUrl = $serverContent.links.$urlPath
 
-                Write-Host "    Link Title: $($lnkTitle)" -ForegroundColor Cyan
-                Write-Host "    Link URL: $($lnkUrl)" -ForegroundColor Cyan
+                if($lnkTitle -and $lnkUrl){
 
-                $line = '"' + $webTitle + '","' + `
-                    $webUrl + '","' + `
-                    $file + '","' + `
-                    $wpTitle  + '","' + `
-                    $lnkTitle + '","' + `
-                    $lnkUrl + '"'
-
-                $line | Out-File $reportPath -Append
+                    Write-Host "    Link Title: $($lnkTitle)" -ForegroundColor Cyan
+                    Write-Host "    Link URL: $($lnkUrl)" -ForegroundColor Cyan
+    
+                    $line = '"' + $webTitle + '","' + `
+                        $webUrl + '","' + `
+                        $file + '","' + `
+                        $wpTitle  + '","' + `
+                        $lnkTitle + '","' + `
+                        $lnkUrl + '"'
+    
+                    $line | Out-File $reportPath -Append
+    
+                }
             }
 
         }
