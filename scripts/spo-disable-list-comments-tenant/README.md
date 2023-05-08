@@ -19,7 +19,7 @@ Scenario inspired from this blog post: [How to Enable/Disable the commenting in 
 # SharePoint online admin site url
 $siteUrl = "https://<tenant>-admin.sharepoint.com/"	
 
-# Connect to SharePoint Online site  
+# Connect to SharePoint Online site
 Connect-SPOService -Url $siteUrl
 
 # To disable comments on list items
@@ -39,7 +39,7 @@ Set-SPOTenant -CommentsOnListItemsDisabled $false
 # SharePoint online admin site url
 $siteUrl = "https://<tenant>-admin.sharepoint.com/"	
 
-# Connect to SharePoint Online site  
+# Connect to SharePoint Online site
 Connect-PnPOnline -Url $siteUrl -Interactive
 
 # To disable comments on list items
@@ -51,6 +51,26 @@ Set-PnPTenant -CommentsOnListItemsDisabled $false
 ```
 
 [!INCLUDE [More about PnP PowerShell](../../docfx/includes/MORE-PNPPS.md)]
+
+# [CLI for Microsoft 365](#tab/cli-m365-ps)
+
+```powershell
+
+# Get Credentials to connect
+$m365Status = m365 status
+if ($m365Status -match "Logged Out") {
+   m365 login
+}
+
+# To disable comments on list items
+m365 spo tenant settings set --CommentsOnListItemsDisabled true
+
+# To enable comments on list items
+m365 spo tenant settings set --CommentsOnListItemsDisabled false
+
+```
+
+[!INCLUDE [More about CLI for Microsoft 365](../../docfx/includes/MORE-CLIM365.md)]
 
 ***
 
