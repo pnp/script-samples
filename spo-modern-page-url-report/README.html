@@ -132,7 +132,7 @@ begin{
     Write-Host &quot;Connecting to &quot; $sourceSiteUrl
     
     # For MFA Tenants - Interactive opens a browser window
-    $sourceConnection = Connect-PnPOnline -Url $sourceSiteUrl  -ReturnConnection -Interactive
+    Connect-PnPOnline -Url $sourceSiteUrl -Interactive
     $filter = '&lt;View&gt;' +
                 '&lt;Query&gt;' +
                     '&lt;Where&gt;' +
@@ -163,7 +163,7 @@ process{
     $webTitle = $web.Title
     $webUrl = $web.Url
     
-    $pages = Get-PnPListItem -List &quot;SitePages&quot; -Connection $sourceConnection -Query $filter
+    $pages = Get-PnPListItem -List &quot;SitePages&quot; -Query $filter
             
     Foreach($page in $pages){
 
@@ -186,7 +186,7 @@ process{
             $wpTitle = $_.title
             Write-Host &quot;Web Part Title: $($wpTitle)&quot;
 
-            $serverContent = $_.ServerProcessedContent | ConvertFrom-Json
+            $serverContent = $_.ServerProcessedContent | ConvertFrom-Json -AsHashTable
             $itemCount = $serverContent.links.Count
 
             #{htmlStrings, searchablePlainTexts, imageSources, links...}
@@ -200,17 +200,21 @@ process{
                 $lnkTitle = $serverContent.searchablePlainTexts.$titlePath
                 $lnkUrl = $serverContent.links.$urlPath
 
-                Write-Host &quot;    Link Title: $($lnkTitle)&quot; -ForegroundColor Cyan
-                Write-Host &quot;    Link URL: $($lnkUrl)&quot; -ForegroundColor Cyan
+                if($lnkTitle -and $lnkUrl){
 
-                $line = '&quot;' + $webTitle + '&quot;,&quot;' + `
-                    $webUrl + '&quot;,&quot;' + `
-                    $file + '&quot;,&quot;' + `
-                    $wpTitle  + '&quot;,&quot;' + `
-                    $lnkTitle + '&quot;,&quot;' + `
-                    $lnkUrl + '&quot;'
-
-                $line | Out-File $reportPath -Append
+                    Write-Host &quot;    Link Title: $($lnkTitle)&quot; -ForegroundColor Cyan
+                    Write-Host &quot;    Link URL: $($lnkUrl)&quot; -ForegroundColor Cyan
+    
+                    $line = '&quot;' + $webTitle + '&quot;,&quot;' + `
+                        $webUrl + '&quot;,&quot;' + `
+                        $file + '&quot;,&quot;' + `
+                        $wpTitle  + '&quot;,&quot;' + `
+                        $lnkTitle + '&quot;,&quot;' + `
+                        $lnkUrl + '&quot;'
+    
+                    $line | Out-File $reportPath -Append
+    
+                }
             }
 
         }
