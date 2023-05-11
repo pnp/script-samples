@@ -135,7 +135,7 @@ Request-PnPReindexUserProfile -url https://contoso.sharepoint.com/sites/IT -Docu
 
         if([string]::IsNullOrWhiteSpace($DocumentLibrary)) {
             # Find default doclib to store the job file and logs in since one was not passed
-            $DocumentLibraryObj = (Get-PnPList -Includes IsSystemList | Where-Object -Property IsSystemList -EQ -Value $false | Where-Object -Property BaseType -EQ -Value "DocumentLibrary“ | Sort-Object -Property Created)[0]
+            $DocumentLibraryObj = (Get-PnPList -Includes IsSystemList | Where-Object -Property IsSystemList -EQ -Value $false | Where-Object -Property BaseType -EQ -Value "DocumentLibrary" | Sort-Object -Property Created)[0]
             $Ignore = Get-PnPProperty -ClientObject $DocumentLibraryObj -Property RootFolder
             $DocumentLibraryName = $DocumentLibraryObj.RootFolder.Name
         } else {
