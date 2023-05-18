@@ -99,11 +99,17 @@
                     <h1 id="delete-custom-color-themes-from-sharepoint">Delete custom color themes from SharePoint</h1>
 
 <h2 id="summary">Summary</h2>
-<p>Have you been creating a lot of beautiful themes lately and testing them in your dev tenant, but don’t want to keep them anymore? If yes, then this PowerShell script is for you.</p>
+<p>Have you been creating a lot of beautiful themes lately and testing them in your dev tenant, but don't want to keep them anymore? If yes, then this PowerShell script is for you.</p>
 <div class="tabGroup" id="tabgroup_CeZOj-G++Q">
 <ul role="tablist">
 <li role="presentation">
 <a href="#tabpanel_CeZOj-G++Q_pnpps" role="tab" aria-controls="tabpanel_CeZOj-G++Q_pnpps" data-tab="pnpps" tabindex="0" aria-selected="true">PnP PowerShell</a>
+</li>
+<li role="presentation">
+<a href="#tabpanel_CeZOj-G++Q_spoms-ps" role="tab" aria-controls="tabpanel_CeZOj-G++Q_spoms-ps" data-tab="spoms-ps" tabindex="-1">SPO Management Shell</a>
+</li>
+<li role="presentation">
+<a href="#tabpanel_CeZOj-G++Q_cli-m365-ps" role="tab" aria-controls="tabpanel_CeZOj-G++Q_cli-m365-ps" data-tab="cli-m365-ps" tabindex="-1">CLI for Microsoft 365</a>
 </li>
 </ul>
 <section id="tabpanel_CeZOj-G++Q_pnpps" role="tabpanel" data-tab="pnpps"><button class="article-clipboard" title="Copy to clipboard" data-toggle="tooltip" data-placement="top" data-clipboard-target="section[id^='tabpanel'][data-tab='pnpps'] pre">
@@ -112,27 +118,127 @@
 </button>
 
 <pre><code class="lang-powershell">
-$SPOAdmminSite = 'https://contoso-admin.sharepoint.com'
+# SharePoint online admin center URL
+$SPOAdmminSite = &quot;https://contoso-admin.sharepoint.com&quot;
+
 $themesToKeep = &quot;Contoso Explorers&quot;, &quot;Multicolored theme&quot;
 
+# Connect to SharePoint online admin center
 Connect-PnPOnline -Url $SPOAdmminSite -Interactive
+
+# Get all themes from the current tenant
 $themes = Get-PnPTenantTheme
+
 $themes = $themes | where {-not ($themesToKeep -contains $_.name)}
 $themes | Format-Table name
+
 if ($themes.Count -eq 0) { break }
+
 Read-Host -Prompt &quot;Press Enter to start deleting $($themes.Count) themes (CTRL + C to exit)&quot;
 $progress = 0
 $total = $themes.Count
+
 foreach ($theme in $themes)
 {
   $progress++
   write-host $progress / $total&quot;:&quot; $theme.name
+  
+  # Delete custom color themes from SharePoint
   Remove-PnPTenantTheme -Identity &quot;$($theme.name)&quot;
 }
+
+# Disconnect SharePoint online connection
+Disconnect-PnPOnline
 
 </code></pre>
 <div class="highlight-tool">
 <p>Check out the <strong>PnP PowerShell</strong> to learn more at: <a href="https://aka.ms/pnp/powershell">https://aka.ms/pnp/powershell</a></p>
+</div>
+</section>
+<section id="tabpanel_CeZOj-G++Q_spoms-ps" role="tabpanel" data-tab="spoms-ps" aria-hidden="true" hidden="hidden"><button class="article-clipboard" title="Copy to clipboard" data-toggle="tooltip" data-placement="top" data-clipboard-target="section[id^='tabpanel'][data-tab='spoms-ps'] pre">
+    <span class="glyphicon glyphicon-copy" aria-hidden="true"></span>
+    <span class="article-clipboard__message done">Copied</span>
+</button>
+
+<pre><code class="lang-powershell">
+# SharePoint online admin center URL
+$SPOAdmminSite = &quot;https://contoso-admin.sharepoint.com&quot;
+
+$themesToKeep = &quot;Contoso Explorers&quot;, &quot;Multicolored theme&quot;
+
+# Connect to SharePoint online admin center
+Connect-SPOService -Url $SPOAdmminSite
+
+# Get all themes from the current tenant
+$themes = Get-SPOTheme
+
+$themes = $themes | where {-not ($themesToKeep -contains $_.name)}
+$themes | Format-Table name
+
+if ($themes.Count -eq 0) { break }
+
+Read-Host -Prompt &quot;Press Enter to start deleting $($themes.Count) themes (CTRL + C to exit)&quot;
+$progress = 0
+$total = $themes.Count
+
+foreach ($theme in $themes)
+{
+  $progress++
+  write-host $progress / $total&quot;:&quot; $theme.name
+  
+  # Delete custom color themes from SharePoint
+  Remove-SPOTheme -Identity &quot;$($theme.name)&quot;
+}
+
+# Disconnect SharePoint online connection
+Disconnect-SPOService
+
+</code></pre>
+<div class="highlight-tool">
+<p>Check out the <strong>SPO Management Shell</strong> to learn more at: <a href="https://docs.microsoft.com/en-us/powershell/sharepoint/sharepoint-online/introduction-sharepoint-online-management-shell?view=sharepoint-ps">Introduction SharePoint Online Management Shell | Microsoft Docs</a></p>
+</div>
+</section>
+<section id="tabpanel_CeZOj-G++Q_cli-m365-ps" role="tabpanel" data-tab="cli-m365-ps" aria-hidden="true" hidden="hidden"><button class="article-clipboard" title="Copy to clipboard" data-toggle="tooltip" data-placement="top" data-clipboard-target="section[id^='tabpanel'][data-tab='cli-m365-ps'] pre">
+    <span class="glyphicon glyphicon-copy" aria-hidden="true"></span>
+    <span class="article-clipboard__message done">Copied</span>
+</button>
+
+<pre><code class="lang-powershell">
+# Get Credentials to connect
+$m365Status = m365 status
+if ($m365Status -match &quot;Logged Out&quot;) {
+   m365 login
+}
+
+$themesToKeep = &quot;Contoso Explorers&quot;, &quot;Multicolored theme&quot;
+
+# Get all themes from the current tenant
+$themes = m365 spo theme list | ConvertFrom-Json
+
+$themes = $themes | where {-not ($themesToKeep -contains $_.name)}
+$themes | Format-Table name
+
+if ($themes.Count -eq 0) { break }
+
+Read-Host -Prompt &quot;Press Enter to start deleting $($themes.Count) themes (CTRL + C to exit)&quot;
+$progress = 0
+$total = $themes.Count
+
+foreach ($theme in $themes)
+{
+  $progress++
+  write-host $progress / $total&quot;:&quot; $theme.name
+  
+  # Delete custom color themes from SharePoint
+  m365 spo theme remove --name &quot;$($theme.name)&quot; --confirm
+}
+
+# Disconnect SharePoint online connection
+m365 logout
+
+</code></pre>
+<div class="highlight-tool">
+<p>Check out the <strong>CLI for Microsoft 365</strong> to learn more at: <a href="https://aka.ms/cli-m365">https://aka.ms/cli-m365</a></p>
 </div>
 </section>
 </div>
@@ -146,6 +252,9 @@ foreach ($theme in $themes)
 <tbody>
 <tr>
 <td><a href="https://github.com/LeonArmston">Leon Armston</a></td>
+</tr>
+<tr>
+<td><a href="https://ganeshsanapblogs.wordpress.com/about">Ganesh Sanap</a></td>
 </tr>
 </tbody>
 </table>
