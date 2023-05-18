@@ -4,9 +4,6 @@ plugin: add-to-gallery
 
 # Find all items with unique permissions and export to csv
 
-> [!Note]
-> This is a submission helper template please find the [contributor guidance](/docfx/contribute.md) to help you write this scenario.
-
 ## Summary
 
 It is a very common request to inventory the items with custom permissions.
