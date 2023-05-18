@@ -4,9 +4,6 @@ plugin: add-to-gallery
 
 # File Version Trimmer
 
-> [!Note]
-> This is a submission helper template please find the [contributor guidance](/docfx/contribute.md) to help you write this scenario.
-
 ## Summary
 
 SharePoint storage is expensive and often we don't need 500 versions of a huge PowerPoint file. One option could be to change the default number of file versions from 500 to e.g. 50. However, if you already have a file with 250 versions this change WILL NOT remove existing versions.
