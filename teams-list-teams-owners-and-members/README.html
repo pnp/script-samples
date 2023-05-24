@@ -105,15 +105,19 @@
 <li role="presentation">
 <a href="#tabpanel_CeZOj-G++Q_pnpps" role="tab" aria-controls="tabpanel_CeZOj-G++Q_pnpps" data-tab="pnpps" tabindex="0" aria-selected="true">PnP PowerShell</a>
 </li>
+<li role="presentation">
+<a href="#tabpanel_CeZOj-G++Q_cli-m365-ps" role="tab" aria-controls="tabpanel_CeZOj-G++Q_cli-m365-ps" data-tab="cli-m365-ps" tabindex="-1">CLI for Microsoft 365</a>
+</li>
 </ul>
 <section id="tabpanel_CeZOj-G++Q_pnpps" role="tabpanel" data-tab="pnpps"><button class="article-clipboard" title="Copy to clipboard" data-toggle="tooltip" data-placement="top" data-clipboard-target="section[id^='tabpanel'][data-tab='pnpps'] pre">
     <span class="glyphicon glyphicon-copy" aria-hidden="true"></span>
     <span class="article-clipboard__message done">Copied</span>
 </button>
 
-<pre><code class="lang-powershell">$AdminCenterURL=&quot;https://contoso-admin.sharepoint.com/&quot;
+<pre><code class="lang-powershell">
+$AdminCenterURL=&quot;https://contoso-admin.sharepoint.com/&quot;
 
-#Connect to SharePoint Online admin center
+# Connect to SharePoint Online admin center
 Connect-PnPOnline -Url $AdminCenterURL -Interactive
 
 $dateTime = (Get-Date).toString(&quot;dd-MM-yyyy&quot;)
@@ -122,32 +126,87 @@ $directorypath = Split-Path $invocation.MyCommand.Path
 $fileName = &quot;m365GroupUsersReport-&quot; + $dateTime + &quot;.csv&quot;
 $OutPutView = $directorypath + &quot;\Logs\&quot;+ $fileName
 
-#Array to Hold Result - PSObjects
-
+# Array to Hold Result - PSObjects
 $m365GroupCollection = @()
-#retrieve any m 365 group associated with Microsoft teams
-$m365Groups = Get-PnPMicrosoft365Group | where-object {$_.HasTeam -eq $true}
-$m365Groups | ForEach-Object{
-$ExportVw = New-Object PSObject
-$ExportVw | Add-Member -MemberType NoteProperty -name &quot;Group Name&quot; -value $_.DisplayName
-$m365GroupOwnersName=&quot;&quot;;
-$m365GroupMembersName=&quot;&quot;;
- 
- #for auditing purpo
- $m365GroupOwnersName = (Get-PnPMicrosoft365GroupOwners  -Identity $_.GroupId | select -ExpandProperty DisplayName) -join &quot;;&quot;;
- $m365GroupMembersName = (Get-PnPMicrosoft365GroupMembers  -Identity $_.GroupId | select -ExpandProperty DisplayName) -join &quot;;&quot;;
 
- $ExportVw | Add-Member -MemberType NoteProperty -name &quot; Group Owners&quot; -value $m365GroupOwnersName
-  $ExportVw | Add-Member -MemberType NoteProperty -name &quot; Group Members&quot; -value $m365GroupMembersName
- $m365GroupCollection += $ExportVw
+# Retrieve all M365 groups associated with Microsoft teams
+$m365Groups = Get-PnPMicrosoft365Group | where-object {$_.HasTeam -eq $true}
+
+$m365Groups | ForEach-Object {
+    $ExportVw = New-Object PSObject
+    $ExportVw | Add-Member -MemberType NoteProperty -name &quot;Group Name&quot; -value $_.DisplayName
+    $m365GroupOwnersName=&quot;&quot;;
+    $m365GroupMembersName=&quot;&quot;;
+    
+    # For auditing purpose
+    $m365GroupOwnersName = (Get-PnPMicrosoft365GroupOwner -Identity $_.GroupId | select -ExpandProperty DisplayName) -join &quot;;&quot;;
+    $m365GroupMembersName = (Get-PnPMicrosoft365GroupMember -Identity $_.GroupId | select -ExpandProperty DisplayName) -join &quot;;&quot;;
+
+    $ExportVw | Add-Member -MemberType NoteProperty -name &quot;Group Owners&quot; -value $m365GroupOwnersName
+    $ExportVw | Add-Member -MemberType NoteProperty -name &quot;Group Members&quot; -value $m365GroupMembersName
+    $m365GroupCollection += $ExportVw
 }
 
-#Export the result Array to CSV file
+# Export the result array to CSV file
 $m365GroupCollection | sort &quot;Group Name&quot; |Export-CSV $OutPutView -Force -NoTypeInformation
+
+# Disconnect SharePoint online connection
 Disconnect-PnPOnline
+
 </code></pre>
 <div class="highlight-tool">
 <p>Check out the <strong>PnP PowerShell</strong> to learn more at: <a href="https://aka.ms/pnp/powershell">https://aka.ms/pnp/powershell</a></p>
+</div>
+</section>
+<section id="tabpanel_CeZOj-G++Q_cli-m365-ps" role="tabpanel" data-tab="cli-m365-ps" aria-hidden="true" hidden="hidden"><button class="article-clipboard" title="Copy to clipboard" data-toggle="tooltip" data-placement="top" data-clipboard-target="section[id^='tabpanel'][data-tab='cli-m365-ps'] pre">
+    <span class="glyphicon glyphicon-copy" aria-hidden="true"></span>
+    <span class="article-clipboard__message done">Copied</span>
+</button>
+
+<pre><code class="lang-powershell">
+$dateTime = (Get-Date).toString(&quot;dd-MM-yyyy&quot;)
+$directorypath = &quot;D:\dtemp&quot;
+$fileName = &quot;MSTeamsUsersReport-&quot; + $dateTime + &quot;.csv&quot;
+$OutPutView = $directorypath + &quot;\&quot;+ $fileName
+
+# Array to hold results - PSObjects
+$msTeamsUsersCollection = @()
+
+# Get Credentials to connect
+$m365Status = m365 status
+if ($m365Status -match &quot;Logged Out&quot;) {
+    m365 login
+}
+
+# Retrieve all teams in Microsoft Teams
+$msTeams = m365 teams team list | ConvertFrom-Json
+
+$msTeams | ForEach-Object {
+	$ExportVw = New-Object PSObject
+	$ExportVw | Add-Member -MemberType NoteProperty -name &quot;Team Name&quot; -value $_.displayName
+	$teamOwnerNames = &quot;&quot;;
+	$teamMemberNames = &quot;&quot;;
+	$teamGuestNames = &quot;&quot;;
+	
+	$teamOwnerNames = (m365 teams user list --teamId $_.id --role Owner | ConvertFrom-Json | select -ExpandProperty displayName) -join &quot;;&quot;
+	$teamMemberNames = (m365 teams user list --teamId $_.id --role Member | ConvertFrom-Json | select -ExpandProperty displayName) -join &quot;;&quot;
+	$teamGuestNames = (m365 teams user list --teamId $_.id --role Guest | ConvertFrom-Json | select -ExpandProperty displayName) -join &quot;;&quot;
+	
+	$ExportVw | Add-Member -MemberType NoteProperty -name &quot;Team Owners&quot; -value $teamOwnerNames
+	$ExportVw | Add-Member -MemberType NoteProperty -name &quot;Team Members&quot; -value $teamMemberNames
+	$ExportVw | Add-Member -MemberType NoteProperty -name &quot;Team Guests&quot; -value $teamGuestNames
+	$msTeamsUsersCollection += $ExportVw
+}
+
+# Export the results to CSV file
+$msTeamsUsersCollection | sort &quot;Team Name&quot; |Export-CSV $OutPutView -Force -NoTypeInformation
+
+# Disconnect M365 connection
+m365 logout
+
+</code></pre>
+<div class="highlight-tool">
+<p>Check out the <strong>CLI for Microsoft 365</strong> to learn more at: <a href="https://aka.ms/cli-m365">https://aka.ms/cli-m365</a></p>
 </div>
 </section>
 </div>
@@ -161,6 +220,9 @@ Disconnect-PnPOnline
 <tbody>
 <tr>
 <td>Reshmee Auckloo</td>
+</tr>
+<tr>
+<td><a href="https://ganeshsanapblogs.wordpress.com/about">Ganesh Sanap</a></td>
 </tr>
 </tbody>
 </table>
