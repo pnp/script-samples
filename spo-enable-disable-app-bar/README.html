@@ -101,6 +101,10 @@
 <h2 id="summary">Summary</h2>
 <p>This script sample demonstrates how to enable and disable the App Bar on SharePoint online sites by utilizing PnP PowerShell and SPO Management Shell.</p>
 <p><img src="assets/AppBar.png" alt="Example Screenshot"></p>
+<div class="NOTE">
+<h5>Note</h5>
+<p>You cannot disable the SharePoint app bar permanently. However, you can temporarily disable the SharePoint app bar in your tenant using below PowerShell scripts until <strong>March 31, 2023</strong>.</p>
+</div>
 <div class="tabGroup" id="tabgroup_CeZOj-G++Q">
 <ul role="tablist">
 <li role="presentation">
@@ -116,18 +120,20 @@
 </button>
 
 <pre><code class="lang-powershell">
+# SharePoint online admin center URL
+$siteUrl = &quot;https://contoso-admin.sharepoint.com/&quot;
 
-# SharePoint online Site url
-$siteUrl = &quot;https://contoso.sharepoint.com/sites/AmanSite&quot;
-
-# Connect to SharePoint online site
+# Connect to SharePoint online admin center
 Connect-PnPOnline -Url $siteUrl -Interactive
 
-# Set Temporarily Disable App Bar True in Order to Disable
+# Set Temporarily Disable App Bar to True in order to disable
 Set-PnPTemporarilyDisableAppBar $true
 
-# Set Temporarily Disable App Bar True in Order to Enable
+# Set Temporarily Disable App Bar to False in order to enable
 Set-PnPTemporarilyDisableAppBar $false
+
+# Disconnect SharePoint online connection
+Disconnect-PnPOnline
 
 </code></pre>
 <div class="highlight-tool">
@@ -140,14 +146,20 @@ Set-PnPTemporarilyDisableAppBar $false
 </button>
 
 <pre><code class="lang-powershell">
-# Connect to SPOService using Site URL
-Connect-SPOService &quot;https://contoso.sharepoint.com/sites/AmanSite&quot;
+# SharePoint online admin center URL
+$siteUrl = &quot;https://contoso-admin.sharepoint.com/&quot;
 
-# Set Temporarily Disable App Bar True in Order to Disable
+# Connect to SharePoint online admin center
+Connect-SPOService -Url $siteUrl
+
+# Set Temporarily Disable App Bar to True in order to disable
 Set-SPOTemporarilyDisableAppBar $true
 
-# Set Temporarily Disable App Bar True in Order to Enable
+# Set Temporarily Disable App Bar to False in order to enable
 Set-SPOTemporarilyDisableAppBar $false
+
+# Disconnect SharePoint online connection
+Disconnect-SPOService
 
 </code></pre>
 <div class="highlight-tool">
@@ -165,6 +177,9 @@ Set-SPOTemporarilyDisableAppBar $false
 <tbody>
 <tr>
 <td><a href="https://www.linkedin.com/in/aman-17-panjwani/">Aman Panjwani</a></td>
+</tr>
+<tr>
+<td><a href="https://ganeshsanapblogs.wordpress.com/about">Ganesh Sanap</a></td>
 </tr>
 </tbody>
 </table>

@@ -3,27 +3,38 @@
     "name": "spo-enable-disable-app-bar",
     "source": "pnp",
     "title": "Enable and Disable App Bar in SharePoint Online",
-    "shortDescription": "This script sample demonstrates how to enable and disable the App Bar on SharePoint online sites by utilizing PnP PowerShell and SPO Management Shell.",
+    "shortDescription": "This script helps SharePoint Users to Enable or Disable App Bar Across SharePoint sites",
     "url": "https://pnp.github.io/script-samples/spo-enable-disable-app-bar/README.html",
     "longDescription": [
-      "This script helps SharePoint Users to Enable or Disable App Bar Across SharePoint sites"
+      "This script sample demonstrates how to enable and disable the App Bar on SharePoint online sites by utilizing PnP PowerShell and SPO Management Shell."
     ],
     "creationDateTime": "2023-05-03",
-    "updateDateTime": "2023-05-04",
+    "updateDateTime": "2023-05-22",
     "products": [
       "SharePoint"
     ],
     "metadata": [
       {
         "key": "PNP-POWERSHELL",
-        "value": "1.9.0"
+        "value": "2.1.1"
+      },
+      {
+        "key": "SPO-MANAGEMENT-SHELL",
+        "value": "16.0.23612.12000"
       }
     ],
     "categories": [
       "Configure"
     ],
     "tags": [
-      "TemporarilyDisableAppBar"
+      "SharePoint Online",
+      "TemporarilyDisableAppBar",
+      "Connect-PnPOnline",
+      "Set-PnPTemporarilyDisableAppBar",
+      "Disconnect-PnPOnline",
+      "Connect-SPOService",
+      "Set-SPOTemporarilyDisableAppBar",
+      "Disconnect-SPOService"
     ],
     "thumbnails": [
       {
@@ -38,6 +49,12 @@
         "gitHubAccount": "Amanp17",
         "pictureUrl": "https://github.com/Amanp17.png",
         "name": "Aman Panjwani"
+      },
+      {
+        "gitHubAccount": "ganesh-sanap",
+        "company": "",
+        "pictureUrl": "https://avatars.githubusercontent.com/u/25476310?v=4",
+        "name": "Ganesh Sanap"
       }
     ],
     "references": [
