@@ -11,6 +11,7 @@ This script retrieves the version history of a specified list item, including al
 # [PnP PowerShell](#tab/pnpps)
 
 ```powershell
+
 param(
     [Parameter(Mandatory)]
     [ValidateNotNullOrEmpty()]
@@ -30,10 +31,15 @@ param(
 Connect-PnPOnline -Url $SiteUrl -Interactive
 
 $item = Get-PnPListItem -List $ListName -Id $ItemId
+$file = Get-PnPProperty -ClientObject $item -Property File
 $versions = Get-PnPProperty -ClientObject $item -Property Versions
+$fileVersions = Get-PnPProperty -ClientObject $file -Property Versions
+
 
 $listItemVersionHistory = @()
-foreach ($version in $versions) {    
+foreach ($version in $versions) {   
+
+    $checkInComment = $fileVersions | Where-Object { $_.VersionLabel -eq $version.VersionLabel } | Select-Object -ExpandProperty CheckInComment
     $fieldValues = $version.FieldValues
 
     $fieldValuesFormatted = New-Object -TypeName PSObject
@@ -44,7 +50,7 @@ foreach ($version in $versions) {
             $fieldValuesFormatted | Add-Member -MemberType NoteProperty -Name $fieldName -Value $fieldValue
         }
     }    
-
+    
     $listItemVersionHistory += [PSCustomObject]@{
         VersionLabel = $version.VersionLabel
         VersionId = $version.VersionId
@@ -52,6 +58,7 @@ foreach ($version in $versions) {
         Created = $version.Created
         CreatedBy = Get-PnPProperty -ClientObject $version.CreatedBy -Property Title
         FieldValues = $fieldValuesFormatted | ConvertTo-Json -Compress
+        CheckInComment = $checkInComment
     }
 }
 
