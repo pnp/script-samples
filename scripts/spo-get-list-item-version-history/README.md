@@ -71,6 +71,7 @@ Write-Output $listItemVersionHistory
 | Author(s) |
 |-----------|
 | [Michał Romiszewski](https://github.com/mromiszewski) |
+| Kasper Larsen |
 
 
 [!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
