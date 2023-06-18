@@ -16,9 +16,6 @@ Be aware that the change will take up to 24 hours to be visible in the SharePoin
 # [PnP PowerShell](#tab/pnpps)
 
 ```powershell
-
-
-
 $ClientId = "XXXXXX"
 $TenantName = "contoso.onmicrosoft.com"
 $thumbprint = "ZZZZZZZ"
@@ -26,12 +23,9 @@ $SharePointAdminSiteURL = "https://contoso-admin.sharepoint.com"
 
 $conn = Connect-PnPOnline -Url $SharePointAdminSiteURL -ClientId $ClientId -Tenant $TenantName -CertificatePath "C:\Users\you\certificate.pfx" -CertificatePassword (ConvertTo-SecureString -AsPlainText -Force "CentificatePassword") -ReturnConnection
 
-
-
 #Set Variables
 $outputPath = "C:\temp\versiontrimmer\" 
 $arraylist = New-Object System.Collections.ArrayList
-
 
 function DeleteVersions($siteUrl, $ListName, $listitemID, $versionsToKeep)
 {
@@ -71,8 +65,7 @@ function DeleteVersions($siteUrl, $ListName, $listitemID, $versionsToKeep)
                                     $element.versioncount = $fileversions.Count
                                     $element.fileSize = $file.Length
                                     
-                                    $arraylist.Add($element) | Out-Null
-                        
+                                    $arraylist.Add($element) | Out-Null                        
                                     
                                     foreach($VersionToDelete in $DeleteVersionList) 
                                     {
@@ -82,8 +75,7 @@ function DeleteVersions($siteUrl, $ListName, $listitemID, $versionsToKeep)
                                 else {
                                     write-host "no versions to delete"
                                 }
-                            }
-                            
+                            }                            
                         }
                         else {
                             write-host "file not found" -ForegroundColor Red
@@ -123,34 +115,28 @@ function DeleteVersions($siteUrl, $ListName, $listitemID, $versionsToKeep)
                                 }
                                 else {
                                     write-host "no versions to delete"
-                                }
-                                
+                                }                                
                             }
                             else {
                                 write-host "fileversions not found" -ForegroundColor Yellow
-                            }
-                            
+                            }                            
                         }
                         else {
                             write-host "file not found" -ForegroundColor Yellow
                         }
                     }
                 }
-            }
-            
+            }            
         }
         else {
             # you can trim all lists in a site here
-        }
-            
+        }            
     }
     catch 
     {
         Write-Output "Ups an exception was thrown : $($_.Exception.Message)" -ForegroundColor Red
-    }
-  
+    }  
 }
-
 
 function Get-SiteCollections
 {
@@ -158,7 +144,6 @@ function Get-SiteCollections
     $SiteCollections = Get-PnPTenantSite -Connection $conn  
     Disconnect-PnPOnline -Connection $conn
     return $SiteCollections
-
 }
 
 # $allsitecollections = Get-SiteCollections
@@ -177,16 +162,60 @@ $siteStorage = [Math]::Round($siteStorage,2)
 write-host "site storage $siteStorage GB"
 
 DeleteVersions -siteUrl $siteUrl -ListName "DocLibMajors"  -versionsToKeep 10
-$arraylist | Export-Csv -Path "C:\temp\\versiontrimmer.csv" -NoTypeInformation -Force -Encoding utf8BOM -Delimiter "|"
-
-
-
-
-
-
-
+$arraylist | Export-Csv -Path "C:\temp\versiontrimmer.csv" -NoTypeInformation -Force -Encoding utf8BOM -Delimiter "|"
 ```
 [!INCLUDE [More about PnP PowerShell](../../docfx/includes/MORE-PNPPS.md)]
+
+
+# [CLI for Microsoft 365](#tab/cli-m365-ps)
+
+```powershell
+#Log in to Microsoft 365
+Write-Host "Connecting to Tenant" -f Yellow
+
+$m365Status = m365 status
+if ($m365Status -match "Logged Out") {
+    m365 login
+}
+
+$siteURL = Read-Host "Please enter Site URL"
+$folderUrl = Read-Host "Please enter the server- or site-relative URL of the parent folder"
+$versionsToKeep = Read-Host "Please enter the number of versions to keep"
+
+$filesProcessed = @()   
+
+# Get all files in the list
+$files = m365 spo file list --webUrl $siteURL --folderUrl $folderUrl --recursive --output json | ConvertFrom-Json
+foreach ($file in $files) {
+    $fileVersions = m365 spo file version list --webUrl $siteURL --fileUrl $file.ServerRelativeUrl | ConvertFrom-Json
+
+    if ($fileVersions.Count -gt $versionsToKeep) {
+        $number = $fileVersions.Count - $versionsToKeep - 1
+        $removeVersionList = ($fileversions[0..$number])
+
+        foreach ($versionToDelete in $removeVersionList) {
+            Write-Host "Removing version $($versionToDelete.VersionLabel) from the file $($file.Name)..."
+            m365 spo file version remove --webUrl $siteURL --fileUrl $file.ServerRelativeUrl --label $versionToDelete.VersionLabel --confirm
+        }
+        
+        $filesProcessed += [PSCustomObject]@{
+            SiteUrl   = $siteURL
+            FolderUrl = $folderUrl
+            FileName  = $file.Name
+            FileUrl   = $file.ServerRelativeUrl
+            Versions  = $fileVersions.Count
+        }
+    }
+}
+
+$filesProcessed | Export-Csv -Path ".\VersionTrimmer.csv" -NoTypeInformation -Encoding utf8
+
+m365 logout
+Write-Host "Finished"
+```
+
+[!INCLUDE [More about CLI for Microsoft 365](../../docfx/includes/MORE-CLIM365.md)]
+
 ***
 
 
@@ -195,6 +224,7 @@ $arraylist | Export-Csv -Path "C:\temp\\versiontrimmer.csv" -NoTypeInformation -
 | Author(s) |
 |-----------|
 | Kasper Larsen |
+| [Nanddeep Nachan](https://github.com/nanddeepn) |
 
 [!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
 <img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/spo-file-version-trimmer" aria-hidden="true" />
