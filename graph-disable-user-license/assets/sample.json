@@ -1,0 +1,56 @@
+[
+  {
+    "name": "graph-disable-user-license",
+    "source": "pnp",
+    "title": "Deactivate User License",
+    "shortDescription": "This script connects to Micrsoft Graph and searches all Microsoft E3 Licenses for YAMMER_Enterprise licenses. It will then deactivate the Yammer license within Office 365, it can be used to remove other Office 365 licenses as well",
+    "url": "https://pnp.github.io/script-samples/graph-disable-user-license/README.html",
+    "longDescription": [
+      ""
+    ],
+    "creationDateTime": "2023-06-07",
+    "updateDateTime": "2023-06-07",
+    "products": [
+      "Graph"
+    ],
+    "metadata": [
+      {
+        "key": "GRAPH-POWERSHELL",
+        "value": "1.0.0"
+      }
+    ],
+    "categories": [
+      "Provision"
+    ],
+    "tags": [
+      "Connect-Graph",
+      "Get-MgUser",
+      "Get-MgSubscribedSku",
+      "Get-MgUserLicenseDetail",
+      "Set-MgUserLicense"
+    ],
+    "thumbnails": [
+      {
+        "type": "image",
+        "order": 100,
+        "url": "https://raw.githubusercontent.com/pnp/script-samples/main/scripts/graph-disable-user-license/assets/preview.png",
+        "alt": "Preview of the sample Deactivate User License"
+      }
+    ],
+    "authors": [
+      {
+        "gitHubAccount": "Goonie78",
+        "company": "",
+        "pictureUrl": "https://github.com/Goonie78.png",
+        "name": "Brad Chaney"
+      }
+    ],
+    "references": [
+      {
+        "name": "Want to learn more about Microsoft Graph PowerShell SDK and the cmdlets",
+        "description": "Check out the Microsoft Graph PowerShell SDK documentation site to get started and for the reference to the cmdlets.",
+        "url": "https://docs.microsoft.com/en-us/graph/powershell/get-started"
+      }
+    ]
+  }
+]
