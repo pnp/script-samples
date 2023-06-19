@@ -99,7 +99,7 @@
                     <h1 id="remove-delete-option-on-a-document-library">Remove delete option on a document library</h1>
 
 <h2 id="summary">Summary</h2>
-<p>This sample script will show you how to remove the delete option on a document library to prevent users from accidentally deleting libraries if the have the &quot;edit&quot; permission.
+<p>This sample script will show you how to remove the delete option on a document library to prevent users from accidentally deleting libraries if they have the &quot;edit&quot; permission.
 The script will not prevent deletions rather, just disable the UI option.</p>
 <p><img src="assets/example.png" alt="Example Screenshot"></p>
 <div class="tabGroup" id="tabgroup_CeZOj-G++Q">
@@ -117,14 +117,22 @@ The script will not prevent deletions rather, just disable the UI option.</p>
 </button>
 
 <pre><code class="lang-powershell">
-Connect-PnPOnline -Url &quot;https://&lt;tenant&gt;.sharepoint.com&quot; -Interactive
+# Display name of SharePoint online list or document library
+$libraryName = &quot;My Document Library&quot;
 
-$list = Get-PnPList -Identity &quot;&lt;list or library&gt;&quot;
-$list.AllowDeletion = $false
-$list.Update()
+# SharePoint online site URL
+$siteUrl = Read-Host -Prompt &quot;Enter your SharePoint site URL (e.g https://contoso.sharepoint.com/sites/work)&quot;
 
-Invoke-PnPQuery
+# Connect to SharePoint online site
+Connect-PnPOnline -Url $siteUrl -Interactive
+
+# Remove delete option on a document library
+Set-PnPList -Identity $libraryName -AllowDeletion $false
+
 Write-Host &quot;Done! :-)&quot; -ForegroundColor Green
+
+# Disconnect SharePoint online connection
+Disconnect-PnPOnline
 
 </code></pre>
 <div class="highlight-tool">
@@ -137,18 +145,25 @@ Write-Host &quot;Done! :-)&quot; -ForegroundColor Green
 </button>
 
 <pre><code class="lang-powershell">
+# Display name of SharePoint online list or document library
+$libraryName = &quot;My Document Library&quot;
+
+# SharePoint online site URL
+$siteUrl = Read-Host -Prompt &quot;Enter your SharePoint site URL (e.g https://contoso.sharepoint.com/sites/work)&quot;
+
+# Get Credentials to connect
 $m365Status = m365 status
 if ($m365Status -match &quot;Logged Out&quot;) {
     m365 login
 }
 
-$site = &quot;&lt;site&gt;&quot;
-$list = &quot;&lt;list or library&gt;&quot;
+# Remove delete option on a document library
+m365 spo list set --webUrl $siteUrl --title $libraryName --allowDeletion false
 
-$json = m365 spo list get --title $list --webUrl $site
-$json = $json | ConvertFrom-Json
-m365 spo list set --webUrl $site --id $json.Id --allowDeletion false
 Write-Host &quot;Done! :-)&quot; -ForegroundColor Green
+
+# Disconnect SharePoint online connection
+m365 logout
 
 </code></pre>
 <div class="highlight-tool">
@@ -171,6 +186,9 @@ Write-Host &quot;Done! :-)&quot; -ForegroundColor Green
 </tr>
 <tr>
 <td><a href="https://github.com/Adam-it">Adam Wójcik</a></td>
+</tr>
+<tr>
+<td><a href="https://ganeshsanapblogs.wordpress.com/about">Ganesh Sanap</a></td>
 </tr>
 </tbody>
 </table>
