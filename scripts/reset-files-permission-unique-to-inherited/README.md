@@ -110,6 +110,7 @@ foreach ($file in $files) {
 | [Dipen Shah](https://github.com/dips365) |
 | [Nanddeep Nachan](https://github.com/nanddeepn) |
 | [Valeras Narbutas](https://github.com/ValerasNarbutas) |
+| [Rob Ellis](https://github.com/ee61re) |
 
 
 [!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
