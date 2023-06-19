@@ -156,7 +156,7 @@ foreach($folder in $folders){
             $hasUniqueRole = Get-PnPProperty -ClientObject $file -Property HasUniqueRoleAssignments
             if($hasUniqueRole -eq $true){
                 ## If File has Unique Permission than reset it to inherited permission from parent folder.
-                Write-Output &quot;Reset Permisison starting for file with id $($file.Id)&quot; -ForegroundColor DarkGreen
+                Write-Host &quot;Reset Permisison starting for file with id $($file.Id)&quot; -ForegroundColor DarkGreen
                 $file.ResetRoleInheritance()
                 $file.update()
                 $Context.ExecuteQuery()
@@ -230,6 +230,9 @@ foreach ($file in $files) {
 </tr>
 <tr>
 <td><a href="https://github.com/ValerasNarbutas">Valeras Narbutas</a></td>
+</tr>
+<tr>
+<td><a href="https://github.com/ee61re">Rob Ellis</a></td>
 </tr>
 </tbody>
 </table>
