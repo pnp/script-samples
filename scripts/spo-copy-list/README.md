@@ -126,3 +126,7 @@ foreach ($view in $sourceListViews) {
 | Author(s) |
 |-----------|
 | [Adam Wójcik](https://github.com/Adam-it)|
+
+
+[!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
+<img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/spo-copy-list" aria-hidden="true" />
