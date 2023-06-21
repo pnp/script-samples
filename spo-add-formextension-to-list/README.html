@@ -100,29 +100,31 @@
 
 <h2 id="summary">Summary</h2>
 <p>This script allows you to associate Form Customizer Extension to List/Library via Content Type properties.
-With SPFx version 1.15.1, we can now create new type of Extension as Form customizer which allows use to associate custom forms to SharePoint List. To associate a Form Customizer with list, we would have to update below new Content type properties which provides will associate the component id of the Form customizer extension to List.</p>
-<p>Properties Name</p>
+With SPFx version 1.15.1, we can now create new type of Extension as Form customizer which allows us to associate custom forms to SharePoint List. To associate a Form Customizer with list, we would have to update below new Content type properties which will associate the component id of the Form customizer extension to List.</p>
+<p><strong>Properties</strong>:</p>
 <ul>
 <li>NewFormClientSideComponentId - For New Form</li>
 <li>EditFormClientSideComponentId - For Edit Form</li>
 <li>DisplayFormClientSideComponentId - For Display Form</li>
 </ul>
-<p>If you want to remove association you can pass empty string to update the properties and it would remove existing association</p>
-<p>Note - You need to find component id of your SPFx Form Customizer from manifest of the component(refer screenshot below).
-Go to your SPFx solution and open the manifest json file of the targeted Form Extension.</p>
+<p>If you want to remove association you can pass empty string to update the properties and it would remove existing association.</p>
+<p><strong>Note</strong>: You need to find component id of your SPFx Form Customizer from manifest of the component (refer screenshot below). Go to your SPFx solution and open the manifest JSON file of the targeted Form Customizer Extension.</p>
 <p><img src="assets/howtogetcomponentid.png" alt="Get Component ID"></p>
 <h2 id="implementation">Implementation</h2>
 <ul>
 <li>Open Windows PowerShell ISE</li>
 <li>Create a new file</li>
-<li>Write a script as below,</li>
-<li>Run the script.</li>
-<li>Provide input requested by script</li>
+<li>Write a script as below</li>
+<li>Run the script</li>
+<li>Provide inputs requested by script</li>
 </ul>
 <div class="tabGroup" id="tabgroup_CeZOj-G++Q">
 <ul role="tablist">
 <li role="presentation">
 <a href="#tabpanel_CeZOj-G++Q_pnpps" role="tab" aria-controls="tabpanel_CeZOj-G++Q_pnpps" data-tab="pnpps" tabindex="0" aria-selected="true">PnP PowerShell</a>
+</li>
+<li role="presentation">
+<a href="#tabpanel_CeZOj-G++Q_cli-m365-ps" role="tab" aria-controls="tabpanel_CeZOj-G++Q_cli-m365-ps" data-tab="cli-m365-ps" tabindex="-1">CLI for Microsoft 365</a>
 </li>
 </ul>
 <section id="tabpanel_CeZOj-G++Q_pnpps" role="tabpanel" data-tab="pnpps"><button class="article-clipboard" title="Copy to clipboard" data-toggle="tooltip" data-placement="top" data-clipboard-target="section[id^='tabpanel'][data-tab='pnpps'] pre">
@@ -131,47 +133,77 @@ Go to your SPFx solution and open the manifest json file of the targeted Form Ex
 </button>
 
 <pre><code class="lang-powershell">
-#Importing PnP module for PowerShell
+# Importing PnP module for PowerShell
 Import-Module PnP.PowerShell
 
-#Enter SharePoint URL
-$siteURL= Read-Host 'Enter site URL ' 
+# SharePoint online site URL
+$siteUrl = Read-Host -Prompt &quot;Enter your SharePoint site URL (e.g https://&lt;tenant&gt;.sharepoint.com/sites/contoso)&quot;
 
-#Connect SharePoint site
-Write-Host &quot;Connecting to &quot; $siteURL -ForegroundColor Yellow 
-Connect-PnPOnline -Url $siteURL -Interactive
+# Connect to SharePoint Online site
+Write-Host &quot;Connecting to &quot; $siteUrl -ForegroundColor Yellow 
+Connect-PnPOnline -Url $siteUrl -Interactive
 
-#Get SharePoint online CSOM context 
-$clientContext = Get-PnPContext
+# Enter SharePoint display list name and content type name
+$listName = Read-Host 'Enter your SharePoint list name'
+$contentTypeName = Read-Host 'Enter your list content type name'
 
-#Enter list name and content type name
-$listName= Read-Host 'Enter List name '
-$contentTypeName= Read-Host 'Enter Content type name '
+# Enter new form component Id
+$newFormComponentId = Read-Host 'Enter New form component Id'
 
-#Get specified content type for current context
-$contentType = Get-PnPContentType -List $listName -Identity $contentTypeName
+# Enter edit form component Id
+$editFormComponentId = Read-Host 'Enter Edit form component Id'
 
-#Enter new form component Id
-$newFormComponentId= Read-Host 'Enter New form component Id '
-$contentType.NewFormClientSideComponentId = $newFormComponentId;
+# Enter display form component Id
+$displayFormComponentId = Read-Host 'Enter Display form component Id'
 
-#Enter edit form component Id
-$editFormComponentId= Read-Host 'Enter Edit form component Id '
-$contentType.EditFormClientSideComponentId = $editFormComponentId;
+# Associate form customizer extension with SharePoint list forms
+Set-PnPContentType -Identity $contentTypeName -List $listName -NewFormClientSideComponentId $newFormComponentId -EditFormClientSideComponentId $editFormComponentId -DisplayFormClientSideComponentId $displayFormComponentId
 
-#Enter display form component Id 
-$displayFormComponentId= Read-Host 'Enter Display form component Id '
-$contentType.DisplayFormClientSideComponentId = $displayFormComponentId;
-
-#Update changes to SharePoint
-$contentType.Update($false)
-$clientContext.ExecuteQuery()
-Write-Host &quot;Updated content type successfully!&quot;  -ForegroundColor Cyan  
-
-
+# Disconnect SharePoint online connection
+Disconnect-PnPOnline
+	
 </code></pre>
 <div class="highlight-tool">
 <p>Check out the <strong>PnP PowerShell</strong> to learn more at: <a href="https://aka.ms/pnp/powershell">https://aka.ms/pnp/powershell</a></p>
+</div>
+</section>
+<section id="tabpanel_CeZOj-G++Q_cli-m365-ps" role="tabpanel" data-tab="cli-m365-ps" aria-hidden="true" hidden="hidden"><button class="article-clipboard" title="Copy to clipboard" data-toggle="tooltip" data-placement="top" data-clipboard-target="section[id^='tabpanel'][data-tab='cli-m365-ps'] pre">
+    <span class="glyphicon glyphicon-copy" aria-hidden="true"></span>
+    <span class="article-clipboard__message done">Copied</span>
+</button>
+
+<pre><code class="lang-powershell">
+# Get Credentials to connect
+$m365Status = m365 status
+if ($m365Status -match &quot;Logged Out&quot;) {
+    m365 login
+}
+
+# SharePoint online site URL
+$siteUrl = Read-Host -Prompt &quot;Enter your SharePoint site URL (e.g https://&lt;tenant&gt;.sharepoint.com/sites/contoso)&quot;
+
+# Enter SharePoint display list name and content type name
+$listName = Read-Host 'Enter your SharePoint list name'
+$contentTypeName = Read-Host 'Enter your list content type name'
+
+# Enter new form component Id
+$newFormComponentId = Read-Host 'Enter New form component Id'
+
+# Enter edit form component Id
+$editFormComponentId = Read-Host 'Enter Edit form component Id'
+
+# Enter display form component Id 
+$displayFormComponentId = Read-Host 'Enter Display form component Id'
+
+# Associate form customizer extension with SharePoint list forms
+m365 spo contenttype set --name $contentTypeName --listTitle $listName --webUrl $siteUrl --NewFormClientSideComponentId $newFormComponentId --EditFormClientSideComponentId $editFormComponentId --DisplayFormClientSideComponentId $displayFormComponentId
+
+# Disconnect SharePoint online connection
+m365 logout
+
+</code></pre>
+<div class="highlight-tool">
+<p>Check out the <strong>CLI for Microsoft 365</strong> to learn more at: <a href="https://aka.ms/cli-m365">https://aka.ms/cli-m365</a></p>
 </div>
 </section>
 </div>
@@ -185,6 +217,9 @@ Write-Host &quot;Updated content type successfully!&quot;  -ForegroundColor Cyan
 <tbody>
 <tr>
 <td><a href="https://www.linkedin.com/in/siddharthvaghasia/">Siddharth Vaghasia</a></td>
+</tr>
+<tr>
+<td><a href="https://ganeshsanapblogs.wordpress.com/about">Ganesh Sanap</a></td>
 </tr>
 </tbody>
 </table>
