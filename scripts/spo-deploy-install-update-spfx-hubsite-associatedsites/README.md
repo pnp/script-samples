@@ -16,9 +16,8 @@ At the time of submitting this script sample there is no concept of a hub site a
 - Before running the script, edit the script and update the variable values in the Config Variables section, such as Admin Center URL, Hub Site URL, the CSV output file path and alternatively the sppkg packages Folder. 
 
 The script will:
-- Get the hub site ID using the Get-PnPTenantSite cmdlet.
-- Get all site collections in the tenant using the Get-PnPTenantSite cmdlet.
-- For each site collection, check if it's associated with the hub site using the site's HubSiteId property.
+- Get the hub site ID using the Get-PnPHubSite cmdlet.
+- Get all associated site collections in the tenant using the Get-PnPTenantSite cmdlet filtered by the HubSiteId property.
 - Connect to the site using Connect-PnPOnline.
 - Check if the site collection app catalog exists. If it doesn’t, create it using Add-PnPSiteCollectionAppCatalog.
 - Deploy the SPFx package using Add-PnPApp.
@@ -115,12 +114,14 @@ $associatedSites | select url | ForEach-Object {
 $ViewCollection | Export-CSV $OutPutView -Force -NoTypeInformation
 Disconnect-PnPOnline
 ```
+
 > [!Note]
 > SharePoint admin rights are required to run the script
 
 [!INCLUDE [More about PnP PowerShell](../../docfx/includes/MORE-PNPPS.md)]
 
 ***
+
 ## Source Credit
 
 Sample first appeared on [Deploying and Installing SharePoint Framework (SPFx) solutions using PnP PowerShell to Hub Site and Associated Sites](https://pnp.github.io/blog/post/deploy-spfx-in-hub-site-and-associated-sites/)
