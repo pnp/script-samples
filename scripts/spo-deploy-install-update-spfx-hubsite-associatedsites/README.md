@@ -50,10 +50,11 @@ Connect-PnPOnline $adminCenterURL -Interactive
 
 #collection to save the list of sites where the deployment or upgrades of SPFx solution happened for auditing
 $ViewCollection = @() 
-$HubSiteID = (Get-PnPTenantSite $hubSiteUrl).HubSiteId
+$HubSite = Get-PnPHubSite -Identity $hubSiteUrl
+$associatedSites = Get-PnPTenantSite -Detailed | Where-Object {$_.HubSiteId -eq $hubSite.Id}
 
 #Get all site collections associated with the hub site
-Get-PnPTenantSite -Detailed | select url | ForEach-Object {
+$associatedSites | select url | ForEach-Object { 
   $Site = Get-PnPTenantSite $_.url
   If($Site.HubSiteId -eq $HubSiteId){
     Connect-PnPOnline -Url $Site.url -Interactive
@@ -128,7 +129,7 @@ Sample first appeared on [Deploying and Installing SharePoint Framework (SPFx) s
 
 | Author(s) |
 |-----------|
-| Reshmee Auckloo |
+| [Reshmee Auckloo](https://github.com/reshmee011) |
 | [Ganesh Sanap](https://ganeshsanapblogs.wordpress.com/) |
 
 
