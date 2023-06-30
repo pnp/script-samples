@@ -37,7 +37,7 @@ $SystemFlds = @("Compliance Asset Id","Body","Expires","ID","Content Type","Modi
 "Order","Role","Person or Group","Location",
 "Predecessors","Priority","Task Status","% Complete","Start Date","Completed","Related Items",
 "Background Image Location","Link Location","Launch Behavior","Background Image Cluster Horizontal Start","Background Image Cluster Vertical Start",
-"First Name","Full Name","Email Address","Company","Job Title","Business Phone","Home Phone","Mobile Number","Fax Number","Address","City","State/Province","ZIP/Postal Code","Country/Region","Web Page","Notes","Name","Order","Role", "Color Tag", "Label setting", "Retention label", "Retention Label Applied", "Label applied by", "Item is a Record" 
+"First Name","Full Name","Email Address","Company","Job Title","Business Phone","Home Phone","Mobile Number","Fax Number","Address","City","State/Province","ZIP/Postal Code","Country/Region","Web Page","Notes","Name","Order","Role", "Color Tag", "Label setting", "Retention label", "Retention Label Applied", "Label applied by", "Item is a Record" ,"Comment Count","Like Count","Sensitivity","Copy Source","Title"
 )
 
 #Arry to Skip System Lists and Libraries
