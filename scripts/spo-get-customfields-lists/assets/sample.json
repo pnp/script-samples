@@ -1,15 +1,15 @@
 [
   {
-    "name": "spo-get-contenttype-usage-listitem-listversion",
+    "name": "spo-get-customfields-lists",
     "source": "pnp",
-    "title": "Get Content Type usage within a site collection.",
-    "shortDescription": "Get Content Type usage within a site collection.",
-    "url": "https://pnp.github.io/script-samples/spo-get-contenttype-usage-listitem-listversion/README.html",
+    "title": "Get custom fields within lists and libraries within a site ",
+    "shortDescription": "Get custom Fields within lists and libraries within a site.",
+    "url": "https://pnp.github.io/script-samples/spo-get-customfields-lists/README.html",
     "longDescription": [
-      "There is no out of the box way to get content type usage within a site collection. The scipt might help to identify usage with the intention to eventually delete the content type"
+      "The script will generate a csv report listing the field title and internal name for lists and libraries excluding out of the box lists or fields"
     ],
-    "creationDateTime": "2023-04-06",
-    "updateDateTime": "2023-04-06",
+    "creationDateTime": "2023-06-30",
+    "updateDateTime": "2023-06-30",
     "products": [
       "SharePoint"
     ],
@@ -27,7 +27,7 @@
       {
         "type": "image",
         "order": 100,
-        "url": "https://raw.githubusercontent.com/pnp/script-samples/main/scripts/spo-get-contenttype-usage-listitem-listversion/assets/Preview.png",
+        "url": "https://raw.githubusercontent.com/pnp/script-samples/main/scripts/spo-get-customfields/assets/Preview.png",
         "alt": ""
       }
     ],
