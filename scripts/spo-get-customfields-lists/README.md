@@ -2,30 +2,30 @@
 plugin: add-to-gallery
 ---
 
-# Get Content type usage within a site across lists, list items and item version
+# List custom fields from SharePoint Lists or libraries
 
 ## Summary
 
-This sample script returns content type usage within a site across lists, list items and item version. The error message "content type in use" appears while trying to delete a content type within a site, the script can help identify where the content type is referenced to help with deletion of content type.
+This sample script may help to identify any custom columns/fields created in SharePoint lists or libraries.
 
 ## Implementation
 
 - Open Windows PowerShell ISE
 - Create a new file
 - Write a script as below,
-- Update the $SiteURL, $ReportOutput and $ContentTypeName
+- Update the $SiteURL, $ReportOutput and optionally update $SystemFlds and $SystemLists to remove any values you would like to include in the report
 
 # [PnP PowerShell](#tab/pnpps)
 ```powershell
 # Connect to SharePoint site
 
-$siteUrl = "https://contoso.sharepoint.com/teams/d-app-ar"
+$siteUrl = "https://contoso.sharepoint.com/teams/d-app"
 Connect-PnPOnline -Url $siteUrl -Interactive
 
 $dateTime = (Get-Date).toString("dd-MM-yyyy")
 $invocation = (Get-Variable MyInvocation).Value
 $directorypath = Split-Path $invocation.MyCommand.Path
-$fileFieldsName = "FieldsReports-" + $dateTime + ".csv"
+$ReportOutput = "FieldsReports-" + $dateTime + ".csv"
 
 $OutPutFieldsFile = $directorypath + "\Logs\"+ $fileFieldsName
 
@@ -44,7 +44,6 @@ $SystemFlds = @("Compliance Asset Id","Body","Expires","ID","Content Type","Modi
 $SystemLists = @("Converted Forms", "Master Page Gallery", "Customized Reports", "Form Templates", "List Template Gallery", "Theme Gallery",
                             "Reporting Templates", "Solution Gallery", "Style Library", "Web Part Gallery","Site Assets", "wfpub", "Site Pages", "Images", "MicroFeed","Pages")
 
-                             $listsToReport = @("UPM","Recoveries","Remittances","Payments")
 # Specify the list name
 
 # Get all items from the list
@@ -76,4 +75,4 @@ $FieldsCollection | Export-Csv -Path $OutPutFieldsFile -NoTypeInformation
 | [Reshmee Auckloo](https://github.com/reshmee011)|
 
 [!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
-<img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/spo-get-contenttype-usage-listitem-listversion" aria-hidden="true" />
+<img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/spo-get-customfields-lists" aria-hidden="true" />
