@@ -11,7 +11,7 @@ This sample uses OpenAI's function calling feature to get status of a TfL (Trans
 ## Pre-requisites
 
 - An Open AI API key which can be done by [creating an account](https://platform.openai.com/signup/) for using Open AI API
-    - Once the key is obatined, set the value of `$openai_api_key` in the script with that key
+- Once the key is obtained, set the value of `$openai_api_key` in the script with that key
 
 
 ![Example Screenshot](assets/example.png)
@@ -228,8 +228,8 @@ $functions += $showFunnyMessageFunction;
 Start-Chat
 
 ```
-[!INCLUDE [More about OpenAI API](https://platform.openai.com/docs/introduction)]
-
+[More about OpenAI API](https://platform.openai.com/docs/introduction)
+***
 
 ## Contributors
 
