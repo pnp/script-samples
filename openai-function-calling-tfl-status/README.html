@@ -1,0 +1,378 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html lang="en">
+  
+  <head>
+    <meta charset="utf-8">
+    <title>Get TfL (Transport for London) status with OpenAI function calling feature | PnP Samples </title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" "="">
+    <meta name="title" content="Get TfL (Transport for London) status with OpenAI function calling feature | PnP Samples ">
+    <meta name="generator" content="docfx 2.56.7.0">
+    <meta name="description" content="A sample gallery of scripts to manage all things Microsoft 365.">
+  
+    <!-- Social Media -->
+    <meta property="og:locale" content="en_GB">
+    <meta property="og:title" content="Get TfL (Transport for London) status with OpenAI function calling feature | PnP Samples ">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://pnp.github.io/script-samples">
+    <meta property="og:image" content="https://pnp.github.io/script-samples/assets/social-media-screenshot.png">
+    <meta property="og:image:alt" content="Screenshot example of the PnP Script Samples Site">
+    <meta property="og:site_name" content="PnP Script Samples">
+    <meta name="msvalidate.01" content="04EFEDA66EC42C08A1247C979E2F9ADD">
+    <meta property="og:description" content="A sample gallery of scripts to manage all things Microsoft 365.">
+  
+    <link rel="shortcut icon" href="https://c.s-microsoft.com/favicon.ico?v2">
+    <link rel="stylesheet" href="../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../styles/docfx.css">
+    <link rel="stylesheet" href="../styles/main.css">
+    <link rel="stylesheet" href="../styles/extra.css">
+    <link rel="stylesheet" href="../styles/filter.css">
+    <link rel="stylesheet" href="../styles/site.css">
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet"> 
+    <meta property="docfx:navrel" content="../toc.html">
+    <meta property="docfx:tocrel" content="../toc.html">
+    
+    
+    <meta property="docfx:newtab" content="true">
+    <script type="text/javascript">
+      (function(c,l,a,r,i,t,y){
+          c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+          t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+          y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+      })(window, document, "clarity", "script", "8j6pedl344");
+  </script>
+  </head>  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+             <div class="github-mark">
+              <a href="https://github.com/pnp/script-samples" title="Go to repository">
+               <div class="github-wrapper">
+                  <div class="github-icon">
+                    <img src="https://pnp.github.io/script-samples/assets/icons/github-light-64px.png" alt="GitHub Icon Image">
+                  </div>
+                  <div class="github-repository">
+                    <span>GitHub</span>
+                    <ul class="github-facts">
+                      <li>
+                        <i class="fa fa-code-fork" aria-hidden="true"></i>
+                        <span class="github-forks"></span>
+                      </li>
+                      <li>
+                        <i class="fa fa-star-o" aria-hidden="true"></i>
+                        <span class="github-stars"></span>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </a>
+            </div>
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../assets/logo.svg" alt="">
+              </a>    </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <label class="glyphicon glyphicon-search" for="search-query"></label>
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>      </header>
+      <div role="main" class="container body-content hide-when-search">
+        <div class="article row grid">
+          <div class="col-md-12">
+            <article class="content wrap" id="_content" data-uid="">
+                  <div class="contribution-panel mobile-hide pull-right">
+                      <a href="https://github.com/pnp/script-samples/blob/main/scripts/openai-function-calling-tfl-status/README.md/#L1" title="Improve this Doc" class="improve-doc-lg"><i class="glyphicon glyphicon-pencil"></i></a>
+                  </div>
+                    <h1 id="get-tfl-transport-for-london-status-with-openai-function-calling-feature">Get TfL (Transport for London) status with OpenAI function calling feature</h1>
+
+<h2 id="summary">Summary</h2>
+<p>This sample uses OpenAI's function calling feature to get status of a TfL (Transport for London) line and present it to the user. The response from TfL API is passed to OpenAI which then displays it in the way we need it.</p>
+<h2 id="pre-requisites">Pre-requisites</h2>
+<ul>
+<li>An Open AI API key which can be done by <a href="https://platform.openai.com/signup/">creating an account</a> for using Open AI API</li>
+<li>Once the key is obtained, set the value of <code>$openai_api_key</code> in the script with that key</li>
+</ul>
+<p><img src="assets/example.png" alt="Example Screenshot"></p>
+<div class="tabGroup" id="tabgroup_CeZOj-G++Q">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_CeZOj-G++Q_powershell" role="tab" aria-controls="tabpanel_CeZOj-G++Q_powershell" data-tab="powershell" tabindex="0" aria-selected="true">PowerShell</a>
+</li>
+</ul>
+<section id="tabpanel_CeZOj-G++Q_powershell" role="tabpanel" data-tab="powershell"><button class="article-clipboard" title="Copy to clipboard" data-toggle="tooltip" data-placement="top" data-clipboard-target="section[id^='tabpanel'][data-tab='powershell'] pre">
+    <span class="glyphicon glyphicon-copy" aria-hidden="true"></span>
+    <span class="article-clipboard__message done">Copied</span>
+</button>
+
+<pre><code class="lang-powershell">
+# A PowerShell script to get status of TfL (Transport for London) tube lines using OpenAI and TfL APIs
+
+# A function to get status of lines from TfL API
+function Get-TubeStatus {
+    param(
+        [Parameter(Mandatory = $true)]
+        [string]$line
+    )
+
+    $tfl_api_endpoint = &quot;https://api.tfl.gov.uk/Line/$line/Status&quot;;
+    $response = Invoke-WebRequest -Uri $tfl_api_endpoint -Method Get
+    return $response;
+
+}
+
+# A function to show funny message that is passed as parameter
+function Show-FunnyMessage {
+    param(
+        [Parameter(Mandatory = $true)]
+        [string]$message
+    )
+
+    Write-Host $message -ForegroundColor Cyan
+}
+
+# A function to call OpenAI API which accepts messages array, functions array and model
+# and returns the response from OpenAI API
+function Invoke-OpenAI {
+    param(
+        [Parameter(Mandatory = $true)]
+        $messages,
+        [Parameter(Mandatory = $true)]
+        [string]$model
+    )
+
+    $openai_api_key = &quot;sk-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx&quot;;
+    $openai_api_endpoint = &quot;https://api.openai.com/v1/chat/completions&quot;;
+    
+    $data = @{
+        &quot;model&quot;      = $model;
+        &quot;messages&quot;   = $messages;
+        &quot;functions&quot;  = $functions;
+        &quot;max_tokens&quot; = 256;
+    }
+    
+    $headers = @{
+        &quot;Content-Type&quot;  = &quot;application/json&quot;
+        &quot;Authorization&quot; = &quot;Bearer &quot; + $openai_api_key
+    }
+    $response = Invoke-WebRequest -Uri $openai_api_endpoint -Method Post -Headers $headers -Body ($data | ConvertTo-Json -Depth 10)
+
+    return $response;
+
+}
+
+# A function to process response from OpenAI API and return the response text. Accepts response and messages array as parameters.
+function Get-Result {
+    param(
+        [Parameter(Mandatory = $true)]
+        [object]$response,
+        [Parameter(Mandatory = $true)]
+        $messages
+    )
+
+    if ($response -and $response.StatusCode -eq 200) {
+
+        $response_json_first_choice = ($response.Content | ConvertFrom-Json | Select-Object -ExpandProperty &quot;choices&quot;)[0];
+        $response_finish_reason = $response_json_first_choice.finish_reason;
+
+        # if response_finish_reason is &quot;function_call&quot; then call the function which is in response[&quot;choices&quot;][0][&quot;message&quot;][&quot;function_call&quot;][&quot;name&quot;]
+        # and pass the arguments which is in response[&quot;choices&quot;][0][&quot;message&quot;][&quot;function_call&quot;][&quot;arguments&quot;]
+
+        if ($response_finish_reason -eq &quot;function_call&quot;) {
+            $function_name = $response_json_first_choice.message.function_call.name
+            $function_arguments = $response_json_first_choice.message.function_call.arguments | ConvertFrom-Json
+
+            # Based on the function name, call the function and pass the arguments
+
+            switch ($function_name) {
+                &quot;getTubeStatus&quot; {
+                    $line = $function_arguments | Select-Object -ExpandProperty &quot;line&quot;;
+                    $tube_status = Get-TubeStatus -line $line;
+                
+                    # Compose a message of type &quot;assistant&quot; with function name and arguments
+                    $assistant_message = @{
+                        &quot;role&quot;          = &quot;assistant&quot;;
+                        &quot;content&quot;       = &quot;&quot;;
+                        &quot;function_call&quot; = @{
+                            &quot;name&quot;      = $function_name;
+                            &quot;arguments&quot; = $function_arguments | ConvertTo-Json;
+                        }
+                    }
+
+                    # Push the assistant message to messages array
+                    $messages += $assistant_message;
+
+                    # Compose a message of type &quot;function&quot; with the response from TfL API
+                    $function_message = @{
+                        &quot;role&quot;    = &quot;function&quot;;
+                        &quot;name&quot;    = $function_name;
+                        &quot;content&quot; = $tube_status.Content | ConvertFrom-Json | ForEach-Object { $_.name + &quot;: &quot; + ($_.lineStatuses[0] | ConvertTo-Json) } | Out-String;
+                    }
+
+                    # Push the function message to messages array
+                    $messages += $function_message;
+
+                    # Call Invoke-OpenAI function again with updated messages array
+                    $second_response = Invoke-OpenAI -messages $messages -model &quot;gpt-3.5-turbo-0613&quot;;
+                    return Get-Result -response $second_response -messages $messages;
+                }
+
+                &quot;showFunnyMessage&quot; {
+                    $message = $function_arguments | Select-Object -ExpandProperty &quot;funnyMessage&quot;;
+                    Show-FunnyMessage -message $message;
+                }
+            }
+
+        }
+
+        # if response_finish_reason is &quot;stop&quot; then get the response from response[&quot;choices&quot;][0][&quot;message&quot;][&quot;content&quot;]
+        # and return the response
+
+        if ($response_finish_reason -eq &quot;stop&quot;) {
+            $result = $response.Content | ConvertFrom-Json | Select-Object -ExpandProperty choices | Select-Object -ExpandProperty message | Select-Object -ExpandProperty content;
+            return $result;
+        }
+    } else {
+        Write-Host &quot;Error: &quot; -ForegroundColor Red -NoNewline
+        Write-Host $response.StatusCode -ForegroundColor Red
+        return $null;
+    }
+}
+
+# Main function
+# Get user input, compose a message of type &quot;user&quot; and call Invoke-OpenAI function
+
+function Start-Chat {
+
+    $messages = @()
+    
+    # Add a system message to messages array
+    $system_message = @{}
+    $system_message[&quot;role&quot;] = &quot;system&quot;;
+    $system_message[&quot;content&quot;] = &quot;You are a TfL Assistant. You need to help customers with their queries about London Underground.&quot;;
+
+    Write-Host &quot;Ask your question to the TfL Assistant:&quot; -ForegroundColor Yellow
+    $user_input = Read-Host
+    $user_input = $user_input.Trim();
+
+    # Compose a message of type &quot;user&quot; with user message
+    $user_message = @{}
+    $user_message[&quot;role&quot;] = &quot;user&quot;;
+    $user_message[&quot;content&quot;] = $user_input;
+
+    # Push the user message to messages array
+    $messages += $user_message;
+
+    # Call Invoke-OpenAI function with messages array
+    $response = Invoke-OpenAI -messages $messages -model &quot;gpt-3.5-turbo-0613&quot;;
+
+    # Call Get-Result function with response and messages array
+    $final_response = Get-Result -response $response -messages $messages;
+
+    Write-Host $final_response -ForegroundColor Green
+}
+
+# A global variable to store functions array
+$functions = @()
+
+# Add getTubeStatusFunction to functions array
+$getTubeStatusFunction = @{
+    &quot;name&quot;        = &quot;getTubeStatus&quot;;
+    &quot;description&quot; = &quot;Get the status of a London Underground line&quot;;
+    &quot;parameters&quot;  = @{
+        &quot;type&quot;       = &quot;object&quot;;
+        &quot;properties&quot; = @{
+            &quot;line&quot; = @{
+                &quot;type&quot;        = &quot;string&quot;;
+                &quot;description&quot; = &quot;The name of the London Underground line&quot;;
+                &quot;enum&quot;        = @(&quot;bakerloo&quot;, &quot;central&quot;, &quot;circle&quot;, &quot;district&quot;, &quot;dlr&quot;, &quot;elizabeth&quot;, &quot;hammersmith-city&quot;, &quot;jubilee&quot;, &quot;london-overground&quot;, &quot;metropolitan&quot;, &quot;northern&quot;, &quot;piccadilly&quot;, &quot;tram&quot;, &quot;victoria&quot;, &quot;waterloo-city&quot;);
+            }
+        }
+        &quot;required&quot;   = @(&quot;line&quot;);
+    }
+}
+$functions += $getTubeStatusFunction;
+
+# Add showFunnyMessage function to functions array
+$showFunnyMessageFunction = @{
+    &quot;name&quot;        = &quot;showFunnyMessage&quot;;
+    &quot;description&quot; = &quot;SIf user's query is not related to TfL status then show a funny message&quot;;
+    &quot;parameters&quot;  = @{
+        &quot;type&quot;       = &quot;object&quot;;
+        &quot;properties&quot; = @{
+            &quot;funnyMessage&quot; = @{
+                &quot;type&quot;        = &quot;string&quot;;
+                &quot;description&quot; = &quot;A funny message to say why user's query is not related to TfL. Max 20 words.&quot;;
+            }
+        }
+        &quot;required&quot;   = @(&quot;funnyMessage&quot;);
+    }
+}
+
+$functions += $showFunnyMessageFunction;
+
+# Call Start-Chat function
+Start-Chat
+
+</code></pre>
+<p><a href="https://platform.openai.com/docs/introduction">More about OpenAI API</a></p>
+</section>
+</div>
+<h2 id="contributors">Contributors</h2>
+<table>
+<thead>
+<tr>
+<th>Author(s)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Anoop Tatti</td>
+</tr>
+</tbody>
+</table>
+<h2 id="disclaimer">Disclaimer</h2>
+<p><strong>THESE SAMPLES ARE PROVIDED <em>AS IS</em> WITHOUT WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, INCLUDING ANY IMPLIED WARRANTIES OF FITNESS FOR A PARTICULAR PURPOSE, MERCHANTABILITY, OR NON-INFRINGEMENT.</strong></p>
+<img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/openai-function-calling-tfl-status" aria-hidden="true">
+</article>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            <span>Script Samples<br>Generated by <strong><a href='https://dotnet.github.io/docfx' alt='Doc FX Website'>DocFX</a></strong> with <strong><a href='https://ovasquez.github.io/docfx-material' alt='DocFx Material Theme'>Material UI</a></strong></span>
+            
+            <!-- <img src="https://telemetry.sharepointpnp.com/@pnp.github.io/index/" alt="spacer"> -->
+          </div>
+        </div>
+      </footer>    </div>
+    
+    <script type="text/javascript" src="../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+    
+    <script type="text/javascript" src="../styles/clipboard.min.js"></script>
+    <script type="text/javascript" src="../styles/isotope.pkgd.min.js"></script>
+    <script type="text/javascript" src="../styles/loadsamples.js"></script>
+    <script type="text/javascript" src="../styles/filtersamples.js"></script>
+
+  </body>
+</html>
