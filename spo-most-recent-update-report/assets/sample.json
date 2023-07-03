@@ -1,0 +1,55 @@
+[
+  {
+    "name": "spo-most-recent-update-report",
+    "source": "pnp",
+    "title": "Generate a csv report for a selection of site collections showing the time of the most recent update by any user",
+    "shortDescription": "This script show the date of the most recent update ",
+    "url": "https://pnp.github.io/script-samples/spo-most-recent-update-report/README.html",
+    "longDescription": [
+      ""
+    ],
+    "creationDateTime": "2023-06-27",
+    "updateDateTime": "2023-06-27",
+    "products": [
+      "SharePoint",
+      "Graph",
+      "Azure"
+    ],
+    "metadata": [
+      {
+        "key": "PNP-POWERSHELL",
+        "value": "1.11.0"
+      }
+    ],
+    "categories": [
+      "Data",
+      "Report"
+    ],
+    "tags": [
+      "Connect-PnPOnline","Get-PnPAccessToken","Invoke-RestMethod","Get-PnPAccessToken","Get-PnPProperty"
+    ],
+    "thumbnails": [
+      {
+        "type": "image",
+        "order": 100,
+        "url": "https://raw.githubusercontent.com/pnp/script-samples/main/scripts/spo-most-recent-update-report/assets/preview.png",
+        "alt": "Preview of the sample Generate a csv report for a selection of site collections showing the time of the most recent update by any user"
+      }
+    ],
+    "authors": [
+      {
+        "gitHubAccount": "kasperbolarsen",
+        "company": "",
+        "pictureUrl": "https://github.com/kasperbolarsen.png",
+        "name": "Kasper Larsen"
+      }
+    ],
+    "references": [
+      {
+        "name": "Want to learn more about PnP PowerShell and the cmdlets",
+        "description": "Check out the PnP PowerShell site to get started and for the reference to the cmdlets.",
+        "url": "https://aka.ms/pnp/powershell"
+      }
+    ]
+  }
+]
