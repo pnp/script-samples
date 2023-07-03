@@ -2,10 +2,7 @@
 plugin: add-to-gallery
 ---
 
-# Generate a csv report for a selection of site collections showing the time of the most resent update by any user
-
-> [!Note]
-> This is a submission helper template please find the [contributor guidance](/docfx/contribute.md) to help you write this scenario.
+# Generate a csv report for a selection of site collections showing the time of the most recent update by any user
 
 ## Summary
 
@@ -96,4 +93,4 @@ $arrayList | Export-Csv -Path "C:\temp\LastActivity.csv"  -Force -Delimiter "|" 
 | Kasper Larsen |
 
 [!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
-<img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/spo-most-resent-update-report" aria-hidden="true" />
+<img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/spo-most-recent-update-report" aria-hidden="true" />
