@@ -100,7 +100,7 @@
 
 <h2 id="summary">Summary</h2>
 <p>Are you testing SharePoint multi-lingual features? And want a quick way to switch languages on a site for a particular user or yourself; this can be useful when testing the modern multi-lingual features in SharePoint if you want to check the quality of the pages translated.</p>
-<p>This script that changes the MUI setting for a user within the User Information List to update the user with the appropriate language tag.</p>
+<p>This script changes the MUI setting for a user within the User Information List to update the user with the appropriate language tag.</p>
 <p><img src="assets/example.png" alt="Example Screenshot"></p>
 <div class="tabGroup" id="tabgroup_CeZOj-G++Q">
 <ul role="tablist">
@@ -117,8 +117,14 @@
 </button>
 
 <pre><code class="lang-powershell">
-Connect-PnPOnline https://&lt;tenant&gt;.sharepoint.com/sites/&lt;site&gt;
-Get-PnPListItem -List &quot;User Information List&quot; -Id 7 # Me
+# SharePoint online site URL
+$siteUrl = &quot;https://contoso.sharepoint.com/sites/electronics&quot;
+
+# Connect to SharePoint online site
+Connect-PnPOnline -Url $siteUrl -Interactive
+
+# Get user details from User Information List to check what is my current language
+$item = Get-PnPListItem -List &quot;User Information List&quot; -Id 7 # 7 is Me
 
 # -OR- #
 
@@ -139,9 +145,13 @@ $CamlQuery = @&quot;
 $item = Get-PnPListItem -List &quot;User Information List&quot; -Query $CamlQuery
 
 # Language Reference: https://capacreative.co.uk/resources/reference-sharepoint-online-languages-ids/
-$item[&quot;MUILanguages&quot;] = &quot;cy-GB&quot; #&quot;en-GB&quot;
-$item.Update()
-Invoke-PnPQuery
+$newLang = &quot;cy-GB&quot; #&quot;en-GB&quot;
+
+# Making the language change
+Set-PnPListItem -List &quot;User Information List&quot; -Id 7 -Values @{&quot;MUILanguages&quot; = $newLang}
+
+# Disconnect SharePoint online connection
+Disconnect-PnPOnline
 
 </code></pre>
 <div class="highlight-tool">
@@ -153,15 +163,19 @@ Invoke-PnPQuery
     <span class="article-clipboard__message done">Copied</span>
 </button>
 
-<pre><code class="lang-powershell">$siteURL = 'https://tenanttocheck.sharepoint.com/sites/hr-life'
-$userInformationList = 'User Information List'
+<pre><code class="lang-powershell">
+# SharePoint online site URL
+$siteURL = &quot;https://tenanttocheck.sharepoint.com/sites/hr-life&quot;
 
+$userInformationList = &quot;User Information List&quot;
+
+# Get Credentials to connect
 $m365Status = m365 status
 if ($m365Status -match &quot;Logged Out&quot;) {
     m365 login
 }
 
-# check what is my current lang
+# Get user details from User Information List to check what is my current language
 m365 spo listitem get --listTitle $userInformationList --id 7 --webUrl $siteURL --properties &quot;MUILanguages&quot; # 7 is Me
 
 # -OR- #
@@ -180,11 +194,15 @@ $camlQuery = @&quot;
 &lt;/View&gt;
 &quot;@
 
-m365 spo listitem list --title $userInformationList --webUrl $siteURL --camlQuery $camlQuery
+m365 spo listitem list --listTitle $userInformationList --webUrl $siteURL --camlQuery $camlQuery
 
-# making the change
+# Making the language change
 $newLang = &quot;cy-GB&quot; #&quot;en-GB&quot;
 m365 spo listitem set --listTitle $userInformationList --id 7 --webUrl $siteURL --MUILanguages $newLang
+
+# Disconnect SharePoint online connection
+m365 logout
+
 </code></pre>
 <div class="highlight-tool">
 <p>Check out the <strong>CLI for Microsoft 365</strong> to learn more at: <a href="https://aka.ms/cli-m365">https://aka.ms/cli-m365</a></p>
@@ -206,6 +224,9 @@ m365 spo listitem set --listTitle $userInformationList --id 7 --webUrl $siteURL 
 </tr>
 <tr>
 <td><a href="https://github.com/Adam-it">Adam Wójcik</a></td>
+</tr>
+<tr>
+<td><a href="https://ganeshsanapblogs.wordpress.com/about">Ganesh Sanap</a></td>
 </tr>
 </tbody>
 </table>
