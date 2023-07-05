@@ -108,9 +108,8 @@
 </ul>
 <p>The script will:</p>
 <ul>
-<li>Get the hub site ID using the Get-PnPTenantSite cmdlet.</li>
-<li>Get all site collections in the tenant using the Get-PnPTenantSite cmdlet.</li>
-<li>For each site collection, check if it's associated with the hub site using the site's HubSiteId property.</li>
+<li>Get the hub site ID using the Get-PnPHubSite cmdlet.</li>
+<li>Get all associated site collections in the tenant using the Get-PnPTenantSite cmdlet filtered by the HubSiteId property.</li>
 <li>Connect to the site using Connect-PnPOnline.</li>
 <li>Check if the site collection app catalog exists. If it doesn’t, create it using Add-PnPSiteCollectionAppCatalog.</li>
 <li>Deploy the SPFx package using Add-PnPApp.</li>
@@ -149,10 +148,11 @@ Connect-PnPOnline $adminCenterURL -Interactive
 
 #collection to save the list of sites where the deployment or upgrades of SPFx solution happened for auditing
 $ViewCollection = @() 
-$HubSiteID = (Get-PnPTenantSite $hubSiteUrl).HubSiteId
+$HubSite = Get-PnPHubSite -Identity $hubSiteUrl
+$associatedSites = Get-PnPTenantSite -Detailed | Where-Object {$_.HubSiteId -eq $hubSite.Id}
 
 #Get all site collections associated with the hub site
-Get-PnPTenantSite -Detailed | select url | ForEach-Object {
+$associatedSites | select url | ForEach-Object { 
   $Site = Get-PnPTenantSite $_.url
   If($Site.HubSiteId -eq $HubSiteId){
     Connect-PnPOnline -Url $Site.url -Interactive
@@ -233,7 +233,7 @@ Disconnect-PnPOnline
 </thead>
 <tbody>
 <tr>
-<td>Reshmee Auckloo</td>
+<td><a href="https://github.com/reshmee011">Reshmee Auckloo</a></td>
 </tr>
 <tr>
 <td><a href="https://ganeshsanapblogs.wordpress.com/">Ganesh Sanap</a></td>
