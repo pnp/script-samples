@@ -9,7 +9,7 @@ ARG NODE_VERSION="lts/*"
 RUN if [ "${NODE_VERSION}" != "none" ]; then su vscode -c "umask 0002 && . /usr/local/share/nvm/nvm.sh && nvm install ${NODE_VERSION} 2>&1"; fi
 
 # Run Updates First
-RUN apt-get update && apt-get install -y unzip mono-complete wget git
+RUN apt-get update --fix-missing && apt-get install -y unzip mono-complete wget git
 
 # Fix for Yarn issue
 RUN curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add -
@@ -17,8 +17,6 @@ RUN curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add -
 #FROM mono:latest
 
 ENV DOCFX_VER 2.56.7
-
-
 
 RUN curl -sSL --output packages-microsoft-prod.deb https://packages.microsoft.com/config/debian/10/packages-microsoft-prod.deb
 RUN dpkg -i packages-microsoft-prod.deb
