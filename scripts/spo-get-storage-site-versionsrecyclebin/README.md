@@ -6,7 +6,7 @@ plugin: add-to-gallery
 
 ## Summary
 
-This sample script may help to get a breakdown of storage for files, file versions and recycle bin. I failed to reconcile the site current usage with the total of file size, total file version size and recycle bin size but may help to get insights on storage usage despite I could not explain 30% of storage allocated. In the sample output, a total of around 15 MB was identified to be comprised of total file size, total version size and recycle bin size and could not identify the remaining 6MB. 
+This sample script may help to get a breakdown of storage for files, file versions and recycle bin. I failed to reconcile the site current usage with the total of file size, total file version size and recycle bin size but may help to get insights on storage usage despite I could not explain 30% of storage allocated. In the sample output, a total of around 15 MB was identified to be comprised of total file size, total version size and recycle bin size and could not identify the remaining 6MB.
 
 ## Implementation
 
@@ -82,7 +82,7 @@ function ReportStorageVersions($site) {
     } 
 }
 
-# Get total storage use for the site collection, amend query to run reports against site collection(s)
+# Get total storage use for the site collection, amend query to run reports against site collection(s), e.g. filter by $_.StorageUsageCurrent -gt 10000
 Get-PnPTenantSite -Connection $conn | Where-Object { ($_.Template -eq "GROUP#0" -or $_.Template -eq "SITEPAGEPUBLISHING#0") -and $_.Title -eq "Company 311"} | ForEach-Object {
     $site = $_
     $siteStorage = $site.StorageUsageCurrent
