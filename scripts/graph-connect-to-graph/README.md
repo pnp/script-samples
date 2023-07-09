@@ -8,10 +8,6 @@ plugin: add-to-gallery
 
 With Graph SDK 2, the connection method has changed slightly.  This function will connect to either V1 or V2 via a query
 
-![Example Screenshot](assets/example.png)
-
-
-
 
 # [Microsoft Graph PowerShell](#tab/graphps)
 
@@ -122,4 +118,4 @@ Connect-ToGraph -TenantId $tenantID -AppId $app -AppSecret $secret
 
 
 [!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
-<img src="https://pnptelemetry.azurewebsites.net/script-samples/scripts/aad-graph-create-dynamic-groups-project-visio" aria-hidden="true" />
+<img src="https://pnptelemetry.azurewebsites.net/script-samples/scripts/graph-connect-to-graph" aria-hidden="true" />
