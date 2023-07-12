@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <!--[if IE]><![endif]-->
 <html lang="en">
   
@@ -99,48 +99,45 @@
                     <h1 id="script-samples">Script Samples</h1>
 
 <p>Find scripts by entering a keyword. You can filter by product, type of shell library and type of operation.</p>
-<p><section class="filter-section">
+<section class="filter-section">
+<pre><code>&lt;div id=&quot;filters&quot; class=&quot;sample-list filter-list float-r&quot;&gt;
+    &lt;div id=&quot;post-sample-filter-all&quot; class=&quot;sampletype-item filter-choice active&quot; data-filter=&quot;*&quot; title=&quot;All Samples&quot;&gt;
+        All
+    &lt;/div&gt;
+    &lt;div id=&quot;post-sample-filter-112&quot; class=&quot;sampletype-item filter-choice&quot; data-filter=&quot;[data-operation*='modernize']&quot;
+         title=&quot;Modernize Samples&quot;&gt;Modernize&lt;/div&gt;
+    &lt;div id=&quot;post-sample-filter-111&quot; class=&quot;sampletype-item filter-choice&quot; data-filter=&quot;[data-operation*='data']&quot;
+         title=&quot;Data Samples&quot;&gt;Data&lt;/div&gt;
+    &lt;div id=&quot;post-sample-filter-110&quot; class=&quot;sampletype-item filter-choice&quot; data-filter=&quot;[data-operation*='deploy']&quot;
+         title=&quot;Deploy Samples&quot;&gt;Deploy&lt;/div&gt;
+    &lt;div id=&quot;post-sample-filter-109&quot; class=&quot;sampletype-item filter-choice&quot; data-filter=&quot;[data-operation*='provision']&quot;
+         title=&quot;Provision Samples&quot;&gt;Provision&lt;/div&gt;
+    &lt;div id=&quot;post-sample-filter-108&quot; class=&quot;sampletype-item filter-choice&quot; data-filter=&quot;[data-operation*='configure']&quot;
+         title=&quot;Configure Samples&quot;&gt;Configure&lt;/div&gt;
+    &lt;div id=&quot;post-sample-filter-107&quot; class=&quot;sampletype-item filter-choice&quot; data-filter=&quot;[data-operation*='report']&quot;
+         title=&quot;Report Samples&quot;&gt;Report&lt;/div&gt;
+    &lt;div id=&quot;post-sample-filter-113&quot; class=&quot;sampletype-item filter-choice&quot; data-filter=&quot;[data-operation*='security']&quot;
+         title=&quot;Security Samples&quot;&gt;Security&lt;/div&gt;
+&lt;/div&gt;
 
-    <div id="filters" class="sample-list filter-list float-r">
-        <div id="post-sample-filter-all" class="sampletype-item filter-choice active" data-filter="*" title="All Samples">
-            All
-        </div>
-        <div id="post-sample-filter-112" class="sampletype-item filter-choice" data-filter="[data-operation*='modernize']"
-             title="Modernize Samples">Modernize</div>
-        <div id="post-sample-filter-111" class="sampletype-item filter-choice" data-filter="[data-operation*='data']"
-             title="Data Samples">Data</div>
-        <div id="post-sample-filter-110" class="sampletype-item filter-choice" data-filter="[data-operation*='deploy']"
-             title="Deploy Samples">Deploy</div>
-        <div id="post-sample-filter-109" class="sampletype-item filter-choice" data-filter="[data-operation*='provision']"
-             title="Provision Samples">Provision</div>
-        <div id="post-sample-filter-108" class="sampletype-item filter-choice" data-filter="[data-operation*='configure']"
-             title="Configure Samples">Configure</div>
-        <div id="post-sample-filter-107" class="sampletype-item filter-choice" data-filter="[data-operation*='report']"
-             title="Report Samples">Report</div>
-        <div id="post-sample-filter-113" class="sampletype-item filter-choice" data-filter="[data-operation*='security']"
-             title="Security Samples">Security</div>
-    </div>
+&lt;div class=&quot;search-input-wrapper float-l&quot; aria-hidden=&quot;true&quot;&gt;
+    &lt;div class=&quot;icon-container&quot;&gt;
+        &amp;nbsp;
+    &lt;/div&gt;
+    &lt;input id=&quot;post-search-input&quot; class=&quot;search-input&quot; placeholder=&quot;Search scripts&quot;&gt;
+&lt;/div&gt;
 
-    <div class="search-input-wrapper float-l" aria-hidden="true">
-        <div class="icon-container">
-            &nbsp;
-        </div>
-        <input id="post-search-input" class="search-input" placeholder="Search scripts">
-    </div>
-
-    <div class="well">
-        <div class="button-group filters-button-group"></div>
-    </div>
-
+&lt;div class=&quot;well&quot;&gt;
+    &lt;div class=&quot;button-group filters-button-group&quot;&gt;&lt;/div&gt;
+&lt;/div&gt;
+</code></pre>
 </section>
-
 <div class="grid" id="sample-listing">
     <div class="grid-sizer"></div>
 </div>
-
 <div id="noresults">
     No results found.
-</div></p>
+</div>
 <img src="https://m365-visitor-stats.azurewebsites.net/script-samples" aria-hidden="true">
 </article>
           </div>
