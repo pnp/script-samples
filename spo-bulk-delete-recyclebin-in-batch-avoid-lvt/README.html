@@ -1,0 +1,338 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html lang="en">
+  
+  <head>
+    <meta charset="utf-8">
+    <title>Bulk delete recycle bin items from a site in batch | PnP Samples </title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" "="">
+    <meta name="title" content="Bulk delete recycle bin items from a site in batch | PnP Samples ">
+    <meta name="generator" content="docfx 2.56.7.0">
+    <meta name="description" content="A sample gallery of scripts to manage all things Microsoft 365.">
+  
+    <!-- Social Media -->
+    <meta property="og:locale" content="en_GB">
+    <meta property="og:title" content="Bulk delete recycle bin items from a site in batch | PnP Samples ">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://pnp.github.io/script-samples">
+    <meta property="og:image" content="https://pnp.github.io/script-samples/assets/social-media-screenshot.png">
+    <meta property="og:image:alt" content="Screenshot example of the PnP Script Samples Site">
+    <meta property="og:site_name" content="PnP Script Samples">
+    <meta name="msvalidate.01" content="04EFEDA66EC42C08A1247C979E2F9ADD">
+    <meta property="og:description" content="A sample gallery of scripts to manage all things Microsoft 365.">
+  
+    <link rel="shortcut icon" href="https://c.s-microsoft.com/favicon.ico?v2">
+    <link rel="stylesheet" href="../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../styles/docfx.css">
+    <link rel="stylesheet" href="../styles/main.css">
+    <link rel="stylesheet" href="../styles/extra.css">
+    <link rel="stylesheet" href="../styles/filter.css">
+    <link rel="stylesheet" href="../styles/site.css">
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet"> 
+    <meta property="docfx:navrel" content="../toc.html">
+    <meta property="docfx:tocrel" content="../toc.html">
+    
+    
+    <meta property="docfx:newtab" content="true">
+    <script type="text/javascript">
+      (function(c,l,a,r,i,t,y){
+          c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+          t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+          y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+      })(window, document, "clarity", "script", "8j6pedl344");
+  </script>
+  </head>  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+             <div class="github-mark">
+              <a href="https://github.com/pnp/script-samples" title="Go to repository">
+               <div class="github-wrapper">
+                  <div class="github-icon">
+                    <img src="https://pnp.github.io/script-samples/assets/icons/github-light-64px.png" alt="GitHub Icon Image">
+                  </div>
+                  <div class="github-repository">
+                    <span>GitHub</span>
+                    <ul class="github-facts">
+                      <li>
+                        <i class="fa fa-code-fork" aria-hidden="true"></i>
+                        <span class="github-forks"></span>
+                      </li>
+                      <li>
+                        <i class="fa fa-star-o" aria-hidden="true"></i>
+                        <span class="github-stars"></span>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </a>
+            </div>
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../assets/logo.svg" alt="">
+              </a>    </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <label class="glyphicon glyphicon-search" for="search-query"></label>
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>      </header>
+      <div role="main" class="container body-content hide-when-search">
+        <div class="article row grid">
+          <div class="col-md-12">
+            <article class="content wrap" id="_content" data-uid="">
+                  <div class="contribution-panel mobile-hide pull-right">
+                      <a href="https://github.com/pnp/script-samples/blob/main/scripts/spo-bulk-delete-recyclebin-in-batch-avoid-lvt/README.md/#L1" title="Improve this Doc" class="improve-doc-lg"><i class="glyphicon glyphicon-pencil"></i></a>
+                  </div>
+                    <h1 id="bulk-delete-recycle-bin-items-from-a-site-in-batch">Bulk delete recycle bin items from a site in batch</h1>
+
+<h2 id="summary">Summary</h2>
+<p>This script performs a two-step process to manage the recycle bin items in a SharePoint Online site. Here's a summary of the script's functionality:</p>
+<p>Step 1:</p>
+<ul>
+<li>The script connects to a SharePoint Online site using PnP PowerShell.</li>
+<li>It defines a date range and retrieves recycle bin items meeting specific conditions based on a defined CSV file.</li>
+<li>The retrieved items are exported to a CSV file named &quot;recyclebin.csv.&quot;</li>
+</ul>
+<p>Step 2:</p>
+<ul>
+<li>The script connects again to the same SharePoint Online site using PnP PowerShell.</li>
+<li>It reads the &quot;recyclebin.csv&quot; file, which should have been manually modified to contain only the items intended for deletion.</li>
+<li>The script processes the items in batches (default batch size: 10) and deletes them from the recycle bin using SharePoint's REST API.</li>
+<li>The results of the deletion process are written to &quot;recyclebinresults.csv.&quot;</li>
+</ul>
+<p>Both steps include informative messages to keep users updated on the progress and status of the operations.</p>
+<div class="NOTE">
+<h5>Note</h5>
+<p>The script relies on the PnP PowerShell module to interact with SharePoint Online, and it is essential to have the module installed and authenticated before executing the script. Additionally, users should carefully review and modify the &quot;recyclebin.csv&quot; file in Step 2 to ensure that only the intended items are deleted.</p>
+</div>
+<div class="WARNING">
+<h5>Warning</h5>
+<p>Please be aware this script contains a command that will remove or delete an artifact, ensure you test and understand the implications of running the script.</p>
+</div>
+
+<p><img src="assets/example.png" alt="Example Screenshot"></p>
+<div class="tabGroup" id="tabgroup_CeZOj-G++Q">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_CeZOj-G++Q_pnpps" role="tab" aria-controls="tabpanel_CeZOj-G++Q_pnpps" data-tab="pnpps" tabindex="0" aria-selected="true">PnP PowerShell</a>
+</li>
+</ul>
+<section id="tabpanel_CeZOj-G++Q_pnpps" role="tabpanel" data-tab="pnpps"><button class="article-clipboard" title="Copy to clipboard" data-toggle="tooltip" data-placement="top" data-clipboard-target="section[id^='tabpanel'][data-tab='pnpps'] pre">
+    <span class="glyphicon glyphicon-copy" aria-hidden="true"></span>
+    <span class="article-clipboard__message done">Copied</span>
+</button>
+
+<pre><code class="lang-powershell">
+######################################################### 
+# Step 1: Execute this part only and wait for it to complete.
+# This step will get the items from the recycle bin based on the defined condition in CSV
+######################################################### 
+
+## PnP PowerShell 
+
+$today = (Get-Date)  
+
+# Specify date from  
+$date1 = $today.Date.AddDays(-8)  
+
+# Specify date to  
+$date2 = $today.Date.AddDays(-5)  
+
+Connect-PnPOnline -Url https://tenant.sharepoint.com/sites/repro -Interactive 
+
+$recycleBinItems = Get-PnPRecycleBinItem -RowLimit 999999 | ? { 
+    ($_.DeletedByEmail -eq 'first.last@tenant.onmicrosoft.com') -and 
+    (($_.DeletedDate -gt $date1) -and ($_.DeletedDate -lt $Date2))
+}
+
+$recycleBinItems | Export-Csv C:\recyclebin.csv -NoTypeInformation 
+
+# Open CSV and remove rows you do not wish to delete. Save the CSV file.
+
+######################################################### 
+# Step 2: Now execute the below part and wait for it to complete.
+# This step will fetch the items from the CSV report stored locally and delete the items by IDs in a batch of 10 items (default)
+######################################################### 
+
+# Input file 
+$Path = &quot;C:\recyclebin.csv&quot; 
+
+# Output file 
+$OutputFile = &quot;C:\recyclebinresults.csv&quot; 
+
+$NoInBatch = 10 
+
+$ErrorActionPreference = 'Stop' 
+$InformationPreference = 'Continue' 
+
+Connect-PnPOnline -Url &quot;https://tenant.sharepoint.com/sites/repro&quot; -Interactive 
+
+function Start-Processing { 
+    [CmdletBinding()] 
+    param( 
+        [Parameter(Mandatory = $true)] 
+        [string] 
+        $csvFilePath, 
+
+        [Parameter(Mandatory = $true)] 
+        [int] 
+        $processBatchCount 
+    ) 
+
+    $csvItems = Get-Content -Path $csvFilePath | ConvertFrom-Csv 
+    $recycleBinSplit = Split-Array -InputObject $csvItems -Size $processBatchCount 
+
+    $batchCount = $recycleBinSplit.Count 
+    $i = 0 
+
+    if ($recycleBinSplit.Count -eq $csvItems.Count) { 
+        Write-Information -MessageData &quot;Purging deleted items batch 1 of 1 containing $($recycleBinSplit.Count) items...&quot; 
+        Clear-RecycleBinItems -Ids $recycleBinSplit 
+    } else { 
+        $recycleBinSplit | ForEach-Object { 
+            $items = $PSItem 
+            $i++
+            Write-Information -MessageData &quot;Purging deleted items batch $i of $batchCount containing $($items.Count)...&quot; 
+            Clear-RecycleBinItems -Ids $items 
+        } 
+    } 
+} 
+
+function Split-Array { 
+    [CmdletBinding()] 
+    param ( 
+        [Parameter(Mandatory)] 
+        [object[]] $InputObject, 
+
+        [int] $Size = 10 
+    ) 
+
+    $outArray = @() 
+    $parts = [math]::Ceiling($InputObject.Count / $Size) 
+
+    for ($i = 0; $i -le $parts - 1; $i++) { 
+        $start = $i * $Size 
+        $end = (($i + 1) * $Size) - 1 
+        $outArray += , @($InputObject[$start..$end]) 
+    } 
+
+    Write-Output $outArray 
+} 
+
+function Clear-RecycleBinItems { 
+    param( 
+        [Parameter(Mandatory)] 
+        [Object[]] 
+        $Ids 
+    ) 
+
+    $apiCall = &quot;/_api/site/RecycleBin/DeleteByIds&quot; 
+    $idsString = ($Ids).Id -join &quot;','&quot; 
+    $body = &quot;{'ids':['$idsString']}&quot; 
+
+    try { 
+        Invoke-PnPSPRestMethod -Method Post -Url $apiCall -Content $body | Out-Null 
+        Write-Information &quot;Batch Success&quot; 
+        $Ids | ForEach-Object { 
+            $id = $PSItem 
+            $id | Add-Member -MemberType NoteProperty -Name &quot;Status&quot; -Value &quot;Success&quot; 
+            Write-Output $id 
+        } 
+    } catch { 
+        $Exception = $_ 
+        Write-Warning &quot;Unable to process as a batch, processing individually....&quot; 
+        $Ids | ForEach-Object { 
+            $id = $PSItem 
+            try { 
+                $body = &quot;{'ids':['$($id.Id)']}&quot; 
+                Invoke-PnPSPRestMethod -Method Post -Url $apiCall -Content $body | Out-Null 
+                Write-Information &quot;Success: $($id.Id)&quot; 
+                $id | Add-Member -MemberType NoteProperty -Name &quot;Status&quot; -Value &quot;Success&quot; 
+                Write-Output $id 
+            } catch { 
+                $Exception = $_ 
+                $odataError = $Exception.Exception.Message | ConvertFrom-Json 
+                $message = $odataError.'odata.error'.message.value 
+
+                if ($message.Contains(&quot;Value does not fall within the expected range.&quot;) -eq $true) { 
+                    $message = &quot;No longer in recycle bin / Previously deleted&quot; 
+                } 
+
+                $id | Add-Member -MemberType NoteProperty -Name &quot;Status&quot; -Value $message 
+                Write-Information &quot;Failed: $($id.Id) - $message&quot; 
+                Write-Output $id 
+            } 
+        } 
+    } 
+} 
+
+Write-Information -MessageData &quot;Processing file $Path and purging recycle bin items in batches of $NoInBatch...&quot; 
+Start-Processing -csvFilePath $Path -processBatchCount $NoInBatch | Export-Csv $OutputFile -NoTypeInformation
+
+</code></pre>
+<div class="highlight-tool">
+<p>Check out the <strong>PnP PowerShell</strong> to learn more at: <a href="https://aka.ms/pnp/powershell">https://aka.ms/pnp/powershell</a></p>
+</div>
+</section>
+</div>
+<h2 id="source-credit">Source Credit</h2>
+<p>Sample first appeared on <a href="https://pnp.github.io/script-samples/bulk-restore-from-recyclebin">https://pnp.github.io/script-samples/bulk-restore-from-recyclebin</a></p>
+<h2 id="contributors">Contributors</h2>
+<table>
+<thead>
+<tr>
+<th>Author(s)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Eilaf Barmare</td>
+</tr>
+</tbody>
+</table>
+<h2 id="disclaimer">Disclaimer</h2>
+<p><strong>THESE SAMPLES ARE PROVIDED <em>AS IS</em> WITHOUT WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, INCLUDING ANY IMPLIED WARRANTIES OF FITNESS FOR A PARTICULAR PURPOSE, MERCHANTABILITY, OR NON-INFRINGEMENT.</strong></p>
+<img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/spo-bulk-delete-recyclebin-in-batch-avoid-lvt" aria-hidden="true">
+</article>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            <span>Script Samples<br>Generated by <strong><a href='https://dotnet.github.io/docfx' alt='Doc FX Website'>DocFX</a></strong> with <strong><a href='https://ovasquez.github.io/docfx-material' alt='DocFx Material Theme'>Material UI</a></strong></span>
+            
+            <!-- <img src="https://telemetry.sharepointpnp.com/@pnp.github.io/index/" alt="spacer"> -->
+          </div>
+        </div>
+      </footer>    </div>
+    
+    <script type="text/javascript" src="../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+    
+    <script type="text/javascript" src="../styles/clipboard.min.js"></script>
+    <script type="text/javascript" src="../styles/isotope.pkgd.min.js"></script>
+    <script type="text/javascript" src="../styles/loadsamples.js"></script>
+    <script type="text/javascript" src="../styles/filtersamples.js"></script>
+
+  </body>
+</html>
