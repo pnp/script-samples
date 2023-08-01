@@ -2,7 +2,7 @@
 plugin: add-to-gallery
 ---
 
-# Upload spfx solution to app catalog using CLI for Microsoft 365 and Azure AD App Certificate
+# Upload spfx solution to app catalog and Azure AD App Certificate
 
 ## Summary
 
@@ -69,4 +69,4 @@ m365 spo app add --filePath $PathToSpfxApp --overwrite --verbose
 | [Valeras Narbutas](https://github.com/ValerasNarbutas) |
 
 [!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
-<img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/spo-add-sppkg-m365-cli-ad-app-certificate" aria-hidden="true" />
+<img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/spo-add-sppkg-ad-app-certificate" aria-hidden="true" />
