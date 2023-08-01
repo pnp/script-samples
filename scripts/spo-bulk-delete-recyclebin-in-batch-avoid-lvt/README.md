@@ -1,5 +1,5 @@
 ---
-plugin: add-to-gallery-preparation
+plugin: add-to-gallery
 ---
 
 # Bulk delete recycle bin items from a site in batch
@@ -21,7 +21,10 @@ Step 2:
 
 Both steps include informative messages to keep users updated on the progress and status of the operations. 
 
-Note: The script relies on the PnP PowerShell module to interact with SharePoint Online, and it is essential to have the module installed and authenticated before executing the script. Additionally, users should carefully review and modify the "recyclebin.csv" file in Step 2 to ensure that only the intended items are deleted. 
+> [!Note]
+> The script relies on the PnP PowerShell module to interact with SharePoint Online, and it is essential to have the module installed and authenticated before executing the script. Additionally, users should carefully review and modify the "recyclebin.csv" file in Step 2 to ensure that only the intended items are deleted. 
+
+[!INCLUDE [Delete Warning](../../docfx/includes/DELETE-WARN.md)]
 
 ![Example Screenshot](assets/example.png)
 
@@ -44,10 +47,10 @@ $date1 = $today.Date.AddDays(-8)
 # Specify date to  
 $date2 = $today.Date.AddDays(-5)  
 
-Connect-PnPOnline -Url https://o365premier.sharepoint.com/sites/repro -Interactive 
+Connect-PnPOnline -Url https://tenant.sharepoint.com/sites/repro -Interactive 
 
 $recycleBinItems = Get-PnPRecycleBinItem -RowLimit 999999 | ? { 
-    ($_.DeletedByEmail -eq 'Eilaf.Barmare@o365premier.onmicrosoft.com') -and 
+    ($_.DeletedByEmail -eq 'first.last@tenant.onmicrosoft.com') -and 
     (($_.DeletedDate -gt $date1) -and ($_.DeletedDate -lt $Date2))
 }
 
@@ -71,7 +74,7 @@ $NoInBatch = 10
 $ErrorActionPreference = 'Stop' 
 $InformationPreference = 'Continue' 
 
-Connect-PnPOnline -Url "https://o365premier.sharepoint.com/sites/repro" -Interactive 
+Connect-PnPOnline -Url "https://tenant.sharepoint.com/sites/repro" -Interactive 
 
 function Start-Processing { 
     [CmdletBinding()] 
@@ -175,13 +178,13 @@ function Clear-RecycleBinItems {
 Write-Information -MessageData "Processing file $Path and purging recycle bin items in batches of $NoInBatch..." 
 Start-Processing -csvFilePath $Path -processBatchCount $NoInBatch | Export-Csv $OutputFile -NoTypeInformation
 
-
 ```
 [!INCLUDE [More about PnP PowerShell](../../docfx/includes/MORE-PNPPS.md)]
+***
 
 ## Source Credit
 
-Sample first appeared on [https://pnp.github.io/script-samples/bulk-restore-from-recyclebin/]
+Sample first appeared on https://pnp.github.io/script-samples/bulk-restore-from-recyclebin
 
 ## Contributors
 
@@ -191,4 +194,4 @@ Sample first appeared on [https://pnp.github.io/script-samples/bulk-restore-from
 
 
 [!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
-<img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/template-script-submission" aria-hidden="true" />
+<img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/spo-bulk-delete-recyclebin-in-batch-avoid-lvt" aria-hidden="true" />
