@@ -1,5 +1,5 @@
 ---
-plugin: add-to-gallery-preparation
+plugin: add-to-gallery
 ---
 
 # Get the report of the sites throughout the tenant which has unique permissions based on the RoleAssignments and the Associated member groups
