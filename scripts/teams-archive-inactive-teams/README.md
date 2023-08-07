@@ -21,7 +21,7 @@ The -Verbose switch lists the functions that are imported.
 
 Once the module is imported the function `Archive-PnPInactiveTeams` will be loaded and ready to use.
 
-# [PnP PowerShell](#tab/pnpps)
+# [PowerShell](#tab/ps)
 
 ```powershell
 
@@ -135,4 +135,4 @@ Archive-PnPInactiveTeams -tenandId "e2d68954-d30b-4e35-af8c-3a42bd5ce587" -clien
 
 
 [!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
-<img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/spo-request-pnp-reindex-user-profile" aria-hidden="true" />
+<img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/teams-archive-inactive-teams" aria-hidden="true" />
