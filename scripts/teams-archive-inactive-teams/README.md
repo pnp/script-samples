@@ -56,10 +56,10 @@ The secret of your Azure app registration
 The minimum number of days that a Team must be active in order to be archived otherwise. Possible values: 7, 30, 90 or 180
 
 .Example 
-Archive-PnPInactiveTeams -tenandId "e2d68954-d30b-4e35-af8c-3a42bd5ce587" -clientId "ccfd26aa-96b4-4f24-b896-274f62b0f4d9" -clientSecret "TiQ8Q~13OtsXZ9KId01-CB1xlX1n_nknmIzpWam-" -inactiveDays 30
+Archive-PnPInactiveTeams -tenandId "XXXXXX" -clientId "XXXXXX" -clientSecret "XXXXXX" -inactiveDays 30
 
 .Example 
-Archive-PnPInactiveTeams -tenandId "e2d68954-d30b-4e35-af8c-3a42bd5ce587" -clientId "ccfd26aa-96b4-4f24-b896-274f62b0f4d9" -clientSecret "TiQ8Q~13OtsXZ9KId01-CB1xlX1n_nknmIzpWam-" -inactiveDays 180
+Archive-PnPInactiveTeams -tenandId "XXXXXX" -clientId "XXXXXX" -clientSecret "XXXXXX" -inactiveDays 180
 
 #>    
     [CmdletBinding()]
