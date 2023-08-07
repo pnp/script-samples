@@ -1,0 +1,272 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html lang="en">
+  
+  <head>
+    <meta charset="utf-8">
+    <title>Archive inactive Teams | PnP Samples </title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" "="">
+    <meta name="title" content="Archive inactive Teams | PnP Samples ">
+    <meta name="generator" content="docfx 2.56.7.0">
+    <meta name="description" content="A sample gallery of scripts to manage all things Microsoft 365.">
+  
+    <!-- Social Media -->
+    <meta property="og:locale" content="en_GB">
+    <meta property="og:title" content="Archive inactive Teams | PnP Samples ">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://pnp.github.io/script-samples">
+    <meta property="og:image" content="https://pnp.github.io/script-samples/assets/social-media-screenshot.png">
+    <meta property="og:image:alt" content="Screenshot example of the PnP Script Samples Site">
+    <meta property="og:site_name" content="PnP Script Samples">
+    <meta name="msvalidate.01" content="04EFEDA66EC42C08A1247C979E2F9ADD">
+    <meta property="og:description" content="A sample gallery of scripts to manage all things Microsoft 365.">
+  
+    <link rel="shortcut icon" href="https://c.s-microsoft.com/favicon.ico?v2">
+    <link rel="stylesheet" href="../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../styles/docfx.css">
+    <link rel="stylesheet" href="../styles/main.css">
+    <link rel="stylesheet" href="../styles/extra.css">
+    <link rel="stylesheet" href="../styles/filter.css">
+    <link rel="stylesheet" href="../styles/site.css">
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet"> 
+    <meta property="docfx:navrel" content="../toc.html">
+    <meta property="docfx:tocrel" content="../toc.html">
+    
+    
+    <meta property="docfx:newtab" content="true">
+    <script type="text/javascript">
+      (function(c,l,a,r,i,t,y){
+          c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+          t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+          y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+      })(window, document, "clarity", "script", "8j6pedl344");
+  </script>
+  </head>  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+             <div class="github-mark">
+              <a href="https://github.com/pnp/script-samples" title="Go to repository">
+               <div class="github-wrapper">
+                  <div class="github-icon">
+                    <img src="https://pnp.github.io/script-samples/assets/icons/github-light-64px.png" alt="GitHub Icon Image">
+                  </div>
+                  <div class="github-repository">
+                    <span>GitHub</span>
+                    <ul class="github-facts">
+                      <li>
+                        <i class="fa fa-code-fork" aria-hidden="true"></i>
+                        <span class="github-forks"></span>
+                      </li>
+                      <li>
+                        <i class="fa fa-star-o" aria-hidden="true"></i>
+                        <span class="github-stars"></span>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </a>
+            </div>
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../assets/logo.svg" alt="">
+              </a>    </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <label class="glyphicon glyphicon-search" for="search-query"></label>
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>      </header>
+      <div role="main" class="container body-content hide-when-search">
+        <div class="article row grid">
+          <div class="col-md-12">
+            <article class="content wrap" id="_content" data-uid="">
+                  <div class="contribution-panel mobile-hide pull-right">
+                      <a href="https://github.com/pnp/script-samples/blob/main/scripts/teams-archive-inactive-teams/README.md/#L1" title="Improve this Doc" class="improve-doc-lg"><i class="glyphicon glyphicon-pencil"></i></a>
+                  </div>
+                    <h1 id="archive-inactive-teams">Archive inactive Teams</h1>
+
+<h2 id="summary">Summary</h2>
+<p>This function, Archive-PnPInactiveTeams, gets a list of all the inactive Teams, based on the given number of days and archives them one by one.</p>
+<p><img src="assets/example.png" alt="Example Screenshot"></p>
+<h2 id="implementation">Implementation</h2>
+<p>Save this script to a PSM1 module file, like <code>archive-inactiveTeams.psm1</code>. Then import the module file with Import-Module:</p>
+<pre><code class="lang-powershell">
+Import-Module archive-inactiveTeams.psm1 -Verbose
+
+</code></pre>
+<p>The -Verbose switch lists the functions that are imported.</p>
+<p>Once the module is imported the function <code>Archive-PnPInactiveTeams</code> will be loaded and ready to use.</p>
+<div class="tabGroup" id="tabgroup_CeZOj-G++Q">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_CeZOj-G++Q_ps" role="tab" aria-controls="tabpanel_CeZOj-G++Q_ps" data-tab="ps" tabindex="0" aria-selected="true">PowerShell</a>
+</li>
+</ul>
+<section id="tabpanel_CeZOj-G++Q_ps" role="tabpanel" data-tab="ps"><button class="article-clipboard" title="Copy to clipboard" data-toggle="tooltip" data-placement="top" data-clipboard-target="section[id^='tabpanel'][data-tab='ps'] pre">
+    <span class="glyphicon glyphicon-copy" aria-hidden="true"></span>
+    <span class="article-clipboard__message done">Copied</span>
+</button>
+
+<pre><code class="lang-powershell">
+&lt;# Script to archive inactive Teams
+Author: Nico De Cleyre - @nicodecleyre
+Blog: https://www.nicodecleyre.com
+v1.0 - 8/6/2023
+
+#&gt;
+Function Archive-PnPInactiveTeams {
+&lt;#
+.SYNOPSIS
+Script to archive the inactive Teams
+
+.Description
+By inputting a designated timeframe for inactivity, the script automatically identifies Teams that have remained dormant beyond the specified period. These Teams are then archived
+
+This solution requires an Azure App registration with the following permissions:
+- Reports.Read.All
+- TeamSettings.ReadWrite.All
+
+.Parameter tenandId
+The ID of your tenant
+
+.PARAMETER clientId
+The ID of your Azure app registration
+
+.PARAMETER clientSecret
+The secret of your Azure app registration
+
+.PARAMETER inactiveDays
+The minimum number of days that a Team must be active in order to be archived otherwise. Possible values: 7, 30, 90 or 180
+
+.Example 
+Archive-PnPInactiveTeams -tenandId &quot;e2d68954-d30b-4e35-af8c-3a42bd5ce587&quot; -clientId &quot;ccfd26aa-96b4-4f24-b896-274f62b0f4d9&quot; -clientSecret &quot;TiQ8Q~13OtsXZ9KId01-CB1xlX1n_nknmIzpWam-&quot; -inactiveDays 30
+
+.Example 
+Archive-PnPInactiveTeams -tenandId &quot;e2d68954-d30b-4e35-af8c-3a42bd5ce587&quot; -clientId &quot;ccfd26aa-96b4-4f24-b896-274f62b0f4d9&quot; -clientSecret &quot;TiQ8Q~13OtsXZ9KId01-CB1xlX1n_nknmIzpWam-&quot; -inactiveDays 180
+
+#&gt;    
+    [CmdletBinding()]
+    param (
+        [Parameter(Mandatory = $true)]
+        $tenantId,
+        [Parameter(Mandatory = $true)]
+        $clientId,
+        [Parameter(Mandatory = $true)]
+        $clientSecret,
+        [Parameter(Mandatory = $true, ValueFromPipeline = $true)]
+        [ValidateSet(&quot;7&quot;,&quot;30&quot;,&quot;90&quot;,&quot;180&quot;)]
+        $inactiveDays
+    )
+    
+    begin {
+        #Log in to Microsoft Graph
+        Write-Host &quot;Connecting to Microsoft Graph&quot; -f Yellow
+
+        $uri = &quot;https://login.microsoftonline.com/$tenantId/oauth2/v2.0/token&quot;
+
+        $body = @{
+            client_id = $clientId
+            client_secret = $clientSecret
+            grant_type = &quot;client_credentials&quot;
+            scope = &quot;https://graph.microsoft.com/.default&quot;
+        }
+
+        $response = invoke-restMethod -Uri $uri -method Post -body $body
+        $accessToken = $response.access_token
+    }
+    
+    process {
+        $today = Get-Date
+        # Get the Teams Team activity detail
+        $inactiveTeamsUri = &quot;https://graph.microsoft.com/v1.0/reports/getTeamsTeamActivityDetail(period='D$inactiveDays')&quot;
+
+        $inactiveTeamsHeader = @{
+            Authorization = &quot;Bearer $accessToken&quot;
+        }
+
+        $inactiveTeamsResponse = invoke-restMethod -Uri $inactiveTeamsUri -method Get -Headers $inactiveTeamsHeader
+
+        $teams = $inactiveTeamsResponse | ConvertFrom-Csv | where {$_.'Last Activity Date' -ne &quot;&quot;}
+
+        foreach($team in $teams){
+            $lastActivityDate = $team.'Last Activity Date'
+            $timeSpan = New-TimeSpan -Start $lastActivityDate -End $today
+            if($timeSpan.Days -gt $inactiveDays){
+                $teamId = $team.'Team Id'
+                $teamName = $team.'Team Name'
+                Write-Host &quot;Team $teamName ($teamId) is inactive since $($timeSpan.Days) days&quot; -f DarkYellow
+                
+                $archiveTeamUri = &quot;https://graph.microsoft.com/v1.0/teams/$teamId/archive&quot;
+                invoke-restMethod -Uri $archiveTeamUri -method Post -Headers $inactiveTeamsHeader
+                Write-Host &quot;Team $teamName ($teamId) is archived&quot; -f Green
+            }
+        }
+    }
+    
+    end {
+        
+    }
+}
+
+</code></pre>
+<h2 id="contributors">Contributors</h2>
+<table>
+<thead>
+<tr>
+<th>Author(s)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="https://www.nicodecleyre.com">Nico De Cleyre</a></td>
+</tr>
+</tbody>
+</table>
+<h2 id="disclaimer">Disclaimer</h2>
+<p><strong>THESE SAMPLES ARE PROVIDED <em>AS IS</em> WITHOUT WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, INCLUDING ANY IMPLIED WARRANTIES OF FITNESS FOR A PARTICULAR PURPOSE, MERCHANTABILITY, OR NON-INFRINGEMENT.</strong></p>
+<img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/teams-archive-inactive-teams" aria-hidden="true">
+</section>
+</div>
+</article>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            <span>Script Samples<br>Generated by <strong><a href='https://dotnet.github.io/docfx' alt='Doc FX Website'>DocFX</a></strong> with <strong><a href='https://ovasquez.github.io/docfx-material' alt='DocFx Material Theme'>Material UI</a></strong></span>
+            
+            <!-- <img src="https://telemetry.sharepointpnp.com/@pnp.github.io/index/" alt="spacer"> -->
+          </div>
+        </div>
+      </footer>    </div>
+    
+    <script type="text/javascript" src="../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+    
+    <script type="text/javascript" src="../styles/clipboard.min.js"></script>
+    <script type="text/javascript" src="../styles/isotope.pkgd.min.js"></script>
+    <script type="text/javascript" src="../styles/loadsamples.js"></script>
+    <script type="text/javascript" src="../styles/filtersamples.js"></script>
+
+  </body>
+</html>
