@@ -6,18 +6,20 @@ plugin: add-to-gallery
 
 ## Summary
 
-This function, Archive-PnPInactiveTeams, gets a list of all the inactive Teams, based on the given number of days and archives them one by one.
+This function, `Archive-PnPInactiveTeams`, gets a list of all the inactive Teams, based on the given number of days and archives them one by one.
 
 ![Example Screenshot](assets/example.png)
 
 ## Implementation
-Save this script to a PSM1 module file, like `archive-inactiveTeams.psm1`. Then import the module file with Import-Module:
+
+Save this script to a PSM1 module file, like `archive-inactiveTeams.psm1`. Then import the module file with `Import-Module`:
+
 ```powershell
 
 Import-Module archive-inactiveTeams.psm1 -Verbose
 
 ```
-The -Verbose switch lists the functions that are imported.
+The `-Verbose` switch lists the functions that are imported.
 
 Once the module is imported the function `Archive-PnPInactiveTeams` will be loaded and ready to use.
 
@@ -105,7 +107,7 @@ Archive-PnPInactiveTeams -tenandId "XXXXXX" -clientId "XXXXXX" -clientSecret "XX
 
         $teams = $inactiveTeamsResponse | ConvertFrom-Csv | where {$_.'Last Activity Date' -ne ""}
 
-        foreach($team in $teams){
+        foreach($team in $teams) {
             $lastActivityDate = $team.'Last Activity Date'
             $timeSpan = New-TimeSpan -Start $lastActivityDate -End $today
             if($timeSpan.Days -gt $inactiveDays){

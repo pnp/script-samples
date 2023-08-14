@@ -2,7 +2,7 @@
 plugin: add-to-gallery
 ---
 
-# Get Storage site Version Recycle Bin
+# Get Storage site version Recycle Bin
 
 ## Summary
 
@@ -12,14 +12,16 @@ This sample script may help to get a breakdown of storage for files, file versio
 
 - Open Windows PowerShell ISE
 - Create a new file
-- Write a script as below,
-- Update the $SiteURL, $OutputSite and $OutPutFile and optionally update $ExcludedLibraries to exclude any libraries
+- Write a script as below
+- Update the $OutputSite, $OutPutFile and optionally update $ExcludedLibraries to exclude any libraries
 
 # [PnP PowerShell](#tab/pnpps)
 
 ```powershell
+
 $SharePointAdminSiteURL = "https://contoso-admin.sharepoint.com"
 $conn = Connect-PnPOnline -Url $SharePointAdminSiteURL -Interactive
+
 # Set Variables
 $dateTime = (Get-Date).toString("dd-MM-yyyy")
 $invocation = (Get-Variable MyInvocation).Value
@@ -29,11 +31,12 @@ $OutputSite = $directorypath + $fileName
 $fileName = "\FileStorageReport-" + $dateTime + ".csv"
 $OutPutFile = $directorypath + $fileName
 
-
 $arraySite = New-Object System.Collections.ArrayList
 $arrayFile = New-Object System.Collections.ArrayList
+
 #Exclude certain libraries
 #$ExcludedLibraries = @("Form Templates", "Preservation Hold Library", "Site Assets", "Site Pages", "Images", "Pages", "Settings", "Videos", "Site Collection Documents", "Site Collection Images", "Style Library", "AppPages", "Apps for SharePoint", "Apps for Office")
+
 function ReportStorageVersions($site) {
     try {
         $fileSizes = @(); 
@@ -44,11 +47,13 @@ function ReportStorageVersions($site) {
             Write-host "Processing Document Library:" $_.Title -f Yellow
             $library = $_
             $listItems = Get-PnPListItem -List $library.Title -Fields "ID" -PageSize 1000 -Connection $siteconn
+
             #Get file zize
             $listItems | ForEach-Object {
                 $listitem = $_
                 $fileVersionSize = 0
-                $file = Get-PnPFile -Url $listitem["FileRef"] -AsFileObject -ErrorAction SilentlyContinue -Connection $siteconn  
+                $file = Get-PnPFile -Url $listitem["FileRef"] -AsFileObject -ErrorAction SilentlyContinue -Connection $siteconn 
+
                 if ($file) {
                     $fileSize += $file.Length          
                     $elementFile = "" | Select-Object SiteUrl, siteName, siteStorage, FileRef,FileSize,TotalVersionSize,VersionCount,StartTime, EndTime
@@ -59,7 +64,7 @@ function ReportStorageVersions($site) {
                     $elementFile.FileRef  =   $listitem["FileRef"]
                     $fileversions = Get-PnPFileVersion -Url $listitem["FileRef"] -Connection $siteconn
                     if ($fileversions) {
-                            # Calculate the total version size
+                        # Calculate the total version size
                         $fileVersionSize = $fileversions | Measure-Object -Property Size -Sum | Select-Object -ExpandProperty Sum                                                   
                     }
 
@@ -78,7 +83,7 @@ function ReportStorageVersions($site) {
         return $fileSizes
     }
     catch {
-        Write-Output " An exception was thrown: $($_.Exception.Message)" -ForegroundColor Red
+        Write-Output "An exception was thrown: $($_.Exception.Message)" -ForegroundColor Red
     } 
 }
 
@@ -103,8 +108,6 @@ Get-PnPTenantSite -Connection $conn | Where-Object { ($_.Template -eq "GROUP#0" 
     $element.RecycleBinSize = "$([Math]::Round(($RecycleBinItemsSize/1MB),3)) MB"
     $element.EndTime = (Get-Date).toString("dd-MM-yyyy HH:mm:ss")
 
- 
-
     $arraySite.Add($element) | Out-Null 
 }  
 
@@ -112,7 +115,9 @@ $arraySite | Export-Csv -Path $OutputSite -NoTypeInformation -Force
 $arrayFile | Export-Csv -Path $OutputFile -NoTypeInformation -Force
 
 ```
+
 [!INCLUDE [More about PnP PowerShell](../../docfx/includes/MORE-PNPPS.md)]
+
 ***
 
 ## Contributors

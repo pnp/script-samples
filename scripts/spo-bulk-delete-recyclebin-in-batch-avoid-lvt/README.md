@@ -11,13 +11,13 @@ This script performs a two-step process to manage the recycle bin items in a Sha
 Step 1: 
 - The script connects to a SharePoint Online site using PnP PowerShell. 
 - It defines a date range and retrieves recycle bin items meeting specific conditions based on a defined CSV file. 
-- The retrieved items are exported to a CSV file named "recyclebin.csv." 
+- The retrieved items are exported to a CSV file named "recyclebin.csv". 
 
 Step 2: 
 - The script connects again to the same SharePoint Online site using PnP PowerShell. 
 - It reads the "recyclebin.csv" file, which should have been manually modified to contain only the items intended for deletion. 
 - The script processes the items in batches (default batch size: 10) and deletes them from the recycle bin using SharePoint's REST API. 
-- The results of the deletion process are written to "recyclebinresults.csv." 
+- The results of the deletion process are written to "recyclebinresults.csv". 
 
 Both steps include informative messages to keep users updated on the progress and status of the operations. 
 
@@ -175,16 +175,19 @@ function Clear-RecycleBinItems {
     } 
 } 
 
-Write-Information -MessageData "Processing file $Path and purging recycle bin items in batches of $NoInBatch..." 
+Write-Information -MessageData "Processing file $Path and purging recycle bin items in batches of $NoInBatch..."
+
 Start-Processing -csvFilePath $Path -processBatchCount $NoInBatch | Export-Csv $OutputFile -NoTypeInformation
 
 ```
+
 [!INCLUDE [More about PnP PowerShell](../../docfx/includes/MORE-PNPPS.md)]
+
 ***
 
 ## Source Credit
 
-Sample first appeared on https://pnp.github.io/script-samples/bulk-restore-from-recyclebin
+Sample first appeared on [Restore large amount of items from SharePoint Recycle bin in bulk](https://pnp.github.io/script-samples/bulk-restore-from-recyclebin/README.html)
 
 ## Contributors
 
