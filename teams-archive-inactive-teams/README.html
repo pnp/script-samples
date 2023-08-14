@@ -99,15 +99,15 @@
                     <h1 id="archive-inactive-teams">Archive inactive Teams</h1>
 
 <h2 id="summary">Summary</h2>
-<p>This function, Archive-PnPInactiveTeams, gets a list of all the inactive Teams, based on the given number of days and archives them one by one.</p>
+<p>This function, <code>Archive-PnPInactiveTeams</code>, gets a list of all the inactive Teams, based on the given number of days and archives them one by one.</p>
 <p><img src="assets/example.png" alt="Example Screenshot"></p>
 <h2 id="implementation">Implementation</h2>
-<p>Save this script to a PSM1 module file, like <code>archive-inactiveTeams.psm1</code>. Then import the module file with Import-Module:</p>
+<p>Save this script to a PSM1 module file, like <code>archive-inactiveTeams.psm1</code>. Then import the module file with <code>Import-Module</code>:</p>
 <pre><code class="lang-powershell">
 Import-Module archive-inactiveTeams.psm1 -Verbose
 
 </code></pre>
-<p>The -Verbose switch lists the functions that are imported.</p>
+<p>The <code>-Verbose</code> switch lists the functions that are imported.</p>
 <p>Once the module is imported the function <code>Archive-PnPInactiveTeams</code> will be loaded and ready to use.</p>
 <div class="tabGroup" id="tabgroup_CeZOj-G++Q">
 <ul role="tablist">
@@ -201,7 +201,7 @@ Archive-PnPInactiveTeams -tenandId &quot;XXXXXX&quot; -clientId &quot;XXXXXX&quo
 
         $teams = $inactiveTeamsResponse | ConvertFrom-Csv | where {$_.'Last Activity Date' -ne &quot;&quot;}
 
-        foreach($team in $teams){
+        foreach($team in $teams) {
             $lastActivityDate = $team.'Last Activity Date'
             $timeSpan = New-TimeSpan -Start $lastActivityDate -End $today
             if($timeSpan.Days -gt $inactiveDays){

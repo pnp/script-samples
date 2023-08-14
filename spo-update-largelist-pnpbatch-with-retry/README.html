@@ -111,53 +111,56 @@
     <span class="article-clipboard__message done">Copied</span>
 </button>
 
-<pre><code class="lang-PowerShell">$siteUrl = &quot;https://contoso.sharepoint.com/teams/app-test&quot;
-##azure function #Sharepoint App
-Connect-PnPOnline –Url $siteUrl -interactive
-function UpdateType($TypeColumn,$list){
-do {
-try {
-$StopLoop = $false
-$batch = New-PnPBatch
-$index = 1; 
-$itemId = 0; 
-$listItems = Get-PnPListItem -List $list  -PageSize 500 | Where {$_.FieldValues.$TypeColumn -ne $null }
-$totalCount =  $listItems.Count
+<pre><code class="lang-PowerShell">
+$siteUrl = &quot;https://contoso.sharepoint.com/teams/app-test&quot;
 
-$listItems| ForEach-Object {
-    $itemId = $_.Id
-   Set-PnPListItem -List $list -Identity $_.Id -Values @{$TypeColumn = $null;} -UpdateType SystemUpdate -Batch $batch
+Connect-PnPOnline –Url $siteUrl -Interactive
 
-if($index % 100 -eq 0 -or $index -eq $listItems.Count){
-  write-host &quot;Updating batch starting $index out of $totalCount on library $list&quot;
-  Invoke-PnPBatch $batch
-  $batch = New-PnPBatch
-}
-  $index+=1;
-}
+function UpdateType ($TypeColumn, $list) {
+  do {
+    try {
+      $StopLoop = $false
+      $batch = New-PnPBatch
+      $index = 1; 
+      $itemId = 0; 
+      $listItems = Get-PnPListItem -List $list  -PageSize 500 | Where {$_.FieldValues.$TypeColumn -ne $null }
+      $totalCount =  $listItems.Count
 
-Write-Host &quot;Job completed&quot;
-$Stoploop = $true
-}
-catch {
-if ($Retrycount -gt 3){
-Write-Host &quot;Could not send Information after 3 retrys.$itemId after number of item  processed $index&quot;
-$Stoploop = $true
-}
-else {
-  Write-Host &quot;Could not send Information retrying in 30 seconds...{$itemId} after number of item  processed {$index}&quot;
-  Start-Sleep -Seconds 30
-  Connect-PnPOnline –Url $siteUrl -interactive
-  $Retrycount = $Retrycount + 1
+      $listItems| ForEach-Object {
+        $itemId = $_.Id
+        Set-PnPListItem -List $list -Identity $_.Id -Values @{$TypeColumn = $null;} -UpdateType SystemUpdate -Batch $batch
+
+        if ($index % 100 -eq 0 -or $index -eq $listItems.Count) {
+          write-host &quot;Updating batch starting $index out of $totalCount on library $list&quot;
+          Invoke-PnPBatch $batch
+          $batch = New-PnPBatch
+        }
+        $index+=1;
+      }
+
+      Write-Host &quot;Job completed&quot;
+      $Stoploop = $true
+    }
+    catch {
+      if ($Retrycount -gt 3) {
+        Write-Host &quot;Could not send Information after 3 retrys.$itemId after number of item  processed $index&quot;
+        $Stoploop = $true
+      }
+      else {
+        Write-Host &quot;Could not send Information retrying in 30 seconds...{$itemId} after number of item  processed {$index}&quot;
+        Start-Sleep -Seconds 30
+        Connect-PnPOnline –Url $siteUrl -interactive
+        $Retrycount = $Retrycount + 1
+      }
+    }
   }
-}
-}
-While ($Stoploop -eq $false)
+  While ($Stoploop -eq $false)
 
-write-host $(&quot;End time &quot; + (Get-Date) + &quot; Updating column: &quot; +  $TypeColumn + &quot;from list &quot; + $listName )
+  write-host $(&quot;End time &quot; + (Get-Date) + &quot; Updating column: &quot; +  $TypeColumn + &quot;from list &quot; + $listName )
 }
 
 UpdateType &quot;Type&quot; &quot;List1&quot; 
+
 </code></pre>
 <div class="highlight-tool">
 <p>Check out the <strong>PnP PowerShell</strong> to learn more at: <a href="https://aka.ms/pnp/powershell">https://aka.ms/pnp/powershell</a></p>

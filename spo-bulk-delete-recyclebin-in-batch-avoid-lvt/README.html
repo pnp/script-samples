@@ -104,14 +104,14 @@
 <ul>
 <li>The script connects to a SharePoint Online site using PnP PowerShell.</li>
 <li>It defines a date range and retrieves recycle bin items meeting specific conditions based on a defined CSV file.</li>
-<li>The retrieved items are exported to a CSV file named &quot;recyclebin.csv.&quot;</li>
+<li>The retrieved items are exported to a CSV file named &quot;recyclebin.csv&quot;.</li>
 </ul>
 <p>Step 2:</p>
 <ul>
 <li>The script connects again to the same SharePoint Online site using PnP PowerShell.</li>
 <li>It reads the &quot;recyclebin.csv&quot; file, which should have been manually modified to contain only the items intended for deletion.</li>
 <li>The script processes the items in batches (default batch size: 10) and deletes them from the recycle bin using SharePoint's REST API.</li>
-<li>The results of the deletion process are written to &quot;recyclebinresults.csv.&quot;</li>
+<li>The results of the deletion process are written to &quot;recyclebinresults.csv&quot;.</li>
 </ul>
 <p>Both steps include informative messages to keep users updated on the progress and status of the operations.</p>
 <div class="NOTE">
@@ -279,7 +279,8 @@ function Clear-RecycleBinItems {
     } 
 } 
 
-Write-Information -MessageData &quot;Processing file $Path and purging recycle bin items in batches of $NoInBatch...&quot; 
+Write-Information -MessageData &quot;Processing file $Path and purging recycle bin items in batches of $NoInBatch...&quot;
+
 Start-Processing -csvFilePath $Path -processBatchCount $NoInBatch | Export-Csv $OutputFile -NoTypeInformation
 
 </code></pre>
@@ -289,7 +290,7 @@ Start-Processing -csvFilePath $Path -processBatchCount $NoInBatch | Export-Csv $
 </section>
 </div>
 <h2 id="source-credit">Source Credit</h2>
-<p>Sample first appeared on <a href="https://pnp.github.io/script-samples/bulk-restore-from-recyclebin">https://pnp.github.io/script-samples/bulk-restore-from-recyclebin</a></p>
+<p>Sample first appeared on <a href="https://pnp.github.io/script-samples/bulk-restore-from-recyclebin/README.html">Restore large amount of items from SharePoint Recycle bin in bulk</a></p>
 <h2 id="contributors">Contributors</h2>
 <table>
 <thead>

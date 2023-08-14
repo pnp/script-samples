@@ -4,15 +4,15 @@
   
   <head>
     <meta charset="utf-8">
-    <title>Get Storage site Version Recycle Bin | PnP Samples </title>
+    <title>Get Storage site version Recycle Bin | PnP Samples </title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" "="">
-    <meta name="title" content="Get Storage site Version Recycle Bin | PnP Samples ">
+    <meta name="title" content="Get Storage site version Recycle Bin | PnP Samples ">
     <meta name="generator" content="docfx 2.56.7.0">
     <meta name="description" content="A sample gallery of scripts to manage all things Microsoft 365.">
   
     <!-- Social Media -->
     <meta property="og:locale" content="en_GB">
-    <meta property="og:title" content="Get Storage site Version Recycle Bin | PnP Samples ">
+    <meta property="og:title" content="Get Storage site version Recycle Bin | PnP Samples ">
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://pnp.github.io/script-samples">
     <meta property="og:image" content="https://pnp.github.io/script-samples/assets/social-media-screenshot.png">
@@ -96,7 +96,7 @@
                   <div class="contribution-panel mobile-hide pull-right">
                       <a href="https://github.com/pnp/script-samples/blob/main/scripts/spo-get-storage-site-versionsrecyclebin/README.md/#L1" title="Improve this Doc" class="improve-doc-lg"><i class="glyphicon glyphicon-pencil"></i></a>
                   </div>
-                    <h1 id="get-storage-site-version-recycle-bin">Get Storage site Version Recycle Bin</h1>
+                    <h1 id="get-storage-site-version-recycle-bin">Get Storage site version Recycle Bin</h1>
 
 <h2 id="summary">Summary</h2>
 <p>This sample script may help to get a breakdown of storage for files, file versions and recycle bin. I failed to reconcile the site current usage with the total of file size, total file version size and recycle bin size but may help to get insights on storage usage despite I could not explain 30% of storage allocated. In the sample output, a total of around 15 MB was identified to be comprised of total file size, total version size and recycle bin size and could not identify the remaining 6MB.</p>
@@ -104,8 +104,8 @@
 <ul>
 <li>Open Windows PowerShell ISE</li>
 <li>Create a new file</li>
-<li>Write a script as below,</li>
-<li>Update the $SiteURL, $OutputSite and $OutPutFile and optionally update $ExcludedLibraries to exclude any libraries</li>
+<li>Write a script as below</li>
+<li>Update the $OutputSite, $OutPutFile and optionally update $ExcludedLibraries to exclude any libraries</li>
 </ul>
 <div class="tabGroup" id="tabgroup_CeZOj-G++Q">
 <ul role="tablist">
@@ -118,8 +118,10 @@
     <span class="article-clipboard__message done">Copied</span>
 </button>
 
-<pre><code class="lang-powershell">$SharePointAdminSiteURL = &quot;https://contoso-admin.sharepoint.com&quot;
+<pre><code class="lang-powershell">
+$SharePointAdminSiteURL = &quot;https://contoso-admin.sharepoint.com&quot;
 $conn = Connect-PnPOnline -Url $SharePointAdminSiteURL -Interactive
+
 # Set Variables
 $dateTime = (Get-Date).toString(&quot;dd-MM-yyyy&quot;)
 $invocation = (Get-Variable MyInvocation).Value
@@ -129,11 +131,12 @@ $OutputSite = $directorypath + $fileName
 $fileName = &quot;\FileStorageReport-&quot; + $dateTime + &quot;.csv&quot;
 $OutPutFile = $directorypath + $fileName
 
-
 $arraySite = New-Object System.Collections.ArrayList
 $arrayFile = New-Object System.Collections.ArrayList
+
 #Exclude certain libraries
 #$ExcludedLibraries = @(&quot;Form Templates&quot;, &quot;Preservation Hold Library&quot;, &quot;Site Assets&quot;, &quot;Site Pages&quot;, &quot;Images&quot;, &quot;Pages&quot;, &quot;Settings&quot;, &quot;Videos&quot;, &quot;Site Collection Documents&quot;, &quot;Site Collection Images&quot;, &quot;Style Library&quot;, &quot;AppPages&quot;, &quot;Apps for SharePoint&quot;, &quot;Apps for Office&quot;)
+
 function ReportStorageVersions($site) {
     try {
         $fileSizes = @(); 
@@ -144,11 +147,13 @@ function ReportStorageVersions($site) {
             Write-host &quot;Processing Document Library:&quot; $_.Title -f Yellow
             $library = $_
             $listItems = Get-PnPListItem -List $library.Title -Fields &quot;ID&quot; -PageSize 1000 -Connection $siteconn
+
             #Get file zize
             $listItems | ForEach-Object {
                 $listitem = $_
                 $fileVersionSize = 0
-                $file = Get-PnPFile -Url $listitem[&quot;FileRef&quot;] -AsFileObject -ErrorAction SilentlyContinue -Connection $siteconn  
+                $file = Get-PnPFile -Url $listitem[&quot;FileRef&quot;] -AsFileObject -ErrorAction SilentlyContinue -Connection $siteconn 
+
                 if ($file) {
                     $fileSize += $file.Length          
                     $elementFile = &quot;&quot; | Select-Object SiteUrl, siteName, siteStorage, FileRef,FileSize,TotalVersionSize,VersionCount,StartTime, EndTime
@@ -159,7 +164,7 @@ function ReportStorageVersions($site) {
                     $elementFile.FileRef  =   $listitem[&quot;FileRef&quot;]
                     $fileversions = Get-PnPFileVersion -Url $listitem[&quot;FileRef&quot;] -Connection $siteconn
                     if ($fileversions) {
-                            # Calculate the total version size
+                        # Calculate the total version size
                         $fileVersionSize = $fileversions | Measure-Object -Property Size -Sum | Select-Object -ExpandProperty Sum                                                   
                     }
 
@@ -178,7 +183,7 @@ function ReportStorageVersions($site) {
         return $fileSizes
     }
     catch {
-        Write-Output &quot; An exception was thrown: $($_.Exception.Message)&quot; -ForegroundColor Red
+        Write-Output &quot;An exception was thrown: $($_.Exception.Message)&quot; -ForegroundColor Red
     } 
 }
 
@@ -202,8 +207,6 @@ Get-PnPTenantSite -Connection $conn | Where-Object { ($_.Template -eq &quot;GROU
     $RecycleBinItemsSize = Get-PnPRecycleBinItem -Connection $siteconn | Measure-Object -Property Size -Sum | Select-Object -ExpandProperty Sum
     $element.RecycleBinSize = &quot;$([Math]::Round(($RecycleBinItemsSize/1MB),3)) MB&quot;
     $element.EndTime = (Get-Date).toString(&quot;dd-MM-yyyy HH:mm:ss&quot;)
-
- 
 
     $arraySite.Add($element) | Out-Null 
 }  
