@@ -103,10 +103,140 @@
 <div class="tabGroup" id="tabgroup_CeZOj-G++Q">
 <ul role="tablist">
 <li role="presentation">
-<a href="#tabpanel_CeZOj-G++Q_cli-m365-ps" role="tab" aria-controls="tabpanel_CeZOj-G++Q_cli-m365-ps" data-tab="cli-m365-ps" tabindex="0" aria-selected="true">CLI for Microsoft 365</a>
+<a href="#tabpanel_CeZOj-G++Q_pnpps" role="tab" aria-controls="tabpanel_CeZOj-G++Q_pnpps" data-tab="pnpps" tabindex="0" aria-selected="true">PnP PowerShell</a>
+</li>
+<li role="presentation">
+<a href="#tabpanel_CeZOj-G++Q_cli-m365-ps" role="tab" aria-controls="tabpanel_CeZOj-G++Q_cli-m365-ps" data-tab="cli-m365-ps" tabindex="-1">CLI for Microsoft 365</a>
 </li>
 </ul>
-<section id="tabpanel_CeZOj-G++Q_cli-m365-ps" role="tabpanel" data-tab="cli-m365-ps"><button class="article-clipboard" title="Copy to clipboard" data-toggle="tooltip" data-placement="top" data-clipboard-target="section[id^='tabpanel'][data-tab='cli-m365-ps'] pre">
+<section id="tabpanel_CeZOj-G++Q_pnpps" role="tabpanel" data-tab="pnpps"><button class="article-clipboard" title="Copy to clipboard" data-toggle="tooltip" data-placement="top" data-clipboard-target="section[id^='tabpanel'][data-tab='pnpps'] pre">
+    <span class="glyphicon glyphicon-copy" aria-hidden="true"></span>
+    <span class="article-clipboard__message done">Copied</span>
+</button>
+
+<pre><code class="lang-powershell">$SPBaseTemplates = @{ 100 = 'GenericList'; 101 = 'DocumentLibrary'; 102 = 'Survey'; 103 = 'Links'; 104 = 'Announcements'; 105 = 'Contacts'; 106 = 'Events'; 107 = 'Tasks'; 108 = 'DiscussionBoard'; 109 = 'PictureLibrary'; 110 = 'DataSources'; 118 = 'WorkflowProcess'; 120 = 'CustomGrid'; 140 = 'WorkflowHistory'; 1100 = 'IssuesTracking'; 119 = 'WebPageLibrary' }
+$DraftVersionVisibilityList = @{ 0 = 'Reader'; 1 = 'Author'; 2 = 'Approver'; }
+$ReadSecurityList = @{ 1 = 'AllUsersReadAccess'; 2 = 'AllUsersReadAccessOnItemsTheyCreate'; }
+$WriteSecurityList = @{ 1 = 'WriteAllItems'; 2 = 'WriteOnlyMyItems'; 3 = 'WriteNoItems' }
+$RoleDefinitionBindingsList = @{ 1073741826 = 'Full Control'; 1073741827 = 'Design'; 1073741828 = 'Edit'; 1073741829 = 'Contribute'; 1073741830 = 'Read' }
+$listTitle = &quot;&lt;ListTitle&gt;&quot;
+$sourceWeb = &quot;&lt;SourceSiteUrl&gt;&quot;
+$destinationWeb = &quot;&lt;DestintionSiteUrl&gt;&quot;
+
+Write-host &quot;Ensure logged in&quot;
+try {
+    $context = Get-PnPContext
+    if ($context -eq $null) {
+        throw &quot;No PnP context found.&quot;
+    }
+    Write-Host &quot;PnP context found.&quot;
+}
+catch {
+    Connect-PnPOnline -Url $sourceWeb -Interactive
+}
+
+Write-Host &quot;Get list settings, views, fields and Check if list has unique permissions&quot;
+$sourceListSettings = Get-PnPList -Identity $listTitle -Includes RoleAssignments, Fields, Views, BaseTemplate, DraftVersionVisibility
+$sourceListViews = $sourceListSettings.Views
+$sourceListColumns = $sourceListSettings.Fields
+$sourceListPermissions = $sourceListSettings.RoleAssignments
+
+#AllUsersReadAccess, AllUsersReadAccessOnItemsTheyCreate
+$sourceListSettings.ReadSecurity = &quot;AllUsersReadAccess&quot;
+
+
+# Switch context to destination web
+Connect-PnPOnline -Url $destinationWeb -Interactive
+
+Write-Host &quot;Translate template number to name&quot;
+$baseTemplate = $SPBaseTemplates[$sourceListSettings.BaseTemplate]
+
+Write-Host &quot;Create new list&quot;
+New-PnPList -Title $sourceListSettings.Title -Template $baseTemplate -OnQuickLaunch
+
+Write-Host &quot;Set other list settings&quot;
+# Note: You will need to map all other properties from the source list to the appropriate parameters for Set-PnPList
+Set-PnPList `
+-Identity $sourceListSettings.Title `
+-Description $sourceListSettings.Description `
+-EnableAttachments $sourceListSettings.EnableAttachments `
+-EnableContentTypes $sourceListSettings.AllowContentTypes `
+-EnableFolderCreation $sourceListSettings.EnableFolderCreation `
+-EnableMinorVersions $sourceListSettings.EnableMinorVersions `
+-EnableModeration $sourceListSettings.EnableModeration `
+-DraftVersionVisibility $sourceListSettings.DraftVersionVisibility `
+-EnableVersioning $sourceListSettings.EnableVersioning `
+-ForceCheckout $sourceListSettings.ForceCheckout `
+-Hidden $sourceListSettings.Hidden `
+-ListExperience $sourceListSettings.ListExperienceOptions `
+-MajorVersions $sourceListSettings.MajorVersionLimit `
+-MinorVersions $sourceListSettings.MajorWithMinorVersionsLimit `
+-ReadSecurity $ReadSecurityList[1] `
+-WriteSecurity $WriteSecurityList[1] `
+-NoCrawl `
+-DisableGridEditing $sourceListSettings.DisableGridEditing
+
+
+# Permissions are not copied by default, so we need to check if the source list has unique permissions and if so, copy them to the destination list
+if ($sourceListSettings.HasUniqueRoleAssignments) {
+    Write-Host &quot;Set unique permissions&quot;
+    
+    # Break role inheritance without copying existing permissions
+    Set-PnPList -Identity $sourceListSettings.Title -BreakRoleInheritance $true -CopyRoleAssignments $false
+    
+    # Retrieve all role definitions for the site
+    $RoleDefinitionBindingsList = Get-PnPRoleDefinition | Select-Object -Property Id, Name
+    
+    # Create a hashtable mapping role definition names to their IDs for easy lookup
+    $roleMap = @{}
+    foreach ($role in $RoleDefinitionBindingsList) {
+        $roleMap[$role.Name] = $role.Id
+    }
+    
+    foreach ($roleAssignment in $sourceListPermissions) {
+        $member = $roleAssignment | Select-Object -ExpandProperty Member
+        
+        # Assuming the role assignment has a single role definition. If there are multiple, this needs to be adjusted.
+        $roleName = $roleAssignment.RoleDefinitionBindings[0].Name
+        
+        if ($roleMap.ContainsKey($roleName)) {
+            Set-PnPListPermission -Identity $sourceListSettings.Title -User $Member.LoginName -AddRole $roleName
+        } else {
+            Write-Host &quot;Role $roleName not found in destination site.&quot; -ForegroundColor Yellow
+        }
+    }
+}
+
+
+Write-Host &quot;Add columns&quot;
+$destinationListColumns = Get-PnPField -List $sourceListSettings.Title
+foreach ($column in $sourceListColumns) {
+    $fnd = $destinationListColumns | Where-Object { $_.InternalName -eq $column.InternalName }
+    if (-not $fnd) {
+        Add-PnPFieldFromXml -List $sourceListSettings.Title -FieldXml $column.SchemaXml
+    }
+}
+
+
+Write-Host &quot;Add views&quot;
+foreach ($view in $sourceListViews) {
+    $schema = [xml]$view.HtmlSchemaXml
+    $fields = $schema.View.ViewFields.FieldRef.Name
+    
+    $viewQuery = $view.ViewQuery.replace('&quot;', &quot;'&quot;)
+    if (-not $viewQuery) {
+        Add-PnPView -List $sourceListSettings.Title -Title $view.Title -Fields $fields | Out-Null
+    } else {
+        Add-PnPView -List $sourceListSettings.Title -Title $view.Title -Fields $fields -Query $viewQuery | Out-Null
+    }
+}
+
+</code></pre>
+<div class="highlight-tool">
+<p>Check out the <strong>PnP PowerShell</strong> to learn more at: <a href="https://aka.ms/pnp/powershell">https://aka.ms/pnp/powershell</a></p>
+</div>
+</section>
+<section id="tabpanel_CeZOj-G++Q_cli-m365-ps" role="tabpanel" data-tab="cli-m365-ps" aria-hidden="true" hidden="hidden"><button class="article-clipboard" title="Copy to clipboard" data-toggle="tooltip" data-placement="top" data-clipboard-target="section[id^='tabpanel'][data-tab='cli-m365-ps'] pre">
     <span class="glyphicon glyphicon-copy" aria-hidden="true"></span>
     <span class="article-clipboard__message done">Copied</span>
 </button>
@@ -232,6 +362,9 @@ foreach ($view in $sourceListViews) {
 <tbody>
 <tr>
 <td><a href="https://github.com/Adam-it">Adam Wójcik</a></td>
+</tr>
+<tr>
+<td><a href="https://github.com/ValerasNarbutas">Valeras Narbutas</a></td>
 </tr>
 </tbody>
 </table>
