@@ -6,14 +6,14 @@ plugin: add-to-gallery
 
 ## Summary
 
-With Graph SDK 2, the connection method has changed slightly.  This function will connect to either V1 or V2 via a query
+With Graph SDK 2, the connection method has changed slightly. This function will connect to either V1 or V2 via a query.
 
 
 # [Microsoft Graph PowerShell](#tab/graphps)
 
 ```powershell
 
-##Install Modules if missing
+## Install Modules if missing
 if (Get-Module -ListAvailable -Name microsoft.graph.authentication) {
     Write-Host "Microsoft Graph Authentication Module Already Installed"
 } 
@@ -26,34 +26,33 @@ else {
     }
 }
 
-##Import Module
+## Import Module
 Import-Module Microsoft.Graph.authentication
-
 
 Function Connect-ToGraph {
     <#
-.SYNOPSIS
-Authenticates to the Graph API via the Microsoft.Graph.Authentication module.
- 
-.DESCRIPTION
-The Connect-ToGraph cmdlet is a wrapper cmdlet that helps authenticate to the Intune Graph API using the Microsoft.Graph.Authentication module. It leverages an Azure AD app ID and app secret for authentication or user-based auth.
- 
-.PARAMETER Tenant
-Specifies the tenant (e.g. contoso.onmicrosoft.com) to which to authenticate.
- 
-.PARAMETER AppId
-Specifies the Azure AD app ID (GUID) for the application that will be used to authenticate.
- 
-.PARAMETER AppSecret
-Specifies the Azure AD app secret corresponding to the app ID that will be used to authenticate.
+    .SYNOPSIS
+    Authenticates to the Graph API via the Microsoft.Graph.Authentication module.
+    
+    .DESCRIPTION
+    The Connect-ToGraph cmdlet is a wrapper cmdlet that helps authenticate to the Intune Graph API using the Microsoft.Graph.Authentication module. It leverages an Azure AD app ID and app secret for authentication or user-based auth.
+    
+    .PARAMETER Tenant
+    Specifies the tenant (e.g. contoso.onmicrosoft.com) to which to authenticate.
+    
+    .PARAMETER AppId
+    Specifies the Azure AD app ID (GUID) for the application that will be used to authenticate.
+    
+    .PARAMETER AppSecret
+    Specifies the Azure AD app secret corresponding to the app ID that will be used to authenticate.
 
-.PARAMETER Scopes
-Specifies the user scopes for interactive authentication.
- 
-.EXAMPLE
-Connect-ToGraph -TenantId $tenantID -AppId $app -AppSecret $secret
- 
--#>
+    .PARAMETER Scopes
+    Specifies the user scopes for interactive authentication.
+    
+    .EXAMPLE
+    Connect-ToGraph -TenantId $tenantID -AppId $app -AppSecret $secret
+    
+    -#>
     [cmdletbinding()]
     param
     (
@@ -104,18 +103,18 @@ Connect-ToGraph -TenantId $tenantID -AppId $app -AppSecret $secret
         }
     }
 }    
-       
-```
-[!INCLUDE [More about Microsoft Graph PowerShell SDK](../../docfx/includes/MORE-GRAPHSDK.md)]
-***
 
+```
+
+[!INCLUDE [More about Microsoft Graph PowerShell SDK](../../docfx/includes/MORE-GRAPHSDK.md)]
+
+***
 
 ## Contributors
 
 | Author(s)                                            |
 |------------------------------------------------------|
 | [Andrew Taylor](https://github.com/andrew-s-taylor) |
-
 
 [!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
 <img src="https://pnptelemetry.azurewebsites.net/script-samples/scripts/graph-connect-to-graph" aria-hidden="true" />
