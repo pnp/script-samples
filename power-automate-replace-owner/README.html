@@ -1,0 +1,256 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html lang="en">
+  
+  <head>
+    <meta charset="utf-8">
+    <title>Replace owner on every flow in a tenant | PnP Samples </title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" "="">
+    <meta name="title" content="Replace owner on every flow in a tenant | PnP Samples ">
+    <meta name="generator" content="docfx 2.56.7.0">
+    <meta name="description" content="A sample gallery of scripts to manage all things Microsoft 365.">
+  
+    <!-- Social Media -->
+    <meta property="og:locale" content="en_GB">
+    <meta property="og:title" content="Replace owner on every flow in a tenant | PnP Samples ">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://pnp.github.io/script-samples">
+    <meta property="og:image" content="https://pnp.github.io/script-samples/assets/social-media-screenshot.png">
+    <meta property="og:image:alt" content="Screenshot example of the PnP Script Samples Site">
+    <meta property="og:site_name" content="PnP Script Samples">
+    <meta name="msvalidate.01" content="04EFEDA66EC42C08A1247C979E2F9ADD">
+    <meta property="og:description" content="A sample gallery of scripts to manage all things Microsoft 365.">
+  
+    <link rel="shortcut icon" href="https://c.s-microsoft.com/favicon.ico?v2">
+    <link rel="stylesheet" href="../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../styles/docfx.css">
+    <link rel="stylesheet" href="../styles/main.css">
+    <link rel="stylesheet" href="../styles/extra.css">
+    <link rel="stylesheet" href="../styles/filter.css">
+    <link rel="stylesheet" href="../styles/site.css">
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet"> 
+    <meta property="docfx:navrel" content="../toc.html">
+    <meta property="docfx:tocrel" content="../toc.html">
+    
+    
+    <meta property="docfx:newtab" content="true">
+    <script type="text/javascript">
+      (function(c,l,a,r,i,t,y){
+          c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+          t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+          y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+      })(window, document, "clarity", "script", "8j6pedl344");
+  </script>
+  </head>  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+             <div class="github-mark">
+              <a href="https://github.com/pnp/script-samples" title="Go to repository">
+               <div class="github-wrapper">
+                  <div class="github-icon">
+                    <img src="https://pnp.github.io/script-samples/assets/icons/github-light-64px.png" alt="GitHub Icon Image">
+                  </div>
+                  <div class="github-repository">
+                    <span>GitHub</span>
+                    <ul class="github-facts">
+                      <li>
+                        <i class="fa fa-code-fork" aria-hidden="true"></i>
+                        <span class="github-forks"></span>
+                      </li>
+                      <li>
+                        <i class="fa fa-star-o" aria-hidden="true"></i>
+                        <span class="github-stars"></span>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </a>
+            </div>
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../assets/logo.svg" alt="">
+              </a>    </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <label class="glyphicon glyphicon-search" for="search-query"></label>
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>      </header>
+      <div role="main" class="container body-content hide-when-search">
+        <div class="article row grid">
+          <div class="col-md-12">
+            <article class="content wrap" id="_content" data-uid="">
+                  <div class="contribution-panel mobile-hide pull-right">
+                      <a href="https://github.com/pnp/script-samples/blob/main/scripts/power-automate-replace-owner/README.md/#L1" title="Improve this Doc" class="improve-doc-lg"><i class="glyphicon glyphicon-pencil"></i></a>
+                  </div>
+                    <h1 id="replace-owner-on-every-flow-in-a-tenant">Replace owner on every flow in a tenant</h1>
+
+<h2 id="summary">Summary</h2>
+<p>The script will go through all the Power Automate flows present in the default environment or a specfic environment if provided and replace the owner on every Power Automate flow its owner of.</p>
+<p><img src="assets/example.png" alt="Example Screenshot"></p>
+<h2 id="implementation">Implementation</h2>
+<p>Save this script to a PSM1 module file, like <code>replace-flowOnwers.psm1</code>. Then import the module file with Import-Module:</p>
+<pre><code class="lang-powershell">
+Import-Module replace-flowOnwers.psm1 -Verbose
+
+</code></pre>
+<p>The -Verbose switch lists the functions that are imported.</p>
+<p>Once the module is imported the function <code>Replace-PnPOwnerInFlows</code> will be loaded and ready to use.</p>
+<div class="WARNING">
+<h5>Warning</h5>
+<p>Please be aware this script contains a command that will remove or delete an artifact, ensure you test and understand the implications of running the script.</p>
+</div>
+<div class="tabGroup" id="tabgroup_CeZOj-G++Q">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_CeZOj-G++Q_cli-m365-ps" role="tab" aria-controls="tabpanel_CeZOj-G++Q_cli-m365-ps" data-tab="cli-m365-ps" tabindex="0" aria-selected="true">CLI for Microsoft 365</a>
+</li>
+</ul>
+<section id="tabpanel_CeZOj-G++Q_cli-m365-ps" role="tabpanel" data-tab="cli-m365-ps"><button class="article-clipboard" title="Copy to clipboard" data-toggle="tooltip" data-placement="top" data-clipboard-target="section[id^='tabpanel'][data-tab='cli-m365-ps'] pre">
+    <span class="glyphicon glyphicon-copy" aria-hidden="true"></span>
+    <span class="article-clipboard__message done">Copied</span>
+</button>
+
+<pre><code class="lang-powershell">Function Replace-PnPOwnerInFlows {
+&lt;#
+.SYNOPSIS
+Script to replace an owner in all its flows
+
+.Description
+this script looks for all flows owned by a specified user and replaces them with a new owner. You can indicate whether this should happen in a certain environment. If no value is given for the environment parameter, the default environment is used. Please not that you cannot remove the original creator of a flow. In that case this script will only add the new owner
+
+.PARAMETER oldOwner
+The UPN of the old owner
+
+.PARAMETER newOwner
+The UPN of the new owner
+
+.Parameter environment
+The name of the environment. The default environment will be used if not provided
+
+.Example 
+Replace-PnPOwnerInFlows -oldOwner &quot;john.doe@contoso.com&quot; -newOwner &quot;sansa.stark@contoso.com&quot;
+
+.Example 
+Replace-PnPOwnerInFlows -oldOwner &quot;john.doe@contoso.com&quot; -newOwner &quot;sansa.stark@contoso.com&quot; -environment &quot;Default-0e943d12-6a07-4544-adaf-1e7c9ad82fa0&quot;
+
+#&gt;    
+    [CmdletBinding()]
+    param (
+        [Parameter(Mandatory = $true)]
+        $oldOwner,
+        [Parameter(Mandatory = $true)]
+        $newOwner,
+        [Parameter(Mandatory = $false)]
+        $environment
+    )
+    
+    begin {
+        #Log in to Microsoft 365
+        Write-host &quot;Ensure being logged in&quot; -f Yellow
+        $m365Status = m365 status
+        if ($m365Status -match &quot;Logged Out&quot;) {
+           m365 login
+        }
+    }
+    
+    process {
+        $oldOwnerAsUser = m365 aad user get --userName $oldOwner | ConvertFrom-Json
+        $oldOwnerPrincipalId = $oldOwnerAsUser.id
+
+        if(!$environment){
+            $defaultEnvironment = m365 pp environment get | ConvertFrom-Json
+            $environment = $defaultEnvironment.name
+        }
+
+        $flows = m365 flow list --environmentName $environment | ConvertFrom-Json
+
+        foreach($flow in $flows) {
+             $owners = m365 flow owner list --environmentName $environment --flowName $($flow.name) | ConvertFrom-Json
+             foreach($owner in $owners){
+                if($owner.properties.principal.id -eq $oldOwnerPrincipalId){
+                    Write-Host &quot;$oldOwner found as owner in flow with name '$($flow.displayName)'&quot; -f DarkYellow
+                    if($owner.properties.roleName -eq &quot;Owner&quot;){
+                        Write-Host &quot;You cannot replace the original creator of a flow. Script continues to just add the new owner&quot; -f Gray
+                    } else {
+                        m365 flow owner remove --userId $oldOwnerPrincipalId --environmentName $environment --flowName $($flow.name) --confirm
+                        Write-Host &quot;Old owner '$oldOwner' successfully remove from the flow '$($flow.displayName)'&quot; -f Green
+                    }
+
+                    m365 flow owner ensure --userName $newOwner --environmentName $environment --flowName $($flow.name) --roleName &quot;CanEdit&quot;
+                    
+                    Write-Host &quot;New owner '$newOwner' successfully added to the flow '$($flow.displayName)'&quot; -f Green
+                }
+             }
+        }
+    }
+    
+    end {
+        
+    }
+}
+</code></pre>
+<div class="highlight-tool">
+<p>Check out the <strong>CLI for Microsoft 365</strong> to learn more at: <a href="https://aka.ms/cli-m365">https://aka.ms/cli-m365</a></p>
+</div>
+</section>
+</div>
+<h2 id="contributors">Contributors</h2>
+<table>
+<thead>
+<tr>
+<th>Author(s)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="https://www.nicodecleyre.com">Nico De Cleyre</a></td>
+</tr>
+</tbody>
+</table>
+<h2 id="disclaimer">Disclaimer</h2>
+<p><strong>THESE SAMPLES ARE PROVIDED <em>AS IS</em> WITHOUT WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, INCLUDING ANY IMPLIED WARRANTIES OF FITNESS FOR A PARTICULAR PURPOSE, MERCHANTABILITY, OR NON-INFRINGEMENT.</strong></p>
+<img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/power-automate-replace-owner" aria-hidden="true">
+</article>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            <span>Script Samples<br>Generated by <strong><a href='https://dotnet.github.io/docfx' alt='Doc FX Website'>DocFX</a></strong> with <strong><a href='https://ovasquez.github.io/docfx-material' alt='DocFx Material Theme'>Material UI</a></strong></span>
+            
+            <!-- <img src="https://telemetry.sharepointpnp.com/@pnp.github.io/index/" alt="spacer"> -->
+          </div>
+        </div>
+      </footer>    </div>
+    
+    <script type="text/javascript" src="../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+    
+    <script type="text/javascript" src="../styles/clipboard.min.js"></script>
+    <script type="text/javascript" src="../styles/isotope.pkgd.min.js"></script>
+    <script type="text/javascript" src="../styles/loadsamples.js"></script>
+    <script type="text/javascript" src="../styles/filtersamples.js"></script>
+
+  </body>
+</html>
