@@ -10,7 +10,7 @@ The purpose of this script is to crete an overview: The total amount of SharePoi
 
 ## Implementation
 
-- Open VS Code or similar editor , ensure you are using POwerShell 7.2 or above
+- Open VS Code or similar editor , ensure you are using PowerShell 7.2 or above
 - Create a new file
 - Write a script as below,
 - Change the variables to target to your environment, site, document library, document path, max count
@@ -24,18 +24,21 @@ The purpose of this script is to crete an overview: The total amount of SharePoi
 ```powershell
 
 
+
+
 #The purpose of this script is to crete an overview: The total amount of SharePoint Storage used by this Site Collection, and how much could be saved by trimming the versions
 
 #Set Variables
-$SharePointAdminSiteURL = "https://[Your tenant]-admin.sharepoint.com"
+$SharePointAdminSiteURL = "https://[tenant]-admin.sharepoint.com"
 $outputPath = "C:\temp\versiontrimmer\" 
 
 $reducedNumberOfVersions = 1
-#Get Credentials to connect
-if(-not $Cred)
-{
-    $Cred = Get-Credential
-}
+$UsingIntractive = $false
+$UsingCertificate = $true
+$clientID = "clientID"
+$tenantId = "[tenant].onmicrosoft.com"
+$certificatePassword = "pw"
+$certificatePath = "C:\Users\[you]\[centname].pfx"
 
 function HandleWeb ($site, $web, $root)
 {
@@ -164,10 +167,18 @@ function Get-SiteCollections
     # this function is just a way to get the site collections that are in scope for the check
 
     $output = ""
-    $conn = Connect-PnPOnline -Url $SharePointAdminSiteURL -Credentials $Cred -ReturnConnection
+    #$conn = Connect-PnPOnline -Url $SharePointAdminSiteURL -Credentials $Cred -ReturnConnection
+    if($UsingIntractive -eq $true)
+    {
+        $conn = Connect-PnPOnline -Url $SharePointAdminSiteURL -Interactive -ReturnConnection
+    }
+    if($UsingCertificate -eq $true)
+    {
+        $conn = Connect-PnPOnline -Url $SharePointAdminSiteURL -ClientId $clientID -Tenant $tenantId -CertificatePath $certificatepath -CertificatePassword (ConvertTo-SecureString -AsPlainText -Force $certificatePassword) -ReturnConnection 
+    }
+    
     #$SiteCollections = Get-PnPTenantSite -Connection $conn  | Where-Object {$_.Template -eq "SITEPAGEPUBLISHING#0"}   #the actual filter
     $SiteCollections = Get-PnPTenantSite -Connection $conn  
-    Disconnect-PnPOnline -Connection $conn
     return $SiteCollections
 
 }
@@ -191,16 +202,32 @@ Try {
         Try 
         {
             #Connect to site collection
-            $connection = Connect-PnPOnline -Url $SiteURL -Credentials $Cred -ReturnConnection
+            if($UsingIntractive -eq $true)
+            {
+                $connection = Connect-PnPOnline -Url $SiteURL -Interactive -ReturnConnection
+            }
+            if($UsingCertificate -eq $true)
+            {
+                $connection = Connect-PnPOnline -Url $SiteURL -ClientId $clientID -Tenant $tenantId -CertificatePath $certificatepath -CertificatePassword (ConvertTo-SecureString -AsPlainText -Force $certificatePassword) -ReturnConnection 
+            }
+            
             HandleWeb -site $SiteURL -Web (Get-PnpWeb -Connection $connection) -root $true 
             $SubSites = Get-PnPSubWeb -Recurse -Connection $connection
-            Disconnect-PnPOnline -Connection $connection
+            
             ForEach ($web in $SubSites)
             {
-                $connection = Connect-PnPOnline -Url $web.Url -Credentials $Cred -ReturnConnection
+                if($UsingIntractive -eq $true)
+                {
+                    $connection = Connect-PnPOnline -Url $web.Url -Interactive -ReturnConnection
+                }
+                if($UsingCertificate -eq $true)
+                {
+                    $connection = Connect-PnPOnline -Url $web.Url -ClientId $clientID -Tenant $tenantId -CertificatePath $certificatepath -CertificatePassword (ConvertTo-SecureString -AsPlainText -Force $certificatePassword) -ReturnConnection 
+                }
+                   
                 Write-host "Web  : $($Web.URL)"
                 HandleWeb -site $Site -web $web -root $false 
-                Disconnect-PnPOnline -Connection $connection
+            
             }
             if($outputArray.Count -gt 0)
             {
@@ -213,16 +240,17 @@ Try {
         }
         finally
         {
-            if($connection)
-            {
-                Disconnect-PnPOnline -Connection $connection
-            }
+            
         }
     }
 }
 Catch {
     write-host -f Red "Error:" $_.Exception.Message
 }
+
+
+
+
 
 
 
