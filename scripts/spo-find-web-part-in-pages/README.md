@@ -8,7 +8,7 @@ plugin: add-to-gallery
 
 This script will find all instances of the Web Part on a page and optionally remove it. In this instance, as Twitter made API changes, we are using that scenario as an example.
 
-[!INCLUDE [Delete Warning](../../docfx/includes/DELETE-WARN.md)]
+If you would like to delete the web parts, there is an existing script to do that here: [Delete Web Parts from Pages](https://pnp.github.io/script-samples/spo-remove-webpart-from-pages/README.html?tabs=pnpps)
 
 ![Example Screenshot](assets/example.png)
 

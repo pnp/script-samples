@@ -14,6 +14,8 @@ Script will remove web part(s) on multiple pages by their Id, Instance Id, or Ti
 - Edit Script and add details like SharePoint tenant URL, Term groups, and the output directory
 - Press run
 
+[!INCLUDE [Delete Warning](../../docfx/includes/DELETE-WARN.md)]
+
 # [PnP PowerShell](#tab/pnpps)
 ```powershell
 
