@@ -2,13 +2,15 @@
 plugin: add-to-gallery
 ---
 
-# Find and Optionally Remove the Twitter Web Part
+# Find Web Part in Pages e.g., Twitter Web Part
 
 ## Summary
 
-This script will find all instances of the Web Part on a page and optionally remove it. In this instance, as Twitter made API changes, we are using that scenario as an example.
+This script will find all instances of the specified Web Part on a page or (if chosen) in templates too. The scripe example produces a report of all of the occurances of the Twitter Web Part in a site. You can specify any web part ID to find, but there is a deprecation happening soon and this maybe useful to find any occurances of the web part.
+
 
 If you would like to delete the web parts, there is an existing script to do that here: [Delete Web Parts from Pages](https://pnp.github.io/script-samples/spo-remove-webpart-from-pages/README.html?tabs=pnpps)
+
 
 ![Example Screenshot](assets/example.png)
 
