@@ -4,15 +4,15 @@
   
   <head>
     <meta charset="utf-8">
-    <title>Remove modern web parts from pages | PnP Samples </title>
+    <title>Find Web Part in Pages e.g., Twitter Web Part | PnP Samples </title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" "="">
-    <meta name="title" content="Remove modern web parts from pages | PnP Samples ">
+    <meta name="title" content="Find Web Part in Pages e.g., Twitter Web Part | PnP Samples ">
     <meta name="generator" content="docfx 2.56.7.0">
     <meta name="description" content="A sample gallery of scripts to manage all things Microsoft 365.">
   
     <!-- Social Media -->
     <meta property="og:locale" content="en_GB">
-    <meta property="og:title" content="Remove modern web parts from pages | PnP Samples ">
+    <meta property="og:title" content="Find Web Part in Pages e.g., Twitter Web Part | PnP Samples ">
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://pnp.github.io/script-samples">
     <meta property="og:image" content="https://pnp.github.io/script-samples/assets/social-media-screenshot.png">
@@ -94,22 +94,14 @@
           <div class="col-md-12">
             <article class="content wrap" id="_content" data-uid="">
                   <div class="contribution-panel mobile-hide pull-right">
-                      <a href="https://github.com/pnp/script-samples/blob/main/scripts/spo-remove-webpart-from-pages/README.md/#L1" title="Improve this Doc" class="improve-doc-lg"><i class="glyphicon glyphicon-pencil"></i></a>
+                      <a href="https://github.com/pnp/script-samples/blob/main/scripts/spo-find-web-part-in-pages/README.md/#L1" title="Improve this Doc" class="improve-doc-lg"><i class="glyphicon glyphicon-pencil"></i></a>
                   </div>
-                    <h1 id="remove-modern-web-parts-from-pages">Remove modern web parts from pages</h1>
+                    <h1 id="find-web-part-in-pages-eg-twitter-web-part">Find Web Part in Pages e.g., Twitter Web Part</h1>
 
 <h2 id="summary">Summary</h2>
-<p>Script will remove web part(s) on multiple pages by their Id, Instance Id, or Title</p>
-<h2 id="implementation">Implementation</h2>
-<ul>
-<li>Open Windows PowerShell ISE</li>
-<li>Edit Script and add details like SharePoint tenant URL, Term groups, and the output directory</li>
-<li>Press run</li>
-</ul>
-<div class="WARNING">
-<h5>Warning</h5>
-<p>Please be aware this script contains a command that will remove or delete an artifact, ensure you test and understand the implications of running the script.</p>
-</div>
+<p>This script will find all instances of the specified Web Part on a page or (if chosen) in templates too. The scripe example produces a report of all of the occurances of the Twitter Web Part in a site. You can specify any web part ID to find, but there is a deprecation happening soon and this maybe useful to find any occurances of the web part.</p>
+<p>If you would like to delete the web parts, there is an existing script to do that here: <a href="https://pnp.github.io/script-samples/spo-remove-webpart-from-pages/README.html?tabs=pnpps">Delete Web Parts from Pages</a></p>
+<p><img src="assets/example.png" alt="Example Screenshot"></p>
 <div class="tabGroup" id="tabgroup_CeZOj-G++Q">
 <ul role="tablist">
 <li role="presentation">
@@ -122,87 +114,116 @@
 </button>
 
 <pre><code class="lang-powershell">
-Function Remove-WebpartFromPages() {
-    PARAM (
-        [Parameter(Mandatory = $true)]
-        [string]$SiteURL,
+&lt;# 
 
-        [Parameter(Mandatory = $false)]
-        [string[]]$WebPartIds,
+Created:      Paul Bullock
+Date:         04/09/2023
+License:      MIT License (MIT)
 
-        [Parameter(Mandatory = $false)]
-        [string]$ContentTypeId,
-
-        [Parameter(Mandatory = $false)]
-        [string[]]$Pages
-    )
-
-    Try {
-            ## Connect to SharePoint Online site  
-            Write-Host &quot;Connect to $($SiteURL)&quot;
-            Connect-PnPOnline -URL $SiteURL -UseWebLogin
-
-            $pageItems = @()
-            $skippedPages = @()
-
-            # If page parameter is empty, loop through all pages
-            if ($Pages.Length -lt 1) {
-                $pageItems = Get-PnPListItem -List &quot;Site Pages&quot;
-                $Pages = $pageItems | ForEach-Object { $_[&quot;FileLeafRef&quot;] }
-            }
-
-            if($Pages.Length -lt 1){
-                $pageItems = Get-PnPListItem -List &quot;Site Pages&quot;
-            }
-            
-            if ($ContentTypeId) {
-                $pageItems = $pageItems | Where-Object {$_[&quot;ContentTypeId&quot;].toString() -eq $ContentTypeId}
-            }
-            
-            if($pageItems.Length -ge 1){
-                $Pages = $pageItems | ForEach-Object{ $_[&quot;FileLeafRef&quot;] }
-            }
-            
-            $Pages | ForEach-Object {
-                $fileLeafRef = $_
-                Write-Host &quot;Processing $fileLeafRef&quot;
-                try {
-                    $page = Get-PnPPage -Identity $fileLeafRef
-                    if($WebPartIds.Length -ge 1){
-                        $controls = $page.Controls | Where-Object {$WebPartIds -contains $_.Title -or $WebPartIds -contains $_.WebPartId}
-                    }                    
-                    $controls | ForEach-Object {
-                        Write-Host &quot;Removing web part: $($_.Title)&quot;
-                        Remove-PnPPageComponent -Page $page -InstanceId $_.InstanceId -Force
-                        Write-Host &quot;Web part $($_.Title) removed successfully from $($fileLeafRef)&quot; -ForegroundColor &quot;green&quot;
-                    }
-                }
-                catch {
-                    $skippedPages += $fileLeafRef                    
-                    Write-Host &quot;Skipped $fileLeafRef&quot; -ForegroundColor &quot;yellow&quot;
-                }
-            
-            }
-        }
-
-        Catch {
-            Write-Host &quot;Error: $($_.Exception)&quot; -ForegroundColor Red
-            Break
-        }
-
-        ## Disconnect the context  
-        Disconnect-PnPOnline  
-}
-
-Remove-WebPartFromPages -SiteURL https://contoso.sharepoint.com -WebPartIds &quot;News&quot;,&quot;0ec51ebc-4754-4ef4-a953-1a3adb4b4d8c&quot; -Pages &quot;home.aspx&quot;,&quot;pnp.aspx&quot;
-
-# More examples
-&lt;#
-# Specific content type
-Remove-WebPartFromPages -SiteURL https://contoso.sharepoint.com -WebPartIds &quot;News&quot; -ContentTypeId &quot;0x0101009D1CB255DA764&quot;
-
+.Synopsis
+    Lists out use of the twitter web part in a site, as an example, although you can specify any web part ID
 #&gt;
 
+[CmdletBinding()]
+param (
+    [Parameter(Mandatory = $true, HelpMessage = &quot;Source URL e.g. https://contoso.sharepoint.com/sites/SiteA&quot;)]
+    [string]$siteUrl,
+    [string]$ReportName = &quot;Twitter-WebPart-Report.csv&quot;,
+    [string]$WebPartId = &quot;f6fdf4f8-4a24-437b-a127-32e66a5dd9b4&quot;, # Twitter Web Part ID
+    [switch]$IncludeTemplates
+)
+begin{
+
+    Write-Host &quot;Connecting to &quot; $siteUrl
+        
+    # For MFA Tenants - Interactive opens a browser window
+    $sourceConnection = Connect-PnPOnline -Url $siteUrl  -ReturnConnection -Interactive
+    
+    # Caml to find just the pages, not folders or templates
+    $filter = '&lt;View&gt;' +
+                '&lt;Query&gt;' +
+                    '&lt;Where&gt;' +
+                        '&lt;And&gt;' +
+                            '&lt;Eq&gt;'+
+                                '&lt;FieldRef Name=&quot;FSObjType&quot; /&gt;'+
+                                '&lt;Value Type=&quot;Integer&quot;&gt;0&lt;/Value&gt;'+
+                            '&lt;/Eq&gt;'+
+                            '&lt;Neq&gt;'+
+                                '&lt;FieldRef Name=&quot;_SPSitePageFlags&quot; /&gt;'+
+                                '&lt;Value Type=&quot;Text&quot;&gt;{Template}}&lt;/Value&gt;'+
+                            '&lt;/Neq&gt;'+
+                        '&lt;/And&gt;' +
+                    '&lt;/Where&gt;' +
+                '&lt;/Query&gt;' +
+            '&lt;/View&gt;'
+
+    # Caml to find pages and templates
+    if($IncludeTemplates){
+        $filter = '&lt;View&gt;' +
+                    '&lt;Query&gt;' +
+                        '&lt;Where&gt;' +                        
+                                '&lt;Eq&gt;'+
+                                    '&lt;FieldRef Name=&quot;FSObjType&quot; /&gt;'+
+                                    '&lt;Value Type=&quot;Integer&quot;&gt;0&lt;/Value&gt;'+
+                                '&lt;/Eq&gt;'+
+                        '&lt;/Where&gt;' +
+                    '&lt;/Query&gt;' +
+                '&lt;/View&gt;'
+    }
+    
+    $reportPath = &quot;$($ReportName)&quot;
+    $WebPartList = @()
+
+}
+process{
+
+    Write-Host &quot;Reading pages in site...&quot;
+
+    $web = Get-PnPWeb -Includes Title,Url
+    $webTitle = $web.Title
+    $webUrl = $web.Url
+    
+    $pages = Get-PnPListItem -List &quot;SitePages&quot; -Connection $sourceConnection -Query $filter
+            
+    Foreach($page in $pages){
+
+        $file = $page.FieldValues[&quot;FileLeafRef&quot;]
+
+        Write-Host &quot; Processing Page $($file)&quot; -ForegroundColor Cyan
+
+        $components = Get-PnPPageComponent -Page $file
+        
+        # To find the Web Part ID (type, not instance):
+        # Get-PnPPageComponent -Page &quot;MyPage.aspx&quot; -ListAvailable
+
+        # You can filter based on type of web part
+        $webPartInstances = $components | Where-Object { $_.WebPartId -eq $WebPartId}
+        Write-Host &quot; - Found $($webPartInstances.Count) Occurrances of that web part&quot; -ForegroundColor Yellow
+
+        $webPartInstances | Foreach-Object{
+
+            $wpTitle = $_.title
+            Write-Host &quot;    Web Part Title: $($wpTitle)&quot;
+            $webPartProps = $_.PropertiesJson
+
+            $webPartLogItem = [PSCustomObject]@{
+
+                    &quot;WebTitle&quot; = $webTitle
+                    &quot;WebUrl&quot; = $webUrl
+                    &quot;PageFileName&quot; = $page.title
+                    &quot;WebPartTitle&quot; = $_.title
+                    &quot;WebPartProperties&quot; = $webPartProps
+                }
+                                
+            $WebPartList += $webPartLogItem
+        }
+    }
+
+    $WebPartList | Export-Csv -Path $reportPath -NoTypeInformation
+
+    Write-Host &quot;Report saved to $reportPath&quot; -ForegroundColor Green
+    Write-Host &quot;Script Complete :-)&quot; -ForegroundColor Green
+}  
 
 </code></pre>
 <div class="highlight-tool">
@@ -219,13 +240,13 @@ Remove-WebPartFromPages -SiteURL https://contoso.sharepoint.com -WebPartIds &quo
 </thead>
 <tbody>
 <tr>
-<td><a href="https://github.com/ahmadiramin">Ramin Ahmadi</a></td>
+<td>Paul Bullock</td>
 </tr>
 </tbody>
 </table>
 <h2 id="disclaimer">Disclaimer</h2>
 <p><strong>THESE SAMPLES ARE PROVIDED <em>AS IS</em> WITHOUT WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, INCLUDING ANY IMPLIED WARRANTIES OF FITNESS FOR A PARTICULAR PURPOSE, MERCHANTABILITY, OR NON-INFRINGEMENT.</strong></p>
-<img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/spo-remove-webpart-from-pages" aria-hidden="true">
+<img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/spo-find-web-part-in-pages" aria-hidden="true">
 </article>
           </div>
         </div>
