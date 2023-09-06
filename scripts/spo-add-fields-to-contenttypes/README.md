@@ -6,7 +6,7 @@ plugin: add-to-gallery
 
 ## Summary
 
-The script will create a Site columns by checking whether it exists or not. Adds the site columns to the existing Content Types.
+The script will create a Site Columns by checking whether it exists or not. Adds the site columns to the existing Content Types.
 
 # [PnP PowerShell](#tab/pnpps)
 
