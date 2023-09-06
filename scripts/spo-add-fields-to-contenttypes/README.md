@@ -2,7 +2,7 @@
 plugin: add-to-gallery
 ---
 
-# Create Library and add custom Content Type
+# Create Site Columns and add to Content Types
 
 ## Summary
 
