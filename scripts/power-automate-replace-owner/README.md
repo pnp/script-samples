@@ -31,7 +31,7 @@ Function Replace-PnPOwnerInFlows {
 Script to replace an owner in all its flows
 
 .Description
-this script looks for all flows owned by a specified user and replaces them with a new owner. You can indicate whether this should happen in a certain environment. If no value is given for the environment parameter, the default environment is used. Please not that you cannot remove the original creator of a flow. In that case this script will only add the new owner
+this script looks for all flows owned by a specified user and replaces them with a new owner. You can indicate whether this should happen in a certain environment. If no value is given for the environment parameter, the default environment is used. Please note that you cannot remove the original creator of a flow. In that case this script will only add the new owner
 
 .PARAMETER oldOwner
 The UPN of the old owner
@@ -113,7 +113,6 @@ Replace-PnPOwnerInFlows -oldOwner "john.doe@contoso.com" -newOwner "sansa.stark@
 | Author(s) |
 |-----------|
 | [Nico De Cleyre](https://www.nicodecleyre.com)|
-
 
 [!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
 <img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/power-automate-replace-owner" aria-hidden="true" />
