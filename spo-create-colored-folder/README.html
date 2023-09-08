@@ -105,7 +105,7 @@
 <h5>Note</h5>
 <p>Colored Folder is a feature in deployment as of September 3, 2023 and may not be available to your tenant. (Microsoft Roadmap ID <a href="https://www.microsoft.com/microsoft-365/roadmap?filters=&amp;searchterms=124980">124980</a>)</p>
 </div>
-<p>The folder's color setting information is stored in the _ColorHex column. This _ColorHex column is then set to the numeric value corresponding to each color. The following is a table of the numerical values corresponding to each color.</p>
+<p>The folder's color setting information is stored in the <code>_ColorHex</code> column. This <code>_ColorHex</code> column is then set to the numeric value corresponding to each color. The following is a table of the numerical values corresponding to each color:</p>
 <table>
 <thead>
 <tr>
@@ -180,11 +180,14 @@
 </tr>
 </tbody>
 </table>
-<p>This sample code creates a new folder in the SharePoint document library, sets the value of the _ColorHex column of the created folder, and changes the folder's color.</p>
+<p>This sample code creates a new folder in the SharePoint document library, sets the value of the <code>_ColorHex</code> column of the created folder, and changes the folder's color.</p>
 <div class="tabGroup" id="tabgroup_CeZOj-G++Q">
 <ul role="tablist">
 <li role="presentation">
 <a href="#tabpanel_CeZOj-G++Q_pnpps" role="tab" aria-controls="tabpanel_CeZOj-G++Q_pnpps" data-tab="pnpps" tabindex="0" aria-selected="true">PnP PowerShell</a>
+</li>
+<li role="presentation">
+<a href="#tabpanel_CeZOj-G++Q_cli-m365-ps" role="tab" aria-controls="tabpanel_CeZOj-G++Q_cli-m365-ps" data-tab="cli-m365-ps" tabindex="-1">CLI for Microsoft 365</a>
 </li>
 </ul>
 <section id="tabpanel_CeZOj-G++Q_pnpps" role="tabpanel" data-tab="pnpps"><button class="article-clipboard" title="Copy to clipboard" data-toggle="tooltip" data-placement="top" data-clipboard-target="section[id^='tabpanel'][data-tab='pnpps'] pre">
@@ -192,7 +195,8 @@
     <span class="article-clipboard__message done">Copied</span>
 </button>
 
-<pre><code class="lang-powershell"># Set Variables
+<pre><code class="lang-powershell">
+# Set Variables
 $siteUrl = &quot;https://contoso.sharepoint.com/sites/Marketing&quot;
 $documentLibrary = &quot;Documents&quot;
 $folderName = &quot;FolderA&quot;
@@ -221,9 +225,55 @@ finally {
     # Disconnect from SharePoint site
     Disconnect-PnPOnline
 }
+
 </code></pre>
 <div class="highlight-tool">
 <p>Check out the <strong>PnP PowerShell</strong> to learn more at: <a href="https://aka.ms/pnp/powershell">https://aka.ms/pnp/powershell</a></p>
+</div>
+</section>
+<section id="tabpanel_CeZOj-G++Q_cli-m365-ps" role="tabpanel" data-tab="cli-m365-ps" aria-hidden="true" hidden="hidden"><button class="article-clipboard" title="Copy to clipboard" data-toggle="tooltip" data-placement="top" data-clipboard-target="section[id^='tabpanel'][data-tab='cli-m365-ps'] pre">
+    <span class="glyphicon glyphicon-copy" aria-hidden="true"></span>
+    <span class="article-clipboard__message done">Copied</span>
+</button>
+
+<pre><code class="lang-powershell">
+# Set Variables
+$siteUrl = &quot;https://contoso.sharepoint.com/sites/Marketing&quot;
+$relativeUrlOfParentFolder = &quot;/Shared Documents&quot;
+$documentLibraryDisplayName = &quot;Documents&quot;
+$folderName = &quot;FolderA&quot;
+$folderColor = 3
+
+try {
+    # Get Credentials to connect to SharePoint Online site
+    $m365Status = m365 status
+    if ($m365Status -match &quot;Logged Out&quot;) {
+        m365 login
+    }
+
+    # Create the folder
+    $newFolder = m365 spo folder add --webUrl $siteUrl --parentFolderUrl $relativeUrlOfParentFolder --name $folderName | ConvertFrom-Json
+
+    # Get the created folder item
+    $newFolderItem = m365 spo listitem get --webUrl $siteUrl --listTitle $documentLibraryDisplayName --uniqueId $newFolder.UniqueId | ConvertFrom-Json
+
+    # Change the value of the _ColorHex column of the created folder to change the color
+    m365 spo listitem set --webUrl $siteUrl --listTitle $documentLibraryDisplayName --id $newFolderItem.Id --_ColorHex $folderColor
+
+    Write-Host &quot;Folder created and color changed successfully.&quot; -ForegroundColor Green
+    Write-Host &quot;Folder URL: $siteUrl/$relativeUrlOfParentFolder/$folderName&quot; -ForegroundColor Green
+}
+catch {
+    Write-Host &quot;An error occurred: $_&quot; -ForegroundColor Red
+}
+finally {
+    # Disconnect from SharePoint site
+    m365 logout
+}
+
+</code></pre>
+<div class="highlight-tool">
+<p>Check out the <strong>CLI for Microsoft 365</strong> to learn more at: <a href="https://aka.ms/cli-m365">https://aka.ms/cli-m365</a></p>
 </div>
 </section>
 </div>
@@ -237,6 +287,9 @@ finally {
 <tbody>
 <tr>
 <td><a href="https://github.com/tecchan1107">Tetsuya Kawahara</a></td>
+</tr>
+<tr>
+<td><a href="https://ganeshsanapblogs.wordpress.com/about">Ganesh Sanap</a></td>
 </tr>
 </tbody>
 </table>
