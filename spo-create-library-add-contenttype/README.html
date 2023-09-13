@@ -99,11 +99,14 @@
                     <h1 id="create-library-and-add-custom-content-type">Create Library and add custom Content Type</h1>
 
 <h2 id="summary">Summary</h2>
-<p>The script will create a SharePoint library by checking whether it exists or not. Adds custom Content Type to the library and make it as a default content type.</p>
+<p>This sample script creates a SharePoint document library by checking whether it exists or not. Adds custom content type to the document library and makes it as a default content type.</p>
 <div class="tabGroup" id="tabgroup_CeZOj-G++Q">
 <ul role="tablist">
 <li role="presentation">
 <a href="#tabpanel_CeZOj-G++Q_pnpps" role="tab" aria-controls="tabpanel_CeZOj-G++Q_pnpps" data-tab="pnpps" tabindex="0" aria-selected="true">PnP PowerShell</a>
+</li>
+<li role="presentation">
+<a href="#tabpanel_CeZOj-G++Q_cli-m365-ps" role="tab" aria-controls="tabpanel_CeZOj-G++Q_cli-m365-ps" data-tab="cli-m365-ps" tabindex="-1">CLI for Microsoft 365</a>
 </li>
 </ul>
 <section id="tabpanel_CeZOj-G++Q_pnpps" role="tabpanel" data-tab="pnpps"><button class="article-clipboard" title="Copy to clipboard" data-toggle="tooltip" data-placement="top" data-clipboard-target="section[id^='tabpanel'][data-tab='pnpps'] pre">
@@ -123,7 +126,7 @@ function CreateLibraryWithCT {
     else {
         #Creating library with Document library template
         New-PnPList -Title $LibraryName -Template DocumentLibrary
-        Write-Host &quot;Created Library &quot; $LibraryName -ForegroundColor Green
+        Write-Host &quot;Created Library: &quot; $LibraryName -ForegroundColor Green
     }
 
     $ctExist = Get-PnPContentType $ctName -ErrorAction SilentlyContinue
@@ -133,8 +136,8 @@ function CreateLibraryWithCT {
     else {
         $ctExist = Add-PnPContentType -Name $ctName `
             -Group &quot;Custom Content Types&quot; `
-            -Description &quot;My custom ct&quot;
-        Write-Host &quot;Created Content Type &quot; $ctName -ForegroundColor Green
+            -Description &quot;My Custom CT description&quot;
+        Write-Host &quot;Created Content Type: &quot; $ctName -ForegroundColor Green
     }
 
     #region Adding, setting default content type and remove existing CT
@@ -147,7 +150,7 @@ function CreateLibraryWithCT {
 try {
     $clientId = &quot;&quot;
     $clientSecret = &quot;&quot;
-    $siteUrl = &quot;&quot;
+    $siteUrl = &quot;https://contoso.sharepoint.com/sites/PnPPowerShell&quot;
     Connect-PnPOnline -Url $siteUrl -ClientId $clientId -ClientSecret $clientSecret
 
     CreateLibraryWithCT -LibraryName &quot;My Lib&quot;
@@ -166,6 +169,81 @@ finally {
 <div class="highlight-tool">
 <p>Check out the <strong>PnP PowerShell</strong> to learn more at: <a href="https://aka.ms/pnp/powershell">https://aka.ms/pnp/powershell</a></p>
 </div>
+</section>
+<section id="tabpanel_CeZOj-G++Q_cli-m365-ps" role="tabpanel" data-tab="cli-m365-ps" aria-hidden="true" hidden="hidden"><button class="article-clipboard" title="Copy to clipboard" data-toggle="tooltip" data-placement="top" data-clipboard-target="section[id^='tabpanel'][data-tab='cli-m365-ps'] pre">
+    <span class="glyphicon glyphicon-copy" aria-hidden="true"></span>
+    <span class="article-clipboard__message done">Copied</span>
+</button>
+
+<pre><code class="lang-powershell">
+function CreateLibraryWithCT {
+    param ([string] $LibraryName)
+
+    # Set Variables
+    $siteUrl = &quot;https://contoso.sharepoint.com/sites/CLIForMicrosoft365&quot;
+    $ctName = &quot;My Custom CT&quot;
+    $ctId = &quot;0x010100CD5BDB7DDE03324794E155CE37E4B6BB&quot;
+
+    # Check if document library already exists
+    $libExist = m365 spo list get --webUrl $siteUrl --title $LibraryName | ConvertFrom-Json
+    if ($libExist) {
+        Write-Host &quot;Document Library - $LibraryName already exists&quot; -ForegroundColor Yellow
+    }
+    else {
+        # Create new SharePoint document library
+        m365 spo list add --webUrl $siteUrl --title $LibraryName --baseTemplate DocumentLibrary
+        Write-Host &quot;SharePoint Document Library Created: &quot; $LibraryName -ForegroundColor Green
+    }
+
+    # Check if SharePoint site content type already exists    
+    $ctExist = m365 spo contenttype get --webUrl $siteUrl --name $ctName | ConvertFrom-Json
+    if ($ctExist) {
+        Write-Host &quot;Content type - $ctName already exists&quot; -ForegroundColor Yellow
+        $ctId = $ctExist.StringId
+    }
+    else {
+        # Create new SharePoint site content type
+        $ctExist = m365 spo contenttype add --webUrl $siteUrl --name $ctName --id $ctId --group &quot;Custom Content Types&quot; --description &quot;My custom content type inherited from default document content type&quot; | ConvertFrom-Json
+        Write-Host &quot;Content Type Created: &quot; $ctName -ForegroundColor Green
+    }
+
+    #region Add content type to document library, set it as a default content type and remove existing document content type
+    Write-Host &quot;Adding content type to document library&quot;
+    $listCT = m365 spo list contenttype add --webUrl $siteUrl --listTitle $LibraryName --id $ctId | ConvertFrom-Json
+    
+    Write-Host &quot;Setting as default content type&quot;
+    m365 spo list contenttype default set --webUrl $siteUrl --listTitle $LibraryName --contentTypeId $listCT.StringId
+    
+    Write-Host &quot;Removing Document content type&quot;
+    $listDocCT = m365 spo contenttype get --webUrl $siteUrl --listTitle $LibraryName --name &quot;Document&quot; | ConvertFrom-Json
+    m365 spo list contenttype remove --webUrl $siteUrl --listTitle $LibraryName --id $listDocCT.StringId
+    #endregion
+}
+
+try {
+    # Get Credentials to connect to SharePoint Online site
+    $m365Status = m365 status
+    if ($m365Status -match &quot;Logged Out&quot;) {
+        m365 login
+    }
+
+    # Create SharePoint document library with content type
+    CreateLibraryWithCT -LibraryName &quot;My Lib&quot;
+}
+catch {
+    Write-Error &quot;Something went wrong: &quot; $_
+}
+finally {
+    # Disconnect SharePoint online site
+    m365 logout
+}
+
+</code></pre>
+<div class="highlight-tool">
+<p>Check out the <strong>CLI for Microsoft 365</strong> to learn more at: <a href="https://aka.ms/cli-m365">https://aka.ms/cli-m365</a></p>
+</div>
+</section>
+</div>
 <h2 id="contributors">Contributors</h2>
 <table>
 <thead>
@@ -177,13 +255,14 @@ finally {
 <tr>
 <td>Ahamed Fazil Buhari</td>
 </tr>
+<tr>
+<td><a href="https://ganeshsanapblogs.wordpress.com/about">Ganesh Sanap</a></td>
+</tr>
 </tbody>
 </table>
 <h2 id="disclaimer">Disclaimer</h2>
 <p><strong>THESE SAMPLES ARE PROVIDED <em>AS IS</em> WITHOUT WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, INCLUDING ANY IMPLIED WARRANTIES OF FITNESS FOR A PARTICULAR PURPOSE, MERCHANTABILITY, OR NON-INFRINGEMENT.</strong></p>
 <img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/spo-create-library-add-contenttype" aria-hidden="true">
-</section>
-</div>
 </article>
           </div>
         </div>
