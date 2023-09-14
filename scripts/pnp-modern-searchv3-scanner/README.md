@@ -11,6 +11,8 @@ plugin: add-to-gallery
 
 Unfortunaly the Modern Search V3 web parts are not automatically upgraded to V4. This script will scan your tenant for Modern Search V3 web parts and output a CSV file with the results.
 
+This script is based on an idea and a script from Marc Anderson, which can be found here: https://sympmarc.com/2021/04/06/upgrading-the-pnp-modern-search-web-parts-from-v3-to-v4-where-are-they/
+
 ![Example Screenshot](assets/example.png)
 
 Connect to SharePoint Online using any of the options, even Username + keyword might work,  if you do not have MFA enabled. 
