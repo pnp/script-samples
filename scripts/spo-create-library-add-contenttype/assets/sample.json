@@ -3,33 +3,50 @@
     "name": "spo-create-library-add-contenttype",
     "source": "pnp",
     "title": "Create Library and add custom Content Type",
-    "shortDescription": "Script to create SharePoint library and add custom content type",
+    "shortDescription": "Script to create SharePoint document library and add custom content type",
     "url": "https://pnp.github.io/script-samples/spo-create-library-add-contenttype/README.html",
     "longDescription": [
-      "Script to create SharePoint library and add custom content type"
+      "Script to create SharePoint document library and add custom content type"
     ],
     "creationDateTime": "2023-08-22",
-    "updateDateTime": "2023-08-22",
-    "products": ["SharePoint"],
+    "updateDateTime": "2023-09-12",
+    "products": [
+      "SharePoint"
+    ],
     "metadata": [
       {
         "key": "PNP-POWERSHELL",
         "value": "2.2.0"
       },
       {
-        "key": "POWERSHELL",
-        "value": "7.2.0"
+        "key": "CLI-FOR-MICROSOFT365",
+        "value": "6.11.0"
       }
     ],
-    "categories": ["Provision"],
+    "categories": [
+      "Provision"
+    ],
     "tags": [
+      "Connect-PnPOnline",
+      "Get-PnPConnection",
+      "Disconnect-PnPOnline",
       "Get-PnPList",
       "New-PnPList",
       "Get-PnPContentType",
       "Add-PnPContentType",
       "Add-PnPContentTypeToList",
       "Set-PnPDefaultContentTypeToList",
-      "Remove-PnPContentTypeFromList"
+      "Remove-PnPContentTypeFromList",
+      "m365 status",
+      "m365 login",
+      "m365 logout",
+      "m365 spo list get",
+      "m365 spo list add",
+      "m365 spo contenttype get",
+      "m365 spo contenttype add",
+      "m365 spo list contenttype add",
+      "m365 spo list contenttype default set",
+      "m365 spo list contenttype remove"
     ],
     "thumbnails": [
       {
@@ -40,6 +57,12 @@
       }
     ],
     "authors": [
+      {
+        "gitHubAccount": "ganesh-sanap",
+        "company": "",
+        "pictureUrl": "https://avatars.githubusercontent.com/u/25476310?v=4",
+        "name": "Ganesh Sanap"
+      },
       {
         "gitHubAccount": "ahamedfazil",
         "company": "",
@@ -52,6 +75,11 @@
         "name": "Want to learn more about PnP PowerShell and the cmdlets",
         "description": "Check out the PnP PowerShell site to get started and for the reference to the cmdlets.",
         "url": "https://aka.ms/pnp/powershell"
+      },
+      {
+        "name": "Want to learn more about CLI for Microsoft 365 and the commands",
+        "description": "Check out the CLI for Microsoft 365 site to get started and for the reference to the commands.",
+        "url": "https://aka.ms/cli-m365"
       }
     ]
   }
