@@ -6,7 +6,7 @@ plugin: add-to-gallery
 
 ## Summary
 
-This PowerShell script will export the teams channel conversations to an HTML file with expand collapse feature based on Teams and channel. The output file has inline html/css which makes it in readable format with propering indentation. Ideally the script can be used to export the conversatoin before archiving/deleting the channel but storing the conversation somewhere in SharePoint. Set this up in Azure Runbook..
+This PowerShell script will export the teams channel conversations to an HTML file with expand collapse feature based on Teams and channel. The output file has inline html/css which makes it in readable format with propering indentation. Ideally the script can be used to export the conversation before archiving/deleting the channel but storing the conversation somewhere in SharePoint. We can set this up in Azure Runbook as part of our automation.
 
 ## Implementation
 - Install the prerequisites from https://pnp.github.io/cli-microsoft365/user-guide/installing-cli/#
