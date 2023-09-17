@@ -2,14 +2,14 @@
   {
     "name": "export-inactive-sites-based-on-days-to-csv",
     "source": "pnp",
-    "title": "Export InActive Sites",
+    "title": "Export Inactive Sites Based On Days To CSV",
     "shortDescription": "This script exports all inactive sites based on certain number of days to CSV.",
     "url": "https://pnp.github.io/script-samples/export-inactive-sites-based-on-days-to-csv/README.html",
     "longDescription": [
       "This script exports all inactive sites based on certain number of days to CSV."
     ],
     "creationDateTime": "2023-09-13",
-    "updateDateTime": "2023-09-13",
+    "updateDateTime": "2023-09-15",
     "products": [
       "SharePoint"
     ],
@@ -17,6 +17,10 @@
       {
         "key": "PNP-POWERSHELL",
         "value": "1.11.0"
+      },
+      {
+        "key": "SPO-MANAGEMENT-SHELL",
+        "value": "16.0.21116.12000"
       }
     ],
     "categories": [
@@ -26,13 +30,15 @@
     "tags": [
       "SharePoint Online",
       "Connect-PnPOnline",
-      "Get-PnPTenantSite"
+      "Get-PnPTenantSite",      
+      "Connect-SPOService",
+      "Get-SPOSite"
     ],
     "thumbnails": [
       {
         "type": "image",
         "order": 100,
-        "url": "https://raw.githubusercontent.com/pnp/script-samples/main/scripts/export-inactive-sites-based-on-days-to-csv/assets/example.png",
+        "url": "https://raw.githubusercontent.com/pnp/script-samples/main/scripts/export-inactive-sites-based-on-days-to-csv/assets/preview.png",
         "alt": "Preview of the sample <title>"
       }
     ],
@@ -49,6 +55,11 @@
         "name": "Want to learn more about PnP PowerShell and the cmdlets",
         "description": "Check out the PnP PowerShell site to get started and for the reference to the cmdlets.",
         "url": "https://aka.ms/pnp/powershell"
+      },
+      {
+        "name": "Introduction to the SharePoint Online Management Shell",
+        "description": "Check out the SPO Management Shell documentation site to get started and for the reference to the cmdlets.",
+        "url": "https://docs.microsoft.com/en-us/powershell/sharepoint/sharepoint-online/introduction-sharepoint-online-management-shell?view=sharepoint-ps"
       }
     ]
   }
