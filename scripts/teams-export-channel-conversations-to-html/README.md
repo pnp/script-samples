@@ -22,7 +22,7 @@ Note - If you need to run this as admin - you can login to M365 CLI using your c
 
 ![Example Screenshot](assets/Output.png)
  
-# [PnP PowerShell](#tab/pnpps)
+# [CLI for Microsoft 365 using PowerShell](#tab/cli-m365-ps)
 ```powershell
 
   function Get-login {
@@ -202,7 +202,7 @@ Catch {
   Continue
 }
 ```
-[!INCLUDE [More about Power Apps PowerShell](../../docfx/includes/MORE-POWERAPPS.md)]
+[!INCLUDE [More about CLI for Microsoft 365](../../docfx/includes/MORE-CLIM365.md)]
 ***
 
 ## Contributors
@@ -213,4 +213,4 @@ Catch {
 
 [!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
 
-
+<img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/teams-export-channel-conversations-to-html" aria-hidden="true" />
