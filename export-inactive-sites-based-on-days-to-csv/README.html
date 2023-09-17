@@ -106,6 +106,9 @@
 <li role="presentation">
 <a href="#tabpanel_CeZOj-G++Q_pnpps" role="tab" aria-controls="tabpanel_CeZOj-G++Q_pnpps" data-tab="pnpps" tabindex="0" aria-selected="true">PnP PowerShell</a>
 </li>
+<li role="presentation">
+<a href="#tabpanel_CeZOj-G++Q_spoms-ps" role="tab" aria-controls="tabpanel_CeZOj-G++Q_spoms-ps" data-tab="spoms-ps" tabindex="-1">SPO Management Shell</a>
+</li>
 </ul>
 <section id="tabpanel_CeZOj-G++Q_pnpps" role="tabpanel" data-tab="pnpps"><button class="article-clipboard" title="Copy to clipboard" data-toggle="tooltip" data-placement="top" data-clipboard-target="section[id^='tabpanel'][data-tab='pnpps'] pre">
     <span class="glyphicon glyphicon-copy" aria-hidden="true"></span>
@@ -162,6 +165,63 @@ StartProcessing
 <div class="highlight-tool">
 <p>Check out the <strong>PnP PowerShell</strong> to learn more at: <a href="https://aka.ms/pnp/powershell">https://aka.ms/pnp/powershell</a></p>
 </div>
+</section>
+<section id="tabpanel_CeZOj-G++Q_spoms-ps" role="tabpanel" data-tab="spoms-ps" aria-hidden="true" hidden="hidden"><button class="article-clipboard" title="Copy to clipboard" data-toggle="tooltip" data-placement="top" data-clipboard-target="section[id^='tabpanel'][data-tab='spoms-ps'] pre">
+    <span class="glyphicon glyphicon-copy" aria-hidden="true"></span>
+    <span class="article-clipboard__message done">Copied</span>
+</button>
+
+<pre><code class="lang-powershell">$adminSiteURL = &quot;https://domain-admin.sharepoint.com/&quot;
+$username = &quot;username@domain.onmicrosoft.com&quot;
+$password = &quot;********&quot;
+$secureStringPwd = $password | ConvertTo-SecureString -AsPlainText -Force 
+$creds = New-Object System.Management.Automation.PSCredential -ArgumentList $username, $secureStringPwd
+$dateTime = &quot;_{0:MM_dd_yy}_{0:HH_mm_ss}&quot; -f (Get-Date)
+$basePath = &quot;D:\Contributions\Scripts\Logs\&quot;
+$csvPath = $basePath + &quot;\InActiveSites_SPO&quot; + $dateTime + &quot;.csv&quot;
+$global:inActiveSites = @()
+$daysInActive = 30
+
+Function Login() {
+    [cmdletbinding()]
+    param([parameter(Mandatory = $true, ValueFromPipeline = $true)] $creds)     
+    Write-Host &quot;Connecting to Site '$($adminSiteURL)'...&quot; -ForegroundColor Yellow   
+    Connect-SPOService -Url $adminSiteURL -Credential $creds
+    Write-Host &quot;Connection Successful!&quot; -ForegroundColor Green 
+}
+
+Function GetInactiveSites {    
+    try {
+        Write-Host &quot;Getting inactive sites...&quot; -ForegroundColor Yellow 
+        $siteCollections = Get-SPOSite -Filter { Url -notlike &quot;-my.sharepoint.com&quot; -and Url -notlike &quot;/portals/&quot; }
+         
+        #Calculate the Date
+        $date = (Get-Date).AddDays(-$daysInActive).ToString(&quot;MM/dd/yyyy&quot;)
+ 
+        #Get All Site collections where the content modified
+        $global:inActiveSites = $siteCollections | Where {$_.LastContentModifiedDate -le $date} | Select *         
+        Write-Host &quot;Getting inactive sites successfully!&quot;  -ForegroundColor Green 
+    }
+    catch {
+        Write-Host &quot;Error in getting inactive sites:&quot; $_.Exception.Message -ForegroundColor Red                 
+    }
+    Write-Host &quot;Exporting to CSV...&quot;  -ForegroundColor Yellow 
+    $global:inActiveSites | Export-Csv $csvPath -NoTypeInformation -Append
+    Write-Host &quot;Exported to CSV successfully!&quot;  -ForegroundColor Green	
+}
+
+Function StartProcessing {
+    Login($creds);
+    GetInactiveSites
+}
+
+StartProcessing
+</code></pre>
+<div class="highlight-tool">
+<p>Check out the <strong>SPO Management Shell</strong> to learn more at: <a href="https://docs.microsoft.com/en-us/powershell/sharepoint/sharepoint-online/introduction-sharepoint-online-management-shell?view=sharepoint-ps">Introduction SharePoint Online Management Shell | Microsoft Docs</a></p>
+</div>
+</section>
+</div>
 <h2 id="contributors">Contributors</h2>
 <table>
 <thead>
@@ -171,15 +231,13 @@ StartProcessing
 </thead>
 <tbody>
 <tr>
-<td>Chandani Prajapati</td>
+<td>Chandani Prajapati (<a href="https://github.com/chandaniprajapati">https://github.com/chandaniprajapati</a>)</td>
 </tr>
 </tbody>
 </table>
 <h2 id="disclaimer">Disclaimer</h2>
 <p><strong>THESE SAMPLES ARE PROVIDED <em>AS IS</em> WITHOUT WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, INCLUDING ANY IMPLIED WARRANTIES OF FITNESS FOR A PARTICULAR PURPOSE, MERCHANTABILITY, OR NON-INFRINGEMENT.</strong></p>
 <img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/export-inactive-sites-based-on-days-to-csv" aria-hidden="true">
-</section>
-</div>
 </article>
           </div>
         </div>
