@@ -1,0 +1,60 @@
+[
+  {
+    "name": "spo-export-report-files-incidents",
+    "source": "pnp",
+    "title": "Report of SharePoint Files Incidents",
+    "shortDescription": "Tracks the list of people who edit each file and exports the complete list of editors in the library. This allows us to identify users who shouldn't have editing rights or those who edited files only occasionally and then stopped.",
+    "url": "https://pnp.github.io/script-samples/spo-export-report-files-incidents/README.html",
+    "longDescription": [
+      ""
+    ],
+    "creationDateTime": "2023-09-22",
+    "updateDateTime": "2023-09-22",
+    "products": [
+      "SharePoint",
+      "PowerShell"
+    ],
+    "metadata": [
+      {
+        "key": "PNP-POWERSHELL",
+        "value": "2.2.0"
+      },
+      {
+        "key": "POWERSHELL",
+        "value": "7.3.7"
+      }
+    ],
+    "categories": [
+      "Report"
+    ],
+    "tags": [
+      "Invoke-PnPSPRestMethod",
+      "Get-PnPProperty ",
+      "Get-PnPList",
+      "Get-PnPListItem"
+    ],
+    "thumbnails": [
+      {
+        "type": "image",
+        "order": 100,
+        "url": "https://raw.githubusercontent.com/pnp/script-samples/main/scripts/spo-export-report-files-incidents/assets/preview.png",
+        "alt": "Preview of the sample spo-export-report-files-incidents"
+      }
+    ],
+    "authors": [
+      {
+        "gitHubAccount": "mkm17",
+        "company": "mknet",
+        "pictureUrl": "https://github.com/mkm17.png",
+        "name": "Michał Kornet"
+      }
+    ],
+    "references": [
+      {
+        "name": "Want to learn more about PnP PowerShell and the cmdlets",
+        "description": "Check out the PnP PowerShell site to get started and for the reference to the cmdlets.",
+        "url": "https://aka.ms/pnp/powershell"
+      }
+    ]
+  }
+]

@@ -1,0 +1,547 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html lang="en">
+  
+  <head>
+    <meta charset="utf-8">
+    <title>Report of SharePoint Files Incidents | PnP Samples </title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" "="">
+    <meta name="title" content="Report of SharePoint Files Incidents | PnP Samples ">
+    <meta name="generator" content="docfx 2.56.7.0">
+    <meta name="description" content="A sample gallery of scripts to manage all things Microsoft 365.">
+  
+    <!-- Social Media -->
+    <meta property="og:locale" content="en_GB">
+    <meta property="og:title" content="Report of SharePoint Files Incidents | PnP Samples ">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://pnp.github.io/script-samples">
+    <meta property="og:image" content="https://pnp.github.io/script-samples/assets/social-media-screenshot.png">
+    <meta property="og:image:alt" content="Screenshot example of the PnP Script Samples Site">
+    <meta property="og:site_name" content="PnP Script Samples">
+    <meta name="msvalidate.01" content="04EFEDA66EC42C08A1247C979E2F9ADD">
+    <meta property="og:description" content="A sample gallery of scripts to manage all things Microsoft 365.">
+  
+    <link rel="shortcut icon" href="https://c.s-microsoft.com/favicon.ico?v2">
+    <link rel="stylesheet" href="../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../styles/docfx.css">
+    <link rel="stylesheet" href="../styles/main.css">
+    <link rel="stylesheet" href="../styles/extra.css">
+    <link rel="stylesheet" href="../styles/filter.css">
+    <link rel="stylesheet" href="../styles/site.css">
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet"> 
+    <meta property="docfx:navrel" content="../toc.html">
+    <meta property="docfx:tocrel" content="../toc.html">
+    
+    
+    <meta property="docfx:newtab" content="true">
+    <script type="text/javascript">
+      (function(c,l,a,r,i,t,y){
+          c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+          t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+          y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+      })(window, document, "clarity", "script", "8j6pedl344");
+  </script>
+  </head>  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+             <div class="github-mark">
+              <a href="https://github.com/pnp/script-samples" title="Go to repository">
+               <div class="github-wrapper">
+                  <div class="github-icon">
+                    <img src="https://pnp.github.io/script-samples/assets/icons/github-light-64px.png" alt="GitHub Icon Image">
+                  </div>
+                  <div class="github-repository">
+                    <span>GitHub</span>
+                    <ul class="github-facts">
+                      <li>
+                        <i class="fa fa-code-fork" aria-hidden="true"></i>
+                        <span class="github-forks"></span>
+                      </li>
+                      <li>
+                        <i class="fa fa-star-o" aria-hidden="true"></i>
+                        <span class="github-stars"></span>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </a>
+            </div>
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../assets/logo.svg" alt="">
+              </a>    </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <label class="glyphicon glyphicon-search" for="search-query"></label>
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>      </header>
+      <div role="main" class="container body-content hide-when-search">
+        <div class="article row grid">
+          <div class="col-md-12">
+            <article class="content wrap" id="_content" data-uid="">
+                  <div class="contribution-panel mobile-hide pull-right">
+                      <a href="https://github.com/pnp/script-samples/blob/main/scripts/spo-export-report-files-incidents/README.md/#L1" title="Improve this Doc" class="improve-doc-lg"><i class="glyphicon glyphicon-pencil"></i></a>
+                  </div>
+                    <h1 id="report-of-sharepoint-files-incidents">Report of SharePoint Files Incidents</h1>
+
+<h2 id="summary">Summary</h2>
+<p>The script identifies the following events:</p>
+<ul>
+<li>Renaming a file</li>
+<li>Restoring a file from the recycle bin</li>
+<li>Sharing a file with someone</li>
+<li>Reducing a file's size by more than 50%</li>
+<li>Moving a file within the library</li>
+<li>Checking out a file</li>
+</ul>
+<p>Additionally, it tracks the list of people who edit each file and exports the complete list of editors in the library. This allows us to identify users who shouldn't have editing rights or those who edited files only occasionally and then stopped. By keeping an eye on these factors, the script helps maintain a more secure and efficient collaborative environment.</p>
+<p>The script produces two CSV files as its output. The first file contains information about incidents, while the second file contains details about editors.</p>
+<p><img src="assets/example.png" alt="Example Screenshot"></p>
+<div class="tabGroup" id="tabgroup_CeZOj-G++Q">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_CeZOj-G++Q_pnpps" role="tab" aria-controls="tabpanel_CeZOj-G++Q_pnpps" data-tab="pnpps" tabindex="0" aria-selected="true">PnP PowerShell</a>
+</li>
+</ul>
+<section id="tabpanel_CeZOj-G++Q_pnpps" role="tabpanel" data-tab="pnpps"><button class="article-clipboard" title="Copy to clipboard" data-toggle="tooltip" data-placement="top" data-clipboard-target="section[id^='tabpanel'][data-tab='pnpps'] pre">
+    <span class="glyphicon glyphicon-copy" aria-hidden="true"></span>
+    <span class="article-clipboard__message done">Copied</span>
+</button>
+
+<pre><code class="lang-powershell">
+# Use your variables
+$targetSiteUrl = &quot;https://contoso.sharepoint.com/sites/siteExample&quot;
+$libraryName = &quot;Documents&quot;
+
+$editors = New-Object PSObject
+
+function Get-DocumentLibrary {
+    param (
+        [string]$SiteUrl,
+        [string]$LibraryName
+    )
+
+    $documentLibrary = Get-PnPList -Identity $LibraryName
+    if ($documentLibrary.BaseTemplate -ne [Microsoft.SharePoint.Client.ListTemplateType]::DocumentLibrary) {
+        Write-Host &quot;The list is not a document library&quot;
+        return $null
+    }
+
+    return $documentLibrary
+}
+
+function Get-IsFolder {
+    param (
+        [Microsoft.SharePoint.Client.ListItem]$document
+    )
+
+    $fsObjType = $document.FieldValues[&quot;FSObjType&quot;]
+
+    return $fsObjType -eq 1
+}
+
+function Get-IncidentObject {
+    param (
+        [Microsoft.SharePoint.Client.ListItem]$document
+    )
+
+    $fileName = $document.FieldValues[&quot;FileLeafRef&quot;]
+    $fileId = $document.FieldValues[&quot;ID&quot;]
+    $fileType = $document.FieldValues[&quot;File_x0020_Type&quot;]
+    $fileSize = $document.FieldValues[&quot;File_x0020_Size&quot;]
+    $createdBy = $document.FieldValues[&quot;Created_x0020_By&quot;]
+    $createdDate = $document.FieldValues[&quot;Created_x0020_Date&quot;]
+    $modifiedBy = $document.FieldValues[&quot;Modified_x0020_By&quot;]
+    $modifiedDate = $document.FieldValues[&quot;Last_x0020_Modified&quot;]
+
+    $documentMetadata = [PSCustomObject]@{
+        FileName     = $fileName
+        FileId       = $fileId
+        FileType     = $fileType
+        FileSize     = $fileSize
+        CreatedBy    = $createdBy
+        CreatedDate  = $createdDate
+        ModifiedBy   = $modifiedBy
+        ModifiedDate = $modifiedDate
+    }
+
+    return $documentMetadata
+}
+
+function Get-ClonedPSCustomObject {
+    param (
+        [Parameter(Mandatory)]
+        [PSCustomObject]$object
+    )
+    $newObject = New-Object PSObject
+    $object.PSObject.Properties | ForEach-Object {
+        $newObject | Add-Member -MemberType $_.MemberType -Name $_.Name -Value $_.Value
+    }
+    return $newObject
+}
+
+function Get-FileActivitiesIncidents {
+    param (
+        [string]$SiteUrl,
+        [string]$documentLibraryId,
+        [string]$fileId,
+        [PSCustomObject]$incidentObj
+    )
+
+    # Get just itemUrl in SharePoint api 2.0 format from the sharing information of the file
+    $requestUrl = &quot;$SiteUrl/_api/web/Lists('$documentLibraryId')/GetItemById('$fileId')/GetSharingInformation?%24select=itemUrl&quot;
+    $sharingInformation = Invoke-PnPSPRestMethod -Url $requestUrl -Method Post -Accept &quot;application/json&quot; -Content &quot;{}&quot;
+
+    # Get the file activities from the SharePoint api 2.0
+    $itemUrl = $sharingInformation.itemUrl
+    $activities = Invoke-PnPSPRestMethod -Url &quot;$itemUrl/activities&quot; -Accept &quot;application/json&quot;
+
+    $incidents = @()
+
+    $activities.value | ForEach-Object {
+        $activity = $_
+        $isRename = $activity.action.&quot;rename&quot;
+        $isShare = $activity.action.&quot;share&quot;
+        $isMoved = $activity.action.&quot;move&quot;
+        $isRestored = $activity.action.&quot;restore&quot;
+
+        $incidentToAdd = Get-ClonedPSCustomObject -object $incidentObj
+
+        $editor = $activity.actor.user.userPrincipalName
+        IncrementEditor -key $editor
+
+        $incidentToAdd | Add-Member -MemberType NoteProperty -Name &quot;Who&quot; -Value $editor
+        $incidentToAdd | Add-Member -MemberType NoteProperty -Name &quot;When&quot; -Value $activity.times.recordedTime
+
+        if ($isRename) {
+            $incidentToAdd | Add-Member -MemberType NoteProperty -Name &quot;Incident&quot; -Value &quot;Filename has been changed&quot;
+            $incidentToAdd | Add-Member -MemberType NoteProperty -Name &quot;ValueBefore&quot; -Value $isRename.oldName
+            $incidentToAdd | Add-Member -MemberType NoteProperty -Name &quot;ValueAfter&quot; -Value &quot;&quot;
+            $incidents += $incidentToAdd
+        }
+
+        if ($isMoved) {
+            $incidentToAdd | Add-Member -MemberType NoteProperty -Name &quot;Incident&quot; -Value &quot;File has been moved&quot;
+            $incidentToAdd | Add-Member -MemberType NoteProperty -Name &quot;ValueBefore&quot; -Value $isMoved.From
+            $incidentToAdd | Add-Member -MemberType NoteProperty -Name &quot;ValueAfter&quot; -Value &quot;&quot;
+            $incidents += $incidentToAdd
+        }
+
+        if ($isShare) {
+            $formattedRecipients = $isShare.recipients | ForEach-Object {
+                $_.user.userPrincipalName
+            }
+
+            $incidentToAdd | Add-Member -MemberType NoteProperty -Name &quot;Incident&quot; -Value &quot;File has been shared&quot;
+            $incidentToAdd | Add-Member -MemberType NoteProperty -Name &quot;ValueBefore&quot; -Value &quot;&quot;
+            $incidentToAdd | Add-Member -MemberType NoteProperty -Name &quot;ValueAfter&quot; -Value $formattedRecipients
+            $incidents += $incidentToAdd
+        }
+
+        if ($isRestored) {
+            $incidentToAdd | Add-Member -MemberType NoteProperty -Name &quot;Incident&quot; -Value &quot;File has been restored&quot;
+            $incidentToAdd | Add-Member -MemberType NoteProperty -Name &quot;ValueBefore&quot; -Value &quot;&quot;
+            $incidentToAdd | Add-Member -MemberType NoteProperty -Name &quot;ValueAfter&quot; -Value &quot;&quot;
+            $incidents += $incidentToAdd
+        }
+    }
+
+    return $incidents
+}
+
+function IncrementEditor {
+    param (
+        [Parameter(Mandatory)]
+        [string]$key
+    )
+
+    if ($editors.PSObject.Properties[$key]) {
+        $editors.$key += 1
+    }
+    else {
+        $editors | Add-Member -MemberType NoteProperty -Name $key -Value 1
+    }
+}
+function Get-FileIsCheckedOut {
+    param (
+        [Parameter(Mandatory)]
+        [Microsoft.SharePoint.Client.ListItem]$item,
+
+        [Parameter(Mandatory)]
+        [PSCustomObject]$incidentObj
+    )
+
+    $fileIsCheckedOut = $item.FieldValues[&quot;CheckoutUser&quot;]
+    if ($fileIsCheckedOut) {
+        $incidentObj | Add-Member -MemberType NoteProperty -Name &quot;Incident&quot; -Value &quot;File is checked out&quot;
+        $incidentObj | Add-Member -MemberType NoteProperty -Name &quot;ValueBefore&quot; -Value &quot;&quot;
+        $incidentObj | Add-Member -MemberType NoteProperty -Name &quot;ValueAfter&quot; -Value $fileIsCheckedOut.Email
+        return $incidentObj
+    }
+}
+
+function Get-FileSizeHasDecreasedByMoreThan50Percent {
+    param (
+        [Parameter(Mandatory)]
+        [Microsoft.SharePoint.Client.ClientObject]$version1,
+
+        [Parameter(Mandatory)]
+        [Microsoft.SharePoint.Client.ClientObject]$version2,
+
+        [Parameter(Mandatory)]
+        [string]$modifiedBy,
+
+        [Parameter(Mandatory)]
+        [string]$actionModifiedDate,
+
+        [Parameter(Mandatory)]
+        [PSCustomObject]$incidentObj
+    )
+    $fileSize1 = $version1.Length
+    $fileSize2 = $version2.Length
+
+    if ($fileSize1 -gt $fileSize2) {
+        $fileSizeDecrease = $fileSize1 - $fileSize2
+        $fileSizeDecreasePercentage = $fileSizeDecrease / $fileSize1
+
+        if ($fileSizeDecreasePercentage -gt 0.5) {
+
+            $incidentObj | Add-Member -MemberType NoteProperty -Name &quot;Incident&quot; -Value &quot;File size has decreased by more than 50%&quot;
+            $incidentObj | Add-Member -MemberType NoteProperty -Name &quot;ValueBefore&quot; -Value $fileSize2
+            $incidentObj | Add-Member -MemberType NoteProperty -Name &quot;ValueAfter&quot; -Value $fileSize1
+    
+            return $incidentObj      
+        }
+    }
+}
+
+function Get-EditorIncident {
+    param (
+        [Parameter(Mandatory = $true)]
+        [PSCustomObject]$editorsIncident,
+
+        [Parameter(Mandatory = $true)]
+        [string]$fileEditors
+    )
+
+    $editorsIncident | Add-Member -MemberType NoteProperty -Name &quot;Who&quot; -Value $fileEditors
+    $editorsIncident | Add-Member -MemberType NoteProperty -Name &quot;When&quot; -Value &quot;&quot;
+    $editorsIncident | Add-Member -MemberType NoteProperty -Name &quot;Incident&quot; -Value &quot;File Editors&quot;
+    $editorsIncident | Add-Member -MemberType NoteProperty -Name &quot;ValueBefore&quot; -Value &quot;&quot;
+    $editorsIncident | Add-Member -MemberType NoteProperty -Name &quot;ValueAfter&quot; -Value &quot;&quot;
+    return $editorsIncident
+}
+
+
+function Get-DocumentVersionsIncidents {
+    param (
+        [System.Collections.Generic.List[Microsoft.SharePoint.Client.ListItemVersion]]$documentVersions,
+        [Microsoft.SharePoint.Client.ListItem]$document,
+        [Microsoft.SharePoint.Client.File]$documentFile,
+        [PSCustomObject]$incidentObj
+    )
+
+    $previousVersion = $null
+    $previousFileVersion = $null
+    $incidents = @()
+    
+    #List of ediors for the file, creator is a first editor
+    $creator = $document.FieldValues[&quot;Created_x0020_By&quot;].Replace(&quot;i:0#.f|membership|&quot;, &quot;&quot;) 
+    $fileEditors = $creator + &quot;;&quot;
+    IncrementEditor -key $creator
+
+    for ($versionIndex = 0; $versionIndex -lt $documentVersions.Count; $versionIndex++) {
+        $version = $documentVersions[$versionIndex]
+        $incidentToAdd = Get-ClonedPSCustomObject -object $incidentObj
+
+        #For some reason the first version does not have the FileVersion property so we take it from the documentFile
+        if ($versionIndex -eq 0) {
+            $fileVersion = $documentFile
+        }
+        else {
+            $fileVersion = Get-PnPProperty -ClientObject $version -Property FileVersion
+        }
+
+        # in next steps we compare two versions of the file so we need to skip the first version
+        if ($null -eq $previousVersion) {
+            $previousVersion = $version
+            $previousFileVersion = $fileVersion
+            continue
+        }
+
+        $editor = $version.FieldValues[&quot;Modified_x0020_By&quot;].Replace(&quot;i:0#.f|membership|&quot;, &quot;&quot;)
+        $fileEditors += $editor + &quot;;&quot;
+        IncrementEditor -key $editor
+        
+        $incidentToAdd | Add-Member -MemberType NoteProperty -Name &quot;Who&quot; -Value $editor
+        $incidentToAdd | Add-Member -MemberType NoteProperty -Name &quot;When&quot; -Value $version.FieldValues[&quot;Last_x0020_Modified&quot;] 
+
+        $fileIsCheckoutIncident = Get-ClonedPSCustomObject -object $incidentToAdd
+        $fileIsCheckedOut = Get-FileIsCheckedOut -item $document -incidentObj $fileIsCheckoutIncident
+        if ($fileIsCheckedOut) {
+            $incidents += $fileIsCheckedOut
+        }
+
+        $fileSizeHasDecreasedIncident = Get-ClonedPSCustomObject -object $incidentToAdd
+        $fileSizeHasDecreased = Get-FileSizeHasDecreasedByMoreThan50Percent -version1 $fileVersion -version2 $previousFileVersion -modifiedBy $version.FieldValues[&quot;Modified_x0020_By&quot;] -actionModifiedDate $version.FieldValues[&quot;Last_x0020_Modified&quot;] -incidentObj  $fileSizeHasDecreasedIncident
+
+        if ($fileSizeHasDecreased) {
+            $incidents += $fileSizeHasDecreased
+        }
+
+        $previousVersion = $version
+        $previousFileVersion = $fileVersion
+    }
+
+    # For every file add an incident with all editors
+    $editorsIncident = Get-ClonedPSCustomObject -object $incidentObj
+    $incidents += Get-EditorIncident -editorsIncident $editorsIncident -fileEditors $fileEditors
+
+    return $incidents
+}
+
+function Get-CSVDataFromEditorsObject {
+    $csvData = @()
+    $keys = $editors.PSObject.Properties | ForEach-Object { $_.Name }
+
+    # Add key-value pairs to the CSV data
+    foreach ($key in $keys) {
+        $csvData += [PSCustomObject]@{
+            Name       = $key
+            Activities = $editors.$key
+        }
+    }
+
+    return $csvData
+}
+
+function CheckFiles {
+    param(
+        [Parameter(Mandatory)]
+        [ValidateNotNullOrEmpty()]
+        [string]$SiteUrl,
+
+        [Parameter(Mandatory)]
+        [ValidateNotNullOrEmpty()]
+        [string]$LibraryName,
+
+        [Parameter]
+        [string]$Date
+    )
+
+    try {
+        Connect-PnPOnline -Url $SiteUrl -Interactive
+
+        # Get the document library
+        $documentLibrary = Get-DocumentLibrary -SiteUrl $SiteUrl -LibraryName $LibraryName
+    
+        # If the list is not a document library, return
+        if (-not $documentLibrary) { return }
+    
+        $documents = Get-PnPListItem -List $LibraryName -Fields &quot;FileLeafRef&quot;, &quot;ID&quot;, &quot;File_x0020_Type&quot;, &quot;File_x0020_Size&quot;, &quot;Created_x0020_By&quot;, &quot;Created_x0020_Date&quot;, &quot;Modified_x0020_By&quot;, &quot;Last_x0020_Modified&quot;, &quot;CheckoutUser&quot;, &quot;Versions&quot;, &quot;File&quot;
+        $incidents = @()
+
+        # Loop through all documents in the library
+        foreach ($document in $documents) {
+
+            # If the item is a folder, skip it
+            if (Get-IsFolder -document $document) { continue; }
+
+            $documentVersions = Get-PnPProperty -ClientObject $document -Property Versions
+            $documentFile = Get-PnPProperty -ClientObject $document -Property File
+    
+            # Get an empty incident object
+            $incidentObj = Get-IncidentObject -document $document
+
+            # Get the incidents for the file activities - SharePoint api 2.0
+            $incidents += Get-FileActivitiesIncidents -SiteUrl $SiteUrl -documentLibraryId $documentLibrary.Id -fileId $document.Id -incidentObj $incidentObj 
+
+            # Get the incidents for the file versions
+            $incidents += Get-DocumentVersionsIncidents -document $document -documentVersions $documentVersions -documentFile $documentFile -incidentObj $incidentObj
+        }
+
+        # Export the incidents to a CSV file
+        $incidents | Export-Csv -Path &quot;$PSScriptRoot/report.csv&quot; -NoTypeInformation
+        
+        # Export the editors to a CSV file
+        $csvEditorsData = Get-CSVDataFromEditorsObject
+        $csvEditorsData | Export-Csv -Path &quot;$PSScriptRoot/editors.csv&quot; -NoTypeInformation
+
+        Disconnect-PnPOnline
+    }
+    catch {
+        Write-Host $_.Exception.Message
+    }
+}
+
+CheckFiles -SiteUrl $targetSiteUrl -LibraryName $libraryName
+
+
+</code></pre>
+<div class="highlight-tool">
+<p>Check out the <strong>PnP PowerShell</strong> to learn more at: <a href="https://aka.ms/pnp/powershell">https://aka.ms/pnp/powershell</a></p>
+</div>
+</section>
+</div>
+<h2 id="source-credit">Source Credit</h2>
+<p>Sample first appeared on <a href="https://michalkornet.com/2023/09/19/Report-of-SharePoint-Files-Incidents.html">https://michalkornet.com/2023/09/19/Report-of-SharePoint-Files-Incidents.html</a></p>
+<h2 id="contributors">Contributors</h2>
+<table>
+<thead>
+<tr>
+<th>Author(s)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="https://github.com/mkm17">Michał Kornet</a></td>
+</tr>
+</tbody>
+</table>
+<h2 id="disclaimer">Disclaimer</h2>
+<p><strong>THESE SAMPLES ARE PROVIDED <em>AS IS</em> WITHOUT WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, INCLUDING ANY IMPLIED WARRANTIES OF FITNESS FOR A PARTICULAR PURPOSE, MERCHANTABILITY, OR NON-INFRINGEMENT.</strong></p>
+<img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/spo-export-report-files-incidents" aria-hidden="true">
+</article>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            <span>Script Samples<br>Generated by <strong><a href='https://dotnet.github.io/docfx' alt='Doc FX Website'>DocFX</a></strong> with <strong><a href='https://ovasquez.github.io/docfx-material' alt='DocFx Material Theme'>Material UI</a></strong></span>
+            
+            <!-- <img src="https://telemetry.sharepointpnp.com/@pnp.github.io/index/" alt="spacer"> -->
+          </div>
+        </div>
+      </footer>    </div>
+    
+    <script type="text/javascript" src="../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+    
+    <script type="text/javascript" src="../styles/clipboard.min.js"></script>
+    <script type="text/javascript" src="../styles/isotope.pkgd.min.js"></script>
+    <script type="text/javascript" src="../styles/loadsamples.js"></script>
+    <script type="text/javascript" src="../styles/filtersamples.js"></script>
+
+  </body>
+</html>
