@@ -2,7 +2,7 @@
 plugin: add-to-gallery
 ---
 
-# Bring you own data example with Azure Open AI
+# Bring you own data with Azure Open AI example
 
 ## Summary
 
