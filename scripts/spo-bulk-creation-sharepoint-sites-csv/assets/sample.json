@@ -2,88 +2,46 @@
   {
     "name": "spo-bulk-creation-sharepoint-sites-csv",
     "source": "pnp",
-    "title": "<title>",
-    "shortDescription": "",
+    "title": "Creation of SharePoint Online sites from CSV",
+    "shortDescription": "This script helps you in creation of SharePoint Communication and Team sites in bulk. It takes an input from CSV.",
     "url": "https://pnp.github.io/script-samples/spo-bulk-creation-sharepoint-sites-csv/README.html",
     "longDescription": [
       ""
     ],
-    "creationDateTime": "2023-01-20",
-    "updateDateTime": "2023-01-20",
+    "creationDateTime": "2023-10-03",
+    "updateDateTime": "2023-10-03",
     "products": [
-      "SharePoint",
-      "Office",
-      "Graph",
-      "PowerApps",
-      "Teams",
-      "Power Automate",
-      "Microsoft Todo",
-      "Azure"
+      "SharePoint"
     ],
     "metadata": [
       {
         "key": "PNP-POWERSHELL",
-        "value": "1.11.0"
-      },
-      {
-        "key": "CLI-FOR-MICROSOFT365",
-        "value": "5.6.0"
-      },
-      {
-        "key": "GRAPH-POWERSHELL",
-        "value": "1.0.0"
-      },
-      {
-        "key": "SPO-MANAGEMENT-SHELL",
-        "value": "16.0.21116.12000"
-      },
-      {
-        "key": "AZURE-CLI",
-        "value": "2.27.0"
-      },
-      {
-        "key": "MICROSOFTTEAMS-POWERSHELL",
-        "value": "3.0.0"
-      },
-      {
-        "key": "POWERAPPS-POWERSHELL",
-        "value": "2.0.0"
-      },
-      {
-        "key": "POWERSHELL",
-        "value": "7.2.0"
-      },
-      {
-        "key": "MICROSOFTWHITEBOARDADMIN",
-        "value": "1.5.0"
+        "value": "2.2.0"
       }
     ],
     "categories": [
-      "Modernize",
-      "Data",
-      "Deploy",
-      "Provision",
-      "Configure",
-      "Report",
-      "Security"
+      "Provision"
     ],
     "tags": [
-      "<Cmdlets-Used>"
+      "Connect-PnPOnline",
+      "Get-PnPTenant",
+      "Get-PnPTenantSite",
+      "New-PnPSite"
     ],
     "thumbnails": [
       {
         "type": "image",
         "order": 100,
         "url": "https://raw.githubusercontent.com/pnp/script-samples/main/scripts/spo-bulk-creation-sharepoint-sites-csv/assets/preview.png",
-        "alt": "Preview of the sample <title>"
+        "alt": "Preview of the sample Creation of SharePoint Online sites from CSV"
       }
     ],
     "authors": [
       {
-        "gitHubAccount": "<your-github-username>",
-        "company": "",
-        "pictureUrl": "https://github.com/<github-username>.png",
-        "name": "<Full Name>"
+        "gitHubAccount": "kzkalra",
+        "company": "Microsoft",
+        "pictureUrl": "https://github.com/kzkalra.png",
+        "name": "Kshitiz Kalra"
       }
     ],
     "references": [
@@ -91,41 +49,6 @@
         "name": "Want to learn more about PnP PowerShell and the cmdlets",
         "description": "Check out the PnP PowerShell site to get started and for the reference to the cmdlets.",
         "url": "https://aka.ms/pnp/powershell"
-      },
-      {
-        "name": "Want to learn more about CLI for Microsoft 365 and the commands",
-        "description": "Check out the CLI for Microsoft 365 site to get started and for the reference to the commands.",
-        "url": "https://aka.ms/cli-m365"
-      },
-      {
-        "name": "Want to learn more about Microsoft Graph PowerShell SDK and the cmdlets",
-        "description": "Check out the Microsoft Graph PowerShell SDK documentation site to get started and for the reference to the cmdlets.",
-        "url": "https://docs.microsoft.com/en-us/graph/powershell/get-started"
-      },
-      {
-        "name": "Want to learn more about Power Apps PowerShell and the cmdlets",
-        "description": "Check out the Power Apps PowerShell documentation site to get started and for the reference to the cmdlets.",
-        "url": "https://docs.microsoft.com/en-us/power-platform/admin/powerapps-powershell"
-      },
-      {
-        "name": "Introduction to the SharePoint Online Management Shell",
-        "description": "Check out the SPO Management Shell documentation site to get started and for the reference to the cmdlets.",
-        "url": "https://docs.microsoft.com/en-us/powershell/sharepoint/sharepoint-online/introduction-sharepoint-online-management-shell?view=sharepoint-ps"
-      },
-      {
-        "name": "Want to learn more about Microsoft Teams PowerShell and the cmdlets",
-        "description": "Check out the Microsoft Teams PowerShell documentation site to get started and for the reference to the cmdlets.",
-        "url": "https://docs.microsoft.com/en-us/microsoftteams/teams-powershell-overview"
-      },
-      {
-        "name": "Want to learn more about Azure CLI and the commands",
-        "description": "Check out the Azure CLI documentation site to get started and for the reference to the commands.",
-        "url": "https://docs.microsoft.com/en-us/cli/azure/"
-      },
-      {
-        "name":"Want to learn more about Whiteboard Admin cmdlets",
-        "description":"Check out the Whiteboard Admin cmdlets documentation site to get started and for the reference to the commands.",
-        "url": "https://docs.microsoft.com/en-us/powershell/module/whiteboard/?view=whiteboard-ps"
       }
     ]
   }
