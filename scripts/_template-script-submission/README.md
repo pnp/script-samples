@@ -2,92 +2,76 @@
 plugin: add-to-gallery-preparation
 ---
 
-# <title>
-
-> [!Note]
-> This is a submission helper template please find the [contributor guidance](/docfx/contribute.md) to help you write this scenario.
+# Creation of SharePoint Online sites from CSV
 
 ## Summary
 
-Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Maecenas porttitor congue massa. Fusce posuere, magna sed pulvinar ultricies, purus lectus malesuada libero, sit amet commodo magna eros quis urna.
-
-![Example Screenshot](assets/example.png)
-
-Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Maecenas porttitor congue massa. Fusce posuere, magna sed pulvinar ultricies, purus lectus malesuada libero, sit amet commodo magna eros quis urna.Nunc viverra imperdiet enim. Fusce est. Vivamus a tellus.Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Proin pharetra nonummy pede. Mauris et orci.Aenean nec lorem. In porttitor. Donec laoreet nonummy augue.
+This script helps you in creation of SharePoint Communication and Team sites in bulk. It takes an input from CSV.
+CSV structure should look like:
+| RootSiteUrl | SiteTitle | Alias | SiteUrl | Type |
+|-------------|-----------|-------|---------|------|
+| https://<tenant_name>.sharepoint.com | My Communication Site | My Communication Site | /sites/mycommsite | CommunicationSite |
+| https://<tenant_name>.sharepoint.com | My Team Site | My Team Site | /teams/myteamsite | TeamSite |
 
 
 # [PnP PowerShell](#tab/pnpps)
 
 ```powershell
+$AdminCenterUrl = <url-of-sharepoint-admin-center>
+$inputFilePath = <path-to-your-csv-file>
+$input = import-csv $inputFile
 
-<your script>
+Write-Host "Invoked CSV file"
 
+Connect-PnPOnline -Url $AdminCenterUrl
+
+foreach($row in $input)
+{ 
+    #Connect to Admin Center 
+    Write-Host "Getting Configuration Details"
+
+    $RootSiteUrl = $row.RootSiteUrl
+    $SiteTitle = $row.SiteTitle
+    $SiteUrl = $row.SiteUrl
+    $Type = $row.Type
+    $Alias = $row.Alias
+    $commSiteUrl = $RootSiteUrl + $SiteURL 
+    $site = $null
+
+    try
+    {
+        $site = Get-PnPTenantSite -Identity $commSiteUrl 
+    }
+    catch
+    {
+        Write-Host "Exception: $($_.Exception.Message)"
+    }
+
+    If ($null -eq $Site)
+    {
+        if($Type -eq "TeamSite")
+        {
+            #sharepoint online pnp powershell create site collection
+            $ProvisionedSiteUrl = New-PnPSite -Type $Type -Title $SiteTitle -Alias $SiteTitle -IsPublic   
+            write-host "Site Collection $($ProvisionedSiteUrl) Created Successfully!" -foregroundcolor Green
+        }
+        else
+        {
+            #sharepoint online pnp powershell create site collection
+            $ProvisionedSiteUrl = New-PnPSite -Type $Type -Title $SiteTitle -Url $commSiteUrl  
+            write-host "Site Collection $($ProvisionedSiteUrl) Created Successfully!" -foregroundcolor Green
+        }
+    }
+    else
+    {
+        write-host "Site $($SiteURL) exists already!" -foregroundcolor Yellow
+        $ProvisionedSiteUrl = $SiteURL;
+    }
+
+    Write-Log "$Home Site Url  configured" 
+}
 ```
 [!INCLUDE [More about PnP PowerShell](../../docfx/includes/MORE-PNPPS.md)]
-
-# [CLI for Microsoft 365 using PowerShell](#tab/cli-m365-ps)
-
-```powershell
-
-<your script>
-
-```
-[!INCLUDE [More about CLI for Microsoft 365](../../docfx/includes/MORE-CLIM365.md)]
-
-# [CLI for Microsoft 365 using Bash](#tab/cli-m365-bash)
-
-```bash
-
-<your script>
-
-```
-[!INCLUDE [More about CLI for Microsoft 365](../../docfx/includes/MORE-CLIM365.md)]
-
-# [Microsoft Graph PowerShell](#tab/graphps)
-
-```powershell
-
-<your script>
-
-```
-[!INCLUDE [More about Microsoft Graph PowerShell SDK](../../docfx/includes/MORE-GRAPHSDK.md)]
-
-# [SPO Management Shell](#tab/spoms-ps)
-
-```powershell
-
-<your script>
-
-```
-[!INCLUDE [More about SPO Management Shell](../../docfx/includes/MORE-SPOMS.md)]
-
-# [Azure CLI](#tab/azure-cli)
-
-```powershell
-
-<your script>
-
-```
-[!INCLUDE [More about Azure CLI](../../docfx/includes/MORE-AZURECLI.md)]
-
-# [Power Apps PowerShell](#tab/powerapps-ps)
-```powershell
-
-<your script>
-
-```
-[!INCLUDE [More about Power Apps PowerShell](../../docfx/includes/MORE-POWERAPPS.md)]
-
-# [MicrosoftTeams PowerShell](#tab/teamsps)
-
-```powershell
-
-<your script>
-
-```
-[!INCLUDE [More about Microsoft Teams PowerShell](../../docfx/includes/MORE-TEAMSPS.md)]
-
-***
 
 
 ## Source Credit
@@ -98,7 +82,7 @@ Sample first appeared on [https://pnp.github.io/cli-microsoft365/sample-scripts/
 
 | Author(s) |
 |-----------|
-| <-you-> |
+| [Kshitiz Kalra](https://www.linkedin.com/in/kshitiz-kalra-b3107b164/) |
 
 
 [!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
