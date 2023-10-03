@@ -6,7 +6,49 @@ plugin: add-to-gallery-preparation
 
 ## Summary
 
-This script adds a new language to the SharePoint Online site with the help of language LCID decimal.
+This script adds a new language to the SharePoint Online site with the help of language LCID decimal. 
+The following table shows the LCID for each language.
+
+| LCID | Language                 |
+|------|-------------------------|
+| 1025 | Arabic                  |
+| 1046 | Brazilian               |
+| 1026 | Bulgarian               |
+| 1027 | Catalan                 |
+| 2052 | Chinese - Simplified    |
+| 1028 | Chinese - Traditional   |
+| 1050 | Croatian                |
+| 1029 | Czech                   |
+| 1030 | Danish                  |
+| 1043 | Dutch                   |
+| 1033 | English                 |
+| 1061 | Estonian                |
+| 1035 | Finnish                 |
+| 1036 | French                  |
+| 1031 | German                  |
+| 1032 | Greek                   |
+| 1037 | Hebrew                  |
+| 1081 | Hindi                   |
+| 1038 | Hungarian               |
+| 1040 | Italian                 |
+| 1041 | Japanese                |
+| 1087 | Kazakh                  |
+| 1042 | Korean                  |
+| 1062 | Latvian                 |
+| 1063 | Lithuanian              |
+| 1044 | Norwegian               |
+| 1045 | Polish                  |
+| 2070 | Portuguese              |
+| 1048 | Romanian                |
+| 1049 | Russian                 |
+| 2074 | Serbian                 |
+| 1051 | Slovak                  |
+| 1060 | Slovenian               |
+| 1034 | Spanish                 |
+| 1053 | Swedish                 |
+| 1054 | Thai                    |
+| 1055 | Turkish                 |
+| 1058 | Ukrainian               |
 
 
 # [PnP PowerShell](#tab/pnpps)
