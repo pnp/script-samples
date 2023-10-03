@@ -93,3 +93,15 @@ if($_.Name -ne "Forms"){
 }
 # Disconnect from SharePoint
 ```
+[!INCLUDE [More about PnP PowerShell](../../docfx/includes/MORE-PNPPS.md)]
+***
+
+## Contributors
+
+| Author(s) |
+|-----------|
+| Reshmee Auckloo |
+
+
+[!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
+<img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/spo-move-files-library-sites" aria-hidden="true" />
