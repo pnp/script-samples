@@ -2,92 +2,103 @@
 plugin: add-to-gallery-preparation
 ---
 
-# Add an alternate language to SharePoint Online Site
+# <title>
+
+> [!Note]
+> This is a submission helper template please find the [contributor guidance](/docfx/contribute.md) to help you write this scenario.
 
 ## Summary
 
-This script adds a new language to the SharePoint Online site with the help of language LCID decimal. 
-The following table shows the LCID for each language.
+Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Maecenas porttitor congue massa. Fusce posuere, magna sed pulvinar ultricies, purus lectus malesuada libero, sit amet commodo magna eros quis urna.
 
-| LCID | Language                 |
-|------|-------------------------|
-| 1025 | Arabic                  |
-| 1046 | Brazilian               |
-| 1026 | Bulgarian               |
-| 1027 | Catalan                 |
-| 2052 | Chinese - Simplified    |
-| 1028 | Chinese - Traditional   |
-| 1050 | Croatian                |
-| 1029 | Czech                   |
-| 1030 | Danish                  |
-| 1043 | Dutch                   |
-| 1033 | English                 |
-| 1061 | Estonian                |
-| 1035 | Finnish                 |
-| 1036 | French                  |
-| 1031 | German                  |
-| 1032 | Greek                   |
-| 1037 | Hebrew                  |
-| 1081 | Hindi                   |
-| 1038 | Hungarian               |
-| 1040 | Italian                 |
-| 1041 | Japanese                |
-| 1087 | Kazakh                  |
-| 1042 | Korean                  |
-| 1062 | Latvian                 |
-| 1063 | Lithuanian              |
-| 1044 | Norwegian               |
-| 1045 | Polish                  |
-| 2070 | Portuguese              |
-| 1048 | Romanian                |
-| 1049 | Russian                 |
-| 2074 | Serbian                 |
-| 1051 | Slovak                  |
-| 1060 | Slovenian               |
-| 1034 | Spanish                 |
-| 1053 | Swedish                 |
-| 1054 | Thai                    |
-| 1055 | Turkish                 |
-| 1058 | Ukrainian               |
+![Example Screenshot](assets/example.png)
+
+Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Maecenas porttitor congue massa. Fusce posuere, magna sed pulvinar ultricies, purus lectus malesuada libero, sit amet commodo magna eros quis urna.Nunc viverra imperdiet enim. Fusce est. Vivamus a tellus.Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Proin pharetra nonummy pede. Mauris et orci.Aenean nec lorem. In porttitor. Donec laoreet nonummy augue.
 
 
 # [PnP PowerShell](#tab/pnpps)
 
 ```powershell
 
-### Variables for Processing
-$SiteURL="https://<tenant name>.sharepoint.com/sites/<site>"
-$LanguageID = 1025 #Arabic LCID
-
-#Connect to PNP Online
-Connect-PnPOnline -Url $SiteURL -Interactive
-
-#Get the Web
-$Web = Get-PnPWeb -Includes RegionalSettings.InstalledLanguages
-
-#Add Alternate Language
-$Web.IsMultilingual = $True
-$Web.AddSupportedUILanguage($LanguageID)
-$Web.Update()
-
-Invoke-PnPQuery
+<your script>
 
 ```
 [!INCLUDE [More about PnP PowerShell](../../docfx/includes/MORE-PNPPS.md)]
 
+# [CLI for Microsoft 365 using PowerShell](#tab/cli-m365-ps)
+
+```powershell
+
+<your script>
+
+```
+[!INCLUDE [More about CLI for Microsoft 365](../../docfx/includes/MORE-CLIM365.md)]
+
+# [CLI for Microsoft 365 using Bash](#tab/cli-m365-bash)
+
+```bash
+
+<your script>
+
+```
+[!INCLUDE [More about CLI for Microsoft 365](../../docfx/includes/MORE-CLIM365.md)]
+
+# [Microsoft Graph PowerShell](#tab/graphps)
+
+```powershell
+
+<your script>
+
+```
+[!INCLUDE [More about Microsoft Graph PowerShell SDK](../../docfx/includes/MORE-GRAPHSDK.md)]
+
+# [SPO Management Shell](#tab/spoms-ps)
+
+```powershell
+
+<your script>
+
+```
+[!INCLUDE [More about SPO Management Shell](../../docfx/includes/MORE-SPOMS.md)]
+
+# [Azure CLI](#tab/azure-cli)
+
+```powershell
+
+<your script>
+
+```
+[!INCLUDE [More about Azure CLI](../../docfx/includes/MORE-AZURECLI.md)]
+
+# [Power Apps PowerShell](#tab/powerapps-ps)
+```powershell
+
+<your script>
+
+```
+[!INCLUDE [More about Power Apps PowerShell](../../docfx/includes/MORE-POWERAPPS.md)]
+
+# [MicrosoftTeams PowerShell](#tab/teamsps)
+
+```powershell
+
+<your script>
+
+```
+[!INCLUDE [More about Microsoft Teams PowerShell](../../docfx/includes/MORE-TEAMSPS.md)]
 
 ***
 
 
 ## Source Credit
 
-Sample first appeared on [SharePoint Diary](https://www.sharepointdiary.com/2019/11/sharepoint-online-change-site-language-using-powershell.html)
+Sample first appeared on [https://pnp.github.io/cli-microsoft365/sample-scripts/spo/add-app-catalog/](https://pnp.github.io/cli-microsoft365/sample-scripts/spo/add-app-catalog/)
 
 ## Contributors
 
 | Author(s) |
 |-----------|
-| [Kshitiz Kalra](https://www.linkedin.com/in/kshitiz-kalra-b3107b164/) |
+| <-you-> |
 
 
 [!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
