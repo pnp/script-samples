@@ -8,10 +8,11 @@ plugin: add-to-gallery
 
 This script helps you in creation of SharePoint Communication and Team sites in bulk. It takes an input from CSV.
 CSV structure should look like:
-| RootSiteUrl | SiteTitle | Alias | SiteUrl | Type |
-|-------------|-----------|-------|---------|------|
+
+| RootSiteUrl                          | SiteTitle             | Alias                 | SiteUrl           | Type              |
+|--------------------------------------|-----------------------|-----------------------|-------------------|-------------------|
 | https://<tenant_name>.sharepoint.com | My Communication Site | My Communication Site | /sites/mycommsite | CommunicationSite |
-| https://<tenant_name>.sharepoint.com | My Team Site | My Team Site | /teams/myteamsite | TeamSite |
+| https://<tenant_name>.sharepoint.com | My Team Site          | My Team Site          | /teams/myteamsite | TeamSite          |
 
 
 # [PnP PowerShell](#tab/pnpps)
