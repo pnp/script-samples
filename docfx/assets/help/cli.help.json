@@ -4,6 +4,10 @@
     "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/_global/"
   },
   {
+    "cmd": "m365 docs",
+    "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/docs/"
+  },
+  {
     "cmd": "m365 login",
     "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/login/"
   },
@@ -14,6 +18,10 @@
   {
     "cmd": "m365 request",
     "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/request/"
+  },
+  {
+    "cmd": "m365 setup",
+    "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/setup/"
   },
   {
     "cmd": "m365 status",
@@ -76,6 +84,10 @@
     "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/aad/group/group-list"
   },
   {
+    "cmd": "m365 aad group remove",
+    "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/aad/group/group-remove"
+  },
+  {
     "cmd": "m365 aad groupsetting add",
     "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/aad/groupsetting/groupsetting-add"
   },
@@ -104,92 +116,96 @@
     "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/aad/groupsettingtemplate/groupsettingtemplate-list"
   },
   {
-    "cmd": "m365 aad o365group add",
-    "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/aad/o365group/o365group-add"
+    "cmd": "m365 aad license list",
+    "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/aad/license/license-list"
   },
   {
-    "cmd": "m365 aad o365group conversation list",
-    "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/aad/o365group/o365group-conversation-list"
+    "cmd": "m365 aad m365group add",
+    "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/aad/m365group/m365group-add"
   },
   {
-    "cmd": "m365 aad o365group conversation post list",
-    "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/aad/o365group/o365group-conversation-post-list"
+    "cmd": "m365 aad m365group conversation list",
+    "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/aad/m365group/m365group-conversation-list"
   },
   {
-    "cmd": "m365 aad o365group get",
-    "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/aad/o365group/o365group-get"
+    "cmd": "m365 aad m365group conversation post list",
+    "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/aad/m365group/m365group-conversation-post-list"
   },
   {
-    "cmd": "m365 aad o365group list",
-    "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/aad/o365group/o365group-list"
+    "cmd": "m365 aad m365group get",
+    "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/aad/m365group/m365group-get"
   },
   {
-    "cmd": "m365 aad o365group recyclebinitem clear",
-    "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/aad/o365group/o365group-recyclebinitem-clear"
+    "cmd": "m365 aad m365group list",
+    "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/aad/m365group/m365group-list"
   },
   {
-    "cmd": "m365 aad o365group recyclebinitem list",
-    "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/aad/o365group/o365group-recyclebinitem-list"
+    "cmd": "m365 aad m365group recyclebinitem clear",
+    "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/aad/m365group/m365group-recyclebinitem-clear"
   },
   {
-    "cmd": "m365 aad o365group recyclebinitem remove",
-    "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/aad/o365group/o365group-recyclebinitem-remove"
+    "cmd": "m365 aad m365group recyclebinitem list",
+    "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/aad/m365group/m365group-recyclebinitem-list"
   },
   {
-    "cmd": "m365 aad o365group recyclebinitem restore",
-    "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/aad/o365group/o365group-recyclebinitem-restore"
+    "cmd": "m365 aad m365group recyclebinitem remove",
+    "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/aad/m365group/m365group-recyclebinitem-remove"
   },
   {
-    "cmd": "m365 aad o365group remove",
-    "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/aad/o365group/o365group-remove"
+    "cmd": "m365 aad m365group recyclebinitem restore",
+    "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/aad/m365group/m365group-recyclebinitem-restore"
   },
   {
-    "cmd": "m365 aad o365group renew",
-    "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/aad/o365group/o365group-renew"
+    "cmd": "m365 aad m365group remove",
+    "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/aad/m365group/m365group-remove"
   },
   {
-    "cmd": "m365 aad o365group report activitycounts",
-    "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/aad/o365group/o365group-report-activitycounts"
+    "cmd": "m365 aad m365group renew",
+    "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/aad/m365group/m365group-renew"
   },
   {
-    "cmd": "m365 aad o365group report activitydetail",
-    "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/aad/o365group/o365group-report-activitydetail"
+    "cmd": "m365 aad m365group report activitycounts",
+    "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/aad/m365group/m365group-report-activitycounts"
   },
   {
-    "cmd": "m365 aad o365group report activityfilecounts",
-    "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/aad/o365group/o365group-report-activityfilecounts"
+    "cmd": "m365 aad m365group report activitydetail",
+    "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/aad/m365group/m365group-report-activitydetail"
   },
   {
-    "cmd": "m365 aad o365group report activitygroupcounts",
-    "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/aad/o365group/o365group-report-activitygroupcounts"
+    "cmd": "m365 aad m365group report activityfilecounts",
+    "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/aad/m365group/m365group-report-activityfilecounts"
   },
   {
-    "cmd": "m365 aad o365group report activitystorage",
-    "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/aad/o365group/o365group-report-activitystorage"
+    "cmd": "m365 aad m365group report activitygroupcounts",
+    "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/aad/m365group/m365group-report-activitygroupcounts"
   },
   {
-    "cmd": "m365 aad o365group set",
-    "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/aad/o365group/o365group-set"
+    "cmd": "m365 aad m365group report activitystorage",
+    "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/aad/m365group/m365group-report-activitystorage"
   },
   {
-    "cmd": "m365 aad o365group teamify",
-    "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/aad/o365group/o365group-teamify"
+    "cmd": "m365 aad m365group set",
+    "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/aad/m365group/m365group-set"
   },
   {
-    "cmd": "m365 aad o365group user add",
-    "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/aad/o365group/o365group-user-add"
+    "cmd": "m365 aad m365group teamify",
+    "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/aad/m365group/m365group-teamify"
   },
   {
-    "cmd": "m365 aad o365group user list",
-    "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/aad/o365group/o365group-user-list"
+    "cmd": "m365 aad m365group user add",
+    "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/aad/m365group/m365group-user-add"
   },
   {
-    "cmd": "m365 aad o365group user remove",
-    "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/aad/o365group/o365group-user-remove"
+    "cmd": "m365 aad m365group user list",
+    "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/aad/m365group/m365group-user-list"
   },
   {
-    "cmd": "m365 aad o365group user set",
-    "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/aad/o365group/o365group-user-set"
+    "cmd": "m365 aad m365group user remove",
+    "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/aad/m365group/m365group-user-remove"
+  },
+  {
+    "cmd": "m365 aad m365group user set",
+    "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/aad/m365group/m365group-user-set"
   },
   {
     "cmd": "m365 aad oauth2grant add",
@@ -236,6 +252,14 @@
     "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/aad/sp/sp-get"
   },
   {
+    "cmd": "m365 aad sp list",
+    "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/aad/sp/sp-list"
+  },
+  {
+    "cmd": "m365 aad user add",
+    "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/aad/user/user-add"
+  },
+  {
     "cmd": "m365 aad user get",
     "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/aad/user/user-get"
   },
@@ -248,12 +272,44 @@
     "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/aad/user/user-hibp"
   },
   {
+    "cmd": "m365 aad user license add",
+    "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/aad/user/user-license-add"
+  },
+  {
+    "cmd": "m365 aad user license list",
+    "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/aad/user/user-license-list"
+  },
+  {
+    "cmd": "m365 aad user license remove",
+    "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/aad/user/user-license-remove"
+  },
+  {
     "cmd": "m365 aad user list",
     "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/aad/user/user-list"
   },
   {
     "cmd": "m365 aad user password validate",
     "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/aad/user/user-password-validate"
+  },
+  {
+    "cmd": "m365 aad user recyclebinitem clear",
+    "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/aad/user/user-recyclebinitem-clear"
+  },
+  {
+    "cmd": "m365 aad user recyclebinitem list",
+    "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/aad/user/user-recyclebinitem-list"
+  },
+  {
+    "cmd": "m365 aad user recyclebinitem remove",
+    "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/aad/user/user-recyclebinitem-remove"
+  },
+  {
+    "cmd": "m365 aad user recyclebinitem restore",
+    "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/aad/user/user-recyclebinitem-restore"
+  },
+  {
+    "cmd": "m365 aad user remove",
+    "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/aad/user/user-remove"
   },
   {
     "cmd": "m365 aad user set",
@@ -274,6 +330,10 @@
   {
     "cmd": "m365 app open",
     "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/app/app-open"
+  },
+  {
+    "cmd": "m365 app permission add",
+    "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/app/permission/permission-add"
   },
   {
     "cmd": "m365 app permission list",
@@ -328,6 +388,10 @@
     "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/cli/config/config-get"
   },
   {
+    "cmd": "m365 cli config list",
+    "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/cli/config/config-list"
+  },
+  {
     "cmd": "m365 cli config reset",
     "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/cli/config/config-reset"
   },
@@ -342,6 +406,18 @@
   {
     "cmd": "m365 context remove",
     "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/context/context-remove"
+  },
+  {
+    "cmd": "m365 context option list",
+    "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/context/option/option-list"
+  },
+  {
+    "cmd": "m365 context option remove",
+    "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/context/option/option-remove"
+  },
+  {
+    "cmd": "m365 context option set",
+    "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/context/option/option-set"
   },
   {
     "cmd": "m365 file add",
@@ -386,6 +462,18 @@
   {
     "cmd": "m365 flow environment list",
     "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/flow/environment/environment-list"
+  },
+  {
+    "cmd": "m365 flow owner ensure",
+    "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/flow/owner/owner-ensure"
+  },
+  {
+    "cmd": "m365 flow owner list",
+    "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/flow/owner/owner-list"
+  },
+  {
+    "cmd": "m365 flow owner remove",
+    "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/flow/owner/owner-remove"
   },
   {
     "cmd": "m365 flow run cancel",
@@ -468,6 +556,10 @@
     "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/onenote/notebook/notebook-list"
   },
   {
+    "cmd": "m365 onenote page list",
+    "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/onenote/page/page-list"
+  },
+  {
     "cmd": "m365 outlook mail send",
     "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/outlook/mail/mail-send"
   },
@@ -536,12 +628,36 @@
     "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/outlook/roomlist/roomlist-list"
   },
   {
+    "cmd": "m365 pa app consent set",
+    "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/pa/app/app-consent-set"
+  },
+  {
+    "cmd": "m365 pa app export",
+    "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/pa/app/app-export"
+  },
+  {
     "cmd": "m365 pa app get",
     "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/pa/app/app-get"
   },
   {
     "cmd": "m365 pa app list",
     "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/pa/app/app-list"
+  },
+  {
+    "cmd": "m365 pa app owner set",
+    "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/pa/app/app-owner-set"
+  },
+  {
+    "cmd": "m365 pa app permission ensure",
+    "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/pa/app/app-permission-ensure"
+  },
+  {
+    "cmd": "m365 pa app permission list",
+    "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/pa/app/app-permission-list"
+  },
+  {
+    "cmd": "m365 pa app permission remove",
+    "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/pa/app/app-permission-remove"
   },
   {
     "cmd": "m365 pa app remove",
@@ -562,18 +678,6 @@
   {
     "cmd": "m365 pa environment list",
     "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/pa/environment/environment-list"
-  },
-  {
-    "cmd": "m365 pa pcf init",
-    "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/pa/pcf/pcf-init"
-  },
-  {
-    "cmd": "m365 pa solution init",
-    "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/pa/solution/solution-init"
-  },
-  {
-    "cmd": "m365 pa solution reference add",
-    "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/pa/solution/solution-reference-add"
   },
   {
     "cmd": "m365 planner bucket add",
@@ -614,6 +718,38 @@
   {
     "cmd": "m365 planner plan set",
     "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/planner/plan/plan-set"
+  },
+  {
+    "cmd": "m365 planner roster add",
+    "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/planner/roster/roster-add"
+  },
+  {
+    "cmd": "m365 planner roster get",
+    "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/planner/roster/roster-get"
+  },
+  {
+    "cmd": "m365 planner roster member add",
+    "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/planner/roster/roster-member-add"
+  },
+  {
+    "cmd": "m365 planner roster member get",
+    "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/planner/roster/roster-member-get"
+  },
+  {
+    "cmd": "m365 planner roster member list",
+    "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/planner/roster/roster-member-list"
+  },
+  {
+    "cmd": "m365 planner roster member remove",
+    "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/planner/roster/roster-member-remove"
+  },
+  {
+    "cmd": "m365 planner roster plan list",
+    "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/planner/roster/roster-plan-list"
+  },
+  {
+    "cmd": "m365 planner roster remove",
+    "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/planner/roster/roster-remove"
   },
   {
     "cmd": "m365 planner task add",
@@ -668,8 +804,16 @@
     "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/planner/tenant/tenant-settings-set"
   },
   {
+    "cmd": "m365 pp aibuildermodel get",
+    "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/pp/aibuildermodel/aibuildermodel-get"
+  },
+  {
     "cmd": "m365 pp aibuildermodel list",
     "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/pp/aibuildermodel/aibuildermodel-list"
+  },
+  {
+    "cmd": "m365 pp aibuildermodel remove",
+    "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/pp/aibuildermodel/aibuildermodel-remove"
   },
   {
     "cmd": "m365 pp card clone",
@@ -752,6 +896,10 @@
     "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/pp/solution/solution-list"
   },
   {
+    "cmd": "m365 pp solution publish",
+    "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/pp/solution/solution-publish"
+  },
+  {
     "cmd": "m365 pp solution publisher add",
     "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/pp/solution/solution-publisher-add"
   },
@@ -776,6 +924,54 @@
     "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/pp/tenant/tenant-settings-list"
   },
   {
+    "cmd": "m365 pp tenant settings set",
+    "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/pp/tenant/tenant-settings-set"
+  },
+  {
+    "cmd": "m365 purview auditlog list",
+    "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/purview/auditlog/auditlog-list"
+  },
+  {
+    "cmd": "m365 purview retentionevent add",
+    "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/purview/retentionevent/retentionevent-add"
+  },
+  {
+    "cmd": "m365 purview retentionevent get",
+    "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/purview/retentionevent/retentionevent-get"
+  },
+  {
+    "cmd": "m365 purview retentionevent list",
+    "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/purview/retentionevent/retentionevent-list"
+  },
+  {
+    "cmd": "m365 purview retentionevent remove",
+    "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/purview/retentionevent/retentionevent-remove"
+  },
+  {
+    "cmd": "m365 purview retentioneventtype add",
+    "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/purview/retentioneventtype/retentioneventtype-add"
+  },
+  {
+    "cmd": "m365 purview retentioneventtype get",
+    "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/purview/retentioneventtype/retentioneventtype-get"
+  },
+  {
+    "cmd": "m365 purview retentioneventtype list",
+    "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/purview/retentioneventtype/retentioneventtype-list"
+  },
+  {
+    "cmd": "m365 purview retentioneventtype remove",
+    "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/purview/retentioneventtype/retentioneventtype-remove"
+  },
+  {
+    "cmd": "m365 purview retentioneventtype set",
+    "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/purview/retentioneventtype/retentioneventtype-set"
+  },
+  {
+    "cmd": "m365 purview retentionlabel add",
+    "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/purview/retentionlabel/retentionlabel-add"
+  },
+  {
     "cmd": "m365 purview retentionlabel get",
     "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/purview/retentionlabel/retentionlabel-get"
   },
@@ -790,6 +986,22 @@
   {
     "cmd": "m365 purview retentionlabel set",
     "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/purview/retentionlabel/retentionlabel-set"
+  },
+  {
+    "cmd": "m365 purview sensitivitylabel get",
+    "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/purview/sensitivitylabel/sensitivitylabel-get"
+  },
+  {
+    "cmd": "m365 purview sensitivitylabel list",
+    "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/purview/sensitivitylabel/sensitivitylabel-list"
+  },
+  {
+    "cmd": "m365 purview sensitivitylabel policysettings list",
+    "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/purview/sensitivitylabel/sensitivitylabel-policysettings-list"
+  },
+  {
+    "cmd": "m365 purview threatassessment get",
+    "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/purview/threatassessment/threatassessment-get"
   },
   {
     "cmd": "m365 search externalconnection add",
@@ -838,6 +1050,14 @@
   {
     "cmd": "m365 spfx project externalize",
     "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/spfx/project/project-externalize"
+  },
+  {
+    "cmd": "m365 spfx project github workflow add",
+    "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/spfx/project/project-github-workflow-add"
+  },
+  {
+    "cmd": "m365 spfx project permissions grant",
+    "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/spfx/project/project-permissions-grant"
   },
   {
     "cmd": "m365 spfx project rename",
@@ -904,6 +1124,26 @@
     "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/spo/app/app-upgrade"
   },
   {
+    "cmd": "m365 spo applicationcustomizer add",
+    "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/spo/applicationcustomizer/applicationcustomizer-add"
+  },
+  {
+    "cmd": "m365 spo applicationcustomizer get",
+    "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/spo/applicationcustomizer/applicationcustomizer-get"
+  },
+  {
+    "cmd": "m365 spo applicationcustomizer list",
+    "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/spo/applicationcustomizer/applicationcustomizer-list"
+  },
+  {
+    "cmd": "m365 spo applicationcustomizer remove",
+    "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/spo/applicationcustomizer/applicationcustomizer-remove"
+  },
+  {
+    "cmd": "m365 spo applicationcustomizer set",
+    "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/spo/applicationcustomizer/applicationcustomizer-set"
+  },
+  {
     "cmd": "m365 spo apppage add",
     "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/spo/apppage/apppage-add"
   },
@@ -938,6 +1178,26 @@
   {
     "cmd": "m365 spo cdn set",
     "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/spo/cdn/cdn-set"
+  },
+  {
+    "cmd": "m365 spo commandset add",
+    "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/spo/commandset/commandset-add"
+  },
+  {
+    "cmd": "m365 spo commandset get",
+    "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/spo/commandset/commandset-get"
+  },
+  {
+    "cmd": "m365 spo commandset list",
+    "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/spo/commandset/commandset-list"
+  },
+  {
+    "cmd": "m365 spo commandset remove",
+    "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/spo/commandset/commandset-remove"
+  },
+  {
+    "cmd": "m365 spo commandset set",
+    "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/spo/commandset/commandset-set"
   },
   {
     "cmd": "m365 spo contenttype add",
@@ -1052,6 +1312,10 @@
     "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/spo/file/file-checkin"
   },
   {
+    "cmd": "m365 spo file checkout undo",
+    "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/spo/file/file-checkout-undo"
+  },
+  {
     "cmd": "m365 spo file checkout",
     "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/spo/file/file-checkout"
   },
@@ -1080,6 +1344,14 @@
     "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/spo/file/file-rename"
   },
   {
+    "cmd": "m365 spo file retentionlabel ensure",
+    "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/spo/file/file-retentionlabel-ensure"
+  },
+  {
+    "cmd": "m365 spo file retentionlabel remove",
+    "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/spo/file/file-retentionlabel-remove"
+  },
+  {
     "cmd": "m365 spo file roleassignment add",
     "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/spo/file/file-roleassignment-add"
   },
@@ -1100,8 +1372,28 @@
     "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/spo/file/file-sharinginfo-get"
   },
   {
+    "cmd": "m365 spo file sharinglink add",
+    "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/spo/file/file-sharinglink-add"
+  },
+  {
+    "cmd": "m365 spo file sharinglink clear",
+    "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/spo/file/file-sharinglink-clear"
+  },
+  {
+    "cmd": "m365 spo file sharinglink get",
+    "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/spo/file/file-sharinglink-get"
+  },
+  {
     "cmd": "m365 spo file sharinglink list",
     "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/spo/file/file-sharinglink-list"
+  },
+  {
+    "cmd": "m365 spo file sharinglink remove",
+    "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/spo/file/file-sharinglink-remove"
+  },
+  {
+    "cmd": "m365 spo file sharinglink set",
+    "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/spo/file/file-sharinglink-set"
   },
   {
     "cmd": "m365 spo file version clear",
@@ -1150,6 +1442,14 @@
   {
     "cmd": "m365 spo folder rename",
     "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/spo/folder/folder-rename"
+  },
+  {
+    "cmd": "m365 spo folder retentionlabel ensure",
+    "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/spo/folder/folder-retentionlabel-ensure"
+  },
+  {
+    "cmd": "m365 spo folder retentionlabel remove",
+    "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/spo/folder/folder-retentionlabel-remove"
   },
   {
     "cmd": "m365 spo folder roleassignment add",
@@ -1312,6 +1612,10 @@
     "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/spo/list/list-retentionlabel-get"
   },
   {
+    "cmd": "m365 spo list retentionlabel remove",
+    "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/spo/list/list-retentionlabel-remove"
+  },
+  {
     "cmd": "m365 spo list roleassignment add",
     "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/spo/list/list-roleassignment-add"
   },
@@ -1326,6 +1630,10 @@
   {
     "cmd": "m365 spo list roleinheritance reset",
     "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/spo/list/list-roleinheritance-reset"
+  },
+  {
+    "cmd": "m365 spo list sensitivitylabel ensure",
+    "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/spo/list/list-sensitivitylabel-ensure"
   },
   {
     "cmd": "m365 spo list set",
@@ -1392,12 +1700,32 @@
     "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/spo/listitem/listitem-add"
   },
   {
+    "cmd": "m365 spo listitem attachment add",
+    "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/spo/listitem/listitem-attachment-add"
+  },
+  {
+    "cmd": "m365 spo listitem attachment get",
+    "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/spo/listitem/listitem-attachment-get"
+  },
+  {
     "cmd": "m365 spo listitem attachment list",
     "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/spo/listitem/listitem-attachment-list"
   },
   {
+    "cmd": "m365 spo listitem attachment remove",
+    "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/spo/listitem/listitem-attachment-remove"
+  },
+  {
+    "cmd": "m365 spo listitem attachment set",
+    "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/spo/listitem/listitem-attachment-set"
+  },
+  {
     "cmd": "m365 spo listitem batch add",
     "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/spo/listitem/listitem-batch-add"
+  },
+  {
+    "cmd": "m365 spo listitem batch set",
+    "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/spo/listitem/listitem-batch-set"
   },
   {
     "cmd": "m365 spo listitem get",
@@ -1432,6 +1760,10 @@
     "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/spo/listitem/listitem-remove"
   },
   {
+    "cmd": "m365 spo listitem retentionlabel ensure",
+    "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/spo/listitem/listitem-retentionlabel-ensure"
+  },
+  {
     "cmd": "m365 spo listitem retentionlabel remove",
     "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/spo/listitem/listitem-retentionlabel-remove"
   },
@@ -1464,12 +1796,20 @@
     "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/spo/navigation/navigation-node-add"
   },
   {
+    "cmd": "m365 spo navigation node get",
+    "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/spo/navigation/navigation-node-get"
+  },
+  {
     "cmd": "m365 spo navigation node list",
     "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/spo/navigation/navigation-node-list"
   },
   {
     "cmd": "m365 spo navigation node remove",
     "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/spo/navigation/navigation-node-remove"
+  },
+  {
+    "cmd": "m365 spo navigation node set",
+    "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/spo/navigation/navigation-node-set"
   },
   {
     "cmd": "m365 spo orgassetslibrary add",
@@ -1740,8 +2080,20 @@
     "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/spo/site/site-list"
   },
   {
+    "cmd": "m365 spo site recyclebinitem clear",
+    "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/spo/site/site-recyclebinitem-clear"
+  },
+  {
     "cmd": "m365 spo site recyclebinitem list",
     "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/spo/site/site-recyclebinitem-list"
+  },
+  {
+    "cmd": "m365 spo site recyclebinitem move",
+    "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/spo/site/site-recyclebinitem-move"
+  },
+  {
+    "cmd": "m365 spo site recyclebinitem remove",
+    "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/spo/site/site-recyclebinitem-remove"
   },
   {
     "cmd": "m365 spo site recyclebinitem restore",
@@ -1860,6 +2212,46 @@
     "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/spo/tenant/tenant-appcatalogurl-get"
   },
   {
+    "cmd": "m365 spo tenant applicationcustomizer add",
+    "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/spo/tenant/tenant-applicationcustomizer-add"
+  },
+  {
+    "cmd": "m365 spo tenant applicationcustomizer get",
+    "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/spo/tenant/tenant-applicationcustomizer-get"
+  },
+  {
+    "cmd": "m365 spo tenant applicationcustomizer list",
+    "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/spo/tenant/tenant-applicationcustomizer-list"
+  },
+  {
+    "cmd": "m365 spo tenant applicationcustomizer remove",
+    "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/spo/tenant/tenant-applicationcustomizer-remove"
+  },
+  {
+    "cmd": "m365 spo tenant applicationcustomizer set",
+    "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/spo/tenant/tenant-applicationcustomizer-set"
+  },
+  {
+    "cmd": "m365 spo tenant commandset add",
+    "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/spo/tenant/tenant-commandset-add"
+  },
+  {
+    "cmd": "m365 spo tenant commandset get",
+    "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/spo/tenant/tenant-commandset-get"
+  },
+  {
+    "cmd": "m365 spo tenant commandset list",
+    "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/spo/tenant/tenant-commandset-list"
+  },
+  {
+    "cmd": "m365 spo tenant commandset remove",
+    "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/spo/tenant/tenant-commandset-remove"
+  },
+  {
+    "cmd": "m365 spo tenant commandset set",
+    "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/spo/tenant/tenant-commandset-set"
+  },
+  {
     "cmd": "m365 spo tenant recyclebinitem list",
     "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/spo/tenant/tenant-recyclebinitem-list"
   },
@@ -1934,6 +2326,10 @@
   {
     "cmd": "m365 spo theme set",
     "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/spo/theme/theme-set"
+  },
+  {
+    "cmd": "m365 spo user ensure",
+    "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/spo/user/user-ensure"
   },
   {
     "cmd": "m365 spo user get",
@@ -2080,8 +2476,16 @@
     "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/teams/chat/chat-list"
   },
   {
+    "cmd": "m365 teams chat member add",
+    "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/teams/chat/chat-member-add"
+  },
+  {
     "cmd": "m365 teams chat member list",
     "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/teams/chat/chat-member-list"
+  },
+  {
+    "cmd": "m365 teams chat member remove",
+    "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/teams/chat/chat-member-remove"
   },
   {
     "cmd": "m365 teams chat message list",
@@ -2120,6 +2524,10 @@
     "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/teams/meeting/meeting-list"
   },
   {
+    "cmd": "m365 teams meeting transcript list",
+    "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/teams/meeting/meeting-transcript-list"
+  },
+  {
     "cmd": "m365 teams membersettings list",
     "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/teams/membersettings/membersettings-list"
   },
@@ -2138,6 +2546,10 @@
   {
     "cmd": "m365 teams message reply list",
     "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/teams/message/message-reply-list"
+  },
+  {
+    "cmd": "m365 teams message send",
+    "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/teams/message/message-send"
   },
   {
     "cmd": "m365 teams messagingsettings list",
@@ -2250,6 +2662,10 @@
   {
     "cmd": "m365 tenant id get",
     "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/tenant/id/id-get"
+  },
+  {
+    "cmd": "m365 tenant info get",
+    "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/tenant/info/info-get"
   },
   {
     "cmd": "m365 tenant report activeusercounts",
