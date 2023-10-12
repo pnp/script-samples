@@ -4,9 +4,6 @@ plugin: add-to-gallery-preparation
 
 # Add or Update User Photo
 
-> [!Note]
-> This is a submission helper template please find the [contributor guidance](/docfx/contribute.md) to help you write this scenario.
-
 ## Summary
 
 The script streamlines the process of updating user photos by automating the retrieval and application of images stored locally. It ensures efficient handling of both successful updates and errors, providing an organized approach to managing user photos within Microsoft 365.
