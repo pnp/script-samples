@@ -15,7 +15,7 @@ The scripts get membership permission report of site(s) within tenant and export
 -  Site Members
 -  Site Visitors
 
-![PnP Powershell result](assets/result.png)
+![PnP Powershell result](assets/preview.png)
 
 # [PnP PowerShell](#tab/pnpps)
 ```powershell
