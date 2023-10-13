@@ -34,7 +34,7 @@ v1.0 - 8/6/2023
 
 #>
 Function Archive-PnPInactiveTeams {
-<#
+    <#
 .SYNOPSIS
 Script to archive the inactive Teams
 
@@ -45,85 +45,84 @@ This solution requires an Azure App registration with the following permissions:
 - Reports.Read.All
 - TeamSettings.ReadWrite.All
 
-.Parameter tenandId
+.Parameter TenandId
 The ID of your tenant
 
-.PARAMETER clientId
+.PARAMETER ClientId
 The ID of your Azure app registration
 
-.PARAMETER clientSecret
+.PARAMETER ClientSecret
 The secret of your Azure app registration
 
-.PARAMETER inactiveDays
+.PARAMETER InactiveDays
 The minimum number of days that a Team must be active in order to be archived otherwise. Possible values: 7, 30, 90 or 180
 
 .Example 
-Archive-PnPInactiveTeams -tenandId "XXXXXX" -clientId "XXXXXX" -clientSecret "XXXXXX" -inactiveDays 30
+Archive-PnPInactiveTeams -TenandId "XXXXXX" -ClientId "XXXXXX" -ClientSecret "XXXXXX" -InactiveDays 30
 
 .Example 
-Archive-PnPInactiveTeams -tenandId "XXXXXX" -clientId "XXXXXX" -clientSecret "XXXXXX" -inactiveDays 180
+Archive-PnPInactiveTeams -TenandId "XXXXXX" -ClientId "XXXXXX" -ClientSecret "XXXXXX" -InactiveDays 180
 
-#>    
+#>
     [CmdletBinding()]
     param (
         [Parameter(Mandatory = $true)]
-        $tenantId,
+        $TenantId,
         [Parameter(Mandatory = $true)]
-        $clientId,
+        $ClientId,
         [Parameter(Mandatory = $true)]
-        $clientSecret,
+        $ClientSecret,
         [Parameter(Mandatory = $true, ValueFromPipeline = $true)]
-        [ValidateSet("7","30","90","180")]
-        $inactiveDays
+        [ValidateSet("7", "30", "90", "180")]
+        $InactiveDays
     )
-    
+
     begin {
         #Log in to Microsoft Graph
-        Write-Host "Connecting to Microsoft Graph" -f Yellow
+        Write-Host "Connecting to Microsoft Graph" -ForegroundColor Yellow
 
-        $uri = "https://login.microsoftonline.com/$tenantId/oauth2/v2.0/token"
+        $uri = "https://login.microsoftonline.com/$TenantId/oauth2/v2.0/token"
 
         $body = @{
-            client_id = $clientId
-            client_secret = $clientSecret
-            grant_type = "client_credentials"
-            scope = "https://graph.microsoft.com/.default"
+            client_id     = $ClientId
+            client_secret = $ClientSecret
+            grant_type    = "client_credentials"
+            scope         = "https://graph.microsoft.com/.default"
         }
 
-        $response = invoke-restMethod -Uri $uri -method Post -body $body
+        $response = Invoke-RestMethod -Uri $uri -Method Post -Body $body
         $accessToken = $response.access_token
     }
-    
+
     process {
         $today = Get-Date
         # Get the Teams Team activity detail
-        $inactiveTeamsUri = "https://graph.microsoft.com/v1.0/reports/getTeamsTeamActivityDetail(period='D$inactiveDays')"
+        $inactiveTeamsUri = "https://graph.microsoft.com/v1.0/reports/getTeamsTeamActivityDetail(period='D$InactiveDays')"
 
         $inactiveTeamsHeader = @{
             Authorization = "Bearer $accessToken"
         }
 
-        $inactiveTeamsResponse = invoke-restMethod -Uri $inactiveTeamsUri -method Get -Headers $inactiveTeamsHeader
+        $inactiveTeamsResponse = Invoke-RestMethod -Uri $inactiveTeamsUri -Method Get -Headers $inactiveTeamsHeader
 
-        $teams = $inactiveTeamsResponse | ConvertFrom-Csv | where {$_.'Last Activity Date' -ne ""}
+        $teams = $inactiveTeamsResponse | ConvertFrom-Csv | Where-Object { $_.'Last Activity Date' -ne "" }
 
-        foreach($team in $teams) {
+        foreach ($team in $teams) {
             $lastActivityDate = $team.'Last Activity Date'
             $timeSpan = New-TimeSpan -Start $lastActivityDate -End $today
-            if($timeSpan.Days -gt $inactiveDays){
+            if ($timeSpan.Days -gt $InactiveDays) {
                 $teamId = $team.'Team Id'
                 $teamName = $team.'Team Name'
-                Write-Host "Team $teamName ($teamId) is inactive since $($timeSpan.Days) days" -f DarkYellow
-                
+                Write-Host "Team $teamName ($teamId) is inactive since $($timeSpan.Days) days" -ForegroundColor DarkYellow
+
                 $archiveTeamUri = "https://graph.microsoft.com/v1.0/teams/$teamId/archive"
-                invoke-restMethod -Uri $archiveTeamUri -method Post -Headers $inactiveTeamsHeader
-                Write-Host "Team $teamName ($teamId) is archived" -f Green
+                Invoke-RestMethod -Uri $archiveTeamUri -Method Post -Headers $inactiveTeamsHeader
+                Write-Host "Team $teamName ($teamId) is archived" -ForegroundColor Green
             }
         }
     }
-    
+
     end {
-        
     }
 }
 
