@@ -32,7 +32,7 @@ $imageSourcePath="c:\temp\images\"
 $completeFolder="Done"
 $errorFolder="Error"
 
-Connect-MgGraph -Scopes "User.ReadWrite.All"
+Connect-MgGraph -Scopes "User.ReadWrite"
 
 if(-not(Test-Path $imageSourcePath)){
  Write-Host "Image Source Path not exists, Please Check the ConfigValue imageSourcePath"
@@ -55,15 +55,15 @@ foreach($imageFile in $imageFiles){
             if(-not(Test-Path $completePath)){
             New-Item -ItemType Directory  -Path $completePath
             }
-        Move-Item -Path $imageFile.VersionInfo.FileName -Destination $completePath
+        Move-Item -Path $imageFile.VersionInfo.FileName -Destination $completePath -Force
         }catch{
        # Write-Host $error
         $errorPath = Join-Path -Path $imageSourcePath -ChildPath $errorFolder
             if(-not(Test-Path $errorPath)){
             New-Item -ItemType Directory  -Path $errorPath
             }
-        $Error|Set-Content -Path "$errorPath\$username.error.txt"
-        Move-Item -Path $imageFile.VersionInfo.FileName -Destination $errorPath
+        $Error|Set-Content -Path "$errorPath\$username.error.txt" 
+        Move-Item -Path $imageFile.VersionInfo.FileName -Destination $errorPath -Force
         }
 }
 
