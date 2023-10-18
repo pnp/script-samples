@@ -1,0 +1,56 @@
+[
+  {
+    "name": "get-disabled-or-inactive-user-accounts",
+    "source": "pnp",
+    "title": "Get disabled or inactive user accounts",
+    "shortDescription": "Find the user accounts which have been disabled or are inactive, export report to CSV",
+    "url": "https://pnp.github.io/script-samples/get-disabled-or-inactive-user-accounts/README.html",
+    "longDescription": [
+      "In order to keep your tenant clean (Governance), you might want to ensure that disabled or inactive user accounts will be replaced where oppropriate (Think Owners of sites/groups, assignedto user on tasks/planner and so on). This script will help you find those accounts."
+    ],
+    "creationDateTime": "2023-10-15",
+    "updateDateTime": "2023-10-15",
+    "products": [
+      "SharePoint",
+      "Graph",
+      "Azure"
+    ],
+    "metadata": [
+      {
+        "key": "PNP-POWERSHELL",
+        "value": "2.2.0"
+      }
+    ],
+    "categories": [
+      "Data",
+      "Report",
+      "Security"
+    ],
+    "tags": [
+      "Invoke-PnPGraphMethod,Invoke-PnPSearchQuery,Invoke-RestMethod"
+    ],
+    "thumbnails": [
+      {
+        "type": "image",
+        "order": 100,
+        "url": "https://raw.githubusercontent.com/pnp/script-samples/main/scripts/get-disabled-or-inactive-user-accounts/assets/preview.png",
+        "alt": "Preview of the sample Get disabled or inactive user accounts"
+      }
+    ],
+    "authors": [
+      {
+        "gitHubAccount": "kasperbolarsen",
+        "company": "",
+        "pictureUrl": "https://github.com/kasperbolarsen.png",
+        "name": "Kasper Larsen"
+      }
+    ],
+    "references": [
+      {
+        "name": "Want to learn more about PnP PowerShell and the cmdlets",
+        "description": "Check out the PnP PowerShell site to get started and for the reference to the cmdlets.",
+        "url": "https://aka.ms/pnp/powershell"
+      }
+    ]
+  }
+]
