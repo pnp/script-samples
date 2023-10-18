@@ -4,12 +4,11 @@ plugin: add-to-gallery
 
 # PnP Modern Search V3 usage scanner
 
-> [!Note]
-> This is a submission helper template please find the [contributor guidance](/docfx/contribute.md) to help you write this scenario.
-
 ## Summary
 
 Unfortunaly the Modern Search V3 web parts are not automatically upgraded to V4. This script will scan your tenant for Modern Search V3 web parts and output a CSV file with the results.
+
+This script is based on an idea and a script from Marc Anderson, which can be found here: https://sympmarc.com/2021/04/06/upgrading-the-pnp-modern-search-web-parts-from-v3-to-v4-where-are-they/
 
 ![Example Screenshot](assets/example.png)
 
@@ -92,8 +91,6 @@ foreach($page in $pages)
     }
 }
 $outputarray | Export-Csv -Path "C:\temp\ModernSearchWebParts.csv" -NoTypeInformation -Delimiter "|" -Encoding $encoding
-
-
 
 ```
 [!INCLUDE [More about PnP PowerShell](../../docfx/includes/MORE-PNPPS.md)]

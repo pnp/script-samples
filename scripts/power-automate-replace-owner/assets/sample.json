@@ -1,0 +1,58 @@
+[
+  {
+    "name": "power-automate-replace-owner",
+    "source": "pnp",
+    "title": "Replace owner in all Power Automate flows",
+    "shortDescription": "Script to replace all the Power Automate flows where someone is owner of",
+    "url": "https://pnp.github.io/script-samples/power-automate-replace-owner/README.html",
+    "longDescription": [
+      "Script to replace all the Power Automate flows where someone is owner of"
+    ],
+    "creationDateTime": "2023-08-11",
+    "updateDateTime": "2023-08-11",
+    "products": [
+      "Power Automate"
+    ],
+    "metadata": [
+      {
+        "key": "CLI-FOR-MICROSOFT365",
+        "value": "6.11.0"
+      }
+    ],
+    "categories": [
+      "Configure",
+      "Security"
+    ],
+    "tags": [
+      "m365 login",
+      "m365 aad user get",
+      "m365 pp environment get",
+      "m365 flow list",
+      "m365 flow owner list",
+      "m365 flow owner remove",
+      "m365 flow owner ensure"
+    ],
+    "thumbnails": [
+      {
+        "type": "image",
+        "order": 100,
+        "url": "https://raw.githubusercontent.com/pnp/script-samples/main/scripts/power-automate-replace-owner/assets/preview.png",
+        "alt": "This sample does not contain a preview image"
+      }
+    ],
+    "authors": [
+      {
+        "gitHubAccount": "nicodecleyre",
+        "pictureUrl": "https://avatars.githubusercontent.com/u/35696168?v=4",
+        "name": "Nico De Cleyre"
+      }
+    ],
+    "references": [
+      {
+        "name": "Want to learn more about CLI for Microsoft 365 and the commands",
+        "description": "Check out the CLI for Microsoft 365 site to get started and for the reference to the commands.",
+        "url": "https://aka.ms/cli-m365"
+      }
+    ]
+  }
+]

@@ -1,0 +1,66 @@
+[
+  {
+    "name": "spo-get-sites-with-unique-permissions",
+    "source": "pnp",
+    "title": "Get sites report throughout the tenant which has unique permissions",
+    "shortDescription": "This scripts gets the report of sites in a tenant which is having unique permissions",
+    "url": "https://pnp.github.io/script-samples/spo-get-sites-with-unique-permissions/README.html",
+    "longDescription": [
+      "This scripts gets the report of sites in a tenant which is having unique permissions."
+    ],
+    "creationDateTime": "2023-08-03",
+    "updateDateTime": "2023-08-03",
+    "products": [
+      "SharePoint"
+    ],
+    "metadata": [
+      {
+        "key": "PNP-POWERSHELL",
+        "value": "2.2.0"
+      },
+      {
+        "key": "POWERSHELL",
+        "value": "7.3.6"
+      }
+    ],
+    "categories": [
+      "Data",
+      "Report",
+      "Security"
+    ],
+    "tags": [
+      "Connect-PnPOnline",
+      "Get-PnPWeb",
+      "Get-PnPGroup"
+    ],
+    "thumbnails": [
+      {
+        "type": "image",
+        "order": 100,
+        "url": "https://raw.githubusercontent.com/pnp/script-samples/main/scripts/spo-get-sites-with-unique-permissions/assets/example.png",
+        "alt": "example of the sample spo-get-sites-with-unique-permissions"
+      },
+      {
+        "type": "image",
+        "order": 101,
+        "url": "https://raw.githubusercontent.com/pnp/script-samples/main/scripts/spo-get-sites-with-unique-permissions/assets/preview.png",
+        "alt": "Preview of the sample spo-get-sites-with-unique-permissions"
+      }
+    ],
+    "authors": [
+      {
+        "gitHubAccount": "NishkalankBezawada",
+        "company": "",
+        "pictureUrl": "https://github.com/NishkalankBezawada.png",
+        "name": "Nishkalank Bezawada"
+      }
+    ],
+    "references": [
+      {
+        "name": "Want to learn more about PnP PowerShell and the cmdlets",
+        "description": "Check out the PnP PowerShell site to get started and for the reference to the cmdlets.",
+        "url": "https://aka.ms/pnp/powershell"
+      }
+    ]
+  }
+]

@@ -1,0 +1,57 @@
+[
+  {
+    "name": "spo-update-largelist-pnpbatch-with-retry",
+    "source": "pnp",
+    "title": "Update large list with PnP-Batch with retries to address throttling challenges",
+    "shortDescription": "This sample shows how to efficiently update a large SharePoint list of 60,000 or more items using PnP-Batch, significantly reducing update time.",
+    "url": "https://pnp.github.io/script-samples/spo-update-largelist-pnpbatch-with-retry/README.html",
+    "longDescription": [
+      "This sample shows how to efficiently update a large SharePoint list of 60,000 or more items using PnP-Batch, significantly reducing update time. It addresses throttling challenges, emphasizing exception handling and retry mechanisms to ensure smooth updates."
+    ],
+    "creationDateTime": "2023-07-27",
+    "updateDateTime": "2023-07-27",
+    "products": [
+      "SharePoint"
+    ],
+    "metadata": [
+      {
+        "key": "PNP-POWERSHELL",
+        "value": "2.1.1"
+      }
+    ],
+    "categories": [
+      "Configure",
+      "Security"
+    ],
+    "tags": [
+      "Connect-PnPOnline",
+      "New-PnPBatch",
+      "Get-PnPListItem",
+      "Set-PnPListItem",
+      "Invoke-PnPBatch"
+    ],
+    "thumbnails": [
+      {
+        "type": "image",
+        "order": 100,
+        "url": "https://raw.githubusercontent.com/pnp/script-samples/main/scripts/spo-update-largelist-pnpbatch-with-retry/assets/preview.png",
+        "alt": "preview image for the sample"
+      }
+    ],
+    "authors": [
+      {
+        "name": "Reshmee Auckloo",
+        "gitHubAccount": "reshmee011",
+        "company": "",
+        "pictureUrl": "https://avatars.githubusercontent.com/u/7693852?v=4"
+      }
+    ],
+    "references": [
+      {
+        "name": "Want to learn more about PnP PowerShell and the cmdlets",
+        "description": "Check out the PnP PowerShell site to get started and for the reference to the cmdlets.",
+        "url": "https://aka.ms/pnp/powershell"
+      }
+    ]
+  }
+]
