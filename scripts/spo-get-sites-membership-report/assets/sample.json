@@ -1,0 +1,61 @@
+[
+  {
+    "name": "spo-get-sites-membership-report",
+    "source": "pnp",
+    "title": "Get membership report of a site",
+    "shortDescription": "The script export site membership details to a CSV file",
+    "url": "https://pnp.github.io/script-samples/spo-get-sites-membership-report/README.html",
+    "longDescription": [
+      "The script gets site membership details including Site Admins, m365 Group Owners, m365 Group Members, m365 Group Guests, Site Owners, Site Members and Site Visitors and export it to a CSV file."
+    ],
+    "creationDateTime": "2023-10-12",
+    "updateDateTime": "2023-10-12",
+    "products": [
+      "SharePoint"
+    ],
+    "metadata": [
+      {
+        "key": "PNP-POWERSHELL",
+        "value": "2.2.0"
+      },
+      {
+        "key": "POWERSHELL",
+        "value": "7.3.6"
+      }
+    ],
+    "categories": [
+      "Data",
+      "Report",
+      "Security"
+    ],
+    "tags": [
+      "Get-PnPTenantSite",
+      "Get-PnPMicrosoft365GroupOwner",
+      "Get-PnPMicrosoft365GroupMember",
+      "Get-PnPSiteCollectionAdmin",
+      "Get-PnPGroupMember"
+    ],
+    "thumbnails": [
+      {
+        "type": "image",
+        "order": 100,
+        "url": "https://raw.githubusercontent.com/pnp/script-samples/main/scripts/spo-get-sites-membership-report/assets/preview.png",
+        "alt": ""
+      }
+    ],
+    "authors": [
+      {
+        "gitHubAccount": "reshmee011",
+        "pictureUrl": "https://avatars.githubusercontent.com/u/7693852?v=4",
+        "name": "Reshmee Auckloo"
+      }
+    ],
+    "references": [
+      {
+        "name": "Want to learn more about PnP PowerShell and the cmdlets",
+        "description": "Check out the PnP PowerShell site to get started and for the reference to the cmdlets.",
+        "url": "https://aka.ms/pnp/powershell"
+      }
+    ]
+  }
+]

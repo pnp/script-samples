@@ -37,7 +37,7 @@ catch {
     }
 }
 
-Write-Output "Total Folder found $($Folders.Count)"
+Write-Output "Total Folder found $($folders.Count)"
 ## Traverse all files from all folders.
 foreach($folder in $folders){
     Write-Host "get all files from folder '$($folder.Name)'" -ForegroundColor DarkGreen
