@@ -1,5 +1,5 @@
 ---
-plugin: add-to-gallery-preparation
+plugin: add-to-gallery
 ---
 
 # Add or Update User Photo
@@ -68,8 +68,8 @@ foreach($imageFile in $imageFiles){
 }
 
 ```
-
 [!INCLUDE [More about Microsoft Graph PowerShell SDK](../../docfx/includes/MORE-GRAPHSDK.md)]
+***
 
 ## Contributors
 
@@ -78,4 +78,4 @@ foreach($imageFile in $imageFiles){
 | [Peter Paul Kirschner](https://github.com/petkir) |
 
 [!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
-<img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/template-script-submission" aria-hidden="true" />
+<img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/graph-update-user-photo" aria-hidden="true" />
