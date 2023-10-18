@@ -133,6 +133,7 @@ Archive-PnPInactiveTeams -TenandId "XXXXXX" -ClientId "XXXXXX" -ClientSecret "XX
 | Author(s) |
 |-----------|
 | [Nico De Cleyre](https://www.nicodecleyre.com)|
+| Heinrich Krause |
 
 
 [!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
