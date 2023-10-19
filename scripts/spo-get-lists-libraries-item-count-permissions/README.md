@@ -49,7 +49,7 @@ Connect-PnPOnline -Url  $siteUrl
             'Id'=$list.Id;
             'Parent Web URL'=$list.ParentWebUrl;
             'Item Count' = $list.ItemCount;
-            'Last Modified' = $list.LastItemModifiedDate.ToString();
+            'Last Modified' = $list.LastItemUserModifiedDate.ToString();
             'Created'=$list.Created;
             'Default View URL'=$list.DefaultViewUrl;
             'Permision'=$UniquePermission;
@@ -93,7 +93,7 @@ If ($lists.Count -gt 0) {
             'Id'                = $list.Id;
             'Parent Web URL'    = $list.ParentWebUrl;
             'Item Count'        = $list.ItemCount;
-            'Last Modified'     = $list.LastItemModifiedDate.ToString();
+            'Last Modified'     = $list.LastItemUserModifiedDate.ToString();
             'Created'           = $list.Created;
             'Default View URL'  = $defaultView.ServerRelativeUrl;
             'isHidden'          = $list.Hidden;
