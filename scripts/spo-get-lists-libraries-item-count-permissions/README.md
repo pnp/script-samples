@@ -113,6 +113,7 @@ $ResultData | Export-Csv $ReportOutput -NoTypeInformation
 |-----------|
 | [Dipen Shah](https://github.com/dips365) |
 | [Adam Wójcik](https://github.com/Adam-it)|
+| Alex Talarico |
 
 
 [!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
