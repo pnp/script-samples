@@ -3,13 +3,13 @@
     "name": "spo-bulk-creation-sharepoint-sites-csv",
     "source": "pnp",
     "title": "Creation of SharePoint Online sites from CSV",
-    "shortDescription": "This script helps you in creation of SharePoint Communication and Team sites in bulk. It takes an input from CSV.",
+    "shortDescription": "This script helps you in creation of SharePoint Online Communication and Team sites in bulk. It takes an input from CSV.",
     "url": "https://pnp.github.io/script-samples/spo-bulk-creation-sharepoint-sites-csv/README.html",
     "longDescription": [
       ""
     ],
     "creationDateTime": "2023-10-03",
-    "updateDateTime": "2023-10-03",
+    "updateDateTime": "2023-10-23",
     "products": [
       "SharePoint"
     ],
@@ -17,6 +17,10 @@
       {
         "key": "PNP-POWERSHELL",
         "value": "2.2.0"
+      },
+      {
+        "key": "CLI-FOR-MICROSOFT365",
+        "value": "7.0.0"
       }
     ],
     "categories": [
@@ -24,9 +28,14 @@
     ],
     "tags": [
       "Connect-PnPOnline",
-      "Get-PnPTenant",
       "Get-PnPTenantSite",
-      "New-PnPSite"
+      "New-PnPSite",
+      "Disconnect-PnPOnline",
+      "m365 status",
+      "m365 login",
+      "m365 spo site get",
+      "m365 spo site add",
+      "m365 logout"
     ],
     "thumbnails": [
       {
@@ -37,6 +46,12 @@
       }
     ],
     "authors": [
+      {
+        "gitHubAccount": "ganesh-sanap",
+        "company": "",
+        "pictureUrl": "https://avatars.githubusercontent.com/u/25476310?v=4",
+        "name": "Ganesh Sanap"
+      },
       {
         "gitHubAccount": "kzkalra",
         "company": "Microsoft",
@@ -49,6 +64,11 @@
         "name": "Want to learn more about PnP PowerShell and the cmdlets",
         "description": "Check out the PnP PowerShell site to get started and for the reference to the cmdlets.",
         "url": "https://aka.ms/pnp/powershell"
+      },
+      {
+        "name": "Want to learn more about CLI for Microsoft 365 and the commands",
+        "description": "Check out the CLI for Microsoft 365 site to get started and for the reference to the commands.",
+        "url": "https://aka.ms/cli-m365"
       }
     ]
   }
