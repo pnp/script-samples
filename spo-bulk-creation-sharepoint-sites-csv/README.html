@@ -99,7 +99,7 @@
                     <h1 id="creation-of-sharepoint-online-sites-from-csv">Creation of SharePoint Online sites from CSV</h1>
 
 <h2 id="summary">Summary</h2>
-<p>This script helps you in creation of SharePoint Communication and Team sites in bulk. It takes an input from CSV.
+<p>This script helps you in creation of SharePoint Online Communication and Team sites in bulk. It takes an input from CSV.
 CSV structure should look like:</p>
 <table>
 <thead>
@@ -115,15 +115,15 @@ CSV structure should look like:</p>
 <tr>
 <td>https://&lt;tenant_name&gt;.sharepoint.com</td>
 <td>My Communication Site</td>
-<td>My Communication Site</td>
+<td></td>
 <td>/sites/mycommsite</td>
 <td>CommunicationSite</td>
 </tr>
 <tr>
 <td>https://&lt;tenant_name&gt;.sharepoint.com</td>
 <td>My Team Site</td>
-<td>My Team Site</td>
-<td>/teams/myteamsite</td>
+<td>MyTeamSite</td>
+<td>/sites/myteamsite</td>
 <td>TeamSite</td>
 </tr>
 </tbody>
@@ -133,31 +133,35 @@ CSV structure should look like:</p>
 <li role="presentation">
 <a href="#tabpanel_CeZOj-G++Q_pnpps" role="tab" aria-controls="tabpanel_CeZOj-G++Q_pnpps" data-tab="pnpps" tabindex="0" aria-selected="true">PnP PowerShell</a>
 </li>
+<li role="presentation">
+<a href="#tabpanel_CeZOj-G++Q_cli-m365-ps" role="tab" aria-controls="tabpanel_CeZOj-G++Q_cli-m365-ps" data-tab="cli-m365-ps" tabindex="-1">CLI for Microsoft 365</a>
+</li>
 </ul>
 <section id="tabpanel_CeZOj-G++Q_pnpps" role="tabpanel" data-tab="pnpps"><button class="article-clipboard" title="Copy to clipboard" data-toggle="tooltip" data-placement="top" data-clipboard-target="section[id^='tabpanel'][data-tab='pnpps'] pre">
     <span class="glyphicon glyphicon-copy" aria-hidden="true"></span>
     <span class="article-clipboard__message done">Copied</span>
 </button>
 
-<pre><code class="lang-powershell">$AdminCenterUrl = &lt;url-of-sharepoint-admin-center&gt;
-$inputFilePath = &lt;path-to-your-csv-file&gt;
-$input = import-csv $inputFile
+<pre><code class="lang-powershell">
+$adminCenterUrl = &quot;https://&lt;tenant_name&gt;-admin.sharepoint.com/&quot;
+$inputFilePath = &quot;D:\dtemp\sites.csv&quot;
+$inputSites = import-csv $inputFilePath
 
 Write-Host &quot;Invoked CSV file&quot;
 
-Connect-PnPOnline -Url $AdminCenterUrl
+# Connect to SharePoint Admin Center
+Connect-PnPOnline -Url $adminCenterUrl -Interactive
 
-foreach($row in $input)
+foreach($row in $inputSites)
 { 
-    #Connect to Admin Center 
-    Write-Host &quot;Getting Configuration Details&quot;
-
+    
+    Write-Host &quot;Getting configuration details from CSV&quot;
     $RootSiteUrl = $row.RootSiteUrl
     $SiteTitle = $row.SiteTitle
     $SiteUrl = $row.SiteUrl
     $Type = $row.Type
     $Alias = $row.Alias
-    $commSiteUrl = $RootSiteUrl + $SiteURL 
+    $commSiteUrl = $RootSiteUrl + $SiteUrl 
     $site = $null
 
     try
@@ -169,32 +173,109 @@ foreach($row in $input)
         Write-Host &quot;Exception: $($_.Exception.Message)&quot;
     }
 
-    If ($null -eq $Site)
+    If ($null -eq $site)
     {
         if($Type -eq &quot;TeamSite&quot;)
         {
-            #sharepoint online pnp powershell create site collection
-            $ProvisionedSiteUrl = New-PnPSite -Type $Type -Title $SiteTitle -Alias $SiteTitle -IsPublic   
-            write-host &quot;Site Collection $($ProvisionedSiteUrl) Created Successfully!&quot; -foregroundcolor Green
+            # Creating a SharePoint team site
+            $ProvisionedSiteUrl = New-PnPSite -Type $Type -Title $SiteTitle -Alias $Alias -IsPublic   
+            Write-Host &quot;Site Collection $($ProvisionedSiteUrl) Created Successfully!&quot; -foregroundcolor Green
         }
         else
         {
-            #sharepoint online pnp powershell create site collection
+            # Creating a SharePoint communication site
             $ProvisionedSiteUrl = New-PnPSite -Type $Type -Title $SiteTitle -Url $commSiteUrl  
-            write-host &quot;Site Collection $($ProvisionedSiteUrl) Created Successfully!&quot; -foregroundcolor Green
+            Write-Host &quot;Site Collection $($ProvisionedSiteUrl) Created Successfully!&quot; -foregroundcolor Green
         }
     }
     else
     {
-        write-host &quot;Site $($SiteURL) exists already!&quot; -foregroundcolor Yellow
-        $ProvisionedSiteUrl = $SiteURL;
+        Write-Host &quot;Site Collection $($SiteUrl) exists already!&quot; -foregroundcolor Yellow
+        $ProvisionedSiteUrl = $SiteUrl;
     }
-
-    Write-Log &quot;$Home Site Url  configured&quot; 
 }
+
+# Disconnect SharePoint online connection
+Disconnect-PnPOnline
+
+Write-Host &quot;Script execution completed successfully!&quot; -foregroundcolor Green
+
 </code></pre>
 <div class="highlight-tool">
 <p>Check out the <strong>PnP PowerShell</strong> to learn more at: <a href="https://aka.ms/pnp/powershell">https://aka.ms/pnp/powershell</a></p>
+</div>
+</section>
+<section id="tabpanel_CeZOj-G++Q_cli-m365-ps" role="tabpanel" data-tab="cli-m365-ps" aria-hidden="true" hidden="hidden"><button class="article-clipboard" title="Copy to clipboard" data-toggle="tooltip" data-placement="top" data-clipboard-target="section[id^='tabpanel'][data-tab='cli-m365-ps'] pre">
+    <span class="glyphicon glyphicon-copy" aria-hidden="true"></span>
+    <span class="article-clipboard__message done">Copied</span>
+</button>
+
+<pre><code class="lang-powershell">
+$inputFilePath = &quot;D:\dtemp\sites.csv&quot;
+$inputSites = import-csv $inputFilePath
+
+Write-Host &quot;Invoked CSV file&quot;
+
+# Get Credentials to connect
+$m365Status = m365 status
+if ($m365Status -match &quot;Logged Out&quot;)
+{
+    m365 login
+}
+
+Write-Host &quot;Connected to M365&quot;
+
+foreach ($row in $inputSites)
+{
+    Write-Host &quot;Getting configuration details from CSV&quot;
+    $rootSiteUrl = $row.RootSiteUrl
+    $siteTitle = $row.SiteTitle
+    $siteUrl = $row.SiteUrl
+    $siteAlias = $row.Alias
+    $siteType = $row.Type
+    $completeSiteUrl = $rootSiteUrl + $siteUrl 
+    $site = $null
+
+    try
+    {
+        $site = m365 spo site get --url $completeSiteUrl | ConvertFrom-Json
+    }
+    catch
+    {
+        Write-Host &quot;Exception: $($_.Exception.Message)&quot;
+    }
+
+    if ($null -eq $site)
+    {
+        if ($siteType -eq &quot;TeamSite&quot;)
+        {
+            # Creating a SharePoint team site
+            m365 spo site add --type $siteType --title $siteTitle --alias $siteAlias --isPublic
+            Write-Host &quot;Site collection $($completeSiteUrl) created successfully!&quot; -foregroundcolor Green
+        }
+        else
+        {
+            # Creating a SharePoint communication site
+            m365 spo site add --type $siteType --title $siteTitle --url $completeSiteUrl
+            Write-Host &quot;Site collection $($completeSiteUrl) created successfully!&quot; -foregroundcolor Green
+        }
+    }
+    else
+    {
+        Write-Host &quot;Site collection $($completeSiteUrl) exists already!&quot; -foregroundcolor Yellow
+    }
+}
+
+# Disconnect M365 connection
+m365 logout
+
+Write-Host &quot;Script execution completed successfully!&quot; -foregroundcolor Green
+
+</code></pre>
+<div class="highlight-tool">
+<p>Check out the <strong>CLI for Microsoft 365</strong> to learn more at: <a href="https://aka.ms/cli-m365">https://aka.ms/cli-m365</a></p>
+</div>
+</section>
 </div>
 <h2 id="contributors">Contributors</h2>
 <table>
@@ -207,13 +288,14 @@ foreach($row in $input)
 <tr>
 <td><a href="https://www.linkedin.com/in/kshitiz-kalra-b3107b164/">Kshitiz Kalra</a></td>
 </tr>
+<tr>
+<td><a href="https://ganeshsanapblogs.wordpress.com/about">Ganesh Sanap</a></td>
+</tr>
 </tbody>
 </table>
 <h2 id="disclaimer">Disclaimer</h2>
 <p><strong>THESE SAMPLES ARE PROVIDED <em>AS IS</em> WITHOUT WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, INCLUDING ANY IMPLIED WARRANTIES OF FITNESS FOR A PARTICULAR PURPOSE, MERCHANTABILITY, OR NON-INFRINGEMENT.</strong></p>
 <img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/spo-bulk-creation-sharepoint-sites-csv" aria-hidden="true">
-</section>
-</div>
 </article>
           </div>
         </div>
