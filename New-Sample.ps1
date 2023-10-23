@@ -252,16 +252,24 @@ process {
     # ------------------------------------------------------------------------------
 
     # Copy the template to the script folder under the new name
-    $templateSrc = "{0}\{1}" -f $mainScriptFolder, $sampleTemplateFolder
-    $targetFolder = "{0}\{1}" -f $mainScriptFolder, $ScriptFolderName
+    $templateSrc = Join-Path $mainScriptFolder -ChildPath $sampleTemplateFolder
+    $targetFolder = Join-Path $mainScriptFolder -ChildPath $ScriptFolderName
 
     # Nesting Problem, need to test and create teh directory first then copy the contents
 
-    Copy-Item -Path $templateSrc -Destination $targetFolder -Recurse -Force
+    if($PSVersionTable.PSVersion.Major -eq 5){
+        Get-ChildItem -Path $templateSrc | Copy-Item -Destination $targetFolder -Force
+        $srcAssetsFolder = Join-Path $templateSrc -ChildPath $sampleAssetsFolder
+        Copy-Item -Path $srcAssetsFolder -Destination $targetFolder -Force -Recurse
+    }else{
+        Copy-Item -Path $templateSrc -Destination $targetFolder -Recurse -Force
+    }
+    
     Write-Host " Copied sample template to $targetFolder" -ForegroundColor Green
 
     # Rename the template.sample.json file to sample.json
-    $scriptJsonTemplate = "{0}\{1}\{2}" -f $targetFolder, $sampleAssetsFolder, $jsonSampleTemplate
+    $scriptTemplateaBasePath = Join-Path $targetFolder -ChildPath $sampleAssetsFolder
+    $scriptJsonTemplate = Join-Path $scriptTemplateaBasePath -ChildPath $jsonSampleTemplate
     Rename-Item $scriptJsonTemplate -NewName $jsonSample
 
     # ------------------------------------------------------------------------------
@@ -269,7 +277,7 @@ process {
     # ------------------------------------------------------------------------------
 
     # Update the readme.md with the new information such as Title, FolderName, Tool
-    $readmeFilePath = "{0}\{1}" -f $targetFolder, $readmeFile
+    $readmeFilePath = Join-Path $targetFolder -ChildPath $readmeFile
     $readmeContent = Get-Content $readmeFilePath -Raw
     $ScriptTelemetryLink = "https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/$ScriptFolderName"
 
@@ -413,73 +421,76 @@ process {
 
 
     # Update the sample.json file with the new information such as Title, FolderName, Tool, GitHub Details
-    $scriptJson = "{0}\{1}\{2}" -f $targetFolder, $sampleAssetsFolder, $jsonSample
+    $scriptBasePath = Join-Path $targetFolder -ChildPath $sampleAssetsFolder
+    $scriptJson = Join-Path $scriptBasePath -ChildPath $jsonSample
+
+    Write-Host " - JSON file: $scriptJson"
 
     $json = Get-Content $scriptJson | ConvertFrom-Json
 
     # Title
-    $json.Title = $ScriptTitle
+    $json[0].Title = $ScriptTitle
 
     # Name
-    $json.Name = $ScriptFolderName
+    $json[0].Name = $ScriptFolderName
 
     # Description
-    $json.ShortDescription = $ScriptShortDescription
+    $json[0].ShortDescription = $ScriptShortDescription
     
     # Url
-    $json.Url = $json.Url.Replace("<foldername>", $ScriptFolderName)
+    $json[0].Url = $json.Url.Replace("<foldername>", $ScriptFolderName)
 
     # Dates (created and modified)
-    $json.creationDateTime = Get-Date -Format "yyyy-MM-dd"
-    $json.updateDateTime = Get-Date -Format "yyyy-MM-dd"
+    $json[0].creationDateTime = Get-Date -Format "yyyy-MM-dd"
+    $json[0].updateDateTime = Get-Date -Format "yyyy-MM-dd"
     
     # Metadata
-    $json.Metadata = @()
+    $json[0].Metadata = @()
     switch ($ScriptTool) {
         "PnPPowerShell" { 
-            $json.Metadata += [PSCustomObject]@{
+            $json[0].Metadata += [PSCustomObject]@{
                 key = "PNP-POWERSHELL"
                 value = "1.11.0"
             }
          }
         "CliForMicrosoft365" { 
-            $json.Metadata += [PSCustomObject]@{
+            $json[0].Metadata += [PSCustomObject]@{
                 key = "CLI-FOR-MICROSOFT365"
                 value = "5.6.0"
             }
          }
         "CliForMicrosoft365Bash" {
-            $json.Metadata += [PSCustomObject]@{
+            $json[0].Metadata += [PSCustomObject]@{
                 key = "CLI-FOR-MICROSOFT365"
                 value = "5.6.0"
             }
          }
         "SPOManagementShell" {
-            $json.Metadata += [PSCustomObject]@{
+            $json[0].Metadata += [PSCustomObject]@{
                 key = "SPO-MANAGEMENT-SHELL"
                 value = "16.0.21116.12000"
             }
         }
         "MicrosoftGraphPowerShell" { 
-            $json.Metadata += [PSCustomObject]@{
+            $json[0].Metadata += [PSCustomObject]@{
                 key = "GRAPH-POWERSHELL"
                 value = "1.0.0"
             }
          }
         "AzureCli" { 
-            $json.Metadata += [PSCustomObject]@{
+            $json[0].Metadata += [PSCustomObject]@{
                 key = "AZURE-CLI"
                 value = "2.27.0"
             }
         }
         "PowerAppsPowerShell" { 
-            $json.Metadata += [PSCustomObject]@{
+            $json[0].Metadata += [PSCustomObject]@{
                 key = "POWERAPPS-POWERSHELL"
                 value = "2.0.0"
             }
         }
         "MicrosoftTeamsPowerShell" { 
-            $json.Metadata += [PSCustomObject]@{
+            $json[0].Metadata += [PSCustomObject]@{
                 key = "MICROSOFTTEAMS-POWERSHELL"
                 value = "3.0.0"
             }
@@ -488,40 +499,40 @@ process {
     }
 
     # Thumbnails
-    $json.Thumbnails[0].Url = $json.Thumbnails[0].Url.Replace('<foldername>', $ScriptFolderName)
-    $json.Thumbnails[0].Alt = $json.Thumbnails[0].Alt.Replace('<title>', $ScriptTitle)
+    $json[0].Thumbnails[0].Url = $json.Thumbnails[0].Url.Replace('<foldername>', $ScriptFolderName)
+    $json[0].Thumbnails[0].Alt = $json.Thumbnails[0].Alt.Replace('<title>', $ScriptTitle)
     
     # Authors
-    $json.authors[0].gitHubAccount = $GitHubId
-    $json.authors[0].pictureUrl = $json.authors[0].pictureUrl.replace("<github-username>", $GitHubId)
-    $json.authors[0].Name = $AuthorFullName
+    $json[0].authors[0].gitHubAccount = $GitHubId
+    $json[0].authors[0].pictureUrl = $json.authors[0].pictureUrl.replace("<github-username>", $GitHubId)
+    $json[0].authors[0].Name = $AuthorFullName
 
     # References
-    $json.References = @()
+    $json[0].References = @()
     switch ($ScriptTool) {
         "PnPPowerShell" { 
-            $json.References += $tabBlocks.PnPPowerShell.Reference
+            $json[0].References += $tabBlocks.PnPPowerShell.Reference
          }
         "CliForMicrosoft365" { 
-            $json.References += $tabBlocks.CliForMicrosoft365.Reference
+            $json[0].References += $tabBlocks.CliForMicrosoft365.Reference
          }
         "CliForMicrosoft365Bash" {
-            $json.References += $tabBlocks.CliForMicrosoft365.Reference
+            $json[0].References += $tabBlocks.CliForMicrosoft365.Reference
          }
         "SPOManagementShell" {
-            $json.References += $tabBlocks.SPOManagementShell.Reference
+            $json[0].References += $tabBlocks.SPOManagementShell.Reference
         }
         "MicrosoftGraphPowerShell" { 
-            $json.References += $tabBlocks.MicrosoftGraphPowerShell.Reference
+            $json[0].References += $tabBlocks.MicrosoftGraphPowerShell.Reference
          }
         "AzureCli" { 
-            $json.References += $tabBlocks.AzureCli.Reference
+            $json[0].References += $tabBlocks.AzureCli.Reference
         }
         "PowerAppsPowerShell" { 
-            $json.References += $tabBlocks.PowerAppsPowerShell.Reference
+            $json[0].References += $tabBlocks.PowerAppsPowerShell.Reference
         }
         "MicrosoftTeamsPowerShell" { 
-            $json.References += $tabBlocks.MicrosoftTeamsPowerShell.Reference
+            $json[0].References += $tabBlocks.MicrosoftTeamsPowerShell.Reference
         }
         Default {}
     }
