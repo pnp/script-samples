@@ -219,4 +219,4 @@ end {
 The retry invoke REST method requests in PowerShell, when an error occurs is inspired from [this blog](https://blogs.aaddevsup.xyz/2021/01/retry-invoke-restmethod-requests-in-powershell-when-an-error-occurs/).
 
 [!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
-<img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/teams-pstn-call-logs" aria-hidden="true" />
+<img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/teams-export-pstn-call-logs" aria-hidden="true" />
