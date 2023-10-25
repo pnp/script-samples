@@ -1,0 +1,366 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html lang="en">
+  
+  <head>
+    <meta charset="utf-8">
+    <title>Export Microsoft Teams PSTN Call Logs | PnP Samples </title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" "="">
+    <meta name="title" content="Export Microsoft Teams PSTN Call Logs | PnP Samples ">
+    <meta name="generator" content="docfx 2.56.7.0">
+    <meta name="description" content="A sample gallery of scripts to manage all things Microsoft 365.">
+  
+    <!-- Social Media -->
+    <meta property="og:locale" content="en_GB">
+    <meta property="og:title" content="Export Microsoft Teams PSTN Call Logs | PnP Samples ">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://pnp.github.io/script-samples">
+    <meta property="og:image" content="https://pnp.github.io/script-samples/assets/social-media-screenshot.png">
+    <meta property="og:image:alt" content="Screenshot example of the PnP Script Samples Site">
+    <meta property="og:site_name" content="PnP Script Samples">
+    <meta name="msvalidate.01" content="04EFEDA66EC42C08A1247C979E2F9ADD">
+    <meta property="og:description" content="A sample gallery of scripts to manage all things Microsoft 365.">
+  
+    <link rel="shortcut icon" href="https://c.s-microsoft.com/favicon.ico?v2">
+    <link rel="stylesheet" href="../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../styles/docfx.css">
+    <link rel="stylesheet" href="../styles/main.css">
+    <link rel="stylesheet" href="../styles/extra.css">
+    <link rel="stylesheet" href="../styles/filter.css">
+    <link rel="stylesheet" href="../styles/site.css">
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet"> 
+    <meta property="docfx:navrel" content="../toc.html">
+    <meta property="docfx:tocrel" content="../toc.html">
+    
+    
+    <meta property="docfx:newtab" content="true">
+    <script type="text/javascript">
+      (function(c,l,a,r,i,t,y){
+          c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+          t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+          y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+      })(window, document, "clarity", "script", "8j6pedl344");
+  </script>
+  </head>  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+             <div class="github-mark">
+              <a href="https://github.com/pnp/script-samples" title="Go to repository">
+               <div class="github-wrapper">
+                  <div class="github-icon">
+                    <img src="https://pnp.github.io/script-samples/assets/icons/github-light-64px.png" alt="GitHub Icon Image">
+                  </div>
+                  <div class="github-repository">
+                    <span>GitHub</span>
+                    <ul class="github-facts">
+                      <li>
+                        <i class="fa fa-code-fork" aria-hidden="true"></i>
+                        <span class="github-forks"></span>
+                      </li>
+                      <li>
+                        <i class="fa fa-star-o" aria-hidden="true"></i>
+                        <span class="github-stars"></span>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </a>
+            </div>
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../assets/logo.svg" alt="">
+              </a>    </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <label class="glyphicon glyphicon-search" for="search-query"></label>
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>      </header>
+      <div role="main" class="container body-content hide-when-search">
+        <div class="article row grid">
+          <div class="col-md-12">
+            <article class="content wrap" id="_content" data-uid="">
+                  <div class="contribution-panel mobile-hide pull-right">
+                      <a href="https://github.com/pnp/script-samples/blob/main/scripts/teams-export-pstn-call-logs/README.md/#L1" title="Improve this Doc" class="improve-doc-lg"><i class="glyphicon glyphicon-pencil"></i></a>
+                  </div>
+                    <h1 id="export-microsoft-teams-pstn-call-logs">Export Microsoft Teams PSTN Call Logs</h1>
+
+<h2 id="summary">Summary</h2>
+<p>This script exports the log of PSTN calls for a given duration.</p>
+<p><img src="assets/example.png" alt="Example Screenshot"></p>
+<h2 id="permissions">Permissions</h2>
+<p>The PowerShell version of the script requires Microsoft Entra ID App Registration with the Application Permission as follows:</p>
+<ol>
+<li>CallRecord-PstnCalls.Read.All</li>
+<li>CallRecords.Read.All</li>
+</ol>
+<p><img src="assets/API_Permissions.png" alt="Permission"></p>
+<blockquote>
+<p>Note: You can skip this step, if you are planning to use CLI for Microsoft 365.</p>
+</blockquote>
+<h2 id="implementation">Implementation</h2>
+<ul>
+<li>Open Windows PowerShell ISE</li>
+<li>Create a new file</li>
+<li>Copy the code below</li>
+<li>Save the file and run it</li>
+</ul>
+<div class="tabGroup" id="tabgroup_CeZOj-G++Q">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_CeZOj-G++Q_ps" role="tab" aria-controls="tabpanel_CeZOj-G++Q_ps" data-tab="ps" tabindex="0" aria-selected="true">PowerShell</a>
+</li>
+<li role="presentation">
+<a href="#tabpanel_CeZOj-G++Q_cli-m365-ps" role="tab" aria-controls="tabpanel_CeZOj-G++Q_cli-m365-ps" data-tab="cli-m365-ps" tabindex="-1">CLI for Microsoft 365</a>
+</li>
+</ul>
+<section id="tabpanel_CeZOj-G++Q_ps" role="tabpanel" data-tab="ps"><button class="article-clipboard" title="Copy to clipboard" data-toggle="tooltip" data-placement="top" data-clipboard-target="section[id^='tabpanel'][data-tab='ps'] pre">
+    <span class="glyphicon glyphicon-copy" aria-hidden="true"></span>
+    <span class="article-clipboard__message done">Copied</span>
+</button>
+
+<pre><code class="lang-powershell">[CmdletBinding()]
+param (
+    [parameter(Mandatory)][string] $TenantID,
+    [parameter(Mandatory)][string] $ClientID,
+    [parameter(Mandatory)][string] $ClientSecret,
+    [parameter(Mandatory)][DateTime] $StartDate,
+    [parameter(Mandatory = $false)][DateTime] $EndDate = (Get-Date)
+)
+
+function Get-AccessToken {
+    # Construct URI
+    $uri = &quot;https://login.microsoftonline.com/$TenantID/oauth2/v2.0/token&quot;
+	
+    # Construct Body
+    $body = @{
+        client_id     = $ClientID
+        client_secret = $ClientSecret
+        scope         = 'https://graph.microsoft.com/.default'
+        grant_type    = 'client_credentials'
+    }
+	
+    # Fix for issue: The underlying connection was closed
+    [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
+
+    # Get OAuth 2.0 Token
+    $tokenRequest = Invoke-WebRequest -Method Post -Uri $uri -ContentType 'application/x-www-form-urlencoded' -Body $body -UseBasicParsing
+	
+    # Access Token
+    return ($tokenRequest.Content | ConvertFrom-Json).access_token
+}
+  
+function Get-GraphQueryOutput {
+    param(
+        [parameter(Mandatory = $true)][String] $Uri
+    )
+
+    $retryCount = 0
+    $maxRetries = 3
+    $pauseDuration = 2
+    
+    $token = Get-AccessToken
+  
+    $allRecords = @()
+    while ($Uri) {
+        try {
+            Write-Host &quot;Invoking Graph query: $($Uri)&quot;
+            $query = Invoke-RestMethod -Method Get -Uri $Uri -ContentType 'application/json;odata.metadata=none' -Headers @{Authorization = &quot;Bearer $token&quot; }
+            $recordToAdd = ($query | Select-Object Value).Value
+			
+            if (-not $recordToAdd) {
+                $recordToAdd = $query
+            }
+
+            $allRecords += $recordToAdd
+
+            if ($query.'@odata.nextLink') {
+                # set the url to get the next page of records
+                $Uri = $query.'@odata.nextLink'
+            } 
+            else {
+                $Uri = $null
+            }  
+        } 
+        catch {
+            Write-Host &quot;StatusCode: &quot; $_.Exception.Response.StatusCode.value__
+            Write-Host &quot;StatusDescription:&quot; $_.Exception.Response.StatusDescription
+
+            if ($_.Exception.Response.StatusCode.value__ -eq 401) {
+                $token = Get-AccessToken
+            }
+  
+            if ($_.ErrorDetails.Message) {
+                Write-Host &quot;Inner Error: $_.ErrorDetails.Message&quot; -ForegroundColor Red
+            }
+
+            if ($_.Exception.Response.StatusCode.value__ -eq 404) {
+                # If the error is &quot;Not Found&quot;, let us not retry
+                $retryCount = $maxRetries + 1
+            }
+            
+            if ($retryCount -ge $maxRetries) {
+                # Not going to retry again
+                $Uri = $null
+                Write-Host &quot;Not going to retry...&quot; -ForegroundColor Red
+            } 
+            else {
+                $retryCount += 1
+                $pauseDuration = $pauseDuration * 5
+                Write-Host &quot;Retry attempt $retryCount after a $pauseDuration second pause...&quot; -ForegroundColor Yellow
+                Start-Sleep -Seconds $pauseDuration
+            }
+        }
+    }
+
+    return $allRecords
+}
+
+Start-Transcript -Path &quot;.\PSTN-Logs-$((Get-Date).toString(&quot;dd-MM-yyyy&quot;)).log&quot;
+
+$timeSpan = New-TimeSpan -Start (Get-Date -Date $StartDate) -End (Get-Date -Date $EndDate)
+if ($timeSpan.Days -gt 90) {
+    Write-Host &quot;The maximum number of days between StartDate and EndDate cannot exceed 90&quot; -ForegroundColor Red
+    Write-Host &quot;Please try again with a smaller time span.&quot; -ForegroundColor Red
+    Exit
+}
+
+$fromDateTime = Get-Date -Date $StartDate -Format &quot;yyyy-MM-dd&quot;
+$toDateTime = Get-Date -Date $EndDate -Format &quot;yyyy-MM-dd&quot;
+$callRecords = Get-GraphQueryOutput -Uri &quot;https://graph.microsoft.com/v1.0/communications/callRecords/getPstnCalls(fromDateTime=$fromDateTime,toDateTime=$toDateTime)&quot;
+
+ForEach ($record in $callRecords) {
+    $reportLine = [PSCustomObject][Ordered]@{
+        &quot;id&quot;                 = $record.id
+        &quot;callId&quot;             = $record.callId
+        &quot;userId&quot;             = $record.userId
+        &quot;userPrincipalName&quot;  = $record.userPrincipalName
+        &quot;userDisplayName&quot;    = $record.userDisplayName
+        &quot;startDateTime&quot;      = $record.startDateTime
+        &quot;endDateTime&quot;        = $record.endDateTime
+        &quot;duration&quot;           = $record.duration
+        &quot;charge&quot;             = $record.charge
+        &quot;callType&quot;           = $record.callType
+        &quot;currency&quot;           = $record.currency
+        &quot;calleeNumber&quot;       = $record.calleeNumber
+        &quot;usageCountryCode&quot;   = $record.usageCountryCode
+        &quot;tenantCountryCode&quot;  = $record.tenantCountryCode
+        &quot;connectionCharge&quot;   = $record.connectionCharge
+        &quot;callerNumber&quot;       = $record.callerNumber
+        &quot;destinationContext&quot; = $record.destinationContext
+        &quot;destinationName&quot;    = $record.destinationName
+        &quot;conferenceId&quot;       = $record.conferenceId
+        &quot;licenseCapability&quot;  = $record.licenseCapability
+        &quot;inventoryType&quot;      = $record.inventoryType
+    }
+
+    $reportLine | Export-Csv -NoTypeInformation -Path &quot;.\PSTN-Data-$((Get-Date).toString(&quot;dd-MM-yyyy&quot;)).csv&quot; -Encoding UTF8 -Append
+}
+
+
+Write-Host &quot;Finished!&quot; -ForegroundColor Green
+
+Stop-Transcript
+</code></pre>
+<div class="highlight-tool">
+<p>Check out the <strong>PowerShell</strong> to learn more at: <a href="https://learn.microsoft.com/en-us/powershell/">PowerShell Documentation | Microsoft Learn</a></p>
+</div>
+</section>
+<section id="tabpanel_CeZOj-G++Q_cli-m365-ps" role="tabpanel" data-tab="cli-m365-ps" aria-hidden="true" hidden="hidden"><button class="article-clipboard" title="Copy to clipboard" data-toggle="tooltip" data-placement="top" data-clipboard-target="section[id^='tabpanel'][data-tab='cli-m365-ps'] pre">
+    <span class="glyphicon glyphicon-copy" aria-hidden="true"></span>
+    <span class="article-clipboard__message done">Copied</span>
+</button>
+
+<pre><code class="lang-powershell">[CmdletBinding()]
+param (
+    [parameter(Mandatory)][DateTime] $StartDate,
+    [parameter(Mandatory = $false)][DateTime] $EndDate = (Get-Date)
+)
+
+begin {
+  Write-Host &quot;Connecting...&quot; -ForegroundColor Yellow   
+  $m365Status = m365 status
+
+  if ($m365Status -match &quot;Logged Out&quot;) {
+    m365 login
+  }
+}
+process {
+    $fromDateTime = Get-Date -Date $StartDate -Format &quot;yyyy-MM-dd&quot;
+    $toDateTime = Get-Date -Date $EndDate -Format &quot;yyyy-MM-dd&quot;
+
+    m365 teams report pstncalls --fromDateTime $fromDateTime --toDateTime $toDateTime --output csv | Out-File -FilePath &quot;.\PSTN-Data-$((Get-Date).toString(&quot;dd-MM-yyyy&quot;)).csv&quot;
+}
+end {
+  Write-Host &quot;Finished!&quot; -ForegroundColor Green
+}
+</code></pre>
+<div class="highlight-tool">
+<p>Check out the <strong>CLI for Microsoft 365</strong> to learn more at: <a href="https://aka.ms/cli-m365">https://aka.ms/cli-m365</a></p>
+</div>
+</section>
+</div>
+<h2 id="contributors">Contributors</h2>
+<table>
+<thead>
+<tr>
+<th>Author(s)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="https://github.com/nanddeepn">Nanddeep Nachan</a></td>
+</tr>
+<tr>
+<td><a href="https://github.com/SmitaNachan">Smita Nachan</a></td>
+</tr>
+</tbody>
+</table>
+<h2 id="credits">Credits</h2>
+<p>The retry invoke REST method requests in PowerShell, when an error occurs is inspired from <a href="https://blogs.aaddevsup.xyz/2021/01/retry-invoke-restmethod-requests-in-powershell-when-an-error-occurs/">this blog</a>.</p>
+<h2 id="disclaimer">Disclaimer</h2>
+<p><strong>THESE SAMPLES ARE PROVIDED <em>AS IS</em> WITHOUT WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, INCLUDING ANY IMPLIED WARRANTIES OF FITNESS FOR A PARTICULAR PURPOSE, MERCHANTABILITY, OR NON-INFRINGEMENT.</strong></p>
+<img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/teams-export-pstn-call-logs" aria-hidden="true">
+</article>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            <span>Script Samples<br>Generated by <strong><a href='https://dotnet.github.io/docfx' alt='Doc FX Website'>DocFX</a></strong> with <strong><a href='https://ovasquez.github.io/docfx-material' alt='DocFx Material Theme'>Material UI</a></strong></span>
+            
+            <!-- <img src="https://telemetry.sharepointpnp.com/@pnp.github.io/index/" alt="spacer"> -->
+          </div>
+        </div>
+      </footer>    </div>
+    
+    <script type="text/javascript" src="../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+    
+    <script type="text/javascript" src="../styles/clipboard.min.js"></script>
+    <script type="text/javascript" src="../styles/isotope.pkgd.min.js"></script>
+    <script type="text/javascript" src="../styles/loadsamples.js"></script>
+    <script type="text/javascript" src="../styles/filtersamples.js"></script>
+
+  </body>
+</html>
