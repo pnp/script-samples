@@ -8,7 +8,7 @@ plugin: add-to-gallery
 
 This script exports the log of direct routing calls for a given duration.
 
-![Example Screenshot](assets/preview.png)
+![Example Screenshot](assets/example.png)
 
 ## Permissions
 
