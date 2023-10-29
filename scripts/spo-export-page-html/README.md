@@ -1,5 +1,5 @@
 ---
-plugin: add-to-gallery-preparation
+plugin: add-to-gallery
 ---
 
 # Export HTML content from SharePoint Online modern pages
@@ -46,6 +46,7 @@ foreach ($pageItem in $pageItems)
 }
 ```
 [!INCLUDE [More about PnP PowerShell](../../docfx/includes/MORE-PNPPS.md)]
+***
 
 ## Source Credit
 
@@ -56,8 +57,7 @@ This sample reuses parts of [https://pnp.github.io/script-samples/spo-export-str
 | Author(s) |
 |-----------|
 | Giacomo Pozzoni |
-| Tetsuya Kawahara |
 
 
 [!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
-<img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/template-script-submission" aria-hidden="true" />
+<img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/spo-export-page-html" aria-hidden="true" />
