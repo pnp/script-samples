@@ -35,13 +35,13 @@ $m365Sites | ForEach-Object {
         {
             $ExportVw = New-Object PSObject
             $ExportVw | Add-Member -MemberType NoteProperty -name "Site URL" -value $siteUrl
-           $ExportVw | Add-Member -MemberType NoteProperty -name "Owner Name" -value $owner.DisplayName
-           $m365GroupCollection += $ExportVw
-           Add-PnPMicrosoft365GroupMember -Identity $groupId  -Users $owner.Email
-           Write-host $"$owner.DisplayName has been added as member in $siteUrl";
+            $ExportVw | Add-Member -MemberType NoteProperty -name "Owner Name" -value $owner.DisplayName
+            $m365GroupCollection += $ExportVw
+            Add-PnPMicrosoft365GroupMember -Identity $groupId  -Users $owner.Email
+            Write-host $"$owner.DisplayName has been added as member in $siteUrl";
         }
-    }
-}
+      }
+   }
 }
 # Export the result array to CSV file
 $m365GroupCollection | sort-object "Group Name" |Export-CSV $OutPutView -Force -NoTypeInformation
@@ -50,6 +50,10 @@ $m365GroupCollection | sort-object "Group Name" |Export-CSV $OutPutView -Force -
 [!INCLUDE [More about PnP PowerShell](../../docfx/includes/MORE-PNPPS.md)]
 
 ***
+
+## Source Credit
+
+Sample first appeared on [Ensuring Owners Are Members](https://reshmeeauckloo.com/posts/powershell_ensureownersaremembersm365group/)
 
 ## Contributors
 
