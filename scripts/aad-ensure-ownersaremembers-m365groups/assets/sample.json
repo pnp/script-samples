@@ -1,0 +1,62 @@
+[
+  {
+    "schema": null,
+    "name": "aad-delete-m365-groups-and-sharepoint-sites",
+    "version": null,
+    "source": "pnp",
+    "title": "Delete all Microsoft 365 groups and SharePoint sites",
+    "url": "https://pnp.github.io/script-samples/aad-delete-m365-groups-and-sharepoint-sites/README.html",
+    "creationDateTime": "2021-03-15",
+    "updateDateTime": "2021-10-06",
+    "shortDescription": "Example how you can delete all Microsoft 365 Groups and SharePoint Online sites in your development environment",
+    "longDescription": null,
+    "products": [
+      "AzureAD",
+      "SharePoint"
+    ],
+    "categories": [
+      "Provision"
+    ],
+    "tags": [
+      "SharePoint Online",
+      "Microsoft 365 Groups",
+      "Connect-PnPOnline",
+      "Get-PnPTenant",
+      "Get-PnPTenantSite",
+      "Remove-PnPDeletedMicrosoft365Group",
+      "Remove-PnPMicrosoft365Group",
+      "Remove-PnPTenantDeletedSite",
+      "Remove-PnPTenantSite"
+    ],
+    "metadata": [
+      {
+        "key": "PNP-POWERSHELL",
+        "value": "1.5.0"
+      }
+    ],
+    "thumbnails": [
+      {
+        "type": "image",
+        "order": 100,
+        "url": "https://raw.githubusercontent.com/pnp/script-samples/main/scripts/aad-delete-m365-groups-and-sharepoint-sites/assets/preview.png",
+        "alt": "preview image for the sample",
+        "slides": null
+      }
+    ],
+    "authors": [
+      {
+        "gitHubAccount": "reshmee011",
+        "company": "",
+        "pictureUrl": "https://avatars.githubusercontent.com/u/7693852?v=4",
+        "name": "Reshmee Auckloo"
+      }
+    ],
+    "references": [
+      {
+        "name": "Want to learn more about PnP PowerShell and the cmdlets",
+        "description": "Check out the PnP PowerShell site to get started and for the reference to the cmdlets.",
+        "url": "https://aka.ms/pnp/powershell"
+      }
+    ]
+  }
+]
