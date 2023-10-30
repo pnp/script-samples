@@ -1,3 +1,7 @@
+---
+plugin: add-to-gallery
+---
+
 # Script-Sample: Simple way how to automate your flowtest
 
 ## Summary
