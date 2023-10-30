@@ -7,8 +7,16 @@ Since the [Version 6.7 CLI for Microsoft 365](https://pnp.github.io/cli-microsof
 After that you can use my Script as a base to build your own automation for testing flows. 
 
 
-### 
+## Notice
 
+With the script example I would like to give a small instruction how to automate or monitor a flowtest. This is initially only a structure for a specific use case. However, you can adapt the script relatively easily for your requirements.
+
+In my case, the test was related to a sample Approval Flow, which performs different actions depending on the approval status.
+The flow was build like that:
+![Alt text](flow_build.png) 
+
+The trigger list of the flow was built like that and die unterschiedlichen Ausführungswege basieren auf den Wert der Listenspalte "requestlevel" :
+![Alt text](sharepoint_listview.png)
 
 
 # [CLI for Microsoft 365 using PowerShell](#tab/cli-m365-ps)
