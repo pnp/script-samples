@@ -1,4 +1,4 @@
-# Script-Sample: Simple way to automate your flowtest
+# Script-Sample: Simple way how to automate your flowtest
 
 ## Summary
 
