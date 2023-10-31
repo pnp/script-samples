@@ -1,0 +1,60 @@
+[
+  {
+    "schema": null,
+    "name": "aad-ensure-ownersaremembers-m365groups",
+    "version": null,
+    "source": "pnp",
+    "title": "Ensuring m365 group owners are m365 group members",
+    "url": "https://pnp.github.io/script-samples/aad-ensure-ownersaremembers-m365groups/README.html",
+    "creationDateTime": "2023-10-29",
+    "updateDateTime": "2023-10-29",
+    "shortDescription": "Ensuring m365 group owners are m365 group members",
+    "longDescription": ["M365 group owners are not always m365 group members because of the various methods of managing M365 group permissions, such as through the Teams admin center, Microsoft Teams, SharePoint admin center, SharePoint connected sites, Planner, or scripting using PowerShell. The script will help identify these discrepancies and ensures m365 group owners are also m365 group members."],
+    "products": [
+      "AzureAD",
+      "SharePoint"
+    ],
+    "categories": [
+      "Governance"
+    ],
+    "tags": [
+      "SharePoint Online",
+      "Microsoft 365 Groups",
+      "Connect-PnPOnline",
+      "Get-PnPTenantSite",
+      "Get-PnPMicrosoft365GroupOwner",
+      "Get-PnPMicrosoft365GroupMember",
+      "Add-PnPMicrosoft365GroupMember"
+    ],
+    "metadata": [
+      {
+        "key": "PNP-POWERSHELL",
+        "value": "2.2.0"
+      }
+    ],
+    "thumbnails": [
+      {
+        "type": "image",
+        "order": 100,
+        "url": "https://raw.githubusercontent.com/pnp/script-samples/main/scripts/aad-ensure-ownersaremembers-m365groups/assets/preview.png",
+        "alt": "preview image for the sample",
+        "slides": null
+      }
+    ],
+    "authors": [
+      {
+        "gitHubAccount": "reshmee011",
+        "company": "",
+        "pictureUrl": "https://avatars.githubusercontent.com/u/7693852?v=4",
+        "name": "Reshmee Auckloo"
+      }
+    ],
+    "references": [
+      {
+        "name": "Want to learn more about PnP PowerShell and the cmdlets",
+        "description": "Check out the PnP PowerShell site to get started and for the reference to the cmdlets.",
+        "url": "https://aka.ms/pnp/powershell"
+      }
+    ]
+  }
+]
