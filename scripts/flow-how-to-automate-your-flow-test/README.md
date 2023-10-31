@@ -17,14 +17,13 @@ With the script example I would like to give a small instruction how to automate
 
 In my case, the test was related to a sample Approval Flow, which performs different actions depending on the approval status.
 The flow was build like that:
-![Alt text](flow_build.png) 
+![Alt text](assets/flow_build.png) 
 
 The trigger list of the flow was built like that and die unterschiedlichen Ausführungswege basieren auf den Wert der Listenspalte "requestlevel" :
-![Alt text](sharepoint_listview.png)
+![Alt text](assets/sharepoint_listview.png)
 
 
 # [CLI for Microsoft 365 using PowerShell](#tab/cli-m365-ps)
-
 ```powershell
 param(
     [Parameter(Mandatory = $true)]
@@ -219,8 +218,8 @@ Write-Output ("failed flowruns : {0} `n"-f $failedFlowRunssCount)
 
 m365 logout
 ```
-[More about CLI for Microsoft 365](../../docfx/includes/MORE-CLIM365.md)
-
+[!INCLUDE [More about CLI for Microsoft 365](../../docfx/includes/MORE-CLIM365.md)]
+***
 
 ## Configurate to your flow
 
@@ -228,7 +227,7 @@ m365 logout
 
 For an ideal test run, the test data to be created should be adapted to the corresponding requirements. This is done via the createTestData function. In this function several test data can be created either by loop or by single command [m365 spo listitem add](https://pnp.github.io/cli-microsoft365/cmd/spo/listitem/listitem-add). It is important that this function returns the IDs of the created sharepoint test items, so that when monitoring the flow runs, only the runs to the test are monitored and automatic simulated afterwards. 
 
-
+# [CLI for Microsoft 365 using PowerShell](#tab/cli-m365-ps)
 ```powershell
 function createTestData{
     <#
@@ -248,6 +247,8 @@ function createTestData{
     return $testMetadata
 }
 ```
+[!INCLUDE [More about CLI for Microsoft 365](../../docfx/includes/MORE-CLIM365.md)]
+***
 
 ### Simulate the user input
 
@@ -255,6 +256,7 @@ If you can and want to simulate or adjust the user inputs, the following section
 
 The script is designed to constantly check for new flow runs. There is also the possibility that the simulation of the test data can be skipped by commenting out and thus the user input can be performed manually. In this case you could run the evaluation or monitoring of the test with the script.
 
+# [CLI for Microsoft 365 using PowerShell](#tab/cli-m365-ps)
 ```powershell
 <#
 * SIMULATE YOUR USERINPUT
@@ -288,11 +290,14 @@ if($testItemIds -contains $itemId){
     Write-Output('Not included in testdata - SharePoint-Item {0}' -f $itemId)
 }   
 ```
+[!INCLUDE [More about CLI for Microsoft 365](../../docfx/includes/MORE-CLIM365.md)]
+***
 
 ### Evaluation of the test
 
 The script is currently set up to use an infinite loop to monitor flow execution. If you now want to have a simple evaluation of the test run, execute the following code. In this case you will get the some information about the status of each flow execution.
 
+# [CLI for Microsoft 365 using PowerShell](#tab/cli-m365-ps)
 ```powershell
 # run this for feedback , when you are finished
 
@@ -301,6 +306,8 @@ Write-Output ("succeded flowruns : {0} `n"-f $successFlowRunsCount)
 Write-Output ("canceled flowruns : {0} `n"-f $CancelledFlowRunsCount)
 Write-Output ("failed flowruns : {0} `n"-f $failedFlowRunssCount)
 ```
+[!INCLUDE [More about CLI for Microsoft 365](../../docfx/includes/MORE-CLIM365.md)]
+***
 
 ## Contributors
 
@@ -309,5 +316,5 @@ Write-Output ("failed flowruns : {0} `n"-f $failedFlowRunssCount)
 | Joshua Probst |
 
 
-[DISCLAIMER](../../docfx/includes/DISCLAIMER.md)
-<img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/template-script-submission" aria-hidden="true" />
+[!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
+<img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/flow-how-to-automate-your-flow-test" aria-hidden="true" />
