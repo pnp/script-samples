@@ -4,14 +4,10 @@ plugin: add-to-gallery
 
 # Disable Web Templates Gallery First Run Dialog
 
-> [!Note]
-> This is a submission helper template please find the [contributor guidance](/docfx/contribute.md) to help you write this scenario.
-
 ## Summary
 
 When accessing a newly created site collection in SharePoint Online, you are presented with a dialog to select a web template. This script will disable this dialog.
 
-[!INCLUDE [Delete Warning](../../docfx/includes/DELETE-WARN.md)]
 ![Example Screenshot](assets/example.png)
 
 
