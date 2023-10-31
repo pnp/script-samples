@@ -1,0 +1,478 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html lang="en">
+  
+  <head>
+    <meta charset="utf-8">
+    <title>Script-Sample: Simple way how to automate your flowtest | PnP Samples </title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" "="">
+    <meta name="title" content="Script-Sample: Simple way how to automate your flowtest | PnP Samples ">
+    <meta name="generator" content="docfx 2.56.7.0">
+    <meta name="description" content="A sample gallery of scripts to manage all things Microsoft 365.">
+  
+    <!-- Social Media -->
+    <meta property="og:locale" content="en_GB">
+    <meta property="og:title" content="Script-Sample: Simple way how to automate your flowtest | PnP Samples ">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://pnp.github.io/script-samples">
+    <meta property="og:image" content="https://pnp.github.io/script-samples/assets/social-media-screenshot.png">
+    <meta property="og:image:alt" content="Screenshot example of the PnP Script Samples Site">
+    <meta property="og:site_name" content="PnP Script Samples">
+    <meta name="msvalidate.01" content="04EFEDA66EC42C08A1247C979E2F9ADD">
+    <meta property="og:description" content="A sample gallery of scripts to manage all things Microsoft 365.">
+  
+    <link rel="shortcut icon" href="https://c.s-microsoft.com/favicon.ico?v2">
+    <link rel="stylesheet" href="../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../styles/docfx.css">
+    <link rel="stylesheet" href="../styles/main.css">
+    <link rel="stylesheet" href="../styles/extra.css">
+    <link rel="stylesheet" href="../styles/filter.css">
+    <link rel="stylesheet" href="../styles/site.css">
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet"> 
+    <meta property="docfx:navrel" content="../toc.html">
+    <meta property="docfx:tocrel" content="../toc.html">
+    
+    
+    <meta property="docfx:newtab" content="true">
+    <script type="text/javascript">
+      (function(c,l,a,r,i,t,y){
+          c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+          t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+          y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+      })(window, document, "clarity", "script", "8j6pedl344");
+  </script>
+  </head>  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+             <div class="github-mark">
+              <a href="https://github.com/pnp/script-samples" title="Go to repository">
+               <div class="github-wrapper">
+                  <div class="github-icon">
+                    <img src="https://pnp.github.io/script-samples/assets/icons/github-light-64px.png" alt="GitHub Icon Image">
+                  </div>
+                  <div class="github-repository">
+                    <span>GitHub</span>
+                    <ul class="github-facts">
+                      <li>
+                        <i class="fa fa-code-fork" aria-hidden="true"></i>
+                        <span class="github-forks"></span>
+                      </li>
+                      <li>
+                        <i class="fa fa-star-o" aria-hidden="true"></i>
+                        <span class="github-stars"></span>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </a>
+            </div>
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../assets/logo.svg" alt="">
+              </a>    </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <label class="glyphicon glyphicon-search" for="search-query"></label>
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>      </header>
+      <div role="main" class="container body-content hide-when-search">
+        <div class="article row grid">
+          <div class="col-md-12">
+            <article class="content wrap" id="_content" data-uid="">
+                  <div class="contribution-panel mobile-hide pull-right">
+                      <a href="https://github.com/pnp/script-samples/blob/main/scripts/flow-how-to-automate-your-flow-test/README.md/#L1" title="Improve this Doc" class="improve-doc-lg"><i class="glyphicon glyphicon-pencil"></i></a>
+                  </div>
+                    <h1 id="script-sample-simple-way-how-to-automate-your-flowtest">Script-Sample: Simple way how to automate your flowtest</h1>
+
+<h2 id="summary">Summary</h2>
+<p>Since the <a href="https://pnp.github.io/cli-microsoft365/about/release-notes#v670">Version 6.7 CLI for Microsoft 365</a> the command <a href="https://pnp.github.io/cli-microsoft365/cmd/flow/run/run-get">&quot;m365 flow run get&quot;</a> return all the triggerInformation while using the parameter &quot;-includetriggerInformation&quot;.</p>
+<p>After that you can use my Script as a base to build your own automation for testing flows.</p>
+<h2 id="notice">Notice</h2>
+<p>With the script example I would like to give a small instruction how to automate or monitor a flowtest. This is initially only a structure for a specific use case. However, you can adapt the script relatively easily for your requirements.</p>
+<p>In my case, the test was related to a sample Approval Flow, which performs different actions depending on the approval status.
+The flow was build like that:
+<img src="assets/flow_build.png" alt="Alt text"></p>
+<p>The trigger list of the flow was built like that and die unterschiedlichen Ausführungswege basieren auf den Wert der Listenspalte &quot;requestlevel&quot; :
+<img src="assets/sharepoint_listview.png" alt="Alt text"></p>
+<div class="tabGroup" id="tabgroup_CeZOj-G++Q">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_CeZOj-G++Q_cli-m365-ps" role="tab" aria-controls="tabpanel_CeZOj-G++Q_cli-m365-ps" data-tab="cli-m365-ps" tabindex="0" aria-selected="true">CLI for Microsoft 365 using PowerShell</a>
+</li>
+</ul>
+<section id="tabpanel_CeZOj-G++Q_cli-m365-ps" role="tabpanel" data-tab="cli-m365-ps"><button class="article-clipboard" title="Copy to clipboard" data-toggle="tooltip" data-placement="top" data-clipboard-target="section[id^='tabpanel'][data-tab='cli-m365-ps'] pre">
+    <span class="glyphicon glyphicon-copy" aria-hidden="true"></span>
+    <span class="article-clipboard__message done">Copied</span>
+</button>
+
+<pre><code class="lang-powershell">param(
+    [Parameter(Mandatory = $true)]
+    [string]$environment, 
+    [Parameter(Mandatory = $true)]
+    [string]$flow,
+    [Parameter(Mandatory = $true)]
+    [string]$spSiteUrl,
+    [Parameter(Mandatory = $true)]
+    [string]$spListTitle
+)
+
+$loopValue = $true
+$flowRunsCount = 0
+$successFlowRunsCount = 0
+$failedFlowRunssCount = 0
+$CancelledFlowRunsCount = 0
+$powerAutomateUrl = 'https://make.powerautomate.com/'
+
+m365 login --authType browser
+
+#region
+# ----------------------------- check environment
+$checkEnvironment = m365 flow environment get --name $environment
+
+if($checkEnvironment.Length -lt 1){
+    throw 'Environment {0} not found' -f $environment
+}
+
+# ----------------------------- check flow
+$flowInformation = m365 flow list --environmentName $environment --output json | ConvertFrom-Json | Where-Object -filterscript {($_.name -eq $flow) -or ($_.displayName -eq $flow)}
+
+if($flowInformation.Length -lt 1){
+    throw 'Flow {0} not found' -f $flowname
+}
+#endregion
+
+#region
+function getFlowRun{
+    param($flowId)
+
+    $pastFlowRuns = (m365 flow run list --environmentName $environment --flowName $flowId --output json | ConvertFrom-Json).name
+
+    return $pastFlowRuns
+}
+
+
+function createTestData{
+    &lt;#
+    * ADD YOUR TESTMETADATA
+    * Customize this part to your system / testdata
+    * trigger elements of flow runs that are not included to your testdata are not monitored
+    * alternativ: just return the itemId's of manual created testdata
+    #&gt;
+    $i = 0
+    $testMetadata = @()
+
+    do{
+        $testMetadata += (m365 spo listitem add --contentType 'Item' --listTitle $spListTitle --webUrl $spSiteUrl --Title &quot;Test-Item $i&quot; --requestlevel &quot;Started&quot; --history &quot;Item created automatically&quot; | ConvertFrom-Json).Id
+        $i++
+    }until($i -eq 10)   
+
+    return $testMetadata
+}
+#endregion
+
+
+$monitorFlowRun = {
+    param( 
+        $environment,
+        $flowId, 
+        $runId,
+        $spListTitle,
+        $spSiteUrl,
+        $testItemIds
+    )
+
+    $flowrunStatus = 'Running'
+
+    do{
+        $flowRunInformation = m365 flow run get --environmentName $environment --flowName $flowId --name $runId --includeTriggerInformation --output json | ConvertFrom-Json
+        $flowrunStatus = $flowRunInformation.status
+        if($flowrunStatus -eq 'Running'){
+            Start-Sleep -Seconds 30
+        }
+    }while($flowrunStatus -eq 'Running')
+
+    #region 
+    # get Id of sharepoint element which triggers the flow
+    $itemId = $flowRunInformation.triggerInformation.ItemInternalId
+
+    &lt;#
+    * SIMULATE YOUR USERINPUT
+    * Here you need to put your different update actions which simulated your user input to the sharepoint item
+    * Otherwise you can delete this part and update the sharepoint item manually - with your forms or something
+    #&gt;
+
+    # in my case i need to get the current request level 
+    # based on spColoumn : requestlevel | Choice Coloumn
+    $currentRequestLevel = $flowRunInformation.triggerInformation.requestlevel.Value
+
+    #check if flowtrigger is part of testdata
+    if($testItemIds -contains $itemId){
+
+        switch($currentRequestLevel){
+            'Started'{
+                m365 spo listitem set --listTitle $spListTitle --id $itemId --webUrl $spSiteUrl --requestlevel 'Editing' | Out-Null
+            }
+            'Editing'{
+                m365 spo listitem set --listTitle $spListTitle --id $itemId --webUrl $spSiteUrl --requestlevel 'Approval' | Out-Null
+            }
+            'Approval'{
+                m365 spo listitem set --listTitle $spListTitle --id $itemId --webUrl $spSiteUrl --requestlevel 'Release' | Out-Null
+            }
+            'Release'{
+                # this is the last step -&gt; so there is nothing to do
+            }
+        }
+        Write-Output $flowRunInformation
+    }else{
+        Write-Output('Not included in testdata - SharePoint-Item {0}' -f $itemId)
+    }
+    #endregion
+}
+
+$flowId = $flowInformation.name
+
+# Get all past flowruns which are not included in your current test 
+$pastFlowRuns = getFlowrun $flow
+
+# Create new testdata
+$testItemIds = createTestData
+
+# Create an endless loop for your testrun
+do{
+    #region
+    # ----------------------------- check for new flowruns 
+    $newFlowRuns = getFlowrun $flowId
+    foreach($run in $newFlowRuns){
+        if(($pastFlowRuns -notcontains $run) -or ($pastFlowRuns.Length -eq 0)){
+            Start-ThreadJob -ScriptBlock $monitorFlowRun -ArgumentList @($environment, $flowId, $run, $spListTitle, $spSiteUrl, $testItemIds) | Out-Null
+            $pastFlowRuns += $run
+        }
+    }
+    #endregion
+
+    #region 
+    # ----------------------------- check for completet background jobs
+    Get-Job | Foreach-Object{
+        if($_.State -eq &quot;Completed&quot;){
+            $jobInformation = Get-Job -Id $_.Id
+            $jobOutput = $jobInformation.Output
+            if(($jobOutput | Get-Member | Where-Object Name -eq &quot;triggerInformation&quot;).Length -gt 0){
+                switch($jobOutput.status){
+                    'Cancelled'{
+                        $CancelledFlowRunsCount += 1
+                    }
+                    'Failed'{
+                        $failedFlowRunssCount += 1
+                    }
+                    'Succeeded'{
+                        $successFlowRunsCount += 1
+                    }
+                }
+                $flowRunUrl = $powerAutomateUrl+$jobOutput.id.Split('/providers/Microsoft.ProcessSimple')[1]
+                
+                Write-Output(&quot;`n`nLink to Run: {0}&quot; -f $flowRunUrl)
+                Write-Output(&quot;start time of run: {0}&quot; -f $jobOutput.startTime)
+                Write-Output(&quot;for SharePoint Item | Id: {0} Title: {1}&quot;  -f $jobOutput.triggerInformation.ItemInternalId, $jobOutput.triggerInformation.Title)
+                Write-Output(&quot;`n`nFlowrun completed with state: {0}&quot; -f $jobOutput.status)
+                Write-Output(&quot;----------------------------- &quot;)
+            $flowRunsCount += 1
+            }
+            Remove-Job -Id $_.Id
+            }
+    }
+    #endregion
+
+    Start-Sleep -Seconds 30
+
+}while($loopValue)
+
+
+
+# run this for feedback , when you are finished
+
+Write-Output (&quot;Total flowruns : {0}`n &quot;-f $flowRunsCount)
+Write-Output (&quot;succeded flowruns : {0} `n&quot;-f $successFlowRunsCount)
+Write-Output (&quot;canceled flowruns : {0} `n&quot;-f $CancelledFlowRunsCount)
+Write-Output (&quot;failed flowruns : {0} `n&quot;-f $failedFlowRunssCount)
+
+
+m365 logout
+</code></pre>
+<div class="highlight-tool">
+<p>Check out the <strong>CLI for Microsoft 365</strong> to learn more at: <a href="https://aka.ms/cli-m365">https://aka.ms/cli-m365</a></p>
+</div>
+</section>
+</div>
+<h2 id="configurate-to-your-flow">Configurate to your flow</h2>
+<h3 id="automatic-creation-of-test-data">Automatic creation of test data</h3>
+<p>For an ideal test run, the test data to be created should be adapted to the corresponding requirements. This is done via the createTestData function. In this function several test data can be created either by loop or by single command <a href="https://pnp.github.io/cli-microsoft365/cmd/spo/listitem/listitem-add">m365 spo listitem add</a>. It is important that this function returns the IDs of the created sharepoint test items, so that when monitoring the flow runs, only the runs to the test are monitored and automatic simulated afterwards.</p>
+<div class="tabGroup" id="tabgroup_CeZOj-G++Q-1">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_CeZOj-G++Q-1_cli-m365-ps" role="tab" aria-controls="tabpanel_CeZOj-G++Q-1_cli-m365-ps" data-tab="cli-m365-ps" tabindex="0" aria-selected="true">CLI for Microsoft 365 using PowerShell</a>
+</li>
+</ul>
+<section id="tabpanel_CeZOj-G++Q-1_cli-m365-ps" role="tabpanel" data-tab="cli-m365-ps"><button class="article-clipboard" title="Copy to clipboard" data-toggle="tooltip" data-placement="top" data-clipboard-target="section[id^='tabpanel'][data-tab='cli-m365-ps'] pre">
+    <span class="glyphicon glyphicon-copy" aria-hidden="true"></span>
+    <span class="article-clipboard__message done">Copied</span>
+</button>
+
+<pre><code class="lang-powershell">function createTestData{
+    &lt;#
+    * ADD YOUR TESTMETADATA
+    * Customize this part to your system / testdata
+    * trigger elements of flow runs that are not included to your testdata are not monitored
+    * alternativ: just return the itemId's of manual created testdata
+    #&gt;
+    $i = 0
+    $testMetadata = @()
+
+    do{
+        $testMetadata += (m365 spo listitem add --contentType 'Item' --listTitle $spListTitle --webUrl $spSiteUrl --Title &quot;Test-Item $i&quot; --requestlevel &quot;Started&quot; --history &quot;Item created automatically&quot; | ConvertFrom-Json).Id
+        $i++
+    }until($i -eq 10)   
+
+    return $testMetadata
+}
+</code></pre>
+<div class="highlight-tool">
+<p>Check out the <strong>CLI for Microsoft 365</strong> to learn more at: <a href="https://aka.ms/cli-m365">https://aka.ms/cli-m365</a></p>
+</div>
+</section>
+</div>
+<h3 id="simulate-the-user-input">Simulate the user input</h3>
+<p>If you can and want to simulate or adjust the user inputs, the following section gives you the opportunity to do so. By creating the test data with the script, there is a possibility that only the SharePoint test elements associated with the test will be customized. This makes it possible to test in a production system as well.</p>
+<p>The script is designed to constantly check for new flow runs. There is also the possibility that the simulation of the test data can be skipped by commenting out and thus the user input can be performed manually. In this case you could run the evaluation or monitoring of the test with the script.</p>
+<div class="tabGroup" id="tabgroup_CeZOj-G++Q-2">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_CeZOj-G++Q-2_cli-m365-ps" role="tab" aria-controls="tabpanel_CeZOj-G++Q-2_cli-m365-ps" data-tab="cli-m365-ps" tabindex="0" aria-selected="true">CLI for Microsoft 365 using PowerShell</a>
+</li>
+</ul>
+<section id="tabpanel_CeZOj-G++Q-2_cli-m365-ps" role="tabpanel" data-tab="cli-m365-ps"><button class="article-clipboard" title="Copy to clipboard" data-toggle="tooltip" data-placement="top" data-clipboard-target="section[id^='tabpanel'][data-tab='cli-m365-ps'] pre">
+    <span class="glyphicon glyphicon-copy" aria-hidden="true"></span>
+    <span class="article-clipboard__message done">Copied</span>
+</button>
+
+<pre><code class="lang-powershell">&lt;#
+* SIMULATE YOUR USERINPUT
+* Here you need to put your different update actions which simulated your user input to the sharepoint item
+* Otherwise you can delete this part and update the sharepoint item manually - with your forms or something
+#&gt;
+
+# in my case i need to get the current request level 
+# based on spColoumn : requestlevel | Choice Coloumn
+$currentRequestLevel = $flowRunInformation.triggerInformation.requestlevel.Value
+
+#check if flowtrigger is part of testdata
+if($testItemIds -contains $itemId){
+
+    switch($currentRequestLevel){
+        'Started'{
+            m365 spo listitem set --listTitle $spListTitle --id $itemId --webUrl $spSiteUrl --requestlevel 'Editing' | Out-Null
+        }
+        'Editing'{
+            m365 spo listitem set --listTitle $spListTitle --id $itemId --webUrl $spSiteUrl --requestlevel 'Approval' | Out-Null
+        }
+        'Approval'{
+            m365 spo listitem set --listTitle $spListTitle --id $itemId --webUrl $spSiteUrl --requestlevel 'Release' | Out-Null
+        }
+        'Release'{
+            # this is the last step -&gt; so there is nothing to do
+        }
+    }
+    Write-Output $flowRunInformation
+}else{
+    Write-Output('Not included in testdata - SharePoint-Item {0}' -f $itemId)
+}   
+</code></pre>
+<div class="highlight-tool">
+<p>Check out the <strong>CLI for Microsoft 365</strong> to learn more at: <a href="https://aka.ms/cli-m365">https://aka.ms/cli-m365</a></p>
+</div>
+</section>
+</div>
+<h3 id="evaluation-of-the-test">Evaluation of the test</h3>
+<p>The script is currently set up to use an infinite loop to monitor flow execution. If you now want to have a simple evaluation of the test run, execute the following code. In this case you will get the some information about the status of each flow execution.</p>
+<div class="tabGroup" id="tabgroup_CeZOj-G++Q-3">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_CeZOj-G++Q-3_cli-m365-ps" role="tab" aria-controls="tabpanel_CeZOj-G++Q-3_cli-m365-ps" data-tab="cli-m365-ps" tabindex="0" aria-selected="true">CLI for Microsoft 365 using PowerShell</a>
+</li>
+</ul>
+<section id="tabpanel_CeZOj-G++Q-3_cli-m365-ps" role="tabpanel" data-tab="cli-m365-ps"><button class="article-clipboard" title="Copy to clipboard" data-toggle="tooltip" data-placement="top" data-clipboard-target="section[id^='tabpanel'][data-tab='cli-m365-ps'] pre">
+    <span class="glyphicon glyphicon-copy" aria-hidden="true"></span>
+    <span class="article-clipboard__message done">Copied</span>
+</button>
+
+<pre><code class="lang-powershell"># run this for feedback , when you are finished
+
+Write-Output (&quot;Total flowruns : {0}`n &quot;-f $flowRunsCount)
+Write-Output (&quot;succeded flowruns : {0} `n&quot;-f $successFlowRunsCount)
+Write-Output (&quot;canceled flowruns : {0} `n&quot;-f $CancelledFlowRunsCount)
+Write-Output (&quot;failed flowruns : {0} `n&quot;-f $failedFlowRunssCount)
+</code></pre>
+<div class="highlight-tool">
+<p>Check out the <strong>CLI for Microsoft 365</strong> to learn more at: <a href="https://aka.ms/cli-m365">https://aka.ms/cli-m365</a></p>
+</div>
+</section>
+</div>
+<h2 id="contributors">Contributors</h2>
+<table>
+<thead>
+<tr>
+<th>Author(s)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Joshua Probst</td>
+</tr>
+</tbody>
+</table>
+<h2 id="disclaimer">Disclaimer</h2>
+<p><strong>THESE SAMPLES ARE PROVIDED <em>AS IS</em> WITHOUT WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, INCLUDING ANY IMPLIED WARRANTIES OF FITNESS FOR A PARTICULAR PURPOSE, MERCHANTABILITY, OR NON-INFRINGEMENT.</strong></p>
+<img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/flow-how-to-automate-your-flow-test" aria-hidden="true">
+</article>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            <span>Script Samples<br>Generated by <strong><a href='https://dotnet.github.io/docfx' alt='Doc FX Website'>DocFX</a></strong> with <strong><a href='https://ovasquez.github.io/docfx-material' alt='DocFx Material Theme'>Material UI</a></strong></span>
+            
+            <!-- <img src="https://telemetry.sharepointpnp.com/@pnp.github.io/index/" alt="spacer"> -->
+          </div>
+        </div>
+      </footer>    </div>
+    
+    <script type="text/javascript" src="../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+    
+    <script type="text/javascript" src="../styles/clipboard.min.js"></script>
+    <script type="text/javascript" src="../styles/isotope.pkgd.min.js"></script>
+    <script type="text/javascript" src="../styles/loadsamples.js"></script>
+    <script type="text/javascript" src="../styles/filtersamples.js"></script>
+
+  </body>
+</html>
