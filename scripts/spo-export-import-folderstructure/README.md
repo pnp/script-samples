@@ -4,12 +4,11 @@ plugin: add-to-gallery
 
 # Export and import library folder structure
 
-> [!Note]
-> This is a submission helper template please find the [contributor guidance](/docfx/contribute.md) to help you write this scenario.
-
 ## Summary
 
 Sometimes you just need to copy a folder structure from one library to another. This script will export the folder structure from one library and import it to another library using a JSON file to store the folder structure. The can be used as is or be an invidual function in a site provisioning script.
+
+
 ![Example Screenshot](assets/example.png)
 
 
