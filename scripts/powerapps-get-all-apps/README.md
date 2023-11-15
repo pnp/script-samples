@@ -1,5 +1,5 @@
 ---
-plugin: add-to-gallery-preparation
+plugin: add-to-gallery
 ---
 
 # Get all PowerApps in your tenant
@@ -38,8 +38,6 @@ $powerApps | Export-Csv "C:\Development\PowerShell\TEMP\powerAppsExport.csv" -No
 
 ```
 [!INCLUDE [More about Power Apps PowerShell](../../docfx/includes/MORE-POWERAPPS.md)]
-
-
 ***
 
 
@@ -51,4 +49,4 @@ $powerApps | Export-Csv "C:\Development\PowerShell\TEMP\powerAppsExport.csv" -No
 
 
 [!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
-<img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/template-script-submission" aria-hidden="true" />
+<img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/powerapps-get-all-apps" aria-hidden="true" />
