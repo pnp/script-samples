@@ -65,4 +65,4 @@ Disconnect-PnPOnline
 | [Aman Panjwani](https://www.linkedin.com/in/aman-17-panjwani/) |
 
 [!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
-<img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/spo-enable-disable-app-bar" aria-hidden="true" />
+<img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/spo-reorder-list-content-type" aria-hidden="true" />
