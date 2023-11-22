@@ -99,8 +99,8 @@
                     <h1 id="hide-the-see-all-button-in-the-highlighted-content-web-part">Hide the 'See All' Button in the Highlighted Content Web Part</h1>
 
 <h2 id="summary">Summary</h2>
-<p>Recently, I encountered an issue with the &quot;Show Title and Commands&quot; toggle in the out-of-the-box Highlighted Content web part. It stopped working on both my development and customer tenant.
-<img src="assets/HighlightWebPart.png" alt="ToggleOff"></p>
+<p>Recently, I encountered an issue with the &quot;Show title and commands&quot; toggle in the out-of-the-box Highlighted Content web part. It stopped working on both my development and customer tenant.</p>
+<p><img src="assets/HighlightWebPart.png" alt="ToggleOff"></p>
 <p>While awaiting a resolution from Microsoft, I decided to find a workaround. That's when the PnP PowerShell cmdlet <code>Set-PnPPageWebPart</code> came to the rescue. The solution involves updating the <strong>PropertiesJson</strong> property of the web part.</p>
 <div class="tabGroup" id="tabgroup_CeZOj-G++Q">
 <ul role="tablist">
@@ -113,13 +113,14 @@
     <span class="article-clipboard__message done">Copied</span>
 </button>
 
-<pre><code class="lang-PowerShell"># Connect to your SharePoint site
+<pre><code class="lang-PowerShell">
+# Connect to your SharePoint site
 Connect-PnPOnline -Url &quot;https://contoso.sharepoint.com/sites/Project&quot; -Interactive
 
 # Specify the page URL
 $pageUrl = &quot;ProjectHome.aspx&quot;
 
-# Get the page and its web parts$
+# Get the page and its web parts
 $page = Get-PnPClientSidePage -Identity $pageUrl
 $webParts = $page.Controls | Where-Object { $_.Title -eq 'Highlighted content' } 
 
@@ -133,12 +134,13 @@ foreach ($webPart in $webParts) {
 
 # Disconnect from the SharePoint site
 Disconnect-PnPOnline
+
 </code></pre>
 <div class="highlight-tool">
 <p>Check out the <strong>PnP PowerShell</strong> to learn more at: <a href="https://aka.ms/pnp/powershell">https://aka.ms/pnp/powershell</a></p>
 </div>
 <h2 id="source-credit">Source Credit</h2>
-<p>Sample first appeared on <a href="https://reshmeeauckloo.com/posts/powershell_highlightwebpart_hideseeall/">How to Hide the 'See All' Button in the Highlighted Content Web Part using PnP PowerShel</a></p>
+<p>Sample first appeared on <a href="https://reshmeeauckloo.com/posts/powershell_highlightwebpart_hideseeall/">How to Hide the 'See All' Button in the Highlighted Content Web Part using PnP PowerShell</a></p>
 <h2 id="contributors">Contributors</h2>
 <table>
 <thead>
