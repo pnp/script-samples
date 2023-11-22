@@ -6,7 +6,8 @@ plugin: add-to-gallery
 
 ## Summary
 
-Recently, I encountered an issue with the "Show Title and Commands" toggle in the out-of-the-box Highlighted Content web part. It stopped working on both my development and customer tenant. 
+Recently, I encountered an issue with the "Show title and commands" toggle in the out-of-the-box Highlighted Content web part. It stopped working on both my development and customer tenant. 
+
 ![ToggleOff](assets/HighlightWebPart.png)
 
 While awaiting a resolution from Microsoft, I decided to find a workaround. That's when the PnP PowerShell cmdlet `Set-PnPPageWebPart` came to the rescue. The solution involves updating the **PropertiesJson** property of the web part.
@@ -14,13 +15,14 @@ While awaiting a resolution from Microsoft, I decided to find a workaround. That
 # [PnP PowerShell](#tab/pnpps)
 
 ```PowerShell
+
 # Connect to your SharePoint site
 Connect-PnPOnline -Url "https://contoso.sharepoint.com/sites/Project" -Interactive
 
 # Specify the page URL
 $pageUrl = "ProjectHome.aspx"
 
-# Get the page and its web parts$
+# Get the page and its web parts
 $page = Get-PnPClientSidePage -Identity $pageUrl
 $webParts = $page.Controls | Where-Object { $_.Title -eq 'Highlighted content' } 
 
@@ -34,13 +36,14 @@ foreach ($webPart in $webParts) {
 
 # Disconnect from the SharePoint site
 Disconnect-PnPOnline
+
 ```
 
 [!INCLUDE [More about PnP PowerShell](../../docfx/includes/MORE-PNPPS.md)]
 
 ## Source Credit
 
-Sample first appeared on [How to Hide the 'See All' Button in the Highlighted Content Web Part using PnP PowerShel](https://reshmeeauckloo.com/posts/powershell_highlightwebpart_hideseeall/)
+Sample first appeared on [How to Hide the 'See All' Button in the Highlighted Content Web Part using PnP PowerShell](https://reshmeeauckloo.com/posts/powershell_highlightwebpart_hideseeall/)
 
 ## Contributors
 
