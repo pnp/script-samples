@@ -6,65 +6,86 @@ plugin: add-to-gallery
 
 ## Summary
 
+There are scenarios when files uploaded won't have **checked-in version** which will make the files visible only to their uploader. Two possible scenarios.
+
+1. When **Require Check Out** option under versioning settings of any library is set to "Yes" and the uploader forget to check in the file. 
+
+2. When there are required fields and end user uses OneDrive to save a newly created office file.
 
 ![PnP Powershell result](assets/preview.png)
 
+Files which have no checked in versions have the following issues
+
+- Invisibility: They evade search results, remaining hidden from intended audiences.
+- Backup Issues: These files are not backed up, risking data loss.
+- Mass update of those files failed
+
 # [PnP PowerShell](#tab/pnpps)
+
 ```powershell
-$AdminCenterURL="https://contoso-admin.sharepoint.com/"# Connect to SharePoint Online admin center
+#Set Parameters
+$AdminCenterURL="https://contoso-admin.sharepoint.com/"
 Connect-PnPOnline -Url $AdminCenterURL -Interactive
 $dateTime = (Get-Date).toString("dd-MM-yyyy")
 $invocation = (Get-Variable MyInvocation).Value
 $directorypath = Split-Path $invocation.MyCommand.Path
-$fileName = "m365GroupUsersReport-" + $dateTime + ".csv"
+$fileName = "checkedoutfiles-" + $dateTime + ".csv"
 $OutPutView = $directorypath + "\Logs\"+ $fileName
 # Array to Hold Result - PSObjects
-$m365GroupCollection = @()
-#Amend query to retrieve the sites within tenant
-$m365Sites = Get-PnPTenantSite -Detailed | Where-Object {($_.Url -like '*/Dev-*' -or  $_.Url -like '*/Test-*' -or  $_.Url -like '*/Uat-*' -or $_.Template -eq 'TEAMCHANNEL#1') -and $_.Template -ne 'RedirectSite#0' }
-
+$filesCollection = @()
+ 
+#Array to Skip System Lists and Libraries
+$SystemLists = @("Converted Forms", "Master Page Gallery", "Customized Reports", "Form Templates", "List Template Gallery", "Theme Gallery","Apps for SharePoint",
+                            "Reporting Templates", "Solution Gallery", "Style Library", "Web Part Gallery","Site Assets", "wfpub", "Site Pages", "Images", "MicroFeed","Pages")
+ 
+$m365Sites = Get-PnPTenantSite -Detailed | Where-Object {($_.Url -like '*/intranet-*' -or  $_.Url -like '*/team-*' -or $_.Template -eq 'TEAMCHANNEL#1') -and $_.Template -ne 'RedirectSite#0' }
 $m365Sites | ForEach-Object {
-    $ExportVw = New-Object PSObject
-    $ExportVw | Add-Member -MemberType NoteProperty -name "Site Name" -value $_.Title
-    $m365GroupOwnersName="";
-    $m365GroupMembersName="";
-    $m365GroupGuestsName = "";
-    $groupId = $_.GroupId;
-    $siteUrl = $_.Url;
-    #Check if site template is a Team template to retrieve the m365 group membership
-    if($_.Template -eq "GROUP#0")
-    {
-        $m365GroupOwnersName = (Get-PnPMicrosoft365GroupOwner -Identity $groupId -ErrorAction Ignore| select-object -ExpandProperty DisplayName ) -join ";";
-        $m365GroupMembersName = (Get-PnPMicrosoft365GroupMember -Identity $groupId  -ErrorAction Ignore| select-object -ExpandProperty DisplayName) -join ";";
-        $m365GroupGuestsName = (Get-PnPMicrosoft365GroupMember -Identity $groupId  -ErrorAction Ignore |Where-Object UserType -eq Guest | select-object -ExpandProperty DisplayName) -join ";";
+$siteUrl = $_.Url;    
+Connect-PnPOnline -Url $siteUrl -Interactive
+ 
+$Ctx = Get-PnPContext
+#Get the List
+write-host  $siteUrl  
+ Get-PnPList  | Where {$_.Hidden -eq $false -and $SystemLists -notcontains $_.Title -and $_.BaseTemplate -eq 101 } | ForEach-Object {
+#Get All Checked-Out Files
+$CheckedOutFiles = $_.GetCheckedOutFiles()
+$Ctx.Load($CheckedOutFiles)
+$Ctx.ExecuteQuery()
+#Check-in All Files Checked out to the User
+$CheckedOutFiles | ForEach-Object {
+
+        $user = (Get-PnPUser -Identity $_.CheckedoutById -ErrorAction Ignore) ?? $_.CheckedoutById
+        $ExportVw = New-Object PSObject
+        $ExportVw | Add-Member -MemberType NoteProperty -name "Site URL" -value $siteUrl
+        $ExportVw | Add-Member -MemberType NoteProperty -name "File Url" -value $_.ServerRelativePath.DecodedUrl
+        $ExportVw | Add-Member -MemberType NoteProperty -name "Checked Out By" -value $user.Title
+        $ExportVw | Add-Member -MemberType NoteProperty -name "No Checked in version" -value "Yes"
+        $filesCollection += $ExportVw
     }
-
-    $ExportVw | Add-Member -MemberType NoteProperty -name "Group Owners" -value $m365GroupOwnersName    
-    $ExportVw | Add-Member -MemberType NoteProperty -name "Group Members" -value $m365GroupMembersName
-    $ExportVw | Add-Member -MemberType NoteProperty -name "Group Guests" -value $m365GroupGuestsName      
-    Connect-PnPOnline -Url $siteUrl -Interactive
-    
-    $site = Get-PnPSite -Includes ID
-    $ExportVw | Add-Member -MemberType NoteProperty -name "Site Id" -value $site.Id  
-    $siteadmins = (Get-PnPSiteCollectionAdmin | select-object -ExpandProperty Title) -join ";";
-    $ExportVw | Add-Member -MemberType NoteProperty -name "Site admins" -value $siteadmins  
-    $siteowners  = (Get-PnPGroupMember -Group (Get-PnPGroup -AssociatedOwnerGroup)  | select-object -ExpandProperty Title) -join ";"
-    $ExportVw | Add-Member -MemberType NoteProperty -name "Site owners" -value $siteowners
-    $sitemembers =  (Get-PnPGroupMember -Group (Get-PnPGroup -AssociatedMemberGroup)  | select-object -ExpandProperty Title) -join ";"
-    $ExportVw | Add-Member -MemberType NoteProperty -name "Site members" -value  $sitemembers
-    $sitevisitors =  (Get-PnPGroupMember -Group (Get-PnPGroup -AssociatedVisitorGroup)  | select-object -ExpandProperty Title) -join ";"
-    $ExportVw | Add-Member -MemberType NoteProperty -name "Site visitors" -value  $sitevisitors
-    $m365GroupCollection += $ExportVw
-
+ 
+$alldocs = (Get-PnPListItem -List $_  -PageSize 1000 | where-object{ $null -ne $_.FieldValues.CheckoutUser} )
+ 
+$alldocs | ForEach-Object {
+        $ExportVw = New-Object PSObject
+        $ExportVw | Add-Member -MemberType NoteProperty -name "Site URL" -value $siteUrl
+        $ExportVw | Add-Member -MemberType NoteProperty -name "File Url" -value $_.FieldValues.FileRef
+        $ExportVw | Add-Member -MemberType NoteProperty -name "Checked Out By" -value $_.FieldValues.CheckoutUser.LookupValue
+        $ExportVw | Add-Member -MemberType NoteProperty -name "No Checked in version" -value "No"
+        $filesCollection += $ExportVw
+  }
+ }
 }
 # Export the result array to CSV file
-$m365GroupCollection | sort-object "Site Name" |Export-CSV $OutPutView -Force -NoTypeInformation
-# Disconnect SharePoint online connection
-Disconnect-PnPOnline
+$filesCollection | sort-object "File Url" |Export-CSV $OutPutView -Force -NoTypeInformation
 ```
+
 [!INCLUDE [More about PnP PowerShell](../../docfx/includes/MORE-PNPPS.md)]
 
 ***
+
+## Source Credit
+
+Sample first appeared on [Discovering All Checked Out Files including those with no checked in versions with PnP PowerShell](https://reshmeeauckloo.com/posts/powershell_getallfileswithnocheckedinversion/)
 
 ## Contributors
 
@@ -73,4 +94,4 @@ Disconnect-PnPOnline
 | [Reshmee Auckloo](https://github.com/reshmee011)|
 
 [!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
-<img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/spo-get-sites-membership-report" aria-hidden="true" />
+<img src="https://reshmeeauckloo.com/posts/powershell_getallfileswithnocheckedinversion/" aria-hidden="true" />
