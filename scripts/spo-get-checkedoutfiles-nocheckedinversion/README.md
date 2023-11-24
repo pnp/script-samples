@@ -12,7 +12,7 @@ There are scenarios when files uploaded won't have **checked-in version** which 
 
 2. When there are required fields and end user uses OneDrive to save a newly created office file.
 
-![PnP Powershell result](assets/preview.png)
+![PnP Powershell result](assets/preview.PNG)
 
 Files which have no checked in versions have the following issues
 
