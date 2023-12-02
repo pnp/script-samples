@@ -1,0 +1,234 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html lang="en">
+  
+  <head>
+    <meta charset="utf-8">
+    <title>Get Checked Out Files including those with no checked in version | PnP Samples </title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" "="">
+    <meta name="title" content="Get Checked Out Files including those with no checked in version | PnP Samples ">
+    <meta name="generator" content="docfx 2.56.7.0">
+    <meta name="description" content="A sample gallery of scripts to manage all things Microsoft 365.">
+  
+    <!-- Social Media -->
+    <meta property="og:locale" content="en_GB">
+    <meta property="og:title" content="Get Checked Out Files including those with no checked in version | PnP Samples ">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://pnp.github.io/script-samples">
+    <meta property="og:image" content="https://pnp.github.io/script-samples/assets/social-media-screenshot.png">
+    <meta property="og:image:alt" content="Screenshot example of the PnP Script Samples Site">
+    <meta property="og:site_name" content="PnP Script Samples">
+    <meta name="msvalidate.01" content="04EFEDA66EC42C08A1247C979E2F9ADD">
+    <meta property="og:description" content="A sample gallery of scripts to manage all things Microsoft 365.">
+  
+    <link rel="shortcut icon" href="https://c.s-microsoft.com/favicon.ico?v2">
+    <link rel="stylesheet" href="../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../styles/docfx.css">
+    <link rel="stylesheet" href="../styles/main.css">
+    <link rel="stylesheet" href="../styles/extra.css">
+    <link rel="stylesheet" href="../styles/filter.css">
+    <link rel="stylesheet" href="../styles/site.css">
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet"> 
+    <meta property="docfx:navrel" content="../toc.html">
+    <meta property="docfx:tocrel" content="../toc.html">
+    
+    
+    <meta property="docfx:newtab" content="true">
+    <script type="text/javascript">
+      (function(c,l,a,r,i,t,y){
+          c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+          t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+          y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+      })(window, document, "clarity", "script", "8j6pedl344");
+  </script>
+  </head>  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+             <div class="github-mark">
+              <a href="https://github.com/pnp/script-samples" title="Go to repository">
+               <div class="github-wrapper">
+                  <div class="github-icon">
+                    <img src="https://pnp.github.io/script-samples/assets/icons/github-light-64px.png" alt="GitHub Icon Image">
+                  </div>
+                  <div class="github-repository">
+                    <span>GitHub</span>
+                    <ul class="github-facts">
+                      <li>
+                        <i class="fa fa-code-fork" aria-hidden="true"></i>
+                        <span class="github-forks"></span>
+                      </li>
+                      <li>
+                        <i class="fa fa-star-o" aria-hidden="true"></i>
+                        <span class="github-stars"></span>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </a>
+            </div>
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../assets/logo.svg" alt="">
+              </a>    </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <label class="glyphicon glyphicon-search" for="search-query"></label>
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>      </header>
+      <div role="main" class="container body-content hide-when-search">
+        <div class="article row grid">
+          <div class="col-md-12">
+            <article class="content wrap" id="_content" data-uid="">
+                  <div class="contribution-panel mobile-hide pull-right">
+                      <a href="https://github.com/pnp/script-samples/blob/main/scripts/spo-get-checkedoutfiles-nocheckedinversion/README.md/#L1" title="Improve this Doc" class="improve-doc-lg"><i class="glyphicon glyphicon-pencil"></i></a>
+                  </div>
+                    <h1 id="get-checked-out-files-including-those-with-no-checked-in-version">Get Checked Out Files including those with no checked in version</h1>
+
+<h2 id="summary">Summary</h2>
+<p>There are scenarios when files uploaded won't have <strong>checked-in version</strong> which will make the files visible only to their uploader. Two possible scenarios.</p>
+<ol>
+<li><p>When <strong>Require Check Out</strong> option under versioning settings of any library is set to &quot;Yes&quot; and the uploader forget to check in the file.</p>
+</li>
+<li><p>When there are required fields and end user uses OneDrive to save a newly created office file.</p>
+</li>
+</ol>
+<p><img src="assets/preview.PNG" alt="PnP Powershell result"></p>
+<p>Files which have no checked in versions have the following issues</p>
+<ul>
+<li>Invisibility: They evade search results, remaining hidden from intended audiences.</li>
+<li>Backup Issues: These files are not backed up, risking data loss.</li>
+<li>Mass update of those files failed</li>
+</ul>
+<div class="tabGroup" id="tabgroup_CeZOj-G++Q">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_CeZOj-G++Q_pnpps" role="tab" aria-controls="tabpanel_CeZOj-G++Q_pnpps" data-tab="pnpps" tabindex="0" aria-selected="true">PnP PowerShell</a>
+</li>
+</ul>
+<section id="tabpanel_CeZOj-G++Q_pnpps" role="tabpanel" data-tab="pnpps"><button class="article-clipboard" title="Copy to clipboard" data-toggle="tooltip" data-placement="top" data-clipboard-target="section[id^='tabpanel'][data-tab='pnpps'] pre">
+    <span class="glyphicon glyphicon-copy" aria-hidden="true"></span>
+    <span class="article-clipboard__message done">Copied</span>
+</button>
+
+<pre><code class="lang-powershell">#Set Parameters
+$AdminCenterURL=&quot;https://contoso-admin.sharepoint.com/&quot;
+Connect-PnPOnline -Url $AdminCenterURL -Interactive
+$dateTime = (Get-Date).toString(&quot;dd-MM-yyyy&quot;)
+$invocation = (Get-Variable MyInvocation).Value
+$directorypath = Split-Path $invocation.MyCommand.Path
+$fileName = &quot;checkedoutfiles-&quot; + $dateTime + &quot;.csv&quot;
+$OutPutView = $directorypath + &quot;\Logs\&quot;+ $fileName
+# Array to Hold Result - PSObjects
+$filesCollection = @()
+ 
+#Array to Skip System Lists and Libraries
+$SystemLists = @(&quot;Converted Forms&quot;, &quot;Master Page Gallery&quot;, &quot;Customized Reports&quot;, &quot;Form Templates&quot;, &quot;List Template Gallery&quot;, &quot;Theme Gallery&quot;,&quot;Apps for SharePoint&quot;,
+                            &quot;Reporting Templates&quot;, &quot;Solution Gallery&quot;, &quot;Style Library&quot;, &quot;Web Part Gallery&quot;,&quot;Site Assets&quot;, &quot;wfpub&quot;, &quot;Site Pages&quot;, &quot;Images&quot;, &quot;MicroFeed&quot;,&quot;Pages&quot;)
+ 
+$m365Sites = Get-PnPTenantSite -Detailed | Where-Object {($_.Url -like '*/intranet-*' -or  $_.Url -like '*/team-*' -or $_.Template -eq 'TEAMCHANNEL#1') -and $_.Template -ne 'RedirectSite#0' }
+$m365Sites | ForEach-Object {
+$siteUrl = $_.Url;    
+Connect-PnPOnline -Url $siteUrl -Interactive
+ 
+$Ctx = Get-PnPContext
+#Get the List
+write-host  $siteUrl  
+ Get-PnPList  | Where {$_.Hidden -eq $false -and $SystemLists -notcontains $_.Title -and $_.BaseTemplate -eq 101 } | ForEach-Object {
+#Get All Checked-Out Files
+$CheckedOutFiles = $_.GetCheckedOutFiles()
+$Ctx.Load($CheckedOutFiles)
+$Ctx.ExecuteQuery()
+#Check-in All Files Checked out to the User
+$CheckedOutFiles | ForEach-Object {
+
+        $user = (Get-PnPUser -Identity $_.CheckedoutById -ErrorAction Ignore) ?? $_.CheckedoutById
+        $ExportVw = New-Object PSObject
+        $ExportVw | Add-Member -MemberType NoteProperty -name &quot;Site URL&quot; -value $siteUrl
+        $ExportVw | Add-Member -MemberType NoteProperty -name &quot;File Url&quot; -value $_.ServerRelativePath.DecodedUrl
+        $ExportVw | Add-Member -MemberType NoteProperty -name &quot;Checked Out By&quot; -value $user.Title
+        $ExportVw | Add-Member -MemberType NoteProperty -name &quot;No Checked in version&quot; -value &quot;Yes&quot;
+        $filesCollection += $ExportVw
+    }
+ 
+$alldocs = (Get-PnPListItem -List $_  -PageSize 1000 | where-object{ $null -ne $_.FieldValues.CheckoutUser} )
+ 
+$alldocs | ForEach-Object {
+        $ExportVw = New-Object PSObject
+        $ExportVw | Add-Member -MemberType NoteProperty -name &quot;Site URL&quot; -value $siteUrl
+        $ExportVw | Add-Member -MemberType NoteProperty -name &quot;File Url&quot; -value $_.FieldValues.FileRef
+        $ExportVw | Add-Member -MemberType NoteProperty -name &quot;Checked Out By&quot; -value $_.FieldValues.CheckoutUser.LookupValue
+        $ExportVw | Add-Member -MemberType NoteProperty -name &quot;No Checked in version&quot; -value &quot;No&quot;
+        $filesCollection += $ExportVw
+  }
+ }
+}
+# Export the result array to CSV file
+$filesCollection | sort-object &quot;File Url&quot; |Export-CSV $OutPutView -Force -NoTypeInformation
+</code></pre>
+<div class="highlight-tool">
+<p>Check out the <strong>PnP PowerShell</strong> to learn more at: <a href="https://aka.ms/pnp/powershell">https://aka.ms/pnp/powershell</a></p>
+</div>
+</section>
+</div>
+<h2 id="source-credit">Source Credit</h2>
+<p>Sample first appeared on <a href="https://reshmeeauckloo.com/posts/powershell_getallfileswithnocheckedinversion/">Discovering All Checked Out Files including those with no checked in versions with PnP PowerShell</a></p>
+<h2 id="contributors">Contributors</h2>
+<table>
+<thead>
+<tr>
+<th>Author(s)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="https://github.com/reshmee011">Reshmee Auckloo</a></td>
+</tr>
+</tbody>
+</table>
+<h2 id="disclaimer">Disclaimer</h2>
+<p><strong>THESE SAMPLES ARE PROVIDED <em>AS IS</em> WITHOUT WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, INCLUDING ANY IMPLIED WARRANTIES OF FITNESS FOR A PARTICULAR PURPOSE, MERCHANTABILITY, OR NON-INFRINGEMENT.</strong></p>
+<img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/spo-get-checkedoutfiles-nocheckedinversion" aria-hidden="true">
+</article>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            <span>Script Samples<br>Generated by <strong><a href='https://dotnet.github.io/docfx' alt='Doc FX Website'>DocFX</a></strong> with <strong><a href='https://ovasquez.github.io/docfx-material' alt='DocFx Material Theme'>Material UI</a></strong></span>
+            
+            <!-- <img src="https://telemetry.sharepointpnp.com/@pnp.github.io/index/" alt="spacer"> -->
+          </div>
+        </div>
+      </footer>    </div>
+    
+    <script type="text/javascript" src="../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+    
+    <script type="text/javascript" src="../styles/clipboard.min.js"></script>
+    <script type="text/javascript" src="../styles/isotope.pkgd.min.js"></script>
+    <script type="text/javascript" src="../styles/loadsamples.js"></script>
+    <script type="text/javascript" src="../styles/filtersamples.js"></script>
+
+  </body>
+</html>
