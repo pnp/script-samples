@@ -94,4 +94,4 @@ Sample first appeared on [Discovering All Checked Out Files including those with
 | [Reshmee Auckloo](https://github.com/reshmee011)|
 
 [!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
-<img src="https://reshmeeauckloo.com/posts/powershell_getallfileswithnocheckedinversion/" aria-hidden="true" />
+<img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/spo-get-checkedoutfiles-nocheckedinversion" aria-hidden="true" />
