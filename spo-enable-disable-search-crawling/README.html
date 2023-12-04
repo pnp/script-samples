@@ -99,16 +99,19 @@
                     <h1 id="enabledisable-search-crawling-on-sites-and-libraries">Enable/Disable Search Crawling on Sites and Libraries</h1>
 
 <h2 id="summary">Summary</h2>
-<p>This sample allows you to enable or disable Search crawling on site or a library. You can use this to control the search indexing of a site or library but if you disable, web parts and search experiences will not work against the locations you disable. However, this can be used to remove locations from Microsoft 365 Copilot.</p>
+<p>This sample allows you to enable or disable the Search crawling on a site or a library. You can use this to control the search indexing of a site or a library. But if you disable it, web parts and search experiences will not work against the locations you disable. However, this can be used to remove locations from Microsoft 365 Copilot.</p>
 <div class="WARNING">
 <h5>Warning</h5>
-<p>Please be aware this script contains a command that will remove content from search, ensure you test and understand the implications of running the script. If this is an active site, you can negatively impact the user experience.</p>
+<p>Please be aware this script contains a command that will remove content from search, ensure you test and understand the implications of running the script. If this is an active site, it can negatively impact the user experience.</p>
 </div>
 <p><img src="assets/example.png" alt="Example Screenshot"></p>
 <div class="tabGroup" id="tabgroup_CeZOj-G++Q">
 <ul role="tablist">
 <li role="presentation">
 <a href="#tabpanel_CeZOj-G++Q_pnpps" role="tab" aria-controls="tabpanel_CeZOj-G++Q_pnpps" data-tab="pnpps" tabindex="0" aria-selected="true">PnP PowerShell</a>
+</li>
+<li role="presentation">
+<a href="#tabpanel_CeZOj-G++Q_cli-m365-ps" role="tab" aria-controls="tabpanel_CeZOj-G++Q_cli-m365-ps" data-tab="cli-m365-ps" tabindex="-1">CLI for Microsoft 365</a>
 </li>
 </ul>
 <section id="tabpanel_CeZOj-G++Q_pnpps" role="tabpanel" data-tab="pnpps"><button class="article-clipboard" title="Copy to clipboard" data-toggle="tooltip" data-placement="top" data-clipboard-target="section[id^='tabpanel'][data-tab='pnpps'] pre">
@@ -117,13 +120,14 @@
 </button>
 
 <pre><code class="lang-powershell">
+# Connect to SharePoint Online site
 Connect-PnPOnline https://contoso.sharepoint.com/sites/SearchEnableDisableTest -Interactive
 
 # Note: No Search Crawl is false because it is crawling the site by default - love these MS negative logic
 $status = Get-PnPWeb -Includes NoCrawl
-Write-Host &quot;Current WEB status - Crawling: $(!$status.NoCrawl)&quot; 
+Write-Host &quot;Current WEB status - Crawling: $(!$status.NoCrawl)&quot;
 
-# Disable Search No Site Scripting
+# Disable No Site Scripting
 # If you don't do this, you may get an access denied error
 Set-PnPSite -NoScriptSite $false
 
@@ -139,9 +143,9 @@ Write-Host &quot;Current WEB status - Crawling: $(!$status.NoCrawl)&quot;
 Set-PnPWeb -NoCrawl:$false
 
 $status = Get-PnPWeb -Includes NoCrawl
-Write-Host &quot;Current WEB status - Crawling: $(!$status.NoCrawl)&quot; 
+Write-Host &quot;Current WEB status - Crawling: $(!$status.NoCrawl)&quot;
 
-# Enable Search No Site Scripting
+# Enable No Site Scripting
 Set-PnPSite -NoScriptSite $true
 
 #-----------------------------------------------------------
@@ -153,26 +157,105 @@ $listName = &quot;Documents&quot;
 
 # Get the current status of the list
 $list = Get-PnPList -Identity $listName -Includes NoCrawl
-Write-Host &quot;Current DOCUMENT LIBRARY ($($listName)) status - Crawling: $(!$list.NoCrawl)&quot; 
+Write-Host &quot;Current DOCUMENT LIBRARY ($($listName)) status - Crawling: $(!$list.NoCrawl)&quot;
 
 # Disable Search Crawl on list
 #-------------------------------
 Set-PnPList -Identity $listName -NoCrawl
 
 $list = Get-PnPList -Identity $listName -Includes NoCrawl
-Write-Host &quot;Current DOCUMENT LIBRARY ($($listName)) status - Crawling: $(!$list.NoCrawl)&quot; 
-
+Write-Host &quot;Current DOCUMENT LIBRARY ($($listName)) status - Crawling: $(!$list.NoCrawl)&quot;
 
 # Enable Search Crawl on list
 #-------------------------------
 Set-PnPList -Identity $listName -NoCrawl:$false
 
 $list = Get-PnPList -Identity $listName -Includes NoCrawl
-Write-Host &quot;Current DOCUMENT LIBRARY ($($listName)) status - Crawling: $(!$list.NoCrawl)&quot;   
+Write-Host &quot;Current DOCUMENT LIBRARY ($($listName)) status - Crawling: $(!$list.NoCrawl)&quot;  
+
+# Disconnect SharePoint online connection
+Disconnect-PnPOnline
 
 </code></pre>
 <div class="highlight-tool">
 <p>Check out the <strong>PnP PowerShell</strong> to learn more at: <a href="https://aka.ms/pnp/powershell">https://aka.ms/pnp/powershell</a></p>
+</div>
+</section>
+<section id="tabpanel_CeZOj-G++Q_cli-m365-ps" role="tabpanel" data-tab="cli-m365-ps" aria-hidden="true" hidden="hidden"><button class="article-clipboard" title="Copy to clipboard" data-toggle="tooltip" data-placement="top" data-clipboard-target="section[id^='tabpanel'][data-tab='cli-m365-ps'] pre">
+    <span class="glyphicon glyphicon-copy" aria-hidden="true"></span>
+    <span class="article-clipboard__message done">Copied</span>
+</button>
+
+<pre><code class="lang-powershell">
+# Get Credentials to connect
+$m365Status = m365 status
+if ($m365Status -match &quot;Logged Out&quot;) {
+    m365 login
+}
+
+# SharePoint online site URL
+$siteUrl = Read-Host -Prompt &quot;Enter your SharePoint site URL (e.g https://contoso.sharepoint.com/sites/SearchEnableDisableTest)&quot;
+
+# Note: No Search Crawl is false because it is crawling the site by default - love these MS negative logic
+$status = m365 spo web get --url $siteUrl | ConvertFrom-Json
+Write-Host &quot;Current WEB status - Crawling: $(!$status.NoCrawl)&quot;
+
+# Disable No Site Scripting
+# If you don't do this, you may get an access denied error
+m365 spo site set --url $siteUrl --noScriptSite false
+
+# Disable Search Crawl
+#----------------------------
+
+m365 spo web set --url $siteUrl --NoCrawl true
+
+$status = m365 spo web get --url $siteUrl | ConvertFrom-Json
+Write-Host &quot;Current WEB status - Crawling: $(!$status.NoCrawl)&quot;
+
+# Enable Search Crawl
+#----------------------------
+
+m365 spo web set --url $siteUrl --NoCrawl false
+
+$status = m365 spo web get --url $siteUrl | ConvertFrom-Json
+Write-Host &quot;Current WEB status - Crawling: $(!$status.NoCrawl)&quot;
+
+# Enable No Site Scripting
+m365 spo site set --url $siteUrl --noScriptSite true
+
+#-----------------------------------------------------------
+# Library Level
+#-----------------------------------------------------------
+
+# Remember - No Search Crawl is false because it is crawling the site by default
+$libraryName = &quot;Documents&quot;
+
+# Get the current status of the list/library
+$library = m365 spo list get --title $libraryName --webUrl $siteUrl | ConvertFrom-Json
+Write-Host &quot;Current DOCUMENT LIBRARY ($($libraryName)) status - Crawling: $(!$library.NoCrawl)&quot;
+
+# Disable Search Crawl on list/library
+#-------------------------------
+
+m365 spo list set --webUrl $siteUrl --title $libraryName --noCrawl true
+
+$library = m365 spo list get --title $libraryName --webUrl $siteUrl | ConvertFrom-Json
+Write-Host &quot;Current DOCUMENT LIBRARY ($($libraryName)) status - Crawling: $(!$library.NoCrawl)&quot;
+
+# Enable Search Crawl on list
+#-------------------------------
+
+m365 spo list set --webUrl $siteUrl --title $libraryName --noCrawl false
+
+$library = m365 spo list get --title $libraryName --webUrl $siteUrl | ConvertFrom-Json
+Write-Host &quot;Current DOCUMENT LIBRARY ($($libraryName)) status - Crawling: $(!$library.NoCrawl)&quot;
+
+# Disconnect SharePoint online connection
+m365 logout
+
+</code></pre>
+<div class="highlight-tool">
+<p>Check out the <strong>CLI for Microsoft 365</strong> to learn more at: <a href="https://aka.ms/cli-m365">https://aka.ms/cli-m365</a></p>
 </div>
 </section>
 </div>
@@ -186,6 +269,9 @@ Write-Host &quot;Current DOCUMENT LIBRARY ($($listName)) status - Crawling: $(!$
 <tbody>
 <tr>
 <td>Paul Bullock</td>
+</tr>
+<tr>
+<td><a href="https://ganeshsanapblogs.wordpress.com/about">Ganesh Sanap</a></td>
 </tr>
 </tbody>
 </table>
