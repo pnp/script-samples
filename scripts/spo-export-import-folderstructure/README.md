@@ -23,21 +23,32 @@ function Get-Folderstructure
         [Parameter(Mandatory=$true)]
         [string]$folderUrl,
         [Parameter(Mandatory=$true)]
-        [string]$folderName
+        [string]$folderName,
+        [Parameter(Mandatory=$true)]
+        [string]$ListName,
+        [Parameter(Mandatory=$true)]
+        [int]$level
+        
     )
-    
+   # $thisFolder = Get-PnPFolder -Url $folderUrl -Connection $conn
+   if($folderName -eq "Forms")
+   {
+        continue 
+   }
     $result = $null
     $folderColl=Get-PnPFolderItem -FolderSiteRelativeUrl $folderUrl -ItemType Folder -Connection $conn  
     $leaves = @()
     $elements = @()
     foreach($folder in $folderColl)
     {
-        #Write-Host $folder.Name -ForegroundColor Green
+        
         $subFolderURL= $folderUrl+"/"+$folder.Name
         $testForSubFolders=Get-PnPFolderItem -FolderSiteRelativeUrl $subFolderURL -ItemType Folder -Connection $conn  
         if($testForSubFolders.Count -gt 0)
         {
-            $result = Get-FolderstructureAsJson -folderUrl $subFolderURL -folderName $folder.Name
+            write-host "subfolder found for folder $($folder.Name) at level $level" -ForegroundColor Yellow
+            $level = $level+1
+            $result = Get-Folderstructure -folderUrl $subFolderURL -ListName $ListName -folderName $folder.Name -level $level            
             $result = $result | ConvertFrom-Json -Depth 100
             $elements += $result
 
@@ -45,7 +56,13 @@ function Get-Folderstructure
         else 
         {
             #Write-Host "leaf node $($folder.Name)" -ForegroundColor Yellow
-            $leave = [PSCustomObject]@{Name = $folder.Name}    
+            $FolderItem = Get-PnPListItem -List $ListName -UniqueId $folder.UniqueId -ErrorAction Stop -Connection $conn
+            $foldercolor = $FolderItem.FieldValues["_ColorHex"]
+            if($foldercolor)
+            {
+                Write-Host "color found for folder $($folder.Name) - $foldercolor" -ForegroundColor Green
+            }
+            $leave = [PSCustomObject]@{Name = $folder.Name; Color = $foldercolor}    
             $elements += $leave
         }
         
@@ -53,8 +70,19 @@ function Get-Folderstructure
     }
     if($elements.Count -gt 0)
     {
+
+        $folder = Get-PnPFolder -Url $folderUrl -Connection $conn
+        $UniqueId = Get-PnPProperty -ClientObject $folder -Property UniqueId -Connection $conn
+        
+        $FolderItem = Get-PnPListItem -List $ListName -UniqueId $UniqueId -ErrorAction Stop -Connection $conn
+        $foldercolor = $FolderItem.FieldValues["_ColorHex"]
+        if($foldercolor)
+        {
+            Write-Host "color found for folder $($folder.Name) - $foldercolor" -ForegroundColor Green
+        }
         $element = [PSCustomObject]@{
             Name = $folderName
+            Color = $foldercolor
             Folders = $elements
         }
     }
@@ -74,25 +102,47 @@ $finalJson | Out-File -FilePath "C:\temp\folderstructureRecursive.json" -Force
 ################################
 # import part
 
-function SetFolder ($folder, $folderurl)
+function SetFolder 
 {
+    #add mandatory parameter folder
+    param(
+        [Parameter(Mandatory=$true)]
+        [object]$folder,
+        [Parameter(Mandatory=$true)]
+        [string]$folderurl,
+        [Parameter(Mandatory=$true)]
+        [string]$documentLibrary
+    )
     $createdFolder = Add-PnPFolder -Name $folder.Name -Folder $folderurl -ErrorAction Stop -Connection $conn    
-    
+    # Get the created folder item
+    $newFolderItem = Get-PnPListItem -List $documentLibrary -UniqueId $createdFolder.UniqueId -ErrorAction Stop -Connection $conn
+    $folderColor = $folder.Color
+    # Change the value of the _ColorHex column of the created folder to change the color
+    Set-PnPListItem -List $documentLibrary -Identity $newFolderItem.Id -Values @{"_ColorHex" = $folderColor } -ErrorAction Stop  -Connection $conn  
+
     foreach($folder in $folder.Folders)
     {
-        SetFolder -folder $folder -folderurl $createdFolder.ServerRelativeUrl
+        SetFolder -folder $folder -folderurl $createdFolder.ServerRelativeUrl -documentLibrary $documentLibrary
     }
 }
     
 
 
-function Set-FolderstructurefromJson ($json, $folderName) 
+function Set-FolderstructurefromJson 
 {
+    param(
+        [Parameter(Mandatory=$true)]
+        [object]$json,
+        [Parameter(Mandatory=$true)]
+        [string]$folderName,
+        [Parameter(Mandatory=$true)]
+        [string]$documentLibrary
+    )
     $folders = $json.Folders
 
     foreach($folder in $folders)
     {
-        $res = SetFolder -folder $folder -folderurl $folderName -Connection $conn
+        $res = SetFolder -folder $folder -folderurl $folderName -documentLibrary $documentLibrary 
     }
 
 }
