@@ -2,30 +2,30 @@
 plugin: add-to-gallery
 ---
 
-# Bulk remove all retention labels from files in SharePont Library
+# Bulk remove retention labels from files in SharePont Library
 
 ## Summary
 
 Bulk remove all retention labels from all files in a library that are labelled with the retention label. These files will now no longer be tagged with a retentionlabel
 
-I had a requirement to complete a migration again but first needed to remove the labels from the files before I could complete the re-migration. It was slow removing the labels one by one using PowerShell and was quicker using the UI by bulk selecting 200 files and then removing the label in the details pain. I then looked using the developer tools to see how this took place behind the scenes and saw it uses the endpoint /_api/SP.CompliancePolicy.SPPolicyStoreProxy.ApplyLabelOnBulkItems().
+I had a requirement to complete a migration again but first needed to remove the labels from the files before I could complete the re-migration. It was slow removing the labels one by one using PowerShell and was quicker using the UI by bulk selecting 200 files and then removing the label in the details pain. I then looked using the developer tools to see how this took place behind the scenes and saw it uses the endpoint **/_api/SP.CompliancePolicy.SPPolicyStoreProxy.ApplyLabelOnBulkItems()**
 
 This script
-- Finds all the files in a library tagged with a label and obtains their ID
+- Finds all the files in a library tagged with a specified label(s) and obtains their ID
 - Splits the list of IDs into batches of 200 (the max supported per call to endpoint)
 - Creates a JSON payload formulated with the library details and the list item IDs (max 200) of labelled files.
 - Send this JSON payload to /_api/SP.CompliancePolicy.SPPolicyStoreProxy.ApplyLabelOnBulkItems() to remove all labels from the files.
+- Repeats in batches of 200 until all the labels are removed from named labelled files in a library.
 
 # [PnP PowerShell](#tab/pnpps)
 
 ```powershell
 #----------------------------------------------------------[Local variables to update]----------------------------------------------------------
-$labelsToRemove =  "Entity Document (POC)","Entity Record (POC)"
-$siteURL = "https://contoso.sharepoint.com/sites/EntitySite"
+$labelsToRemove =  "Entity Document","Entity Record" #Enter name of labels to remove
+$siteURL = "https://contoso.sharepoint.com/sites/EntitySite" # Enter site url
 $libraries = "Documents","Reports" # Enter Document Library Names Here
 #---------------------------------------------------------[Initialisation]--------------------------------------------------------
 Clear-Host
-$ExecutionContext.SessionState.LanguageMode = 'FullLanguage'
 #-----------------------------------------------------------[Execution]-----------------------------------------------------------
 
 
@@ -137,7 +137,7 @@ foreach($label in $labelsToRemove)
 
 | Author(s) |
 |-----------|
-| Leon Armston |
+| [Leon Armston](https://github.com/LeonArmston) |
 
 [!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
 <img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/spo-bulk-remove-retention-labels" aria-hidden="true" />
