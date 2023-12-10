@@ -17,6 +17,8 @@ This script
 - Send this JSON payload to /_api/SP.CompliancePolicy.SPPolicyStoreProxy.ApplyLabelOnBulkItems() to remove all labels from the files.
 - Repeats in batches of 200 until all the labels are removed from named labelled files in a library.
 
+
+
 # [PnP PowerShell](#tab/pnpps)
 
 ```powershell
