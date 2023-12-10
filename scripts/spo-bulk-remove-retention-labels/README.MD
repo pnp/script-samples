@@ -2,7 +2,7 @@
 plugin: add-to-gallery
 ---
 
-# Bulk remove retention labels from files in SharePont Library
+# Bulk remove retention labels from files in a SharePont Library
 
 ## Summary
 
