@@ -2,15 +2,19 @@
 plugin: add-to-gallery
 ---
 
-# Export and import library folder structure
+# Bulk remove all retention labels from files in SharePont Library
 
 ## Summary
 
-Sometimes you just need to copy a folder structure from one library to another. This script will export the folder structure from one library and import it to another library using a JSON file to store the folder structure. The can be used as is or be an invidual function in a site provisioning script.
+Bulk remove all retention labels from all files in a library that are labelled with the retention label. These files will now no longer be tagged with a retentionlabel
 
+I had a requirement to complete a migration again but first needed to remove the labels from the files before I could complete the re-migration. It was slow removing the labels one by one using PowerShell and was quicker using the UI by bulk selecting 200 files and then removing the label in the details pain. I then looked using the developer tools to see how this took place behind the scenes and saw it uses the endpoint /_api/SP.CompliancePolicy.SPPolicyStoreProxy.ApplyLabelOnBulkItems().
 
-![Example Screenshot](assets/example.png)
-
+This script
+- Finds all the files in a library tagged with a label and obtains their ID
+- Splits the list of IDs into batches of 200 (the max supported per call to endpoint)
+- Creates a JSON payload formulated with the library details and the list item IDs (max 200) of labelled files.
+- Send this JSON payload to /_api/SP.CompliancePolicy.SPPolicyStoreProxy.ApplyLabelOnBulkItems() to remove all labels from the files.
 
 # [PnP PowerShell](#tab/pnpps)
 
