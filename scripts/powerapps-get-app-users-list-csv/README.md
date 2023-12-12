@@ -9,7 +9,10 @@ plugin: add-to-gallery
 This powershell script will export all the powerapps in a particular tenant and all its environment and its role assignments in csv format.
 
 
-Script will export AppID, AppDisplay Name, User Display name, User Email, Role Type(Owner/CanView/CanEdit), Environment, App Created Time, App Modified Time
+Script will export AppID, AppDisplay Name, User Display name, User Email, Role Type(Owner/CanView/CanEdit), Environment, App Created Time, App Modified Time.
+Also some internal properties like description, appUris, createdTime, lastModifiedTime, sharedGroupsCount, sharedUsersCount, appOpenProtocolUri, appOpenUri, appPlayUri, appPlayEmbeddedUri, appPlayTeamsUri, connectionReferences, userAppMetadata, isFeaturedApp, bypassConsent, isHeroApp, environment, almMode, performanceOptimizationEnabled, unauthenticatedWebPackageHint, canConsumeAppPass, enableModernRuntimeMode, executionRestrictions, appPlanClassification, usesPremiumApi, usesOnlyGrandfatheredPremiumApis, usesCustomApi, usesOnPremiseGateway, usesPcfExternalServiceUsage, isCustomizable, chatPaneCopilotEnabled, draftingCopilotEnabled.
+
+[!INCLUDE [Prerelease information](../../docfx/includes/PRERELEASE.md)]
 
 ![Example Screenshot](assets/SampleOutPut.png)
 
@@ -54,9 +57,56 @@ foreach($app in $apps)
     $result | Add-Member -MemberType NoteProperty -name "Environment" -value $app.EnvironmentName -Force
     $result | Add-Member -MemberType NoteProperty -Name "CreatedTime" -value $app.CreatedTime  -Force
     $result | Add-Member -MemberType NoteProperty -Name "LastModifiedTime" -value $app.LastModifiedTime  -Force
+
+    # Getting more details about the app
+   #  displayName, description, appUris, createdTime, lastModifiedTime, sharedGroupsCount, sharedUsersCount, appOpenProtocolUri, appOpenUri, appPlayUri, appPlayEmbeddedUri, appPlayTeamsUri, connectionReferences, userAppMetadata, isFeaturedApp, bypassConsent, isHeroApp, environment, almMode, performanceOptimizationEnabled, unauthenticatedWebPackageHint, canConsumeAppPass, enableModernRuntimeMode, executionRestrictions, appPlanClassification, usesPremiumApi, usesOnlyGrandfatheredPremiumApis, usesCustomApi, usesOnPremiseGateway, usesPcfExternalServiceUsage, isCustomizable, chatPaneCopilotEnabled, draftingCopilotEnabled
+
+   $propertyNames = @(
+    "displayName",
+    "description",
+    "appUris",
+    "createdTime",
+    "lastModifiedTime",
+    "sharedGroupsCount",
+    "sharedUsersCount",
+    "appOpenProtocolUri",
+    "appOpenUri",
+    "appPlayUri",
+    "appPlayEmbeddedUri",
+    "appPlayTeamsUri",
+    "connectionReferences",
+    "userAppMetadata",
+    "isFeaturedApp",
+    "bypassConsent",
+    "isHeroApp",
+    "environment",
+    "almMode",
+    "performanceOptimizationEnabled",
+    "unauthenticatedWebPackageHint",
+    "canConsumeAppPass",
+    "enableModernRuntimeMode",
+    "executionRestrictions",
+    "appPlanClassification",
+    "usesPremiumApi",
+    "usesOnlyGrandfatheredPremiumApis",
+    "usesCustomApi",
+    "usesOnPremiseGateway",
+    "usesPcfExternalServiceUsage",
+    "isCustomizable",
+    "chatPaneCopilotEnabled",
+    "draftingCopilotEnabled"
+)
+
+# You can now use $propertyNames as an array of these properties
+ foreach($appProp in $app | select -ExpandProperty Internal | select -ExpandProperty Properties)
+    {
+      foreach($propName in $propertyNames){
+         $result | Add-Member -MemberType NoteProperty -name $propName -value $appProp.$propName -Force
+      }
+    }
+
     $resultColl += $result 
    }
-
 }  
 
 #Export the result Array to CSV file  
@@ -72,6 +122,7 @@ write-host -ForegroundColor Magenta "Successful!!"
 
 | Author(s) |
 |-----------|
+| Valeras Narbutas |
 | Siddharth Vaghasia |
 
 [!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
