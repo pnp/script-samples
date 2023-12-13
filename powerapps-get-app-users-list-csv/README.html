@@ -100,7 +100,11 @@
 
 <h2 id="summary">Summary</h2>
 <p>This powershell script will export all the powerapps in a particular tenant and all its environment and its role assignments in csv format.</p>
-<p>Script will export AppID, AppDisplay Name, User Display name, User Email, Role Type(Owner/CanView/CanEdit), Environment, App Created Time, App Modified Time</p>
+<p>Script will export AppID, AppDisplay Name, User Display name, User Email, Role Type(Owner/CanView/CanEdit), Environment, App Created Time, App Modified Time.
+Also some internal properties like description, appUris, createdTime, lastModifiedTime, sharedGroupsCount, sharedUsersCount, appOpenProtocolUri, appOpenUri, appPlayUri, appPlayEmbeddedUri, appPlayTeamsUri, connectionReferences, userAppMetadata, isFeaturedApp, bypassConsent, isHeroApp, environment, almMode, performanceOptimizationEnabled, unauthenticatedWebPackageHint, canConsumeAppPass, enableModernRuntimeMode, executionRestrictions, appPlanClassification, usesPremiumApi, usesOnlyGrandfatheredPremiumApis, usesCustomApi, usesOnPremiseGateway, usesPcfExternalServiceUsage, isCustomizable, chatPaneCopilotEnabled, draftingCopilotEnabled.</p>
+<blockquote>
+<p>Note: This uses a pre-release version of the PowerApps PowerShell cmdlets. The cmdlets are subject to change.</p>
+</blockquote>
 <p><img src="assets/SampleOutPut.png" alt="Example Screenshot"></p>
 <h2 id="implementation">Implementation</h2>
 <ul>
@@ -151,9 +155,56 @@ foreach($app in $apps)
     $result | Add-Member -MemberType NoteProperty -name &quot;Environment&quot; -value $app.EnvironmentName -Force
     $result | Add-Member -MemberType NoteProperty -Name &quot;CreatedTime&quot; -value $app.CreatedTime  -Force
     $result | Add-Member -MemberType NoteProperty -Name &quot;LastModifiedTime&quot; -value $app.LastModifiedTime  -Force
+
+    # Getting more details about the app
+   #  displayName, description, appUris, createdTime, lastModifiedTime, sharedGroupsCount, sharedUsersCount, appOpenProtocolUri, appOpenUri, appPlayUri, appPlayEmbeddedUri, appPlayTeamsUri, connectionReferences, userAppMetadata, isFeaturedApp, bypassConsent, isHeroApp, environment, almMode, performanceOptimizationEnabled, unauthenticatedWebPackageHint, canConsumeAppPass, enableModernRuntimeMode, executionRestrictions, appPlanClassification, usesPremiumApi, usesOnlyGrandfatheredPremiumApis, usesCustomApi, usesOnPremiseGateway, usesPcfExternalServiceUsage, isCustomizable, chatPaneCopilotEnabled, draftingCopilotEnabled
+
+   $propertyNames = @(
+    &quot;displayName&quot;,
+    &quot;description&quot;,
+    &quot;appUris&quot;,
+    &quot;createdTime&quot;,
+    &quot;lastModifiedTime&quot;,
+    &quot;sharedGroupsCount&quot;,
+    &quot;sharedUsersCount&quot;,
+    &quot;appOpenProtocolUri&quot;,
+    &quot;appOpenUri&quot;,
+    &quot;appPlayUri&quot;,
+    &quot;appPlayEmbeddedUri&quot;,
+    &quot;appPlayTeamsUri&quot;,
+    &quot;connectionReferences&quot;,
+    &quot;userAppMetadata&quot;,
+    &quot;isFeaturedApp&quot;,
+    &quot;bypassConsent&quot;,
+    &quot;isHeroApp&quot;,
+    &quot;environment&quot;,
+    &quot;almMode&quot;,
+    &quot;performanceOptimizationEnabled&quot;,
+    &quot;unauthenticatedWebPackageHint&quot;,
+    &quot;canConsumeAppPass&quot;,
+    &quot;enableModernRuntimeMode&quot;,
+    &quot;executionRestrictions&quot;,
+    &quot;appPlanClassification&quot;,
+    &quot;usesPremiumApi&quot;,
+    &quot;usesOnlyGrandfatheredPremiumApis&quot;,
+    &quot;usesCustomApi&quot;,
+    &quot;usesOnPremiseGateway&quot;,
+    &quot;usesPcfExternalServiceUsage&quot;,
+    &quot;isCustomizable&quot;,
+    &quot;chatPaneCopilotEnabled&quot;,
+    &quot;draftingCopilotEnabled&quot;
+)
+
+# You can now use $propertyNames as an array of these properties
+ foreach($appProp in $app | select -ExpandProperty Internal | select -ExpandProperty Properties)
+    {
+      foreach($propName in $propertyNames){
+         $result | Add-Member -MemberType NoteProperty -name $propName -value $appProp.$propName -Force
+      }
+    }
+
     $resultColl += $result 
    }
-
 }  
 
 #Export the result Array to CSV file  
@@ -175,6 +226,9 @@ write-host -ForegroundColor Magenta &quot;Successful!!&quot;
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>Valeras Narbutas</td>
+</tr>
 <tr>
 <td>Siddharth Vaghasia</td>
 </tr>
