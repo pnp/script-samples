@@ -12,7 +12,7 @@ This powershell script will export all the powerapps in a particular tenant and 
 Script will export AppID, AppDisplay Name, User Display name, User Email, Role Type(Owner/CanView/CanEdit), Environment, App Created Time, App Modified Time.
 Also some internal properties like description, appUris, createdTime, lastModifiedTime, sharedGroupsCount, sharedUsersCount, appOpenProtocolUri, appOpenUri, appPlayUri, appPlayEmbeddedUri, appPlayTeamsUri, connectionReferences, userAppMetadata, isFeaturedApp, bypassConsent, isHeroApp, environment, almMode, performanceOptimizationEnabled, unauthenticatedWebPackageHint, canConsumeAppPass, enableModernRuntimeMode, executionRestrictions, appPlanClassification, usesPremiumApi, usesOnlyGrandfatheredPremiumApis, usesCustomApi, usesOnPremiseGateway, usesPcfExternalServiceUsage, isCustomizable, chatPaneCopilotEnabled, draftingCopilotEnabled.
 
-[!INCLUDE [Prerelease information](../../docfx/includes/PRERELEASE.md)]
+> Note: This uses a pre-release version of the PowerApps PowerShell cmdlets. The cmdlets are subject to change.
 
 ![Example Screenshot](assets/SampleOutPut.png)
 
