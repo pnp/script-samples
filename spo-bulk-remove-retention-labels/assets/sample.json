@@ -1,0 +1,56 @@
+[
+  {
+    "schema": null,
+    "name": "spo-bulk-remove-retention-labels",
+    "version": null,
+    "source": "pnp",
+    "title": "Bulk remove retention labels from files in a SharePoint Library",
+    "url": "https://pnp.github.io/script-samples/spo-bulk-remove-retention-labels/README.html",
+    "creationDateTime": "2023-12-10",
+    "updateDateTime": "2023-12-10",
+    "shortDescription": "Bulk remove all retention labels from all files in a library that are labelled with a retention label. These files will now no longer be tagged with a retention label",
+    "longDescription": null,
+    "products": [
+      "SharePoint"
+    ],
+    "categories": [
+      "Security"
+    ],
+    "tags": [
+      "SharePoint Online",
+      "Get-PnPListItem",
+      "Retention Label",
+      "Invoke-PnPSPRestMethod"
+    ],
+    "metadata": [
+      {
+        "key": "PNP-POWERSHELL",
+        "value": "2.2.0"
+      }
+    ],
+    "thumbnails": [
+      {
+        "type": "image",
+        "order": 100,
+        "url": "https://raw.githubusercontent.com/pnp/script-samples/main/scripts/spo-bulk-publish-syntex-model/assets/preview.png",
+        "alt": "preview image for the sample",
+        "slides": null
+      }
+    ],
+    "authors": [
+      {
+        "name": "Leon Armston",
+        "gitHubAccount": "LeonArmston",
+        "company": null,
+        "pictureUrl": "https://avatars.githubusercontent.com/u/12968962?v=4"
+      }
+    ],
+    "references": [
+      {
+        "name": "Want to learn more about PnP PowerShell and the cmdlets",
+        "description": "Check out the PnP PowerShell site to get started and for the reference to the cmdlets.",
+        "url": "https://aka.ms/pnp/powershell"
+      }
+    ]
+  }
+]
