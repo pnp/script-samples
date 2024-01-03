@@ -227,13 +227,13 @@ $cmdUsage | ForEach-Object{
         $row | Out-File $reportFile -Append
 
         $usedCmdCount = 0
-        if($usedCommands.Count){
-            $usedCmdCount = $usedCommands.Count
+        if($usedCommands){
+            $usedCmdCount = $usedCommands.length
         }
 
         $unUsedCmdCount = 0
-        if($unUsedCommands.Count){
-            $unUsedCmdCount = $unUsedCommands.Count
+        if($unUsedCommands){
+            $unUsedCmdCount = $unUsedCommands.length
         }
 
 
