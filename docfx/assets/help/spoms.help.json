@@ -116,6 +116,10 @@
     "helpUrl": "https://docs.microsoft.com/en-us/powershell/module/sharepoint-online/Get-SPOAppInfo?view=sharepoint-ps"
   },
   {
+    "cmd": "Get-SPOApplication",
+    "helpUrl": "https://docs.microsoft.com/en-us/powershell/module/sharepoint-online/Get-SPOApplication?view=sharepoint-ps"
+  },
+  {
     "cmd": "Get-SPOBrowserIdleSignOut",
     "helpUrl": "https://docs.microsoft.com/en-us/powershell/module/sharepoint-online/Get-SPOBrowserIdleSignOut?view=sharepoint-ps"
   },
@@ -126,6 +130,10 @@
   {
     "cmd": "Get-SPOBuiltInSiteTemplateSettings",
     "helpUrl": "https://docs.microsoft.com/en-us/powershell/module/sharepoint-online/Get-SPOBuiltInSiteTemplateSettings?view=sharepoint-ps"
+  },
+  {
+    "cmd": "Get-SPOContainer",
+    "helpUrl": "https://docs.microsoft.com/en-us/powershell/module/sharepoint-online/Get-SPOContainer?view=sharepoint-ps"
   },
   {
     "cmd": "Get-SPOCrossGeoMovedUsers",
@@ -140,8 +148,20 @@
     "helpUrl": "https://docs.microsoft.com/en-us/powershell/module/sharepoint-online/Get-SPOCrossGeoUsers?view=sharepoint-ps"
   },
   {
+    "cmd": "Get-SPOCrossTenantCompatibilityStatus",
+    "helpUrl": "https://docs.microsoft.com/en-us/powershell/module/sharepoint-online/Get-SPOCrossTenantCompatibilityStatus?view=sharepoint-ps"
+  },
+  {
+    "cmd": "Get-SPOCrossTenantHostUrl",
+    "helpUrl": "https://docs.microsoft.com/en-us/powershell/module/sharepoint-online/Get-SPOCrossTenantHostUrl?view=sharepoint-ps"
+  },
+  {
     "cmd": "Get-SPODataEncryptionPolicy",
     "helpUrl": "https://docs.microsoft.com/en-us/powershell/module/sharepoint-online/Get-SPODataEncryptionPolicy?view=sharepoint-ps"
+  },
+  {
+    "cmd": "Get-SPODeletedContainer",
+    "helpUrl": "https://docs.microsoft.com/en-us/powershell/module/sharepoint-online/Get-SPODeletedContainer?view=sharepoint-ps"
   },
   {
     "cmd": "Get-SPODeletedSite",
@@ -444,8 +464,16 @@
     "helpUrl": "https://docs.microsoft.com/en-us/powershell/module/sharepoint-online/Register-SPOHubSite?view=sharepoint-ps"
   },
   {
+    "cmd": "Remove-SPOContainer",
+    "helpUrl": "https://docs.microsoft.com/en-us/powershell/module/sharepoint-online/Remove-SPOContainer?view=sharepoint-ps"
+  },
+  {
     "cmd": "Remove-SPODataConnectionSetting",
     "helpUrl": "https://docs.microsoft.com/en-us/powershell/module/sharepoint-online/Remove-SPODataConnectionSetting?view=sharepoint-ps"
+  },
+  {
+    "cmd": "Remove-SPODeletedContainer",
+    "helpUrl": "https://docs.microsoft.com/en-us/powershell/module/sharepoint-online/Remove-SPODeletedContainer?view=sharepoint-ps"
   },
   {
     "cmd": "Remove-SPODeletedSite",
@@ -580,6 +608,10 @@
     "helpUrl": "https://docs.microsoft.com/en-us/powershell/module/sharepoint-online/Restore-SPODataEncryptionPolicy?view=sharepoint-ps"
   },
   {
+    "cmd": "Restore-SPODeletedContainer",
+    "helpUrl": "https://docs.microsoft.com/en-us/powershell/module/sharepoint-online/Restore-SPODeletedContainer?view=sharepoint-ps"
+  },
+  {
     "cmd": "Restore-SPODeletedSite",
     "helpUrl": "https://docs.microsoft.com/en-us/powershell/module/sharepoint-online/Restore-SPODeletedSite?view=sharepoint-ps"
   },
@@ -610,6 +642,14 @@
   {
     "cmd": "Set-SPOBuiltInSiteTemplateSettings",
     "helpUrl": "https://docs.microsoft.com/en-us/powershell/module/sharepoint-online/Set-SPOBuiltInSiteTemplateSettings?view=sharepoint-ps"
+  },
+  {
+    "cmd": "Set-SPOContainer",
+    "helpUrl": "https://docs.microsoft.com/en-us/powershell/module/sharepoint-online/Set-SPOContainer?view=sharepoint-ps"
+  },
+  {
+    "cmd": "Set-SPOCrossTenantRelationship",
+    "helpUrl": "https://docs.microsoft.com/en-us/powershell/module/sharepoint-online/Set-SPOCrossTenantRelationship?view=sharepoint-ps"
   },
   {
     "cmd": "Set-SPODataConnectionSetting",
