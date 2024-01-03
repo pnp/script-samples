@@ -404,6 +404,10 @@
     "helpUrl": "https://pnp.github.io/powershell/cmdlets/Connect-PnPOnline.html"
   },
   {
+    "cmd": "Convert-PnPFile",
+    "helpUrl": "https://pnp.github.io/powershell/cmdlets/Convert-PnPFile.html"
+  },
+  {
     "cmd": "Convert-PnPFolderToSiteTemplate",
     "helpUrl": "https://pnp.github.io/powershell/cmdlets/Convert-PnPFolderToSiteTemplate.html"
   },
@@ -672,6 +676,14 @@
     "helpUrl": "https://pnp.github.io/powershell/cmdlets/Get-PnPConnection.html"
   },
   {
+    "cmd": "Get-PnPContainer",
+    "helpUrl": "https://pnp.github.io/powershell/cmdlets/Get-PnPContainer.html"
+  },
+  {
+    "cmd": "Get-PnPContainerTypeConfiguration",
+    "helpUrl": "https://pnp.github.io/powershell/cmdlets/Get-PnPContainerTypeConfiguration.html"
+  },
+  {
     "cmd": "Get-PnPContentType",
     "helpUrl": "https://pnp.github.io/powershell/cmdlets/Get-PnPContentType.html"
   },
@@ -694,6 +706,10 @@
   {
     "cmd": "Get-PnPDefaultColumnValues",
     "helpUrl": "https://pnp.github.io/powershell/cmdlets/Get-PnPDefaultColumnValues.html"
+  },
+  {
+    "cmd": "Get-PnPDeletedContainer",
+    "helpUrl": "https://pnp.github.io/powershell/cmdlets/Get-PnPDeletedContainer.html"
   },
   {
     "cmd": "Get-PnPDeletedMicrosoft365Group",
@@ -740,6 +756,10 @@
     "helpUrl": "https://pnp.github.io/powershell/cmdlets/Get-PnPFile.html"
   },
   {
+    "cmd": "Get-PnPFileInFolder",
+    "helpUrl": "https://pnp.github.io/powershell/cmdlets/Get-PnPFileInFolder.html"
+  },
+  {
     "cmd": "Get-PnPFileSharingLink",
     "helpUrl": "https://pnp.github.io/powershell/cmdlets/Get-PnPFileSharingLink.html"
   },
@@ -764,12 +784,8 @@
     "helpUrl": "https://pnp.github.io/powershell/cmdlets/Get-PnPFolder.html"
   },
   {
-    "cmd": "Get-PnPFolderFile",
-    "helpUrl": "https://pnp.github.io/powershell/cmdlets/Get-PnPFolderFile.html"
-  },
-  {
-    "cmd": "Get-PnPFolderFolder",
-    "helpUrl": "https://pnp.github.io/powershell/cmdlets/Get-PnPFolderFolder.html"
+    "cmd": "Get-PnPFolderInFolder",
+    "helpUrl": "https://pnp.github.io/powershell/cmdlets/Get-PnPFolderInFolder.html"
   },
   {
     "cmd": "Get-PnPFolderItem",
@@ -1128,12 +1144,20 @@
     "helpUrl": "https://pnp.github.io/powershell/cmdlets/Get-PnPSiteSensitivityLabel.html"
   },
   {
+    "cmd": "Get-PnPSiteSetVersionPolicyProgress",
+    "helpUrl": "https://pnp.github.io/powershell/cmdlets/Get-PnPSiteSetVersionPolicyProgress.html"
+  },
+  {
     "cmd": "Get-PnPSiteTemplate",
     "helpUrl": "https://pnp.github.io/powershell/cmdlets/Get-PnPSiteTemplate.html"
   },
   {
     "cmd": "Get-PnPSiteUserInvitations",
     "helpUrl": "https://pnp.github.io/powershell/cmdlets/Get-PnPSiteUserInvitations.html"
+  },
+  {
+    "cmd": "Get-PnPSiteVersionPolicy",
+    "helpUrl": "https://pnp.github.io/powershell/cmdlets/Get-PnPSiteVersionPolicy.html"
   },
   {
     "cmd": "Get-PnPStorageEntity",
@@ -1364,8 +1388,8 @@
     "helpUrl": "https://pnp.github.io/powershell/cmdlets/Get-PnPWebHeader.html"
   },
   {
-    "cmd": "Get-PnPWebhookSubscriptions",
-    "helpUrl": "https://pnp.github.io/powershell/cmdlets/Get-PnPWebhookSubscriptions.html"
+    "cmd": "Get-PnPWebhookSubscription",
+    "helpUrl": "https://pnp.github.io/powershell/cmdlets/Get-PnPWebhookSubscription.html"
   },
   {
     "cmd": "Get-PnPWebPart",
@@ -1470,6 +1494,10 @@
   {
     "cmd": "Measure-PnPWeb",
     "helpUrl": "https://pnp.github.io/powershell/cmdlets/Measure-PnPWeb.html"
+  },
+  {
+    "cmd": "Merge-PnPTerm",
+    "helpUrl": "https://pnp.github.io/powershell/cmdlets/Merge-PnPTerm.html"
   },
   {
     "cmd": "Move-PnPFile",
@@ -1720,6 +1748,10 @@
     "helpUrl": "https://pnp.github.io/powershell/cmdlets/Remove-PnPAzureADServicePrincipalAssignedAppRole.html"
   },
   {
+    "cmd": "Remove-PnPContainer",
+    "helpUrl": "https://pnp.github.io/powershell/cmdlets/Remove-PnPContainer.html"
+  },
+  {
     "cmd": "Remove-PnPContentType",
     "helpUrl": "https://pnp.github.io/powershell/cmdlets/Remove-PnPContentType.html"
   },
@@ -1858,6 +1890,10 @@
   {
     "cmd": "Remove-PnPMicrosoft365GroupOwner",
     "helpUrl": "https://pnp.github.io/powershell/cmdlets/Remove-PnPMicrosoft365GroupOwner.html"
+  },
+  {
+    "cmd": "Remove-PnPMicrosoft365GroupPhoto",
+    "helpUrl": "https://pnp.github.io/powershell/cmdlets/Remove-PnPMicrosoft365GroupPhoto.html"
   },
   {
     "cmd": "Remove-PnPMicrosoft365GroupSettings",
