@@ -226,8 +226,19 @@ $cmdUsage | ForEach-Object{
 
         $row | Out-File $reportFile -Append
 
+        $usedCmdCount = 0
+        if($usedCommands.Count){
+            $usedCmdCount = $usedCommands.Count
+        }
+
+        $unUsedCmdCount = 0
+        if($unUsedCommands.Count){
+            $unUsedCmdCount = $unUsedCommands.Count
+        }
+
+
         "| **Total Used** | **Total Unused** |" | Out-File $reportFile -Append
-        $counts = "| {0} | {1} |" -f $usedCommands.Count, $unUsedCommands.Count
+        $counts = "| {0} | {1} |" -f $usedCmdCount, $unUsedCmdCount
         $counts | Out-File $reportFile -Append
 
     }   
