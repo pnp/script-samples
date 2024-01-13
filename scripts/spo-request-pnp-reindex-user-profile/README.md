@@ -112,17 +112,20 @@ Request-PnPReindexUserProfile -url https://contoso.sharepoint.com/sites/IT -Docu
         # Put the template file together
         $fragmentTemplate = "{{""IdName"": ""{0}"",""Department"": ""{1}""}}";
         $accountFragments = @();
-        
+
         foreach ($Profile in $ProfileList) {
-            $aadId =  $Profile.aadobjectid + ""
-            $dept = $Profile.department + ""
+            # Escape special JSON characters in the string values
+            $aadId = $Profile.aadobjectid -replace '\\', '\\\\' -replace '"', '\"'
+            $dept = $Profile.department -replace '\\', '\\\\' -replace '"', '\"'
+
             if(-not [string]::IsNullOrWhiteSpace($aadId) -and $aadId -ne "00000000-0000-0000-0000-000000000000") {
-                $accountFragments += [string]::Format($fragmentTemplate,$aadId,$dept)
+                $accountFragments += [string]::Format($fragmentTemplate, $aadId, $dept)
             }
         }
 
         Write-Output "Found $($accountFragments.Count) profiles"
         $json = "{""value"":[" + ($accountFragments -join ',') + "]}"
+
         
         $propertyMap = @{}
         $propertyMap.Add("Department", "Department")
@@ -179,6 +182,7 @@ Sample first appeared on [https://github.com/wobba/SPO-Trigger-Reindex](https://
 
 | Author(s) |
 |-----------|
+| Valeras Narbutas |
 | Mikael Svenson |
 | [Todd Klindt](https://www.toddklindt.com)|
 
