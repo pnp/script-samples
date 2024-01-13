@@ -4,9 +4,6 @@ plugin: add-to-gallery
 
 # Get Site Collection invalid user accounts
 
-> [!Note]
-> This is a submission helper template please find the [contributor guidance](/docfx/contribute.md) to help you write this scenario.
-
 ## Summary
 
 When you have an old site collection with a lot of users, it can be hard to keep track of which users are valid and which are not. This script will help you find all the invalid users in your site collection.
