@@ -208,17 +208,20 @@ Request-PnPReindexUserProfile -url https://contoso.sharepoint.com/sites/IT -Docu
         # Put the template file together
         $fragmentTemplate = &quot;{{&quot;&quot;IdName&quot;&quot;: &quot;&quot;{0}&quot;&quot;,&quot;&quot;Department&quot;&quot;: &quot;&quot;{1}&quot;&quot;}}&quot;;
         $accountFragments = @();
-        
+
         foreach ($Profile in $ProfileList) {
-            $aadId =  $Profile.aadobjectid + &quot;&quot;
-            $dept = $Profile.department + &quot;&quot;
+            # Escape special JSON characters in the string values
+            $aadId = $Profile.aadobjectid -replace '\\', '\\\\' -replace '&quot;', '\&quot;'
+            $dept = $Profile.department -replace '\\', '\\\\' -replace '&quot;', '\&quot;'
+
             if(-not [string]::IsNullOrWhiteSpace($aadId) -and $aadId -ne &quot;00000000-0000-0000-0000-000000000000&quot;) {
-                $accountFragments += [string]::Format($fragmentTemplate,$aadId,$dept)
+                $accountFragments += [string]::Format($fragmentTemplate, $aadId, $dept)
             }
         }
 
         Write-Output &quot;Found $($accountFragments.Count) profiles&quot;
         $json = &quot;{&quot;&quot;value&quot;&quot;:[&quot; + ($accountFragments -join ',') + &quot;]}&quot;
+
         
         $propertyMap = @{}
         $propertyMap.Add(&quot;Department&quot;, &quot;Department&quot;)
@@ -278,6 +281,9 @@ Request-PnPReindexUserProfile -url https://contoso.sharepoint.com/sites/IT -Docu
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>Valeras Narbutas</td>
+</tr>
 <tr>
 <td>Mikael Svenson</td>
 </tr>
