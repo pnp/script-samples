@@ -4,15 +4,15 @@
   
   <head>
     <meta charset="utf-8">
-    <title>Deploys and Installs SharePoint Framework (SPFx) solutions to Hub Site and Associated Sites using Site Collection App Catalog | PnP Samples </title>
+    <title>Deploys and Installs SharePoint Framework (SPFx) solutions to Hub Site and Associated Sites using the tenant app catalog | PnP Samples </title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" "="">
-    <meta name="title" content="Deploys and Installs SharePoint Framework (SPFx) solutions to Hub Site and Associated Sites using Site Collection App Catalog | PnP Samples ">
+    <meta name="title" content="Deploys and Installs SharePoint Framework (SPFx) solutions to Hub Site and Associated Sites using the tenant app catalog | PnP Samples ">
     <meta name="generator" content="docfx 2.56.7.0">
     <meta name="description" content="A sample gallery of scripts to manage all things Microsoft 365.">
   
     <!-- Social Media -->
     <meta property="og:locale" content="en_GB">
-    <meta property="og:title" content="Deploys and Installs SharePoint Framework (SPFx) solutions to Hub Site and Associated Sites using Site Collection App Catalog | PnP Samples ">
+    <meta property="og:title" content="Deploys and Installs SharePoint Framework (SPFx) solutions to Hub Site and Associated Sites using the tenant app catalog | PnP Samples ">
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://pnp.github.io/script-samples">
     <meta property="og:image" content="https://pnp.github.io/script-samples/assets/social-media-screenshot.png">
@@ -94,30 +94,22 @@
           <div class="col-md-12">
             <article class="content wrap" id="_content" data-uid="">
                   <div class="contribution-panel mobile-hide pull-right">
-                      <a href="https://github.com/pnp/script-samples/blob/main/scripts/spo-deploy-install-update-spfx-hubsite-associatedsites/README.md/#L1" title="Improve this Doc" class="improve-doc-lg"><i class="glyphicon glyphicon-pencil"></i></a>
+                      <a href="https://github.com/pnp/script-samples/blob/main/scripts/spo-deploy-install-update-spfx-hubsiteassociatedsites-tenantAppCatalog/README.md/#L1" title="Improve this Doc" class="improve-doc-lg"><i class="glyphicon glyphicon-pencil"></i></a>
                   </div>
-                    <h1 id="deploys-and-installs-sharepoint-framework-spfx-solutions-to-hub-site-and-associated-sites-using-site-collection-app-catalog">Deploys and Installs SharePoint Framework (SPFx) solutions to Hub Site and Associated Sites using Site Collection App Catalog</h1>
+                    <h1 id="deploys-and-installs-sharepoint-framework-spfx-solutions-to-hub-site-and-associated-sites-using-the-tenant-app-catalog">Deploys and Installs SharePoint Framework (SPFx) solutions to Hub Site and Associated Sites using the tenant app catalog</h1>
 
 <h2 id="summary">Summary</h2>
-<p>At the time of submitting this script sample there is no concept of a hub site app catalog. However you may want to install or upgrade a SPFx solution to all sites within a hub for example all sites linked to the intranet hub. This sample is applicable for a SPFx solution that needs to be deployed and upgraded across all sites in a hub using Site Collection App Catalog.</p>
+<p>At the time of submitting this script sample there is no concept of a hub site app catalog. However you may want to install or upgrade a SPFx solution to all sites within a hub for example all sites linked to the intranet hub. This sample is applicable for a SPFx solution that needs to be deployed and upgraded across all sites in a hub using the tenant app catalog. There is a similar script <a href="../spo-deploy-install-update-spfx-hubsite-associatedsites/README.html">Deploys and Installs SharePoint Framework (SPFx) solutions to Hub Site and Associated Sites that deploys the app to individual site collection app catalog</a></p>
 <p><img src="assets/example.png" alt="Example Screenshot"></p>
 <h3 id="prerequisites">Prerequisites</h3>
 <ul>
-<li>The user account that runs the script must have SharePoint Online tenant administrator access.</li>
-<li>Before running the script, edit the script and update the variable values in the Config Variables section, such as Admin Center URL, Hub Site URL, the CSV output file path and alternatively the sppkg packages Folder.</li>
+<li><p>The user account that runs the script must have SharePoint Online tenant administrator access.</p>
+</li>
+<li><p>Before running the script, edit the script and update the variable values in the Config Variables section, such as Admin Center URL, Hub Site URL, the CSV output file path and alternatively the sppkg packages Folder.</p>
+</li>
 </ul>
-<p>The script will:</p>
-<ul>
-<li>Get the hub site ID using the Get-PnPHubSite cmdlet.</li>
-<li>Get all associated site collections in the tenant using the Get-PnPTenantSite cmdlet filtered by the HubSiteId property.</li>
-<li>Connect to the site using Connect-PnPOnline.</li>
-<li>Check if the site collection app catalog exists. If it doesn’t, create it using Add-PnPSiteCollectionAppCatalog.</li>
-<li>Deploy the SPFx package using Add-PnPApp.</li>
-<li>Check if the package is already installed on the site using Get-PnPApp.</li>
-<li>If the package is not installed, install it using Install-PnPApp.</li>
-<li>If a newer version of the package is available, update the package using Update-PnPApp.</li>
-<li>Export the site collection URL, package name, and package version to a CSV file for a record of what's updated.</li>
-</ul>
+<p>This script snippet automates the deployment and potential upgrades of SPFx packages across associated sites of a hub site, leveraging the tenant-level app catalog. It navigates through each associated site, checks for existing packages, installs or upgrades them as needed, and records the deployment details for reporting purposes.
+This approach offers flexibility and control over SPFx solutions, ensuring targeted deployment and version management across your SharePoint environment.</p>
 <p>The script does not cover admin consent to app permissions. A global administrator will have to grant admin consent if required by the SPFx solutions.</p>
 <div class="tabGroup" id="tabgroup_CeZOj-G++Q">
 <ul role="tablist">
@@ -130,87 +122,95 @@
     <span class="article-clipboard__message done">Copied</span>
 </button>
 
-<pre><code class="lang-powershell">#Config variables
-$adminCenterURL = &quot;https://tenant-admin.sharepoint.com&quot;
-$fileName = &quot;\IntranetUpgradeSPFx-&quot; + $dateTime + &quot;.csv&quot;
-$hubSiteUrl = &quot;https://tenant.sharepoint.com/sites/u-intranet&quot;
-$OutPutView = $directorypath + $fileName
-$sppkgFolder = &quot;./packages&quot;
-
+<pre><code class="lang-powershell">$AdminCenterURL=&quot;https://contoso-admin.sharepoint.com&quot;
+$tenantAppCatalogUrl = &quot;https://contoso.sharepoint.com/sites/appcatalog&quot;
+$hubSiteUrl = &quot;https://contoso.sharepoint.com&quot;
 $dateTime = (Get-Date).toString(&quot;dd-MM-yyyy&quot;)
 $invocation = (Get-Variable MyInvocation).Value
 $directorypath = Split-Path $invocation.MyCommand.Path
+$fileName = &quot;\Log_Tenant-&quot; + $dateTime + &quot;.csv&quot;
+$OutPutView = $directorypath + $fileName
+ 
+$sppkgFolder = &quot;./packages&quot;
+ 
 cd $PSScriptRoot
-
 $packageFiles = Get-ChildItem $sppkgFolder
-
-Connect-PnPOnline $adminCenterURL -Interactive
-
-#collection to save the list of sites where the deployment or upgrades of SPFx solution happened for auditing
-$ViewCollection = @() 
-$HubSite = Get-PnPHubSite -Identity $hubSiteUrl
-$associatedSites = Get-PnPTenantSite -Detailed | Where-Object {$_.HubSiteId -eq $hubSite.Id}
-
+ 
+Connect-PnPOnline $tenantAppCatalogUrl -Interactive
+$appCatConnection  = Get-PnPConnection
+ 
+Connect-PnPOnline $AdminCenterURL -Interactive
+$adminConnection  = Get-PnPConnection
+ 
+$SiteAppUpdateCollection = @()
+ 
+$HubSiteID = (Get-PnPTenantSite -Identity $hubSiteUrl -Connection $adminConnection ).HubSiteId
+ 
+#Get associated sites with hub
+$associatedSites = Get-PnPTenantSite -Detailed -Connection $adminConnection| Where-Object { $_.HubSiteId -eq $HubSiteID }
+ 
+foreach($package in $packageFiles)
+{
+  $packageName = $package.PSChildName
+  Write-Host (&quot;Installing {0}...&quot; -f $packageName) -ForegroundColor Yellow
+ 
+  Start-Sleep -Seconds 10
+    #deploy sppkg assuming app catalog is already configured
+   Add-pnpapp -Path (&quot;{0}/{1}&quot; -f $sppkgFolder , $package.PSChildName) -Scope Tenant -Overwrite -Publish
+}
+ 
 #Get all site collections associated with the hub site
-$associatedSites | select url | ForEach-Object { 
-  $Site = Get-PnPTenantSite $_.url
-  If($Site.HubSiteId -eq $HubSiteId){
-    Connect-PnPOnline -Url $Site.url -Interactive
-    Write-Host (&quot;Deploying packages to {0}...&quot; -f $Site.url) -ForegroundColor Yellow
-
-      foreach($package in $packageFiles){
-        $ExportVw = New-Object PSObject
-        $ExportVw | Add-Member -MemberType NoteProperty -name &quot;Site URL&quot; -value $Site.url
-        $packageName = $package.PSChildName
-        Write-Host (&quot;Installing {0}...&quot; -f $packageName) -ForegroundColor Yellow
-         $ExportVw | Add-Member -MemberType NoteProperty -name &quot;Package Name&quot; -value $packageName
-         #ensure app catalog
-          if(!(Get-PnPSiteCollectionAppCatalog -CurrentSite)){
-            Write-Host (&quot;Creating site collection app catalog in {0}...&quot; -f $Site.url) -ForegroundColor Yellow
-            Add-PnPSiteCollectionAppCatalog
-          }
-         while(!(Get-PnPSiteCollectionAppCatalog -CurrentSite)){
-            Start-Sleep -Seconds 20
-         }
-         #deploy sppkg
-         Add-PnPApp -Path (&quot;{0}/{1}&quot; -f $sppkgFolder , $package.PSChildName) -Scope Site -Overwrite -Publish
-
-         Start-Sleep -Seconds 5
-
-        #Find Name of app from installed package 
-        $RestMethodUrl = '/_api/web/lists/getbytitle(''Apps%20for%20SharePoint'')/items?$select=Title,LinkFilename'
-        $apps = (Invoke-PnPSPRestMethod -Url $RestMethodUrl -Method Get).Value
-        $appTitle = ($apps | where-object {$_.LinkFilename -eq $packageName} | select Title).Title
-        # Get the current version of the SPFx package
-        $currentPackage = Get-PnPApp -Identity $appTitle -Scope Site
-        Write-Host &quot;Current package version on site $($site.Url): $($currentPackage.InstalledVersion)&quot;
-
-        #Install App to the Site if not already installed
-        $web = Get-PnPWeb -Includes AppTiles
-        $app = $web.AppTiles  |  where-object {$_.Title -eq $currentPackage.Title } 
-        if(!$app){
-            Install-PnPApp -Identity $currentPackage.Id -Scope Site
+#TO Test with updated changes
+$associatedSites | select url | ForEach-Object {
+    $Site = Get-PnPTenantSite $_.url -Connection $adminConnection
+     Connect-PnPOnline -Url $Site.url -Interactive
+     $siteConnection  = Get-PnPConnection
+ 
+      Write-Host (&quot;Deploying packages to {0}...&quot; -f $Site.url) -ForegroundColor Yellow
+ 
+       foreach($package in $packageFiles)
+       {
+          $ExportVw = New-Object PSObject
+          $ExportVw | Add-Member -MemberType NoteProperty -name &quot;Site URL&quot; -value $Site.url
+          $packageName = $package.PSChildName
+       
+          $ExportVw | Add-Member -MemberType NoteProperty -name &quot;Package Name&quot; -value $packageName
+           #Find Name of app from installed package
+           $RestMethodUrl = '/_api/web/lists/getbytitle(''Apps%20for%20SharePoint'')/items?$select=Title,LinkFilename'
+           $apps = (Invoke-PnPSPRestMethod -Url $RestMethodUrl -Method Get -Connection $appCatConnection).Value
+           $appTitle = ($apps | where-object {$_.LinkFilename -eq $packageName} | select Title).Title
+ 
+             #Install App to the Site if not already installed
+        $web = Get-PnPWeb -Includes AppTiles -Connection $siteConnection
+        $app = $web.AppTiles  |  where-object {$_.Title -eq $currentPackage.Title }
+        if(!$app)
+        {
+            Install-PnPApp -Identity $currentPackage.Id -Connection $siteConnection
             Start-Sleep -Seconds 5
         }
-        # Get the latest version of the SPFx package
-        Write-Host &quot;Latest package version: $($currentPackage.AppCatalogVersion)&quot;
-
-        # Update the package to the latest version
-        if ($currentPackage.InstalledVersion -ne $currentPackage.AppCatalogVersion) {
-            Write-Host &quot;Upgrading package on site $($site.Url) to latest version...&quot; -ForegroundColor Green
-            Update-PnPApp -Identity $currentPackage.Id -Scope site
-            $currentPackage = Get-PnPApp -Identity $appTitle -Scope Site
-            $ExportVw | Add-Member -MemberType NoteProperty -name &quot;Package Version&quot; -value $currentPackage.AppCatalogVersion
-            $ViewCollection += $ExportVw
-        } else {
-            Write-Host &quot;Package already up-to-date on site $($site.Url).&quot;
-        }
+ 
+           # Get the current version of the SPFx package
+          $currentPackage = Get-PnPApp -Identity  $appTitle -Connection $siteConnection
+          Write-Host &quot;Current package version on site $($site.Url): $($currentPackage.InstalledVersion)&quot;
+         
+          Write-Host &quot;Latest package version: $($currentPackage.AppCatalogVersion)&quot;
+ 
+    # Update the package to the latest version
+    if ($currentPackage.InstalledVersion -ne $currentPackage.AppCatalogVersion) {
+        Write-Host &quot;Upgrading package on site $($site.Url) to latest version...&quot;
+        Update-PnPApp -Identity $currentPackage.Id
+        $currentPackage = Get-PnPApp -Identity $appTitle -Connection $siteConnection
+        $ExportVw | Add-Member -MemberType NoteProperty -name &quot;Package Version&quot; -value $currentPackage.AppCatalogVersion
+        $SiteAppUpdateCollection += $ExportVw
+    } else {
+        Write-Host &quot;Package already up-to-date on site $($site.Url).&quot;
     }
   }
 }
-
+ 
 #Export the result Array to CSV file
-$ViewCollection | Export-CSV $OutPutView -Force -NoTypeInformation
+$SiteAppUpdateCollection | Export-CSV $OutPutView -Force -NoTypeInformation
+ 
 Disconnect-PnPOnline
 </code></pre>
 <div class="NOTE">
@@ -223,7 +223,7 @@ Disconnect-PnPOnline
 </section>
 </div>
 <h2 id="source-credit">Source Credit</h2>
-<p>Sample first appeared on <a href="https://pnp.github.io/blog/post/deploy-spfx-in-hub-site-and-associated-sites/">Deploying and Installing SharePoint Framework (SPFx) solutions using PnP PowerShell to Hub Site and Associated Sites</a></p>
+<p>Sample first appeared on <a href="https://reshmeeauckloo.com/posts/powershell_spfxdeploytohubfromtenant/">Deploying SPFx Packages from Tenant App Catalog to Hub Site and Associated Sites</a></p>
 <h2 id="contributors">Contributors</h2>
 <table>
 <thead>
@@ -235,14 +235,11 @@ Disconnect-PnPOnline
 <tr>
 <td><a href="https://github.com/reshmee011">Reshmee Auckloo</a></td>
 </tr>
-<tr>
-<td><a href="https://ganeshsanapblogs.wordpress.com/">Ganesh Sanap</a></td>
-</tr>
 </tbody>
 </table>
 <h2 id="disclaimer">Disclaimer</h2>
 <p><strong>THESE SAMPLES ARE PROVIDED <em>AS IS</em> WITHOUT WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, INCLUDING ANY IMPLIED WARRANTIES OF FITNESS FOR A PARTICULAR PURPOSE, MERCHANTABILITY, OR NON-INFRINGEMENT.</strong></p>
-<img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/spo-deploy-install-update-spfx-hubsite-associatedsites" aria-hidden="true">
+<img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/spo-deploy-install-update-spfx-hubsiteassociatedsites-tenantAppCatalog" aria-hidden="true">
 </article>
           </div>
         </div>
