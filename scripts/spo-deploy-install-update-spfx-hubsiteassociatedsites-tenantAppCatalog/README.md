@@ -6,7 +6,7 @@ plugin: add-to-gallery
 
 ## Summary
 
-At the time of submitting this script sample there is no concept of a hub site app catalog. However you may want to install or upgrade a SPFx solution to all sites within a hub for example all sites linked to the intranet hub. This sample is applicable for a SPFx solution that needs to be deployed and upgraded across all sites in a hub using the tenant app catalog. There is a similar script [Deploys and Installs SharePoint Framework (SPFx) solutions to Hub Site and Associated Sites] that deploys the app to individual site collection app catalog(../spo-deploy-install-update-spfx-hubsite-associatedsites)
+At the time of submitting this script sample there is no concept of a hub site app catalog. However you may want to install or upgrade a SPFx solution to all sites within a hub for example all sites linked to the intranet hub. This sample is applicable for a SPFx solution that needs to be deployed and upgraded across all sites in a hub using the tenant app catalog. There is a similar script [Deploys and Installs SharePoint Framework (SPFx) solutions to Hub Site and Associated Sites that deploys the app to individual site collection app catalog](../spo-deploy-install-update-spfx-hubsite-associatedsites/README.md)
 
 ![Example Screenshot](assets/example.png)
 
