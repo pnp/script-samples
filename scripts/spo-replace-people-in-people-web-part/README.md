@@ -4,9 +4,6 @@ plugin: add-to-gallery
 
 # Replace specific users in the People web part
 
-> [!Note]
-> This is a submission helper template please find the [contributor guidance](/docfx/contribute.md) to help you write this scenario.
-
 ## Summary
 
 When people leave the company or assigned new responsibilities, you might want to replace them in the People web part with another user. This script will help you do that.
