@@ -6,6 +6,8 @@ plugin: add-to-gallery
 
 ## Summary
 
+This script sample will allow you to create the folders (not nested) into the SharePoint libraries provided in the CSV file.
+
 ### Create folders on single SharePoint site
 
 Below is an example of the format needed for your `.csv` file:
