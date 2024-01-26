@@ -9,7 +9,7 @@
       "Add bulk users to SharePoint site groups by reading CSV."
     ],
     "creationDateTime": "2022-07-05",
-    "updateDateTime": "2022-10-19",
+    "updateDateTime": "2024-01-22",
     "products": [
       "SharePoint"
     ],
@@ -21,6 +21,10 @@
       {
         "key": "SPO-MANAGEMENT-SHELL",
         "value": "16.0.21116.12000"
+      },
+      {
+          "key":"CLI-FOR-MICROSOFT365",
+          "value":"7.3.0"
       }
     ],
     "categories": [
@@ -35,7 +39,13 @@
       "Connect-SPOService",
       "Get-SPOSite",
       "Get-SPOUser",
-      "Add-SPOUser"
+      "Add-SPOUser",
+      "m365 status",
+      "m365 login",
+      "m365 spo group get",
+      "m365 spo group member list",
+      "m365 spo group member add",
+      "m365 logout"
     ],
     "thumbnails": [
       {
@@ -46,6 +56,12 @@
       }
     ],
     "authors": [
+      {
+        "gitHubAccount": "ganesh-sanap",
+        "company": "",
+        "pictureUrl": "https://avatars.githubusercontent.com/u/25476310?v=4",
+        "name": "Ganesh Sanap"
+      },
       {
         "name": "Chandani Prajapati",
         "gitHubAccount": "chandaniprajapati",
@@ -63,6 +79,11 @@
         "name": "Introduction to the SharePoint Online Management Shell",
         "description": "Check out the SPO Management Shell documentation site to get started and for the reference to the cmdlets.",
         "url": "https://docs.microsoft.com/en-us/powershell/sharepoint/sharepoint-online/introduction-sharepoint-online-management-shell?view=sharepoint-ps"
+      },
+      {
+        "name": "Want to learn more about CLI for Microsoft 365 and the commands",
+        "description": "Check out the CLI for Microsoft 365 site to get started and for the reference to the commands.",
+        "url": "https://aka.ms/cli-m365"
       }
     ]
   }
