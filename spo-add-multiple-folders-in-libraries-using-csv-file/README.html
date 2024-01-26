@@ -4,15 +4,15 @@
   
   <head>
     <meta charset="utf-8">
-    <title>Add multiple folders in libraries using a csv file | PnP Samples </title>
+    <title>Add multiple folders in libraries using a CSV file | PnP Samples </title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" "="">
-    <meta name="title" content="Add multiple folders in libraries using a csv file | PnP Samples ">
+    <meta name="title" content="Add multiple folders in libraries using a CSV file | PnP Samples ">
     <meta name="generator" content="docfx 2.56.7.0">
     <meta name="description" content="A sample gallery of scripts to manage all things Microsoft 365.">
   
     <!-- Social Media -->
     <meta property="og:locale" content="en_GB">
-    <meta property="og:title" content="Add multiple folders in libraries using a csv file | PnP Samples ">
+    <meta property="og:title" content="Add multiple folders in libraries using a CSV file | PnP Samples ">
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://pnp.github.io/script-samples">
     <meta property="og:image" content="https://pnp.github.io/script-samples/assets/social-media-screenshot.png">
@@ -96,10 +96,12 @@
                   <div class="contribution-panel mobile-hide pull-right">
                       <a href="https://github.com/pnp/script-samples/blob/main/scripts/spo-add-multiple-folders-in-libraries-using-csv-file/README.md/#L1" title="Improve this Doc" class="improve-doc-lg"><i class="glyphicon glyphicon-pencil"></i></a>
                   </div>
-                    <h1 id="add-multiple-folders-in-libraries-using-a-csv-file">Add multiple folders in libraries using a csv file</h1>
+                    <h1 id="add-multiple-folders-in-libraries-using-a-csv-file">Add multiple folders in libraries using a CSV file</h1>
 
 <h2 id="summary">Summary</h2>
-<p>Below is an example of the format needed for your .csv file:</p>
+<p>This script sample will allow you to create the folders (not nested) into the SharePoint libraries provided in the CSV file.</p>
+<h3 id="create-folders-on-single-sharepoint-site">Create folders on single SharePoint site</h3>
+<p>Below is an example of the format needed for your <code>.csv</code> file:</p>
 <table>
 <thead>
 <tr>
@@ -124,12 +126,15 @@
 </table>
 <div class="IMPORTANT">
 <h5>Important</h5>
-<p>Make sure your target libraries contained in the file do exist in SharePoint Online.</p>
+<p>Make sure your target libraries contained in the file do exist in SharePoint Online site.</p>
 </div>
 <div class="tabGroup" id="tabgroup_CeZOj-G++Q">
 <ul role="tablist">
 <li role="presentation">
 <a href="#tabpanel_CeZOj-G++Q_pnpps" role="tab" aria-controls="tabpanel_CeZOj-G++Q_pnpps" data-tab="pnpps" tabindex="0" aria-selected="true">PnP PowerShell</a>
+</li>
+<li role="presentation">
+<a href="#tabpanel_CeZOj-G++Q_cli-m365-ps" role="tab" aria-controls="tabpanel_CeZOj-G++Q_cli-m365-ps" data-tab="cli-m365-ps" tabindex="-1">CLI for Microsoft 365</a>
 </li>
 </ul>
 <section id="tabpanel_CeZOj-G++Q_pnpps" role="tabpanel" data-tab="pnpps"><button class="article-clipboard" title="Copy to clipboard" data-toggle="tooltip" data-placement="top" data-clipboard-target="section[id^='tabpanel'][data-tab='pnpps'] pre">
@@ -137,24 +142,24 @@
     <span class="article-clipboard__message done">Copied</span>
 </button>
 
-<pre><code class="lang-powershell">
-#Config Variables
+<pre><code class="lang-powershell"># Config Variables
 $SiteURL = &quot;https://contoso.sharepoint.com/sites/Ops&quot;
 $CSVFilePath = &quot;C:\Temp\Folders.csv&quot;
  
 Try {
-    #Connect to PnP Online
+    # Connect to PnP Online
     Connect-PnPOnline -Url $SiteURL -Interactive
     $Web = Get-PnPWeb
  
-    #Get the CSV file
+    # Get the CSV file
     $CSVFile = Import-Csv $CSVFilePath
   
-    #Read CSV file and create folders
+    # Read CSV file and create folders
     ForEach($Row in $CSVFile)
     {
-        #Get the Document Library and its site relative URL
+        # Get the Document Library and its site relative URL
         $Library = Get-PnPList -Identity $Row.libName -Includes RootFolder
+
         If($Web.ServerRelativeUrl -eq &quot;/&quot;)
         {
             $LibrarySiteRelativeURL = $Library.RootFolder.ServerRelativeUrl
@@ -163,14 +168,15 @@ Try {
         {
             $LibrarySiteRelativeURL = $Library.RootFolder.ServerRelativeUrl.Replace($Web.ServerRelativeUrl,'')
         }
-        #Replace Invalid Characters from Folder Name, If any
+
+        # Replace Invalid Characters from Folder Name, If any
         $FolderName = $Row.folderName
         $FolderName = [RegEx]::Replace($FolderName, &quot;[{0}]&quot; -f ([RegEx]::Escape([String]'\&quot;*:&lt;&gt;?/\|')), '_')
  
-        #Frame the Folder Name
+        # Frame the Folder Name
         $FolderURL = $LibrarySiteRelativeURL+&quot;/&quot;+$FolderName
  
-        #Create Folder if it doesn't exist
+        # Create Folder if it doesn't exist
         Resolve-PnPFolder -SiteRelativePath $FolderURL | Out-Null
         Write-host &quot;Ensured Folder:&quot;$FolderName -f Green
     }
@@ -178,21 +184,68 @@ Try {
 catch {
     write-host &quot;Error: $($_.Exception.Message)&quot; -foregroundcolor Red
 }
-
 </code></pre>
 <div class="highlight-tool">
 <p>Check out the <strong>PnP PowerShell</strong> to learn more at: <a href="https://aka.ms/pnp/powershell">https://aka.ms/pnp/powershell</a></p>
 </div>
 </section>
-</div>
+<section id="tabpanel_CeZOj-G++Q_cli-m365-ps" role="tabpanel" data-tab="cli-m365-ps" aria-hidden="true" hidden="hidden"><button class="article-clipboard" title="Copy to clipboard" data-toggle="tooltip" data-placement="top" data-clipboard-target="section[id^='tabpanel'][data-tab='cli-m365-ps'] pre">
+    <span class="glyphicon glyphicon-copy" aria-hidden="true"></span>
+    <span class="article-clipboard__message done">Copied</span>
+</button>
 
-<p>Below is an example of the format needed for your .csv file:</p>
+<pre><code class="lang-powershell"># SharePoint online site URL
+$SiteURL = Read-Host -Prompt &quot;Enter your SharePoint site URL (e.g https://contoso.sharepoint.com/sites/Company311)&quot;
+
+# Location of the CSV file
+$CSVFilePath= &quot;D:\dtemp\Folders.csv&quot;
+
+# Get Credentials to connect
+$m365Status = m365 status
+if ($m365Status -match &quot;Logged Out&quot;) {
+    m365 login
+}
+
+Try {
+    # Get the CSV file
+    $CSVFile = Import-Csv $CSVFilePath
+  
+    # Read CSV file and create folders
+    ForEach($Row in $CSVFile)
+    {
+        # Get the Document Library and its site relative URL
+		$Library = m365 spo list get --webUrl $SiteURL --title $Row.libName --properties &quot;Title,Id,RootFolder/ServerRelativeUrl&quot; | ConvertFrom-Json
+		$LibrarySiteRelativeURL = $Library.RootFolder.ServerRelativeUrl
+
+        # Replace Invalid Characters from Folder Name, If any
+        $FolderName = $Row.folderName
+        $FolderName = [RegEx]::Replace($FolderName, &quot;[{0}]&quot; -f ([RegEx]::Escape([String]'\&quot;*:&lt;&gt;?/\|')), '_')
+ 
+        # Create Folder if it doesn't exist
+		m365 spo folder add --webUrl $SiteURL --parentFolderUrl $LibrarySiteRelativeURL --name $FolderName
+        Write-host &quot;Folder Created: &quot;$FolderName -f Green
+    }
+}
+catch {
+    write-host &quot;Error: $($_.Exception.Message)&quot; -ForegroundColor Red
+}
+
+# Disconnect SharePoint online connection
+m365 logout
+</code></pre>
+<div class="highlight-tool">
+<p>Check out the <strong>CLI for Microsoft 365</strong> to learn more at: <a href="https://aka.ms/cli-m365">https://aka.ms/cli-m365</a></p>
+</div>
+</section>
+</div>
+<h3 id="create-folders-on-multiple-sharepoint-sites">Create folders on multiple SharePoint sites</h3>
+<p>Below is an example of the format needed for your <code>.csv</code> file:</p>
 <table>
 <thead>
 <tr>
 <th>libName</th>
 <th>folderName</th>
-<th>site</th>
+<th>SiteUrl</th>
 </tr>
 </thead>
 <tbody>
@@ -222,31 +275,34 @@ catch {
 <li role="presentation">
 <a href="#tabpanel_CeZOj-G++Q-1_pnpps2" role="tab" aria-controls="tabpanel_CeZOj-G++Q-1_pnpps2" data-tab="pnpps2" tabindex="0" aria-selected="true">PnP PowerShell</a>
 </li>
+<li role="presentation">
+<a href="#tabpanel_CeZOj-G++Q-1_cli-m365-ps2" role="tab" aria-controls="tabpanel_CeZOj-G++Q-1_cli-m365-ps2" data-tab="cli-m365-ps2" tabindex="-1">CLI for Microsoft 365</a>
+</li>
 </ul>
 <section id="tabpanel_CeZOj-G++Q-1_pnpps2" role="tabpanel" data-tab="pnpps2"><button class="article-clipboard" title="Copy to clipboard" data-toggle="tooltip" data-placement="top" data-clipboard-target="section[id^='tabpanel'][data-tab='pnpps2'] pre">
     <span class="glyphicon glyphicon-copy" aria-hidden="true"></span>
     <span class="article-clipboard__message done">Copied</span>
 </button>
 
-<pre><code class="lang-powershell">
-#Config Variables
+<pre><code class="lang-powershell">#Config Variables
 $CSVFilePath = &quot;C:\Temp\Folders.csv&quot;
- 
-Try {
-    
- 
-    #Get the CSV file
+
+Try { 
+    # Get the CSV file
     $CSVFile = Import-Csv $CSVFilePath
   
-    #Read CSV file and create folders
+    # Read CSV file and create folders
     ForEach($Row in $CSVFile)
     {
-        $SiteURL = $Row.site
-        #Connect to PnP Online
+        $SiteURL = $Row.SiteUrl
+        
+        # Connect to PnP Online
         Connect-PnPOnline -Url $SiteURL -Interactive
         $Web = Get-PnPWeb
-        #Get the Document Library and its site relative URL
+        
+        # Get the Document Library and its site relative URL
         $Library = Get-PnPList -Identity $Row.libName -Includes RootFolder
+        
         If($Web.ServerRelativeUrl -eq &quot;/&quot;)
         {
             $LibrarySiteRelativeURL = $Library.RootFolder.ServerRelativeUrl
@@ -255,14 +311,15 @@ Try {
         {
             $LibrarySiteRelativeURL = $Library.RootFolder.ServerRelativeUrl.Replace($Web.ServerRelativeUrl,'')
         }
-        #Replace Invalid Characters from Folder Name, If any
+        
+        # Replace Invalid Characters from Folder Name, If any
         $FolderName = $Row.folderName
         $FolderName = [RegEx]::Replace($FolderName, &quot;[{0}]&quot; -f ([RegEx]::Escape([String]'\&quot;*:&lt;&gt;?/\|')), '_')
  
-        #Frame the Folder Name
+        # Frame the Folder Name
         $FolderURL = $LibrarySiteRelativeURL+&quot;/&quot;+$FolderName
  
-        #Create Folder if it doesn't exist
+        # Create Folder if it doesn't exist
         Resolve-PnPFolder -SiteRelativePath $FolderURL | Out-Null
         Write-host &quot;Ensured Folder:&quot;$FolderName -f Green
     }
@@ -270,10 +327,56 @@ Try {
 catch {
     write-host &quot;Error: $($_.Exception.Message)&quot; -foregroundcolor Red
 }
-
 </code></pre>
 <div class="highlight-tool">
 <p>Check out the <strong>PnP PowerShell</strong> to learn more at: <a href="https://aka.ms/pnp/powershell">https://aka.ms/pnp/powershell</a></p>
+</div>
+</section>
+<section id="tabpanel_CeZOj-G++Q-1_cli-m365-ps2" role="tabpanel" data-tab="cli-m365-ps2" aria-hidden="true" hidden="hidden"><button class="article-clipboard" title="Copy to clipboard" data-toggle="tooltip" data-placement="top" data-clipboard-target="section[id^='tabpanel'][data-tab='cli-m365-ps2'] pre">
+    <span class="glyphicon glyphicon-copy" aria-hidden="true"></span>
+    <span class="article-clipboard__message done">Copied</span>
+</button>
+
+<pre><code class="lang-powershell"># Location of the CSV file
+$CSVFilePath= &quot;D:\dtemp\Folders.csv&quot;
+
+# Get Credentials to connect
+$m365Status = m365 status
+if ($m365Status -match &quot;Logged Out&quot;) {
+    m365 login
+}
+
+Try {
+    # Get the CSV file
+    $CSVFile = Import-Csv $CSVFilePath
+  
+    # Read CSV file and create folders
+    ForEach($Row in $CSVFile)
+    {
+		$SiteURL = $Row.SiteUrl
+		
+        # Get the Document Library and its site relative URL
+		$Library = m365 spo list get --webUrl $SiteURL --title $Row.libName --properties &quot;Title,Id,RootFolder/ServerRelativeUrl&quot; | ConvertFrom-Json
+		$LibrarySiteRelativeURL = $Library.RootFolder.ServerRelativeUrl
+
+        # Replace Invalid Characters from Folder Name, If any
+        $FolderName = $Row.folderName
+        $FolderName = [RegEx]::Replace($FolderName, &quot;[{0}]&quot; -f ([RegEx]::Escape([String]'\&quot;*:&lt;&gt;?/\|')), '_')
+ 
+        # Create Folder if it doesn't exist
+		m365 spo folder add --webUrl $SiteURL --parentFolderUrl $LibrarySiteRelativeURL --name $FolderName
+        Write-host &quot;Folder Created: &quot;$FolderName -f Green
+    }
+}
+catch {
+    write-host &quot;Error: $($_.Exception.Message)&quot; -ForegroundColor Red
+}
+
+# Disconnect SharePoint online connection
+m365 logout
+</code></pre>
+<div class="highlight-tool">
+<p>Check out the <strong>CLI for Microsoft 365</strong> to learn more at: <a href="https://aka.ms/cli-m365">https://aka.ms/cli-m365</a></p>
 </div>
 </section>
 </div>
@@ -287,6 +390,9 @@ catch {
 <tbody>
 <tr>
 <td><a href="https://github.com/jitenparmar">Jiten Parmar</a></td>
+</tr>
+<tr>
+<td><a href="https://ganeshsanapblogs.wordpress.com/about">Ganesh Sanap</a></td>
 </tr>
 </tbody>
 </table>
