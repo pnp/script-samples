@@ -99,15 +99,20 @@
                     <h1 id="add-dummy-folders-and-files-to-a-sharepoint-library">Add dummy folders and files to a SharePoint library</h1>
 
 <h2 id="summary">Summary</h2>
-<p>This sample shows how to add dummy files and folders into a library. The script was used to generate files within folders to perform some testing.</p>
+<p>This sample shows how to add dummy folders and files into a SharePoint document library. The script was used to generate files within folders to perform some testing.</p>
 <h2 id="implementation">Implementation</h2>
-<p>Open Windows Powershell ISE</p>
-<p>Create a new file, e.g. TestDoc.docx and save it to a file server location , e.g. C:/Temp</p>
-<p>A loop within another loop using while is used to create the number of specified files within each of the specified number of folders.</p>
+<ol>
+<li>Open Windows PowerShell ISE.</li>
+<li>Create a new file, e.g. TestDoc.docx and save it to a file server location, e.g. C:/Temp.</li>
+<li>A loop within another loop using <code>While</code> is used to create the number of specified files within each of the specified number of folders.</li>
+</ol>
 <div class="tabGroup" id="tabgroup_CeZOj-G++Q">
 <ul role="tablist">
 <li role="presentation">
 <a href="#tabpanel_CeZOj-G++Q_pnpps" role="tab" aria-controls="tabpanel_CeZOj-G++Q_pnpps" data-tab="pnpps" tabindex="0" aria-selected="true">PnP PowerShell</a>
+</li>
+<li role="presentation">
+<a href="#tabpanel_CeZOj-G++Q_cli-m365-ps" role="tab" aria-controls="tabpanel_CeZOj-G++Q_cli-m365-ps" data-tab="cli-m365-ps" tabindex="-1">CLI for Microsoft 365</a>
 </li>
 </ul>
 <section id="tabpanel_CeZOj-G++Q_pnpps" role="tabpanel" data-tab="pnpps"><button class="article-clipboard" title="Copy to clipboard" data-toggle="tooltip" data-placement="top" data-clipboard-target="section[id^='tabpanel'][data-tab='pnpps'] pre">
@@ -115,61 +120,151 @@
     <span class="article-clipboard__message done">Copied</span>
 </button>
 
-<pre><code class="lang-powershell">
-#Parameters
+<pre><code class="lang-powershell"># Parameters
 $SiteURL = &quot;https://contoso.sharepoint.com/sites/Company311&quot;
-#Library in which to create the dummy files and folders
+
+# Library in which to create the dummy files and folders
 $LibraryName = &quot;LargeLibrary&quot;
-#Location of the dummy file
+
+# Location of the dummy file
 $LocalFile= &quot;C:\Temp\TestDoc.docx&quot;
-#Number of files to create within each folder
+
+# Number of files to create within each folder
 $MaxFilesCount = 20
-#Number of folders to create in the libraru
+
+# Number of folders to create in the libraru
 $MaxFolderCount = 500
-#The name of the folder to be created
+
+# The name of the folder to be created
 $FolderName  = &quot;Folder&quot;
+
 Try {
-    #Get the File from file server
+    # Get the File from file server
     $File = Get-ChildItem $LocalFile
+
+    # Connect to SharePoint online site
     Connect-PnPOnline -Url $SiteURL -Interactive
 
+    # Initialize folder counter
     $FolderCounter = 1
     
     While($FolderCounter -le $MaxFolderCount)
     {
-      $newFolderName = $FolderName +&quot;_&quot;+ $FolderCounter
-       try{
-        
-        Add-PnPFolder -Name $newFolderName -Folder &quot;$($LibraryName)&quot; | Out-Null
-        Write-host -f Green &quot;New Folder '$newFolderName' Created ($FolderCounter of $MaxFolderCount)!&quot;   
-       $FileCounter = 1
-        While($FileCounter -le $MaxFilesCount)
-        {
-            $NewFileName= $File.BaseName+&quot;_&quot;+$FileCounter+&quot;.docx&quot;
-            Try{
-               Add-PnPFile -Path $File -Folder &quot;$($LibraryName)/$newFolderName&quot; -NewFileName $NewFileName | Out-Null
-            }
-            Catch{
-                Write-host &quot;Error: $($_.Exception.Message)&quot; -foregroundcolor Red
-            }
-            Write-host -f Green &quot;New File '$NewFileName' Created ($FileCounter of $MaxFilesCount)!&quot;
-        $FileCounter++
-        }
-       }
-        Catch{
-                Write-host &quot;Error: $($_.Exception.Message)&quot; -foregroundcolor Red
-            }
-    $FolderCounter++;
-   }
+        $newFolderName = $FolderName + &quot;_&quot; + $FolderCounter
+        Try {
+            # Add new folder in the library
+            Add-PnPFolder -Name $newFolderName -Folder &quot;$($LibraryName)&quot; | Out-Null
+            Write-Host -f Green &quot;New Folder '$newFolderName' Created ($FolderCounter of $MaxFolderCount)!&quot;   
+            
+            # Initialize file counter
+            $FileCounter = 1
 
+            While($FileCounter -le $MaxFilesCount)
+            {
+                $NewFileName = $File.BaseName + &quot;_&quot; + $FileCounter + &quot;.docx&quot;
+                Try {
+                    # Add new file in the folder
+                    Add-PnPFile -Path $File -Folder &quot;$($LibraryName)/$newFolderName&quot; -NewFileName $NewFileName | Out-Null
+                }
+                Catch {
+                    Write-Host &quot;Error: $($_.Exception.Message)&quot; -ForegroundColor Red
+                }
+                Write-Host -f Green &quot;New File '$NewFileName' Created ($FileCounter of $MaxFilesCount)!&quot;
+                $FileCounter++
+            }
+        }
+        Catch {
+            Write-Host &quot;Error: $($_.Exception.Message)&quot; -ForegroundColor Red
+        }
+        $FolderCounter++;
+   }
 }
 Catch {
-    write-host -f Red &quot;Error Uploading File:&quot;$_.Exception.Message
+    Write-Host -f Red &quot;Error Uploading File:&quot;$_.Exception.Message
 }
-
 </code></pre>
 <div class="highlight-tool">
 <p>Check out the <strong>PnP PowerShell</strong> to learn more at: <a href="https://aka.ms/pnp/powershell">https://aka.ms/pnp/powershell</a></p>
+</div>
+</section>
+<section id="tabpanel_CeZOj-G++Q_cli-m365-ps" role="tabpanel" data-tab="cli-m365-ps" aria-hidden="true" hidden="hidden"><button class="article-clipboard" title="Copy to clipboard" data-toggle="tooltip" data-placement="top" data-clipboard-target="section[id^='tabpanel'][data-tab='cli-m365-ps'] pre">
+    <span class="glyphicon glyphicon-copy" aria-hidden="true"></span>
+    <span class="article-clipboard__message done">Copied</span>
+</button>
+
+<pre><code class="lang-powershell"># SharePoint online site URL
+$SiteURL = Read-Host -Prompt &quot;Enter your SharePoint site URL (e.g https://contoso.sharepoint.com/sites/Company311)&quot;
+
+# Document library URL where you want to create the dummy folders and files 
+$LibraryName = Read-Host -Prompt &quot;Enter site-relative URL of your Document library (e.g '/Shared Documents')&quot;
+
+# Location of the dummy file
+$LocalFile= &quot;D:\dtemp\TestDoc.docx&quot;
+
+# Number of files to create within each folder
+$MaxFilesCount = 20
+
+# Number of folders to create in the libraru
+$MaxFolderCount = 500
+
+# The name of the folder to be created
+$FolderName  = &quot;Folder&quot;
+
+# Get Credentials to connect
+$m365Status = m365 status
+if ($m365Status -match &quot;Logged Out&quot;) {
+    m365 login
+}
+
+Try {
+	# Get the File from file server
+	$File = Get-ChildItem $LocalFile
+
+	# Initialize folder counter
+	$FolderCounter = 1
+    
+	While($FolderCounter -le $MaxFolderCount)
+	{
+		$newFolderName = $FolderName + &quot;_&quot; + $FolderCounter
+		Try {
+			# Add new folder in the library
+			m365 spo folder add --webUrl $SiteURL --parentFolderUrl $LibraryName --name $newFolderName
+			Write-Host -f Green &quot;New Folder '$newFolderName' Created ($FolderCounter of $MaxFolderCount)!&quot;   
+			
+			# Initialize file counter
+			$FileCounter = 1
+			
+			While($FileCounter -le $MaxFilesCount)
+			{
+				$NewFileName = $File.BaseName + &quot;_&quot; + $FileCounter + &quot;.docx&quot;
+				Try {
+					# Add new file in the folder
+					m365 spo file add --webUrl $SiteURL --folder &quot;$($LibraryName)/$newFolderName&quot; --path $File --FileLeafRef $NewFileName
+				}
+				Catch {
+					Write-Host &quot;Error while creating a new file: $($_.Exception.Message)&quot; -ForegroundColor Red
+				}
+				Write-Host -f Green &quot;New File '$NewFileName' Created ($FileCounter of $MaxFilesCount)!&quot;
+				$FileCounter++
+		   }
+		}
+        Catch {
+			Write-Host &quot;Error while creating a new folder: $($_.Exception.Message)&quot; -ForegroundColor Red
+		}
+		$FolderCounter++;
+	}
+}
+Catch {
+	write-host -f Red &quot;Error Uploading File:&quot;$_.Exception.Message
+}
+
+# Disconnect SharePoint online connection
+m365 logout
+</code></pre>
+<div class="highlight-tool">
+<p>Check out the <strong>CLI for Microsoft 365</strong> to learn more at: <a href="https://aka.ms/cli-m365">https://aka.ms/cli-m365</a></p>
+</div>
+</section>
 </div>
 <h2 id="contributors">Contributors</h2>
 <table>
@@ -182,13 +277,14 @@ Catch {
 <tr>
 <td><a href="https://github.com/reshmee011">Reshmee Auckloo</a></td>
 </tr>
+<tr>
+<td><a href="https://ganeshsanapblogs.wordpress.com/about">Ganesh Sanap</a></td>
+</tr>
 </tbody>
 </table>
 <h2 id="disclaimer">Disclaimer</h2>
 <p><strong>THESE SAMPLES ARE PROVIDED <em>AS IS</em> WITHOUT WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, INCLUDING ANY IMPLIED WARRANTIES OF FITNESS FOR A PARTICULAR PURPOSE, MERCHANTABILITY, OR NON-INFRINGEMENT.</strong></p>
 <img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/spo-add-dummy-folders-and-files" aria-hidden="true">
-</section>
-</div>
 </article>
           </div>
         </div>
