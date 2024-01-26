@@ -17,7 +17,7 @@ Result in the list
 
 ![adaptive card in teams](assets/example.png)
  
-# [CLI for Microsoft 365 with PowerShell](#tab/cli-m365-ps)
+# [CLI for Microsoft 365](#tab/cli-m365-ps)
 ```powershell
 $m365Status = m365 status
 if ($m365Status -match "Logged Out") {

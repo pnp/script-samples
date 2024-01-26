@@ -39,7 +39,7 @@ foreach ($announcement in $announcements) {
 ```
 [!INCLUDE [More about PnP PowerShell](../../docfx/includes/MORE-PNPPS.md)]
 
-# [CLI for Microsoft 365 with PowerShell](#tab/cli-m365-ps)
+# [CLI for Microsoft 365](#tab/cli-m365-ps)
 
 ```powershell
 # Example: .\Send-MessageCenterAnnouncementsToMSTeams.ps1 -Category "planForChange" -TeamName "Team Name" -ChannelName "Channel Name"

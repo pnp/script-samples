@@ -58,7 +58,7 @@ Define below varibales in your Azure pipeline:
 
     ![Azure DevOps Link the Build Artifact](assets/azure-devops-link-build-artifact.png)
 
-# [CLI for Microsoft 365 with PowerShell](#tab/cli-m365-ps)
+# [CLI for Microsoft 365](#tab/cli-m365-ps)
 ```powershell
 # log in to Microsoft 365 using a Personal Information Exchange (.pfx) file
 m365 login --authType certificate --certificateFile $(certificate.secureFilePath) --thumbprint $(thumbprint) --password $(password)

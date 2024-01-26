@@ -62,7 +62,8 @@ Disconnect-MgGraph
 
 ## Source Credit
 
-Sample first appeared on  [https://pnp.github.io/cli-microsoft365/sample-scripts/graph/call-graph/](https://pnp.github.io/cli-microsoft365/sample-scripts/graph/call-graph/)
+Sample first appeared on  [Authenticate with and call the Microsoft Graph](https://pnp.github.io/cli-microsoft365/sample-scripts/graph/authenticate-call-graph/)
+
 
 ## Contributors
 

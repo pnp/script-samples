@@ -12,7 +12,7 @@ Use the CLI for Microsoft 365 to migrate an existing plan to a SharePoint Online
 - Comments made on tasks
 - Attachments
 
-# [CLI for Microsoft 365 with PowerShell](#tab/cli-m365-ps)
+# [CLI for Microsoft 365](#tab/cli-m365-ps)
 
 ```powershell
 param (

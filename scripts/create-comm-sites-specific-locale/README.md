@@ -57,7 +57,7 @@ Write-Host "Script Complete! :)" -ForegroundColor Green
 ```
 [!INCLUDE [More about SPO Management Shell](../../docfx/includes/MORE-SPOMS.md)]
 
-# [CLI for Microsoft 365 with PowerShell](#tab/cli-m365-ps)
+# [CLI for Microsoft 365](#tab/cli-m365-ps)
 ```powershell
 
 $newSiteUrl = "https://<tenant>.sharepoint.com/sites/Pensaerniaeth"

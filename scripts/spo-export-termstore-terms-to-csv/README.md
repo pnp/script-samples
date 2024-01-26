@@ -14,7 +14,7 @@ Script will export all or selected term groups' terms to CSV file.
 - Edit Script and add details like SharePoint tenant URL, Term groups, and the output directory
 - Press run
 
-# [CLI for Microsoft 365 with PowerShell](#tab/cli-m365-ps)
+# [CLI for Microsoft 365](#tab/cli-m365-ps)
 
 ```powershell
 ###### Declare and Initialize Variables ######  

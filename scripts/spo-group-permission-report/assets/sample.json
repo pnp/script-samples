@@ -2,7 +2,7 @@
   {
     "name": "spo-group-permission-report",
     "source": "pnp",
-    "title": "Get permission group report of a site.",
+    "title": "Get permission group report of a site",
     "shortDescription": "The scripts get group permission report of site and each list on the site and prints it to console and also sends it as an adaptive card to Teams channel specified by webhook.",
     "url": "https://pnp.github.io/script-samples/spo-group-permission-report/README.html",
     "longDescription": [
@@ -23,7 +23,15 @@
       "Data",
       "Security"
     ],
-    "tags": [],
+    "tags": [
+      "m365 status",
+      "m365 login",
+      "m365 spo web get",
+      "m365 spo group list",
+      "m365 spo list list",
+      "m365 spo list get",
+      "m365 adaptivecard send"
+    ],
     "thumbnails": [
       {
         "type": "image",

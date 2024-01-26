@@ -8,7 +8,7 @@ plugin: add-to-gallery
 
 Validate all your users against known breaches with the have i been pwned api. That way you can quickly scan if your users are part of any known breaches.
 
-# [CLI for Microsoft 365 with PowerShell](#tab/cli-m365-ps)
+# [CLI for Microsoft 365](#tab/cli-m365-ps)
 
 ```powershell
 $apiKey = "<PUTYOURKEYHERE>"

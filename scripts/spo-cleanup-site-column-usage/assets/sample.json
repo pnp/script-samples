@@ -3,10 +3,10 @@
     "name": "spo-cleanup-site-column-usage",
     "source": "pnp",
     "title": "Clean Up Unwanted Site Columns from Content Types and Lists/Libraries",
-    "shortDescription": "We decide we want to trim away a few of the Site Columns we’ve created, here is the script that does just that",
+    "shortDescription": "We decide we want to trim away a few of the Site Columns we've created, here is the script that does just that",
     "url": "https://pnp.github.io/script-samples/spo-cleanup-site-column-usage/README.html",
     "longDescription": [
-      "Sometimes when we iteratively build out our information architecture, we’re over-zealous. It seems like we need a set of Site Columns to maintain metadata on lists or libraries, but in the end, we decide we want to trim away a few of the Site Columns we’ve created."
+      "Sometimes when we iteratively build out our information architecture, we're over-zealous. It seems like we need a set of Site Columns to maintain metadata on lists or libraries, but in the end, we decide we want to trim away a few of the Site Columns we’ve created."
     ],
     "creationDateTime": "2021-10-15",
     "updateDateTime": "2021-10-25",
@@ -27,7 +27,22 @@
       "Configure",
       "Report"
     ],
-    "tags": [],
+    "tags": [
+      "Connect-PnPOnline",
+      "Get-PnPContentType",
+      "Get-PnPProperty",
+      "Remove-PnPFieldFromContentType",
+      "Get-PnPList",
+      "Get-PnPField",
+      "Remove-PnPField",
+      "m365 status",
+      "m365 login",
+      "m365 spo contenttype get",
+      "m365 spo contenttype field remove",
+      "m365 spo list list",
+      "m365 spo field get",
+      "m365 spo field remove"
+    ],
     "thumbnails": [
       {
         "type": "image",

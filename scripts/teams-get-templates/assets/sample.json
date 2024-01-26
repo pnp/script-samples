@@ -2,7 +2,7 @@
   {
     "name": "teams-get-templates",
     "source": "pnp",
-    "title": "Collect and export Teams templates",
+    "title": "Get Teams Templates",
     "shortDescription": "This script allow us to collect and export current tenant Teams Templates",
     "url": "https://pnp.github.io/script-samples/teams-get-templates/README.html",
     "longDescription": [
@@ -22,7 +22,11 @@
     "categories": [
       "Data"
     ],
-    "tags": [],
+    "tags": [
+      "Get-PnPStoredCredential",
+      "Invoke-WebRequest",
+      "Invoke-RestMethod"
+    ],
     "thumbnails": [
       {
         "type": "image",
