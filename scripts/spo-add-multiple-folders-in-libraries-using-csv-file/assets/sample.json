@@ -4,26 +4,39 @@
     "name": "spo-add-multiple-folders-in-libraries-using-csv-file",
     "version": null,
     "source": "pnp",
-    "title": "Add multiple folders in libraries using a csv file",
+    "title": "Add multiple folders in libraries using a CSV file",
     "url": "https://pnp.github.io/script-samples/spo-add-multiple-folders-in-libraries-using-csv-file/README.html",
     "creationDateTime": "2021-05-10",
-    "updateDateTime": "2022-06-29",
-    "shortDescription": "This script will create the folders (not nested) into the libraries provided in the .csv file.",
+    "updateDateTime": "2024-01-25",
+    "shortDescription": "This script will create the folders (not nested) into the libraries provided in the CSV file.",
     "longDescription": null,
     "products": [
       "SharePoint"
     ],
     "categories": [
-      "Data"
+      "Data",
+      "Provision"
     ],
     "tags": [
       "SharePoint Online",
-      "Governance"
+      "Connect-PnPOnline",
+      "Get-PnPWeb",
+      "Get-PnPList",
+      "Resolve-PnPFolder",
+      "m365 status",
+      "m365 login",
+      "m365 spo list get",
+      "m365 spo folder add",
+      "m365 logout"
     ],
     "metadata": [
       {
         "key": "PNP-POWERSHELL",
         "value": "1.10.0"
+      },
+      {
+          "key":"CLI-FOR-MICROSOFT365",
+          "value":"7.3.0"
       }
     ],
     "thumbnails": [
@@ -37,6 +50,12 @@
     ],
     "authors": [
       {
+        "gitHubAccount": "ganesh-sanap",
+        "company": "",
+        "pictureUrl": "https://avatars.githubusercontent.com/u/25476310?v=4",
+        "name": "Ganesh Sanap"
+      },
+      {
         "gitHubAccount": "Jitenparmar",
         "company": "",
         "pictureUrl": "https://avatars.githubusercontent.com/u/7124132?v=4",
@@ -48,6 +67,11 @@
         "name": "Want to learn more about PnP PowerShell and the cmdlets",
         "description": "Check out the PnP PowerShell site to get started and for the reference to the cmdlets.",
         "url": "https://aka.ms/pnp/powershell"
+      },
+      {
+        "name": "Want to learn more about CLI for Microsoft 365 and the commands",
+        "description": "Check out the CLI for Microsoft 365 site to get started and for the reference to the commands.",
+        "url": "https://aka.ms/cli-m365"
       }
     ]
   }
