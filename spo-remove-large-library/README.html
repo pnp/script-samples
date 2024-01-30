@@ -133,8 +133,7 @@ $ErrorActionPreference=&quot;Stop&quot;
 write-host $(&quot;Start time &quot; + (Get-Date))
 
 Connect-PnPOnline -URL $SiteURL -Interactive
-#Get the web &amp; Root folder of the library
-$Web = Get-PnPWeb
+#Get Root folder of the library
 $Library = Get-PnPList -Identity $LibraryName -Includes RootFolder
 $Folder = $Library.RootFolder
 
