@@ -28,7 +28,7 @@ Following data will be copied:
 | SourcePlanId | Yes | Source Planner plan to copy. |
 | DestinationGroupId | Yes | Destination group ID to copy the plan to. |
 
-# [CLI for Microsoft 365 with PowerShell](#tab/cli-m365-ps)
+# [CLI for Microsoft 365](#tab/cli-m365-ps)
 
 ```powershell
 # Usage example:

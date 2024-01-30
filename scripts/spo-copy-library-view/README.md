@@ -11,7 +11,7 @@ The sample script using PnP PowerShell to copy a library view from the source si
 
 Please refactor according to requirements as in the sample given only fields, views, query, item limit and certain settings are copied across.
 
-# [CLI for Microsoft 365 with PowerShell](#tab/cli-m365-ps)
+# [CLI for Microsoft 365](#tab/cli-m365-ps)
 
 ```powershell
 

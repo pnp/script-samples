@@ -38,7 +38,7 @@ m365 aad approleassignment add --objectId "<paste the object id here>" --resourc
 
 For more instructions, follow the code on the [referenced blog](https://www.blimped.nl/getting-notified-of-service-incidents-in-microsoft-teams/).
  
-# [CLI for Microsoft 365 with PowerShell](#tab/cli-m365-ps)
+# [CLI for Microsoft 365](#tab/cli-m365-ps)
 ```powershell
 $sharePointUrl = "https://contoso.sharepoint.com"
 $webUrl = "/sites/contoso"
