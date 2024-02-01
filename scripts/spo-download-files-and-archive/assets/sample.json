@@ -1,0 +1,71 @@
+[
+  {
+    "name": "spo-download-files-and-archive",
+    "source": "pnp",
+    "title": "Download all files from array of documents urls and archive them",
+    "shortDescription": "The script downloads all files from array of documents urls and archive them to a zip file",
+    "url": "https://pnp.github.io/script-samples/spo-download-files-and-archive/README.html",
+    "longDescription": [
+      "Download all the files from array of documents urls and archive them to a zip file"
+    ],
+    "creationDateTime": "2024-02-01",
+    "updateDateTime": "2024-02-01",
+    "products": [
+      "SharePoint"
+    ],
+    "metadata": [
+      {
+        "key": "PNP-POWERSHELL",
+        "value": "2.2.1"
+      },
+      {
+          "key":"CLI-FOR-MICROSOFT365",
+          "value":"6.8.0"
+      }
+    ],
+    "categories": [
+      "Data"
+    ],
+    "tags": [
+      "Modern",
+      "Files",
+      "Documents",
+      "Connect-PnPOnline",
+      "Get-PnPList",
+      "Get-PnPFile",
+      "Disconnect-PnPOnline",
+      "m365 status",
+      "m365 login",
+      "m365 spo file get",
+      "m365 logout"
+    ],
+    "thumbnails": [
+      {
+        "type": "image",
+        "order": 100,
+        "url": "https://raw.githubusercontent.com/pnp/script-samples/main/scripts/spo-download-files-and-archive/assets/preview.png",
+        "alt": "preview image showing there is no preview"
+      }
+    ],
+    "authors": [
+      {
+        "gitHubAccount": "ValerasNarbutas",
+        "company": "",
+        "pictureUrl": "https://avatars.githubusercontent.com/u/16476453?v=4",
+        "name": "Valeras Narbutas"
+      }
+    ],
+    "references": [
+      {
+        "name": "Want to learn more about PnP PowerShell and the cmdlets",
+        "description": "Check out the PnP PowerShell site to get started and for the reference to the cmdlets.",
+        "url": "https://aka.ms/pnp/powershell"
+      },
+      {
+          "name": "Want to learn more about CLI for Microsoft 365 and the commands",
+          "description": "Check out the CLI for Microsoft 365 site to get started and for the reference to the commands.",
+          "url": "https://aka.ms/cli-m365"
+      }
+    ]
+  }
+]
