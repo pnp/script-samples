@@ -38,7 +38,7 @@ echo $me | jq
 # [PnP PowerShell](#tab/pnpps)
 
 ```powershell
-#https://docs.microsoft.com/en-us/powershell/module/sharepoint-pnp/connect-pnponline?view=sharepoint-ps#example-7
+#https://pnp.github.io/powershell/cmdlets/Connect-PnPOnline.html#example-7
 Connect-PnPOnline -Url "https://contoso.sharepoint.com" -ClientId 6c5c98c7-e05a-4a0f-bcfa-0cfc65aa1f28 -Tenant 'contoso.onmicrosoft.com' -Thumbprint 34CFAA860E5FB8C44335A38A097C1E41EEA206AA
 
 $token = Get-PnPGraphAccessToken

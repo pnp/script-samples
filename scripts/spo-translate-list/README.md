@@ -183,7 +183,7 @@ After running the script the translated values have been added to your ID-App La
 
 If you add new items to any of the lists the script can be rerun and it will re-translate everything.
 
-To run the script you will need to get a key for Azure translation services as described at https://docs.microsoft.com/en-us/azure/cognitive-services/translator/translator-how-to-signup. Your key should be place in the variable $subscriptionkey 
+To run the script you will need to get a key for Azure translation services as described at https://learn.microsoft.com/azure/ai-services/translator/create-translator-resource. Your key should be place in the variable $subscriptionkey 
 
 > [!Note]
 > The translations done using machine translation services should be reviewed by someone who speaks both languages. The are sometime incorrect.

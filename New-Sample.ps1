@@ -6,8 +6,8 @@
 
     References:
 
-        https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_functions_advanced_parameters?view=powershell-7.3
-        https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_functions_argument_completion?view=powershell-7.3 
+        https://learn.microsoft.com/powershell/module/microsoft.powershell.core/about/about_functions_advanced_parameters
+        https://learn.microsoft.com/powershell/module/microsoft.powershell.core/about/about_functions_argument_completion 
  
     Examples:
 
@@ -147,7 +147,7 @@ begin{
             Reference = [PSCustomObject]@{
                 "name" = "Introduction to the SharePoint Online Management Shell"
                 "description" = "Check out the SPO Management Shell documentation site to get started and for the reference to the cmdlets."
-                "url" = "https://docs.microsoft.com/en-us/powershell/sharepoint/sharepoint-online/introduction-sharepoint-online-management-shell?view=sharepoint-ps"
+                "url" = "https://docs.microsoft.com/powershell/sharepoint/sharepoint-online/introduction-sharepoint-online-management-shell"
             }
             Metadata = [PSCustomObject]@{
             }
@@ -173,7 +173,7 @@ begin{
             Reference = [PSCustomObject]@{
                 "name" = "Want to learn more about Microsoft Graph PowerShell SDK and the cmdlets"
                 "description" = "Check out the Microsoft Graph PowerShell SDK documentation site to get started and for the reference to the cmdlets."
-                "url" = "https://docs.microsoft.com/en-us/graph/powershell/get-started"
+                "url" = "https://docs.microsoft.com/graph/powershell/get-started"
             }
             Metadata = [PSCustomObject]@{
             }
@@ -186,7 +186,7 @@ begin{
             Reference = [PSCustomObject]@{
                 "name" = "Want to learn more about Azure CLI and the commands"
                 "description" = "Check out the Azure CLI documentation site to get started and for the reference to the commands."
-                "url" = "https://docs.microsoft.com/en-us/cli/azure/"
+                "url" = "https://docs.microsoft.com/cli/azure/"
             }
             Metadata = [PSCustomObject]@{
             }
@@ -199,7 +199,7 @@ begin{
             Reference = [PSCustomObject]@{
                 "name" = "Want to learn more about Power Apps PowerShell and the cmdlets"
                 "description" = "Check out the Power Apps PowerShell documentation site to get started and for the reference to the cmdlets."
-                "url" = "https://docs.microsoft.com/en-us/power-platform/admin/powerapps-powershell"
+                "url" = "https://docs.microsoft.com/power-platform/admin/powerapps-powershell"
             }
             Metadata = [PSCustomObject]@{
             }
@@ -212,7 +212,7 @@ begin{
             Reference = [PSCustomObject]@{
                 "name" = "Want to learn more about Microsoft Teams PowerShell and the cmdlets"
                 "description" = "Check out the Microsoft Teams PowerShell documentation site to get started and for the reference to the cmdlets."
-                "url" = "https://docs.microsoft.com/en-us/microsoftteams/teams-powershell-overview"
+                "url" = "https://docs.microsoft.com/microsoftteams/teams-powershell-overview"
             }
             Metadata = [PSCustomObject]@{
             }

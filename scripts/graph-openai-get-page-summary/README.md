@@ -32,7 +32,7 @@ Param(
 )
 
 # function to connect to Microsoft Graph
-# See https://learn.microsoft.com/en-us/powershell/microsoftgraph/get-started?view=graph-powershell-1.0 for more details
+# See https://learn.microsoft.com/powershell/microsoftgraph/get-started for more details
 function Connect-Graph {
 
     Write-Host "Connecting to Microsoft Graph.";

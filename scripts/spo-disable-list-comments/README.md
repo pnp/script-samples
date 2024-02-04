@@ -10,7 +10,7 @@ This sample script shows how to disable commenting feature in SharePoint online 
 
 Scenario inspired from this blog post: [Enable/Disable SharePoint Online List Comments using PnP PowerShell](https://ganeshsanapblogs.wordpress.com/2023/03/19/enable-disable-sharepoint-online-list-comments-using-pnp-powershell/)
 
-If you want to enable/disable SharePoint list commenting at tenant level, check this PnP script sample: [Disable SharePoint List Commenting at tenant level](https://pnp.github.io/script-samples/spo-disable-list-comments-tenant/README.html?tabs=pnpps)
+If you want to enable/disable SharePoint list commenting at tenant level, check this PnP script sample: [Disable SharePoint List Commenting at tenant level](https://pnp.github.io/script-samples/spo-disable-list-comments-tenant/README.html)
 
 ![Outupt Screenshot](assets/output.png)
 

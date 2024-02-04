@@ -13,7 +13,7 @@ This way of filtering could be useful for the community where projects may reque
 Note: This
 
 The Microsoft Graph returned the SKU ID, so you will need to refer to the following reference for translating this into the product you are filtering for.
-[Product names and service plan identifiers for licensing - Azure AD - Microsoft Entra | Microsoft Learn](https://learn.microsoft.com/en-us/azure/active-directory/enterprise-users/licensing-service-plan-reference)
+[Product names and service plan identifiers for licensing - Azure AD - Microsoft Entra | Microsoft Learn](https://learn.microsoft.com/azure/active-directory/enterprise-users/licensing-service-plan-reference)
 
 
 ![Example Screenshot](assets/example.png)
@@ -27,7 +27,7 @@ The Microsoft Graph returned the SKU ID, so you will need to refer to the follow
 Find-MgGraphCommand -command Get-MgUser | Select -First 1 -ExpandProperty Permissions
 
 # Note: Details user and application sign-in activity for a tenant (directory). You must have an Azure AD Premium P1 or P2 license to download sign-in logs using the Microsoft Graph API.
-# Reference: https://learn.microsoft.com/en-us/graph/api/resources/signin?view=graph-rest-1.0
+# Reference: https://learn.microsoft.com/graph/api/resources/signin
 
 # Connect (you will need admin permissions for this)
 Connect-MgGraph -Scopes User.Read.All,Directory.Read.All,AuditLog.Read.All
@@ -35,7 +35,7 @@ Connect-MgGraph -Scopes User.Read.All,Directory.Read.All,AuditLog.Read.All
 # Get Details about your session
 Get-MgContext
 
-# License SkuIds https://learn.microsoft.com/en-us/azure/active-directory/enterprise-users/licensing-service-plan-reference
+# License SkuIds https://learn.microsoft.com/azure/active-directory/enterprise-users/licensing-service-plan-reference
 # Some Common Ones
 # E1 - 18181a46-0d4e-45cd-891e-60aabd171b4e
 # E2 - 6634e0ce-1a9f-428c-a498-f84ec7b8aa2e
@@ -46,7 +46,7 @@ Get-MgContext
 $license = "6634e0ce-1a9f-428c-a498-f84ec7b8aa2e" # E2 License (Charity)
 
 # For more information about the filter query check out the following resource:
-#   https://learn.microsoft.com/en-us/graph/filter-query-parameter?context=graph%2Fapi%2F1.0&view=graph-rest-1.0
+# https://learn.microsoft.com/graph/filter-query-parameter
 $filter = "assignedLicenses/any(s:s/skuId eq " + $license + ")"
 
 # Licenses
@@ -61,7 +61,7 @@ $users = Get-MgUser -Property "displayName","signInActivity","assignedLicenses",
 $users
 
 # High recommend looking at the graph explorer to help you understand the properties you can query
-#   https://developer.microsoft.com/en-us/graph/graph-explorer
+#   https://developer.microsoft.com/graph/graph-explorer
 #   e.g. https://graph.microsoft.com/beta/users?$select=displayName,signInActivity&$filter=assignedLicenses/any(s:s/skuId eq  '6634e0ce-1a9f-428c-a498-f84ec7b8aa2e')
 
 # Filtered List

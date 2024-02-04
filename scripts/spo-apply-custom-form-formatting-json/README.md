@@ -8,7 +8,7 @@ plugin: add-to-gallery
 
 From time to time your client will need a list/Content type that consist of a lot of fields and it looks awful while entering data. One option could be to replace the Edit form with a Power App but as far as I know it is not possible to deploy a Power App as part of your Provisioning.
 Another option is to use Form formatting :
-https://learn.microsoft.com/en-us/sharepoint/dev/declarative-customization/list-form-configuration
+https://learn.microsoft.com/sharepoint/dev/declarative-customization/list-form-configuration
 
 Samples here: https://github.com/pnp/List-Formatting/tree/master/form-samples
 

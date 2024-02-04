@@ -14,7 +14,7 @@ This script will create site design with different column types.
  - Changes list view to custom one
 
 More about site design schema
- [https://docs.microsoft.com/en-us/sharepoint/dev/declarative-customization/site-design-json-schema](https://docs.microsoft.com/en-us/sharepoint/dev/declarative-customization/site-design-json-schema)
+ [https://docs.microsoft.com/sharepoint/dev/declarative-customization/site-design-json-schema](https://docs.microsoft.com/sharepoint/dev/declarative-customization/site-design-json-schema)
 
 ![Example Screenshot](assets/example.png)
 

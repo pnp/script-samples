@@ -238,7 +238,7 @@ begin {
         if ($null -eq $creds) {
             $msg = "Provided credentials [$StoredCredentials] not found  `n`r"
             $msg += "You can use [Add-PnPStoredCredential] to adds a credential to the Windows Credential Manager `n`r"
-            $msg += "Link [https://docs.microsoft.com/en-us/powershell/module/sharepoint-pnp/add-pnpstoredcredential?view=sharepoint-ps]`n`r"
+            $msg += "Link [https://pnp.github.io/powershell/cmdlets/Add-PnPStoredCredential.html]`n`r"
             throw $msg
         }
     }

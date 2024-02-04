@@ -41,7 +41,7 @@ Param(
 function executeDeleteAzureResources {
 
     # Getting all the resources from specified Resource group. We will be filtering the Resources group using JMESPath Query. 
-    # Refer https://learn.microsoft.com/en-us/cli/azure/query-azure-cli?tabs=concepts%2Cbash for details
+    # Refer https://learn.microsoft.com/cli/azure/query-azure-cli for details
     $ResourceList = (az resource list --query "[?resourceGroup=='$resourcegroupName'].{ Name: name, Id: id}") | ConvertFrom-Json
 
     # Showing the resource count in the Resource Group
