@@ -37,14 +37,14 @@ $logCollection = @()
 while($days -ge $endDay){
 if($days -eq 0)
 {
- $activities =  Get-PnPUnifiedAuditLog -ContentType SharePoint -ErrorAction Ignore
+ $activities +=  Get-PnPUnifiedAuditLog -ContentType SharePoint -ErrorAction Ignore
  $activities +=  Get-PnPUnifiedAuditLog -ContentType AzureActiveDirectory -ErrorAction Ignore
  $activities +=  Get-PnPUnifiedAuditLog -ContentType DLP -ErrorAction Ignore
  $activities +=  Get-PnPUnifiedAuditLog -ContentType Exchange -ErrorAction Ignore
  $activities +=  Get-PnPUnifiedAuditLog -ContentType General -ErrorAction Ignore
  
 }else {
-    $activities = Get-PnPUnifiedAuditLog -ContentType AzureActiveDirectory -ErrorAction Ignore  -StartTime (Get-date).adddays(-$days) -EndTime (Get-date).adddays(-($days-1))
+    $activities += Get-PnPUnifiedAuditLog -ContentType AzureActiveDirectory -ErrorAction Ignore  -StartTime (Get-date).adddays(-$days) -EndTime (Get-date).adddays(-($days-1))
     $activities += Get-PnPUnifiedAuditLog -ContentType SharePoint -ErrorAction Ignore  -StartTime (Get-date).adddays(-$days) -EndTime (Get-date).adddays(-($days-1))
     $activities += Get-PnPUnifiedAuditLog -ContentType DLP -ErrorAction Ignore  -StartTime (Get-date).adddays(-$days) -EndTime (Get-date).adddays(-($days-1))
     $activities += Get-PnPUnifiedAuditLog -ContentType Exchange -ErrorAction Ignore  -StartTime (Get-date).adddays(-$days) -EndTime (Get-date).adddays(-($days-1))
@@ -66,8 +66,58 @@ if($days -eq 0)
 $logCollection | sort-object "Operation" |Export-CSV $OutPutView -Force -NoTypeInformation
 ```
 
+# [CLI for Microsoft 365](#tab/cli-m365-ps)
+
+
+```PowerShell
+$SiteUrl = "https://contoso.sharepoint.com/sites/test"
+$userId = "testusero@contoso.co.uk" 
+Write-Host "Ensure logged in"
+$m365Status = m365 status --output text
+if ($m365Status -eq "Logged Out") {
+  Write-Host "Logging in the User!"
+  m365 login --authType browser
+}
+$days = 3
+$endDay = 0
+$Operations = @()
+ 
+# Generate a unique log file name using today's date
+$dateTime = (Get-Date).toString("dd-MM-yyyy_HHmm")
+$invocation = (Get-Variable MyInvocation).Value
+$directorypath = Split-Path $invocation.MyCommand.Path
+$fileName = "logReport-" + $dateTime + ".csv"
+$OutPutView = $directorypath + "\Logs\"+ $fileName
+ 
+$logCollection = @()
+while($days -ge $endDay){
+if($days -eq 0)
+{
+    $activities +=  m365 purview auditlog list --contentType SharePoint --output 'json' | ConvertFrom-Json
+    $activities +=  m365 purview auditlog list --contentType AzureActiveDirectory --output 'json' | ConvertFrom-Json #-ErrorAction Ignore
+    $activities +=  m365 purview auditlog list --contentType DLP --output 'json' | ConvertFrom-Json
+    $activities +=  m365 purview auditlog list --contentType Exchange --output 'json' | ConvertFrom-Json
+    $activities +=  m365 purview auditlog list --contentType General --output 'json' | ConvertFrom-Json
+ 
+}else {
+   $activities += m365 purview auditlog list --contentType SharePoint --startTime ((Get-date).adddays(-$days) | Get-Date -uFormat '%Y-%m-%d') --endTime ((Get-date).adddays(-($days-1)) | Get-Date -uFormat '%Y-%m-%d') --output 'json' | ConvertFrom-Json
+   $activities += m365 purview auditlog list --contentType AzureActiveDirectory --startTime ((Get-date).adddays(-$days) | Get-Date -uFormat '%Y-%m-%d') --endTime ((Get-date).adddays(-($days-1)) | Get-Date -uFormat '%Y-%m-%d') --output 'json'| ConvertFrom-Json
+   $activities += m365 purview auditlog list --contentType DLP -ErrorAction Ignore --startTime ((Get-date).adddays(-$days) | Get-Date -uFormat '%Y-%m-%d') --endTime ((Get-date).adddays(-($days-1)) | Get-Date -uFormat '%Y-%m-%d') --output 'json' | ConvertFrom-Json
+   $activities += m365 purview auditlog list --contentType Exchange -ErrorAction Ignore --startTime ((Get-date).adddays(-$days) | Get-Date -uFormat '%Y-%m-%d') --endTime ((Get-date).adddays(-($days-1)) | Get-Date -uFormat '%Y-%m-%d') --output 'json' | ConvertFrom-Json
+   $activities += m365 purview auditlog list --contentType General -ErrorAction Ignore  --startTime ((Get-date).adddays(-$days) | Get-Date -uFormat '%Y-%m-%d') --endTime ((Get-date).adddays(-($days-1)) | Get-Date -uFormat '%Y-%m-%d') --output 'json' | ConvertFrom-Json
+ }
+ 
+if($activity.SiteUrl ){#-and $activity.SiteUrl
+   if($activity.SiteUrl.ToLower() -eq $SiteUrl)    #-$activity.UserId.ToLower() -eq $userId
+ {  
+    $logCollection += $activity
+ }
+ ```
+
+[!INCLUDE [More about CLI for Microsoft 365](../../docfx/includes/MORE-CLIM365.md)]
+
 > [!Note]
-> SharePoint admin rights are required to run the script
+> SharePoint admin rights are required to run the script ,
 
 [!INCLUDE [More about PnP PowerShell](../../docfx/includes/MORE-PNPPS.md)]
 
