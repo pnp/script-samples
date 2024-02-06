@@ -2,7 +2,7 @@
 
 This is the maintainers guide to provide a location to share knowledge about how the site works and some of the behaviors of the setup and underlying configuration.
 
-The site uses the DocFx engine, this is the same tool that [docs.microsoft.com](https://docs.microsoft.com) uses (albeit a special version) in combination with the Material UI + UI tweaks we have made with the help and thanks for Hugo Bernier.
+The site uses the DocFx engine, this is the same tool that [learn.microsoft.com](https://learn.microsoft.com) uses (albeit a special version) in combination with the Material UI + UI tweaks we have made with the help and thanks for Hugo Bernier.
 
 In addition, plugins have been developed to extend DocFx to generate the galleries.
 

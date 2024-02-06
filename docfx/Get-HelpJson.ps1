@@ -41,7 +41,7 @@ function Process-SPOManagementShellDocs
 
     $spomsDocs = Join-Path -Path $currentLocation -ChildPath "OfficeDocs-SharePoint-PowerShell\sharepoint\sharepoint-ps\sharepoint-online"
     Write-Host "Processing SPO Management Shell Path: $($spomsDocs)"
-    $spomsBaseSitePath = "https://docs.microsoft.com/powershell/module/sharepoint-online"
+    $spomsBaseSitePath = "https://learn.microsoft.com/powershell/module/sharepoint-online"
     $spomsDocsFiles = Get-ChildItem -Path $spomsDocs
     $spomsDocRows = @()
 
