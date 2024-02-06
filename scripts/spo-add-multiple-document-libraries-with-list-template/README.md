@@ -6,10 +6,10 @@ plugin: add-to-gallery
 
 ## Summary
 
-  [Creating custom list templates](https://docs.microsoft.com/sharepoint/lists-custom-template) is now possible to create both custom document libraries and lists although official microsoft documentation has not specified anything about supporting custom document library templates. This script will create multiple instances of document library by applying custom list template. Please refer to [Create and add list template to SharePoint site with content types,site columns and list views](https://pnp.github.io/script-samples/spo-add-list-template-with-custom-library/README.html) to add a custom list template. However there are some limitations with the list design to  set permissions, apply versionings, create indexed columns , etc.. The script calls the cmdlet Invoke-SPOListDesign iteratively and amends the document library url and display name before applying versioning settings and creating indexed columns.  
+  [Creating custom list templates](https://learn.microsoft.com/sharepoint/lists-custom-template) is now possible to create both custom document libraries and lists although official microsoft documentation has not specified anything about supporting custom document library templates. This script will create multiple instances of document library by applying custom list template. Please refer to [Create and add list template to SharePoint site with content types,site columns and list views](https://pnp.github.io/script-samples/spo-add-list-template-with-custom-library/README.html) to add a custom list template. However there are some limitations with the list design to  set permissions, apply versionings, create indexed columns , etc.. The script calls the cmdlet Invoke-SPOListDesign iteratively and amends the document library url and display name before applying versioning settings and creating indexed columns.  
  
 More about list template 
- [https://docs.microsoft.com/sharepoint/lists-custom-template](https://docs.microsoft.com/sharepoint/lists-custom-template)
+ [https://learn.microsoft.com/sharepoint/lists-custom-template](https://learn.microsoft.com/sharepoint/lists-custom-template)
 
 # [PnP PowerShell](#tab/pnpps)
 

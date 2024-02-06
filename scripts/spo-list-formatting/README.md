@@ -7,9 +7,9 @@ plugin: add-to-gallery
 ## Summary
 
 SharePoint Online provides user interface for defining column and view formatting and forms configuration:
-- [Use view formatting to customize SharePoint](https://docs.microsoft.com/sharepoint/dev/declarative-customization/view-formatting), 
-- [Show or hide columns in a list or library form](https://docs.microsoft.com/sharepoint/dev/declarative-customization/list-form-conditional-show-hide) and 
-- [Configure the list form](https://docs.microsoft.com/sharepoint/dev/declarative-customization/list-form-configuration). 
+- [Use view formatting to customize SharePoint](https://learn.microsoft.com/sharepoint/dev/declarative-customization/view-formatting), 
+- [Show or hide columns in a list or library form](https://learn.microsoft.com/sharepoint/dev/declarative-customization/list-form-conditional-show-hide) and 
+- [Configure the list form](https://learn.microsoft.com/sharepoint/dev/declarative-customization/list-form-configuration). 
 
 However, the `Get-PnPSiteTemplate -Handlers Lists` command does not include these customizations. These scripts bridge this gap.
 The Get-ListFormatting script exports:
