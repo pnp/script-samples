@@ -108,7 +108,7 @@
 <li>Azure Cognitive Search with Semantic Search enabled (free plan is fine)</li>
 <li>Setup the Data Source, Index, and Indexer in Azure Cognitive Search</li>
 </ul>
-<p>Reference: <a href="https://learn.microsoft.com/en-us/azure/ai-services/openai/reference#completions-extensions">https://learn.microsoft.com/en-us/azure/ai-services/openai/reference#completions-extensions</a></p>
+<p>Reference: <a href="https://learn.microsoft.com/azure/ai-services/openai/reference#completions-extensions">https://learn.microsoft.com/azure/ai-services/openai/reference#completions-extensions</a></p>
 <div class="tabGroup" id="tabgroup_CeZOj-G++Q">
 <ul role="tablist">
 <li role="presentation">
@@ -186,7 +186,7 @@ $body = [ordered]@{
     messages = $messages
 } | ConvertTo-Json -Depth 3
 
-# https://learn.microsoft.com/en-us/azure/ai-services/openai/reference#completions-extensions
+# https://learn.microsoft.com/azure/ai-services/openai/reference#completions-extensions
 $url = &quot;$($azureOpenAIEndPoint)openai/deployments/$($azureOpenAIDeploymentName)/extensions/chat/completions?api-version=$($azureOpenAIApiVersion)&quot;
 
 # Check the Input Json Bodies
@@ -212,7 +212,7 @@ $response | ConvertTo-Json -Depth 10 | Out-File &quot;response.json&quot; -Force
 
 </code></pre>
 <div class="highlight-tool">
-<p>Check out the <strong>PowerShell</strong> to learn more at: <a href="https://learn.microsoft.com/en-us/powershell/">PowerShell Documentation | Microsoft Learn</a></p>
+<p>Check out the <strong>PowerShell</strong> to learn more at: <a href="https://learn.microsoft.com/powershell">PowerShell Documentation | Microsoft Learn</a></p>
 </div>
 </section>
 <section id="tabpanel_CeZOj-G++Q_settings" role="tabpanel" data-tab="settings" aria-hidden="true" hidden="hidden"><button class="article-clipboard" title="Copy to clipboard" data-toggle="tooltip" data-placement="top" data-clipboard-target="section[id^='tabpanel'][data-tab='settings'] pre">

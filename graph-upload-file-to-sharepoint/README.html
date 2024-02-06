@@ -100,7 +100,7 @@
 
 <h2 id="summary">Summary</h2>
 <p>This script allows you to upload a large file to SharePoint using MS Graph API Rest Call.</p>
-<p>The script uses <a href="https://learn.microsoft.com/en-us/graph/api/driveitem-createuploadsession">DriveItem: createUploadSession</a>, which uploads the file in chunks. Maximum size a chunk can be is 60 MiB, however in this example, it breaks the file into 1.31 MiB.</p>
+<p>The script uses <a href="https://learn.microsoft.com/graph/api/driveitem-createuploadsession">DriveItem: createUploadSession</a>, which uploads the file in chunks. Maximum size a chunk can be is 60 MiB, however in this example, it breaks the file into 1.31 MiB.</p>
 <p>The script will overwrite the file if it already exists in the SharePoint library, or you can provide an alternative name for the file.</p>
 <p>The script does not handle possible errors.</p>
 <h3 id="pre-requisites">Pre-requisites</h3>
@@ -177,7 +177,7 @@ Sign in:</p>
             -AlternativeFileName:&quot;Renamed Script Samples Rock.docx&quot;
 
 .LINK
-    https://learn.microsoft.com/en-us/graph/api/driveitem-createuploadsession
+    https://learn.microsoft.com/graph/api/driveitem-createuploadsession
 #&gt;
 [CmdletBinding(SupportsShouldProcess)]
 param (
@@ -274,7 +274,7 @@ while ($fileLength -gt ($end + 1)) {
 }
 </code></pre>
 <div class="highlight-tool">
-<p>Check out the <strong>Azure CLI</strong> to learn more at: <a href="https://docs.microsoft.com/en-us/cli/azure/">https://docs.microsoft.com/en-us/cli/azure/</a></p>
+<p>Check out the <strong>Azure CLI</strong> to learn more at: <a href="https://docs.microsoft.com/cli/azure/">https://docs.microsoft.com/cli/azure/</a></p>
 </div>
 </section>
 </div>
