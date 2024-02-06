@@ -8,7 +8,7 @@ plugin: add-to-gallery
 
 This script allows you to upload a large file to SharePoint using MS Graph API Rest Call.
 
-The script uses [DriveItem: createUploadSession](https://learn.microsoft.com/en-us/graph/api/driveitem-createuploadsession), which uploads the file in chunks. Maximum size a chunk can be is 60 MiB, however in this example, it breaks the file into 1.31 MiB.
+The script uses [DriveItem: createUploadSession](https://learn.microsoft.com/graph/api/driveitem-createuploadsession), which uploads the file in chunks. Maximum size a chunk can be is 60 MiB, however in this example, it breaks the file into 1.31 MiB.
 
 The script will overwrite the file if it already exists in the SharePoint library, or you can provide an alternative name for the file.
 
@@ -89,7 +89,7 @@ _Image4: Files uploaded as user and App Registration_
             -AlternativeFileName:"Renamed Script Samples Rock.docx"
 
 .LINK
-    https://learn.microsoft.com/en-us/graph/api/driveitem-createuploadsession
+    https://learn.microsoft.com/graph/api/driveitem-createuploadsession
 #>
 [CmdletBinding(SupportsShouldProcess)]
 param (

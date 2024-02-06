@@ -205,8 +205,8 @@ end {
 
 ## References
 
-- [List apps in team](https://learn.microsoft.com/en-us/graph/api/team-list-installedapps?view=graph-rest-1.0&tabs=http)
-- [List all teams in Microsoft Teams for an organization](https://learn.microsoft.com/en-us/graph/teams-list-all-teams)
+- [List apps in team](https://learn.microsoft.com/graph/api/team-list-installedapps)
+- [List all teams in Microsoft Teams for an organization](https://learn.microsoft.com/graph/teams-list-all-teams)
 
 
 [!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]

@@ -10,7 +10,7 @@ When creating or interpreting an Azure AD (AAD) app manifest or even to get exis
 
 ![Example Screenshot](assets/example.png)
 
-By default, the script has only registered Microsoft Graph and SharePoint Online Microsoft AAD apps (with their respective appId property). Feel free to add any other API listed [here](https://docs.microsoft.com/en-us/troubleshoot/azure/active-directory/verify-first-party-apps-sign-in#application-ids-for-commonly-used-microsoft-applications) in the `AadApis` class!
+By default, the script has only registered Microsoft Graph and SharePoint Online Microsoft AAD apps (with their respective appId property). Feel free to add any other API listed [here](https://docs.microsoft.com/troubleshoot/azure/active-directory/verify-first-party-apps-sign-in#application-ids-for-commonly-used-microsoft-applications) in the `AadApis` class!
 
 
 # [CLI for Microsoft 365 using PowerShell](#tab/cli-m365-ps)

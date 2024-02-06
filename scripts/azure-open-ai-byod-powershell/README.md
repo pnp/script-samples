@@ -17,7 +17,7 @@ In order to get started, you need:
 - Azure Cognitive Search with Semantic Search enabled (free plan is fine)
 - Setup the Data Source, Index, and Indexer in Azure Cognitive Search
 
-Reference: https://learn.microsoft.com/en-us/azure/ai-services/openai/reference#completions-extensions
+Reference: https://learn.microsoft.com/azure/ai-services/openai/reference#completions-extensions
 
 
 # [PowerShell](#tab/ps)
@@ -86,7 +86,7 @@ $body = [ordered]@{
     messages = $messages
 } | ConvertTo-Json -Depth 3
 
-# https://learn.microsoft.com/en-us/azure/ai-services/openai/reference#completions-extensions
+# https://learn.microsoft.com/azure/ai-services/openai/reference#completions-extensions
 $url = "$($azureOpenAIEndPoint)openai/deployments/$($azureOpenAIDeploymentName)/extensions/chat/completions?api-version=$($azureOpenAIApiVersion)"
 
 # Check the Input Json Bodies

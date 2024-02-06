@@ -6,10 +6,10 @@ plugin: add-to-gallery
 
 ## Summary
 
-  [Creating site designs](https://learn.microsoft.com/en-us/sharepoint/dev/declarative-customization/site-design-overview) provides an option to easily provision sites consistently.
+  [Creating site designs](https://learn.microsoft.com/sharepoint/dev/declarative-customization/site-design-overview) provides an option to easily provision sites consistently.
  
 More about site design 
- [https://learn.microsoft.com/en-us/sharepoint/dev/declarative-customization/site-design-overview](https://learn.microsoft.com/en-us/sharepoint/dev/declarative-customization/site-design-overview)
+ [https://learn.microsoft.com/sharepoint/dev/declarative-customization/site-design-overview](https://learn.microsoft.com/sharepoint/dev/declarative-customization/site-design-overview)
 
   ![Example Screenshot](assets/example.png)
 

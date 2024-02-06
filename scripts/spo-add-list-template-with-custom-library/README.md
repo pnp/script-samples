@@ -6,10 +6,10 @@ plugin: add-to-gallery
 
 ## Summary
 
-  [Creating custom list templates](https://docs.microsoft.com/en-us/sharepoint/lists-custom-template) is now possible to create both custom document libraries and lists although official microsoft documentation has not specified anything about supporting custom document library templates. This script will create list template with associated site columns, site content types and views for a document library and also creates an instance of a document library.
+  [Creating custom list templates](https://docs.microsoft.com/sharepoint/lists-custom-template) is now possible to create both custom document libraries and lists although official microsoft documentation has not specified anything about supporting custom document library templates. This script will create list template with associated site columns, site content types and views for a document library and also creates an instance of a document library.
  
 More about list template 
- [https://docs.microsoft.com/en-us/sharepoint/lists-custom-template](https://docs.microsoft.com/en-us/sharepoint/lists-custom-template)
+ [https://docs.microsoft.com/sharepoint/lists-custom-template](https://docs.microsoft.com/sharepoint/lists-custom-template)
 
 ![Example Screenshot](assets/example.png)
 
