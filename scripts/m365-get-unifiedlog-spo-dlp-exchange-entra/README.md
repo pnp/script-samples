@@ -66,6 +66,8 @@ if($days -eq 0)
 $logCollection | sort-object "Operation" |Export-CSV $OutPutView -Force -NoTypeInformation
 ```
 
+[!INCLUDE [More about PnP PowerShell](../../docfx/includes/MORE-PNPPS.md)]
+
 # [CLI for Microsoft 365](#tab/cli-m365-ps)
 
 
@@ -94,7 +96,7 @@ while($days -ge $endDay){
 if($days -eq 0)
 {
     $activities +=  m365 purview auditlog list --contentType SharePoint --output 'json' | ConvertFrom-Json
-    $activities +=  m365 purview auditlog list --contentType AzureActiveDirectory --output 'json' | ConvertFrom-Json #-ErrorAction Ignore
+    $activities +=  m365 purview auditlog list --contentType AzureActiveDirectory --output 'json' | ConvertFrom-Json
     $activities +=  m365 purview auditlog list --contentType DLP --output 'json' | ConvertFrom-Json
     $activities +=  m365 purview auditlog list --contentType Exchange --output 'json' | ConvertFrom-Json
     $activities +=  m365 purview auditlog list --contentType General --output 'json' | ConvertFrom-Json
@@ -102,9 +104,9 @@ if($days -eq 0)
 }else {
    $activities += m365 purview auditlog list --contentType SharePoint --startTime ((Get-date).adddays(-$days) | Get-Date -uFormat '%Y-%m-%d') --endTime ((Get-date).adddays(-($days-1)) | Get-Date -uFormat '%Y-%m-%d') --output 'json' | ConvertFrom-Json
    $activities += m365 purview auditlog list --contentType AzureActiveDirectory --startTime ((Get-date).adddays(-$days) | Get-Date -uFormat '%Y-%m-%d') --endTime ((Get-date).adddays(-($days-1)) | Get-Date -uFormat '%Y-%m-%d') --output 'json'| ConvertFrom-Json
-   $activities += m365 purview auditlog list --contentType DLP -ErrorAction Ignore --startTime ((Get-date).adddays(-$days) | Get-Date -uFormat '%Y-%m-%d') --endTime ((Get-date).adddays(-($days-1)) | Get-Date -uFormat '%Y-%m-%d') --output 'json' | ConvertFrom-Json
-   $activities += m365 purview auditlog list --contentType Exchange -ErrorAction Ignore --startTime ((Get-date).adddays(-$days) | Get-Date -uFormat '%Y-%m-%d') --endTime ((Get-date).adddays(-($days-1)) | Get-Date -uFormat '%Y-%m-%d') --output 'json' | ConvertFrom-Json
-   $activities += m365 purview auditlog list --contentType General -ErrorAction Ignore  --startTime ((Get-date).adddays(-$days) | Get-Date -uFormat '%Y-%m-%d') --endTime ((Get-date).adddays(-($days-1)) | Get-Date -uFormat '%Y-%m-%d') --output 'json' | ConvertFrom-Json
+   $activities += m365 purview auditlog list --contentType DLP --startTime ((Get-date).adddays(-$days) | Get-Date -uFormat '%Y-%m-%d') --endTime ((Get-date).adddays(-($days-1)) | Get-Date -uFormat '%Y-%m-%d') --output 'json' | ConvertFrom-Json
+   $activities += m365 purview auditlog list --contentType Exchange --startTime ((Get-date).adddays(-$days) | Get-Date -uFormat '%Y-%m-%d') --endTime ((Get-date).adddays(-($days-1)) | Get-Date -uFormat '%Y-%m-%d') --output 'json' | ConvertFrom-Json
+   $activities += m365 purview auditlog list --contentType General --startTime ((Get-date).adddays(-$days) | Get-Date -uFormat '%Y-%m-%d') --endTime ((Get-date).adddays(-($days-1)) | Get-Date -uFormat '%Y-%m-%d') --output 'json' | ConvertFrom-Json
  }
  
 if($activity.SiteUrl ){#-and $activity.SiteUrl
@@ -112,6 +114,10 @@ if($activity.SiteUrl ){#-and $activity.SiteUrl
  {  
     $logCollection += $activity
  }
+}
+$days = $days - 1
+}
+$activities | sort-object "Operation" |Export-CSV $OutPutView -Force -NoTypeInformation
  ```
 
 [!INCLUDE [More about CLI for Microsoft 365](../../docfx/includes/MORE-CLIM365.md)]
@@ -119,13 +125,14 @@ if($activity.SiteUrl ){#-and $activity.SiteUrl
 > [!Note]
 > SharePoint admin rights are required to run the script ,
 
-[!INCLUDE [More about PnP PowerShell](../../docfx/includes/MORE-PNPPS.md)]
+> [!Note]
+> You may encounter error Error: The permission set (ActivityFeed.Read ServiceHealth.Read) sent in the request does not include the expected permission with contentType DLP and be mindful of the amount of data returned from a large tenant which may cause memory issues or lack of disk space to save the log file.
 
 ***
 
 ## Source Credit
 
-Sample first appeared on [Unveiling Audit Logs with PnP PowerShell](https://reshmeeauckloo.com/posts/powershell-get-log-sharepoint-dlp-exchange-entra-pnpunifiedlog/)
+Sample first appeared on [Unveiling Audit Logs with PnP and Cli for M365 PowerShell](https://reshmeeauckloo.com/posts/powershell-get-log-sharepoint-dlp-exchange-entra-pnpunifiedlog/)
 
 ## Contributors
 
