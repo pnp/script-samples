@@ -113,6 +113,9 @@
 <li role="presentation">
 <a href="#tabpanel_CeZOj-G++Q_pnpps" role="tab" aria-controls="tabpanel_CeZOj-G++Q_pnpps" data-tab="pnpps" tabindex="0" aria-selected="true">PnP PowerShell</a>
 </li>
+<li role="presentation">
+<a href="#tabpanel_CeZOj-G++Q_cli-m365-ps" role="tab" aria-controls="tabpanel_CeZOj-G++Q_cli-m365-ps" data-tab="cli-m365-ps" tabindex="-1">CLI for Microsoft 365</a>
+</li>
 </ul>
 <section id="tabpanel_CeZOj-G++Q_pnpps" role="tabpanel" data-tab="pnpps"><button class="article-clipboard" title="Copy to clipboard" data-toggle="tooltip" data-placement="top" data-clipboard-target="section[id^='tabpanel'][data-tab='pnpps'] pre">
     <span class="glyphicon glyphicon-copy" aria-hidden="true"></span>
@@ -137,14 +140,14 @@ $logCollection = @()
 while($days -ge $endDay){
 if($days -eq 0)
 {
- $activities =  Get-PnPUnifiedAuditLog -ContentType SharePoint -ErrorAction Ignore
+ $activities +=  Get-PnPUnifiedAuditLog -ContentType SharePoint -ErrorAction Ignore
  $activities +=  Get-PnPUnifiedAuditLog -ContentType AzureActiveDirectory -ErrorAction Ignore
  $activities +=  Get-PnPUnifiedAuditLog -ContentType DLP -ErrorAction Ignore
  $activities +=  Get-PnPUnifiedAuditLog -ContentType Exchange -ErrorAction Ignore
  $activities +=  Get-PnPUnifiedAuditLog -ContentType General -ErrorAction Ignore
  
 }else {
-    $activities = Get-PnPUnifiedAuditLog -ContentType AzureActiveDirectory -ErrorAction Ignore  -StartTime (Get-date).adddays(-$days) -EndTime (Get-date).adddays(-($days-1))
+    $activities += Get-PnPUnifiedAuditLog -ContentType AzureActiveDirectory -ErrorAction Ignore  -StartTime (Get-date).adddays(-$days) -EndTime (Get-date).adddays(-($days-1))
     $activities += Get-PnPUnifiedAuditLog -ContentType SharePoint -ErrorAction Ignore  -StartTime (Get-date).adddays(-$days) -EndTime (Get-date).adddays(-($days-1))
     $activities += Get-PnPUnifiedAuditLog -ContentType DLP -ErrorAction Ignore  -StartTime (Get-date).adddays(-$days) -EndTime (Get-date).adddays(-($days-1))
     $activities += Get-PnPUnifiedAuditLog -ContentType Exchange -ErrorAction Ignore  -StartTime (Get-date).adddays(-$days) -EndTime (Get-date).adddays(-($days-1))
@@ -165,17 +168,78 @@ if($days -eq 0)
 }
 $logCollection | sort-object &quot;Operation&quot; |Export-CSV $OutPutView -Force -NoTypeInformation
 </code></pre>
-<div class="NOTE">
-<h5>Note</h5>
-<p>SharePoint admin rights are required to run the script</p>
-</div>
 <div class="highlight-tool">
 <p>Check out the <strong>PnP PowerShell</strong> to learn more at: <a href="https://aka.ms/pnp/powershell">https://aka.ms/pnp/powershell</a></p>
 </div>
 </section>
+<section id="tabpanel_CeZOj-G++Q_cli-m365-ps" role="tabpanel" data-tab="cli-m365-ps" aria-hidden="true" hidden="hidden"><button class="article-clipboard" title="Copy to clipboard" data-toggle="tooltip" data-placement="top" data-clipboard-target="section[id^='tabpanel'][data-tab='cli-m365-ps'] pre">
+    <span class="glyphicon glyphicon-copy" aria-hidden="true"></span>
+    <span class="article-clipboard__message done">Copied</span>
+</button>
+
+<pre><code class="lang-PowerShell">$SiteUrl = &quot;https://contoso.sharepoint.com/sites/test&quot;
+$userId = &quot;testusero@contoso.co.uk&quot; 
+Write-Host &quot;Ensure logged in&quot;
+$m365Status = m365 status --output text
+if ($m365Status -eq &quot;Logged Out&quot;) {
+  Write-Host &quot;Logging in the User!&quot;
+  m365 login --authType browser
+}
+$days = 3
+$endDay = 0
+$Operations = @()
+ 
+# Generate a unique log file name using today's date
+$dateTime = (Get-Date).toString(&quot;dd-MM-yyyy_HHmm&quot;)
+$invocation = (Get-Variable MyInvocation).Value
+$directorypath = Split-Path $invocation.MyCommand.Path
+$fileName = &quot;logReport-&quot; + $dateTime + &quot;.csv&quot;
+$OutPutView = $directorypath + &quot;\Logs\&quot;+ $fileName
+ 
+$logCollection = @()
+while($days -ge $endDay){
+if($days -eq 0)
+{
+    $activities +=  m365 purview auditlog list --contentType SharePoint --output 'json' | ConvertFrom-Json
+    $activities +=  m365 purview auditlog list --contentType AzureActiveDirectory --output 'json' | ConvertFrom-Json
+    $activities +=  m365 purview auditlog list --contentType DLP --output 'json' | ConvertFrom-Json
+    $activities +=  m365 purview auditlog list --contentType Exchange --output 'json' | ConvertFrom-Json
+    $activities +=  m365 purview auditlog list --contentType General --output 'json' | ConvertFrom-Json
+ 
+}else {
+   $activities += m365 purview auditlog list --contentType SharePoint --startTime ((Get-date).adddays(-$days) | Get-Date -uFormat '%Y-%m-%d') --endTime ((Get-date).adddays(-($days-1)) | Get-Date -uFormat '%Y-%m-%d') --output 'json' | ConvertFrom-Json
+   $activities += m365 purview auditlog list --contentType AzureActiveDirectory --startTime ((Get-date).adddays(-$days) | Get-Date -uFormat '%Y-%m-%d') --endTime ((Get-date).adddays(-($days-1)) | Get-Date -uFormat '%Y-%m-%d') --output 'json'| ConvertFrom-Json
+   $activities += m365 purview auditlog list --contentType DLP --startTime ((Get-date).adddays(-$days) | Get-Date -uFormat '%Y-%m-%d') --endTime ((Get-date).adddays(-($days-1)) | Get-Date -uFormat '%Y-%m-%d') --output 'json' | ConvertFrom-Json
+   $activities += m365 purview auditlog list --contentType Exchange --startTime ((Get-date).adddays(-$days) | Get-Date -uFormat '%Y-%m-%d') --endTime ((Get-date).adddays(-($days-1)) | Get-Date -uFormat '%Y-%m-%d') --output 'json' | ConvertFrom-Json
+   $activities += m365 purview auditlog list --contentType General --startTime ((Get-date).adddays(-$days) | Get-Date -uFormat '%Y-%m-%d') --endTime ((Get-date).adddays(-($days-1)) | Get-Date -uFormat '%Y-%m-%d') --output 'json' | ConvertFrom-Json
+ }
+ 
+if($activity.SiteUrl ){#-and $activity.SiteUrl
+   if($activity.SiteUrl.ToLower() -eq $SiteUrl)    #-$activity.UserId.ToLower() -eq $userId
+ {  
+    $logCollection += $activity
+ }
+}
+$days = $days - 1
+}
+$activities | sort-object &quot;Operation&quot; |Export-CSV $OutPutView -Force -NoTypeInformation
+</code></pre>
+<div class="highlight-tool">
+<p>Check out the <strong>CLI for Microsoft 365</strong> to learn more at: <a href="https://aka.ms/cli-m365">https://aka.ms/cli-m365</a></p>
+</div>
+
+<div class="NOTE">
+<h5>Note</h5>
+<p>SharePoint admin rights are required to run the script ,</p>
+</div>
+<div class="NOTE">
+<h5>Note</h5>
+<p>You may encounter error Error: The permission set (ActivityFeed.Read ServiceHealth.Read) sent in the request does not include the expected permission with contentType DLP and be mindful of the amount of data returned from a large tenant which may cause memory issues or lack of disk space to save the log file.</p>
+</div>
+</section>
 </div>
 <h2 id="source-credit">Source Credit</h2>
-<p>Sample first appeared on <a href="https://reshmeeauckloo.com/posts/powershell-get-log-sharepoint-dlp-exchange-entra-pnpunifiedlog/">Unveiling Audit Logs with PnP PowerShell</a></p>
+<p>Sample first appeared on <a href="https://reshmeeauckloo.com/posts/powershell-get-log-sharepoint-dlp-exchange-entra-pnpunifiedlog/">Unveiling Audit Logs with PnP and Cli for M365 PowerShell</a></p>
 <h2 id="contributors">Contributors</h2>
 <table>
 <thead>
