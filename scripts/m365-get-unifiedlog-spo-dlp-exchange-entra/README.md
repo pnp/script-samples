@@ -80,9 +80,8 @@ if ($m365Status -eq "Logged Out") {
   Write-Host "Logging in the User!"
   m365 login --authType browser
 }
-$days = 3
-$endDay = 0
-$Operations = @()
+$startDayInthePast = 7 ## 7 or less with 1 hour margin
+$endDay = 0 ##less than startDayInthePast
  
 # Generate a unique log file name using today's date
 $dateTime = (Get-Date).toString("dd-MM-yyyy_HHmm")
@@ -91,23 +90,13 @@ $directorypath = Split-Path $invocation.MyCommand.Path
 $fileName = "logReport-" + $dateTime + ".csv"
 $OutPutView = $directorypath + "\Logs\"+ $fileName
  
+
 $logCollection = @()
-while($days -ge $endDay){
-if($days -eq 0)
-{
-    $activities +=  m365 purview auditlog list --contentType SharePoint --output 'json' | ConvertFrom-Json
-    $activities +=  m365 purview auditlog list --contentType AzureActiveDirectory --output 'json' | ConvertFrom-Json
-    $activities +=  m365 purview auditlog list --contentType DLP --output 'json' | ConvertFrom-Json
-    $activities +=  m365 purview auditlog list --contentType Exchange --output 'json' | ConvertFrom-Json
-    $activities +=  m365 purview auditlog list --contentType General --output 'json' | ConvertFrom-Json
- 
-}else {
-   $activities += m365 purview auditlog list --contentType SharePoint --startTime ((Get-date).adddays(-$days) | Get-Date -uFormat '%Y-%m-%d') --endTime ((Get-date).adddays(-($days-1)) | Get-Date -uFormat '%Y-%m-%d') --output 'json' | ConvertFrom-Json
-   $activities += m365 purview auditlog list --contentType AzureActiveDirectory --startTime ((Get-date).adddays(-$days) | Get-Date -uFormat '%Y-%m-%d') --endTime ((Get-date).adddays(-($days-1)) | Get-Date -uFormat '%Y-%m-%d') --output 'json'| ConvertFrom-Json
-   $activities += m365 purview auditlog list --contentType DLP --startTime ((Get-date).adddays(-$days) | Get-Date -uFormat '%Y-%m-%d') --endTime ((Get-date).adddays(-($days-1)) | Get-Date -uFormat '%Y-%m-%d') --output 'json' | ConvertFrom-Json
-   $activities += m365 purview auditlog list --contentType Exchange --startTime ((Get-date).adddays(-$days) | Get-Date -uFormat '%Y-%m-%d') --endTime ((Get-date).adddays(-($days-1)) | Get-Date -uFormat '%Y-%m-%d') --output 'json' | ConvertFrom-Json
-   $activities += m365 purview auditlog list --contentType General --startTime ((Get-date).adddays(-$days) | Get-Date -uFormat '%Y-%m-%d') --endTime ((Get-date).adddays(-($days-1)) | Get-Date -uFormat '%Y-%m-%d') --output 'json' | ConvertFrom-Json
- }
+   $activities += m365 purview auditlog list --contentType SharePoint --startTime ((Get-date).adddays(-$startDayInthePast) | Get-Date -uFormat '%Y-%m-%dT%H:%M:%SZ') --endTime ((Get-date).adddays(-($endDay)) | Get-Date -uFormat '%Y-%m-%dT%H:%M:%SZ') --output 'json' | ConvertFrom-Json
+   $activities += m365 purview auditlog list --contentType AzureActiveDirectory --startTime ((Get-date).adddays(-$startDayInthePast) | Get-Date -uFormat '%Y-%m-%dT%H:%M:%SZ') --endTime ((Get-date).adddays(-($endDay)) | Get-Date -uFormat '%Y-%m-%dT%H:%M:%SZ') --output 'json'| ConvertFrom-Json
+   $activities += m365 purview auditlog list --contentType DLP  --startTime ((Get-date).adddays(-$startDayInthePast) | Get-Date -uFormat '%Y-%m-%dT%H:%M:%SZ') --endTime ((Get-date).adddays(-($endDay)) | Get-Date -uFormat '%Y-%m-%dT%H:%M:%SZ') --output 'json' | ConvertFrom-Json
+   $activities += m365 purview auditlog list --contentType Exchange --startTime ((Get-date).adddays(-$startDayInthePast) | Get-Date -uFormat '%Y-%m-%dT%H:%M:%SZ') --endTime ((Get-date).adddays(-($endDay)) | Get-Date -uFormat '%Y-%m-%dT%H:%M:%SZ') --output 'json' | ConvertFrom-Json
+   $activities += m365 purview auditlog list --contentType General --startTime ((Get-date).adddays(-$startDayInthePast) | Get-Date -uFormat '%Y-%m-%dT%H:%M:%SZ') --endTime ((Get-date).adddays(-($endDay)) | Get-Date -uFormat '%Y-%m-%dT%H:%M:%SZ') --output 'json' | ConvertFrom-Json
  
 if($activity.SiteUrl ){#-and $activity.SiteUrl
    if($activity.SiteUrl.ToLower() -eq $SiteUrl)    #-$activity.UserId.ToLower() -eq $userId
@@ -115,9 +104,8 @@ if($activity.SiteUrl ){#-and $activity.SiteUrl
     $logCollection += $activity
  }
 }
-$days = $days - 1
-}
-$activities | sort-object "Operation" |Export-CSV $OutPutView -Force -NoTypeInformation
+
+$logCollection | sort-object "Operation" |Export-CSV $OutPutView -Force -NoTypeInformation
  ```
 
 [!INCLUDE [More about CLI for Microsoft 365](../../docfx/includes/MORE-CLIM365.md)]
