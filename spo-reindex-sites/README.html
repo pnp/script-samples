@@ -4,15 +4,15 @@
   
   <head>
     <meta charset="utf-8">
-    <title>Reindex SharePoint sites | PnP Samples </title>
+    <title>Re-index SharePoint sites | PnP Samples </title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" "="">
-    <meta name="title" content="Reindex SharePoint sites | PnP Samples ">
+    <meta name="title" content="Re-index SharePoint sites | PnP Samples ">
     <meta name="generator" content="docfx 2.56.7.0">
     <meta name="description" content="A sample gallery of scripts to manage all things Microsoft 365.">
   
     <!-- Social Media -->
     <meta property="og:locale" content="en_GB">
-    <meta property="og:title" content="Reindex SharePoint sites | PnP Samples ">
+    <meta property="og:title" content="Re-index SharePoint sites | PnP Samples ">
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://pnp.github.io/script-samples">
     <meta property="og:image" content="https://pnp.github.io/script-samples/assets/social-media-screenshot.png">
@@ -96,10 +96,20 @@
                   <div class="contribution-panel mobile-hide pull-right">
                       <a href="https://github.com/pnp/script-samples/blob/main/scripts/spo-reindex-sites/README.md/#L1" title="Improve this Doc" class="improve-doc-lg"><i class="glyphicon glyphicon-pencil"></i></a>
                   </div>
-                    <h1 id="reindex-sharepoint-sites">Reindex SharePoint sites</h1>
+                    <h1 id="re-index-sharepoint-sites">Re-index SharePoint sites</h1>
 
 <h2 id="summary">Summary</h2>
-<p>Keeping your SharePoint environment up-to-date is crucial, especially after making schema changes. This PnP PowerShell script streamlines the process of reindexing sites, libraries, or lists to ensure that search results remain accurate and relevant.</p>
+<p>When using SharePoint columns in search solutions, you may need to map crawled properties to managed properties and update the search schema. For example, you can map the crawled property <code>ows_Foo</code> to <code>RefinableString100</code> and use it as a filter in <a href="https://learn.microsoft.com/en-us/sharepoint/dev/general-development/keyword-query-language-kql-syntax-reference">KQL</a>. For more information, refer to <a href="https://learn.microsoft.com/en-us/microsoft-365/community/how-do-site-columns-become-managed-properties-thus-available-for-search">How Do Site Columns Become Managed Properties</a>.</p>
+<p>If your schema change applies to existing content, you must schedule a re-index operation for the affected content in order to have the data populated into the search index.</p>
+<div class="IMPORTANT">
+<h5>Important</h5>
+<p>Scheduling of re-indexing should <strong>ALWAYS</strong> happen at the smallest level possible. If affected data is in a specific library or list, then re-index ONLY the specific library. This can be achieved via the site settings in SharePoint or by using the command <a href="https://pnp.github.io/powershell/cmdlets/Request-PnPReIndexList.html">Request-PnPReIndexList</a>.</p>
+</div>
+<div class="CAUTION">
+<h5>Caution</h5>
+<p>The below script should <strong>ONLY</strong> be used for the scenario where a schema mapping affects ALL content in your tenant. Site re-indexing may add stress to the search system and take an extended amount of time to complete. Re-crawls of sites with more than one million items can potentially take weeks to process. Subsequent index updates could be delayed until the re-indexing is complete, leading to out-of-date search results. Make sure to only initiate a site re-index after making changes that require all items to be reindexed.</p>
+</div>
+<p>This PnP PowerShell script streamlines the process of re-indexing sites, libraries, or lists to ensure that search results remain accurate and relevant.</p>
 <div class="tabGroup" id="tabgroup_CeZOj-G++Q">
 <ul role="tablist">
 <li role="presentation">
@@ -111,7 +121,10 @@
     <span class="article-clipboard__message done">Copied</span>
 </button>
 
-<pre><code class="lang-PowerShell">#Set Parameters
+<pre><code class="lang-PowerShell">#Prompt for caution
+Read-Host -Prompt &quot;Are you sure you know what you are doing, and have read the text at https://pnp.github.io/script-samples/spo-reindex-sites/README.html?&quot; 
+
+#Set Parameters
 $AdminCenterURL=&quot;https://contoso-admin.sharepoint.com&quot;
 Connect-PnPOnline -Url $AdminCenterURL -Interactive
 
@@ -137,7 +150,10 @@ $m365Sites | ForEach-Object {
 </thead>
 <tbody>
 <tr>
-<td><a href="https://github.com/reshmee011">Reshmee Auckloo</a></td>
+<td><a href="https://github.com/reshmee011">Reshmee Auckloo (script)</a></td>
+</tr>
+<tr>
+<td><a href="https://github.com/wobba">Mikael Svenson (caution text)</a></td>
 </tr>
 </tbody>
 </table>
