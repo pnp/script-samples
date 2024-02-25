@@ -1,0 +1,600 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html lang="en">
+  
+  <head>
+    <meta charset="utf-8">
+    <title>Report and Export Solutions from M365 Developer Tenant | PnP Samples </title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" "="">
+    <meta name="title" content="Report and Export Solutions from M365 Developer Tenant | PnP Samples ">
+    <meta name="generator" content="docfx 2.56.7.0">
+    <meta name="description" content="A sample gallery of scripts to manage all things Microsoft 365.">
+  
+    <!-- Social Media -->
+    <meta property="og:locale" content="en_GB">
+    <meta property="og:title" content="Report and Export Solutions from M365 Developer Tenant | PnP Samples ">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://pnp.github.io/script-samples">
+    <meta property="og:image" content="https://pnp.github.io/script-samples/assets/social-media-screenshot.png">
+    <meta property="og:image:alt" content="Screenshot example of the PnP Script Samples Site">
+    <meta property="og:site_name" content="PnP Script Samples">
+    <meta name="msvalidate.01" content="04EFEDA66EC42C08A1247C979E2F9ADD">
+    <meta property="og:description" content="A sample gallery of scripts to manage all things Microsoft 365.">
+  
+    <link rel="shortcut icon" href="https://c.s-microsoft.com/favicon.ico?v2">
+    <link rel="stylesheet" href="../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../styles/docfx.css">
+    <link rel="stylesheet" href="../styles/main.css">
+    <link rel="stylesheet" href="../styles/extra.css">
+    <link rel="stylesheet" href="../styles/filter.css">
+    <link rel="stylesheet" href="../styles/site.css">
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet"> 
+    <meta property="docfx:navrel" content="../toc.html">
+    <meta property="docfx:tocrel" content="../toc.html">
+    
+    
+    <meta property="docfx:newtab" content="true">
+    <script type="text/javascript">
+      (function(c,l,a,r,i,t,y){
+          c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+          t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+          y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+      })(window, document, "clarity", "script", "8j6pedl344");
+  </script>
+  </head>  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+             <div class="github-mark">
+              <a href="https://github.com/pnp/script-samples" title="Go to repository">
+               <div class="github-wrapper">
+                  <div class="github-icon">
+                    <img src="https://pnp.github.io/script-samples/assets/icons/github-light-64px.png" alt="GitHub Icon Image">
+                  </div>
+                  <div class="github-repository">
+                    <span>GitHub</span>
+                    <ul class="github-facts">
+                      <li>
+                        <i class="fa fa-code-fork" aria-hidden="true"></i>
+                        <span class="github-forks"></span>
+                      </li>
+                      <li>
+                        <i class="fa fa-star-o" aria-hidden="true"></i>
+                        <span class="github-stars"></span>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </a>
+            </div>
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../assets/logo.svg" alt="">
+              </a>    </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <label class="glyphicon glyphicon-search" for="search-query"></label>
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>      </header>
+      <div role="main" class="container body-content hide-when-search">
+        <div class="article row grid">
+          <div class="col-md-12">
+            <article class="content wrap" id="_content" data-uid="">
+                  <div class="contribution-panel mobile-hide pull-right">
+                      <a href="https://github.com/pnp/script-samples/blob/main/scripts/spo-dev-tenant-report-export/README.md/#L1" title="Improve this Doc" class="improve-doc-lg"><i class="glyphicon glyphicon-pencil"></i></a>
+                  </div>
+                    <h1 id="report-and-export-solutions-from-m365-developer-tenant">Report and Export Solutions from M365 Developer Tenant</h1>
+
+<h2 id="summary">Summary</h2>
+<p>This script will report and optionally export all solutions from the M365 Developer Tenant - this is useful if your tenant is expiring and need to understand what projects you have in the tenant before closure. You will be able to get an inventory of the following information:</p>
+<table>
+<thead>
+<tr>
+<th>Solution Type</th>
+<th>Report</th>
+<th>Export</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Tenant Sites List</td>
+<td>Yes</td>
+<td>No</td>
+<td>List of all sites in the tenant</td>
+</tr>
+<tr>
+<td>Tenant App Catalog</td>
+<td>Yes</td>
+<td>Yes</td>
+<td>List of all apps in the tenant app catalog and export them (optional)</td>
+</tr>
+<tr>
+<td>Site Collections App Catalog</td>
+<td>Yes</td>
+<td>Yes</td>
+<td>List MODERN (Group#0,STS#03,SITEPUBLISHING#0) site collections in the tenant and export them (optional)</td>
+</tr>
+<tr>
+<td>Power Platform Environments</td>
+<td>Yes</td>
+<td>No</td>
+<td>List of all Power Platform environments in the tenant</td>
+</tr>
+<tr>
+<td>Power Apps</td>
+<td>Yes</td>
+<td>Yes</td>
+<td>List of all Power Apps in the tenant and export them (optional)</td>
+</tr>
+<tr>
+<td>Power Automate Flows</td>
+<td>No</td>
+<td>No</td>
+<td>Disabled at the moment (issue with cmdlets)</td>
+</tr>
+<tr>
+<td>Azure AD Apps</td>
+<td>Yes</td>
+<td>No</td>
+<td>List of all Azure AD Apps in the tenant</td>
+</tr>
+<tr>
+<td>Teams Apps</td>
+<td>Yes</td>
+<td>No</td>
+<td>List of all Teams Apps in the tenant</td>
+</tr>
+</tbody>
+</table>
+<p>Reports are exported to a CSV in a directory called &quot;Inventory&quot;, each app type will create appropriate sub folder when using the export modes.</p>
+<div class="WARNING">
+<h5>Warning</h5>
+<p>If you are getting error below with Power Apps or Flow, switch to 2.3.x nightly builds or newer release as API changed.
+&quot;Bad Request (400): Calling Power Automate through ARM is no longer supported. Please use &quot;https://api.flow.microsoft.com/&quot; instead.&quot;</p>
+</div>
+<p><img src="assets/example.png" alt="Example Screenshot"></p>
+<p>Other notes:</p>
+<ul>
+<li>Power Platform will only download Default Environment (it could be expanded to all environments)</li>
+<li>Azure Apps needs bit more work e.g. permissions, will likely update the sample accordingly</li>
+<li>Site collections are limited to modern types for development purposes, not classic e.g., site collection app catalogs will not download outside of the three core base template types (Group#0,STS#03,SITEPUBLISHING#0) but could be easily be expanded</li>
+<li>Power Automate - I am having issues with the cmdlet as result of the MS change, will update when resolved</li>
+<li>Exporting site collections will include all pages, search configurations and exclude Classic Components, Application Lifecycle Management (due to getting stuck, but we capture that separately anyway)</li>
+</ul>
+<div class="tabGroup" id="tabgroup_CeZOj-G++Q">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_CeZOj-G++Q_pnpps" role="tab" aria-controls="tabpanel_CeZOj-G++Q_pnpps" data-tab="pnpps" tabindex="0" aria-selected="true">PnP PowerShell</a>
+</li>
+</ul>
+<section id="tabpanel_CeZOj-G++Q_pnpps" role="tabpanel" data-tab="pnpps"><button class="article-clipboard" title="Copy to clipboard" data-toggle="tooltip" data-placement="top" data-clipboard-target="section[id^='tabpanel'][data-tab='pnpps'] pre">
+    <span class="glyphicon glyphicon-copy" aria-hidden="true"></span>
+    <span class="article-clipboard__message done">Copied</span>
+</button>
+
+<pre><code class="lang-powershell">
+&lt;# 
+----------------------------------------------------------------------------
+
+Created:      Paul Bullock
+Date:         24/02/2024
+Disclaimer:   
+
+THE SOFTWARE IS PROVIDED &quot;AS IS&quot;, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+
+.Synopsis
+
+    Get an expiring developer tenant, lets see what you can report on and optionally export these:
+    This will export:
+        Tenant SPFx Apps
+        Site collection - provisioning templates and SPFx apps
+        Power App and Power Automate (not working yet) apps (Power Platform Environment Reporting)
+        Report only on Teams Apps and Azure AD Apps
+
+    Note: Site Templates will include all pages and exclude Application Lifecycle Management (due to getting stuck, but we capture that seperately anyway)
+
+.Usage
+
+    .\dev-tenant-report-export.ps1 
+        -siteUrl: The site collection to connect to
+        -ExportAllSitesTemplate: Export all site collections to the output folder
+        -ExportTenantAppCatalog: Export all apps from the tenant app catalog
+        -ExportSiteAppCatalog: Export all apps from the site collection app catalogs
+        -ExportPowerApps: Export all Power Apps from the default environment
+        -ExportPowerAutomate: Export all Power Automate Flows from the default environment
+
+.Notes
+
+    If you are getting error below with Power Apps or Flow, switch to 2.3.x nightly builds or newer release as API changed.
+    &quot;Bad Request (400): Calling Power Automate through ARM is no longer supported. Please use &quot;https://api.flow.microsoft.com/&quot; instead.&quot;
+
+ ----------------------------------------------------------------------------
+#&gt;
+
+[CmdletBinding()]
+param (
+    $outputFolder = &quot;Inventory&quot;,
+    $siteUrl = &quot;https://contoso.sharepoint.com&quot;,
+
+    [switch]$ExportAll,
+    [switch]$ExportAllSitesTemplate,
+    [switch]$ExportTenantAppCatalog,
+    [switch]$ExportSiteAppCatalog,
+    [switch]$ExportPowerApps,
+    [switch]$ExportPowerAutomate
+)
+begin{
+
+    Start-Transcript -Path &quot;$outputFolder\dev-tenant-export.log&quot; -Append
+
+    Connect-PnPOnline $siteUrl -Interactive
+
+    # Test and check the output folder exists
+    if (-not (Test-Path $outputFolder)) {
+        New-Item -ItemType Directory -Path $outputFolder
+    }
+}
+process {
+
+    #----------------------------------------------------------------------------
+    # Get the tenant site list
+    #----------------------------------------------------------------------------
+
+    Write-Host &quot;Getting the tenant site list...&quot; -ForegroundColor Cyan
+
+    # PnP Templates of the site including the pages
+    $tenantSites = Get-PnPTenantSite -Detailed
+    
+    Write-Host &quot; - Generate tenant site report&quot;
+    $tenantReport = $tenantSites | Select-Object Title,Url,Template,LocaleId,Status,OwnerName,LockState,IsHubSite,HubSiteId,IsTeamsConnected,IsTeamsChannelConnected,DenyAddAndCustomizePages
+    $tenantReport | Export-Csv -Path &quot;$outputFolder\tenant-site-report.csv&quot; -NoTypeInformation
+
+    #----------------------------------------------------------------------------
+    # Filter the site collection list
+    #----------------------------------------------------------------------------
+
+    # Filter the Site Collections to only include the ones we want to export
+    Write-Host &quot;Filtering the site collections to export e.g. M365 Team Sites, Communication Site, Team Sites (non-M365 group connected)&quot; -ForegroundColor Cyan
+    $siteCollections = $tenantSites | Where-Object -Property Template -In -Value &quot;GROUP#0&quot;, &quot;SITEPAGEPUBLISHING#0&quot;, &quot;STS#3&quot; 
+
+    if($ExportAllSitesTemplate -or $ExportAll){
+
+        Write-Host &quot;Exporting all $($siteCollections.Count) site collections to '$outputFolder/Site Collection Templates' folder&quot;
+        Write-Host &quot; - Note: Settings are standard + IncludeAllPages, Excludes Application LifeCycle Management - this may take a while&quot; -ForegroundColor Yellow
+        # Get the templates for all the selected sites
+        foreach ($site in $siteCollections) {
+            try{
+                Write-Host &quot; - Exporting Site Template $($site.Title)...&quot;
+                $siteConn = Connect-PnPOnline -Url $site.Url -Interactive -ReturnConnection
+                # Site title but only characters that are allowed a-z0-9
+                $siteTitle = $site.Title -replace &quot;[^a-zA-Z0-9]&quot;, &quot;&quot;
+                # Check the path
+                $templatePath = &quot;$outputFolder\Site Collection Templates\&quot;
+                if (-not (Test-Path $templatePath)) {
+                    New-Item -ItemType Directory -Path $templatePath
+                }
+                
+                # Check if the template already exists and skip
+                if(Test-Path &quot;$templatePath\$siteTitle.xml&quot;){
+                    Write-Host &quot; - Site template already exists, skipping...&quot; -ForegroundColor Yellow
+                    continue
+                }
+
+                # Some areas getting stuck, so excluding them during testing, however templates seem fine...
+                Get-PnPSiteTemplate -Out $($templatePath + &quot;\&quot; + $siteTitle + &quot;.xml&quot;) `
+                    -IncludeAllPages -IncludeSearchConfiguration `
+                    -Connection $siteConn `
+                    -ExcludeHandlers ApplicationLifecycleManagement, ImageRenditions, Workflows, Publishing, ComposedLook
+                    
+            }catch{
+                Write-Host &quot; - Error exporting site template&quot; -ForegroundColor Red
+                Write-Host $_.Exception.Message -ForegroundColor DarkRed
+            }
+        }
+        Write-Host &quot;Site collection templates exported to $outputFolder&quot; -ForegroundColor Green
+    }
+
+    #----------------------------------------------------------------------------
+    # Process the app catalog
+    #----------------------------------------------------------------------------
+    
+    Write-Host &quot;Getting the tenant app catalog for apps...&quot; -ForegroundColor Cyan
+    # Get the details of the tenant app catalog
+    $appCatalog = Get-PnPApp
+
+    Write-Host &quot; - Generate tenant app catalog report&quot;
+    $appCatalog | Export-Csv -Path &quot;$outputFolder\tenant-app-catalog-report.csv&quot; -NoTypeInformation
+        
+    # Export Mode
+    if($ExportTenantAppCatalog -or $ExportAll){
+        Write-Host &quot; - Exporting tenant apps...&quot;
+        $appUrl = Get-PnPTenantAppCatalogUrl
+        $appsiteConn = Connect-PnPOnline -Url $appUrl -Interactive -ReturnConnection
+        $appCatalogList = Get-PnPList -Identity &quot;AppCatalog&quot; -Connection $appsiteConn
+        
+        if($appCatalogList){
+            $spfxItems = $appCatalogList | Get-PnPListItem -Includes File.serverRelativeUrl,File.Name -Connection $appsiteConn 
+            $spfxItems | Foreach-Object{
+                try{
+                    # Check the path
+                    $appsPath = &quot;$outputFolder\TenantApps\&quot;
+                    if (-not (Test-Path $appsPath)) {
+                        New-Item -ItemType Directory -Path $appsPath
+                    }
+                    Write-Host &quot; - Exporting $($_.serverRelativeUrl)...&quot; -ForegroundColor Cyan
+                    # Grab the file
+                    Get-PnPFile -ServerRelativeUrl $_.File.serverRelativeUrl -AsFile -Path $appsPath -FileName &quot;$($_.File.Name)&quot; -Force -Connection $appsiteConn
+                    Write-Host &quot; - Tenant app catalog exported to $appsPath$($_.File.Name)&quot; -ForegroundColor Green
+                }catch{
+                    Write-Host &quot; - Error downloading file $($_.File.Name)&quot; -ForegroundColor Red
+                    Write-Host $_.Exception.Message -ForegroundColor DarkRed
+                }
+            }
+        }
+    }
+    
+    #----------------------------------------------------------------------------
+    # Process the site app catalogs
+    #----------------------------------------------------------------------------
+
+    Write-Host &quot;Checking for site collection app catalogs...&quot; -ForegroundColor Cyan
+
+    # Get details of site collection app catalogs
+    # Delete existing site app catalog report
+    if (Test-Path &quot;$outputFolder\site-app-catalog-report.csv&quot;) {
+        Remove-Item &quot;$outputFolder\site-app-catalog-report.csv&quot;
+    }
+
+    $siteCollections | ForEach-Object {
+        $site = $_
+        $siteConn = Connect-PnPOnline -Url $site.Url -Interactive -ReturnConnection
+        
+        try{
+            Write-Host &quot; - Checking for app catalog in $($site.Title) - $($site.Url)&quot; -ForegroundColor Cyan
+            $siteAppCatalog = Get-PnPApp -Scope Site -Connection $siteConn
+            if($siteAppCatalog) {
+                $siteAppCatalogReport = $siteAppCatalog | Add-Member -MemberType NoteProperty -Name Url -Value $site.Url -PassThru
+                $siteAppCatalogReport | Export-Csv -Path &quot;$outputFolder\site-app-catalog-report.csv&quot; -NoTypeInformation -Append
+            }
+            else{
+                Write-Host &quot; - No apps found in app catalog&quot; -ForegroundColor Gray
+            }
+        }
+        catch{
+            Write-Host &quot; - No app catalog found&quot; -ForegroundColor Gray
+        }
+
+        # Export Mode
+        if($ExportSiteAppCatalog -or $ExportAll){
+            Write-Host &quot; - Checking for app catalog in $($site.Title) - $($site.Url)&quot; -ForegroundColor Cyan
+            try{
+                $siteAppCatalog = Get-PnPApp -Scope Site -Connection $siteConn
+                
+                Write-Host &quot; - Exporting site apps...&quot;
+                $siteAppCatalogList = Get-PnPList -Identity &quot;AppCatalog&quot; -Connection $siteConn
+                if($siteAppCatalogList){
+                    $spfxItems = $siteAppCatalogList | Get-PnPListItem -Includes File.serverRelativeUrl,File.Name -Connection $siteConn
+                    $spfxItems | Foreach-Object{
+                        try{
+                            # Make nice with the title
+                            $siteTitle = $site.Title -replace &quot;[^a-zA-Z0-9]&quot;, &quot;&quot;
+                            # Check the path
+                            $siteAppsPath = &quot;$outputFolder\$siteTitle-SiteApps\&quot;
+                            if (-not (Test-Path $siteAppsPath)) {
+                                New-Item -ItemType Directory -Path $siteAppsPath
+                            }
+                            # Grab the file
+                            Write-Host &quot; - Exporting app $($_.serverRelativeUrl)...&quot;
+                            Get-PnPFile -ServerRelativeUrl $_.File.serverRelativeUrl -AsFile -Path $siteAppsPath -FileName &quot;$($_.File.Name)&quot; -Force -Connection $siteConn
+                            Write-Host &quot; - Site app catalog exported to $siteAppsPath&quot; -ForegroundColor Green
+                        }catch{
+                            Write-Host &quot; - Error downloading file $($_.File.Name)&quot; -ForegroundColor Red
+                            Write-Host $_.Exception.Message -ForegroundColor DarkRed
+                        }
+                    }
+                }
+                
+            }catch{
+                Write-Host &quot; - No apps catalog found&quot; -ForegroundColor Gray
+            }
+           
+        }
+    }
+
+    #----------------------------------------------------------------------------
+    # Process Power Platform Environments
+    #----------------------------------------------------------------------------
+    Write-Host &quot;Checking for Power Platform Environments (Default Only)&quot; -ForegroundColor Cyan
+    Write-Host &quot; - Reporting Power Platform Environment...&quot;
+    $environments = Get-PnPPowerPlatformEnvironment
+    if($environments){
+        Write-Host &quot; - Power Platform Environment found&quot; -ForegroundColor Green
+        $environmentReport = $environments | Select-Object Id,Location,Type,State,Default,Properties -ExpandProperty Properties
+        $environmentReport | Export-Csv -Path &quot;$outputFolder\power-platform-environments.csv&quot; -NoTypeInformation
+    }
+    else{
+        Write-Host &quot; - No Power Platform Environment found&quot; -ForegroundColor Gray
+    }
+    
+
+    # Select single environment, could expand in future
+    $environment = Get-PnPPowerPlatformEnvironment -IsDefault
+
+    #----------------------------------------------------------------------------
+    # Process Power Apps
+    #----------------------------------------------------------------------------
+    
+    Write-Host &quot;Checking for Power Apps in the Default Environment ONLY&quot; -ForegroundColor Cyan
+    $powerApps = Get-PnPPowerApp -Environment $environment.Name -AsAdmin
+
+    
+    Write-Host &quot; - Reporting Power Apps in the Default Environment ONLY&quot; -ForegroundColor Yellow
+    $powerAppsReport = $powerApps | Select-Object Id,Name,Type,AppLocation,AppType,IsAppComponentLibrary,`
+        @{Name='DisplayName'; Expression={$_.Properties.DisplayName}},`
+        @{Name='Description'; Expression={$_.Properties.Description}},`
+        @{Name='CreatedTime'; Expression={$_.Properties.CreatedTime}},`
+        @{Name='LastModifiedTime'; Expression={$_.Properties.LastModifiedTime}},`
+        @{Name='AppPlanClassification'; Expression={$_.Properties.AppPlanClassification}},`
+        @{Name='UsesPremiumApi'; Expression={$_.Properties.UsesPremiumApi}},`
+        @{Name='UsesCustomApi'; Expression={$_.Properties.UsesCustomApi}} 
+        
+    $powerAppsReport | Export-Csv -Path &quot;$outputFolder\power-apps.csv&quot; -NoTypeInformation
+    
+
+    if($ExportPowerApps -or $ExportAll){
+        Write-Host &quot; - Exporting Power Apps in the Default Environment..&quot; -ForegroundColor Yellow       
+        $powerApps | ForEach-Object {
+            try{
+                $app = $_
+                Write-Host &quot; - Exporting $($app.Properties.DisplayName)&quot; -ForegroundColor Cyan
+                $appTitle = $app.Properties.DisplayName -replace &quot;[^a-zA-Z0-9]&quot;, &quot;&quot;
+                $powerAppPath = &quot;$outputFolder\PowerApps\&quot;
+                if (-not (Test-Path $powerAppPath)) {
+                    New-Item -ItemType Directory -Path $powerAppPath
+                }
+                Export-PnPPowerApp -Identity $app -OutPath &quot;$powerAppPath\$appTitle.zip&quot; -Environment $environment.Name
+            }catch{
+                Write-Host &quot; - Error exporting Power App&quot; -ForegroundColor Red
+                Write-Host $_.Exception.Message -ForegroundColor DarkRed
+            }
+        }
+        Write-Host &quot; - Power Apps exported to $powerAppPath&quot; -ForegroundColor Green
+    }
+
+    #----------------------------------------------------------------------------
+    # Process Power Automate
+    #----------------------------------------------------------------------------
+    Write-Host &quot;Checking for Power Automate Flows in the Default Environment&quot; -ForegroundColor Cyan
+    #$powerAutomate = Get-PnPFlow -AsAdmin
+    
+    Write-Host &quot;Reporting Disabled due to issues running the cmdlet&quot; -ForegroundColor Red
+    # Write-Host &quot; - Reporting Power Automate Flows in the Default Environment&quot; -ForegroundColor Yellow    
+    # $powerAutomate | Export-Csv -Path &quot;$outputFolder\power-automate-flows.csv&quot; -NoTypeInformation
+    
+    if($ExportPowerAutomate -or $ExportAll){
+        Write-Host &quot;Exporting Disabled due to issues running the cmdlet&quot; -ForegroundColor Red
+        # Write-Host &quot; - Exporting Power Automate Flows in the Default Environment..&quot; -ForegroundColor Cyan
+        # $powerAutomate | ForEach-Object {
+        #     try{
+        #         $flow = $_
+        #         Write-Host &quot; - Exporting $($flow.DisplayName)&quot; -ForegroundColor Cyan
+        #         $flowTitle = $flow.DisplayName -replace &quot;[^a-zA-Z0-9]&quot;, &quot;&quot;
+        #         $powerAutomatePath = &quot;$outputFolder\PowerAutomate\&quot;
+        #         if (-not (Test-Path $powerAutomatePath)) {
+        #             New-Item -ItemType Directory -Path $powerAutomatePath
+        #         }
+        #         Export-PnPFlow -Identity $flow -Path &quot;$powerAutomatePath\$flowTitle.zip&quot;
+        #     }catch{
+        #         Write-Host &quot; - Error exporting Power Automate Flow&quot; -ForegroundColor Red
+        #     }
+        # }
+        # Write-Host &quot; - Power Automate Flows exported to $powerAutomatePath&quot; -ForegroundColor Green
+    }
+
+    #----------------------------------------------------------------------------
+    # Process Azure AD Apps
+    #----------------------------------------------------------------------------
+    Write-Host &quot;Checking for Azure AD Apps&quot; -ForegroundColor Cyan
+   
+    Write-Host &quot; - Reporting Azure AD Apps&quot; -ForegroundColor Yellow
+    $azureADApps = Get-PnPAzureADApp
+    $azureADApps | Export-Csv -Path &quot;$outputFolder\azure-ad-apps.csv&quot; -NoTypeInformation
+    
+
+    Write-Host &quot;Checking for Azure AD App with SharePoint Permissions&quot; -ForegroundColor Cyan
+
+    #----------------------------------------------------------------------------
+    # Process Teams apps
+    #----------------------------------------------------------------------------
+    Write-Host &quot;Checking for Teams apps (excluding the store apps)&quot; -ForegroundColor Cyan
+    
+    Write-Host &quot; - Reporting Teams apps&quot; -ForegroundColor Yellow
+    $teamsApps = Get-PnPTeamsApp
+    if($teamsApps){
+        Write-Host &quot; - Teams apps found&quot; -ForegroundColor Green
+        $teamsAppsReport = $teamsApps | Where-Object {$_.DistributionMethod -ne &quot;store&quot;}
+        $teamsAppsReport | Export-Csv -Path &quot;$outputFolder\teams-apps.csv&quot; -NoTypeInformation
+    }
+    else{
+        Write-Host &quot; - No Teams apps found&quot; -ForegroundColor Gray
+    }
+    
+}
+end{
+  
+  Write-Host &quot;Done! :)&quot; -ForegroundColor Green
+  Stop-Transcript
+}
+
+</code></pre>
+<div class="highlight-tool">
+<p>Check out the <strong>PnP PowerShell</strong> to learn more at: <a href="https://aka.ms/pnp/powershell">https://aka.ms/pnp/powershell</a></p>
+</div>
+</section>
+</div>
+<h2 id="contributors">Contributors</h2>
+<table>
+<thead>
+<tr>
+<th>Author(s)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Paul Bullock</td>
+</tr>
+</tbody>
+</table>
+<h2 id="disclaimer">Disclaimer</h2>
+<p><strong>THESE SAMPLES ARE PROVIDED <em>AS IS</em> WITHOUT WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, INCLUDING ANY IMPLIED WARRANTIES OF FITNESS FOR A PARTICULAR PURPOSE, MERCHANTABILITY, OR NON-INFRINGEMENT.</strong></p>
+<img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/spo-dev-tenant-report-export" aria-hidden="true">
+</article>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            <span>Script Samples<br>Generated by <strong><a href='https://dotnet.github.io/docfx' alt='Doc FX Website'>DocFX</a></strong> with <strong><a href='https://ovasquez.github.io/docfx-material' alt='DocFx Material Theme'>Material UI</a></strong></span>
+            
+            <!-- <img src="https://telemetry.sharepointpnp.com/@pnp.github.io/index/" alt="spacer"> -->
+          </div>
+        </div>
+      </footer>    </div>
+    
+    <script type="text/javascript" src="../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+    
+    <script type="text/javascript" src="../styles/clipboard.min.js"></script>
+    <script type="text/javascript" src="../styles/isotope.pkgd.min.js"></script>
+    <script type="text/javascript" src="../styles/loadsamples.js"></script>
+    <script type="text/javascript" src="../styles/filtersamples.js"></script>
+
+  </body>
+</html>
