@@ -516,12 +516,27 @@ process {
     #----------------------------------------------------------------------------
     Write-Host &quot;Checking for Azure AD Apps&quot; -ForegroundColor Cyan
    
-    Write-Host &quot; - Reporting Azure AD Apps&quot; -ForegroundColor Yellow
+    Write-Host &quot; - Reporting Azure AD Apps and permissions&quot; -ForegroundColor Yellow
     $azureADApps = Get-PnPAzureADApp
-    $azureADApps | Export-Csv -Path &quot;$outputFolder\azure-ad-apps.csv&quot; -NoTypeInformation
-    
+    $azureADAppPermission = Get-PnPAzureADAppPermission
 
-    Write-Host &quot;Checking for Azure AD App with SharePoint Permissions&quot; -ForegroundColor Cyan
+    # Delete existing site app catalog report
+    if (Test-Path &quot;$outputFolder\azure-ad-apps.csv&quot;) {
+        Remove-Item &quot;$outputFolder\azure-ad-apps.csv&quot;
+    }
+
+    $azureADApps | ForEach-Object {
+        $app = $_
+        $perm = $azureADAppPermission | Where-Object {$_.AppId -eq $app.AppId }
+
+        $reportApps = $app | Select-Object Id,DisplayName,AppId,SignInAudience,IsFallbackPublicClient,`
+        @{Name='RequiredResourceAccess'; Expression={ $_.RequiredResourceAccess | ConvertTo-Json -Depth 4 }},`
+        @{Name='PublicClient'; Expression={$_.PublicClient | ForEach-Object { $_.RedirectUris }}}, `
+        @{Name='MicrosoftGraph'; Expression={ $perm | Select-Object -ExpandProperty MicrosoftGraph | ForEach-Object { $_ }}},`
+        @{Name='SharePoint'; Expression={ $perm | Select-Object -ExpandProperty SharePoint | ForEach-Object { $_ }}}
+
+        $reportApps | Export-Csv -Path &quot;$outputFolder\azure-ad-apps.csv&quot; -NoTypeInformation -Append
+    }
 
     #----------------------------------------------------------------------------
     # Process Teams apps
