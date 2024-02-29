@@ -2,7 +2,7 @@
 plugin: add-to-gallery-preparation
 ---
 
-# Copy a hubsite navigation from a source site to any desired taret hubsite
+# Copy a hub navigation from a source site to any desired target hub site
 
 ## Summary
 
