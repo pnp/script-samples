@@ -109,7 +109,7 @@ Copy-Hubnavigation -SourceSiteRelativeUrl "/" -DestinationSiteRelativeUrl "/site
 
 ## Source Credit
 
-Sample first appeared on [https://github.com/tmaestrini/easyProvisioning/](https://github.com/tmaestrini/easyProvisioning)
+Sample taken from [https://github.com/tmaestrini/easyProvisioning/](https://github.com/tmaestrini/easyProvisioning)
 
 ## Contributors
 
