@@ -82,7 +82,7 @@ m365 logout
 |-----------|
 | [Reshmee Auckloo (script)](https://github.com/reshmee011)|
 | [Mikael Svenson (caution text)](https://github.com/wobba)|
-| [Ganesh Sanap (script)](https://twitter.com/GaneshSanap20) |
+| [Ganesh Sanap (script)](https://ganeshsanapblogs.wordpress.com/about) |
 
 
 [!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
