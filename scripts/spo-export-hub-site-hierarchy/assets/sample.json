@@ -9,7 +9,7 @@
       "This script exports the SharePoint site hierarchy into a Markdown file to visualize the hub sites and its associated sites."
     ],
     "creationDateTime": "2023-11-03",
-    "updateDateTime": "2023-11-03",
+    "updateDateTime": "2024-03-04",
     "products": [
       "SharePoint"
     ],
@@ -17,6 +17,10 @@
       {
         "key": "PNP-POWERSHELL",
         "value": "2.2.0"
+      },
+      {
+        "key": "CLI-FOR-MICROSOFT365",
+        "value": "7.5.0"
       }
     ],
     "categories": [
@@ -26,7 +30,12 @@
       "Connect-PnPOnline",
       "Get-PnPTenantSite",
       "Get-PnPHubSite",
-      "Disconnect-PnPOnline"
+      "Disconnect-PnPOnline",
+      "m365 login",
+      "m365 status",
+      "m365 spo site list",
+      "m365 spo hubsite list",
+      "m365 logout"
     ],
     "thumbnails": [
       {
@@ -44,6 +53,12 @@
     ],
     "authors": [
       {
+        "gitHubAccount": "ganesh-sanap",
+        "company": "",
+        "pictureUrl": "https://avatars.githubusercontent.com/u/25476310?v=4",
+        "name": "Ganesh Sanap"
+      },
+      {
         "gitHubAccount": "tecchan1107",
         "company": "",
         "pictureUrl": "https://github.com/tecchan1107.png",
@@ -55,6 +70,11 @@
         "name": "Want to learn more about PnP PowerShell and the cmdlets",
         "description": "Check out the PnP PowerShell site to get started and for the reference to the cmdlets.",
         "url": "https://aka.ms/pnp/powershell"
+      },
+      {
+        "name": "Want to learn more about CLI for Microsoft 365 and the commands",
+        "description": "Check out the CLI for Microsoft 365 site to get started and for the reference to the commands.",
+        "url": "https://aka.ms/cli-m365"
       }
     ]
   }
