@@ -1,5 +1,5 @@
 ---
-plugin: add-to-gallery-preparation
+plugin: add-to-gallery
 ---
 
 # Copy a hub navigation from a source site to any desired target hub site
@@ -9,8 +9,6 @@ plugin: add-to-gallery-preparation
 This script copies a hub navigation from any hub site (source) to another hub site (target). Use this script to create a consistent hub navigation for all your sites in SharePoint Online.
 
 Based on the navigation structure of any hub site of your choice – e.g. the hub navigation of your home site, which serves as a template - any desired hub navigation within your SharePoint Online site architecture can be created identically.
-
-![Example Screenshot](assets/example.png)
 
 > [!NOTE]
 > The deployment process is idempotent; each navigation is only deployed once and replaced in the target hub site when it is deployed again. You can start the copying process as often as you like without expecting any side effects!
@@ -105,7 +103,7 @@ Connect-PnPOnline "https://[tenant]-admin.sharepoint.com" -Interactive
 Copy-Hubnavigation -SourceSiteRelativeUrl "/" -DestinationSiteRelativeUrl "/sites/LearningHub"
 ```
 [!INCLUDE [More about PnP PowerShell](../../docfx/includes/MORE-PNPPS.md)]
-
+***
 
 ## Source Credit
 
@@ -119,4 +117,4 @@ Sample taken from [https://github.com/tmaestrini/easyProvisioning/](https://gith
 
 
 [!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
-<img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/template-script-submission" aria-hidden="true" />
+<img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/spo-copy-hubsite-navigation" aria-hidden="true" />
