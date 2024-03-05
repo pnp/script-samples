@@ -2,14 +2,11 @@
 plugin: add-to-gallery
 ---
 
-# Scan for potential unaccessable site collection homepages
-
-> [!Note]
-> This is a submission helper template please find the [contributor guidance](/docfx/contribute.md) to help you write this scenario.
+# Scan for potential inaccessible site collection homepages
 
 ## Summary
 
-This script will scan all(or selected) site collections in a tenant and check if the homepage is accessible. The script will output the URL of the site collection and the URL of the homepage and whether the default home page has custom permissions.
+Sample looks for site collections where the default page has custom permissions and outputs to a CSV file
 
 ![Example Screenshot](assets/example.png)
 
