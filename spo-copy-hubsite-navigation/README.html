@@ -1,0 +1,256 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html lang="en">
+  
+  <head>
+    <meta charset="utf-8">
+    <title>Copy a hub navigation from a source site to any desired target hub site | PnP Samples </title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" "="">
+    <meta name="title" content="Copy a hub navigation from a source site to any desired target hub site | PnP Samples ">
+    <meta name="generator" content="docfx 2.56.7.0">
+    <meta name="description" content="A sample gallery of scripts to manage all things Microsoft 365.">
+  
+    <!-- Social Media -->
+    <meta property="og:locale" content="en_GB">
+    <meta property="og:title" content="Copy a hub navigation from a source site to any desired target hub site | PnP Samples ">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://pnp.github.io/script-samples">
+    <meta property="og:image" content="https://pnp.github.io/script-samples/assets/social-media-screenshot.png">
+    <meta property="og:image:alt" content="Screenshot example of the PnP Script Samples Site">
+    <meta property="og:site_name" content="PnP Script Samples">
+    <meta name="msvalidate.01" content="04EFEDA66EC42C08A1247C979E2F9ADD">
+    <meta property="og:description" content="A sample gallery of scripts to manage all things Microsoft 365.">
+  
+    <link rel="shortcut icon" href="https://c.s-microsoft.com/favicon.ico?v2">
+    <link rel="stylesheet" href="../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../styles/docfx.css">
+    <link rel="stylesheet" href="../styles/main.css">
+    <link rel="stylesheet" href="../styles/extra.css">
+    <link rel="stylesheet" href="../styles/filter.css">
+    <link rel="stylesheet" href="../styles/site.css">
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet"> 
+    <meta property="docfx:navrel" content="../toc.html">
+    <meta property="docfx:tocrel" content="../toc.html">
+    
+    
+    <meta property="docfx:newtab" content="true">
+    <script type="text/javascript">
+      (function(c,l,a,r,i,t,y){
+          c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+          t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+          y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+      })(window, document, "clarity", "script", "8j6pedl344");
+  </script>
+  </head>  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+             <div class="github-mark">
+              <a href="https://github.com/pnp/script-samples" title="Go to repository">
+               <div class="github-wrapper">
+                  <div class="github-icon">
+                    <img src="https://pnp.github.io/script-samples/assets/icons/github-light-64px.png" alt="GitHub Icon Image">
+                  </div>
+                  <div class="github-repository">
+                    <span>GitHub</span>
+                    <ul class="github-facts">
+                      <li>
+                        <i class="fa fa-code-fork" aria-hidden="true"></i>
+                        <span class="github-forks"></span>
+                      </li>
+                      <li>
+                        <i class="fa fa-star-o" aria-hidden="true"></i>
+                        <span class="github-stars"></span>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </a>
+            </div>
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../assets/logo.svg" alt="">
+              </a>    </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <label class="glyphicon glyphicon-search" for="search-query"></label>
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>      </header>
+      <div role="main" class="container body-content hide-when-search">
+        <div class="article row grid">
+          <div class="col-md-12">
+            <article class="content wrap" id="_content" data-uid="">
+                  <div class="contribution-panel mobile-hide pull-right">
+                      <a href="https://github.com/pnp/script-samples/blob/main/scripts/spo-copy-hubsite-navigation/README.md/#L1" title="Improve this Doc" class="improve-doc-lg"><i class="glyphicon glyphicon-pencil"></i></a>
+                  </div>
+                    <h1 id="copy-a-hub-navigation-from-a-source-site-to-any-desired-target-hub-site">Copy a hub navigation from a source site to any desired target hub site</h1>
+
+<h2 id="summary">Summary</h2>
+<p>This script copies a hub navigation from any hub site (source) to another hub site (target). Use this script to create a consistent hub navigation for all your sites in SharePoint Online.</p>
+<p>Based on the navigation structure of any hub site of your choice – e.g. the hub navigation of your home site, which serves as a template - any desired hub navigation within your SharePoint Online site architecture can be created identically.</p>
+<div class="NOTE">
+<h5>Note</h5>
+<p>The deployment process is idempotent; each navigation is only deployed once and replaced in the target hub site when it is deployed again. You can start the copying process as often as you like without expecting any side effects!</p>
+</div>
+<div class="tabGroup" id="tabgroup_CeZOj-G++Q">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_CeZOj-G++Q_pnpps" role="tab" aria-controls="tabpanel_CeZOj-G++Q_pnpps" data-tab="pnpps" tabindex="0" aria-selected="true">PnP PowerShell</a>
+</li>
+</ul>
+<section id="tabpanel_CeZOj-G++Q_pnpps" role="tabpanel" data-tab="pnpps"><button class="article-clipboard" title="Copy to clipboard" data-toggle="tooltip" data-placement="top" data-clipboard-target="section[id^='tabpanel'][data-tab='pnpps'] pre">
+    <span class="glyphicon glyphicon-copy" aria-hidden="true"></span>
+    <span class="article-clipboard__message done">Copied</span>
+</button>
+
+<pre><code class="lang-powershell">
+Function Copy-Hubnavigation {
+  [cmdletbinding()]
+  param(
+    [Parameter(
+      Mandatory = $true
+    )][string]$SourceSiteRelativeUrl,
+    [Parameter(
+      Mandatory = $true
+    )][string]$DestinationSiteRelativeUrl
+  )
+
+  Function Get-ToplevelHubnavigation([PnP.PowerShell.Commands.Base.PnPConnection]$sourceSiteConn) {
+    try {
+      $hubsiteNavigation = Get-PnPNavigationNode -Location TopNavigationBar -Connection $sourceSiteConn
+      return $hubsiteNavigation
+    }
+    catch {
+      Write-Host &quot; ✘ failed: $($_)&quot; -ForegroundColor Red
+    }
+  }
+
+  Function New-HubnavigationElement([Object]$naviItem, [Object]$parentItem, [PnP.PowerShell.Commands.Base.PnPConnection]$destSiteConn, [PnP.PowerShell.Commands.Base.PnPConnection]$sourceSiteConn) {
+    # construct path based on given relative url of item
+    $naviItem.Url = $naviItem.Url -eq &quot;http://linkless.header/&quot; ? &quot;http://linkless.header/&quot; : ($naviItem.Url.StartsWith(&quot;https://&quot;) ? $naviItem.Url : &quot;$($naviItem.Context.Url)$($naviItem.Url.TrimStart('/'))&quot;)
+    if ($null -ne $parentItem) {
+      $node = Add-PnPNavigationNode -Location TopNavigationBar -Title $naviItem.Title -Url $naviItem.Url -Parent $parentItem.Id -Connection $destSiteConn
+    }
+    else { 
+      $node = Add-PnPNavigationNode -Location TopNavigationBar -Title $naviItem.Title -Url $naviItem.Url -Connection $destSiteConn 
+    }
+    
+    # handle child nodes (recursively)
+    if ($null -ne $naviItem.Children) {
+      foreach ($childNaviItem in $naviItem.Children) {
+        # get the details about the node:
+        $childNaviItem = Get-PnPNavigationNode -Id $childNaviItem.Id -Connection $connHubsiteSource
+        New-HubnavigationElement -naviItem $childNaviItem -parentItem $node -destSiteConn $destSiteConn
+      }
+    }
+  }
+
+  if ($null -eq $SourceSiteRelativeUrl) { throw &quot;No Source Hubsite Url provided&quot; }
+  if ($null -eq $DestinationSiteRelativeUrl) { throw &quot;No Destination Hubsite Url provided&quot; }
+
+  $connAdmin = Get-PnPConnection
+  $spoBaseUrl = $connAdmin.Url.Replace('-admin', '')
+
+  $spoUrlSource = &quot;$($spoBaseUrl)$($SourceSiteRelativeUrl)&quot;
+  $spoUrlDestination = &quot;$($spoBaseUrl)$($DestinationSiteRelativeUrl)&quot;
+
+  $connHubsiteSource = Connect-PnPOnline -Url $spoUrlSource -ReturnConnection -Interactive
+  $connHubSiteDest = Connect-PnPOnline -Url $spoUrlDestination -ReturnConnection -Interactive
+
+  Write-Host &quot;⭐️ Site '$($DestinationSiteRelativeUrl)';&quot;
+  try {
+    # Delete all existing nodes:
+    Remove-PnPNavigationNode -Force -All -Connection $connHubSiteDest
+
+    Write-Host &quot;⎿  Copying consistent hub navigation from '$($connHubsiteSource.Url)': &quot; -NoNewline
+    $navigation = Get-ToplevelHubnavigation -sourceSiteConn $connHubsiteSource
+    foreach ($naviItem in $navigation) {
+      # get the details about the node:
+      $naviItem = Get-PnPNavigationNode -Id $naviItem.Id -Connection $connHubsiteSource 
+      New-HubnavigationElement -naviItem $naviItem -parentItem $null -destSiteConn $connHubSiteDest -sourceSiteConn $connHubsiteSource
+    }
+    Write-Host &quot; ✔︎ Done&quot; -ForegroundColor DarkGreen
+  }
+  catch {
+    Write-Host &quot; ✘ failed: $($_)&quot; -ForegroundColor Red
+  }
+  finally {
+    $connHubsiteSource = $null
+    $connHubSiteDest = $null
+    $connAdmin = $null
+  }
+
+}
+
+# First connect to admin site of your tenant; make sure you are an SPO Admin:
+Connect-PnPOnline &quot;https://[tenant]-admin.sharepoint.com&quot; -Interactive
+
+# Copy hub navigation from the soure hub site (here &quot;/&quot;) to the destination hub site (here &quot;/sites/LearningHub&quot;):
+Copy-Hubnavigation -SourceSiteRelativeUrl &quot;/&quot; -DestinationSiteRelativeUrl &quot;/sites/LearningHub&quot;
+</code></pre>
+<div class="highlight-tool">
+<p>Check out the <strong>PnP PowerShell</strong> to learn more at: <a href="https://aka.ms/pnp/powershell">https://aka.ms/pnp/powershell</a></p>
+</div>
+</section>
+</div>
+<h2 id="source-credit">Source Credit</h2>
+<p>Sample taken from <a href="https://github.com/tmaestrini/easyProvisioning">https://github.com/tmaestrini/easyProvisioning/</a></p>
+<h2 id="contributors">Contributors</h2>
+<table>
+<thead>
+<tr>
+<th>Author(s)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="https://github.com/tmaestrini">Tobias Maestrini</a></td>
+</tr>
+</tbody>
+</table>
+<h2 id="disclaimer">Disclaimer</h2>
+<p><strong>THESE SAMPLES ARE PROVIDED <em>AS IS</em> WITHOUT WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, INCLUDING ANY IMPLIED WARRANTIES OF FITNESS FOR A PARTICULAR PURPOSE, MERCHANTABILITY, OR NON-INFRINGEMENT.</strong></p>
+<img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/spo-copy-hubsite-navigation" aria-hidden="true">
+</article>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            <span>Script Samples<br>Generated by <strong><a href='https://dotnet.github.io/docfx' alt='Doc FX Website'>DocFX</a></strong> with <strong><a href='https://ovasquez.github.io/docfx-material' alt='DocFx Material Theme'>Material UI</a></strong></span>
+            
+            <!-- <img src="https://telemetry.sharepointpnp.com/@pnp.github.io/index/" alt="spacer"> -->
+          </div>
+        </div>
+      </footer>    </div>
+    
+    <script type="text/javascript" src="../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+    
+    <script type="text/javascript" src="../styles/clipboard.min.js"></script>
+    <script type="text/javascript" src="../styles/isotope.pkgd.min.js"></script>
+    <script type="text/javascript" src="../styles/loadsamples.js"></script>
+    <script type="text/javascript" src="../styles/filtersamples.js"></script>
+
+  </body>
+</html>
