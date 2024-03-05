@@ -1,0 +1,62 @@
+[
+  {
+    "name": "spo-copy-hubsite-navigation",
+    "source": "pnp",
+    "title": "Copy a hub navigation from a source site to any desired target hub site",
+    "shortDescription": "This script copies a hub navigation from any hub site (source) to another hub site (target)",
+    "url": "https://pnp.github.io/script-samples/spo-copy-hubsite-navigation/README.html",
+    "longDescription": [
+      "This script copies a hub navigation from any hub site (source) to another hub site (target). Use this script to create a consistent hub navigation for all your sites in SharePoint Online."
+    ],
+    "creationDateTime": "2024-02-29",
+    "updateDateTime": "2024-02-29",
+    "products": [
+      "SharePoint"
+    ],
+    "metadata": [
+      {
+        "key": "PNP-POWERSHELL",
+        "value": "2.3.0"
+      },
+      {
+        "key": "POWERSHELL",
+        "value": "7.4.0"
+      }
+    ],
+    "categories": [
+      "Data",
+      "Provision",
+      "Configure"
+    ],
+    "tags": [
+      "Connect-PnPOnline",
+      "Get-PnPConnection",
+      "Add-PnPNavigationNode",
+      "Get-PnPNavigationNode",
+      "Remove-PnPNavigationNode"
+    ],
+    "thumbnails": [
+      {
+        "type": "image",
+        "order": 100,
+        "url": "https://raw.githubusercontent.com/pnp/script-samples/main/scripts/spo-copy-hubsite-navigation/assets/preview.png",
+        "alt": "Preview of the sample <title>"
+      }
+    ],
+    "authors": [
+      {
+        "gitHubAccount": "tmaestrini",
+        "company": "",
+        "pictureUrl": "https://avatars.githubusercontent.com/u/69770609?v=4",
+        "name": "Tobias Maestrini"
+      }
+    ],
+    "references": [
+      {
+        "name": "Want to learn more about PnP PowerShell and the cmdlets",
+        "description": "Check out the PnP PowerShell site to get started and for the reference to the cmdlets.",
+        "url": "https://aka.ms/pnp/powershell"
+      }
+    ]
+  }
+]
