@@ -7,8 +7,6 @@ plugin: add-to-gallery
 ## Summary
 This example illustrates how to export all content types present on websites, capturing essential details like Name, ID, Scope, Schema, Fields, and additional information, then organizing them into a CSV format.
 
-![Example Screenshot](assets/example.png)
-
 # [PnP PowerShell](#tab/pnpps)
 
 ```powershell
