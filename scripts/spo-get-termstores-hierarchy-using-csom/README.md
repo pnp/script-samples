@@ -119,6 +119,8 @@ Function StartProcessing {
 StartProcessing
 
 ```
+[!INCLUDE [More about Client Side Object Mode (CSOM)](../../docfx/includes/MORE-CSOM.md)]
+***
 
 ## Contributors
 
