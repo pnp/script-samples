@@ -101,7 +101,7 @@
 <h2 id="summary">Summary</h2>
 <p><a href="https://learn.microsoft.com/sharepoint/hub-to-hub-association">SharePoint allows to associate a hub site with another hub site</a>. This script exports the SharePoint site hierarchy into a Markdown file to visualize the hub sites and its associated sites. It helps to understand the structure of SharePoint.</p>
 <p><img src="assets/example.png" alt="Screenshot of the example"></p>
-<p>The following is a sample of the output markdown.</p>
+<p>The following is a sample of the output markdown:</p>
 <pre><code class="lang-markdown"># SharePoint Sites in tenant [contoso]
 
 ## Hub Sites and Sites Associated with Hub Sites
@@ -142,6 +142,9 @@ Here are the sites that are not hub sites and are not associated with any hub si
 <ul role="tablist">
 <li role="presentation">
 <a href="#tabpanel_CeZOj-G++Q_pnpps" role="tab" aria-controls="tabpanel_CeZOj-G++Q_pnpps" data-tab="pnpps" tabindex="0" aria-selected="true">PnP PowerShell</a>
+</li>
+<li role="presentation">
+<a href="#tabpanel_CeZOj-G++Q_cli-m365-ps" role="tab" aria-controls="tabpanel_CeZOj-G++Q_cli-m365-ps" data-tab="cli-m365-ps" tabindex="-1">CLI for Microsoft 365</a>
 </li>
 </ul>
 <section id="tabpanel_CeZOj-G++Q_pnpps" role="tabpanel" data-tab="pnpps"><button class="article-clipboard" title="Copy to clipboard" data-toggle="tooltip" data-placement="top" data-clipboard-target="section[id^='tabpanel'][data-tab='pnpps'] pre">
@@ -255,6 +258,120 @@ finally {
 <p>Check out the <strong>PnP PowerShell</strong> to learn more at: <a href="https://aka.ms/pnp/powershell">https://aka.ms/pnp/powershell</a></p>
 </div>
 </section>
+<section id="tabpanel_CeZOj-G++Q_cli-m365-ps" role="tabpanel" data-tab="cli-m365-ps" aria-hidden="true" hidden="hidden"><button class="article-clipboard" title="Copy to clipboard" data-toggle="tooltip" data-placement="top" data-clipboard-target="section[id^='tabpanel'][data-tab='cli-m365-ps'] pre">
+    <span class="glyphicon glyphicon-copy" aria-hidden="true"></span>
+    <span class="article-clipboard__message done">Copied</span>
+</button>
+
+<pre><code class="lang-powershell"># Target tenant name
+$tenantName = '&lt;Tenant Name&gt;' # e.g. contoso
+
+# Constants
+$noHubSiteId = '00000000-0000-0000-0000-000000000000'
+$exportFolderName = 'SharePointHubSiteHierarchyReport'
+$exportFolderPath = Join-Path ([Environment]::GetFolderPath('MyDocuments')) $exportFolderName
+$timeStamp = (Get-Date).ToString('yyyyMMdd-HHmmss')
+$markdownFilePath = Join-Path $exportFolderPath &quot;$timeStamp-$tenantName.md&quot;
+
+# Function: Generate Markdown
+function GenerateMarkdownForHubSite {
+    param (
+        $hubSite,
+        $level,
+        $hubSites,
+        $tenantSites
+    )
+
+    $indent = &quot;  &quot; * ($level - 1)
+    $hubSiteInfo = $tenantSites | Where-Object { $_.Url -eq $hubSite.SiteUrl }
+    $hubTitle = $hubSiteInfo.Title ? $hubSiteInfo.Title : $hubSiteInfo.Url
+    $markdown = &quot;$indent- **[$hubTitle]($($hubSiteInfo.Url))**`r`n&quot;
+
+    $childSites = $hubSite.AssociatedSites
+    foreach ($childSite in $childSites) {
+        $title = $childSite.Title ? $childSite.Title : $childSite.Url
+        $markdown += &quot;$indent  - [$title]($($childSite.SiteUrl))`r`n&quot;
+    }
+
+    $childHubSites = $hubSites | Where-Object { $_.ParentHubSiteId -eq $hubSite.SiteId }
+    foreach ($childHubSite in $childHubSites) {
+        $markdown += (GenerateMarkdownForHubSite $childHubSite ($level + 1) $hubSites $tenantSites)
+    }
+
+    return $markdown
+}
+
+try {
+    # Create the Data Export Folder
+    if (-not (Test-Path $exportFolderPath -PathType Container)) {
+        Write-Host &quot;Creating Data Export Folder...Started&quot; -ForegroundColor Yellow
+        New-Item -Path $exportFolderPath -ItemType Directory -Force -ErrorAction Stop
+        Write-Host &quot;Creating Data Export Folder...Completed&quot; -ForegroundColor Green
+    }
+
+    # Connect to SharePoint tenant
+    Write-Host &quot;Connecting to SharePoint tenant...Started&quot; -ForegroundColor Yellow
+    $m365Status = m365 status
+    if ($m365Status -match &quot;Logged Out&quot;) {
+        m365 login
+    }
+    Write-Host &quot;Connecting to SharePoint tenant...Completed&quot; -ForegroundColor Green
+
+    # Get tenant sites
+    Write-Host &quot;Retrieving tenant sites...Started&quot; -ForegroundColor Yellow
+    $tenantSites = m365 spo site list | ConvertFrom-Json -ErrorAction Stop
+    Write-Host &quot;Retrieving tenant sites...Completed&quot; -ForegroundColor Green
+
+    # Get hub sites
+    Write-Host &quot;Retrieving hub sites...Started&quot; -ForegroundColor Yellow
+    $hubSites = m365 spo hubsite list --includeAssociatedSites | ConvertFrom-Json -ErrorAction Stop
+    Write-Host &quot;Retrieving hub sites...Completed&quot; -ForegroundColor Green
+
+    # Generate Markdown
+    Write-Host &quot;Generating markdown...Started&quot; -ForegroundColor Yellow
+    $markdownText = @()
+    $markdownText += &quot;# SharePoint Sites in tenant [$($tenantName)]`r`n&quot;
+
+    # Hub Sites and Sites Associated with Hub Sites
+    $markdownText += &quot;## Hub Sites and Sites Associated with Hub Sites`r`n&quot;
+    $markdownText += &quot;Here are the hub sites and the sites associated with the hub sites. Hub sites are shown in bold.`r`n&quot;
+    $parentHubSites = $hubSites | Where-Object { $_.ParentHubSiteId -eq $noHubSiteId }
+    foreach ($parentHubSite in $parentHubSites) {
+        $markdownText += (GenerateMarkdownForHubSite $parentHubSite 1 $hubSites $tenantSites)
+    }
+
+    # Hub Sites and Sites Associated with Hub Sites
+    $markdownText += &quot;## Sites that are not Hub Sites and are not Associated with any Hub Site`r`n&quot;
+    $markdownText += &quot;Here are the sites that are not hub sites and are not associated with any hub site.`r`n&quot;
+    $standaloneSites = $tenantSites | Where-Object { $_.HubSiteId -eq &quot;/Guid(00000000-0000-0000-0000-000000000000)/&quot; }
+    foreach ($standaloneSite in $standaloneSites) {
+        $title = if ($standaloneSite.Title) { $standaloneSite.Title } else { $standaloneSite.Url }
+        $markdownText += &quot;- [$title]($($standaloneSite.Url))&quot;
+    }
+    Write-Host &quot;Generating markdown...Completed&quot; -ForegroundColor Green
+
+    # Save the Markdown file
+    Write-Host &quot;Saving markdown file...Started&quot; -ForegroundColor Yellow
+    $markdownText -join &quot;`r`n&quot; | Out-File -FilePath $markdownFilePath -Encoding UTF8 -ErrorAction Stop
+    Write-Host &quot;Saving markdown file...Completed&quot; -ForegroundColor Green
+
+    # Display successful file save message
+    Write-Host &quot;-&quot;.PadRight(50, &quot;-&quot;)
+    Write-Host &quot;Markdown file is located at: $markdownFilePath&quot;
+    Write-Host &quot;-&quot;.PadRight(50, &quot;-&quot;)
+}
+catch {
+    Write-Error &quot;Error message: $($_.Exception.Message)&quot;
+}
+finally {
+    # Disconnect SharePoint online connection
+    m365 logout
+}
+</code></pre>
+<div class="highlight-tool">
+<p>Check out the <strong>CLI for Microsoft 365</strong> to learn more at: <a href="https://aka.ms/cli-m365">https://aka.ms/cli-m365</a></p>
+</div>
+</section>
 </div>
 <h2 id="contributors">Contributors</h2>
 <table>
@@ -266,6 +383,9 @@ finally {
 <tbody>
 <tr>
 <td><a href="https://github.com/tecchan1107">Tetsuya Kawahara</a></td>
+</tr>
+<tr>
+<td><a href="https://ganeshsanapblogs.wordpress.com/">Ganesh Sanap</a></td>
 </tr>
 </tbody>
 </table>
