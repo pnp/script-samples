@@ -99,12 +99,15 @@
                     <h1 id="scan-for-potential-inaccessible-site-collection-homepages">Scan for potential inaccessible site collection homepages</h1>
 
 <h2 id="summary">Summary</h2>
-<p>Sample looks for site collections where the default page has custom permissions and outputs to a CSV file</p>
+<p>This script sample looks for the site collections where site home page has custom permissions and outputs to a CSV file.</p>
 <p><img src="assets/example.png" alt="Example Screenshot"></p>
 <div class="tabGroup" id="tabgroup_CeZOj-G++Q">
 <ul role="tablist">
 <li role="presentation">
 <a href="#tabpanel_CeZOj-G++Q_pnpps" role="tab" aria-controls="tabpanel_CeZOj-G++Q_pnpps" data-tab="pnpps" tabindex="0" aria-selected="true">PnP PowerShell</a>
+</li>
+<li role="presentation">
+<a href="#tabpanel_CeZOj-G++Q_cli-m365-ps" role="tab" aria-controls="tabpanel_CeZOj-G++Q_cli-m365-ps" data-tab="cli-m365-ps" tabindex="-1">CLI for Microsoft 365</a>
 </li>
 </ul>
 <section id="tabpanel_CeZOj-G++Q_pnpps" role="tabpanel" data-tab="pnpps"><button class="article-clipboard" title="Copy to clipboard" data-toggle="tooltip" data-placement="top" data-clipboard-target="section[id^='tabpanel'][data-tab='pnpps'] pre">
@@ -112,9 +115,7 @@
     <span class="article-clipboard__message done">Copied</span>
 </button>
 
-<pre><code class="lang-powershell">
-$SPOAdminUrl = &quot;The URL of your tenant SharePoint admin center&quot;
-
+<pre><code class="lang-powershell">$SPOAdminUrl = &quot;The URL of your tenant SharePoint admin center&quot;
 
 if(-not $adminConn)
 {
@@ -126,19 +127,19 @@ $allRelevantSites.Count
 
 #output to an arraylist
 $output = New-Object System.Collections.ArrayList
+
 foreach($site in $allRelevantSites)
 {
-    try 
+    try
     {
         $localconn = Connect-PnPOnline -Url $site.Url -Interactive  -WarningAction SilentlyContinue -ErrorAction Stop -ReturnConnection
         Write-Host &quot;Processing $($site.Url)&quot; -ForegroundColor Green
         $sitepagesList = Get-PnPList -Identity &quot;SitePages&quot; -Connection $localconn
         $defaultpageUrl  = Get-PnPHomePage -Connection $localconn
         $defaultpageUrl = $defaultpageUrl.Substring($defaultpageUrl.IndexOf(&quot;/&quot;)+1)
-        $defaultpageItem = Get-PnPListItem -List $sitepagesList  -Connection $localconn | Where-Object { $_.FieldValues.FileLeafRef -eq $defaultpageUrl }   
+        $defaultpageItem = Get-PnPListItem -List $sitepagesList  -Connection $localconn | Where-Object { $_.FieldValues.FileLeafRef -eq $defaultpageUrl }
         
-        
-        #check if the page has custom permissions as this can cause issues 
+        #check if the page has custom permissions as this can cause issues
         $permissions = Get-PnPListItemPermission -List $sitepagesList -Identity $defaultpageItem -Connection $localconn
         
         $output.Add([PSCustomObject]@{
@@ -147,30 +148,79 @@ foreach($site in $allRelevantSites)
             PagePermissions = $defaultpageItem.HasUniqueRoleAssignments
             ErrorMsg = &quot;&quot;
         }) | Out-Null
-
-
     }
-    catch 
+    catch
     {
-    
         $output.Add([PSCustomObject]@{
             SiteUrl = $site.Url
             DefaultPage = $defaultpage
             PagePermissions = $defaultpageItem.HasUniqueRoleAssignments
             ErrorMsg = $_.Exception.Message
         }) | Out-Null
-        
     }
-    
-    
 }
 
 $output | Export-Csv -Path &quot;C:\temp\DefaultHomePageAccessablityRisk.csv&quot; -NoTypeInformation -Force -Encoding utf8BOM -Delimiter &quot;|&quot;
 
-
+# Disconnect SharePoint online connection
+Disconnect-PnPOnline
 </code></pre>
 <div class="highlight-tool">
 <p>Check out the <strong>PnP PowerShell</strong> to learn more at: <a href="https://aka.ms/pnp/powershell">https://aka.ms/pnp/powershell</a></p>
+</div>
+</section>
+<section id="tabpanel_CeZOj-G++Q_cli-m365-ps" role="tabpanel" data-tab="cli-m365-ps" aria-hidden="true" hidden="hidden"><button class="article-clipboard" title="Copy to clipboard" data-toggle="tooltip" data-placement="top" data-clipboard-target="section[id^='tabpanel'][data-tab='cli-m365-ps'] pre">
+    <span class="glyphicon glyphicon-copy" aria-hidden="true"></span>
+    <span class="article-clipboard__message done">Copied</span>
+</button>
+
+<pre><code class="lang-powershell">#Get Credentials to connect
+$m365Status = m365 status
+if ($m365Status -match &quot;Logged Out&quot;) {
+    m365 login
+}
+
+$allRelevantSites = m365 spo site list | ConvertFrom-Json | Where-Object { $_.Template -like &quot;STS#3&quot; } #or similar filter as per your requirement
+$allRelevantSites.Count
+
+#output to an arraylist
+$output = New-Object System.Collections.ArrayList
+
+foreach($site in $allRelevantSites)
+{
+    try
+    {
+        Write-Host &quot;Processing $($site.Url)&quot; -ForegroundColor Green
+        $webDetails = m365 spo web get --url $site.Url | ConvertFrom-Json
+		$defaultpageUrl = $webDetails.WelcomePage
+        $defaultpageUrl = $defaultpageUrl.Substring($defaultpageUrl.IndexOf(&quot;/&quot;)+1)
+		$defaultpageItem = m365 spo listitem list --listTitle &quot;Site Pages&quot; --webUrl $site.Url --fields &quot;ID,HasUniqueRoleAssignments,FileLeafRef&quot; --filter &quot;FileLeafRef eq '$($defaultpageUrl)'&quot; | ConvertFrom-Json
+		
+        $output.Add([PSCustomObject]@{
+            SiteUrl = $site.Url
+            DefaultPage = $defaultpageUrl
+            PagePermissions = $defaultpageItem.HasUniqueRoleAssignments
+            ErrorMsg = &quot;&quot;
+        }) | Out-Null
+    }
+    catch
+    {
+        $output.Add([PSCustomObject]@{
+            SiteUrl = $site.Url
+            DefaultPage = $defaultpage
+            PagePermissions = $defaultpageItem.HasUniqueRoleAssignments
+            ErrorMsg = $_.Exception.Message
+        }) | Out-Null
+    }
+}
+
+$output | Export-Csv -Path &quot;D:\dtemp\DefaultHomePageAccessablityRisk-CLI.csv&quot; -NoTypeInformation -Force -Encoding utf8BOM -Delimiter &quot;|&quot;
+
+#Disconnect SharePoint online connection
+m365 logout
+</code></pre>
+<div class="highlight-tool">
+<p>Check out the <strong>CLI for Microsoft 365</strong> to learn more at: <a href="https://aka.ms/cli-m365">https://aka.ms/cli-m365</a></p>
 </div>
 </section>
 </div>
@@ -184,6 +234,9 @@ $output | Export-Csv -Path &quot;C:\temp\DefaultHomePageAccessablityRisk.csv&quo
 <tbody>
 <tr>
 <td>Kasper Larsen</td>
+</tr>
+<tr>
+<td><a href="https://ganeshsanapblogs.wordpress.com/">Ganesh Sanap</a></td>
 </tr>
 </tbody>
 </table>
