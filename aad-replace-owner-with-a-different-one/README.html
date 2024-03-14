@@ -105,15 +105,20 @@
 <li role="presentation">
 <a href="#tabpanel_CeZOj-G++Q_pnpps" role="tab" aria-controls="tabpanel_CeZOj-G++Q_pnpps" data-tab="pnpps" tabindex="0" aria-selected="true">PnP PowerShell</a>
 </li>
+<li role="presentation">
+<a href="#tabpanel_CeZOj-G++Q_cli-m365-ps" role="tab" aria-controls="tabpanel_CeZOj-G++Q_cli-m365-ps" data-tab="cli-m365-ps" tabindex="-1">CLI for Microsoft 365</a>
+</li>
 </ul>
 <section id="tabpanel_CeZOj-G++Q_pnpps" role="tabpanel" data-tab="pnpps"><button class="article-clipboard" title="Copy to clipboard" data-toggle="tooltip" data-placement="top" data-clipboard-target="section[id^='tabpanel'][data-tab='pnpps'] pre">
     <span class="glyphicon glyphicon-copy" aria-hidden="true"></span>
     <span class="article-clipboard__message done">Copied</span>
 </button>
 
-<pre><code class="lang-powershell">$AdminCenterURL=&quot;https://contoso-admin.sharepoint.com/&quot;
+<pre><code class="lang-powershell">$AdminCenterURL = &quot;https://contoso-admin.sharepoint.com/&quot;
+
 $oldOwnerUPN = Read-Host &quot;Enter the old owner UPN to be replaced with&quot; #testUser1@contose.onmicrosoft.com
-$newOwnerUPN = Read-Host &quot;Enter the new owner UPN to  replace with&quot; #testuser2@contoso.onmicrosoft.com
+$newOwnerUPN = Read-Host &quot;Enter the new owner UPN to replace with&quot; #testuser2@contoso.onmicrosoft.com
+
 #Connect to SharePoint Online admin center
 Connect-PnPOnline -Url $AdminCenterURL -Interactive
 
@@ -124,43 +129,114 @@ $fileName = &quot;m365GroupOwnersReport-&quot; + $dateTime + &quot;.csv&quot;
 $OutPutView = $directorypath + &quot;\Logs\&quot;+ $fileName
 
 #Array to Hold Result - PSObjects
-
 $m365GroupCollection = @()
-#retrieve any m 365 group starting with Permission
+
+#Retrieve any m 365 group starting with Permission
 $m365Groups = Get-PnPMicrosoft365Group | where-object {$_.DisplayName -like &quot;Permission*&quot;}
-$m365Groups | ForEach-Object{
-$ExportVw = New-Object PSObject
-$ExportVw | Add-Member -MemberType NoteProperty -name &quot;Group Name&quot; -value $_.DisplayName
-$m365GroupOwnersName=&quot;&quot;;
- try
-  {
-   $oldOwner = Get-PnPMicrosoft365GroupOwners  -Identity $_.GroupId | where-object {$_.Email -eq $oldOwnerUPN}
 
-   if($oldOwner)
-   {
-    #replace old owner with new owner
-    Remove-PnPMicrosoft365GroupOwner -Identity $_.GroupId -Users $oldOwner.Email;
-    Add-PnPMicrosoft365GroupOwner -Identity $_.GroupId -Users $newOwnerUPN;
-   }
- }
-catch
-  {
-  write-host $(&quot;Error occured to update group &quot; + $_.DisplayName + $Error)
-  }
+$m365Groups | ForEach-Object {
+	$ExportVw = New-Object PSObject
+	$ExportVw | Add-Member -MemberType NoteProperty -name &quot;Group Name&quot; -value $_.DisplayName
+	$m365GroupOwnersName = &quot;&quot;;
+	
+  	try
+  	{
+    	$oldOwner = Get-PnPMicrosoft365GroupOwners  -Identity $_.GroupId | where-object {$_.Email -eq $oldOwnerUPN}
 
- #for auditing purposes
- $m365GroupOwnersName = (Get-PnPMicrosoft365GroupOwners  -Identity $_.GroupId | select -ExpandProperty DisplayName) -join &quot;;&quot;;
+    	if($oldOwner)
+    	{
+			#Replace old owner with new owner
+			Remove-PnPMicrosoft365GroupOwner -Identity $_.GroupId -Users $oldOwner.Email;
+			Add-PnPMicrosoft365GroupOwner -Identity $_.GroupId -Users $newOwnerUPN;
+    	}
+  	}
+  	catch
+  	{
+    	write-host $(&quot;Error occured to update group &quot; + $_.DisplayName + $Error)
+  	}
 
- $ExportVw | Add-Member -MemberType NoteProperty -name &quot; Group Owners&quot; -value $m365GroupOwnersName
- $m365GroupCollection += $ExportVw
+  	#For auditing purposes - get owners of the group
+  	$m365GroupOwnersName = (Get-PnPMicrosoft365GroupOwners  -Identity $_.GroupId | select -ExpandProperty DisplayName) -join &quot;;&quot;;
+
+	$ExportVw | Add-Member -MemberType NoteProperty -name &quot; Group Owners&quot; -value $m365GroupOwnersName
+	$m365GroupCollection += $ExportVw
 }
 
 #Export the result Array to CSV file
 $m365GroupCollection | sort &quot;Group Name&quot; |Export-CSV $OutPutView -Force -NoTypeInformation
+
+# Disconnect PnP online connection
 Disconnect-PnPOnline
 </code></pre>
 <div class="highlight-tool">
 <p>Check out the <strong>PnP PowerShell</strong> to learn more at: <a href="https://aka.ms/pnp/powershell">https://aka.ms/pnp/powershell</a></p>
+</div>
+</section>
+<section id="tabpanel_CeZOj-G++Q_cli-m365-ps" role="tabpanel" data-tab="cli-m365-ps" aria-hidden="true" hidden="hidden"><button class="article-clipboard" title="Copy to clipboard" data-toggle="tooltip" data-placement="top" data-clipboard-target="section[id^='tabpanel'][data-tab='cli-m365-ps'] pre">
+    <span class="glyphicon glyphicon-copy" aria-hidden="true"></span>
+    <span class="article-clipboard__message done">Copied</span>
+</button>
+
+<pre><code class="lang-powershell">$oldOwnerUPN = Read-Host &quot;Enter the old owner UPN to be replaced with&quot; #testUser1@contose.onmicrosoft.com
+$newOwnerUPN = Read-Host &quot;Enter the new owner UPN to replace with&quot; #testuser2@contoso.onmicrosoft.com
+
+#Get Credentials to connect
+$m365Status = m365 status
+if ($m365Status -match &quot;Logged Out&quot;) {
+    m365 login
+}
+
+$dateTime = (Get-Date).toString(&quot;dd-MM-yyyy&quot;)
+$invocation = (Get-Variable MyInvocation).Value
+$directorypath = Split-Path $invocation.MyCommand.Path
+$fileName = &quot;m365GroupOwnersReport-&quot; + $dateTime + &quot;.csv&quot;
+$OutPutView = $directorypath + &quot;\Logs\&quot;+ $fileName
+
+#Array to Hold Result - PSObjects
+$m365GroupCollection = @()
+
+#Retrieve any M365 group starting with &quot;Permission&quot; (you can use filter as per your requirements)
+$m365Groups = m365 entra m365group list --displayName Permission | ConvertFrom-Json
+
+$m365Groups | ForEach-Object {
+	$ExportVw = New-Object PSObject
+	$ExportVw | Add-Member -MemberType NoteProperty -name &quot;Group Name&quot; -value $_.displayName
+	$m365GroupOwnersName = &quot;&quot;;
+	
+	try
+	{
+		#Check if old user is an owner of the group
+		$oldOwner = m365 entra m365group user list --groupId $_.id --role Owner --filter &quot;userPrincipalName eq '$($oldOwnerUPN)'&quot;
+
+		if($oldOwner)
+		{
+			#Add new user as an owner of the group
+			m365 entra m365group user add --groupId $_.id --userName $newOwnerUPN --role Owner
+			
+			#Remove old user from the group
+			m365 entra m365group user remove --groupId $_.id --userName $oldOwnerUPN --force
+		}
+	}
+	catch
+	{
+		write-host $(&quot;Error occured while updating the group &quot; + $_.displayName + $Error)
+	}
+	
+	#For auditing purposes - get owners of the group
+	$m365GroupOwnersName = (m365 entra m365group user list --groupId $_.id --role Owner | ConvertFrom-Json | select -ExpandProperty displayName) -join &quot;;&quot;;
+
+	$ExportVw | Add-Member -MemberType NoteProperty -name &quot; Group Owners&quot; -value $m365GroupOwnersName
+	$m365GroupCollection += $ExportVw
+}
+
+#Export the result Array to CSV file
+$m365GroupCollection | sort &quot;Group Name&quot; |Export-CSV $OutPutView -Force -NoTypeInformation
+
+#Disconnect online connection
+m365 logout
+</code></pre>
+<div class="highlight-tool">
+<p>Check out the <strong>CLI for Microsoft 365</strong> to learn more at: <a href="https://aka.ms/cli-m365">https://aka.ms/cli-m365</a></p>
 </div>
 </section>
 </div>
@@ -174,6 +250,9 @@ Disconnect-PnPOnline
 <tbody>
 <tr>
 <td>Reshmee Auckloo</td>
+</tr>
+<tr>
+<td><a href="https://ganeshsanapblogs.wordpress.com/">Ganesh Sanap</a></td>
 </tr>
 </tbody>
 </table>
