@@ -99,7 +99,7 @@
                     <h1 id="delete-all-microsoft-365-groups-and-sharepoint-sites">Delete all Microsoft 365 groups and SharePoint sites</h1>
 
 <h2 id="summary">Summary</h2>
-<p>Another example how you can delete all Microsoft 365 Groups and SharePoint Online sites in your development environment.</p>
+<p>This script sample shows how you can delete Microsoft 365 Groups and associated SharePoint Online sites in your development environment.</p>
 <div class="WARNING">
 <h5>Warning</h5>
 <p>Please be aware this script contains a command that will remove or delete an artifact, ensure you test and understand the implications of running the script.</p>
@@ -109,6 +109,9 @@
 <li role="presentation">
 <a href="#tabpanel_CeZOj-G++Q_pnpps" role="tab" aria-controls="tabpanel_CeZOj-G++Q_pnpps" data-tab="pnpps" tabindex="0" aria-selected="true">PnP PowerShell</a>
 </li>
+<li role="presentation">
+<a href="#tabpanel_CeZOj-G++Q_cli-m365-ps" role="tab" aria-controls="tabpanel_CeZOj-G++Q_cli-m365-ps" data-tab="cli-m365-ps" tabindex="-1">CLI for Microsoft 365</a>
+</li>
 </ul>
 <section id="tabpanel_CeZOj-G++Q_pnpps" role="tabpanel" data-tab="pnpps"><button class="article-clipboard" title="Copy to clipboard" data-toggle="tooltip" data-placement="top" data-clipboard-target="section[id^='tabpanel'][data-tab='pnpps'] pre">
     <span class="glyphicon glyphicon-copy" aria-hidden="true"></span>
@@ -116,31 +119,72 @@
 </button>
 
 <pre><code class="lang-powershell">$AdminCenterURL=&quot;https://contoso-admin.sharepoint.com/&quot;
-#Connect to SharePoint admin url using PnPOnline to use PnP cmdlets to delete m365 groups and SharePoint sites
+
+#Connect to SharePoint admin URL using PnPOnline to use PnP cmdlets to delete M365 groups and SharePoint sites
 Connect-PnPOnline -Url $AdminCenterURL -Interactive
 
-#retrieve all m365 group connected ( template &quot;GROUP#0&quot; sites to be deleted) sites beginning with https://contoso.sharepoint.com/sites/D-Test
+#Retrieve all M365 group connected (template &quot;GROUP#0&quot; sites to be deleted) sites beginning with https://contoso.sharepoint.com/sites/D-Test
 $sites = Get-PnPTenantSite -Filter {Url -like https://contoso.sharepoint.com/sites/D-Test} -Template 'GROUP#0'
 
-#displaying the sites returned to be deleted
-$sites | Format-Table  Url, Template , GroupId
+#Displaying the sites returned to be deleted
+$sites | Format-Table  Url, Template, GroupId
 
 Read-Host -Prompt &quot;Press Enter to start deleting m365 groups and sites (CTRL + C to exit)&quot;
-$sites | ForEach-Object{
-Remove-PnPMicrosoft365Group  -Identity $_.GroupId
-#allow time for m365 group to be deleted
-Start-Sleep -Seconds 60
-#delete the SharePoint site after the m365 group is deleted
-Remove-PnPTenantSite -Url $_.Url -Force -SkipRecycleBin
-#permanently remove the m365 group
-Remove-PnPDeletedMicrosoft365Group -Identity $_.GroupId
 
-#permanently delete the site and to allow a site to be created with the url of the site just deleted , i.e. to avoid message &quot;This site address is available with modification&quot;
-Remove-PnPTenantDeletedSite -Identity $_.Url -Force
+$sites | ForEach-Object {
+    #Delete M365 group
+    Remove-PnPMicrosoft365Group -Identity $_.GroupId
+
+    #Allow time for M365 group to be deleted
+    Start-Sleep -Seconds 60
+
+    #Delete the SharePoint site after the M365 group is deleted
+    Remove-PnPTenantSite -Url $_.Url -Force -SkipRecycleBin
+
+    #Permanently remove the M365 group
+    Remove-PnPDeletedMicrosoft365Group -Identity $_.GroupId
+
+    #Permanently delete the site and to allow a site to be created with the same URL of the site just deleted, i.e. to avoid message &quot;This site address is available with modification&quot;
+    Remove-PnPTenantDeletedSite -Identity $_.Url -Force
 }
+
+# Disconnect SharePoint online connection
+Disconnect-PnPOnline
 </code></pre>
 <div class="highlight-tool">
 <p>Check out the <strong>PnP PowerShell</strong> to learn more at: <a href="https://aka.ms/pnp/powershell">https://aka.ms/pnp/powershell</a></p>
+</div>
+</section>
+<section id="tabpanel_CeZOj-G++Q_cli-m365-ps" role="tabpanel" data-tab="cli-m365-ps" aria-hidden="true" hidden="hidden"><button class="article-clipboard" title="Copy to clipboard" data-toggle="tooltip" data-placement="top" data-clipboard-target="section[id^='tabpanel'][data-tab='cli-m365-ps'] pre">
+    <span class="glyphicon glyphicon-copy" aria-hidden="true"></span>
+    <span class="article-clipboard__message done">Copied</span>
+</button>
+
+<pre><code class="lang-powershell">#Get Credentials to connect
+$m365Status = m365 status
+if ($m365Status -match &quot;Logged Out&quot;) {
+    m365 login
+}
+
+#Retrieve all M365 groups where display name starts with &quot;Permission&quot; (you can use filter as per your requirements)
+$groups = m365 entra m365group list --displayName Permission | ConvertFrom-Json
+
+#Displaying the M365 groups returned to be deleted
+$groups | Format-Table displayName, id, mail
+
+Read-Host -Prompt &quot;Press Enter to start deleting M365 groups and associated SharePoint sites (CTRL + C to exit)&quot;
+
+$groups | ForEach-Object {
+	#Permanently delete M365 group and associated SharePoint site without prompting for confirmation and without moving it to the Recycle Bin
+	Write-Host &quot;Deleting M365 group: $($_.displayName)&quot;
+	m365 entra m365group remove --id $_.id --force --skipRecycleBin
+}
+
+#Disconnect SharePoint online connection
+m365 logout
+</code></pre>
+<div class="highlight-tool">
+<p>Check out the <strong>CLI for Microsoft 365</strong> to learn more at: <a href="https://aka.ms/cli-m365">https://aka.ms/cli-m365</a></p>
 </div>
 </section>
 </div>
@@ -154,6 +198,9 @@ Remove-PnPTenantDeletedSite -Identity $_.Url -Force
 <tbody>
 <tr>
 <td>Reshmee Auckloo</td>
+</tr>
+<tr>
+<td><a href="https://ganeshsanapblogs.wordpress.com/">Ganesh Sanap</a></td>
 </tr>
 </tbody>
 </table>

@@ -7,8 +7,8 @@
     "title": "Delete all Microsoft 365 groups and SharePoint sites",
     "url": "https://pnp.github.io/script-samples/aad-delete-m365-groups-and-sharepoint-sites/README.html",
     "creationDateTime": "2021-03-15",
-    "updateDateTime": "2021-10-06",
-    "shortDescription": "Example how you can delete all Microsoft 365 Groups and SharePoint Online sites in your development environment",
+    "updateDateTime": "2024-03-10",
+    "shortDescription": "Sample shows how you can delete Microsoft 365 Groups and associated SharePoint Online sites in your development environment",
     "longDescription": null,
     "products": [
       "AzureAD",
@@ -21,17 +21,26 @@
       "SharePoint Online",
       "Microsoft 365 Groups",
       "Connect-PnPOnline",
-      "Get-PnPTenant",
       "Get-PnPTenantSite",
       "Remove-PnPDeletedMicrosoft365Group",
       "Remove-PnPMicrosoft365Group",
       "Remove-PnPTenantDeletedSite",
-      "Remove-PnPTenantSite"
+      "Remove-PnPTenantSite",
+      "Disconnect-PnPOnline",
+      "m365 login",
+      "m365 status",
+      "m365 entra m365group list",
+      "m365 entra m365group remove",
+      "m365 logout"
     ],
     "metadata": [
       {
         "key": "PNP-POWERSHELL",
         "value": "1.5.0"
+      },
+      {
+        "key": "CLI-FOR-MICROSOFT365",
+        "value": "7.5.0"
       }
     ],
     "thumbnails": [
@@ -39,11 +48,17 @@
         "type": "image",
         "order": 100,
         "url": "https://raw.githubusercontent.com/pnp/script-samples/main/scripts/aad-delete-m365-groups-and-sharepoint-sites/assets/preview.png",
-        "alt": "preview image for the sample",
+        "alt": "preview image for the sample Delete all Microsoft 365 groups and SharePoint sites",
         "slides": null
       }
     ],
     "authors": [
+      {
+        "gitHubAccount": "ganesh-sanap",
+        "company": "",
+        "pictureUrl": "https://avatars.githubusercontent.com/u/25476310?v=4",
+        "name": "Ganesh Sanap"
+      },
       {
         "gitHubAccount": "reshmee011",
         "company": "",
@@ -56,6 +71,11 @@
         "name": "Want to learn more about PnP PowerShell and the cmdlets",
         "description": "Check out the PnP PowerShell site to get started and for the reference to the cmdlets.",
         "url": "https://aka.ms/pnp/powershell"
+      },
+      {
+        "name": "Want to learn more about CLI for Microsoft 365 and the commands",
+        "description": "Check out the CLI for Microsoft 365 site to get started and for the reference to the commands.",
+        "url": "https://aka.ms/cli-m365"
       }
     ]
   }
