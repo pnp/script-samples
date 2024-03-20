@@ -16,7 +16,7 @@
     "metadata": [
       {
         "key": "PNP-POWERSHELL",
-        "value": "2.2.0"
+        "value": "2.4.0"
       }
     ],
     "categories": [
@@ -35,11 +35,12 @@
       "Get-PnPApp",
       "Install-PnPApp",
       "Update-PnPApp",
-      "Get-PnPHubSite",
-      "Get-PnPSite",
-      "Get-PnPTenant",
+      "Get-PnPHubSiteChild",
       "Get-PnPWeb",
-      "Invoke-PnPSPRestMethod"
+      "Invoke-PnPSPRestMethod",
+      "Get-PnPTenantServicePrincipalPermissionRequests",
+      "Approve-PnPTenantServicePrincipalPermissionRequest"
+
     ],
     "thumbnails": [
       {
