@@ -2,10 +2,7 @@
 plugin: add-to-gallery
 ---
 
-# Trim fileversions and archive Site Collection using Microsoft365 Archive
-
-> [!Note]
-> This is a submission helper template please find the [contributor guidance](/docfx/contribute.md) to help you write this scenario.
+# Trim file versions and archive Site Collection using Microsoft365 Archive
 
 ## Summary
 
