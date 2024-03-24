@@ -1,0 +1,72 @@
+[
+  {
+    "schema": null,
+    "name": "teams-export-teams-information",
+    "version": null,
+    "source": "pnp",
+    "title": "List all teams and teams members in Microsoft Teams in the tenant",
+    "url": "https://pnp.github.io/script-samples/teams-export-teams-information/README.html",
+    "creationDateTime": "2022-02-22",
+    "updateDateTime": "2022-02-23",
+    "shortDescription": "List all teams and teams members in Microsoft Teams in the tenant and exports the results in a CSV",
+    "longDescription": null,
+    "products": [
+      "Teams"
+    ],
+    "categories": [
+      "Report",
+      "Security"
+    ],
+    "tags": [
+      "Microsoft Teams",
+      "Microsoft 365",
+      "PowerShell",
+      "m365 login",
+      "m365 status",
+      "m365 teams team list",
+      "m365 teams user list",
+      "Connect-PnPOnline",
+      "Get-PnPTeamsTeam",
+      "Get-PnPTeamsUser"
+    ],
+    "metadata": [
+      {
+        "key": "PNP-POWERSHELL",
+        "value": "1.9.0"
+      },
+      {
+        "key": "CLI-FOR-MICROSOFT365",
+        "value": "4.3.0"
+      }
+    ],
+    "thumbnails": [
+      {
+        "type": "image",
+        "order": 100,
+        "url": "https://raw.githubusercontent.com/pnp/script-samples/main/scripts/teams-export-teams-information/assets/preview.png",
+        "alt": "preview image for the sample",
+        "slides": null
+      }
+    ],
+    "authors": [
+      {
+        "gitHubAccount": "chandaniprajapati",
+        "pictureUrl": "https://avatars.githubusercontent.com/u/52065929?v=4",
+        "name": "Chandani Prajapati",
+        "company": "Rapid Circle"
+      }
+    ],
+    "references": [
+      {
+        "name": "Want to learn more about PnP PowerShell and the cmdlets",
+        "description": "Check out the PnP PowerShell site to get started and for the reference to the cmdlets.",
+        "url": "https://aka.ms/pnp/powershell"
+      },
+      {
+        "name": "Want to learn more about CLI for Microsoft 365 and the commands",
+        "description": "Check out the CLI for Microsoft 365 site to get started and for the reference to the commands.",
+        "url": "https://aka.ms/cli-m365"
+      }
+    ]
+  }
+]

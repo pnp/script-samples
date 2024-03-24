@@ -1,0 +1,81 @@
+[
+  {
+    "name": "spo-export-hub-site-hierarchy",
+    "source": "pnp",
+    "title": "Export of the Hierarchy of Hub Sites",
+    "shortDescription": "This script exports the SharePoint site hierarchy into a Markdown file to visualize the hub sites and its associated sites.",
+    "url": "https://pnp.github.io/script-samples/spo-export-hub-site-hierarchy/README.html",
+    "longDescription": [
+      "This script exports the SharePoint site hierarchy into a Markdown file to visualize the hub sites and its associated sites."
+    ],
+    "creationDateTime": "2023-11-03",
+    "updateDateTime": "2024-03-04",
+    "products": [
+      "SharePoint"
+    ],
+    "metadata": [
+      {
+        "key": "PNP-POWERSHELL",
+        "value": "2.2.0"
+      },
+      {
+        "key": "CLI-FOR-MICROSOFT365",
+        "value": "7.5.0"
+      }
+    ],
+    "categories": [
+      "Report"
+    ],
+    "tags": [
+      "Connect-PnPOnline",
+      "Get-PnPTenantSite",
+      "Get-PnPHubSite",
+      "Disconnect-PnPOnline",
+      "m365 login",
+      "m365 status",
+      "m365 spo site list",
+      "m365 spo hubsite list",
+      "m365 logout"
+    ],
+    "thumbnails": [
+      {
+        "type": "image",
+        "order": 100,
+        "url": "https://raw.githubusercontent.com/pnp/script-samples/main/scripts/spo-export-hub-site-hierarchy/assets/example.png",
+        "alt": "Screenshot of the example"
+      },
+      {
+        "type": "image",
+        "order": 101,
+        "url": "https://raw.githubusercontent.com/pnp/script-samples/main/scripts/spo-export-hub-site-hierarchy/assets/execution-screen.png",
+        "alt": "Screenshot of the execution screen"
+      }
+    ],
+    "authors": [
+      {
+        "gitHubAccount": "ganesh-sanap",
+        "company": "",
+        "pictureUrl": "https://avatars.githubusercontent.com/u/25476310?v=4",
+        "name": "Ganesh Sanap"
+      },
+      {
+        "gitHubAccount": "tecchan1107",
+        "company": "",
+        "pictureUrl": "https://github.com/tecchan1107.png",
+        "name": "Tetsuya Kawahara"
+      }
+    ],
+    "references": [
+      {
+        "name": "Want to learn more about PnP PowerShell and the cmdlets",
+        "description": "Check out the PnP PowerShell site to get started and for the reference to the cmdlets.",
+        "url": "https://aka.ms/pnp/powershell"
+      },
+      {
+        "name": "Want to learn more about CLI for Microsoft 365 and the commands",
+        "description": "Check out the CLI for Microsoft 365 site to get started and for the reference to the commands.",
+        "url": "https://aka.ms/cli-m365"
+      }
+    ]
+  }
+]

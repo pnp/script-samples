@@ -7,7 +7,7 @@ plugin: add-to-gallery
 ## Summary
 
 This sample gathers all of the teams private channels in your tenant and produces an Excel file which is then uploaded to a SharePoint Site.
-Two connections are used, one for the Admin Centre and the other to upload the file to the "Documents" location in the root site.
+Two connections are used, one for the Admin Center and the other to upload the file to the "Documents" location in the root site.
 
 ![Example Screenshot](assets/example.png)
 
@@ -27,7 +27,7 @@ $siteConn = Connect-PnPOnline -Url "https://contoso.sharepoint.com" -Interactive
 $adminSiteConn = Connect-PnPOnline -Url "https://contoso-admin.sharepoint.com" -Interactive -ReturnConnection
 
 # SharePointy Adminy Stuff here
-Write-Host "Connected to SharePoint Online Admin Centre"
+Write-Host "Connected to SharePoint Online Admin Center"
     
 #-----------------
 # Gather Reporting Data
@@ -69,7 +69,7 @@ Write-Host "Running Script..."
 
 # Ensure login
 $m365Status = m365 status
-if ($m365Status -eq "Logged Out") {
+if ($m365Status -match "Logged Out") {
 m365 login
 }
 
@@ -120,4 +120,5 @@ Sample first appeared on [Azure Automation to the Rescue – Session at Scottish
 | [Adam Wójcik](https://github.com/Adam-it)|
 
 [!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
-<img src="https://telemetry.sharepointpnp.com/script-samples/scripts/report-private-teams-excel" aria-hidden="true" />
+<img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/report-private-teams-excel" aria-hidden="true" />
+

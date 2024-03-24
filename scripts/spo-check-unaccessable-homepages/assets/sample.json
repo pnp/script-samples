@@ -1,0 +1,80 @@
+[
+  {
+    "name": "spo-check-unaccessable-homepages",
+    "source": "pnp",
+    "title": "Scan for potential inaccessible site collection homepages",
+    "shortDescription": "Looks for site collections where the home page has custom permissions and outputs to a CSV file.",
+    "url": "https://pnp.github.io/script-samples/spo-check-unaccessable-homepages/README.html",
+    "longDescription": [
+      ""
+    ],
+    "creationDateTime": "2024-03-04",
+    "updateDateTime": "2024-03-10",
+    "products": [
+      "SharePoint"
+    ],
+    "metadata": [
+      {
+        "key": "PNP-POWERSHELL",
+        "value": "2.4.0"
+      },
+      {
+        "key": "CLI-FOR-MICROSOFT365",
+        "value": "7.5.0"
+      }
+    ],
+    "categories": [
+      "Report",
+      "Security"
+    ],
+    "tags": [
+      "Connect-PnPOnline",
+      "Get-PnPTenantSite",
+      "Get-PnPList",
+      "Get-PnPHomePage",
+      "Get-PnPListItem",
+      "Get-PnPListItemPermission",
+      "Disconnect-PnPOnline",
+      "m365 login",
+      "m365 status",
+      "m365 spo site list",
+      "m365 spo web get",
+      "m365 spo listitem list",
+      "m365 logout"
+    ],
+    "thumbnails": [
+      {
+        "type": "image",
+        "order": 100,
+        "url": "https://raw.githubusercontent.com/pnp/script-samples/main/scripts/spo-check-unaccessable-homepages/assets/preview.png",
+        "alt": "Preview of the sample Scan for potential inaccessible site collection homepages"
+      }
+    ],
+    "authors": [
+      {
+        "gitHubAccount": "ganesh-sanap",
+        "company": "",
+        "pictureUrl": "https://avatars.githubusercontent.com/u/25476310?v=4",
+        "name": "Ganesh Sanap"
+      },
+      {
+        "gitHubAccount": "kasperbolarsen",
+        "company": "",
+        "pictureUrl": "https://github.com/kasperbolarsen.png",
+        "name": "Kasper Larsen"
+      }
+    ],
+    "references": [
+      {
+        "name": "Want to learn more about PnP PowerShell and the cmdlets",
+        "description": "Check out the PnP PowerShell site to get started and for the reference to the cmdlets.",
+        "url": "https://aka.ms/pnp/powershell"
+      },
+      {
+        "name": "Want to learn more about CLI for Microsoft 365 and the commands",
+        "description": "Check out the CLI for Microsoft 365 site to get started and for the reference to the commands.",
+        "url": "https://aka.ms/cli-m365"
+      }
+    ]
+  }
+]

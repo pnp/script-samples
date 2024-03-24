@@ -49,7 +49,7 @@ Connect-PnPOnline -Url  $siteUrl
             'Id'=$list.Id;
             'Parent Web URL'=$list.ParentWebUrl;
             'Item Count' = $list.ItemCount;
-            'Last Modified' = $list.LastItemModifiedDate.ToString();
+            'Last Modified' = $list.LastItemUserModifiedDate.ToString();
             'Created'=$list.Created;
             'Default View URL'=$list.DefaultViewUrl;
             'Permision'=$UniquePermission;
@@ -64,7 +64,7 @@ Connect-PnPOnline -Url  $siteUrl
 [!INCLUDE [More about PnP PowerShell](../../docfx/includes/MORE-PNPPS.md)]
 
 
-# [CLI for Microsoft 365 with PowerShell](#tab/cli-m365-ps)
+# [CLI for Microsoft 365](#tab/cli-m365-ps)
 ```powershell
 
 $siteURL = "https://tenent.sharepoint.com/sites/Dataverse"
@@ -72,7 +72,7 @@ $ReportOutput = "C:\SiteInventory.csv"
 $ResultData = @()
 
 $m365Status = m365 status
-if ($m365Status -eq "Logged Out") {
+if ($m365Status -match "Logged Out") {
     m365 login
 
 }
@@ -93,7 +93,7 @@ If ($lists.Count -gt 0) {
             'Id'                = $list.Id;
             'Parent Web URL'    = $list.ParentWebUrl;
             'Item Count'        = $list.ItemCount;
-            'Last Modified'     = $list.LastItemModifiedDate.ToString();
+            'Last Modified'     = $list.LastItemUserModifiedDate.ToString();
             'Created'           = $list.Created;
             'Default View URL'  = $defaultView.ServerRelativeUrl;
             'isHidden'          = $list.Hidden;
@@ -113,7 +113,8 @@ $ResultData | Export-Csv $ReportOutput -NoTypeInformation
 |-----------|
 | [Dipen Shah](https://github.com/dips365) |
 | [Adam Wójcik](https://github.com/Adam-it)|
+| [Alex Talarico](https://github.com/getalex) |
 
 
 [!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
-<img src="https://telemetry.sharepointpnp.com/script-samples/scripts/bulk-undelete-from-recyclebin" aria-hidden="true" />
+<img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/bulk-undelete-from-recyclebin" aria-hidden="true" />

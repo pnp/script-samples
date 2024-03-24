@@ -1,48 +1,64 @@
 [
-    {
-      "name": "spo-export-space-page-as-template-and-save-to-sharepoint",
-      "source": "pnp",
-      "title": "Extract Space content type page as template and save to SharePoint",
-      "shortDescription": "Script that extract space content type page as template and save it to SharePoint",
-      "url": "spo-export-space-page-as-template-and-save-to-sharepoint/README.html",
-      "longDescription": [
-        "Script that extract space content type page as template and save it to SharePoint"
-      ],
-      "creationDateTime": "2021-09-24",
-      "updateDateTime": "2021-09-24",
-      "products": [
-        "SharePoint"
-      ],
-      "metadata": [
-        {
-          "key": "pnp-powerShell",
-          "value": "1.7.0"
-        }
-      ],
-      "categories": [
-        "Modernize",
-        "Data",
-        "Deploy",
-        "Provision"
-      ],
-      "tags":[
-        "modern"
-      ],
-      "thumbnails": [
-        {
-          "type": "image",
-          "order": 100,
-          "url": "spo-export-space-page-as-template-and-save-to-sharepoint/assets/preview.png",
-          "alt": ""
-        }
-      ],
-      "authors": [
-        {
-          "gitHubAccount": "ValerasNarbutas",
-          "company": "",
-          "pictureUrl": "https://avatars.githubusercontent.com/u/16476453?s=400&v=4",
-          "name": "Valeras Narbutas"
-        }
-      ]
-    }
-  ]
+  {
+    "name": "spo-export-space-page-as-template-and-save-to-sharepoint",
+    "source": "pnp",
+    "title": "Extract Space content type page as template and save to SharePoint",
+    "shortDescription": "Script that extract space content type page as template and save it to SharePoint",
+    "url": "https://pnp.github.io/script-samples/spo-export-space-page-as-template-and-save-to-sharepoint/README.html",
+    "longDescription": [
+      "Script that extract space content type page as template and save it to SharePoint"
+    ],
+    "creationDateTime": "2021-09-24",
+    "updateDateTime": "2021-09-24",
+    "products": [
+      "SharePoint"
+    ],
+    "metadata": [
+      {
+        "key": "PNP-POWERSHELL",
+        "value": "1.7.0"
+      }
+    ],
+    "categories": [
+      "Modernize",
+      "Data",
+      "Deploy",
+      "Provision"
+    ],
+    "tags": [
+      "modern",
+      "Connect-PnPOnline",
+      "Get-PnPHomePage",
+      "Get-PnPList",
+      "Get-PnPListItem",
+      "Get-PnPSite",
+      "Get-PnPSiteTemplate",
+      "Get-PnPWeb",
+      "Invoke-PnPSiteTemplate",
+      "Set-PnPHomePage"
+    ],
+    "thumbnails": [
+      {
+        "type": "image",
+        "order": 100,
+        "url": "https://raw.githubusercontent.com/pnp/script-samples/main/scripts/spo-export-space-page-as-template-and-save-to-sharepoint/assets/preview.png",
+        "alt": ""
+      }
+    ],
+    "authors": [
+      {
+        "gitHubAccount": "ValerasNarbutas",
+        "company": "",
+        "pictureUrl": "https://avatars.githubusercontent.com/u/16476453?s=400&v=4",
+        "name": "Valeras Narbutas"
+      }
+    ],
+    "references": [
+      {
+        "name": "Want to learn more about PnP PowerShell and the cmdlets",
+        "description": "Check out the PnP PowerShell site to get started and for the reference to the cmdlets.",
+        "url": "https://aka.ms/pnp/powershell"
+      }
+    ]
+  }
+]

@@ -6,75 +6,137 @@ plugin: add-to-gallery
 
 ## Summary
 
-Have you been creating a lot of beautiful themes lately and testing them in your dev tenant, but don’t want to keep them anymore? If yes, then this PowerShell script is for you.
+Have you been creating a lot of beautiful themes lately and testing them in your dev tenant, but don't want to keep them anymore? If yes, then this PowerShell script is for you.
  
  
-# [CLI for Microsoft 365 with PowerShell](#tab/cli-m365-ps)
+# [PnP PowerShell](#tab/pnpps)
+
 ```powershell
-$sparksjoy = "Cat Lovers United", "Multicolored theme"
-$themes = m365 spo theme list -o json | ConvertFrom-Json
-$themes = $themes | where {-not ($sparksjoy -contains $_.name)}
+
+# SharePoint online admin center URL
+$SPOAdmminSite = "https://contoso-admin.sharepoint.com"
+
+$themesToKeep = "Contoso Explorers", "Multicolored theme"
+
+# Connect to SharePoint online admin center
+Connect-PnPOnline -Url $SPOAdmminSite -Interactive
+
+# Get all themes from the current tenant
+$themes = Get-PnPTenantTheme
+
+$themes = $themes | where {-not ($themesToKeep -contains $_.name)}
 $themes | Format-Table name
+
 if ($themes.Count -eq 0) { break }
-Read-Host -Prompt "Press Enter to start deleting (CTRL + C to exit)"
+
+Read-Host -Prompt "Press Enter to start deleting $($themes.Count) themes (CTRL + C to exit)"
 $progress = 0
 $total = $themes.Count
+
 foreach ($theme in $themes)
 {
   $progress++
   write-host $progress / $total":" $theme.name
+  
+  # Delete custom color themes from SharePoint
+  Remove-PnPTenantTheme -Identity "$($theme.name)"
+}
+
+# Disconnect SharePoint online connection
+Disconnect-PnPOnline
+
+```
+
+[!INCLUDE [More about PnP PowerShell](../../docfx/includes/MORE-PNPPS.md)]
+
+# [SPO Management Shell](#tab/spoms-ps)
+
+```powershell
+
+# SharePoint online admin center URL
+$SPOAdmminSite = "https://contoso-admin.sharepoint.com"
+
+$themesToKeep = "Contoso Explorers", "Multicolored theme"
+
+# Connect to SharePoint online admin center
+Connect-SPOService -Url $SPOAdmminSite
+
+# Get all themes from the current tenant
+$themes = Get-SPOTheme
+
+$themes = $themes | where {-not ($themesToKeep -contains $_.name)}
+$themes | Format-Table name
+
+if ($themes.Count -eq 0) { break }
+
+Read-Host -Prompt "Press Enter to start deleting $($themes.Count) themes (CTRL + C to exit)"
+$progress = 0
+$total = $themes.Count
+
+foreach ($theme in $themes)
+{
+  $progress++
+  write-host $progress / $total":" $theme.name
+  
+  # Delete custom color themes from SharePoint
+  Remove-SPOTheme -Identity "$($theme.name)"
+}
+
+# Disconnect SharePoint online connection
+Disconnect-SPOService
+
+```
+
+[!INCLUDE [More about SPO Management Shell](../../docfx/includes/MORE-SPOMS.md)]
+
+# [CLI for Microsoft 365](#tab/cli-m365-ps)
+
+```powershell
+
+# Get Credentials to connect
+$m365Status = m365 status
+if ($m365Status -match "Logged Out") {
+   m365 login
+}
+
+$themesToKeep = "Contoso Explorers", "Multicolored theme"
+
+# Get all themes from the current tenant
+$themes = m365 spo theme list | ConvertFrom-Json
+
+$themes = $themes | where {-not ($themesToKeep -contains $_.name)}
+$themes | Format-Table name
+
+if ($themes.Count -eq 0) { break }
+
+Read-Host -Prompt "Press Enter to start deleting $($themes.Count) themes (CTRL + C to exit)"
+$progress = 0
+$total = $themes.Count
+
+foreach ($theme in $themes)
+{
+  $progress++
+  write-host $progress / $total":" $theme.name
+  
+  # Delete custom color themes from SharePoint
   m365 spo theme remove --name "$($theme.name)" --confirm
 }
+
+# Disconnect SharePoint online connection
+m365 logout
+
 ```
+
 [!INCLUDE [More about CLI for Microsoft 365](../../docfx/includes/MORE-CLIM365.md)]
- 
-# [Microsoft 365 CLI with Bash](#tab/m365cli-bash)
-```bash
-#!/bin/bash
 
-# requires jq: https://stedolan.github.io/jq/
-
-sparksjoy=("Cat Lovers United" "Multicolored theme")
-themestoremove=()
-while read theme; do
-  exists=false
-  for keep in "${sparksjoy[@]}"; do
-    if [ "$keep" == "$theme" ] ; then
-      exists=true
-      break
-    fi
-  done
-  if [ "$exists" = false ]; then
-    themestoremove+=("$theme")
-  fi
-done < <(m365 spo theme list -o json | jq -r '.[].name')
-
-if [ ${#themestoremove[@]} = 0 ]; then
-  exit 1
-fi
-
-printf '%s\n' "${themestoremove[@]}"
-echo "Press Enter to start deleting (CTRL + C to exit)"
-read foo
-
-for theme in "${themestoremove[@]}"; do
-  echo "Deleting $theme..."
-  m365 spo theme remove --name "$theme" --confirm
-done
-```
-[!INCLUDE [More about CLI for Microsoft 365](../../docfx/includes/MORE-CLIM365.md)]
 ***
-
-## Source Credit
-
-Sample first appeared on [Delete custom color themes from SharePoint | CLI for Microsoft 365](https://pnp.github.io/cli-microsoft365/sample-scripts/spo/remove-custom-themes/)
 
 ## Contributors
 
 | Author(s) |
 |-----------|
-| Laura Kokkarinen |
-
+| [Leon Armston](https://github.com/LeonArmston)|
+| [Ganesh Sanap](https://ganeshsanapblogs.wordpress.com/about) |
 
 [!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
-<img src="https://telemetry.sharepointpnp.com/script-samples/scripts/spo-remove-custom-themes" aria-hidden="true" />
+<img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/spo-remove-custom-themes" aria-hidden="true" />

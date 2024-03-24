@@ -1,0 +1,85 @@
+[
+  {
+    "name": "spo-create-sharepoint-groups-bulk-csv",
+    "source": "pnp",
+    "title": "Create SharePoint Groups in Bulk using CSV file",
+    "shortDescription": "This script shows how to create multiple groups in SharePoint for different site collection providing input from CSV file.",
+    "url": "https://pnp.github.io/script-samples/spo-create-sharepoint-groups-bulk-csv/README.html",
+    "longDescription": [
+      ""
+    ],
+    "creationDateTime": "2022-01-15",
+    "updateDateTime": "2023-05-09",
+    "products": [
+      "SharePoint"
+    ],
+    "metadata": [
+      {
+        "key": "PNP-POWERSHELL",
+        "value": "2.1.1"
+      },
+      {
+        "key":"CLI-FOR-MICROSOFT365",
+        "value":"6.7.0"
+      },
+      {
+        "key": "SPO-MANAGEMENT-SHELL",
+        "value": "16.0.23508.12000"
+      }
+    ],
+    "categories": [
+      "Provision",
+      "Security"
+    ],
+    "tags": [
+      "classic",
+      "Connect-PnPOnline",
+      "New-PnPGroup",
+      "Connect-SPOService",
+      "New-SPOSiteGroup",
+      "Disconnect-SPOService",
+      "m365 status",
+      "m365 login",
+      "m365 spo group add",
+      "m365 logout"
+    ],
+    "thumbnails": [
+      {
+        "type": "image",
+        "order": 100,
+        "url": "https://raw.githubusercontent.com/pnp/script-samples/main/scripts/spo-create-sharepoint-groups-bulk-csv/assets/preview.png",
+        "alt": "Preview of the sample <title>"
+      }
+    ],
+    "authors": [
+      {
+        "gitHubAccount": "ganesh-sanap",
+        "company": "",
+        "pictureUrl": "https://avatars.githubusercontent.com/u/25476310?v=4",
+        "name": "Ganesh Sanap"
+      },
+      {
+        "gitHubAccount": "kunj-sangani",
+        "pictureUrl": "https://github.com/kunj-sangani.png",
+        "name": "Kunj Balkrishna Sangani"
+      }
+    ],
+    "references": [
+      {
+        "name": "Want to learn more about PnP PowerShell and the cmdlets",
+        "description": "Check out the PnP PowerShell site to get started and for the reference to the cmdlets.",
+        "url": "https://aka.ms/pnp/powershell"
+      },
+      {
+          "name": "Want to learn more about CLI for Microsoft 365 and the commands",
+          "description": "Check out the CLI for Microsoft 365 site to get started and for the reference to the commands.",
+          "url": "https://aka.ms/cli-m365"
+      },
+      {
+        "name": "Introduction to the SharePoint Online Management Shell",
+        "description": "Check out the SPO Management Shell documentation site to get started and for the reference to the cmdlets.",
+        "url": "https://learn.microsoft.com/powershell/sharepoint/sharepoint-online/introduction-sharepoint-online-management-shell"
+      }
+    ]
+  }
+]

@@ -1,0 +1,54 @@
+[
+  {
+    "name": "spo-update-highlightcontentwebpart-seeall",
+    "source": "pnp",
+    "title": "How to Hide the 'See All' Button in the Highlighted Content Web Part",
+    "shortDescription": "This sample shows how to Hide the 'See All' Button in the Highlighted Content Web Part using PnP PowerShell",
+    "url": "https://pnp.github.io/script-samples/spo-update-highlightcontentwebpart-seeall/README.html",
+    "longDescription": ["Recently, I encountered an issue with the 'Show title and commands' toggle in the out-of-the-box Highlighted Content web part. It stopped working on both my development and customer tenant. While awaiting a resolution from Microsoft, I decided to find a workaround. That's when the PnP PowerShell cmdlet `Set-PnPPageWebPart` came to the rescue. The solution involves updating the PropertiesJson property of the web part."
+    ],
+    "creationDateTime": "2023-11-10",
+    "updateDateTime": "2023-11-22",
+    "products": [
+      "SharePoint"
+    ],
+    "metadata": [
+      {
+        "key": "PNP-POWERSHELL",
+        "value": "2.1.1"
+      }
+    ],
+    "categories": [
+      "Configure"
+    ],
+    "tags": [
+      "Connect-PnPOnline",
+      "Get-PnPClientSidePage",
+      "Set-PnPPageWebPart",
+      "Disconnect-PnPOnline"
+    ],
+    "thumbnails": [
+      {
+        "type": "image",
+        "order": 100,
+        "url": "https://raw.githubusercontent.com/pnp/script-samples/main/scripts/spo-update-highlightcontentwebpart-seeall/assets/preview.png",
+        "alt": "preview image for the sample"
+      }
+    ],
+    "authors": [
+      {
+        "name": "Reshmee Auckloo",
+        "gitHubAccount": "reshmee011",
+        "company": "",
+        "pictureUrl": "https://avatars.githubusercontent.com/u/7693852?v=4"
+      }
+    ],
+    "references": [
+      {
+        "name": "Want to learn more about PnP PowerShell and the cmdlets",
+        "description": "Check out the PnP PowerShell site to get started and for the reference to the cmdlets.",
+        "url": "https://aka.ms/pnp/powershell"
+      }
+    ]
+  }
+]

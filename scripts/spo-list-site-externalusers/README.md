@@ -8,20 +8,17 @@ plugin: add-to-gallery
 
 This script helps you to list all external users in all SharePoint Online sites. It provides insights in who the users are, and if available who they where invited by.
  
-# [CLI for Microsoft 365 with PowerShell](#tab/cli-m365-ps)
+# [SPO Management Shell](#tab/spoms-ps)
+
 ```powershell
+
 $fileExportPath = "<PUTYOURPATHHERE.csv>"
 
-$m365Status = m365 status
-
-if ($m365Status -eq "Logged Out") {
-  # Connection to Microsoft 365
-  m365 login
-}
+Connect-SPOService https://<yourorg>-admin.sharepoint.com
 
 $results = @()
 Write-host "Retrieving all sites and check external users..."
-$allSPOSites = m365 spo site classic list -o json | ConvertFrom-Json
+$allSPOSites = Get-SPOSite -Limit ALL
 $siteCount = $allSPOSites.Count
 
 Write-Host "Processing $siteCount sites..."
@@ -34,28 +31,100 @@ foreach ($site in $allSPOSites) {
 
   Write-host "Retrieving all external users ..."
 
-  $users = m365 spo user list --webUrl $site.Url --output json --query "value[?contains(LoginName,'#ext#')]" | ConvertFrom-Json
+  $users = Get-SPOExternalUser -SiteUrl $($site.Url)
+
+  Write-host "  $($users.Count) external users ..." -ForegroundColor Yellow
 
   foreach ($user in $users) {
-    $externalUserObject = m365 spo externaluser list --siteUrl $site.url -o json --query "[?AcceptedAs == '$($user.Email)']" | ConvertFrom-Json
-
-    $results += [pscustomobject][ordered]@{
-      UserPrincipalName = $user.UserPrincipalName
-      Email             = $user.Email
-      InvitedAs         = $externalUserObject.InvitedAs
-      WhenCreated       = $externalUserObject.WhenCreated
-      InvitedBy         = $externalUserObject.InvitedBy
-      Url               = $site.Url
+    
+    $results = [pscustomobject][ordered]@{
+      DisplayName = $user.DisplayName
+      Email       = $user.Email
+      WhenCreated = $user.WhenCreated
+      Url         = $site.Url
     }
+
+    $results | Export-Csv -Path $fileExportPath -NoTypeInformation -Append
   }
 }
 
-Write-Host "Exporting file to $fileExportPath..."
-$results | Export-Csv -Path $fileExportPath -NoTypeInformation
-Write-Host "Completed."
-```
-[!INCLUDE [More about CLI for Microsoft 365](../../docfx/includes/MORE-CLIM365.md)]
 
+Write-Host "Completed."
+
+```
+[!INCLUDE [More about SPO Management Shell](../../docfx/includes/MORE-SPOMS.md)]
+
+# [PnP PowerShell](#tab/pnpps)
+```powershell
+
+#Global Variable Declaration
+$AdminURL = "https://domain-admin.sharepoint.com/"
+$TenantURL = "https://domain.SharePoint.com"
+$UserName = "chandani@domain.onmicrosoft.com"
+$Password = "********"
+$SecureStringPwd = $Password | ConvertTo-SecureString -AsPlainText -Force 
+$Credentials = New-Object System.Management.Automation.PSCredential -ArgumentList $UserName, $SecureStringPwd
+$DateTime = "_{0:MM_dd_yy}_{0:HH_mm_ss}" -f (Get-Date)
+$BasePath = "E:\Contribution\PnP-Scripts\GetExtenalUsers\Logs\"
+$CSVPath = $BasePath + "\ExternalUsers" + $DateTime + ".csv"
+$global:ExternalUsersData = @() 
+Function LoginToAdminSite() {
+    [cmdletbinding()]
+    param([parameter(Mandatory = $true, ValueFromPipeline = $true)] $Credentials)
+    Write-Host "Connecting to Tenant Admin Site '$($AdminURL)'..." -ForegroundColor Yellow
+    Connect-PnPOnline -Url $AdminURL -Credentials $Credentials
+    Write-Host "Connection Successfull to Tenant Admin Site :'$($AdminURL)'" -ForegroundColor Green
+}
+Function ConnectToSPSite() {
+    try {
+        $SiteCollection = Get-PnPTenantSite -Filter "Url -like '$TenantURL'" | Where { $_.SharingCapability -ne "Disabled" }
+        foreach ($Site in $SiteCollection) {
+            $SiteUrl = $Site.Url    
+            Write-Host "Connecting to Site :'$($SiteUrl)'..." -ForegroundColor Yellow  
+            Connect-PnPOnline -Url $SiteUrl -Credentials $Credentials
+            Write-Host "Connection Successfull to site: '$($SiteUrl)'" -ForegroundColor Green              
+            GetExternalUsers($SiteUrl)                        
+        }
+        ExportData       
+    }
+    catch {
+        Write-Host "Error in connecting to Site:'$($SiteUrl)'" $_.Exception.Message -ForegroundColor Red               
+    } 
+}
+Function GetExternalUsers($siteUrl) {
+    try {
+        $ExternalUsers = Get-PnPUser | Where { $_.LoginName -like "*#ext#*" -or $_.LoginName -like "*urn:spo:guest*" }   
+        Write-host "Found '$($ExternalUsers.count)' External users" -ForegroundColor Gray
+        ForEach ($User in $ExternalUsers) {
+            $global:ExternalUsersData += New-Object PSObject -Property ([ordered]@{
+                    SiteName  = $site.Title
+                    SiteURL   = $SiteUrl
+                    UserName  = $User.Title
+                    Email     = $User.Email
+                    LoginName = $User.LoginName
+                })
+        }          
+    }
+    catch {
+        Write-Host "Error in getting external users :'$($siteUrl)'" $_.Exception.Message -ForegroundColor Red                 
+    }        
+}
+
+Function ExportData {
+    Write-Host "Exporting to CSV" -ForegroundColor Yellow           
+    $global:ExternalUsersData | Export-Csv -Path $CSVPath -NoTypeInformation -Append
+    Write-Host "Exported Successfully!" -ForegroundColor Green 
+}
+
+Function StartProcessing {   
+    LoginToAdminSite($AdminURL) 
+    ConnectToSPSite
+}
+
+StartProcessing
+
+```
+***
 
 ## Source Credit
 
@@ -65,8 +134,10 @@ Sample first appeared on [List all external users in all site collections | CLI 
 
 | Author(s) |
 |-----------|
-| Albert-Jan Schot |
+| Paul Bullock |
+| Chandani Prajapati |
+| Martin Lingstuyl |
 
 
 [!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
-<img src="https://telemetry.sharepointpnp.com/script-samples/scripts/spo-list-site-externalusers" aria-hidden="true" />
+<img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/spo-list-site-externalusers" aria-hidden="true" />

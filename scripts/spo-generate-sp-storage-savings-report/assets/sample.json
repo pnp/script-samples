@@ -1,0 +1,58 @@
+[
+  {
+    "name": "spo-generate-sp-storage-savings-report",
+    "source": "pnp",
+    "title": "Report of SharePoint Storage Savings by trimming document versions",
+    "shortDescription": "This script creates an overview for The total amount of SharePoint Storage, and how much could be saved by trimming the versions.",
+    "url": "https://pnp.github.io/script-samples/spo-generate-sp-storage-savings-report/README.html",
+    "longDescription": [
+      "The purpose of this script is to create an overview: The total amount of SharePoint Storage used by this Site Collection, and how much could be saved by trimming the versions."
+    ],
+    "creationDateTime": "2022-02-01",
+    "updateDateTime": "2023-08-15",
+    "products": [
+      "SharePoint"
+    ],
+    "metadata": [
+      {
+        "key": "PNP-POWERSHELL",
+        "value": "1.6.0"
+      }
+    ],
+    "categories": [
+      "Data"
+    ],
+    "tags": [
+      "Connect-PnPOnline",
+      "Get-PnPListItem",
+      "Get-PnPList",
+      "Get-PnPProperty",
+      "Get-PnPFile",
+      "Get-PnPTenantSite",
+      "Get-PnPWeb",
+      "Get-PnPSubWeb"
+    ],
+    "thumbnails": [
+      {
+        "type": "image",
+        "order": 100,
+        "url": "https://raw.githubusercontent.com/pnp/script-samples/main/scripts/spo-generate-sp-storage-savings-report/assets/preview.png",
+        "alt": ""
+      }
+    ],
+    "authors": [
+      {
+        "gitHubAccount": "kasperbolarsen",
+        "pictureUrl": "https://avatars.githubusercontent.com/u/20593570?s=400&u=f9a4d5137685d8c3fcc60394fc193f3e8156f678&v=4",
+        "name": "Kasper Larsen"
+      }
+    ],
+    "references": [
+      {
+        "name": "Want to learn more about PnP PowerShell and the cmdlets",
+        "description": "Check out the PnP PowerShell site to get started and for the reference to the cmdlets.",
+        "url": "https://aka.ms/pnp/powershell"
+      }
+    ]
+  }
+]

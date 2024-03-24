@@ -1,0 +1,70 @@
+[
+  {
+    "name": "m365-get-unifiedlog-spo-dlp-exchange-entra",
+    "source": "pnp",
+    "title": "Get Unified log for SharePoint DLP Exchange and Entra",
+    "shortDescription": "Understand and track activities within your M365 environment is crucial for maintaining security and compliance.",
+    "url": "https://pnp.github.io/script-samples/m365-get-unifiedlog-spo-dlp-exchange-entra/README.html",
+    "longDescription": [
+      "Audit Logs offer a wealth of information, and in this script focus on leveraging the Office 365 Management Activity API reference. It is a great alternative if you are only a SharePoint Administrator with no global admin or Purview Audit logs access."
+    ],
+    "creationDateTime": "2024-01-27",
+    "updateDateTime": "2024-02-18",
+    "products": [
+      "SharePoint",
+      "DLP",
+      "Exchange",
+      "Entra"
+    ],
+    "metadata": [
+      {
+        "key": "PNP-POWERSHELL",
+        "value": "2.2.0"
+      },
+      {
+        "key": "CLI-FOR-MICROSOFT365",
+        "value": "5.4.0"
+      }
+    ],
+    "categories": [
+      "Report",
+      "Security"
+    ],
+    "tags": [
+      "modern",
+      "Connect-PnPOnline",
+      "Get-PnPTenantSite",
+      "Get-PnPUnifiedAuditLog",
+      "m365 purview auditlog list",
+      "m365 login"
+    ],
+    "thumbnails": [
+      {
+        "type": "image",
+        "order": 100,
+        "url": "https://raw.githubusercontent.com/pnp/script-samples/main/scripts/m365-get-unifiedlog-spo-dlp-exchange-entra/assets/preview.png",
+        "alt": ""
+      }
+    ],
+    "authors": [
+      {
+        "gitHubAccount": "reshmee011",
+        "company": "",
+        "pictureUrl": "https://avatars.githubusercontent.com/u/7693852?v=4",
+        "name": "Reshmee Auckloo"
+      }
+    ],
+    "references": [
+      {
+        "name": "Want to learn more about PnP PowerShell and the cmdlets",
+        "description": "Check out the PnP PowerShell site to get started and for the reference to the cmdlets.",
+        "url": "https://aka.ms/pnp/powershell"
+      },
+      {
+        "name": "Want to learn more about CLI for Microsoft 365 and the commands",
+        "description": "Check out the CLI for Microsoft 365 site to get started and for the reference to the commands.",
+        "url": "https://aka.ms/cli-m365"
+      }
+    ]
+  }
+]

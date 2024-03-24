@@ -38,7 +38,7 @@ echo $me | jq
 # [PnP PowerShell](#tab/pnpps)
 
 ```powershell
-#https://docs.microsoft.com/en-us/powershell/module/sharepoint-pnp/connect-pnponline?view=sharepoint-ps#example-7
+#https://pnp.github.io/powershell/cmdlets/Connect-PnPOnline.html#example-7
 Connect-PnPOnline -Url "https://contoso.sharepoint.com" -ClientId 6c5c98c7-e05a-4a0f-bcfa-0cfc65aa1f28 -Tenant 'contoso.onmicrosoft.com' -Thumbprint 34CFAA860E5FB8C44335A38A097C1E41EEA206AA
 
 $token = Get-PnPGraphAccessToken
@@ -62,7 +62,8 @@ Disconnect-MgGraph
 
 ## Source Credit
 
-Sample first appeared on  [https://pnp.github.io/cli-microsoft365/sample-scripts/graph/call-graph/](https://pnp.github.io/cli-microsoft365/sample-scripts/graph/call-graph/)
+Sample first appeared on  [Authenticate with and call the Microsoft Graph](https://pnp.github.io/cli-microsoft365/sample-scripts/graph/authenticate-call-graph/)
+
 
 ## Contributors
 
@@ -73,4 +74,4 @@ Sample first appeared on  [https://pnp.github.io/cli-microsoft365/sample-scripts
 
 [!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
 
-<img src="https://telemetry.sharepointpnp.com/script-samples/scripts/authenticate-graph" aria-hidden="true" />
+<img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/authenticate-graph" aria-hidden="true" />

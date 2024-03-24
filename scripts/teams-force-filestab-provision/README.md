@@ -98,7 +98,7 @@ begin {
     if ($null -eq $creds) {
         $msg = "Provided credentials [$StoredCredentials] not found  `n`r"
         $msg += "You can use [Add-PnPStoredCredential] to adds a credential to the Windows Credential Manager `n`r"
-        $msg += "Link [https://docs.microsoft.com/en-us/powershell/module/sharepoint-pnp/add-pnpstoredcredential?view=sharepoint-ps]`n`r"
+        $msg += "Link [https://pnp.github.io/powershell/cmdlets/Add-PnPStoredCredential.html]`n`r"
         throw $msg
     }
     $tenantPrefix = $Tenant.ToLower().Replace(".onmicrosoft.com", "")
@@ -170,5 +170,6 @@ process {
 | Rodrigo Pinto |
 
 [!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
-<img src="https://telemetry.sharepointpnp.com/script-samples/scripts/teams-force-filestab-provision" aria-hidden="true" />
+<img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/teams-force-filestab-provision" aria-hidden="true" />
+
 

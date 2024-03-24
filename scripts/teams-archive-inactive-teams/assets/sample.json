@@ -1,0 +1,56 @@
+[
+  {
+    "name": "teams-archive-inactive-teams",
+    "source": "pnp",
+    "title": "List and archives inactive Teams",
+    "shortDescription": "This script lists and archives all the inactive teams",
+    "url": "https://pnp.github.io/script-samples/teams-archive-inactive-teams/README.html",
+    "longDescription": [
+      "By inputting a designated timeframe for inactivity, the script automatically identifies Teams that have remained dormant beyond the specified period. These Teams are then archived."
+    ],
+    "creationDateTime": "2023-08-06",
+    "updateDateTime": "2023-10-13",
+    "products": [
+      "Teams"
+    ],
+    "metadata": [
+      {
+        "key": "POWERSHELL",
+        "value": "7.3.0"
+      }
+    ],
+    "categories": [
+      "Data"
+    ],
+    "tags": [
+      "Invoke-RestMethod"
+    ],
+    "thumbnails": [
+      {
+        "type": "image",
+        "order": 100,
+        "url": "https://raw.githubusercontent.com/pnp/script-samples/main/scripts/teams-archive-inactive-teams/assets/preview.png",
+        "alt": ""
+      }
+    ],
+    "authors": [
+      {
+        "gitHubAccount": "HeinrichKrause",
+        "pictureUrl": "https://github.com/HeinrichKrause.png",
+        "name": "Heinrich Krause"
+      },
+      {
+        "gitHubAccount": "nicodecleyre",
+        "pictureUrl": "https://avatars.githubusercontent.com/u/35696168?v=4",
+        "name": "Nico De Cleyre"
+      }
+    ],
+    "references": [
+      {
+        "name": "Want to learn more about PnP PowerShell and the cmdlets",
+        "description": "Check out the PnP PowerShell site to get started and for the reference to the cmdlets.",
+        "url": "https://aka.ms/pnp/powershell"
+      }
+    ]
+  }
+]

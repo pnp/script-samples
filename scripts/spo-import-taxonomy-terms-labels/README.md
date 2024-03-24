@@ -107,4 +107,4 @@ Add-Synonyms $csvPath $termSId $envTermGroup
 | Reshmee Auckloo |
 
 [!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
-<img src="https://telemetry.sharepointpnp.com/script-samples/scripts/spo-import-taxonomy-terms-labels" aria-hidden="true" />
+<img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/spo-import-taxonomy-terms-labels" aria-hidden="true" />

@@ -1,46 +1,74 @@
 [
-    {
-      "name": "bulk-undelete-from-recyclebin",
-      "source": "pnp",
-      "title": "Undelete items from SharePoint Recycle bin",
-      "shortDescription": "This script allows users to undelete items from recycle bin and restore it in respective document library and list.",
-      "url": "bulk-undelete-from-recyclebin/README.html",
-      "longDescription": [
-        ""
-      ],
-      "creationDateTime": "2021-06-25",
-      "updateDateTime": "2021-06-25",
-      "products": [
-        "SharePoint"
-      ],
-      "metadata": [
-        {
-          "key": "pnp-powerShell",
-          "value": "1.5.0"
-        }
-      ],
-      "categories": [
-        "Data"
-      ],
-      "tags":[
-        "recycle bin",
-        "recover"
-      ],
-      "thumbnails": [
-        {
-          "type": "image",
-          "order": 100,
-          "url": "bulk-undelete-from-recyclebin/assets/preview.png",
-          "alt": ""
-        }
-      ],
-      "authors": [
-        {
-          "gitHubAccount": "dips365",
-          "company": "",
-          "pictureUrl": "https://avatars.githubusercontent.com/u/40450958?v=4",
-          "name": "Dipen Shah"
-        }
-      ]
-    }
-  ]
+  {
+    "name": "bulk-undelete-from-recyclebin",
+    "source": "pnp",
+    "title": "Undelete items from SharePoint Recycle bin",
+    "shortDescription": "This script allows users to undelete items from recycle bin and restore it in respective document library and list.",
+    "url": "https://pnp.github.io/script-samples/bulk-undelete-from-recyclebin/README.html",
+    "longDescription": [
+      ""
+    ],
+    "creationDateTime": "2021-06-25",
+    "updateDateTime": "2022-03-31",
+    "products": [
+      "SharePoint"
+    ],
+    "metadata": [
+      {
+        "key": "PNP-POWERSHELL",
+        "value": "1.5.0"
+      },
+      {
+        "key": "cli-for-microsoft365",
+        "value": "5.1.0"
+      }
+    ],
+    "categories": [
+      "Data"
+    ],
+    "tags": [
+      "recycle bin",
+      "recover",
+      "Connect-PnPOnline",
+      "Get-PnPRecycleBinItem",
+      "Restore-PnPRecycleBinItem",
+      "m365 login",
+      "m365 status",
+      "m365 spo site recyclebinitem list",
+      "m365 spo site recyclebinitem restore"
+    ],
+    "thumbnails": [
+      {
+        "type": "image",
+        "order": 100,
+        "url": "https://raw.githubusercontent.com/pnp/script-samples/main/scripts/bulk-undelete-from-recyclebin/assets/preview.png",
+        "alt": ""
+      }
+    ],
+    "authors": [
+      {
+        "gitHubAccount": "Adam-it",
+        "pictureUrl": "https://avatars.githubusercontent.com/u/58668583?v=4",
+        "name": "Adam Wójcik"
+      },
+      {
+        "gitHubAccount": "dips365",
+        "company": "",
+        "pictureUrl": "https://avatars.githubusercontent.com/u/40450958?v=4",
+        "name": "Dipen Shah"
+      }
+    ],
+    "references": [
+      {
+        "name": "Want to learn more about PnP PowerShell and the cmdlets",
+        "description": "Check out the PnP PowerShell site to get started and for the reference to the cmdlets.",
+        "url": "https://aka.ms/pnp/powershell"
+      },
+      {
+        "name": "Want to learn more about CLI for Microsoft 365 and the commands",
+        "description": "Check out the CLI for Microsoft 365 site to get started and for the reference to the commands.",
+        "url": "https://aka.ms/cli-m365"
+      }
+    ]
+  }
+]

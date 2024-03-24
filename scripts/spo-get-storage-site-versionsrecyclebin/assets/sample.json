@@ -1,0 +1,58 @@
+[
+  {
+    "name": "spo-get-storage-site-versionsrecyclebin",
+    "source": "pnp",
+    "title": "Get storage breakdown by file size, file version size and recycle bin",
+    "shortDescription": "Get storage breakdown by file size, file version size and recycle bin.",
+    "url": "https://pnp.github.io/script-samples/spo-get-storage-site-versionsrecyclebin/README.html",
+    "longDescription": [
+      "The script will generate a csv report listing the breakdown of file size, file version size and recycle bin size"
+    ],
+    "creationDateTime": "2023-07-09",
+    "updateDateTime": "2023-07-09",
+    "products": [
+      "SharePoint"
+    ],
+    "metadata": [
+      {
+        "key": "PNP-POWERSHELL",
+        "value": "1.12.0"
+      }
+    ],
+    "categories": [
+      "Data"
+    ],
+    "tags": [
+      "Connect-PnPOnline",
+      "Get-PnPFile",
+      "Get-PnPFileVersion",
+      "Get-PnPList",
+      "Get-PnPListItem",
+      "Get-PnPRecycleBinItem",
+      "Get-PnPTenantSite"
+    ],
+    "thumbnails": [
+      {
+        "type": "image",
+        "order": 100,
+        "url": "https://raw.githubusercontent.com/pnp/script-samples/main/scripts/spo-get-storage-site-versionsrecyclebin/assets/Preview.png",
+        "alt": ""
+      }
+    ],
+    "authors": [
+      {
+        "gitHubAccount": "reshmee011",
+        "company": "",
+        "pictureUrl": "https://avatars.githubusercontent.com/u/7693852?v=4",
+        "name": "Reshmee Auckloo"
+      }
+    ],
+    "references": [
+      {
+        "name": "Want to learn more about PnP PowerShell and the cmdlets",
+        "description": "Check out the PnP PowerShell site to get started and for the reference to the cmdlets.",
+        "url": "https://aka.ms/pnp/powershell"
+      }
+    ]
+  }
+]

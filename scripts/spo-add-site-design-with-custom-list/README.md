@@ -14,7 +14,7 @@ This script will create site design with different column types.
  - Changes list view to custom one
 
 More about site design schema
- [https://docs.microsoft.com/en-us/sharepoint/dev/declarative-customization/site-design-json-schema](https://docs.microsoft.com/en-us/sharepoint/dev/declarative-customization/site-design-json-schema)
+ [https://learn.microsoft.com/sharepoint/dev/declarative-customization/site-design-json-schema](https://learn.microsoft.com/sharepoint/dev/declarative-customization/site-design-json-schema)
 
 ![Example Screenshot](assets/example.png)
 
@@ -238,7 +238,7 @@ Write-host 'setup script example'
 
 Write-host 'ensure logged in'
 $m365Status = m365 status
-if ($m365Status -eq "Logged Out") {
+if ($m365Status -match "Logged Out") {
   m365 login --authType browser
 }
 
@@ -448,4 +448,4 @@ $site = $site | ConvertFrom-Json
 
 
 [!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
-<img src="https://telemetry.sharepointpnp.com/script-samples/scripts/spo-add-site-design-with-custom-list" aria-hidden="true" />
+<img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/spo-add-site-design-with-custom-list" aria-hidden="true" />

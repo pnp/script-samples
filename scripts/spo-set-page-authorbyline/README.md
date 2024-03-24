@@ -96,3 +96,5 @@ This script uses PnP PowerShell to set the `Authors` and `AuthorByline` properti
 | Anoop Tatti |
 
 [!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
+
+<img src="https://telemetry.sharepointpnp.com/script-samples/scripts/spo-set-page-authorbyline" aria-hidden="true" />

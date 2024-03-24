@@ -1,40 +1,78 @@
 [
-    {
-      "name": "remove-delete-option-library",
-      "source": "pnp",
-      "title": "Remove delete option on a document library",
-      "shortDescription": "Remove the delete option on a document library to prevent users from accidentally deleting libraries",
-      "url": "remove-delete-option-library/README.html",
-      "longDescription": [],
-      "creationDateTime": "2018-09-17",
-      "updateDateTime": "2018-09-17",
-      "products": [
-        "SharePoint"
-      ],
-      "metadata": [
-        {
-          "key": "PnP-PowerShell",
-          "value": "1.5.0"
-        }
-      ],
-      "categories": [
-        "Configure"
-      ],
-      "thumbnails": [
-        {
-          "type": "image",
-          "order": 100,
-          "url": "remove-delete-option-library/assets/preview.png",
-          "alt": "image preview of the completed change - no delete option"
-        }
-      ],
-      "authors": [
-        {
-          "gitHubAccount": "pkbullock",
-          "company": "CaPa Creative Ltd",
-          "pictureUrl": "https://avatars.githubusercontent.com/u/8781041?v=4",
-          "name": "Paul Bullock"
-        }
-      ]
-    }
-  ]
+  {
+    "name": "remove-delete-option-library",
+    "source": "pnp",
+    "title": "Remove delete option on a document library",
+    "shortDescription": "Remove the delete option on a document library to prevent users from accidentally deleting libraries",
+    "url": "https://pnp.github.io/script-samples/remove-delete-option-library/README.html",
+    "longDescription": [],
+    "creationDateTime": "2018-09-17",
+    "updateDateTime": "2023-06-10",
+    "products": [
+      "SharePoint"
+    ],
+    "metadata": [
+      {
+        "key": "PNP-POWERSHELL",
+        "value": "Current Nightly (after v2.1.1)"
+      },
+      {
+        "key": "CLI-FOR-MICROSOFT365",
+        "value": "6.8.0"
+      }
+    ],
+    "categories": [
+      "Configure"
+    ],
+    "tags": [
+      "SharePoint Online",
+      "Connect-PnPOnline",
+      "Set-PnPList",
+      "Disconnect-PnPOnline",
+      "m365 status",
+      "m365 login",
+      "m365 spo list set",
+      "m365 logout"
+    ],
+    "thumbnails": [
+      {
+        "type": "image",
+        "order": 100,
+        "url": "https://raw.githubusercontent.com/pnp/script-samples/main/scripts/remove-delete-option-library/assets/preview.png",
+        "alt": "image preview of the completed change - no delete option"
+      }
+    ],
+    "authors": [
+      {
+        "gitHubAccount": "ganesh-sanap",
+        "company": "",
+        "pictureUrl": "https://avatars.githubusercontent.com/u/25476310?v=4",
+        "name": "Ganesh Sanap"
+      },
+      {
+        "gitHubAccount": "Adam-it",
+        "company": "",
+        "pictureUrl": "https://avatars.githubusercontent.com/u/58668583?v=4",
+        "name": "Adam Wójcik"
+      },
+      {
+        "gitHubAccount": "pkbullock",
+        "company": "",
+        "pictureUrl": "https://avatars.githubusercontent.com/u/8781041?v=4",
+        "name": "Paul Bullock"
+      }
+    ],
+    "references": [
+      {
+        "name": "Want to learn more about PnP PowerShell and the cmdlets",
+        "description": "Check out the PnP PowerShell site to get started and for the reference to the cmdlets.",
+        "url": "https://aka.ms/pnp/powershell"
+      },
+      {
+        "name": "Want to learn more about CLI for Microsoft 365 and the commands",
+        "description": "Check out the CLI for Microsoft 365 site to get started and for the reference to the commands.",
+        "url": "https://aka.ms/cli-m365"
+      }
+    ]
+  }
+]

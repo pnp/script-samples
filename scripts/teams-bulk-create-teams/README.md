@@ -79,6 +79,87 @@ end{
 
 [!INCLUDE [More about PnP PowerShell](../../docfx/includes/MORE-PNPPS.md)]
 
+# [CLI for Microsoft 365](#tab/cli-m365-ps)
+```powershell
+# Usage example:
+# .\Create-BulkTeams.ps1 -OwnerEmail "user@contoso.com"
+
+[CmdletBinding()]
+param (
+    [Parameter(Mandatory = $true)]
+    [string]$OwnerEmail,
+    [Parameter(Mandatory = $false)]
+    [string] $SiteListJsonFile = ".\teams.json"
+)
+begin {
+    #Log in to Microsoft 365
+    Write-Host "Connecting to Tenant" -f Yellow
+
+    $m365Status = m365 status
+    if ($m365Status -match "Logged Out") {
+        m365 login
+    }
+
+    Write-Host "Connection Successful!" -f Green
+
+    $sites = Get-Content $SiteListJsonFile -Raw | ConvertFrom-Json
+    $prefixes = "HR", "Finance", "ICT", "Service Desk", "Client Services", "Project Alpha", "Project Beta", "Project Charlie", "Leadership", "Community"
+}
+process {
+    $prefixes | Foreach-Object {
+        $prefix = $_
+
+        $sites | Foreach-Object {
+            $siteTitle = "$($_.SiteTitle.Replace("XXXXX", $prefix))"
+            $mailNickname = "$($_.SiteUrl.Replace("XXXXX", $prefix).Replace(" ",''))"
+
+            # Check if team exists
+            $team = m365 teams team get --name $siteTitle | ConvertFrom-Json
+
+            if (-not $team) {
+                # Create a Microsoft 365 Group                
+                Write-Host "Creating group $($siteTitle)"
+
+                # If the $OwnerEmail is the tenant admin then this will break.
+                # This is a very special case where when we create a new o365group, 
+                # the tenant admin will be by default the member of this group internally. 
+                # Then when we want to add the same user as the owner of this group we will get the following error:
+                # Error: One or more added object references already exist for the following modified properties: 'owners'.
+                m365 aad o365group add --displayName "$($siteTitle)" --description "Testing Site for $($siteTitle)" --mailNickname $mailNickname --owners "$($OwnerEmail)" --isPrivate (!$_.IsPublic).ToString().ToLowerInvariant()
+
+                $group = $null
+                $waitTime = 5
+                $trial = 0
+                $maxRetry = 3
+
+                do {
+                    $trial++
+                    Write-Host "Waiting $waitTime seconds before group provisioning is complete..."
+                    Start-Sleep -Seconds $waitTime
+
+                    $group = m365 aad o365group list --displayName "$($siteTitle)" | ConvertFrom-Json
+                } while ($group -eq $null -and $trial -lt $maxRetry)
+
+                if ($group -eq $null) { 
+                    return
+                }
+
+                # Create a new Microsoft Teams team under existing Microsoft 365 group
+                Write-Host "Creating Microsoft Teams team under group $($siteTitle)"
+                m365 aad o365group teamify --mailNickname $mailNickname
+            }
+            else {
+                Write-Host "Microsoft Teams team $($siteTitle) already exists"
+            }
+        }
+    }
+}
+end {
+    Write-Host "Finished" -ForegroundColor Green
+}
+```
+[!INCLUDE [More about CLI for Microsoft 365](../../docfx/includes/MORE-CLIM365.md)]
+
 # [JSON](#tab/json)
 ```json
 [
@@ -105,7 +186,8 @@ end{
 | Author(s) |
 |-----------|
 | Paul Bullock |
+| Nanddeep Nachan |
 
 
 [!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
-<img src="https://telemetry.sharepointpnp.com/script-samples/scripts/template-script-submission" aria-hidden="true" />
+<img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/template-script-submission" aria-hidden="true" />

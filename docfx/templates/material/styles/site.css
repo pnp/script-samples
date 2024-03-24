@@ -1,6 +1,18 @@
 
 .sampletype-item.sharepoint {
-    background-image: url(../assets/icons/sharepoint.svg);
+    background-image: url(../assets/icons/custom/sharepoint.svg);
+}
+.sampletype-item.teams {
+    background-image: url(../assets/icons/custom/teams.svg);
+}
+.sampletype-item.todo {
+    background-image: url(../assets/icons/custom/todo.svg);
+}
+.sampletype-item.azuread {
+    background-image: url(../assets/icons/custom/aad.svg);
+}
+.sampletype-item.powerautomate {
+    background-image: url(../assets/icons/custom/powerautomate.svg);
 }
 
 /* card circle */
@@ -12,34 +24,54 @@
     background-image: url(../assets/icons/teams.svg);
 }
 
+.sampletype-item.graph,
+.sampletype-item.graph-powershell,
 .sample-details .producttype-item.graph-powershell,
 .sample-details .producttype-item.graph {
     background-image: url(../assets/icons/custom/graph.svg);
 }
 
-
+.sampletype-item.pnp-powershell,
 .sample-details .producttype-item.pnp-powershell {
     background-image: url(../assets/icons/custom/pnp-ps.svg);
 }
 
+.sampletype-item.cli-for-microsoft365,
 .sample-details .producttype-item.cli-for-microsoft365 {
     background-image: url(../assets/icons/custom/pnp-cli.svg);
 }
 
+.sampletype-item.powershell,
 .sample-details .producttype-item.powershell {
     background-image: url(../assets/icons/custom/powershell.svg);
 }
 
+.sampletype-item.spo-management-shell,
 .sample-details .producttype-item.spo-management-shell {
     background-image: url(../assets/icons/custom/sharepoint.svg);
 }
 
+.sampletype-item.azure-cli,
 .sample-details .producttype-item.azure-cli {
     background-image: url(../assets/icons/custom/azure.svg);
 }
 
+.sampletype-item.microsoftwhiteboardadmin,
+.sample-details .producttype-item.microsoftwhiteboardadmin {
+    background-image: url(../assets/icons/custom/whiteboard.svg);
+}
+
+.sampletype-item.powerapps,
+.sampletype-item.powerapps-powershell,
+.sampletype-item.powerapps-ps,
+.sample-details .producttype-item.powerapps-powershell,
 .sample-details .producttype-item.powerapps-ps {
     background-image: url(../assets/icons/custom/powerapps.svg);
+}
+
+.sampletype-item.microsoftteams-powershell,
+.sample-details .producttype-item.microsoftteams-powershell {
+    background-image: url(../assets/icons/custom/microsoftteams-powershell.png);
 }
 
 /* Data driven backgrounds */
@@ -122,4 +154,61 @@
     background-repeat: no-repeat; */
 }
 
+.sample-thumbnail[data-products^="powerapps"] .sample-preview,
+.sample-thumbnail[data-products^="power apps"] .sample-preview {
+    background: rgb(237,237,237);
+    background: linear-gradient(90deg, rgba(237,237,237,1) 0%, rgba(222,126,194,1) 77%);
+}
+
+
 /* //Data driven backgrounds */
+
+/* GitHub Facts Implementation */
+
+/* horizontal bullet list */
+.github-wrapper{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    align-items: center;
+    align-content: center;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+.github-icon{
+    margin-right: 10px;
+}
+.github-icon img{
+    height: 40px;
+}
+.github-mark a,
+.github-mark a:hover,
+.github-mark a:visited{
+    color: white;
+}
+
+ul.github-facts {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    overflow: hidden;
+
+    color: rgb(237,237,237);
+}
+
+ul.github-facts li {
+    float: left;
+    margin: 0 10px 0 0;
+    padding: 0;
+    line-height: 1.5;
+    font-size: 12px;
+    text-align: left;
+    color: rgb(237,237,237);
+}
+
+.github-repository{
+    font-size: 18px;
+    margin: 5px 10px 0 0;
+}

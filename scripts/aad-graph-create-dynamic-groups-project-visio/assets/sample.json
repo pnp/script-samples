@@ -1,0 +1,56 @@
+[
+  {
+    "name": "aad-graph-create-dynamic-groups-project-visio",
+    "source": "pnp",
+    "title": "Create Dynamic Install and Uninstall Azure AD Groups using Graph",
+    "shortDescription": "Script will create dynamic user groups based on the user having an enabled license for each application",
+    "url": "https://pnp.github.io/script-samples/aad-graph-create-dynamic-groups-project-visio/README.html",
+    "longDescription": [
+      ""
+    ],
+    "creationDateTime": "2023-01-10",
+    "updateDateTime": "2023-01-10",
+    "products": [
+      "Graph",
+      "Azure"
+    ],
+    "metadata": [
+      {
+        "key": "GRAPH-POWERSHELL",
+        "value": "1.0.0"
+      }
+    ],
+    "categories": [
+      "Configure"      
+    ],
+    "tags": [
+      "Microsoft Graph",
+      "Select-MgProfile",
+      "Connect-MgGraph",
+      "New-MGGroup"
+    ],
+    "thumbnails": [
+      {
+        "type": "image",
+        "order": 100,
+        "url": "https://raw.githubusercontent.com/pnp/script-samples/main/scripts/aad-graph-create-dynamic-groups-project-visio/assets/preview.png",
+        "alt": "Preview of the sample Create Dynamic Install and Uninstall Azure AD Groups using Graph"
+      }
+    ],
+    "authors": [
+      {
+        "gitHubAccount": "andrew-s-taylor",
+        "company": "",
+        "pictureUrl": "https://github.com/andrew-s-taylor.png",
+        "name": "Andrew Taylor"
+      }
+    ],
+    "references": [
+      {
+        "name": "Want to learn more about Microsoft Graph PowerShell SDK and the cmdlets",
+        "description": "Check out the Microsoft Graph PowerShell SDK documentation site to get started and for the reference to the cmdlets.",
+        "url": "https://learn.microsoft.com/graph/powershell/get-started"
+      }
+    ]
+  }
+]

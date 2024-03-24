@@ -1,0 +1,63 @@
+[
+  {
+    "name": "aad-guest-signin-activity",
+    "source": "pnp",
+    "title": "Inventory Guest Sign-In Activity with CLI for M365 and Microsoft Graph",
+    "shortDescription": "Inventories Guest accounts from Azure Active Directory to query all Guest accounts and signInActivity and saves report to SharePoint List",
+    "url": "https://pnp.github.io/script-samples/aad-guest-signin-activity/README.html",
+    "longDescription": [
+      "Inventories Guest accounts from Azure Active Directory using the CLI for Microsoft 365, Microsoft Graph, and PowerShell's Invoke-RestMethod to query all Guest accounts and signInActivity"
+    ],
+    "creationDateTime": "2021-12-21",
+    "updateDateTime": "2021-12-21",
+    "products": [
+      "SharePoint",
+      "Graph",
+      "Azure"
+    ],
+    "metadata": [
+      {
+        "key": "CLI-FOR-MICROSOFT365",
+        "value": "3.7.0"
+      }
+    ],
+    "categories": [
+      "Data",
+      "Report",
+      "Security"
+    ],
+    "tags": [
+      "m365 status",
+      "m365 spo list get",
+      "m365 spo list add",
+      "m365 spo field add",
+      "m365 spo listitem list",
+      "m365 spo listitem add",
+      "m365 spo listitem set",
+      "m365 util accesstoken get"
+    ],
+    "thumbnails": [
+      {
+        "type": "image",
+        "order": 100,
+        "url": "https://raw.githubusercontent.com/pnp/script-samples/main/scripts/aad-guest-signin-activity/assets/preview.png",
+        "alt": ""
+      }
+    ],
+    "authors": [
+      {
+        "gitHubAccount": "pkskelly",
+        "company": "ThreeWill, LLC",
+        "pictureUrl": "https://avatars.githubusercontent.com/u/5527235?v=4",
+        "name": "Pete Skelly"
+      }
+    ],
+    "references": [
+      {
+        "name": "Want to learn more about CLI for Microsoft 365 and the commands",
+        "description": "Check out the CLI for Microsoft 365 site to get started and for the reference to the commands.",
+        "url": "https://aka.ms/cli-m365"
+      }
+    ]
+  }
+]

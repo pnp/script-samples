@@ -1,0 +1,63 @@
+[
+  {
+    "name": "spo-apply-pnptemplate-with-files-and-listitems",
+    "source": "pnp",
+    "title": "Using a PnP Site Template including files and list items",
+    "shortDescription": "Sometime you are required to create a site including some specific files and/or list items. You can do this in servaral ways, but in this sample we are using the PnP Provisioning Engine",
+    "url": "https://pnp.github.io/script-samples/spo-apply-pnptemplate-with-files-and-listitems/README.html",
+    "longDescription": [
+      ""
+    ],
+    "creationDateTime": "2023-03-09",
+    "updateDateTime": "2023-03-09",
+    "products": [
+      "SharePoint"
+    ],
+    "metadata": [
+      {
+        "key": "PNP-POWERSHELL",
+        "value": "1.12.0"
+      }
+    ],
+    "categories": [
+      "Provision"
+    ],
+    "tags": [
+      "<Cmdlets-Used>",
+      "Add-PnPDataRowsToSiteTemplate",
+      "Add-PnPFile",
+      "Add-PnPFileToSiteTemplate",
+      "Add-PnPListItem",
+      "Connect-PnPOnline",
+      "Copy-PnPFile",
+      "Get-PnPSite",
+      "Get-PnPSiteTemplate",
+      "Invoke-PnPSiteTemplate",
+      "New-PnPList",
+      "New-PnPTenantSite"
+    ],
+    "thumbnails": [
+      {
+        "type": "image",
+        "order": 100,
+        "url": "https://raw.githubusercontent.com/pnp/script-samples/main/scripts/spo-apply-pnptemplate-with-files-and-listitems/assets/preview.png",
+        "alt": "Preview of the sample Using a PnP Site Template including files and list items"
+      }
+    ],
+    "authors": [
+      {
+        "gitHubAccount": "kasperbolarsen",
+        "company": "",
+        "pictureUrl": "https://github.com/kasperbolarsen.png",
+        "name": "Kasper Larsen"
+      }
+    ],
+    "references": [
+      {
+        "name": "Want to learn more about PnP PowerShell and the cmdlets",
+        "description": "Check out the PnP PowerShell site to get started and for the reference to the cmdlets.",
+        "url": "https://aka.ms/pnp/powershell"
+      }
+    ]
+  }
+]

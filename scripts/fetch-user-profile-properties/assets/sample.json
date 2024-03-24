@@ -1,41 +1,69 @@
 [
-    {
-      "name": "fetch-user-profile-properties",
-      "source": "pnp",
-      "title": "Fetch User Profile Properties From Site Collection And Export To CSV",
-      "shortDescription": "Get users or user profile properties from any SharePoint site collection and we need it in CSV or Excel format",
-      "url": "fetch-user-profile-properties/README.html",
-      "longDescription": [
-        ""
-      ],
-      "creationDateTime": "2021-03-24",
-      "updateDateTime": "2021-03-24",
-      "products": [
-        "SharePoint"
-      ],
-      "metadata": [
-        {
-          "key": "PnP-PowerShell",
-          "value": "1.5.0"
-        }
-      ],
-      "categories": [
-        "Report"
-      ],
-      "thumbnails": [
-        {
-          "type": "image",
-          "order": 100,
-          "url": "fetch-user-profile-properties/assets/preview.png",
-          "alt": ""
-        }
-      ],
-      "authors": [
-        {
-          "gitHubAccount": "chandaniprajapati",
-          "pictureUrl": "https://avatars.githubusercontent.com/u/52065929?v=4",
-          "name": "Chandani Prajapati"
-        }
-      ]
-    }
-  ]
+  {
+    "name": "fetch-user-profile-properties",
+    "source": "pnp",
+    "title": "Fetch User Profile Properties From Site Collection And Export To CSV",
+    "shortDescription": "Get users or user profile properties from any SharePoint site collection and we need it in CSV or Excel format",
+    "url": "https://pnp.github.io/script-samples/fetch-user-profile-properties/README.html",
+    "longDescription": [
+      ""
+    ],
+    "creationDateTime": "2021-03-24",
+    "updateDateTime": "2022-06-02",
+    "products": [
+      "SharePoint"
+    ],
+    "metadata": [
+      {
+        "key": "PNP-POWERSHELL",
+        "value": "1.5.0"
+      },
+      {
+        "key": "CLI-FOR-MICROSOFT365",
+        "value": "5.3.0"
+      }
+    ],
+    "categories": [
+      "Report",
+      "Get-PnPWeb",
+      "Get-PnPUser",
+      "Get-PnPUserProfileProperty",
+      "m365 login",
+      "m365 spo user list",
+      "m365 spo userprofile get"
+    ],
+    "thumbnails": [
+      {
+        "type": "image",
+        "order": 100,
+        "url": "https://raw.githubusercontent.com/pnp/script-samples/main/scripts/fetch-user-profile-properties/assets/preview.png",
+        "alt": ""
+      }
+    ],
+    "authors": [
+      {
+        "gitHubAccount": "mathijsverbeeck",
+        "company": "",
+        "pictureUrl": "https://github.com/mathijsverbeeck.png",
+        "name": "Mathijs Verbeeck"
+      },
+      {
+        "gitHubAccount": "chandaniprajapati",
+        "pictureUrl": "https://avatars.githubusercontent.com/u/52065929?v=4",
+        "name": "Chandani Prajapati"
+      }      
+    ],
+    "references": [
+      {
+        "name": "Want to learn more about PnP PowerShell and the cmdlets",
+        "description": "Check out the PnP PowerShell site to get started and for the reference to the cmdlets.",
+        "url": "https://aka.ms/pnp/powershell"
+      },
+      {
+        "name": "Want to learn more about CLI for Microsoft 365 and the commands",
+        "description": "Check out the CLI for Microsoft 365 site to get started and for the reference to the commands.",
+        "url": "https://aka.ms/cli-m365"
+      }
+    ]
+  }
+]

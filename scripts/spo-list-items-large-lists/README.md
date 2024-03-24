@@ -65,7 +65,7 @@ Invoke-PnPBatch -Batch $batch
 ```
 [!INCLUDE [More about PnP PowerShell](../../docfx/includes/MORE-PNPPS.md)]
 
-# [CLI for Microsoft 365 with PowerShell](#tab/cli-m365-ps)
+# [CLI for Microsoft 365](#tab/cli-m365-ps)
 ```powershell
 
 
@@ -74,7 +74,7 @@ $listName = "LargeListTitle"
 
 
 $m365Status = m365 status
-if ($m365Status -eq "Logged Out") {
+if ($m365Status -match "Logged Out") {
   Write-Host "Logging in the User!"
   m365 login --authType browser
 }
@@ -134,4 +134,4 @@ for ($i = 0; $i -lt $pageNumber; $i++)
 | Valeras Narbutas |
 
 [!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
-<img src="https://telemetry.sharepointpnp.com/script-samples/scripts/spo-list-items-large-lists" aria-hidden="true" />
+<img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/spo-list-items-large-lists" aria-hidden="true" />

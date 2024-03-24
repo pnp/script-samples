@@ -1,0 +1,65 @@
+[
+  {
+    "name": "spo-export-upa-accounts",
+    "source": "pnp",
+    "title": "Export User Profiles to csv",
+    "shortDescription": "This sample shows how to export all or a sub set of accounts from UPA to CSV",
+    "url": "https://pnp.github.io/script-samples/spo-export-upa-accounts/README.html",
+    "longDescription": [
+      "Sometimes you will have to export all or a sub set of the account in the User Profiles in order to do some validation or cleaning. This is where this script sample comes in handy.      The sample is an update of an existing script by Salaudeen Rajack , see https://www.sharepointdiary.com/2017/08/sharepoint-online-export-user-profile-properties-to-csv-using-powershell.html#ixzz7vvoXWaLr"
+    ],
+    "creationDateTime": "2023-03-15",
+    "updateDateTime": "2023-03-20",
+    "products": [
+      "SharePoint"
+      
+    ],
+    "metadata": [
+      {
+        "key": "PNP-POWERSHELL",
+        "value": "1.12.0"
+      },
+      {
+        "key":"CLI-FOR-MICROSOFT365",
+        "value":"6.3.0"
+      }
+    ],
+    "categories": [
+      "Data",
+      "Report"
+    ],
+    "tags": [
+      "m365 aad user list",
+      "m365 aad user get"
+    ],
+    "thumbnails": [
+      {
+        "type": "image",
+        "order": 100,
+        "url": "https://raw.githubusercontent.com/pnp/script-samples/main/scripts/spo-export-upa-accounts/assets/preview.png",
+        "alt": "Preview of the sample Export User Profiles to csv"
+      }
+    ],
+    "authors": [
+      {
+        "gitHubAccount": "valerasnarbutas",
+        "company": "Macaw",
+        "pictureUrl": "https://github.com/valerasnarbutas.png",
+        "name": "Valeras Narbutas"
+      },
+      {
+        "gitHubAccount": "kasperbolarsen",
+        "company": "",
+        "pictureUrl": "https://github.com/kasperbolarsen.png",
+        "name": "Kasper Larsen"
+      }
+    ],
+    "references": [
+      {
+        "name": "Want to learn more about PnP PowerShell and the cmdlets",
+        "description": "Check out the PnP PowerShell site to get started and for the reference to the cmdlets.",
+        "url": "https://aka.ms/pnp/powershell"
+      }
+    ]
+  }
+]

@@ -1,0 +1,54 @@
+[
+  {
+    "name": "spo-run-jobs-in-parallel",
+    "source": "pnp",
+    "title": "Run jobs in parallel using ForEach-Object -Parallel to iterate SharePoint site collections",
+    "shortDescription": "This script sample shows the basic of using ForEach-Object -Parallel to speed up trivial SharePoint operations across many site collections",
+    "url": "https://pnp.github.io/script-samples/spo-run-jobs-in-parallel/README.html",
+    "longDescription": [
+      "This script sample shows the basic of using ForEach-Object -Parallel to speed up trivial SharePoint operations across many site collections"
+    ],
+    "creationDateTime": "2022-01-10",
+    "updateDateTime": "2022-01-10",
+    "products": [
+      "SharePoint"
+    ],
+    "metadata": [
+      {
+        "key": "PNP-POWERSHELL",
+        "value": "1.6.0"
+      }
+    ],
+    "categories": [
+      "Data"
+    ],
+    "tags": [
+      "Connect-PnPOnline",
+      "Get-PnPTenantSite",
+      "Get-PnPList",
+      "Get-PnPListItem"
+    ],
+    "thumbnails": [
+      {
+        "type": "image",
+        "order": 100,
+        "url": "https://raw.githubusercontent.com/pnp/script-samples/main/scripts/spo-run-jobs-in-parallel/assets/preview.png",
+        "alt": "Preview image of the sample for running jobs in parallel"
+      }
+    ],
+    "authors": [
+      {
+        "gitHubAccount": "kasperbolarsen",
+        "pictureUrl": "https://avatars.githubusercontent.com/u/20593570?s=400&u=f9a4d5137685d8c3fcc60394fc193f3e8156f678&v=4",
+        "name": "Kasper Larsen"
+      }
+    ],
+    "references": [
+      {
+        "name": "Want to learn more about PnP PowerShell and the cmdlets",
+        "description": "Check out the PnP PowerShell site to get started and for the reference to the cmdlets.",
+        "url": "https://aka.ms/pnp/powershell"
+      }
+    ]
+  }
+]

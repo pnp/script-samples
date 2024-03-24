@@ -1,0 +1,82 @@
+[
+  {
+    "name": "spo-enable-disable-search-crawling",
+    "source": "pnp",
+    "title": "Enable/Disable Search Crawling on Sites and Libraries",
+    "shortDescription": "Control the sites and libraries that get crawled. Also useful for Copilot projects to chose which areas to include",
+    "url": "https://pnp.github.io/script-samples/spo-enable-disable-search-crawling/README.html",
+    "longDescription": [
+      ""
+    ],
+    "creationDateTime": "2023-11-13",
+    "updateDateTime": "2023-11-27",
+    "products": [
+      "SharePoint",
+      "Microsoft 365 Copilot"
+    ],
+    "metadata": [
+      {
+        "key": "PNP-POWERSHELL",
+        "value": "1.11.0"
+      },
+      {
+        "key":"CLI-FOR-MICROSOFT365",
+        "value":"7.0.0"
+      }
+    ],
+    "categories": [
+      "Configure"
+    ],
+    "tags": [
+      "Connect-PnPOnline",
+      "Get-PnPWeb",
+      "Set-PnPSite",
+      "Set-PnPWeb",
+      "Get-PnPList",
+      "Set-PnPList",
+      "Disconnect-PnPOnline",
+      "m365 status",
+      "m365 login",
+      "m365 spo web get",
+      "m365 spo site set",
+      "m365 spo web set",
+      "m365 spo list get",
+      "m365 spo list set",
+      "m365 logout"
+    ],
+    "thumbnails": [
+      {
+        "type": "image",
+        "order": 100,
+        "url": "https://raw.githubusercontent.com/pnp/script-samples/main/scripts/spo-enable-disable-search-crawling/assets/preview.png",
+        "alt": "Preview of the sample Enable/Disable Search Crawling on Sites and Libraries"
+      }
+    ],
+    "authors": [
+      {
+        "gitHubAccount": "ganesh-sanap",
+        "company": "",
+        "pictureUrl": "https://avatars.githubusercontent.com/u/25476310?v=4",
+        "name": "Ganesh Sanap"
+      },
+      {
+        "gitHubAccount": "pkbullock",
+        "company": "",
+        "pictureUrl": "https://github.com/pkbullock.png",
+        "name": "Paul Bullock"
+      }
+    ],
+    "references": [
+      {
+        "name": "Want to learn more about PnP PowerShell and the cmdlets",
+        "description": "Check out the PnP PowerShell site to get started and for the reference to the cmdlets.",
+        "url": "https://aka.ms/pnp/powershell"
+      },
+      {
+        "name": "Want to learn more about CLI for Microsoft 365 and the commands",
+        "description": "Check out the CLI for Microsoft 365 site to get started and for the reference to the commands.",
+        "url": "https://aka.ms/cli-m365"
+      }
+    ]
+  }
+]

@@ -1,0 +1,111 @@
+[
+  {
+    "schema": null,
+    "name": "planner-migration-spo-list",
+    "version": null,
+    "source": "pnp",
+    "title": "Planner migration to SharePoint list",
+    "url": "https://pnp.github.io/script-samples/planner-migration-spo-list/README.html",
+    "creationDateTime": "2022-05-23",
+    "updateDateTime": "2022-07-03",
+    "shortDescription": "Migrate a planner plan with buckets and tasks to a SharePoint Online list",
+    "longDescription": null,
+    "products": [
+      "Planner",
+      "SharePoint"
+    ],
+    "categories": [
+      "Data"
+    ],
+    "tags": [
+      "SharePoint Online",
+      "Microsoft 365",
+      "PowerShell",
+      "Planner",
+      "Imported CLI Sample",
+      "Security",
+      "m365 login",
+      "m365 status",
+      "m365 planner plan list",
+      "m365 planner bucket list",
+      "m365 planner task list",
+      "m365 planner task get",
+      "m365 aad user get",
+      "m365 spo list add",
+      "m365 spo field add",
+      "m365 spo listitem add",
+      "m365 spo listitem set",
+      "m365 spo list view field add",
+      "m365 spo list view set",
+      "Add-PnPField",
+      "Add-PnPFieldFromXml",
+      "Add-PnPListItem",
+      "Add-PnPView",
+      "Connect-PnPOnline",
+      "Get-PnPAzureADUser",
+      "Get-PnPPlannerBucket",
+      "Get-PnPPlannerPlan",
+      "Get-PnPPlannerTask",
+      "New-PnPList",
+      "Set-PnPList",
+      "Set-PnPListItem",
+      "Set-PnPView"
+    ],
+    "metadata": [
+      {
+        "key": "CLI-FOR-MICROSOFT365",
+        "value": "5.4.0"
+      },
+      {
+        "key": "PNP-POWERSHELL",
+        "value": "1.10.0"
+      }
+    ],
+    "thumbnails": [
+      {
+        "type": "image",
+        "order": 100,
+        "url": "https://raw.githubusercontent.com/pnp/script-samples/main/scripts/planner-migration-spo-list/assets/preview.png",
+        "alt": "preview image for the sample",
+        "slides": null
+      }
+    ],
+    "authors": [
+      {
+        "gitHubAccount": "Jwaegebaert",
+        "company": "GMI Group",
+        "pictureUrl": "https://github.com/Jwaegebaert.png",
+        "name": "Jasey Waegebaert"
+      },
+      {
+        "gitHubAccount": "reshmee011",
+        "company": "",
+        "pictureUrl": "https://avatars.githubusercontent.com/u/7693852?v=4",
+        "name": "Reshmee Auckloo"
+      },
+      {
+        "name": "Albert-Jan Schot",
+        "gitHubAccount": "appieschot",
+        "company": "Blis.digital",
+        "pictureUrl": "https://avatars.githubusercontent.com/u/15227781?v=4"
+      }
+    ],
+    "references": [
+      {
+        "name": "Want to learn more about CLI for Microsoft 365 and the commands",
+        "description": "Check out the CLI for Microsoft 365 site to get started and for the reference to the commands.",
+        "url": "https://aka.ms/cli-m365"
+      },
+      {
+        "name": "Planner migration to SharePoint list",
+        "description": "This sample first appeared on the CLI for Microsoft 365 documentation site",
+        "url": "https://pnp.github.io/cli-microsoft365/sample-scripts/spo/planner-migrate-sharepoint-list/"
+      },
+      {
+        "name": "PnP PowerShell to manage list designs and create lists/libraries using list designs",
+        "description": "Refers to the article for other PnP PowerShell cmdlets",
+        "url": "https://techcommunity.microsoft.com/t5/microsoft-365-pnp-blog/pnp-powershell-to-manage-list-designs-and-create-lists-libraries/ba-p/3225097"
+      }
+    ]
+  }
+]

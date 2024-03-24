@@ -102,7 +102,7 @@ if (!$reportOnly) {
 ```
 [!INCLUDE [More about PnP.PowerShell](../../docfx/includes/MORE-PNPPS.md)]
 
-# [CLI for Microsoft 365 with PowerShell](#tab/cli-m365-ps)
+# [CLI for Microsoft 365](#tab/cli-m365-ps)
 ```powershell
 
 # Base variables
@@ -112,7 +112,7 @@ $siteColumn = "EffectiveDate"
 $reportOnly = $true # If $true, just report. If $false, take action.
 
 $m365Status = m365 status
-if ($m365Status -eq "Logged Out") {
+if ($m365Status -match "Logged Out") {
     m365 login
 }
 
@@ -186,4 +186,4 @@ Sample first appeared on [Clean Up Unwanted Site Columns from Content Types and 
 | Adam Wójcik |
 
 [!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
-<img src="https://telemetry.sharepointpnp.com/script-samples/scripts/spo-copy-files-to-another-library" aria-hidden="true" />
+<img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/spo-copy-files-to-another-library" aria-hidden="true" />

@@ -6,14 +6,14 @@ plugin: add-to-gallery
 
 ## Summary
 
-  [Creating custom list templates](https://docs.microsoft.com/en-us/sharepoint/lists-custom-template) is now possible to create both custom document libraries and lists although official microsoft documentation has not specified anything about supporting custom document library templates. This script will create list template with associated site columns, site content types and views for a document library and also creates an instance of a document library.
+  [Creating custom list templates](https://learn.microsoft.com/sharepoint/lists-custom-template) is now possible to create both custom document libraries and lists although official microsoft documentation has not specified anything about supporting custom document library templates. This script will create list template with associated site columns, site content types and views for a document library and also creates an instance of a document library.
  
 More about list template 
- [https://docs.microsoft.com/en-us/sharepoint/lists-custom-template](https://docs.microsoft.com/en-us/sharepoint/lists-custom-template)
+ [https://learn.microsoft.com/sharepoint/lists-custom-template](https://learn.microsoft.com/sharepoint/lists-custom-template)
 
 ![Example Screenshot](assets/example.png)
 
-# [PnP PowerShell](#tab/pnpps)
+# [SPO Management Shell](#tab/spoms-ps)
 
 ```powershell
 Import-Module Microsoft.Online.SharePoint.PowerShell
@@ -272,7 +272,7 @@ Stop-Transcript
 > [!Note]
 > SharePoint tenant admin right are required to be able add list design
 
-[!INCLUDE [More about PnP PowerShell](../../docfx/includes/MORE-PNPPS.md)]
+[!INCLUDE [More about SPO Management Shell](../../docfx/includes/MORE-SPOMS.md)]
 
 ***
 ## Source Credit
@@ -287,4 +287,5 @@ Inspired by [Invoke-SPOListDesign to create instances of lists/libraires](https:
 
 
 [!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
-<img src="https://telemetry.sharepointpnp.com/script-samples/scripts/spo-add-list-template-with-custom-library" aria-hidden="true" />
+<img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/spo-add-list-template-with-custom-library" aria-hidden="true" />
+

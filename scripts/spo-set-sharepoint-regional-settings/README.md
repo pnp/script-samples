@@ -35,7 +35,7 @@ Start-Transcript -Path $logFilePath
 Connect-PnPOnline -Url $Url -Interactive
 
 
-### Set Sharepoint site time zone with Pnp Powershell 
+### Set SharePoint site time zone with Pnp Powershell 
 $localeId = 2057 # UK
 $timeZoneId = 2 # London
 
@@ -81,7 +81,7 @@ Stop-Transcript
 ```
 
 >[!Note]
-> Site regional settings can be changed in multiple ways via code. One of the examples of changing reginal setting via site design can be found in this sample [Create and add site design to SharePoint site with site columns, content type](https://pnp.github.io/script-samples/spo-add-site-design-with-custom-list/README.html?tabs=pnpps)
+> Site regional settings can be changed in multiple ways via code. One of the examples of changing reginal setting via site design can be found in this sample [Create and add site design to SharePoint site with site columns, content type](https://pnp.github.io/script-samples/spo-add-site-design-with-custom-list/README.html)
 
 [!INCLUDE [More about PnP PowerShell](../../docfx/includes/MORE-PNPPS.md)]
 ***
@@ -98,4 +98,4 @@ Sample first appeared on [The many ways to set UK Locale in SharePoint](https://
 | Valeras Narbutas |
 
 [!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
-<img src="https://telemetry.sharepointpnp.com/script-samples/scripts/spo-set-sharepoint-regional-settings" aria-hidden="true" />
+<img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/spo-set-sharepoint-regional-settings" aria-hidden="true" />

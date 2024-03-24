@@ -1,0 +1,78 @@
+[
+  {
+    "name": "spo-list-download-contenttype-documenttemplate",
+    "source": "pnp",
+    "title": "Download all the content type document templates files associated with a library",
+    "shortDescription": "The script downloads all content type document template files in a library",
+    "url": "https://pnp.github.io/script-samples/spo-list-download-contenttype-documenttemplate/README.html",
+    "longDescription": [
+      "Download all the content type document templates files associated with a library"
+    ],
+    "creationDateTime": "2022-11-04",
+    "updateDateTime": "2023-05-10",
+    "products": [
+      "SharePoint"
+    ],
+    "metadata": [
+      {
+        "key": "PNP-POWERSHELL",
+        "value": "1.11.0"
+      },
+      {
+          "key":"CLI-FOR-MICROSOFT365",
+          "value":"6.7.0"
+      }
+    ],
+    "categories": [
+      "Data"
+    ],
+    "tags": [
+      "classic",
+      "Content Type",
+      "Content Type Document Templates",
+      "Connect-PnPOnline",
+      "Get-PnPList",
+      "Get-PnPFile",
+      "Disconnect-PnPOnline",
+      "m365 status",
+      "m365 login",
+      "m365 spo list contenttype list",
+      "m365 spo file get",
+      "m365 logout"
+    ],
+    "thumbnails": [
+      {
+        "type": "image",
+        "order": 100,
+        "url": "https://raw.githubusercontent.com/pnp/script-samples/main/scripts/spo-list-download-contenttype-documenttemplate/assets/preview.png",
+        "alt": "preview image showing there is no preview"
+      }
+    ],
+    "authors": [
+      {
+        "gitHubAccount": "LeonArmston",
+        "company": "",
+        "pictureUrl": "https://avatars.githubusercontent.com/u/12968962?v=4",
+        "name": "Leon Armston"
+      },
+      {
+        "gitHubAccount": "ganesh-sanap",
+        "company": "",
+        "pictureUrl": "https://avatars.githubusercontent.com/u/25476310?v=4",
+        "name": "Ganesh Sanap"
+      }
+    ],
+    "references": [
+      {
+        "name": "Want to learn more about PnP PowerShell and the cmdlets",
+        "description": "Check out the PnP PowerShell site to get started and for the reference to the cmdlets.",
+        "url": "https://aka.ms/pnp/powershell"
+      },
+      {
+          "name": "Want to learn more about CLI for Microsoft 365 and the commands",
+          "description": "Check out the CLI for Microsoft 365 site to get started and for the reference to the commands.",
+          "url": "https://aka.ms/cli-m365"
+      }
+    ]
+  }
+]

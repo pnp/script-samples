@@ -12,32 +12,6 @@ By combining the CLI for Microsoft 365 and PowerShell along with a new pure PnP 
 
 This script will get all flows in your default environment and export them as both a ZIP file for importing back into Power Automate and as a JSON file for importing into Azure as an Azure Logic App.
 
-# [CLI for Microsoft 365 with PowerShell](#tab/cli-m365-ps)
-```powershell
-
-Write-Output "Getting environment info..."
-$environment = m365 flow environment list --query '[?contains(displayName,`default`)] .name'
-
-Write-Output "Getting Flows info..."
-$flows = m365 flow list --environment $environment --asAdmin --output json | ConvertFrom-JSON
-
-Write-Output "Found $($flows.Count) Flows to export..."
-
-$flows | ForEach-Object {
-    Write-Output "Exporting as ZIP & JSON... $($_.displayName)"
-    $filename = $_.displayName.Replace(" ","")
-    $timestamp = Get-Date -Format "yyyymmddhhmmss"
-    $exportPath = "$($filename)_$($timestamp)"
-    $flowId = $_.Name
-    
-    m365 flow export --id $flowId --environment $environment --packageDisplayName $_.displayName --path "$exportPath.zip"
-    m365 flow export --id $flowId --environment $environment --format json --path "$exportPath.json"
-}
-
-Write-Output "Complete"
-
-```
-[!INCLUDE [More about CLI for Microsoft 365](../../docfx/includes/MORE-CLIM365.md)]
 
 # [PnP PowerShell](#tab/pnpps)
 ```powershell
@@ -68,16 +42,14 @@ foreach ($flow in $flows) {
 
 ## Source Credit
 
-Sample first appeared on [Export all flows in environment | CLI for Microsoft 365](https://pnp.github.io/cli-microsoft365/sample-scripts/flow/export-all-flows-in-environment/)
-
 Added PnP PowerShell version from [PnP.PowerShell + Bonus Script: Export all Flows using PnP.PowerShell](https://www.leonarmston.com/2021/01/testing-out-the-new-power-automate-flow-commands-in-pnp-powershell-bonus-script-export-all-flows-using-pnp-powershell/)
 ## Contributors
 
 | Author(s) |
 |-----------|
-| Garry Trinder |
 | Luise Freese |
 | [Leon Armston](https://github.com/LeonArmston) |
 
 [!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
-<img src="https://telemetry.sharepointpnp.com/script-samples/scripts/flow-export-all-flows-in-environment" aria-hidden="true" />
+<img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/flow-export-all-flows-in-environment" aria-hidden="true" />
+

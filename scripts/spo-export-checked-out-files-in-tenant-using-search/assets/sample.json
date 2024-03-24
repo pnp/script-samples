@@ -1,0 +1,54 @@
+[
+  {
+    "name": "spo-export-checked-out-files-in-tenant-using-search",
+    "source": "pnp",
+    "title": "Getting checked-out files in the tenant using Search",
+    "shortDescription": "Getting checked-out files in the tenant using Search",
+    "url": "https://pnp.github.io/script-samples/spo-export-checked-out-files-in-tenant-using-search/README.html",
+    "longDescription": [
+      "It requires a lot of work to iterate all Site Collections looking for checked out files. If you can accept that the quality is slightly lower ( some sites or libraries might be excluded from Search) this script can provide the list of checkout file is minutes, not hours"
+    ],
+    "creationDateTime": "2023-03-31",
+    "updateDateTime": "2023-03-31",
+    "products": [
+      "SharePoint",
+      "Azure"
+    ],
+    "metadata": [
+      {
+        "key": "PNP-POWERSHELL",
+        "value": "1.11.0"
+      }
+    ],
+    "categories": [
+      "Data",
+      "Report"      
+    ],
+    "tags": [
+      "<Cmdlets-Used>"
+    ],
+    "thumbnails": [
+      {
+        "type": "image",
+        "order": 100,
+        "url": "https://raw.githubusercontent.com/pnp/script-samples/main/scripts/spo-export-checked-out-files-in-tenant-using-search/assets/preview.png",
+        "alt": "Preview of the sample Getting checked-out files in the tenant using Search"
+      }
+    ],
+    "authors": [
+      {
+        "gitHubAccount": "kasperbolarsen",
+        "company": "Fellowmind",
+        "pictureUrl": "https://github.com/kasperbolarsen.png",
+        "name": "Kasper Larsen"
+      }
+    ],
+    "references": [
+      {
+        "name": "Want to learn more about PnP PowerShell and the cmdlets",
+        "description": "Check out the PnP PowerShell site to get started and for the reference to the cmdlets.",
+        "url": "https://aka.ms/pnp/powershell"
+      }
+    ]
+  }
+]

@@ -1,0 +1,53 @@
+[
+  {
+    "name": "onedrive-export-admins",
+    "source": "pnp",
+    "title": "Export OneDrive Admins",
+    "shortDescription": "Exports every OneDrive in the tenant, and the site collection admins. Audit which admins have access to user OneDrives.",
+    "url": "https://pnp.github.io/script-samples/onedrive-export-admins/README.html",
+    "longDescription": [
+      "This script exports every OneDrive in the tenant, and the site collection admins of the site. This helps audit which admins have unnecessary access to user OneDrives."
+    ],
+    "creationDateTime": "2022-04-16",
+    "updateDateTime": "2022-04-16",
+    "products": [
+      "SharePoint"
+    ],
+    "metadata": [
+      {
+        "key": "PNP-POWERSHELL",
+        "value": "1.5.0"
+      }
+    ],
+    "categories": [
+      "Report",
+      "Security"
+    ],
+    "tags": [
+      "classic"
+    ],
+    "thumbnails": [
+      {
+        "type": "image",
+        "order": 100,
+        "url": "https://raw.githubusercontent.com/pnp/script-samples/main/scripts/onedrive-export-admins/assets/OneDriveAdmins.png",
+        "alt": "Preview of the sample <title>"
+      }
+    ],
+    "authors": [
+      {
+        "gitHubAccount": "Maher256",
+        "company": "Netwoven",
+        "pictureUrl": "https://github.com/maher256.png",
+        "name": "Matt Maher"
+      }
+    ],
+    "references": [
+      {
+        "name": "Want to learn more about PnP PowerShell and the cmdlets",
+        "description": "Check out the PnP PowerShell site to get started and for the reference to the cmdlets.",
+        "url": "https://aka.ms/pnp/powershell"
+      }
+    ]
+  }
+]

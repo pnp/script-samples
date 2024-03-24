@@ -35,6 +35,34 @@ Write-Host "Script Complete! :)" -ForegroundColor Green
 
 ```
 [!INCLUDE [More about PnP PowerShell](../../docfx/includes/MORE-PNPPS.md)]
+
+# [CLI for Microsoft 365](#tab/cli-m365-ps)
+```powershell
+
+$m365Status = m365 status
+if ($m365Status -match "Logged Out") {
+    m365 login
+}
+
+$languages = m365 spo web installedlanguage list --webUrl 'https://contoso.sharepoint.com'
+$languages = $languages | ConvertFrom-Json
+
+# Markdown format
+$markdown = ""
+$markdown += "| Name | Language Tag | LCID |`n"
+$markdown += "|------|--------------|------|`n"
+
+$languages | foreach-object{ $markdown += "| $($_.DisplayName) | $($_.LanguageTag) | $($_.LCID) |`n"} 
+
+Write-Host $markdown
+
+# Copy to clipboard
+$markdown | clip
+
+Write-Host "Script Complete! :)" -ForegroundColor Green
+
+```
+[!INCLUDE [More about CLI for Microsoft 365](../../docfx/includes/MORE-CLIM365.md)]
 ***
 
 ## Contributors
@@ -42,7 +70,8 @@ Write-Host "Script Complete! :)" -ForegroundColor Green
 | Author(s) |
 |-----------|
 | Paul Bullock |
+| [Adam Wójcik](https://github.com/Adam-it)|
 
 [!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
 
-<img src="https://telemetry.sharepointpnp.com/script-samples/scripts/generate-markdown-lcids" aria-hidden="true" />
+<img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/generate-markdown-lcids" aria-hidden="true" />

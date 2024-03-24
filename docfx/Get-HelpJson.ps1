@@ -41,7 +41,7 @@ function Process-SPOManagementShellDocs
 
     $spomsDocs = Join-Path -Path $currentLocation -ChildPath "OfficeDocs-SharePoint-PowerShell\sharepoint\sharepoint-ps\sharepoint-online"
     Write-Host "Processing SPO Management Shell Path: $($spomsDocs)"
-    $spomsBaseSitePath = "https://docs.microsoft.com/en-us/powershell/module/sharepoint-online"
+    $spomsBaseSitePath = "https://learn.microsoft.com/powershell/module/sharepoint-online"
     $spomsDocsFiles = Get-ChildItem -Path $spomsDocs
     $spomsDocRows = @()
 
@@ -53,7 +53,7 @@ function Process-SPOManagementShellDocs
 
         $cmdHelp = [PSCustomObject]@{
             cmd = $cmdletName
-            helpUrl = "$($spomsBaseSitePath)/$($cmdletName)?view=sharepoint-ps"
+            helpUrl = "$($spomsBaseSitePath)/$($cmdletName)"
         }
 
         $spomsDocRows += $cmdHelp
@@ -72,7 +72,7 @@ function Process-CliForM365Docs
     $clim365Docs = Join-Path -Path $currentLocation -ChildPath "cli-microsoft365\docs\docs\cmd"
     Write-Host "Processing CLI for Microsoft 365 Path: $($clim365Docs)"
     $clim365BaseSitePath = "https://pnp.github.io/cli-microsoft365/cmd"
-    $clim365DocsFiles = Get-ChildItem -Path $clim365Docs -Recurse -Filter *.md
+    $clim365DocsFiles = Get-ChildItem -Path $clim365Docs -Recurse -Filter *.mdx
     $clim365DocRows = @()
 
     Write-Host "$($clim365DocsFiles.Length) found"
@@ -80,8 +80,8 @@ function Process-CliForM365Docs
     $clim365DocsFiles | Foreach-Object {
 
         $parentName = $_.Directory.Parent.Name
-        $cmdletName = $_.Name.Replace(".md","")
-        $cmdletPath = $_.Name.Replace(".md","/")
+        $cmdletName = $_.Name.Replace(".mdx","")
+        $cmdletPath = $_.Name.Replace(".mdx","/")
         
         $helpUrl = "$($cmdletPath)"
         $finalCmdName = "m365 $($cmdletName.Replace("-"," "))"

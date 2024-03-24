@@ -5,9 +5,9 @@
     "version": null,
     "source": "pnp",
     "title": "Replace a user's membership in selected Microsoft 365 Groups or Teams",
-    "url": "aad-replace-membership-of-selected-groups/README.html",
+    "url": "https://pnp.github.io/script-samples/aad-replace-membership-of-selected-groups/README.html",
     "creationDateTime": "2021-05-04",
-    "updateDateTime": "2021-05-04",
+    "updateDateTime": "2022-01-19",
     "shortDescription": "Replace the membership of a user for a selected list of Groups",
     "longDescription": null,
     "products": [
@@ -15,42 +15,52 @@
       "Teams"
     ],
     "categories": [
-      "Configure"
+      "Configure",
+      "Security"
     ],
     "tags": [
       "Microsoft 365 Groups",
       "Microsoft Teams",
-      "Governance"
+      "Governance",
+      "Add-PnPMicrosoft365GroupMember",
+      "Add-PnPMicrosoft365GroupOwner",
+      "Connect-PnPOnline",
+      "Get-PnPMicrosoft365Group",
+      "Get-PnPMicrosoft365GroupMember",
+      "Get-PnPMicrosoft365GroupOwner",
+      "Remove-PnPMicrosoft365Group",
+      "Remove-PnPMicrosoft365GroupMember",
+      "Remove-PnPMicrosoft365GroupOwner"
     ],
     "metadata": [
       {
-        "key": "cli-for-microsoft365",
-        "value": "3.7.0"
+        "key": "PNP-POWERSHELL",
+        "value": "1.9.0"
       }
     ],
     "thumbnails": [
       {
         "type": "image",
         "order": 100,
-        "url": "aad-replace-membership-of-selected-groups/assets/preview.png",
+        "url": "https://raw.githubusercontent.com/pnp/script-samples/main/scripts/aad-replace-membership-of-selected-groups/assets/preview.png",
         "alt": "preview image for the sample",
         "slides": null
       }
     ],
     "authors": [
       {
-        "name": "Patrick Lamber",
-        "gitHubAccount": "plamber",
-        "company": "Expertsinside AG",
-        "pictureUrl": "https://avatars.githubusercontent.com/u/18241305?v=4"
-      },
-      {
-        "name": "Alan Eardley",
-        "gitHubAccount": "al-eardley",
-        "company": "Microsoft",
-        "pictureUrl": "https://avatars.githubusercontent.com/u/10485065?v=4"
+        "gitHubAccount": "reshmee011",
+        "company": "",
+        "pictureUrl": "https://avatars.githubusercontent.com/u/7693852?v=4",
+        "name": "Reshmee Auckloo"
       }
     ],
-    "references": null
+    "references": [
+      {
+        "name": "Want to learn more about PnP PowerShell and the cmdlets",
+        "description": "Check out the PnP PowerShell site to get started and for the reference to the cmdlets.",
+        "url": "https://aka.ms/pnp/powershell"
+      }
+    ]
   }
 ]

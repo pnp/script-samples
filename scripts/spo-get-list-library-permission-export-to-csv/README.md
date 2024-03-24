@@ -133,6 +133,80 @@ StartProcessing
 
 ```
 [!INCLUDE [More about PnP PowerShell](../../docfx/includes/MORE-PNPPS.md)]
+
+# [CLI for Microsoft 365](#tab/cli-m365-ps)
+```powershell
+# Usage example:
+# .\Exoprt-ListLibraryPermissions.ps1 -WebUrl "https://contoso.sharepoint.com/sites/Intranet" -ListName "Demo List"
+
+[CmdletBinding()]
+param (
+    [Parameter(Mandatory = $true, HelpMessage = "Please enter Site URL, e.g. https://contoso.sharepoint.com/sites/Intranet")]
+    [string]$WebUrl,
+    [Parameter(Mandatory = $true, HelpMessage = "Please enter list title")]
+    [string]$ListName
+)
+begin {
+    #Log in to Microsoft 365
+    Write-Host "Connecting to Tenant" -f Yellow
+
+    $m365Status = m365 status
+    if ($m365Status -match "Logged Out") {
+        m365 login
+    }
+
+    Write-Host "Connection Successful!" -f Green 
+}
+process {
+    $listPermissions = @()
+    $dateTime = "{0:MM_dd_yy}_{0:HH_mm_ss}" -f (Get-Date)
+    $csvPath = "$($ListName -replace '\s','_')-permissions-" + $dateTime + ".csv"
+
+    # Gets information about the specific list
+    $listInfo = m365 spo list get --webUrl $WebUrl --title $ListName --withPermissions | ConvertFrom-Json
+
+    # Check if list has unique role permissions
+    $hasUniquePermissions = $listInfo.HasUniqueRoleAssignments
+
+    ForEach ($roleAssignment in $listInfo.RoleAssignments) {
+        $permissionType = $roleAssignment.Member.PrincipalType
+        $permissionLevels = $RoleAssignment.RoleDefinitionBindings | Select-Object -ExpandProperty Name
+
+        If ($permissionType -eq 8) {
+            # Get members of a SharePoint Group
+            $groupMembers = m365 spo group user list --webUrl $WebUrl --groupName $roleAssignment.Member.LoginName | ConvertFrom-Json
+
+            ForEach ($user in $groupMembers.value) {
+                Write-Host "$($user.Title) have $($permissionLevels -join ",") permission(s) as part of group $($roleAssignment.Member.LoginName)"
+                $listPermissions += New-Object PSObject -Property ([ordered]@{
+                        Title                = $user.Title 
+                        PermissionType       = "SharePoint Group"
+                        PermissionLevels     = $permissionLevels -join ","
+                        Member               = $roleAssignment.Member.Title     
+                        HasUniquePermissions = $hasUniquePermissions                                     
+                    })  
+            }
+        }
+        Else {
+            Write-Host "$($user.Title) have $($permissionLevels -join ",") permission(s) as direct permission"
+            $listPermissions += New-Object PSObject -Property ([ordered]@{
+                    Title                = $roleAssignment.Member.Title 
+                    PermissionType       = "User"
+                    PermissionLevels     = $permissionLevels -join ","
+                    Member               = "Direct Permission"      
+                    HasUniquePermissions = $hasUniquePermissions                             
+                }) 
+        }
+    }
+
+    Write-Host "Exporting the permissions to CSV..."
+    $listPermissions | Export-Csv $csvPath -NoTypeInformation -Append
+}
+end { 
+    Write-Host "Finished"
+}
+```
+[!INCLUDE [More about CLI for Microsoft 365](../../docfx/includes/MORE-CLIM365.md)]
 ***
 
 
@@ -141,6 +215,7 @@ StartProcessing
 | Author(s) |
 |-----------|
 | Chandani Prajapati |
+| [Nanddeep Nachan](https://github.com/nanddeepn) |
 
 [!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
-<img src="https://telemetry.sharepointpnp.com/script-samples/scripts/spo-get-list-library-permission-export-to-csv" aria-hidden="true" />
+<img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/spo-get-list-library-permission-export-to-csv" aria-hidden="true" />

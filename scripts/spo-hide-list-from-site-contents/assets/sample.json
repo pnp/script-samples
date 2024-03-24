@@ -5,9 +5,9 @@
     "version": null,
     "source": "pnp",
     "title": "Hide SharePoint list from Site Contents",
-    "url": "spo-hide-list-from-site-contents/README.html",
+    "url": "https://pnp.github.io/script-samples/spo-hide-list-from-site-contents/README.html",
     "creationDateTime": "2020-08-23",
-    "updateDateTime": "2020-08-23",
+    "updateDateTime": "2023-05-09",
     "shortDescription": "Hide the SharePoint list from the UI this script will hide a specific list from the site contents",
     "longDescription": null,
     "products": [
@@ -19,31 +19,58 @@
     "tags": [
       "SharePoint Online",
       "Hide List",
-      "bash"
+      "Connect-PnPOnline",
+      "Set-PnPList",
+      "Disconnect-PnPOnline",
+      "m365 status",
+      "m365 login",
+      "m365 spo list set",
+      "m365 logout"
     ],
     "metadata": [
       {
-        "key": "cli-for-microsoft365",
-        "value": "3.7.0"
+        "key": "PNP-POWERSHELL",
+        "value": "2.1.1"
+      },
+      {
+          "key":"CLI-FOR-MICROSOFT365",
+          "value":"6.7.0"
       }
     ],
     "thumbnails": [
       {
         "type": "image",
         "order": 100,
-        "url": "spo-hide-list-from-site-contents/assets/preview.png",
+        "url": "https://raw.githubusercontent.com/pnp/script-samples/main/scripts/spo-hide-list-from-site-contents/assets/preview.png",
         "alt": "preview image for the sample",
         "slides": null
       }
     ],
     "authors": [
       {
-        "name": "David Ramalho",
-        "gitHubAccount": "",
-        "company": "SharePoint Tricks",
-        "pictureUrl": "https://i1.wp.com/pbs.twimg.com/profile_images/1060671490847326208/zyudunZr_200x200.jpg?zoom=1.25&ssl=1"
+        "gitHubAccount": "ganesh-sanap",
+        "company": "",
+        "pictureUrl": "https://avatars.githubusercontent.com/u/25476310?v=4",
+        "name": "Ganesh Sanap"
       },
+      {
+        "gitHubAccount": "LeonArmston",
+        "company": "Intelogy",
+        "pictureUrl": "https://avatars.githubusercontent.com/u/12968962?v=4",
+        "name": "Leon Armston"
+      }
     ],
-    "references": null
+    "references": [
+      {
+        "name": "Want to learn more about PnP PowerShell and the cmdlets",
+        "description": "Check out the PnP PowerShell site to get started and for the reference to the cmdlets.",
+        "url": "https://aka.ms/pnp/powershell"
+      },
+      {
+        "name": "Want to learn more about CLI for Microsoft 365 and the commands",
+        "description": "Check out the CLI for Microsoft 365 site to get started and for the reference to the commands.",
+        "url": "https://aka.ms/cli-m365"
+      }
+    ]
   }
 ]

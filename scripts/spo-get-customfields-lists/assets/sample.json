@@ -1,0 +1,75 @@
+[
+  {
+    "name": "spo-get-customfields-lists",
+    "source": "pnp",
+    "title": "Get custom fields within lists and libraries within a site",
+    "shortDescription": "Get custom Fields within lists and libraries within a site.",
+    "url": "https://pnp.github.io/script-samples/spo-get-customfields-lists/README.html",
+    "longDescription": [
+      "The script will generate a CSV report listing the field title for lists and libraries excluding out of the box lists or fields."
+    ],
+    "creationDateTime": "2023-06-30",
+    "updateDateTime": "2024-03-17",
+    "products": [
+      "SharePoint"
+    ],
+    "metadata": [
+      {
+        "key": "PNP-POWERSHELL",
+        "value": "1.12.0"
+      },
+      {
+        "key": "CLI-FOR-MICROSOFT365",
+        "value": "7.5.0"
+      }
+    ],
+    "categories": [
+      "Data"
+    ],
+    "tags": [
+      "Connect-PnPOnline",
+      "Get-PnPList",
+      "Get-PnPField",
+      "Disconnect-PnPOnline",
+      "m365 login",
+      "m365 status",
+      "m365 spo list list",
+      "m365 spo field list",
+      "m365 logout"
+    ],
+    "thumbnails": [
+      {
+        "type": "image",
+        "order": 100,
+        "url": "https://raw.githubusercontent.com/pnp/script-samples/main/scripts/spo-get-customfields-lists/assets/Preview.png",
+        "alt": "Preview image for script sample Get custom fields within lists and libraries within a site"
+      }
+    ],
+    "authors": [
+      {
+        "gitHubAccount": "ganesh-sanap",
+        "company": "",
+        "pictureUrl": "https://avatars.githubusercontent.com/u/25476310?v=4",
+        "name": "Ganesh Sanap"
+      },
+      {
+        "gitHubAccount": "reshmee011",
+        "company": "",
+        "pictureUrl": "https://avatars.githubusercontent.com/u/7693852?v=4",
+        "name": "Reshmee Auckloo"
+      }
+    ],
+    "references": [
+      {
+        "name": "Want to learn more about PnP PowerShell and the cmdlets",
+        "description": "Check out the PnP PowerShell site to get started and for the reference to the cmdlets.",
+        "url": "https://aka.ms/pnp/powershell"
+      },
+      {
+        "name": "Want to learn more about CLI for Microsoft 365 and the commands",
+        "description": "Check out the CLI for Microsoft 365 site to get started and for the reference to the commands.",
+        "url": "https://aka.ms/cli-m365"
+      }
+    ]
+  }
+]

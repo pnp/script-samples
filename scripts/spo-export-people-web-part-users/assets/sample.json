@@ -1,0 +1,54 @@
+[
+  {
+    "name": "spo-export-people-web-part-users",
+    "source": "pnp",
+    "title": "Extract the employees shown in the People Web part on pages in a selection of Site Collections to CSV",
+    "shortDescription": "Sample showing how to extract the employees shown in the People Web part on pages in a selection of Site Collections",
+    "url": "https://pnp.github.io/script-samples/spo-export-people-web-part-users/README.html",
+    "longDescription": [
+      "One of my customs requested that we removed a specific employee from the People Web part in their Intranet ASAP as that employee had left rather abruptly. They had no idea where that employee was displayed hence this script"
+    ],
+    "creationDateTime": "2022-12-23",
+    "updateDateTime": "2022-12-23",
+    "products": [
+      "SharePoint"
+    ],
+    "metadata": [
+      {
+        "key": "PNP-POWERSHELL",
+        "value": "1.6.0"
+      }
+    ],
+    "categories": [
+      "Data"
+    ],
+    "tags": [
+      "Connect-PnPOnline",
+      "Get-PnPClientSidePage",
+      "ConvertFrom-Json",
+      "Export-Csv"
+    ],
+    "thumbnails": [
+      {
+        "type": "image",
+        "order": 100,
+        "url": "https://raw.githubusercontent.com/pnp/script-samples/main/scripts/spo-export-people-web-part-users/assets/preview.png",
+        "alt": "Preview image of the sample Extract the employees shown in the People Web part on pages in a selection of Site Collections to CSV"
+      }
+    ],
+    "authors": [
+      {
+        "gitHubAccount": "kasperbolarsen",
+        "pictureUrl": "https://avatars.githubusercontent.com/u/20593570?s=400&u=f9a4d5137685d8c3fcc60394fc193f3e8156f678&v=4",
+        "name": "Kasper Larsen"
+      }
+    ],
+    "references": [
+      {
+        "name": "Want to learn more about PnP PowerShell and the cmdlets",
+        "description": "Check out the PnP PowerShell site to get started and for the reference to the cmdlets.",
+        "url": "https://aka.ms/pnp/powershell"
+      }
+    ]
+  }
+]

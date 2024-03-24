@@ -5,45 +5,80 @@
     "version": null,
     "source": "pnp",
     "title": "List all external users in all site collections",
-    "url": "spo-list-site-externalusers/README.html",
+    "url": "https://pnp.github.io/script-samples/spo-list-site-externalusers/README.html",
     "creationDateTime": "2021-03-15",
-    "updateDateTime": "2021-03-15",
+    "updateDateTime": "2022-07-08",
     "shortDescription": "Script helps you to list all external users in all SharePoint Online sites",
     "longDescription": null,
     "products": [
       "SharePoint"
     ],
     "categories": [
-      "Report"
+      "Report",
+      "Security"
     ],
     "tags": [
       "SharePoint Online",
       "Governance",
-      "External Users"
+      "External Users",
+      "Connect-PnPOnline",
+      "Get-PnPTenant",
+      "Get-PnPTenantSite",
+      "Get-PnPUser",
+      "Connect-SPOService",
+      "Get-SPOExternalUser",
+      "Get-SPOSite"
     ],
     "metadata": [
       {
-        "key": "cli-for-microsoft365",
-        "value": "3.7.0"
+        "key": "SPO-MANAGEMENT-SHELL",
+        "value": "16.0.21116.12000"
+      },
+      {
+        "key": "PNP-POWERSHELL",
+        "value": "1.5.0"
       }
     ],
     "thumbnails": [
       {
         "type": "image",
         "order": 100,
-        "url": "spo-list-site-externalusers/assets/preview.png",
+        "url": "https://raw.githubusercontent.com/pnp/script-samples/main/scripts/spo-list-site-externalusers/assets/preview.png",
         "alt": "preview image for the sample",
         "slides": null
       }
     ],
     "authors": [
       {
-        "name": "Albert-Jan Schot",
-        "gitHubAccount": "appieschot",
-        "company": "@portiva",
-        "pictureUrl": "https://avatars.githubusercontent.com/u/15227781?v=4"
+        "name": "Martin Lingstuyl",
+        "gitHubAccount": "martinlingstuyl",
+        "company": "I4-YOU Business Solutions b.v.",
+        "pictureUrl": "https://avatars.githubusercontent.com/u/5267487?s=400&u=dbb983e7bd20e98e8115aca75faa2d457ad32cb5&v=4"
+      },
+      {
+        "name": "Chandani Prajapati",
+        "gitHubAccount": "chandaniprajapati",
+        "company": "Rapid Circle",
+        "pictureUrl": "https://avatars.githubusercontent.com/u/52065929?v=4"
+      },
+      {
+        "gitHubAccount": "pkbullock",
+        "company": "",
+        "pictureUrl": "https://avatars.githubusercontent.com/u/8781041?v=4",
+        "name": "Paul Bullock"
       }
     ],
-    "references": null
+    "references": [
+      {
+        "name": "Introduction to the SharePoint Online Management Shell",
+        "description": "Check out the SPO Management Shell documentation site to get started and for the reference to the cmdlets.",
+        "url": "https://learn.microsoft.com/powershell/sharepoint/sharepoint-online/introduction-sharepoint-online-management-shell"
+      },
+      {
+        "name": "Want to learn more about PnP PowerShell and the cmdlets",
+        "description": "Check out the PnP PowerShell site to get started and for the reference to the cmdlets.",
+        "url": "https://aka.ms/pnp/powershell"
+      }
+    ]
   }
 ]

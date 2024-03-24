@@ -10,38 +10,14 @@ This script can be used to replace the membership of a user for a selected list 
  
 [!INCLUDE [Delete Warning](../../docfx/includes/DELETE-WARN.md)]
 
-# [CLI for Microsoft 365 with PowerShell](#tab/cli-m365-ps)
+# [PnP PowerShell](#tab/pnpps)
 ```powershell
+$adminUrl = "https://contoso-admin.sharepoint.com"
 $fileInput = "<PUTYOURPATHHERE.csv>"
 $oldUser = "upnOfOldUser"
 $newUser = "upnOfNewUser"
-# Parameters end
 
-$m365Status = m365 status
-
-if ($m365Status -eq "Logged Out") {
-  # Connection to Microsoft 365
-  m365 login
-}
-
-# configure the CLI to output JSON on each execution
-m365 cli config set --key output --value json
-m365 cli config set --key errorOutput --value stdout
-m365 cli config set --key showHelpOnFailure --value false
-m365 cli config set --key printErrorsAsPlainText --value false
-
-function Get-CLIValue {
-  [cmdletbinding()]
-  param(
-    [parameter(Mandatory = $true, ValueFromPipeline = $true)]
-    $input
-  )
-    $output = $input | ConvertFrom-Json
-    if ($output.error -ne $null) {
-      throw $output.error
-    }
-    return $output
- }
+Connect-PnPOnline -Url $adminUrl -Interactive
 
 function Replace-Membership {
   [cmdletbinding()]
@@ -60,7 +36,7 @@ function Replace-Membership {
 
     $group = $null
     try {
-      $group = m365 aad o365group get --id $groupId | Get-CLIValue 
+      $group = Get-PnPMicrosoft365Group -Identity $groupId 
     }
     catch {
       Write-Host
@@ -72,29 +48,35 @@ function Replace-Membership {
     $isTeam = $group.resourceProvisioningOptions.Contains("Team");
 
     $users = $null
-    $users = m365 aad o365group user list --groupId $groupId | Get-CLIValue
-    $users | Where-Object { $_.userPrincipalName -eq $oldUser } | ForEach-Object {
+    $members = Get-PnPMicrosoft365GroupMembers -Identity $groupId
+    $owners = Get-PnPMicrosoft365GroupOwners -Identity $groupId
+    $members | Where-Object { $_.userPrincipalName -eq $oldUser } | ForEach-Object {
       $user = $_
-      $isMember = $user.userType -eq "Member"
-      $isOwner = $user.userType -eq "Owner"
-
-      Write-Host "Found $oldUser with $($user.userType.tolower()) rights" -ForegroundColor Green
-
+      $owner = $owners |  Where-Object { $_.userPrincipalName -eq $oldUser }
+      if($owner)
+      {
+        Write-Host "Found $oldUser with owner rights" -ForegroundColor Green
+      }
+      else
+      {
+        Write-Host "Found $oldUser with member rights" -ForegroundColor Green
+      }
+      
       # owners must be explicitly added as members if it is a team
-      if ($isMember -or $isTeam) {
+      if ($user -or $isTeam) {
         try {
           Write-Host "Granting $newUser member rights"
-          m365 aad o365group user add --groupId $groupId --userName $newUser | Get-CLIValue
+          Add-PnPMicrosoft365GroupMember -Identity $groupId -Users $newUser
         }
         catch {
           Write-Host $_.Exception.Message -ForegroundColor White
-        }
+        } 
       }
 
-      if ($isOwner) {
+      if ($owner) {
         try {
           Write-Host "Granting $newUser owner rights"
-          m365 aad o365group user add --groupId $groupId --userName $newUser --role Owner | Get-CLIValue
+          Add-PnPMicrosoft365GroupOwner -Identity $groupId -Users $newUser
         }
         catch {
           Write-Host $_.Exception.Message -ForegroundColor White
@@ -103,7 +85,11 @@ function Replace-Membership {
 
       try {
         Write-Host "Removing $oldUser..."
-        m365 aad o365group user remove --groupId $groupId --userName $oldUser --confirm $false | Get-CLIValue
+        if($owner)
+        {
+        Remove-PnPMicrosoft365GroupOwner -Identity $groupId -Users $oldUser 
+        }
+        Remove-PnPMicrosoft365GroupMember -Identity $groupId -Users $oldUser
       }
       catch {
         Write-Host $_.Exception.Message -ForegroundColor Red
@@ -115,26 +101,24 @@ function Replace-Membership {
 
 Replace-Membership $fileInput $oldUser $newUser
 ```
-[!INCLUDE [More about CLI for Microsoft 365](../../docfx/includes/MORE-CLIM365.md)]
-*** 
+[!INCLUDE [More about PnP PowerShell](../../docfx/includes/MORE-PNPPS.md)]
+***
 
+**CSV Format**
 ```csv
 id
 <groupId>
 <groupId>
 <groupId>
 ```
-## Source Credit
 
-Sample first appeared on [Replace a user's membership in selected Microsoft 365 Groups or Teams | CLI for Microsoft 365](https://pnp.github.io/cli-microsoft365/sample-scripts/aad/replace-membership-of-selected-groups/)
 
 ## Contributors
 
 | Author(s) |
 |-----------|
-| Alan Eardley |
-| Patrick Lamber |
-
+| Reshmee Auckloo |
 
 [!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
-<img src="https://telemetry.sharepointpnp.com/script-samples/scripts/aad-replace-membership-of-selected-groups" aria-hidden="true" />
+<img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/aad-replace-membership-of-selected-groups" aria-hidden="true" />
+

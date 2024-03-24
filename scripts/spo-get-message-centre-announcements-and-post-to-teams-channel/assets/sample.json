@@ -1,0 +1,86 @@
+[
+    {
+        "name": "spo-get-message-centre-announcements-and-post-to-teams-channel",
+        "source": "pnp",
+        "title": "Retrieve Message Center announcements and post to MS Teams channel",
+        "shortDescription": "This script allows you to retrieve Message Center announcements and post to MS Teams channel.",
+        "url": "https://pnp.github.io/script-samples/spo-get-message-centre-announcements-and-post-to-teams-channel/README.html",
+        "longDescription": [
+            "This script allows you to connect to your SharePoint Online tenant and retrieve Message Center announcements.",
+            "It then connects to Microsoft Teams and loops through the announcements, posting them to a specific MS Teams channel."
+        ],
+        "creationDateTime": "2023-01-11",
+        "updateDateTime": "2023-01-17",
+        "products": [
+            "SharePoint",
+            "Teams"
+        ],
+        "metadata": [
+            {
+                "key": "PNP-POWERSHELL",
+                "value": "1.12.0"
+            },
+            {
+                "key": "CLI-FOR-MICROSOFT365",
+                "value": "6.2.0"
+            }
+        ],
+        "categories": [
+            "Report"
+        ],
+        "tags": [
+            "SharePoint",
+            "Teams",
+            "Connect-PnPOnline",
+            "Disconnect-PnPOnline",
+            "Get-PnPMessageCenterAnnouncement",
+            "Connect-MicrosoftTeams",
+            "Submit-PnPTeamsChannelMessage",
+            "m365 login",
+            "m365 logout",
+            "m365 status",
+            "m365 teams team get",
+            "m365 teams channel get",
+            "m365 teams message send",
+            "m365 tenant serviceannouncement message list"
+        ],
+        "thumbnails": [
+            {
+                "type": "image",
+                "order": 100,
+                "url": "https://raw.githubusercontent.com/pnp/script-samples/main/scripts/spo-get-message-centre-announcements-and-post-to-teams-channel/assets/preview.png",
+                "alt": "Retrieve Message Center announcements and post to MS Teams channel"
+            }
+        ],
+        "authors": [
+            {
+                "gitHubAccount": "nanddeepn",
+                "pictureUrl": "https://github.com/nanddeepn.png",
+                "name": "Nanddeep Nachan"
+            },
+            {
+                "gitHubAccount": "ValerasNarbutas",
+                "company": "",
+                "pictureUrl": "https://avatars.githubusercontent.com/u/16476453?s=96&v=4",
+                "name": "Valeras Narbutas"
+            }
+        ],
+        "references": [
+            {
+                "name": "Want to learn more about the Microsoft Graph",
+                "description": "Check out the documentation site to get started and for the reference to the endpoints.",
+                "url": "https://developer.microsoft.com/graph/graph-explorer"
+            },
+            {
+              "name": "Want to learn more about CLI for Microsoft 365 and the commands",
+              "description": "Check out the CLI for Microsoft 365 site to get started and for the reference to the commands.",
+              "url": "https://aka.ms/cli-m365"
+            },
+            {
+                "name": "Want to learn more about PnP PowerShell and the cmdlets",
+                "description": "Check out the PnP PowerShell site to get started and for the reference to the cmdlets.",
+                "url": "https://aka.ms/pnp/powershell"
+              }
+        ]
+    }
+]

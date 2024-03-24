@@ -1,0 +1,55 @@
+[
+  {
+    "name": "spo-bulk-delete-recyclebin-in-batch-avoid-lvt",
+    "source": "pnp",
+    "title": "Bulk delete recycle bin items from a site in batch",
+    "shortDescription": "This script will delete items from recyclebin in bulk while avoiding List View Threshold issues.",
+    "url": "https://pnp.github.io/script-samples/spo-bulk-delete-recyclebin-in-batch-avoid-lvt/README.html",
+    "longDescription": [
+      ""
+    ],
+    "creationDateTime": "2023-07-25",
+    "updateDateTime": "2023-07-25",
+    "products": [
+      "SharePoint"
+    ],
+   "metadata": [
+      {
+        "key": "PNP-POWERSHELL",
+        "value": "1.11.0"
+      }
+    ],
+    "categories": [
+      "Data",
+      "Report"
+    ],
+    "tags": [
+      "Connect-PnPOnline",
+      "Get-PnPRecycleBinItem",
+      "Invoke-PnPSPRestMethod"
+    ],
+    "thumbnails": [
+      {
+        "type": "image",
+        "order": 100,
+        "url": "https://raw.githubusercontent.com/pnp/script-samples/main/scripts/spo-bulk-delete-recyclebin-in-batch-avoid-lvt/assets/preview.png",
+        "alt": "Preview of the sample Bulk delete recycle bin items from a site in batch"
+      }
+    ],
+    "authors": [
+      {
+        "gitHubAccount": "elaf365",
+        "company": "",
+        "pictureUrl": "https://github.com/elaf365.png",
+        "name": "Eilaf Barmare"
+      }
+    ],
+    "references": [
+      {
+        "name": "Want to learn more about PnP PowerShell and the cmdlets",
+        "description": "Check out the PnP PowerShell site to get started and for the reference to the cmdlets.",
+        "url": "https://aka.ms/pnp/powershell"
+      }
+    ]
+  }
+]

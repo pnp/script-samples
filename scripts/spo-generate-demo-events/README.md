@@ -57,12 +57,12 @@ $eventsToAdd | ForEach-Object {
 ```
 [!INCLUDE [More about PnP PowerShell](../../docfx/includes/MORE-PNPPS.md)]
 
-# [CLI for Microsoft 365 with PowerShell](#tab/cli-m365-ps)
+# [CLI for Microsoft 365](#tab/cli-m365-ps)
 ```powershell
 
 # Ensure connected to tenant
 $m365Status = m365 status
-if ($m365Status -eq "Logged Out") {
+if ($m365Status -match "Logged Out") {
     m365 login
 }
 
@@ -123,4 +123,4 @@ Training Event: Using Teams,25,12:00,13:00,This is a corporate event for everyon
 
 
 [!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
-<img src="https://telemetry.sharepointpnp.com/script-samples/scripts/spo-generate-demo-events" aria-hidden="true" />
+<img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/spo-generate-demo-events" aria-hidden="true" />

@@ -1,0 +1,73 @@
+[
+  {
+    "name": "spo-enable-disable-app-bar",
+    "source": "pnp",
+    "title": "Enable and Disable App Bar in SharePoint Online",
+    "shortDescription": "This script helps SharePoint Users to Enable or Disable App Bar Across SharePoint sites",
+    "url": "https://pnp.github.io/script-samples/spo-enable-disable-app-bar/README.html",
+    "longDescription": [
+      "This script sample demonstrates how to enable and disable the App Bar on SharePoint online sites by utilizing PnP PowerShell and SPO Management Shell."
+    ],
+    "creationDateTime": "2023-05-03",
+    "updateDateTime": "2023-05-22",
+    "products": [
+      "SharePoint"
+    ],
+    "metadata": [
+      {
+        "key": "PNP-POWERSHELL",
+        "value": "2.1.1"
+      },
+      {
+        "key": "SPO-MANAGEMENT-SHELL",
+        "value": "16.0.23612.12000"
+      }
+    ],
+    "categories": [
+      "Configure"
+    ],
+    "tags": [
+      "SharePoint Online",
+      "TemporarilyDisableAppBar",
+      "Connect-PnPOnline",
+      "Set-PnPTemporarilyDisableAppBar",
+      "Disconnect-PnPOnline",
+      "Connect-SPOService",
+      "Set-SPOTemporarilyDisableAppBar",
+      "Disconnect-SPOService"
+    ],
+    "thumbnails": [
+      {
+        "type": "image",
+        "order": 100,
+        "url": "https://raw.githubusercontent.com/pnp/script-samples/main/scripts/spo-enable-disable-app-bar/assets/preview.png",
+        "alt": "Enable and Disable App Bar in SharePoint Online"
+      }
+    ],
+    "authors": [
+      {
+        "gitHubAccount": "Amanp17",
+        "pictureUrl": "https://github.com/Amanp17.png",
+        "name": "Aman Panjwani"
+      },
+      {
+        "gitHubAccount": "ganesh-sanap",
+        "company": "",
+        "pictureUrl": "https://avatars.githubusercontent.com/u/25476310?v=4",
+        "name": "Ganesh Sanap"
+      }
+    ],
+    "references": [
+      {
+        "name": "Want to learn more about PnP PowerShell and the cmdlets",
+        "description": "Check out the PnP PowerShell site to get started and for the reference to the cmdlets.",
+        "url": "https://aka.ms/pnp/powershell"
+      },
+      {
+        "name": "Introduction to the SharePoint Online Management Shell",
+        "description": "Check out the SPO Management Shell documentation site to get started and for the reference to the cmdlets.",
+        "url": "https://learn.microsoft.com/powershell/sharepoint/sharepoint-online/introduction-sharepoint-online-management-shell"
+      }
+    ]
+  }
+]

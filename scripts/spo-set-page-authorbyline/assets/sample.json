@@ -1,46 +1,59 @@
 [
-    {
-      "name": "spo-set-page-authorbyline",
-      "source": "pnp",
-      "title": "Set Page Author Byline",
-      "shortDescription": "Sets the author by line of a modern page",
-      "url": "spo-set-page-authorbyline/README.html",
-      "longDescription": [
-        "Sets the author by line of a modern page"
-      ],
-      "creationDateTime": "2021-06-17",
-      "updateDateTime": "2021-06-17",
-      "products": [
-        "SharePoint"
-      ],
-      "metadata": [
-        {
-          "key": "PnP-PowerShell",
-          "value": "1.5.0"
-        }
-      ],
-      "categories": [
-        "Configure"
-      ],
-      "tags": [
-        "Modern page",
-        "Author byline"
-      ],
-      "thumbnails": [
-        {
-          "type": "image",
-          "order": 100,
-          "url": "spo-set-page-authorbyline/assets/preview.png",
-          "alt": "This sample does not contain a preview image"
-        }
-      ],
-      "authors": [
-        {
-          "gitHubAccount": "anoopt",
-          "company": "Content + Cloud",
-          "pictureUrl": "https://avatars.githubusercontent.com/u/9694225?v=4",
-          "name": "Anoop Tatti"
-        }
-      ]
-    }
-  ]
+  {
+    "name": "spo-set-page-authorbyline",
+    "source": "pnp",
+    "title": "Set Page Author Byline",
+    "shortDescription": "Sets the author by line of a modern page",
+    "url": "https://pnp.github.io/script-samples/spo-set-page-authorbyline/README.html",
+    "longDescription": [
+      "Sets the author by line of a modern page"
+    ],
+    "creationDateTime": "2021-06-17",
+    "updateDateTime": "2021-06-17",
+    "products": [
+      "SharePoint"
+    ],
+    "metadata": [
+      {
+        "key": "PNP-POWERSHELL",
+        "value": "1.5.0"
+      }
+    ],
+    "categories": [
+      "Configure"
+    ],
+    "tags": [
+      "Modern page",
+      "Author byline",
+      "Connect-PnPOnline",
+      "Disconnect-PnPOnline",
+      "Get-PnPConnection",
+      "Get-PnPPage",
+      "Get-PnPUser",
+      "New-PnPUser"
+    ],
+    "thumbnails": [
+      {
+        "type": "image",
+        "order": 100,
+        "url": "https://raw.githubusercontent.com/pnp/script-samples/main/scripts/spo-set-page-authorbyline/assets/preview.png",
+        "alt": "This sample does not contain a preview image"
+      }
+    ],
+    "authors": [
+      {
+        "gitHubAccount": "anoopt",
+        "company": "Content + Cloud",
+        "pictureUrl": "https://avatars.githubusercontent.com/u/9694225?v=4",
+        "name": "Anoop Tatti"
+      }
+    ],
+    "references": [
+      {
+        "name": "Want to learn more about PnP PowerShell and the cmdlets",
+        "description": "Check out the PnP PowerShell site to get started and for the reference to the cmdlets.",
+        "url": "https://aka.ms/pnp/powershell"
+      }
+    ]
+  }
+]

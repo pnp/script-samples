@@ -1,0 +1,78 @@
+[
+  {
+    "schema": null,
+    "name": "spo-list-site-externalusers-in-groups",
+    "version": null,
+    "source": "pnp",
+    "title": "List external users across all sites and in what site groups they are",
+    "url": "https://pnp.github.io/script-samples/spo-list-site-externalusers-in-groups/README.html",
+    "creationDateTime": "2022-07-08",
+    "updateDateTime": "2022-07-08",
+    "shortDescription": "The script shows in what site groups external users are added in all SharePoint Online sites",
+    "longDescription": null,
+    "products": [
+      "SharePoint"
+    ],
+    "categories": [
+      "Report",
+      "Security"
+    ],
+    "tags": [
+      "SharePoint Online",
+      "Governance",
+      "External Users",
+      "m365 login",
+      "m365 status",
+      "m365 spo site classic list",
+      "m365 util accesstoken get",
+      "Connect-PnPOnline",
+      "Get-PnPTenantSite",
+      "Invoke-PnPSPRestMethod"
+    ],
+    "metadata": [
+      {
+        "key": "CLI-FOR-MICROSOFT365",
+        "value": "5.4.0"
+      },
+      {
+        "key": "PNP-POWERSHELL",
+        "value": "1.10.22"
+      }
+    ],
+    "thumbnails": [
+      {
+        "type": "image",
+        "order": 100,
+        "url": "https://raw.githubusercontent.com/pnp/script-samples/main/scripts/spo-list-site-externalusers-in-groups/assets/preview.png",
+        "alt": "preview image for the sample",
+        "slides": null
+      }
+    ],
+    "authors": [      
+      {
+        "name": "Martin Lingstuyl",
+        "gitHubAccount": "martinlingstuyl",
+        "company": "I4-YOU Business Solutions b.v.",
+        "pictureUrl": "https://avatars.githubusercontent.com/u/5267487?s=400&u=dbb983e7bd20e98e8115aca75faa2d457ad32cb5&v=4"
+      },
+      {
+        "name": "Bart-Jan Dekker",
+        "gitHubAccount": "bjdekker",
+        "company": "I4-YOU Business Solutions b.v.",
+        "pictureUrl": "https://avatars.githubusercontent.com/u/12426259?v=4"
+      }
+    ],
+    "references": [
+      {
+        "name": "Want to learn more about CLI for Microsoft 365 and the commands",
+        "description": "Check out the CLI for Microsoft 365 site to get started and for the reference to the commands.",
+        "url": "https://aka.ms/cli-m365"
+      }, 
+      {
+        "name": "Want to learn more about PnP PowerShell and the cmdlets",
+        "description": "Check out the PnP PowerShell site to get started and for the reference to the cmdlets.",
+        "url": "https://aka.ms/pnp/powershell"
+      }
+    ]
+  }
+]

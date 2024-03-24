@@ -67,7 +67,7 @@ AllSiteCollAndSubWebs
 ```
 [!INCLUDE [More about PnP PowerShell](../../docfx/includes/MORE-PNPPS.md)]
 
-# [CLI for Microsoft 365 with PowerShell](#tab/cli-m365-ps)
+# [CLI for Microsoft 365](#tab/cli-m365-ps)
 ```powershell
 
 function PrintSite([string]$type, $sitesJson) {
@@ -87,7 +87,7 @@ function PrintSite([string]$type, $sitesJson) {
 
 function AllSiteCollAndSubWebs() {
     $m365Status = m365 status
-    if ($m365Status -eq "Logged Out") {
+    if ($m365Status -match "Logged Out") {
         m365 login
     }
 
@@ -122,4 +122,4 @@ Sample first appeared on [How to to get all site collections with their sub webs
 | Adam Wójcik |
 
 [!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
-<img src="https://telemetry.sharepointpnp.com/script-samples/scripts/get-all-site-collections-subwebs" aria-hidden="true" />
+<img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/get-all-site-collections-subwebs" aria-hidden="true" />

@@ -57,7 +57,7 @@ Write-Host "Script Complete! :)" -ForegroundColor Green
 ```
 [!INCLUDE [More about SPO Management Shell](../../docfx/includes/MORE-SPOMS.md)]
 
-# [CLI for Microsoft 365 with PowerShell](#tab/cli-m365-ps)
+# [CLI for Microsoft 365](#tab/cli-m365-ps)
 ```powershell
 
 $newSiteUrl = "https://<tenant>.sharepoint.com/sites/Pensaerniaeth"
@@ -65,7 +65,7 @@ $siteTitle = "Pensaerniaeth"
 $lcid = 1106
 
 $m365Status = m365 status
-if ($m365Status -eq "Logged Out") {
+if ($m365Status -match "Logged Out") {
 m365 login
 }
 m365 spo site add --type CommunicationSite --url $newSiteUrl --title $siteTitle --lcid $lcid
@@ -91,4 +91,4 @@ Article first appeared on [https://www.pkbullock.com/blog/2018/create-communicat
 
 [!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
 
-<img src="https://telemetry.sharepointpnp.com/script-samples/scripts/create-comm-sites-specific-locale" aria-hidden="true" />
+<img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/create-comm-sites-specific-locale" aria-hidden="true" />

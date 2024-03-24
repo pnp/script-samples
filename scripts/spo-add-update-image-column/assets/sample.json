@@ -1,0 +1,68 @@
+[{
+    "name": "spo-add-update-image-column",
+    "source": "pnp",
+    "title": "Add/Update Image in SharePoint Image column",
+    "shortDescription": "Add/Update image in SharePoint image column in a SharePoint List or Library",
+    "url": "https://pnp.github.io/script-samples/spo-add-update-image-column/README.html",
+    "longDescription": [],
+    "creationDateTime": "2022-10-14",
+    "updateDateTime": "2023-05-17",
+    "products": [
+        "SharePoint"
+    ],
+    "metadata": [{
+        "key": "PNP-POWERSHELL",
+        "value": "1.11.0"
+    },
+    {
+      "key":"CLI-FOR-MICROSOFT365",
+      "value":"6.7.0"
+    }],
+    "categories": [
+        "Configure"
+    ],
+    "tags": [
+        "modern",
+        "Connect-PnPOnline",
+        "Get-PnPFile",
+        "Add-PnPListItem",
+        "Set-PnPListItem",
+        "Disconnect-PnPOnline",
+        "m365 status",
+        "m365 login",
+        "m365 spo file get",
+        "m365 spo listitem add",
+        "m365 spo listitem set",
+        "m365 logout"
+    ],
+    "thumbnails": [{
+        "type": "image",
+        "order": 100,
+        "url": "https://raw.githubusercontent.com/pnp/script-samples/main/scripts/spo-add-update-image-column/assets/preview.png",
+        "alt": ""
+    }],
+    "authors": [
+        {
+            "gitHubAccount": "ganesh-sanap",
+            "company": "",
+            "pictureUrl": "https://avatars.githubusercontent.com/u/25476310?v=4",
+            "name": "Ganesh Sanap"
+        },
+        {
+            "gitHubAccount": "mjimison",
+            "company": "",
+            "pictureUrl": "https://github.com/mjimison.png",
+            "name": "Matt Jimison"
+        }
+    ],
+    "references": [{
+        "name": "Want to learn more about PnP PowerShell and the cmdlets",
+        "description": "Check out the PnP PowerShell site to get started and for the reference to the cmdlets.",
+        "url": "https://aka.ms/pnp/powershell"
+    },
+    {
+      "name": "Want to learn more about CLI for Microsoft 365 and the commands",
+      "description": "Check out the CLI for Microsoft 365 site to get started and for the reference to the commands.",
+      "url": "https://aka.ms/cli-m365"
+    }]
+}]

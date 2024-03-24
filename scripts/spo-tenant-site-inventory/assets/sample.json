@@ -1,0 +1,55 @@
+[
+  {
+    "name": "spo-tenant-site-inventory",
+    "source": "pnp",
+    "title": "List of active sites in Tenant with Admins and storage used",
+    "shortDescription": "This script provides you the list of active sites in your tenant with their administrator and usage in MB",
+    "url": "https://pnp.github.io/script-samples/spo-tenant-site-inventory/README.html",
+    "longDescription": [
+      ""
+    ],
+    "creationDateTime": "2023-07-13",
+    "updateDateTime": "2023-07-13",
+    "products": [
+      "SharePoint"
+    ],
+    "metadata": [
+      {
+        "key": "PNP-POWERSHELL",
+        "value": "1.11.0"
+      }
+    ],
+    "categories": [
+      "Report"
+    ],
+    "tags": [
+      "Connect-PnPOnline",
+      "Get-PnPTenantSite",
+      "Get-PnPSiteCollectionAdmin",
+      "Disconnect-PnPOnline"
+    ],
+    "thumbnails": [
+      {
+        "type": "image",
+        "order": 100,
+        "url": "https://raw.githubusercontent.com/pnp/script-samples/main/scripts/spo-tenant-site-inventory/assets/preview.png",
+        "alt": "Preview of the sample List of active sites in Tenant with Admin and storage used."
+      }
+    ],
+    "authors": [
+      {
+        "gitHubAccount": "Diksha-Bhura",
+        "company": "",
+        "pictureUrl": "https://github.com/Diksha-Bhura.png",
+        "name": "Diksha Bhura"
+      }
+    ],
+    "references": [
+      {
+        "name": "Want to learn more about PnP PowerShell and the cmdlets",
+        "description": "Check out the PnP PowerShell site to get started and for the reference to the cmdlets.",
+        "url": "https://aka.ms/pnp/powershell"
+      }
+    ]
+  }
+]
