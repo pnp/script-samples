@@ -66,7 +66,7 @@ Fill out the Script2SPURLs.csv file with the URLs for all the SharePoint sites y
 5.	Add the relative path of the library and folder where you want to place the report
 6.	Add the file name without extension for the name of the report you are creating
 
-![SingleLibrary.png](assets\SingleLibrary.png)
+![SingleLibrary.png](assets/SingleLibrary.png)
 
 ## Running the Scripts
 
