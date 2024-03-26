@@ -1,6 +1,3 @@
----
-plugin: add-to-gallery-preparation
----
 
 # M365 Consultant's Script Kit
 
@@ -40,20 +37,22 @@ Each of these scripts runs off of a csv file that you must fill out before runni
 ### All Scripts
 This script uses an Azure App registration for authentication. You must create the registration with certificate to get the client ID, tenantID, and certificate thumbprint. You should also make sure that app has sufficient permissions. These are the ones I used:
 
-![APIPermissions.png](assets\APIPermissions.png)
+![APIPermissions.png](assets/APIPermissions.png)
 
 Every script needs to have the authentication setup in order to function. To do this, edit each script in your editor of choice (Visual Studio Code preferred). At the top of the script, you will see all of the options you should configure:
 
-![CertificateSetup.png](assets\CertificateSetup.png)
+![CertificateSetup.png](assets/CertificateSetup.png)
 	
-    Client ID and Tenant ID are associated to the app registration and should only need to be set once for each environment. 
-	Thumbprint is the certificate thumbprint. If the certificate is changed, you will have to install the new one on the machine running the scripts, and also change the thumbprint to match
-	Time Filter is just what it sounds like. If you want to increase or decrease the time, you can change it here. You can even change “AddYears” to “AddMonths” or “AddDays.” Make sure the number stays negative.
+Client ID and Tenant ID are associated to the app registration and should only need to be set once for each environment. 
+
+Thumbprint is the certificate thumbprint. If the certificate is changed, you will have to install the new one on the machine running the scripts, and also change the thumbprint to match
+
+Time Filter is just what it sounds like. If you want to increase or decrease the time, you can change it here. You can even change “AddYears” to “AddMonths” or “AddDays.” Make sure the number stays negative.
 
 ### OneDrive
 
 Fill out the OneDriveURLs.CSV file with the URL of the OneDrive user you wish to scan
-![OneDrivecsv.png](assets\OneDrivecsv.png)
+![OneDrivecsv.png](assets/OneDrivecsv.png)
 
 ### Entire SharePoint Sites
 
