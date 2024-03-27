@@ -1,7 +1,8 @@
+---
+plugin: add-to-gallery
+---
 
 # M365 Consultant's Script Kit
-
-
 
 ## Summary
 
@@ -10,18 +11,18 @@ These scripts are part of the Microsoft 365 Consultant's Script kit, created by 
 We have created three scripts to provide SharePoint and OneDrive users reports of any files that have not been modified in 4 years or longer. 
 
 The three scripts are as follows:
-1.OneDrive Scan.ps1
-	Read OneDrive URLS from a csv file
-	Scan each OneDrive url one-at-a time for files that haven’t been modified in more than 4 years
-	Create a report called “1.OneDrive File Report <OneDriveURL>-<Timestamp>.xlsx and upload it to the same library that was just scanned
-2.SPSiteScan.ps1
-	Read SharePoint site urls from a csv file
-	Scan every file inside every library that hasn’t been modified in more than 4 years
-	Create a report for each library in that site called “1.File Report - <Library Title>- <Timestamp>.xlsx” and upload the report to the document library that was scanned
-3.CustomSPSiteScan
-	Read SharePoint site url, specified document library, specified folder (optional), report name, and report location from a csv file
-	Scan the specific folders in the specific libraries on the specific sites from the csv file to get files older than 4 years
-	Create a report with the specific name in the csv file and upload it to the specified SharePoint location
+ - 1.OneDrive Scan.ps1
+	 - Read OneDrive URLS from a csv file
+	 - Scan each OneDrive url one-at-a time for files that haven’t been modified in more than 4 years
+	 - Create a report called “1.OneDrive File Report <OneDriveURL>-<Timestamp>.xlsx and upload it to the same library that was just scanned
+ - 2.SPSiteScan.ps1
+	 - Read SharePoint site urls from a csv file
+	 - Scan every file inside every library that hasn’t been modified in more than 4 years
+	 - Create a report for each library in that site called “1.File Report - <Library Title>- <Timestamp>.xlsx” and upload the report to the document library that was scanned
+ - 3.CustomSPSiteScan
+	- Read SharePoint site url, specified document library, specified folder (optional), report name, and report location from a csv file
+	- Scan the specific folders in the specific libraries on the specific sites from the csv file to get files older than 4 years
+	- Create a report with the specific name in the csv file and upload it to the specified SharePoint location
 
   ##  Pre-requisites
 Several things must be configured or installed ahead of time
@@ -74,13 +75,14 @@ Now that the scripts are setup, you just need to run them. All these steps are t
 1.	Open PowerShell 7 (as administrator recommended)
 2.	Type CD “<whatever the path is where these scripts are>”
 3.	Start typing the name of the script you want to run, and hit tab until it shows up. For example, type the number 1, and hit tab twice so it looks like this, complete with the “.\” 
-![RunningExample.png](assets\RunningExample.png)
+![RunningExample.png](assets/RunningExample.png)
 4.	Hit enter and the script will run
 5.	Do the same thing with script 2 and 3 if you wish
 
 
-# [OneDrive](#tab/pnpps)
+## 1. OneDrive Scan
 
+# [PnP PowerShell](#tab/pnpps)
 ```powershell
 
 # Declare and initialize your app-only authentication details
@@ -171,9 +173,11 @@ stop-Transcript
 
 ```
 [!INCLUDE [More about PnP PowerShell](../../docfx/includes/MORE-PNPPS.md)]
+***
 
+## 2. SP Site Scan
 
-# [2. SP Site Scan](#tab/pnpps)
+# [PnP PowerShell](#tab/pnpps2)
 
 ```powershell
 # Declare and initialize your app-only authentication details
@@ -252,9 +256,11 @@ Stop-Transcript
 
 ```
 [!INCLUDE [More about PnP PowerShell](../../docfx/includes/MORE-PNPPS.md)]
+***
 
-# [3. Individual library and folder Scan](#tab/pnpps)
+## 3. Individual library and folder Scan
 
+# [PnP PowerShell](#tab/pnpps3)
 ```powershell
 # Declare and initialize your app-only authentication details
 $clientId = "xxxxx"
@@ -328,6 +334,8 @@ try {
 Stop-Transcript
 ```
 [!INCLUDE [More about PnP PowerShell](../../docfx/includes/MORE-PNPPS.md)]
+***
+
 ## Contributors
 
 | Author(s) |
@@ -336,4 +344,4 @@ Stop-Transcript
 
 
 [!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
-<img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/template-script-submission" aria-hidden="true" />
+<img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/spo-time-based-file-reports" aria-hidden="true" />
