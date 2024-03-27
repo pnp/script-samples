@@ -67,7 +67,7 @@ Fill out the Script2SPURLs.csv file with the URLs for all the SharePoint sites y
 5.	Add the relative path of the library and folder where you want to place the report
 6.	Add the file name without extension for the name of the report you are creating
 
-![SingleLibrary.png](assets/SingleLibrary.png)
+![SingleLibrary.png](assets/singleLibrary.png)
 
 ## Running the Scripts
 
@@ -75,7 +75,7 @@ Now that the scripts are setup, you just need to run them. All these steps are t
 1.	Open PowerShell 7 (as administrator recommended)
 2.	Type CD “<whatever the path is where these scripts are>”
 3.	Start typing the name of the script you want to run, and hit tab until it shows up. For example, type the number 1, and hit tab twice so it looks like this, complete with the “.\” 
-![RunningExample.png](assets/RunningExample.png)
+![RunningExample.png](assets/runningexample.png)
 4.	Hit enter and the script will run
 5.	Do the same thing with script 2 and 3 if you wish
 
