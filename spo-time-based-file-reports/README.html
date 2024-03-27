@@ -1,0 +1,501 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html lang="en">
+  
+  <head>
+    <meta charset="utf-8">
+    <title>M365 Consultant's Script Kit | PnP Samples </title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" "="">
+    <meta name="title" content="M365 Consultant's Script Kit | PnP Samples ">
+    <meta name="generator" content="docfx 2.56.7.0">
+    <meta name="description" content="A sample gallery of scripts to manage all things Microsoft 365.">
+  
+    <!-- Social Media -->
+    <meta property="og:locale" content="en_GB">
+    <meta property="og:title" content="M365 Consultant's Script Kit | PnP Samples ">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://pnp.github.io/script-samples">
+    <meta property="og:image" content="https://pnp.github.io/script-samples/assets/social-media-screenshot.png">
+    <meta property="og:image:alt" content="Screenshot example of the PnP Script Samples Site">
+    <meta property="og:site_name" content="PnP Script Samples">
+    <meta name="msvalidate.01" content="04EFEDA66EC42C08A1247C979E2F9ADD">
+    <meta property="og:description" content="A sample gallery of scripts to manage all things Microsoft 365.">
+  
+    <link rel="shortcut icon" href="https://c.s-microsoft.com/favicon.ico?v2">
+    <link rel="stylesheet" href="../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../styles/docfx.css">
+    <link rel="stylesheet" href="../styles/main.css">
+    <link rel="stylesheet" href="../styles/extra.css">
+    <link rel="stylesheet" href="../styles/filter.css">
+    <link rel="stylesheet" href="../styles/site.css">
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet"> 
+    <meta property="docfx:navrel" content="../toc.html">
+    <meta property="docfx:tocrel" content="../toc.html">
+    
+    
+    <meta property="docfx:newtab" content="true">
+    <script type="text/javascript">
+      (function(c,l,a,r,i,t,y){
+          c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+          t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+          y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+      })(window, document, "clarity", "script", "8j6pedl344");
+  </script>
+  </head>  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+             <div class="github-mark">
+              <a href="https://github.com/pnp/script-samples" title="Go to repository">
+               <div class="github-wrapper">
+                  <div class="github-icon">
+                    <img src="https://pnp.github.io/script-samples/assets/icons/github-light-64px.png" alt="GitHub Icon Image">
+                  </div>
+                  <div class="github-repository">
+                    <span>GitHub</span>
+                    <ul class="github-facts">
+                      <li>
+                        <i class="fa fa-code-fork" aria-hidden="true"></i>
+                        <span class="github-forks"></span>
+                      </li>
+                      <li>
+                        <i class="fa fa-star-o" aria-hidden="true"></i>
+                        <span class="github-stars"></span>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </a>
+            </div>
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../assets/logo.svg" alt="">
+              </a>    </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <label class="glyphicon glyphicon-search" for="search-query"></label>
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>      </header>
+      <div role="main" class="container body-content hide-when-search">
+        <div class="article row grid">
+          <div class="col-md-12">
+            <article class="content wrap" id="_content" data-uid="">
+                  <div class="contribution-panel mobile-hide pull-right">
+                      <a href="https://github.com/pnp/script-samples/blob/main/scripts/spo-time-based-file-reports/README.md/#L1" title="Improve this Doc" class="improve-doc-lg"><i class="glyphicon glyphicon-pencil"></i></a>
+                  </div>
+                    <h1 id="m365-consultants-script-kit">M365 Consultant's Script Kit</h1>
+
+<h2 id="summary">Summary</h2>
+<p>These scripts are part of the Microsoft 365 Consultant's Script kit, created by Nick Brattoli and Three Six Five Consulting.</p>
+<p>We have created three scripts to provide SharePoint and OneDrive users reports of any files that have not been modified in 4 years or longer.</p>
+<p>The three scripts are as follows:</p>
+<ul>
+<li>1.OneDrive Scan.ps1
+<ul>
+<li>Read OneDrive URLS from a csv file</li>
+<li>Scan each OneDrive url one-at-a time for files that haven’t been modified in more than 4 years</li>
+<li>Create a report called “1.OneDrive File Report <onedriveurl>-<timestamp>.xlsx and upload it to the same library that was just scanned</timestamp></onedriveurl></li>
+</ul>
+</li>
+<li>2.SPSiteScan.ps1
+<ul>
+<li>Read SharePoint site urls from a csv file</li>
+<li>Scan every file inside every library that hasn’t been modified in more than 4 years</li>
+<li>Create a report for each library in that site called “1.File Report - <library title="">- <timestamp>.xlsx” and upload the report to the document library that was scanned</timestamp></library></li>
+</ul>
+</li>
+<li>3.CustomSPSiteScan
+<ul>
+<li>Read SharePoint site url, specified document library, specified folder (optional), report name, and report location from a csv file</li>
+<li>Scan the specific folders in the specific libraries on the specific sites from the csv file to get files older than 4 years</li>
+<li>Create a report with the specific name in the csv file and upload it to the specified SharePoint location</li>
+</ul>
+</li>
+</ul>
+<h2 id="pre-requisites">Pre-requisites</h2>
+<p>Several things must be configured or installed ahead of time
+An App registration with a certificate and appropriate permissions has to be created in Azure
+That certificate must be installed on any machine that will run the scripts
+PowerShell 7 must be installed
+The following PowerShell modules are needed:
+PnP.PowerShell
+ImportExcel</p>
+<h2 id="setup">Setup</h2>
+<p>Each of these scripts runs off of a csv file that you must fill out before running. You also have to configure the scripts themselves. See below for more details.</p>
+<h3 id="all-scripts">All Scripts</h3>
+<p>This script uses an Azure App registration for authentication. You must create the registration with certificate to get the client ID, tenantID, and certificate thumbprint. You should also make sure that app has sufficient permissions. These are the ones I used:</p>
+<p><img src="assets/APIPermissions.png" alt="APIPermissions.png"></p>
+<p>Every script needs to have the authentication setup in order to function. To do this, edit each script in your editor of choice (Visual Studio Code preferred). At the top of the script, you will see all of the options you should configure:</p>
+<p><img src="assets/CertificateSetup.png" alt="CertificateSetup.png"></p>
+<p>Client ID and Tenant ID are associated to the app registration and should only need to be set once for each environment.</p>
+<p>Thumbprint is the certificate thumbprint. If the certificate is changed, you will have to install the new one on the machine running the scripts, and also change the thumbprint to match</p>
+<p>Time Filter is just what it sounds like. If you want to increase or decrease the time, you can change it here. You can even change “AddYears” to “AddMonths” or “AddDays.” Make sure the number stays negative.</p>
+<h3 id="onedrive">OneDrive</h3>
+<p>Fill out the OneDriveURLs.CSV file with the URL of the OneDrive user you wish to scan
+<img src="assets/OneDrivecsv.png" alt="OneDrivecsv.png"></p>
+<h3 id="entire-sharepoint-sites">Entire SharePoint Sites</h3>
+<p>Fill out the Script2SPURLs.csv file with the URLs for all the SharePoint sites you wish to scan. Make sure you use the complete path!</p>
+<h3 id="single-document-library-and-folder">Single document library and folder</h3>
+<ol>
+<li>Open customSPURLs.csv</li>
+<li>Add the URL for every site you wish to scan</li>
+<li>Add the library name for the title of the library you are scanning</li>
+<li>Add the entire path of the folder name you are scanning</li>
+<li>Add the relative path of the library and folder where you want to place the report</li>
+<li>Add the file name without extension for the name of the report you are creating</li>
+</ol>
+<p><img src="assets/singleLibrary.png" alt="SingleLibrary.png"></p>
+<h2 id="running-the-scripts">Running the Scripts</h2>
+<p>Now that the scripts are setup, you just need to run them. All these steps are the same, just change the name of the script.</p>
+<ol>
+<li>Open PowerShell 7 (as administrator recommended)</li>
+<li>Type CD “<whatever the="" path="" is="" where="" these="" scripts="" are="">”</whatever></li>
+<li>Start typing the name of the script you want to run, and hit tab until it shows up. For example, type the number 1, and hit tab twice so it looks like this, complete with the “.\”
+<img src="assets/runningexample.png" alt="RunningExample.png"></li>
+<li>Hit enter and the script will run</li>
+<li>Do the same thing with script 2 and 3 if you wish</li>
+</ol>
+<h2 id="1-onedrive-scan">1. OneDrive Scan</h2>
+<div class="tabGroup" id="tabgroup_CeZOj-G++Q">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_CeZOj-G++Q_pnpps" role="tab" aria-controls="tabpanel_CeZOj-G++Q_pnpps" data-tab="pnpps" tabindex="0" aria-selected="true">PnP PowerShell</a>
+</li>
+</ul>
+<section id="tabpanel_CeZOj-G++Q_pnpps" role="tabpanel" data-tab="pnpps"><button class="article-clipboard" title="Copy to clipboard" data-toggle="tooltip" data-placement="top" data-clipboard-target="section[id^='tabpanel'][data-tab='pnpps'] pre">
+    <span class="glyphicon glyphicon-copy" aria-hidden="true"></span>
+    <span class="article-clipboard__message done">Copied</span>
+</button>
+
+<pre><code class="lang-powershell">
+# Declare and initialize your app-only authentication details
+$clientId = &quot;XXXX&quot;
+$tenantId = &quot;XXXX&quot;
+$thumbprint = &quot;XXXX&quot;
+$TimeFilter = (Get-Date).AddYears(-4)
+
+
+
+# Initialize audit log
+$auditLog = @()
+$timestamp = Get-Date -Format &quot;MMddyyyyHHmmss&quot;
+
+
+Start-Transcript -Append &quot;.\logs\OneDrive $timestamp log.txt&quot;
+
+
+
+try {
+    # Import CSV with OneDrive URLs
+    Write-host &quot;Starting Script at - $timestamp&quot;
+    $urls = Import-Csv -Path &quot;&lt;Path&gt;\OneDriveURLs.csv&quot;
+    Write-Host &quot;csv imported, starting process&quot; -ForegroundColor green
+    foreach ($url in $urls) {
+        # Try to establish a connection
+    Connect-PnPOnline -Url $url.URL -ClientId $clientId -Thumbprint $thumbprint -Tenant $tenantId -ErrorAction Stop
+     
+        $timestamp = Get-Date -Format &quot;MMddyyyyHHmmss&quot;        
+        Write-Host &quot;connection to $url successful at $timestamp&quot; -ForegroundColor Green
+        
+            
+$timestamp = Get-Date -Format &quot;MMddyyyyHHmmss&quot;
+Write-Host &quot;starting to get items at $timestamp&quot;
+          $items = Get-PnPListItem -List &quot;Documents&quot; -PageSize 1000 -ErrorAction Stop | Where {$_[&quot;Modified&quot;] -Lt $TimeFilter}
+           #$items = Get-PnPListItem -List &quot;Documents&quot; -Query $camlQuery 
+           $itemcount = $items.count 
+           write-host &quot;found $itemcount items.&quot;
+            $timestamp = Get-Date -Format &quot;MMddyyyyHHmmss&quot;
+            write-host &quot;items done scanning at $timestamp&quot;
+            Write-host &quot;iterating through items and organizing. Please wait.&quot; -ForegroundColor green
+            $result = @()
+
+            foreach ($item in $Items) {
+                $result += [PSCustomObject]@{
+                    &quot;FilePath&quot;        = $item[&quot;FileDirRef&quot;]
+                    &quot;FileName&quot;        = $item[&quot;FileLeafRef&quot;]
+                    &quot;LastModified&quot;    = $item[&quot;Modified&quot;]
+                    &quot;CreatedBy&quot;       = $item[&quot;Author&quot;].LookupValue
+                    &quot;ModifiedBy&quot;      = $item[&quot;Editor&quot;].LookupValue
+                    &quot;Created&quot;         = $item[&quot;Created&quot;]
+                    &quot;Size&quot;            = $item[&quot;File_x0020_Size&quot;]
+                    &quot;RetentionLabel&quot;  = $item[&quot;ComplianceAssetId&quot;]
+                }
+            }
+            $timestamp = Get-Date -Format &quot;MMddyyyyHHmmss&quot;
+            # Assuming $result is a collection of all your objects
+            # Sort the results first by FilePath, then by LastModified
+            $sortedResults = $result | Sort-Object -Property FilePath, LastModified
+
+            Write-Host &quot;Items iterated through at $timestamp&quot; -ForegroundColor Green
+            
+            # Extract username from OneDrive URL
+            $userName = $url.URL -replace '.*?/personal/', ''
+            Write-Host &quot;username is $userName&quot;
+            # Export to XLSX (locally)
+            write-host &quot;exporting to Excel&quot;
+            $localExportFullPath = &quot;.\1.OneDrive Reports\1.OneDrive File Report $userName - $timestamp.xlsx&quot;
+            $sortedresults | Export-Excel -Path $localExportFullPath
+            Write-Host &quot;File exported to temp location&quot; -ForegroundColor green
+
+            # Upload the file to OneDrive
+            Add-PnPFile -Path $localExportFullPath -Folder &quot;Documents&quot; -ErrorAction Stop
+            Write-Host &quot;File uploaded to OneDrive&quot; -ForegroundColor Green
+            $timestamp = Get-Date -Format &quot;MMddyyyyHHmmss&quot;
+            write-host &quot;User completed at $timestamp&quot;
+            # Add entry to audit log
+            #$auditLog += &quot;Processed OneDrive URL: $($url.URL) at $(Get-Date -Format 'yyyy-MM-dd HH:mm:ss')&quot;
+        #}
+    }
+} catch {
+    Write-Host &quot;An error occurred: $_&quot;
+}
+
+
+
+stop-Transcript
+
+</code></pre>
+<div class="highlight-tool">
+<p>Check out the <strong>PnP PowerShell</strong> to learn more at: <a href="https://aka.ms/pnp/powershell">https://aka.ms/pnp/powershell</a></p>
+</div>
+</section>
+</div>
+<h2 id="2-sp-site-scan">2. SP Site Scan</h2>
+<div class="tabGroup" id="tabgroup_CeZOj-G++Q-1">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_CeZOj-G++Q-1_pnpps2" role="tab" aria-controls="tabpanel_CeZOj-G++Q-1_pnpps2" data-tab="pnpps2" tabindex="0" aria-selected="true">PnP PowerShell</a>
+</li>
+</ul>
+<section id="tabpanel_CeZOj-G++Q-1_pnpps2" role="tabpanel" data-tab="pnpps2"><button class="article-clipboard" title="Copy to clipboard" data-toggle="tooltip" data-placement="top" data-clipboard-target="section[id^='tabpanel'][data-tab='pnpps2'] pre">
+    <span class="glyphicon glyphicon-copy" aria-hidden="true"></span>
+    <span class="article-clipboard__message done">Copied</span>
+</button>
+
+<pre><code class="lang-powershell"># Declare and initialize your app-only authentication details
+$clientId = &quot;xxxxxx&quot;
+$tenantId = &quot;xxxxx&quot;
+$thumbprint = &quot;xxxxxx&quot;
+$TimeFilter = (Get-Date).AddYears(-4)
+
+# Initialize audit log
+$auditLog = @()
+$timestamp = Get-Date -Format &quot;MMddyyyyHHmmss&quot;
+
+
+Start-Transcript -Append &quot;.\logs\SharePoint Scan- $timestamp log.txt&quot; -UseMinimalHeader -IncludeInvocationHeader
+
+try {
+    # Import CSV with SharePoint Site URLs
+    $urls = Import-Csv -Path &quot;&lt;Path&gt;\Script2SPURLs.csv&quot;
+    Write-Host &quot;csv imported, starting process&quot; -ForegroundColor green
+    foreach ($url in $urls) {
+        $timestamp = Get-Date -Format &quot;MMddyyyyHHmmss&quot;
+        Connect-PnPOnline -Url $url.URL -ClientId $clientId -Thumbprint $thumbprint -Tenant $tenantId -ErrorAction Stop
+        Write-Host &quot;connected to site: $url at $timestamp&quot; -ForegroundColor green
+        Write-host &quot;getting libraries&quot; -ForegroundColor yellow
+        $libs = Get-PnPList | Where-Object { $_.BaseType -eq &quot;DocumentLibrary&quot; }  # Get only document libraries
+        Write-Host &quot;libraries found, starting scans&quot; -ForegroundColor yellow
+       
+        foreach ($lib in $libs) {
+            
+            #if ($lib.RootFolder.ServerRelativeUrl -notlike &quot;*_catalogs/hubsite*&quot;) {
+            if (-Not $lib.Hidden -And $lib.BaseTemplate -Ne 115 -And $lib.Title -Ne 'Style Library'){
+                $libTitle = $lib.Title
+                $timestamp = Get-Date -Format &quot;MMddyyyyHHmmss&quot;
+            Write-Host &quot;Starting $libTitle at $timestamp &quot; -ForegroundColor Blue | Format-List *
+                       
+            $items = Get-PnPListItem -List $lib.Title -PageSize 1000 -ErrorAction Stop | Where {$_[&quot;Modified&quot;] -Lt $TimeFilter}
+            $timestamp = Get-Date -Format &quot;MMddyyyyHHmmss&quot;
+            Write-Host &quot;items finished scanning at $timestamp, creating table&quot; -ForegroundColor green
+            $result = @()
+
+            foreach ($item in $items) {
+                $result += [PSCustomObject]@{
+                    &quot;FilePath&quot;        = $item[&quot;FileDirRef&quot;]
+                    &quot;FileName&quot;        = $item[&quot;FileLeafRef&quot;]
+                    &quot;LastModified&quot;    = $item[&quot;Modified&quot;]
+                    &quot;CreatedBy&quot;       = $item[&quot;Author&quot;].LookupValue
+                    &quot;ModifiedBy&quot;      = $item[&quot;Editor&quot;].LookupValue
+                    &quot;Created&quot;         = $item[&quot;Created&quot;]
+                    &quot;Size&quot;            = $item[&quot;File_x0020_Size&quot;]
+                    &quot;RetentionLabel&quot;  = $item[&quot;ComplianceAssetId&quot;]
+                }
+            }
+            $timestamp = Get-Date -Format &quot;MMddyyyyHHmmss&quot;
+
+            # Assuming $result is a collection of all your objects
+            # Sort the results first by FilePath, then by LastModified
+            $sortedResults = $result | Sort-Object -Property FilePath, LastModified
+
+            Write-host &quot;items placed in table at $timestamp, preparing to export&quot; -ForegroundColor Green
+            $localExportFullPath = &quot;.\2.SharePoint Reports\1.File Report - $libTitle - $timestamp.xlsx&quot;
+            $sortedresults | Export-Excel -Path $localExportFullPath
+            write-host &quot;Local export complete, uploading to document library&quot; -ForegroundColor Green
+            $folderUrl = $lib.RootFolder.ServerRelativeUrl.Trim()
+            write-host &quot;uploading to $folderURL&quot; -ForegroundColor Yellow
+            Add-PnPFile -Path $localExportFullPath -Folder &quot;$folderUrl&quot; -ErrorAction Stop
+            Write-host 'file uploaded, starting next library'
+            }}
+            $timestamp = Get-Date -Format &quot;MMddyyyyHHmmss&quot;
+        Write-host &quot;Site complete at $timestamp, starting next site or ending&quot; -ForegroundColor green
+    }
+} catch {
+    Write-Host &quot;An error occurred: $_&quot;
+}
+
+Stop-Transcript
+
+</code></pre>
+<div class="highlight-tool">
+<p>Check out the <strong>PnP PowerShell</strong> to learn more at: <a href="https://aka.ms/pnp/powershell">https://aka.ms/pnp/powershell</a></p>
+</div>
+</section>
+</div>
+<h2 id="3-individual-library-and-folder-scan">3. Individual library and folder Scan</h2>
+<div class="tabGroup" id="tabgroup_CeZOj-G++Q-2">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_CeZOj-G++Q-2_pnpps3" role="tab" aria-controls="tabpanel_CeZOj-G++Q-2_pnpps3" data-tab="pnpps3" tabindex="0" aria-selected="true">PnP PowerShell</a>
+</li>
+</ul>
+<section id="tabpanel_CeZOj-G++Q-2_pnpps3" role="tabpanel" data-tab="pnpps3"><button class="article-clipboard" title="Copy to clipboard" data-toggle="tooltip" data-placement="top" data-clipboard-target="section[id^='tabpanel'][data-tab='pnpps3'] pre">
+    <span class="glyphicon glyphicon-copy" aria-hidden="true"></span>
+    <span class="article-clipboard__message done">Copied</span>
+</button>
+
+<pre><code class="lang-powershell"># Declare and initialize your app-only authentication details
+$clientId = &quot;xxxxx&quot;
+$tenantId = &quot;xxxxx&quot;
+$thumbprint = &quot;xxxx&quot;
+$TimeFilter = (Get-Date).AddYears(-4)
+
+# Initialize audit log
+$auditLog = @()
+$timestamp = Get-Date -Format &quot;MMddyyyyHHmmss&quot;
+
+
+Start-Transcript -Append &quot;.\logs\SharePoint Custom Scan- $timestamp log.txt&quot; -UseMinimalHeader -IncludeInvocationHeader
+
+try {
+    # Import CSV with SharePoint Site URLs
+    $urls = Import-Csv -Path &quot;&lt;Path&gt;\CustomSPUrls.csv&quot;
+    Write-Host &quot;csv imported, starting process&quot; -ForegroundColor green
+    foreach ($url in $urls) {
+        $timestamp = Get-Date -Format &quot;MMddyyyyHHmmss&quot;
+        Connect-PnPOnline -Url $url.URL -ClientId $clientId -Thumbprint $thumbprint -Tenant $tenantId -ErrorAction Stop
+        Write-Host &quot;connected to site: $url at $timestamp&quot; -ForegroundColor green
+        Write-host &quot;getting libraries&quot; -ForegroundColor yellow
+        $lib = $url.LibraryName  # Get specific document library
+        Write-Host &quot;starting scans&quot; -ForegroundColor yellow
+        $ScanFolder = $url.FolderName
+        write-host &quot;scanning $ScanFolder&quot;
+        $timestamp = Get-Date -Format &quot;MMddyyyyHHmmss&quot;
+        Write-Host &quot;Starting $lib at $timestamp &quot; -ForegroundColor Blue | Format-List *
+                       
+            $items = Get-PnPListItem -List $lib -folderServerRelativeURL $ScanFolder -PageSize 1000 -ErrorAction Stop | Where {$_[&quot;Modified&quot;] -Lt $TimeFilter}
+            $timestamp = Get-Date -Format &quot;MMddyyyyHHmmss&quot;
+            Write-Host &quot;items finished scanning at $timestamp, creating table&quot; -ForegroundColor green
+            $result = @()
+
+            foreach ($item in $items) {
+                $result += [PSCustomObject]@{
+                    &quot;FilePath&quot;        = $item[&quot;FileDirRef&quot;]
+                    &quot;FileName&quot;        = $item[&quot;FileLeafRef&quot;]
+                    &quot;LastModified&quot;    = $item[&quot;Modified&quot;]
+                    &quot;CreatedBy&quot;       = $item[&quot;Author&quot;].LookupValue
+                    &quot;ModifiedBy&quot;      = $item[&quot;Editor&quot;].LookupValue
+                    &quot;Created&quot;         = $item[&quot;Created&quot;]
+                    &quot;Size&quot;            = $item[&quot;File_x0020_Size&quot;]
+                    &quot;RetentionLabel&quot;  = $item[&quot;ComplianceAssetId&quot;]
+                }
+            }
+            # Assuming $result is a collection of all your objects
+            # Sort the results first by FilePath, then by LastModified
+            $sortedResults = $result | Sort-Object -Property FilePath, LastModified
+
+            $timestamp = Get-Date -Format &quot;MMddyyyyHHmmss&quot;
+            Write-host &quot;items placed in table at $timestamp, preparing to export&quot; -ForegroundColor Green
+            $ReportFileName = $url.DestFileName
+            $localExportFullPath = &quot;.\2.SharePoint Reports\$ReportFileName - $timestamp.xlsx&quot;
+            $sortedresults | Export-Excel -Path $localExportFullPath
+            write-host &quot;Local export complete, uploading to document library&quot; -ForegroundColor Green
+            $DestFolder = $url.Destination
+            write-host &quot;uploading to $DestFolder&quot; -ForegroundColor Yellow
+            Add-PnPFile -Path $localExportFullPath -Folder &quot;$DestFolder&quot; -ErrorAction Stop
+            Write-host 'file uploaded!' -ForegroundColor green
+            $timestamp = Get-Date -Format &quot;MMddyyyyHHmmss&quot;
+            Write-host &quot;Site complete at $timestamp, starting next site or ending&quot; -ForegroundColor green
+        }
+        
+    
+} catch {
+    Write-Host &quot;An error occurred: $_&quot;
+}
+
+Stop-Transcript
+</code></pre>
+<div class="highlight-tool">
+<p>Check out the <strong>PnP PowerShell</strong> to learn more at: <a href="https://aka.ms/pnp/powershell">https://aka.ms/pnp/powershell</a></p>
+</div>
+</section>
+</div>
+<h2 id="contributors">Contributors</h2>
+<table>
+<thead>
+<tr>
+<th>Author(s)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Nick Brattoli</td>
+</tr>
+</tbody>
+</table>
+<h2 id="disclaimer">Disclaimer</h2>
+<p><strong>THESE SAMPLES ARE PROVIDED <em>AS IS</em> WITHOUT WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, INCLUDING ANY IMPLIED WARRANTIES OF FITNESS FOR A PARTICULAR PURPOSE, MERCHANTABILITY, OR NON-INFRINGEMENT.</strong></p>
+<img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/spo-time-based-file-reports" aria-hidden="true">
+</article>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            <span>Script Samples<br>Generated by <strong><a href='https://dotnet.github.io/docfx' alt='Doc FX Website'>DocFX</a></strong> with <strong><a href='https://ovasquez.github.io/docfx-material' alt='DocFx Material Theme'>Material UI</a></strong></span>
+            
+            <!-- <img src="https://telemetry.sharepointpnp.com/@pnp.github.io/index/" alt="spacer"> -->
+          </div>
+        </div>
+      </footer>    </div>
+    
+    <script type="text/javascript" src="../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+    
+    <script type="text/javascript" src="../styles/clipboard.min.js"></script>
+    <script type="text/javascript" src="../styles/isotope.pkgd.min.js"></script>
+    <script type="text/javascript" src="../styles/loadsamples.js"></script>
+    <script type="text/javascript" src="../styles/filtersamples.js"></script>
+
+  </body>
+</html>
