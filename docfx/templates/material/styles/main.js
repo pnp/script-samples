@@ -1,12 +1,5 @@
-// Use container fluid
-// var containers = $(".container");
-// containers.removeClass("container");
-// containers.addClass("container-fluid");
-
 WINDOW_CONTENTS = window.location.href.split('/')
 SELECTED_LANGUAGE = 'dotnet'
-BLOB_URI_PREFIX = 'https://azuresdkdocs.blob.core.windows.net/$web/dotnet/'
-
 ATTR1 = '[<span class="hljs-meta">System.ComponentModel.EditorBrowsable</span>]\n<'
 
 // Navbar Hamburger
@@ -64,14 +57,7 @@ $(function () {
 
 
 $(function () {
-    // Inject line breaks and spaces into the code sections
-    //$(".lang-csharp").each(function () {
-    //    var text = $(this).html();
-    //    text = text.replace(/, /g, ",</br>&#09;&#09");
-    //    text = text.replace(ATTR1, '<');
-    //    $(this).html(text);
-    //});
-
+    
     // Add text to empty links
     $("p > a").each(function () {
         var link = $(this).attr('href')
@@ -88,39 +74,6 @@ $(function () {
     });
 });
     
-function httpGetAsync(targetUrl, callback) {
-    var xmlHttp = new XMLHttpRequest();
-    xmlHttp.onreadystatechange = function () {
-        if (xmlHttp.readyState == 4 && xmlHttp.status == 200)
-            callback(xmlHttp.responseText);
-    }
-    xmlHttp.open("GET", targetUrl, true); // true for asynchronous 
-    xmlHttp.send(null);
-}
-
-function populateIndexList(selector, packageName) {
-    url = BLOB_URI_PREFIX + packageName + "/versioning/versions"
-
-    httpGetAsync(url, function (responseText) {
-
-        var publishedversions = document.createElement("ul")
-        if (responseText) {
-            options = responseText.match(/[^\r\n]+/g)
-
-            for (var i in options) {
-                $(publishedversions).append('<li><a href="' + getPackageUrl(SELECTED_LANGUAGE, packageName, options[i]) + '" target="_blank">' + options[i] + '</a></li>')
-            }
-        }
-        else {
-            $(publishedversions).append('<li>No discovered versions present in blob storage.</li>')
-        }
-        $(selector).after(publishedversions)
-    })
-}
-
-function getPackageUrl(language, package, version) {
-    return "https://azuresdkdocs.blob.core.windows.net/$web/" + language + "/" + package + "/" + version + "/api/index.html"
-}
 
 // For the demos section that is generated at runtime, 
 // fix for the pencil referencing section that does not yet exist
@@ -211,26 +164,18 @@ $(function (){
         $.each(tabs, function (_i, tab) {
             $("section[data-tab='" + tab + "'] pre code").contents().each(function (index, line) {
                 var objLine = $(line);
-                    
-                if (objLine.text().indexOf(cmdlet) > -1) {
-                    var parts = objLine.text().split(" ");
-                    var updateLine = false;
-                    $.each(parts, function (_j, part) {
-
+                var text = objLine.text();
+                
+                if (text.includes(cmdlet)) {
+                    var parts = text.split(" ");
+                    var updatedParts = parts.map(part => {
                         var partClean = part.replace(/\n/g, "");
-
-                        //if (part === cmdlet || part === "\n" + cmdlet || part === "\n\n" + cmdlet || part ===  cmdlet + "\n" || part === "\n\n" + cmdlet) {
-                        if (partClean === cmdlet) {
-                            parts[_j] = part.replace(partClean, "<a href='" + cmdHelpUrl + "' class='cmd-help' target='_blank'>" + part +"</a>");
-                            updateLine = true;
-                        }
+                        return partClean === cmdlet ? `<a href='${cmdHelpUrl}' class='cmd-help' target='_blank'>${part}</a>` : part;
                     });
-
-                    //objLine.replaceWith(parts[0] + "<a href='" + cmdHelpUrl + "' class='cmd-help' target='_blank'>" + cmdlet + "</a>" + parts[1]);
-                    if(updateLine){
-                        objLine.replaceWith(parts.join(" "));
+                
+                    if (parts.toString() !== updatedParts.toString()) {
+                        objLine.replaceWith(updatedParts.join(" "));
                     }
-                    
                 }
             });
         });
