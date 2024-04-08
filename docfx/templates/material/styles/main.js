@@ -1,12 +1,5 @@
-// Use container fluid
-// var containers = $(".container");
-// containers.removeClass("container");
-// containers.addClass("container-fluid");
-
 WINDOW_CONTENTS = window.location.href.split('/')
 SELECTED_LANGUAGE = 'dotnet'
-BLOB_URI_PREFIX = 'https://azuresdkdocs.blob.core.windows.net/$web/dotnet/'
-
 ATTR1 = '[<span class="hljs-meta">System.ComponentModel.EditorBrowsable</span>]\n<'
 
 // Navbar Hamburger
@@ -31,7 +24,7 @@ $(function () {
     form.prependTo("article");
 
     selector.change(function () {
-        window.location = $(this).find("option:selected").val();
+        window.location = $.find("option:selected").val();
     })
 
     function work(item, level) {
@@ -64,14 +57,7 @@ $(function () {
 
 
 $(function () {
-    // Inject line breaks and spaces into the code sections
-    //$(".lang-csharp").each(function () {
-    //    var text = $(this).html();
-    //    text = text.replace(/, /g, ",</br>&#09;&#09");
-    //    text = text.replace(ATTR1, '<');
-    //    $(this).html(text);
-    //});
-
+    
     // Add text to empty links
     $("p > a").each(function () {
         var link = $(this).attr('href')
@@ -88,92 +74,6 @@ $(function () {
     });
 });
     
-function httpGetAsync(targetUrl, callback) {
-    var xmlHttp = new XMLHttpRequest();
-    xmlHttp.onreadystatechange = function () {
-        if (xmlHttp.readyState == 4 && xmlHttp.status == 200)
-            callback(xmlHttp.responseText);
-    }
-    xmlHttp.open("GET", targetUrl, true); // true for asynchronous 
-    xmlHttp.send(null);
-}
-
-function populateOptions(selector, packageName) {
-    var versionRequestUrl = BLOB_URI_PREFIX + packageName + "/versioning/versions"
-
-    httpGetAsync(versionRequestUrl, function (responseText) {
-        var versionselector = document.createElement("select")
-        var cv = WINDOW_CONTENTS[6]
-
-        versionselector.className = 'navbar-version-select'
-        if (responseText) {
-            options = responseText.match(/[^\r\n]+/g)
-            for (var i in options) {
-                $(versionselector).append('<option value="' + options[i] + '">' + options[i] + '</option>')
-            }
-        }
-
-        if(cv === 'latest')
-        {
-            $(versionselector).selectedIndex = 0
-        }
-        else {
-            $(versionselector).val(cv);
-        }
-        
-        $(selector).append(versionselector)
-
-        $(versionselector).change(function () {
-            targetVersion = $(this).val()
-            url = WINDOW_CONTENTS.slice()
-            url[6] = targetVersion
-            window.location.href = url.join('/')
-        });
-
-    })
-}
-
-
-function populateIndexList(selector, packageName) {
-    url = BLOB_URI_PREFIX + packageName + "/versioning/versions"
-
-    httpGetAsync(url, function (responseText) {
-
-        var publishedversions = document.createElement("ul")
-        if (responseText) {
-            options = responseText.match(/[^\r\n]+/g)
-
-            for (var i in options) {
-                $(publishedversions).append('<li><a href="' + getPackageUrl(SELECTED_LANGUAGE, packageName, options[i]) + '" target="_blank">' + options[i] + '</a></li>')
-            }
-        }
-        else {
-            $(publishedversions).append('<li>No discovered versions present in blob storage.</li>')
-        }
-        $(selector).after(publishedversions)
-    })
-}
-
-function getPackageUrl(language, package, version) {
-    return "https://azuresdkdocs.blob.core.windows.net/$web/" + language + "/" + package + "/" + version + "/api/index.html"
-}
-
-// Populate Versions
-$(function () {
-    if (WINDOW_CONTENTS.length < 7 && WINDOW_CONTENTS[WINDOW_CONTENTS.length - 1] != 'index.html') {
-        console.log("Run PopulateList")
-
-        $('h4').each(function () {
-            var pkgName = $(this).text()
-            populateIndexList($(this), pkgName)
-        })
-    }
-
-    if (WINDOW_CONTENTS.length > 7) {
-        var pkgName = WINDOW_CONTENTS[5]
-        populateOptions($('#navbar'), pkgName)
-    }
-})
 
 // For the demos section that is generated at runtime, 
 // fix for the pencil referencing section that does not yet exist
@@ -264,26 +164,18 @@ $(function (){
         $.each(tabs, function (_i, tab) {
             $("section[data-tab='" + tab + "'] pre code").contents().each(function (index, line) {
                 var objLine = $(line);
-                    
-                if (objLine.text().indexOf(cmdlet) > -1) {
-                    var parts = objLine.text().split(" ");
-                    var updateLine = false;
-                    $.each(parts, function (_j, part) {
-
-                        var partClean = part.replace("\n", "").replace("\n\n","");
-
-                        //if (part === cmdlet || part === "\n" + cmdlet || part === "\n\n" + cmdlet || part ===  cmdlet + "\n" || part === "\n\n" + cmdlet) {
-                        if (partClean === cmdlet) {
-                            parts[_j] = part.replace(partClean, "<a href='" + cmdHelpUrl + "' class='cmd-help' target='_blank'>" + part +"</a>");
-                            updateLine = true;
-                        }
+                var text = objLine.text();
+                
+                if (text.includes(cmdlet)) {
+                    var parts = text.split(" ");
+                    var updatedParts = parts.map(part => {
+                        var partClean = part.replace(/\n/g, "");
+                        return partClean === cmdlet ? `<a href='${cmdHelpUrl}' class='cmd-help' target='_blank'>${part}</a>` : part;
                     });
-
-                    //objLine.replaceWith(parts[0] + "<a href='" + cmdHelpUrl + "' class='cmd-help' target='_blank'>" + cmdlet + "</a>" + parts[1]);
-                    if(updateLine){
-                        objLine.replaceWith(parts.join(" "));
+                
+                    if (parts.toString() !== updatedParts.toString()) {
+                        objLine.replaceWith(updatedParts.join(" "));
                     }
-                    
                 }
             });
         });
