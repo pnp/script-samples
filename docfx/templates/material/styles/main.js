@@ -98,42 +98,6 @@ function httpGetAsync(targetUrl, callback) {
     xmlHttp.send(null);
 }
 
-function populateOptions(selector, packageName) {
-    var versionRequestUrl = BLOB_URI_PREFIX + packageName + "/versioning/versions"
-
-    httpGetAsync(versionRequestUrl, function (responseText) {
-        var versionselector = document.createElement("select")
-        var cv = WINDOW_CONTENTS[6]
-
-        versionselector.className = 'navbar-version-select'
-        if (responseText) {
-            options = responseText.match(/[^\r\n]+/g)
-            for (var i in options) {
-                $(versionselector).append('<option value="' + options[i] + '">' + options[i] + '</option>')
-            }
-        }
-
-        if(cv === 'latest')
-        {
-            $(versionselector).selectedIndex = 0
-        }
-        else {
-            $(versionselector).val(cv);
-        }
-        
-        $(selector).append(versionselector)
-
-        $(versionselector).change(function () {
-            targetVersion = $(this).val()
-            url = WINDOW_CONTENTS.slice()
-            url[6] = targetVersion
-            window.location.href = url.join('/')
-        });
-
-    })
-}
-
-
 function populateIndexList(selector, packageName) {
     url = BLOB_URI_PREFIX + packageName + "/versioning/versions"
 
@@ -157,23 +121,6 @@ function populateIndexList(selector, packageName) {
 function getPackageUrl(language, package, version) {
     return "https://azuresdkdocs.blob.core.windows.net/$web/" + language + "/" + package + "/" + version + "/api/index.html"
 }
-
-// Populate Versions
-$(function () {
-    if (WINDOW_CONTENTS.length < 7 && WINDOW_CONTENTS[WINDOW_CONTENTS.length - 1] != 'index.html') {
-        console.log("Run PopulateList")
-
-        $('h4').each(function () {
-            var pkgName = $(this).text()
-            populateIndexList($(this), pkgName)
-        })
-    }
-
-    if (WINDOW_CONTENTS.length > 7) {
-        var pkgName = WINDOW_CONTENTS[5]
-        populateOptions($('#navbar'), pkgName)
-    }
-})
 
 // For the demos section that is generated at runtime, 
 // fix for the pencil referencing section that does not yet exist
