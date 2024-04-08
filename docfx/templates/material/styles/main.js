@@ -270,7 +270,7 @@ $(function (){
                     var updateLine = false;
                     $.each(parts, function (_j, part) {
 
-                        var partClean = part.replace("\n", "").replace("\n\n","");
+                        var partClean = part.replace(/\n/g, "");
 
                         //if (part === cmdlet || part === "\n" + cmdlet || part === "\n\n" + cmdlet || part ===  cmdlet + "\n" || part === "\n\n" + cmdlet) {
                         if (partClean === cmdlet) {
