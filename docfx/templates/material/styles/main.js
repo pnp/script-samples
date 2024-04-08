@@ -24,7 +24,7 @@ $(function () {
     form.prependTo("article");
 
     selector.change(function () {
-        window.location = $(this).find("option:selected").val();
+        window.location = $.find("option:selected").val();
     })
 
     function work(item, level) {
