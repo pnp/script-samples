@@ -1,7 +1,8 @@
+---
+plugin: add-to-gallery
+---
 
 # M365 Consultant's Script Kit
-
-
 
 ## Summary
 
@@ -121,4 +122,4 @@ foreach ($SiteUrl in $SiteUrls) {
 
 
 [!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
-<img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/template-script-submission" aria-hidden="true" />
+<img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/spo-change-retention-labels" aria-hidden="true" />
