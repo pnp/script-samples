@@ -1,0 +1,57 @@
+[
+  {
+    "name": "spo-change-retention-labels",
+    "source": "pnp",
+    "title": "M365 Consultant's Script Kit - Change Retention Labels",
+    "shortDescription": "This will scan every SharePoint site (or OneDrive URL) and look at every item. When it does this, it will check the retention label for said item. ",
+    "url": "https://pnp.github.io/script-samples/spo-change-retention-labels/README.html",
+    "longDescription": [
+      "This will scan every SharePoint site (or OneDrive URL) and look at every item. When it does this, it will check the retention label for said item. If the retention label matches the hardcoded value, the label will be set to a new one."
+    ],
+    "creationDateTime": "2024-04-09",
+    "updateDateTime": "2024-04-09",
+    "products": [
+      "SharePoint"
+    ],
+    "metadata": [
+      {
+        "key": "PNP-POWERSHELL",
+        "value": "1.11.0"
+      }
+    ],
+    "categories": [
+      "Configure"
+    ],
+    "tags": [
+      "Connect-PnPOnline",
+      "Get-PnPField",
+      "Get-PnPList",
+      "Get-PnPListItem",
+      "Set-PnPList",
+      "Set-PnPListItem"
+    ],
+    "thumbnails": [
+      {
+        "type": "image",
+        "order": 100,
+        "url": "https://raw.githubusercontent.com/pnp/script-samples/main/scripts/spo-change-retention-labels/assets/preview.png",
+        "alt": "Preview of the sample M365 Consultant's Script Kit - Change Retention Labels"
+      }
+    ],
+    "authors": [
+      {
+        "gitHubAccount": "nbrattoli",
+        "company": "",
+        "pictureUrl": "https://github.com/nbrattoli.png",
+        "name": "Nick Brattoli"
+      }
+    ],
+    "references": [
+      {
+        "name": "Want to learn more about PnP PowerShell and the cmdlets",
+        "description": "Check out the PnP PowerShell site to get started and for the reference to the cmdlets.",
+        "url": "https://aka.ms/pnp/powershell"
+      }
+    ]
+  }
+]
