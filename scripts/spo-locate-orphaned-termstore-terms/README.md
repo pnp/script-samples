@@ -4,15 +4,11 @@ plugin: add-to-gallery
 
 # Locate orphaned Termstore Terms
 
-> [!Note]
-> This is a submission helper template please find the [contributor guidance](/docfx/contribute.md) to help you write this scenario.
-
 ## Summary
 
-Once in a while, you might see a Managed Metadate column in a SharePoint list or library that has a value that is not in the Termstore. This script will help you locate the orphaned terms.
-Rather than relie on you Admin account to have access to all sites, I will recommend you to use either a managed identity or a service principal to run this script.
+Once in a while, you might see a Managed Metadata column in a SharePoint list or library that has a value that is not in the Termstore. This script will help you locate the orphaned terms.
 
-[!INCLUDE [Delete Warning](../../docfx/includes/DELETE-WARN.md)]
+Rather than rely on you Admin account to have access to all sites, I will recommend you to use either a managed identity or a service principal to run this script.
 
 ![Example Screenshot](assets/example.png)
 
@@ -100,6 +96,6 @@ foreach($hit in $hits.ResultRows)
 |-----------|
 | Kasper Larsen |
 
-<img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/spo-locate-orphaned-termstore-terms?labelText=Visitors" class="img-visitor" aria-hidden="true" />
 
 [!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
+<img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/spo-locate-orphaned-termstore-terms" aria-hidden="true" />
