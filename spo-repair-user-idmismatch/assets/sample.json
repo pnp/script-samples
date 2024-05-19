@@ -1,0 +1,59 @@
+[
+  {
+    "name": "spo-repair-user-idmismatch",
+    "source": "pnp",
+    "title": "Repair IdMismatch for user cross all Sites",
+    "shortDescription": "This script will fix the IdMismatch of a user across all sites.",
+    "url": "https://pnp.github.io/script-samples/spo-repair-user-idmismatch/README.html",
+    "longDescription": [
+      ""
+    ],
+    "creationDateTime": "2024-05-15",
+    "updateDateTime": "2024-05-15",
+    "products": [
+      "SharePoint"
+    ],
+    "metadata": [
+      {
+        "key": "PNP-POWERSHELL",
+        "value": "1.12.0"
+      }
+    ],
+    "categories": [
+      "Data",
+      "Report",
+    ],
+    "tags": [
+      "Connect-PnPOnline",
+      "Get-PnPTenantSite",
+      "Get-PnPUserProfileProperty",
+      "Set-PnPTenantSite",
+      "Get-PnPUser",
+      "Remove-PnPSiteCollectionAdmin",
+      "Remove-PnPUser"
+    ],
+    "thumbnails": [
+      {
+        "type": "image",
+        "order": 100,
+        "url": "https://raw.githubusercontent.com/pnp/script-samples/main/scripts/spo-repair-user-idmismatch/assets/ScriptPreview.png",
+        "alt": "Preview of the sample logs while reparing IdMismatch issue for an user"
+      }
+    ],
+    "authors": [
+      {
+        "gitHubAccount": "Barbarur",
+        "company": "",
+        "pictureUrl": "https://github.com/barbarur.png",
+        "name": "Alvaro Avila Ruiz"
+      }
+    ],
+    "references": [
+      {
+        "name": "Want to learn more about PnP PowerShell and the cmdlets",
+        "description": "Check out the PnP PowerShell site to get started and for the reference to the cmdlets.",
+        "url": "https://aka.ms/pnp/powershell"
+      }
+    ]
+  }
+]
