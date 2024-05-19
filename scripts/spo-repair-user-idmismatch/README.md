@@ -1,5 +1,5 @@
 ---
-plugin: add-to-gallery-preparation
+plugin: add-to-gallery
 ---
 
 # Repair ID mismatch for user across all Sites
@@ -195,4 +195,4 @@ Sample first appeared on [https://github.com/Barbarur/NovaPointPowerShell/tree/m
 
 
 [!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
-<img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/repair-user-idmismatch" aria-hidden="true" />
+<img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/spo-repair-user-idmismatch" aria-hidden="true" />
