@@ -1,0 +1,54 @@
+[
+  {
+    "name": "spo-delete-site-with-retention-policy",
+    "source": "pnp",
+    "title": "Delete SharePoint Online sites that have retention policies",
+    "shortDescription": "This sample script deletes specified SharePoint Online sites that have a retention policy applied by excluding them from the retention policy, deleting the site and then cleaning up the retention policy exclusions.",
+    "url": "https://pnp.github.io/script-samples/spo-delete-site-with-retention-policy/README.html",
+    "longDescription": [
+      ""
+    ],
+    "creationDateTime": "2024-05-19",
+    "updateDateTime": "2024-05-19",
+    "products": [
+      "SharePoint"
+    ],
+    "metadata": [
+      {
+        "key": "PNP-POWERSHELL",
+        "value": "1.11.0"
+      }
+    ],
+    "categories": [
+      "Configure"
+    ],
+    "tags": [
+      "<Cmdlets-Used>",
+      "Connect-PnPOnline",
+      "Remove-PnPTenantSite"
+    ],
+    "thumbnails": [
+      {
+        "type": "image",
+        "order": 100,
+        "url": "https://raw.githubusercontent.com/pnp/script-samples/main/scripts/spo-delete-site-with-retention-policy/assets/preview.png",
+        "alt": "Preview of the sample Delete SharePoint Online sites that have retention policies"
+      }
+    ],
+    "authors": [
+      {
+        "gitHubAccount": "jackpoz",
+        "company": "",
+        "pictureUrl": "https://github.com/jackpoz.png",
+        "name": "Giacomo Pozzoni"
+      }
+    ],
+    "references": [
+      {
+        "name": "Want to learn more about PnP PowerShell and the cmdlets",
+        "description": "Check out the PnP PowerShell site to get started and for the reference to the cmdlets.",
+        "url": "https://aka.ms/pnp/powershell"
+      }
+    ]
+  }
+]
