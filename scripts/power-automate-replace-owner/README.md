@@ -69,7 +69,7 @@ Replace-PnPOwnerInFlows -oldOwner "john.doe@contoso.com" -newOwner "sansa.stark@
     }
     
     process {
-        $oldOwnerAsUser = m365 aad user get --userName $oldOwner | ConvertFrom-Json
+        $oldOwnerAsUser = m365 entra user get --userName $oldOwner | ConvertFrom-Json
         $oldOwnerPrincipalId = $oldOwnerAsUser.id
 
         if(!$environment){
