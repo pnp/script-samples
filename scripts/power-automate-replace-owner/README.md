@@ -104,8 +104,83 @@ Replace-PnPOwnerInFlows -oldOwner "john.doe@contoso.com" -newOwner "sansa.stark@
     }
 }
 ```
-[!INCLUDE [More about CLI for Microsoft 365](../../docfx/includes/MORE-CLIM365.md)]
 
+[!INCLUDE [More about CLI for Microsoft 365](../../docfx/includes/MORE-CLIM365.md)]
+# [PnP PowerShell](#tab/pnpps)
+
+```powershell
+Function Replace-PnPOwnerInFlows {
+    <#
+    .SYNOPSIS
+    Script to replace an owner in all its flows
+     
+    .Description
+    this script looks for all flows owned by a specified user and replaces them with a new owner. You can indicate whether this should happen in a certain environment. If no value is given for the environment parameter, the default environment is used. Please note that you cannot remove the original creator of a flow. In that case this script will only add the new owner
+     
+    .PARAMETER oldOwner
+    The UPN of the old owner
+     
+    .PARAMETER newOwner
+    The UPN of the new owner
+     
+    .Parameter environment
+    The name of the environment. The default environment will be used if not provided
+     
+    .Example
+    Replace-PnPOwnerInFlows -oldOwner "john.doe@contoso.com" -newOwner "sansa.stark@contoso.com" -spAdminCentreUrl "https://contoso-admin.sharepoint.com/"
+     
+    .Example
+    Replace-PnPOwnerInFlows -oldOwner "john.doe@contoso.com" -newOwner "sansa.stark@contoso.com" -environment "Default-0e943d12-6a07-4544-adaf-1e7c9ad82fa0" -spAdminCentreUrl "https://contoso-admin.sharepoint.com/"
+     
+    #>    
+        [CmdletBinding()]
+        param (
+            [Parameter(Mandatory = $true)]
+            $spAdminCentreUrl,
+            [Parameter(Mandatory = $true)]
+            $oldOwner,
+            [Parameter(Mandatory = $true)]
+            $newOwner,
+            [Parameter(Mandatory = $false)]
+            $environment
+        )
+        begin {
+          Connect-PnPOnline -url $spAdminCentreUrl -Interactive
+        }
+        process {
+            $oldOwnerAsUser = get-pnpentraiduser -Identity  $oldOwner ## This will only work for active users
+            $oldOwnerPrincipalId = $oldOwnerAsUser.id
+     
+            if(!$environment){
+                $defaultEnvironment = Get-PnPPowerPlatformEnvironment -IsDefault
+                $environment = $defaultEnvironment.name
+            }
+     
+            $flows = get-pnpflow -Environment $environment -AsAdmin
+     
+            foreach($flow in $flows) {
+                 $owners = Get-PnPFlowOwner -Environment $environment -Identity $flow.Name -AsAdmin
+                 foreach($owner in $owners){
+                    if($owner.properties.principal.id -eq $oldOwnerPrincipalId){
+                        Write-Host "$oldOwner found as owner in flow with name '$($flow.Properties.DisplayName)'" -f DarkYellow
+                        if($owner.properties.roleName -eq "Owner"){
+                            Write-Host "You cannot replace the original creator of a flow. Script continues to just add the new owner" -f Gray
+                        } else {
+                            Remove-PnPFlowOwner remove -User $oldOwnerPrincipalId -Environment $environment -Identity $flow.name -AsAdmin -force
+                            Write-Host "Old owner '$oldOwner' successfully remove from the flow '$($flow.Properties.DisplayName)'" -f Green
+                        }
+                        Add-PnPFlowOwner -AsAdmin -Environment $environment -Identity $flow.Name -User $newOwner -Role "CanEdit"
+                        Write-Host "New owner '$newOwner' successfully added to the flow '$($flow.Properties.DisplayName)'" -f Green
+                    }
+                 }
+            }
+        }
+        end {
+        }
+    }
+```
+
+[!INCLUDE [More about PnP PowerShell](../../docfx/includes/MORE-PNPPS.md)]
 ***
 
 ## Contributors
