@@ -118,6 +118,9 @@ Import-Module replace-flowOnwers.psm1 -Verbose
 <li role="presentation">
 <a href="#tabpanel_CeZOj-G++Q_cli-m365-ps" role="tab" aria-controls="tabpanel_CeZOj-G++Q_cli-m365-ps" data-tab="cli-m365-ps" tabindex="0" aria-selected="true">CLI for Microsoft 365</a>
 </li>
+<li role="presentation">
+<a href="#tabpanel_CeZOj-G++Q_pnpps" role="tab" aria-controls="tabpanel_CeZOj-G++Q_pnpps" data-tab="pnpps" tabindex="-1">PnP PowerShell</a>
+</li>
 </ul>
 <section id="tabpanel_CeZOj-G++Q_cli-m365-ps" role="tabpanel" data-tab="cli-m365-ps"><button class="article-clipboard" title="Copy to clipboard" data-toggle="tooltip" data-placement="top" data-clipboard-target="section[id^='tabpanel'][data-tab='cli-m365-ps'] pre">
     <span class="glyphicon glyphicon-copy" aria-hidden="true"></span>
@@ -168,7 +171,7 @@ Replace-PnPOwnerInFlows -oldOwner &quot;john.doe@contoso.com&quot; -newOwner &qu
     }
     
     process {
-        $oldOwnerAsUser = m365 aad user get --userName $oldOwner | ConvertFrom-Json
+        $oldOwnerAsUser = m365 entra user get --userName $oldOwner | ConvertFrom-Json
         $oldOwnerPrincipalId = $oldOwnerAsUser.id
 
         if(!$environment){
@@ -207,6 +210,85 @@ Replace-PnPOwnerInFlows -oldOwner &quot;john.doe@contoso.com&quot; -newOwner &qu
 <p>Check out the <strong>CLI for Microsoft 365</strong> to learn more at: <a href="https://aka.ms/cli-m365">https://aka.ms/cli-m365</a></p>
 </div>
 </section>
+<section id="tabpanel_CeZOj-G++Q_pnpps" role="tabpanel" data-tab="pnpps" aria-hidden="true" hidden="hidden"><button class="article-clipboard" title="Copy to clipboard" data-toggle="tooltip" data-placement="top" data-clipboard-target="section[id^='tabpanel'][data-tab='pnpps'] pre">
+    <span class="glyphicon glyphicon-copy" aria-hidden="true"></span>
+    <span class="article-clipboard__message done">Copied</span>
+</button>
+
+<pre><code class="lang-powershell">Function Replace-PnPOwnerInFlows {
+    &lt;#
+    .SYNOPSIS
+    Script to replace an owner in all its flows
+     
+    .Description
+    this script looks for all flows owned by a specified user and replaces them with a new owner. You can indicate whether this should happen in a certain environment. If no value is given for the environment parameter, the default environment is used. Please note that you cannot remove the original creator of a flow. In that case this script will only add the new owner
+     
+    .PARAMETER oldOwner
+    The UPN of the old owner
+     
+    .PARAMETER newOwner
+    The UPN of the new owner
+     
+    .Parameter environment
+    The name of the environment. The default environment will be used if not provided
+     
+    .Example
+    Replace-PnPOwnerInFlows -oldOwner &quot;john.doe@contoso.com&quot; -newOwner &quot;sansa.stark@contoso.com&quot; -spAdminCentreUrl &quot;https://contoso-admin.sharepoint.com/&quot;
+     
+    .Example
+    Replace-PnPOwnerInFlows -oldOwner &quot;john.doe@contoso.com&quot; -newOwner &quot;sansa.stark@contoso.com&quot; -environment &quot;Default-0e943d12-6a07-4544-adaf-1e7c9ad82fa0&quot; -spAdminCentreUrl &quot;https://contoso-admin.sharepoint.com/&quot;
+     
+    #&gt;    
+        [CmdletBinding()]
+        param (
+            [Parameter(Mandatory = $true)]
+            $spAdminCentreUrl,
+            [Parameter(Mandatory = $true)]
+            $oldOwner,
+            [Parameter(Mandatory = $true)]
+            $newOwner,
+            [Parameter(Mandatory = $false)]
+            $environment
+        )
+        begin {
+          Connect-PnPOnline -url $spAdminCentreUrl -Interactive
+        }
+        process {
+            $oldOwnerAsUser = get-pnpentraiduser -Identity  $oldOwner ## This will only work for active users
+            $oldOwnerPrincipalId = $oldOwnerAsUser.id
+     
+            if(!$environment){
+                $defaultEnvironment = Get-PnPPowerPlatformEnvironment -IsDefault
+                $environment = $defaultEnvironment.name
+            }
+     
+            $flows = get-pnpflow -Environment $environment -AsAdmin
+     
+            foreach($flow in $flows) {
+                 $owners = Get-PnPFlowOwner -Environment $environment -Identity $flow.Name -AsAdmin
+                 foreach($owner in $owners){
+                    if($owner.properties.principal.id -eq $oldOwnerPrincipalId){
+                        Write-Host &quot;$oldOwner found as owner in flow with name '$($flow.Properties.DisplayName)'&quot; -f DarkYellow
+                        if($owner.properties.roleName -eq &quot;Owner&quot;){
+                            Write-Host &quot;You cannot replace the original creator of a flow. Script continues to just add the new owner&quot; -f Gray
+                        } else {
+                            Remove-PnPFlowOwner remove -User $oldOwnerPrincipalId -Environment $environment -Identity $flow.name -AsAdmin -force
+                            Write-Host &quot;Old owner '$oldOwner' successfully remove from the flow '$($flow.Properties.DisplayName)'&quot; -f Green
+                        }
+                        Add-PnPFlowOwner -AsAdmin -Environment $environment -Identity $flow.Name -User $newOwner -Role &quot;CanEdit&quot;
+                        Write-Host &quot;New owner '$newOwner' successfully added to the flow '$($flow.Properties.DisplayName)'&quot; -f Green
+                    }
+                 }
+            }
+        }
+        end {
+        }
+    }
+</code></pre>
+<div class="highlight-tool">
+<p>Check out the <strong>PnP PowerShell</strong> to learn more at: <a href="https://aka.ms/pnp/powershell">https://aka.ms/pnp/powershell</a></p>
+</div>
+</section>
 </div>
 <h2 id="contributors">Contributors</h2>
 <table>
@@ -218,6 +300,9 @@ Replace-PnPOwnerInFlows -oldOwner &quot;john.doe@contoso.com&quot; -newOwner &qu
 <tbody>
 <tr>
 <td><a href="https://www.nicodecleyre.com">Nico De Cleyre</a></td>
+</tr>
+<tr>
+<td>Reshmee Auckloo</td>
 </tr>
 </tbody>
 </table>
