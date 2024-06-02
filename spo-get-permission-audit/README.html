@@ -1,0 +1,363 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html lang="en">
+  
+  <head>
+    <meta charset="utf-8">
+    <title>Get permissions including unique permissions up to item level including sharing links | PnP Samples </title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" "="">
+    <meta name="title" content="Get permissions including unique permissions up to item level including sharing links | PnP Samples ">
+    <meta name="generator" content="docfx 2.56.7.0">
+    <meta name="description" content="A sample gallery of scripts to manage all things Microsoft 365.">
+  
+    <!-- Social Media -->
+    <meta property="og:locale" content="en_GB">
+    <meta property="og:title" content="Get permissions including unique permissions up to item level including sharing links | PnP Samples ">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://pnp.github.io/script-samples">
+    <meta property="og:image" content="https://pnp.github.io/script-samples/assets/social-media-screenshot.png">
+    <meta property="og:image:alt" content="Screenshot example of the PnP Script Samples Site">
+    <meta property="og:site_name" content="PnP Script Samples">
+    <meta name="msvalidate.01" content="04EFEDA66EC42C08A1247C979E2F9ADD">
+    <meta property="og:description" content="A sample gallery of scripts to manage all things Microsoft 365.">
+  
+    <link rel="shortcut icon" href="https://c.s-microsoft.com/favicon.ico?v2">
+    <link rel="stylesheet" href="../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../styles/docfx.css">
+    <link rel="stylesheet" href="../styles/main.css">
+    <link rel="stylesheet" href="../styles/extra.css">
+    <link rel="stylesheet" href="../styles/filter.css">
+    <link rel="stylesheet" href="../styles/site.css">
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet"> 
+    <meta property="docfx:navrel" content="../toc.html">
+    <meta property="docfx:tocrel" content="../toc.html">
+    
+    
+    <meta property="docfx:newtab" content="true">
+    <script type="text/javascript">
+      (function(c,l,a,r,i,t,y){
+          c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+          t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+          y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+      })(window, document, "clarity", "script", "8j6pedl344");
+  </script>
+  </head>  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+             <div class="github-mark">
+              <a href="https://github.com/pnp/script-samples" title="Go to repository">
+               <div class="github-wrapper">
+                  <div class="github-icon">
+                    <img src="https://pnp.github.io/script-samples/assets/icons/github-light-64px.png" alt="GitHub Icon Image">
+                  </div>
+                  <div class="github-repository">
+                    <span>GitHub</span>
+                    <ul class="github-facts">
+                      <li>
+                        <i class="fa fa-code-fork" aria-hidden="true"></i>
+                        <span class="github-forks"></span>
+                      </li>
+                      <li>
+                        <i class="fa fa-star-o" aria-hidden="true"></i>
+                        <span class="github-stars"></span>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </a>
+            </div>
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../assets/logo.svg" alt="">
+              </a>    </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <label class="glyphicon glyphicon-search" for="search-query"></label>
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>      </header>
+      <div role="main" class="container body-content hide-when-search">
+        <div class="article row grid">
+          <div class="col-md-12">
+            <article class="content wrap" id="_content" data-uid="">
+                  <div class="contribution-panel mobile-hide pull-right">
+                      <a href="https://github.com/pnp/script-samples/blob/main/scripts/spo-get-permission-audit/README.md/#L1" title="Improve this Doc" class="improve-doc-lg"><i class="glyphicon glyphicon-pencil"></i></a>
+                  </div>
+                    <h1 id="get-permissions-including-unique-permissions-up-to-item-level-including-sharing-links">Get permissions including unique permissions up to item level including sharing links</h1>
+
+<h2 id="summary">Summary</h2>
+<p>Managing permissions in SharePoint is a critical aspect of maintaining data security and compliance within organisations. However, as SharePoint environments grow in complexity, manually auditing and managing permissions becomes increasingly challenging.</p>
+<p>Copilot for Microsoft m365 can access data from all the tenant, whether it’s Outlook emails, Teams chats and meetings, SharePoint and OneDrive. SharePoint is where all most documents, videos, and more are stored. Hence permission audit across sensitive sites to ensure &quot;Least privilege&quot; is a must to avoid data leak while using Copilot for Microsoft m365 which makes it easier to discover content through prompts.</p>
+<p><img src="assets/preview.png" alt="Example Screenshot"></p>
+<h3 id="prerequisites">Prerequisites</h3>
+<ul>
+<li>The user account that runs the script must have SharePoint Online site administrator access.</li>
+</ul>
+<div class="tabGroup" id="tabgroup_CeZOj-G++Q">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_CeZOj-G++Q_pnpps" role="tab" aria-controls="tabpanel_CeZOj-G++Q_pnpps" data-tab="pnpps" tabindex="0" aria-selected="true">PnP PowerShell</a>
+</li>
+</ul>
+<section id="tabpanel_CeZOj-G++Q_pnpps" role="tabpanel" data-tab="pnpps"><button class="article-clipboard" title="Copy to clipboard" data-toggle="tooltip" data-placement="top" data-clipboard-target="section[id^='tabpanel'][data-tab='pnpps'] pre">
+    <span class="glyphicon glyphicon-copy" aria-hidden="true"></span>
+    <span class="article-clipboard__message done">Copied</span>
+</button>
+
+<pre><code class="lang-powershell">Clear-Host
+
+$properties=@{SiteUrl='';SiteTitle='';ListTitle='';Type='';RelativeUrl='';ParentGroup='';MemberType='';MemberName='';MemberLoginName='';Roles='';}; 
+ 
+$dateTime = (Get-Date).toString(&quot;dd-MM-yyyy-hh-ss&quot;)
+$invocation = (Get-Variable MyInvocation).Value
+$directorypath = (Split-Path $invocation.MyCommand.Path) + &quot;\Logs\&quot;
+$excludeLimitedAccess = $true;
+$includeListsItems = $true;
+
+$SiteCollectionUrl = Read-Host -Prompt &quot;Enter site collection URL &quot;;
+$global:siteTitle= &quot;&quot;;
+#Exclude certain libraries
+$ExcludedLibraries = @(&quot;Form Templates&quot;, &quot;Preservation Hold Library&quot;, &quot;Site Assets&quot;, &quot;Images&quot;, &quot;Pages&quot;, &quot;Settings&quot;, &quot;Videos&quot;,&quot;Timesheet&quot;
+  &quot;Site Collection Documents&quot;, &quot;Site Collection Images&quot;, &quot;Style Library&quot;, &quot;AppPages&quot;, &quot;Apps for SharePoint&quot;, &quot;Apps for Office&quot;)
+
+$global:permissions =@();
+$global:sharingLinks = @();
+
+Function PermissionObject($_object,$_type,$_relativeUrl,$_siteUrl,$_siteTitle,$_listTitle,$_memberType,$_parentGroup,$_memberName,$_memberLoginName,$_roleDefinitionBindings)
+{
+  $permission = New-Object -TypeName PSObject -Property $properties; 
+  $permission.SiteUrl =$_siteUrl; 
+  $permission.SiteTitle = $_siteTitle; 
+  $permission.ListTitle = $_listTitle; 
+  $permission.Type = $_type; 
+  $permission.RelativeUrl = $_relativeUrl; 
+  $permission.MemberType = $_memberType; 
+  $permission.ParentGroup = $_parentGroup; 
+  $permission.MemberName = $_memberName; 
+  $permission.MemberLoginName = $_memberLoginName; 
+  $permission.Roles = $_roleDefinitionBindings -join &quot;,&quot;; 
+  $global:permissions += $permission;
+}
+
+Function Extract-Guid ($inputString) {
+  $splitString = $inputString -split '\|'
+  return $splitString[2].TrimEnd('_o')
+}
+
+Function QueryUniquePermissionsByObject($_web,$_object,$_Type,$_RelativeUrl,$_siteUrl,$_siteTitle,$_listTitle)
+{
+  $roleAssignments = Get-PnPProperty -ClientObject $_object -Property RoleAssignments
+  
+  foreach($roleAssign in $roleAssignments){
+    Get-PnPProperty -ClientObject $roleAssign -Property RoleDefinitionBindings,Member;
+    $PermissionLevels = $roleAssign.RoleDefinitionBindings | Select -ExpandProperty Name;
+    #Get all permission levels assigned (Excluding:Limited Access)  
+    if($excludeLimitedAccess -eq $true){
+       $PermissionLevels = ($PermissionLevels | Where { $_ -ne &quot;Limited Access&quot;}) -join &quot;,&quot;  
+    }
+    $Users = Get-PnPProperty -ClientObject ($roleAssign.Member) -Property Users -ErrorAction SilentlyContinue
+    #Get Access type
+    $AccessType = $roleAssign.RoleDefinitionBindings.Name
+    $MemberType = $roleAssign.Member.GetType().Name; 
+    #Get the Principal Type: User, SP Group, AD Group  
+    $PermissionType = $roleAssign.Member.PrincipalType  
+    If($PermissionLevels.Length -gt 0) {
+      $MemberType = $roleAssign.Member.GetType().Name; 
+       #Sharing link is in the format SharingLinks.03012675-2057-4d1d-91e0-8e3b176edd94.OrganizationView.20d346d3-d359-453b-900c-633c1551ccaa
+        If ($roleAssign.Member.Title -like &quot;SharingLinks*&quot;)
+        {
+            If ($Users)
+            {
+                ForEach ($User in $Users)
+                {
+                PermissionObject $_object $_Type $_RelativeUrl $_siteUrl $_siteTitle $_listTitle &quot;Sharing Links&quot; $roleAssign.Member.LoginName  $user.Title $User.LoginName  $AccessType; 
+                }
+            }      
+        }
+      ElseIf($MemberType -eq &quot;Group&quot; -or $MemberType -eq &quot;User&quot;)
+      { 
+        $MemberName = $roleAssign.Member.Title; 
+        $MemberLoginName = $roleAssign.Member.LoginName;    
+        if($MemberType -eq &quot;User&quot;)
+        {
+          $ParentGroup = &quot;NA&quot;;
+        }
+        else
+        {
+          $ParentGroup = $MemberName;
+        }
+        (PermissionObject $_object $_Type $_RelativeUrl $_siteUrl $_siteTitle $_listTitle $MemberType $ParentGroup $MemberName $MemberLoginName $PermissionLevels); 
+      }
+
+      if($_Type  -eq &quot;Site&quot; -and $MemberType -eq &quot;Group&quot;)
+      {
+        If($PermissionType -eq &quot;SharePointGroup&quot;)  {  
+          #Get Group Members  
+          $groupUsers = Get-PnPGroupMember -Identity $roleAssign.Member.LoginName                  
+          $groupUsers|foreach-object{ 
+            if ($_.LoginName.StartsWith(&quot;c:0o.c|federateddirectoryclaimprovider|&quot;) -and $_.LoginName.EndsWith(&quot;_0&quot;)) {
+              $guid = Extract-Guid $_.LoginName
+              
+              Get-PnPMicrosoft365GroupOwners -Identity $guid | ForEach-Object {
+                $user = $_
+                (PermissionObject $_object &quot;Site&quot; $_RelativeUrl $_siteUrl $_siteTitle &quot;&quot; &quot;GroupMember&quot; $roleAssign.Member.LoginName $user.DisplayName $user.UserPrincipalName $PermissionLevels); 
+              }
+            }
+            elseif ($_.LoginName.StartsWith(&quot;c:0o.c|federateddirectoryclaimprovider|&quot;)) {
+              $guid = Extract-Guid $_.LoginName
+              
+              Get-PnPMicrosoft365GroupMembers -Identity $guid | ForEach-Object {
+                $user = $_
+                (PermissionObject $_object &quot;Site&quot; $_RelativeUrl $_siteUrl $_siteTitle &quot;&quot; &quot;GroupMember&quot; $roleAssign.Member.LoginName $user.DisplayName $user.UserPrincipalName $PermissionLevels); 
+              }
+            }
+
+            (PermissionObject $_object &quot;Site&quot; $_RelativeUrl $_siteUrl $_siteTitle &quot;&quot; &quot;GroupMember&quot; $roleAssign.Member.LoginName $_.Title $_.LoginName $PermissionLevels);   
+          }
+        }
+      } 
+    }      
+  }
+}
+Function QueryUniquePermissions($_web)
+{
+  ##query list, files and items unique permissions
+  Write-Host &quot;Querying web $($_web.Title)&quot;;
+  $siteUrl = $_web.Url; 
+ 
+  Write-Host $siteUrl -Foregroundcolor &quot;Red&quot;; 
+  $global:siteTitle = $_web.Title; 
+  $ll = Get-PnPList -Includes BaseType, Hidden, Title,HasUniqueRoleAssignments,RootFolder  -Connection $siteconn | Where-Object {$_.Hidden -eq $False -and $_.Title -notin $ExcludedLibraries } #$_.BaseType -eq &quot;DocumentLibrary&quot; 
+  Write-Host &quot;Number of lists $($ll.Count)&quot;;
+
+  QueryUniquePermissionsByObject $_web $_web &quot;Site&quot; &quot;&quot; $siteUrl $siteTitle  &quot;&quot;;
+ 
+  foreach($list in $ll)
+  {      
+    $listUrl = $list.RootFolder.ServerRelativeUrl; 
+    #Exclude internal system lists and check if it has unique permissions 
+    if($list.Hidden -ne $True)
+    { 
+      Write-Host $list.Title  -Foregroundcolor &quot;Yellow&quot;; 
+      $listTitle = $list.Title; 
+      #Check List Permissions 
+      if($list.HasUniqueRoleAssignments -eq $True)
+      { 
+        $Type = $list.BaseType.ToString(); 
+        QueryUniquePermissionsByObject $_web $list $Type $listUrl $siteUrl $siteTitle $listTitle;
+      }
+      
+      if($includeListsItems){         
+        $collListItem = Get-PnPListItem -PageSize 2000 -List $list
+        $count = $collListItem.Count
+        Write-Host  &quot;Number of items : $count within list $listTitle&quot; 
+        foreach($item in $collListItem) 
+        {
+          Get-PnPProperty -ClientObject $item -Property File,HasUniqueRoleAssignments; 
+          if($item.HasUniqueRoleAssignments -eq $True)
+          { 
+            if($list.BaseType -eq &quot;DocumentLibrary&quot;)
+            {
+              $Type = $item.FileSystemObjectType; 
+              $fileUrl = $item.FieldValues.FileRef;  
+            }
+            else
+            {
+              $Type = &quot;item&quot;
+              $fileUrl = &quot;$siteurl/lists/$listTitle/AllItems.aspx?FilterField1=ID&amp;FilterValue1=$($item.id)&quot;
+            }
+            QueryUniquePermissionsByObject $_web $item $Type $fileUrl $siteUrl $siteTitle $listTitle;
+          } 
+        } 
+      }
+    }
+  }
+}
+
+if(Test-Path $directorypath){
+ 
+  Connect-PnPOnline -Url $SiteCollectionUrl -Interactive
+  #array storing permissions
+  $web = Get-PnPWeb
+  #root web , i.e. site collection level
+  QueryUniquePermissions($web);
+
+  Write-Host &quot;Permission count: $($global:permissions.Count)&quot;;
+  $exportFilePath = Join-Path -Path $directorypath -ChildPath $([string]::Concat($siteTitle,&quot;-Permissions_&quot;,$dateTime,&quot;.csv&quot;));
+  
+  Write-Host &quot;Export File Path is:&quot; $exportFilePath
+  Write-Host &quot;Number of lines exported is :&quot; $global:permissions.Count
+ 
+  $global:permissions | Select-Object SiteUrl,SiteTitle,Type,RelativeUrl,ListTitle,MemberType,MemberName,MemberLoginName,ParentGroup,Roles|Export-CSV -Path $exportFilePath -NoTypeInformation;
+  
+}
+else{
+  Write-Host &quot;Invalid directory path:&quot; $directorypath -ForegroundColor &quot;Red&quot;;
+}
+</code></pre>
+<div class="highlight-tool">
+<p>Check out the <strong>PnP PowerShell</strong> to learn more at: <a href="https://aka.ms/pnp/powershell">https://aka.ms/pnp/powershell</a></p>
+</div>
+</section>
+</div>
+<h2 id="source-credit">Source Credit</h2>
+<p>Sample first appeared on <a href="https://reshmeeauckloo.com/posts/powershell-query-unique-permissions-sharepoint/">PowerShell Script to Query Unique Permissions in SharePoint</a></p>
+<h2 id="contributors">Contributors</h2>
+<table>
+<thead>
+<tr>
+<th>Author(s)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="https://github.com/reshmee011">Reshmee Auckloo</a></td>
+</tr>
+</tbody>
+</table>
+<h2 id="disclaimer">Disclaimer</h2>
+<p><strong>THESE SAMPLES ARE PROVIDED <em>AS IS</em> WITHOUT WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, INCLUDING ANY IMPLIED WARRANTIES OF FITNESS FOR A PARTICULAR PURPOSE, MERCHANTABILITY, OR NON-INFRINGEMENT.</strong></p>
+<img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/spo-get-permission-audit" aria-hidden="true">
+</article>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            <span>Script Samples<br>Generated by <strong><a href='https://dotnet.github.io/docfx' alt='Doc FX Website'>DocFX</a></strong> with <strong><a href='https://ovasquez.github.io/docfx-material' alt='DocFx Material Theme'>Material UI</a></strong></span>
+            
+            <!-- <img src="https://telemetry.sharepointpnp.com/@pnp.github.io/index/" alt="spacer"> -->
+          </div>
+        </div>
+      </footer>    </div>
+    
+    <script type="text/javascript" src="../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+    
+    <script type="text/javascript" src="../styles/clipboard.min.js"></script>
+    <script type="text/javascript" src="../styles/isotope.pkgd.min.js"></script>
+    <script type="text/javascript" src="../styles/loadsamples.js"></script>
+    <script type="text/javascript" src="../styles/filtersamples.js"></script>
+
+  </body>
+</html>
