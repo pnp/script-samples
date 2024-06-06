@@ -1,0 +1,56 @@
+[
+  {
+    "name": "spo-reindex-list-where-term-is-used",
+    "source": "pnp",
+    "title": "Reindex Search index for lists where a specific term is used (when you have renamed the term)",
+    "shortDescription": "Locate all lists where a Term is being used and force a reindex",
+    "url": "https://pnp.github.io/script-samples/spo-reindex-list-where-term-is-used/README.html",
+    "longDescription": [
+      ""
+    ],
+    "creationDateTime": "2024-05-29",
+    "updateDateTime": "2024-05-29",
+    "products": [
+      "SharePoint"
+    ],
+    "metadata": [
+      {
+        "key": "PNP-POWERSHELL",
+        "value": "2.4.0"
+      }
+    ],
+    "categories": [
+      
+      "Data",
+      "termstore",
+      "Configure",
+      "Search"
+    ],
+    "tags": [
+      "Invoke-PnPSearchQuery","Get-PnPList", "PSCustomObject", "Request-PnPReIndexList", "Export-Csv"
+    ],
+    "thumbnails": [
+      {
+        "type": "image",
+        "order": 100,
+        "url": "https://raw.githubusercontent.com/pnp/script-samples/main/scripts/spo-reindex-list-where-term-is-used/assets/preview.png",
+        "alt": "Preview of the sample Reindex Search index for lists where a specific term is used (when you have renamed the term)"
+      }
+    ],
+    "authors": [
+      {
+        "gitHubAccount": "kasperbolarsen",
+        "company": "",
+        "pictureUrl": "https://github.com/kasperbolarsen.png",
+        "name": "Kasper Larsen"
+      }
+    ],
+    "references": [
+      {
+        "name": "Want to learn more about PnP PowerShell and the cmdlets",
+        "description": "Check out the PnP PowerShell site to get started and for the reference to the cmdlets.",
+        "url": "https://aka.ms/pnp/powershell"
+      }
+    ]
+  }
+]
