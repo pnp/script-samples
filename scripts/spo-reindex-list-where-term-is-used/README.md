@@ -4,9 +4,6 @@ plugin: add-to-gallery
 
 # Reindex Search index for lists where a specific term is used (when you have renamed the term)
 
-> [!Note]
-> This is a submission helper template please find the [contributor guidance](/docfx/contribute.md) to help you write this scenario.
-
 ## Summary
 
 Once in a while you might need to rename a term in the term store. This script will help you reindex all lists where the term is used.
