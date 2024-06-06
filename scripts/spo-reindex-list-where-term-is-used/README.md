@@ -19,38 +19,27 @@ Once in a while you might need to rename a term in the term store. This script w
 # in order to be able to search all content in the tenant
 
 #connect to the term store
-$spAdminUrl = "https://contoso-admin.sharepoint.com"
+$spAdminUrl = "https://[your tenant]-admin.sharepoint.com"
 if(-not $SPAdminConn)
 {
     $SPAdminConn = Connect-PnPOnline -Url $spAdminUrl -Interactive -ReturnConnection
 }
 $Output = @()
 #get all hits on the term guid
-$query = "the guid of the term you want to search for"
-$hits = Invoke-PnPSearchQuery -Connection $SPAdminConn -Query $query -All 
-$hash = @{}
-#in order to avoid reindexing the same list multiple times, we will store the list id in a hash table
+$termId = "the guid of the term you want to search for"
+$query = $termId
+# find the unique LISTS where the term is used and reindex them
+$hits = Invoke-PnPSearchQuery -Connection $SPOAdminConn -Query $termId -All -CollapseSpecification "ListId:1"
+
 foreach($hit in $hits.ResultRows)
 {
     try 
     {
-        $hash.Add($hit["SPWebUrl"], $hit["IdentityListId"])    
-    }
-    catch 
-    {
-        <#Do this if a terminating exception happens#>
-    }
-    
-    
-}
-
-foreach($siteUrl in $hash.Keys)
-{
-    try 
-    {
-        $siteconn = Connect-PnPOnline -Url $siteUrl -Interactive -ReturnConnection
-        $list = Get-PnPList -Connection $siteconn -Identity $hash[$siteUrl]
-        #reindex the list
+        Write-Host "Term $($termId) is used in $($hit["SPWebUrl"]) - $($hit["Title"])"
+        $siteUrl = $hit["SPWebUrl"]
+        $listId = $hit["IdentityListId"]
+        $siteConn = Connect-PnPOnline -Url $siteUrl -Interactive -ReturnConnection
+        $list = Get-PnPList -Connection $siteConn -Identity $listId
         Write-Host "Reindexing $($list.Title) in $($siteUrl)"
         $myObject = [PSCustomObject]@{
             URL     = $siteUrl
@@ -59,8 +48,7 @@ foreach($siteUrl in $hash.Keys)
     
         }        
         $Output+=($myObject)
-        Request-PnPReIndexList -Identity $list -Connection $siteconn
-            
+        Request-PnPReIndexList -Identity $list -Connection $siteConn
     }
     catch 
     {
@@ -71,9 +59,6 @@ foreach($siteUrl in $hash.Keys)
         }        
         $Output+=($myObject)
     }
-    
-    
-
 }
 
 $Output | Export-Csv -Path "C:\temp\ReindexResults.csv" -Encoding UTF8 -Delimiter "|" -Force
