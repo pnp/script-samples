@@ -93,6 +93,8 @@ m365 logout
 
 [!INCLUDE [More about CLI for Microsoft 365](../../docfx/includes/MORE-CLIM365.md)]
 
+***
+
 ## Source Credit
 
 Sample first appeared on [Ensuring Owners Are Members](https://reshmeeauckloo.com/posts/powershell_ensureownersaremembersm365group/)
@@ -106,4 +108,4 @@ Sample first appeared on [Ensuring Owners Are Members](https://reshmeeauckloo.co
 
 
 [!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
-<img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/aad-delete-m365-groups-and-sharepoint-sites" aria-hidden="true" />
+<img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/aad-ensure-ownersaremembers-m365groups" aria-hidden="true" />
