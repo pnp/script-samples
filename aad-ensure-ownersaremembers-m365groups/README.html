@@ -105,6 +105,9 @@
 <li role="presentation">
 <a href="#tabpanel_CeZOj-G++Q_pnpps" role="tab" aria-controls="tabpanel_CeZOj-G++Q_pnpps" data-tab="pnpps" tabindex="0" aria-selected="true">PnP PowerShell</a>
 </li>
+<li role="presentation">
+<a href="#tabpanel_CeZOj-G++Q_cli-m365-ps" role="tab" aria-controls="tabpanel_CeZOj-G++Q_cli-m365-ps" data-tab="cli-m365-ps" tabindex="-1">CLI for Microsoft 365</a>
+</li>
 </ul>
 <section id="tabpanel_CeZOj-G++Q_pnpps" role="tabpanel" data-tab="pnpps"><button class="article-clipboard" title="Copy to clipboard" data-toggle="tooltip" data-placement="top" data-clipboard-target="section[id^='tabpanel'][data-tab='pnpps'] pre">
     <span class="glyphicon glyphicon-copy" aria-hidden="true"></span>
@@ -118,36 +121,83 @@ $dateTime = (Get-Date).toString(&quot;dd-MM-yyyy&quot;)
 $invocation = (Get-Variable MyInvocation).Value
 $directorypath = Split-Path $invocation.MyCommand.Path
 $fileName = &quot;m365OwnersNotMembers-&quot; + $dateTime + &quot;.csv&quot;
-$OutPutView = $directorypath + &quot;\Logs\&quot;+ $fileName
+$OutPutView = $directorypath + &quot;\&quot; + $fileName
 # Array to Hold Result - PSObjects
 $m365GroupCollection = @()
 #Write-host $&quot;$ownerName not part of member in $siteUrl&quot;;
-$m365Sites = Get-PnPTenantSite -Detailed | Where-Object {($_.Url -like '*/TEST-*'-or $_.Template -eq 'TEAMCHANNEL#1') -and $_.Template -ne 'RedirectSite#0' }
+$m365Sites = Get-PnPTenantSite -Detailed | Where-Object { ($_.Template -eq 'GROUP#0') -and $_.Template -ne 'RedirectSite#0' }
 $m365Sites | ForEach-Object {   
     $groupId = $_.GroupId;
     $siteUrl = $_.Url;
-     if($_.Template -eq &quot;GROUP#0&quot;)
-     {
-       #if owner is not part of m365 group member
+    $siteName = $_.Title
+    #if owner is not part of m365 group member
     (Get-PnPMicrosoft365GroupOwner -Identity $groupId -ErrorAction Ignore) | foreach-object {
-       $owner = $_;
-        if(!(Get-PnPMicrosoft365GroupMember -Identity $groupId  -ErrorAction Ignore| Where-Object {$_.DisplayName -eq $owner.DisplayName}))
-        {
+        $owner = $_;
+        $ownerDisplayName = $owner.DisplayName;
+        if (!(Get-PnPMicrosoft365GroupMember -Identity $groupId  -ErrorAction Ignore | Where-Object { $_.DisplayName -eq $owner.DisplayName })) {
             $ExportVw = New-Object PSObject
+            $ExportVw | Add-Member -MemberType NoteProperty -name &quot;Site Name&quot; -value $siteName
             $ExportVw | Add-Member -MemberType NoteProperty -name &quot;Site URL&quot; -value $siteUrl
             $ExportVw | Add-Member -MemberType NoteProperty -name &quot;Owner Name&quot; -value $owner.DisplayName
             $m365GroupCollection += $ExportVw
-            Add-PnPMicrosoft365GroupMember -Identity $groupId  -Users $owner.Email
-            Write-host $&quot;$owner.DisplayName has been added as member in $siteUrl&quot;;
-        }
+            Add-PnPMicrosoft365GroupMember -Identity $groupId -Users $owner.Email
+            Write-host &quot;$ownerDisplayName has been added as member in $siteUrl&quot;;
       }
    }
 }
 # Export the result array to CSV file
-$m365GroupCollection | sort-object &quot;Group Name&quot; |Export-CSV $OutPutView -Force -NoTypeInformation
+$m365GroupCollection | sort-object &quot;Site Name&quot; | Export-CSV $OutPutView -Force -NoTypeInformation
 </code></pre>
 <div class="highlight-tool">
 <p>Check out the <strong>PnP PowerShell</strong> to learn more at: <a href="https://aka.ms/pnp/powershell">https://aka.ms/pnp/powershell</a></p>
+</div>
+</section>
+<section id="tabpanel_CeZOj-G++Q_cli-m365-ps" role="tabpanel" data-tab="cli-m365-ps" aria-hidden="true" hidden="hidden"><button class="article-clipboard" title="Copy to clipboard" data-toggle="tooltip" data-placement="top" data-clipboard-target="section[id^='tabpanel'][data-tab='cli-m365-ps'] pre">
+    <span class="glyphicon glyphicon-copy" aria-hidden="true"></span>
+    <span class="article-clipboard__message done">Copied</span>
+</button>
+
+<pre><code class="lang-powershell">$m365Status = m365 status
+if ($m365Status -match &quot;Logged Out&quot;) {
+    m365 login
+}
+
+$dateTime = (Get-Date).toString(&quot;dd-MM-yyyy&quot;)
+$invocation = (Get-Variable MyInvocation).Value
+$directorypath = Split-Path $invocation.MyCommand.Path
+$fileName = &quot;m365OwnersNotMembers-&quot; + $dateTime + &quot;.csv&quot;
+$OutPutView = $directorypath + &quot;\&quot; + $fileName
+# Array to Hold Result - PSObjects
+$m365GroupCollection = @()
+#Write-host $&quot;$ownerName not part of member in $siteUrl&quot;;
+$m365Sites = m365 spo site list --query &quot;[?Template == 'GROUP#0' &amp;&amp; Template != 'RedirectSite#0'].{GroupId:GroupId, Url:Url, Title:Title}&quot; --output json | ConvertFrom-Json
+$m365Sites | ForEach-Object {   
+    $groupId = $_.GroupId -replace &quot;/Guid\((.*)\)/&quot;,'$1';
+    $siteUrl = $_.Url;
+    $siteName = $_.Title
+    #if owner is not part of m365 group member
+    (m365 entra m365group user list --role Owner --groupId $groupId --output json | ConvertFrom-Json) | foreach-object {
+        $owner = $_;
+        $ownerDisplayName = $owner.displayName
+        if (!(m365 entra m365group user list --role Member --groupId $groupId --query &quot;[?displayName == '$ownerDisplayName']&quot; --output json | ConvertFrom-Json)) {
+            $ExportVw = New-Object PSObject
+            $ExportVw | Add-Member -MemberType NoteProperty -name &quot;Site Name&quot; -value $siteName
+            $ExportVw | Add-Member -MemberType NoteProperty -name &quot;Site URL&quot; -value $siteUrl
+            $ExportVw | Add-Member -MemberType NoteProperty -name &quot;Owner Name&quot; -value $ownerDisplayName
+            $m365GroupCollection += $ExportVw
+            m365 entra m365group user add --role Owner --groupId $groupId --userName $owner.userPrincipalName
+            Write-host &quot;$ownerDisplayName has been added as member in $siteUrl&quot;;
+        }
+    }
+}
+# Export the result array to CSV file
+$m365GroupCollection | sort-object &quot;Site Name&quot; | Export-CSV $OutPutView -Force -NoTypeInformation
+
+#Disconnect SharePoint online connection
+m365 logout
+</code></pre>
+<div class="highlight-tool">
+<p>Check out the <strong>CLI for Microsoft 365</strong> to learn more at: <a href="https://aka.ms/cli-m365">https://aka.ms/cli-m365</a></p>
 </div>
 </section>
 </div>
@@ -162,13 +212,16 @@ $m365GroupCollection | sort-object &quot;Group Name&quot; |Export-CSV $OutPutVie
 </thead>
 <tbody>
 <tr>
-<td><a href="https://github.com/reshmee011">Reshmee Auckloo</a></td>
+<td><a href="https://github.com/reshmee011">Reshmee Auckloo (Main author)</a></td>
+</tr>
+<tr>
+<td><a href="https://github.com/mkm17">Michał Kornet (CLI for M365 version)</a></td>
 </tr>
 </tbody>
 </table>
 <h2 id="disclaimer">Disclaimer</h2>
 <p><strong>THESE SAMPLES ARE PROVIDED <em>AS IS</em> WITHOUT WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, INCLUDING ANY IMPLIED WARRANTIES OF FITNESS FOR A PARTICULAR PURPOSE, MERCHANTABILITY, OR NON-INFRINGEMENT.</strong></p>
-<img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/aad-delete-m365-groups-and-sharepoint-sites" aria-hidden="true">
+<img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/aad-ensure-ownersaremembers-m365groups" aria-hidden="true">
 </article>
           </div>
         </div>

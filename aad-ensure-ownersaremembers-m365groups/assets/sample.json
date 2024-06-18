@@ -7,7 +7,7 @@
     "title": "Ensuring m365 group owners are m365 group members",
     "url": "https://pnp.github.io/script-samples/aad-ensure-ownersaremembers-m365groups/README.html",
     "creationDateTime": "2023-10-29",
-    "updateDateTime": "2023-10-29",
+    "updateDateTime": "2024-06-14",
     "shortDescription": "Ensuring m365 group owners are m365 group members",
     "longDescription": ["M365 group owners are not always m365 group members because of the various methods of managing M365 group permissions, such as through the Teams admin center, Microsoft Teams, SharePoint admin center, SharePoint connected sites, Planner, or scripting using PowerShell. The script will help identify these discrepancies and ensures m365 group owners are also m365 group members."],
     "products": [
@@ -24,12 +24,20 @@
       "Get-PnPTenantSite",
       "Get-PnPMicrosoft365GroupOwner",
       "Get-PnPMicrosoft365GroupMember",
-      "Add-PnPMicrosoft365GroupMember"
+      "Add-PnPMicrosoft365GroupMember",
+      "m365 login",
+      "m365 spo site list",
+      "m365 entra m365group user list ",
+      "m365 entra m365group user add"
     ],
     "metadata": [
       {
         "key": "PNP-POWERSHELL",
         "value": "2.2.0"
+      },
+      {
+        "key": "CLI-FOR-MICROSOFT365",
+        "value": "7.7.0"
       }
     ],
     "thumbnails": [
@@ -43,6 +51,12 @@
     ],
     "authors": [
       {
+        "gitHubAccount": "mkm17",
+        "company": "WM Reply",
+        "pictureUrl": "https://github.com/mkm17.png",
+        "name": "Michał Kornet"
+      },
+      {
         "gitHubAccount": "reshmee011",
         "company": "",
         "pictureUrl": "https://avatars.githubusercontent.com/u/7693852?v=4",
@@ -54,7 +68,12 @@
         "name": "Want to learn more about PnP PowerShell and the cmdlets",
         "description": "Check out the PnP PowerShell site to get started and for the reference to the cmdlets.",
         "url": "https://aka.ms/pnp/powershell"
-      }
+      },
+      {
+        "name": "Want to learn more about CLI for Microsoft 365 and the commands",
+        "description": "Check out the CLI for Microsoft 365 site to get started and for the reference to the commands.",
+        "url": "https://aka.ms/cli-m365"
+      },
     ]
   }
 ]
