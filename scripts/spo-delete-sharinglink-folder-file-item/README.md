@@ -2,7 +2,7 @@
 plugin: add-to-gallery
 ---
 
-# Retrieves site id from Microsoft Graph
+# Deletes sharing links for folder, file and item
 
 ## Summary
 
