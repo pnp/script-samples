@@ -2,11 +2,11 @@
 plugin: add-to-gallery
 ---
 
-# List SharePoint Framework (SPFx) packages installation at Tenant and Site Collection App Catalog
+# Find SharePoint Framework (SPFx) Packages in Tenant and Site Collection App Catalogs
 
 ## Summary
 
-Generates a list of pacticular SPFx package installations within SharePoint Online environment at Tenant and Site Collection App Catalog which will help maintain oversight of SPFx package installation, ensuring they are up-to-date and compliant.
+Generates a list of pacticular SPFx package installations within SharePoint Online environment in Tenant and Site Collection App Catalog which will help maintain oversight of SPFx package installation, ensuring they are up-to-date and compliant.
 
 The script was particularly useful in pinpointing sites within the tenant where third-party applications, specifically an analytics SPFx component, were deployed. This was crucial for ensuring that data collection was confined to designated sites, such as the intranet in this case. Despite the analytics dashboard aggregating data from all tenant sites, it was challenging to discern the sources of data collection. Therefore, this script was developed to clearly identify the sites from which data were being collected.
 
@@ -101,7 +101,7 @@ $SiteAppUpdateCollection | Export-CSV $OutPutView -Force -NoTypeInformation
 
 ## Source Credit
 
-Sample first appeared on [List of SharePoint Framework (SPFx) packages installation with PowerShell at Tenant and Site Collection App Catalog](https://reshmeeauckloo.com/posts/powershell_inventory-of-spfx-installs-in-sites/)
+Sample first appeared on [Find SharePoint Framework (SPFx) Packages with PowerShell in Tenant and Site Collection App Catalogs](https://reshmeeauckloo.com/posts/powershell_inventory-of-spfx-installs-in-sites/)
 
 ## Contributors
 
@@ -111,4 +111,4 @@ Sample first appeared on [List of SharePoint Framework (SPFx) packages installat
 
 
 [!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
-<img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/spo-get-spfx-packages-installed-tenant-sitecollection-appcatalog" aria-hidden="true" />
+<img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/spo-find-spfx-packages-installed-tenant-sitecollection-appcatalog" aria-hidden="true" />
