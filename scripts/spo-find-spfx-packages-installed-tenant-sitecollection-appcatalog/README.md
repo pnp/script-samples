@@ -101,7 +101,7 @@ $SiteAppUpdateCollection | Export-CSV $OutPutView -Force -NoTypeInformation
 
 ## Source Credit
 
-Sample first appeared on [Find SharePoint Framework (SPFx) Packages with PowerShell in Tenant and Site Collection App Catalogs](https://reshmeeauckloo.com/posts/powershell_inventory-of-spfx-installs-in-sites/)
+Sample first appeared on [Find SharePoint Framework (SPFx) Packages with PowerShell in Tenant and Site Collection App Catalogs](https://reshmeeauckloo.com/posts/powershell_find-spfx-installs-in-tenant-sitecollection-appcatalog/)
 
 ## Contributors
 
