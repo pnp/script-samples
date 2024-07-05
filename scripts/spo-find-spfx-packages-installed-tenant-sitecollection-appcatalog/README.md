@@ -6,7 +6,7 @@ plugin: add-to-gallery
 
 ## Summary
 
-Generates a list of pacticular SPFx package installations within SharePoint Online environment in Tenant and Site Collection App Catalog which will help maintain oversight of SPFx package installation, ensuring they are up-to-date and compliant.
+Find SPFx package installations within SharePoint Online environment in Tenant and Site Collection App Catalog which will help maintain oversight of SPFx package installation, ensuring they are up-to-date and compliant.
 
 The script was particularly useful in pinpointing sites within the tenant where third-party applications, specifically an analytics SPFx component, were deployed. This was crucial for ensuring that data collection was confined to designated sites, such as the intranet in this case. Despite the analytics dashboard aggregating data from all tenant sites, it was challenging to discern the sources of data collection. Therefore, this script was developed to clearly identify the sites from which data were being collected.
 
