@@ -18,6 +18,7 @@ Find scenarios and scripts here using tools such as ***PnP PowerShell, CLI for M
 <div id="post-sample-filter-107" class="sampletype-item filter-choice" data-filter="[data-operation*='report']" title="Report Samples">Report</div>
 <div id="post-sample-filter-113" class="sampletype-item filter-choice" data-filter="[data-operation*='security']" title="Security Samples">Security</div>
 <div id="post-sample-filter-115" class="sampletype-item filter-choice" data-filter="[data-operation*='ai']" title="AI Samples">AI</div>
+<div id="post-sample-filter-115" class="sampletype-item filter-choice" data-filter="[data-operation*='copilot']" title="Copilot Samples">Copilot</div>
 </div>
 
 <div class="search-input-wrapper float-l" aria-hidden="true">
