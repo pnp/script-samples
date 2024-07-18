@@ -6,7 +6,7 @@ plugin: add-to-gallery
 
 ## Summary
 
-Sometime you are required to create a site including some specific files and/or list items. You can do this in several ways, but in this sample we are using the PnP Provisioning Engine
+Sometimes you are required to create a site including some specific files and/or list items. You can do this in several ways, but in this sample, we are using the PnP Provisioning Engine
 
 ![Example Screenshot](assets/example.png)
 
