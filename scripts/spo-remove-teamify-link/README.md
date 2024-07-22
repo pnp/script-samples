@@ -4,9 +4,6 @@ plugin: add-to-gallery
 
 # Remove the Teamify link on Group sites
 
-> [!Note]
-> This is a submission helper template please find the [contributor guidance](/docfx/contribute.md) to help you write this scenario.
-
 ## Summary
 
 If your governance dictate that Group owners should not be able to change a Group site to a Teams site, you can remove the promote link with this script.
