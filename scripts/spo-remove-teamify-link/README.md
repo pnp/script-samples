@@ -30,12 +30,11 @@ Remove the Teamify link on Group sites
 ```
 [!INCLUDE [More about PnP PowerShell](../../docfx/includes/MORE-PNPPS.md)]
 
-# [PnP PowerShell](#tab/pnpps)
+# [PnP PowerShell without enabling custom scripting](#tab/pnpps)
 
 ```powershell
     #connect to the site using one of the many options available
-    $conn = Connect-PnPOnline -Url $url -interactive -ReturnConnection  -ErrorAction Stop  
-        
+    $conn = Connect-PnPOnline -Url $url -interactive -ReturnConnection  -ErrorAction Stop          
     Set-PnPTeamifyPromptHidden -Connection $conn
 ```
 [!INCLUDE [More about PnP PowerShell](../../docfx/includes/MORE-PNPPS.md)]
