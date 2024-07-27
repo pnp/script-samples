@@ -107,6 +107,9 @@
 <li role="presentation">
 <a href="#tabpanel_CeZOj-G++Q_pnpps" role="tab" aria-controls="tabpanel_CeZOj-G++Q_pnpps" data-tab="pnpps" tabindex="0" aria-selected="true">PnP PowerShell</a>
 </li>
+<li role="presentation">
+<a href="#tabpanel_CeZOj-G++Q_pnpps2" role="tab" aria-controls="tabpanel_CeZOj-G++Q_pnpps2" data-tab="pnpps2" tabindex="-1">PnP PowerShell without enabling custom scripting</a>
+</li>
 </ul>
 <section id="tabpanel_CeZOj-G++Q_pnpps" role="tabpanel" data-tab="pnpps"><button class="article-clipboard" title="Copy to clipboard" data-toggle="tooltip" data-placement="top" data-clipboard-target="section[id^='tabpanel'][data-tab='pnpps'] pre">
     <span class="glyphicon glyphicon-copy" aria-hidden="true"></span>
@@ -123,6 +126,21 @@
     #Disable custom script on site or leave it enabled, it will automatically be disabled after 24 hours
     Set-PnPSite -Identity $url -NoScriptSite $true -Connection $conn
 
+    #alternatively use Set-PnPTeamifyPromptHidden
+    Set-PnPTeamifyPromptHidden -Connection $conn
+</code></pre>
+<div class="highlight-tool">
+<p>Check out the <strong>PnP PowerShell</strong> to learn more at: <a href="https://aka.ms/pnp/powershell">https://aka.ms/pnp/powershell</a></p>
+</div>
+</section>
+<section id="tabpanel_CeZOj-G++Q_pnpps2" role="tabpanel" data-tab="pnpps2" aria-hidden="true" hidden="hidden"><button class="article-clipboard" title="Copy to clipboard" data-toggle="tooltip" data-placement="top" data-clipboard-target="section[id^='tabpanel'][data-tab='pnpps2'] pre">
+    <span class="glyphicon glyphicon-copy" aria-hidden="true"></span>
+    <span class="article-clipboard__message done">Copied</span>
+</button>
+
+<pre><code class="lang-powershell">    #connect to the site using one of the many options available
+    $conn = Connect-PnPOnline -Url $url -interactive -ReturnConnection  -ErrorAction Stop          
+    Set-PnPTeamifyPromptHidden -Connection $conn
 </code></pre>
 <div class="highlight-tool">
 <p>Check out the <strong>PnP PowerShell</strong> to learn more at: <a href="https://aka.ms/pnp/powershell">https://aka.ms/pnp/powershell</a></p>
@@ -139,6 +157,9 @@
 <tbody>
 <tr>
 <td>Kasper Larsen</td>
+</tr>
+<tr>
+<td>Reshmee Auckloo</td>
 </tr>
 </tbody>
 </table>
