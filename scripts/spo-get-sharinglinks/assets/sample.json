@@ -9,7 +9,7 @@
       "Effective oversight of sharing links is paramount to ensuring data security, compliance, and optimal collaboration experiences. As organizations migrate to M365 environments, they inherit powerful collaboration tools that facilitate seamless sharing of documents and resources. However, without proper governance, these capabilities can lead to unintended consequences such as data breaches, compliance violations, and loss of intellectual property. This script can help identify oversharing in preparation for Copilot for M365."
     ],
     "creationDateTime": "2024-04-27",
-    "updateDateTime": "2024-04-27",
+    "updateDateTime": "2024-07-25",
     "products": [
       "SharePoint",
       "SharingLinks"
@@ -17,7 +17,7 @@
     "metadata": [
       {
         "key": "PNP-POWERSHELL",
-        "value": "2.3.0"
+        "value": "2.5.2"
       }
     ],
     "categories": [
@@ -33,7 +33,8 @@
       "Get-PnPList",
       "Get-PnPWeb",
       "Get-PnPContext",
-      "GetObjectSharingInformation"
+      "Get-PnPFileSharingLink",
+      "Get-PnPFolderSharingLink"
     ],
     "thumbnails": [
       {
