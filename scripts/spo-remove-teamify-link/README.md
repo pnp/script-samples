@@ -30,7 +30,7 @@ Remove the Teamify link on Group sites
 ```
 [!INCLUDE [More about PnP PowerShell](../../docfx/includes/MORE-PNPPS.md)]
 
-# [PnP PowerShell without enabling custom scripting](#tab/pnpps)
+# [PnP PowerShell without enabling custom scripting](#tab/pnpps2)
 
 ```powershell
     #connect to the site using one of the many options available
@@ -47,6 +47,7 @@ Remove the Teamify link on Group sites
 | Author(s) |
 |-----------|
 | Kasper Larsen |
+| Reshmee Auckloo |
 
 [!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
 <img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/spo-remove-teamify-link" aria-hidden="true" />
