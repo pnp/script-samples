@@ -39,8 +39,6 @@ Remove the Teamify link on Group sites
 ```
 [!INCLUDE [More about PnP PowerShell](../../docfx/includes/MORE-PNPPS.md)]
 
-***
-
 # [CLI for Microsoft 365](#tab/cli-m365-ps)
 
 ```bash
@@ -67,7 +65,7 @@ Remove the Teamify link on Group sites
 |-----------|
 | Kasper Larsen |
 | Reshmee Auckloo |
-| [Valeras NArbutas](https://github.com/ValerasNarbutas) |
+| [Valeras Narbutas](https://github.com/ValerasNarbutas) |
 
 [!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
 <img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/spo-remove-teamify-link" aria-hidden="true" />
