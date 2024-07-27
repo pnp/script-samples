@@ -25,8 +25,20 @@ Remove the Teamify link on Group sites
     #Disable custom script on site or leave it enabled, it will automatically be disabled after 24 hours
     Set-PnPSite -Identity $url -NoScriptSite $true -Connection $conn
 
+    #alternatively use Set-PnPTeamifyPromptHidden
+    Set-PnPTeamifyPromptHidden -Connection $conn
 ```
 [!INCLUDE [More about PnP PowerShell](../../docfx/includes/MORE-PNPPS.md)]
+
+# [PnP PowerShell without enabling custom scripting](#tab/pnpps2)
+
+```powershell
+    #connect to the site using one of the many options available
+    $conn = Connect-PnPOnline -Url $url -interactive -ReturnConnection  -ErrorAction Stop          
+    Set-PnPTeamifyPromptHidden -Connection $conn
+```
+[!INCLUDE [More about PnP PowerShell](../../docfx/includes/MORE-PNPPS.md)]
+
 ***
 
 # [CLI for Microsoft 365](#tab/cli-m365-ps)
@@ -47,11 +59,14 @@ Remove the Teamify link on Group sites
 ```
 [!INCLUDE [More about CLI for Microsoft 365](../../docfx/includes/MORE-CLIM365.md)]
 
+***
+
 ## Contributors
 
 | Author(s) |
 |-----------|
 | Kasper Larsen |
+| Reshmee Auckloo |
 | [Valeras NArbutas](https://github.com/ValerasNarbutas) |
 
 [!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
