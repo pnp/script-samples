@@ -32,10 +32,11 @@ $global:SiteReports = @()
 
 Function Login() {
     [cmdletbinding()]
-    param([parameter(Mandatory = $true, ValueFromPipeline = $true)] $Creds)
- 
+    param([parameter(Mandatory = $true, ValueFromPipeline = $true)] $Creds),
+    param([parameter(Mandatory = $true, ValueFromPipeline = $true)] $siteUrl)
+
     #connect to O365 admin site
-    Write-Host "Connecting to Tenant Admin Site '$($adminSiteURL)'" -f Yellow 
+    Write-Host "Connecting to Tenant Admin Site '$($siteUrl)'" -f Yellow 
   
     Connect-PnPOnline -Url $adminSiteURL -Credentials $Creds
     Write-Host "Connecting successfully!..." -f Green 
@@ -48,6 +49,9 @@ Function GenerateReport {
         Write-Host "Getting site usage report successfully!..." -ForegroundColor Green
 
         foreach ($Report in $Reports) {
+    		Login($Creds,$Report.Url);
+# Please note that Usage.Hits, Usage.Visits and Usage.Bandwidth returned blank for SharePoint Online based on personal testing
+		$site = get-pnpsite -Includes Usage
             $global:SiteReports += New-Object PSObject -Property ([ordered]@{               
                     'Title'                        = $Report.Title
                     'URL'                          = $Report.Url
@@ -63,15 +67,14 @@ Function GenerateReport {
                     'Storage Usage Current'        = $Report.StorageUsageCurrent 
                     'Template'                     = $Report.Template
                     'Status'                       = $Report.Status
-                    'Usage Bandwidth'              = $Report.Usage.Bandwidth
-                    'Usage Hits'                   = $Report.Usage.Hits
-                    'Usage Visits'                 = $Report.Usage.Visits
+                    'Usage Bandwidth'              = $site.Usage.Bandwidth
+                    'Usage Hits'                   = $site.Usage.Hits
+                    'Usage Visits'                 = $site.Usage.Visits
                     'Locale Id'                    = $Report.LocaleId
                     'Last Modified Date'           = $Report.LastContentModifiedDate
                     'Sharing Capability'           = $Report.SharingCapability 
                 })
         }
-
     }
     catch {
         Write-Host "Error in getting site usage report:" $_.Exception.Message -ForegroundColor Red                 
@@ -83,7 +86,7 @@ Function GenerateReport {
 
 
 Function StartProcessing {
-    Login($Creds);      
+    Login($Creds,$adminSiteURL);      
     GenerateReport 
 }
 
@@ -110,6 +113,7 @@ Function GenerateReport {
         Write-Host "Getting site usage report successfully!..." -ForegroundColor Green
 
         foreach ($Report in $Reports) {
+#I could not find a way to retrieve usage properties using CLI for M365 hence $Report.Usage.Bandwidth,$Report.Usage.Hits,$Report.Usage.Visits are omitted from the CLI for M365 script
             $global:SiteReports += New-Object PSObject -Property ([ordered]@{               
                     'Title'                        = $Report.Title
                     'URL'                          = $Report.Url
@@ -125,15 +129,11 @@ Function GenerateReport {
                     'Storage Usage Current'        = $Report.StorageUsageCurrent 
                     'Template'                     = $Report.Template
                     'Status'                       = $Report.Status
-                    'Usage Bandwidth'              = $Report.Usage.Bandwidth
-                    'Usage Hits'                   = $Report.Usage.Hits
-                    'Usage Visits'                 = $Report.Usage.Visits
                     'Locale Id'                    = $Report.LocaleId
                     'Last Modified Date'           = $Report.LastContentModifiedDate 
                     'Sharing Capability'           = $Report.SharingCapability 
                 })
         }
-
     }
     catch {
         Write-Host "Error in getting site usage report:" $_.Exception.Message -ForegroundColor Red                 
@@ -150,7 +150,6 @@ Function GenerateReport {
     }
 
     GenerateReport 
-
 ```
 [!INCLUDE [More about CLI for Microsoft 365](../../docfx/includes/MORE-CLIM365.md)]
 
