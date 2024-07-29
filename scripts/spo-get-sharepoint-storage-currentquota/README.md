@@ -8,7 +8,7 @@ plugin: add-to-gallery
 
 There is limited space allocated to the tenant. To ensure business continuity and smooth ongoing operation, it is imperative to keep an eye on its usage and take relevant actions suited to the circumstances. By default a SharePoint site is allocated 25 TB by default and OneDrive for Business site is allocated 1 TB by default. These settings can be amended manually to a different quota to control SharePoint site. The script will help to proactively monitor percent used against quota for each SharePoint site.
 
-![Example Screenshot](assets/preview.png)
+![Example Screenshot](assets/example.png)
 
 ### Prerequisites
 
