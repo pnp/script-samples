@@ -4,7 +4,8 @@ plugin: insert-gallery
 
 # Script Samples
 
-Find scenarios and scripts here using tools such as ***PnP PowerShell, CLI for Microsoft 365, SPO Management Shell, Graph PowerShell SDK*** and more. Are you looking for different kind of samples? then check out the [Microsoft Adoption - Sample Solution Gallery](https://adoption.microsoft.com/sample-solution-gallery/) for all samples from the community.
+Find scenarios and scripts here using tools such as ***PnP PowerShell, CLI for Microsoft 365, SPO Management Shell, Graph PowerShell SDK*** and more. Are you looking for authoring tool in Visual Studio Code? Check out extensions
+[PnP PowerShell Visual Studio Code extension](https://marketplace.visualstudio.com/items?itemName=adamwojcikit.pnp-powershell-extension) and [CLI for Microsoft 365 Visual Studio Code extension](https://marketplace.visualstudio.com/items?itemName=adamwojcikit.cli-for-microsoft-365-extension)
 
 <section class="filter-section">
 
