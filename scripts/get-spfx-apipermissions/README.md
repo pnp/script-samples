@@ -32,7 +32,8 @@ It's important to remember that SPFx solutions may use any API permissions grant
 
 ## Prerequisites
 
--   The user running the script must have SharePoint administrator access
+-   The user running the script must have SharePoint Administrator role in order to access tenant-level app catalog, and to grant themselves (temporary) Owner rights to sites with site-level app catalog
+-   The user also requires `Application.Read.All` to read permissions assigned to the SharePoint Online Client Extensibility Web Application Principal.
 
 # [PnP PowerShell](#tab/pnpps)
 
@@ -146,7 +147,7 @@ Try {
 
         $uniqueAPIPermissions | Export-Excel $fileName -WorksheetName "API Permissions" -TableName "API_Permissions" -TableStyle Light1
 
-          # Get API Permissions for SharePoint Online Client Extensibility Web Application Principal
+        # Get API Permissions for SharePoint Online Client Extensibility Web Application Principal
         $spoAPI = Get-PnPAzureADAppPermission -Identity "SharePoint Online Client Extensibility Web Application Principal"
 
         $graphApiUsedBy = $spoAPI.MicrosoftGraph | ForEach-Object {
