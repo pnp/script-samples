@@ -10,13 +10,17 @@ To enhance your tenant's security posture, it's crucial to regularly review the 
 
 This script analyzes tenant-level and site-level app catalogs and extracts **API Permissions requested by SPFx solutions**. It generates two reports:
 
--   summary of all API permissions requested
+-   summary of **all API permissions requested**. This list will typically include Microsoft Graph APIs, but may also include other APIs secured with Azure AD (see [Discover available applications and permissions](https://learn.microsoft.com/en-us/sharepoint/dev/spfx/use-aadhttpclient#discover-available-applications-and-permissions) for a step-by-step instructions on how to find application name).
 
     ![All API permissions summary](./assets/ApiPermissionsSummary.png)
 
--   summary of all SPFx extensions installed in SPO sites, including site url, solution name and all API permissions declared in the manifest.
+-   summary of all **SPFx extensions installed** in SPO sites, including site url, solution name and all **API permissions declared in the manifest**.
 
     ![API permissions per solution](./assets/APIPermissions.png)
+
+-   summary of **Microsoft Graph** permissions assigned to the "SharePoint Online Client Extensibility Web Application Principal", including information on whether they have been **requested by SPFx solutions**.
+
+    ![Is API permission used](./assets/APIpermissionsUsed.png)
 
 > **Important**: The site-level app catalog, from a security perspective, functions like a regular list within a SharePoint Online site. This means that Global or SharePoint administrators do NOT have automatic access. Running the script as an administrator without first granting at least read access to the site would result in INCOMPLETE data.
 >
@@ -24,7 +28,7 @@ This script analyzes tenant-level and site-level app catalogs and extracts **API
 >
 > Site-level app catalog must be enabled by a SharePoint administrator, which gives you a chance to discuss security and governance with the site owner, and ensure you are authorized to perform regular audits of the spfx solutions.
 
-Remember that SPFx solutions may use any API permissions granted to the "SharePoint Online Client Extensibility Web Application Principal" without explicitly requesting them. Read more: [SharePoint solutions as a spyware](https://pnp.github.io/blog/post/spfx-solutions-as-spyware/).
+It's important to remember that SPFx solutions may use any API permissions granted to the "SharePoint Online Client Extensibility Web Application Principal" without explicitly requesting them. Read more: [SharePoint solutions as a spyware](https://pnp.github.io/blog/post/spfx-solutions-as-spyware/).
 
 ## Prerequisites
 
@@ -141,6 +145,23 @@ Try {
         } | Sort-Object API
 
         $uniqueAPIPermissions | Export-Excel $fileName -WorksheetName "API Permissions" -TableName "API_Permissions" -TableStyle Light1
+
+          # Get API Permissions for SharePoint Online Client Extensibility Web Application Principal
+        $spoAPI = Get-PnPAzureADAppPermission -Identity "SharePoint Online Client Extensibility Web Application Principal"
+
+        $graphApiUsedBy = $spoAPI.MicrosoftGraph | ForEach-Object {
+            Write-Host $_
+            $permission = $_
+            $found = ($uniqueAPIPermissions | Where-Object { $_.API -eq "Microsoft Graph" -and $_.Permission -eq $permission }).Count
+
+            [PSCustomObject]@{
+                API  = $_
+                Used = $found -gt 0
+            }
+
+        } | Sort-Object API
+
+        $graphApiUsedBy | Export-Excel $fileName -WorksheetName "Usage of API Permissions" -TableName "Usage" -TableStyle Light1
     }
 
 }
