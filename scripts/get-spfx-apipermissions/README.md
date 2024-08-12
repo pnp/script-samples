@@ -4,7 +4,7 @@ plugin: add-to-gallery-preparation
 
 # GET API Permissions for SPFx solutions
 
-> This script is part of [SharePoint solutions as a spyware](https://pnp.github.io/blog/post/spfx-solutions-as-spyware/) series, focusing on risks associated with installing SPFx solutions and improving security posture of your tenant,^.
+> This script is part of [SharePoint solutions as a spyware](https://pnp.github.io/blog/post/spfx-solutions-as-spyware/) series, focusing on risks associated with installing SPFx solutions and improving security posture of your tenant.
 
 ## Summary
 
