@@ -12,17 +12,15 @@ To enhance your tenant's security posture, it's crucial to regularly review the 
 
 This script analyzes tenant-level and site-level app catalogs and extracts **API Permissions requested by SPFx solutions**. It generates two reports:
 
--   summary of **all API permissions requested**. This list will typically include Microsoft Graph APIs, but may also include other APIs secured with Azure AD (see [Discover available applications and permissions](https://learn.microsoft.com/en-us/sharepoint/dev/spfx/use-aadhttpclient#discover-available-applications-and-permissions) for a step-by-step instructions on how to find application name).
-
-    ![All API permissions summary](./assets/ApiPermissionsSummary.png)
-
 -   summary of all **SPFx extensions installed** in SPO sites, including site url, solution name and all **API permissions declared in the manifest**.
 
     ![API permissions per solution](./assets/APIPermissions.png)
 
--   summary of **Microsoft Graph** permissions assigned to the "SharePoint Online Client Extensibility Web Application Principal", including information on whether they have been **requested by SPFx solutions**.
+-   summary of API permissions assigned to the "SharePoint Online Client Extensibility Web Application Principal", including **SPFx solutions** that requested them.
 
     ![Is API permission used](./assets/APIpermissionsUsed.png)
+
+The script also displays a warning if any API permissions are assigned using Application mode. This is unsupported.
 
 > **Important**: The site-level app catalog, from a security perspective, functions like a regular list within a SharePoint Online site. This means that Global or SharePoint administrators do NOT have automatic access. Running the script as an administrator without first granting at least read access to the site would result in INCOMPLETE data.
 >
@@ -44,14 +42,16 @@ param (
     [Parameter(Mandatory = $true)]
     [string] $domainName
 )
+
 Import-Module ImportExcel
-Import-Module PnP.PowerShell
+Import-Module Microsoft.Graph.Authentication
+Import-Module Microsoft.Graph.Applications
 
 # Extract API Permissions requested by SPFx solutions
 # Analyzes tenant-level and site-level app catalogs
 # Important: site-level app catalog is, in terms of security, a regular SharePoint list within a SPO site. This means that Global/SharePoint
 # administrators do NOT have read access.
-# To avoid generating partial results, this script temporarily grants current user Site Admin rights (line 72) and removes them after api permissions are exported (line 93)
+# To avoid generating partial results, this script temporarily grants current user Site Admin rights (line 112) and removes them after api permissions are exported (line 132)
 
 function Get-APIPermissions {
     param (
@@ -86,17 +86,55 @@ function Get-APIPermissions {
 }
 
 $adminUrl = "https://$domainName-admin.sharepoint.com/"
-$fileName = ".\$($domainName)_APIPermissions.xlsx"
-$currentUserEmail = (Get-PnPProperty -ClientObject (Get-PnPWeb) -Property CurrentUser).Email
-$excel = @()
+$xlsxFileName = ".\$($domainName)_APIPermissions.xlsx"
 
 Clear-Host
 
-# Connect
-Write-Host "Connect to SharePoint Admin site"
-Connect-PnPOnline -Url $adminUrl -Interactive
-
 Try {
+
+    #####################################
+    # Get API Permissions for SharePoint Online Client Extensibility Web Application Principal
+    # This is executed first, because of the conflicts in PS modules: https://github.com/microsoftgraph/msgraph-sdk-powershell/issues/2285
+    #####################################
+
+    # Get API Permissions for SharePoint Online Client Extensibility Web Application Principal
+    $spoAppName = "SharePoint Online Client Extensibility Web Application Principal"
+    Connect-MgGraph -Scopes 'Application.Read.All' -NoWelcome
+    $servicePrincipal = Get-MgServicePrincipal -Filter  "DisplayName eq '$spoAppName'"
+
+    #Delegated permission grants authorizing this service principal to access an API on behalf of a signed-in user.
+    $permissions = Get-MgServicePrincipalOauth2PermissionGrant -ServicePrincipalId $servicePrincipal.Id
+
+    $permissionsDelegated = $permissions | ForEach-Object {
+        # retrieve delegated permissions of the resource service principal
+        $resource = Get-MgServicePrincipal -ServicePrincipalId $_.ResourceId
+
+        [PSCustomObject]@{
+            Scope       = $_.Scope
+            ResourceId  = $_.ResourceId
+            DisplayName = $resource.DisplayName
+            AllUsers    = $_.ConsentType -eq "AllPrincipals"
+        }
+    }
+
+    #this is NOT supported for the "SharePoint Online Client Extensibility Web Application Principal". Result should always be empty
+    $permissionsApplication = get-MgServicePrincipalAppRoleAssignment -ServicePrincipalId $servicePrincipal.Id
+    If ($null -ne $permissionsApplication) {
+        Write-Host ("Assigning Application permissions to the 'SharePoint Online Client Extensibility Web Application Principal' is NOT SUPPORTED") -ForegroundColor Red
+    }
+
+
+    #####################################
+    # Parse SPFx solutions' manifests to read requested API permissions
+    # Import-Module PnP.PowerShell called only now because of the conflicts in PS modules: https://github.com/microsoftgraph/msgraph-sdk-powershell/issues/2285
+    #####################################
+    Import-Module PnP.PowerShell
+
+    # Connect
+    Write-Host "Connect to SharePoint Admin site"
+    Connect-PnPOnline -Url $adminUrl -Interactive
+    $currentUserEmail = (Get-PnPProperty -ClientObject (Get-PnPWeb) -Property CurrentUser).Email
+
     $siteCollectionAppCatalogs = Get-PnPSiteCollectionAppCatalog -ExcludeDeletedSites
 
     # Get sites where current user has no access
@@ -122,50 +160,81 @@ Try {
     Write-Host " $($appCatalogs.Count) app catalogs found. Evaluating permissions"
 
     # App Catalogs: parse solutions, get api permissions
-    $appCatalogs | ForEach-Object {
+    $spfxPermissions = $appCatalogs | ForEach-Object {
 
         Write-Host "Connecting to $_"
         Connect-PnPOnline -Url $_ -Interactive
 
-        $arr = Get-APIPermissions $_
-        $excel += $arr
+        Get-APIPermissions $_
 
         if ($_ -in $accessDenied) {
             Remove-PnPSiteCollectionAdmin -Owners $currentUserEmail
         }
     }
-    $excel | Export-Excel $fileName -WorksheetName "SPFx Solutions" -TableName "SPFx_Solutions" -TableStyle Light1
 
-    # API Permissions: get unique permissions
-    if ($excel.Count -gt 0) {
-        $apiPermissions = $excel.apiPermissions | ForEach-Object { $_ -split ";" } | Where-Object { $_ -ne "" } | ForEach-Object { $_.Trim() } | Select-Object -Unique
-        $uniqueAPIPermissions = $apiPermissions | ForEach-Object {
+    #####################################
+    # Generate results
+    # $permissionsDelegated: API permissions (delegated) granted to the "SharePoint Online Client Extensibility Web Application Principal"
+    # $permissionsApplication: API Permissions (application) granted to the "SharePoint Online Client Extensibility Web Application Principal". This should be always empty.
+    # $spfxPermissions: API permissions requested by SPFx solutions. Only delegated permissions possible
+    #####################################
+
+    # 1. Export summary of all SPFx solutions and API permissions requested
+    $spfxPermissions | Export-Excel $xlsxFileName -WorksheetName "SPFx Solutions" -TableName "SPFx_Solutions" -TableStyle Light1
+    Write-Host "Exported SPFx summary"
+
+    # 2. Export summary of all delegated permissions assigned to the SPO CEWAP and solutions they are required in
+    #transform spfxPermissions to API,Permission, spfxFileName, spfxSolutionName
+    $apiInSPFx = @()
+    $spfxPermissions | Where-Object { $_.apiPermissions -ne "" } |  ForEach-Object {
+        $fileName = $_.fileName
+        $title = $_.title
+        $_.apiPermissions -split ";" | Where-Object { $_ } | ForEach-Object {
             $p = $_ -split ",";
-            [PSCustomObject]@{
-                API        = $p[0]
-                Permission = $p[1]
+            $API = $p[0].Trim()
+            $Permission = $p[1].Trim()
+
+            $item = $apiInSPFx | Where-Object { $_.API -eq $API -and $_.Permission -eq $Permission }
+            if ($null -eq $item) {
+                $apiInSPFx += [PSCustomObject]@{
+                    API        = $p[0].Trim()
+                    Permission = $p[1].Trim()
+                    fileName   = @($fileName)
+                    title      = @($title)
+                }
             }
-        } | Sort-Object API
+            else {
+                If ($item.fileName -notcontains $fileName) {
+                    $item.fileName += $fileName
+                    $item.title += $title
+                }
 
-        $uniqueAPIPermissions | Export-Excel $fileName -WorksheetName "API Permissions" -TableName "API_Permissions" -TableStyle Light1
-
-        # Get API Permissions for SharePoint Online Client Extensibility Web Application Principal
-        $spoAPI = Get-PnPAzureADAppPermission -Identity "SharePoint Online Client Extensibility Web Application Principal"
-
-        $graphApiUsedBy = $spoAPI.MicrosoftGraph | ForEach-Object {
-            Write-Host $_
-            $permission = $_
-            $found = ($uniqueAPIPermissions | Where-Object { $_.API -eq "Microsoft Graph" -and $_.Permission -eq $permission }).Count
-
-            [PSCustomObject]@{
-                API  = $_
-                Used = $found -gt 0
             }
-
-        } | Sort-Object API
-
-        $graphApiUsedBy | Export-Excel $fileName -WorksheetName "Usage of API Permissions" -TableName "Usage" -TableStyle Light1
+        }
     }
+    $permissionsDelegatedExtended = $permissionsDelegated | ForEach-Object {
+        $permission = $_
+        $_.Scope -split " " | ForEach-Object {
+            $scope = $_.Trim()
+            $usedIn = $apiInSPFx | Where-Object { $_.API -eq $permission.DisplayName -and $_.Permission -eq $scope }
+            $r = Get-MgServicePrincipal -ServicePrincipalId $permission.ResourceId -Property Oauth2PermissionScopes
+            | Select-Object  -ExpandProperty Oauth2PermissionScopes
+            | Where-Object { $_.Value -eq $scope }
+
+            [PSCustomObject]@{
+                API              = $permission.DisplayName
+                Permission       = $scope
+                UsedIn_FileName  = $usedIn.fileName -join ","
+                UsedIn_Solution  = $usedIn.title -join ","
+                ResourceId       = $permission.ResourceId
+                ShortDescription = $r.AdminConsentDisplayName
+                Description      = $r.AdminConsentDescription
+            }
+        }
+    }
+    $permissionsDelegatedExtended | Export-Excel $xlsxFileName -WorksheetName "API Permissions" -TableName "API_Permissions" -TableStyle Light1
+
+    Write-Host "Exported API Permissions"
 
 }
 Catch {
