@@ -34,6 +34,7 @@ It's important to remember that SPFx solutions may use any API permissions grant
 
 -   The user running the script must have SharePoint Administrator role in order to access tenant-level app catalog, and to grant themselves (temporary) Owner rights to sites with site-level app catalog
 -   The user also requires `Application.Read.All` to read permissions assigned to the SharePoint Online Client Extensibility Web Application Principal.
+-   [Pnp.PowerShell](https://pnp.github.io/powershell/) version 2.5 and PowerShell 7.2 or later
 
 # [PnP PowerShell](#tab/pnpps)
 
