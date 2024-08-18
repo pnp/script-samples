@@ -1,5 +1,5 @@
 ---
-plugin: add-to-gallery-preparation
+plugin: add-to-gallery
 ---
 
 # GET API Permissions for SPFx solutions
@@ -246,6 +246,7 @@ Catch {
 Write-Host ("API Permissions exported") -ForegroundColor Green
 Disconnect-PnPOnline
 ```
+***
 
 ## Contributors
 
@@ -254,4 +255,4 @@ Disconnect-PnPOnline
 | Kinga Kazala |
 
 [!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
-<img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/template-script-submission" aria-hidden="true" />
+<img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/spo-get-spfx-apipermissions" aria-hidden="true" />
