@@ -767,6 +767,7 @@ span.copied {
 
 /* Highlighting and Tab Group Tweaks */
 
+.highlight-tool-red,
 .highlight-tool{
   background-color: #E3F2F2;
   border-top: 1px solid #D8E6E6;
@@ -774,9 +775,16 @@ span.copied {
   margin-left: -16px;
   margin-right: -16px;
 }
-
+.highlight-tool-red p,
 .highlight-tool p{
   margin-top: 0;
+}
+
+.highlight-tool-red a,
+.highlight-tool-red{
+  background-color: #c74559;
+  border-top: 1px solid #b83f51;
+  color: white;
 }
 
 pre{
