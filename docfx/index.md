@@ -7,6 +7,9 @@ plugin: insert-gallery
 Find scenarios and scripts here using tools such as ***PnP PowerShell, CLI for Microsoft 365, SPO Management Shell, Graph PowerShell SDK*** and more. Are you looking for authoring tool in Visual Studio Code? Check out extensions
 [PnP PowerShell for Visual Studio Code](https://marketplace.visualstudio.com/items?itemName=adamwojcikit.pnp-powershell-extension) and [CLI for Microsoft 365 for Visual Studio Code](https://marketplace.visualstudio.com/items?itemName=adamwojcikit.cli-for-microsoft-365-extension)
 
+> [!div class="highlight-text highlight-text-red"] 
+> Important changes coming to the way you login into PnP PowerShell or CLI for Microsoft 365 (effective 9th September 2024) please read [Changes in PnP Management Shell registration in Microsoft 365](https://pnp.github.io/blog/post/changes-pnp-management-shell-registration/) 
+
 <section class="filter-section">
 
 <div id="filters" class="sample-list filter-list float-r">
