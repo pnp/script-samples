@@ -19,6 +19,8 @@ The `Set-ManagedIdentityAPIPermissions` function grants the following roles to t
 
 Once the `Lists.SelectedOperations.Selected` is available productively, the `Sites.Selected` scope can be replaced.
 
+![API permissions](./assets/image.png)
+
 ### Set-SiteAppCatalogPermissions
 The `Set-SiteAppCatalogPermissions` function grants the Service Principal read access to 
 - root level SharePoint Site

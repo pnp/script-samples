@@ -1,6 +1,6 @@
 <#
     .DESCRIPTION
-    This script can be used to grant System-Managed Identity used by automation (Azure Runbook, Azure Functions)
+    This script can be used to grant System-assigned Managed Identity used by automation (Azure Runbook, Azure Functions)
     API permissions and access to SPO sites,that are necessary to:
     - audit API permissions assigned to the "SharePoint Online Client Extensibility Web Application Principal".
     - audit permissions requested by the installed SPFx solutions (tenant-level and site-level app catalogs)
@@ -9,7 +9,7 @@
     The Set-ManagedIdentityAPIPermissions function grants the following roles to the Managed Identity used for automation:
         - 'Application.Read.All',
         - 'Sites.Selected'     
-        - "DelegatedPermissionGrant.ReadWrite.All"
+        - 'DelegatedPermissionGrant.ReadWrite.All'
     
     Once the 'Lists.SelectedOperations.Selected' is available productively, the 'Sites.Selected' scope can be replaced.
 
@@ -18,14 +18,6 @@
     - tenant-level app catalog
     - sites with site-level app catalog
 
-    .PARAMETER spId
-    Object Id of System-Managed Identity.
-    Navigate to the Azure Runbook, open Accoutn Setting group, select Identity and copy the Object (principal) ID value
-
-    .PARAMETER tenantName
-    Tenant name is necessary to connect to the sharepoint site. 
-
-    .NOTES
     The script uses PnP.PowerShell and Microsoft.Graph. 
     PnP PowerShell requires PowerShell 7.2 or later.
 
@@ -37,6 +29,17 @@
     Other useful tools:
     - Microsoft Graph Permissions Explorer: https://graphpermissions.merill.net/permission/
     - Export-MsIdAppConsentGrantReport https://azuread.github.io/MSIdentityTools/commands/Export-MsIdAppConsentGrantReport
+
+    .PARAMETER spId
+    Object Id of System-assigned Managed Identity.
+    Navigate to the Azure Runbook, open Accoutn Setting group, select Identity and copy the Object (principal) ID value
+
+    .PARAMETER tenantName
+    Tenant name is necessary to connect to the sharepoint site. 
+
+    .NOTES
+        AUTHOR: Kinga Kazala
+        LASTEDIT: Aug 26, 2024
 
 #>
 param(

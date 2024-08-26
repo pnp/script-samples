@@ -4,13 +4,22 @@
         by SPFx solutions and compare them with those granted to the 
         "SharePoint Online Client Extensibility Web Application Principal".
 
- 
-        Lists active SharePoint site collection application catalogs: 
+        IMPORTANT:
+        To execute the script interactively, use the `-Interactive` flag.
+        When using this script in Azure Runbook/Azure Function, make sure you enable System-assigned Managed Identity
+        and grant all necessary API Permissions. 
+        See [Grant Managed Identity permissions to audit and cleanup "SharePoint Online Client Extensibility Web Application Principal" API permissions](https://pnp.github.io/script-samples/aad-grant-serviceprincipal-api-permissions/README.md)
+
+        To only print the API Permissions that should be removed, use the `-WhatIf` flag.
+        or used in Azure Automation. 
+
+
+        To lists active SharePoint site collection application catalogs: 
         https://pnp.github.io/script-samples/spo-list-site-app-catalogs/README.html?tabs=cli-m365-ps
 
     .NOTES
         AUTHOR: Kinga Kazala
-        LASTEDIT: Aug 20, 2024
+        LASTEDIT: Aug 26, 2024
 #>
 Param(
     [Parameter (Mandatory = $true)]
@@ -23,7 +32,6 @@ Param(
 )
 #####################################
 # The following PS modules must be added to the Azure Runbook
-# ImportExcel
 # Microsoft.Graph.Authentication
 # Microsoft.Graph.Applications
 # Microsoft.Graph.Identity.SignIns
@@ -34,6 +42,8 @@ $Global:SPOAppName = "SharePoint Online Client Extensibility Web Application Pri
 <#
     .DESCRIPTION
     The Get-GrantedAPIPermissions function retrieves permissions ASSIGNED to the  "SharePoint Online Client Extensibility Web Application Principal" service principal
+    
+    Permissions required: 'Application.Read.All'
 
     .OUTPUTS
     API permissions assigned to the   "SharePoint Online Client Extensibility Web Application Principal" for application and delegated modes
@@ -82,6 +92,13 @@ function Get-GrantedAPIPermissions {
         Write-Error "Error downloading API Permissions information: $($_.Exception.Message)"
     }
 }
+<# 
+    .DESCRIPTION
+    The Revoke-SelectedAPIPermissio function removes unused API permissions assgined to the  
+    "SharePoint Online Client Extensibility Web Application Principal".
+    
+    Permissions required: 'DelegatedPermissionGrant.ReadWrite.All'
+#>
 function Revoke-SelectedAPIPermissions {
     param(
         [System.Object] $delegatedPermissionsByScopeUsage ,
@@ -89,16 +106,7 @@ function Revoke-SelectedAPIPermissions {
     )
     $servicePrincipal = Get-MgServicePrincipal -Filter  "DisplayName eq '$($Global:SPOAppName)'"
 
-    # PowerShell
-    # $permissions = Get-MgOauth2PermissionGrant -Filter "ClientId eq '$($servicePrincipal.Id)' and ConsentType eq 'AllPrincipals'"
-    # PowerShell
-
-    # Graph API
-    $filter = "`$filter=ClientId eq '$($servicePrincipal.Id)' and ConsentType eq 'AllPrincipals'"
-    $select = "`$select=Id,ClientId,ResourceId,Scope"
-    $permissionsRequest = Invoke-MgGraphRequest -Method GET "https://graph.microsoft.com/v1.0/oauth2PermissionGrants?$filter&$select"
-    $permissions = $permissionsRequest.value
-    # Graph API
+    $permissions = Get-MgOauth2PermissionGrant -Filter "ClientId eq '$($servicePrincipal.Id)' and ConsentType eq 'AllPrincipals'"
 
     $delegatedPermissionsByScopeUsage | Group-Object -Property ResourceId  | ForEach-Object {
         $Grouped = $_
@@ -115,35 +123,23 @@ function Revoke-SelectedAPIPermissions {
                 Scope = $required -join " "
             }
             if ($whatIf) {
-                "*** Invoke-MgGraphRequest -Method PATCH -Uri ""https://graph.microsoft.com/v1.0/oauth2PermissionGrants/$OAuth2PermissionGrantId"" -Body `$params"
+                "*** Update-MgOauth2PermissionGrant -OAuth2PermissionGrantId $OAuth2PermissionGrantId -BodyParameter `$params"
+                "*** With parameters:"
                 $params | ConvertTo-Json 
             }
             else {
-                # PowerShell
-                # $permissionGrant= Update-MgOauth2PermissionGrant -OAuth2PermissionGrantId $OAuth2PermissionGrantId -BodyParameter $params
-                # PowerShell
-
-                # Graph API
-                $response = Invoke-MgGraphRequest -Method PATCH -Uri "https://graph.microsoft.com/v1.0/oauth2PermissionGrants/$OAuth2PermissionGrantId" -Body $params
-                # Graph API
+                Update-MgOauth2PermissionGrant -OAuth2PermissionGrantId $OAuth2PermissionGrantId -BodyParameter $params
             }
         }
         elseif ( $null -eq $required -and $null -ne $notRequired) {
             "Deleting all API Permissions for $( $Grouped.Group[0].Resource)."
             if ($whatIf) {
-                "*** Invoke-MgGraphRequest -Method  DELETE -Uri ""https://graph.microsoft.com/v1.0/oauth2PermissionGrants/$OAuth2PermissionGrantId"""
+                "*** Remove-MgOauth2PermissionGrant -OAuth2PermissionGrantId $OAuth2PermissionGrantId"
             }
             else {
-                # PowerShell
-                # Remove-MgOauth2PermissionGrant -OAuth2PermissionGrantId $OAuth2PermissionGrantId
-                # PowerShell
-
-                # Graph API
-                $response = Invoke-MgGraphRequest -Method  DELETE -Uri "https://graph.microsoft.com/v1.0/oauth2PermissionGrants/$OAuth2PermissionGrantId"
-                $response 
-                # Graph API
+                Remove-MgOauth2PermissionGrant -OAuth2PermissionGrantId $OAuth2PermissionGrantId
+            
             }
-
         }
     }
 }
@@ -151,7 +147,11 @@ function Revoke-SelectedAPIPermissions {
     .DESCRIPTION
     The Get-SPFxAPIPermissions function retrieves permissions REQUESTED by SPFx solutions
     It audits tenant-level and site-level app catalogs
-    API permissions (Sites.Selected) must be assigned on the level of each site audited (tenant- and site level)
+    
+
+    Permissions required: 
+    API permissions 'Sites.Selected'
+    read access must be assigned on the level of each site audited (tenant- and site level)
 #>
 function Get-SPFxAPIPermissions {
     param(
@@ -327,12 +327,14 @@ function Get-Usage {
 
 <#
     .DESCRIPTION
-    The Invoke-APIPermissions_SPOCEWAP removes unused API permissions assigned to the 
+    The Invoke-CleanupAPIPermissions removes unused API permissions assigned to the 
     "SharePoint Online Client Extensibility Web Application Principal".
 
-    It calls the Get-GrantedAPIPermissions_SPO function to Retrieves permissions assigned to the SP service principal
+    It  retrieves permissions assigned to the SPO service principal, compares them with API permissions requested by 
+    SPFx solutions installed in tenant- and site-level app catalogs, and removes any API permissions that are assigned to the SPO 
+    principal but not explicitely requested by any of the SPFx solutions.
 #>
-function Invoke-APIPermissions_SPOCEWAP {
+function Invoke-CleanupAPIPermissions {
     Param(
         [Parameter (Mandatory = $true)]
         [string]$tenantName,
@@ -370,5 +372,5 @@ function Invoke-APIPermissions_SPOCEWAP {
 
 }
 # Main runbook content 
-Invoke-APIPermissions_SPOCEWAP -tenantName $tenantName -appCatalogSiteName $appCatalogSiteName -whatIf $WhatIf.IsPresent -interactive $Interactive.IsPresent
+Invoke-CleanupAPIPermissions -tenantName $tenantName -appCatalogSiteName $appCatalogSiteName -whatIf $WhatIf.IsPresent -interactive $Interactive.IsPresent
 
