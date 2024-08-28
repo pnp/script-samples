@@ -1,0 +1,568 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html lang="en">
+  
+  <head>
+    <meta charset="utf-8">
+    <title>Remove unused API Permissions assigned to &quot;SharePoint Online Client Extensibility Web Application Principal&quot; | PnP Samples </title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" "="">
+    <meta name="title" content="Remove unused API Permissions assigned to &quot;SharePoint Online Client Extensibility Web Application Principal&quot; | PnP Samples ">
+    <meta name="generator" content="docfx 2.56.7.0">
+    <meta name="description" content="A sample gallery of scripts to manage all things Microsoft 365.">
+  
+    <!-- Social Media -->
+    <meta property="og:locale" content="en_GB">
+    <meta property="og:title" content="Remove unused API Permissions assigned to &quot;SharePoint Online Client Extensibility Web Application Principal&quot; | PnP Samples ">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://pnp.github.io/script-samples">
+    <meta property="og:image" content="https://pnp.github.io/script-samples/assets/social-media-screenshot.png">
+    <meta property="og:image:alt" content="Screenshot example of the PnP Script Samples Site">
+    <meta property="og:site_name" content="PnP Script Samples">
+    <meta name="msvalidate.01" content="04EFEDA66EC42C08A1247C979E2F9ADD">
+    <meta property="og:description" content="A sample gallery of scripts to manage all things Microsoft 365.">
+  
+    <link rel="shortcut icon" href="https://c.s-microsoft.com/favicon.ico?v2">
+    <link rel="stylesheet" href="../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../styles/docfx.css">
+    <link rel="stylesheet" href="../styles/main.css">
+    <link rel="stylesheet" href="../styles/extra.css">
+    <link rel="stylesheet" href="../styles/filter.css">
+    <link rel="stylesheet" href="../styles/site.css">
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet"> 
+    <meta property="docfx:navrel" content="../toc.html">
+    <meta property="docfx:tocrel" content="../toc.html">
+    
+    
+    <meta property="docfx:newtab" content="true">
+    <script type="text/javascript">
+      (function(c,l,a,r,i,t,y){
+          c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+          t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+          y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+      })(window, document, "clarity", "script", "8j6pedl344");
+  </script>
+  </head>  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+             <div class="github-mark">
+              <a href="https://github.com/pnp/script-samples" title="Go to repository">
+               <div class="github-wrapper">
+                  <div class="github-icon">
+                    <img src="https://pnp.github.io/script-samples/assets/icons/github-light-64px.png" alt="GitHub Icon Image">
+                  </div>
+                  <div class="github-repository">
+                    <span>GitHub</span>
+                    <ul class="github-facts">
+                      <li>
+                        <i class="fa fa-code-fork" aria-hidden="true"></i>
+                        <span class="github-forks"></span>
+                      </li>
+                      <li>
+                        <i class="fa fa-star-o" aria-hidden="true"></i>
+                        <span class="github-stars"></span>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </a>
+            </div>
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../assets/logo.svg" alt="">
+              </a>    </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <label class="glyphicon glyphicon-search" for="search-query"></label>
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>      </header>
+      <div role="main" class="container body-content hide-when-search">
+        <div class="article row grid">
+          <div class="col-md-12">
+            <article class="content wrap" id="_content" data-uid="">
+                  <div class="contribution-panel mobile-hide pull-right">
+                      <a href="https://github.com/pnp/script-samples/blob/main/scripts/spo-delete-unused-spfx-apipermissions/README.md/#L1" title="Improve this Doc" class="improve-doc-lg"><i class="glyphicon glyphicon-pencil"></i></a>
+                  </div>
+                    <h1 id="remove-unused-api-permissions-assigned-to-sharepoint-online-client-extensibility-web-application-principal">Remove unused API Permissions assigned to &quot;SharePoint Online Client Extensibility Web Application Principal&quot;</h1>
+
+<h2 id="summary">Summary</h2>
+<p>To enhance your tenant's security posture, it's crucial to regularly review the API permissions requested
+by SPFx solutions and compare them with those granted to the &quot;SharePoint Online Client Extensibility Web Application Principal&quot;.</p>
+<p>This script removes unused API permissions assigned to the &quot;SharePoint Online Client Extensibility Web Application Principal&quot;.</p>
+<p>It first retrieves permissions assigned to the SPO service principal,</p>
+<p><img src="assets/ApiPermissionsBefore.png" alt="Api Permissions Before"></p>
+<p>compares them with API permissions requested by  SPFx solutions installed in tenant- and site-level app catalogs, and removes any API permissions that are assigned to the SPO principal but not explicitely requested by any of the SPFx solutions.</p>
+<p><img src="assets/ApiPermissionsAfter.png" alt="Api Permissions After"></p>
+<p>To execute the script interactively, use the <code>-Interactive</code> flag. When using this script in <strong>Azure Runbook/Azure Function</strong>, make sure to <strong>enable System-assigned Managed Identity</strong> and grant all necessary API Permissions.</p>
+<p>See  <a href="https://pnp.github.io/script-samples/aad-grant-serviceprincipal-api-permissions/README.md">Grant Managed Identity permissions to audit and cleanup &quot;SharePoint Online Client Extensibility Web Application Principal&quot; API permissions</a> script to assign required permissions to Microsoft Graph APIs and SharePoint Online sites.</p>
+<p>To only print the API Permissions that should be removed, use the <code>-WhatIf</code> flag.</p>
+<p><img src="assets/Output.png" alt="What if Output"></p>
+<h2 id="configuration">Configuration</h2>
+<p>To execute this script in Azure Runbook, create an Automation Account and:</p>
+<ul>
+<li>enable System-assigned Managed Identity,</li>
+<li>import the following modules:
+<ul>
+<li>Microsoft.Graph.Authentication</li>
+<li>Microsoft.Graph.Applications</li>
+<li>Microsoft.Graph.Identity.SignIns</li>
+</ul>
+</li>
+<li>create a new Runbook and use the PowerShell script provided below.</li>
+</ul>
+<p>Before executing the script, use the <a href="https://pnp.github.io/script-samples/aad-grant-serviceprincipal-api-permissions/README.md">Grant Managed Identity permissions to audit and cleanup &quot;SharePoint Online Client Extensibility Web Application Principal&quot; API permissions</a> script to assign required permissions to Microsoft Graph APIs and SharePoint Online sites.</p>
+<p>This script was tested in Azure Runbooks using both, the 5.1 and 7.2 runtime versions, and locally using PowerShell 7.4.5.</p>
+<div class="tabGroup" id="tabgroup_CeZOj-G++Q">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_CeZOj-G++Q_graphps" role="tab" aria-controls="tabpanel_CeZOj-G++Q_graphps" data-tab="graphps" tabindex="0" aria-selected="true">Microsoft Graph PowerShell</a>
+</li>
+</ul>
+<section id="tabpanel_CeZOj-G++Q_graphps" role="tabpanel" data-tab="graphps"><button class="article-clipboard" title="Copy to clipboard" data-toggle="tooltip" data-placement="top" data-clipboard-target="section[id^='tabpanel'][data-tab='graphps'] pre">
+    <span class="glyphicon glyphicon-copy" aria-hidden="true"></span>
+    <span class="article-clipboard__message done">Copied</span>
+</button>
+
+<pre><code class="lang-powershell">&lt;#
+    .DESCRIPTION
+        To enhance your tenant's security posture, it's crucial to regularly review the API permissions requested 
+        by SPFx solutions and compare them with those granted to the 
+        &quot;SharePoint Online Client Extensibility Web Application Principal&quot;.
+
+        IMPORTANT:
+        To execute the script interactively, use the `-Interactive` flag.
+        When using this script in Azure Runbook/Azure Function, make sure to enable System-assigned Managed Identity
+        and grant all necessary API Permissions. 
+        See [Grant Managed Identity permissions to audit and cleanup &quot;SharePoint Online Client Extensibility Web Application Principal&quot; API permissions](https://pnp.github.io/script-samples/aad-grant-serviceprincipal-api-permissions/README.md)
+
+        To only print the API Permissions that should be removed, use the `-WhatIf` flag.
+
+
+        To lists active SharePoint site collection application catalogs: 
+        https://pnp.github.io/script-samples/spo-list-site-app-catalogs/README.html?tabs=cli-m365-ps
+
+    .NOTES
+        AUTHOR: Kinga Kazala
+        LASTEDIT: Aug 26, 2024
+#&gt;
+Param(
+    [Parameter (Mandatory = $true)]
+    [String] $tenantName = &quot;your-tenant-name&quot;,
+    [Parameter (Mandatory = $true)]
+    [String] $appCatalogSiteName = &quot;appcatalog&quot;,
+    [Parameter (Mandatory = $true)]
+    [switch]$WhatIf = $false,
+    [switch]$Interactive = $false
+)
+#####################################
+# The following PS modules must be added to the Azure Runbook
+# Microsoft.Graph.Authentication
+# Microsoft.Graph.Applications
+# Microsoft.Graph.Identity.SignIns
+#
+#####################################
+$Global:SPOAppName = &quot;SharePoint Online Client Extensibility Web Application Principal&quot;
+
+&lt;#
+    .DESCRIPTION
+    The Get-GrantedAPIPermissions function retrieves permissions ASSIGNED to the  &quot;SharePoint Online Client Extensibility Web Application Principal&quot; service principal
+    
+    Permissions required: 'Application.Read.All'
+
+    .OUTPUTS
+    API permissions assigned to the   &quot;SharePoint Online Client Extensibility Web Application Principal&quot; for application and delegated modes
+    * Application mode API permissions are NOT supported for this principal
+    #####################################
+#&gt;
+function Get-GrantedAPIPermissions {
+    param(
+    )
+    Try {
+
+        #####################################
+        # Get API Permissions for SharePoint Online Client Extensibility Web Application Principal
+        #####################################
+
+        $servicePrincipal = Get-MgServicePrincipal -Filter  &quot;DisplayName eq '$($Global:SPOAppName)'&quot;
+
+        #Delegated permission grants authorizing this service principal to access an API on behalf of a signed-in user.
+        $permissions = Get-MgServicePrincipalOauth2PermissionGrant -ServicePrincipalId $servicePrincipal.Id
+
+        $permissionsDelegated = $permissions | ForEach-Object {
+            # retrieve delegated permissions of the resource service principal
+            $resource = Get-MgServicePrincipal -ServicePrincipalId $_.ResourceId
+
+            [PSCustomObject]@{
+                Scope      = $_.Scope
+                ResourceId = $_.ResourceId
+                Resource   = $resource.DisplayName
+                AllUsers   = $_.ConsentType -eq &quot;AllPrincipals&quot;
+            }
+        }
+
+        #this is NOT supported for the &quot;SharePoint Online Client Extensibility Web Application Principal&quot;. Result should always be empty
+        $permissionsApplication = get-MgServicePrincipalAppRoleAssignment -ServicePrincipalId $servicePrincipal.Id
+        If ($null -ne $permissionsApplication) {
+            Write-Warning (&quot;Assigning Application permissions to the 'SharePoint Online Client Extensibility Web Application Principal' is NOT SUPPORTED&quot;) -ForegroundColor Red
+        }
+
+        @{
+            delegated   = $permissionsDelegated
+            application = $permissionsApplication
+        }
+
+    }
+    Catch {
+        Write-Error &quot;Error downloading API Permissions information: $($_.Exception.Message)&quot;
+    }
+}
+&lt;# 
+    .DESCRIPTION
+    The Revoke-SelectedAPIPermissio function removes unused API permissions assgined to the  
+    &quot;SharePoint Online Client Extensibility Web Application Principal&quot;.
+    
+    Permissions required: 'DelegatedPermissionGrant.ReadWrite.All'
+#&gt;
+function Revoke-SelectedAPIPermissions {
+    param(
+        [System.Object] $delegatedPermissionsByScopeUsage ,
+        [bool] $whatIf
+    )
+    $servicePrincipal = Get-MgServicePrincipal -Filter  &quot;DisplayName eq '$($Global:SPOAppName)'&quot;
+
+    $permissions = Get-MgOauth2PermissionGrant -Filter &quot;ClientId eq '$($servicePrincipal.Id)' and ConsentType eq 'AllPrincipals'&quot;
+
+    $delegatedPermissionsByScopeUsage | Group-Object -Property ResourceId  | ForEach-Object {
+        $Grouped = $_
+        
+        $OAuth2PermissionGrant = $permissions | Where-Object { $_.ResourceId -eq $Grouped.Name }
+        $OAuth2PermissionGrantId = $OAuth2PermissionGrant.id
+       
+        $required = ($Grouped.Group | Where-Object { $null -ne $_.spfxName }).Scope
+        $notRequired = ($Grouped.Group | Where-Object { $null -eq $_.spfxName }).Scope
+
+        if ( $null -ne $required -and $null -ne $notRequired) {
+            &quot;Updating API Permissions for $( $Grouped.Group[0].Resource). Removing $( $notRequired -join ', ')&quot;
+            $params = @{
+                Scope = $required -join &quot; &quot;
+            }
+            if ($whatIf) {
+                &quot;*** Update-MgOauth2PermissionGrant -OAuth2PermissionGrantId $OAuth2PermissionGrantId -BodyParameter `$params&quot;
+                &quot;*** With parameters:&quot;
+                $params | ConvertTo-Json 
+            }
+            else {
+                Update-MgOauth2PermissionGrant -OAuth2PermissionGrantId $OAuth2PermissionGrantId -BodyParameter $params
+            }
+        }
+        elseif ( $null -eq $required -and $null -ne $notRequired) {
+            &quot;Deleting all API Permissions for $( $Grouped.Group[0].Resource).&quot;
+            if ($whatIf) {
+                &quot;*** Remove-MgOauth2PermissionGrant -OAuth2PermissionGrantId $OAuth2PermissionGrantId&quot;
+            }
+            else {
+                Remove-MgOauth2PermissionGrant -OAuth2PermissionGrantId $OAuth2PermissionGrantId
+            
+            }
+        }
+    }
+}
+&lt;#
+    .DESCRIPTION
+    The Get-SPFxAPIPermissions function retrieves permissions REQUESTED by SPFx solutions
+    It audits tenant-level and site-level app catalogs
+    
+
+    Permissions required: 
+    API permissions 'Sites.Selected'
+    read access must be assigned on the level of each site audited (tenant- and site level)
+#&gt;
+function Get-SPFxAPIPermissions {
+    param(
+        [string]$domainName,
+        [string]$appcatalog
+    )
+
+    &lt;#
+    Function Get-SitesWithAppCatalog returns url part after /sites/ for each site with an app catalog
+    #&gt;
+    function Get-SitesWithAppCatalog {
+        param(
+            [string]$domainName,
+            [string]$appcatalog
+        )
+
+        $listTitle = &quot;Site Collection App Catalogs&quot;
+        $expandQuery = '$expand=fields($select=id,sitecollectionurl)'
+        $listItems = Invoke-MgGraphRequest -Method GET `
+            &quot;https://graph.microsoft.com/v1.0/sites/$($domainName):/sites/$($appcatalog):/lists/$($listTitle)/items?$expandQuery&quot;
+
+        $siteAppCatalogs = $listItems.value | ForEach-Object { 
+            $url = $_.fields.SiteCollectionUrl
+            $res = $url -match &quot;sites/(?&lt;siteName&gt;.*)&quot;
+            if ($res) {
+                $matches[&quot;siteName&quot;]
+            }
+        }
+        $siteAppCatalogs += $appcatalog 
+
+        $siteAppCatalogs
+    }
+    function Get-SPFSolutionsAndAPIPermissions {
+        param(
+            [string]$domainName,
+            [string[]]$siteUrls
+        )
+
+        $siteUrls | ForEach-Object {
+
+            $siteUrl = $_
+            $ErrorActionPreference = 'SilentlyContinue'
+
+            $listTitle = &quot;Apps for SharePoint&quot;
+            $expandQuery = '$expand=fields($select=FileLeafRef, AppVersion,WebApiPermissionScopesNote,Title)'
+            $listItems = Invoke-MgGraphRequest -Method GET `
+                &quot;https://graph.microsoft.com/v1.0/sites/$($domainName):/sites/$($siteUrl):/lists/$($listTitle)/items?$expandQuery&quot;
+            
+            $listItems.value | ForEach-Object { 
+                if ($null -ne $_ -and $null -ne $_.fields) {
+                    [PSCustomObject]@{
+                        siteURL        = &quot;https://$domainName/sites/$siteUrl&quot;
+                        fileName       = $_.fields.FileLeafRef
+                        version        = &quot;v$($_.fields.AppVersion)&quot;
+                        apiPermissions = $_.fields.WebApiPermissionScopesNote
+                        title          = $_.fields.Title
+                        Error          = &quot;&quot;
+                    }
+                }
+                else {
+                    [PSCustomObject]@{
+                        siteURL        = &quot;https://$domainName/sites/$siteUrl&quot;
+                        fileName       = &quot;&quot;
+                        version        = &quot;&quot;
+                        apiPermissions = &quot;&quot;
+                        title          = &quot;&quot;
+                        Error          = &quot;Site not found or access denied.&quot;
+                    }
+                }
+            }
+        }
+       
+    }
+
+    $siteUrls = Get-SitesWithAppCatalog -domainName $domainName -appcatalog $appcatalog
+    Get-SPFSolutionsAndAPIPermissions -domainName $domainName -siteUrls $siteUrls
+}
+&lt;#
+    .DESCRIPTION
+    The Get-Usage function analyzes API permissions requested by SPFx solutions and 
+    the API Permissions assigned to the SharePoint Online Client Extensibility Web Application Principal.
+    It groups the API permissions by Resource and Scope, and extends the assigned API permissions information 
+    with a reference to SPFx solutions that use them.
+
+    .OUTPUTS 
+    spfxPermissionsByScope: value of the spfxPermissionsRequested parameter, grouped by Resource and Scope
+    delegatedPermissionsByScopeUsage: value of the apiPermissionsGranted parameter, grouped by Resource and Scope and with a reference to SPFx solutions that use the permissions
+#&gt;
+function Get-Usage {
+    param(
+        [System.Object]$apiPermissionsGranted, 
+        [System.Object]$spfxPermissionsRequested 
+    )
+    
+    function Get-SpfxPermissionsByScope {
+        param(
+            [System.Object]$spfxPermissions
+        )
+        $arr = @()
+        $spfxPermissions | ForEach-Object {
+            $fileName = $_.fileName
+            $title = $_.title
+            $_.apiPermissions -split &quot;; &quot; |  Sort-Object | Get-Unique | ForEach-Object { 
+                $resource, $scope = $_.Trim() -split &quot;, &quot; 
+                $item = $arr | Where-Object { $_.Resource -eq $resource -and $_.Scope -eq $scope }
+                if ($null -eq $item) {
+                    $arr += [PSCustomObject]@{
+                        Resource = $resource
+                        Scope    = $scope
+                        fileName = @($fileName)
+                        title    = @($title)
+                    }
+                }
+                else {
+                    If ($item.fileName -notcontains $fileName) {
+                        $item.fileName += $fileName
+                        $item.title += $title
+                    }
+
+                }
+            }
+        }
+        $arr
+    }
+    function Get-GrantedPermissionsByScope {
+        param(
+            [System.Object] $apiPermissionsDelegated 
+        )
+        $apiPermissionsDelegated | ForEach-Object {
+            $item = $_
+            $_.Scope -split &quot; &quot; | ForEach-Object {
+                [PSCustomObject]@{
+                    Resource   = $item.Resource
+                    ResourceId = $item.ResourceId
+                    Scope      = $_
+                    AllUsers   = $item.AllUsers
+                }
+            }
+            
+        }
+    }
+    function Join-Arrays {
+        param (
+            [Parameter(Mandatory = $true)] [array]$Left,
+            [Parameter(Mandatory = $true)] [array]$Right
+        )
+
+        foreach ($leftItem in $Left) {
+            $match = $Right | Where-Object { $leftItem.Resource -eq $_.Resource -and $leftItem.Scope -eq $_.Scope }
+            [PSCustomObject]@{
+                Resource     = $leftItem.Resource
+                ResourceId   = $leftItem.ResourceId
+                Scope        = $leftItem.Scope
+                AllUsers     = $leftItem.AllUsers
+                spfxName     = $match.fileName
+                SolutionName = $match.title
+            }
+        }
+    }
+
+
+    # | Scope | Permission | array(fileName) | array(title) |
+    $spfxPermissionsByScope = Get-SpfxPermissionsByScope -spfxPermissions ( $spfxPermissionsRequested | Where-Object { $null -ne $_.apiPermissions } )
+    $delegatedPermissionsByScope = Get-GrantedPermissionsByScope -apiPermissionsDelegated $apiPermissionsGranted.delegated
+
+    $delegatedPermissionsByScopeUsage = Join-Arrays -Left $delegatedPermissionsByScope -Right $spfxPermissionsByScope
+
+    @{
+        spfxPermissionsByScope           = $spfxPermissionsByScope
+        delegatedPermissionsByScopeUsage = $delegatedPermissionsByScopeUsage
+    }
+}
+
+&lt;#
+    .DESCRIPTION
+    The Invoke-CleanupAPIPermissions removes unused API permissions assigned to the 
+    &quot;SharePoint Online Client Extensibility Web Application Principal&quot;.
+
+    It  retrieves permissions assigned to the SPO service principal, compares them with API permissions requested by 
+    SPFx solutions installed in tenant- and site-level app catalogs, and removes any API permissions that are assigned to the SPO 
+    principal but not explicitely requested by any of the SPFx solutions.
+#&gt;
+function Invoke-CleanupAPIPermissions {
+    Param(
+        [Parameter (Mandatory = $true)]
+        [string]$tenantName,
+        [string] $appCatalogSiteName ,
+        [bool] $whatIf ,
+        [bool]$interactive = $false
+    )
+
+    If ($interactive) {
+        Connect-MgGraph -Scopes &quot;Sites.Selected&quot;, &quot;Application.Read.All&quot;, &quot;DelegatedPermissionGrant.ReadWrite.All&quot;
+    }
+    else {
+        #####################################
+        # If MSI is used, two environment variables MSI_ENDPOINT and MSI_SECRET are available
+        #####################################
+        if ($null -eq $env:MSI_ENDPOINT) {
+            Write-Error &quot;To execute this script, please enable Managed Identity for this automation, and grant all required API permissions&quot;
+            return
+        }
+  
+        Connect-MgGraph  -Identity -NoWelcome
+    }
+    &quot;Connected&quot;
+        
+    # Get API permissions granted to the SPO service principal
+    $apiPermissionsGranted = Get-GrantedAPIPermissions 
+    # Get API permissions requested by SPFx solutions 
+    # Important: if the Managed Identity doesn't have access to a site (e.g. site-level app catalog, the results will be incomplete)
+    $spfxPermissionsRequested = Get-SPFxAPIPermissions -domainName &quot;$tenantName.sharepoint.com&quot; -appcatalog $appCatalogSiteName
+    # compare assigned and requested API permissions    
+    $apiUsageInfo = Get-Usage -apiPermissionsGranted $apiPermissionsGranted  -spfxPermissionsRequested $spfxPermissionsRequested 
+    
+    # remove unused API permissions assignments
+    Revoke-SelectedAPIPermissions -delegatedPermissionsByScopeUsage $apiUsageInfo.delegatedPermissionsByScopeUsage -whatIf $whatIf
+
+}
+# Main runbook content 
+Invoke-CleanupAPIPermissions -tenantName $tenantName -appCatalogSiteName $appCatalogSiteName -whatIf $WhatIf.IsPresent -interactive $Interactive.IsPresent
+</code></pre>
+<div class="highlight-tool">
+<p>Check out the <strong>Microsoft Graph PowerShell SDK</strong> to learn more at: <a href="https://learn.microsoft.com/graph/powershell/get-started">https://learn.microsoft.com/graph/powershell/get-started</a></p>
+</div>
+</section>
+</div>
+<h2 id="source-credit">Source Credit</h2>
+<p>This script is an enhancement of the previous version, <a href="https://pnp.github.io/script-samples/spo-get-spfx-apipermissions/README.html">GET API Permissions for SPFx solutions</a>, designed to run without user interaction and without the need to temporarily assign owner rights to the current user.</p>
+<p>It now supports scheduling when used in Azure Automation.</p>
+<p>Additionally, it includes the capability to delete unused permissions, a feature inspired by Reshmee Auckloo’s excellent blog post, <a href="https://reshmeeauckloo.com/posts/powershell-remove-webapipermission-spfx/">&quot;PowerShell: Removing Web API Permissions for SPFx Solutions used by EntraID SharePoint Online Web Client Extensibility&quot;</a>.</p>
+<h2 id="contributors">Contributors</h2>
+<table>
+<thead>
+<tr>
+<th>Author(s)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Kinga Kazala</td>
+</tr>
+</tbody>
+</table>
+<h2 id="disclaimer">Disclaimer</h2>
+<p><strong>THESE SAMPLES ARE PROVIDED <em>AS IS</em> WITHOUT WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, INCLUDING ANY IMPLIED WARRANTIES OF FITNESS FOR A PARTICULAR PURPOSE, MERCHANTABILITY, OR NON-INFRINGEMENT.</strong></p>
+<img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/template-script-submission" aria-hidden="true">
+</article>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            <span>Script Samples<br>Generated by <strong><a href='https://dotnet.github.io/docfx' alt='Doc FX Website'>DocFX</a></strong> with <strong><a href='https://ovasquez.github.io/docfx-material' alt='DocFx Material Theme'>Material UI</a></strong></span>
+            
+            <!-- <img src="https://telemetry.sharepointpnp.com/@pnp.github.io/index/" alt="spacer"> -->
+          </div>
+        </div>
+      </footer>    </div>
+    
+    <script type="text/javascript" src="../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+    
+    <script type="text/javascript" src="../styles/clipboard.min.js"></script>
+    <script type="text/javascript" src="../styles/isotope.pkgd.min.js"></script>
+    <script type="text/javascript" src="../styles/loadsamples.js"></script>
+    <script type="text/javascript" src="../styles/filtersamples.js"></script>
+
+  </body>
+</html>
