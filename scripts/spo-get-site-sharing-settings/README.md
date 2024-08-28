@@ -119,7 +119,7 @@ $adminConnection = Get-PnPConnection
 
 ## Source Credit
 
-Sample first appeared on [PowerShell Script to Query Unique Permissions in SharePoint](https://reshmeeauckloo.com/posts/powershell-sharing-settings-sharepoint-site/)
+Sample first appeared on [Get SharePoint site sharing Settings with PowerShell](https://reshmeeauckloo.com/posts/powershell-sharing-settings-sharepoint-site/)
 
 ## Contributors
 
