@@ -4,15 +4,15 @@
   
   <head>
     <meta charset="utf-8">
-    <title>Ensure all required Content Types are available before Get-PnPSiteTemplate | PnP Samples </title>
+    <title>Find every page that contains a Modern Script Editor web part | PnP Samples </title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" "="">
-    <meta name="title" content="Ensure all required Content Types are available before Get-PnPSiteTemplate | PnP Samples ">
+    <meta name="title" content="Find every page that contains a Modern Script Editor web part | PnP Samples ">
     <meta name="generator" content="docfx 2.56.7.0">
     <meta name="description" content="A sample gallery of scripts to manage all things Microsoft 365.">
   
     <!-- Social Media -->
     <meta property="og:locale" content="en_GB">
-    <meta property="og:title" content="Ensure all required Content Types are available before Get-PnPSiteTemplate | PnP Samples ">
+    <meta property="og:title" content="Find every page that contains a Modern Script Editor web part | PnP Samples ">
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://pnp.github.io/script-samples">
     <meta property="og:image" content="https://pnp.github.io/script-samples/assets/social-media-screenshot.png">
@@ -94,12 +94,16 @@
           <div class="col-md-12">
             <article class="content wrap" id="_content" data-uid="">
                   <div class="contribution-panel mobile-hide pull-right">
-                      <a href="https://github.com/pnp/script-samples/blob/main/scripts/spo-ensure-cts-before-template/README.md/#L1" title="Improve this Doc" class="improve-doc-lg"><i class="glyphicon glyphicon-pencil"></i></a>
+                      <a href="https://github.com/pnp/script-samples/blob/main/scripts/spo-find-script-editor-webpart-using-search/README.md/#L1" title="Improve this Doc" class="improve-doc-lg"><i class="glyphicon glyphicon-pencil"></i></a>
                   </div>
-                    <h1 id="ensure-all-required-content-types-are-available-before-get-pnpsitetemplate">Ensure all required Content Types are available before Get-PnPSiteTemplate</h1>
+                    <h1 id="find-every-page-that-contains-a-modern-script-editor-web-part">Find every page that contains a Modern Script Editor web part</h1>
 
+<div class="NOTE">
+<h5>Note</h5>
+<p>This is a submission helper template please find the <a href="/docfx/contribute.md">contributor guidance</a> to help you write this scenario.</p>
+</div>
 <h2 id="summary">Summary</h2>
-<p>If one of the Content Types you are using on your master site is part of a Content Type Hierachy, you need to ensure that all the Content Types are available on the site before you use the <code>Get-PnPSiteTemplate</code> cmdlet. This will ensure that you can deploy the Template without any issues.</p>
+<p>Since the Modern Script Editor web part is impacted by the automatic disabling af Custom Scripting every 24 hours, it is a good idea to find all pages that contain this web part. This script will search through all pages in a site collection and return the pages that contain the Modern Script Editor web part.</p>
 <p><img src="assets/example.png" alt="Example Screenshot"></p>
 <div class="tabGroup" id="tabgroup_CeZOj-G++Q">
 <ul role="tablist">
@@ -113,56 +117,26 @@
 </button>
 
 <pre><code class="lang-powershell">
-$sourceUrl = &quot;https://contoso.sharepoint.com/sites/MasterSite&quot;
-$sourceConn = Connect-PnPOnline -Url $sourceUrl -Interactive -ReturnConnection
-$ctHubConn = Connect-PnPOnline -Url &quot;https://contoso.sharepoint.com/sites/contenttypehub&quot; -Interactive -ReturnConnection
-$allcontenttypesInCTHub = Get-PnPContentType -Connection $ctHubConn
+#locate all page containing a Script Editor Web part
 
-function getParentContenttype($contentType) 
-{
-    $contenttypes = @()
-    if($contentType.Id.StringValue -eq &quot;0x01&quot; -or $contentType.Id.StringValue -eq &quot;0x0101&quot; -or $contentType.Id.StringValue -eq &quot;0x0120&quot;) #root content type
-    {
-        Write-Host &quot;Root content type&quot; -ForegroundColor Green
-    }
-    else 
-    {
-        write-host &quot;$($contentType.Name) with id $($contentType.Id)&quot; -ForegroundColor Blue
-        $contenttypes += $contentType.Id
-        $ctInHub = $allcontenttypesInCTHub | Where-Object { $_.Id.StringValue -eq $contentType.Id.StringValue }    
-        $ctInHubParent = Get-PnPProperty -ClientObject $ctInHub -Property Parent -Connection $ctHubConn
-        
-        getParentContenttype($ctInHubParent)
-        
-    }
-    return $contenttypes
-}
+$url = &quot;https://contoso.sharepoint.com/sites/somesite&quot;
+#login in a way that allows you to search all sites. I usually use -ManagedIdentity in Azure Automation/Function
+$conn = Connect-PnPOnline -Url $url -Interactive  -ReturnConnection -WarningAction Ignore
 
-#iterate through all non default lists and libraries on the site
-$lists = Get-PnPList -Connection $sourceConn 
-foreach($list in $lists)
+$IdForScriptEditorWebPart = &quot;3a328f0a-99c4-4b28-95ab-fe0847f657a3&quot;
+$query = 'SPFxExtensionJson:&quot;'+$IdForScriptEditorWebPart+'&quot;'
+$result = Invoke-PnPSearchQuery -Query $query -Connection $conn -All -SelectProperties &quot;Path&quot;, &quot;FileName&quot;
+$result.ResultRows.Count
+#export to csv
+$data = @()
+foreach($row in $result.ResultRows)
 {
-    if($list.Hidden -eq $true -or $list.Title -eq &quot;Site Assets&quot; -or $list.Title -eq &quot;Site Pages&quot; -or $list.Title -eq &quot;Style Library&quot; -or $list.Title -eq &quot;Form Templates&quot; )
-    {
-        Write-Host &quot;Skipping List $($list.Title) as it is a default list&quot; -ForegroundColor Yellow
-    }
-    else 
-    {
-        Write-Host &quot;Processing List $($list.Title)&quot; -ForegroundColor Green
-        $listContentTypes = Get-PnPContentType -List $list.Title -Connection $sourceConn
-        foreach($ct in $listContentTypes)
-        {
-            #get site content type
-            $onsiteCT = Get-PnPContentType -Identity $ct.Name -Connection $sourceConn
-            $result = getParentContenttype($onsiteCT)
-            #add the parent content type to the site
-            foreach($ctId in $result)
-            {
-                Add-PnPContentTypesFromContentTypeHub -ContentTypes $ctId.StringValue -Connection $sourceConn -ErrorAction Stop | Out-Null
-            }
-        }
-    }
+    $item = New-Object PSObject
+    $item | Add-Member -MemberType NoteProperty -Name &quot;Path&quot; -Value $row.Path
+    $item | Add-Member -MemberType NoteProperty -Name &quot;FileName&quot; -Value $row.FileName
+    $data += $item
 }
+$data | Export-Csv -Path &quot;C:\temp\searchresult.csv&quot; -NoTypeInformation 
 
 
 </code></pre>
@@ -189,7 +163,7 @@ foreach($list in $lists)
 </table>
 <h2 id="disclaimer">Disclaimer</h2>
 <p><strong>THESE SAMPLES ARE PROVIDED <em>AS IS</em> WITHOUT WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, INCLUDING ANY IMPLIED WARRANTIES OF FITNESS FOR A PARTICULAR PURPOSE, MERCHANTABILITY, OR NON-INFRINGEMENT.</strong></p>
-<img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/spo-ensure-cts-before-template" aria-hidden="true">
+<img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/spo-find-script-editor-webpart-using-search" aria-hidden="true">
 </article>
           </div>
         </div>
