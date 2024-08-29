@@ -166,52 +166,72 @@ $arraylist | Export-Csv -Path "C:\temp\versiontrimmer.csv" -NoTypeInformation -F
 ```
 [!INCLUDE [More about PnP PowerShell](../../docfx/includes/MORE-PNPPS.md)]
 
+# [PnP PowerShell Version Batch Delete Job](#tab/pnpps)
+
+```PowerShell
+$siteURL = Read-Host "Please enter Site URL"
+$library = Read-Host "Please enter the library name, i.e. Documents or leave blank for the whole site"
+$majorVersionsToKeep = Read-Host "Please enter the number of major versions to keep"
+$majorWithMinorVersionsToKeep = Read-Host "Please enter the number of minor versions to keep"
+
+Connect-PnPOnline  -url $siteURL -Interactive
+if($library){
+ New-PnPLibraryFileVersionBatchDeleteJob -Identity $library -MajorVersionLimit $majorVersionsToKeep  -MajorWithMinorVersionsLimit $majorWithMinorVersionsToKeep
+ Get-PnPLibraryFileVersionBatchDeleteJobStatus -Identity $library
+}
+else{       
+ New-PnPSiteFileVersionBatchDeleteJob -MajorVersionLimit $majorVersionsToKeep  -MajorWithMinorVersionsLimit $majorWithMinorVersionsToKeep
+ Get-PnPSiteFileVersionBatchDeleteJobStatus
+}
+
+Write-Host "End time " (Get-Date)   
+```
 
 # [CLI for Microsoft 365](#tab/cli-m365-ps)
 
 ```powershell
-#Log in to Microsoft 365
-Write-Host "Connecting to Tenant" -f Yellow
-
-$m365Status = m365 status
-if ($m365Status -match "Logged Out") {
-    m365 login
-}
-
-$siteURL = Read-Host "Please enter Site URL"
-$folderUrl = Read-Host "Please enter the server- or site-relative URL of the parent folder"
-$versionsToKeep = Read-Host "Please enter the number of versions to keep"
-
-$filesProcessed = @()   
-
-# Get all files in the list
-$files = m365 spo file list --webUrl $siteURL --folderUrl $folderUrl --recursive --output json | ConvertFrom-Json
-foreach ($file in $files) {
-    $fileVersions = m365 spo file version list --webUrl $siteURL --fileUrl $file.ServerRelativeUrl | ConvertFrom-Json
-
-    if ($fileVersions.Count -gt $versionsToKeep) {
-        $number = $fileVersions.Count - $versionsToKeep - 1
-        $removeVersionList = ($fileversions[0..$number])
-
-        foreach ($versionToDelete in $removeVersionList) {
-            Write-Host "Removing version $($versionToDelete.VersionLabel) from the file $($file.Name)..."
-            m365 spo file version remove --webUrl $siteURL --fileUrl $file.ServerRelativeUrl --label $versionToDelete.VersionLabel --confirm
-        }
-        
-        $filesProcessed += [PSCustomObject]@{
-            SiteUrl   = $siteURL
-            FolderUrl = $folderUrl
-            FileName  = $file.Name
-            FileUrl   = $file.ServerRelativeUrl
-            Versions  = $fileVersions.Count
+    #Log in to Microsoft 365
+    Write-Host "Connecting to Tenant" -f Yellow
+    
+    $m365Status = m365 status
+    if ($m365Status -match "Logged Out") {
+        m365 login
+    }
+    
+    $siteURL = Read-Host "Please enter Site URL"
+    $folderUrl = Read-Host "Please enter the server- or site-relative URL of the parent folder"
+    $versionsToKeep = Read-Host "Please enter the number of versions to keep"
+    
+    $filesProcessed = @()   
+    
+    # Get all files in the list
+    $files = m365 spo file list --webUrl $siteURL --folderUrl $folderUrl --recursive --output json | ConvertFrom-Json
+    foreach ($file in $files) {
+        $fileVersions = m365 spo file version list --webUrl $siteURL --fileUrl $file.ServerRelativeUrl | ConvertFrom-Json
+    
+        if ($fileVersions.Count -gt $versionsToKeep) {
+            $number = $fileVersions.Count - $versionsToKeep - 1
+            $removeVersionList = ($fileversions[0..$number])
+    
+            foreach ($versionToDelete in $removeVersionList) {
+                Write-Host "Removing version $($versionToDelete.VersionLabel) from the file $($file.Name)..."
+                m365 spo file version remove --webUrl $siteURL --fileUrl $file.ServerRelativeUrl --label $versionToDelete.VersionLabel --confirm
+            }
+            
+            $filesProcessed += [PSCustomObject]@{
+                SiteUrl   = $siteURL
+                FolderUrl = $folderUrl
+                FileName  = $file.Name
+                FileUrl   = $file.ServerRelativeUrl
+                Versions  = $fileVersions.Count
+            }
         }
     }
-}
-
-$filesProcessed | Export-Csv -Path ".\VersionTrimmer.csv" -NoTypeInformation -Encoding utf8
-
-m365 logout
-Write-Host "Finished"
+    
+    $filesProcessed | Export-Csv -Path ".\VersionTrimmer.csv" -NoTypeInformation -Encoding utf8
+    
+    m365 logout
+    Write-Host "Finished"
 ```
 
 [!INCLUDE [More about CLI for Microsoft 365](../../docfx/includes/MORE-CLIM365.md)]
