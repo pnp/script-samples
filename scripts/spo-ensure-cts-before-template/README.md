@@ -2,11 +2,11 @@
 plugin: add-to-gallery
 ---
 
-# Ensure all required Content Types are available before Get-PnPContentType 
+# Ensure all required Content Types are available before Get-PnPSiteTemplate
 
 ## Summary
 
-If one of the Content Types you are using on your master site is part of a Content Type Hierachy, you need to ensure that all the Content Types are available on the site before you use the `Get-PnPContentType` cmdlet. This will ensure that you can deploy the Template without any issues.
+If one of the Content Types you are using on your master site is part of a Content Type Hierachy, you need to ensure that all the Content Types are available on the site before you use the `Get-PnPSiteTemplate` cmdlet. This will ensure that you can deploy the Template without any issues.
 
 ![Example Screenshot](assets/example.png)
 
