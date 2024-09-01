@@ -166,25 +166,68 @@ $arraylist | Export-Csv -Path "C:\temp\versiontrimmer.csv" -NoTypeInformation -F
 ```
 [!INCLUDE [More about PnP PowerShell](../../docfx/includes/MORE-PNPPS.md)]
 
-# [PnP PowerShell Version Batch Delete Job](#tab/pnpps)
+# [PnP PowerShell Enhanced Version Control Batch Delete Job](#tab/pnpps)
 
 ```PowerShell
-$siteURL = Read-Host "Please enter Site URL"
-$library = Read-Host "Please enter the library name, i.e. Documents or leave blank for the whole site"
-$majorVersionsToKeep = Read-Host "Please enter the number of major versions to keep"
-$majorWithMinorVersionsToKeep = Read-Host "Please enter the number of minor versions to keep"
+param (
+    [string]$siteURL,
+    [string]$library,
+    [int]$deleteOlderThanDays,
+    [int]$majorVersionsToKeep,
+    [int]$majorWithMinorVersionsToKeep,
+    [switch]$Automatic
+)
 
-Connect-PnPOnline  -url $siteURL -Interactive
-if($library){
- New-PnPLibraryFileVersionBatchDeleteJob -Identity $library -MajorVersionLimit $majorVersionsToKeep  -MajorWithMinorVersionsLimit $majorWithMinorVersionsToKeep
- Get-PnPLibraryFileVersionBatchDeleteJobStatus -Identity $library
-}
-else{       
- New-PnPSiteFileVersionBatchDeleteJob -MajorVersionLimit $majorVersionsToKeep  -MajorWithMinorVersionsLimit $majorWithMinorVersionsToKeep
- Get-PnPSiteFileVersionBatchDeleteJobStatus
+if (-not $siteURL) {
+    $siteURL = Read-Host "Please enter Site URL"
 }
 
-Write-Host "End time " (Get-Date)   
+if (-not $library) {
+    $library = Read-Host "Please enter the library name, i.e. Documents or leave blank for the whole site"
+}
+
+if (-not $Automatic) {
+    if (-not $deleteOlderThanDays) {
+        $deleteOlderThanDays = Read-Host "Enter the number of days to keep versions for or leave blank or 0 to keep major minor versions"
+        if ($deleteOlderThanDays -eq "") {
+            $deleteOlderThanDays = 0
+        }
+        if ($deleteOlderThanDays -eq 0) {
+            $majorVersionsToKeep = Read-Host "Enter the number of major versions to keep"
+            $majorWithMinorVersionsToKeep = Read-Host "Enter the number of major versions with minor versions to keep"
+        }
+    } else {
+        Write-Host "DeleteOlderThanDays is specified. Skipping prompts for major versions to keep."
+    }
+} else {
+    Write-Host "Automatic is specified. Skipping other prompts."
+}
+
+Connect-PnPOnline -url $siteURL -Interactive
+
+if ($library) {
+    if ($Automatic) {
+        New-PnPLibraryFileVersionBatchDeleteJob -Identity $library -Automatic -force
+    } else {
+        if ($deleteOlderThanDays -and $deleteOlderThanDays -gt 0) {
+            New-PnPLibraryFileVersionBatchDeleteJob -Identity $library -deletebeforedays $deleteOlderThanDays -force
+        } else {
+            New-PnPLibraryFileVersionBatchDeleteJob -Identity $library -MajorVersionLimit $majorVersionsToKeep -MajorWithMinorVersionsLimit $majorWithMinorVersionsToKeep -force
+        }
+    }
+    Get-PnPLibraryFileVersionBatchDeleteJobStatus -Identity $library
+} else {
+    if ($Automatic) {
+        New-PnPSiteFileVersionBatchDeleteJob -Automatic -force
+    } else {
+        if ($deleteOlderThanDays) {
+            New-PnPSiteFileVersionBatchDeleteJob -deletebeforedays $deleteOlderThanDays -force
+        } else {
+            New-PnPSiteFileVersionBatchDeleteJob -MajorVersionLimit $majorVersionsToKeep -MajorWithMinorVersionsLimit $majorWithMinorVersionsToKeep -force
+        }
+    }
+    Get-PnPSiteFileVersionBatchDeleteJobStatus
+}
 ```
 
 # [CLI for Microsoft 365](#tab/cli-m365-ps)
@@ -237,7 +280,9 @@ Write-Host "End time " (Get-Date)
 [!INCLUDE [More about CLI for Microsoft 365](../../docfx/includes/MORE-CLIM365.md)]
 
 ***
+## Source Credit
 
+The 'PnP PowerShell Enhanced Version Control Batch Delete Job' sample first appeared on [Enhanced Version Controls/Intelligent Versioning Trim with PowerShell](https://reshmeeauckloo.com/posts/powershell-enhanced-versioning-controls-trim/)
 
 ## Contributors
 
@@ -245,6 +290,7 @@ Write-Host "End time " (Get-Date)
 |-----------|
 | Kasper Larsen |
 | [Nanddeep Nachan](https://github.com/nanddeepn) |
+| [Reshmee Auckloo (script)](https://github.com/reshmee011)|
 
 [!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
 <img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/spo-file-version-trimmer" aria-hidden="true" />
