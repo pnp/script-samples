@@ -166,58 +166,123 @@ $arraylist | Export-Csv -Path "C:\temp\versiontrimmer.csv" -NoTypeInformation -F
 ```
 [!INCLUDE [More about PnP PowerShell](../../docfx/includes/MORE-PNPPS.md)]
 
+# [PnP PowerShell Enhanced Version Control Batch Delete Job](#tab/pnpps2)
+
+```PowerShell
+param (
+    [string]$siteURL,
+    [string]$library,
+    [int]$deleteOlderThanDays,
+    [int]$majorVersionsToKeep,
+    [int]$majorWithMinorVersionsToKeep,
+    [switch]$Automatic
+)
+
+if (-not $siteURL) {
+    $siteURL = Read-Host "Please enter Site URL"
+}
+
+if (-not $library) {
+    $library = Read-Host "Please enter the library name, i.e. Documents or leave blank for the whole site"
+}
+
+if (-not $Automatic) {
+    if (-not $deleteOlderThanDays) {
+        $deleteOlderThanDays = Read-Host "Enter the number of days to keep versions for or leave blank or 0 to keep major minor versions"
+        if ($deleteOlderThanDays -eq "") {
+            $deleteOlderThanDays = 0
+        }
+        if ($deleteOlderThanDays -eq 0) {
+            $majorVersionsToKeep = Read-Host "Enter the number of major versions to keep"
+            $majorWithMinorVersionsToKeep = Read-Host "Enter the number of major versions with minor versions to keep"
+        }
+    } else {
+        Write-Host "DeleteOlderThanDays is specified. Skipping prompts for major versions to keep."
+    }
+} else {
+    Write-Host "Automatic is specified. Skipping other prompts."
+}
+
+Connect-PnPOnline -url $siteURL -Interactive
+
+if ($library) {
+    if ($Automatic) {
+        New-PnPLibraryFileVersionBatchDeleteJob -Identity $library -Automatic -force
+    } else {
+        if ($deleteOlderThanDays -and $deleteOlderThanDays -gt 0) {
+            New-PnPLibraryFileVersionBatchDeleteJob -Identity $library -deletebeforedays $deleteOlderThanDays -force
+        } else {
+            New-PnPLibraryFileVersionBatchDeleteJob -Identity $library -MajorVersionLimit $majorVersionsToKeep -MajorWithMinorVersionsLimit $majorWithMinorVersionsToKeep -force
+        }
+    }
+    Get-PnPLibraryFileVersionBatchDeleteJobStatus -Identity $library
+} else {
+    if ($Automatic) {
+        New-PnPSiteFileVersionBatchDeleteJob -Automatic -force
+    } else {
+        if ($deleteOlderThanDays) {
+            New-PnPSiteFileVersionBatchDeleteJob -deletebeforedays $deleteOlderThanDays -force
+        } else {
+            New-PnPSiteFileVersionBatchDeleteJob -MajorVersionLimit $majorVersionsToKeep -MajorWithMinorVersionsLimit $majorWithMinorVersionsToKeep -force
+        }
+    }
+    Get-PnPSiteFileVersionBatchDeleteJobStatus
+}
+```
 
 # [CLI for Microsoft 365](#tab/cli-m365-ps)
 
 ```powershell
-#Log in to Microsoft 365
-Write-Host "Connecting to Tenant" -f Yellow
-
-$m365Status = m365 status
-if ($m365Status -match "Logged Out") {
-    m365 login
-}
-
-$siteURL = Read-Host "Please enter Site URL"
-$folderUrl = Read-Host "Please enter the server- or site-relative URL of the parent folder"
-$versionsToKeep = Read-Host "Please enter the number of versions to keep"
-
-$filesProcessed = @()   
-
-# Get all files in the list
-$files = m365 spo file list --webUrl $siteURL --folderUrl $folderUrl --recursive --output json | ConvertFrom-Json
-foreach ($file in $files) {
-    $fileVersions = m365 spo file version list --webUrl $siteURL --fileUrl $file.ServerRelativeUrl | ConvertFrom-Json
-
-    if ($fileVersions.Count -gt $versionsToKeep) {
-        $number = $fileVersions.Count - $versionsToKeep - 1
-        $removeVersionList = ($fileversions[0..$number])
-
-        foreach ($versionToDelete in $removeVersionList) {
-            Write-Host "Removing version $($versionToDelete.VersionLabel) from the file $($file.Name)..."
-            m365 spo file version remove --webUrl $siteURL --fileUrl $file.ServerRelativeUrl --label $versionToDelete.VersionLabel --confirm
-        }
-        
-        $filesProcessed += [PSCustomObject]@{
-            SiteUrl   = $siteURL
-            FolderUrl = $folderUrl
-            FileName  = $file.Name
-            FileUrl   = $file.ServerRelativeUrl
-            Versions  = $fileVersions.Count
+    #Log in to Microsoft 365
+    Write-Host "Connecting to Tenant" -f Yellow
+    
+    $m365Status = m365 status
+    if ($m365Status -match "Logged Out") {
+        m365 login
+    }
+    
+    $siteURL = Read-Host "Please enter Site URL"
+    $folderUrl = Read-Host "Please enter the server- or site-relative URL of the parent folder"
+    $versionsToKeep = Read-Host "Please enter the number of versions to keep"
+    
+    $filesProcessed = @()   
+    
+    # Get all files in the list
+    $files = m365 spo file list --webUrl $siteURL --folderUrl $folderUrl --recursive --output json | ConvertFrom-Json
+    foreach ($file in $files) {
+        $fileVersions = m365 spo file version list --webUrl $siteURL --fileUrl $file.ServerRelativeUrl | ConvertFrom-Json
+    
+        if ($fileVersions.Count -gt $versionsToKeep) {
+            $number = $fileVersions.Count - $versionsToKeep - 1
+            $removeVersionList = ($fileversions[0..$number])
+    
+            foreach ($versionToDelete in $removeVersionList) {
+                Write-Host "Removing version $($versionToDelete.VersionLabel) from the file $($file.Name)..."
+                m365 spo file version remove --webUrl $siteURL --fileUrl $file.ServerRelativeUrl --label $versionToDelete.VersionLabel --confirm
+            }
+            
+            $filesProcessed += [PSCustomObject]@{
+                SiteUrl   = $siteURL
+                FolderUrl = $folderUrl
+                FileName  = $file.Name
+                FileUrl   = $file.ServerRelativeUrl
+                Versions  = $fileVersions.Count
+            }
         }
     }
-}
-
-$filesProcessed | Export-Csv -Path ".\VersionTrimmer.csv" -NoTypeInformation -Encoding utf8
-
-m365 logout
-Write-Host "Finished"
+    
+    $filesProcessed | Export-Csv -Path ".\VersionTrimmer.csv" -NoTypeInformation -Encoding utf8
+    
+    m365 logout
+    Write-Host "Finished"
 ```
 
 [!INCLUDE [More about CLI for Microsoft 365](../../docfx/includes/MORE-CLIM365.md)]
 
 ***
+## Source Credit
 
+The 'PnP PowerShell Enhanced Version Control Batch Delete Job' sample first appeared on [Enhanced Version Controls/Intelligent Versioning Trim with PowerShell](https://reshmeeauckloo.com/posts/powershell-enhanced-versioning-controls-trim/)
 
 ## Contributors
 
@@ -225,6 +290,7 @@ Write-Host "Finished"
 |-----------|
 | Kasper Larsen |
 | [Nanddeep Nachan](https://github.com/nanddeepn) |
+| [Reshmee Auckloo (script)](https://github.com/reshmee011)|
 
 [!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
 <img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/spo-file-version-trimmer" aria-hidden="true" />
