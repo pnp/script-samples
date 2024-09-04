@@ -109,6 +109,9 @@ Be aware that the change will take up to 24 hours to be visible in the SharePoin
 <a href="#tabpanel_CeZOj-G++Q_pnpps" role="tab" aria-controls="tabpanel_CeZOj-G++Q_pnpps" data-tab="pnpps" tabindex="0" aria-selected="true">PnP PowerShell</a>
 </li>
 <li role="presentation">
+<a href="#tabpanel_CeZOj-G++Q_pnpps2" role="tab" aria-controls="tabpanel_CeZOj-G++Q_pnpps2" data-tab="pnpps2" tabindex="-1">PnP PowerShell Enhanced Version Control Batch Delete Job</a>
+</li>
+<li role="presentation">
 <a href="#tabpanel_CeZOj-G++Q_cli-m365-ps" role="tab" aria-controls="tabpanel_CeZOj-G++Q_cli-m365-ps" data-tab="cli-m365-ps" tabindex="-1">CLI for Microsoft 365</a>
 </li>
 </ul>
@@ -272,53 +275,119 @@ $arraylist | Export-Csv -Path &quot;C:\temp\versiontrimmer.csv&quot; -NoTypeInfo
 <p>Important changes coming to the way you login into PnP PowerShell (effective 9th September 2024) see <a href="https://pnp.github.io/blog/post/changes-pnp-management-shell-registration/">Changes in PnP Management Shell registration in Microsoft 365</a></p>
 </div>
 </section>
+<section id="tabpanel_CeZOj-G++Q_pnpps2" role="tabpanel" data-tab="pnpps2" aria-hidden="true" hidden="hidden"><button class="article-clipboard" title="Copy to clipboard" data-toggle="tooltip" data-placement="top" data-clipboard-target="section[id^='tabpanel'][data-tab='pnpps2'] pre">
+    <span class="glyphicon glyphicon-copy" aria-hidden="true"></span>
+    <span class="article-clipboard__message done">Copied</span>
+</button>
+
+<pre><code class="lang-PowerShell">param (
+    [string]$siteURL,
+    [string]$library,
+    [int]$deleteOlderThanDays,
+    [int]$majorVersionsToKeep,
+    [int]$majorWithMinorVersionsToKeep,
+    [switch]$Automatic
+)
+
+if (-not $siteURL) {
+    $siteURL = Read-Host &quot;Please enter Site URL&quot;
+}
+
+if (-not $library) {
+    $library = Read-Host &quot;Please enter the library name, i.e. Documents or leave blank for the whole site&quot;
+}
+
+if (-not $Automatic) {
+    if (-not $deleteOlderThanDays) {
+        $deleteOlderThanDays = Read-Host &quot;Enter the number of days to keep versions for or leave blank or 0 to keep major minor versions&quot;
+        if ($deleteOlderThanDays -eq &quot;&quot;) {
+            $deleteOlderThanDays = 0
+        }
+        if ($deleteOlderThanDays -eq 0) {
+            $majorVersionsToKeep = Read-Host &quot;Enter the number of major versions to keep&quot;
+            $majorWithMinorVersionsToKeep = Read-Host &quot;Enter the number of major versions with minor versions to keep&quot;
+        }
+    } else {
+        Write-Host &quot;DeleteOlderThanDays is specified. Skipping prompts for major versions to keep.&quot;
+    }
+} else {
+    Write-Host &quot;Automatic is specified. Skipping other prompts.&quot;
+}
+
+Connect-PnPOnline -url $siteURL -Interactive
+
+if ($library) {
+    if ($Automatic) {
+        New-PnPLibraryFileVersionBatchDeleteJob -Identity $library -Automatic -force
+    } else {
+        if ($deleteOlderThanDays -and $deleteOlderThanDays -gt 0) {
+            New-PnPLibraryFileVersionBatchDeleteJob -Identity $library -deletebeforedays $deleteOlderThanDays -force
+        } else {
+            New-PnPLibraryFileVersionBatchDeleteJob -Identity $library -MajorVersionLimit $majorVersionsToKeep -MajorWithMinorVersionsLimit $majorWithMinorVersionsToKeep -force
+        }
+    }
+    Get-PnPLibraryFileVersionBatchDeleteJobStatus -Identity $library
+} else {
+    if ($Automatic) {
+        New-PnPSiteFileVersionBatchDeleteJob -Automatic -force
+    } else {
+        if ($deleteOlderThanDays) {
+            New-PnPSiteFileVersionBatchDeleteJob -deletebeforedays $deleteOlderThanDays -force
+        } else {
+            New-PnPSiteFileVersionBatchDeleteJob -MajorVersionLimit $majorVersionsToKeep -MajorWithMinorVersionsLimit $majorWithMinorVersionsToKeep -force
+        }
+    }
+    Get-PnPSiteFileVersionBatchDeleteJobStatus
+}
+</code></pre>
+</section>
 <section id="tabpanel_CeZOj-G++Q_cli-m365-ps" role="tabpanel" data-tab="cli-m365-ps" aria-hidden="true" hidden="hidden"><button class="article-clipboard" title="Copy to clipboard" data-toggle="tooltip" data-placement="top" data-clipboard-target="section[id^='tabpanel'][data-tab='cli-m365-ps'] pre">
     <span class="glyphicon glyphicon-copy" aria-hidden="true"></span>
     <span class="article-clipboard__message done">Copied</span>
 </button>
 
-<pre><code class="lang-powershell">#Log in to Microsoft 365
-Write-Host &quot;Connecting to Tenant&quot; -f Yellow
-
-$m365Status = m365 status
-if ($m365Status -match &quot;Logged Out&quot;) {
-    m365 login
-}
-
-$siteURL = Read-Host &quot;Please enter Site URL&quot;
-$folderUrl = Read-Host &quot;Please enter the server- or site-relative URL of the parent folder&quot;
-$versionsToKeep = Read-Host &quot;Please enter the number of versions to keep&quot;
-
-$filesProcessed = @()   
-
-# Get all files in the list
-$files = m365 spo file list --webUrl $siteURL --folderUrl $folderUrl --recursive --output json | ConvertFrom-Json
-foreach ($file in $files) {
-    $fileVersions = m365 spo file version list --webUrl $siteURL --fileUrl $file.ServerRelativeUrl | ConvertFrom-Json
-
-    if ($fileVersions.Count -gt $versionsToKeep) {
-        $number = $fileVersions.Count - $versionsToKeep - 1
-        $removeVersionList = ($fileversions[0..$number])
-
-        foreach ($versionToDelete in $removeVersionList) {
-            Write-Host &quot;Removing version $($versionToDelete.VersionLabel) from the file $($file.Name)...&quot;
-            m365 spo file version remove --webUrl $siteURL --fileUrl $file.ServerRelativeUrl --label $versionToDelete.VersionLabel --confirm
-        }
-        
-        $filesProcessed += [PSCustomObject]@{
-            SiteUrl   = $siteURL
-            FolderUrl = $folderUrl
-            FileName  = $file.Name
-            FileUrl   = $file.ServerRelativeUrl
-            Versions  = $fileVersions.Count
+<pre><code class="lang-powershell">    #Log in to Microsoft 365
+    Write-Host &quot;Connecting to Tenant&quot; -f Yellow
+    
+    $m365Status = m365 status
+    if ($m365Status -match &quot;Logged Out&quot;) {
+        m365 login
+    }
+    
+    $siteURL = Read-Host &quot;Please enter Site URL&quot;
+    $folderUrl = Read-Host &quot;Please enter the server- or site-relative URL of the parent folder&quot;
+    $versionsToKeep = Read-Host &quot;Please enter the number of versions to keep&quot;
+    
+    $filesProcessed = @()   
+    
+    # Get all files in the list
+    $files = m365 spo file list --webUrl $siteURL --folderUrl $folderUrl --recursive --output json | ConvertFrom-Json
+    foreach ($file in $files) {
+        $fileVersions = m365 spo file version list --webUrl $siteURL --fileUrl $file.ServerRelativeUrl | ConvertFrom-Json
+    
+        if ($fileVersions.Count -gt $versionsToKeep) {
+            $number = $fileVersions.Count - $versionsToKeep - 1
+            $removeVersionList = ($fileversions[0..$number])
+    
+            foreach ($versionToDelete in $removeVersionList) {
+                Write-Host &quot;Removing version $($versionToDelete.VersionLabel) from the file $($file.Name)...&quot;
+                m365 spo file version remove --webUrl $siteURL --fileUrl $file.ServerRelativeUrl --label $versionToDelete.VersionLabel --confirm
+            }
+            
+            $filesProcessed += [PSCustomObject]@{
+                SiteUrl   = $siteURL
+                FolderUrl = $folderUrl
+                FileName  = $file.Name
+                FileUrl   = $file.ServerRelativeUrl
+                Versions  = $fileVersions.Count
+            }
         }
     }
-}
-
-$filesProcessed | Export-Csv -Path &quot;.\VersionTrimmer.csv&quot; -NoTypeInformation -Encoding utf8
-
-m365 logout
-Write-Host &quot;Finished&quot;
+    
+    $filesProcessed | Export-Csv -Path &quot;.\VersionTrimmer.csv&quot; -NoTypeInformation -Encoding utf8
+    
+    m365 logout
+    Write-Host &quot;Finished&quot;
 </code></pre>
 <div class="highlight-tool">
 <p>Check out the <strong>CLI for Microsoft 365</strong> to learn more at: <a href="https://aka.ms/cli-m365">https://aka.ms/cli-m365</a></p>
@@ -328,6 +397,8 @@ Write-Host &quot;Finished&quot;
 </div>
 </section>
 </div>
+<h2 id="source-credit">Source Credit</h2>
+<p>The 'PnP PowerShell Enhanced Version Control Batch Delete Job' sample first appeared on <a href="https://reshmeeauckloo.com/posts/powershell-enhanced-versioning-controls-trim/">Enhanced Version Controls/Intelligent Versioning Trim with PowerShell</a></p>
 <h2 id="contributors">Contributors</h2>
 <table>
 <thead>
@@ -341,6 +412,9 @@ Write-Host &quot;Finished&quot;
 </tr>
 <tr>
 <td><a href="https://github.com/nanddeepn">Nanddeep Nachan</a></td>
+</tr>
+<tr>
+<td><a href="https://github.com/reshmee011">Reshmee Auckloo (script)</a></td>
 </tr>
 </tbody>
 </table>
