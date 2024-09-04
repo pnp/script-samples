@@ -166,7 +166,7 @@ $arraylist | Export-Csv -Path "C:\temp\versiontrimmer.csv" -NoTypeInformation -F
 ```
 [!INCLUDE [More about PnP PowerShell](../../docfx/includes/MORE-PNPPS.md)]
 
-# [PnP PowerShell Enhanced Version Control Batch Delete Job](#tab/pnpps)
+# [PnP PowerShell Enhanced Version Control Batch Delete Job](#tab/pnpps2)
 
 ```PowerShell
 param (
