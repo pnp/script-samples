@@ -38,7 +38,7 @@ $adminConnection = Get-PnPConnection
         Write-Host "Getting site sharing settings..." -ForegroundColor Yellow
         $sharingReport = Get-PnPTenantSite -Filter "Url -like '$TenantURL'" | Where-Object { $_.Template -ne 'RedirectSite#0' }  | foreach-object {
           try {    
-            $sharingsetting = Get-PnPTenantSite -url $_.Url -Connection $adminConnection| select `
+            $sharingsetting = Get-PnPTenantSite -url $_.Url -DisableSharingForNonOwnersStatus -Connection $adminConnection| select `
             Title, `
             Url, `
             ShowPeoplePickerSuggestionsForGuestUsers, `
@@ -55,6 +55,7 @@ $adminConnection = Get-PnPConnection
             DefaultShareLinkRole, `
             DefaultLinkToExistingAccess, `
             DisableCompanyWideSharingLinks, `
+            DisableSharingForNonOwnersStatus, `
             AnonymousLinkExpirationInDays, `
             ConditionalAccessPolicy, `
             ReadOnlyForUnmanagedDevices, `
@@ -66,8 +67,8 @@ $adminConnection = Get-PnPConnection
             RestrictedAccessControl, `
             RestrictedAccessControlGroups, `
             RestrictContentOrgWideSearch
-# Use  DefaultShareLinkScope and DefaultShareLinkRole instead of DefaultSharingLinkType and DefaultLinkPermission
-          #DisableSharingForNonOwners is not available in the get-pnptenantsite cmdlet, hence using the below workaround, alternative the properties are available from get-pnpweb cmdlet
+            # DefaultShareLinkScope and DefaultShareLinkRole will replace DefaultSharingLinkType and DefaultLinkPermission
+
             $restUrl = $_.Url +'/_api/web?$select=MembersCanShare,TenantAdminMembersCanShare,RequestAccessEmail,UseAccessRequestDefault,AccessRequestSiteDescription'
             connect-PnPOnline -Url $_.Url -interactive -WarningAction SilentlyContinue
             $siteconnection = Get-PnPConnection
@@ -100,6 +101,7 @@ $adminConnection = Get-PnPConnection
                 RequestFilesLinkEnabled = $sharingsetting.RequestFilesLinkEnabled
                 RequestFilesLinkExpirationInDays = $sharingsetting.RequestFilesLinkExpirationInDays
                 RestrictContentOrgWideSearch = $sharingsetting.RestrictContentOrgWideSearch
+                DisableSharingForNonOwners = $sharingsetting.DisableSharingForNonOwnersStatus
                 ##add the properties from the $response object
                 MembersCanShare = $response.MembersCanShare
                 TenantAdminMembersCanShare = $response.TenantAdminMembersCanShare
