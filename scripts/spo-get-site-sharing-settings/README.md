@@ -17,7 +17,6 @@ Reviewing sharing settings is essential to prevent oversharing, which can lead t
 # [PnP PowerShell](#tab/pnpps)
 
 ```powershell
-Clear-Host
 param (
     [Parameter(Mandatory = $true)]
     [string] $domain
@@ -39,7 +38,7 @@ $adminConnection = Get-PnPConnection
         Write-Host "Getting site sharing settings..." -ForegroundColor Yellow
         $sharingReport = Get-PnPTenantSite -Filter "Url -like '$TenantURL'" | Where-Object { $_.Template -ne 'RedirectSite#0' }  | foreach-object {
           try {    
-            $sharingsetting = Get-PnPTenantSite -url $_.Url -Connection $adminConnection| select `
+            $sharingsetting = Get-PnPTenantSite -url $_.Url -DisableSharingForNonOwnersStatus -Connection $adminConnection| select `
             Title, `
             Url, `
             ShowPeoplePickerSuggestionsForGuestUsers, `
@@ -52,8 +51,11 @@ $adminConnection = Get-PnPConnection
             OverrideTenantAnonymousLinkExpirationPolicy, `
             DefaultSharingLinkType, `
             DefaultLinkPermission, `
+            DefaultShareLinkScope, `
+            DefaultShareLinkRole, `
             DefaultLinkToExistingAccess, `
             DisableCompanyWideSharingLinks, `
+            DisableSharingForNonOwnersStatus, `
             AnonymousLinkExpirationInDays, `
             ConditionalAccessPolicy, `
             ReadOnlyForUnmanagedDevices, `
@@ -65,10 +67,10 @@ $adminConnection = Get-PnPConnection
             RestrictedAccessControl, `
             RestrictedAccessControlGroups, `
             RestrictContentOrgWideSearch
+            # DefaultShareLinkScope and DefaultShareLinkRole will replace DefaultSharingLinkType and DefaultLinkPermission
 
-          #DisableSharingForNonOwners is not available in the get-pnptenantsite cmdlet, hence using the below workaround, alternative the properties are available from get-pnpweb cmdlet
             $restUrl = $_.Url +'/_api/web?$select=MembersCanShare,TenantAdminMembersCanShare,RequestAccessEmail,UseAccessRequestDefault,AccessRequestSiteDescription'
-            connect-PnPOnline -Url https://reshmeeauckloo.sharepoint.com/sites/company311 -interactive -WarningAction SilentlyContinue
+            connect-PnPOnline -Url $_.Url -interactive -WarningAction SilentlyContinue
             $siteconnection = Get-PnPConnection
             $response = invoke-pnpsprestmethod -Url $restUrl -Method Get -Connection $siteconnection
 
@@ -85,6 +87,8 @@ $adminConnection = Get-PnPConnection
                 OverrideTenantExternalUserExpirationPolicy = $sharingsetting.OverrideTenantExternalUserExpirationPolicy
                 DefaultSharingLinkType = $sharingsetting.DefaultSharingLinkType
                 DefaultLinkPermission = $sharingsetting.DefaultLinkPermission
+                DefaultShareLinkScope  = $sharingsetting.DefaultShareLinkScope
+                DefaultShareLinkRole = $sharingsetting.DefaultShareLinkRole
                 DefaultLinkToExistingAccess = $sharingsetting.DefaultLinkToExistingAccess
                 DisableCompanyWideSharingLinks = $sharingsetting.DisableCompanyWideSharingLinks
                 AnonymousLinkExpirationInDays = $sharingsetting.AnonymousLinkExpirationInDays
@@ -97,6 +101,7 @@ $adminConnection = Get-PnPConnection
                 RequestFilesLinkEnabled = $sharingsetting.RequestFilesLinkEnabled
                 RequestFilesLinkExpirationInDays = $sharingsetting.RequestFilesLinkExpirationInDays
                 RestrictContentOrgWideSearch = $sharingsetting.RestrictContentOrgWideSearch
+                DisableSharingForNonOwners = $sharingsetting.DisableSharingForNonOwnersStatus
                 ##add the properties from the $response object
                 MembersCanShare = $response.MembersCanShare
                 TenantAdminMembersCanShare = $response.TenantAdminMembersCanShare
@@ -110,7 +115,7 @@ $adminConnection = Get-PnPConnection
         }     
     }
     $sharingReport |select *  |Export-Csv $outputPath -NoTypeInformation -Append
-    Write-Host "Exported successfully!..." -ForegroundColor Green   
+    Write-Host "Exported successfully!..." -ForegroundColor Green
 ```
 
 [!INCLUDE [More about PnP PowerShell](../../docfx/includes/MORE-PNPPS.md)]
