@@ -1,0 +1,259 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html lang="en">
+  
+  <head>
+    <meta charset="utf-8">
+    <title>Microsoft 365 License Monitoring and Alert Script | PnP Samples </title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" "="">
+    <meta name="title" content="Microsoft 365 License Monitoring and Alert Script | PnP Samples ">
+    <meta name="generator" content="docfx 2.56.7.0">
+    <meta name="description" content="A sample gallery of scripts to manage all things Microsoft 365.">
+  
+    <!-- Social Media -->
+    <meta property="og:locale" content="en_GB">
+    <meta property="og:title" content="Microsoft 365 License Monitoring and Alert Script | PnP Samples ">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://pnp.github.io/script-samples">
+    <meta property="og:image" content="https://pnp.github.io/script-samples/assets/social-media-screenshot.png">
+    <meta property="og:image:alt" content="Screenshot example of the PnP Script Samples Site">
+    <meta property="og:site_name" content="PnP Script Samples">
+    <meta name="msvalidate.01" content="04EFEDA66EC42C08A1247C979E2F9ADD">
+    <meta property="og:description" content="A sample gallery of scripts to manage all things Microsoft 365.">
+  
+    <link rel="shortcut icon" href="https://c.s-microsoft.com/favicon.ico?v2">
+    <link rel="stylesheet" href="../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../styles/docfx.css">
+    <link rel="stylesheet" href="../styles/main.css">
+    <link rel="stylesheet" href="../styles/extra.css">
+    <link rel="stylesheet" href="../styles/filter.css">
+    <link rel="stylesheet" href="../styles/site.css">
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet"> 
+    <meta property="docfx:navrel" content="../toc.html">
+    <meta property="docfx:tocrel" content="../toc.html">
+    
+    
+    <meta property="docfx:newtab" content="true">
+    <script type="text/javascript">
+      (function(c,l,a,r,i,t,y){
+          c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+          t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+          y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+      })(window, document, "clarity", "script", "8j6pedl344");
+  </script>
+  </head>  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+             <div class="github-mark">
+              <a href="https://github.com/pnp/script-samples" title="Go to repository">
+               <div class="github-wrapper">
+                  <div class="github-icon">
+                    <img src="https://pnp.github.io/script-samples/assets/icons/github-light-64px.png" alt="GitHub Icon Image">
+                  </div>
+                  <div class="github-repository">
+                    <span>GitHub</span>
+                    <ul class="github-facts">
+                      <li>
+                        <i class="fa fa-code-fork" aria-hidden="true"></i>
+                        <span class="github-forks"></span>
+                      </li>
+                      <li>
+                        <i class="fa fa-star-o" aria-hidden="true"></i>
+                        <span class="github-stars"></span>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </a>
+            </div>
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../assets/logo.svg" alt="">
+              </a>    </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <label class="glyphicon glyphicon-search" for="search-query"></label>
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>      </header>
+      <div role="main" class="container body-content hide-when-search">
+        <div class="article row grid">
+          <div class="col-md-12">
+            <article class="content wrap" id="_content" data-uid="">
+                  <div class="contribution-panel mobile-hide pull-right">
+                      <a href="https://github.com/pnp/script-samples/blob/main/scripts/graph-get-licenses-by-sku-email-if-low/README.md/#L1" title="Improve this Doc" class="improve-doc-lg"><i class="glyphicon glyphicon-pencil"></i></a>
+                  </div>
+                    <h1 id="microsoft-365-license-monitoring-and-alert-script">Microsoft 365 License Monitoring and Alert Script</h1>
+
+<div class="NOTE">
+<h5>Note</h5>
+<p>This PowerShell script monitors the license counts for specific Microsoft 365 SKUs and sends an email alert if any SKU has less than 5 licenses remaining. Ensure that the MSAL.PS and Microsoft.Graph modules are installed and updated to the latest versions. The client secret should be securely managed and not hard-coded in the script. You can also tweak the script and specify the SKU you are interested to fetch, or specify the threshold number of licenses to trigger alert email.</p>
+</div>
+<h2 id="summary">Summary</h2>
+<p>This script is designed to help administrators monitor the availability of Microsoft 365 licenses for specific SKUs, including Microsoft 365 Copilot, Microsoft 365 E3, Office 365 E1, and Microsoft Defender Plan 1. It retrieves the current license counts using the Microsoft Graph API and sends an email alert if any SKU has fewer than 5 licenses remaining. The script includes error handling for API calls and module imports, and formats the email body as an HTML table for clear presentation of the license data.</p>
+<p>To use this script, you need to:</p>
+<ul>
+<li>Register an Application in Azure AD/Entra ID to generate a Client ID and Secret for authentication.</li>
+<li>Provide the application with the “Directory.Read.All” and “Mail.Send” permissions (from API Permission &gt; Application) to get license details and send notification emails using Graph API calls through MSAL.</li>
+<li>Use the Client ID and Secret values of the registered application in the script.</li>
+<li>Optional: Host the script on Azure/AWS/Server machine to run weekly or biweekly to send automated alerts</li>
+</ul>
+<p>Screenshot of the script execution output is below.</p>
+<p><img src="assets/output.png" alt="Example Screenshot"></p>
+<div class="tabGroup" id="tabgroup_CeZOj-G++Q">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_CeZOj-G++Q_graphps" role="tab" aria-controls="tabpanel_CeZOj-G++Q_graphps" data-tab="graphps" tabindex="0" aria-selected="true">Microsoft Graph PowerShell</a>
+</li>
+</ul>
+<section id="tabpanel_CeZOj-G++Q_graphps" role="tabpanel" data-tab="graphps"><button class="article-clipboard" title="Copy to clipboard" data-toggle="tooltip" data-placement="top" data-clipboard-target="section[id^='tabpanel'][data-tab='graphps'] pre">
+    <span class="glyphicon glyphicon-copy" aria-hidden="true"></span>
+    <span class="article-clipboard__message done">Copied</span>
+</button>
+
+<pre><code class="lang-powershell"># Uncomment and install MSAL.PS and Microsoft.Graph PowerShell modules, skip if already installed 
+# Install-Module -Name MSAL.PS
+# Install-Module -Name Microsoft.Graph
+
+Import-Module Microsoft.Graph.Users
+Import-Module MSAL.PS
+
+# Set variables
+$tenantId = &quot;replace_with_value&quot;
+$clientId = &quot;replace_with_value&quot;
+$clientSecret = &quot;replace_with_value&quot;
+$emailSender = &quot;sharedmailbox@contoso.com&quot;
+$emailRecipients = @(&quot;user1@contoso.com&quot;, &quot;user2@contoso.com&quot;, &quot;DL.Name@contoso.com&quot;)
+$emailSubject = &quot;Microsoft 365 - Low License Alert&quot;
+
+# Convert client secret to secure string
+$clientSecretSecure = ConvertTo-SecureString -String $clientSecret -AsPlainText -Force
+
+# Use the secure string in Get-MsalToken
+$tokenResponse = Get-MsalToken -ClientId $clientId -ClientSecret $clientSecretSecure -TenantId $tenantId -Scopes &quot;https://graph.microsoft.com/.default&quot;
+
+# Get an OAuth 2.0 token
+$accessToken = $tokenResponse.AccessToken
+
+# Get the list of SKUs with less than 5 licenses left for specified SKUs
+$uri = &quot;https://graph.microsoft.com/v1.0/subscribedSkus&quot;
+$response = Invoke-RestMethod -Uri $uri -Method GET -Headers @{ Authorization = &quot;Bearer $accessToken&quot; }
+
+$copilot = $response.value | Where-Object {($_.skuPartNumber -eq &quot;Microsoft_365_Copilot&quot;)}
+$e3 = $response.value | Where-Object {($_.skuPartNumber -eq &quot;SPE_E3&quot;)}
+$e1 = $response.value | Where-Object {($_.skuPartNumber -eq &quot;STANDARDPACK&quot;)}
+$defender1 = $response.value | Where-Object {($_.skuPartNumber -eq &quot;ATP_ENTERPRISE&quot;)}
+
+$copilotAvailableUnits = $copilot.prepaidUnits.enabled - $copilot.consumedUnits
+$e3AvailableUnits = $e3.prepaidUnits.enabled - $e3.consumedUnits
+$e1AvailableUnits = $e1.prepaidUnits.enabled - $e1.consumedUnits
+$defender1AvailableUnits = $defender1.prepaidUnits.enabled - $defender1.consumedUnits
+
+# If there are SKUs with less than 5 licenses left, send an email
+if (($copilotAvailableUnits -le 5) -or ($e3AvailableUnits -le 5) -or ($e1AvailableUnits -le 5) -or ($defender1AvailableUnits -le 5)) {
+    $emailBody = &quot;&lt;html&gt;&lt;body&gt;&lt;table border='1'&gt;&lt;tr&gt;&lt;th&gt;SKU Name&lt;/th&gt;&lt;th&gt;Total License Count&lt;/th&gt;&lt;th&gt;Total License Used&lt;/th&gt;&lt;th&gt;Total Available License Count Left&lt;/th&gt;&lt;/tr&gt;&quot;
+    $emailBody += &quot;&lt;tr&gt;&lt;td&gt;Microsoft_365_Copilot&lt;/td&gt;&lt;td&gt;$($copilot.prepaidUnits.enabled)&lt;/td&gt;&lt;td&gt;$($copilot.consumedUnits)&lt;/td&gt;&lt;td&gt;$($copilotAvailableUnits)&lt;/td&gt;&lt;/tr&gt;&quot;
+    $emailBody += &quot;&lt;tr&gt;&lt;td&gt;Microsoft 365 E3&lt;/td&gt;&lt;td&gt;$($e3.prepaidUnits.enabled)&lt;/td&gt;&lt;td&gt;$($e3.consumedUnits)&lt;/td&gt;&lt;td&gt;$($e3AvailableUnits)&lt;/td&gt;&lt;/tr&gt;&quot;
+    $emailBody += &quot;&lt;tr&gt;&lt;td&gt;Office 365 E1&lt;/td&gt;&lt;td&gt;$($e1.prepaidUnits.enabled)&lt;/td&gt;&lt;td&gt;$($e1.consumedUnits)&lt;/td&gt;&lt;td&gt;$($e1AvailableUnits)&lt;/td&gt;&lt;/tr&gt;&quot;
+    $emailBody += &quot;&lt;tr&gt;&lt;td&gt;Microsoft Defender Plan 1&lt;/td&gt;&lt;td&gt;$($defender1.prepaidUnits.enabled)&lt;/td&gt;&lt;td&gt;$($defender1.consumedUnits)&lt;/td&gt;&lt;td&gt;$($defender1AvailableUnits)&lt;/td&gt;&lt;/tr&gt;&quot;
+    $emailBody += &quot;&lt;/table&gt;&lt;/body&gt;&lt;/html&gt;&quot;
+
+    # Create the email message
+    $emailMessage = @{
+        Message = @{
+            Subject = $emailSubject
+            Body = @{
+                Content = $emailBody
+                ContentType = &quot;HTML&quot;
+            }
+            ToRecipients = @(
+                $emailRecipients | ForEach-Object {
+                    @{
+                        EmailAddress = @{
+                            Address = $_
+                        }
+                    }
+                }
+            )
+        }
+        SaveToSentItems = &quot;true&quot;
+    }
+
+    # Send the email
+    $response = Invoke-RestMethod -Uri &quot;https://graph.microsoft.com/v1.0/users/$emailSender/sendMail&quot; `
+                                  -Method POST `
+                                  -Headers @{ Authorization = &quot;Bearer $accessToken&quot; } `
+                                  -Body (ConvertTo-Json $emailMessage -Depth 100) `
+                                  -ContentType &quot;application/json&quot;
+
+    Write-Output &quot;Email sent successfully&quot;
+}
+else {
+    Write-Output &quot;No SKUs with less than 5 licenses left&quot;
+}
+
+</code></pre>
+<div class="highlight-tool">
+<p>Check out the <strong>Microsoft Graph PowerShell SDK</strong> to learn more at: <a href="https://learn.microsoft.com/graph/powershell/get-started">https://learn.microsoft.com/graph/powershell/get-started</a></p>
+</div>
+</section>
+</div>
+<h2 id="contributors">Contributors</h2>
+<table>
+<thead>
+<tr>
+<th>Author(s)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Eilaf Barmare</td>
+</tr>
+</tbody>
+</table>
+<h2 id="disclaimer">Disclaimer</h2>
+<p><strong>THESE SAMPLES ARE PROVIDED <em>AS IS</em> WITHOUT WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, INCLUDING ANY IMPLIED WARRANTIES OF FITNESS FOR A PARTICULAR PURPOSE, MERCHANTABILITY, OR NON-INFRINGEMENT.</strong></p>
+<img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/graph-get-licenses-by-sku-email-if-low" aria-hidden="true">
+</article>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            <span>Script Samples<br>Generated by <strong><a href='https://dotnet.github.io/docfx' alt='Doc FX Website'>DocFX</a></strong> with <strong><a href='https://ovasquez.github.io/docfx-material' alt='DocFx Material Theme'>Material UI</a></strong></span>
+            
+            <!-- <img src="https://telemetry.sharepointpnp.com/@pnp.github.io/index/" alt="spacer"> -->
+          </div>
+        </div>
+      </footer>    </div>
+    
+    <script type="text/javascript" src="../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+    
+    <script type="text/javascript" src="../styles/clipboard.min.js"></script>
+    <script type="text/javascript" src="../styles/isotope.pkgd.min.js"></script>
+    <script type="text/javascript" src="../styles/loadsamples.js"></script>
+    <script type="text/javascript" src="../styles/filtersamples.js"></script>
+
+  </body>
+</html>
