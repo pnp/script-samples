@@ -1,0 +1,26 @@
+{
+  "$schema": "https://aka.ms/codetour-schema",
+  "title": "Contributing to PnP Script Samples",
+  "steps": [
+    {
+      "title": "Getting Started with New-Sample.ps1",
+      "description": "# Getting Started with using New-Sample.ps1 script\r\n\r\nTo run New-Sample.ps1, this has no dependencies other than run in place when you download the repository to your development workspace.\r\nThis will help you to generate the sample quickly.\r\n\r\n**If you are submitting, either use this script OR manually use the provided sample template.**\r\n\r\n## Usage example\r\n\r\n.\\New-Sample.ps1 `\r\n    -ScriptFolderName \"spo-enable-disable-search-crawling\" `\r\n    -ScriptTitle \"Enable/Disable Search Crawling on Sites and Libraries\" `\r\n    -ScriptShortDescription \"Control the sites and libraries that get crawled. Also useful for Copilot projects to chose which areas to include\" `\r\n    -ScriptTool PnPPowerShell `\r\n    -AuthorFullName \"Paul Bullock\" `\r\n    -GitHubId \"pkbullock\"\r\n\r\n## What this produces\r\n\r\nUnder the hood, this uses the _template-script-submission folder to populate and replace the values above with your own sample details. Then it will create all the files needed for sample submission and populate as much as possible based on your inputs, leaving you with just the script itself to insert into the README.md file. \r\n\r\n## When you have finished\r\n\r\nWhen you have finished creating your sample, submit a PR to script samples, we will validate and in some cases tweak the metadata of the script to ensure DocFx (the tool we use for the site) can render the sample. "
+    },
+    {
+      "directory": "scripts/_template-script-submission",
+      "description": "# Using the sample template folder \r\n\r\nFind the folder \"scripts/_template-script-submission\"\r\n\r\n**Note: use this method if you do not prefer to run the \"New-Sample.ps1\" script**\r\n\r\nThe folder contains key assets used for displaying the sample on the website:\r\n\r\n- **README.md** - This contains all the details of your sample that is shown to site visitors\r\n- **assets/example.png** - If you have a screenshot of the output or visual of the change the script makes please provide that, it helps those reading the sample to understand what the script is doing.\r\n- **assets/preview.png** - Typically, this is a smaller version of the example file or if you prefer to show a section of the visual, this is used on the homepage of the sites to display a small graphic in the cards. Ideally, max width 650px. \r\n- **assets/template.sample.json** - This is a metadata file, typically used by all samples to show the details on the cards of the homepage and this is used for submission (automatically) into the [Solution Sample Gallery](https://adoption.microsoft.com/en-us/sample-solution-gallery/) - when submitting this, please rename to \"sample.json\" but keep it in the assets folder.",
+      "title": "Using the sample template",
+      "selection": {
+        "start": {
+          "line": 1,
+          "character": 1
+        },
+        "end": {
+          "line": 12,
+          "character": 375
+        }
+      }
+    }
+  ],
+  "ref": "main"
+}
