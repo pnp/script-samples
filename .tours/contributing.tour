@@ -8,18 +8,158 @@
     },
     {
       "directory": "scripts/_template-script-submission",
-      "description": "# Using the sample template folder \r\n\r\nFind the folder \"scripts/_template-script-submission\"\r\n\r\n**Note: use this method if you do not prefer to run the \"New-Sample.ps1\" script**\r\n\r\nThe folder contains key assets used for displaying the sample on the website:\r\n\r\n- **README.md** - This contains all the details of your sample that is shown to site visitors\r\n- **assets/example.png** - If you have a screenshot of the output or visual of the change the script makes please provide that, it helps those reading the sample to understand what the script is doing.\r\n- **assets/preview.png** - Typically, this is a smaller version of the example file or if you prefer to show a section of the visual, this is used on the homepage of the sites to display a small graphic in the cards. Ideally, max width 650px. \r\n- **assets/template.sample.json** - This is a metadata file, typically used by all samples to show the details on the cards of the homepage and this is used for submission (automatically) into the [Solution Sample Gallery](https://adoption.microsoft.com/en-us/sample-solution-gallery/) - when submitting this, please rename to \"sample.json\" but keep it in the assets folder.",
+      "description": "# Using the sample template folder \r\n\r\nFind the folder \"scripts/_template-script-submission\" and **make a copy**, then please update the copied template location for the folder name.\r\n\r\nFor example, workload-sample-details e.g. spo-upload-file Please keep to lower case, no spaces hyphens instead and workload first. This is to ensure its a relatively nice URL and will go through the build system.\r\n\r\n**Note: use this method if you do not prefer to run the \"New-Sample.ps1\" script**\r\n\r\nThe folder contains key assets used for displaying the sample on the website:\r\n\r\n- **README.md** - This contains all the details of your sample that is shown to site visitors\r\n- **assets/example.png** - If you have a screenshot of the output or visual of the change the script makes please provide that, it helps those reading the sample to understand what the script is doing.\r\n- **assets/preview.png** - Typically, this is a smaller version of the example file or if you prefer to show a section of the visual, this is used on the homepage of the sites to display a small graphic in the cards. Ideally, max width 650px. \r\n- **assets/template.sample.json** - This is a metadata file, typically used by all samples to show the details on the cards of the homepage and this is used for submission (automatically) into the [Solution Sample Gallery](https://adoption.microsoft.com/en-us/sample-solution-gallery/) - when submitting this, please rename to \"sample.json\" but keep it in the assets folder.",
       "title": "Using the sample template",
+      "selection": {
+        "start": {
+          "line": 3,
+          "character": 1
+        },
+        "end": {
+          "line": 3,
+          "character": 143
+        }
+      }
+    },
+    {
+      "file": "scripts/_template-script-submission/assets/template.sample.json",
+      "description": "## sample.json - Update Folder Name\r\n\r\nIf you find and replace the folder name, there are approx three entries here, with the foldername of your sample.\r\nFor preference, workload-sample-details e.g. spo-upload-file \r\nPlease keep to lower case, no spaces hyphens instead and workload first. This is to ensure its a relatively nice URL and will go through the build system.",
+      "line": 3,
       "selection": {
         "start": {
           "line": 1,
           "character": 1
         },
         "end": {
-          "line": 12,
-          "character": 375
+          "line": 5,
+          "character": 155
         }
       }
+    },
+    {
+      "file": "scripts/_template-script-submission/assets/template.sample.json",
+      "description": "## Update the title of your sample \r\n\r\nAgain, find and replace, this is also used on the preview for the alt text. The title is displayed on the cards and within the solution sample gallery.",
+      "line": 5
+    },
+    {
+      "file": "scripts/_template-script-submission/assets/template.sample.json",
+      "description": "## Describe your sample\r\n\r\nWrite a short description of your sample, as mulitple types of scripts can be run, best to describe what it does rather than specifically mention a tool used to run it e.g. avoid \"X script written with PnP PowerShell...\". Instead \"Script produces 5 documents and uploads to SharePoint\". ",
+      "line": 6,
+      "selection": {
+        "start": {
+          "line": 1,
+          "character": 1
+        },
+        "end": {
+          "line": 3,
+          "character": 288
+        }
+      }
+    },
+    {
+      "file": "scripts/_template-script-submission/assets/template.sample.json",
+      "description": "## Update the Folder Name\r\n\r\nIf you haven't earlier replaced all the folder names, update this one to the folder of the sample, please let the rest of the path as is.\r\n\r\nFor preference, workload-sample-details e.g. spo-upload-file \r\nPlease keep to lower case, no spaces hyphens instead and workload first. This is to ensure its a relatively nice URL and will go through the build system.",
+      "line": 7,
+      "selection": {
+        "start": {
+          "line": 1,
+          "character": 1
+        },
+        "end": {
+          "line": 6,
+          "character": 155
+        }
+      }
+    },
+    {
+      "file": "scripts/_template-script-submission/assets/template.sample.json",
+      "description": "## Update the sample creation date to submission date\r\n\r\nThe best date format is \"yyyy-mm-dd\". ",
+      "line": 11,
+      "selection": {
+        "start": {
+          "line": 1,
+          "character": 1
+        },
+        "end": {
+          "line": 3,
+          "character": 39
+        }
+      }
+    },
+    {
+      "file": "scripts/_template-script-submission/assets/template.sample.json",
+      "description": "## Update the sample update date to submission date\r\n\r\nThe best date format is \"yyyy-mm-dd\". ",
+      "line": 12
+    },
+    {
+      "file": "scripts/_template-script-submission/assets/template.sample.json",
+      "description": "## Update products\r\n\r\nRemove the products that are not relevant to your sample.",
+      "line": 13
+    },
+    {
+      "file": "scripts/_template-script-submission/assets/template.sample.json",
+      "description": "## Update Metadata\r\n\r\nRemove the key/value pair that is not relevant to the sample. Optionally, update the version you are using to aid the reader to understand the version used to get this working.",
+      "line": 24
+    },
+    {
+      "file": "scripts/_template-script-submission/assets/template.sample.json",
+      "description": "## Update Categories\r\n\r\nRemove the categories that are not relevant to your sample",
+      "line": 62
+    },
+    {
+      "file": "scripts/_template-script-submission/assets/template.sample.json",
+      "description": "## Update the cmdlets used\r\n\r\nThis is part of the filtering features on the site, to find samples specific to a cmdlet.\r\nThis is optional, we have a script that can collate these from the sample itself.",
+      "line": 73
+    },
+    {
+      "file": "scripts/_template-script-submission/assets/template.sample.json",
+      "description": "## Update the author\r\n\r\nThis is part of attributing you to the sample, especially on the sample cards on the homepage and solution sample gallery.\r\nGithub is only supported, however samples are only submitted through PRs in GitHub anyway. ",
+      "line": 84
+    },
+    {
+      "file": "scripts/_template-script-submission/assets/template.sample.json",
+      "description": "## Update References\r\n\r\nRemove the references that are specific to help documentation based on the tooling you have used e.g. PnP PowerShell. Remove all other references if you feel they are not relevant.",
+      "line": 92
+    },
+    {
+      "file": "scripts/_template-script-submission/README.md",
+      "description": "# README.md - Update plugin setting \r\n\r\nRemove the -preparation part of the plugin, should read ```plugin: add-to-gallery```",
+      "line": 2
+    },
+    {
+      "file": "scripts/_template-script-submission/README.md",
+      "description": "## Enter your title\r\n\r\nAdd your title here",
+      "line": 5
+    },
+    {
+      "file": "scripts/_template-script-submission/README.md",
+      "description": "## Remove note\r\n\r\nThis is guidance to point contributors to the guidance page if folks look at code first. We either remove or can you remove both > [!Note ] and the next line.",
+      "line": 8
+    },
+    {
+      "file": "scripts/_template-script-submission/README.md",
+      "description": "## Remove unneeded tabs\r\n\r\nWe provide a set of tabs to use, they have to be unique, so either remove any not needed or if you require more than one, say 2 x PnP PowerShell, append a number to the end of the tab fragment e.g. \"#tab/pnpps2\"",
+      "line": 19
+    },
+    {
+      "file": "scripts/_template-script-submission/README.md",
+      "description": "## Keep these includes\r\n\r\nKeep only the include statements where you have put a script within the markdown, this provides guidance to readers of your script to get to know more about the module that runs the script.",
+      "line": 26
+    },
+    {
+      "file": "scripts/_template-script-submission/README.md",
+      "description": "## Optional Credit\r\n\r\nEither keep and reference a blog post you used to provide credit to, promote your own work e.g. Blog, or if unneeded, please remove.",
+      "line": 95
+    },
+    {
+      "file": "scripts/_template-script-submission/README.md",
+      "description": "## Credit yourself\r\n\r\nYou're awesome, you spent time writing this, credit yourself accordingly. If there are multiple contributors to the script, then just add your name to the end of the other authors.",
+      "line": 101
+    },
+    {
+      "file": "scripts/_template-script-submission/README.md",
+      "description": "## Update the src\r\n\r\nPlease keep this and update \"template-script-submission\" to match your folder, it allows us to see how many folks have read this page.",
+      "line": 105
     }
   ],
   "ref": "main"
