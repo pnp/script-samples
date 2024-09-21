@@ -43,4 +43,4 @@ Set-PnPTenantSite -identity $url -RequestFilesLinkExpirationInDay 50
 | Valeras Narbutas |
 
 [!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
-<img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/spo-export-sharepoint-list-items-to-csv" aria-hidden="true" />
+<img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/spo-register-app-login-using-app" aria-hidden="true" />
