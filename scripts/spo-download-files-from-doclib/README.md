@@ -1,11 +1,8 @@
 ---
-plugin: add-to-gallery-preparation
+plugin: add-to-gallery
 ---
 
 # Download all files from Document Libarary/Folder
-
-> [!Note]
-> This is a submission helper template please find the [contributor guidance](/docfx/contribute.md) to help you write this scenario.
 
 ## Summary
 
@@ -81,9 +78,7 @@ Write-Host "Download completed."
 
 ```
 [!INCLUDE [More about PnP PowerShell](../../docfx/includes/MORE-PNPPS.md)]
-
-
-
+***
 
 ## Contributors
 
@@ -93,4 +88,4 @@ Write-Host "Download completed."
 
 
 [!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
-<img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/template-script-submission" aria-hidden="true" />
+<img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/spo-download-files-from-doclib" aria-hidden="true" />
