@@ -8,7 +8,7 @@ Find scenarios and scripts here using tools such as ***PnP PowerShell, CLI for M
 [PnP PowerShell for Visual Studio Code](https://marketplace.visualstudio.com/items?itemName=adamwojcikit.pnp-powershell-extension) and [CLI for Microsoft 365 for Visual Studio Code](https://marketplace.visualstudio.com/items?itemName=adamwojcikit.cli-for-microsoft-365-extension)
 
 > [!div class="highlight-text"] 
-> The way you login into PnP PowerShell or CLI for Microsoft 365 (effective from 9th September 2024) has changed please read [PnP Management Shell EntraID app is deleted: what should I do ? | GitHub](https://github.com/pnp/powershell/discussions/4249) 
+> The way you login into PnP PowerShell or CLI for Microsoft 365 has changed please read [PnP Management Shell EntraID app is deleted: what should I do ? | GitHub](https://github.com/pnp/powershell/discussions/4249) 
 
 <section class="filter-section">
 
