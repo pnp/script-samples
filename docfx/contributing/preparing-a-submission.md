@@ -12,6 +12,11 @@ Then find the repository at [https://github.com/pnp/script-samples](https://gith
 
 Before you can submit, you need to make sure you are setup with a "fork" of the repository in your own account, please navigate to [Submitting Pull Requests](submitting-pull-requests.md) for setup information.
 
+## Use a code tour
+
+We have added a code tour to help you create a sample from the template. In order to use, this, you will need to install the extension into Visual Studio Code called "CodeTour", details of how this works, see [CodeTour | Visual Studio Code Marketplace](https://marketplace.visualstudio.com/items?itemName=vsls-contrib.codetour)
+
+
 ### Submission Template Files
 
 There is a template submission folder called **"_template-script-submission"** in [_template-script-submission | GitHub - PnP Script Samples](https://github.com/pnp/script-samples/tree/main/scripts/_template-script-submission).
