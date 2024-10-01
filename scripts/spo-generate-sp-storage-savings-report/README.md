@@ -23,9 +23,6 @@ The purpose of this script is to crete an overview: The total amount of SharePoi
 # [PnP.PowerShell](#tab/pnpps)
 ```powershell
 
-
-
-
 #The purpose of this script is to crete an overview: The total amount of SharePoint Storage used by this Site Collection, and how much could be saved by trimming the versions
 
 #Set Variables
@@ -229,9 +226,25 @@ Try {
                 HandleWeb -site $Site -web $web -root $false 
             
             }
-            if($outputArray.Count -gt 0)
+             if($outputArray.Count -gt 0)
             {
-                $outputArray  | Export-Csv -Path "$outputPath/$index.csv" -Force -Encoding utf8BOM -Delimiter "|"
+                #calculate the total size of the potential savings
+                $totalSize = 0
+                $totalSizeReduced = 0
+                foreach($element in $outputArray)
+                {
+                    $totalSize = $totalSize + $element.TotalFileSize
+                    $totalSizeReduced = $totalSizeReduced + $element.TotalFileSizeReduced
+                }
+                $totalSize = [Math]::Round($totalSize,2)
+                $totalSizeReduced = [Math]::Round($totalSizeReduced,2)
+                $savings = $totalSize - $totalSizeReduced
+                $savings=[Math]::Round($savings,0)
+
+                #$outputArray  | Export-Csv -Path "$outputPath/$index.csv" -Force -Encoding utf8BOM -Delimiter "|"
+                $shortSiteUrl = $SiteURL.Split("/")[-1]
+                $outputArray  | Export-Csv -Path "$outputPath/$shortSiteUrl($savings).csv" -Force -Encoding utf8BOM -Delimiter "|"
+                
             }
             
         }
@@ -247,13 +260,6 @@ Try {
 Catch {
     write-host -f Red "Error:" $_.Exception.Message
 }
-
-
-
-
-
-
-
 
 
 ```
