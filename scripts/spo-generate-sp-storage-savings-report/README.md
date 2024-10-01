@@ -23,9 +23,6 @@ The purpose of this script is to crete an overview: The total amount of SharePoi
 # [PnP.PowerShell](#tab/pnpps)
 ```powershell
 
-
-
-
 #The purpose of this script is to crete an overview: The total amount of SharePoint Storage used by this Site Collection, and how much could be saved by trimming the versions
 
 #Set Variables
@@ -263,13 +260,6 @@ Try {
 Catch {
     write-host -f Red "Error:" $_.Exception.Message
 }
-
-
-
-
-
-
-
 
 
 ```
