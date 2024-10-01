@@ -19,13 +19,14 @@ Copilot for Microsoft m365 can access data from all the tenant, whether it’s O
 # [PnP PowerShell](#tab/pnpps)
 
 ```powershell
+
 Clear-Host
 
-$properties=@{SiteUrl='';SiteTitle='';ListTitle='';Type='';RelativeUrl='';ParentGroup='';MemberType='';MemberName='';MemberLoginName='';Roles='';}; 
+$properties=@{SiteUrl='';SiteTitle='';ListTitle='';SensitivityLabel='';Type='';RelativeUrl='';ParentGroup='';MemberType='';MemberName='';MemberLoginName='';Roles='';}; 
  
 $dateTime = (Get-Date).toString("dd-MM-yyyy-hh-ss")
 $invocation = (Get-Variable MyInvocation).Value
-$directorypath = (Split-Path $invocation.MyCommand.Path) + "\Logs\"
+$directorypath = (Split-Path $invocation.MyCommand.Path) + "\"
 $excludeLimitedAccess = $true;
 $includeListsItems = $true;
 
@@ -38,13 +39,51 @@ $ExcludedLibraries = @("Form Templates", "Preservation Hold Library", "Site Asse
 $global:permissions =@();
 $global:sharingLinks = @();
 
-Function PermissionObject($_object,$_type,$_relativeUrl,$_siteUrl,$_siteTitle,$_listTitle,$_memberType,$_parentGroup,$_memberName,$_memberLoginName,$_roleDefinitionBindings)
+function Get-ListItems_WithUniquePermissions{
+  param(
+      [Parameter(Mandatory)]
+      [Microsoft.SharePoint.Client.List]$List
+  )
+  $selectFields = "ID,HasUniqueRoleAssignments,FileRef,FileLeafRef,FileSystemObjectType"
+ 
+  $Url = $siteUrl + '/_api/web/lists/getbytitle(''' + $($list.Title) + ''')/items?$select=' + $($selectFields)
+  $nextLink = $Url
+  $listItems = @()
+  $Stoploop =$true
+  while($nextLink){  
+      do{
+      try {
+          $response = invoke-pnpsprestmethod -Url $nextLink -Method Get
+          $Stoploop =$true
+  
+      }
+      catch {
+          write-host "An error occured: $_  : Retrying" -ForegroundColor Red
+          $Stoploop =$true
+          Start-Sleep -Seconds 30
+      }
+  }
+  While ($Stoploop -eq $false)
+  
+      $listItems += $response.value | where-object{$_.HasUniqueRoleAssignments -eq $true}
+      if($response.'odata.nextlink'){
+          $nextLink = $response.'odata.nextlink'
+      }    else{
+          $nextLink = $null
+      }
+  }
+
+  return $listItems
+}
+
+Function PermissionObject($_object,$_type,$_relativeUrl,$_siteUrl,$_siteTitle,$_listTitle,$_memberType,$_parentGroup,$_memberName,$_memberLoginName,$_roleDefinitionBindings,$_sensitivityLabel)
 {
   $permission = New-Object -TypeName PSObject -Property $properties; 
   $permission.SiteUrl =$_siteUrl; 
   $permission.SiteTitle = $_siteTitle; 
   $permission.ListTitle = $_listTitle; 
-  $permission.Type = $_type; 
+  $permission.SensitivityLabel = $_sensitivityLabel; 
+  $permission.Type =  $_Type -eq 1 ? "Folder" : $_Type -eq 0 ? "File" : $_Type;
   $permission.RelativeUrl = $_relativeUrl; 
   $permission.MemberType = $_memberType; 
   $permission.ParentGroup = $_parentGroup; 
@@ -59,10 +98,15 @@ Function Extract-Guid ($inputString) {
   return $splitString[2].TrimEnd('_o')
 }
 
-Function QueryUniquePermissionsByObject($_web,$_object,$_Type,$_RelativeUrl,$_siteUrl,$_siteTitle,$_listTitle)
+Function QueryUniquePermissionsByObject($_ctx,$_object,$_Type,$_RelativeUrl,$_siteUrl,$_siteTitle,$_listTitle)
 {
   $roleAssignments = Get-PnPProperty -ClientObject $_object -Property RoleAssignments
-  
+   switch ($_Type) {
+    0 { $sensitivityLabel = $_object.FieldValues["_DisplayName"] }
+    1 { $sensitivityLabel = $_object.FieldValues["_DisplayName"] }
+    "Site" { $sensitivityLabel = (Get-PnPSiteSensitivityLabel).displayname }
+    default { " " }
+}
   foreach($roleAssign in $roleAssignments){
     Get-PnPProperty -ClientObject $roleAssign -Property RoleDefinitionBindings,Member;
     $PermissionLevels = $roleAssign.RoleDefinitionBindings | Select -ExpandProperty Name;
@@ -76,18 +120,51 @@ Function QueryUniquePermissionsByObject($_web,$_object,$_Type,$_RelativeUrl,$_si
     $MemberType = $roleAssign.Member.GetType().Name; 
     #Get the Principal Type: User, SP Group, AD Group  
     $PermissionType = $roleAssign.Member.PrincipalType  
+  if( $_Type -eq 0){
+      $sharingLinks = Get-PnPFileSharingLink -Identity $_object.FieldValues["FileRef"]
+  }
+  if( $_Type -eq 1){
+      $sharingLinks = Get-PnPFolderSharingLink -Folder $_object.FieldValues["FileRef"]
+  }
+
     If($PermissionLevels.Length -gt 0) {
       $MemberType = $roleAssign.Member.GetType().Name; 
        #Sharing link is in the format SharingLinks.03012675-2057-4d1d-91e0-8e3b176edd94.OrganizationView.20d346d3-d359-453b-900c-633c1551ccaa
         If ($roleAssign.Member.Title -like "SharingLinks*")
         {
-            If ($Users)
+          if($sharingLinks){
+          $sharingLinks | where-object {$roleAssign.Member.Title -match $_.Id } | ForEach-Object{
+            If ($Users.Count -gt 0) 
             {
                 ForEach ($User in $Users)
                 {
-                PermissionObject $_object $_Type $_RelativeUrl $_siteUrl $_siteTitle $_listTitle "Sharing Links" $roleAssign.Member.LoginName  $user.Title $User.LoginName  $AccessType; 
+                PermissionObject $_object $_Type $_RelativeUrl $_siteUrl $_siteTitle $_listTitle "Sharing Links" $roleAssign.Member.LoginName  $user.Title $User.LoginName $_.Link.Type $sensitivityLabel; 
                 }
-            }      
+            } 
+            else {
+              PermissionObject $_object $_Type $_RelativeUrl $_siteUrl $_siteTitle $_listTitle "Sharing Links" $roleAssign.Member.LoginName  $_.Link.Scope "" $_.Link.Type  $sensitivityLabel;
+            }
+          }  
+        }
+        <#  
+        If ($Users.Count -gt 0) 
+            {
+                ForEach ($User in $Users)
+                {
+                PermissionObject $_object $_Type $_RelativeUrl $_siteUrl $_siteTitle $_listTitle "Sharing Links" $roleAssign.Member.LoginName  $user.Title $User.LoginName $AccessType $sensitivityLabel; 
+                }
+            } 
+            else{
+              if($sharingLinks){
+                $sharingLinks | where-object {$roleAssign.Member.Title -match $_.Id } | ForEach-Object{
+                  PermissionObject $_object $_Type $_RelativeUrl $_siteUrl $_siteTitle $_listTitle "Sharing Links" $roleAssign.Member.Title  $_.Link.Scope "" $_.Link.Type $sensitivityLabel;
+                }
+              }
+              else{
+                #find whether the sharing link is organisation or anyone
+                PermissionObject $_object $_Type $_RelativeUrl $_siteUrl $_siteTitle $_listTitle "Sharing Links" $roleAssign.Member.Title  "All"  $roleAssign.Member.Title $roleAssign.RoleDefinitionBindings.Description $sensitivityLabel;
+              }
+            }#>
         }
       ElseIf($MemberType -eq "Group" -or $MemberType -eq "User")
       { 
@@ -101,11 +178,12 @@ Function QueryUniquePermissionsByObject($_web,$_object,$_Type,$_RelativeUrl,$_si
         {
           $ParentGroup = $MemberName;
         }
-        (PermissionObject $_object $_Type $_RelativeUrl $_siteUrl $_siteTitle $_listTitle $MemberType $ParentGroup $MemberName $MemberLoginName $PermissionLevels); 
+        (PermissionObject $_object $_Type $_RelativeUrl $_siteUrl $_siteTitle $_listTitle $MemberType $ParentGroup $MemberName $MemberLoginName $PermissionLevels $sensitivityLabel); 
       }
 
       if($_Type  -eq "Site" -and $MemberType -eq "Group")
       {
+        $sensitivityLabel = (Get-PnPSiteSensitivityLabel).DisplayName
         If($PermissionType -eq "SharePointGroup")  {  
           #Get Group Members  
           $groupUsers = Get-PnPGroupMember -Identity $roleAssign.Member.LoginName                  
@@ -115,7 +193,7 @@ Function QueryUniquePermissionsByObject($_web,$_object,$_Type,$_RelativeUrl,$_si
               
               Get-PnPMicrosoft365GroupOwners -Identity $guid | ForEach-Object {
                 $user = $_
-                (PermissionObject $_object "Site" $_RelativeUrl $_siteUrl $_siteTitle "" "GroupMember" $roleAssign.Member.LoginName $user.DisplayName $user.UserPrincipalName $PermissionLevels); 
+                (PermissionObject $_object "Site" $_RelativeUrl $_siteUrl $_siteTitle "" "GroupMember" $roleAssign.Member.LoginName $user.DisplayName $user.UserPrincipalName $PermissionLevels $sensitivityLabel); 
               }
             }
             elseif ($_.LoginName.StartsWith("c:0o.c|federateddirectoryclaimprovider|")) {
@@ -123,11 +201,11 @@ Function QueryUniquePermissionsByObject($_web,$_object,$_Type,$_RelativeUrl,$_si
               
               Get-PnPMicrosoft365GroupMembers -Identity $guid | ForEach-Object {
                 $user = $_
-                (PermissionObject $_object "Site" $_RelativeUrl $_siteUrl $_siteTitle "" "GroupMember" $roleAssign.Member.LoginName $user.DisplayName $user.UserPrincipalName $PermissionLevels); 
+                (PermissionObject $_object "Site" $_RelativeUrl $_siteUrl $_siteTitle "" "GroupMember" $roleAssign.Member.LoginName $user.DisplayName $user.UserPrincipalName $PermissionLevels $sensitivityLabel); 
               }
             }
 
-            (PermissionObject $_object "Site" $_RelativeUrl $_siteUrl $_siteTitle "" "GroupMember" $roleAssign.Member.LoginName $_.Title $_.LoginName $PermissionLevels);   
+            (PermissionObject $_object "Site" $_RelativeUrl $_siteUrl $_siteTitle "" "GroupMember" $roleAssign.Member.LoginName $_.Title $_.LoginName $PermissionLevels $sensitivityLabel);   
           }
         }
       } 
@@ -163,26 +241,15 @@ Function QueryUniquePermissions($_web)
       }
       
       if($includeListsItems){         
-        $collListItem = Get-PnPListItem -PageSize 2000 -List $list
+        $collListItem =  Get-ListItems_WithUniquePermissions -List $list
         $count = $collListItem.Count
-        Write-Host  "Number of items : $count within list $listTitle" 
+        Write-Host  "Number of items with unique permissions: $count within list $listTitle" 
         foreach($item in $collListItem) 
         {
-          Get-PnPProperty -ClientObject $item -Property File,HasUniqueRoleAssignments; 
-          if($item.HasUniqueRoleAssignments -eq $True)
-          { 
-            if($list.BaseType -eq "DocumentLibrary")
-            {
-              $Type = $item.FileSystemObjectType; 
-              $fileUrl = $item.FieldValues.FileRef;  
-            }
-            else
-            {
-              $Type = "item"
-              $fileUrl = "$siteurl/lists/$listTitle/AllItems.aspx?FilterField1=ID&FilterValue1=$($item.id)"
-            }
-            QueryUniquePermissionsByObject $_web $item $Type $fileUrl $siteUrl $siteTitle $listTitle;
-          } 
+            $Type = $item.FileSystemObjectType; 
+            $fileUrl = $item.FileRef;  
+            $i = Get-PnPListItem -List $list -Id $item.ID
+            QueryUniquePermissionsByObject $_web $i $Type $fileUrl $siteUrl $siteTitle $listTitle;
         } 
       }
     }
@@ -203,7 +270,7 @@ if(Test-Path $directorypath){
   Write-Host "Export File Path is:" $exportFilePath
   Write-Host "Number of lines exported is :" $global:permissions.Count
  
-  $global:permissions | Select-Object SiteUrl,SiteTitle,Type,RelativeUrl,ListTitle,MemberType,MemberName,MemberLoginName,ParentGroup,Roles|Export-CSV -Path $exportFilePath -NoTypeInformation;
+  $global:permissions | Select-Object SiteUrl,SiteTitle,Type,SensitivityLabel,RelativeUrl,ListTitle,MemberType,MemberName,MemberLoginName,ParentGroup,Roles|Export-CSV -Path $exportFilePath -NoTypeInformation;
   
 }
 else{
