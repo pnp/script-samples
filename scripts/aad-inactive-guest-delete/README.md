@@ -2,7 +2,7 @@
 plugin: add-to-gallery-preparation
 ---
 
-# delete inactive Guest Usere
+# Delete inactive Guest User
 
 The script will report inactive users for x days and provides an option to delete them.
 
