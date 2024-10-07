@@ -4,9 +4,6 @@ plugin: add-to-gallery
 
 # Add document templates to the New dropdown in a document library
 
-> [!Note]
-> This is a submission helper template please find the [contributor guidance](/docfx/contribute.md) to help you write this scenario.
-
 ## Summary
 
 It is pretty easy to add document templates to a document library in SharePoint Online by hand, but we often have to provide those document templates as part of a provisioning solution. This script shows how to add document templates to a document library using PnP PowerShell.
