@@ -1,10 +1,10 @@
 [
   {
-    "name": "<foldername>",
+    "name": "aad-inactive-guest-delete",
     "source": "pnp",
-    "title": "<title>",
-    "shortDescription": "",
-    "url": "https://pnp.github.io/script-samples/<foldername>/README.html",
+    "title": "Delete inactive Guest User",
+    "shortDescription": "The script will report inactive users for x days and provides an option to delete them.",
+    "url": "https://pnp.github.io/script-samples/aad-inactive-guest-delete/README.html",
     "longDescription": [
       ""
     ],
@@ -24,8 +24,7 @@
       }
     ],
     "categories": [
-      "Security",
-      
+      "Security"      
     ],
     "tags": [
       "Get-MgUser",
@@ -35,8 +34,8 @@
       {
         "type": "image",
         "order": 100,
-        "url": "https://raw.githubusercontent.com/pnp/script-samples/main/scripts/<foldername>/assets/preview.png",
-        "alt": "Preview of the sample <title>"
+        "url": "https://raw.githubusercontent.com/pnp/script-samples/main/scripts/aad-inactive-guest-delete/assets/preview.png",
+        "alt": "Preview of the sample Delete inactive Guest User"
       }
     ],
     "authors": [
