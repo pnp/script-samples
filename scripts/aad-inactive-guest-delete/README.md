@@ -1,5 +1,5 @@
 ---
-plugin: add-to-gallery-preparation
+plugin: add-to-gallery
 ---
 
 # Delete inactive Guest User
@@ -11,12 +11,13 @@ The script will report inactive users for x days and provides an option to delet
 
 This PowerShell script identifies and optionally deletes inactive guest users in Microsoft 365. It connects to Microsoft Graph, retrieves guest users, checks their last sign-in date, and lists those who have been inactive for a specified number of days. The script then prompts the user to confirm whether to delete these inactive users.
 
-![Example Screenshot](assets/example.png)
 
 - Open Windows PowerShell ISE or VS Code
 - Copy script below to your clipboard
 - Modify the $daysInactive variable as needed.
 - Run the script to identify and optionally delete inactive guest users.
+
+[!INCLUDE [Delete Warning](../../docfx/includes/DELETE-WARN.md)]
 
 # [Microsoft Graph PowerShell](#tab/graphps)
 
@@ -65,10 +66,6 @@ Disconnect-MgGraph
 
 ***
 
-
-## Source Credit
-
-Sample first appeared on [https://pnp.github.io/cli-microsoft365/sample-scripts/spo/add-app-catalog/](https://pnp.github.io/cli-microsoft365/sample-scripts/spo/add-app-catalog/)
 
 ## Contributors
 
