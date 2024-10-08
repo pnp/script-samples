@@ -51,7 +51,7 @@ function get-customFormatting() {
         Pink = 11
     }
 
-    $list = Get-PnPList "Onboarding tasks";
+    $list = Get-PnPList "ListName";
     $list.Icon = [int][Icons]::Rocket;
     $list.Color = [int][Color]::NavyBlue;
     $list.Update()
