@@ -57,6 +57,11 @@ function get-customFormatting() {
     $list.Update()
     Invoke-PnPQuery
 
+    # Notice!
+    # I've also submitted a pull request to PnP PowerShell which would allow you to do all this inline.
+    # but as of now that hasn't been accepted, but in the future the below command might work for you
+    # Set-PnPList "ListName" -Color NavyBlue -Icon Rocket
+
 ```
 
 [!INCLUDE [More about PnP PowerShell](../../docfx/includes/MORE-PNPPS.md)]
