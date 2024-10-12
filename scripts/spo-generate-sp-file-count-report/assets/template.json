@@ -1,0 +1,59 @@
+[
+  {
+    "name": "spo-generate-sp-file-count-report",
+    "source": "pnp",
+    "title": "Generate file count report",
+    "shortDescription": "Get a full report of the number of files in your environment",
+    "url": "https://pnp.github.io/script-samples/spo-generate-sp-file-count-report/README.html",
+    "longDescription": [
+      "Generate a report of how many files are in your sites, libraries and folders?"
+    ],
+    "creationDateTime": "2024-10-12",
+    "updateDateTime": "2024-10-12",
+    "products": [
+      "SharePoint"
+    ],
+    "metadata": [
+      {
+        "key": "PNP-POWERSHELL",
+        "value": "2.2.51"
+      },
+      {
+        "key": "POWERSHELL",
+        "value": "7.4.5"
+      }
+    ],
+    "categories": [
+      "Data",
+      "Report"
+    ],
+    "tags": [
+      "Connect-PnPOnline",
+      "Get-PnPList",
+      "Get-PnPListItem"
+    ],
+    "thumbnails": [
+      {
+        "type": "image",
+        "order": 100,
+        "url": "https://raw.githubusercontent.com/pnp/script-samples/main/scripts/spo-generate-sp-file-count-report/assets/preview.png",
+        "alt": "Preview of the sample Generate file count report"
+      }
+    ],
+    "authors": [
+      {
+        "gitHubAccount": "Tanddant",
+        "company": "Evobis ApS",
+        "pictureUrl": "https://github.com/tanddant.png",
+        "name": "Dan Toft"
+      }
+    ],
+    "references": [
+      {
+        "name": "Want to learn more about PnP PowerShell and the cmdlets",
+        "description": "Check out the PnP PowerShell site to get started and for the reference to the cmdlets.",
+        "url": "https://aka.ms/pnp/powershell"
+      }
+    ]
+  }
+]
