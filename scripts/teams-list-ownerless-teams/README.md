@@ -1,5 +1,5 @@
 ---
-plugin: add-to-gallery-preparation
+plugin: add-to-gallery
 ---
 
 # List Ownerless Teams
@@ -43,4 +43,4 @@ $MappedObjects | Select-Object -Property * | Export-Csv -Path ".\$fileName" -Enc
 
 
 [!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
-<img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/template-script-submission" aria-hidden="true" />
+<img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/teams-list-ownerless-teams" aria-hidden="true" />
