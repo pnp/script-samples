@@ -1,8 +1,8 @@
 ---
-plugin: add-to-gallery-preparation
+plugin: add-to-gallery
 ---
 
-# AAD-Get-TenantID
+# Get Tenant ID
 
 ## Summary
 
@@ -11,7 +11,7 @@ These are 2 practical scripts I have to get Tenant ID from either a domain name 
 These are simple, but very useful to be combined in other scripts.
 
 
-# [PnP PowerShell](#tab/pnpps)
+# [PowerShell (Domain)](#tab/ps)
 
 ```powershell
 
@@ -82,10 +82,10 @@ function Get-TenantIdFromDomain {
 }
 
 ```
-[!INCLUDE [More about PnP PowerShell](../../docfx/includes/MORE-PNPPS.md)]
+[!INCLUDE [More about PowerShell](../../docfx/includes/MORE-PS.md)]
 
 
-# [PnP PowerShell](#tab/pnpps)
+# [PowerShell (Subscription)](#tab/ps1)
 
 ```powershell
 
@@ -153,8 +153,8 @@ function Get-TenantIdFromSubscriptionId {
 }
 
 ```
-[!INCLUDE [More about PnP PowerShell](../../docfx/includes/MORE-PNPPS.md)]
-
+[!INCLUDE [More about PowerShell](../../docfx/includes/MORE-PS.md)]
+***
 
 ## Source Credit
 
@@ -168,4 +168,4 @@ Sample first appeared on [https://github.com/dkaaven/M365-Scripts](https://githu
 
 
 [!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
-<img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/template-script-submission" aria-hidden="true" />
+<img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/aad-get-tenantid" aria-hidden="true" />
