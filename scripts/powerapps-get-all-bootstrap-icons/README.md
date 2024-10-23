@@ -1,5 +1,5 @@
 ---
-plugin: add-to-gallery-preparation
+plugin: add-to-gallery
 ---
 
 # Get all Bootstrap Icons to use in your powerapps.
@@ -9,7 +9,7 @@ plugin: add-to-gallery-preparation
 This PowerShell script downloads the latest [Bootstrap icons](https://icons.getbootstrap.com/) from [twbs@github](https://github.com/twbs/icons/releases/latest), creates a JSON file with the complete list of SVG icons you can use.
 
 # Use it in PowerApps
-Copy the content from [BootstrapIcons.json](BootstrapIcons.json) and add it to **App.OnStart** (See also [Note about Named Formulas](#NoteaboutNamedFormulas)).
+Copy the content from ```BootstrapIcons.json``` and add it to **App.OnStart** (See also Note about Named Formulas below sample).
 This will give you access to all the Bootstap Icons in your app.
 
 To use an Icon, add an Image and the following code to the image property:
@@ -21,7 +21,7 @@ Change the <ICON NAME> for any name found in the [Bootstrap icons](https://icons
 ```
 
 
-# [PnP PowerShell](#tab/pnpps)
+# [PowerShell](#tab/ps)
 
 ```powershell
 
@@ -108,6 +108,7 @@ $zipFile.Dispose()
 Remove-item -Path "$PSScriptRoot\bsicons.zip"
 
 ```
+***
 
 ## Note about Named Formulas
 A new feature in Power Apps allows for a better implementation, namely Named Formulas. At current this app is not designed for this function, but a future version is planned for handling all this in a better way.
