@@ -1,0 +1,256 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html lang="en">
+  
+  <head>
+    <meta charset="utf-8">
+    <title>Get all Bootstrap Icons to use in your powerapps. | PnP Samples </title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" "="">
+    <meta name="title" content="Get all Bootstrap Icons to use in your powerapps. | PnP Samples ">
+    <meta name="generator" content="docfx 2.56.7.0">
+    <meta name="description" content="A sample gallery of scripts to manage all things Microsoft 365.">
+  
+    <!-- Social Media -->
+    <meta property="og:locale" content="en_GB">
+    <meta property="og:title" content="Get all Bootstrap Icons to use in your powerapps. | PnP Samples ">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://pnp.github.io/script-samples">
+    <meta property="og:image" content="https://pnp.github.io/script-samples/assets/social-media-screenshot.png">
+    <meta property="og:image:alt" content="Screenshot example of the PnP Script Samples Site">
+    <meta property="og:site_name" content="PnP Script Samples">
+    <meta name="msvalidate.01" content="04EFEDA66EC42C08A1247C979E2F9ADD">
+    <meta property="og:description" content="A sample gallery of scripts to manage all things Microsoft 365.">
+  
+    <link rel="shortcut icon" href="https://c.s-microsoft.com/favicon.ico?v2">
+    <link rel="stylesheet" href="../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../styles/docfx.css">
+    <link rel="stylesheet" href="../styles/main.css">
+    <link rel="stylesheet" href="../styles/extra.css">
+    <link rel="stylesheet" href="../styles/filter.css">
+    <link rel="stylesheet" href="../styles/site.css">
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet"> 
+    <meta property="docfx:navrel" content="../toc.html">
+    <meta property="docfx:tocrel" content="../toc.html">
+    
+    
+    <meta property="docfx:newtab" content="true">
+    <script type="text/javascript">
+      (function(c,l,a,r,i,t,y){
+          c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+          t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+          y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+      })(window, document, "clarity", "script", "8j6pedl344");
+  </script>
+  </head>  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+             <div class="github-mark">
+              <a href="https://github.com/pnp/script-samples" title="Go to repository">
+               <div class="github-wrapper">
+                  <div class="github-icon">
+                    <img src="https://pnp.github.io/script-samples/assets/icons/github-light-64px.png" alt="GitHub Icon Image">
+                  </div>
+                  <div class="github-repository">
+                    <span>GitHub</span>
+                    <ul class="github-facts">
+                      <li>
+                        <i class="fa fa-code-fork" aria-hidden="true"></i>
+                        <span class="github-forks"></span>
+                      </li>
+                      <li>
+                        <i class="fa fa-star-o" aria-hidden="true"></i>
+                        <span class="github-stars"></span>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </a>
+            </div>
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../assets/logo.svg" alt="">
+              </a>    </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <label class="glyphicon glyphicon-search" for="search-query"></label>
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>      </header>
+      <div role="main" class="container body-content hide-when-search">
+        <div class="article row grid">
+          <div class="col-md-12">
+            <article class="content wrap" id="_content" data-uid="">
+                  <div class="contribution-panel mobile-hide pull-right">
+                      <a href="https://github.com/pnp/script-samples/blob/main/scripts/powerapps-get-all-bootstrap-icons/README.md/#L1" title="Improve this Doc" class="improve-doc-lg"><i class="glyphicon glyphicon-pencil"></i></a>
+                  </div>
+                    <h1 id="get-all-bootstrap-icons-to-use-in-your-powerapps">Get all Bootstrap Icons to use in your powerapps.</h1>
+
+<h2 id="summary">Summary</h2>
+<p>This PowerShell script downloads the latest <a href="https://icons.getbootstrap.com/">Bootstrap icons</a> from <a href="https://github.com/twbs/icons/releases/latest">twbs@github</a>, creates a JSON file with the complete list of SVG icons you can use.</p>
+<h1 id="use-it-in-powerapps">Use it in PowerApps</h1>
+<p>Copy the content from <code>BootstrapIcons.json</code> and add it to <strong>App.OnStart</strong> (See also Note about Named Formulas below sample).
+This will give you access to all the Bootstap Icons in your app.</p>
+<p>To use an Icon, add an Image and the following code to the image property:
+Change the <icon name=""> for any name found in the <a href="https://icons.getbootstrap.com/">Bootstrap icons</a> list, ex. alphabet-uppercase.<p>
+<pre><code> data:image/svg+xml;utf8, &quot; &amp; EncodeUrl(&quot; &amp; LookUp(colBSIcons; IconName = &lt;ICON NAME&gt;).IconData)
+</code></pre>
+<div class="tabGroup" id="tabgroup_CeZOj-G++Q">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_CeZOj-G++Q_ps" role="tab" aria-controls="tabpanel_CeZOj-G++Q_ps" data-tab="ps" tabindex="0" aria-selected="true">PowerShell</a>
+</li>
+</ul>
+<section id="tabpanel_CeZOj-G++Q_ps" role="tabpanel" data-tab="ps"><button class="article-clipboard" title="Copy to clipboard" data-toggle="tooltip" data-placement="top" data-clipboard-target="section[id^='tabpanel'][data-tab='ps'] pre">
+    <span class="glyphicon glyphicon-copy" aria-hidden="true"></span>
+    <span class="article-clipboard__message done">Copied</span>
+</button>
+
+<pre><code class="lang-powershell">
+# Define the URL for the latest Bootstrap Icons release
+$latestReleaseUrl = &quot;https://github.com/twbs/icons/releases/latest&quot;
+
+# Get latest Bootstrap Icons version
+try {
+    $latestReleaseResponse = Invoke-WebRequest -Uri $latestReleaseUrl -ErrorAction Stop
+    $finalUrl = $latestReleaseResponse.BaseResponse.RequestMessage.RequestUri.AbsoluteUri
+    $actualVersion = $finalUrl.Split('/')[-1]
+} catch {
+    Write-Host &quot;An error occurred: $_&quot;
+}
+
+#Download Bootstrap Icons zip file
+try {
+    $dlPath = &quot;https://github.com/twbs/icons/releases/download/&quot; + $actualVersion + &quot;/&quot;
+    $dlName = &quot;bootstrap-icons-&quot; + $actualVersion.Substring(1) + &quot;.zip&quot;
+    $dlFull = $dlPath + $dlName
+
+    # Download the Bootstrap Icons zip file
+    Write-Host &quot;Downloading Bootstrap Icons version $actualVersion...&quot;
+    Invoke-WebRequest -Uri $dlFull -OutFile &quot;bsicons.zip&quot; -ErrorAction Stop
+    Write-Host &quot;Download completed.&quot;
+}catch {
+    Write-Error $_
+}
+
+# Prompt user for style choice
+Write-Host &quot;What language are you using?&quot;
+Write-Host &quot;1. American/English&quot;
+Write-Host &quot;2. Nordic countries&quot;
+$choice = Read-Host &quot;Choose a number and press Enter&quot;
+while ($choice -ne 1 -and $choice -ne 2) {
+    Write-Host &quot;Choose 1 or 2 and press Enter&quot;
+    $choice = Read-Host &quot;Choose a number and press Enter&quot;
+}
+
+# Create the new Json file with all the icons
+if ($choice -eq 1) {
+    $newJson = &quot;ClearCollect(`n`tcolBSIcons,`n&quot;
+} elseif ($choice -eq 2) {
+    $newJson = &quot;ClearCollect(`n`tcolBSIcons;`n&quot;
+}
+
+Add-Type -AssemblyName &quot;System.IO.Compression.FileSystem&quot;
+$zipFile = [System.IO.Compression.ZipFile]::OpenRead(&quot;$PSScriptRoot\bsicons.zip&quot;)
+
+# Process the SVG files and add them to the JSON
+foreach ($entry in $zipFile.Entries) {
+    if ($entry.FullName.EndsWith(&quot;.svg&quot;)) {
+        $filename = $entry.FullName.Substring(23, $entry.FullName.Length - 27)
+        $iconData = [System.IO.StreamReader]::new($entry.Open()).ReadToEnd()
+        $iconData = $iconData.Replace('&quot;', &quot;'&quot;).Replace(&quot;`n&quot;, &quot;`n`t`t`t&quot;)
+        
+        if ($choice -eq 1) {
+            $newJson += &quot;`t`t{IconName: `&quot;$filename`&quot;,`n`t`tIconData: `&quot;$iconData`t`&quot;},`n&quot;
+        } elseif ($choice -eq 2) {
+            $newJson += &quot;`t`t{IconName: `&quot;$filename`&quot;;`n`t`tIconData: `&quot;$iconData`t`&quot;};`n&quot;
+        }
+    }
+}
+
+# Finalize and save the JSON file
+$newJson = $newJson.Substring(0, $newJson.Length - 2) + &quot;`n)&quot;
+Set-Content -Path &quot;BootstrapIcons.json&quot; -Value $newJson
+
+# Output the final message
+if ($choice -eq 1) {
+    Write-Host -ForegroundColor Green &quot;You have now downloaded $actualVersion of Bootstrap Icons and it's saved in the BootstrapIcons.json.&quot;
+    Write-Host &quot;1. Open the file and copy the content to your power app in the OnStart field of the App.&quot;
+    Write-Host &quot;2. Use the following code in the image content:&quot;
+    Write-Host &quot;`tdata:image/svg+xml;utf8, `&quot; &amp; EncodeUrl(`&quot; &amp; LookUp(colBSIcons, IconName = `&lt;ICON NAME ex. grid-3x3-gap-fill&gt;`).IconData)&quot;
+} elseif ($choice -eq 2) {
+    Write-Host -ForegroundColor Green &quot;You have now downloaded $actualVersion of Bootstrap Icons and it's saved in the BootstrapIcons.json.&quot;
+    Write-Host &quot;1. Open the file and copy the content to your power app in the OnStart field of the App.&quot;
+    Write-Host &quot;2. Use the following code in the image content:&quot;
+    Write-Host &quot;`tdata:image/svg+xml;utf8, `&quot; &amp; EncodeUrl(`&quot; &amp; LookUp(colBSIcons; IconName = `&lt;ICON NAME ex. grid-3x3-gap-fill&gt;`).IconData)&quot;
+}
+
+# Close the zip file and remove it
+$zipFile.Dispose()
+Remove-item -Path &quot;$PSScriptRoot\bsicons.zip&quot;
+
+</code></pre>
+</section>
+</div>
+<h2 id="note-about-named-formulas">Note about Named Formulas</h2>
+<p>A new feature in Power Apps allows for a better implementation, namely Named Formulas. At current this app is not designed for this function, but a future version is planned for handling all this in a better way.</p>
+<h2 id="source-credit">Source Credit</h2>
+<p>Sample first appeared on <a href="https://github.com/dkaaven/MyPowerAppScript">https://github.com/dkaaven/MyPowerAppScript</a></p>
+<h2 id="contributors">Contributors</h2>
+<table>
+<thead>
+<tr>
+<th>Author(s)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="https://github.com/dkaaven">Daniel Kåven</a></td>
+</tr>
+</tbody>
+</table>
+<h2 id="disclaimer">Disclaimer</h2>
+<p><strong>THESE SAMPLES ARE PROVIDED <em>AS IS</em> WITHOUT WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, INCLUDING ANY IMPLIED WARRANTIES OF FITNESS FOR A PARTICULAR PURPOSE, MERCHANTABILITY, OR NON-INFRINGEMENT.</strong></p>
+<img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/template-script-submission" aria-hidden="true">
+</icon></article>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            <span>Script Samples<br>Generated by <strong><a href='https://dotnet.github.io/docfx' alt='Doc FX Website'>DocFX</a></strong> with <strong><a href='https://ovasquez.github.io/docfx-material' alt='DocFx Material Theme'>Material UI</a></strong></span>
+            
+            <!-- <img src="https://telemetry.sharepointpnp.com/@pnp.github.io/index/" alt="spacer"> -->
+          </div>
+        </div>
+      </footer>    </div>
+    
+    <script type="text/javascript" src="../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+    
+    <script type="text/javascript" src="../styles/clipboard.min.js"></script>
+    <script type="text/javascript" src="../styles/isotope.pkgd.min.js"></script>
+    <script type="text/javascript" src="../styles/loadsamples.js"></script>
+    <script type="text/javascript" src="../styles/filtersamples.js"></script>
+
+  </body>
+</html>
