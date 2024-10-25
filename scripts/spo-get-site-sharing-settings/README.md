@@ -41,6 +41,8 @@ $adminConnection = Get-PnPConnection
             $sharingsetting = Get-PnPTenantSite -url $_.Url -DisableSharingForNonOwnersStatus -Connection $adminConnection| select `
             Title, `
             Url, `
+            Type, `
+            Template, `
             ShowPeoplePickerSuggestionsForGuestUsers, `
             SharingCapability, `
             ExternalUserExpirationInDays, `
@@ -66,21 +68,36 @@ $adminConnection = Get-PnPConnection
             RequestFilesLinkExpirationInDays, `
             RestrictedAccessControl, `
             RestrictedAccessControlGroups, `
-            RestrictContentOrgWideSearch
+            RestrictContentOrgWideSearch, `
+            SensitivityLabel
             # DefaultShareLinkScope and DefaultShareLinkRole will replace DefaultSharingLinkType and DefaultLinkPermission
-
             $restUrl = $_.Url +'/_api/web?$select=MembersCanShare,TenantAdminMembersCanShare,RequestAccessEmail,UseAccessRequestDefault,AccessRequestSiteDescription'
             connect-PnPOnline -Url $_.Url -interactive -WarningAction SilentlyContinue
             $siteconnection = Get-PnPConnection
             $response = invoke-pnpsprestmethod -Url $restUrl -Method Get -Connection $siteconnection
+            $groupType = ""
+            $allowToAddGuests = $null;
+            $m365Group = $null;
+            #find if the site is linked to a m365 group and retrieve visibility 
+            if($_.groupId  -ne [guid]::Empty){
+                $m365Group = Get-PnPMicrosoft365Group -Identity $_.groupId -Connection $adminConnection | select Visibility
+                $m365GroupSettings =  Get-PnPMicrosoft365GroupSettings -Identity $_.GroupId -Connection $adminConnection
+                $allowToAddGuests = $m365GroupSettings.Values | Where-Object {$_.Name -eq 'AllowToAddGuests'}
+                #Get group type (group, team, yammer)
+                $gEndPoint = Get-PnPMicrosoft365GroupEndpoint -Identity $_.groupId
+                $groupType = $gEndPoint ? $gEndPoint.Providername : "SharePoint Team Site or Outlook";
+                #Get guest user count
+                #$settings = New-PnPMicrosoft365GroupSettings  -Identity $_.groupId -DisplayName "Group.Unified.Guest" -TemplateId "08d542b9-071f-4e16-94b0-74abb372e3d9" -Values @{"AllowToAddGuests"="false"} 
+            }
 
+ 
             [PSCustomObject]@{
                 ##add the properties from the $sharingsetting object
                 Title = $sharingsetting.Title
                 Url = $sharingsetting.Url
                 ShowPeoplePickerSuggestionsForGuestUsers = $sharingsetting.ShowPeoplePickerSuggestionsForGuestUsers
                 SharingCapability = $sharingsetting.SharingCapability
-                ExternalUserExpirationInDays = $sharingsetting.ExternalUserExpirationInDays
+                ExternalUserExpirationInDays = $sharingsetting.ExternalUserExpirationInDaysre
                 SharingAllowedDomainList = $sharingsetting.SharingAllowedDomainList
                 SharingBlockedDomainList = $sharingsetting.SharingBlockedDomainList
                 SharingDomainRestrictionMode = $sharingsetting.SharingDomainRestrictionMode
@@ -102,12 +119,19 @@ $adminConnection = Get-PnPConnection
                 RequestFilesLinkExpirationInDays = $sharingsetting.RequestFilesLinkExpirationInDays
                 RestrictContentOrgWideSearch = $sharingsetting.RestrictContentOrgWideSearch
                 DisableSharingForNonOwners = $sharingsetting.DisableSharingForNonOwnersStatus
+                SensitivityLabel = $sharingsetting.SensitivityLabel
+                SiteType = If($sharingsetting.Template -eq "GROUP#0"){"Group"} elseif ($sharingsetting.Template -eq "TEAMCHANNEL#1" -or $sharingsetting.Template -eq "TEAMCHANNEL#0"){"Team Channel"} else {"Site"}
                 ##add the properties from the $response object
                 MembersCanShare = $response.MembersCanShare
                 TenantAdminMembersCanShare = $response.TenantAdminMembersCanShare
                 RequestAccessEmail = $response.RequestAccessEmail
                 UseAccessRequestDefault = $response.UseAccessRequestDefault
                 AccessRequestSiteDescription = $response.AccessRequestSiteDescription
+                ##add m365 group settings if site is linked to a m365 group
+                m365GroupId = if($_.groupId -ne [guid]::Empty){$_.groupId}
+                m365GroupVisibility = $m365Group.Visibility
+                m365GroupAllowToAddGuests = $allowToAddGuests.Value ?? "Default"
+                m365GroupType = $groupType
             }
         }
         catch {
