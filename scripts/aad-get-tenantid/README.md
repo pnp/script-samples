@@ -155,7 +155,7 @@ function Get-TenantIdFromSubscriptionId {
 ```
 [!INCLUDE [More about PowerShell](../../docfx/includes/MORE-PS.md)]
 
-# [PnP PowerShell](#tab/ps1)
+# [PnP PowerShell](#tab/pnpps)
 
 ```powershell
 param (
@@ -180,10 +180,8 @@ Sample first appeared on [https://github.com/dkaaven/M365-Scripts](https://githu
 
 | Author(s) |
 |-----------|
-
-| [Reshmee Auckloo](https://github.com/reshmee011) |
 | [Daniel Kåven](https://github.com/dkaaven)|
-
+| [Reshmee Auckloo](https://github.com/reshmee011) |
 
 [!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
 <img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/aad-get-tenantid" aria-hidden="true" />
