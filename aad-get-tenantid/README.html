@@ -99,7 +99,7 @@
                     <h1 id="get-tenant-id">Get Tenant ID</h1>
 
 <h2 id="summary">Summary</h2>
-<p>These are 2 practical scripts I have to get Tenant ID from either a domain name or from a Subscriptionis ID.</p>
+<p>These are practical scripts I have to get Tenant ID from either a domain name or from a Subscriptionis ID.</p>
 <p>These are simple, but very useful to be combined in other scripts.</p>
 <div class="tabGroup" id="tabgroup_CeZOj-G++Q">
 <ul role="tablist">
@@ -108,6 +108,9 @@
 </li>
 <li role="presentation">
 <a href="#tabpanel_CeZOj-G++Q_ps1" role="tab" aria-controls="tabpanel_CeZOj-G++Q_ps1" data-tab="ps1" tabindex="-1">PowerShell (Subscription)</a>
+</li>
+<li role="presentation">
+<a href="#tabpanel_CeZOj-G++Q_pnpps" role="tab" aria-controls="tabpanel_CeZOj-G++Q_pnpps" data-tab="pnpps" tabindex="-1">PnP PowerShell</a>
 </li>
 </ul>
 <section id="tabpanel_CeZOj-G++Q_ps" role="tabpanel" data-tab="ps"><button class="article-clipboard" title="Copy to clipboard" data-toggle="tooltip" data-placement="top" data-clipboard-target="section[id^='tabpanel'][data-tab='ps'] pre">
@@ -261,6 +264,28 @@ function Get-TenantIdFromSubscriptionId {
 <p>Check out the <strong>PowerShell</strong> to learn more at: <a href="https://learn.microsoft.com/powershell">PowerShell Documentation | Microsoft Learn</a></p>
 </div>
 </section>
+<section id="tabpanel_CeZOj-G++Q_pnpps" role="tabpanel" data-tab="pnpps" aria-hidden="true" hidden="hidden"><button class="article-clipboard" title="Copy to clipboard" data-toggle="tooltip" data-placement="top" data-clipboard-target="section[id^='tabpanel'][data-tab='pnpps'] pre">
+    <span class="glyphicon glyphicon-copy" aria-hidden="true"></span>
+    <span class="article-clipboard__message done">Copied</span>
+</button>
+
+<pre><code class="lang-powershell">param (
+    [Parameter(Mandatory = $true)]
+    [string] $domain
+)
+
+$adminSiteURL = &quot;https://$domain-Admin.SharePoint.com&quot;
+Connect-PnPOnline -Url $adminSiteURL -Interactive -WarningAction SilentlyContinue
+Get-PnPTenantId
+
+</code></pre>
+<div class="highlight-tool">
+<p>Check out the <strong>PnP PowerShell</strong> to learn more at: <a href="https://aka.ms/pnp/powershell">https://aka.ms/pnp/powershell</a></p>
+</div>
+<div class="highlight-tool-red">
+<p>The way you login into PnP PowerShell has changed please read <a href="https://github.com/pnp/powershell/discussions/4249">PnP Management Shell EntraID app is deleted : what should I do ?</a></p>
+</div>
+</section>
 </div>
 <h2 id="source-credit">Source Credit</h2>
 <p>Sample first appeared on <a href="https://github.com/dkaaven/M365-Scripts">https://github.com/dkaaven/M365-Scripts</a></p>
@@ -274,6 +299,9 @@ function Get-TenantIdFromSubscriptionId {
 <tbody>
 <tr>
 <td><a href="https://github.com/dkaaven">Daniel Kåven</a></td>
+</tr>
+<tr>
+<td><a href="https://github.com/reshmee011">Reshmee Auckloo</a></td>
 </tr>
 </tbody>
 </table>
