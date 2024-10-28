@@ -2,7 +2,7 @@
 plugin: add-to-gallery
 ---
 
-# Automate Renewal of Expiring M365 Groups or or Microsoft Teams teams
+# Prevent Guests from being added to a specific Microsoft 365 Group or Microsoft Teams team
 
 ## Summary
 
