@@ -1,13 +1,13 @@
 @media screen and (max-width: 44.9375em) {
     .md-footer__link--prev {
         width: 25%;
-    }    
+    }
 }
 
 @media screen and (min-width: 45em) {
     .md-footer__link {
         width: 50%;
-    }  
+    }
 }
 
 @keyframes fadeIn {
@@ -18,7 +18,7 @@
       opacity:1;
     }
   }
-  
+
   @-moz-keyframes fadeIn {
     0% {
       opacity:0;
@@ -27,7 +27,7 @@
       opacity:1;
     }
   }
-  
+
   @-webkit-keyframes fadeIn {
     0% {
       opacity:0;
@@ -36,7 +36,7 @@
       opacity:1;
     }
   }
-  
+
   @-o-keyframes fadeIn {
     0% {
       opacity:0;
@@ -45,7 +45,7 @@
       opacity:1;
     }
   }
-  
+
   @-ms-keyframes fadeIn {
     0% {
       opacity:0;
@@ -300,7 +300,7 @@ li.md-nav__item {
         width: .9rem;
         height: .9rem;
         transition: transform 250ms;
-    }   
+    }
 }
 
 .md-nav__icon::before {
@@ -322,7 +322,7 @@ li.md-nav__item {
 
 
 li.md-nav__item .md-nav__link:active, li.md-nav__item .md-nav__link:hover
-{ 
+{
     text-decoration: underline;
 }
 
@@ -560,7 +560,7 @@ li.md-nav__item .md-nav__link:active, li.md-nav__item .md-nav__link:hover {
     pointer-events: none;
     white-space: nowrap;
 }
-/* 
+/*
 .sampletype-item::after {
     content: attr(title);
     background-color: #0078D4;
@@ -708,7 +708,7 @@ li.md-nav__item .md-nav__link:active, li.md-nav__item .md-nav__link:hover {
     background-color: #ea64a2
 }
 
-/* 
+/*
 TODO: Move styles
 .samples-section {
     clear: both;
@@ -775,7 +775,7 @@ TODO: Move styles
 }
 
 .sample-preview img {
-    
+
     border-radius: 5px;
     height: 100%;
     width: 100%;
@@ -1035,7 +1035,7 @@ TODO: Move styles
         height: 100px;
         max-height: 100px;
     }
-    
+
     .sample-text{
 
         height: 120px;
@@ -1045,7 +1045,7 @@ TODO: Move styles
     .sample-inner{
         min-height: 300px;
     }
-    
+
 }
 
 /* ADDED FOR DIAGNOSIS */
@@ -1099,3 +1099,32 @@ p.sample-title {
     overflow: unset;
 }
 
+.list-view .producttype-item {
+    right: 10px !important;
+    top: auto !important;
+    left: auto !important;
+}
+
+.list-view .producttype-item:nth-of-type(4) {
+    margin-right: 30px !important;
+    z-index: 20;
+}
+
+.list-view .producttype-item:nth-of-type(2),
+.list-view .producttype-item:not(:first-child){
+    /* margin-right: 40px; */
+    z-index: 40;
+}
+
+.list-view .sample-details{
+    padding: 12px 12px;
+}
+
+.list-view .content p{
+    margin-bottom: 0.5rem;
+}
+
+.list-view .activity-details,
+.list-view .author-avatar{
+    padding-top: 5px;
+}

@@ -1,13 +1,8 @@
----
-plugin: insert-gallery
----
+# List View
 
-# Script Samples
+This page provides a list view of the samples for faster loading and better readability.
 
-Find scenarios and scripts here using tools such as ***PnP PowerShell, CLI for Microsoft 365, SPO Management Shell, Graph PowerShell SDK*** and more. Are you looking for authoring tool in Visual Studio Code? Check out extensions
-[PnP PowerShell for Visual Studio Code](https://marketplace.visualstudio.com/items?itemName=adamwojcikit.pnp-powershell-extension) and [CLI for Microsoft 365 for Visual Studio Code](https://marketplace.visualstudio.com/items?itemName=adamwojcikit.cli-for-microsoft-365-extension)
-
-You can now view the samples in a [list view](list-view.md) for faster loading and better readability.
+<button id="view-mode-toggle">Toggle View Mode</button>
 
 <section class="filter-section">
 
@@ -37,12 +32,13 @@ You can now view the samples in a [list view](list-view.md) for faster loading a
 
 </section>
 
-<div class="grid" id="sample-listing" data-view="list">
+<div class="grid list-view" id="sample-listing" data-view="list-view">
     <div class="grid-sizer"></div>
 </div>
 
 <div id="noresults">
     No results found.
 </div>
+
 
 <img src="https://m365-visitor-stats.azurewebsites.net/script-samples" aria-hidden="true" />
