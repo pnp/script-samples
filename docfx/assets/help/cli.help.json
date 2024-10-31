@@ -20,6 +20,10 @@
     "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/request/"
   },
   {
+    "cmd": "m365 search",
+    "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/search/"
+  },
+  {
     "cmd": "m365 setup",
     "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/setup/"
   },
@@ -72,10 +76,6 @@
     "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/cli/cli-issue"
   },
   {
-    "cmd": "m365 cli reconsent",
-    "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/cli/cli-reconsent"
-  },
-  {
     "cmd": "m365 cli completion clink update",
     "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/cli/completion/completion-clink-update"
   },
@@ -110,6 +110,22 @@
   {
     "cmd": "m365 cli config set",
     "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/cli/config/config-set"
+  },
+  {
+    "cmd": "m365 connection list",
+    "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/connection/connection-list"
+  },
+  {
+    "cmd": "m365 connection remove",
+    "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/connection/connection-remove"
+  },
+  {
+    "cmd": "m365 connection set",
+    "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/connection/connection-set"
+  },
+  {
+    "cmd": "m365 connection use",
+    "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/connection/connection-use"
   },
   {
     "cmd": "m365 context init",
@@ -156,6 +172,10 @@
     "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/entra/administrativeunit/administrativeunit-member-list"
   },
   {
+    "cmd": "m365 entra administrativeunit member remove",
+    "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/entra/administrativeunit/administrativeunit-member-remove"
+  },
+  {
     "cmd": "m365 entra administrativeunit remove",
     "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/entra/administrativeunit/administrativeunit-remove"
   },
@@ -178,6 +198,14 @@
   {
     "cmd": "m365 entra app permission add",
     "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/entra/app/app-permission-add"
+  },
+  {
+    "cmd": "m365 entra app permission list",
+    "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/entra/app/app-permission-list"
+  },
+  {
+    "cmd": "m365 entra app permission remove",
+    "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/entra/app/app-permission-remove"
   },
   {
     "cmd": "m365 entra app remove",
@@ -212,6 +240,26 @@
     "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/entra/approleassignment/approleassignment-remove"
   },
   {
+    "cmd": "m365 entra enterpriseapp add",
+    "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/entra/enterpriseapp/enterpriseapp-add"
+  },
+  {
+    "cmd": "m365 entra enterpriseapp get",
+    "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/entra/enterpriseapp/enterpriseapp-get"
+  },
+  {
+    "cmd": "m365 entra enterpriseapp list",
+    "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/entra/enterpriseapp/enterpriseapp-list"
+  },
+  {
+    "cmd": "m365 entra enterpriseapp remove",
+    "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/entra/enterpriseapp/enterpriseapp-remove"
+  },
+  {
+    "cmd": "m365 entra group add",
+    "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/entra/group/group-add"
+  },
+  {
     "cmd": "m365 entra group get",
     "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/entra/group/group-get"
   },
@@ -220,12 +268,24 @@
     "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/entra/group/group-list"
   },
   {
+    "cmd": "m365 entra group member add",
+    "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/entra/group/group-member-add"
+  },
+  {
+    "cmd": "m365 entra group member list",
+    "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/entra/group/group-member-list"
+  },
+  {
+    "cmd": "m365 entra group member set",
+    "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/entra/group/group-member-set"
+  },
+  {
     "cmd": "m365 entra group remove",
     "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/entra/group/group-remove"
   },
   {
-    "cmd": "m365 entra group user list",
-    "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/entra/group/group-user-list"
+    "cmd": "m365 entra group set",
+    "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/entra/group/group-set"
   },
   {
     "cmd": "m365 entra groupsetting add",
@@ -348,6 +408,22 @@
     "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/entra/m365group/m365group-user-set"
   },
   {
+    "cmd": "m365 entra multitenant add",
+    "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/entra/multitenant/multitenant-add"
+  },
+  {
+    "cmd": "m365 entra multitenant get",
+    "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/entra/multitenant/multitenant-get"
+  },
+  {
+    "cmd": "m365 entra multitenant remove",
+    "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/entra/multitenant/multitenant-remove"
+  },
+  {
+    "cmd": "m365 entra multitenant set",
+    "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/entra/multitenant/multitenant-set"
+  },
+  {
     "cmd": "m365 entra oauth2grant add",
     "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/entra/oauth2grant/oauth2grant-add"
   },
@@ -362,6 +438,22 @@
   {
     "cmd": "m365 entra oauth2grant set",
     "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/entra/oauth2grant/oauth2grant-set"
+  },
+  {
+    "cmd": "m365 entra pim role assignment add",
+    "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/entra/pim/pim-role-assignment-add"
+  },
+  {
+    "cmd": "m365 entra pim role assignment eligibility list",
+    "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/entra/pim/pim-role-assignment-eligibility-list"
+  },
+  {
+    "cmd": "m365 entra pim role assignment list",
+    "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/entra/pim/pim-role-assignment-list"
+  },
+  {
+    "cmd": "m365 entra pim role request list",
+    "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/entra/pim/pim-role-request-list"
   },
   {
     "cmd": "m365 entra policy list",
@@ -384,24 +476,16 @@
     "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/entra/siteclassification/siteclassification-set"
   },
   {
-    "cmd": "m365 entra sp add",
-    "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/entra/sp/sp-add"
-  },
-  {
-    "cmd": "m365 entra sp get",
-    "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/entra/sp/sp-get"
-  },
-  {
-    "cmd": "m365 entra sp list",
-    "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/entra/sp/sp-list"
-  },
-  {
     "cmd": "m365 entra user add",
     "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/entra/user/user-add"
   },
   {
     "cmd": "m365 entra user get",
     "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/entra/user/user-get"
+  },
+  {
+    "cmd": "m365 entra user groupmembership list",
+    "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/entra/user/user-groupmembership-list"
   },
   {
     "cmd": "m365 entra user guest add",
@@ -446,6 +530,10 @@
   {
     "cmd": "m365 entra user recyclebinitem restore",
     "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/entra/user/user-recyclebinitem-restore"
+  },
+  {
+    "cmd": "m365 entra user registrationdetails list",
+    "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/entra/user/user-registrationdetails-list"
   },
   {
     "cmd": "m365 entra user remove",
@@ -496,8 +584,16 @@
     "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/file/file-add"
   },
   {
+    "cmd": "m365 file copy",
+    "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/file/file-copy"
+  },
+  {
     "cmd": "m365 file list",
     "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/file/file-list"
+  },
+  {
+    "cmd": "m365 file move",
+    "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/file/file-move"
   },
   {
     "cmd": "m365 file convert pdf",
@@ -546,6 +642,14 @@
   {
     "cmd": "m365 flow owner remove",
     "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/flow/owner/owner-remove"
+  },
+  {
+    "cmd": "m365 flow recyclebinitem list",
+    "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/flow/recyclebinitem/recyclebinitem-list"
+  },
+  {
+    "cmd": "m365 flow recyclebinitem restore",
+    "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/flow/recyclebinitem/recyclebinitem-restore"
   },
   {
     "cmd": "m365 flow run cancel",
@@ -624,6 +728,10 @@
     "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/onedrive/report/report-usagestorage"
   },
   {
+    "cmd": "m365 onenote notebook add",
+    "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/onenote/notebook/notebook-add"
+  },
+  {
     "cmd": "m365 onenote notebook list",
     "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/onenote/notebook/notebook-list"
   },
@@ -646,6 +754,10 @@
   {
     "cmd": "m365 outlook message move",
     "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/outlook/message/message-move"
+  },
+  {
+    "cmd": "m365 outlook message remove",
+    "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/outlook/message/message-remove"
   },
   {
     "cmd": "m365 outlook report mailactivitycounts",
@@ -1072,8 +1184,16 @@
     "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/purview/sensitivitylabel/sensitivitylabel-policysettings-list"
   },
   {
+    "cmd": "m365 purview threatassessment add",
+    "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/purview/threatassessment/threatassessment-add"
+  },
+  {
     "cmd": "m365 purview threatassessment get",
     "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/purview/threatassessment/threatassessment-get"
+  },
+  {
+    "cmd": "m365 purview threatassessment list",
+    "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/purview/threatassessment/threatassessment-list"
   },
   {
     "cmd": "m365 skype report activitycounts",
@@ -1088,12 +1208,24 @@
     "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/skype/report/report-activityuserdetail"
   },
   {
+    "cmd": "m365 spe containertype add",
+    "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/spe/containertype/containertype-add"
+  },
+  {
+    "cmd": "m365 spe containertype list",
+    "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/spe/containertype/containertype-list"
+  },
+  {
     "cmd": "m365 spfx doctor",
     "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/spfx/spfx-doctor"
   },
   {
     "cmd": "m365 spfx package generate",
     "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/spfx/package/package-generate"
+  },
+  {
+    "cmd": "m365 spfx project azuredevops pipeline add",
+    "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/spfx/project/project-azuredevops-pipeline-add"
   },
   {
     "cmd": "m365 spfx project doctor",
@@ -1256,6 +1388,10 @@
     "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/spo/contenttype/contenttype-add"
   },
   {
+    "cmd": "m365 spo contenttype field list",
+    "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/spo/contenttype/contenttype-field-list"
+  },
+  {
     "cmd": "m365 spo contenttype field remove",
     "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/spo/contenttype/contenttype-field-remove"
   },
@@ -1278,6 +1414,10 @@
   {
     "cmd": "m365 spo contenttype set",
     "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/spo/contenttype/contenttype-set"
+  },
+  {
+    "cmd": "m365 spo contenttype sync",
+    "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/spo/contenttype/contenttype-sync"
   },
   {
     "cmd": "m365 spo contenttypehub get",
@@ -1492,10 +1632,6 @@
     "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/spo/folder/folder-remove"
   },
   {
-    "cmd": "m365 spo folder rename",
-    "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/spo/folder/folder-rename"
-  },
-  {
     "cmd": "m365 spo folder retentionlabel ensure",
     "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/spo/folder/folder-retentionlabel-ensure"
   },
@@ -1518,6 +1654,34 @@
   {
     "cmd": "m365 spo folder roleinheritance reset",
     "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/spo/folder/folder-roleinheritance-reset"
+  },
+  {
+    "cmd": "m365 spo folder set",
+    "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/spo/folder/folder-set"
+  },
+  {
+    "cmd": "m365 spo folder sharinglink add",
+    "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/spo/folder/folder-sharinglink-add"
+  },
+  {
+    "cmd": "m365 spo folder sharinglink clear",
+    "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/spo/folder/folder-sharinglink-clear"
+  },
+  {
+    "cmd": "m365 spo folder sharinglink get",
+    "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/spo/folder/folder-sharinglink-get"
+  },
+  {
+    "cmd": "m365 spo folder sharinglink list",
+    "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/spo/folder/folder-sharinglink-list"
+  },
+  {
+    "cmd": "m365 spo folder sharinglink remove",
+    "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/spo/folder/folder-sharinglink-remove"
+  },
+  {
+    "cmd": "m365 spo folder sharinglink set",
+    "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/spo/folder/folder-sharinglink-set"
   },
   {
     "cmd": "m365 spo group add",
@@ -1776,6 +1940,10 @@
     "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/spo/listitem/listitem-batch-add"
   },
   {
+    "cmd": "m365 spo listitem batch remove",
+    "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/spo/listitem/listitem-batch-remove"
+  },
+  {
     "cmd": "m365 spo listitem batch set",
     "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/spo/listitem/listitem-batch-set"
   },
@@ -1932,6 +2100,10 @@
     "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/spo/page/page-list"
   },
   {
+    "cmd": "m365 spo page publish",
+    "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/spo/page/page-publish"
+  },
+  {
     "cmd": "m365 spo page remove",
     "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/spo/page/page-remove"
   },
@@ -2060,6 +2232,18 @@
     "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/spo/site/site-add"
   },
   {
+    "cmd": "m365 spo site admin add",
+    "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/spo/site/site-admin-add"
+  },
+  {
+    "cmd": "m365 spo site admin list",
+    "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/spo/site/site-admin-list"
+  },
+  {
+    "cmd": "m365 spo site admin remove",
+    "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/spo/site/site-admin-remove"
+  },
+  {
     "cmd": "m365 spo site appcatalog add",
     "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/spo/site/site-appcatalog-add"
   },
@@ -2128,10 +2312,6 @@
     "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/spo/site/site-inplacerecordsmanagement-set"
   },
   {
-    "cmd": "m365 spo site list",
-    "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/spo/site/site-list"
-  },
-  {
     "cmd": "m365 spo site recyclebinitem clear",
     "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/spo/site/site-recyclebinitem-clear"
   },
@@ -2156,12 +2336,12 @@
     "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/spo/site/site-remove"
   },
   {
-    "cmd": "m365 spo site rename",
-    "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/spo/site/site-rename"
-  },
-  {
     "cmd": "m365 spo site set",
     "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/spo/site/site-set"
+  },
+  {
+    "cmd": "m365 spo site sharingpermission set",
+    "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/spo/site/site-sharingpermission-set"
   },
   {
     "cmd": "m365 spo sitedesign add",
@@ -2324,6 +2504,26 @@
     "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/spo/tenant/tenant-settings-set"
   },
   {
+    "cmd": "m365 spo tenant site archive",
+    "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/spo/tenant/tenant-site-archive"
+  },
+  {
+    "cmd": "m365 spo tenant site list",
+    "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/spo/tenant/tenant-site-list"
+  },
+  {
+    "cmd": "m365 spo tenant site membership list",
+    "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/spo/tenant/tenant-site-membership-list"
+  },
+  {
+    "cmd": "m365 spo tenant site rename",
+    "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/spo/tenant/tenant-site-rename"
+  },
+  {
+    "cmd": "m365 spo tenant site unarchive",
+    "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/spo/tenant/tenant-site-unarchive"
+  },
+  {
     "cmd": "m365 spo term add",
     "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/spo/term/term-add"
   },
@@ -2456,6 +2656,14 @@
     "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/spo/web/web-set"
   },
   {
+    "cmd": "m365 spp contentcenter list",
+    "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/spp/contentcenter/contentcenter-list"
+  },
+  {
+    "cmd": "m365 spp model list",
+    "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/spp/model/model-list"
+  },
+  {
     "cmd": "m365 teams app install",
     "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/teams/app/app-install"
   },
@@ -2568,6 +2776,10 @@
     "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/teams/meeting/meeting-add"
   },
   {
+    "cmd": "m365 teams meeting attendancereport get",
+    "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/teams/meeting/meeting-attendancereport-get"
+  },
+  {
     "cmd": "m365 teams meeting attendancereport list",
     "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/teams/meeting/meeting-attendancereport-list"
   },
@@ -2578,6 +2790,10 @@
   {
     "cmd": "m365 teams meeting list",
     "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/teams/meeting/meeting-list"
+  },
+  {
+    "cmd": "m365 teams meeting transcript get",
+    "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/teams/meeting/meeting-transcript-get"
   },
   {
     "cmd": "m365 teams meeting transcript list",
@@ -2600,8 +2816,16 @@
     "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/teams/message/message-list"
   },
   {
+    "cmd": "m365 teams message remove",
+    "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/teams/message/message-remove"
+  },
+  {
     "cmd": "m365 teams message reply list",
     "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/teams/message/message-reply-list"
+  },
+  {
+    "cmd": "m365 teams message restore",
+    "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/teams/message/message-restore"
   },
   {
     "cmd": "m365 teams message send",
@@ -2710,6 +2934,10 @@
   {
     "cmd": "m365 teams user app remove",
     "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/teams/user/user-app-remove"
+  },
+  {
+    "cmd": "m365 teams user app upgrade",
+    "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/teams/user/user-app-upgrade"
   },
   {
     "cmd": "m365 teams user list",
@@ -2844,87 +3072,103 @@
     "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/viva/connections/connections-app-create"
   },
   {
-    "cmd": "m365 yammer search",
-    "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/yammer/yammer-search"
+    "cmd": "m365 viva engage community add",
+    "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/viva/engage/engage-community-add"
   },
   {
-    "cmd": "m365 yammer group list",
-    "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/yammer/group/group-list"
+    "cmd": "m365 viva engage community get",
+    "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/viva/engage/engage-community-get"
   },
   {
-    "cmd": "m365 yammer group user add",
-    "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/yammer/group/group-user-add"
+    "cmd": "m365 viva engage community list",
+    "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/viva/engage/engage-community-list"
   },
   {
-    "cmd": "m365 yammer group user remove",
-    "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/yammer/group/group-user-remove"
+    "cmd": "m365 viva engage community user list",
+    "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/viva/engage/engage-community-user-list"
   },
   {
-    "cmd": "m365 yammer message add",
-    "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/yammer/message/message-add"
+    "cmd": "m365 viva engage group list",
+    "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/viva/engage/engage-group-list"
   },
   {
-    "cmd": "m365 yammer message get",
-    "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/yammer/message/message-get"
+    "cmd": "m365 viva engage group user add",
+    "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/viva/engage/engage-group-user-add"
   },
   {
-    "cmd": "m365 yammer message like set",
-    "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/yammer/message/message-like-set"
+    "cmd": "m365 viva engage group user remove",
+    "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/viva/engage/engage-group-user-remove"
   },
   {
-    "cmd": "m365 yammer message list",
-    "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/yammer/message/message-list"
+    "cmd": "m365 viva engage message add",
+    "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/viva/engage/engage-message-add"
   },
   {
-    "cmd": "m365 yammer message remove",
-    "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/yammer/message/message-remove"
+    "cmd": "m365 viva engage message get",
+    "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/viva/engage/engage-message-get"
   },
   {
-    "cmd": "m365 yammer network list",
-    "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/yammer/network/network-list"
+    "cmd": "m365 viva engage message like set",
+    "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/viva/engage/engage-message-like-set"
   },
   {
-    "cmd": "m365 yammer report activitycounts",
-    "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/yammer/report/report-activitycounts"
+    "cmd": "m365 viva engage message list",
+    "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/viva/engage/engage-message-list"
   },
   {
-    "cmd": "m365 yammer report activityusercounts",
-    "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/yammer/report/report-activityusercounts"
+    "cmd": "m365 viva engage message remove",
+    "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/viva/engage/engage-message-remove"
   },
   {
-    "cmd": "m365 yammer report activityuserdetail",
-    "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/yammer/report/report-activityuserdetail"
+    "cmd": "m365 viva engage network list",
+    "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/viva/engage/engage-network-list"
   },
   {
-    "cmd": "m365 yammer report deviceusagedistributionusercounts",
-    "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/yammer/report/report-deviceusagedistributionusercounts"
+    "cmd": "m365 viva engage report activitycounts",
+    "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/viva/engage/engage-report-activitycounts"
   },
   {
-    "cmd": "m365 yammer report deviceusageusercounts",
-    "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/yammer/report/report-deviceusageusercounts"
+    "cmd": "m365 viva engage report activityusercounts",
+    "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/viva/engage/engage-report-activityusercounts"
   },
   {
-    "cmd": "m365 yammer report deviceusageuserdetail",
-    "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/yammer/report/report-deviceusageuserdetail"
+    "cmd": "m365 viva engage report activityuserdetail",
+    "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/viva/engage/engage-report-activityuserdetail"
   },
   {
-    "cmd": "m365 yammer report groupsactivitycounts",
-    "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/yammer/report/report-groupsactivitycounts"
+    "cmd": "m365 viva engage report deviceusagedistributionusercounts",
+    "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/viva/engage/engage-report-deviceusagedistributionusercounts"
   },
   {
-    "cmd": "m365 yammer report groupsactivitydetail",
-    "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/yammer/report/report-groupsactivitydetail"
+    "cmd": "m365 viva engage report deviceusageusercounts",
+    "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/viva/engage/engage-report-deviceusageusercounts"
   },
   {
-    "cmd": "m365 yammer report groupsactivitygroupcounts",
-    "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/yammer/report/report-groupsactivitygroupcounts"
+    "cmd": "m365 viva engage report deviceusageuserdetail",
+    "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/viva/engage/engage-report-deviceusageuserdetail"
   },
   {
-    "cmd": "m365 yammer user get",
-    "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/yammer/user/user-get"
+    "cmd": "m365 viva engage report groupsactivitycounts",
+    "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/viva/engage/engage-report-groupsactivitycounts"
   },
   {
-    "cmd": "m365 yammer user list",
-    "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/yammer/user/user-list"
+    "cmd": "m365 viva engage report groupsactivitydetail",
+    "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/viva/engage/engage-report-groupsactivitydetail"
+  },
+  {
+    "cmd": "m365 viva engage report groupsactivitygroupcounts",
+    "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/viva/engage/engage-report-groupsactivitygroupcounts"
+  },
+  {
+    "cmd": "m365 viva engage search",
+    "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/viva/engage/engage-search"
+  },
+  {
+    "cmd": "m365 viva engage user get",
+    "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/viva/engage/engage-user-get"
+  },
+  {
+    "cmd": "m365 viva engage user list",
+    "helpUrl": "https://pnp.github.io/cli-microsoft365/cmd/viva/engage/engage-user-list"
   }
 ]
