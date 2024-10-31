@@ -143,6 +143,12 @@ $files | Foreach-Object {
 
 # Output Report
 
+"`nThere are **{0}** scenarios and **{1}** scripts in the site | Generated: {2} `n`n" -f $matrixRows.Length, $sampleCount, [System.DateTime]::Now.ToString("dd MMM yyyy hh:mm:ss") `
+    | Out-File $reportFile -Append
+
+"`rPnP PowerShell: {0} <br />Cli for Microsoft 365 PowerShell: {1}<br />Cli for Microsoft 365 Bash: {2}<br />Graph SDK: {3}<br />SPO Management SDK: {4}<br /> All Tabs: {5}<br /><br />" `
+    -f $PnPPSCount, $CLIPSCount, $CLIBashCount, $GraphSDKCount, $SPOMSCount, $AllTabs `
+    | Out-File $reportFile -Append
 
 $matrixRows | ForEach-Object{
 
@@ -155,11 +161,3 @@ $matrixRows | ForEach-Object{
 # Counts
 $row = "| - | {0} | {1} | {2} | {3} | {4} |" -f $PnPPSCount, $CLIPSCount, $CLIBashCount, $GraphSDKCount, $SPOMSCount
 $row | Out-File $reportFile -Append
-
-
-"`nThere are **{0}** scenarios and **{1}** scripts in the site | Generated: {2} `n`n" -f $matrixRows.Length, $sampleCount, [System.DateTime]::Now.ToString("dd MMM yyyy hh:mm:ss") `
-    | Out-File $reportFile -Append
-
-"`rPnP PowerShell: {0} <br />Cli for Microsoft 365 PowerShell: {1}<br />Cli for Microsoft 365 Bash: {2}<br />Graph SDK: {3}<br />SPO Management SDK: {4}<br /> All Tabs: {5}<br /><br />" `
-    -f $PnPPSCount, $CLIPSCount, $CLIBashCount, $GraphSDKCount, $SPOMSCount, $AllTabs `
-    | Out-File $reportFile -Append
