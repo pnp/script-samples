@@ -148,12 +148,12 @@ $files | Foreach-Object {
     -f $PnPPSCount, $CLIPSCount, $CLIBashCount, $GraphSDKCount, $SPOMSCount, $AllTabs `
     | Out-File $reportFile -Append
 
-"| Sample | PnP<br />PowerShell | Cli for Microsoft 365<br />PowerShell | Cli for Microsoft 365<br />Bash | Graph<br />SDK | SPO Management<br />Shell |" | Out-File $reportFile -Append
-"|------|:--------:|:--------:|:----------:|:-----------:|:--------:|"  | Out-File $reportFile -Append
+"| Sample | PnP<br />PowerShell | Cli for Microsoft 365<br />PowerShell | Cli for Microsoft 365<br />Bash | Graph<br />SDK | SPO Management<br />Shell | `n" | Out-File $reportFile -Append
+"|------|:--------:|:--------:|:----------:|:-----------:|:--------:| `n"  | Out-File $reportFile -Append
 
 $matrixRows | ForEach-Object{
 
-    $row = "| {0} | {1} | {2} | {3} | {4} | {5} |" -f $_.Link, (DispTick $_.PnPPS), (DispTick $_.CLIPS), (DispTick $_.CLIBash), (DispTick $_.GraphSDK), (DispTick $_.SPOMS)
+    $row = "| {0} | {1} | {2} | {3} | {4} | {5} | `n" -f $_.Link, (DispTick $_.PnPPS), (DispTick $_.CLIPS), (DispTick $_.CLIBash), (DispTick $_.GraphSDK), (DispTick $_.SPOMS)
     Write-Host $row
 
     $row | Out-File $reportFile -Append
