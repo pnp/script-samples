@@ -129,6 +129,59 @@ Then find the repository at <a href="https://github.com/pnp/script-samples">http
 Please note: this isn't an expected sample style, quality or format, or a gold standard just an idea if you feel you need some ideas on how to present your script. <br><br>
 We fully understand that there any multiple styles and approaches, and <strong>we are happy to accept the submission in your style</strong> 😊</p>
 </div>
+<p><strong>Alternatively, you can use PowerShell...</strong></p>
+<p>We have added a PowerShell script to help you generate the scaffolding for a NEW sample, making it faster for you to submit. It does not add to an existing sample a new variation.</p>
+<p>In the root of the repo, you will find <code>New-Sample.ps1</code> this PowerShell script accepts the following parameters:</p>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Example</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>-ScriptFolderName</td>
+<td>&quot;spo-dev-tenant-report-export&quot;</td>
+<td>Folder format for the sample itself. Lowercase, workload prefix</td>
+</tr>
+<tr>
+<td>-ScriptTitle</td>
+<td>&quot;Report and Export Solutions from M365 Developer Tenant&quot;</td>
+<td>Title of your sample script</td>
+</tr>
+<tr>
+<td>-ScriptShortDescription</td>
+<td>&quot;Expiring tenant or need...&quot;</td>
+<td>Short Description of what the sample does</td>
+</tr>
+<tr>
+<td>-ScriptTool</td>
+<td>PnPPowerShell</td>
+<td>Multiple options supported here e.g. 'PnPPowerShell','CliForMicrosoft365', 'SPOManagementShell', 'CliForMicrosoft365Bash',            'MicrosoftGraphPowerShell', 'AzureCli', 'PowerAppsPowerShell', 'MicrosoftTeamsPowerShell', 'All'</td>
+</tr>
+<tr>
+<td>-AuthorFullName</td>
+<td>&quot;Paul Bullock&quot;</td>
+<td>Your name, so we can credit you</td>
+</tr>
+<tr>
+<td>-GitHubId</td>
+<td>&quot;pkbullock&quot;</td>
+<td>Your GitHub handle</td>
+</tr>
+</tbody>
+</table>
+<p>Example:</p>
+<pre><code class="lang-powershell"> .\New-Sample.ps1 -ScriptFolderName &quot;spo-dev-tenant-report-export&quot; `
+    -ScriptTitle &quot;Report and Export Solutions from M365 Developer Tenant&quot; ` 
+    -ScriptShortDescription &quot;Expiring tenant or need to understand what you have created in the past, report and optionally export your projects and solutions&quot; 
+    -ScriptTool PnPPowerShell `
+    -AuthorFullName &quot;Paul Bullock&quot; `
+    -GitHubId &quot;pkbullock&quot;
+</code></pre>
+<p><img src="../assets/contributing/new-sample-output.png" alt="Example of output from parameters"></p>
 <h2 id="page-structure">Page Structure</h2>
 <p>The page follows a standard format, we have created a graphic to explain the layout and the markdown for each section:</p>
 <div class="full-image-size">
