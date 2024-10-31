@@ -1,8 +1,6 @@
-# List View
+# Compact View
 
-This page provides a list view of the samples for faster loading and better readability.
-
-<button id="view-mode-toggle">Toggle View Mode</button>
+Experimental view - this page provides a compact view of the samples for faster loading and better readability.
 
 <section class="filter-section">
 
