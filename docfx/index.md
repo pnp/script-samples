@@ -37,7 +37,7 @@ You can now view the samples in a [compact view](compact-view.md) for faster loa
 
 </section>
 
-<div class="grid" id="sample-listing" data-view="compact-view">
+<div class="grid" id="sample-listing">
     <div class="grid-sizer"></div>
 </div>
 
