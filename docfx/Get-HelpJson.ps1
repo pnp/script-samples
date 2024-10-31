@@ -6,7 +6,7 @@
 function Process-PnPPowerShellDocs
 {
 
-    $pnppsDocs = Join-Path -Path $currentLocation -ChildPath "powershell/documentation"
+    $pnppsDocs = Join-Path -Path $currentLocation -ChildPath "pnp-powershell/documentation"
     Write-Host "Processing PnP PowerShell Path: $($pnppsDocs)"
     $pnppsBaseSitePath = "https://pnp.github.io/powershell/cmdlets"
     $pnppsDocsFiles = Get-ChildItem -Path $pnppsDocs
@@ -116,14 +116,10 @@ function Process-CliForM365Docs
     Write-Host "CLI for Microsoft 365 cmdlets documentation generated"
 }
 
-# Pre Launch
-
-# Update Repos - TODO
-
 # For optimatization - only use help where cmdlet is used
 
 # To refresh functions use . .\Get-HelpJson.ps1 in cmd window
-$currentLocation = "C:\Git\utility\script-help\"
+$currentLocation = "C:\git\readonly\script-samples-help\"
 $outputPath = "$(Get-Location)\assets\help"
 
 Process-PnPPowerShellDocs
