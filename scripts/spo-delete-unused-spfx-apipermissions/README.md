@@ -443,4 +443,4 @@ Additionally, it includes the capability to delete unused permissions, a feature
 
 
 [!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
-<img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/template-script-submission" aria-hidden="true" />
+<img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/spo-delete-unused-spfx-apipermissions" aria-hidden="true" />

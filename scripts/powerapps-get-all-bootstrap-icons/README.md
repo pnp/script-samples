@@ -126,4 +126,4 @@ Sample first appeared on [https://github.com/dkaaven/MyPowerAppScript](https://g
 
 
 [!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
-<img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/template-script-submission" aria-hidden="true" />
+<img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/powerapps-get-all-bootstrap-icons" aria-hidden="true" />

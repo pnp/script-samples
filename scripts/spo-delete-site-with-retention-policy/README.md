@@ -67,4 +67,4 @@ Set-RetentionCompliancePolicy -Identity $retentionPolicyName -RemoveSharePointLo
 
 
 [!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
-<img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/template-script-submission" aria-hidden="true" />
+<img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/spo-delete-site-with-retention-policy" aria-hidden="true" />
