@@ -7,7 +7,7 @@ plugin: insert-gallery
 Find scenarios and scripts here using tools such as ***PnP PowerShell, CLI for Microsoft 365, SPO Management Shell, Graph PowerShell SDK*** and more. Are you looking for authoring tool in Visual Studio Code? Check out extensions
 [PnP PowerShell for Visual Studio Code](https://marketplace.visualstudio.com/items?itemName=adamwojcikit.pnp-powershell-extension) and [CLI for Microsoft 365 for Visual Studio Code](https://marketplace.visualstudio.com/items?itemName=adamwojcikit.cli-for-microsoft-365-extension)
 
-You can now view the samples in a [list view](list-view.md) for faster loading and better readability.
+You can now view the samples in a [compact view](compact-view.md) for faster loading and better readability.
 
 <section class="filter-section">
 
@@ -37,7 +37,7 @@ You can now view the samples in a [list view](list-view.md) for faster loading a
 
 </section>
 
-<div class="grid" id="sample-listing" data-view="list">
+<div class="grid" id="sample-listing" data-view="compact-view">
     <div class="grid-sizer"></div>
 </div>
 

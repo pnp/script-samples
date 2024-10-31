@@ -114,9 +114,9 @@ function loadSample(sample, filter, viewMode) {
 
         // Build the HTML to insert
         var $items;
-        if (viewMode === 'list-view') {
+        if (viewMode === 'compact-view') {
           $items = $(`
-<a class="sample-thumbnail list-view" href="${sample.url}" data-modified="${sample.updateDateTime}" data-title="${title}" data-keywords="${keywords}" data-tags="${tags}" data-libraries="${libraries}" data-operation="${operations}" data-products="${products}">
+<a class="sample-thumbnail compact-view" href="${sample.url}" data-modified="${sample.updateDateTime}" data-title="${title}" data-keywords="${keywords}" data-tags="${tags}" data-libraries="${libraries}" data-operation="${operations}" data-products="${products}">
   <div class="sample-inner">
     <div class="sample-details">
       <div class="sample-text">

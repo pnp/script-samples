@@ -32,7 +32,7 @@ This page provides a list view of the samples for faster loading and better read
 
 </section>
 
-<div class="grid list-view" id="sample-listing" data-view="list-view">
+<div class="grid compact-view" id="sample-listing" data-view="compact-view">
     <div class="grid-sizer"></div>
 </div>
 

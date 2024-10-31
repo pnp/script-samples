@@ -1099,32 +1099,32 @@ p.sample-title {
     overflow: unset;
 }
 
-.list-view .producttype-item {
+.compact-view .producttype-item {
     right: 10px !important;
     top: auto !important;
     left: auto !important;
 }
 
-.list-view .producttype-item:nth-of-type(4) {
+.compact-view .producttype-item:nth-of-type(4) {
     margin-right: 30px !important;
     z-index: 20;
 }
 
-.list-view .producttype-item:nth-of-type(2),
-.list-view .producttype-item:not(:first-child){
+.compact-view .producttype-item:nth-of-type(2),
+.compact-view .producttype-item:not(:first-child){
     /* margin-right: 40px; */
     z-index: 40;
 }
 
-.list-view .sample-details{
+.compact-view .sample-details{
     padding: 12px 12px;
 }
 
-.list-view .content p{
+.compact-view .content p{
     margin-bottom: 0.5rem;
 }
 
-.list-view .activity-details,
-.list-view .author-avatar{
+.compact-view .activity-details,
+.compact-view .author-avatar{
     padding-top: 5px;
 }
