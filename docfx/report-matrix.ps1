@@ -150,7 +150,7 @@ $files | Foreach-Object {
 "`n`n" | Out-File $reportFile -Append
 
 "| Sample | PnP<br />PowerShell | Cli for Microsoft 365<br />PowerShell | Cli for Microsoft 365<br />Bash | Graph<br />SDK | SPO Management<br />Shell |" | Out-File $reportFile -Append
-"|:------:|:--------:|:--------:|:----------:|:-----------:|:--------:|"  | Out-File $reportFile -Append
+"|--------|:--------:|:--------:|:----------:|:-----------:|:--------:|"  | Out-File $reportFile -Append
 
 $matrixRows | ForEach-Object{
 
