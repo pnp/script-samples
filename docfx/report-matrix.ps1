@@ -64,8 +64,7 @@ $files = Get-ChildItem -Path $dir -Recurse -Include README.md
 Write-Host "$($files.Length) found"
 
 "# Matrix of Sample Distribution by Tool"  | Out-File $ReportFile -Force
-"| Sample | PnP<br />PowerShell | Cli for Microsoft 365<br />PowerShell | Cli for Microsoft 365<br />Bash | Graph<br />SDK | SPO Management<br />Shell |" | Out-File $reportFile -Append
-"|------|:--------:|:--------:|:----------:|:-----------:|:--------:|"  | Out-File $reportFile -Append
+
 
 $matrixRows = @()
 $sampleCount = 0
@@ -93,7 +92,6 @@ $files | Foreach-Object {
     $CLIBash = $false
     $GraphSDK = $false
     $SPOMS = $false
-
 
     #Write-Host $content
     $matchResults = $content | Select-String "#tab/" -AllMatches
@@ -149,6 +147,9 @@ $files | Foreach-Object {
 "`rPnP PowerShell: {0} <br />Cli for Microsoft 365 PowerShell: {1}<br />Cli for Microsoft 365 Bash: {2}<br />Graph SDK: {3}<br />SPO Management SDK: {4}<br /> All Tabs: {5}<br /><br />" `
     -f $PnPPSCount, $CLIPSCount, $CLIBashCount, $GraphSDKCount, $SPOMSCount, $AllTabs `
     | Out-File $reportFile -Append
+
+"| Sample | PnP<br />PowerShell | Cli for Microsoft 365<br />PowerShell | Cli for Microsoft 365<br />Bash | Graph<br />SDK | SPO Management<br />Shell |" | Out-File $reportFile -Append
+"|------|:--------:|:--------:|:----------:|:-----------:|:--------:|"  | Out-File $reportFile -Append
 
 $matrixRows | ForEach-Object{
 
