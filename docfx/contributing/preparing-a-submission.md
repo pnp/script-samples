@@ -12,6 +12,7 @@ Then find the repository at [https://github.com/pnp/script-samples](https://gith
 
 Before you can submit, you need to make sure you are setup with a "fork" of the repository in your own account, please navigate to [Submitting Pull Requests](submitting-pull-requests.md) for setup information.
 
+
 ## Use a code tour
 
 We have added a code tour to help you create a sample from the template. In order to use, this, you will need to install the extension into Visual Studio Code called "CodeTour", details of how this works, see [CodeTour | Visual Studio Code Marketplace](https://marketplace.visualstudio.com/items?itemName=vsls-contrib.codetour)
@@ -30,6 +31,35 @@ The template submission folder contains:
 > If you would like an example, please refer to the following script: [Generate Demo Events for SharePoint Events List | PnP Script Samples](https://pnp.github.io/script-samples/spo-generate-demo-events/README.html) <br />
 > Please note: this isn't an expected sample style, quality or format, or a gold standard just an idea if you feel you need some ideas on how to present your script. <br /><br />
 > We fully understand that there any multiple styles and approaches, and __we are happy to accept the submission in your style__ 😊
+
+
+**Alternatively, you can use PowerShell...**
+
+We have added a PowerShell script to help you generate the scaffolding for a NEW sample, making it faster for you to submit. It does not add to an existing sample a new variation.
+
+In the root of the repo, you will find ```New-Sample.ps1``` this PowerShell script accepts the following parameters:
+
+| Property | Example | Description |
+|----------|---------|-------------|
+| -ScriptFolderName | "spo-dev-tenant-report-export" | Folder format for the sample itself. Lowercase, workload prefix |
+| -ScriptTitle | "Report and Export Solutions from M365 Developer Tenant" | Title of your sample script |
+| -ScriptShortDescription | "Expiring tenant or need..." | Short Description of what the sample does  |
+| -ScriptTool | PnPPowerShell | Multiple options supported here e.g. 'PnPPowerShell','CliForMicrosoft365', 'SPOManagementShell', 'CliForMicrosoft365Bash',            'MicrosoftGraphPowerShell', 'AzureCli', 'PowerAppsPowerShell', 'MicrosoftTeamsPowerShell', 'All' |
+| -AuthorFullName | "Paul Bullock" | Your name, so we can credit you |
+| -GitHubId | "pkbullock" | Your GitHub handle |
+
+Example:
+
+```powershell
+ .\New-Sample.ps1 -ScriptFolderName "spo-dev-tenant-report-export" `
+    -ScriptTitle "Report and Export Solutions from M365 Developer Tenant" ` 
+    -ScriptShortDescription "Expiring tenant or need to understand what you have created in the past, report and optionally export your projects and solutions" 
+    -ScriptTool PnPPowerShell `
+    -AuthorFullName "Paul Bullock" `
+    -GitHubId "pkbullock"
+```
+
+![Example of output from parameters](../assets/contributing/new-sample-output.png)
 
 ## Page Structure
 
