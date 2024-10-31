@@ -2,7 +2,7 @@
 
 ## Variables
 param(
-    [string]$BaseDir = "C:\Git\contrib\script-samples\",
+    [string]$BaseDir = "D:\contrib\script-samples\",
     [string]$ScriptFolder = "scripts",
     [string]$ReportFile = "matrix.md",
     [string]$AssetsFolder = "assets"
@@ -147,13 +147,14 @@ $files | Foreach-Object {
 "`rPnP PowerShell: {0} <br />Cli for Microsoft 365 PowerShell: {1}<br />Cli for Microsoft 365 Bash: {2}<br />Graph SDK: {3}<br />SPO Management SDK: {4}<br /> All Tabs: {5}<br /><br />" `
     -f $PnPPSCount, $CLIPSCount, $CLIBashCount, $GraphSDKCount, $SPOMSCount, $AllTabs `
     | Out-File $reportFile -Append
+"`n`n" | Out-File $reportFile -Append
 
-"| Sample | PnP<br />PowerShell | Cli for Microsoft 365<br />PowerShell | Cli for Microsoft 365<br />Bash | Graph<br />SDK | SPO Management<br />Shell | `n" | Out-File $reportFile -Append
-"|------|:--------:|:--------:|:----------:|:-----------:|:--------:| `n"  | Out-File $reportFile -Append
+"| Sample | PnP<br />PowerShell | Cli for Microsoft 365<br />PowerShell | Cli for Microsoft 365<br />Bash | Graph<br />SDK | SPO Management<br />Shell |" | Out-File $reportFile -Append
+"|:------:|:--------:|:--------:|:----------:|:-----------:|:--------:|"  | Out-File $reportFile -Append
 
 $matrixRows | ForEach-Object{
 
-    $row = "| {0} | {1} | {2} | {3} | {4} | {5} | `n" -f $_.Link, (DispTick $_.PnPPS), (DispTick $_.CLIPS), (DispTick $_.CLIBash), (DispTick $_.GraphSDK), (DispTick $_.SPOMS)
+    $row = "| {0} | {1} | {2} | {3} | {4} | {5} |" -f $_.Link, (DispTick $_.PnPPS), (DispTick $_.CLIPS), (DispTick $_.CLIBash), (DispTick $_.GraphSDK), (DispTick $_.SPOMS)
     Write-Host $row
 
     $row | Out-File $reportFile -Append
