@@ -1202,4 +1202,10 @@ $(function () {
           $('a:not([data-tab])').click(function (e) { delegateAnchors(e); });
       });
     }
+
+    // Hide the contribution panel on home page, by-tool, by-product pages
+    if (window.location.pathname === '/' || window.location.pathname === '/index.html'  || window.location.pathname === '/by-tool.html' 
+        || window.location.pathname === '/by-product.html' || window.location.pathname === '/compact-view.html') {
+      $('.contribution-panel').hide();
+    }
   });
