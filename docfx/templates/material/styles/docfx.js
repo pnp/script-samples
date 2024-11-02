@@ -348,6 +348,12 @@ $(function () {
         $('#navbar ul a.active').parents('li').addClass(active);
         renderBreadcrumb();
         showSearch();
+
+        // if window url is site root then set first item in navbar to active
+        if (window.location.pathname === '/') {
+          $('#navbar ul li:first-child').addClass(active);
+        }
+
       }
       
       function showSearch() {
