@@ -1,13 +1,13 @@
 @media screen and (max-width: 44.9375em) {
     .md-footer__link--prev {
         width: 25%;
-    }    
+    }
 }
 
 @media screen and (min-width: 45em) {
     .md-footer__link {
         width: 50%;
-    }  
+    }
 }
 
 @keyframes fadeIn {
@@ -18,7 +18,7 @@
       opacity:1;
     }
   }
-  
+
   @-moz-keyframes fadeIn {
     0% {
       opacity:0;
@@ -27,7 +27,7 @@
       opacity:1;
     }
   }
-  
+
   @-webkit-keyframes fadeIn {
     0% {
       opacity:0;
@@ -36,7 +36,7 @@
       opacity:1;
     }
   }
-  
+
   @-o-keyframes fadeIn {
     0% {
       opacity:0;
@@ -45,7 +45,7 @@
       opacity:1;
     }
   }
-  
+
   @-ms-keyframes fadeIn {
     0% {
       opacity:0;
@@ -300,7 +300,7 @@ li.md-nav__item {
         width: .9rem;
         height: .9rem;
         transition: transform 250ms;
-    }   
+    }
 }
 
 .md-nav__icon::before {
@@ -322,7 +322,7 @@ li.md-nav__item {
 
 
 li.md-nav__item .md-nav__link:active, li.md-nav__item .md-nav__link:hover
-{ 
+{
     text-decoration: underline;
 }
 
@@ -560,7 +560,7 @@ li.md-nav__item .md-nav__link:active, li.md-nav__item .md-nav__link:hover {
     pointer-events: none;
     white-space: nowrap;
 }
-/* 
+/*
 .sampletype-item::after {
     content: attr(title);
     background-color: #0078D4;
@@ -708,7 +708,7 @@ li.md-nav__item .md-nav__link:active, li.md-nav__item .md-nav__link:hover {
     background-color: #ea64a2
 }
 
-/* 
+/*
 TODO: Move styles
 .samples-section {
     clear: both;
@@ -775,7 +775,7 @@ TODO: Move styles
 }
 
 .sample-preview img {
-    
+
     border-radius: 5px;
     height: 100%;
     width: 100%;
@@ -1035,7 +1035,7 @@ TODO: Move styles
         height: 100px;
         max-height: 100px;
     }
-    
+
     .sample-text{
 
         height: 120px;
@@ -1045,7 +1045,7 @@ TODO: Move styles
     .sample-inner{
         min-height: 300px;
     }
-    
+
 }
 
 /* ADDED FOR DIAGNOSIS */
@@ -1072,6 +1072,7 @@ TODO: Move styles
 
 .filter-section{
     padding: 0;
+    box-shadow: 0 4px 2px rgb(0 0 0 / 5%);
 }
 
 .filter-section .filter-list{
@@ -1099,3 +1100,80 @@ p.sample-title {
     overflow: unset;
 }
 
+.compact-view .producttype-item {
+    right: 10px !important;
+    top: auto !important;
+    left: auto !important;
+}
+
+.compact-view .producttype-item:nth-of-type(4) {
+    margin-right: 30px !important;
+    z-index: 20;
+}
+
+.compact-view .producttype-item:nth-of-type(2),
+.compact-view .producttype-item:not(:first-child){
+    /* margin-right: 40px; */
+    z-index: 40;
+}
+
+.compact-view .sample-details{
+    margin-top: 0;
+    border-left: 3px solid #0078D4;
+    border-radius: 5px;
+}
+
+.compact-view .content p{
+    margin-bottom: 0.5rem;
+}
+
+.compact-view .activity-details,
+.compact-view .author-avatar{
+    padding-top: 5px;
+}
+
+/* Data driven backgrounds */
+.compact-view[data-products^="sharepoint"] .sample-details{
+    border-left: 3px solid var(--sharepoint-product-color);
+    background: radial-gradient(circle at top left, color-mix(in srgb, var(--sharepoint-product-color) 10%, transparent) 0, white 65%)
+}
+
+.compact-view[data-products^="teams"] .sample-details{
+    border-left: 3px solid var(--teams-product-color);
+    background: radial-gradient(circle at top left, color-mix(in srgb, var(--teams-product-color) 10%, transparent) 0, white 65%)
+}
+
+.compact-view[data-products^="graph"] .sample-details {
+    border-left: 3px solid var(--graph-product-color);
+    background: radial-gradient(circle at top left, color-mix(in srgb, var(--graph-product-color) 10%, transparent) 0, white 65%)
+}
+
+.compact-view[data-products^="azure ad"] .sample-details,
+.compact-view[data-products^="azuread"] .sample-details {
+    border-left: 3px solid var(--azuread-product-color);
+    background: radial-gradient(circle at top left, color-mix(in srgb, var(--azuread-product-color) 10%, transparent) 0, white 65%)
+}
+
+.compact-view[data-products^="power automate"] .sample-details,
+.compact-view[data-products^="powerautomate"] .sample-details {
+   border-left: 3px solid var(--powerautomate-product-color);
+   background: radial-gradient(circle at top left, color-mix(in srgb, var(--powerautomate-product-color) 10%, transparent) 0, white 65%)
+}
+
+.compact-view[data-products^="office"] .sample-details {
+    border-left: 3px solid var(--office365-product-color);
+    background: radial-gradient(circle at top left, color-mix(in srgb, var(--office365-product-color) 10%, transparent) 0, white 65%)
+}
+
+.compact-view[data-products^="microsoft todo"] .sample-details, 
+.compact-view[data-products^="microsoft to do"] .sample-details, 
+.compact-view[data-products^="todo"] .sample-details {
+    border-left: 3px solid var(--microsofttodo-product-color);
+    background: radial-gradient(circle at top left, color-mix(in srgb, var(--microsofttodo-product-color) 10%, transparent) 0, white 65%)
+}
+
+.compact-view[data-products^="powerapps"] .sample-details,
+.compact-view[data-products^="power apps"] .sample-details {
+    border-left: 3px solid var(--powerapps-product-color);
+    background: radial-gradient(circle at top left, color-mix(in srgb, var(--powerapps-product-color) 10%, transparent) 0, white 65%)
+}
