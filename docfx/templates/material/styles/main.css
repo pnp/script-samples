@@ -178,7 +178,9 @@ article h4 {
   /* Both navbars use box-shadow */
   -webkit-box-shadow: var(--card-box-shadow);
   -moz-box-shadow: var(--card-box-shadow);
-  box-shadow: var(--card-box-shadow);
+  /* box-shadow: var(--card-box-shadow); */
+  box-shadow: 0 0 14px 12px rgb(0 0 0 / 30%);
+  min-height: 65px;
 }
 
 .subnav {
@@ -884,7 +886,7 @@ p.sample-title {
 }
 .github-mark img{
   height: 45px;
-  margin-top: 5px;
+  margin-top: 10px;
 }
 
 /* List view styles */
