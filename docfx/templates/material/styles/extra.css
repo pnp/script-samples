@@ -1130,3 +1130,49 @@ p.sample-title {
 .compact-view .author-avatar{
     padding-top: 5px;
 }
+
+/* Data driven backgrounds */
+.compact-view[data-products^="sharepoint"] .sample-details{
+    border-left: 3px solid var(--sharepoint-product-color);
+    background: radial-gradient(circle at top left, color-mix(in srgb, var(--sharepoint-product-color) 10%, transparent) 0, white 65%)
+}
+
+.compact-view[data-products^="teams"] .sample-details{
+    border-left: 3px solid var(--teams-product-color);
+    background: radial-gradient(circle at top left, color-mix(in srgb, var(--teams-product-color) 10%, transparent) 0, white 65%)
+}
+
+.compact-view[data-products^="graph"] .sample-details {
+    border-left: 3px solid var(--graph-product-color);
+    background: radial-gradient(circle at top left, color-mix(in srgb, var(--graph-product-color) 10%, transparent) 0, white 65%)
+}
+
+.compact-view[data-products^="azure ad"] .sample-details,
+.compact-view[data-products^="azuread"] .sample-details {
+    border-left: 3px solid var(--azuread-product-color);
+    background: radial-gradient(circle at top left, color-mix(in srgb, var(--azuread-product-color) 10%, transparent) 0, white 65%)
+}
+
+.compact-view[data-products^="power automate"] .sample-details,
+.compact-view[data-products^="powerautomate"] .sample-details {
+   border-left: 3px solid var(--powerautomate-product-color);
+   background: radial-gradient(circle at top left, color-mix(in srgb, var(--powerautomate-product-color) 10%, transparent) 0, white 65%)
+}
+
+.compact-view[data-products^="office"] .sample-details {
+    border-left: 3px solid var(--office365-product-color);
+    background: radial-gradient(circle at top left, color-mix(in srgb, var(--office365-product-color) 10%, transparent) 0, white 65%)
+}
+
+.compact-view[data-products^="microsoft todo"] .sample-details, 
+.compact-view[data-products^="microsoft to do"] .sample-details, 
+.compact-view[data-products^="todo"] .sample-details {
+    border-left: 3px solid var(--microsofttodo-product-color);
+    background: radial-gradient(circle at top left, color-mix(in srgb, var(--microsofttodo-product-color) 10%, transparent) 0, white 65%)
+}
+
+.compact-view[data-products^="powerapps"] .sample-details,
+.compact-view[data-products^="power apps"] .sample-details {
+    border-left: 3px solid var(--powerapps-product-color);
+    background: radial-gradient(circle at top left, color-mix(in srgb, var(--powerapps-product-color) 10%, transparent) 0, white 65%)
+}
