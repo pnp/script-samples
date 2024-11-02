@@ -9,7 +9,7 @@ var jsonPath = baseAddress +"/samples.json";
  * @param {*} sample 
  * @returns 
  */
-function loadSample(sample, filter) {
+function loadSample(sample, filter, viewMode) {
     try {
         // _ is missing
         // var title = _.escape(sample.title);
@@ -113,7 +113,29 @@ function loadSample(sample, filter) {
         keywords = keywords.toLowerCase();
 
         // Build the HTML to insert
-        var $items = $(`
+        var $items;
+        if (viewMode === 'compact-view') {
+          $items = $(`
+<a class="sample-thumbnail compact-view" href="${sample.url}" data-modified="${sample.updateDateTime}" data-title="${title}" data-keywords="${keywords}" data-tags="${tags}" data-libraries="${libraries}" data-operation="${operations}" data-products="${products}">
+  <div class="sample-inner">
+    <div class="sample-details">
+      <div class="sample-text">
+        <p class="sample-title" title="${sample.title}">${sample.title}</p>
+        <p class="sample-description" title='${escapedDescription}'>${shortDescription}</p>
+      </div>
+      <div class="sample-activity">
+        ${authorAvatars}
+        <div class="activity-details">
+          <span class="sample-author" title="${authorsList}">${authorName}</span>
+          <span class="sample-date">Modified ${modified}</span>
+        </div>
+        ${tools}
+      </div>
+    </div>
+  </div>
+</a>`);
+        } else {
+          $items = $(`
 <a class="sample-thumbnail" href="${sample.url}" data-modified="${sample.updateDateTime}" data-title="${title}" data-keywords="${keywords}" data-tags="${tags}" data-libraries="${libraries}" data-operation="${operations}" data-products="${products}">
   <div class="sample-inner">
     <div class="sample-preview">
@@ -135,6 +157,7 @@ function loadSample(sample, filter) {
     </div>
   </div>
 </a>`);
+        }
 
        return $items;
       } catch (error) {
