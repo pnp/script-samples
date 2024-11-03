@@ -837,10 +837,13 @@ pre{
 p.sample-title {
   margin-top: 0.2em;
   margin-top: 0.2em;
-  -webkit-line-clamp: 3;
+  -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
   overflow: hidden;
   display: -webkit-box !important;
+  max-height: 50px;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 @media screen and (max-width: 385px) {
