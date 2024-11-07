@@ -6,7 +6,7 @@ plugin: add-to-gallery
 
 ## Summary
 
-These are practical scripts I have to get Tenant ID from either a domain name or from a Subscriptionis ID.
+These are practical scripts I have to get Tenant ID from either a domain name or from a Subscription ID.
 
 These are simple, but very useful to be combined in other scripts.
 
@@ -14,7 +14,6 @@ These are simple, but very useful to be combined in other scripts.
 # [PowerShell (Domain)](#tab/ps)
 
 ```powershell
-
 
 function Get-TenantIdFromDomain {
     <#
@@ -158,6 +157,7 @@ function Get-TenantIdFromSubscriptionId {
 # [PnP PowerShell](#tab/pnpps)
 
 ```powershell
+
 param (
     [Parameter(Mandatory = $true)]
     [string] $domain
