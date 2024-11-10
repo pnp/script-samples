@@ -1,0 +1,239 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html lang="en">
+  
+  <head>
+    <meta charset="utf-8">
+    <title>Lock and Unlock a file leveraging Microsoft Graph API through PnP PowerShell | PnP Samples </title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" "="">
+    <meta name="title" content="Lock and Unlock a file leveraging Microsoft Graph API through PnP PowerShell | PnP Samples ">
+    <meta name="generator" content="docfx 2.56.7.0">
+    <meta name="description" content="A sample gallery of scripts to manage all things Microsoft 365.">
+  
+    <!-- Social Media -->
+    <meta property="og:locale" content="en_GB">
+    <meta property="og:title" content="Lock and Unlock a file leveraging Microsoft Graph API through PnP PowerShell | PnP Samples ">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://pnp.github.io/script-samples">
+    <meta property="og:image" content="https://pnp.github.io/script-samples/assets/social-media-screenshot.png">
+    <meta property="og:image:alt" content="Screenshot example of the PnP Script Samples Site">
+    <meta property="og:site_name" content="PnP Script Samples">
+    <meta name="msvalidate.01" content="04EFEDA66EC42C08A1247C979E2F9ADD">
+    <meta property="og:description" content="A sample gallery of scripts to manage all things Microsoft 365.">
+  
+    <link rel="shortcut icon" href="https://c.s-microsoft.com/favicon.ico?v2">
+    <link rel="stylesheet" href="../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../styles/docfx.css">
+    <link rel="stylesheet" href="../styles/main.css">
+    <link rel="stylesheet" href="../styles/extra.css">
+    <link rel="stylesheet" href="../styles/filter.css">
+    <link rel="stylesheet" href="../styles/site.css">
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet"> 
+    <meta property="docfx:navrel" content="../toc.html">
+    <meta property="docfx:tocrel" content="../toc.html">
+    
+    
+    <meta property="docfx:newtab" content="true">
+    <script type="text/javascript">
+      (function(c,l,a,r,i,t,y){
+          c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+          t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+          y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+      })(window, document, "clarity", "script", "8j6pedl344");
+  </script>
+  </head>  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+             <div class="github-mark">
+              <a href="https://github.com/pnp/script-samples" title="Go to repository">
+               <div class="github-wrapper">
+                  <div class="github-icon">
+                    <img src="https://pnp.github.io/script-samples/assets/icons/github-light-64px.png" alt="GitHub Icon Image">
+                  </div>
+                  <div class="github-repository">
+                    <span>GitHub</span>
+                    <ul class="github-facts">
+                      <li>
+                        <i class="fa fa-code-fork" aria-hidden="true"></i>
+                        <span class="github-forks"></span>
+                      </li>
+                      <li>
+                        <i class="fa fa-star-o" aria-hidden="true"></i>
+                        <span class="github-stars"></span>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </a>
+            </div>
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../assets/logo.svg" alt="">
+              </a>    </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <label class="glyphicon glyphicon-search" for="search-query"></label>
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>      </header>
+      <div role="main" class="container body-content hide-when-search">
+        <div class="article row grid">
+          <div class="col-md-12">
+            <article class="content wrap" id="_content" data-uid="">
+                  <div class="contribution-panel mobile-hide pull-right">
+                      <a href="https://github.com/pnp/script-samples/blob/main/scripts/spo-record-lock-unlock-file/README.md/#L1" title="Improve this Doc" class="improve-doc-lg"><i class="glyphicon glyphicon-pencil"></i></a>
+                  </div>
+                    <h1 id="lock-and-unlock-a-file-leveraging-microsoft-graph-api-through-pnp-powershell">Lock and Unlock a file leveraging Microsoft Graph API through PnP PowerShell</h1>
+
+<h2 id="summary">Summary</h2>
+<p>This script shows how to lock and unlock a file which is a record in SharePoint Online using the Microsoft Graph API through PnP PowerShell. The script retrieves the drive id and drive item id before calling the endpoint to lock or unlock a file.</p>
+<div class="tabGroup" id="tabgroup_CeZOj-G++Q">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_CeZOj-G++Q_pnpps" role="tab" aria-controls="tabpanel_CeZOj-G++Q_pnpps" data-tab="pnpps" tabindex="0" aria-selected="true">PnP PowerShell</a>
+</li>
+</ul>
+<section id="tabpanel_CeZOj-G++Q_pnpps" role="tabpanel" data-tab="pnpps"><button class="article-clipboard" title="Copy to clipboard" data-toggle="tooltip" data-placement="top" data-clipboard-target="section[id^='tabpanel'][data-tab='pnpps'] pre">
+    <span class="glyphicon glyphicon-copy" aria-hidden="true"></span>
+    <span class="article-clipboard__message done">Copied</span>
+</button>
+
+<pre><code class="lang-powershell">$siteUrl = Read-Host -Prompt &quot;Enter site collection URL&quot;;
+$list = Read-Host -Prompt &quot;Enter library name&quot;;
+$itemid = Read-Host -Prompt &quot;Enter file id&quot;; 
+$setLock = Read-Host -Prompt &quot;Enter Yes or No for lock or unlock the file&quot;; 
+
+
+function Get-UrlComponents {
+    param (
+        [Parameter(Mandatory = $true)]
+        [string] $fullPath
+    )
+    # Regular expression to match the site, library, and document path
+    #In summary, this regex matches a string that starts with a /, followed by three segments separated by /, and then captures the rest of the path. Each segment is captured into a separate group for further processing.
+    $regex = &quot;^/([^/]+)/([^/]+)/([^/]+)/(.+)$&quot;
+
+    if ($fullPath -match $regex) {
+        $base = $matches[1]
+        $siteUrl = &quot;/$base/$($matches[2])&quot;
+        $library = $matches[3]
+        $documentPath = $matches[4]
+        
+        return @{
+            SiteUrl = $siteUrl
+            Library = $library
+            DocumentPath = $documentPath
+        }
+    } else {
+        throw &quot;Invalid path format. Expected format: /&lt;base&gt;/&lt;site&gt;/&lt;library&gt;/&lt;document path&gt;&quot;
+    }
+}
+
+Connect-PnPOnline -url $siteUrl -Interactive
+#get site id
+# Extract the domain and site name
+$uri = New-Object System.Uri($siteurl)
+$domain = $uri.Host
+$siteName = $uri.AbsolutePath
+$RestMethodUrl = &quot;v1.0/sites/$($domain):$($siteName)?$select=id&quot;
+$site = (Invoke-PnPGraphMethod -Url $RestMethodUrl -Method Get -ConsistencyLevelEventual)
+$siteId = $site.id
+#get drive id
+ $url = 'v1.0/drives/'+$driveId+'/root:/'+$($relativeUrl)+'?$select=id'
+$drives = (Invoke-PnPGraphMethod -Url &quot;v1.0/sites/${siteId}/drives?$select=webUrl,id&quot; -Method Get).Value
+
+
+#filter $drives by weburl matches $_listUrl
+$driveId = $drives | Where-Object { $_.name -eq $list} | Select-Object -ExpandProperty id      
+$item = Get-PnPListItem -List $list -Id $itemid 
+#get drive item id
+$path = $item.FieldValues[&quot;FileRef&quot;]
+$result = Get-UrlComponents -fullPath $path
+$url = 'v1.0/drives/' +$driveId+'/root:/'+ $($result.DocumentPath) +'?$select=id'
+$driveItemId =(Invoke-PnPGraphMethod -Url $url -Method Get).Id
+
+write-host $driveItemId
+
+$url = 'v1.0/drives/' +$driveId+'/items/'+$driveItemId+'/retentionLabel'
+$bSetLock = $SetLock -eq &quot;Yes&quot; ? &quot;true&quot; : &quot;false&quot;
+
+$Payload = @&quot;
+{
+    &quot;retentionSettings&quot;: {
+        &quot;isRecordLocked&quot;: $bSetLock
+    }
+}
+&quot;@
+
+#unlock the item
+Invoke-PnPGraphMethod -Url $url -Method Patch -Content $Payload
+</code></pre>
+<div class="highlight-tool">
+<p>Check out the <strong>PnP PowerShell</strong> to learn more at: <a href="https://aka.ms/pnp/powershell">https://aka.ms/pnp/powershell</a></p>
+</div>
+<div class="highlight-tool">
+<p>The way you login into PnP PowerShell has changed please read <a href="https://github.com/pnp/powershell/discussions/4249">PnP Management Shell EntraID app is deleted : what should I do ?</a></p>
+</div>
+</section>
+</div>
+<h2 id="source-credit">Source Credit</h2>
+<p>The script first appeared  <a href="https://reshmeeauckloo.com/posts/powershell-pnp-graph-getdrive-driveid-for-file//">&quot;Get Drive ID and Drive Item ID for File for Further Microsoft Graph Operations using PnP PowerShell&quot;</a>.</p>
+<h2 id="contributors">Contributors</h2>
+<table>
+<thead>
+<tr>
+<th>Author(s)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="https://github.com/reshmee011">Reshmee Auckloo</a></td>
+</tr>
+</tbody>
+</table>
+<h2 id="disclaimer">Disclaimer</h2>
+<p><strong>THESE SAMPLES ARE PROVIDED <em>AS IS</em> WITHOUT WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, INCLUDING ANY IMPLIED WARRANTIES OF FITNESS FOR A PARTICULAR PURPOSE, MERCHANTABILITY, OR NON-INFRINGEMENT.</strong></p>
+<img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/spo-record-lock-unlock-file" aria-hidden="true">
+</article>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            <span>Script Samples<br>Generated by <strong><a href='https://dotnet.github.io/docfx' alt='Doc FX Website'>DocFX</a></strong> with <strong><a href='https://ovasquez.github.io/docfx-material' alt='DocFx Material Theme'>Material UI</a></strong></span>
+            
+            <!-- <img src="https://telemetry.sharepointpnp.com/@pnp.github.io/index/" alt="spacer"> -->
+          </div>
+        </div>
+      </footer>    </div>
+    
+    <script type="text/javascript" src="../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+    
+    <script type="text/javascript" src="../styles/clipboard.min.js"></script>
+    <script type="text/javascript" src="../styles/isotope.pkgd.min.js"></script>
+    <script type="text/javascript" src="../styles/loadsamples.js"></script>
+    <script type="text/javascript" src="../styles/filtersamples.js"></script>
+
+  </body>
+</html>
