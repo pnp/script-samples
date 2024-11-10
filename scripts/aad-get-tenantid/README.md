@@ -158,14 +158,19 @@ function Get-TenantIdFromSubscriptionId {
 
 ```powershell
 
+# To retrieve the tenant id an authenticated connection is not required with PnP PowerShell
+# the Get-PnPTenantId cmdlet accepts tenantUrls in the shape of
+# * https://mytenant.sharepoint.com
+# * mytenant.sharepoint.com
+# * mytenant
+# See Get-Help Get-PnPTenantId for more details.
+
 param (
     [Parameter(Mandatory = $true)]
-    [string] $domain
+    [string] $tenantUrl
 )
 
-$adminSiteURL = "https://$domain-Admin.SharePoint.com"
-Connect-PnPOnline -Url $adminSiteURL -Interactive -WarningAction SilentlyContinue
-Get-PnPTenantId
+Get-PnPTenantId -Url $tenantUrl
 
 ```
 [!INCLUDE [More about PnP PowerShell](../../docfx/includes/MORE-PNPPS.md)]
