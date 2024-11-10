@@ -26,10 +26,10 @@ $domain = $uri.Host
 $siteName = $uri.AbsolutePath
 
 # Construct the new URL
-$RestMethodUrl = "v1.0/sites/$($domain):$siteName?$select=id"
+$RestMethodUrl = "v1.0/sites/$($domain):$($siteName)?$select=id"
 
 $site = (Invoke-PnPGraphMethod -Url $RestMethodUrl -Method Get -ConsistencyLevelEventual)
-$siteId = $site.id
+$siteId = (($site.id) -split ",")[1]
 
 write-host $siteId
 ```
