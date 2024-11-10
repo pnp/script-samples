@@ -182,6 +182,7 @@ Sample first appeared on [https://github.com/dkaaven/M365-Scripts](https://githu
 |-----------|
 | [Daniel Kåven](https://github.com/dkaaven)|
 | [Reshmee Auckloo](https://github.com/reshmee011) |
+| Ganesh Sanap |
 
 [!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
 <img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/aad-get-tenantid" aria-hidden="true" />
