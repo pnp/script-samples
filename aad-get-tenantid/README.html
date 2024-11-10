@@ -99,7 +99,7 @@
                     <h1 id="get-tenant-id">Get Tenant ID</h1>
 
 <h2 id="summary">Summary</h2>
-<p>These are practical scripts I have to get Tenant ID from either a domain name or from a Subscriptionis ID.</p>
+<p>These are practical scripts I have to get Tenant ID from either a domain name or from a Subscription ID.</p>
 <p>These are simple, but very useful to be combined in other scripts.</p>
 <div class="tabGroup" id="tabgroup_CeZOj-G++Q">
 <ul role="tablist">
@@ -119,7 +119,6 @@
 </button>
 
 <pre><code class="lang-powershell">
-
 function Get-TenantIdFromDomain {
     &lt;#
     .SYNOPSIS
@@ -269,7 +268,8 @@ function Get-TenantIdFromSubscriptionId {
     <span class="article-clipboard__message done">Copied</span>
 </button>
 
-<pre><code class="lang-powershell">param (
+<pre><code class="lang-powershell">
+param (
     [Parameter(Mandatory = $true)]
     [string] $domain
 )
@@ -302,6 +302,9 @@ Get-PnPTenantId
 </tr>
 <tr>
 <td><a href="https://github.com/reshmee011">Reshmee Auckloo</a></td>
+</tr>
+<tr>
+<td>Ganesh Sanap</td>
 </tr>
 </tbody>
 </table>
