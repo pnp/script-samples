@@ -218,8 +218,6 @@ if(Test-Path $directorypath){
   $adminConnection = Get-PnPConnection
   Get-PnPTenantSite -Filter "Url -like '$TenantURL'" -Connection $adminConnection | Where-Object { $_.Template -ne 'RedirectSite#0' }  | foreach-object {   
     Write-Host "Processing Site:" $_.Url -ForegroundColor Magenta
-    $siteReport += ReportFileLabels -siteUrl $_.Url
-  
   Connect-PnPOnline -Url $_.Url -Interactive
    #array storing permissions
    $web = Get-PnPWeb
