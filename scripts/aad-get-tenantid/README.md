@@ -158,14 +158,19 @@ function Get-TenantIdFromSubscriptionId {
 
 ```powershell
 
+# To retrieve the tenant id an authenticated connection is not required with PnP PowerShell
+# the Get-PnPTenantId cmdlet accepts tenantUrls in the shape of
+# * https://mytenant.sharepoint.com
+# * mytenant.sharepoint.com
+# * mytenant
+# See Get-Help Get-PnPTenantId for more details.
+
 param (
     [Parameter(Mandatory = $true)]
-    [string] $domain
+    [string] $tenantUrl
 )
 
-$adminSiteURL = "https://$domain-Admin.SharePoint.com"
-Connect-PnPOnline -Url $adminSiteURL -Interactive -WarningAction SilentlyContinue
-Get-PnPTenantId
+Get-PnPTenantId -Url $tenantUrl
 
 ```
 [!INCLUDE [More about PnP PowerShell](../../docfx/includes/MORE-PNPPS.md)]
@@ -183,6 +188,7 @@ Sample first appeared on [https://github.com/dkaaven/M365-Scripts](https://githu
 | [Daniel Kåven](https://github.com/dkaaven)|
 | [Reshmee Auckloo](https://github.com/reshmee011) |
 | Ganesh Sanap |
+| Erwin van Hunen |
 
 [!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
 <img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/aad-get-tenantid" aria-hidden="true" />
