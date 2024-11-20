@@ -228,8 +228,7 @@ if(Test-Path $directorypath){
   $adminConnection = Get-PnPConnection
   Get-PnPTenantSite -Filter "Url -like '$TenantURL'" -Connection $adminConnection | Where-Object { $_.Template -ne 'RedirectSite#0' }  | foreach-object {   
     Write-Host "Processing Site:" $_.Url -ForegroundColor Magenta
-    #$siteReport += ReportFileLabels -siteUrl $_.Url  #this doesn't work, seems to be leftover from auther other script: https://pnp.github.io/script-samples/spo-get-files-retentionlabel-sensitivitylabel/README.html?tabs=pnpps
-  
+
   Connect-PnPOnline -Url $_.Url -Interactive
 
    #array storing permissions

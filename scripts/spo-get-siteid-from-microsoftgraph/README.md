@@ -26,10 +26,10 @@ $domain = $uri.Host
 $siteName = $uri.AbsolutePath
 
 # Construct the new URL
-$RestMethodUrl = "v1.0/sites/$($domain):$siteName?$select=id"
+$RestMethodUrl = "v1.0/sites/$($domain):$($siteName)?$select=id"
 
 $site = (Invoke-PnPGraphMethod -Url $RestMethodUrl -Method Get -ConsistencyLevelEventual)
-$siteId = $site.id
+$siteId = (($site.id) -split ",")[1]
 
 write-host $siteId
 ```
@@ -47,6 +47,7 @@ Sample first appeared on [Retrieving SiteId from Microsoft Graph for Subsequent 
 | Author(s) |
 |-----------|
 | [Reshmee Auckloo](https://github.com/reshmee011) |
+| Ioannis Gianko|
 
 
 [!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
