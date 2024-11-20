@@ -104,7 +104,16 @@
 <p><img src="assets/example.png" alt="Example Screenshot"></p>
 <h3 id="prerequisites">Prerequisites</h3>
 <ul>
-<li>The user account that runs the script must have SharePoint Online site administrator access.</li>
+<li>PnP PowerShell <a href="https://pnp.github.io/powershell/">https://pnp.github.io/powershell/</a></li>
+<li>The user account that runs the script must have SharePoint Online site administrator access and access to all sites to report on.</li>
+</ul>
+<h3 id="how-to-use">How to use</h3>
+<ul>
+<li>Optimize the <code>Connect-PnPOnline -Url $adminSiteURL</code> in the script as needed</li>
+<li>save script as ps1 file</li>
+<li>Create Logs folder</li>
+<li>run like
+<code>.\get-sp-ebe.ps1 mydomain</code></li>
 </ul>
 <div class="tabGroup" id="tabgroup_CeZOj-G++Q">
 <ul role="tablist">
@@ -313,10 +322,13 @@ Function QueryUniquePermissions($_web)
 
 if(Test-Path $directorypath){
   Connect-PnPOnline -Url $adminSiteURL -Interactive 
+
   $adminConnection = Get-PnPConnection
   Get-PnPTenantSite -Filter &quot;Url -like '$TenantURL'&quot; -Connection $adminConnection | Where-Object { $_.Template -ne 'RedirectSite#0' }  | foreach-object {   
     Write-Host &quot;Processing Site:&quot; $_.Url -ForegroundColor Magenta
+
   Connect-PnPOnline -Url $_.Url -Interactive
+
    #array storing permissions
    $web = Get-PnPWeb
    #root web , i.e. site collection level
@@ -355,6 +367,9 @@ else{
 <tbody>
 <tr>
 <td><a href="https://github.com/reshmee011">Reshmee Auckloo</a></td>
+</tr>
+<tr>
+<td>TiloGit</td>
 </tr>
 </tbody>
 </table>
