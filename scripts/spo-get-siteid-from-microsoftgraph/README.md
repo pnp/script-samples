@@ -47,6 +47,7 @@ Sample first appeared on [Retrieving SiteId from Microsoft Graph for Subsequent 
 | Author(s) |
 |-----------|
 | [Reshmee Auckloo](https://github.com/reshmee011) |
+| Ioannis Gianko|
 
 
 [!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
