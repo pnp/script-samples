@@ -125,10 +125,10 @@ $domain = $uri.Host
 $siteName = $uri.AbsolutePath
 
 # Construct the new URL
-$RestMethodUrl = &quot;v1.0/sites/$($domain):$siteName?$select=id&quot;
+$RestMethodUrl = &quot;v1.0/sites/$($domain):$($siteName)?$select=id&quot;
 
 $site = (Invoke-PnPGraphMethod -Url $RestMethodUrl -Method Get -ConsistencyLevelEventual)
-$siteId = $site.id
+$siteId = (($site.id) -split &quot;,&quot;)[1]
 
 write-host $siteId
 </code></pre>
@@ -152,6 +152,9 @@ write-host $siteId
 <tbody>
 <tr>
 <td><a href="https://github.com/reshmee011">Reshmee Auckloo</a></td>
+</tr>
+<tr>
+<td>Ioannis Gianko</td>
 </tr>
 </tbody>
 </table>
