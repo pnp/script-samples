@@ -21,7 +21,7 @@ This is an example where 'Everyone except external users' has been added to the 
 
 - Optimize the `Connect-PnPOnline -Url $adminSiteURL` in the script as needed
 - save script as ps1 file
-- reate Logs folder
+- Create Logs folder
 - run like
 `.\get-sp-ebe.ps1 mydomain`
 
@@ -223,13 +223,15 @@ Function QueryUniquePermissions($_web)
 }
 
 if(Test-Path $directorypath){
-  Connect-PnPOnline -Url $adminSiteURL -UseWebLogin ## -Interactive not supported anymore see here https://pnp.github.io/blog/post/changes-pnp-management-shell-registration/
+  Connect-PnPOnline -Url $adminSiteURL -Interactive 
+
   $adminConnection = Get-PnPConnection
   Get-PnPTenantSite -Filter "Url -like '$TenantURL'" -Connection $adminConnection | Where-Object { $_.Template -ne 'RedirectSite#0' }  | foreach-object {   
     Write-Host "Processing Site:" $_.Url -ForegroundColor Magenta
     #$siteReport += ReportFileLabels -siteUrl $_.Url  #this doesn't work, seems to be leftover from auther other script: https://pnp.github.io/script-samples/spo-get-files-retentionlabel-sensitivitylabel/README.html?tabs=pnpps
   
-  Connect-PnPOnline -Url $_.Url -UseWebLogin ## -Interactive  not supported anymore see here https://pnp.github.io/blog/post/changes-pnp-management-shell-registration/
+  Connect-PnPOnline -Url $_.Url -Interactive
+
    #array storing permissions
    $web = Get-PnPWeb
    #root web , i.e. site collection level
@@ -262,6 +264,7 @@ Sample first appeared on [Manage 'Everyone' and 'Everyone except external users'
 | Author(s) |
 |-----------|
 | [Reshmee Auckloo](https://github.com/reshmee011) |
+| TiloGit |
 
 
 [!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
