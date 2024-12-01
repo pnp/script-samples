@@ -6,11 +6,13 @@ plugin: add-to-gallery
 
 ## Summary
 
-Converts unique site IDs from a txt file to URLs for M365 Tenancy and exports to CSV.
+Converts unique site IDs from a txt file to URLs using Microsoft Search for M365 Tenancy and exports to CSV.
 
 ![Example Screenshot](assets/example.png)
 
-Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Maecenas porttitor congue massa. Fusce posuere, magna sed pulvinar ultricies, purus lectus malesuada libero, sit amet commodo magna eros quis urna.Nunc viverra imperdiet enim. Fusce est. Vivamus a tellus.Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Proin pharetra nonummy pede. Mauris et orci.Aenean nec lorem. In porttitor. Donec laoreet nonummy augue.
+This PowerShell script takes an input file containing one or more SharePoint online (Office 365) Site Collection Object IDs and converts them into the full URLs. It requires PnP Online module for connection to Office 365, performs a search query using these GUIDs as parameters, retrieves site details including their respective URL addresses from each result row.
+
+Note: Above description uses AI to describe the script.
 
 # [PnP PowerShell](#tab/pnpps)
 
@@ -148,6 +150,7 @@ https://github.com/pnp/powershell
 | Author(s) |
 |-----------|
 | Sam Larson |
+| Paul Bullock |
 
 [!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
 <img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/spo-get-site-list-ids" aria-hidden="true" />
