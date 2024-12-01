@@ -1,0 +1,58 @@
+[
+  {
+    "name": "aad-update-m365-global-unified-settings",
+    "source": "pnp",
+    "title": "Update Global Microsoft 365 Group Settings",
+    "shortDescription": "Configuring Microsoft 365 Group settings is essential for ensuring a secure and compliant environment. This script can be utilized to set up different group settings, such as naming policies and guest access.",
+    "url": "https://pnp.github.io/script-samples/aad-update-m365-global-unified-settings/README.html",
+    "longDescription": [
+       "Managing Microsoft 365 Group settings is crucial for maintaining a compliant and secure environment.PowerShell and Microsoft Graph can be used to configure various group settings, including naming policies, guest access, and more."
+    ],
+    "creationDateTime": "2024-11-24",
+    "updateDateTime": "2024-11-24",
+    "products": [
+      "M365 Group",
+      "Unified Settings"
+    ],
+    "metadata": [
+      {
+        "key": "PNP-POWERSHELL",
+        "value": "2.99.53"
+      }
+    ],
+    "categories": [
+      "Report",
+      "Security",
+      "Microsoft 365 Group"
+    ],
+    "tags": [
+      "modern",
+      "Connect-PnPOnline",
+      "Invoke-PnPGraphMethod",
+      "Get-PnPMicrosoft365GroupSettings"
+    ],
+    "thumbnails": [
+      {
+        "type": "image",
+        "order": 100,
+        "url": "https://raw.githubusercontent.com/pnp/script-samples/main/scripts/aad-update-m365-global-unified-settings/assets/preview.png",
+        "alt": ""
+      }
+    ],
+    "authors": [
+      {
+        "gitHubAccount": "reshmee011",
+        "company": "",
+        "pictureUrl": "https://avatars.githubusercontent.com/u/7693852?v=4",
+        "name": "Reshmee Auckloo"
+      }
+    ],
+    "references": [
+      {
+        "name": "Want to learn more about PnP PowerShell and the cmdlets",
+        "description": "Check out the PnP PowerShell site to get started and for the reference to the cmdlets.",
+        "url": "https://aka.ms/pnp/powershell"
+      }
+    ]
+  }
+]
