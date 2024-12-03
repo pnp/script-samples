@@ -1,0 +1,54 @@
+[
+  {
+    "name": "spo-find-links-in-canvas",
+    "source": "pnp",
+    "title": "Find Links in Modern Page",
+    "shortDescription": "This script iterates through a list of site URLs provided in 'sites-test.csv'. For each site, it then scans these page contents for embedded href tags using regular expressions.",
+    "url": "https://pnp.github.io/script-samples/spo-find-links-in-canvas/README.html",
+    "longDescription": [
+      ""
+    ],
+    "creationDateTime": "2024-12-03",
+    "updateDateTime": "2024-12-03",
+    "products": [
+      "SharePoint"
+    ],
+    "metadata": [
+      {
+        "key": "PNP-POWERSHELL",
+        "value": "2.12.0"
+      }
+    ],
+    "categories": [
+      "Report"
+    ],
+    "tags": [
+      "Connect-PnPOnline",
+      "Get-PnPListItem",
+      "Get-PnPWeb"
+    ],
+    "thumbnails": [
+      {
+        "type": "image",
+        "order": 100,
+        "url": "https://raw.githubusercontent.com/pnp/script-samples/main/scripts/spo-find-links-in-canvas/assets/preview.png",
+        "alt": "Preview of the sample Find Links in Modern Page"
+      }
+    ],
+    "authors": [
+      {
+        "gitHubAccount": "pkbullock",
+        "company": "",
+        "pictureUrl": "https://github.com/pkbullock.png",
+        "name": "Paul Bullock"
+      }
+    ],
+    "references": [
+      {
+        "name": "Want to learn more about PnP PowerShell and the cmdlets",
+        "description": "Check out the PnP PowerShell site to get started and for the reference to the cmdlets.",
+        "url": "https://aka.ms/pnp/powershell"
+      }
+    ]
+  }
+]
