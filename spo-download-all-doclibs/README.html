@@ -1,0 +1,311 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html lang="en">
+  
+  <head>
+    <meta charset="utf-8">
+    <title>Download all documents from all document libraries in a site, including version history | PnP Samples </title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" "="">
+    <meta name="title" content="Download all documents from all document libraries in a site, including version history | PnP Samples ">
+    <meta name="generator" content="docfx 2.56.7.0">
+    <meta name="description" content="A sample gallery of scripts to manage all things Microsoft 365.">
+  
+    <!-- Social Media -->
+    <meta property="og:locale" content="en_GB">
+    <meta property="og:title" content="Download all documents from all document libraries in a site, including version history | PnP Samples ">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://pnp.github.io/script-samples">
+    <meta property="og:image" content="https://pnp.github.io/script-samples/assets/social-media-screenshot.png">
+    <meta property="og:image:alt" content="Screenshot example of the PnP Script Samples Site">
+    <meta property="og:site_name" content="PnP Script Samples">
+    <meta name="msvalidate.01" content="04EFEDA66EC42C08A1247C979E2F9ADD">
+    <meta property="og:description" content="A sample gallery of scripts to manage all things Microsoft 365.">
+  
+    <link rel="shortcut icon" href="https://c.s-microsoft.com/favicon.ico?v2">
+    <link rel="stylesheet" href="../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../styles/docfx.css">
+    <link rel="stylesheet" href="../styles/main.css">
+    <link rel="stylesheet" href="../styles/extra.css">
+    <link rel="stylesheet" href="../styles/filter.css">
+    <link rel="stylesheet" href="../styles/site.css">
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet"> 
+    <meta property="docfx:navrel" content="../toc.html">
+    <meta property="docfx:tocrel" content="../toc.html">
+    
+    
+    <meta property="docfx:newtab" content="true">
+    <script type="text/javascript">
+      (function(c,l,a,r,i,t,y){
+          c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+          t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+          y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+      })(window, document, "clarity", "script", "8j6pedl344");
+  </script>
+  </head>  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+             <div class="github-mark">
+              <a href="https://github.com/pnp/script-samples" title="Go to repository">
+               <div class="github-wrapper">
+                  <div class="github-icon">
+                    <img src="https://pnp.github.io/script-samples/assets/icons/github-light-64px.png" alt="GitHub Icon Image">
+                  </div>
+                  <div class="github-repository">
+                    <span>GitHub</span>
+                    <ul class="github-facts">
+                      <li>
+                        <i class="fa fa-code-fork" aria-hidden="true"></i>
+                        <span class="github-forks"></span>
+                      </li>
+                      <li>
+                        <i class="fa fa-star-o" aria-hidden="true"></i>
+                        <span class="github-stars"></span>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </a>
+            </div>
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../assets/logo.svg" alt="">
+              </a>    </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <label class="glyphicon glyphicon-search" for="search-query"></label>
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>      </header>
+      <div role="main" class="container body-content hide-when-search">
+        <div class="article row grid">
+          <div class="col-md-12">
+            <article class="content wrap" id="_content" data-uid="">
+                  <div class="contribution-panel mobile-hide pull-right">
+                      <a href="https://github.com/pnp/script-samples/blob/main/scripts/spo-download-all-doclibs/README.md/#L1" title="Improve this Doc" class="improve-doc-lg"><i class="glyphicon glyphicon-pencil"></i></a>
+                  </div>
+                    <h1 id="download-all-documents-from-all-document-libraries-in-a-site-including-version-history">Download all documents from all document libraries in a site, including version history</h1>
+
+<h2 id="summary">Summary</h2>
+<p>This PowerShell function will download all documents from all document libraries in a site, including version history. The documents will be saved in a folder structure that matches the library structure. You will have to connect to the site first using Connect-PnPOnline before running this script.
+Save the code to a PSM1 file, then import it into your PowerShell session using Import-Module like in Example01. You can then run the function Download-SharePointFiles to download the documents.</p>
+<p><img src="assets/example01.png" alt="Example Screenshot"></p>
+<p>This screenshot shows the script in action downloading documents from a site.</p>
+<p><img src="assets/example02.png" alt="Example Screenshot"></p>
+<p>This screenshot shows the folder structure created by the script after the documents have been downloaded.</p>
+<div class="tabGroup" id="tabgroup_CeZOj-G++Q">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_CeZOj-G++Q_pnpps" role="tab" aria-controls="tabpanel_CeZOj-G++Q_pnpps" data-tab="pnpps" tabindex="0" aria-selected="true">PnP PowerShell</a>
+</li>
+</ul>
+<section id="tabpanel_CeZOj-G++Q_pnpps" role="tabpanel" data-tab="pnpps"><button class="article-clipboard" title="Copy to clipboard" data-toggle="tooltip" data-placement="top" data-clipboard-target="section[id^='tabpanel'][data-tab='pnpps'] pre">
+    <span class="glyphicon glyphicon-copy" aria-hidden="true"></span>
+    <span class="article-clipboard__message done">Copied</span>
+</button>
+
+<pre><code class="lang-powershell">
+&lt;#
+.SYNOPSIS
+Downloads files from all SharePoint document libraries in a tenant to a local directory. Requires PnP PowerShell 2.x and and existing connection to the tenant with Connect-PnPOnline.
+
+.DESCRIPTION
+This script connects to a SharePoint tenant using PnP PowerShell, iterates through all document libraries, and downloads files to a specified local directory. It can optionally overwrite existing files and download all versions of the files.
+
+.PARAMETER DownloadPath
+Specifies the local directory where files will be saved.
+
+.PARAMETER Overwrite
+Indicates whether to overwrite existing files in the local directory.
+
+.PARAMETER IncludeVersions
+Specifies whether to download all versions of the files.
+
+.EXAMPLE
+Download files to a local directory:
+Download-SharePointFiles -DownloadPath &quot;C:\SharePointDownloads&quot;
+
+.EXAMPLE
+Download files and overwrite existing ones:
+Download-SharePointFiles -DownloadPath &quot;C:\SharePointDownloads&quot; -Overwrite
+
+.EXAMPLE
+Download files including all versions:
+Download-SharePointFiles -DownloadPath &quot;C:\SharePointDownloads&quot; -IncludeVersions
+
+.EXAMPLE
+Download files, overwrite existing ones, and include all versions:
+Download-SharePointFiles -DownloadPath &quot;C:\SharePointDownloads&quot; -Overwrite -IncludeVersions
+#&gt;
+function Download-SharePointFiles {
+        
+    [CmdletBinding()]
+    param (
+        [Parameter(Mandatory = $true)]
+        [string]$DownloadPath, # The local directory to save files
+
+        [Parameter(Mandatory = $false)]
+        [switch]$Overwrite, # Whether to overwrite existing files
+
+        [Parameter(Mandatory = $false)]
+        [switch]$IncludeVersions # Whether to download all versions of the files
+    )
+
+    # Ensure there is a connection to SharePoint
+    $connection = Get-PnPConnection -ErrorAction Stop
+        if ($null -ne $connection) {
+            Write-Verbose &quot;You are connected to your tenant: $($connection.TenantUrl)&quot;
+        } else {
+            throw &quot;Please connect and try again&quot;
+        }
+
+    # Ensure the download directory exists
+    if (-not (Test-Path -Path $DownloadPath)) {
+        New-Item -Path $DownloadPath -ItemType Directory | Out-Null
+    }
+
+    # Get Context if -IncludeVersions is specified
+    if ($IncludeVersions.IsPresent) {
+        $Ctx = Get-PnPContext
+    }
+
+    # Get all document libraries in the site
+    Write-Verbose &quot;Fetching all document libraries in the site...&quot; 
+    $Libraries = Get-PnPList | Where-Object { $_.BaseTemplate -eq 101 } # 101 = Document Library
+
+    # Loop through each library and download files
+    foreach ($Library in $Libraries) {
+        Write-Host &quot;Processing library: $($Library.Title)&quot; -ForegroundColor Yellow
+
+        # Get all files in the library
+        $Files = Get-PnPListItem -List $Library.Title -PageSize 1000 -Fields FileLeafRef, FileDirRef | Where-Object { $_.FileSystemObjectType -eq &quot;File&quot; }
+
+        foreach ($File in $Files) {
+            $FileUrl = $File[&quot;FileRef&quot;]
+            $LocalPath = Join-Path $DownloadPath ($File[&quot;FileDirRef&quot;] -replace &quot;/&quot;, &quot;\&quot;) # Convert SharePoint folder structure to local paths
+            $FileName = $File[&quot;FileLeafRef&quot;]
+            $LocalFilePath = Join-Path $LocalPath $FileName
+
+            # Create local directory if it doesn't exist
+            if (-not (Test-Path -Path $LocalPath)) {
+                New-Item -Path $LocalPath -ItemType Directory | Out-Null
+            }
+
+            # Download the current version of the file
+            if (-not (Test-Path -Path $LocalFilePath) -or $Overwrite.IsPresent) {
+                Write-Host &quot;Downloading file: $FileName&quot; -ForegroundColor Green
+                Write-Verbose $FileUrl
+                Get-PnPFile -Url $FileUrl  -Path $LocalPath -FileName $FileName -AsFile -Force
+            } else {
+                Write-Host &quot;File already exists: $FileName. Skipping...&quot; -ForegroundColor Yellow
+            }
+
+            # Optionally download all versions
+            # got help from https://www.sharepointdiary.com/2018/06/sharepoint-online-download-all-versions-using-powershell.html
+            if ($IncludeVersions.IsPresent) {
+                Write-Verbose &quot;Fetching versions for: $FileName&quot;
+                Write-Verbose $FileUrl
+                $pnpfile = Get-PnPFile -Url $FileUrl
+                $Versions = Get-PnPProperty -ClientObject $pnpfile -Property Versions
+
+                if ($Versions.Count -gt 0) {
+                    foreach ($Version in $Versions) {
+                        # Construct version filename
+                        $VersionFileName = &quot;$($LocalPath)\$($FileName)_$($Version.VersionLabel)&quot;
+          
+                        #Get Contents of the File Version
+                        $VersionStream = $Version.OpenBinaryStream()
+                        $Ctx.ExecuteQuery()
+                
+                        #Download File version to local disk
+                        [System.IO.FileStream] $FileStream = [System.IO.File]::Open($VersionFileName,[System.IO.FileMode]::OpenOrCreate)
+                        $VersionStream.Value.CopyTo($FileStream)
+                        $FileStream.Close()
+                        
+                        Write-Host -f Green &quot;Downloading Version $($Version.VersionLabel) to:&quot; $VersionFileName
+                        
+                    }
+                } else {
+                    if ($PSCmdlet.MyInvocation.BoundParameters[&quot;Verbose&quot;]) {
+                        Write-Host &quot;No versions available for file: $FileName&quot; -ForegroundColor Yellow
+                    } 
+
+                    
+                }
+            }
+        }
+    }
+
+    Write-Host &quot;Download completed!&quot; -ForegroundColor Cyan
+}
+
+
+</code></pre>
+<div class="highlight-tool">
+<p>Check out the <strong>PnP PowerShell</strong> to learn more at: <a href="https://aka.ms/pnp/powershell">https://aka.ms/pnp/powershell</a></p>
+</div>
+<div class="highlight-tool">
+<p>The way you login into PnP PowerShell has changed please read <a href="https://github.com/pnp/powershell/discussions/4249">PnP Management Shell EntraID app is deleted : what should I do ?</a></p>
+</div>
+</section>
+</div>
+<h2 id="source-credit">Source Credit</h2>
+<p>Sample first appeared on <a href="https://pnp.github.io/cli-microsoft365/sample-scripts/spo/spo-download-all-doclibs/">https://pnp.github.io/cli-microsoft365/sample-scripts/spo/spo-download-all-doclibs/</a></p>
+<h2 id="contributors">Contributors</h2>
+<table>
+<thead>
+<tr>
+<th>Author(s)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Todd Klindt (<a href="https://www.toddklindt.com/blog">https://www.toddklindt.com/blog</a>)</td>
+</tr>
+</tbody>
+</table>
+<h2 id="disclaimer">Disclaimer</h2>
+<p><strong>THESE SAMPLES ARE PROVIDED <em>AS IS</em> WITHOUT WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, INCLUDING ANY IMPLIED WARRANTIES OF FITNESS FOR A PARTICULAR PURPOSE, MERCHANTABILITY, OR NON-INFRINGEMENT.</strong></p>
+<img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/spo-download-all-doclibs" aria-hidden="true">
+</article>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            <span>Script Samples<br>Generated by <strong><a href='https://dotnet.github.io/docfx' alt='Doc FX Website'>DocFX</a></strong> with <strong><a href='https://ovasquez.github.io/docfx-material' alt='DocFx Material Theme'>Material UI</a></strong></span>
+            
+            <!-- <img src="https://telemetry.sharepointpnp.com/@pnp.github.io/index/" alt="spacer"> -->
+          </div>
+        </div>
+      </footer>    </div>
+    
+    <script type="text/javascript" src="../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+    
+    <script type="text/javascript" src="../styles/clipboard.min.js"></script>
+    <script type="text/javascript" src="../styles/isotope.pkgd.min.js"></script>
+    <script type="text/javascript" src="../styles/loadsamples.js"></script>
+    <script type="text/javascript" src="../styles/filtersamples.js"></script>
+
+  </body>
+</html>
