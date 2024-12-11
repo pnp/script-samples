@@ -1,0 +1,62 @@
+[
+  {
+    "name": "spo-copy-library-across-tenants",
+    "source": "pnp",
+    "title": "Copying a document library between different tenants with resume functionality",
+    "shortDescription": "This sample shows how to copy a document library including files and folder structure from one tenant to another one. It includes a resume functionality which comes handy for large libraries. Additionally you can specify custom properties which shall also copied to the target.",
+    "url": "https://pnp.github.io/script-samples/spo-copy-library-across-tenants/README.html",
+    "longDescription": [
+      "This sample shows how to copy a document library including files and folder structure from one tenant to another one."
+    ],
+    "creationDateTime": "2024-12-10",
+    "updateDateTime": "2024-12-10",
+    "products": [
+      "SharePoint"
+    ],
+    "metadata": [
+      {
+        "key": "PNP-POWERSHELL",
+        "value": "2.12.0"
+      },
+      {
+        "key": "POWERSHELL",
+        "value": "7.4.6"
+      }
+    ],
+    "categories": [
+      "Configure",
+      "Security"
+    ],
+    "tags": [
+      "Connect-PnPOnline",
+      "Get-PnPList",
+      "Get-PnPListItem",
+      "Resolve-PnPFolder",
+      "Get-PnPFile",
+      "Add-PnPFile"
+    ],
+    "thumbnails": [
+      {
+        "type": "image",
+        "order": 100,
+        "url": "https://raw.githubusercontent.com/pnp/script-samples/main/scripts/spo-copy-library-across-tenants/assets/preview.png",
+        "alt": "preview image for the sample"
+      }
+    ],
+    "authors": [
+      {
+        "name": "Timo Vomstein",
+        "gitHubAccount": "timtatam",
+        "company": "",
+        "pictureUrl": "https://avatars.githubusercontent.com/u/8087836?v=4"
+      }
+    ],
+    "references": [
+      {
+        "name": "Want to learn more about PnP PowerShell and the cmdlets",
+        "description": "Check out the PnP PowerShell site to get started and for the reference to the cmdlets.",
+        "url": "https://aka.ms/pnp/powershell"
+      }
+    ]
+  }
+]
