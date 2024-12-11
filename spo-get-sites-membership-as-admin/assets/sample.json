@@ -1,0 +1,60 @@
+[
+  {
+    "schema": null,
+    "name": "spo-get-sites-membership-as-admin",
+    "version": null,
+    "source": "pnp",
+    "title": "Get sites membership as an admin",
+    "url": "https://pnp.github.io/script-samples/spo-get-sites-membership-as-admin/README.html",
+    "creationDateTime": "2024-12-06",
+    "updateDateTime": "2024-12-06",
+    "shortDescription": "The script retrieves information about a site's default group memberships and administrators for SharePoint admins, without requiring permissions for specific SharePoint sites",
+    "longDescription": [
+      "This script shows how to find information about a site's default group memberships (Owners, Members, Visitors) and administrators as SharePoint admin. No special permissions for individual SharePoint sites are required to execute the script. The results will be saved in a CSV file with two export options: data can be displayed in separate rows for each group membership type, or combined into a single row per site."
+    ],
+    "products": [
+      "SharePoint"
+    ],
+    "categories": [
+      "Data",
+      "Report"
+    ],
+    "tags": [
+      "m365 status",
+      "m365 login",
+      "m365 spo site admin list",
+      "spo tenant site membership list",
+      "m365 logout"
+    ],
+    "metadata": [
+      {
+        "key": "CLI-FOR-MICROSOFT365",
+        "value": "10.2.0"
+      }
+    ],
+    "thumbnails": [
+      {
+        "type": "image",
+        "order": 100,
+        "url": "https://raw.githubusercontent.com/pnp/script-samples/main/scripts/spo-get-sites-membership-as-admin/assets/preview.png",
+        "alt": "preview image for the sample",
+        "slides": null
+      }
+    ],
+    "authors": [
+      {
+        "gitHubAccount": "mkm17",
+        "company": "WM Reply",
+        "pictureUrl": "https://github.com/mkm17.png",
+        "name": "Michał Kornet"
+      }
+    ],
+    "references": [
+      {
+        "name": "Want to learn more about CLI for Microsoft 365 and the commands",
+        "description": "Check out the CLI for Microsoft 365 site to get started and for the reference to the commands.",
+        "url": "https://aka.ms/cli-m365"
+      }
+    ]
+  }
+]
