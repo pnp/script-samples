@@ -1,9 +1,11 @@
+---
+plugin: add-to-gallery
+---
+
 # Retrieve & Store SharePoint Site Pages Viewers Details
 
 ## Summary
 This sample shows how to retrieve and store SharePoint site pages viewers' details using Exchange Online and PnP PowerShell.
-
-![Example Screenshot](assets/example.png)
 
 ## Prerequisites
 
@@ -74,8 +76,8 @@ try {
 
 StartProcessing
 ```
-
 [!INCLUDE [More about PnP PowerShell](../../docfx/includes/MORE-PNPPS.md)]
+***
 
 ## Contributors
 
@@ -85,4 +87,4 @@ StartProcessing
 
 
 [!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
-<img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/m365-get-unifiedlog-spo-dlp-exchange-entra" aria-hidden="true" />
+<img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/spo-get-sp-site-page-viewers-details" aria-hidden="true" />
