@@ -1,0 +1,62 @@
+[
+  {
+    "name": "spo-delete-companywide-anonymous-sharinglink",
+    "source": "pnp",
+    "title": "Deletes company-wide and anonymous sharing links",
+    "shortDescription": "Deletes company-wide and anonymous sharing links for folder, file, and item. This can address oversharing issues during the M365 Copilot rollout.",
+    "url": "https://pnp.github.io/script-samples/spo-delete-companywide-anonymous-sharinglink/README.html",
+    "longDescription": [
+      "Sharing links can lead to oversharing, especially when default site sharing settings haven't been updated to 'People with existing access'. If default sharing options are not updated in the tenant or site, end users can easily create a company wide or anonymous sharing links with a single click. End users can make a conscious decision to create sharing links with specific 'people you choose' which limits the audience having access to the data. This script can help delete those company-wide and anonymous sharing links at folder, file, and item levels. This approach can help mitigate oversharing issues during the M365 Copilot rollout."
+    ],
+    "creationDateTime": "2025-01-03",
+    "updateDateTime": "2025-01-03",
+    "products": [
+      "SharePoint",
+      "Sharing Links",
+      "Microsoft 365 Copilot"
+    ],
+    "metadata": [
+      {
+        "key": "PNP-POWERSHELL",
+        "value": "2.99.90"
+      }
+    ],
+    "categories": [
+      "Report",
+      "Microsoft 365 Copilot"
+    ],
+    "tags": [
+      "modern",
+      "Connect-PnPOnline",
+      "Get-PnPFileSharingLink",
+      "Get-PnPFolderSharingLink",
+      "Get-PnPList",
+      "Remove-PnPFileSharingLink",
+      "Remove-PnPFolderSharingLink",
+      "invoke-pnpsprestmethod"
+    ],
+    "thumbnails": [
+      {
+        "type": "image",
+        "order": 100,
+        "url": "https://raw.githubusercontent.com/pnp/script-samples/main/scripts/spo-delete-companywide-anonymous-sharinglink/assets/preview.png",
+        "alt": ""
+      }
+    ],
+    "authors": [
+      {
+        "gitHubAccount": "reshmee011",
+        "company": "",
+        "pictureUrl": "https://avatars.githubusercontent.com/u/7693852?v=4",
+        "name": "Reshmee Auckloo"
+      }
+    ],
+    "references": [
+      {
+        "name": "Want to learn more about PnP PowerShell and the cmdlets",
+        "description": "Check out the PnP PowerShell site to get started and for the reference to the cmdlets.",
+        "url": "https://aka.ms/pnp/powershell"
+      }
+    ]
+  }
+]

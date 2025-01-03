@@ -1,0 +1,282 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html lang="en">
+  
+  <head>
+    <meta charset="utf-8">
+    <title>Deletes company-wide and anonymous sharing links | PnP Samples </title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" "="">
+    <meta name="title" content="Deletes company-wide and anonymous sharing links | PnP Samples ">
+    <meta name="generator" content="docfx 2.56.7.0">
+    <meta name="description" content="A sample gallery of scripts to manage all things Microsoft 365.">
+  
+    <!-- Social Media -->
+    <meta property="og:locale" content="en_GB">
+    <meta property="og:title" content="Deletes company-wide and anonymous sharing links | PnP Samples ">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://pnp.github.io/script-samples">
+    <meta property="og:image" content="https://pnp.github.io/script-samples/assets/social-media-screenshot.png">
+    <meta property="og:image:alt" content="Screenshot example of the PnP Script Samples Site">
+    <meta property="og:site_name" content="PnP Script Samples">
+    <meta name="msvalidate.01" content="04EFEDA66EC42C08A1247C979E2F9ADD">
+    <meta property="og:description" content="A sample gallery of scripts to manage all things Microsoft 365.">
+  
+    <link rel="shortcut icon" href="https://c.s-microsoft.com/favicon.ico?v2">
+    <link rel="stylesheet" href="../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../styles/docfx.css">
+    <link rel="stylesheet" href="../styles/main.css">
+    <link rel="stylesheet" href="../styles/extra.css">
+    <link rel="stylesheet" href="../styles/filter.css">
+    <link rel="stylesheet" href="../styles/site.css">
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet"> 
+    <meta property="docfx:navrel" content="../toc.html">
+    <meta property="docfx:tocrel" content="../toc.html">
+    
+    
+    <meta property="docfx:newtab" content="true">
+    <script type="text/javascript">
+      (function(c,l,a,r,i,t,y){
+          c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+          t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+          y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+      })(window, document, "clarity", "script", "8j6pedl344");
+  </script>
+  </head>  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+             <div class="github-mark">
+              <a href="https://github.com/pnp/script-samples" title="Go to repository">
+               <div class="github-wrapper">
+                  <div class="github-icon">
+                    <img src="https://pnp.github.io/script-samples/assets/icons/github-light-64px.png" alt="GitHub Icon Image">
+                  </div>
+                  <div class="github-repository">
+                    <span>GitHub</span>
+                    <ul class="github-facts">
+                      <li>
+                        <i class="fa fa-code-fork" aria-hidden="true"></i>
+                        <span class="github-forks"></span>
+                      </li>
+                      <li>
+                        <i class="fa fa-star-o" aria-hidden="true"></i>
+                        <span class="github-stars"></span>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </a>
+            </div>
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../assets/logo.svg" alt="">
+              </a>    </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <label class="glyphicon glyphicon-search" for="search-query"></label>
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>      </header>
+      <div role="main" class="container body-content hide-when-search">
+        <div class="article row grid">
+          <div class="col-md-12">
+            <article class="content wrap" id="_content" data-uid="">
+                  <div class="contribution-panel mobile-hide pull-right">
+                      <a href="https://github.com/pnp/script-samples/blob/main/scripts/spo-delete-companywide-anonymous-sharinglink/README.md/#L1" title="Improve this Doc" class="improve-doc-lg"><i class="glyphicon glyphicon-pencil"></i></a>
+                  </div>
+                    <h1 id="deletes-company-wide-and-anonymous-sharing-links">Deletes company-wide and anonymous sharing links</h1>
+
+<h2 id="summary">Summary</h2>
+<p>Sharing links can lead to oversharing, especially when default site sharing settings haven’t been updated to ‘People with existing access’. If default sharing options are not updated in the tenant or site, end users can easily create a company wide or anonymous sharing links with a single click. End users can make a conscious decision to create sharing links with specific &quot;people you choose&quot; which limits the audience having access to the data. This script can help delete those company-wide and anonymous sharing links at folder, file, and item levels. This approach can help mitigate oversharing issues during the M365 Copilot rollout.</p>
+<p><img src="assets/preview.png" alt="Example Screenshot"></p>
+<h3 id="prerequisites">Prerequisites</h3>
+<ul>
+<li>The user account that runs the script must have at least site owner role to the SharePoint Online site.</li>
+</ul>
+<div class="tabGroup" id="tabgroup_CeZOj-G++Q">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_CeZOj-G++Q_pnpps" role="tab" aria-controls="tabpanel_CeZOj-G++Q_pnpps" data-tab="pnpps" tabindex="0" aria-selected="true">PnP PowerShell</a>
+</li>
+</ul>
+<section id="tabpanel_CeZOj-G++Q_pnpps" role="tabpanel" data-tab="pnpps"><button class="article-clipboard" title="Copy to clipboard" data-toggle="tooltip" data-placement="top" data-clipboard-target="section[id^='tabpanel'][data-tab='pnpps'] pre">
+    <span class="glyphicon glyphicon-copy" aria-hidden="true"></span>
+    <span class="article-clipboard__message done">Copied</span>
+</button>
+
+<pre><code class="lang-powershell">param(
+    [Parameter(Mandatory)]
+    [ValidateSet('Yes','No')]
+    [string]$ExcludeDirectSharingLink,#anonymous and company wide links are included by default and this provides an option to include the &quot;People You choose&quot; links in the deletio process.
+    [Parameter(Mandatory)]
+    [ValidateSet('Yes','No')]
+    [string]$DeleteSharingink,
+    [Parameter(Mandatory)]
+    [string]$SiteUrl
+)
+ 
+#Parameters
+$dateTime = (Get-Date).toString(&quot;dd-MM-yyyy-hh-ss&quot;)
+$invocation = (Get-Variable MyInvocation).Value
+$directorypath = Split-Path $invocation.MyCommand.Path
+$fileName = &quot;SharedLinksDeletion-&quot; + $dateTime + &quot;.csv&quot;
+$ReportOutput = $directorypath + &quot;\Logs\&quot;+ $fileName 
+ 
+$global:Results = @();
+
+$siteUrl = if ($siteUrl[-1] -ne '/') { $siteUrl + '/' } else { $siteUrl }
+function getSharingLink($_object,$_type,$_siteUrl,$_listUrl)
+{
+    $relativeUrl = $_object.FileRef
+    $SharingLinks = if ($_type -eq 0 ) {
+        Get-PnPFileSharingLink -Identity $relativeUrl
+    } elseif ($_type -eq 1) {
+        Get-PnPFolderSharingLink -Folder $relativeUrl
+    }
+   
+    ForEach($ShareLink in $SharingLinks)
+    {
+        if(($ExcludeDirectSharingLink -eq 'Yes' -and $ShareLink.Link.Scope -ne 'Users') -or $ExcludeDirectSharingLink -eq 'No')
+        {
+            $result = New-Object PSObject -property $([ordered]@{
+                SiteUrl = $_SiteURL
+                listUrl = $_listUrl
+                Name =  $_object.FileLeafRef      
+                RelativeURL = $_object.FileRef
+                ObjectType = $_Type -eq 1 ? 'Folder':'File'
+                ShareId = $ShareLink.Id
+                RoleList = $ShareLink.Roles -join &quot;|&quot;
+                Users = $ShareLink.GrantedToIdentitiesV2.User.Email -join &quot;|&quot;
+                ShareLinkUrl  = $ShareLink.Link.WebUrl
+                ShareLinkType  = $ShareLink.Link.Type
+                ShareLinkScope  = $ShareLink.Link.Scope
+                Expiration = $ShareLink.ExpirationDateTime
+                BlocksDownload = $ShareLink.Link.PreventsDowload
+                RequiresPassword = $ShareLink.HasPassword
+            })
+       
+            $global:Results +=$result;
+ 
+        if($DeleteSharingink -eq 'Yes'){
+            if ($_type -eq 0 ) {
+                Remove-PnPFileSharingLink -FileUrl $relativeUrl -Identity $ShareLink.Id -Force
+            } elseif ($_type -eq 1) {
+                Remove-PnPFolderSharingLink -Folder $relativeUrl -Identity $ShareLink.Id -Force
+            } 
+      }
+    }    
+ }
+}
+#Exclude certain libraries/lists
+$ExcludedLists = @(&quot;Access Requests&quot;, &quot;App Packages&quot;, &quot;appdata&quot;, &quot;appfiles&quot;,&quot;Apps for SharePoint&quot; ,&quot;Apps in Testing&quot;, &quot;Cache Profiles&quot;, &quot;Composed Looks&quot;, &quot;Content and Structure Reports&quot;, &quot;Content type publishing error log&quot;, &quot;Converted Forms&quot;,
+    &quot;Device Channels&quot;, &quot;Form Templates&quot;, &quot;fpdatasources&quot;, &quot;Get started with Apps for Office and SharePoint&quot;, &quot;List Template Gallery&quot;, &quot;Long Running Operation Status&quot;, &quot;Maintenance Log Library&quot;, &quot;Images&quot;, &quot;site collection images&quot;
+    , &quot;Master Docs&quot;, &quot;Master Page Gallery&quot;, &quot;MicroFeed&quot;, &quot;NintexFormXml&quot;, &quot;Quick Deploy Items&quot;, &quot;Relationships List&quot;, &quot;Reusable Content&quot;, &quot;Reporting Metadata&quot;, &quot;Reporting Templates&quot;, &quot;Search Config List&quot;, &quot;Site Assets&quot;, &quot;Preservation Hold Library&quot;,
+    &quot;Site Pages&quot;, &quot;Solution Gallery&quot;, &quot;Style Library&quot;, &quot;Suggested Content Browser Locations&quot;, &quot;Theme Gallery&quot;, &quot;TaxonomyHiddenList&quot;, &quot;User Information List&quot;, &quot;Web Part Gallery&quot;, &quot;wfpub&quot;, &quot;wfsvc&quot;, &quot;Workflow History&quot;, &quot;Workflow Tasks&quot;, &quot;Pages&quot;)
+ 
+Connect-PnPOnline -Url $siteUrl -Interactive
+ 
+Write-Host &quot;Processing site $siteUrl&quot;  -Foregroundcolor &quot;Red&quot;;
+$ll = Get-PnPList -Includes BaseType, Hidden, Title,HasUniqueRoleAssignments,RootFolder | Where-Object {$_.Hidden -eq $False -and $_.Title -notin $ExcludedLists } #$_.BaseType -eq &quot;DocumentLibrary&quot;
+  Write-Host &quot;Number of lists $($ll.Count)&quot;;
+ 
+  foreach($list in $ll)
+  {
+    $listUrl = $list.RootFolder.ServerRelativeUrl;    
+ 
+    $selectFields = &quot;ID,HasUniqueRoleAssignments,FileRef,FileLeafRef,FileSystemObjectType&quot;
+    
+    $Url = $siteUrl + '_api/web/lists/getbytitle(''' + $($list.Title) + ''')/items?$select=' + $($selectFields)
+    $nextLink = $Url
+    $ListItems = @()
+    while($nextLink){  
+        $response = invoke-pnpsprestmethod -Url $nextLink -Method Get
+    
+        $ListItems += $response.value | where-object{$_.HasUniqueRoleAssignments -eq $true}
+        if($response.'odata.nextlink'){
+            $nextLink = $response.'odata.nextlink' -replace &quot;$siteUrl/_api/&quot;,&quot;&quot;
+        }    else{
+            $nextLink = $null
+        }    
+    }
+    ForEach($item in $ListItems)
+    {
+        if($list.BaseType -eq &quot;DocumentLibrary&quot;)
+        {
+            $type= $item.FileSystemObjectType;
+        }
+        
+        getSharingLink $item $type $siteUrl $listUrl;
+    }
+}
+ 
+$global:Results | Export-CSV $ReportOutput -NoTypeInformation
+Write-host -f Green &quot;Sharing Links Report Generated Successfully! to $ReportOutput&quot;
+</code></pre>
+<div class="highlight-tool">
+<p>Check out the <strong>PnP PowerShell</strong> to learn more at: <a href="https://aka.ms/pnp/powershell">https://aka.ms/pnp/powershell</a></p>
+</div>
+<div class="highlight-tool">
+<p>The way you login into PnP PowerShell has changed please read <a href="https://github.com/pnp/powershell/discussions/4249">PnP Management Shell EntraID app is deleted : what should I do ?</a></p>
+</div>
+</section>
+</div>
+<h2 id="source-credit">Source Credit</h2>
+<p>Sample first appeared on <a href="https://reshmeeauckloo.com/posts/powershell-delete-nondirectlink//">Deletion of company-wide and anonymous sharing links with PowerShell</a></p>
+<h2 id="contributors">Contributors</h2>
+<table>
+<thead>
+<tr>
+<th>Author(s)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="https://github.com/reshmee011">Reshmee Auckloo</a></td>
+</tr>
+</tbody>
+</table>
+<h2 id="disclaimer">Disclaimer</h2>
+<p><strong>THESE SAMPLES ARE PROVIDED <em>AS IS</em> WITHOUT WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, INCLUDING ANY IMPLIED WARRANTIES OF FITNESS FOR A PARTICULAR PURPOSE, MERCHANTABILITY, OR NON-INFRINGEMENT.</strong></p>
+<img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/spo-delete-companywide-anonymous-sharinglink" aria-hidden="true">
+</article>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            <span>Script Samples<br>Generated by <strong><a href='https://dotnet.github.io/docfx' alt='Doc FX Website'>DocFX</a></strong> with <strong><a href='https://ovasquez.github.io/docfx-material' alt='DocFx Material Theme'>Material UI</a></strong></span>
+            
+            <!-- <img src="https://telemetry.sharepointpnp.com/@pnp.github.io/index/" alt="spacer"> -->
+          </div>
+        </div>
+      </footer>    </div>
+    
+    <script type="text/javascript" src="../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+    
+    <script type="text/javascript" src="../styles/clipboard.min.js"></script>
+    <script type="text/javascript" src="../styles/isotope.pkgd.min.js"></script>
+    <script type="text/javascript" src="../styles/loadsamples.js"></script>
+    <script type="text/javascript" src="../styles/filtersamples.js"></script>
+
+  </body>
+</html>
