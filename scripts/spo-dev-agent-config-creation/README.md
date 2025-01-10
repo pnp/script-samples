@@ -23,6 +23,8 @@ I have written a script to automate the creation of .copilot files which you can
   * Enter at least one SharePoint source (File, Folder, Library or Site)
 * Add created <Agent Name>.copilot file to /SiteAssets/Copilots folder.
 
+Further details on my [blog article](https://www.leonarmston.com/2025/01/creating-sharepoint-agents-with-powershell/) (External Site)
+
 ### Prerequisites
 
 Account that runs the script needs access to all of the locations where the files, folders, libraries or sites to be used in the agent are located.
