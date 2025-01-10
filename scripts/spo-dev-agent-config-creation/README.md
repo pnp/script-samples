@@ -4,17 +4,6 @@ plugin: add-to-gallery
 
 # Creating SharePoint Agents (.copilot Files) with PowerShell
 
-> [!Note]
-> This is a submission helper template please find the [contributor guidance](/docfx/contribute.md) to help you write this scenario.
-
-## Summary
-
-Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Maecenas porttitor congue massa. Fusce posuere, magna sed pulvinar ultricies, purus lectus malesuada libero, sit amet commodo magna eros quis urna.
-
-![Example Screenshot](assets/example.png)
-
-Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Maecenas porttitor congue massa. Fusce posuere, magna sed pulvinar ultricies, purus lectus malesuada libero, sit amet commodo magna eros quis urna.Nunc viverra imperdiet enim. Fusce est. Vivamus a tellus.Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Proin pharetra nonummy pede. Mauris et orci.Aenean nec lorem. In porttitor. Donec laoreet nonummy augue.
-
 ## Summary
 
 I have written a script to automate the creation of .copilot files which you can then add to your sites & libraries. In the script you can then specify the details for the copilot i.e. name, welcome message, starter prompts & sources for the agent i.e. specific files, folders, libraries or sites that the agent is then grounded on. The script uses search to find the site ids, web ids and unique Ids of documents.
@@ -34,11 +23,13 @@ Minimum Steps To Success
   * Enter at least one SharePoint source (File, Folder, Library or Site)
 * Add created <Agent Name>.copilot file to /SiteAssets/Copilots folder.
 
+##s Prerequisites
+
+Account that runs the script needs access to all of the locations where the files, folders, libraries or sites to be used in the agent are located.
+
 # [PnP PowerShell](#tab/pnpps)
 
 ```powershell
-
-
 $url = "https://contoso.sharepoint.com/sites/Syntex"
 
 
