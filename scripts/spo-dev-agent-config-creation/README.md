@@ -11,7 +11,7 @@ I have written a script to automate the creation of .copilot files which you can
 ![Example Screenshot](assets/preview.png)
 
 
-Minimum Steps To Success
+**Minimum Steps To Success**
 
 * Enter a URL of a SharePoint site you have access to.
 * Run the script (you will be asked for the following:)
@@ -23,7 +23,7 @@ Minimum Steps To Success
   * Enter at least one SharePoint source (File, Folder, Library or Site)
 * Add created <Agent Name>.copilot file to /SiteAssets/Copilots folder.
 
-##s Prerequisites
+### Prerequisites
 
 Account that runs the script needs access to all of the locations where the files, folders, libraries or sites to be used in the agent are located.
 
