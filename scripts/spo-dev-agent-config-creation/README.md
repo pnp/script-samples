@@ -2,11 +2,11 @@
 plugin: add-to-gallery
 ---
 
-# Creating SharePoint Agents (.copilot Files) with PowerShell
+# Creating SharePoint Agents (.agent Files) with PowerShell
 
 ## Summary
 
-I have written a script to automate the creation of .copilot files which you can then add to your sites & libraries. In the script you can then specify the details for the copilot i.e. name, welcome message, starter prompts & sources for the agent i.e. specific files, folders, libraries or sites that the agent is then grounded on. The script uses search to find the site ids, web ids and unique Ids of documents.
+I have written a script to automate the creation of .agent files which you can then add to your sites & libraries. In the script you can then specify the details for the copilot i.e. name, welcome message, starter prompts & sources for the agent i.e. specific files, folders, libraries or sites that the agent is then grounded on. The script uses search to find the site ids, web ids and unique Ids of documents.
 
 ![Example Screenshot](assets/preview.png)
 
@@ -21,7 +21,7 @@ I have written a script to automate the creation of .copilot files which you can
   * Instructions for the Agent
   * Enter at least one Starter Prompt i.e "How can you help me?"
   * Enter at least one SharePoint source (File, Folder, Library or Site)
-* Add created <Agent Name>.copilot file to /SiteAssets/Copilots folder.
+* Add created <Agent Name>.agent file to /SiteAssets/Copilots folder.
 
 Further details on my [blog article](https://www.leonarmston.com/2025/01/creating-sharepoint-agents-with-powershell/) (External Site)
 
@@ -231,9 +231,9 @@ $json = @{
 }
 
 # Convert to JSON and save to file
-$json | ConvertTo-Json -Depth 10 | Out-File "$($name).copilot"
+$json | ConvertTo-Json -Depth 10 | Out-File "$($name).agent"
 
-Write-Host "JSON file generated: $($name).copilot"
+Write-Host "JSON file generated: $($name).agent"
 
 ```
 [!INCLUDE [More about PnP PowerShell](../../docfx/includes/MORE-PNPPS.md)]
