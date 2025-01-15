@@ -1,0 +1,390 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html lang="en">
+  
+  <head>
+    <meta charset="utf-8">
+    <title>Creating SharePoint Agents (.agent Files) with PowerShell | PnP Samples </title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" "="">
+    <meta name="title" content="Creating SharePoint Agents (.agent Files) with PowerShell | PnP Samples ">
+    <meta name="generator" content="docfx 2.56.7.0">
+    <meta name="description" content="A sample gallery of scripts to manage all things Microsoft 365.">
+  
+    <!-- Social Media -->
+    <meta property="og:locale" content="en_GB">
+    <meta property="og:title" content="Creating SharePoint Agents (.agent Files) with PowerShell | PnP Samples ">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://pnp.github.io/script-samples">
+    <meta property="og:image" content="https://pnp.github.io/script-samples/assets/social-media-screenshot.png">
+    <meta property="og:image:alt" content="Screenshot example of the PnP Script Samples Site">
+    <meta property="og:site_name" content="PnP Script Samples">
+    <meta name="msvalidate.01" content="04EFEDA66EC42C08A1247C979E2F9ADD">
+    <meta property="og:description" content="A sample gallery of scripts to manage all things Microsoft 365.">
+  
+    <link rel="shortcut icon" href="https://c.s-microsoft.com/favicon.ico?v2">
+    <link rel="stylesheet" href="../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../styles/docfx.css">
+    <link rel="stylesheet" href="../styles/main.css">
+    <link rel="stylesheet" href="../styles/extra.css">
+    <link rel="stylesheet" href="../styles/filter.css">
+    <link rel="stylesheet" href="../styles/site.css">
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet"> 
+    <meta property="docfx:navrel" content="../toc.html">
+    <meta property="docfx:tocrel" content="../toc.html">
+    
+    
+    <meta property="docfx:newtab" content="true">
+    <script type="text/javascript">
+      (function(c,l,a,r,i,t,y){
+          c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+          t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+          y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+      })(window, document, "clarity", "script", "8j6pedl344");
+  </script>
+  </head>  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+             <div class="github-mark">
+              <a href="https://github.com/pnp/script-samples" title="Go to repository">
+               <div class="github-wrapper">
+                  <div class="github-icon">
+                    <img src="https://pnp.github.io/script-samples/assets/icons/github-light-64px.png" alt="GitHub Icon Image">
+                  </div>
+                  <div class="github-repository">
+                    <span>GitHub</span>
+                    <ul class="github-facts">
+                      <li>
+                        <i class="fa fa-code-fork" aria-hidden="true"></i>
+                        <span class="github-forks"></span>
+                      </li>
+                      <li>
+                        <i class="fa fa-star-o" aria-hidden="true"></i>
+                        <span class="github-stars"></span>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </a>
+            </div>
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../assets/logo.svg" alt="">
+              </a>    </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <label class="glyphicon glyphicon-search" for="search-query"></label>
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>      </header>
+      <div role="main" class="container body-content hide-when-search">
+        <div class="article row grid">
+          <div class="col-md-12">
+            <article class="content wrap" id="_content" data-uid="">
+                  <div class="contribution-panel mobile-hide pull-right">
+                      <a href="https://github.com/pnp/script-samples/blob/main/scripts/spo-dev-agent-config-creation/README.md/#L1" title="Improve this Doc" class="improve-doc-lg"><i class="glyphicon glyphicon-pencil"></i></a>
+                  </div>
+                    <h1 id="creating-sharepoint-agents-agent-files-with-powershell">Creating SharePoint Agents (.agent Files) with PowerShell</h1>
+
+<h2 id="summary">Summary</h2>
+<p>I have written a script to automate the creation of .agent files which you can then add to your sites &amp; libraries. In the script you can then specify the details for the copilot i.e. name, welcome message, starter prompts &amp; sources for the agent i.e. specific files, folders, libraries or sites that the agent is then grounded on. The script uses search to find the site ids, web ids and unique Ids of documents.</p>
+<p><img src="assets/preview.png" alt="Example Screenshot"></p>
+<p><strong>Minimum Steps To Success</strong></p>
+<ul>
+<li>Enter a URL of a SharePoint site you have access to.</li>
+<li>Run the script (you will be asked for the following:)
+<ul>
+<li>Name of the SharePoint Agent</li>
+<li>Description of the Agent</li>
+<li>Custom welcome message for the Agent</li>
+<li>Instructions for the Agent</li>
+<li>Enter at least one Starter Prompt i.e &quot;How can you help me?&quot;</li>
+<li>Enter at least one SharePoint source (File, Folder, Library or Site)</li>
+</ul>
+</li>
+<li>Add created <agent name="">.agent file to /SiteAssets/Copilots folder.</agent></li>
+</ul>
+<p>Further details on my <a href="https://www.leonarmston.com/2025/01/creating-sharepoint-agents-with-powershell/">blog article</a> (External Site)</p>
+<h3 id="prerequisites">Prerequisites</h3>
+<p>Account that runs the script needs access to all of the locations where the files, folders, libraries or sites to be used in the agent are located.</p>
+<div class="tabGroup" id="tabgroup_CeZOj-G++Q">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_CeZOj-G++Q_pnpps" role="tab" aria-controls="tabpanel_CeZOj-G++Q_pnpps" data-tab="pnpps" tabindex="0" aria-selected="true">PnP PowerShell</a>
+</li>
+</ul>
+<section id="tabpanel_CeZOj-G++Q_pnpps" role="tabpanel" data-tab="pnpps"><button class="article-clipboard" title="Copy to clipboard" data-toggle="tooltip" data-placement="top" data-clipboard-target="section[id^='tabpanel'][data-tab='pnpps'] pre">
+    <span class="glyphicon glyphicon-copy" aria-hidden="true"></span>
+    <span class="article-clipboard__message done">Copied</span>
+</button>
+
+<pre><code class="lang-powershell">$url = &quot;https://contoso.sharepoint.com/sites/Syntex&quot;
+
+
+Connect-PnPOnline -Url $url -Interactive
+
+# Function to prompt user for conversation starters
+function Get-ConversationStarters {
+    $conversationStarters = @()
+    while ($true) {
+        $text = Read-Host &quot;Enter a starter prompt (or press Enter to finish)&quot;
+        if ($text -eq &quot;&quot; -and $conversationStarters.Count -eq 0) {
+            Write-Host &quot;You must enter at least one starter prompt.&quot;
+        } elseif ($text -eq &quot;&quot;) {
+            break
+        } else {
+            $conversationStarters += @{ text = $text }
+        }
+    }
+    return $conversationStarters
+}
+
+# Function to prompt user for capabilities
+function Get-Capabilities {
+    $items_by_sharepoint_ids = @()
+    $items_by_url = @()
+    while ($true) {
+        $type = Read-Host &quot;Enter capability type (File, Site, Library, Folder) (or press Enter to finish)&quot;
+        $path = Read-Host &quot;Enter path (or press Enter to finish)&quot;
+        if ($type -eq &quot;&quot; -or $path -eq &quot;&quot;) { break }
+
+        switch ($type) {
+            &quot;File&quot; {
+
+                &lt;#{
+                    &quot;list_id&quot;: &quot;50f033bf-f372-48ac-8bd6-6af3f421a1c6&quot;,
+                    &quot;name&quot;: &quot;PnP Recognition Letter - Leon.pdf&quot;,
+                    &quot;site_id&quot;: &quot;18dfc66a-2fa5-4b83-adf5-8726b62a6861&quot;,
+                    &quot;type&quot;: &quot;File&quot;,
+                    &quot;unique_id&quot;: &quot;9328a5ca-dd8e-4e46-a51e-782e53d7275d&quot;,
+                    &quot;url&quot;: &quot;https://leonarmstonmvp.sharepoint.com/sites/Syntex/Shared%20Documents/PnP%20Recognition%20Letter%20-%20Leon.pdf&quot;,
+                    &quot;web_id&quot;: &quot;b0224f93-49be-4957-8e22-edbb489c937e&quot;
+                }#&gt;
+
+                $searchQuery = Submit-PnPSearchQuery -Query &quot;Path:`&quot;$path`&quot;&quot; -All -SelectProperties &quot;ListId&quot;,&quot;FileType&quot;,&quot;SiteTitle&quot;,&quot;IdentityListItemId&quot;,&quot;Path&quot;,&quot;IdentityWebId&quot;
+
+
+                $capability = @{
+                    list_id = $searchQuery.ResultRows[0].ListId
+                    name = $searchQuery.ResultRows[0].OriginalPath.Split(&quot;/&quot;)[-1]
+                    site_id = $searchQuery.ResultRows[0].IdentitySiteCollectionId
+                    type = $type
+                    unique_id = $searchQuery.ResultRows[0].IdentityListItemId
+                    url = $searchQuery.ResultRows[0].Path
+                    web_id = $searchQuery.ResultRows[0].IdentityWebId
+                }
+                $items_by_sharepoint_ids += $capability
+            }
+            &quot;Site&quot; {
+                &lt;#{
+                    &quot;list_id&quot;: &quot;00000000-0000-0000-0000-000000000000&quot;,
+                    &quot;name&quot;: &quot;Projects Hub&quot;,
+                    &quot;site_id&quot;: &quot;171f7026-6c47-45ce-a734-21f0ee741965&quot;,
+                    &quot;type&quot;: &quot;Site&quot;,
+                    &quot;unique_id&quot;: &quot;00000000-0000-0000-0000-000000000000&quot;,
+                    &quot;url&quot;: &quot;https://leonarmstonmvp.sharepoint.com/sites/ProjectsHub&quot;,
+                    &quot;web_id&quot;: &quot;b0224f93-49be-4957-8e22-edbb489c937e&quot;
+                }#&gt;
+
+                $searchQuery = Submit-PnPSearchQuery -Query &quot;Path:`&quot;$path`&quot; contentclass:`&quot;STS_Site`&quot;&quot; -All -SelectProperties &quot;ListId&quot;,&quot;FileType&quot;,&quot;SiteTitle&quot;,&quot;IdentityListItemId&quot;,&quot;Path&quot;,&quot;IdentityWebId&quot;,&quot;IdentitySiteId&quot;
+
+                $capability = @{
+                    list_id = &quot;00000000-0000-0000-0000-000000000000&quot;
+                    name = $searchQuery.ResultRows[0].SiteTitle
+                    site_id = $searchQuery.ResultRows[0].IdentitySiteCollectionId
+                    type = $type
+                    unique_id = &quot;00000000-0000-0000-0000-000000000000&quot;
+                    url = $searchQuery.ResultRows[0].SPWebUrl
+                    web_id = $searchQuery.ResultRows[0].IdentityWebId
+                }
+                $items_by_url += $capability
+            }
+            &quot;Folder&quot; {
+                &lt;#      
+                        {
+                            &quot;list_id&quot;: &quot;a1ed0c2f-aa4c-4a4f-a3ce-23c745fe17d0&quot;,
+                            &quot;name&quot;: &quot;NORR&quot;,
+                            &quot;site_id&quot;: &quot;18dfc66a-2fa5-4b83-adf5-8726b62a6861&quot;,
+                            &quot;type&quot;: &quot;Folder&quot;,
+                            &quot;unique_id&quot;: &quot;057676b7-9212-44cb-8321-d5df359be4d7&quot;,
+                            &quot;url&quot;: &quot;https://leonarmstonmvp.sharepoint.com/sites/Syntex/DrawingPlansDiffCompanies/NORR&quot;,
+                            &quot;web_id&quot;: &quot;b0224f93-49be-4957-8e22-edbb489c937e&quot;
+                        }
+                #&gt;
+                $searchQuery = Submit-PnPSearchQuery -Query &quot;Path:`&quot;$path`&quot; IsContainer:true&quot; -All -SelectProperties &quot;ListId&quot;,&quot;FileType&quot;,&quot;SiteTitle&quot;,&quot;IdentityListItemId&quot;,&quot;Path&quot;,&quot;IdentityWebId&quot;,&quot;IdentitySiteId&quot;
+
+                $capability = @{
+                    list_id = $searchQuery.ResultRows[0].ListId
+                    name = $searchQuery.ResultRows[0].Title
+                    site_id = $searchQuery.ResultRows[0].SiteId
+                    type = $type
+                    unique_id = $searchQuery.ResultRows[0].UniqueId -replace &quot;{&quot;,&quot;&quot; -replace &quot;}&quot;,&quot;&quot;.Trim()
+                    url = $searchQuery.ResultRows[0].OriginalPath
+                    web_id = $searchQuery.ResultRows[0].WebId
+                }
+                $items_by_url += $capability
+            }
+            &quot;Library&quot; {
+                &lt;#      {
+                            &quot;list_id&quot;: &quot;e042afcd-15d9-4790-a125-264e3b80cdaf&quot;,
+                            &quot;name&quot;: &quot;Autofill&quot;,
+                            &quot;site_id&quot;: &quot;18dfc66a-2fa5-4b83-adf5-8726b62a6861&quot;,
+                            &quot;type&quot;: &quot;Folder&quot;,
+                            &quot;unique_id&quot;: &quot;00000000-0000-0000-0000-000000000000&quot;,
+                            &quot;url&quot;: &quot;https://leonarmstonmvp.sharepoint.com/sites/Syntex/Autofill&quot;,
+                            &quot;web_id&quot;: &quot;b0224f93-49be-4957-8e22-edbb489c937e&quot;
+                        }
+                #&gt;
+                $searchQuery = Submit-PnPSearchQuery -Query &quot;Path:`&quot;$path`&quot; contentclass:`&quot;STS_List_DocumentLibrary`&quot;&quot; -All -SelectProperties &quot;ListId&quot;,&quot;FileType&quot;,&quot;SiteTitle&quot;,&quot;IdentityListItemId&quot;,&quot;Path&quot;,&quot;IdentityWebId&quot;,&quot;IdentitySiteId&quot;
+
+                $capability = @{
+                    list_id = $searchQuery.ResultRows[0].ListId
+                    name = $searchQuery.ResultRows[0].Title
+                    site_id = $searchQuery.ResultRows[0].SiteId
+                    type = &quot;Folder&quot;
+                    unique_id = &quot;00000000-0000-0000-0000-000000000000&quot;
+                    url = $searchQuery.ResultRows[0].OriginalPath.Split(&quot;/Forms&quot;)[0]
+                    web_id = $searchQuery.ResultRows[0].WebId
+                }
+                $items_by_url += $capability
+            }
+            default {
+                Write-Host &quot;Invalid type entered. Please enter either File, Site, or Folder.&quot;
+            }
+        }
+    }
+    return @{ items_by_sharepoint_ids = $items_by_sharepoint_ids; items_by_url = $items_by_url }
+}
+
+# Prompt user for name
+$name = Read-Host &quot;Enter a custom name for the SharePoint Agent (or press Enter to use the default `&quot;Leon's Agent`&quot;)&quot;
+if($name -eq &quot;&quot;) 
+{
+    $name = &quot;Leon's Agent&quot;
+}
+Write-Host &quot;     Name: $name&quot;
+
+
+$description = Read-Host &quot;Enter a custom description for the SharePoint Agent (or press Enter to use the default 'This is an agent curated based on the content from the selected file sources.')&quot;
+if($description -eq &quot;&quot;) 
+{
+    $description = &quot;This is an agent curated based on the content from the selected file sources.&quot;
+}
+Write-Host &quot;     Description: $description&quot;
+
+$welcomeMessageText = Read-Host &quot;Enter a custom welcome message for the SharePoint Agent (or press Enter to use the default 'Welcome! Enhance your productivity with this Copilot agent. Start a conversation by asking a question or selecting one of the suggested prompts.')&quot;
+if($welcomeMessageText -eq &quot;&quot;) 
+{
+    $welcomeMessageText = &quot;Welcome! Enhance your productivity with this Copilot agent. Start a conversation by asking a question or selecting one of the suggested prompts.&quot;
+}
+Write-Host &quot;     Welcome Message: $welcomeMessageText&quot;
+
+$instructions = Read-Host &quot;Enter custom instructions for the agent (or press Enter to use the default 'Provide helpful, accurate, and relevant information while maintaining a professional and courteous tone.')&quot;
+if($instructions -eq &quot;&quot;) 
+{
+    $instructions = &quot;Provide helpful, accurate, and relevant information while maintaining a professional and courteous tone.&quot;
+}
+Write-Host &quot;     Instructions: $instructions&quot;
+
+# Get user input
+$conversationStarters = Get-ConversationStarters
+$capabilities = Get-Capabilities
+
+# Create JSON structure
+$json = @{
+    customCopilotConfig = @{
+        conversationStarters = @{
+            conversationStarterList = @($conversationStarters)
+            welcomeMessage = @{
+                text = $welcomeMessageText
+            }
+        }
+        gptDefinition = @{
+            capabilities = @(
+                @{
+                    items_by_sharepoint_ids = $capabilities.items_by_sharepoint_ids
+                    items_by_url = $capabilities.items_by_url
+                    name = &quot;OneDriveAndSharePoint&quot;
+                }
+            )
+            description = $description
+            instructions = $instructions
+            name = $name
+        }
+        icon = &quot;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAUAAAAFCAYAAACNbyblAAAAHElEQVQI12P4//8/w38GIAXDIBKE0DHxgljNBAAO9TXL0Y4OHwAAAABJRU5ErkJggg==&quot;
+    }
+    schemaVersion = &quot;0.2.0&quot;
+}
+
+# Convert to JSON and save to file
+$json | ConvertTo-Json -Depth 10 | Out-File &quot;$($name).agent&quot;
+
+Write-Host &quot;JSON file generated: $($name).agent&quot;
+
+</code></pre>
+<div class="highlight-tool">
+<p>Check out the <strong>PnP PowerShell</strong> to learn more at: <a href="https://aka.ms/pnp/powershell">https://aka.ms/pnp/powershell</a></p>
+</div>
+<div class="highlight-tool">
+<p>The way you login into PnP PowerShell has changed please read <a href="https://github.com/pnp/powershell/discussions/4249">PnP Management Shell EntraID app is deleted : what should I do ?</a></p>
+</div>
+</section>
+</div>
+<h2 id="contributors">Contributors</h2>
+<table>
+<thead>
+<tr>
+<th>Author(s)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Leon Armston</td>
+</tr>
+</tbody>
+</table>
+<h2 id="disclaimer">Disclaimer</h2>
+<p><strong>THESE SAMPLES ARE PROVIDED <em>AS IS</em> WITHOUT WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, INCLUDING ANY IMPLIED WARRANTIES OF FITNESS FOR A PARTICULAR PURPOSE, MERCHANTABILITY, OR NON-INFRINGEMENT.</strong></p>
+<img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/spo-dev-agent-config-creation" aria-hidden="true">
+</article>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            <span>Script Samples<br>Generated by <strong><a href='https://dotnet.github.io/docfx' alt='Doc FX Website'>DocFX</a></strong> with <strong><a href='https://ovasquez.github.io/docfx-material' alt='DocFx Material Theme'>Material UI</a></strong></span>
+            
+            <!-- <img src="https://telemetry.sharepointpnp.com/@pnp.github.io/index/" alt="spacer"> -->
+          </div>
+        </div>
+      </footer>    </div>
+    
+    <script type="text/javascript" src="../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+    
+    <script type="text/javascript" src="../styles/clipboard.min.js"></script>
+    <script type="text/javascript" src="../styles/isotope.pkgd.min.js"></script>
+    <script type="text/javascript" src="../styles/loadsamples.js"></script>
+    <script type="text/javascript" src="../styles/filtersamples.js"></script>
+
+  </body>
+</html>
