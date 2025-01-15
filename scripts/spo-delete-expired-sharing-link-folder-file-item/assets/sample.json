@@ -1,0 +1,60 @@
+[
+  {
+    "name": "spo-delete-expired-sharing-link-folder-file-item",
+    "source": "pnp",
+    "title": "Deletes expired and older sharing links for folder, file and item in SharePoint",
+    "shortDescription": "Deletes expired and older sharing links for folder, file, and item. Currently expired or older sharing links are not automatically deleted",
+    "url": "https://pnp.github.io/script-samples/spo-delete-expired-sharing-link-folder-file-item/README.html",
+    "longDescription": [
+      "Currently, there is no default expiry time for 'people you choose' or 'people in your organization' links, and expired links are not automatically deleted. Using this script can help clean up your environment by removing expired or older sharing links, thereby enhancing security and governance."
+    ],
+    "creationDateTime": "2025-01-13",
+    "updateDateTime": "2025-01-13",
+    "products": [
+      "SharePoint",
+      "Sharing Links",
+      "Microsoft 365 Copilot"
+    ],
+    "metadata": [
+      {
+        "key": "PNP-POWERSHELL",
+        "value": "2.99.0"
+      }
+    ],
+    "categories": [
+      "Report",
+      "Microsoft 365 Copilot"
+    ],
+    "tags": [
+      "modern",
+      "Connect-PnPOnline",
+      "Get-PnPProperty",
+      "Remove-PnPgroup",
+      "Get-PnPList",
+      "Get-PnPListItem"
+    ],
+    "thumbnails": [
+      {
+        "type": "image",
+        "order": 100,
+        "url": "https://raw.githubusercontent.com/pnp/script-samples/main/scripts/spo-delete-expired-sharing-link-folder-file-item/assets/preview.png",
+        "alt": ""
+      }
+    ],
+    "authors": [
+      {
+        "gitHubAccount": "reshmee011",
+        "company": "",
+        "pictureUrl": "https://avatars.githubusercontent.com/u/7693852?v=4",
+        "name": "Reshmee Auckloo"
+      }
+    ],
+    "references": [
+      {
+        "name": "Want to learn more about PnP PowerShell and the cmdlets",
+        "description": "Check out the PnP PowerShell site to get started and for the reference to the cmdlets.",
+        "url": "https://aka.ms/pnp/powershell"
+      }
+    ]
+  }
+]
