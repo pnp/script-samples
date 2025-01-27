@@ -167,7 +167,7 @@ Write-Output $Result
 
 ```
 
-[More about OpenAI API](https://learn.microsoft.com/en-us/azure/ai-studio/what-is-ai-studio&wt.mc_id=MVP_366830)
+[More about OpenAI API](https://learn.microsoft.com/en-us/azure/ai-studio/what-is-ai-studio?wt.mc_id=MVP_366830)
 ***
 
 ## Contributors
