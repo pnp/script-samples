@@ -9,10 +9,6 @@ plugin: add-to-gallery
 
 This PowerShell script automates the integration of MailChimp and SharePoint by connecting to SharePoint using PnP PowerShell, retrieving MailChimp campaigns based on specified date ranges, extracting and cleaning HTML content from these campaigns, downloading and uploading images to SharePoint, creating and publishing a SharePoint Wiki page with the cleaned HTML content, and updating bulletin links on a designated SharePoint page. The script handles various tasks, including removing unwanted scripts and styles from the HTML, moving published pages to a specified folder, and ensuring that all image URLs in the HTML content are updated to point to the images stored in SharePoint. 
 
-![Example Screenshot](assets/example.png)
-
-Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Maecenas porttitor congue massa. Fusce posuere, magna sed pulvinar ultricies, purus lectus malesuada libero, sit amet commodo magna eros quis urna.Nunc viverra imperdiet enim. Fusce est. Vivamus a tellus.Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Proin pharetra nonummy pede. Mauris et orci.Aenean nec lorem. In porttitor. Donec laoreet nonummy augue.
-
 # [PnP PowerShell](#tab/pnpps)
 
 ```powershell
@@ -140,8 +136,6 @@ for ($i = 0; $i -lt $imageSrcs.Count; $i++) {
 $bodyContent = $updatedHtml
 
 Create-PublishWikiPage -connectToSP $connectToSP -pageTitle $pageTitle -bodyContent $bodyContent
-
-
 
 ```
 [!INCLUDE [More about PnP PowerShell](../../docfx/includes/MORE-PNPPS.md)]
