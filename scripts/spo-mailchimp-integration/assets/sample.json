@@ -1,0 +1,54 @@
+[
+  {
+    "name": "spo-mailchimp-integration",
+    "source": "pnp",
+    "title": "Integrate MailChimp Campaigns API with SPO to create wiki pages based on email sent from MailChimp",
+    "shortDescription": "Demonstrates how to retrieve sent email campaigns from MailChimp, and save them as wiki pages on SPO. The script retrieves the HTML content of the email, downloads all images into a local folder and uploads to a SPO document library, replaces all mccontent image tags to point to SPO, and create and publish a wiki page",
+    "url": "https://pnp.github.io/script-samples/spo-mailchimp-integration/README.html",
+    "longDescription": [
+      ""
+    ],
+    "creationDateTime": "2025-02-17",
+    "updateDateTime": "2025-02-17",
+    "products": [
+      "SharePoint"
+    ],
+    "metadata": [
+      {
+        "key": "PNP-POWERSHELL",
+        "value": "1.11.0"
+      }
+    ],
+    "categories": [
+      "Modernize",
+      "Data"
+      
+    ],
+    "tags": [
+      "<Cmdlets-Used>"
+    ],
+    "thumbnails": [
+      {
+        "type": "image",
+        "order": 100,
+        "url": "https://raw.githubusercontent.com/pnp/script-samples/main/scripts/spo-mailchimp-integration/assets/preview.png",
+        "alt": "Preview of the sample Integrate MailChimp Campaigns API with SPO to create wiki pages based on email sent from MailChimp"
+      }
+    ],
+    "authors": [
+      {
+        "gitHubAccount": "ralisp",
+        "company": "",
+        "pictureUrl": "https://github.com/ralisp.png",
+        "name": "R. Ali"
+      }
+    ],
+    "references": [
+      {
+        "name": "Want to learn more about PnP PowerShell and the cmdlets",
+        "description": "Check out the PnP PowerShell site to get started and for the reference to the cmdlets.",
+        "url": "https://aka.ms/pnp/powershell"
+      }
+    ]
+  }
+]
