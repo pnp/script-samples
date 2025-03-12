@@ -4,9 +4,6 @@ plugin: add-to-gallery
 
 # Scan libraries for webhook and export to csv
 
-> [!Note]
-> This is a submission helper template please find the [contributor guidance](/docfx/contribute.md) to help you write this scenario.
-
 ## Summary
 
 As part of the the pre migration assessment, it is important to identify all libraries that have webhooks configured. This script will scan all libraries in a site collection and export the libraries that have webhooks configured to a csv file.
