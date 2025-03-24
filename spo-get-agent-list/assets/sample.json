@@ -1,0 +1,59 @@
+[
+  {
+    "name": "spo-get-agent-list",
+    "source": "pnp",
+    "title": "Get SharePoint Agents",
+    "shortDescription": "Get a list of SharePoint Agents from SharePoint Online site and export agent metadata and contents to CSV.",
+    "url": "https://pnp.github.io/script-samples/spo-get-agent-list/README.html",
+    "longDescription": [
+      "This script will get all the SharePoint agents from the SharePoint document libraries and export the data to a CSV file. Data includes agent name, description, instructions, welcome message, conversation starters, capabilities, referenced URLs, site IDs, web IDs, list IDs, and unique IDs."
+    ],
+    "creationDateTime": "2025-03-17",
+    "updateDateTime": "2025-03-17",
+    "products": [
+      "SharePoint",
+      "Microsoft 365 Copilot"
+    ],
+    "metadata": [
+      {
+        "key": "PNP-POWERSHELL",
+        "value": "2.99.90"
+      }
+    ],
+    "categories": [
+      "Deploy",
+      "Report",
+      "Provision",
+      "Configure",
+      "AI",
+      "Microsoft 365 Copilot"
+    ],
+    "tags": [
+      "Connect-PnPOnline",
+      "ConvertFrom-Json"
+    ],
+    "thumbnails": [
+      {
+        "type": "image",
+        "order": 100,
+        "url": "https://raw.githubusercontent.com/pnp/script-samples/main/scripts/spo-get-agent-list/assets/preview.png",
+        "alt": "Get SharePoint Agents"
+      }
+    ],
+    "authors": [
+      {
+        "gitHubAccount": "ValerasNarbutas",
+        "company": "",
+        "pictureUrl": "https://avatars.githubusercontent.com/u/16476453?s=400&v=4",
+        "name": "Valeras Narbutas"
+      }
+    ],
+    "references": [
+      {
+        "name": "Want to learn more about PnP PowerShell and the cmdlets",
+        "description": "Check out the PnP PowerShell site to get started and for the reference to the cmdlets.",
+        "url": "https://aka.ms/pnp/powershell"
+      }
+    ]
+  }
+]
