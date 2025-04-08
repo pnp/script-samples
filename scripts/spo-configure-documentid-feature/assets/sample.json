@@ -1,0 +1,55 @@
+[
+  {
+    "name": "spo-configure-documentid-feature",
+    "source": "pnp",
+    "title": "Enabling and Configuring Document ID in SharePoint",
+    "shortDescription": "The script enables and configures Document ID within a SharePoint site",
+    "url": "https://pnp.github.io/script-samples/spo-configure-documentid-feature/README.html",
+    "longDescription": [
+      "The script enables and configures Document ID within a SharePoint site: activates the Document ID feature, updates the Document ID prefix and add the Document ID column to the default view."
+    ],
+    "creationDateTime": "2025-04-08",
+    "updateDateTime": "2025-04-08",
+    "products": [
+      "SharePoint"
+    ],
+    "metadata": [
+      {
+        "key": "PNP-POWERSHELL",
+        "value": "2.99.181"
+      }
+    ],
+    "categories": [
+      "SharePoint"
+    ],
+    "tags": [
+      "Get-PnPTenantSite",
+      "Set-PnPSiteDocumentIdPrefix",
+      "Enable-PnPFeature",
+      "Get-PnPList",
+      "Invoke-PnPQuery"
+    ],
+    "thumbnails": [
+      {
+        "type": "image",
+        "order": 100,
+        "url": "https://raw.githubusercontent.com/pnp/script-samples/main/scripts/spo-configure-documentid-feature/assets/preview.png",
+        "alt": ""
+      }
+    ],
+    "authors": [
+      {
+        "gitHubAccount": "reshmee011",
+        "pictureUrl": "https://avatars.githubusercontent.com/u/7693852?v=4",
+        "name": "Reshmee Auckloo"
+      }
+    ],
+    "references": [
+      {
+        "name": "Want to learn more about PnP PowerShell and the cmdlets",
+        "description": "Check out the PnP PowerShell site to get started and for the reference to the cmdlets.",
+        "url": "https://aka.ms/pnp/powershell"
+      }
+    ]
+  }
+]

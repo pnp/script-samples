@@ -31,9 +31,7 @@ if($null -eq $spFeature.DefinitionId) {
     Enable-PnPFeature -Scope Site -Identity $featureId 
 }
 
-Set-PnPSite -Identity $SiteUrl -NoScriptSite $false 
 Set-PnPSiteDocumentIdPrefix  -DocumentIdPrefix $DocIDPrefix -ScheduleAssignment $true -OverwriteExistingIds $true
-Set-PnPSite -Identity $SiteUrl -NoScriptSite $true
 
 $ExcludedLists = @("Access Requests", "App Packages", "appdata", "appfiles", "Apps in Testing", "Cache Profiles", "Composed Looks", "Content and Structure Reports", "Content type publishing error log", "Converted Forms",
     "Device Channels", "Form Templates", "fpdatasources", "Get started with Apps for Office and SharePoint", "List Template Gallery", "Long Running Operation Status", "Maintenance Log Library", "Images", "site collection images"
@@ -68,6 +66,11 @@ Get-PnPList | Where-Object { $_.BaseTemplate -eq 101 -and $_.Hidden -eq $False  
 
 ***
 
+## Source Credit
+
+Inspired by [PnP PowerShell: Enabling and Configuring Document ID in SharePoint](https://reshmeeauckloo.com/posts/powershell-sharepoint-enabling-configuring-documentid/)
+
+
 ## Contributors
 
 | Author(s) |
@@ -75,4 +78,4 @@ Get-PnPList | Where-Object { $_.BaseTemplate -eq 101 -and $_.Hidden -eq $False  
 | [Reshmee Auckloo](https://github.com/reshmee011)|
 
 [!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
-<img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/spo-get-sites-membership-report" aria-hidden="true" />
+<img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/spo-configure-documentid-feature" aria-hidden="true" />
