@@ -2,68 +2,74 @@
 plugin: add-to-gallery
 ---
 
-# Enabling and Configuring Document ID in SharePoint
+# Get membership report of site(s) within tenant
 
 ## Summary
 
-The `Document ID` feature in SharePoint is a powerful tool that assigns a unique ID to files, making it easier to reference and track documents. The script activates and configures the Document ID feature using PnP PowerShell. It uses the `Set-PnPSiteDocumentIdPrefix` cmdlet, which simplifies the process of setting a custom prefix for Document IDs.
+The scripts get membership permission report of site(s) within tenant and export it to a CSV file. The report retrieves
+-  Site Admins
+-  m365 Group Owners
+-  m365 Group Members
+-  m365 Group Guests
+-  Site Owners
+-  Site Members
+-  Site Visitors
 
 ![PnP Powershell result](assets/preview.png)
 
 # [PnP PowerShell](#tab/pnpps)
 ```powershell
-param (
-    [Parameter(Mandatory = $true)]
-    [string] $siteUrl,
-    [Parameter(Mandatory = $true)]
-    [string] $DocIDPrefix #The Document ID prefix must be 4 to 12 characters long, and contain only digits (0-9) and letters.
-)
+$AdminCenterURL="https://contoso-admin.sharepoint.com/"# Connect to SharePoint Online admin center
+Connect-PnPOnline -Url $AdminCenterURL -Interactive
+$dateTime = (Get-Date).toString("dd-MM-yyyy")
+$invocation = (Get-Variable MyInvocation).Value
+$directorypath = Split-Path $invocation.MyCommand.Path
+$fileName = "m365GroupUsersReport-" + $dateTime + ".csv"
+$OutPutView = $directorypath + "\Logs\"+ $fileName
+# Array to Hold Result - PSObjects
+$m365GroupCollection = @()
+#Amend query to retrieve the sites within tenant
+$m365Sites = Get-PnPTenantSite -Detailed | Where-Object {($_.Url -like '*/Dev-*' -or  $_.Url -like '*/Test-*' -or  $_.Url -like '*/Uat-*' -or $_.Template -eq 'TEAMCHANNEL#1') -and $_.Template -ne 'RedirectSite#0' }
 
-#Connect to PnP Online
-Connect-PnPOnline -Url $SiteURL -Interactive
+$m365Sites | ForEach-Object {
+    $ExportVw = New-Object PSObject
+    $ExportVw | Add-Member -MemberType NoteProperty -name "Site Name" -value $_.Title
+    $m365GroupOwnersName="";
+    $m365GroupMembersName="";
+    $m365GroupGuestsName = "";
+    $groupId = $_.GroupId;
+    $siteUrl = $_.Url;
+    #Check if site template is a Team template to retrieve the m365 group membership
+    if($_.Template -eq "GROUP#0")
+    {
+        $m365GroupOwnersName = (Get-PnPMicrosoft365GroupOwner -Identity $groupId -ErrorAction Ignore| select-object -ExpandProperty DisplayName ) -join ";";
+        $m365GroupMembersName = (Get-PnPMicrosoft365GroupMember -Identity $groupId  -ErrorAction Ignore| select-object -ExpandProperty DisplayName) -join ";";
+        $m365GroupGuestsName = (Get-PnPMicrosoft365GroupMember -Identity $groupId  -ErrorAction Ignore |Where-Object UserType -eq Guest | select-object -ExpandProperty DisplayName) -join ";";
+    }
 
-$featureId = "b50e3104-6812-424f-a011-cc90e6327318" #Document ID Feature
-# Get Feature from SharePoint site
-$spFeature = Get-PnPFeature -Scope Site -Identity $featureId
-
-if($null -eq $spFeature.DefinitionId) {  
-    # Activate the site feature
-    Enable-PnPFeature -Scope Site -Identity $featureId 
-}
-
-Set-PnPSite -Identity $SiteUrl -NoScriptSite $false 
-Set-PnPSiteDocumentIdPrefix  -DocumentIdPrefix $DocIDPrefix -ScheduleAssignment $true -OverwriteExistingIds $true
-Set-PnPSite -Identity $SiteUrl -NoScriptSite $true
-
-$ExcludedLists = @("Access Requests", "App Packages", "appdata", "appfiles", "Apps in Testing", "Cache Profiles", "Composed Looks", "Content and Structure Reports", "Content type publishing error log", "Converted Forms",
-    "Device Channels", "Form Templates", "fpdatasources", "Get started with Apps for Office and SharePoint", "List Template Gallery", "Long Running Operation Status", "Maintenance Log Library", "Images", "site collection images"
-    , "Master Docs", "Master Page Gallery", "MicroFeed", "NintexFormXml", "Quick Deploy Items", "Relationships List", "Reusable Content", "Reporting Metadata", "Reporting Templates", "Search Config List", "Site Assets", "Preservation Hold Library",
-    "Site Pages", "Solution Gallery", "Style Library", "Suggested Content Browser Locations", "Theme Gallery", "TaxonomyHiddenList", "User Information List", "Web Part Gallery", "wfpub", "wfsvc", "Workflow History", "Workflow Tasks", "Pages")
-
-Get-PnPList | Where-Object { $_.BaseTemplate -eq 101 -and $_.Hidden -eq $False  -and $_.Title -notin $ExcludedLists} | foreach {
-    #Get the Default View from the list
-    $DefaultListView  =  Get-PnPView -List $_ | Where {$_.DefaultView -eq $True}
+    $ExportVw | Add-Member -MemberType NoteProperty -name "Group Owners" -value $m365GroupOwnersName    
+    $ExportVw | Add-Member -MemberType NoteProperty -name "Group Members" -value $m365GroupMembersName
+    $ExportVw | Add-Member -MemberType NoteProperty -name "Group Guests" -value $m365GroupGuestsName      
+    Connect-PnPOnline -Url $siteUrl -Interactive
     
-    #Add column to the View
-    If($DefaultListView.ViewFields -notcontains "_dlc_DocIdUrl")
-    {
-        try {
-            $DefaultListView.ViewFields.Add("_dlc_DocIdUrl")
-            $DefaultListView.Update()
-            Invoke-PnPQuery
-            Write-host -f Green "Document ID column Added to the Default View in library  $($_.Title)!"            
-        }
-        catch {
-            Write-host -f Red "Error Adding Document ID column to the View!  $($_.Title)"
-        }
-    }
-    else
-    {
-        Write-host -f Yellow "Document ID column already exists in the View! $($_.Title)"
-    }
-}
-```
+    $site = Get-PnPSite -Includes ID
+    $ExportVw | Add-Member -MemberType NoteProperty -name "Site Id" -value $site.Id  
+    $siteadmins = (Get-PnPSiteCollectionAdmin | select-object -ExpandProperty Title) -join ";";
+    $ExportVw | Add-Member -MemberType NoteProperty -name "Site admins" -value $siteadmins  
+    $siteowners  = (Get-PnPGroupMember -Group (Get-PnPGroup -AssociatedOwnerGroup)  | select-object -ExpandProperty Title) -join ";"
+    $ExportVw | Add-Member -MemberType NoteProperty -name "Site owners" -value $siteowners
+    $sitemembers =  (Get-PnPGroupMember -Group (Get-PnPGroup -AssociatedMemberGroup)  | select-object -ExpandProperty Title) -join ";"
+    $ExportVw | Add-Member -MemberType NoteProperty -name "Site members" -value  $sitemembers
+    $sitevisitors =  (Get-PnPGroupMember -Group (Get-PnPGroup -AssociatedVisitorGroup)  | select-object -ExpandProperty Title) -join ";"
+    $ExportVw | Add-Member -MemberType NoteProperty -name "Site visitors" -value  $sitevisitors
+    $m365GroupCollection += $ExportVw
 
+}
+# Export the result array to CSV file
+$m365GroupCollection | sort-object "Site Name" |Export-CSV $OutPutView -Force -NoTypeInformation
+# Disconnect SharePoint online connection
+Disconnect-PnPOnline
+```
 [!INCLUDE [More about PnP PowerShell](../../docfx/includes/MORE-PNPPS.md)]
 
 ***
