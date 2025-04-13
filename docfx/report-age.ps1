@@ -64,9 +64,9 @@ $files = Get-ChildItem -Path $dir -Recurse -Include README.md
 
 Write-Host "$($files.Length) found"
 
-"# Age Report of Samples"  | Out-File $ReportFile -Force
-"| Sample | Products | Categories | Created | Modified |  " | Out-File $reportFile -Append
-"|--------|:--------:|:----------:|:----:|:--------:|"  | Out-File $reportFile -Append
+"# Age Report of Samples (Latest first)"  | Out-File $ReportFile -Force
+"| Sample | Created | Modified |  " | Out-File $reportFile -Append
+"|--------|:----:|:--------:|"  | Out-File $reportFile -Append
 
 $matrixRows = @()
 $sampleCount = 0
@@ -111,7 +111,7 @@ $files | Foreach-Object {
 
 $matrixRows | Sort-Object ModifiedDt -Descending | ForEach-Object{
 
-    $row = "| {0} | {1} | {2} | {3} | {4} |" -f $_.Link, $_.Products, $_.Categories, $_.CreatedDt.ToString("dd MMM yyyy"), $_.ModifiedDt.ToString("dd MMM yyyy")
+    $row = "| {0} | {1} | {2} | " -f $_.Link, $_.CreatedDt.ToString("dd MMM yyyy"), $_.ModifiedDt.ToString("dd MMM yyyy")
     Write-Host $row
 
     $row | Out-File $reportFile -Append
