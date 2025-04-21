@@ -23,7 +23,8 @@
       {
         "files": [
           "assets/**",
-          "404.html"
+          "404.html",
+          "samples.json"
         ]
       },
       {
@@ -59,7 +60,7 @@
         }
     }
     },
-    "postProcessors": ["FrontMatterProcessor"],
+    "postProcessors": [],
     "markdownEngineName": "markdig",
     "noLangKeyword": false,
     "keepFileLink": false,
