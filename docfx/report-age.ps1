@@ -64,8 +64,8 @@ $files = Get-ChildItem -Path $dir -Recurse -Include README.md
 
 Write-Host "$($files.Length) found"
 
-"# Age Report of Samples (Latest first)"  | Out-File $ReportFile -Force
-"| Sample | Created | Modified |  " | Out-File $reportFile -Append
+"# Age Report of Samples"  | Out-File $ReportFile -Force
+"| Sample | Created | Modified (Latest) |  " | Out-File $reportFile -Append
 "|--------|:----:|:--------:|"  | Out-File $reportFile -Append
 
 $matrixRows = @()
