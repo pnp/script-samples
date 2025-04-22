@@ -1,6 +1,4 @@
----
-plugin: add-to-gallery
----
+
 
 # Add or Update User Photo
 

@@ -1,6 +1,4 @@
----
-plugin: add-to-gallery
----
+
 
 # Add users to follow SharePoint Sites
 

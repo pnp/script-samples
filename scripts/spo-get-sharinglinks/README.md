@@ -1,6 +1,4 @@
----
-plugin: add-to-gallery
----
+
 
 # Get sharing links within the tenant
 

@@ -1,6 +1,4 @@
----
-plugin: add-to-gallery
----
+
 
 # Change the Placeholder text in SharePoint Search Box
 

@@ -1,6 +1,4 @@
----
-plugin: add-to-gallery
----
+
 
 # Find every page that contains a Modern Script Editor web part
 

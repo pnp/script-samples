@@ -1,6 +1,4 @@
----
-plugin: add-to-gallery
----
+
 
 # Add an alternate language to SharePoint Online Site
 

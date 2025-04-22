@@ -1,6 +1,4 @@
----
-plugin: add-to-gallery
----
+
 
 # Get, Update, Add, Remove SharePoint list items in large lists
 

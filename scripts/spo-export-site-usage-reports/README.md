@@ -1,6 +1,4 @@
----
-plugin: add-to-gallery
----
+
 
 # Get Site Usage Reports And Export It To CSV
 

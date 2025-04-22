@@ -1,6 +1,4 @@
----
-plugin: add-to-gallery
----
+
 
 # Export Term Store terms to CSV
 

@@ -1,6 +1,4 @@
----
-plugin: add-to-gallery
----
+
 
 # Planner migration to SharePoint list
 

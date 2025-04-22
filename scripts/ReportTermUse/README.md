@@ -1,6 +1,4 @@
----
-plugin: add-to-gallery
----
+
 
 # Reports to Excel where the specified Term is used 
 

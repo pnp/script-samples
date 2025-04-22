@@ -1,6 +1,4 @@
----
-plugin: add-to-gallery
----
+
 
 # Export Teams's Channel Conversation to html file
 

@@ -1,6 +1,4 @@
----
-plugin: add-to-gallery
----
+
 
 # Register an app in Azure Entry ID, login to SharePoint Online and set files links expiration in days
 

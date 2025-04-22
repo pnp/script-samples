@@ -1,6 +1,4 @@
----
-plugin: add-to-gallery
----
+
 
 # Enable Site Collection App Catalog on a specific sites using CSV
 

@@ -1,6 +1,4 @@
----
-plugin: add-to-gallery
----
+
 
 # Prevent Guests from being added to a specific Microsoft 365 Group or Microsoft Teams team
 

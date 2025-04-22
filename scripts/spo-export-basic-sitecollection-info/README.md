@@ -1,6 +1,4 @@
----
-plugin: add-to-gallery
----
+
 
 # Sample showing how to use extract basic site collection properties to a CSV file
 

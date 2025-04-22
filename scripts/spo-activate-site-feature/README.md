@@ -1,6 +1,4 @@
----
-plugin: add-to-gallery
----
+
 
 # Activate a site feature in SharePoint online
 

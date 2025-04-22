@@ -1,6 +1,4 @@
----
-plugin: add-to-gallery
----
+
 
 # Copying files between different SharePoint libraries with custom metadata
 

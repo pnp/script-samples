@@ -1,6 +1,4 @@
----
-plugin: add-to-gallery
----
+
 
 # Download all files from array of URLs and archive them
 

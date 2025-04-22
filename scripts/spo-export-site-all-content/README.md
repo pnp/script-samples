@@ -1,6 +1,4 @@
----
-plugin: add-to-gallery
----
+
 
       
 # Export all content from an existing SharePoint site

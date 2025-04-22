@@ -1,6 +1,4 @@
----
-plugin: add-to-gallery
----
+
 
 # Sample on a report showing how much SharePoint Storage you can save by trimming document versions once the site is no longer active
 

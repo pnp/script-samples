@@ -1,6 +1,4 @@
----
-plugin: add-to-gallery
----
+
 
 # Get (or export) an existing site structure in a SharePoint Online tenant
 

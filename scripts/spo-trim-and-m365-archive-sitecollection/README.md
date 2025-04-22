@@ -1,6 +1,4 @@
----
-plugin: add-to-gallery
----
+
 
 # Trim file versions and archive Site Collection using Microsoft365 Archive
 

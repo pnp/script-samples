@@ -1,6 +1,4 @@
----
-plugin: add-to-gallery
----
+
 
 # Deletes expired and older sharing links for folder, file and item
 

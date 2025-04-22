@@ -1,6 +1,4 @@
----
-plugin: add-to-gallery
----
+
 
 # Grant permissions for a given Azure Active Directory application registration
 

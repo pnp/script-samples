@@ -1,6 +1,4 @@
----
-plugin: add-to-gallery
----
+
 
 # Get SharePoint List Fields With Required properties And Export It To CSV
 

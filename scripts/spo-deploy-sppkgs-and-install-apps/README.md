@@ -1,6 +1,4 @@
----
-plugin: add-to-gallery
----
+
 
 # Deploy sppkgs and install apps
 

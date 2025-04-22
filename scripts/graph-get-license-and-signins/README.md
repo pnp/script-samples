@@ -1,6 +1,4 @@
----
-plugin: add-to-gallery
----
+
 
 # Get users by license and review last signed in
 

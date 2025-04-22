@@ -1,6 +1,4 @@
----
-plugin: add-to-gallery
----
+
 
 # Retrieve Message Center announcements and post to MS Teams channel
 

@@ -1,6 +1,4 @@
----
-plugin: add-to-gallery
----
+
 
 # Creation of SharePoint Online sites from CSV
 

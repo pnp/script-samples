@@ -1,6 +1,4 @@
----
-plugin: add-to-gallery
----
+
 
 # Get and compare documents hash from different tenants
 

@@ -1,6 +1,4 @@
----
-plugin: add-to-gallery
----
+
 
 # Microsoft 365 License Monitoring and Alert Script
 

@@ -1,6 +1,4 @@
----
-plugin: add-to-gallery
----
+
 
 # Add Large List items to PnP Template
 

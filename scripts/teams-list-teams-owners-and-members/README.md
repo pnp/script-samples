@@ -1,6 +1,4 @@
----
-plugin: add-to-gallery
----
+
 
 # List all Microsoft Teams team's Owners and Members
 

@@ -1,6 +1,4 @@
----
-plugin: add-to-gallery
----
+
 
 # Recover Deleted Teams Meeting Recordings
 

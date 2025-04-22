@@ -1,6 +1,4 @@
----
-plugin: add-to-gallery
----
+
 
 # Bulk delete recycle bin items from a site in batch
 

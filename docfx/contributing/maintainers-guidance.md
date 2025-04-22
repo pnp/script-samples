@@ -26,18 +26,6 @@ Currently, there are 3 pages that galleries are used:
 * bytool.md - By Library gallery page e.g. M365 CLI, PnP PS, Graph PS SDK etc.
 * byproduct.md - By Product e.g. Microsoft Product the script performs an action against
 
-#### Initial State
-
-Initially there are features in the sample generation that prevent it from showing in the gallery, allowing commits to be created and then readied with subsequent commits.
-
-```markdown
----
-plugin: add-to-gallery-preparation
----
-```
-
-To show in the gallery simply update to "plugin: add-to-gallery".
-
 ## Folder Structure for scripts
 
 We have worked to keep the folder structure lean and as simple as possible when submitting scripts:

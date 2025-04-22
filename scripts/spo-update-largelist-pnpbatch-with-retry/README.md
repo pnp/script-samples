@@ -1,6 +1,4 @@
----
-plugin: add-to-gallery
----
+
 
 # Update large list with PnP-Batch with retries to address throttling challenges 
 

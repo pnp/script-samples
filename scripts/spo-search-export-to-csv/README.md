@@ -1,6 +1,4 @@
----
-plugin: add-to-gallery
----
+
 
 # Run A Search Query And Export To CSV
 

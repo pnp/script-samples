@@ -1,6 +1,4 @@
----
-plugin: add-to-gallery
----
+
 
 # Use Invoke-PnPSiteTemplate with parameters
 

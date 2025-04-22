@@ -1,6 +1,4 @@
----
-plugin: add-to-gallery
----
+
 
 # Add document templates to the New dropdown in a document library
 

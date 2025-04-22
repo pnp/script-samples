@@ -1,6 +1,4 @@
----
-plugin: add-to-gallery
----
+
 
       
 # Force Team Files Tab Provision

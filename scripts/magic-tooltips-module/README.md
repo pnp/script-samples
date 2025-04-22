@@ -1,6 +1,4 @@
----
-plugin: add-to-gallery
----
+
 
 # Connected Account tooltip in PowerShell
 

@@ -1,6 +1,4 @@
----
-plugin: add-to-gallery
----
+
 
 # Get all Bootstrap Icons to use in your powerapps.
 

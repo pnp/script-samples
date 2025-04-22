@@ -1,6 +1,4 @@
----
-plugin: add-to-gallery
----
+
 
 # Retrieve Effective Permissions of End Users Across Sites
 

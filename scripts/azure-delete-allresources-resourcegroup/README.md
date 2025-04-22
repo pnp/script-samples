@@ -1,6 +1,4 @@
----
-plugin: add-to-gallery
----
+
 
 # Delete all resources from a resource group
 

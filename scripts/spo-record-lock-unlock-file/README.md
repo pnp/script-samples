@@ -1,6 +1,4 @@
----
-plugin: add-to-gallery
----
+
 
 # Lock and Unlock a file leveraging Microsoft Graph API through PnP PowerShell
 

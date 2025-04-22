@@ -1,6 +1,4 @@
----
-plugin: add-to-gallery
----
+
 
 # Add/Update Image in SharePoint Image column
 

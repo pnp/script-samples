@@ -1,6 +1,4 @@
----
-plugin: add-to-gallery
----
+
 
 # Add dummy folders and files to a SharePoint library
 

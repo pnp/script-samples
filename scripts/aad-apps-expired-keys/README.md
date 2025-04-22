@@ -1,7 +1,3 @@
----
-plugin: add-to-gallery
----
-
 # List out all Azure AD Apps along with their KeyCredentials and PasswordCredentials along with Expiration
 
 ## Summary

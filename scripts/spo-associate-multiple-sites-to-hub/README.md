@@ -1,6 +1,4 @@
----
-plugin: add-to-gallery
----
+
 
 # Associate Multiple Site Collections to Hub Site
 

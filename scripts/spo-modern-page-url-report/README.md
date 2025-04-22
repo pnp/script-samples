@@ -1,6 +1,4 @@
----
-plugin: add-to-gallery
----
+
 
 # SharePoint Modern Page URL Report
 

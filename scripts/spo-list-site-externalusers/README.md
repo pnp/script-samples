@@ -1,6 +1,4 @@
----
-plugin: add-to-gallery
----
+
 
 # List all external users in all site collections
 

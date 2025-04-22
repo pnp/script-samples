@@ -1,6 +1,4 @@
----
-plugin: add-to-gallery
----
+
 
 # Add Content Type Hub with calendar format field to List
 

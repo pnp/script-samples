@@ -1,6 +1,4 @@
----
-plugin: add-to-gallery
----
+
 
 # Clean Up Unwanted Site Columns from Content Types and Lists/Libraries
 

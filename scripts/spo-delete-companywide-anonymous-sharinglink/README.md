@@ -1,6 +1,4 @@
----
-plugin: add-to-gallery
----
+
 
 # Deletes company-wide and anonymous sharing links
 

@@ -1,6 +1,4 @@
----
-plugin: add-to-gallery
----
+
 
 # Audit Service Principal Access to SharePoint Sites with Sites.Selected Permissions 
 

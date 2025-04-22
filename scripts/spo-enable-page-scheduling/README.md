@@ -1,6 +1,4 @@
----
-plugin: add-to-gallery
----
+
 
 # Enable page scheduling on a modern site pages library
 

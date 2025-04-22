@@ -1,6 +1,4 @@
----
-plugin: add-to-gallery
----
+
 
 # Copy SharePoint list to another site 
 

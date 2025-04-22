@@ -1,6 +1,4 @@
----
-plugin: add-to-gallery
----
+
 
 # List all teams and teams members in Microsoft Teams in the tenant
 

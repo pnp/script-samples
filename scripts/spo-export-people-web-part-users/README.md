@@ -1,6 +1,4 @@
----
-plugin: add-to-gallery
----
+
 
 # Sample showing how to extract the employees shown in the People Web part on pages in a selection of Site Collections to CSV
 

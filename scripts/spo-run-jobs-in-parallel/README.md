@@ -1,6 +1,4 @@
----
-plugin: add-to-gallery
----
+
 
 # Sample on how to use ForEach-Object -Parallel to iterate SharePoint site collections in parallel, something some of us do a LOT
 

@@ -1,7 +1,3 @@
----
-plugin: add-to-gallery-preparation
----
-
 # <title>
 
 > [!Note]

@@ -1,6 +1,4 @@
----
-plugin: add-to-gallery
----
+
 
 # Copies the structure of a directory to a SharePoint list
 

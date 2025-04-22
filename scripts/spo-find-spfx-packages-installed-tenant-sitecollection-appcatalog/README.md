@@ -1,6 +1,4 @@
----
-plugin: add-to-gallery
----
+
 
 # Find SharePoint Framework (SPFx) Packages in Tenant and Site Collection App Catalogs
 

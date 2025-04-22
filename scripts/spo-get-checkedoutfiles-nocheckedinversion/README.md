@@ -1,6 +1,4 @@
----
-plugin: add-to-gallery
----
+
 
 # Get Checked Out Files including those with no checked in version
 

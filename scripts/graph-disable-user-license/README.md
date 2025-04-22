@@ -1,6 +1,4 @@
----
-plugin: add-to-gallery
----
+
 
 # Deactivate User License
 

@@ -1,6 +1,4 @@
----
-plugin: add-to-gallery
----
+
 
 # Get Site Collection invalid user accounts
 

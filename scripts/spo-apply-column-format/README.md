@@ -1,6 +1,4 @@
----
-plugin: add-to-gallery
----
+
 
 # Apply column format to SharePoint column
 

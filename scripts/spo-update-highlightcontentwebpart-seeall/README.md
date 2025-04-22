@@ -1,6 +1,4 @@
----
-plugin: add-to-gallery
----
+
 
 # Hide the 'See All' Button in the Highlighted Content Web Part
 

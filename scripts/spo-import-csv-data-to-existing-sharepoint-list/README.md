@@ -1,6 +1,4 @@
----
-plugin: add-to-gallery
----
+
 
 # Import CSV values to an existing SharePoint List
 

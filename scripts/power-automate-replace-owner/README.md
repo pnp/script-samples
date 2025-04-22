@@ -1,6 +1,4 @@
----
-plugin: add-to-gallery
----
+
 
 # Replace owner on every flow in a tenant
 

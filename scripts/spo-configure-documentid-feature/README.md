@@ -1,6 +1,4 @@
----
-plugin: add-to-gallery
----
+
 
 # Enabling and Configuring Document ID in SharePoint
 

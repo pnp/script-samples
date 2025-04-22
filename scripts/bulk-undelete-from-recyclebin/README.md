@@ -1,6 +1,4 @@
----
-plugin: add-to-gallery
----
+
 
 # Undelete items from SharePoint Recycle bin
 

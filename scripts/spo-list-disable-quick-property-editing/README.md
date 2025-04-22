@@ -1,6 +1,4 @@
----
-plugin: add-to-gallery
----
+
 
 # Disable Quick property editing (Grid view) from SharePoint list
 

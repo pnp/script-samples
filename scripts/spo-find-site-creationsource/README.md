@@ -1,6 +1,4 @@
----
-plugin: add-to-gallery
----
+
 
 # Identifying SharePoint Site Creation Sources
 

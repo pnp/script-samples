@@ -1,6 +1,4 @@
----
-plugin: add-to-gallery
----
+
 
 # Get sites membership as an admin
 

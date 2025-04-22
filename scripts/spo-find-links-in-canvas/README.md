@@ -1,6 +1,4 @@
----
-plugin: add-to-gallery
----
+
 
 # Find Links in Modern Page
 

@@ -1,6 +1,4 @@
----
-plugin: add-to-gallery
----
+
 
 # Set Home site for SharePoint tenant
 
