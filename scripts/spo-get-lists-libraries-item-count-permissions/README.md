@@ -1,6 +1,4 @@
----
-plugin: add-to-gallery
----
+
 
 # Export all List and Libraries with Item count and Permission in CSV
 

@@ -1,6 +1,4 @@
----
-plugin: add-to-gallery
----
+
 
 # Add a tenant theme to SharePoint Online
 

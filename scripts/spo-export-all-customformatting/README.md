@@ -1,6 +1,4 @@
----
-plugin: add-to-gallery
----
+
 
 # Extract all custom formatting
 

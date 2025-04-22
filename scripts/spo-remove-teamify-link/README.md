@@ -1,6 +1,4 @@
----
-plugin: add-to-gallery
----
+
 
 # Remove the Teamify link on Group sites
 

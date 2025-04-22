@@ -1,6 +1,4 @@
----
-plugin: add-to-gallery
----
+
 
 # Modernizing classic pages from on-premises sites
 

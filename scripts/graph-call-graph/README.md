@@ -1,6 +1,4 @@
----
-plugin: add-to-gallery
----
+
 
 # Authenticate with and call the Microsoft Graph
 

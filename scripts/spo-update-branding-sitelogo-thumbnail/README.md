@@ -1,6 +1,4 @@
----
-plugin: add-to-gallery
----
+
 
 # Updates SharePoint Site Logo and Thumbnail
 

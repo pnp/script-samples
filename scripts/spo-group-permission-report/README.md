@@ -1,6 +1,4 @@
----
-plugin: add-to-gallery
----
+
 
 # Get permission group report of a site
 

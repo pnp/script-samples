@@ -1,6 +1,4 @@
----
-plugin: add-to-gallery
----
+
 
 # Get all files in a Document Library along with Created By and Modified By
 

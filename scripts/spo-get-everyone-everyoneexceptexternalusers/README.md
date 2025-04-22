@@ -1,6 +1,4 @@
----
-plugin: add-to-gallery
----
+
 
 # Audit 'Everyone' and  'Everyone except external users' claim within a SharePoint site
 

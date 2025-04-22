@@ -1,6 +1,4 @@
----
-plugin: add-to-gallery
----
+
 
 # Fetch User Profile Properties From Site Collection And Export To CSV
 

@@ -1,6 +1,4 @@
----
-plugin: add-to-gallery
----
+
 
 # Inventory Guest Sign-In Activity with CLI for M365 and Microsoft Graph 
 

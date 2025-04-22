@@ -1,6 +1,4 @@
----
-plugin: add-to-gallery
----
+
 
 # Assign Graph permissions to a Managed Identity
 

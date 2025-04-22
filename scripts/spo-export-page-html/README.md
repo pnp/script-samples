@@ -1,6 +1,4 @@
----
-plugin: add-to-gallery
----
+
 
 # Export HTML content from SharePoint Online modern pages
 

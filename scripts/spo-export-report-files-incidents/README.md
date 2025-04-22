@@ -1,6 +1,4 @@
----
-plugin: add-to-gallery
----
+
 
 # Report of SharePoint Files Incidents
 

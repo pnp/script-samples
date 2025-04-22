@@ -1,6 +1,4 @@
----
-plugin: add-to-gallery
----
+
 
 # Create Library and add custom Content Type
 

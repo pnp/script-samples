@@ -1,6 +1,4 @@
----
-plugin: add-to-gallery
----
+
 
 # How to retrieve the entire term store hierarchy across all levels
 

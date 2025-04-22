@@ -1,6 +1,4 @@
----
-plugin: add-to-gallery
----
+
 
 # Bulk Convert Classic Publishing Pages to Modern Pages
 

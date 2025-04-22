@@ -1,6 +1,4 @@
----
-plugin: add-to-gallery
----
+
 
 # Install Solution and Deploy to the SharePoint site
 

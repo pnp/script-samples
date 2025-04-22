@@ -1,6 +1,4 @@
----
-plugin: add-to-gallery
----
+
 
 # Create multiple document libraries using custom list template
 

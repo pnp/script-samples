@@ -1,6 +1,4 @@
----
-plugin: add-to-gallery
----
+
 
 # Get list of SharePoint Agents with PowerShell
 

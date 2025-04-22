@@ -1,6 +1,4 @@
----
-plugin: add-to-gallery
----
+
 
 # Export Inactive Sites Based On Days To CSV
 

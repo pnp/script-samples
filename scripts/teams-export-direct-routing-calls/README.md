@@ -1,6 +1,4 @@
----
-plugin: add-to-gallery
----
+
 
 # Export Microsoft Teams Direct Routing Calls
 

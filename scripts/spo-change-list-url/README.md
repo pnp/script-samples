@@ -1,6 +1,4 @@
----
-plugin: add-to-gallery
----
+
 
 # Change SharePoint Online List URL
 

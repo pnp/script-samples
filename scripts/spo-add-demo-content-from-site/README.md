@@ -1,6 +1,4 @@
----
-plugin: add-to-gallery
----
+
 
 # Add demo content from a website such as Wikipedia
 

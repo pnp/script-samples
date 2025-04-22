@@ -1,6 +1,4 @@
----
-plugin: add-to-gallery
----
+
 
 # Integrate MailChimp Campaigns API with SPO to create wiki pages based on email sent from MailChimp
 

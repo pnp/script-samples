@@ -1,6 +1,4 @@
----
-plugin: add-to-gallery
----
+
 
 # Pinpoint the items/docs that hasn't been indexed yet after an update
 

@@ -1,6 +1,4 @@
----
-plugin: add-to-gallery
----
+
 
 # Microsoft Graph PowerShell SDK for Common Operations
 

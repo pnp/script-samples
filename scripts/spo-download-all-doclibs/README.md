@@ -1,6 +1,4 @@
----
-plugin: add-to-gallery
----
+
 
 # Download all documents from all document libraries in a site, including version history
 

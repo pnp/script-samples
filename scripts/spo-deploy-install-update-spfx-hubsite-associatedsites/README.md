@@ -1,6 +1,4 @@
----
-plugin: add-to-gallery
----
+
 
 # Deploys and Installs SharePoint Framework (SPFx) solutions to Hub Site and Associated Sites using Site Collection App Catalog
 

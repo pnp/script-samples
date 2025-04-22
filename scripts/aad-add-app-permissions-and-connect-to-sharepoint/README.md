@@ -1,6 +1,4 @@
----
-plugin: add-to-gallery
----
+
 
 # Create AD app and connect to SharePoint Online
 

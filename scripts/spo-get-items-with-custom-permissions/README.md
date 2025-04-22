@@ -1,6 +1,4 @@
----
-plugin: add-to-gallery
----
+
 
 # Find all items with unique permissions and export to csv
 

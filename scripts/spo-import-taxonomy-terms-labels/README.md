@@ -1,6 +1,4 @@
----
-plugin: add-to-gallery
----
+
 
 # Import taxonomy terms and labels into a term set 
 

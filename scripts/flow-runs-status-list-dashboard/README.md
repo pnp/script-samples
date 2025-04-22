@@ -1,6 +1,4 @@
----
-plugin: add-to-gallery
----
+
 
 # Flow run status list dashboard
 

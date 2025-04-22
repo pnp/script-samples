@@ -1,6 +1,4 @@
----
-plugin: add-to-gallery
----
+
 
 # List guests within Teams in a tenant
 

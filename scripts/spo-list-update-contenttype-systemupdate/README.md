@@ -1,6 +1,4 @@
----
-plugin: add-to-gallery
----
+
 
 # Update content type of files in folder with system update
 

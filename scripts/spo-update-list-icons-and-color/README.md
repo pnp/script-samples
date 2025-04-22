@@ -1,6 +1,4 @@
----
-plugin: add-to-gallery
----
+
 
 # Update list icons & color
 

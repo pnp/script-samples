@@ -1,6 +1,4 @@
----
-plugin: add-to-gallery
----
+
 
 # Generate a csv report for a selection of site collections showing the time of the most recent update by any user
 

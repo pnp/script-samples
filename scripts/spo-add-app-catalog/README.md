@@ -1,6 +1,4 @@
----
-plugin: add-to-gallery
----
+
 
 # Add App Catalog to SharePoint site
 

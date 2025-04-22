@@ -1,6 +1,4 @@
----
-plugin: add-to-gallery
----
+
 
 # Gets usage from a particular user(s) or site(s) from the Unified Audit Log
 

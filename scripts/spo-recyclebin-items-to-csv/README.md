@@ -1,6 +1,4 @@
----
-plugin: add-to-gallery
----
+
 
 # Get SharePoint Site Recycle Bin Items And Export It To CSV
 

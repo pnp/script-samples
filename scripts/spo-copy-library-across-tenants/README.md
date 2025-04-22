@@ -1,6 +1,4 @@
----
-plugin: add-to-gallery
----
+
 
 # Copying a subset of a document library to another SharePoint tenants with resume functionality
 

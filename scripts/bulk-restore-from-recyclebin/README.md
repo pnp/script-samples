@@ -1,6 +1,4 @@
----
-plugin: add-to-gallery
----
+
 
 # Restore large amount of items from SharePoint Recycle bin in bulk
 

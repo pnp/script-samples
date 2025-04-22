@@ -1,6 +1,4 @@
----
-plugin: add-to-gallery
----
+
 
 # Get All hub site and its main sites navigation nodes and update the navigation nodes if needed
 

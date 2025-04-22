@@ -1,6 +1,4 @@
----
-plugin: add-to-gallery
----
+
 
 # Bulk Email Send from CSV using Microsoft Graph API
 

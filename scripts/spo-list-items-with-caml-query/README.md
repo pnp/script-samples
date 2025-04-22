@@ -1,6 +1,4 @@
----
-plugin: add-to-gallery
----
+
 
 # Read SharePoint List Items Using CAML Query
 

@@ -1,6 +1,4 @@
----
-plugin: add-to-gallery
----
+
 
 # Getting checked-out files in the tenant using Search
 

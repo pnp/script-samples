@@ -1,6 +1,4 @@
----
-plugin: add-to-gallery
----
+
 
 # PnP Modern Search V3 usage scanner
 

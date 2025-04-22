@@ -1,6 +1,4 @@
----
-plugin: add-to-gallery
----
+
 
 # Download contents of Document library as PDF
 

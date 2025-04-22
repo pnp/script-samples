@@ -1,6 +1,4 @@
----
-plugin: add-to-gallery
----
+
 
 # Export checked-out files in all sites associated with a hub site to CSV
 

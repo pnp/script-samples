@@ -1,6 +1,4 @@
----
-plugin: add-to-gallery
----
+
 
 # Disable Web Templates Gallery First Run Dialog
 

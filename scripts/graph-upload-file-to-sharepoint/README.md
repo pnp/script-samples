@@ -1,6 +1,4 @@
----
-plugin: add-to-gallery
----
+
 
 # Uploads a large file to SharePoint using MS Graph REST API and PowerShell 
 

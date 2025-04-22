@@ -1,6 +1,4 @@
----
-plugin: add-to-gallery
----
+
 
 # Remove site access requests
 

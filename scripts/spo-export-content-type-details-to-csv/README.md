@@ -1,6 +1,4 @@
----
-plugin: add-to-gallery
----
+
 
 # Export Content Type Details To CSV
 

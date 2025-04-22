@@ -1,6 +1,4 @@
----
-plugin: add-to-gallery
----
+
       
 # Get Teams Templates
 ![Outputs](assets/header.png)

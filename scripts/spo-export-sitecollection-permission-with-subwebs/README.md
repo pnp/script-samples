@@ -1,6 +1,4 @@
----
-plugin: add-to-gallery
----
+
 
 # Get SharePoint Site Collection and their Subwebs Permissions And Export It To CSV
 

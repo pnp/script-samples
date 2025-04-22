@@ -1,6 +1,4 @@
----
-plugin: add-to-gallery
----
+
 
 # Identifying Duplicate Microsoft 365 Group Names
 

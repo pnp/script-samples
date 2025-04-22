@@ -1,6 +1,4 @@
----
-plugin: add-to-gallery
----
+
 
 # Upload spfx solution to app catalog and Azure AD App Certificate
 

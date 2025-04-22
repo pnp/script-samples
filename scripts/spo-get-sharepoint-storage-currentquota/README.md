@@ -1,6 +1,4 @@
----
-plugin: add-to-gallery
----
+
 
 # Get SharePoint Storage Usage Against Allocated Quota
 

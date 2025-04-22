@@ -1,6 +1,4 @@
----
-plugin: add-to-gallery
----
+
 
 # Delete orphaned temporary site pages
 

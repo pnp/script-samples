@@ -1,6 +1,4 @@
----
-plugin: add-to-gallery
----
+
 
 # Add Bulk Users to SharePoint Site Groups
 

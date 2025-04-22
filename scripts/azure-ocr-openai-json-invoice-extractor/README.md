@@ -1,6 +1,4 @@
----
-plugin: add-to-gallery
----
+
 # Extract Invoice Details from Any File Format Using Azure OCR and OpenAI
 
 ## Summary

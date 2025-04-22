@@ -1,6 +1,4 @@
----
-plugin: add-to-gallery
----
+
 
 # Connect to Graph using V1 or V2 SDK
 

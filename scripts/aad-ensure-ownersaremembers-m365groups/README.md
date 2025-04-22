@@ -1,6 +1,4 @@
----
-plugin: add-to-gallery
----
+
 
 # Ensuring Owners Are Members
 

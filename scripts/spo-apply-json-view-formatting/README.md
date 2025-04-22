@@ -1,6 +1,4 @@
----
-plugin: add-to-gallery
----
+
 
 # Apply SharePoint JSON View Formatting
 

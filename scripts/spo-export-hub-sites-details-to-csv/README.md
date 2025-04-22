@@ -1,6 +1,4 @@
----
-plugin: add-to-gallery
----
+
 
 # Get Hub Sites Details And Export It To CSV
 

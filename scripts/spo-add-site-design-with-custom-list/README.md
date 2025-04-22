@@ -1,6 +1,4 @@
----
-plugin: add-to-gallery
----
+
 
 # Create and add site design to SharePoint site with site columns, content type. 
 

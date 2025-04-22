@@ -1,6 +1,4 @@
----
-plugin: add-to-gallery
----
+
 
 # Export all site pages details from Site Pages library
 

@@ -1,6 +1,4 @@
----
-plugin: add-to-gallery
----
+
 
 # Add/Remove users(bulk) from Power Apps from CSV file
 

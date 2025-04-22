@@ -1,6 +1,4 @@
----
-plugin: add-to-gallery
----
+
 
 # GET API Permissions for SPFx solutions
 

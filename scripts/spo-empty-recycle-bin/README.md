@@ -1,6 +1,4 @@
----
-plugin: add-to-gallery
----
+
 
 # Empty SharePoint Online Site Recycle Bin
 

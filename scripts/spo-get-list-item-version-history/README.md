@@ -1,6 +1,4 @@
----
-plugin: add-to-gallery
----
+
 
 # SharePoint List Item Version History Retrieval
 

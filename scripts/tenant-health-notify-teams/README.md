@@ -1,6 +1,4 @@
----
-plugin: add-to-gallery
----
+
 
 # Get notified in Microsoft Teams about SharePoint health incidents
 

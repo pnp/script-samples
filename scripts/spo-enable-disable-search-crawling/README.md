@@ -1,6 +1,4 @@
----
-plugin: add-to-gallery
----
+
 
 # Enable/Disable Search Crawling on Sites and Libraries
 

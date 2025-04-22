@@ -1,6 +1,4 @@
----
-plugin: add-to-gallery
----
+
 
 # Add multiple folders in libraries using a CSV file
 

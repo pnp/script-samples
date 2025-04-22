@@ -1,6 +1,4 @@
----
-plugin: add-to-gallery
----
+
 
 # Bulk Create Teams with JSON File
 

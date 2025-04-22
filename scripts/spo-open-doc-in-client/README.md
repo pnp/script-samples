@@ -1,6 +1,4 @@
----
-plugin: add-to-gallery
----
+
 
 # Open Office documents in the Client
 

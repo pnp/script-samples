@@ -1,6 +1,4 @@
----
-plugin: add-to-gallery
----
+
 
 # Reset files permissions unique to Inherited
 

@@ -1,6 +1,4 @@
----
-plugin: add-to-gallery
----
+
 
 # Create Site Columns and add to Content Types
 

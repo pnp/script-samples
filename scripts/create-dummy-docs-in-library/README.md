@@ -1,6 +1,4 @@
----
-plugin: add-to-gallery
----
+
 
 # Create bulk dummy documents in SharePoint Document library
 

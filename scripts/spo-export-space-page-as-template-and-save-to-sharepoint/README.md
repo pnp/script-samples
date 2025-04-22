@@ -1,6 +1,4 @@
----
-plugin: add-to-gallery
----
+
 
 # Extract Space content type Modern page as template and save to SharePoint
 

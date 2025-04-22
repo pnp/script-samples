@@ -1,6 +1,4 @@
----
-plugin: add-to-gallery
----
+
 
 # Export of the Hierarchy of Hub Sites
 

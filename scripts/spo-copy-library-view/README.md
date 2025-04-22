@@ -1,6 +1,4 @@
----
-plugin: add-to-gallery
----
+
 
 # Copy a library view across multiple libraries in destination site 
 

@@ -1,6 +1,4 @@
----
-plugin: add-to-gallery
----
+
 
 # M365 Consultant's Script Kit
 
