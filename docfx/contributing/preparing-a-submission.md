@@ -157,7 +157,7 @@ We have worked to keep the folder structure lean and as simple as possible when 
 +--- script-folder-title - *folder for the script based on the title of your sample, please all lowercase and spaces as hyphens*
   |___ assets - *sub folder for any images or assets you need to support your sample*
 ```
-![Folder structure](../assets/contributing/folder-structure-contributors.png)
+![Folder structure](../assets/contributing/folder-structure.png)
 
 ## Sample Naming and Structure Guidelines
 

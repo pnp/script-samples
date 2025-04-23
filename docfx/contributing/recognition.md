@@ -8,13 +8,9 @@ In PnP, we are all about community and we want to recognize your contributions. 
 Your submission is announced on the next "Microsoft 365 & Power Platform Development Community call", Bi-weekly on Thursdays 7:00 AM PT / 3:00 PM GMT.
 You are invited to join the call and we will provide a mention of your submission as a Thank you! - Join here: [https://aka.ms/spdev-sig-call-join](https://aka.ms/spdev-sig-call-join)
 
-## PnP Blog
-
-We run a monthly blog post on the [PnP blog](https://pnp.github.io/blog/), where we highlight the submissions we received in the previous month. You will be mentioned in the blog post and we will list your sample and name.
-
 ## Social Media
 
-We will share your submission on our social media channels, typically Twitter, when they are processed by the team.
+We will share your submission on our social media channels, promotion to X, BlueSky, LinkedIn & Discord, when the samples have been processed by the team and is live. Typically, you will see a notification if there is a merge from Github.
 
 ## Badges!
 
