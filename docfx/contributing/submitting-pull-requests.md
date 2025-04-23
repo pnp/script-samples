@@ -4,16 +4,52 @@
 
 Here's a high-level process for submitting new samples or updates to existing ones.
 
-1. Sign the Contributor License Agreement
-2. Fork this repository [pnp/script-samples](https://github.com/pnp/script-samples) to your GitHub account
-3. Create a new branch from the `main` branch for your fork for the contribution
-4. Include your changes to your branch
-5. Commit your changes using descriptive commit message * These are used to track changes on the repositories for monthly communications
-6. Create a pull request in your own fork and target the `main` branch
-7. Fill up the provided PR template with the requested details
+ - Step 1 - Signing the CLA (One-time activity)
+ - Step 2 - Fork the repository
+ - Step 3 - Preparing a submission
+ - Step 4 - Create a pull request
 
 
-## When the sample is submitted
+
+ - Step 5 - What happens next, when the sample is submitted
+
+
+
+## Step 1 - Signing the CLA (One-time activity)
+
+Before we can accept your pull requests you will be asked to sign electronically Contributor License Agreement (CLA), which is a pre-requisite for any contributions all PnP repositories. This will be one-time process, so for any future contributions you will not be asked to re-sign anything. After the CLA has been signed, our PnP core team members will have a look at your submission for a final verification of the submission. **Please do not delete your development branch until the submission has been closed.**
+
+You can find Microsoft CLA from the following address - https://cla.microsoft.com.
+
+## Step 2 - Fork the repository
+
+In GitHub here: https://github.com/pnp/script-samples
+
+Find the Fork button:
+
+![Fork the sample](../assets/contributing/fork-sample.png)
+
+This will make a copy of the site code within your account, this is where you will create the submission.
+
+## Step 3 - Preparing a submission
+
+Please visit this page - [Preparing a submission](preparing-a-submission.md), to see the details of the submission, then return here to continue.
+
+## Step 4 - Create a pull request
+
+Ensure you commit your changes to your fork (copy of the site code)
+
+![Commit Changes](../assets/contributing/commit-changes.png)
+
+When you are ready to submit your sample, you will see a 
+
+
+
+
+
+
+
+## Step 5 - What happens next, when the sample is submitted
 
 We will review the submission, make small tweaks if required and provide feedback if needed for anything large. If the submission is approved, we will merge it into the `main` branch and it will be published to the [PnP Script Samples](https://pnp.github.io/script-samples/) site.
 
@@ -23,7 +59,7 @@ Once published, we will begin to promote the sample on social media, see our det
 
 ### Want to practice the setup?
 
-If you feel insecure about that process or are new to GitHub, please consider to attend the [Sharing Is Caring sessions from the PnP team](https://pnp.github.io/sharing-is-caring/#pnp-sic-events) in which the Microsoft 365 PnP team provides hands-on guidance for first time contributors.
+If you feel insecure or would struggle to do this and are new to GitHub, please consider to attend the [Sharing Is Caring sessions from the PnP team](https://pnp.github.io/sharing-is-caring/#pnp-sic-events) in which the Microsoft 365 PnP team provides hands-on guidance for first time contributors -these are NOT recorded and completely safe space to ask questions.
 
 ### Submission Guidelines
 
@@ -79,10 +115,8 @@ Before you submit your pull request consider the following guidelines:
   git push origin working-with-files-in-libraries
   ```
 
-## Signing the CLA
 
-Before we can accept your pull requests you will be asked to sign electronically Contributor License Agreement (CLA), which is a pre-requisite for any contributions all PnP repositories. This will be one-time process, so for any future contributions you will not be asked to re-sign anything. After the CLA has been signed, our PnP core team members will have a look at your submission for a final verification of the submission. **Please do not delete your development branch until the submission has been closed.**
 
-You can find Microsoft CLA from the following address - https://cla.microsoft.com.
+
 
 <img src="https://m365-visitor-stats.azurewebsites.net/script-samples/contributing/submitting-pull-requests" aria-hidden="true" />
