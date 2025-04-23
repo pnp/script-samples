@@ -106,40 +106,24 @@
                     <h1 id="maintainers-guidance">Maintainers Guidance</h1>
 
 <p>This is the maintainers guide to provide a location to share knowledge about how the site works and some of the behaviors of the setup and underlying configuration.</p>
+<h2 id="docfx">Docfx</h2>
 <p>The site uses the DocFx engine, this is the same tool that <a href="https://learn.microsoft.com">learn.microsoft.com</a> uses (albeit a special version) in combination with the Material UI + UI tweaks we have made with the help and thanks for Hugo Bernier.</p>
-<p>In addition, plugins have been developed to extend DocFx to generate the galleries.</p>
+<ul>
+<li>Install DocFx from GitHub <a href="https://github.com/dotnet/docfx/releases">DocFx Releases</a>.</li>
+<li>Ensure that <code>docfx</code> command can run from anywhere, add the installation location to my environment variables if it does not run.</li>
+<li>Clone the site with <code>git clone https://github.com/pnp/script-samples.git</code></li>
+<li>Find a script called <code>docfx-build-local.ps1</code> running under the docfx folder will build the site.</li>
+<li>View the site locally, <code>docfx docfx.json --serve</code>, alternatively, I use an npm module called <code>http-server</code> run that on the generated _site location to see it render.</li>
+</ul>
 <p>The main goal with DocFx builds must complete with <strong>0 warnings and errors</strong>. The site will not publish/update if there are warnings.</p>
-<h2 id="front-matter-for-gallery-pages">Front Matter for Gallery Pages</h2>
-<p>A small amount of front matter is used to tag the pages to inject the gallery into.</p>
-<h3 id="generate-galleries">Generate galleries</h3>
-<table>
-<thead>
-<tr>
-<th>Front Matter Example</th>
-<th>Action taken by Plugin</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>plugin: insert-gallery</td>
-<td>Inserts a gallery into the page that contains this marker: &quot;<em>--this will be auto generated--</em>&quot; the generator will replace this line with the gallery.</td>
-</tr>
-<tr>
-<td>plugin: add-to-gallery</td>
-<td>Registers the sample is ready to be added to the gallery</td>
-</tr>
-<tr>
-<td>plugin-filter: product</td>
-<td>Changes the gallery presentation mode. <br> None = by operation, product = By Product and library = by library</td>
-</tr>
-</tbody>
-</table>
+<h2 id="galleries">Galleries</h2>
 <p>Currently, there are 3 pages that galleries are used:</p>
 <ul>
 <li>Index.md - default gallery page</li>
-<li>bytool.md - By Library gallery page e.g. M365 CLI, PnP PS, Graph PS SDK etc.</li>
-<li>byproduct.md - By Product e.g. Microsoft Product the script performs an action against</li>
+<li>by-tool.md - By Library gallery page e.g. M365 CLI, PnP PS, Graph PS SDK etc.</li>
+<li>by-product.md - By Product e.g. Microsoft Product the script performs an action against</li>
 </ul>
+<p>The card style uses Isotope.js with CSS/HTML to show the card format, but it can adapt to screen resolution and adjust the number of cards accordingly.</p>
 <h2 id="folder-structure-for-scripts">Folder Structure for scripts</h2>
 <p>We have worked to keep the folder structure lean and as simple as possible when submitting scripts:</p>
 <p><img src="../assets/contributing/folder-structure.png" alt="Folder Structure"></p>
@@ -160,7 +144,7 @@
 <ul>
 <li>Their name on the sample. If we as a maintainer also contributes to the article, they must be the primary or first name.</li>
 <li>The article must list their name, company and GitHub/LinkedIn/Twitter handle - we will encourage their complete this.</li>
-<li>Promotion to Twitter - their sample will get promoted to Twitter for exposure.</li>
+<li>Promotion to X, BlueSky, LinkedIn &amp; Discord  - their sample will get promoted in these locations for greater exposure.</li>
 </ul>
 <h2 id="reports">Reports</h2>
 <p>There are a series of reports that are generated to help with the maintenance of the site, these are:</p>
@@ -168,6 +152,7 @@
 <li><a href="https://pnp.github.io/script-samples/matrix.html">Matrix of Sample Distribution by Tool</a></li>
 <li><a href="https://pnp.github.io/script-samples/cmdusage.html">Report of Samples Command Usage</a></li>
 <li><a href="https://pnp.github.io/script-samples/metadata.html">Metadata Report of Samples</a></li>
+<li><a href="https://pnp.github.io/script-samples/age.html">Age Report of Samples</a></li>
 </ul>
 <img src="https://m365-visitor-stats.azurewebsites.net/script-samples/contributing/maintainers-guidance" aria-hidden="true">
 </article>

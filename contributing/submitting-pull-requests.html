@@ -105,79 +105,51 @@
                   </div>
                     <h1 id="submitting-pull-requests">Submitting Pull Requests</h1>
 
+<p>Welcome contributors, here is a guide to help you create a new sample or update an existing sample within PnP Script Samples site.</p>
 <h2 id="the-process">The process</h2>
-<p>Here's a high-level process for submitting new samples or updates to existing ones.</p>
-<ol>
-<li>Sign the Contributor License Agreement</li>
-<li>Fork this repository <a href="https://github.com/pnp/script-samples">pnp/script-samples</a> to your GitHub account</li>
-<li>Create a new branch from the <code>main</code> branch for your fork for the contribution</li>
-<li>Include your changes to your branch</li>
-<li>Commit your changes using descriptive commit message * These are used to track changes on the repositories for monthly communications</li>
-<li>Create a pull request in your own fork and target the <code>main</code> branch</li>
-<li>Fill up the provided PR template with the requested details</li>
-</ol>
-<h2 id="when-the-sample-is-submitted">When the sample is submitted</h2>
-<p>We will review the submission, make small tweaks if required and provide feedback if needed for anything large. If the submission is approved, we will merge it into the <code>main</code> branch and it will be published to the <a href="https://pnp.github.io/script-samples/">PnP Script Samples</a> site.</p>
-<p>Once published, we will begin to promote the sample on social media, see our details on <a href="recognition.html">Recognizing Contributors</a>.</p>
-<h2 id="other-tips">Other tips</h2>
-<h3 id="want-to-practice-the-setup">Want to practice the setup?</h3>
-<p>If you feel insecure about that process or are new to GitHub, please consider to attend the <a href="https://pnp.github.io/sharing-is-caring/#pnp-sic-events">Sharing Is Caring sessions from the PnP team</a> in which the Microsoft 365 PnP team provides hands-on guidance for first time contributors.</p>
-<h3 id="submission-guidelines">Submission Guidelines</h3>
-<p>Before you submit your pull request consider the following guidelines:</p>
+<p>This is the process for submitting new samples or updates to existing samples to the repository.</p>
 <ul>
-<li><p>Search <a href="https://github.com/pnp/script-samples/pulls">GitHub</a> for an open or closed Pull Request
-which relates to your submission. You don't want to duplicate effort.</p>
-</li>
-<li><p>Make sure you have a link in your local cloned fork to the <a href="https://github.com/pnp/script-samples">pnp/script-samples</a></p>
-<pre><code class="lang-shell"># check if you have a remote pointing to the Microsoft repo:
-git remote -v
-
-# if you see a pair of remotes (fetch &amp; pull) that point to https://github.com/pnp/script-samples, you're ok... otherwise you need to add one
-
-# add a new remote named &quot;upstream&quot; and point to the Microsoft repo
-git remote add upstream https://github.com/pnp/script-samples.git
-</code></pre>
-</li>
-<li><p>Make your changes in a new git branch:</p>
-<pre><code class="lang-shell">git checkout -b working-with-files-in-libraries main
-</code></pre>
-</li>
+<li>Step 1 - Signing the CLA (One-time activity)</li>
+<li>Step 2 - Fork the repository (One-time activity)</li>
+<li>Step 3 - Preparing a submission</li>
+<li>Step 4 - Create a pull request</li>
+<li>Step 5 - What happens next, when the sample is submitted</li>
 </ul>
-<h3 id="keeping-your-fork-up-to-date">Keeping your fork up to date</h3>
-<ul>
-<li><p>Ensure your fork is updated and not behind the upstream <strong>script-samples</strong> repo. Refer to these resources for more information on syncing your repo:</p>
-<ul>
-<li><p><a href="https://help.github.com/articles/syncing-a-fork/">GitHub Help: Syncing a Fork</a></p>
-</li>
-<li><p><a href="http://www.andrewconnell.com/blog/keep-your-forked-git-repo-updated-with-changes-from-the-original-upstream-repo">Keep Your Forked Git Repo Updated with Changes from the Original Upstream Repo</a></p>
-</li>
-<li><p>For a quick cheat sheet:</p>
-<pre><code class="lang-shell"># assuming you are in the folder of your locally cloned fork....
-git checkout main
-
-# assuming you have a remote named `upstream` pointing official **script-samples** repo
-git fetch upstream
-
-# update your local main to be a mirror of what's in the main repo
-git pull --rebase upstream main
-
-# switch to your branch where you are working, say &quot;working-with-files-in-libraries&quot;
-git checkout working-with-files-in-libraries
-
-# update your branch to update it's fork point to the current tip of main &amp; put your changes on top of it
-git rebase main
-</code></pre>
-</li>
-</ul>
-</li>
-<li><p>Push your branch to GitHub:</p>
-<pre><code class="lang-shell">git push origin working-with-files-in-libraries
-</code></pre>
-</li>
-</ul>
-<h2 id="signing-the-cla">Signing the CLA</h2>
+<h2 id="step-1---signing-the-cla-one-time-activity">Step 1 - Signing the CLA (One-time activity)</h2>
 <p>Before we can accept your pull requests you will be asked to sign electronically Contributor License Agreement (CLA), which is a pre-requisite for any contributions all PnP repositories. This will be one-time process, so for any future contributions you will not be asked to re-sign anything. After the CLA has been signed, our PnP core team members will have a look at your submission for a final verification of the submission. <strong>Please do not delete your development branch until the submission has been closed.</strong></p>
 <p>You can find Microsoft CLA from the following address - <a href="https://cla.microsoft.com">https://cla.microsoft.com</a>.</p>
+<h2 id="step-2---fork-the-repository-one-time-activity">Step 2 - Fork the repository (One-time activity)</h2>
+<p>In GitHub here: <a href="https://github.com/pnp/script-samples">https://github.com/pnp/script-samples</a></p>
+<p>Find the Fork button:</p>
+<p><img src="../assets/contributing/fork-sample.png" alt="Fork the sample"></p>
+<p>This will make a copy of the site code within your account, this is where you will create the submission.</p>
+<p>We recommend you use <a href="https://code.visualstudio.com/">Visual Studio Code</a>, as your editor.</p>
+<h3 id="want-to-practice-the-setup">Want to practice the setup?</h3>
+<p>If you feel insecure or would struggle to do this and are new to GitHub, please consider to attend the <a href="https://pnp.github.io/sharing-is-caring/#pnp-sic-events">Sharing Is Caring sessions from the PnP team</a> in which the Microsoft 365 PnP team provides hands-on guidance for first time contributors -these are NOT recorded and completely safe space to ask questions.</p>
+<h2 id="step-3---preparing-a-submission">Step 3 - Preparing a submission</h2>
+<p>Please visit this page - <a href="preparing-a-submission.html">Preparing a submission</a>, to see the details of the submission, then return here to continue.</p>
+<h2 id="step-4---create-a-pull-request">Step 4 - Create a pull request</h2>
+<p>Ensure you commit your changes to your fork (copy of the site code)</p>
+<p><img src="../assets/contributing/commit-changes.png" alt="Commit Changes"></p>
+<p>Then click &quot;Sync Changes&quot;</p>
+<p>When you are ready to submit your sample, you will see a button to <code>Open a Pull Request</code></p>
+<p><img src="../assets/contributing/open-pull-request.png" alt="Open a Pull Request"></p>
+<p>You will then be taken to a form, where you can complete:</p>
+<ul>
+<li>Title of the Pull Request e.g. <code>New Sample - Saving File to SharePoint</code></li>
+<li>Description - include some detail about the sample</li>
+</ul>
+<p>When you are happy with the Pull Request, click <code>Create Pull Request</code></p>
+<p><img src="../assets/contributing/complete-pull-request-form.png" alt="Complete Pull Request"></p>
+<blockquote>
+<p>Note: if you want to make additions or changes at this point, you can just edit and commit new changes, it will be included in the Pull Request up to the point we merge (Save into the Script Samples repository) the request.</p>
+</blockquote>
+<h2 id="step-5---what-happens-next-when-the-sample-is-submitted">Step 5 - What happens next, when the sample is submitted</h2>
+<p>We will review the submission, make small tweaks if needed and provide feedback. The submission will get approved, we will merge it into the <code>main</code> branch and it will be published to the <a href="https://pnp.github.io/script-samples/">PnP Script Samples</a> site within a few minutes via an automated process.</p>
+<p>Once published, we will begin to promote the sample on social media, see our details on <a href="recognition.html">Recognizing Contributors</a>.</p>
+<p><strong>THANK YOU! For reading this guide and taking the time to submit samples.</strong></p>
+<p>If you have any issues, please create an issue here in GitHub: <a href="https://github.com/pnp/script-samples/issues">Issues in PnP Script Samples</a> we would be happy to help.</p>
+<p>Please be aware contributors and maintainers run this repository in their spare time and response may not be immediate, although we endevour to process your submission within a few days.</p>
 <img src="https://m365-visitor-stats.azurewebsites.net/script-samples/contributing/submitting-pull-requests" aria-hidden="true">
 </article>
           </div>
