@@ -1,6 +1,4 @@
----
-plugin: add-to-gallery
----
+
 
 # Create a Quick Links web part with items defined in a datasource  
 

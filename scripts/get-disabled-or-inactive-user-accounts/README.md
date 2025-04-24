@@ -1,6 +1,4 @@
----
-plugin: add-to-gallery
----
+
 
 # Get disabled or inactive user accounts
 

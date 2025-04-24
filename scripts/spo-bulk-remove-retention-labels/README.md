@@ -1,6 +1,4 @@
----
-plugin: add-to-gallery
----
+
 
 # Bulk remove retention labels from files in a SharePoint Library
 

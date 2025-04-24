@@ -1,6 +1,4 @@
----
-plugin: add-to-gallery
----
+
 
 # Add Page template to Site
 

@@ -1,6 +1,4 @@
----
-plugin: add-to-gallery
----
+
 
 # Deletes sharing links for folder, file and item
 

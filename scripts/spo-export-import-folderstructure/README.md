@@ -1,6 +1,4 @@
----
-plugin: add-to-gallery
----
+
 
 # Export and import library folder structure
 

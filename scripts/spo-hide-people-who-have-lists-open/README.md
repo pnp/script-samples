@@ -1,6 +1,4 @@
----
-plugin: add-to-gallery
----
+
 
 # Hide people who have lists open
 

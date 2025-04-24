@@ -1,6 +1,4 @@
----
-plugin: add-to-gallery
----
+
 
 # Delete SharePoint Online sites that have retention policies
 

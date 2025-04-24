@@ -1,6 +1,4 @@
----
-plugin: add-to-gallery
----
+
 
 # Scan libraries for webhook and export to csv
 

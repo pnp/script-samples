@@ -1,6 +1,4 @@
----
-plugin: add-to-gallery
----
+
      
 # Export a csv report on all Microsoft Stream videos
 

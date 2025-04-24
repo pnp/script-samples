@@ -1,6 +1,4 @@
----
-plugin: add-to-gallery
----
+
 
 # Delete custom SharePoint list designs
 

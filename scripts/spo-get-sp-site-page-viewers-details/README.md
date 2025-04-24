@@ -1,6 +1,4 @@
----
-plugin: add-to-gallery
----
+
 
 # Retrieve & Store SharePoint Site Pages Viewers Details
 

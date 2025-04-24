@@ -1,6 +1,4 @@
----
-plugin: add-to-gallery
----
+
 
 # Create Communication Sites with a specific primary language
 

@@ -1,6 +1,4 @@
----
-plugin: add-to-gallery
----
+
 
 # Provision Home Page to a SharePoint site 
 

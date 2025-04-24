@@ -1,6 +1,4 @@
----
-plugin: add-to-gallery
----
+
 
 # Hide SharePoint list from Site Contents
 

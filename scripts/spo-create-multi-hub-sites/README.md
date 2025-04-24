@@ -1,6 +1,4 @@
----
-plugin: add-to-gallery
----
+
 
 # Create a multi-hub set of communication sites
 

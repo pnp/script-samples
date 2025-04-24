@@ -1,6 +1,4 @@
----
-plugin: add-to-gallery
----
+
 
 # Testing user preferred language of SharePoint site
 

@@ -1,6 +1,4 @@
----
-plugin: add-to-gallery
----
+
 
 # Report of Private Teams channels to Excel
 

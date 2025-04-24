@@ -1,6 +1,4 @@
----
-plugin: add-to-gallery
----
+
 
 # List apps within Teams in a tenant
 

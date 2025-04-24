@@ -1,6 +1,4 @@
----
-plugin: add-to-gallery
----
+
 
 # Add a document library web part to a page (and only show a specific folder)
 

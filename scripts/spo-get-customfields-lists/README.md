@@ -1,6 +1,4 @@
----
-plugin: add-to-gallery
----
+
 
 # List custom fields from SharePoint Lists or libraries
 

@@ -1,6 +1,4 @@
----
-plugin: add-to-gallery
----
+
 
 # Replace a user's membership in selected Microsoft 365 Groups or Teams
 

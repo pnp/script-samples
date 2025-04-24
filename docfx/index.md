@@ -1,7 +1,3 @@
----
-plugin: insert-gallery
----
-
 # Script Samples
 
 Find scenarios and scripts here using tools such as ***PnP PowerShell, CLI for Microsoft 365, Graph PowerShell SDK*** and more. Are you looking for authoring tool then check out extensions

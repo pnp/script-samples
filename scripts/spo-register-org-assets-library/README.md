@@ -1,6 +1,4 @@
----
-plugin: add-to-gallery
----
+
 
 # Register SharePoint Organization Assets Library
 

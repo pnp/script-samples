@@ -1,6 +1,4 @@
----
-plugin: add-to-gallery
----
+
 
 # Set Page Author Byline
 

@@ -1,6 +1,4 @@
----
-plugin: add-to-gallery
----
+
 
 # Create Dynamic Install and Uninstall Azure AD Groups using Graph
 

@@ -1,6 +1,4 @@
----
-plugin: add-to-gallery
----
+
 
 # Reorder Content Types in SharePoint List
 

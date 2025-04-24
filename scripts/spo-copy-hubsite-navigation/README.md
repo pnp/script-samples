@@ -1,6 +1,4 @@
----
-plugin: add-to-gallery
----
+
 
 # Copy a hub navigation from a source site to any desired target hub site
 

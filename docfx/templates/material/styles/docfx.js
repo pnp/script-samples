@@ -1210,4 +1210,21 @@ $(function () {
         || window.location.pathname === '/script-samples/by-product.html' || window.location.pathname === '/script-samples/compact-view.html') {
       $('.contribution-panel').hide();
     }
+
+    // Note: THis will be redundant in newer versions of docfx, check and remove if not needed
+    // Add Clipboard Icon
+    var clipboardHtmlTemplate = '<button class="article-clipboard" title="Copy to clipboard" data-toggle="tooltip" data-placement="top" data-clipboard-target="{{targetElement}}">'+
+        '<span class="glyphicon glyphicon-copy" aria-hidden="true"></span>' +
+        '<span class="article-clipboard__message done">Copied</span>' +
+    '</button>';
+
+    // Find all section[id^='tabpanel'] elements and add clipboard icon to them
+    $('section[id^="tabpanel"]').each(function() {
+      var targetElement = $(this).attr('data-tab');
+      var targetId = "section[id^='tabpanel'][data-tab='" + targetElement + "'] pre";
+      var clipboardScriptInstanceHtml = clipboardHtmlTemplate.replace(/{{targetElement}}/g, targetId); 
+      $(this).prepend(clipboardScriptInstanceHtml);
+    });
+
+
   });

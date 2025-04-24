@@ -1,6 +1,4 @@
----
-plugin: add-to-gallery
----
+
 
 # Repair ID mismatch for user across all Sites
 

@@ -1,6 +1,4 @@
----
-plugin: add-to-gallery
----
+
 
 # Update Global Microsoft 365 Group Settings
 

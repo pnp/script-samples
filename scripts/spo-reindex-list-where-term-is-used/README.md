@@ -1,6 +1,4 @@
----
-plugin: add-to-gallery
----
+
 
 # Reindex Search index for lists where a specific term is used (when you have renamed the term)
 

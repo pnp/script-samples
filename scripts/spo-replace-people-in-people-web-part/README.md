@@ -1,6 +1,4 @@
----
-plugin: add-to-gallery
----
+
 
 # Replace specific users in the People web part
 

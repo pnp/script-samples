@@ -1,6 +1,4 @@
----
-plugin: add-to-gallery
----
+
 
 # Retrieve SPFx Details from Tenant and Site Collection App Catalogs
 

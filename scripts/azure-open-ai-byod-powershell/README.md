@@ -1,6 +1,4 @@
----
-plugin: add-to-gallery
----
+
 
 # Bring you own data with Azure Open AI example
 

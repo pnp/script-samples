@@ -1,6 +1,4 @@
----
-plugin: add-to-gallery
----
+
 
 # Get Files with Retention or Sensitivity Labels in SharePoint Online
 

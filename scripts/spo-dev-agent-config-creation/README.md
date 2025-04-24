@@ -1,6 +1,4 @@
----
-plugin: add-to-gallery
----
+
 
 # Creating SharePoint Agents (.agent Files) with PowerShell
 

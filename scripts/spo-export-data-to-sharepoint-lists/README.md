@@ -1,6 +1,4 @@
----
-plugin: add-to-gallery
----
+
 
 # Export CSV To SharePoint List Data
 

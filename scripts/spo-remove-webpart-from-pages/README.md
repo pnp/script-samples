@@ -1,6 +1,4 @@
----
-plugin: add-to-gallery
----
+
 
 # Remove modern web parts from pages
 

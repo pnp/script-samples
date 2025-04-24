@@ -1,6 +1,4 @@
----
-plugin: add-to-gallery
----
+
 
 # Using a PnP Site Template including files and list items
 

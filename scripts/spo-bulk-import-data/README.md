@@ -1,6 +1,4 @@
----
-plugin: add-to-gallery
----
+
 
 # Bulk import data from multiple files to multiple lists
 

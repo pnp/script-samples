@@ -1,6 +1,4 @@
----
-plugin: add-to-gallery
----
+
 
 # Get TfL (Transport for London) status with OpenAI function calling feature
 

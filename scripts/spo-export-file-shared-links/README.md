@@ -1,6 +1,4 @@
----
-plugin: add-to-gallery
----
+
 
 # Export access shared links from SharePoint Library 
 

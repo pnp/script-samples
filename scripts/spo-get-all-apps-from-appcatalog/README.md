@@ -1,6 +1,4 @@
----
-plugin: add-to-gallery
----
+
 
 # Get All Apps From The App Catalog And Export It To CSV
 

@@ -1,6 +1,4 @@
----
-plugin: add-to-gallery
----
+
 
 # Report and Export Solutions from M365 Developer Tenant
 

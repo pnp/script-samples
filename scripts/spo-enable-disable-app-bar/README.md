@@ -1,6 +1,4 @@
----
-plugin: add-to-gallery
----
+
 
 # Enable and Disable App Bar in SharePoint Online
 

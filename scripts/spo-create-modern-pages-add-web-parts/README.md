@@ -1,6 +1,4 @@
----
-plugin: add-to-gallery
----
+
 
 # Create Modern SharePoint Pages and add web parts
 

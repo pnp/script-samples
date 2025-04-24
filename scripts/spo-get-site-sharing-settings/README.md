@@ -1,6 +1,4 @@
----
-plugin: add-to-gallery
----
+
 
 # Get SharePoint site sharing Settings
 

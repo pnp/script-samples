@@ -1,6 +1,4 @@
----
-plugin: add-to-gallery
----
+
 
 # Bulk Publish Syntex Models To Libraries
 

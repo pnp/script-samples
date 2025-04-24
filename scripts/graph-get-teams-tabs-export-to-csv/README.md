@@ -1,6 +1,4 @@
----
-plugin: add-to-gallery
----
+
 
 # Get teams tabs and export to CSV
 

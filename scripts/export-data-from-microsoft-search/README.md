@@ -1,6 +1,4 @@
----
-plugin: add-to-gallery
----
+
 
 # Export data from MS Search
 

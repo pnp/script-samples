@@ -1,6 +1,4 @@
----
-plugin: add-to-gallery
----
+
 
 # Get Content type usage within a site across lists, list items and item version
 

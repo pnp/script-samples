@@ -1,6 +1,4 @@
----
-plugin: add-to-gallery
----
+
 
 # Analyze users for known data breaches with have i been pwned
 

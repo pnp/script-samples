@@ -1,6 +1,4 @@
----
-plugin: add-to-gallery
----
+
 
 # Multilingual SharePoint Page Summarization with Open AI API and Microsoft Graph PowerShell SDK
 

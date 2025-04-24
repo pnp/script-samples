@@ -1,6 +1,4 @@
----
-plugin: add-to-gallery
----
+
 
 # Query advanced CSOM properties with PnP PowerShell
 

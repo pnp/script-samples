@@ -1,6 +1,4 @@
----
-plugin: add-to-gallery
----
+
 
 # Export of Stream (Classic) Web Parts and pages that use them
 

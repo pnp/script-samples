@@ -1,6 +1,4 @@
----
-plugin: add-to-gallery
----
+
 
 # Retrieving SharePoint Site URL for Teams Channels
 

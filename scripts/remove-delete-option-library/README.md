@@ -1,6 +1,4 @@
----
-plugin: add-to-gallery
----
+
 
 # Remove delete option on a document library
 

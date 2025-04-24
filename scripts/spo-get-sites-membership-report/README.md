@@ -1,6 +1,4 @@
----
-plugin: add-to-gallery
----
+
 
 # Get membership report of site(s) within tenant
 

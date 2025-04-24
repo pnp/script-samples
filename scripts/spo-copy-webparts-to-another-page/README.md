@@ -1,6 +1,4 @@
----
-plugin: add-to-gallery
----
+
 
 # Copy Webparts From One Page To Another Page
 

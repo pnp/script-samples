@@ -1,6 +1,4 @@
----
-plugin: add-to-gallery
----
+
 
 # Ensure all required Content Types are available before Get-PnPSiteTemplate
 

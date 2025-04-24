@@ -1,6 +1,4 @@
----
-plugin: add-to-gallery
----
+
 
 # Export all PowerApps details and its Role assignments from Tenant in CSV format
 

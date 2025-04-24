@@ -1,6 +1,4 @@
----
-plugin: add-to-gallery
----
+
 
 # Generate Demo Events for SharePoint Events List
 

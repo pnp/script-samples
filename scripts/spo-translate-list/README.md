@@ -1,6 +1,4 @@
----
-plugin: add-to-gallery
----
+
 
 # Translate columns in a SharePoint list
 

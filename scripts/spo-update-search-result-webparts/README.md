@@ -1,6 +1,4 @@
----
-plugin: add-to-gallery
----
+
 
 # Sample on how to locate the classic Search Result Web part and check the Remove Duplicates setting
 

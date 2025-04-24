@@ -1,6 +1,4 @@
----
-plugin: add-to-gallery
----
+
 
 # Retrieves site id from Microsoft Graph
 

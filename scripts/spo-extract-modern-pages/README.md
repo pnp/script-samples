@@ -1,6 +1,4 @@
----
-plugin: add-to-gallery
----
+
 
 # Extract Modern Pages to Individual Provisioning Files
 

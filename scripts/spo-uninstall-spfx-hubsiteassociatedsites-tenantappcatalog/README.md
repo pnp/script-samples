@@ -1,6 +1,4 @@
----
-plugin: add-to-gallery
----
+
 
 # Retracting SPFx Solutions from Hub Site and associated sites
 

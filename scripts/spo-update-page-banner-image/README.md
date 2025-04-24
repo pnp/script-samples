@@ -1,6 +1,4 @@
----
-plugin: add-to-gallery
----
+
 
 # Update SharePoint Page Banner Image
 

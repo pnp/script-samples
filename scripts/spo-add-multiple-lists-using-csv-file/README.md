@@ -1,6 +1,4 @@
----
-plugin: add-to-gallery
----
+
 
 # Create list and libraries from CSV file
 

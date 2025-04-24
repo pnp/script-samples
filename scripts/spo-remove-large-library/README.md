@@ -1,6 +1,4 @@
----
-plugin: add-to-gallery
----
+
 
 # Delete a library exceeding the list threshold limit. Remove the files and folders before deleting the library.  
 

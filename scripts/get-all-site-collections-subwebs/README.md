@@ -1,6 +1,4 @@
----
-plugin: add-to-gallery
----
+
 
 # How to to get all site collections with their sub webs
 

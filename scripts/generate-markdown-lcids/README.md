@@ -1,6 +1,4 @@
----
-plugin: add-to-gallery
----
+
 
 # Generate Markdown Report of LCIDs
 

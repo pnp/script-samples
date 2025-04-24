@@ -1,6 +1,4 @@
----
-plugin: add-to-gallery
----
+
 
 # Sample showing how to ensure that the Role/Title in each People web part is updated
 

@@ -1,6 +1,4 @@
----
-plugin: add-to-gallery
----
+
 
 # Sample on exporting Document libraries inc folders and versions for selected Site Collections to a Fileshare/drive
 

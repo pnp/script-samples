@@ -1,6 +1,4 @@
----
-plugin: add-to-gallery
----
+
 
 # Sample showing how to Extract the employees shown on modern pages (Author byline) in a selection of Site Collections to CSV
 

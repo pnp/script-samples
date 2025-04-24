@@ -1,6 +1,4 @@
----
-plugin: add-to-gallery
----
+
 
 # Detect theme installed in SharePoint Site
 

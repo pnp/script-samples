@@ -1,6 +1,4 @@
----
-plugin: add-to-gallery
----
+
 
 # Disable SharePoint List Commenting at tenant level
 

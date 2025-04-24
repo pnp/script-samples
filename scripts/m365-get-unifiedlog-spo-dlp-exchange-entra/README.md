@@ -1,6 +1,4 @@
----
-plugin: add-to-gallery
----
+
 
 # Get Unified log for SharePoint DLP Exchange and Entra
 

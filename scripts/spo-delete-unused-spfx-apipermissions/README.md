@@ -1,6 +1,4 @@
----
-plugin: add-to-gallery
----
+
 
 # Remove unused API Permissions assigned to "SharePoint Online Client Extensibility Web Application Principal" 
 

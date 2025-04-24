@@ -1,6 +1,4 @@
----
-plugin: add-to-gallery
----
+
 
 # Replace an owner in a Microsoft 365 Group or Microsoft Team
 

@@ -1,6 +1,4 @@
----
-plugin: add-to-gallery
----
+
 
 # Sample showing how to use extract the configuration of a PnP Modern Search results web part and apply it to the same web part on another site collection
 

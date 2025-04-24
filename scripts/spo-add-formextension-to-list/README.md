@@ -1,6 +1,4 @@
----
-plugin: add-to-gallery
----
+
 
 # Associate Form Customizer Extension with List or Libraries Form
 

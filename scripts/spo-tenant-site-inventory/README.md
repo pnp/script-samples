@@ -1,6 +1,4 @@
----
-plugin: add-to-gallery
----
+
 
 # List of active sites in Tenant with Admins and storage used
 

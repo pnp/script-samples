@@ -1,6 +1,4 @@
----
-plugin: add-to-gallery
----
+
 
 # Scan for potential inaccessible site collection homepages
 

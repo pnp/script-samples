@@ -1,6 +1,4 @@
----
-plugin: add-to-gallery
----
+
 
 # Download sppkgs from App Catalog
 

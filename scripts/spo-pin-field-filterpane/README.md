@@ -1,6 +1,4 @@
----
-plugin: add-to-gallery
----
+
 
 # Pinning Fields to the Filter Pane in SharePoint Libraries
 

@@ -1,6 +1,4 @@
----
-plugin: add-to-gallery
----
+
 
 # Allow custom scripts in SharePoint online site
 

@@ -1,6 +1,4 @@
----
-plugin: add-to-gallery
----
+
 
 # Creates and apply site designs
 

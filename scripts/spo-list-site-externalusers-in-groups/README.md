@@ -1,6 +1,4 @@
----
-plugin: add-to-gallery
----
+
 
 # List external users across all sites and in what site groups they are
 

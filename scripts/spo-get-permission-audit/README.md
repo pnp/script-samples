@@ -1,6 +1,4 @@
----
-plugin: add-to-gallery
----
+
 
 # Get permissions including unique permissions up to item level including sharing links
 

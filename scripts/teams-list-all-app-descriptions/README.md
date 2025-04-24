@@ -1,6 +1,4 @@
----
-plugin: add-to-gallery
----
+
 
 # Get All Teams App Descriptions
 

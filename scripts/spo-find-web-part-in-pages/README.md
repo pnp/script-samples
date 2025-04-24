@@ -1,6 +1,4 @@
----
-plugin: add-to-gallery
----
+
 
 # Find Web Part in Pages e.g., Twitter Web Part
 

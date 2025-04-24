@@ -1,6 +1,4 @@
----
-plugin: add-to-gallery
----
+
 
 # Generate file count report
 

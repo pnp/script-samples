@@ -1,6 +1,4 @@
----
-plugin: add-to-gallery
----
+
 
 # Copy custom SPFx web part settings from one page to other pages
 

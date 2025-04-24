@@ -1,6 +1,4 @@
----
-plugin: add-to-gallery
----
+
 
 # Download all the content type document templates files associated with a library
 

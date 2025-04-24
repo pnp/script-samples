@@ -1,6 +1,4 @@
----
-plugin: add-to-gallery
----
+
 
 # Fetch Teams Information Using Teams PowerShell And Export To CSV
 
