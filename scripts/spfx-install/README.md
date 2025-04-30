@@ -221,16 +221,20 @@ if [[ $gotoHelp == "false" ]]; then
   echo
 
   if [[ "$version" == "next" ]]; then
-    nextNodeVersion=18.17.0 # THIS IS THE NODE VERSION, NOT SPFX
+    nextNodeVersion=22.14.0 # THIS IS THE NODE VERSION, NOT SPFX
     nextAlias=$nextNodeVersion
     echo -e "\e[1;43m Installing dev environment for SPFx@next using NodeJs v$nextNodeVersion ... \e[0m"
     installSPFx next $nextNodeVersion 0 5 3 true
   fi
 
   if [[ "$version" == "spo" ]]; then
-    spoVersion="1.20.0" #used to create the alias
+    spoVersion="1.21.0" #used to create the alias
     version=$spoVersion
     echo -e "\e[1;43m Installing dev environment for SPFx@spo(v$version) ... \e[0m"
+  fi
+
+  if [[ "$version" == "1.21.0" || "$version" == "all" ]]; then #updated 10/1/2024
+    installSPFx 1.21.0 22.15.0 0 5.0.0 3.0.0 $fullInstall
   fi
 
   if [[ "$version" == "1.20.0" || "$version" == "all" ]]; then #updated 10/1/2024
@@ -429,6 +433,7 @@ else
   echo "  nvm use spfx-sse    #latest version supported by SharePoint Server Subscription Edition"
   echo "  nvm use spfx-next   #latest version in development"
 fi
+
 ```
 [!INCLUDE [More about CLI for Microsoft 365](../../docfx/includes/MORE-CLIM365.md)]
 ***
