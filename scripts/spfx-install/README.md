@@ -61,7 +61,7 @@ alias spfx-install='/path/to/spfx-install.sh'
 
 Then, you can run the script from any directory by simply typing `spfx-install`.
 
-# [CLI for Microsoft 365 using Bash](#tab/cli-m365-bash)
+# [Bash Script](#tab/bash)
 ```bash
 ########################################################################################
 # This script quickly installs an environment for specific versions of SPFx.           #
@@ -435,7 +435,6 @@ else
 fi
 
 ```
-[!INCLUDE [More about CLI for Microsoft 365](../../docfx/includes/MORE-CLIM365.md)]
 ***
 ## Contributors
 
