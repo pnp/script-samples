@@ -1,0 +1,388 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html lang="en">
+  
+  <head>
+    <meta charset="utf-8">
+    <title>Deploy Microsoft Clarity Application Customizer for Site Collections | PnP Samples </title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" "="">
+    <meta name="title" content="Deploy Microsoft Clarity Application Customizer for Site Collections | PnP Samples ">
+    <meta name="generator" content="docfx 2.56.7.0">
+    <meta name="description" content="A sample gallery of scripts to manage all things Microsoft 365.">
+  
+    <!-- Social Media -->
+    <meta property="og:locale" content="en_GB">
+    <meta property="og:title" content="Deploy Microsoft Clarity Application Customizer for Site Collections | PnP Samples ">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://pnp.github.io/script-samples">
+    <meta property="og:image" content="https://pnp.github.io/script-samples/assets/social-media-screenshot.png">
+    <meta property="og:image:alt" content="Screenshot example of the PnP Script Samples Site">
+    <meta property="og:site_name" content="PnP Script Samples">
+    <meta name="msvalidate.01" content="04EFEDA66EC42C08A1247C979E2F9ADD">
+    <meta property="og:description" content="A sample gallery of scripts to manage all things Microsoft 365.">
+  
+    <link rel="shortcut icon" href="https://c.s-microsoft.com/favicon.ico?v2">
+    <link rel="stylesheet" href="../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../styles/docfx.css">
+    <link rel="stylesheet" href="../styles/main.css">
+    <link rel="stylesheet" href="../styles/extra.css">
+    <link rel="stylesheet" href="../styles/filter.css">
+    <link rel="stylesheet" href="../styles/site.css">
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet"> 
+    <meta property="docfx:navrel" content="../toc.html">
+    <meta property="docfx:tocrel" content="../toc.html">
+    
+    
+    <meta property="docfx:newtab" content="true">
+    <script type="text/javascript">
+      (function(c,l,a,r,i,t,y){
+          c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+          t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+          y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+      })(window, document, "clarity", "script", "8j6pedl344");
+  </script>
+  </head>  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+             <div class="github-mark">
+              <a href="https://github.com/pnp/script-samples" title="Go to repository">
+               <div class="github-wrapper">
+                  <div class="github-icon">
+                    <img src="https://pnp.github.io/script-samples/assets/icons/github-light-64px.png" alt="GitHub Icon Image">
+                  </div>
+                  <div class="github-repository">
+                    <span>GitHub</span>
+                    <ul class="github-facts">
+                      <li>
+                        <i class="fa fa-code-fork" aria-hidden="true"></i>
+                        <span class="github-forks"></span>
+                      </li>
+                      <li>
+                        <i class="fa fa-star-o" aria-hidden="true"></i>
+                        <span class="github-stars"></span>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </a>
+            </div>
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../assets/logo.svg" alt="">
+              </a>    </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <label class="glyphicon glyphicon-search" for="search-query"></label>
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>      </header>
+      <div role="main" class="container body-content hide-when-search">
+        <div class="article row grid">
+          <div class="col-md-12">
+            <article class="content wrap" id="_content" data-uid="">
+                  <div class="contribution-panel mobile-hide pull-right">
+                      <a href="https://github.com/pnp/script-samples/blob/main/scripts/spo-deploy-microsoft-clarity-from-csv/README.md/#L1" title="Improve this Doc" class="improve-doc-lg"><i class="glyphicon glyphicon-pencil"></i></a>
+                  </div>
+                    <h1 id="deploy-microsoft-clarity-application-customizer-for-site-collections">Deploy Microsoft Clarity Application Customizer for Site Collections</h1>
+
+<h2 id="summary">Summary</h2>
+<p>Deploy and activate the Microsoft Clarity SPFx application customizer to a specific set of sites listed in a csv for a Microsoft Clarity project.
+This will perform the following:</p>
+<ul>
+<li>Deploy site collection app catalog if not already deployed</li>
+<li>Upload the .sppkg file to the site collection app catalog</li>
+<li>Deploy the application customizer to the site collection app catalog</li>
+<li>Activate the application customizer on the site collection</li>
+<li>Add the application customizer to the site contents of the site collection</li>
+<li>Wait for the app to be ready before activating it</li>
+<li>Implement the custom action properties for the application customizer '{&quot;clarityID&quot;: &quot;<clarity project="" id="">&quot;}'</clarity></li>
+</ul>
+<p>Of course Microsoft Clarity can be deployed tenant wide, but what if you want to create separate Microsoft Clarity projects for certain hubs.  For example If you needed to share a Clarity project to the communications team that only covers the intranet.</p>
+<p><strong>Minimum Steps To Success</strong></p>
+<ul>
+<li>Create an app registration for Connect-PnPOnline using default permissions.</li>
+<li>Use the lastest sspkg for Microsoft Clarity</li>
+</ul>
+<div class="NOTE">
+<h5>Note</h5>
+<p>Further details on registering an app for using PnP PowerShell see Saluadeen &gt; Rajacks <a href="https://www.sharepointdiary.com/2022/10/connect-to-sharepoint-online-using-azure-ad-app-id-from-powershell.html">blog article</a> (External Site)</p>
+<p>Undertanding Microsoft Clarity deployments see João Ferreira Step by Step &gt; guide <a href="https://sharepoint.handsontek.net/2020/12/06/add-microsoft-clarity-modern-sharepoint/">guide</a> (External Site)</p>
+<p>Latest version of the SPFx Microsoft Clarity project Nishkalank Bezawada &amp; &gt;João Ferreira <a href="https://github.com/pnp/sp-dev-fx-extensions/tree/main/samples/js-application-microsoft-clarity">Github</a> (External Site)</p>
+</div>
+<h3 id="prerequisites">Prerequisites</h3>
+<p>Account that runs the script needs access to all of the locations where the files, folders, libraries or sites to be used in the agent are located.</p>
+<p><img src="assets/HomeCapture.png" alt="Example Screenshot"></p>
+<p>When deployed correctly you will see the collection being done in the developer network tools.</p>
+<p><img src="assets/HomeClarity.png" alt="Example Screenshot"></p>
+<div class="tabGroup" id="tabgroup_CeZOj-G++Q">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_CeZOj-G++Q_pnpps" role="tab" aria-controls="tabpanel_CeZOj-G++Q_pnpps" data-tab="pnpps" tabindex="0" aria-selected="true">PnP PowerShell</a>
+</li>
+</ul>
+<section id="tabpanel_CeZOj-G++Q_pnpps" role="tabpanel" data-tab="pnpps">
+
+<pre><code class="lang-powershell">
+&lt;# 
+----------------------------------------------------------------------------
+
+Created:      Andrew Burns
+Date:         5/01/2025
+Disclaimer:   
+
+THE SOFTWARE IS PROVIDED &quot;AS IS&quot;, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+
+.Synopsis
+
+    Deploy and activate the Microsoft Clarity SPFx application customizer to a specific set of sites listed in a csv for a Microsoft Clarity project. 
+    This will perform the following::
+        Deploy site collection app catalog if not already deployed
+        Upload the .sppkg file to the site collection app catalog   
+        Deploy the application customizer to the site collection app catalog
+        Activate the application customizer on the site collection
+        Add the application customizer to the site contents of the site collection
+        Wait for the app to be ready before activating it   
+        Implement the custom action properties for the application customizer '{&quot;clarityID&quot;: &quot;&lt;clarity project ID&gt;&quot;}'
+
+    Note: Site Templates will include all pages and exclude Application Lifecycle Management (due to getting stuck, but we capture that seperately anyway)
+
+.Usage
+
+    Deploy your Clarity project ID to specific site collections.  Share Clarity projects for specfic collections.
+    This is useful if you want to track only the sites within a specific hub, like the intranet.
+
+.Notes
+
+    Make sure you have sufficient priveleges. It is recommended to run this script as a Global Admin or SharePoint Admin.
+    I used an app registration with a certificate to connect to the tenant.
+    The app registration must have the following permissions:
+        - Sites.Read.All
+        - Sites.ReadWrite.All
+        - Sites.FullControl.All
+        - User.Read.All
+        - Group.Read.All
+        - Group.ReadWrite.All
+
+.References
+    Salaudeen Rajack Connect to SharePoint Online using PnP PowerShell with App Registration
+    https://www.sharepointdiary.com/2022/10/connect-to-sharepoint-online-using-azure-ad-app-id-from-powershell.html
+    Nishkalank Bezawada &amp; João Ferreira(SPFx v1.20.0) Community Call 2/20/2025
+    https://github.com/pnp/sp-dev-fx-extensions/tree/main/samples/js-application-microsoft-clarity
+    João Ferreira Step by Step guide
+    https://sharepoint.handsontek.net/2020/12/06/add-microsoft-clarity-modern-sharepoint/ 
+    Microsoft Clarity
+    
+ ----------------------------------------------------------------------------
+#&gt;
+
+# Import the CSV file containing the list of site URLs
+$csvPath = &quot;C:\Clarity\Sites.csv&quot; # Update with the path to your CSV file
+$sites = Import-Csv -Path $csvPath
+
+# Path to the Microsoft Clarity .sppkg file
+$appPackagePath = &quot;C:\Clarity\clarity.sppkg&quot; # Update with the path to your .sppkg file
+$logFilePath = Join-Path -Path (Split-Path -Path $appPackagePath -Parent) -ChildPath &quot;DeploymentLog.txt&quot;
+
+# Initialize the log file
+Write-Output &quot;Deployment started at $(Get-Date)&quot; | Out-File -FilePath $logFilePath -Append
+
+# Client-side component ID and properties for the application customizer
+$clientSideComponentId = &quot;7f8fd1f2-9d26-4a4a-a607-bf4622d7ec11&quot;
+$clientSideComponentProperties = '{&quot;clarityID&quot;: &quot;&lt;Clarity Project ID&gt;&quot;}'
+$clientID = &quot;PnP Online App Registrion Client ID&quot;
+$thumbprint = &quot;Your ThumbPrint&quot;
+$tenant = &quot;tenant.onmicrosoft.com&quot; # Update with your tenant URL
+
+# Loop through each site in the CSV
+foreach ($site in $sites) {
+    $siteUrl = $site.SiteUrl # Assumes the CSV has a column named 'SiteUrl'
+
+    try {
+
+        Write-Host &quot;Connecting to site: $siteUrl&quot; -ForegroundColor Yellow
+        # Connect to the site
+        Connect-PnPOnline -Url $siteUrl -ClientId $clientID -ThumbPrint $thumbPrint -Tenant $tenant
+        Write-Host &quot;$siteUrl Connected!&quot; -ForegroundColor Green
+        Write-Output &quot;$siteUrl Connected!&quot; | Out-File -FilePath $logFilePath -Append
+
+        # Check if the site collection app catalog is enabled
+        $appCatalogUrl = Get-PnPSiteCollectionAppCatalog -CurrentSite
+
+        if (-not $appCatalogUrl) {
+            Write-Host &quot;Site collection app catalog is not enabled. Enabling it now...&quot; -ForegroundColor Yellow
+            Write-Output &quot;Site collection app catalog is not enabled. Enabling it now...&quot; | Out-File -FilePath $logFilePath -Append
+            Add-PnPSiteCollectionAppCatalog -Site $siteUrl -ErrorAction Stop
+            Write-Host &quot;Site collection app catalog enabled successfully.&quot; -ForegroundColor Green
+            Write-Output &quot;Site collection app catalog enabled successfully.&quot; | Out-File -FilePath $logFilePath -Append
+        } else {
+            Write-Host &quot;Site collection app catalog is already enabled.&quot; -ForegroundColor Green
+            Write-Output &quot;Site collection app catalog is already enabled.&quot; | Out-File -FilePath $logFilePath -Append
+        }
+
+
+    # Check if the app is already deployed
+        $existingApp = Get-PnPApplicationCustomizer | Where-Object {$_.ClientSideComponentId -eq $clientSideComponentId -and $_.Scope -eq &quot;Site&quot;}
+        
+        if ($existingApp) {
+            Write-Host &quot;The application customizer is already deployed in the site collection app catalog.&quot; -ForegroundColor Green
+            
+        } else {
+        # Upload the .sppkg file to the site collection app catalog
+        Write-Host &quot;Uploading the app package to the site collection app catalog...&quot; -ForegroundColor Yellow
+        Write-Output &quot;Uploading the app package to the site collection app catalog...&quot; | Out-File -FilePath $logFilePath -Append
+        $uploadedApp = Add-PnPApp -Path $appPackagePath -Scope Site -Overwrite -Publish -ErrorAction Stop
+        Write-Host &quot;App package uploaded successfully to the catalog.&quot; -ForegroundColor Green
+        Write-Output &quot;App package uploaded successfully to the catalog.&quot; | Out-File -FilePath $logFilePath -Append
+
+        # Wait for the app to be ready
+        Write-Host &quot;Waiting for the app package to be ready...&quot; -ForegroundColor Yellow
+        Write-Output &quot;Waiting for the app package to be ready...&quot; | Out-File -FilePath $logFilePath -Append
+        Start-Sleep -Seconds 30 # Adjust the wait time as needed
+        Write-Host &quot;App package is ready&quot; -ForegroundColor Green
+        }        
+
+        # Add the app to the site contents
+        Write-Host &quot;Installing the app...&quot; -ForegroundColor Yellow
+        Write-Output &quot;Installing the apps...&quot; | Out-File -FilePath $logFilePath -Append
+        Install-PnPApp -Identity $uploadedApp.Id -Scope Site -ErrorAction Stop
+        #Get-PnPApp -Identity $uploadedApp.Id -Scope Site | Install-PnPApp -Wait
+        Write-Host &quot;App installed successfully.&quot; -ForegroundColor Green
+        Write-Output &quot;App installed successfully.&quot; | Out-File -FilePath $logFilePath -Append
+
+        # Wait for the app to be ready
+        Write-Host &quot;Waiting for the app to be ready...&quot; -ForegroundColor Yellow
+        Write-Output &quot;Waiting for the app to be ready...&quot; | Out-File -FilePath $logFilePath -Append
+        Start-Sleep -Seconds 30 # Adjust the wait time as needed
+
+        # Add the application customizer
+        Write-Host &quot;Adding the application customizer custom actions...&quot; -ForegroundColor Yellow
+        Write-Output &quot;Adding the application customizer custom actions...&quot; | Out-File -FilePath $logFilePath -Append
+        
+        Add-PnPCustomAction -ClientSideComponentId $clientSideComponentId `
+                            -Name &quot;Microsoft Clarity&quot; `
+                            -Title &quot;Microsoft Clarity&quot; `
+                            -Location ClientSideExtension.ApplicationCustomizer `
+                            -ClientSideComponentProperties $clientSideComponentProperties `
+                            -Scope Site
+        
+        #Review the deployment
+        #Write-Output &quot;Application customizer details &quot; -ForegroundColor Yellow
+        # Add the application customizer
+        Write-Host &quot;Adding the application customizer custom actions added successfully&quot; -ForegroundColor Green
+        Write-Output &quot;Adding the application customizer custom actions  added successfully&quot; | Out-File -FilePath $logFilePath -Append
+
+        Write-Output &quot;Application customizer details &quot; -ForegroundColor Yellow
+        $customActions = Get-PnPApplicationCustomizer
+        $customActions | Format-Table -Property Name, Id, ClientSideComponentId, ClientSideComponentProperties                                            
+
+        Write-Output &quot;End &quot; | Out-File -FilePath $logFilePath -Append
+    
+
+    } catch {
+        Write-Output &quot;An error occurred while processing site $site $_&quot;  -ForegroundColor Cyan
+    } finally {
+        # Disconnect from the site
+        Disconnect-PnPOnline
+    }
+}
+
+Write-Host &quot;Script execution completed.&quot; -ForegroundColor Cyan
+Write-Output &quot;Script execution completed at $(Get-Date)&quot; | Out-File -FilePath $logFilePath -Append
+
+</code></pre>
+<div class="highlight-tool">
+<p>Check out the <strong>PnP PowerShell</strong> to learn more at: <a href="https://aka.ms/pnp/powershell">https://aka.ms/pnp/powershell</a></p>
+</div>
+<div class="highlight-tool">
+<p>The way you login into PnP PowerShell has changed please read <a href="https://github.com/pnp/powershell/discussions/4249">PnP Management Shell EntraID app is deleted : what should I do ?</a></p>
+</div>
+</section>
+</div>
+<div class="tabGroup" id="tabgroup_CeZOj-G++Q-1">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_CeZOj-G++Q-1_csv" role="tab" aria-controls="tabpanel_CeZOj-G++Q-1_csv" data-tab="csv" tabindex="0" aria-selected="true">CSV</a>
+</li>
+</ul>
+<section id="tabpanel_CeZOj-G++Q-1_csv" role="tabpanel" data-tab="csv">
+
+<pre><code>
+Site name,SiteUrl,Teams,Channel sites,Storage used (GB),Primary admin,Hub,Template,Last activity (UTC),Date created,Created by,Storage limit (GB),Storage used (%),Microsoft 365 group,Files viewed or edited,Page views,Page visits,Files,Sensitivity,External sharing,Segments
+Intranet5,https://some.sharepoint.com,FALSE,,1.35,Some Author,Intranet,Communication site,3/25/2025 17:00,9/24/2024 10:16,Andrew Burns,25600,0,FALSE,162,226,25,175,,Off,
+News,https://some.sharepoint.com/sites/News,FALSE,,0,Some Author,News,Communication site,3/9/2025 17:00,1/13/2025 12:33,Andrew Burns,25600,0,FALSE,4,4,4,16,,Off,
+Retail,https://some.sharepoint.com/sites/Retail,TRUE,,0.01,,Retail,Team site,11/17/2024 16:00,7/17/2024 3:48,Retail Owners,25600,0,TRUE,0,0,0,53,,On,
+Sales and Marketing,https://some.sharepoint.com/sites/SalesandMarketing,TRUE,,0,,Sales,Team site,3/10/2025 17:00,7/17/2024 3:49,Sales and Marketing Owners,25600,0,TRUE,3,1,1,22,,On,
+
+</code></pre>
+</section>
+</div>
+
+<div class="NOTE">
+<h5>Note</h5>
+<p>Save the CSV block of text as a CSV file and name it &quot;Sites.csv&quot;</p>
+</div>
+<h2 id="contributors">Contributors</h2>
+<table>
+<thead>
+<tr>
+<th>Author(s)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Andrew Burns</td>
+</tr>
+</tbody>
+</table>
+<h2 id="disclaimer">Disclaimer</h2>
+<p><strong>THESE SAMPLES ARE PROVIDED <em>AS IS</em> WITHOUT WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, INCLUDING ANY IMPLIED WARRANTIES OF FITNESS FOR A PARTICULAR PURPOSE, MERCHANTABILITY, OR NON-INFRINGEMENT.</strong></p>
+<img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/spo-deploy-microsoft-clarity-from-csv" aria-hidden="true">
+</article>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            <span>Script Samples<br>Generated by <strong><a href='https://dotnet.github.io/docfx' alt='Doc FX Website'>DocFX</a></strong> with <strong><a href='https://ovasquez.github.io/docfx-material' alt='DocFx Material Theme'>Material UI</a></strong></span>
+            
+            <!-- <img src="https://telemetry.sharepointpnp.com/@pnp.github.io/index/" alt="spacer"> -->
+          </div>
+        </div>
+      </footer>    </div>
+    
+    <script type="text/javascript" src="../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+    
+    <script type="text/javascript" src="../styles/clipboard.min.js"></script>
+    <script type="text/javascript" src="../styles/isotope.pkgd.min.js"></script>
+    <script type="text/javascript" src="../styles/loadsamples.js"></script>
+    <script type="text/javascript" src="../styles/filtersamples.js"></script>
+
+  </body>
+</html>

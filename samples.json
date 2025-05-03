@@ -6831,6 +6831,54 @@
     ]
   },
   {
+    "name": "spo-deploy-microsoft-clarity-from-csv",
+    "title": "Deploy Microsoft Clarity Application Customizer for Site Collections",
+    "shortDescription": "Deploy and activate the Microsoft Clarity SPFx application customizer to a specific set of sites listed in a csv for a Microsoft Clarity project. ",
+    "url": "spo-deploy-microsoft-clarity-from-csv/README.html",
+    "creationDateTime": "2025-05-02",
+    "updateDateTime": "2025-05-02",
+    "products": [
+      "SharePoint"
+    ],
+    "metadata": [
+      {
+        "key": "PNP-POWERSHELL",
+        "value": "1.11.0"
+      }
+    ],
+    "categories": [
+      "Deploy"
+    ],
+    "tags": [
+      "Add-PnPApp",
+      "Add-PnPCustomAction",
+      "Add-PnPSiteCollectionAppCatalog",
+      "Connect-PnPOnline",
+      "Disconnect-PnPOnline",
+      "Get-PnPApp",
+      "Get-PnPApplicationCustomizer",
+      "Get-PnPSite",
+      "Get-PnPSiteCollectionAppCatalog",
+      "Install-PnPApp"
+    ],
+    "thumbnails": [
+      {
+        "type": "image",
+        "order": 100,
+        "url": "spo-deploy-microsoft-clarity-from-csv/assets/preview.png",
+        "alt": "Preview of the sample Deploy Microsoft Clarity Application Customizer for Site Collections"
+      }
+    ],
+    "authors": [
+      {
+        "gitHubAccount": "GeorgiaGit",
+        "company": "",
+        "pictureUrl": "https://github.com/GeorgiaGit.png",
+        "name": "Andrew Burns"
+      }
+    ]
+  },
+  {
     "name": "spo-deploy-pnpmodernsearch-webpart",
     "title": "Extract the configuration of a PnP Modern Search results web part and apply it on another site collection",
     "shortDescription": "Sample showing how to use extract the configuration of a PnP Modern Search results web part and apply it on another site collection",
