@@ -28,6 +28,8 @@ Find scripts by entering a keyword. You can filter by Tool.
             title="Microsoft Whiteboard Admin"></div>
     <div id="post-sample-filter-111" class="sampletype-item filter-choice bash" data-filter="[data-libraries*='Bash']"
             title="Bash Script"></div>
+    <div id="post-sample-filter-112" class="sampletype-item filter-choice python" data-filter="[data-libraries*='Python']"
+            title="Python Script"></div>
 </div>
 
 <div class="search-input-wrapper float-l" aria-hidden="true">
