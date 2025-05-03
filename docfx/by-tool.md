@@ -21,11 +21,15 @@ Find scripts by entering a keyword. You can filter by Tool.
     <div id="post-sample-filter-107" class="sampletype-item filter-choice powerapps-powershell" data-filter="[data-libraries*='powerapps-powershell']"
             title="Power Apps PowerShell SDK"></div>
     <div id="post-sample-filter-108" class="sampletype-item filter-choice powershell" data-filter="[data-libraries*='powershell']"
-            title="Generic PowerShell"></div>
+            title="PowerShell Only Script"></div>
     <div id="post-sample-filter-109" class="sampletype-item filter-choice microsoftteams-powershell" data-filter="[data-libraries*='microsoftteams-powershell']"
             title="Teams PowerShell SDK"></div>
     <div id="post-sample-filter-110" class="sampletype-item filter-choice microsoftwhiteboardadmin" data-filter="[data-libraries*='microsoftwhiteboardadmin']"
             title="Microsoft Whiteboard Admin"></div>
+    <div id="post-sample-filter-111" class="sampletype-item filter-choice bash" data-filter="[data-libraries*='Bash']"
+            title="Bash Script"></div>
+    <div id="post-sample-filter-112" class="sampletype-item filter-choice python" data-filter="[data-libraries*='Python']"
+            title="Python Script"></div>
 </div>
 
 <div class="search-input-wrapper float-l" aria-hidden="true">
