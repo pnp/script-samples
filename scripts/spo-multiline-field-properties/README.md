@@ -90,7 +90,7 @@ Set-PnPField -List $ListName -Identity $FieldName -Values @{
 
 ## Source Credit
 
-Sample first appeared on [PUpdating Multiline Text Field Properties in SharePoint Using PowerShell](https://reshmeeauckloo.com/posts/powershell-sharepoint-multilinefield-appendtext/)
+Sample first appeared on [Updating Multiline Text Field Properties in SharePoint Using PowerShell](https://reshmeeauckloo.com/posts/powershell-sharepoint-multilinefield-appendtext/)
 
 ## Contributors
 
