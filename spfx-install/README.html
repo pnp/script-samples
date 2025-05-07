@@ -300,23 +300,27 @@ if [[ $gotoHelp == &quot;false&quot; ]]; then
   echo
 
   if [[ &quot;$version&quot; == &quot;next&quot; ]]; then
-    nextNodeVersion=22.14.0 # THIS IS THE NODE VERSION, NOT SPFX
+    nextNodeVersion=22.11.0 # THIS IS THE NODE VERSION, NOT SPFX
     nextAlias=$nextNodeVersion
     echo -e &quot;\e[1;43m Installing dev environment for SPFx@next using NodeJs v$nextNodeVersion ... \e[0m&quot;
     installSPFx next $nextNodeVersion 0 5 3 true
   fi
 
   if [[ &quot;$version&quot; == &quot;spo&quot; ]]; then
-    spoVersion=&quot;1.21.0&quot; #used to create the alias
+    spoVersion=&quot;1.21.1&quot; #used to create the alias
     version=$spoVersion
     echo -e &quot;\e[1;43m Installing dev environment for SPFx@spo(v$version) ... \e[0m&quot;
   fi
 
-  if [[ &quot;$version&quot; == &quot;1.21.0&quot; || &quot;$version&quot; == &quot;all&quot; ]]; then #updated 10/1/2024
-    installSPFx 1.21.0 22.15.0 0 5.0.0 3.0.0 $fullInstall
+  if [[ &quot;$version&quot; == &quot;1.21.1&quot; || &quot;$version&quot; == &quot;all&quot; ]]; then 
+    installSPFx 1.21.1 22.14.0 0 5.1 3.0.0 $fullInstall
   fi
 
-  if [[ &quot;$version&quot; == &quot;1.20.0&quot; || &quot;$version&quot; == &quot;all&quot; ]]; then #updated 10/1/2024
+  if [[ &quot;$version&quot; == &quot;1.21.0&quot; || &quot;$version&quot; == &quot;all&quot; ]]; then 
+    installSPFx 1.21.0 22.15.0 0 5.1 3.0.0 $fullInstall
+  fi
+
+  if [[ &quot;$version&quot; == &quot;1.20.0&quot; || &quot;$version&quot; == &quot;all&quot; ]]; then 
     installSPFx 1.20.0 18.18.2 0 5.0.0 3.0.0 $fullInstall
   fi
 
@@ -512,7 +516,6 @@ else
   echo &quot;  nvm use spfx-sse    #latest version supported by SharePoint Server Subscription Edition&quot;
   echo &quot;  nvm use spfx-next   #latest version in development&quot;
 fi
-
 </code></pre>
 </section>
 </div>
