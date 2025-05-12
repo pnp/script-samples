@@ -4,6 +4,7 @@
 
 When generating a set of templates for a Teams Toolkit Declarative Agent, you may want to apply the template to overlay the default Declarative agent reducing the need to repeat the same changes each time you develop your agent. This starter script will help you do that, as a principle. In theory, you can use a set of scripts to generate many agents with Teams Toolkit CLI. 
 
+
 ![Example Screenshot](assets/example.png)
 
 ## Prerequisites
@@ -13,32 +14,34 @@ This script requires the following:
 
 Install the Teams Toolkit CLI using the following command:
 
-```powershell
-npm install -g @microsoft/teamsapp-cli
-teamsapp -h
-```
+- npm install -g @microsoft/teamsapp-cli
+- Run to test: teamsapp -h
 
 ## Folder Structure
 
 - Base Folder
-  - Copilot-Studio-Agent
-    - appPackage
-      - manifest.json
-      - declarativeAgent.json
-      - Instruction.md
-      ...
   - Copilot-Extensibility-Template
     - color.png
     - manifest.json
     - declarativeAgent.json
     - Instruction.md
     - outline.png
+  - Copilot-Studio-Agent (Just create the folder, the script will populate the contents + the template)
+    - appPackage
+      - manifest.json
+      - declarativeAgent.json
+      - Instruction.md
+      ...
+  - Other Agent 1
+  - Other Agent 2
+  - Other Agent 3
+  - Other Agent 4
  - Invoke-CoolScript.ps1
 
 
 # [PowerShell - Teams App CLI](#tab/ps)
 ```powershell
-<# 
+# Name the PowerShell Script Set-TemplateOverlay.ps1
 [CmdletBinding()]
 param (
     $targetFolderName = "Copilot-Studio-Agent",
@@ -162,7 +165,20 @@ end{
 }
 
 ```
+
+# [PowerShell - Teams App CLI (Bulk)](#tab/ps1)
+```powershell
+Read-Host -Prompt "This script will set the template overlay for all folders in the current directory. Press Enter to continue or Ctrl+C to cancel."
+
+.\Set-TemplateOverlay.ps1 -targetFolderName "Copilot-Studio-Agent" -appName "Copilot Studio Agent" -appShortName "Copilot-Studio-"
+.\Set-TemplateOverlay.ps1 -targetFolderName "Other-Agent-1" -appName "Other Agent 1" -appShortName "Other-Agent-1-"
+.\Set-TemplateOverlay.ps1 -targetFolderName "Other-Agent-2" -appName "Other Agent 2" -appShortName "Other-Agent-2-"
+.\Set-TemplateOverlay.ps1 -targetFolderName "Other-Agent-3" -appName "Other Agent 3" -appShortName "Other-Agent-3-"
+.\Set-TemplateOverlay.ps1 -targetFolderName "Other-Agent-4" -appName "Other Agent 4" -appShortName "Other-Agent-4-"
+```
 ***
+
+## Template Files
 
 # [JSON - declarativeAgent.json ](#tab/json1)
 ```json
@@ -235,7 +251,7 @@ You are a declarative agent and were created to support developers in extending 
 
 ## Source Blog Article
 
-- [reate Microsoft 365 Copilot declarative agents with Teams Toolkit CLI | pkbullock.com](https://pkbullock.com/blog/2025/create-declarative-agent-with-teams-toolkit-cli)
+- [Create Microsoft 365 Copilot declarative agents with Teams Toolkit CLI | pkbullock.com](https://pkbullock.com/blog/2025/create-declarative-agent-with-teams-toolkit-cli)
 
 ## Contributors
 
