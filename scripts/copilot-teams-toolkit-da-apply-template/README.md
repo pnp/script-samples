@@ -177,6 +177,7 @@ Read-Host -Prompt "This script will set the template overlay for all folders in 
 .\Set-TemplateOverlay.ps1 -targetFolderName "Other-Agent-4" -appName "Other Agent 4" -appShortName "Other-Agent-4-"
 ```
 ***
+[!INCLUDE [More about Teams Toolkit CLI](../../docfx/includes/MORE-TEAMSTOOLKITCLI.md)]
 
 ## Template Files
 
