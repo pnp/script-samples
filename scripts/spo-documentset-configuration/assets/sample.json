@@ -1,0 +1,68 @@
+[
+  {
+    "name": "spo-documentset-configuration",
+    "source": "pnp",
+    "title": "Configure SharePoint Document Set",
+    "shortDescription": "Configure SharePoint Document Set",
+    "url": "https://pnp.github.io/script-samples/spo-documentset-configuration/README.html",
+    "longDescription": [
+      "This script streamlines the setup of Document Sets across multiple libraries by enabling the feature, creating a custom content type, adding site columns, and integrating it into document libraries while excluding system libraries. It also automates the creation of sample document sets with metadata and enhances the default view by adding relevant columns."
+    ],
+    "creationDateTime": "2025-05-18",
+    "updateDateTime": "2025-05-18",
+    "products": [
+      "SharePoint",
+      "Libraries"
+    ],
+    "metadata": [
+      {
+        "key": "PNP-POWERSHELL",
+        "value": "3.0"
+      }
+    ],
+    "categories": [
+      "SharePoint"
+    ],
+    "tags": [
+      "modern",
+      "Connect-PnPOnline",
+      "Get-PnPField",
+      "Set-PnPField",
+      "Invoke-PnPQuery",
+      "Get-PnPView",
+      "Add-PnPDocumentSet",
+      "Get-PnPListItem",
+      "Set-PnPListItem",
+      "Set-PnPDefaultContentTypeToList",
+      "Add-PnPContentTypeToList",
+      "Set-PnPList",
+      "Get-PnPList",
+      "Add-PnPFieldToContentType",
+      "Add-PnPContentType",
+      "Enable-PnPFeature"
+    ],
+    "thumbnails": [
+      {
+        "type": "image",
+        "order": 100,
+        "url": "https://raw.githubusercontent.com/pnp/script-samples/main/scripts/spo-documentset-configuration/assets/preview.png",
+        "alt": ""
+      }
+    ],
+    "authors": [
+      {
+        "gitHubAccount": "reshmee011",
+        "company": "",
+        "pictureUrl": "https://avatars.githubusercontent.com/u/7693852?v=4",
+        "name": "Reshmee Auckloo"
+      }
+    ],
+    "references": [
+      {
+        "name": "Want to learn more about PnP PowerShell and the cmdlets",
+        "description": "Check out the PnP PowerShell site to get started and for the reference to the cmdlets.",
+        "url": "https://aka.ms/pnp/powershell"
+      }
+    ]
+  }
+]
