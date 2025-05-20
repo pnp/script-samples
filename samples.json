@@ -7407,6 +7407,61 @@
     ]
   },
   {
+    "name": "spo-documentset-configuration",
+    "title": "Configure SharePoint Document Set",
+    "shortDescription": "This script streamlines the setup of Document Sets across multiple libraries by enabling the feature, customisting and integrating into document libraries.",
+    "url": "spo-documentset-configuration/README.html",
+    "creationDateTime": "2025-05-18",
+    "updateDateTime": "2025-05-18",
+    "products": [
+      "SharePoint",
+      "Libraries"
+    ],
+    "metadata": [
+      {
+        "key": "PNP-POWERSHELL",
+        "value": "3.0"
+      }
+    ],
+    "categories": [
+      "SharePoint"
+    ],
+    "tags": [
+      "modern",
+      "Connect-PnPOnline",
+      "Get-PnPField",
+      "Set-PnPField",
+      "Invoke-PnPQuery",
+      "Get-PnPView",
+      "Add-PnPDocumentSet",
+      "Get-PnPListItem",
+      "Set-PnPListItem",
+      "Set-PnPDefaultContentTypeToList",
+      "Add-PnPContentTypeToList",
+      "Set-PnPList",
+      "Get-PnPList",
+      "Add-PnPFieldToContentType",
+      "Add-PnPContentType",
+      "Enable-PnPFeature"
+    ],
+    "thumbnails": [
+      {
+        "type": "image",
+        "order": 100,
+        "url": "spo-documentset-configuration/assets/preview.png",
+        "alt": ""
+      }
+    ],
+    "authors": [
+      {
+        "gitHubAccount": "reshmee011",
+        "company": "",
+        "pictureUrl": "https://avatars.githubusercontent.com/u/7693852?v=4",
+        "name": "Reshmee Auckloo"
+      }
+    ]
+  },
+  {
     "name": "spo-download-all-doclibs",
     "title": "Download all documents from all document libraries in a site, including version history",
     "shortDescription": "This PowerShell function will download all documents from all document libraries in a site, including version history. The documents will be saved in a folder structure that matches the library structure.",
