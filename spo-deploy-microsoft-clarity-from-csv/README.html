@@ -231,6 +231,8 @@ foreach ($site in $sites) {
             Write-Host &quot;Site collection app catalog is not enabled. Enabling it now...&quot; -ForegroundColor Yellow
             Write-Output &quot;Site collection app catalog is not enabled. Enabling it now...&quot; | Out-File -FilePath $logFilePath -Append
             Add-PnPSiteCollectionAppCatalog -Site $siteUrl -ErrorAction Stop
+            Write-Host &quot;Site collection app catalog deploying...&quot; -ForegroundColor Green
+            Start-Sleep -Seconds 20 # Adjust the wait time as needed
             Write-Host &quot;Site collection app catalog enabled successfully.&quot; -ForegroundColor Green
             Write-Output &quot;Site collection app catalog enabled successfully.&quot; | Out-File -FilePath $logFilePath -Append
         } else {
