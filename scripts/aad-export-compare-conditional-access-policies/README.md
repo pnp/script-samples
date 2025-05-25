@@ -86,7 +86,7 @@ $EmailTo = "[recipient email address]"
 $SmtpServer = "smtp.office365.com"
 
 # Teams webhook URL (if $SendTeamsNotification is $true)
-$TeamsWebhookUrl = "https://devgods.webhook.office.com/webhookb2/"
+$TeamsWebhookUrl = "https://[your tenant].webhook.office.com/webhookb2/"
 
 # Create required directories if they don't exist
 $Directories = @($ConfigPath, $HistoryPath, $CurrentExportPath, $LogPath, $ComparisonReportPath)
