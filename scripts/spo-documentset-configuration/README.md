@@ -28,7 +28,9 @@ param (
     [Parameter(Mandatory = $true)]
     [string] $columnsToAddToDocSet = "Company,Department",
     [Parameter(Mandatory = $false)]
-    [string] $docSetToAdd = "CompanyA,CompanyB"
+    [string] $docSetToAdd = "CompanyA,CompanyB",
+    [Parameter(Mandatory = $false)]
+    [boolean] $enableModernLayout
 )
 
 Connect-PnPOnline -Url $siteUrl
@@ -83,6 +85,15 @@ Get-PnPList | Where-Object { $_.BaseTemplate -eq 101 -and $_.Hidden -eq $False -
             }
         }
     }
+
+    if($enableModernLayout) {
+        # Enable modern layout for the content type
+        $ct = Get-PnPContentType -Identity $docsetCTName -List $list
+        $ct.NewFormClientSideComponentId = $null
+        $ct.Update($false)
+        Invoke-PnPQuery
+        Write-Host -f Green "Modern layout enabled for content type $docsetCTName in library $($list.Title)!"
+    }
 }
 ```
 
@@ -96,9 +107,10 @@ Sample first appeared on [Automate SharePoint Document Set Configuration with Po
 
 ## Contributors
 
-| Author(s) |
-|-----------|
+| Author(s)                                        |
+| ------------------------------------------------ |
 | [Reshmee Auckloo](https://github.com/reshmee011) |
+| [Dan Toft](https://dan-toft.dk)                  |
 
 
 [!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
