@@ -1,5 +1,63 @@
 [
   {
+    "name": "aad-access-review-manager",
+    "title": "Kick-off & download Access-Review results across all groups",
+    "shortDescription": "This script enumerates all access-review definitions, triggers overdue reviews, polls for completion, and exports decisions to CSV for audit.",
+    "url": "aad-access-review-manager/README.html",
+    "creationDateTime": "2025-05-25",
+    "updateDateTime": "2025-05-25",
+    "products": [
+      "SharePoint",
+      "Office",
+      "Graph",
+      "PowerApps",
+      "Teams",
+      "Power Automate",
+      "Microsoft Todo",
+      "Azure",
+      "Microsoft 365 Copilot"
+    ],
+    "metadata": [
+      {
+        "key": "GRAPH-POWERSHELL",
+        "value": "1.0.0"
+      }
+    ],
+    "categories": [
+      "Modernize",
+      "Data",
+      "Deploy",
+      "Provision",
+      "Configure",
+      "Report",
+      "Security",
+      "AI",
+      "Microsoft 365 Copilot"
+    ],
+    "tags": [
+      "Get-MgIdentityGovernanceAccessReview",
+      "Start-MgIdentityGovernanceAccessReview",
+      "Get-MgIdentityGovernanceAccessReviewDecision",
+      "Export-Csv"
+    ],
+    "thumbnails": [
+      {
+        "type": "image",
+        "order": 100,
+        "url": "aad-access-review-manager/assets/preview.png",
+        "alt": "Preview of the sample Kick-off & download Access-Review results across all groups"
+      }
+    ],
+    "authors": [
+      {
+        "gitHubAccount": "ValerasNarbutas",
+        "company": "",
+        "pictureUrl": "https://github.com/ValerasNarbutas.png",
+        "name": "Valeras Narbutas"
+      }
+    ]
+  },
+  {
     "schema": null,
     "name": "aad-add-app-permissions-and-connect-to-sharepoint",
     "version": null,

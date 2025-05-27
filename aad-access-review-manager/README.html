@@ -1,0 +1,431 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html lang="en">
+  
+  <head>
+    <meta charset="utf-8">
+    <title>Download Access-Review results across all groups | PnP Samples </title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="title" content="Download Access-Review results across all groups | PnP Samples ">
+    <meta name="generator" content="docfx 2.56.7.0">
+    <meta name="description" content="A sample gallery of scripts to manage all things Microsoft 365.">
+  
+    <!-- Social Media -->
+    <meta property="og:locale" content="en_GB">
+    <meta property="og:title" content="Download Access-Review results across all groups | PnP Samples ">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://pnp.github.io/script-samples">
+    <meta property="og:image" content="https://pnp.github.io/script-samples/assets/social-media-screenshot.png">
+    <meta property="og:image:alt" content="Screenshot example of the PnP Script Samples Site">
+    <meta property="og:site_name" content="PnP Script Samples">
+    <meta name="msvalidate.01" content="04EFEDA66EC42C08A1247C979E2F9ADD">
+    <meta property="og:description" content="A sample gallery of scripts to manage all things Microsoft 365.">
+  
+    <link rel="shortcut icon" href="https://c.s-microsoft.com/favicon.ico?v2">
+    <link rel="stylesheet" href="../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../styles/docfx.css">
+    <link rel="stylesheet" href="../styles/main.css">
+    <link rel="stylesheet" href="../styles/extra.css">
+    <link rel="stylesheet" href="../styles/filter.css">
+    <link rel="stylesheet" href="../styles/site.css">
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet"> 
+    <meta property="docfx:navrel" content="../toc.html">
+    <meta property="docfx:tocrel" content="../toc.html">
+    
+    
+    <meta property="docfx:newtab" content="true">
+    <script type="text/javascript">
+      (function(c,l,a,r,i,t,y){
+          c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+          t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+          y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+      })(window, document, "clarity", "script", "8j6pedl344");
+  </script>
+  </head>  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+             <div class="github-mark">
+              <a href="https://github.com/pnp/script-samples" title="Go to repository">
+               <div class="github-wrapper">
+                  <div class="github-icon">
+                    <img src="https://pnp.github.io/script-samples/assets/icons/github-light-64px.png" alt="GitHub Icon Image">
+                  </div>
+                  <div class="github-repository">
+                    <span>GitHub</span>
+                    <ul class="github-facts">
+                      <li>
+                        <i class="fa fa-code-fork" aria-hidden="true"></i>
+                        <span class="github-forks"></span>
+                      </li>
+                      <li>
+                        <i class="fa fa-star-o" aria-hidden="true"></i>
+                        <span class="github-stars"></span>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </a>
+            </div>
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../assets/logo.svg" alt="">
+              </a>    </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <label class="glyphicon glyphicon-search" for="search-query"></label>
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>      </header>
+      <div role="main" class="container body-content hide-when-search">
+        <div class="article row grid">
+          <div class="col-md-12">
+            <article class="content wrap" id="_content" data-uid="">
+                  <div class="contribution-panel mobile-hide pull-right">
+                      <a href="https://github.com/pnp/script-samples/blob/main/scripts/aad-access-review-manager/README.md/#L1" title="Improve this Doc" class="improve-doc-lg"><i class="glyphicon glyphicon-pencil"></i></a>
+                  </div>
+                    <h1 id="download-access-review-results-across-all-groups">Download Access-Review results across all groups</h1>
+
+<h2 id="summary">Summary</h2>
+<p>This script automates the management and reporting of Access Reviews in Entra ID. It addresses the common problem where access reviews are often left uncompleted or unattended. The script:</p>
+<ol>
+<li>Enumerates all access review definitions in your tenant</li>
+<li>Identifies and triggers any overdue reviews</li>
+<li>Polls for completion status of active reviews</li>
+<li>Exports all decisions (accessReviewInstanceDecisionItem) to CSV for audit and record-keeping</li>
+</ol>
+<p>The automation helps security and compliance teams ensure that access reviews are completed on time and provides thorough documentation of all decisions made during the review process.</p>
+<p><img src="assets/example.png" alt="Example Screenshot"></p>
+<h2 id="prerequisites">Prerequisites</h2>
+<ul>
+<li>Microsoft Graph PowerShell SDK modules</li>
+<li>Permissions required:
+<ul>
+<li>AccessReview.Read.All (to enumerate and read access reviews)</li>
+<li>AccessReview.ReadWrite.All (to start reviews and retrieve decisions)</li>
+</ul>
+</li>
+<li>An account with appropriate permissions to run access reviews</li>
+<li>PowerShell 5.1 or higher</li>
+</ul>
+<div class="tabGroup" id="tabgroup_CeZOj-G++Q">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_CeZOj-G++Q_graphps" role="tab" aria-controls="tabpanel_CeZOj-G++Q_graphps" data-tab="graphps" tabindex="0" aria-selected="true">Microsoft Graph PowerShell</a>
+</li>
+</ul>
+<section id="tabpanel_CeZOj-G++Q_graphps" role="tabpanel" data-tab="graphps">
+
+<pre><code class="lang-powershell">#-----------------------------------------------------------------------
+# Kick-off &amp; Download Access-Review Results Across All Groups
+#
+# This script will:
+# 1. Connect to Microsoft Graph with the required permissions
+# 2. Enumerate all access review definitions
+# 3. Start any overdue reviews
+# 4. Poll for completion
+# 5. Export all decisions to CSV for audit purposes
+#-----------------------------------------------------------------------
+
+# Check if the required modules are installed and import them
+if (!(Get-Module -Name Microsoft.Graph)) {
+    Write-Host &quot;Microsoft Graph PowerShell module not found. Installing...&quot; -ForegroundColor Yellow
+    Install-Module Microsoft.Graph -Scope CurrentUser -Force
+}
+
+# Connect to Microsoft Graph with the required permissions
+Connect-MgGraph -Scopes &quot;AccessReview.Read.All&quot;, &quot;AccessReview.ReadWrite.All&quot; -NoWelcome
+
+# Set the output directory for reports
+$outputDir = &quot;.\AccessReviewReports&quot;
+if (!(Test-Path $outputDir)) {
+    New-Item -ItemType Directory -Path $outputDir | Out-Null
+}
+
+# Get the current date for reporting
+$currentDate = Get-Date -Format &quot;yyyy-MM-dd&quot;
+$reportFile = Join-Path $outputDir &quot;AccessReviewReport_$currentDate.csv&quot;
+$decisionsFile = Join-Path $outputDir &quot;AccessReviewDecisions_$currentDate.csv&quot;
+
+# Function to get all access review definitions
+function Get-AllAccessReviews {
+    try {
+        # Get all access review definitions
+        $accessReviews = Invoke-MgGraphRequest -Uri &quot;https://graph.microsoft.com/v1.0/identityGovernance/accessReviews/definitions&quot; -Method GET
+        return $accessReviews.value
+    }
+    catch {
+        Write-Error &quot;Error retrieving access review definitions: $_&quot;
+        return $null
+    }
+}
+
+# Function to start an overdue access review
+function Start-OverdueAccessReview {
+    param (
+        [Parameter(Mandatory = $true)]
+        [string]$ReviewId
+    )
+    
+    try {
+        # Start the access review
+        Invoke-MgGraphRequest -Uri &quot;https://graph.microsoft.com/v1.0/identityGovernance/accessReviews/definitions/$ReviewId/start&quot; -Method POST
+        Write-Host &quot;Successfully started access review: $ReviewId&quot; -ForegroundColor Green
+        return $true
+    }
+    catch {
+        Write-Error &quot;Error starting access review $ReviewId : $_&quot;
+        return $false
+    }
+}
+
+# Function to get all instances of an access review
+function Get-AccessReviewInstances {
+    param (
+        [Parameter(Mandatory = $true)]
+        [string]$ReviewId
+    )
+    
+    try {
+        # Get all instances of the access review
+        $instances = Invoke-MgGraphRequest -Uri &quot;https://graph.microsoft.com/v1.0/identityGovernance/accessReviews/definitions/$ReviewId/instances&quot; -Method GET
+        return $instances.value
+    }
+    catch {
+        Write-Error &quot;Error retrieving instances for access review $ReviewId : $_&quot;
+        return $null
+    }
+}
+
+# Function to get all decisions for an access review instance
+function Get-AccessReviewDecisions {
+    param (
+        [Parameter(Mandatory = $true)]
+        [string]$ReviewId,
+        
+        [Parameter(Mandatory = $true)]
+        [string]$InstanceId
+    )
+    
+    try {
+        # Get all decisions for the access review instance
+        $decisions = @()
+        $uri = &quot;https://graph.microsoft.com/v1.0/identityGovernance/accessReviews/definitions/$ReviewId/instances/$InstanceId/decisions&quot;
+        
+        do {
+            $response = Invoke-MgGraphRequest -Uri $uri -Method GET
+            $decisions += $response.value
+            $uri = $response.'@odata.nextLink'
+        } while ($uri)
+        
+        return $decisions
+    }
+    catch {
+        Write-Error &quot;Error retrieving decisions for access review instance $InstanceId : $_&quot;
+        return $null
+    }
+}
+
+# Main script execution
+Write-Host &quot;Starting access review management process...&quot; -ForegroundColor Cyan
+
+# Get all access review definitions
+$allReviews = Get-AllAccessReviews
+if ($null -eq $allReviews) {
+    Write-Host &quot;No access reviews found or error retrieving them. Exiting.&quot; -ForegroundColor Red
+    exit
+}
+
+Write-Host &quot;Found $($allReviews.Count) access review definitions.&quot; -ForegroundColor Green
+
+# Create an array to store review information for reporting
+$reviewReport = @()
+$allDecisions = @()
+
+# Process each access review
+foreach ($review in $allReviews) {
+    Write-Host &quot;Processing Access Review: $($review.displayName)&quot; -ForegroundColor Cyan
+    
+    # Check if the review is overdue to start
+    $shouldStart = $false
+    if ($review.status -eq &quot;NotStarted&quot;) {
+        $startDateTime = [DateTime]::Parse($review.schedule.startDateTime)
+        if ($startDateTime -lt (Get-Date)) {
+            $shouldStart = $true
+            Write-Host &quot;  Review is overdue to start. Attempting to start it now...&quot; -ForegroundColor Yellow
+            $started = Start-OverdueAccessReview -ReviewId $review.id
+            if ($started) {
+                $review.status = &quot;InProgress&quot;
+            }
+        }
+    }
+    
+    # Get instances for this review
+    $instances = Get-AccessReviewInstances -ReviewId $review.id
+    if ($null -eq $instances) {
+        Write-Host &quot;  No instances found for this review.&quot; -ForegroundColor Yellow
+        continue
+    }
+    
+    Write-Host &quot;  Found $($instances.Count) instances for this review.&quot; -ForegroundColor Green
+    
+    # Process each instance
+    foreach ($instance in $instances) {
+        # Add to the report
+        $reviewInfo = [PSCustomObject]@{
+            ReviewId              = $review.id
+            ReviewName            = $review.displayName
+            InstanceId            = $instance.id
+            Status                = $instance.status
+            StartDateTime         = $instance.startDateTime
+            EndDateTime           = $instance.endDateTime
+            ReviewerCount         = $instance.reviewers.Count
+            WasStartedAutomatically = $shouldStart
+        }
+        $reviewReport += $reviewInfo
+        
+        # If the instance is completed, get all decisions
+        if ($instance.status -eq &quot;Completed&quot;) {
+            Write-Host &quot;    Getting decisions for completed instance $($instance.id)&quot; -ForegroundColor Green
+            $decisions = Get-AccessReviewDecisions -ReviewId $review.id -InstanceId $instance.id
+            
+            if ($null -ne $decisions -and $decisions.Count -gt 0) {
+                foreach ($decision in $decisions) {
+                    $decisionInfo = [PSCustomObject]@{
+                        ReviewId         = $review.id
+                        ReviewName       = $review.displayName
+                        InstanceId       = $instance.id
+                        DecisionId       = $decision.id
+                        ResourceId       = $decision.resourceId
+                        Decision         = $decision.decision
+                        ReviewedBy       = $decision.reviewedBy.displayName
+                        ReviewedByUpn    = $decision.reviewedBy.userPrincipalName
+                        AppliedBy        = $decision.appliedBy.displayName
+                        AppliedDateTime  = $decision.appliedDateTime
+                        Justification    = $decision.justification
+                    }
+                    $allDecisions += $decisionInfo
+                }
+                Write-Host &quot;    Retrieved $($decisions.Count) decisions.&quot; -ForegroundColor Green
+            }
+            else {
+                Write-Host &quot;    No decisions found for this instance.&quot; -ForegroundColor Yellow
+            }
+        }
+    }
+}
+
+# Export the reports to CSV
+if ($reviewReport.Count -gt 0) {
+    $reviewReport | Export-Csv -Path $reportFile -NoTypeInformation
+    Write-Host &quot;Exported review report to: $reportFile&quot; -ForegroundColor Green
+}
+
+if ($allDecisions.Count -gt 0) {
+    $allDecisions | Export-Csv -Path $decisionsFile -NoTypeInformation
+    Write-Host &quot;Exported decision details to: $decisionsFile&quot; -ForegroundColor Green
+}
+
+Write-Host &quot;Access review management process completed successfully.&quot; -ForegroundColor Cyan
+Disconnect-MgGraph
+</code></pre>
+<div class="highlight-tool">
+<p>Check out the <strong>Microsoft Graph PowerShell SDK</strong> to learn more at: <a href="https://learn.microsoft.com/graph/powershell/get-started">https://learn.microsoft.com/graph/powershell/get-started</a></p>
+</div>
+</section>
+</div>
+<h2 id="contributors">Contributors</h2>
+<table>
+<thead>
+<tr>
+<th>Author(s)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="https://github.com/ValerasNarbutas">Valeras Narbutas</a></td>
+</tr>
+</tbody>
+</table>
+<h2 id="additional-information">Additional Information</h2>
+<h3 id="key-microsoft-graph-api-endpoints-used">Key Microsoft Graph API Endpoints Used</h3>
+<ol>
+<li><p>List access review definitions:</p>
+<ul>
+<li><code>GET /identityGovernance/accessReviews/definitions</code></li>
+</ul>
+</li>
+<li><p>Start an access review:</p>
+<ul>
+<li><code>POST /identityGovernance/accessReviews/definitions/{reviewId}/start</code></li>
+</ul>
+</li>
+<li><p>Get access review instances:</p>
+<ul>
+<li><code>GET /identityGovernance/accessReviews/definitions/{reviewId}/instances</code></li>
+</ul>
+</li>
+<li><p>Get access review decisions:</p>
+<ul>
+<li><code>GET /identityGovernance/accessReviews/definitions/{reviewId}/instances/{instanceId}/decisions</code></li>
+</ul>
+</li>
+</ol>
+<h3 id="sample-output">Sample Output</h3>
+<p>The script produces two CSV files:</p>
+<ol>
+<li><strong>Access Review Report</strong> - Lists all access review definitions and their instances with status</li>
+<li><strong>Access Review Decisions</strong> - Contains all decisions made across completed reviews</li>
+</ol>
+<h3 id="scheduling-the-script">Scheduling the Script</h3>
+<p>For optimal results, consider scheduling this script to run weekly to ensure that:</p>
+<ul>
+<li>New access reviews are started promptly</li>
+<li>Completed reviews have their decisions exported for record-keeping</li>
+<li>You have visibility into the overall access review health of your tenant</li>
+</ul>
+<h2 id="disclaimer">Disclaimer</h2>
+<p><strong>THESE SAMPLES ARE PROVIDED <em>AS IS</em> WITHOUT WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, INCLUDING ANY IMPLIED WARRANTIES OF FITNESS FOR A PARTICULAR PURPOSE, MERCHANTABILITY, OR NON-INFRINGEMENT.</strong></p>
+<img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/aad-access-review-manager" aria-hidden="true">
+</article>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            <span>Script Samples<br>Generated by <strong><a href='https://dotnet.github.io/docfx' alt='Doc FX Website'>DocFX</a></strong> with <strong><a href='https://ovasquez.github.io/docfx-material' alt='DocFx Material Theme'>Material UI</a></strong></span>
+            
+            <!-- <img src="https://telemetry.sharepointpnp.com/@pnp.github.io/index/" alt="spacer"> -->
+          </div>
+        </div>
+      </footer>    </div>
+    
+    <script type="text/javascript" src="../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+    
+    <script type="text/javascript" src="../styles/clipboard.min.js"></script>
+    <script type="text/javascript" src="../styles/isotope.pkgd.min.js"></script>
+    <script type="text/javascript" src="../styles/loadsamples.js"></script>
+    <script type="text/javascript" src="../styles/filtersamples.js"></script>
+
+  </body>
+</html>
