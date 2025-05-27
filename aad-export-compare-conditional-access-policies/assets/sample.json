@@ -1,0 +1,64 @@
+[
+  {
+    "name": "aad-export-compare-conditional-access-policies",
+    "source": "pnp",
+    "title": "Export & Compare Conditional-Access Policies (drift-detect)",
+    "shortDescription": "This script exports Conditional Access Policies to JSON, stores them for version control, and detects changes between runs.",
+    "url": "https://pnp.github.io/script-samples/aad-export-compare-conditional-access-policies/README.html",
+    "longDescription": [
+      "This script automates the export and comparison of Conditional Access Policies within an Azure AD tenant to detect configuration drift. It helps monitor changes to these critical security controls over time, ensuring they remain compliant with your organization's zero-trust baselines."
+    ],
+    "creationDateTime": "2025-05-25",
+    "updateDateTime": "2025-05-25",    "products": [
+      "Graph",
+      "Azure",
+      "Microsoft 365",
+      "Entra ID"
+    ],
+    "metadata": [
+      {
+        "key": "GRAPH-POWERSHELL",
+        "value": "1.0.0"
+      }
+    ],    
+    "categories": [
+      "Security",
+      "Report",
+      "Configure",
+      "Monitor"
+    ],    
+    "tags": [
+      "Microsoft Graph",
+      "Conditional Access",
+      "Security",
+      "Configuration drift",
+      "Policy management",
+      "Connect-MgGraph",
+      "Invoke-MgGraphRequest",
+      "Compare-Object"
+    ],
+    "thumbnails": [
+      {
+        "type": "image",
+        "order": 100,
+        "url": "https://raw.githubusercontent.com/pnp/script-samples/main/scripts/aad-export-compare-conditional-access-policies/assets/preview.png",
+        "alt": "Preview of the sample Export & Compare Conditional-Access Policies (drift-detect)"
+      }
+    ],
+    "authors": [
+      {
+        "gitHubAccount": "ValerasNarbutas",
+        "company": "",
+        "pictureUrl": "https://github.com/ValerasNarbutas.png",
+        "name": "Valeras Narbutas"
+      }
+    ],
+    "references": [
+      {
+        "name": "Want to learn more about Microsoft Graph PowerShell SDK and the cmdlets",
+        "description": "Check out the Microsoft Graph PowerShell SDK documentation site to get started and for the reference to the cmdlets.",
+        "url": "https://learn.microsoft.com/graph/powershell/get-started"
+      }
+    ]
+  }
+]

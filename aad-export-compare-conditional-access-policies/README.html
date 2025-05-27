@@ -1,0 +1,515 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html lang="en">
+  
+  <head>
+    <meta charset="utf-8">
+    <title>Export &amp; Compare Conditional-Access Policies (drift-detect) | PnP Samples </title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="title" content="Export &amp; Compare Conditional-Access Policies (drift-detect) | PnP Samples ">
+    <meta name="generator" content="docfx 2.56.7.0">
+    <meta name="description" content="A sample gallery of scripts to manage all things Microsoft 365.">
+  
+    <!-- Social Media -->
+    <meta property="og:locale" content="en_GB">
+    <meta property="og:title" content="Export &amp; Compare Conditional-Access Policies (drift-detect) | PnP Samples ">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://pnp.github.io/script-samples">
+    <meta property="og:image" content="https://pnp.github.io/script-samples/assets/social-media-screenshot.png">
+    <meta property="og:image:alt" content="Screenshot example of the PnP Script Samples Site">
+    <meta property="og:site_name" content="PnP Script Samples">
+    <meta name="msvalidate.01" content="04EFEDA66EC42C08A1247C979E2F9ADD">
+    <meta property="og:description" content="A sample gallery of scripts to manage all things Microsoft 365.">
+  
+    <link rel="shortcut icon" href="https://c.s-microsoft.com/favicon.ico?v2">
+    <link rel="stylesheet" href="../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../styles/docfx.css">
+    <link rel="stylesheet" href="../styles/main.css">
+    <link rel="stylesheet" href="../styles/extra.css">
+    <link rel="stylesheet" href="../styles/filter.css">
+    <link rel="stylesheet" href="../styles/site.css">
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet"> 
+    <meta property="docfx:navrel" content="../toc.html">
+    <meta property="docfx:tocrel" content="../toc.html">
+    
+    
+    <meta property="docfx:newtab" content="true">
+    <script type="text/javascript">
+      (function(c,l,a,r,i,t,y){
+          c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+          t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+          y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+      })(window, document, "clarity", "script", "8j6pedl344");
+  </script>
+  </head>  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+             <div class="github-mark">
+              <a href="https://github.com/pnp/script-samples" title="Go to repository">
+               <div class="github-wrapper">
+                  <div class="github-icon">
+                    <img src="https://pnp.github.io/script-samples/assets/icons/github-light-64px.png" alt="GitHub Icon Image">
+                  </div>
+                  <div class="github-repository">
+                    <span>GitHub</span>
+                    <ul class="github-facts">
+                      <li>
+                        <i class="fa fa-code-fork" aria-hidden="true"></i>
+                        <span class="github-forks"></span>
+                      </li>
+                      <li>
+                        <i class="fa fa-star-o" aria-hidden="true"></i>
+                        <span class="github-stars"></span>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </a>
+            </div>
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../assets/logo.svg" alt="">
+              </a>    </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <label class="glyphicon glyphicon-search" for="search-query"></label>
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>      </header>
+      <div role="main" class="container body-content hide-when-search">
+        <div class="article row grid">
+          <div class="col-md-12">
+            <article class="content wrap" id="_content" data-uid="">
+                  <div class="contribution-panel mobile-hide pull-right">
+                      <a href="https://github.com/pnp/script-samples/blob/main/scripts/aad-export-compare-conditional-access-policies/README.md/#L1" title="Improve this Doc" class="improve-doc-lg"><i class="glyphicon glyphicon-pencil"></i></a>
+                  </div>
+                    <h1 id="export--compare-conditional-access-policies-drift-detect">Export &amp; Compare Conditional-Access Policies (drift-detect)</h1>
+
+<h2 id="summary">Summary</h2>
+<p>This script automates the export and comparison of Conditional Access Policies within an Azure AD tenant to detect configuration drift. It helps monitor changes to these critical security controls over time, ensuring they remain compliant with your organization's zero-trust baselines.</p>
+<p>The script performs the following operations:</p>
+<ol>
+<li>Authenticates to Microsoft Graph API</li>
+<li>Exports all Conditional Access Policies to JSON format</li>
+<li>Saves each policy with timestamps to establish a version history</li>
+<li>Compares current policies to the previous export</li>
+<li>Generates alerts for any detected changes</li>
+<li>Optionally sends notifications via email or Microsoft Teams</li>
+</ol>
+<p><img src="assets/example.png" alt="Conditional Access Policy Drift Detection"></p>
+<h2 id="prerequisites">Prerequisites</h2>
+<ul>
+<li>Microsoft Graph PowerShell SDK modules installed</li>
+<li>Permissions to read Conditional Access Policies (Application or delegated)</li>
+<li>Required permissions:
+<ul>
+<li><code>Policy.Read.All</code> for reading Conditional Access Policies</li>
+<li><code>Mail.Send</code> (optional for email notifications)</li>
+<li>Teams webhook (optional for Teams notifications)</li>
+</ul>
+</li>
+</ul>
+<h2 id="implementation">Implementation</h2>
+<p>This solution provides a scheduled monitoring approach for Conditional Access Policies in your tenant. By tracking policy changes, your security team can quickly identify unexpected alterations, ensuring there's no drift from your security baselines.</p>
+<div class="tabGroup" id="tabgroup_CeZOj-G++Q">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_CeZOj-G++Q_graphps" role="tab" aria-controls="tabpanel_CeZOj-G++Q_graphps" data-tab="graphps" tabindex="0" aria-selected="true">Microsoft Graph PowerShell</a>
+</li>
+</ul>
+<section id="tabpanel_CeZOj-G++Q_graphps" role="tabpanel" data-tab="graphps">
+
+<pre><code class="lang-powershell"># Conditional Access Policy Export and Drift Detection Script
+# Script exports all Conditional Access Policies from Azure AD, saves them to JSON files,
+# and compares them with previous exports to detect any changes (drift)
+
+#-------------------------------------------------------------
+# Module Management
+#-------------------------------------------------------------
+# Required modules
+$requiredModules = @(
+    &quot;Microsoft.Graph.Authentication&quot;, 
+    &quot;Microsoft.Graph.Identity.SignIns&quot;
+)
+
+# Check and install required modules
+foreach ($module in $requiredModules) {
+    # Check if module is installed
+    if (-not (Get-Module -ListAvailable -Name $module)) {
+        Write-Host &quot;Module $module is not installed. Installing...&quot;
+        try {
+            Install-Module -Name $module -Force -AllowClobber -Scope CurrentUser
+            Write-Host &quot;Module $module installed successfully&quot; -ForegroundColor Green
+        }
+        catch {
+            Write-Host &quot;Failed to install module $module. Error: $_&quot; -ForegroundColor Red
+            exit 1
+        }
+    }
+    
+    # Import the module
+    try {
+        Import-Module -Name $module -ErrorAction Stop
+        Write-Host &quot;Module $module imported successfully&quot; -ForegroundColor Green
+    }
+    catch {
+        Write-Host &quot;Failed to import module $module. Error: $_&quot; -ForegroundColor Red
+        exit 1
+    }
+}
+
+#-------------------------------------------------------------
+# Configuration
+#-------------------------------------------------------------
+$ConfigPath = &quot;$PSScriptRoot\Config&quot;
+$HistoryPath = &quot;$PSScriptRoot\History&quot;
+$CurrentExportPath = &quot;$PSScriptRoot\Current&quot;
+$LogPath = &quot;$PSScriptRoot\Logs&quot;
+$ComparisonReportPath = &quot;$PSScriptRoot\Reports&quot;
+$SendEmail = $false
+$SendTeamsNotification = $true
+
+# Email settings (if $SendEmail is $true)
+$EmailFrom = &quot;[your email address]&quot;
+$EmailTo = &quot;[recipient email address]&quot;
+$SmtpServer = &quot;smtp.office365.com&quot;
+
+# Teams webhook URL (if $SendTeamsNotification is $true)
+$TeamsWebhookUrl = &quot;https://[your tenant].webhook.office.com/webhookb2/&quot;
+
+# Create required directories if they don't exist
+$Directories = @($ConfigPath, $HistoryPath, $CurrentExportPath, $LogPath, $ComparisonReportPath)
+foreach ($Dir in $Directories) {
+    if (!(Test-Path -Path $Dir)) {
+        New-Item -ItemType Directory -Path $Dir -Force | Out-Null
+    }
+}
+
+#-------------------------------------------------------------
+# Functions
+#-------------------------------------------------------------
+function Write-Log {
+    param (
+        [string]$Message,
+        [string]$Level = &quot;INFO&quot;
+    )
+    
+    $Timestamp = Get-Date -Format &quot;yyyy-MM-dd HH:mm:ss&quot;
+    $LogEntry = &quot;[$Timestamp] [$Level] $Message&quot;
+    
+    # Write to console
+    switch ($Level) {
+        &quot;ERROR&quot; { Write-Host $LogEntry -ForegroundColor Red }
+        &quot;WARNING&quot; { Write-Host $LogEntry -ForegroundColor Yellow }
+        &quot;SUCCESS&quot; { Write-Host $LogEntry -ForegroundColor Green }
+        default { Write-Host $LogEntry }
+    }
+    
+    # Write to log file
+    $LogFile = Join-Path -Path $LogPath -ChildPath &quot;CA-Drift-$(Get-Date -Format 'yyyy-MM-dd').log&quot;
+    Add-Content -Path $LogFile -Value $LogEntry
+}
+
+function Send-EmailAlert {
+    param (
+        [string]$Subject,
+        [string]$Body
+    )
+    
+    try {
+        Send-MailMessage -From $EmailFrom -To $EmailTo -Subject $Subject -Body $Body -BodyAsHtml -SmtpServer $SmtpServer -UseSsl -Port 587 -Credential (Get-Credential -Message &quot;Enter email credentials&quot;)
+        Write-Log &quot;Email notification sent successfully&quot; -Level &quot;SUCCESS&quot;
+    }
+    catch {
+        Write-Log &quot;Failed to send email notification: $_&quot; -Level &quot;ERROR&quot;
+    }
+}
+
+function Send-TeamsAlert {
+    param (
+        [string]$Title,
+        [string]$Message,
+        [string]$Color = &quot;#FF0000&quot; # Red
+    )
+    
+    try {
+        $JSON = @{
+            &quot;@type&quot; = &quot;MessageCard&quot;
+            &quot;@context&quot; = &quot;http://schema.org/extensions&quot;
+            &quot;summary&quot; = $Title
+            &quot;themeColor&quot; = $Color
+            &quot;sections&quot; = @(
+                @{
+                    &quot;activityTitle&quot; = $Title
+                    &quot;activitySubtitle&quot; = &quot;Generated on $(Get-Date -Format 'yyyy-MM-dd HH:mm')&quot;
+                    &quot;text&quot; = $Message
+                }
+            )
+        } | ConvertTo-Json -Depth 4
+        
+        Invoke-RestMethod -Uri $TeamsWebhookUrl -Method Post -Body $JSON -ContentType &quot;application/json&quot;
+        Write-Log &quot;Teams notification sent successfully&quot; -Level &quot;SUCCESS&quot;
+    }
+    catch {
+        Write-Log &quot;Failed to send Teams notification: $_&quot; -Level &quot;ERROR&quot;
+    }
+}
+
+function Compare-Policies {
+    param (
+        [string]$CurrentPolicyPath,
+        [string]$PreviousPolicyPath,
+        [string]$PolicyName
+    )
+    
+    try {
+        $CurrentPolicy = Get-Content -Path $CurrentPolicyPath | ConvertFrom-Json
+        $PreviousPolicy = Get-Content -Path $PreviousPolicyPath | ConvertFrom-Json
+        
+        # Compare policies using Compare-Object
+        $Comparison = Compare-Object -ReferenceObject ($PreviousPolicy | ConvertTo-Json -Depth 10) -DifferenceObject ($CurrentPolicy | ConvertTo-Json -Depth 10)
+        
+        if ($Comparison) {
+            # Policies are different
+            Write-Log &quot;DRIFT DETECTED: Changes found in policy '$PolicyName'&quot; -Level &quot;WARNING&quot;
+            
+            # Generate detailed comparison report using a more detailed approach
+            $Report = @{
+                PolicyName = $PolicyName
+                ChangeDetected = $true
+                ChangeTimestamp = Get-Date -Format &quot;yyyy-MM-dd HH:mm:ss&quot;
+                PreviousVersion = $PreviousPolicy
+                CurrentVersion = $CurrentPolicy
+                Changes = @()
+            }
+            
+            # Use PowerShell's Compare-Object to do a property-by-property comparison
+            # This is a simplified approach - in reality you would recurse through nested properties
+            foreach ($Property in $CurrentPolicy.PSObject.Properties.Name) {
+                if ($CurrentPolicy.$Property -ne $PreviousPolicy.$Property) {
+                    $Report.Changes += @{
+                        Property = $Property
+                        PreviousValue = $PreviousPolicy.$Property
+                        CurrentValue = $CurrentPolicy.$Property
+                    }
+                }
+            }
+            
+            # Save the comparison report
+            $ReportFilePath = Join-Path -Path $ComparisonReportPath -ChildPath &quot;$PolicyName-Changes-$(Get-Date -Format 'yyyy-MM-dd-HHmmss').json&quot;
+            $Report | ConvertTo-Json -Depth 10 | Out-File -FilePath $ReportFilePath
+            
+            return $Report
+        }
+        else {
+            # No changes
+            Write-Log &quot;No changes detected in policy '$PolicyName'&quot; -Level &quot;INFO&quot;
+            return $null
+        }
+    }
+    catch {
+        Write-Log &quot;Error comparing policies for '$PolicyName': $_&quot; -Level &quot;ERROR&quot;
+        return $null
+    }
+}
+
+#-------------------------------------------------------------
+# Main Script
+#-------------------------------------------------------------
+Write-Log &quot;Starting Conditional Access Policy export and drift detection&quot; -Level &quot;INFO&quot;
+
+try {
+    # Connect to Microsoft Graph
+    Write-Log &quot;Connecting to Microsoft Graph...&quot;
+    Connect-MgGraph -Scopes &quot;Policy.Read.All&quot; -NoWelcome
+    
+    # Get current date/time for timestamping
+    $Timestamp = Get-Date -Format &quot;yyyy-MM-dd-HHmmss&quot;
+    
+    # Create a directory for this export in the history
+    $CurrentExportDir = Join-Path -Path $HistoryPath -ChildPath $Timestamp
+    New-Item -ItemType Directory -Path $CurrentExportDir -Force | Out-Null
+    
+    # Get all Conditional Access Policies
+    Write-Log &quot;Retrieving Conditional Access Policies...&quot;
+    $Policies = Invoke-MgGraphRequest -Uri 'https://graph.microsoft.com/v1.0/identity/conditionalAccess/policies' -Method GET
+    
+    if ($Policies.value.Count -eq 0) {
+        Write-Log &quot;No Conditional Access Policies found in the tenant&quot; -Level &quot;WARNING&quot;
+    }
+    else {
+        Write-Log &quot;Found $($Policies.value.Count) Conditional Access Policies&quot; -Level &quot;SUCCESS&quot;
+        
+        $ChangesDetected = $false
+        $ChangedPolicies = @()
+        
+        # Process each policy
+        foreach ($Policy in $Policies.value) {
+            # Clean policy name for file naming (remove invalid chars)
+            $SafePolicyName = $Policy.displayName -replace '[\\/*?:&quot;&lt;&gt;|]', '_'
+            
+            # Export current policy to the Current folder
+            $CurrentPolicyPath = Join-Path -Path $CurrentExportPath -ChildPath &quot;$SafePolicyName.json&quot;
+            $Policy | ConvertTo-Json -Depth 10 | Out-File -FilePath $CurrentPolicyPath
+            
+            # Save to the history folder
+            $HistoryPolicyPath = Join-Path -Path $CurrentExportDir -ChildPath &quot;$SafePolicyName.json&quot;
+            $Policy | ConvertTo-Json -Depth 10 | Out-File -FilePath $HistoryPolicyPath
+            
+            Write-Log &quot;Exported policy: $($Policy.displayName)&quot; -Level &quot;INFO&quot;
+            
+            # Find the most recent previous version of this policy (if any)
+            $PreviousVersions = Get-ChildItem -Path $HistoryPath -Recurse -Filter &quot;$SafePolicyName.json&quot; | 
+                                Where-Object { $_.FullName -ne $HistoryPolicyPath } | 
+                                Sort-Object LastWriteTime -Descending
+            
+            if ($PreviousVersions.Count -gt 0) {
+                $PreviousPolicyPath = $PreviousVersions[0].FullName
+                
+                # Compare with previous version
+                $ComparisonResult = Compare-Policies -CurrentPolicyPath $CurrentPolicyPath -PreviousPolicyPath $PreviousPolicyPath -PolicyName $Policy.displayName
+                
+                if ($ComparisonResult) {
+                    $ChangesDetected = $true
+                    $ChangedPolicies += $ComparisonResult
+                }
+            }
+            else {
+                Write-Log &quot;No previous version found for policy '$($Policy.displayName)' - this appears to be new&quot; -Level &quot;INFO&quot;
+            }
+        }
+        
+        # Handle notifications if changes were detected
+        if ($ChangesDetected) {
+            Write-Log &quot;Changes detected in Conditional Access Policies!&quot; -Level &quot;WARNING&quot;
+            
+            # Prepare notification content
+            $NotificationTitle = &quot;⚠️ Conditional Access Policy Changes Detected&quot;
+            $NotificationBody = @&quot;
+&lt;h2&gt;Conditional Access Policy Drift Detection&lt;/h2&gt;
+&lt;p&gt;Changes were detected in the following policies:&lt;/p&gt;
+&lt;ul&gt;
+$($ChangedPolicies | ForEach-Object { &quot;&lt;li&gt;&lt;strong&gt;$($_.PolicyName)&lt;/strong&gt; - Changed on $($_.ChangeTimestamp)&lt;/li&gt;&quot; })
+&lt;/ul&gt;
+&lt;p&gt;Please review the detailed comparison reports in the following location:&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;$ComparisonReportPath&lt;/code&gt;&lt;/p&gt;
+&quot;@
+            
+            # Send notifications if configured
+            if ($SendEmail) {
+                Send-EmailAlert -Subject $NotificationTitle -Body $NotificationBody
+            }
+            
+            if ($SendTeamsNotification) {
+                Send-TeamsAlert -Title $NotificationTitle -Message $NotificationBody
+            }
+        }
+        else {
+            Write-Log &quot;No changes detected in any Conditional Access Policies&quot; -Level &quot;SUCCESS&quot;
+        }
+    }
+    
+    # Disconnect from Microsoft Graph
+    Disconnect-MgGraph | Out-Null
+    Write-Log &quot;Script completed successfully&quot; -Level &quot;SUCCESS&quot;
+}
+catch {
+    Write-Log &quot;Error executing script: $_&quot; -Level &quot;ERROR&quot;
+    
+    # Try to disconnect if connected
+    try {
+        Disconnect-MgGraph | Out-Null
+    }
+    catch {
+        # Ignore disconnect errors
+    }
+}
+</code></pre>
+<div class="highlight-tool">
+<p>Check out the <strong>Microsoft Graph PowerShell SDK</strong> to learn more at: <a href="https://learn.microsoft.com/graph/powershell/get-started">https://learn.microsoft.com/graph/powershell/get-started</a></p>
+</div>
+</section>
+</div>
+<h2 id="contributors">Contributors</h2>
+<table>
+<thead>
+<tr>
+<th>Author(s)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="https://github.com/ValerasNarbutas">Valeras Narbutas</a></td>
+</tr>
+</tbody>
+</table>
+<h2 id="version-history">Version history</h2>
+<table>
+<thead>
+<tr>
+<th>Version</th>
+<th>Date</th>
+<th>Comments</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1.0</td>
+<td>May 25, 2025</td>
+<td>Initial release</td>
+</tr>
+</tbody>
+</table>
+<h2 id="key-learning-points">Key learning points</h2>
+<ol>
+<li>Using Microsoft Graph PowerShell to access and export Conditional Access Policies</li>
+<li>Implementing versioning for configuration tracking</li>
+<li>Detecting changes (drift) between policy versions</li>
+<li>Creating a notification system for security policy changes</li>
+</ol>
+<h2 id="disclaimer">Disclaimer</h2>
+<p><strong>THESE SAMPLES ARE PROVIDED <em>AS IS</em> WITHOUT WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, INCLUDING ANY IMPLIED WARRANTIES OF FITNESS FOR A PARTICULAR PURPOSE, MERCHANTABILITY, OR NON-INFRINGEMENT.</strong></p>
+<img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/aad-export-compare-conditional-access-policies" aria-hidden="true">
+</article>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            <span>Script Samples<br>Generated by <strong><a href='https://dotnet.github.io/docfx' alt='Doc FX Website'>DocFX</a></strong> with <strong><a href='https://ovasquez.github.io/docfx-material' alt='DocFx Material Theme'>Material UI</a></strong></span>
+            
+            <!-- <img src="https://telemetry.sharepointpnp.com/@pnp.github.io/index/" alt="spacer"> -->
+          </div>
+        </div>
+      </footer>    </div>
+    
+    <script type="text/javascript" src="../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+    
+    <script type="text/javascript" src="../styles/clipboard.min.js"></script>
+    <script type="text/javascript" src="../styles/isotope.pkgd.min.js"></script>
+    <script type="text/javascript" src="../styles/loadsamples.js"></script>
+    <script type="text/javascript" src="../styles/filtersamples.js"></script>
+
+  </body>
+</html>

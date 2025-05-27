@@ -317,6 +317,58 @@
     ]
   },
   {
+    "name": "aad-export-compare-conditional-access-policies",
+    "title": "Export & Compare Conditional-Access Policies (drift-detect)",
+    "shortDescription": "This script exports Conditional Access Policies to JSON, stores them for version control, and detects changes between runs.",
+    "url": "aad-export-compare-conditional-access-policies/README.html",
+    "creationDateTime": "2025-05-25",
+    "updateDateTime": "2025-05-25",
+    "products": [
+      "Graph",
+      "Azure",
+      "Microsoft 365",
+      "Entra ID"
+    ],
+    "metadata": [
+      {
+        "key": "GRAPH-POWERSHELL",
+        "value": "1.0.0"
+      }
+    ],
+    "categories": [
+      "Security",
+      "Report",
+      "Configure",
+      "Monitor"
+    ],
+    "tags": [
+      "Microsoft Graph",
+      "Conditional Access",
+      "Security",
+      "Configuration drift",
+      "Policy management",
+      "Connect-MgGraph",
+      "Invoke-MgGraphRequest",
+      "Compare-Object"
+    ],
+    "thumbnails": [
+      {
+        "type": "image",
+        "order": 100,
+        "url": "aad-export-compare-conditional-access-policies/assets/preview.png",
+        "alt": "Preview of the sample Export & Compare Conditional-Access Policies (drift-detect)"
+      }
+    ],
+    "authors": [
+      {
+        "gitHubAccount": "ValerasNarbutas",
+        "company": "",
+        "pictureUrl": "https://github.com/ValerasNarbutas.png",
+        "name": "Valeras Narbutas"
+      }
+    ]
+  },
+  {
     "name": "aad-get-app-permission",
     "title": "Get Azure AD app permission info (delegated or application)",
     "shortDescription": "Get any existing delegated or application permission info associated to a Microsoft AAD app from its name",
