@@ -129,7 +129,9 @@
     [Parameter(Mandatory = $true)]
     [string] $columnsToAddToDocSet = &quot;Company,Department&quot;,
     [Parameter(Mandatory = $false)]
-    [string] $docSetToAdd = &quot;CompanyA,CompanyB&quot;
+    [string] $docSetToAdd = &quot;CompanyA,CompanyB&quot;,
+    [Parameter(Mandatory = $false)]
+    [boolean] $enableModernLayout
 )
 
 Connect-PnPOnline -Url $siteUrl
@@ -184,6 +186,15 @@ Get-PnPList | Where-Object { $_.BaseTemplate -eq 101 -and $_.Hidden -eq $False -
             }
         }
     }
+
+    if($enableModernLayout) {
+        # Enable modern layout for the content type
+        $ct = Get-PnPContentType -Identity $docsetCTName -List $list
+        $ct.NewFormClientSideComponentId = $null
+        $ct.Update($false)
+        Invoke-PnPQuery
+        Write-Host -f Green &quot;Modern layout enabled for content type $docsetCTName in library $($list.Title)!&quot;
+    }
 }
 </code></pre>
 <div class="highlight-tool">
@@ -206,6 +217,9 @@ Get-PnPList | Where-Object { $_.BaseTemplate -eq 101 -and $_.Hidden -eq $False -
 <tbody>
 <tr>
 <td><a href="https://github.com/reshmee011">Reshmee Auckloo</a></td>
+</tr>
+<tr>
+<td><a href="https://dan-toft.dk">Dan Toft</a></td>
 </tr>
 </tbody>
 </table>
