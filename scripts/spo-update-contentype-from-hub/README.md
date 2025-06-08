@@ -42,12 +42,12 @@ foreach($site in $allsites)
         $contenttype = Get-PnPContentType -ErrorAction SilentlyContinue -Identity $contenttypeName 
         if($contenttype)
         {
-                Write-Host "Updating content type: $($ct.Name) at site: $siteUrl " -ForegroundColor Green
-                Add-PnPContentTypesFromContentTypeHub -ContentTypes $ct.Id  -ErrorAction Stop
+                Write-Host "Updating content type: $($contenttype.Name) at site: $siteUrl " -ForegroundColor Green
+                Add-PnPContentTypesFromContentTypeHub -ContentTypes $contenttype.Id  -ErrorAction Stop
         }
         else
         {
-            Write-Host "No content type: $($ct.Name) at site: $siteUrl " 
+            Write-Host "No content type: $($contenttype.Name) at site: $siteUrl " 
         }   
     }
     catch 
@@ -68,6 +68,7 @@ foreach($site in $allsites)
 | Author(s) |
 |-----------|
 | Kasper Larsen |
+| Reshmee Auckloo |
 
 [!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
 <img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/spo-update-contentype-from-hub" aria-hidden="true" />
