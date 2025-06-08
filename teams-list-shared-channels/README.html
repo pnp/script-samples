@@ -1,0 +1,669 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html lang="en">
+  
+  <head>
+    <meta charset="utf-8">
+    <title>Teams List Shared Channels &amp; External-Tenant Detector | PnP Samples </title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="title" content="Teams List Shared Channels &amp; External-Tenant Detector | PnP Samples ">
+    <meta name="generator" content="docfx 2.56.7.0">
+    <meta name="description" content="A sample gallery of scripts to manage all things Microsoft 365.">
+  
+    <!-- Social Media -->
+    <meta property="og:locale" content="en_GB">
+    <meta property="og:title" content="Teams List Shared Channels &amp; External-Tenant Detector | PnP Samples ">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://pnp.github.io/script-samples">
+    <meta property="og:image" content="https://pnp.github.io/script-samples/assets/social-media-screenshot.png">
+    <meta property="og:image:alt" content="Screenshot example of the PnP Script Samples Site">
+    <meta property="og:site_name" content="PnP Script Samples">
+    <meta name="msvalidate.01" content="04EFEDA66EC42C08A1247C979E2F9ADD">
+    <meta property="og:description" content="A sample gallery of scripts to manage all things Microsoft 365.">
+  
+    <link rel="shortcut icon" href="https://c.s-microsoft.com/favicon.ico?v2">
+    <link rel="stylesheet" href="../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../styles/docfx.css">
+    <link rel="stylesheet" href="../styles/main.css">
+    <link rel="stylesheet" href="../styles/extra.css">
+    <link rel="stylesheet" href="../styles/filter.css">
+    <link rel="stylesheet" href="../styles/site.css">
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet"> 
+    <meta property="docfx:navrel" content="../toc.html">
+    <meta property="docfx:tocrel" content="../toc.html">
+    
+    
+    <meta property="docfx:newtab" content="true">
+    <script type="text/javascript">
+      (function(c,l,a,r,i,t,y){
+          c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+          t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+          y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+      })(window, document, "clarity", "script", "8j6pedl344");
+  </script>
+  </head>  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+             <div class="github-mark">
+              <a href="https://github.com/pnp/script-samples" title="Go to repository">
+               <div class="github-wrapper">
+                  <div class="github-icon">
+                    <img src="https://pnp.github.io/script-samples/assets/icons/github-light-64px.png" alt="GitHub Icon Image">
+                  </div>
+                  <div class="github-repository">
+                    <span>GitHub</span>
+                    <ul class="github-facts">
+                      <li>
+                        <i class="fa fa-code-fork" aria-hidden="true"></i>
+                        <span class="github-forks"></span>
+                      </li>
+                      <li>
+                        <i class="fa fa-star-o" aria-hidden="true"></i>
+                        <span class="github-stars"></span>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </a>
+            </div>
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../assets/logo.svg" alt="">
+              </a>    </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <label class="glyphicon glyphicon-search" for="search-query"></label>
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>      </header>
+      <div role="main" class="container body-content hide-when-search">
+        <div class="article row grid">
+          <div class="col-md-12">
+            <article class="content wrap" id="_content" data-uid="">
+                  <div class="contribution-panel mobile-hide pull-right">
+                      <a href="https://github.com/pnp/script-samples/blob/main/scripts/teams-list-shared-channels/README.md/#L1" title="Improve this Doc" class="improve-doc-lg"><i class="glyphicon glyphicon-pencil"></i></a>
+                  </div>
+                    <h1 id="teams-list-shared-channels--external-tenant-detector">Teams List Shared Channels &amp; External-Tenant Detector</h1>
+
+<h2 id="summary">Summary</h2>
+<p>This script provides a comprehensive inventory of all shared channels across Microsoft Teams in your tenant and identifies external tenant connections. As shared channels grow in popularity for cross-organization collaboration, governance tools often lag behind. This script addresses this gap by:</p>
+<ol>
+<li>Enumerating all teams in the tenant</li>
+<li>Finding all channels with membershipType = &quot;shared&quot;</li>
+<li>Identifying which external organizations have access to these shared channels</li>
+<li>Generating detailed HTML and CSV reports for governance and security review</li>
+</ol>
+<p>The reports include information about team owners, shared channel owners, external tenant details, and membership counts to help administrators maintain visibility into cross-tenant collaboration.</p>
+<p><img src="assets/example.png" alt="Example Screenshot"></p>
+<h2 id="prerequisites">Prerequisites</h2>
+<ul>
+<li>Microsoft Graph PowerShell SDK modules</li>
+<li>Permissions required:
+<ul>
+<li>Team.ReadBasic.All (to enumerate teams)</li>
+<li>Channel.ReadBasic.All (to list channels)</li>
+<li>ChannelSettings.Read.All (to get shared channel settings)</li>
+<li>ChannelMember.Read.All (to enumerate channel members)</li>
+</ul>
+</li>
+<li>PowerShell 5.1 or higher</li>
+</ul>
+<div class="tabGroup" id="tabgroup_CeZOj-G++Q">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_CeZOj-G++Q_graphps" role="tab" aria-controls="tabpanel_CeZOj-G++Q_graphps" data-tab="graphps" tabindex="0" aria-selected="true">Microsoft Graph PowerShell</a>
+</li>
+</ul>
+<section id="tabpanel_CeZOj-G++Q_graphps" role="tabpanel" data-tab="graphps">
+
+<pre><code class="lang-powershell">#-------------------------------------------------------------------------------
+# Script: Teams List Shared Channels &amp; External-Tenant Detector
+#
+# Description: This script identifies all shared channels across Microsoft Teams and
+# provides details about external tenant connections. It generates both HTML and CSV
+# reports for governance and security review.
+#
+# Required permissions:
+# - Team.ReadBasic.All
+# - Channel.ReadBasic.All
+# - ChannelSettings.Read.All
+# - ChannelMember.Read.All
+#-------------------------------------------------------------------------------
+
+# Check for and install required modules
+if (!(Get-Module -Name Microsoft.Graph -ListAvailable)) {
+    Write-Host &quot;Microsoft Graph PowerShell SDK not found. Installing...&quot; -ForegroundColor Yellow
+    Install-Module -Name Microsoft.Graph -Scope CurrentUser -Force
+}
+
+# Import the required Microsoft Graph modules
+Import-Module Microsoft.Graph.Authentication
+Import-Module Microsoft.Graph.Teams
+Import-Module Microsoft.Graph.Groups
+Import-Module Microsoft.Graph.Users
+
+# Connect to Microsoft Graph with the required permissions
+Connect-MgGraph -Scopes @(
+    &quot;Team.ReadBasic.All&quot;,
+    &quot;Channel.ReadBasic.All&quot;, 
+    &quot;ChannelSettings.Read.All&quot;,
+    &quot;ChannelMember.Read.All&quot;
+) -NoWelcome
+
+# Create output directory if it doesn't exist
+$outputDir = &quot;.\TeamsSharedChannelsReport&quot;
+if (!(Test-Path -Path $outputDir)) {
+    New-Item -ItemType Directory -Path $outputDir | Out-Null
+}
+
+# Get current date for report filenames
+$reportDate = Get-Date -Format &quot;yyyy-MM-dd&quot;
+$csvReportPath = Join-Path $outputDir &quot;SharedChannelsReport_$reportDate.csv&quot;
+$htmlReportPath = Join-Path $outputDir &quot;SharedChannelsReport_$reportDate.html&quot;
+$summaryReportPath = Join-Path $outputDir &quot;SharedChannelsSummary_$reportDate.csv&quot;
+
+# Note on Shared Channels API:
+# The Microsoft Graph API requires a special header &quot;Prefer: include-unknown-enum-members&quot;
+# to properly return the &quot;shared&quot; membershipType value. This is because &quot;shared&quot; was added 
+# after the API was originally designed and wasn't part of the original enum definition.
+# Always include this header when working with channels to ensure shared channels are detected.
+
+# Arrays to store data
+$sharedChannelData = @()
+$externalTenantSummary = @{}
+$teamStats = @{}
+$internalCount = 0
+$externalCount = 0
+
+Write-Host &quot;Starting shared channel inventory...&quot; -ForegroundColor Cyan
+
+# Get all teams in the tenant
+try {
+    Write-Host &quot;Retrieving all teams in the tenant...&quot; -ForegroundColor Green
+    $allTeams = Get-MgTeam -All
+    Write-Host &quot;Found $($allTeams.Count) teams.&quot; -ForegroundColor Green
+}
+catch {
+    Write-Error &quot;Error retrieving teams: $_&quot;
+    exit
+}
+
+$totalTeams = $allTeams.Count
+$processedTeams = 0
+
+foreach ($team in $allTeams) {
+    $processedTeams++
+    $percentComplete = [math]::Round(($processedTeams / $totalTeams) * 100, 2)
+    Write-Progress -Activity &quot;Scanning Teams for Shared Channels&quot; -Status &quot;Processing Team: $($team.DisplayName)&quot; -PercentComplete $percentComplete
+    try {
+        # Get team owners
+        $teamOwners = Get-MgGroupOwner -GroupId $team.Id
+        $teamOwnerNames = ($teamOwners | ForEach-Object { $_.AdditionalProperties.displayName }) -join &quot;, &quot;
+
+        # Get all channels for the team with proper headers to include unknown enum values
+        # Note: We're using direct Graph API calls instead of Get-MgTeamChannel because
+        # the SDK doesn't support including the &quot;shared&quot; membershipType without the special header
+        $uri = &quot;https://graph.microsoft.com/v1.0/teams/$($team.Id)/channels&quot;
+        $headers = @{ &quot;Prefer&quot; = &quot;include-unknown-enum-members&quot; }
+        $response = Invoke-MgGraphRequest -Method GET -Uri $uri -Headers $headers
+        $channels = $response.value
+        
+        # FIXED: Filter to only shared channels - using explicit loop instead of Where-Object
+        $sharedChannels = @()
+        foreach ($channel in $channels) {
+            if ($channel.membershipType -eq &quot;shared&quot;) {
+                $sharedChannels += $channel
+            }
+        }
+        
+        # Debug info - list all channels and their membership types
+        Write-Host &quot;  All channels in team '$($team.DisplayName)':&quot; -ForegroundColor DarkGray
+        foreach ($ch in $channels) {
+            Write-Host &quot;    - $($ch.DisplayName) (Type: $($ch.membershipType))&quot; -ForegroundColor DarkGray
+        }
+        
+        if ($sharedChannels -and $sharedChannels.Count -gt 0) {
+            Write-Host &quot;  Found $($sharedChannels.Count) shared channel(s) in team '$($team.DisplayName)'&quot; -ForegroundColor Yellow
+            
+            foreach ($sharedChannel in $sharedChannels) {
+                Write-Host &quot;    Processing shared channel: $($sharedChannel.DisplayName)&quot; -ForegroundColor Green
+                try {                    
+                    # Get channel members
+                    try {
+                        $channelMembers = Get-MgTeamChannelMember -TeamId $team.Id -ChannelId $sharedChannel.Id
+                        $channelMemberCount = $channelMembers.Count
+                        
+                        # Get channel owners
+                        $channelOwners = $channelMembers | Where-Object { $_.Roles -contains &quot;owner&quot; }
+                        $channelOwnerNames = ($channelOwners | ForEach-Object { $_.DisplayName }) -join &quot;, &quot;
+                    }
+                    catch {
+                        Write-Warning &quot;    Error retrieving channel members for $($sharedChannel.DisplayName): $_&quot;
+                        $channelMemberCount = 0
+                        $channelOwnerNames = &quot;Unknown (access error)&quot;
+                    }
+                    
+                    # Get all organizations the channel is shared with
+                    # Must use direct API call with the special header to get external tenant information
+                    $uri = &quot;https://graph.microsoft.com/v1.0/teams/$($team.Id)/channels/$($sharedChannel.Id)/sharedWithTeams&quot;
+                    $headers = @{ &quot;Prefer&quot; = &quot;include-unknown-enum-members&quot; }
+
+                    $sharedWithOrgs = Invoke-MgGraphRequest -Method GET -Uri $uri -Headers $headers
+
+                    if ($null -eq $sharedWithOrgs.value -or $sharedWithOrgs.value.Count -eq 0) {
+                        Write-Host &quot;    Channel '$($sharedChannel.DisplayName)' is a shared channel but has no external tenant connections&quot; -ForegroundColor Magenta
+                        $internalCount++
+                        
+                        # Still add the channel to the report as an internal shared channel
+                        $sharedChannelData += [PSCustomObject]@{
+                            TeamId = $team.Id
+                            TeamName = $team.DisplayName
+                            TeamOwners = $teamOwnerNames
+                            ChannelId = $sharedChannel.Id
+                            ChannelName = $sharedChannel.DisplayName
+                            ChannelDescription = $sharedChannel.Description
+                            ChannelOwners = $channelOwnerNames
+                            MemberCount = $channelMemberCount
+                            TenantId = &quot;Internal&quot;
+                            TenantName = &quot;Internal (No external sharing)&quot;
+                            LastModifiedDateTime = $sharedChannel.ModifiedDateTime
+                        }
+                        
+                        # Update team stats for internal shared channels
+                        if (-not $teamStats.ContainsKey($team.Id)) {
+                            $teamStats[$team.Id] = @{
+                                &quot;TeamName&quot; = $team.DisplayName
+                                &quot;TotalSharedChannels&quot; = 0
+                                &quot;ExternalTenants&quot; = @{}
+                            }
+                        }
+                        
+                        $teamStats[$team.Id][&quot;TotalSharedChannels&quot;]++
+                    }
+                    else {
+                        Write-Host &quot;    Channel '$($sharedChannel.DisplayName)' is shared with $($sharedWithOrgs.value.Count) external tenant(s)&quot; -ForegroundColor Cyan
+                        $externalCount++
+                        
+                        # Process each external tenant
+                        foreach ($org in $sharedWithOrgs.value) {
+                            # Extract tenant information
+                            $tenantId = $org.tenantId
+                            $tenantName = $org.displayName
+                            
+                            # Update external tenant summary
+                            if (-not $externalTenantSummary.ContainsKey($tenantId)) {
+                                $externalTenantSummary[$tenantId] = @{
+                                    &quot;TenantName&quot; = $tenantName
+                                    &quot;ChannelCount&quot; = 0
+                                    &quot;Teams&quot; = @{}
+                                    &quot;TotalExternalMembers&quot; = 0
+                                }
+                            }
+                            
+                            $externalTenantSummary[$tenantId][&quot;ChannelCount&quot;]++
+                            
+                            if (-not $externalTenantSummary[$tenantId][&quot;Teams&quot;].ContainsKey($team.Id)) {
+                                $externalTenantSummary[$tenantId][&quot;Teams&quot;][$team.Id] = @{
+                                    &quot;TeamName&quot; = $team.DisplayName
+                                    &quot;Channels&quot; = @()
+                                }
+                            }
+                            
+                            $externalTenantSummary[$tenantId][&quot;Teams&quot;][$team.Id][&quot;Channels&quot;] += $sharedChannel.DisplayName
+                            
+                            # Add to main data collection
+                            $sharedChannelData += [PSCustomObject]@{
+                                TeamId = $team.Id
+                                TeamName = $team.DisplayName
+                                TeamOwners = $teamOwnerNames
+                                ChannelId = $sharedChannel.Id
+                                ChannelName = $sharedChannel.DisplayName
+                                ChannelDescription = $sharedChannel.Description
+                                ChannelOwners = $channelOwnerNames
+                                MemberCount = $channelMemberCount
+                                TenantId = $tenantId
+                                TenantName = $tenantName
+                                LastModifiedDateTime = $sharedChannel.ModifiedDateTime
+                            }
+                        }
+                        
+                        # Update team stats
+                        if (-not $teamStats.ContainsKey($team.Id)) {
+                            $teamStats[$team.Id] = @{
+                                &quot;TeamName&quot; = $team.DisplayName
+                                &quot;TotalSharedChannels&quot; = 0
+                                &quot;ExternalTenants&quot; = @{}
+                            }
+                        }
+                        
+                        $teamStats[$team.Id][&quot;TotalSharedChannels&quot;]++
+                        
+                        foreach ($org in $sharedWithOrgs.value) {
+                            $tenantId = $org.tenantId
+                            if (-not $teamStats[$team.Id][&quot;ExternalTenants&quot;].ContainsKey($tenantId)) {
+                                $teamStats[$team.Id][&quot;ExternalTenants&quot;][$tenantId] = $org.displayName
+                            }
+                        }
+                    }
+                }
+                catch {
+                    Write-Warning &quot;Error processing shared channel $($sharedChannel.DisplayName): $_&quot;
+                }
+            }
+        }
+    }
+    catch {
+        Write-Warning &quot;Error processing team $($team.DisplayName): $_&quot;
+    }
+}
+
+Write-Progress -Activity &quot;Scanning Teams for Shared Channels&quot; -Status &quot;Complete&quot; -Completed
+
+Write-Host &quot;Summary:&quot; -ForegroundColor Green
+Write-Host &quot;  Total shared channels: $($internalCount + $externalCount)&quot; -ForegroundColor Green
+Write-Host &quot;  Internal only shared channels: $internalCount&quot; -ForegroundColor Green
+Write-Host &quot;  Externally shared channels: $externalCount&quot; -ForegroundColor Green
+
+# Generate CSV report
+if ($sharedChannelData.Count -gt 0) {
+    $sharedChannelData | Export-Csv -Path $csvReportPath -NoTypeInformation
+    Write-Host &quot;CSV report exported to: $csvReportPath&quot; -ForegroundColor Green
+}
+else {
+    Write-Host &quot;No shared channels found in the tenant.&quot; -ForegroundColor Yellow
+}
+
+# Generate tenant summary report
+$tenantSummaryData = @()
+foreach ($tenantId in $externalTenantSummary.Keys) {
+    $tenantInfo = $externalTenantSummary[$tenantId]
+    $teamCount = $tenantInfo[&quot;Teams&quot;].Count
+    
+    $tenantSummaryData += [PSCustomObject]@{
+        TenantId = $tenantId
+        TenantName = $tenantInfo[&quot;TenantName&quot;]
+        SharedChannelCount = $tenantInfo[&quot;ChannelCount&quot;]
+        TeamCount = $teamCount
+        Teams = ($tenantInfo[&quot;Teams&quot;].Values | ForEach-Object { $_.TeamName }) -join &quot;, &quot;
+    }
+}
+
+$tenantSummaryData | Export-Csv -Path $summaryReportPath -NoTypeInformation
+Write-Host &quot;Tenant summary report exported to: $summaryReportPath&quot; -ForegroundColor Green
+
+# Generate HTML report
+$htmlHeader = @&quot;
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+    &lt;title&gt;Teams Shared Channels Report - $reportDate&lt;/title&gt;
+    &lt;style&gt;
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        h1 { color: #0078d4; }
+        h2 { color: #106ebe; margin-top: 30px; }
+        h3 { color: #106ebe; margin-top: 20px; }
+        table { border-collapse: collapse; width: 100%; margin-top: 10px; margin-bottom: 30px; }
+        th { background-color: #0078d4; color: white; text-align: left; padding: 8px; }
+        td { border: 1px solid #ddd; padding: 8px; }
+        tr:nth-child(even) { background-color: #f2f2f2; }
+        tr:hover { background-color: #e6f2ff; }
+        .summary { background-color: #f0f0f0; padding: 15px; border-radius: 5px; margin: 20px 0; }
+        .warning { color: #d83b01; }
+        .info { color: #0078d4; }
+        .note { background-color: #FFF4CE; padding: 10px; border-left: 4px solid #FFC83D; margin: 15px 0; }
+    &lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;h1&gt;Teams List Shared Channels &amp; External Tenant Report&lt;/h1&gt;
+    &lt;p&gt;Generated on $reportDate&lt;/p&gt;
+    
+    &lt;div class=&quot;summary&quot;&gt;
+        &lt;h2&gt;Summary&lt;/h2&gt;
+        &lt;p&gt;&lt;b&gt;Total Teams with Shared Channels:&lt;/b&gt; $($teamStats.Count)&lt;/p&gt;
+        &lt;p&gt;&lt;b&gt;Total Shared Channels:&lt;/b&gt; $($internalCount + $externalCount)&lt;/p&gt;
+        &lt;p&gt;&lt;b&gt;External Tenants Connected:&lt;/b&gt; $($externalTenantSummary.Count)&lt;/p&gt;
+        &lt;p&gt;&lt;b&gt;Internal Only Shared Channels:&lt;/b&gt; $internalCount&lt;/p&gt;
+        &lt;p&gt;&lt;b&gt;Externally Shared Channels:&lt;/b&gt; $externalCount&lt;/p&gt;
+    &lt;/div&gt;
+    
+    &lt;div class=&quot;note&quot;&gt;
+        &lt;p&gt;&lt;b&gt;Note:&lt;/b&gt; Shared channels in Teams can exist in two states: (1) Internally shared within your organization only, or (2) Externally shared with other tenants. This report includes both types to give you a complete picture of shared channel usage.&lt;/p&gt;
+    &lt;/div&gt;
+&quot;@
+
+$externalTenantHtml = @&quot;
+    &lt;h2&gt;External Tenant Summary&lt;/h2&gt;
+    &lt;table&gt;
+        &lt;tr&gt;
+            &lt;th&gt;Tenant Name&lt;/th&gt;
+            &lt;th&gt;Tenant ID&lt;/th&gt;
+            &lt;th&gt;Shared Channel Count&lt;/th&gt;
+            &lt;th&gt;Teams Connected&lt;/th&gt;
+        &lt;/tr&gt;
+&quot;@
+
+foreach ($tenant in $tenantSummaryData | Sort-Object -Property SharedChannelCount -Descending) {
+    $externalTenantHtml += @&quot;
+        &lt;tr&gt;
+            &lt;td&gt;$($tenant.TenantName)&lt;/td&gt;
+            &lt;td&gt;$($tenant.TenantId)&lt;/td&gt;
+            &lt;td&gt;$($tenant.SharedChannelCount)&lt;/td&gt;
+            &lt;td&gt;$($tenant.TeamCount)&lt;/td&gt;
+        &lt;/tr&gt;
+&quot;@
+}
+
+$externalTenantHtml += @&quot;
+    &lt;/table&gt;
+&quot;@
+
+$externalSharedChannels = $sharedChannelData | Where-Object { $_.TenantId -ne &quot;Internal&quot; }
+$internalSharedChannels = $sharedChannelData | Where-Object { $_.TenantId -eq &quot;Internal&quot; }
+
+$sharedChannelsHtml = @&quot;
+    &lt;h2&gt;Shared Channels Details&lt;/h2&gt;
+&quot;@
+
+# External Shared Channels
+if ($externalSharedChannels.Count -gt 0) {
+    $sharedChannelsHtml += @&quot;
+    &lt;h3&gt;Externally Shared Channels ($($externalSharedChannels.Count))&lt;/h3&gt;
+    &lt;table&gt;
+        &lt;tr&gt;
+            &lt;th&gt;Team Name&lt;/th&gt;
+            &lt;th&gt;Channel Name&lt;/th&gt;
+            &lt;th&gt;Channel Owners&lt;/th&gt;
+            &lt;th&gt;External Tenant&lt;/th&gt;
+            &lt;th&gt;Member Count&lt;/th&gt;
+            &lt;th&gt;Last Modified&lt;/th&gt;
+        &lt;/tr&gt;
+&quot;@
+
+    foreach ($channel in $externalSharedChannels | Sort-Object -Property TeamName, ChannelName) {
+        $sharedChannelsHtml += @&quot;
+        &lt;tr&gt;
+            &lt;td&gt;$($channel.TeamName)&lt;/td&gt;
+            &lt;td&gt;$($channel.ChannelName)&lt;/td&gt;
+            &lt;td&gt;$($channel.ChannelOwners)&lt;/td&gt;
+            &lt;td&gt;$($channel.TenantName) ($($channel.TenantId))&lt;/td&gt;
+            &lt;td&gt;$($channel.MemberCount)&lt;/td&gt;
+            &lt;td&gt;$($channel.LastModifiedDateTime)&lt;/td&gt;
+        &lt;/tr&gt;
+&quot;@
+    }
+    
+    $sharedChannelsHtml += @&quot;
+    &lt;/table&gt;
+&quot;@
+}
+
+# Internal Shared Channels
+if ($internalSharedChannels.Count -gt 0) {
+    $sharedChannelsHtml += @&quot;
+    &lt;h3&gt;Internal Only Shared Channels ($($internalSharedChannels.Count))&lt;/h3&gt;
+    &lt;table&gt;
+        &lt;tr&gt;
+            &lt;th&gt;Team Name&lt;/th&gt;
+            &lt;th&gt;Channel Name&lt;/th&gt;
+            &lt;th&gt;Channel Owners&lt;/th&gt;
+            &lt;th&gt;Sharing Status&lt;/th&gt;
+            &lt;th&gt;Member Count&lt;/th&gt;
+            &lt;th&gt;Last Modified&lt;/th&gt;
+        &lt;/tr&gt;
+&quot;@
+
+    foreach ($channel in $internalSharedChannels | Sort-Object -Property TeamName, ChannelName) {
+        $sharedChannelsHtml += @&quot;
+        &lt;tr&gt;
+            &lt;td&gt;$($channel.TeamName)&lt;/td&gt;
+            &lt;td&gt;$($channel.ChannelName)&lt;/td&gt;
+            &lt;td&gt;$($channel.ChannelOwners)&lt;/td&gt;
+            &lt;td&gt;Internal sharing only (not shared with external tenants)&lt;/td&gt;
+            &lt;td&gt;$($channel.MemberCount)&lt;/td&gt;
+            &lt;td&gt;$($channel.LastModifiedDateTime)&lt;/td&gt;
+        &lt;/tr&gt;
+&quot;@
+    }
+    
+    $sharedChannelsHtml += @&quot;
+    &lt;/table&gt;
+&quot;@
+}
+
+$htmlFooter = @&quot;
+    &lt;h2&gt;Recommendations&lt;/h2&gt;
+    &lt;ul&gt;
+        &lt;li&gt;Review shared channels to ensure they comply with your external sharing policies&lt;/li&gt;
+        &lt;li&gt;Verify that channel owners are monitoring external user activity&lt;/li&gt;
+        &lt;li&gt;When working with shared channels via Graph API, always use the &quot;Prefer: include-unknown-enum-members&quot; header&lt;/li&gt;
+        &lt;li&gt;Consider implementing regular audits of external sharing via shared channels&lt;/li&gt;
+        &lt;li&gt;Ensure proper data governance and DLP policies are applied to teams with shared channels&lt;/li&gt;
+    &lt;/ul&gt;
+
+    &lt;p&gt;&lt;i&gt;Report generated using the Teams List Shared Channels &amp; External-Tenant Detector script.&lt;/i&gt;&lt;/p&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+&quot;@
+
+$fullHtml = $htmlHeader + $externalTenantHtml + $sharedChannelsHtml + $htmlFooter
+$fullHtml | Out-File -FilePath $htmlReportPath -Encoding UTF8
+
+Write-Host &quot;HTML report exported to: $htmlReportPath&quot; -ForegroundColor Green
+Write-Host &quot;Teams List Shared Channels completed!&quot; -ForegroundColor Cyan
+
+# Disconnect from Microsoft Graph
+Disconnect-MgGraph | Out-Null
+Write-Host &quot;Disconnected from Microsoft Graph.&quot; -ForegroundColor Green
+</code></pre>
+<div class="highlight-tool">
+<p>Check out the <strong>Microsoft Graph PowerShell SDK</strong> to learn more at: <a href="https://learn.microsoft.com/graph/powershell/get-started">https://learn.microsoft.com/graph/powershell/get-started</a></p>
+</div>
+</section>
+</div>
+<h2 id="contributors">Contributors</h2>
+<table>
+<thead>
+<tr>
+<th>Author(s)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="https://github.com/ValerasNarbutas">Valeras Narbutas</a></td>
+</tr>
+</tbody>
+</table>
+<h2 id="additional-information">Additional Information</h2>
+<h3 id="key-microsoft-graph-api-endpoints-used">Key Microsoft Graph API Endpoints Used</h3>
+<ol>
+<li><p>List all teams in the tenant:</p>
+<ul>
+<li><code>GET /teams</code> via Get-MgTeam</li>
+</ul>
+</li>
+<li><p>Get channels in a team:</p>
+<ul>
+<li><code>GET /teams/{team-id}/channels</code> with <code>Prefer: include-unknown-enum-members</code> header</li>
+<li>This special header is required to properly retrieve the &quot;shared&quot; membershipType</li>
+</ul>
+</li>
+<li><p>List shared channel details:</p>
+<ul>
+<li><code>GET /teams/{team-id}/channels/{channel-id}/sharedWithTeams</code> with <code>Prefer: include-unknown-enum-members</code> header</li>
+</ul>
+</li>
+<li><p>Get channel members:</p>
+<ul>
+<li><code>GET /teams/{team-id}/channels/{channel-id}/members</code> via Get-MgTeamChannelMember</li>
+</ul>
+</li>
+</ol>
+<h3 id="report-types-generated">Report Types Generated</h3>
+<p>This script generates three report files:</p>
+<ol>
+<li><strong>Detailed CSV Report</strong> - A complete inventory of all shared channels with external connections</li>
+<li><strong>HTML Dashboard</strong> - Visual representation with summary statistics and detailed tables</li>
+<li><strong>Tenant Summary CSV</strong> - Aggregated view of external tenants and their connections</li>
+</ol>
+<h3 id="example-usage">Example Usage</h3>
+<p><strong>Basic Usage:</strong></p>
+<pre><code class="lang-powershell">./Teams-List-Shared-Channels.ps1
+</code></pre>
+<p>This will:</p>
+<ul>
+<li>Authenticate to Microsoft Graph</li>
+<li>Scan all teams for shared channels</li>
+<li>Generate reports in the ./TeamsSharedChannelsReport folder</li>
+</ul>
+<h3 id="security-considerations">Security Considerations</h3>
+<ul>
+<li>The script requires significant permissions to read team and channel information</li>
+<li>Consider running this script as part of a regular security audit process</li>
+<li>Review the generated reports to identify potential external sharing risks</li>
+</ul>
+<h2 id="disclaimer">Disclaimer</h2>
+<p><strong>THESE SAMPLES ARE PROVIDED <em>AS IS</em> WITHOUT WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, INCLUDING ANY IMPLIED WARRANTIES OF FITNESS FOR A PARTICULAR PURPOSE, MERCHANTABILITY, OR NON-INFRINGEMENT.</strong></p>
+<img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/teams-list-shared-channels" aria-hidden="true">
+</article>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            <span>Script Samples<br>Generated by <strong><a href='https://dotnet.github.io/docfx' alt='Doc FX Website'>DocFX</a></strong> with <strong><a href='https://ovasquez.github.io/docfx-material' alt='DocFx Material Theme'>Material UI</a></strong></span>
+            
+            <!-- <img src="https://telemetry.sharepointpnp.com/@pnp.github.io/index/" alt="spacer"> -->
+          </div>
+        </div>
+      </footer>    </div>
+    
+    <script type="text/javascript" src="../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+    
+    <script type="text/javascript" src="../styles/clipboard.min.js"></script>
+    <script type="text/javascript" src="../styles/isotope.pkgd.min.js"></script>
+    <script type="text/javascript" src="../styles/loadsamples.js"></script>
+    <script type="text/javascript" src="../styles/filtersamples.js"></script>
+
+  </body>
+</html>

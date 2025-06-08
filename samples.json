@@ -16154,6 +16154,60 @@
     ]
   },
   {
+    "name": "teams-list-shared-channels",
+    "title": "Teams List Shared Channels & External-Tenant Detector",
+    "shortDescription": "This script lists all shared channels across Teams, identifies external tenant connections, and generates a detailed report.",
+    "url": "teams-list-shared-channels/README.html",
+    "creationDateTime": "2025-05-27",
+    "updateDateTime": "2025-05-27",
+    "products": [
+      "SharePoint",
+      "Graph",
+      "Teams",
+      "Azure"
+    ],
+    "metadata": [
+      {
+        "key": "GRAPH-POWERSHELL",
+        "value": "1.0.0"
+      }
+    ],
+    "categories": [
+      "Modernize",
+      "Data",
+      "Deploy",
+      "Provision",
+      "Configure",
+      "Report",
+      "Security"
+    ],
+    "tags": [
+      "Get-Team",
+      "Get-TeamChannel",
+      "Get-TeamChannelUser",
+      "Get-TeamUser",
+      "Get-MgTeam",
+      "Get-MgTeamChannel",
+      "Get-MgTeamChannelMember"
+    ],
+    "thumbnails": [
+      {
+        "type": "image",
+        "order": 100,
+        "url": "teams-list-shared-channels/assets/preview.png",
+        "alt": "Preview of the sample Shared-Channels inventory & external-tenant detector"
+      }
+    ],
+    "authors": [
+      {
+        "gitHubAccount": "ValerasNarbutas",
+        "company": "",
+        "pictureUrl": "https://github.com/ValerasNarbutas.png",
+        "name": "Valeras Narbutas"
+      }
+    ]
+  },
+  {
     "schema": null,
     "name": "teams-list-teams-owners-and-members",
     "version": null,

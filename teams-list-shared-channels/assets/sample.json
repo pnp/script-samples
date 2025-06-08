@@ -1,0 +1,66 @@
+[  {
+    "name": "teams-list-shared-channels",
+    "source": "pnp",
+    "title": "Teams List Shared Channels & External-Tenant Detector",
+    "shortDescription": "This script lists all shared channels across Teams, identifies external tenant connections, and generates a detailed report.",
+    "url": "https://pnp.github.io/script-samples/teams-list-shared-channels/README.html",
+    "longDescription": [
+      "This script enumerates all shared channels across Microsoft Teams in your tenant, detects external tenant connections, and generates a comprehensive report. It leverages Microsoft Graph PowerShell and Teams cmdlets to provide detailed insights into channel sharing and external collaboration."
+    ],
+    "creationDateTime": "2025-05-27",
+    "updateDateTime": "2025-05-27",
+    "products": [
+      "SharePoint",
+      "Graph",
+      "Teams",
+      "Azure"
+    ],
+    "metadata": [
+      {
+        "key": "GRAPH-POWERSHELL",
+        "value": "1.0.0"
+      }
+    ],
+    "categories": [
+      "Modernize",
+      "Data",
+      "Deploy",
+      "Provision",
+      "Configure",
+      "Report",
+      "Security"
+    ],
+    "tags": [
+      "Get-Team",
+      "Get-TeamChannel",
+      "Get-TeamChannelUser",
+      "Get-TeamUser",
+      "Get-MgTeam",
+      "Get-MgTeamChannel",
+      "Get-MgTeamChannelMember"
+    ],
+    "thumbnails": [
+      {
+        "type": "image",
+        "order": 100,
+        "url": "https://raw.githubusercontent.com/pnp/script-samples/main/scripts/teams-list-shared-channels/assets/preview.png",
+        "alt": "Preview of the sample Shared-Channels inventory & external-tenant detector"
+      }
+    ],
+    "authors": [
+      {
+        "gitHubAccount": "ValerasNarbutas",
+        "company": "",
+        "pictureUrl": "https://github.com/ValerasNarbutas.png",
+        "name": "Valeras Narbutas"
+      }
+    ],
+    "references": [
+      {
+        "name": "Want to learn more about Microsoft Graph PowerShell SDK and the cmdlets",
+        "description": "Check out the Microsoft Graph PowerShell SDK documentation site to get started and for the reference to the cmdlets.",
+        "url": "https://learn.microsoft.com/graph/powershell/get-started"
+      }
+    ]
+  }
+]
