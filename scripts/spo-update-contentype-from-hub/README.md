@@ -68,6 +68,7 @@ foreach($site in $allsites)
 | Author(s) |
 |-----------|
 | Kasper Larsen |
+| Reshmee Auckloo |
 
 [!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
 <img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/spo-update-contentype-from-hub" aria-hidden="true" />
