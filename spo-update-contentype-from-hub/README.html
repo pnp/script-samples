@@ -136,12 +136,12 @@ foreach($site in $allsites)
         $contenttype = Get-PnPContentType -ErrorAction SilentlyContinue -Identity $contenttypeName 
         if($contenttype)
         {
-                Write-Host &quot;Updating content type: $($ct.Name) at site: $siteUrl &quot; -ForegroundColor Green
-                Add-PnPContentTypesFromContentTypeHub -ContentTypes $ct.Id  -ErrorAction Stop
+                Write-Host &quot;Updating content type: $($contenttype.Name) at site: $siteUrl &quot; -ForegroundColor Green
+                Add-PnPContentTypesFromContentTypeHub -ContentTypes $contenttype.Id  -ErrorAction Stop
         }
         else
         {
-            Write-Host &quot;No content type: $($ct.Name) at site: $siteUrl &quot; 
+            Write-Host &quot;No content type: $($contenttype.Name) at site: $siteUrl &quot; 
         }   
     }
     catch 
@@ -171,6 +171,9 @@ foreach($site in $allsites)
 <tbody>
 <tr>
 <td>Kasper Larsen</td>
+</tr>
+<tr>
+<td>Reshmee Auckloo</td>
 </tr>
 </tbody>
 </table>
