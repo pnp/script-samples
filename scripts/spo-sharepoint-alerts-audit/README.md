@@ -151,4 +151,4 @@ Disconnect-PnPOnline
 | [Tanel Vahk](https://www.linkedin.com/in/tvahk/) |
 
 [!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
-<img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/spo-reorder-list-content-type" aria-hidden="true" />
+<img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/spo-sharepoint-alerts-audit" aria-hidden="true" />
