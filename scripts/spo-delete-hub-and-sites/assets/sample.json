@@ -1,0 +1,54 @@
+[
+  {
+    "name": "spo-delete-hub-and-sites",
+    "source": "pnp",
+    "title": "Delete entire Hub site structure",
+    "shortDescription": "This script deletes all site in a Hub and finally the Hub site itself",
+    "url": "https://pnp.github.io/script-samples/spo-delete-hub-and-sites/README.html",
+    "longDescription": [
+      ""
+    ],
+    "creationDateTime": "2025-06-09",
+    "updateDateTime": "2025-06-09",
+    "products": [
+      "SharePoint"
+      
+    ],
+    "metadata": [
+      {
+        "key": "PNP-POWERSHELL",
+        "value": "3.1.0"
+      }
+    ],
+    "categories": [
+      "Provision",
+      "Configure"
+    ],
+    "tags": [
+      "Remove-PnPTenantSite","Get-pnpHubSiteChild","Unregister-PnPHubSite"
+    ],
+    "thumbnails": [
+      {
+        "type": "image",
+        "order": 100,
+        "url": "https://raw.githubusercontent.com/pnp/script-samples/main/scripts/spo-delete-hub-and-sites/assets/preview.png",
+        "alt": "Preview of the sample Delete entire Hub site structure"
+      }
+    ],
+    "authors": [
+      {
+        "gitHubAccount": "kasperbolarsen",
+        "company": "",
+        "pictureUrl": "https://github.com/kasperbolarsen.png",
+        "name": "Kasper Larsen"
+      }
+    ],
+    "references": [
+      {
+        "name": "Want to learn more about PnP PowerShell and the cmdlets",
+        "description": "Check out the PnP PowerShell site to get started and for the reference to the cmdlets.",
+        "url": "https://aka.ms/pnp/powershell"
+      }
+    ]
+  }
+]
