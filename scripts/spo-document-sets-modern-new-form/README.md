@@ -1,12 +1,10 @@
-
-
 # Enable modern creation forms for Document sets
 
 ## Summary
 
 I've found that setting the NewFormClientSideComponentId to _NULL_ on a documents set content type will cause it to render a modern creation form over the default, this script will help you do that. (Also see alternate version below, which works on the Content Type Hub.)
 
-![Outupt Screenshot](assets/output.png)
+![Output Screenshot](assets/output.png)
 
 # [PnP PowerShell](#tab/pnpps)
 
@@ -89,8 +87,6 @@ Write-Host -ForegroundColor Green "All done"
 
 ```
 
-
-
 [!INCLUDE [More about PnP PowerShell](../../docfx/includes/MORE-PNPPS.md)]
 ***
 
@@ -98,9 +94,8 @@ Write-Host -ForegroundColor Green "All done"
 
 | Author(s)                          |
 | ---------------------------------- |
-| Dan Toft(https://blog.dan-toft.dk) |
-| Marc D Anderson (https://sympmarc.com) |
-
+| [Dan Toft](https://blog.dan-toft.dk) |
+| [Marc D Anderson](https://sympmarc.com) |
 
 [!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
 <img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/spo-document-sets-modern-new-form" aria-hidden="true" />
