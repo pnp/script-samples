@@ -7,6 +7,7 @@ Sometimes you need to delete a hub site and all the sites associated with it. Th
 
 ![Example Screenshot](assets/example.png)
 
+[!INCLUDE [Deletion Warning](../../docfx/includes/DELETE-WARN.md)]
 
 # [PnP PowerShell](#tab/pnpps)
 
