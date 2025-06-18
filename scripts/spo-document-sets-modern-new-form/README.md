@@ -44,6 +44,9 @@ Invoke-PnPQuery
 Write-Host -ForegroundColor Green "All done"
 
 ```
+[!INCLUDE [More about PnP PowerShell](../../docfx/includes/MORE-PNPPS.md)]
+
+# [PnP PowerShell Alternative](#tab/pnpps2)
 
 This alternate version, based on Dan's script above, works on the Content Type Hub, allowing you to modernize Document Sets stored at the enterprise level. See [Modernizing the Document Set NewDocSet Form](https://sympmarc.com/2025/06/12/modernizing-the-document-set-newdocset-form/) for more details
 
