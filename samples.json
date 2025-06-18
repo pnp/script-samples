@@ -6727,6 +6727,48 @@
     ]
   },
   {
+    "name": "spo-delete-hub-and-sites",
+    "title": "Delete entire Hub site structure",
+    "shortDescription": "This script deletes all site in a Hub and finally the Hub site itself",
+    "url": "spo-delete-hub-and-sites/README.html",
+    "creationDateTime": "2025-06-09",
+    "updateDateTime": "2025-06-09",
+    "products": [
+      "SharePoint"
+    ],
+    "metadata": [
+      {
+        "key": "PNP-POWERSHELL",
+        "value": "3.1.0"
+      }
+    ],
+    "categories": [
+      "Provision",
+      "Configure"
+    ],
+    "tags": [
+      "Remove-PnPTenantSite",
+      "Get-pnpHubSiteChild",
+      "Unregister-PnPHubSite"
+    ],
+    "thumbnails": [
+      {
+        "type": "image",
+        "order": 100,
+        "url": "spo-delete-hub-and-sites/assets/preview.png",
+        "alt": "Preview of the sample Delete entire Hub site structure"
+      }
+    ],
+    "authors": [
+      {
+        "gitHubAccount": "kasperbolarsen",
+        "company": "",
+        "pictureUrl": "https://github.com/kasperbolarsen.png",
+        "name": "Kasper Larsen"
+      }
+    ]
+  },
+  {
     "name": "spo-delete-orphaned-temporary-sitepages",
     "title": "Delete orphaned temporary pages from Site Pages",
     "shortDescription": "Script to clean up temporary pages from Site Pages library",
