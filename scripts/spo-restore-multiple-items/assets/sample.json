@@ -2,45 +2,25 @@
   {
     "name": "spo-restore-multiple-items",
     "source": "pnp",
-    "title": "spo-restore-multiple-items",
-    "shortDescription": "SPO Restore Multiple Items",
+    "title": "SPO Restore Multiple Items",
+    "shortDescription": "Sometimes, there's a need to restore files that were accidentally deleted by users. ",
     "url": "https://pnp.github.io/script-samples/spo-restore-multiple-items/README.html",
     "longDescription": [
-      ""
+      "Sometimes, there's a need to restore files that were accidentally deleted by users. One common scenario is when a user deletes a synced SharePoint folder without properly disconnecting it first"
     ],
     "creationDateTime": "2025-06-20",
     "updateDateTime": "2025-06-20",
     "products": [
-      "SharePoint",
-      "Office",
-      "Graph",
-      "PowerApps",
-      "Teams",
-      "Power Automate",
-      "Microsoft Todo",
-      "Azure",
-      "Microsoft 365 Copilot"
+      "SharePoint"
     ],
     "metadata": [
-      {
-        "key": "PNP-POWERSHELL",
-        "value": "1.11.0"
-      },
       {
         "key": "PNP-POWERSHELL",
         "value": "1.11.0"
       }
     ],
     "categories": [
-      "Modernize",
-      "Data",
-      "Deploy",
-      "Provision",
-      "Configure",
-      "Report",
-      "Security",
-      "AI",
-      "Microsoft 365 Copilot"
+      "Data"
     ],
     "tags": [
       "<Cmdlets-Used>"
@@ -62,8 +42,11 @@
       }
     ],
     "references": [
-      null,
-      null
+      {
+        "name": "Want to learn more about PnP PowerShell and the cmdlets",
+        "description": "Check out the PnP PowerShell site to get started and for the reference to the cmdlets.",
+        "url": "https://aka.ms/pnp/powershell"
+      }
     ]
   }
 ]
