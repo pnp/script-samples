@@ -15,7 +15,7 @@ Key features:
 
 This solution is ideal for compliance officers, IT administrators, and governance teams who need regular insights into their Microsoft 365 environment's health and security posture.
 
-# [PnP PowerShell](#tab/pnpps)
+# [CLI for Microsoft 365, Graph PowerShell and Azure CLI](#tab/cli-m365-ps)
 
 ```powershell
 <#
@@ -822,6 +822,10 @@ try {
 
 Write-LogMessage "Tenant Governance Compliance Report completed successfully!" -Level "Success"
 ```
+[!INCLUDE [More about CLI for Microsoft 365](../../docfx/includes/MORE-CLIM365.md)]
+[!INCLUDE [More about Microsoft Graph PowerShell SDK](../../docfx/includes/MORE-GRAPHSDK.md)]
+[!INCLUDE [More about Azure CLI](../../docfx/includes/MORE-AZURECLI.md)]
+***
 
 ## How to Use the Script
 
