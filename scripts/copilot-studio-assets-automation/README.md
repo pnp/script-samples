@@ -1,8 +1,5 @@
 # Copilot Studio assets automation
 
-> [!Note]
-> This is a submission helper template please find the [contributor guidance](/docfx/contribute.md) to help you write this scenario.
-
 ## Summary
 
 This script provides comprehensive automation for managing Microsoft Copilot Studio assets including embeddings, actions, and prompt libraries. It enables you to:
