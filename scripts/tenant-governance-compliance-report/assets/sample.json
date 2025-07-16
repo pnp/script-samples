@@ -1,0 +1,82 @@
+[
+  {
+    "name": "tenant-governance-compliance-report",
+    "source": "pnp",
+    "title": "Tenant Governance Compliance Report",
+    "shortDescription": "Auto-collect stale Teams/sites, label stats, Purview scans using CLI for M365, Graph PowerShell, and Azure CLI",
+    "url": "https://pnp.github.io/script-samples/tenant-governance-compliance-report/README.html",
+    "longDescription": [
+      "This comprehensive governance report automation solution helps organizations maintain compliance and security across their Microsoft 365 environment. The script automates the collection of stale Teams and SharePoint sites, sensitivity label statistics, and Microsoft Purview scan results.",
+      "Key features include stale content detection, label statistics generation, Purview integration, and automated reporting in multiple formats. The solution leverages CLI for Microsoft 365, Microsoft Graph PowerShell, and Azure CLI for comprehensive coverage.",
+      "Perfect for compliance officers, IT administrators, and governance teams who need regular insights into their Microsoft 365 environment's health and security posture."
+    ],
+    "creationDateTime": "2025-07-16",
+    "updateDateTime": "2025-07-16",
+    "products": [
+      "SharePoint",
+      "Graph",
+      "Teams",
+      "Azure",
+      "Microsoft 365 Copilot"
+    ],
+    "metadata": [
+      {
+        "key": "CLI-FOR-MICROSOFT365",
+        "value": "5.6.0"
+      },
+      {
+        "key": "GRAPH-POWERSHELL",
+        "value": "2.0.0"
+      },
+      {
+        "key": "AZURE-CLI",
+        "value": "2.50.0"
+      }
+    ],
+    "categories": [
+      "Report",
+      "Security",
+      "Data",
+      "Configure"
+    ],
+    "tags": [
+      "m365 spo site list",
+      "m365 teams team list",
+      "Get-MgInformationProtectionPolicyLabel",
+      "Get-MgSecurityAlert",
+      "az purview account list",
+      "az purview scan list",
+      "az group list",
+      "Connect-MgGraph",
+      "Disconnect-MgGraph",
+      "governance",
+      "compliance",
+      "purview",
+      "sensitivity labels",
+      "stale content"
+    ],
+    "thumbnails": [
+      {
+        "type": "image",
+        "order": 100,
+        "url": "https://raw.githubusercontent.com/pnp/script-samples/main/scripts/tenant-governance-compliance-report/assets/preview.png",
+        "alt": "Preview of the sample Tenant Governance Compliance Report"
+      }
+    ],
+    "authors": [
+      {
+        "gitHubAccount": "ValerasNarbutas",
+        "company": "",
+        "pictureUrl": "https://github.com/ValerasNarbutas.png",
+        "name": "Valeras Narbutas"
+      }
+    ],
+    "references": [
+      {
+        "name": "Want to learn more about CLI for Microsoft 365 and the commands",
+        "description": "Check out the CLI for Microsoft 365 site to get started and for the reference to the commands.",
+        "url": "https://aka.ms/cli-m365"
+      }
+    ]
+  }
+]
