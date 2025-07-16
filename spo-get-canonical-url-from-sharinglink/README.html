@@ -1,0 +1,312 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html lang="en">
+  
+  <head>
+    <meta charset="utf-8">
+    <title>Converting SharePoint Sharing Links to Canonical URLs | PnP Samples </title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="title" content="Converting SharePoint Sharing Links to Canonical URLs | PnP Samples ">
+    <meta name="generator" content="docfx 2.56.7.0">
+    <meta name="description" content="A sample gallery of scripts to manage all things Microsoft 365.">
+  
+    <!-- Social Media -->
+    <meta property="og:locale" content="en_GB">
+    <meta property="og:title" content="Converting SharePoint Sharing Links to Canonical URLs | PnP Samples ">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://pnp.github.io/script-samples">
+    <meta property="og:image" content="https://pnp.github.io/script-samples/assets/social-media-screenshot.png">
+    <meta property="og:image:alt" content="Screenshot example of the PnP Script Samples Site">
+    <meta property="og:site_name" content="PnP Script Samples">
+    <meta name="msvalidate.01" content="04EFEDA66EC42C08A1247C979E2F9ADD">
+    <meta property="og:description" content="A sample gallery of scripts to manage all things Microsoft 365.">
+  
+    <link rel="shortcut icon" href="https://c.s-microsoft.com/favicon.ico?v2">
+    <link rel="stylesheet" href="../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../styles/docfx.css">
+    <link rel="stylesheet" href="../styles/main.css">
+    <link rel="stylesheet" href="../styles/extra.css">
+    <link rel="stylesheet" href="../styles/filter.css">
+    <link rel="stylesheet" href="../styles/site.css">
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet"> 
+    <meta property="docfx:navrel" content="../toc.html">
+    <meta property="docfx:tocrel" content="../toc.html">
+    
+    
+    <meta property="docfx:newtab" content="true">
+    <script type="text/javascript">
+      (function(c,l,a,r,i,t,y){
+          c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+          t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+          y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+      })(window, document, "clarity", "script", "8j6pedl344");
+  </script>
+  </head>  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+             <div class="github-mark">
+              <a href="https://github.com/pnp/script-samples" title="Go to repository">
+               <div class="github-wrapper">
+                  <div class="github-icon">
+                    <img src="https://pnp.github.io/script-samples/assets/icons/github-light-64px.png" alt="GitHub Icon Image">
+                  </div>
+                  <div class="github-repository">
+                    <span>GitHub</span>
+                    <ul class="github-facts">
+                      <li>
+                        <i class="fa fa-code-fork" aria-hidden="true"></i>
+                        <span class="github-forks"></span>
+                      </li>
+                      <li>
+                        <i class="fa fa-star-o" aria-hidden="true"></i>
+                        <span class="github-stars"></span>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </a>
+            </div>
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../assets/logo.svg" alt="">
+              </a>    </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <label class="glyphicon glyphicon-search" for="search-query"></label>
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>      </header>
+      <div role="main" class="container body-content hide-when-search">
+        <div class="article row grid">
+          <div class="col-md-12">
+            <article class="content wrap" id="_content" data-uid="">
+                  <div class="contribution-panel mobile-hide pull-right">
+                      <a href="https://github.com/pnp/script-samples/blob/main/scripts/spo-get-canonical-url-from-sharinglink/README.md/#L1" title="Improve this Doc" class="improve-doc-lg"><i class="glyphicon glyphicon-pencil"></i></a>
+                  </div>
+                    <h1 id="converting-sharepoint-sharing-links-to-canonical-urls">Converting SharePoint Sharing Links to Canonical URLs</h1>
+
+<h2 id="summary">Summary</h2>
+<p>During a recent community discussion, Suhail Sayed presented an interesting challenge that many organizations face during SharePoint tenant migrations. The problem? Converting sharing links to their canonical URLs when documents are migrated between tenants.</p>
+<hr>
+<h2 id="the-challenge">The Challenge</h2>
+<p>When migrating SharePoint documents from one tenant to another, organizations often encounter a specific issue with document references:</p>
+<h3 id="the-problem-scenario">The Problem Scenario:</h3>
+<ul>
+<li><strong>Source tenant</strong>: Documents contain reference links to other documents</li>
+<li><strong>Migration requirement</strong>: Update these links to reflect the new tenant</li>
+<li><strong>Complication</strong>: Links were created using the <strong>Share</strong> option, not the <strong>Copy Link</strong> option</li>
+</ul>
+<h3 id="why-this-matters">Why This Matters:</h3>
+<p>When you generate a link using SharePoint's Share function, it creates a unique link with a randomly generated ID that redirects to the correct canonical URL. These unique IDs have no meaning on the new tenant, making simple find-and-replace operations ineffective.</p>
+<h3 id="example-urls">Example URLs:</h3>
+<p><strong>Sharing Link Format:</strong></p>
+<pre><code>https://contoso.sharepoint.com/:f:/s/Company311/Et83kyw3weBCqfgt9R73ZVgBDxDRU71gOt1Qkqb99kKubQ
+</code></pre>
+<p><strong>Canonical URL Format:</strong></p>
+<pre><code>https://contoso.sharepoint.com/sites/Company311/Shared Documents/Test1/Folder_57/TestDoc_6.docx
+</code></pre>
+<p>The script is to extract sharing link information and map them to their corresponding canonical URLs.</p>
+<h3 id="prerequisites">Prerequisites</h3>
+<ul>
+<li>The user account that runs the script must have access to the SharePoint Online site.</li>
+</ul>
+<div class="tabGroup" id="tabgroup_CeZOj-G++Q">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_CeZOj-G++Q_pnpps" role="tab" aria-controls="tabpanel_CeZOj-G++Q_pnpps" data-tab="pnpps" tabindex="0" aria-selected="true">PnP PowerShell</a>
+</li>
+</ul>
+<section id="tabpanel_CeZOj-G++Q_pnpps" role="tabpanel" data-tab="pnpps">
+
+<pre><code class="lang-powershell">param(
+    [Parameter(Mandatory=$true)]
+    [string]$LinkUrl
+)
+
+# Extract site name from sharing link
+$siteName = $LinkUrl.Split('/')[5]
+Write-Host &quot;Extracted site name: $siteName&quot; -ForegroundColor Green
+$path = &quot;sites&quot;
+# Build site URL from site name
+$uri = [System.Uri]$LinkUrl
+$tenantUrl = &quot;$($uri.Scheme)://$($uri.Host)&quot;
+$siteUrl = &quot;$tenantUrl/$path/$($siteName.ToLower())&quot;
+Write-Host &quot;Built site URL: $siteUrl&quot; -ForegroundColor Cyan
+
+connect-PnPOnline -Url $siteUrl 
+
+# Function to find file URL by searching sharing links
+function Find-FileUrlByLinkUrl {
+    param(
+        [string]$SearchLinkUrl
+    )
+    
+    Write-Host &quot;Searching for file URL corresponding to sharing link...&quot; -ForegroundColor Yellow
+    
+    # Get all lists in the site
+    $lists = Get-PnPList | Where-Object { $_.BaseTemplate -eq 101 -and $_.Hidden -eq $false }
+    
+    # Flag to track if we found a match
+    $found = $false
+    
+    foreach ($list in $lists) {
+        if ($found) { break }  # Exit if already found
+        
+        Write-Host &quot;Searching in library: $($list.Title)&quot; -ForegroundColor Cyan
+        
+        try {
+           # Search folders first
+           $Folders= Get-PnPListItem -List $list -Fields &quot;FileRef&quot;, &quot;FileLeafRef&quot;, &quot;FileSystemObjectType&quot; | Where-Object { $_.FileSystemObjectType -eq &quot;Folder&quot; }
+           
+           foreach ($folder in $folders) { 
+            if ($found) { break }  # Exit if already found
+            
+            $flinks = Get-PnPFolderSharingLink -Folder $folder['FileRef'] -ErrorAction SilentlyContinue 
+                foreach ($flink in $flinks) {
+                    # Check if the link URL matches our search URL
+                    if ($flink.Link.WebUrl -eq $SearchLinkUrl) {         
+                        Write-Host &quot;✓ Found matching folder!&quot; -ForegroundColor Green
+                        Write-Host &quot;  Folder Name: $($folder['FileLeafRef'])&quot; -ForegroundColor White
+                        Write-Host &quot;  Folder URL: $($folder['FileRef'])&quot; -ForegroundColor White
+                        Write-Host &quot;  Full URL: $tenantUrl$($folder['FileRef'])&quot; -ForegroundColor Green
+                        Write-Host &quot;  Library: $($list.Title)&quot; -ForegroundColor White
+                        Write-Host &quot;  Link Type: $($flink.Link.Type)&quot; -ForegroundColor White
+                        Write-Host &quot;  Link Scope: $($flink.Link.Scope)&quot; -ForegroundColor White
+                        
+                        return @{
+                            FileName = $folder['FileLeafRef']
+                            FileUrl = $folder['FileRef']
+                            FullUrl = &quot;$tenantUrl$($folder['FileRef'])&quot;
+                            Library = $list.Title
+                            LinkType = $flink.Link.Type
+                            LinkScope = $flink.Link.Scope
+                            SharingLink = $flink.Link.WebUrl
+                        }
+                    }
+                }
+            }
+
+           # Search files only if not found in folders
+           if (-not $found) {
+               $items  = get-pnplistitem -List $list -Fields &quot;FileRef&quot;, &quot;FileLeafRef&quot;, &quot;FileSystemObjectType&quot; -PageSize 5000 | Where-Object { $_.FileSystemObjectType -eq &quot;File&quot; }          
+                foreach ($item in $items) {
+                    if ($found) { break }  # Exit if already found
+                    
+                    # Get sharing links for each item
+                    $sharingLinks = Get-PnPFileSharingLink -Identity $item['FileRef']
+                    
+                    foreach ($link in $sharingLinks) {
+                        # Check if the link URL matches our search URL
+                        if ($link.Link.WebUrl -eq $SearchLinkUrl) {
+                            
+                            Write-Host &quot;✓ Found matching file!&quot; -ForegroundColor Green
+                            Write-Host &quot;  File Name: $($item['FileLeafRef'])&quot; -ForegroundColor White
+                            Write-Host &quot;  File URL: $($item['FileRef'])&quot; -ForegroundColor White
+                            Write-Host &quot;  Full URL: $tenantUrl$($item['FileRef'])&quot; -ForegroundColor Green
+                            Write-Host &quot;  Library: $($list.Title)&quot; -ForegroundColor White
+                            Write-Host &quot;  Link Type: $($link.Link.Type)&quot; -ForegroundColor White
+                            Write-Host &quot;  Link Scope: $($link.Link.Scope)&quot; -ForegroundColor White
+                            
+                            return @{
+                                FileName = $item['FileLeafRef']
+                                FileUrl = $item['FileRef']
+                                FullUrl = &quot;$tenantUrl$($item['FileRef'])&quot;
+                                Library = $list.Title
+                                LinkType = $link.Link.Type
+                                LinkScope = $link.Link.Scope
+                                SharingLink = $link.Link.WebUrl
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        catch {
+            Write-Host &quot;  Error searching in $($list.Title): $($_.Exception.Message)&quot; -ForegroundColor Red
+        }
+    }
+    
+    Write-Host &quot;No matching file found for the provided sharing link.&quot; -ForegroundColor Yellow
+    return $null
+}
+
+# Search for the file corresponding to the sharing link
+$fileInfo = Find-FileUrlByLinkUrl -SearchLinkUrl $LinkUrl
+
+if ($fileInfo) {
+    Write-Host &quot;`n========================================&quot; -ForegroundColor Green
+    Write-Host &quot;FILE FOUND!&quot; -ForegroundColor Green
+    Write-Host &quot;File: $($fileInfo.FileName)&quot; -ForegroundColor White
+    Write-Host &quot;URL: $($fileInfo.FullUrl)&quot; -ForegroundColor White
+    Write-Host &quot;========================================`n&quot; -ForegroundColor Green
+}
+</code></pre>
+<div class="highlight-tool">
+<p>Check out the <strong>PnP PowerShell</strong> to learn more at: <a href="https://aka.ms/pnp/powershell">https://aka.ms/pnp/powershell</a></p>
+</div>
+<div class="highlight-tool">
+<p>The way you login into PnP PowerShell has changed please read <a href="https://github.com/pnp/powershell/discussions/4249">PnP Management Shell EntraID app is deleted : what should I do ?</a></p>
+</div>
+</section>
+</div>
+<h2 id="source-credit">Source Credit</h2>
+<p>Sample first appeared on <a href="https://reshmeeauckloo.com/posts/powershell-sharepoint-getfileurl-basedon-sharingurl/">Converting SharePoint Sharing Links to Canonical URLs with PowerShell</a></p>
+<h2 id="contributors">Contributors</h2>
+<table>
+<thead>
+<tr>
+<th>Author(s)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="https://github.com/reshmee011">Reshmee Auckloo</a></td>
+</tr>
+</tbody>
+</table>
+<h2 id="disclaimer">Disclaimer</h2>
+<p><strong>THESE SAMPLES ARE PROVIDED <em>AS IS</em> WITHOUT WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, INCLUDING ANY IMPLIED WARRANTIES OF FITNESS FOR A PARTICULAR PURPOSE, MERCHANTABILITY, OR NON-INFRINGEMENT.</strong></p>
+<img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/spo-get-canonical-url-from-sharinglink" aria-hidden="true">
+</article>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            <span>Script Samples<br>Generated by <strong><a href='https://dotnet.github.io/docfx' alt='Doc FX Website'>DocFX</a></strong> with <strong><a href='https://ovasquez.github.io/docfx-material' alt='DocFx Material Theme'>Material UI</a></strong></span>
+            
+            <!-- <img src="https://telemetry.sharepointpnp.com/@pnp.github.io/index/" alt="spacer"> -->
+          </div>
+        </div>
+      </footer>    </div>
+    
+    <script type="text/javascript" src="../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+    
+    <script type="text/javascript" src="../styles/clipboard.min.js"></script>
+    <script type="text/javascript" src="../styles/isotope.pkgd.min.js"></script>
+    <script type="text/javascript" src="../styles/loadsamples.js"></script>
+    <script type="text/javascript" src="../styles/filtersamples.js"></script>
+
+  </body>
+</html>
