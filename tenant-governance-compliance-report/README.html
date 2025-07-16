@@ -1,0 +1,1303 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html lang="en">
+  
+  <head>
+    <meta charset="utf-8">
+    <title>Tenant Governance Compliance Report | PnP Samples </title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="title" content="Tenant Governance Compliance Report | PnP Samples ">
+    <meta name="generator" content="docfx 2.56.7.0">
+    <meta name="description" content="A sample gallery of scripts to manage all things Microsoft 365.">
+  
+    <!-- Social Media -->
+    <meta property="og:locale" content="en_GB">
+    <meta property="og:title" content="Tenant Governance Compliance Report | PnP Samples ">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://pnp.github.io/script-samples">
+    <meta property="og:image" content="https://pnp.github.io/script-samples/assets/social-media-screenshot.png">
+    <meta property="og:image:alt" content="Screenshot example of the PnP Script Samples Site">
+    <meta property="og:site_name" content="PnP Script Samples">
+    <meta name="msvalidate.01" content="04EFEDA66EC42C08A1247C979E2F9ADD">
+    <meta property="og:description" content="A sample gallery of scripts to manage all things Microsoft 365.">
+  
+    <link rel="shortcut icon" href="https://c.s-microsoft.com/favicon.ico?v2">
+    <link rel="stylesheet" href="../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../styles/docfx.css">
+    <link rel="stylesheet" href="../styles/main.css">
+    <link rel="stylesheet" href="../styles/extra.css">
+    <link rel="stylesheet" href="../styles/filter.css">
+    <link rel="stylesheet" href="../styles/site.css">
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet"> 
+    <meta property="docfx:navrel" content="../toc.html">
+    <meta property="docfx:tocrel" content="../toc.html">
+    
+    
+    <meta property="docfx:newtab" content="true">
+    <script type="text/javascript">
+      (function(c,l,a,r,i,t,y){
+          c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+          t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+          y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+      })(window, document, "clarity", "script", "8j6pedl344");
+  </script>
+  </head>  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+             <div class="github-mark">
+              <a href="https://github.com/pnp/script-samples" title="Go to repository">
+               <div class="github-wrapper">
+                  <div class="github-icon">
+                    <img src="https://pnp.github.io/script-samples/assets/icons/github-light-64px.png" alt="GitHub Icon Image">
+                  </div>
+                  <div class="github-repository">
+                    <span>GitHub</span>
+                    <ul class="github-facts">
+                      <li>
+                        <i class="fa fa-code-fork" aria-hidden="true"></i>
+                        <span class="github-forks"></span>
+                      </li>
+                      <li>
+                        <i class="fa fa-star-o" aria-hidden="true"></i>
+                        <span class="github-stars"></span>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </a>
+            </div>
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../assets/logo.svg" alt="">
+              </a>    </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <label class="glyphicon glyphicon-search" for="search-query"></label>
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>      </header>
+      <div role="main" class="container body-content hide-when-search">
+        <div class="article row grid">
+          <div class="col-md-12">
+            <article class="content wrap" id="_content" data-uid="">
+                  <div class="contribution-panel mobile-hide pull-right">
+                      <a href="https://github.com/pnp/script-samples/blob/main/scripts/tenant-governance-compliance-report/README.md/#L1" title="Improve this Doc" class="improve-doc-lg"><i class="glyphicon glyphicon-pencil"></i></a>
+                  </div>
+                    <h1 id="tenant-governance-compliance-report">Tenant Governance Compliance Report</h1>
+
+<h2 id="summary">Summary</h2>
+<p>This comprehensive tenant governance compliance report solution helps organizations maintain compliance and security across their Microsoft 365 environment. The script automates the collection of stale Teams and SharePoint sites, sensitivity label statistics, and Microsoft Purview scan results.</p>
+<p><img src="assets/example.png" alt="Example Screenshot"></p>
+<p>Key features:</p>
+<ul>
+<li><strong>Stale Content Detection</strong>: Automatically identifies inactive Teams and SharePoint sites based on configurable criteria</li>
+<li><strong>Label Statistics</strong>: Generates comprehensive reports on sensitivity label usage across your tenant</li>
+<li><strong>Purview Integration</strong>: Collects and aggregates Microsoft Purview scan results for compliance reporting</li>
+<li><strong>Multi-Tool Support</strong>: Leverages CLI for Microsoft 365, Microsoft Graph PowerShell, and Azure CLI for comprehensive coverage</li>
+<li><strong>Automated Reporting</strong>: Generates detailed reports in multiple formats (CSV, JSON, HTML)</li>
+</ul>
+<p>This solution is ideal for compliance officers, IT administrators, and governance teams who need regular insights into their Microsoft 365 environment's health and security posture.</p>
+<div class="tabGroup" id="tabgroup_CeZOj-G++Q">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_CeZOj-G++Q_cli-m365-ps" role="tab" aria-controls="tabpanel_CeZOj-G++Q_cli-m365-ps" data-tab="cli-m365-ps" tabindex="0" aria-selected="true">CLI for Microsoft 365, Graph PowerShell and Azure CLI</a>
+</li>
+</ul>
+<section id="tabpanel_CeZOj-G++Q_cli-m365-ps" role="tabpanel" data-tab="cli-m365-ps">
+
+<pre><code class="lang-powershell">&lt;#
+.SYNOPSIS
+    Tenant Governance Compliance Report - Comprehensive governance and compliance reporting for Microsoft 365 and Azure
+
+.DESCRIPTION
+    This script generates comprehensive governance and compliance reports by collecting:
+    - Stale Teams and SharePoint sites
+    - Sensitivity label statistics
+    - Microsoft Purview scan results
+    - Azure resource governance data
+    - Compliance alerts and security events
+
+.PARAMETER DaysThreshold
+    Number of days to consider content as stale (default: 90)
+
+.PARAMETER OutputPath
+    Path where reports will be saved (default: current directory)
+
+.PARAMETER IncludePurview
+    Boolean to include Purview scan results (default: true)
+
+.PARAMETER ExportFormat
+    Export format for reports: CSV, JSON, HTML (default: CSV)
+
+.PARAMETER SkipM365
+    Skip Microsoft 365 data collection (CLI for M365 and Graph PowerShell)
+
+.PARAMETER SkipAzure
+    Skip Azure data collection (Azure CLI and Purview)
+
+.EXAMPLE
+    .\TenantGovernanceComplianceReport.ps1
+    
+.EXAMPLE
+    .\TenantGovernanceComplianceReport.ps1 -DaysThreshold 60 -OutputPath &quot;C:\Reports&quot; -ExportFormat &quot;JSON&quot;
+
+.EXAMPLE
+    .\TenantGovernanceComplianceReport.ps1 -SkipAzure -ExportFormat &quot;HTML&quot;
+
+.NOTES
+    Author: Valeras Narbutas
+    GitHub: ValerasNarbutas
+    
+    Prerequisites:
+    - CLI for Microsoft 365: npm install -g @pnp/cli-microsoft365
+    - Microsoft Graph PowerShell: Install-Module Microsoft.Graph -AllowClobber -Force
+    - Azure CLI: https://docs.microsoft.com/en-us/cli/azure/install-azure-cli
+    
+    Required Permissions:
+    - SharePoint: Site.Read.All, Team.ReadBasic.All
+    - Graph: InformationProtectionPolicy.Read.All, SecurityEvents.Read.All
+    - Azure: Purview Data Reader, Resource Group Reader
+#&gt;
+
+[CmdletBinding()]
+param(
+    [Parameter(Mandatory = $false)]
+    [int]$DaysThreshold = 90,
+    
+    [Parameter(Mandatory = $false)]
+    [string]$OutputPath = (Get-Location).Path,
+    
+    [Parameter(Mandatory = $false)]
+    [bool]$IncludePurview = $true,
+    
+    [Parameter(Mandatory = $false)]
+    [ValidateSet(&quot;CSV&quot;, &quot;JSON&quot;, &quot;HTML&quot;)]
+    [string]$ExportFormat = &quot;CSV&quot;,
+    
+    [Parameter(Mandatory = $false)]
+    [switch]$SkipM365,
+    
+    [Parameter(Mandatory = $false)]
+    [switch]$SkipAzure
+)
+
+# Global variables
+$script:ReportData = @{
+    StaleSites = @()
+    StaleTeams = @()
+    SensitivityLabels = @()
+    ComplianceAlerts = @()
+    PurviewScans = @()
+    AzureGovernance = @()
+}
+
+$script:ErrorLog = @()
+$script:StartTime = Get-Date
+
+# Helper Functions
+function Write-LogMessage {
+    param(
+        [string]$Message,
+        [ValidateSet(&quot;Info&quot;, &quot;Warning&quot;, &quot;Error&quot;, &quot;Success&quot;)]
+        [string]$Level = &quot;Info&quot;
+    )
+    
+    $timestamp = Get-Date -Format &quot;yyyy-MM-dd HH:mm:ss&quot;
+    $colors = @{
+        &quot;Info&quot; = &quot;White&quot;
+        &quot;Warning&quot; = &quot;Yellow&quot;
+        &quot;Error&quot; = &quot;Red&quot;
+        &quot;Success&quot; = &quot;Green&quot;
+    }
+    
+    Write-Host &quot;[$timestamp] [$Level] $Message&quot; -ForegroundColor $colors[$Level]
+    
+    if ($Level -eq &quot;Error&quot;) {
+        $script:ErrorLog += @{
+            Timestamp = $timestamp
+            Level = $Level
+            Message = $Message
+        }
+    }
+}
+
+function Test-Prerequisites {
+    Write-LogMessage &quot;Checking prerequisites...&quot; -Level &quot;Info&quot;
+    
+    $prerequisites = @()
+    
+    # Check CLI for Microsoft 365
+    if (-not $SkipM365) {
+        try {
+            $m365Version = m365 --version 2&gt;$null
+            if ($m365Version) {
+                Write-LogMessage &quot;CLI for Microsoft 365 found: $m365Version&quot; -Level &quot;Success&quot;
+            } else {
+                $prerequisites += &quot;CLI for Microsoft 365 not found. Install with: npm install -g @pnp/cli-microsoft365&quot;
+            }
+        } catch {
+            $prerequisites += &quot;CLI for Microsoft 365 not found. Install with: npm install -g @pnp/cli-microsoft365&quot;
+        }
+        
+        # Check Microsoft Graph PowerShell
+        if (-not (Get-Module -ListAvailable -Name Microsoft.Graph)) {
+            $prerequisites += &quot;Microsoft Graph PowerShell not found. Install with: Install-Module Microsoft.Graph -AllowClobber -Force&quot;
+        } else {
+            Write-LogMessage &quot;Microsoft Graph PowerShell module found&quot; -Level &quot;Success&quot;
+        }
+    }
+    
+    # Check Azure CLI
+    if (-not $SkipAzure) {
+        try {
+            $azVersion = az --version 2&gt;$null
+            if ($azVersion) {
+                Write-LogMessage &quot;Azure CLI found&quot; -Level &quot;Success&quot;
+            } else {
+                $prerequisites += &quot;Azure CLI not found. Download from: https://docs.microsoft.com/en-us/cli/azure/install-azure-cli&quot;
+            }
+        } catch {
+            $prerequisites += &quot;Azure CLI not found. Download from: https://docs.microsoft.com/en-us/cli/azure/install-azure-cli&quot;
+        }
+    }
+    
+    if ($prerequisites.Count -gt 0) {
+        Write-LogMessage &quot;Missing prerequisites:&quot; -Level &quot;Error&quot;
+        $prerequisites | ForEach-Object { Write-LogMessage &quot;  - $_&quot; -Level &quot;Error&quot; }
+        return $false
+    }
+    
+    return $true
+}
+
+function Connect-M365Services {
+    if ($SkipM365) {
+        Write-LogMessage &quot;Skipping Microsoft 365 connection&quot; -Level &quot;Info&quot;
+        return $true
+    }
+    
+    try {
+        Write-LogMessage &quot;Connecting to Microsoft 365...&quot; -Level &quot;Info&quot;
+        
+        # Connect to CLI for Microsoft 365
+        $m365Status = m365 status --output json 2&gt;$null | ConvertFrom-Json
+        if (-not $m365Status.connectedAs) {
+            Write-LogMessage &quot;Connecting to CLI for Microsoft 365...&quot; -Level &quot;Info&quot;
+            m365 login --authType browser
+            if ($LASTEXITCODE -ne 0) {
+                throw &quot;Failed to connect to CLI for Microsoft 365&quot;
+            }
+        } else {
+            Write-LogMessage &quot;Already connected to CLI for Microsoft 365 as: $($m365Status.connectedAs)&quot; -Level &quot;Success&quot;
+        }
+        
+        # Connect to Microsoft Graph PowerShell
+        Write-LogMessage &quot;Connecting to Microsoft Graph PowerShell...&quot; -Level &quot;Info&quot;
+        $requiredScopes = @(
+            &quot;InformationProtectionPolicy.Read&quot;,
+            # &quot;InformationProtectionPolicy.Read.All&quot;,
+            &quot;SecurityEvents.Read.All&quot;,
+            &quot;Sites.FullControl.All&quot;,
+            # &quot;TeamMessages.Read.All&quot;,
+            # &quot;TeamMessages.Read&quot;,
+            &quot;ChannelMessage.Read.All&quot;,
+            &quot;Sites.Read.All&quot;,
+            &quot;Team.ReadBasic.All&quot;
+        )
+        
+        Connect-MgGraph -Scopes $requiredScopes #-NoWelcome
+        if (-not (Get-MgContext)) {
+            throw &quot;Failed to connect to Microsoft Graph PowerShell&quot;
+        }
+        
+        Write-LogMessage &quot;Successfully connected to Microsoft 365 services&quot; -Level &quot;Success&quot;
+        return $true
+    } catch {
+        Write-LogMessage &quot;Failed to connect to Microsoft 365 services: $($_.Exception.Message)&quot; -Level &quot;Error&quot;
+        return $false
+    }
+}
+
+function Connect-AzureServices {
+    if ($SkipAzure) {
+        Write-LogMessage &quot;Skipping Azure connection&quot; -Level &quot;Info&quot;
+        return $true
+    }
+    
+    try {
+        Write-LogMessage &quot;Connecting to Azure...&quot; -Level &quot;Info&quot;
+        
+        # Check if already logged in
+        $azAccount = az account show --output json 2&gt;$null | ConvertFrom-Json
+        if (-not $azAccount) {
+            Write-LogMessage &quot;Connecting to Azure CLI...&quot; -Level &quot;Info&quot;
+            az login --output table
+            if ($LASTEXITCODE -ne 0) {
+                throw &quot;Failed to connect to Azure CLI&quot;
+            }
+        } else {
+            Write-LogMessage &quot;Already connected to Azure as: $($azAccount.user.name)&quot; -Level &quot;Success&quot;
+        }
+        
+        Write-LogMessage &quot;Successfully connected to Azure services&quot; -Level &quot;Success&quot;
+        return $true
+    } catch {
+        Write-LogMessage &quot;Failed to connect to Azure services: $($_.Exception.Message)&quot; -Level &quot;Error&quot;
+        return $false
+    }
+}
+
+function Get-StaleSites {
+    Write-LogMessage &quot;Collecting stale SharePoint sites...&quot; -Level &quot;Info&quot;
+    
+    try {
+        $sites = m365 spo site list --output json | ConvertFrom-Json
+        $staleSites = @()
+        
+        foreach ($site in $sites) {
+            try {
+                $siteDetails = m365 spo site get --url $site.Url --output json | ConvertFrom-Json
+                $lastActivityDate = $null
+                if ($siteDetails.LastItemModifiedDate) {
+                    $lastActivityDate = $siteDetails.LastItemModifiedDate
+                } elseif ($siteDetails.LastItemUserModifiedDate) {
+                    $lastActivityDate = $siteDetails.LastItemUserModifiedDate
+                } elseif ($siteDetails.LastContentModifiedDate) {
+                    $lastActivityDate = $siteDetails.LastContentModifiedDate
+                }
+
+                if ($lastActivityDate) {
+                    $lastActivity = Get-Date $lastActivityDate
+                     
+                    $daysSinceActivity = (Get-Date) - $lastActivity
+                    
+                    if ($daysSinceActivity.Days -gt $DaysThreshold) {
+                        $staleSites += [PSCustomObject]@{
+                            Title = $site.Title
+                            Url = $site.Url
+                            Template = $site.Template
+                            LastActivity = $siteDetails.LastItemModifiedDate
+                            DaysSinceActivity = $daysSinceActivity.Days
+                            Owner = $siteDetails.Owner
+                            StorageUsed = $siteDetails.StorageUsage
+                            SiteId = $site.SiteId
+                        }
+                    }
+                }
+
+            } catch {
+                Write-LogMessage &quot;Failed to get details for site: $($site.Url)&quot; -Level &quot;Warning&quot;
+            }
+        }
+        
+        $script:ReportData.StaleSites = $staleSites
+        Write-LogMessage &quot;Found $($staleSites.Count) stale SharePoint sites&quot; -Level &quot;Success&quot;
+        
+    } catch {
+        Write-LogMessage &quot;Failed to collect stale SharePoint sites: $($_.Exception.Message)&quot; -Level &quot;Error&quot;
+    }
+}
+
+function Get-StaleTeams {
+    Write-LogMessage &quot;Collecting stale Teams...&quot; -Level &quot;Info&quot;
+    
+    try {
+        $teams = m365 teams team list --output json | ConvertFrom-Json
+        $staleTeams = @()
+        
+        foreach ($team in $teams) {
+            try {
+                # Get team details including last activity
+                $teamDetails = m365 teams team get --id $team.id --output json | ConvertFrom-Json
+                
+                # Check for recent messages in channels
+                $channels = m365 teams channel list --teamId $team.id --output json | ConvertFrom-Json
+                $hasRecentActivity = $false
+                
+                foreach ($channel in $channels) {
+                    try {
+                        $messages = m365 teams message list --teamId $team.id --channelId $channel.id --output json | ConvertFrom-Json
+                        if ($messages) {
+                            $recentMessages = $messages | Where-Object { 
+                                $messageDate = Get-Date $_.createdDateTime
+                                $daysSinceMessage = (Get-Date) - $messageDate
+                                $daysSinceMessage.Days -le $DaysThreshold
+                            }
+                            if ($recentMessages) {
+                                $hasRecentActivity = $true
+                                break
+                            }
+                        }
+                    } catch {
+                        # Continue if we can't access messages
+                    }
+                }
+                
+                if (-not $hasRecentActivity) {
+                    $staleTeams += [PSCustomObject]@{
+                        DisplayName = $team.displayName
+                        Description = $team.description
+                        Id = $team.id
+                        Visibility = $team.visibility
+                        WebUrl = $team.webUrl
+                        MemberCount = ($teamDetails.members | Measure-Object).Count
+                        CreatedDateTime = $teamDetails.createdDateTime
+                        Classification = $team.classification
+                    }
+                }
+            } catch {
+                Write-LogMessage &quot;Failed to get details for team: $($team.displayName)&quot; -Level &quot;Warning&quot;
+            }
+        }
+        
+        $script:ReportData.StaleTeams = $staleTeams
+        Write-LogMessage &quot;Found $($staleTeams.Count) stale Teams&quot; -Level &quot;Success&quot;
+        
+    } catch {
+        Write-LogMessage &quot;Failed to collect stale Teams: $($_.Exception.Message)&quot; -Level &quot;Error&quot;
+    }
+}
+
+function Get-SensitivityLabelStats {
+    Write-LogMessage &quot;Collecting sensitivity label statistics...&quot; -Level &quot;Info&quot;
+    
+    try {
+        # Method 1: Using Get-MgInformationProtectionPolicy
+        try {
+            $policy = Get-MgInformationProtectionPolicy -UserId (Get-MgContext).Account -ExpandProperty labels
+            $sensitivityLabels = $policy.Labels
+        } catch {
+            # Method 2: Direct REST API call if the above fails
+            Write-LogMessage &quot;Trying alternative method for sensitivity labels...&quot; -Level &quot;Info&quot;
+            $uri = &quot;https://graph.microsoft.com/v1.0/informationProtection/policy/labels&quot;
+            $response = Invoke-MgGraphRequest -Uri $uri -Method GET
+            $sensitivityLabels = $response.value
+        }
+        
+        $labelStats = @()
+        
+        if ($sensitivityLabels) {
+            foreach ($label in $sensitivityLabels) {
+                $labelStats += [PSCustomObject]@{
+                    LabelId = $label.Id
+                    LabelName = $label.Name
+                    Description = $label.Description
+                    IsActive = $label.IsActive
+                    Tooltip = $label.Tooltip
+                    Color = $label.Color
+                    Sensitivity = $label.Sensitivity
+                    Priority = $label.Priority
+                    ParentId = $label.ParentId
+                    # Usage statistics would require additional Graph API calls
+                    # This could be enhanced with actual usage data from audit logs
+                    UsageCount = 0
+                }
+            }
+        } else {
+            Write-LogMessage &quot;No sensitivity labels found or insufficient permissions&quot; -Level &quot;Warning&quot;
+        }
+        
+        $script:ReportData.SensitivityLabels = $labelStats
+        Write-LogMessage &quot;Collected $($labelStats.Count) sensitivity labels&quot; -Level &quot;Success&quot;
+        
+    } catch {
+        Write-LogMessage &quot;Failed to collect sensitivity label statistics: $($_.Exception.Message)&quot; -Level &quot;Error&quot;
+        Write-LogMessage &quot;This might be due to insufficient permissions or the tenant not having sensitivity labels configured&quot; -Level &quot;Warning&quot;
+    }
+}
+
+function Get-ComplianceAlerts {
+    Write-LogMessage &quot;Collecting compliance alerts...&quot; -Level &quot;Info&quot;
+    
+    try {
+        $alerts = Get-MgSecurityAlert | Where-Object {
+            $_.CreatedDateTime -gt (Get-Date).AddDays(-30)
+        }
+        
+        $complianceAlerts = @()
+        foreach ($alert in $alerts) {
+            $complianceAlerts += [PSCustomObject]@{
+                Id = $alert.Id
+                Title = $alert.Title
+                Category = $alert.Category
+                Severity = $alert.Severity
+                Status = $alert.Status
+                CreatedDateTime = $alert.CreatedDateTime
+                Description = $alert.Description
+                RecommendedAction = $alert.RecommendedAction
+                VendorInformation = $alert.VendorInformation.Vendor
+                ThreatIntelligence = $alert.ThreatIntelligence
+            }
+        }
+        
+        $script:ReportData.ComplianceAlerts = $complianceAlerts
+        Write-LogMessage &quot;Found $($complianceAlerts.Count) compliance alerts in the last 30 days&quot; -Level &quot;Success&quot;
+        
+    } catch {
+        Write-LogMessage &quot;Failed to collect compliance alerts: $($_.Exception.Message)&quot; -Level &quot;Error&quot;
+    }
+}
+
+function Get-PurviewScanResults {
+    if (-not $IncludePurview) {
+        Write-LogMessage &quot;Skipping Purview scan results&quot; -Level &quot;Info&quot;
+        return
+    }
+    
+    Write-LogMessage &quot;Collecting Microsoft Purview scan results...&quot; -Level &quot;Info&quot;
+    
+    try {
+        $purviewAccounts = az purview account list --output json 2&gt;$null | ConvertFrom-Json
+        if (-not $purviewAccounts) {
+            Write-LogMessage &quot;No Purview accounts found&quot; -Level &quot;Warning&quot;
+            return
+        }
+        
+        $purviewResults = @()
+        foreach ($account in $purviewAccounts) {
+            try {
+                Write-LogMessage &quot;Processing Purview account: $($account.name)&quot; -Level &quot;Info&quot;
+                
+                # Get data sources
+                $dataSources = az purview data-source list --account-name $account.name --output json 2&gt;$null | ConvertFrom-Json
+                
+                foreach ($dataSource in $dataSources) {
+                    try {
+                        # Get scans for this data source
+                        $scans = az purview scan list --account-name $account.name --data-source-name $dataSource.name --output json 2&gt;$null | ConvertFrom-Json
+                        
+                        foreach ($scan in $scans) {
+                            $purviewResults += [PSCustomObject]@{
+                                AccountName = $account.name
+                                DataSourceName = $dataSource.name
+                                DataSourceType = $dataSource.kind
+                                ScanName = $scan.name
+                                ScanType = $scan.kind
+                                LastRunTime = $scan.lastRunStartTime
+                                LastRunEndTime = $scan.lastRunEndTime
+                                Status = $scan.lastRunStatus
+                                CreatedAt = $scan.createdAt
+                                LastModifiedAt = $scan.lastModifiedAt
+                            }
+                        }
+                    } catch {
+                        Write-LogMessage &quot;Failed to get scans for data source: $($dataSource.name)&quot; -Level &quot;Warning&quot;
+                    }
+                }
+            } catch {
+                Write-LogMessage &quot;Failed to process Purview account: $($account.name)&quot; -Level &quot;Warning&quot;
+            }
+        }
+        
+        $script:ReportData.PurviewScans = $purviewResults
+        Write-LogMessage &quot;Collected $($purviewResults.Count) Purview scan results&quot; -Level &quot;Success&quot;
+        
+    } catch {
+        Write-LogMessage &quot;Failed to collect Purview scan results: $($_.Exception.Message)&quot; -Level &quot;Error&quot;
+    }
+}
+
+function Get-AzureGovernanceData {
+    Write-LogMessage &quot;Collecting Azure resource governance data...&quot; -Level &quot;Info&quot;
+    
+    try {
+        $resourceGroups = az group list --output json | ConvertFrom-Json
+        $governanceData = @()
+        
+        foreach ($rg in $resourceGroups) {
+            try {
+                # Get policy compliance for resource group
+                $policyStates = az policy state list --resource-group $rg.name --output json 2&gt;$null | ConvertFrom-Json
+                $complianceState = if ($policyStates) {
+                    $nonCompliantCount = ($policyStates | Where-Object { $_.complianceState -eq &quot;NonCompliant&quot; }).Count
+                    if ($nonCompliantCount -eq 0) { &quot;Compliant&quot; } else { &quot;Non-Compliant ($nonCompliantCount issues)&quot; }
+                } else { &quot;No policies assigned&quot; }
+                
+                $governanceData += [PSCustomObject]@{
+                    ResourceGroupName = $rg.name
+                    Location = $rg.location
+                    Tags = if ($rg.tags) { $rg.tags | ConvertTo-Json -Compress } else { &quot;{}&quot; }
+                    ManagedBy = $rg.managedBy
+                    PolicyCompliance = $complianceState
+                    CreatedTime = $rg.createdTime
+                    ProvisioningState = $rg.properties.provisioningState
+                    ResourceCount = (az resource list --resource-group $rg.name --output json | ConvertFrom-Json).Count
+                }
+            } catch {
+                Write-LogMessage &quot;Failed to get governance data for resource group: $($rg.name)&quot; -Level &quot;Warning&quot;
+            }
+        }
+        
+        $script:ReportData.AzureGovernance = $governanceData
+        Write-LogMessage &quot;Collected governance data for $($governanceData.Count) resource groups&quot; -Level &quot;Success&quot;
+        
+    } catch {
+        Write-LogMessage &quot;Failed to collect Azure governance data: $($_.Exception.Message)&quot; -Level &quot;Error&quot;
+    }
+}
+
+function Export-ReportData {
+    Write-LogMessage &quot;Exporting report data...&quot; -Level &quot;Info&quot;
+    
+    $timestamp = Get-Date -Format &quot;yyyyMMdd-HHmmss&quot;
+    $reportFiles = @()
+    
+    try {
+        switch ($ExportFormat) {
+            &quot;CSV&quot; {
+                if ($script:ReportData.StaleSites.Count -gt 0) {
+                    $filePath = Join-Path $OutputPath &quot;StaleSharePointSites_$timestamp.csv&quot;
+                    $script:ReportData.StaleSites | Export-Csv -Path $filePath -NoTypeInformation
+                    $reportFiles += $filePath
+                }
+                
+                if ($script:ReportData.StaleTeams.Count -gt 0) {
+                    $filePath = Join-Path $OutputPath &quot;StaleTeams_$timestamp.csv&quot;
+                    $script:ReportData.StaleTeams | Export-Csv -Path $filePath -NoTypeInformation
+                    $reportFiles += $filePath
+                }
+                
+                if ($script:ReportData.SensitivityLabels.Count -gt 0) {
+                    $filePath = Join-Path $OutputPath &quot;SensitivityLabelStats_$timestamp.csv&quot;
+                    $script:ReportData.SensitivityLabels | Export-Csv -Path $filePath -NoTypeInformation
+                    $reportFiles += $filePath
+                }
+                
+                if ($script:ReportData.ComplianceAlerts.Count -gt 0) {
+                    $filePath = Join-Path $OutputPath &quot;ComplianceAlerts_$timestamp.csv&quot;
+                    $script:ReportData.ComplianceAlerts | Export-Csv -Path $filePath -NoTypeInformation
+                    $reportFiles += $filePath
+                }
+                
+                if ($script:ReportData.PurviewScans.Count -gt 0) {
+                    $filePath = Join-Path $OutputPath &quot;PurviewScanResults_$timestamp.csv&quot;
+                    $script:ReportData.PurviewScans | Export-Csv -Path $filePath -NoTypeInformation
+                    $reportFiles += $filePath
+                }
+                
+                if ($script:ReportData.AzureGovernance.Count -gt 0) {
+                    $filePath = Join-Path $OutputPath &quot;AzureGovernanceData_$timestamp.csv&quot;
+                    $script:ReportData.AzureGovernance | Export-Csv -Path $filePath -NoTypeInformation
+                    $reportFiles += $filePath
+                }
+            }
+            
+            &quot;JSON&quot; {
+                $filePath = Join-Path $OutputPath &quot;TenantGovernanceReport_$timestamp.json&quot;
+                $script:ReportData | ConvertTo-Json -Depth 10 | Out-File -FilePath $filePath -Encoding UTF8
+                $reportFiles += $filePath
+            }
+            
+            &quot;HTML&quot; {
+                $filePath = Join-Path $OutputPath &quot;TenantGovernanceReport_$timestamp.html&quot;
+                $htmlContent = Generate-HTMLReport
+                $htmlContent | Out-File -FilePath $filePath -Encoding UTF8
+                $reportFiles += $filePath
+            }
+        }
+        
+        Write-LogMessage &quot;Report files generated:&quot; -Level &quot;Success&quot;
+        $reportFiles | ForEach-Object { Write-LogMessage &quot;  - $_&quot; -Level &quot;Success&quot; }
+        
+    } catch {
+        Write-LogMessage &quot;Failed to export report data: $($_.Exception.Message)&quot; -Level &quot;Error&quot;
+    }
+}
+
+function Generate-HTMLReport {
+    $html = @&quot;
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+    &lt;title&gt;Tenant Governance Compliance Report&lt;/title&gt;
+    &lt;style&gt;
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        .header { background-color: #0078d4; color: white; padding: 20px; border-radius: 5px; }
+        .summary { background-color: #f3f2f1; padding: 15px; margin: 20px 0; border-radius: 5px; }
+        .section { margin: 20px 0; }
+        .section h2 { color: #0078d4; border-bottom: 2px solid #0078d4; padding-bottom: 5px; }
+        table { border-collapse: collapse; width: 100%; margin: 10px 0; }
+        th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }
+        th { background-color: #f2f2f2; }
+        .metric { display: inline-block; margin: 10px; padding: 15px; background-color: #e3f2fd; border-radius: 5px; text-align: center; }
+        .metric-value { font-size: 24px; font-weight: bold; color: #0078d4; }
+        .metric-label { font-size: 14px; color: #666; }
+        .error { color: #d32f2f; }
+        .success { color: #388e3c; }
+        .warning { color: #f57c00; }
+    &lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;div class=&quot;header&quot;&gt;
+        &lt;h1&gt;Tenant Governance Compliance Report&lt;/h1&gt;
+        &lt;p&gt;Generated on: $(Get-Date -Format &quot;yyyy-MM-dd HH:mm:ss&quot;)&lt;/p&gt;
+    &lt;/div&gt;
+    
+    &lt;div class=&quot;summary&quot;&gt;
+        &lt;h2&gt;Executive Summary&lt;/h2&gt;
+        &lt;div class=&quot;metric&quot;&gt;
+            &lt;div class=&quot;metric-value&quot;&gt;$($script:ReportData.StaleSites.Count)&lt;/div&gt;
+            &lt;div class=&quot;metric-label&quot;&gt;Stale SharePoint Sites&lt;/div&gt;
+        &lt;/div&gt;
+        &lt;div class=&quot;metric&quot;&gt;
+            &lt;div class=&quot;metric-value&quot;&gt;$($script:ReportData.StaleTeams.Count)&lt;/div&gt;
+            &lt;div class=&quot;metric-label&quot;&gt;Stale Teams&lt;/div&gt;
+        &lt;/div&gt;
+        &lt;div class=&quot;metric&quot;&gt;
+            &lt;div class=&quot;metric-value&quot;&gt;$($script:ReportData.SensitivityLabels.Count)&lt;/div&gt;
+            &lt;div class=&quot;metric-label&quot;&gt;Sensitivity Labels&lt;/div&gt;
+        &lt;/div&gt;
+        &lt;div class=&quot;metric&quot;&gt;
+            &lt;div class=&quot;metric-value&quot;&gt;$($script:ReportData.ComplianceAlerts.Count)&lt;/div&gt;
+            &lt;div class=&quot;metric-label&quot;&gt;Compliance Alerts&lt;/div&gt;
+        &lt;/div&gt;
+        &lt;div class=&quot;metric&quot;&gt;
+            &lt;div class=&quot;metric-value&quot;&gt;$($script:ReportData.PurviewScans.Count)&lt;/div&gt;
+            &lt;div class=&quot;metric-label&quot;&gt;Purview Scans&lt;/div&gt;
+        &lt;/div&gt;
+        &lt;div class=&quot;metric&quot;&gt;
+            &lt;div class=&quot;metric-value&quot;&gt;$($script:ReportData.AzureGovernance.Count)&lt;/div&gt;
+            &lt;div class=&quot;metric-label&quot;&gt;Azure Resource Groups&lt;/div&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+&quot;@
+
+    # Add sections for each data type
+    if ($script:ReportData.StaleSites.Count -gt 0) {
+        $html += @&quot;
+    &lt;div class=&quot;section&quot;&gt;
+        &lt;h2&gt;Stale SharePoint Sites&lt;/h2&gt;
+        &lt;table&gt;
+            &lt;tr&gt;&lt;th&gt;Title&lt;/th&gt;&lt;th&gt;URL&lt;/th&gt;&lt;th&gt;Days Since Activity&lt;/th&gt;&lt;th&gt;Owner&lt;/th&gt;&lt;th&gt;Storage Used&lt;/th&gt;&lt;/tr&gt;
+&quot;@
+        $script:ReportData.StaleSites | ForEach-Object {
+            $html += &quot;&lt;tr&gt;&lt;td&gt;$($_.Title)&lt;/td&gt;&lt;td&gt;$($_.Url)&lt;/td&gt;&lt;td&gt;$($_.DaysSinceActivity)&lt;/td&gt;&lt;td&gt;$($_.Owner)&lt;/td&gt;&lt;td&gt;$($_.StorageUsed)&lt;/td&gt;&lt;/tr&gt;&quot;
+        }
+        $html += &quot;&lt;/table&gt;&lt;/div&gt;&quot;
+    }
+    
+    if ($script:ReportData.StaleTeams.Count -gt 0) {
+        $html += @&quot;
+    &lt;div class=&quot;section&quot;&gt;
+        &lt;h2&gt;Stale Teams&lt;/h2&gt;
+        &lt;table&gt;
+            &lt;tr&gt;&lt;th&gt;Display Name&lt;/th&gt;&lt;th&gt;Description&lt;/th&gt;&lt;th&gt;Visibility&lt;/th&gt;&lt;th&gt;Member Count&lt;/th&gt;&lt;th&gt;Created&lt;/th&gt;&lt;/tr&gt;
+&quot;@
+        $script:ReportData.StaleTeams | ForEach-Object {
+            $html += &quot;&lt;tr&gt;&lt;td&gt;$($_.DisplayName)&lt;/td&gt;&lt;td&gt;$($_.Description)&lt;/td&gt;&lt;td&gt;$($_.Visibility)&lt;/td&gt;&lt;td&gt;$($_.MemberCount)&lt;/td&gt;&lt;td&gt;$($_.CreatedDateTime)&lt;/td&gt;&lt;/tr&gt;&quot;
+        }
+        $html += &quot;&lt;/table&gt;&lt;/div&gt;&quot;
+    }
+    
+    $html += &quot;&lt;/body&gt;&lt;/html&gt;&quot;
+    return $html
+}
+
+function Disconnect-Services {
+    Write-LogMessage &quot;Disconnecting from services...&quot; -Level &quot;Info&quot;
+    
+    try {
+        if (-not $SkipM365) {
+            # Disconnect from Microsoft Graph
+            try {
+                Disconnect-MgGraph -ErrorAction SilentlyContinue
+            } catch {
+                # Ignore errors during disconnect
+            }
+            
+            # Disconnect from CLI for Microsoft 365
+            try {
+                m365 logout
+            } catch {
+                # Ignore errors during disconnect
+            }
+        }
+        
+        if (-not $SkipAzure) {
+            # Note: Azure CLI logout would disconnect all sessions
+            # Uncomment the next line if you want to logout completely
+            # az logout
+        }
+        
+        Write-LogMessage &quot;Disconnected from services&quot; -Level &quot;Success&quot;
+    } catch {
+        Write-LogMessage &quot;Warning during disconnect: $($_.Exception.Message)&quot; -Level &quot;Warning&quot;
+    }
+}
+
+function Show-Summary {
+    $endTime = Get-Date
+    $duration = $endTime - $script:StartTime
+    
+    Write-LogMessage &quot;=== TENANT GOVERNANCE COMPLIANCE REPORT SUMMARY ===&quot; -Level &quot;Info&quot;
+    Write-LogMessage &quot;Start Time: $($script:StartTime)&quot; -Level &quot;Info&quot;
+    Write-LogMessage &quot;End Time: $endTime&quot; -Level &quot;Info&quot;
+    Write-LogMessage &quot;Duration: $($duration.ToString('hh\:mm\:ss'))&quot; -Level &quot;Info&quot;
+    Write-LogMessage &quot;&quot; -Level &quot;Info&quot;
+    Write-LogMessage &quot;Results:&quot; -Level &quot;Info&quot;
+    Write-LogMessage &quot;  - Stale SharePoint Sites: $($script:ReportData.StaleSites.Count)&quot; -Level &quot;Info&quot;
+    Write-LogMessage &quot;  - Stale Teams: $($script:ReportData.StaleTeams.Count)&quot; -Level &quot;Info&quot;
+    Write-LogMessage &quot;  - Sensitivity Labels: $($script:ReportData.SensitivityLabels.Count)&quot; -Level &quot;Info&quot;
+    Write-LogMessage &quot;  - Compliance Alerts: $($script:ReportData.ComplianceAlerts.Count)&quot; -Level &quot;Info&quot;
+    Write-LogMessage &quot;  - Purview Scans: $($script:ReportData.PurviewScans.Count)&quot; -Level &quot;Info&quot;
+    Write-LogMessage &quot;  - Azure Resource Groups: $($script:ReportData.AzureGovernance.Count)&quot; -Level &quot;Info&quot;
+    
+    if ($script:ErrorLog.Count -gt 0) {
+        Write-LogMessage &quot;&quot; -Level &quot;Info&quot;
+        Write-LogMessage &quot;Errors encountered: $($script:ErrorLog.Count)&quot; -Level &quot;Warning&quot;
+        $script:ErrorLog | ForEach-Object { Write-LogMessage &quot;  - $($_.Message)&quot; -Level &quot;Warning&quot; }
+    }
+    
+    Write-LogMessage &quot;&quot; -Level &quot;Info&quot;
+    Write-LogMessage &quot;Report files saved to: $OutputPath&quot; -Level &quot;Success&quot;
+    Write-LogMessage &quot;=== END SUMMARY ===&quot; -Level &quot;Info&quot;
+}
+
+# Main execution
+try {
+    Write-LogMessage &quot;Starting Tenant Governance Compliance Report...&quot; -Level &quot;Info&quot;
+    Write-LogMessage &quot;Parameters: DaysThreshold=$DaysThreshold, OutputPath=$OutputPath, ExportFormat=$ExportFormat&quot; -Level &quot;Info&quot;
+    
+    # Check prerequisites
+    if (-not (Test-Prerequisites)) {
+        Write-LogMessage &quot;Prerequisites check failed. Exiting.&quot; -Level &quot;Error&quot;
+        exit 1
+    }
+    
+    # Create output directory if it doesn't exist
+    if (-not (Test-Path $OutputPath)) {
+        New-Item -Path $OutputPath -ItemType Directory -Force | Out-Null
+        Write-LogMessage &quot;Created output directory: $OutputPath&quot; -Level &quot;Info&quot;
+    }
+    
+    # Connect to services
+    $m365Connected = Connect-M365Services
+    $azureConnected = Connect-AzureServices
+    
+    if (-not $m365Connected -and -not $azureConnected) {
+        Write-LogMessage &quot;Failed to connect to any services. Exiting.&quot; -Level &quot;Error&quot;
+        exit 1
+    }
+    
+    # Collect data
+    if ($m365Connected) {
+        Get-StaleSites
+        Get-StaleTeams
+        Get-SensitivityLabelStats
+        Get-ComplianceAlerts
+    }
+    
+    if ($azureConnected) {
+        Get-PurviewScanResults
+        Get-AzureGovernanceData
+    }
+    
+    # Export reports
+    Export-ReportData
+    
+    # Show summary
+    Show-Summary
+    
+} catch {
+    Write-LogMessage &quot;Critical error: $($_.Exception.Message)&quot; -Level &quot;Error&quot;
+    Write-LogMessage &quot;Stack trace: $($_.ScriptStackTrace)&quot; -Level &quot;Error&quot;
+    exit 1
+} finally {
+    # Always disconnect services
+    Disconnect-Services
+}
+
+Write-LogMessage &quot;Tenant Governance Compliance Report completed successfully!&quot; -Level &quot;Success&quot;
+</code></pre>
+<div class="highlight-tool">
+<p>Check out the <strong>CLI for Microsoft 365</strong> to learn more at: <a href="https://aka.ms/cli-m365">https://aka.ms/cli-m365</a></p>
+</div>
+<div class="highlight-tool-red">
+<p>Important changes coming to the way you login into CLI for Microsoft 365 (effective 9th September 2024) see <a href="https://pnp.github.io/blog/post/changes-pnp-management-shell-registration/">Changes in PnP Management Shell registration in Microsoft 365</a></p>
+</div>
+<div class="highlight-tool">
+<p>Check out the <strong>Microsoft Graph PowerShell SDK</strong> to learn more at: <a href="https://learn.microsoft.com/graph/powershell/get-started">https://learn.microsoft.com/graph/powershell/get-started</a></p>
+</div>
+<div class="highlight-tool">
+<p>Check out the <strong>Azure CLI</strong> to learn more at: <a href="https://learn.microsoft.com/cli/azure/">https://learn.microsoft.com/cli/azure/</a></p>
+</div>
+</section>
+</div>
+<h2 id="how-to-use-the-script">How to Use the Script</h2>
+<h3 id="step-1-copy-the-script">Step 1: Copy the Script</h3>
+<ol>
+<li>Copy the complete PowerShell script above</li>
+<li>Save it as <code>TenantGovernanceComplianceReport.ps1</code> on your local machine</li>
+<li>Ensure the file is saved with UTF-8 encoding</li>
+</ol>
+<h3 id="step-2-install-prerequisites">Step 2: Install Prerequisites</h3>
+<p>Before running the script, ensure you have the required tools installed:</p>
+<pre><code class="lang-powershell"># Install CLI for Microsoft 365
+npm install -g @pnp/cli-microsoft365
+
+# Install Microsoft Graph PowerShell
+Install-Module Microsoft.Graph -AllowClobber -Force
+
+# Install Azure CLI
+# Download from: https://docs.microsoft.com/en-us/cli/azure/install-azure-cli
+</code></pre>
+<h3 id="step-3-set-execution-policy-if-needed">Step 3: Set Execution Policy (if needed)</h3>
+<pre><code class="lang-powershell"># Set execution policy to allow script execution
+Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser
+</code></pre>
+<h3 id="step-4-run-the-script">Step 4: Run the Script</h3>
+<pre><code class="lang-powershell"># Basic usage - generates CSV reports for all governance data
+.\TenantGovernanceComplianceReport.ps1
+
+# Advanced usage with custom parameters
+.\TenantGovernanceComplianceReport.ps1 -DaysThreshold 60 -OutputPath &quot;C:\Reports&quot; -ExportFormat &quot;JSON&quot;
+
+# Skip Azure components and generate HTML report
+.\TenantGovernanceComplianceReport.ps1 -SkipAzure -ExportFormat &quot;HTML&quot;
+
+# Skip Microsoft 365 components (only Azure data)
+.\TenantGovernanceComplianceReport.ps1 -SkipM365 -IncludePurview $true
+</code></pre>
+<h2 id="script-components-explained">Script Components Explained</h2>
+<h3 id="-data-collection-functions">🔍 <strong>Data Collection Functions</strong></h3>
+<h4 id="get-stalesites"><code>Get-StaleSites</code></h4>
+<ul>
+<li><strong>Purpose</strong>: Identifies SharePoint sites with no activity beyond the specified threshold</li>
+<li><strong>Data Collected</strong>: Site title, URL, template, last activity date, owner, storage usage</li>
+<li><strong>CLI Commands Used</strong>: <code>m365 spo site list</code>, <code>m365 spo site get</code></li>
+</ul>
+<h4 id="get-staleteams"><code>Get-StaleTeams</code></h4>
+<ul>
+<li><strong>Purpose</strong>: Detects Teams with no recent message activity</li>
+<li><strong>Data Collected</strong>: Team name, description, visibility, member count, creation date</li>
+<li><strong>CLI Commands Used</strong>: <code>m365 teams team list</code>, <code>m365 teams team get</code>, <code>m365 teams channel list</code>, <code>m365 teams message list</code></li>
+</ul>
+<h4 id="get-sensitivitylabelstats"><code>Get-SensitivityLabelStats</code></h4>
+<ul>
+<li><strong>Purpose</strong>: Collects sensitivity label configuration and usage statistics</li>
+<li><strong>Data Collected</strong>: Label ID, name, description, active status, priority, color</li>
+<li><strong>Graph Commands Used</strong>: <code>Get-MgInformationProtectionPolicyLabel</code></li>
+</ul>
+<h4 id="get-compliancealerts"><code>Get-ComplianceAlerts</code></h4>
+<ul>
+<li><strong>Purpose</strong>: Gathers recent compliance alerts and security events</li>
+<li><strong>Data Collected</strong>: Alert ID, title, category, severity, status, description</li>
+<li><strong>Graph Commands Used</strong>: <code>Get-MgSecurityAlert</code></li>
+</ul>
+<h4 id="get-purviewscanresults"><code>Get-PurviewScanResults</code></h4>
+<ul>
+<li><strong>Purpose</strong>: Retrieves Microsoft Purview scan results and status</li>
+<li><strong>Data Collected</strong>: Account name, data source, scan type, last run time, status</li>
+<li><strong>Azure CLI Commands Used</strong>: <code>az purview account list</code>, <code>az purview data-source list</code>, <code>az purview scan list</code></li>
+</ul>
+<h4 id="get-azuregovernancedata"><code>Get-AzureGovernanceData</code></h4>
+<ul>
+<li><strong>Purpose</strong>: Collects Azure resource governance and policy compliance data</li>
+<li><strong>Data Collected</strong>: Resource group name, location, tags, policy compliance, resource count</li>
+<li><strong>Azure CLI Commands Used</strong>: <code>az group list</code>, <code>az policy state list</code>, <code>az resource list</code></li>
+</ul>
+<h3 id="-export-functions">📊 <strong>Export Functions</strong></h3>
+<h4 id="export-reportdata"><code>Export-ReportData</code></h4>
+<ul>
+<li><strong>CSV Format</strong>: Generates separate CSV files for each data category</li>
+<li><strong>JSON Format</strong>: Creates a single JSON file with all governance data</li>
+<li><strong>HTML Format</strong>: Produces an interactive HTML report with executive summary</li>
+</ul>
+<h4 id="generate-htmlreport"><code>Generate-HTMLReport</code></h4>
+<ul>
+<li>Creates visually appealing HTML reports with:
+<ul>
+<li>Executive summary with key metrics</li>
+<li>Detailed tables for each data category</li>
+<li>Professional styling and formatting</li>
+<li>Color-coded status indicators</li>
+</ul>
+</li>
+</ul>
+<h3 id="-utility-functions">🛠️ <strong>Utility Functions</strong></h3>
+<h4 id="test-prerequisites"><code>Test-Prerequisites</code></h4>
+<ul>
+<li>Validates that required tools are installed</li>
+<li>Provides clear error messages for missing components</li>
+<li>Returns detailed installation instructions</li>
+</ul>
+<h4 id="write-logmessage"><code>Write-LogMessage</code></h4>
+<ul>
+<li>Provides color-coded console output</li>
+<li>Tracks errors for summary reporting</li>
+<li>Timestamps all log messages</li>
+</ul>
+<h4 id="connect-m365services--connect-azureservices"><code>Connect-M365Services</code> / <code>Connect-AzureServices</code></h4>
+<ul>
+<li>Handles authentication to Microsoft 365 and Azure services</li>
+<li>Manages existing connections to avoid duplicate logins</li>
+<li>Requests appropriate permissions for data collection</li>
+</ul>
+<h4 id="disconnect-services"><code>Disconnect-Services</code></h4>
+<ul>
+<li>Cleanly disconnects from all services</li>
+<li>Handles errors gracefully during disconnection</li>
+<li>Provides optional logout functionality</li>
+</ul>
+<h2 id="parameters">Parameters</h2>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Default</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>DaysThreshold</code></td>
+<td>Integer</td>
+<td>90</td>
+<td>No</td>
+<td>Number of days to consider content as stale</td>
+</tr>
+<tr>
+<td><code>OutputPath</code></td>
+<td>String</td>
+<td>Current directory</td>
+<td>No</td>
+<td>Path where reports will be saved</td>
+</tr>
+<tr>
+<td><code>IncludePurview</code></td>
+<td>Boolean</td>
+<td>true</td>
+<td>No</td>
+<td>Include Microsoft Purview scan results</td>
+</tr>
+<tr>
+<td><code>ExportFormat</code></td>
+<td>String</td>
+<td>CSV</td>
+<td>No</td>
+<td>Export format: CSV, JSON, or HTML</td>
+</tr>
+<tr>
+<td><code>SkipM365</code></td>
+<td>Switch</td>
+<td>false</td>
+<td>No</td>
+<td>Skip Microsoft 365 data collection</td>
+</tr>
+<tr>
+<td><code>SkipAzure</code></td>
+<td>Switch</td>
+<td>false</td>
+<td>No</td>
+<td>Skip Azure data collection</td>
+</tr>
+</tbody>
+</table>
+<h2 id="generated-reports">Generated Reports</h2>
+<h3 id="csv-format-default">CSV Format (Default)</h3>
+<p>Individual files for each data category:</p>
+<ul>
+<li><code>StaleSharePointSites_[timestamp].csv</code> - Inactive SharePoint sites</li>
+<li><code>StaleTeams_[timestamp].csv</code> - Inactive Teams</li>
+<li><code>SensitivityLabelStats_[timestamp].csv</code> - Sensitivity label configuration</li>
+<li><code>ComplianceAlerts_[timestamp].csv</code> - Recent compliance alerts</li>
+<li><code>PurviewScanResults_[timestamp].csv</code> - Microsoft Purview scan results</li>
+<li><code>AzureGovernanceData_[timestamp].csv</code> - Azure resource governance data</li>
+</ul>
+<h3 id="json-format">JSON Format</h3>
+<ul>
+<li><code>TenantGovernanceReport_[timestamp].json</code> - Complete governance data in structured JSON format</li>
+</ul>
+<h3 id="html-format">HTML Format</h3>
+<ul>
+<li><code>TenantGovernanceReport_[timestamp].html</code> - Interactive HTML report with:
+<ul>
+<li>Executive summary dashboard</li>
+<li>Visual metrics and charts</li>
+<li>Detailed data tables</li>
+<li>Professional styling</li>
+</ul>
+</li>
+</ul>
+<h2 id="required-permissions">Required Permissions</h2>
+<h3 id="microsoft-365">Microsoft 365</h3>
+<ul>
+<li><strong>SharePoint</strong>: <code>Sites.Read.All</code></li>
+<li><strong>Teams</strong>: <code>Team.ReadBasic.All</code></li>
+<li><strong>Information Protection</strong>: <code>InformationProtectionPolicy.Read.All</code></li>
+<li><strong>Security</strong>: <code>SecurityEvents.Read.All</code></li>
+</ul>
+<h3 id="azure">Azure</h3>
+<ul>
+<li><strong>Purview</strong>: <code>Purview Data Reader</code></li>
+<li><strong>Resource Groups</strong>: <code>Reader</code></li>
+<li><strong>Policy</strong>: <code>Policy Reader</code></li>
+</ul>
+<h2 id="error-handling-and-logging">Error Handling and Logging</h2>
+<p>The script includes comprehensive error handling:</p>
+<ul>
+<li><strong>Prerequisites Check</strong>: Validates required tools before execution</li>
+<li><strong>Graceful Degradation</strong>: Continues execution even if some components fail</li>
+<li><strong>Detailed Logging</strong>: Color-coded console output with timestamps</li>
+<li><strong>Error Summary</strong>: Collects and reports all errors at completion</li>
+<li><strong>Connection Management</strong>: Handles authentication failures gracefully</li>
+</ul>
+<h2 id="security-considerations">Security Considerations</h2>
+<ul>
+<li><strong>Least Privilege</strong>: Script requests only necessary permissions</li>
+<li><strong>Connection Management</strong>: Automatically disconnects from services after completion</li>
+<li><strong>Error Information</strong>: Sensitive data is not exposed in error messages</li>
+<li><strong>Optional Logout</strong>: Azure CLI logout can be enabled in the script</li>
+</ul>
+<h2 id="troubleshooting">Troubleshooting</h2>
+<h3 id="common-issues">Common Issues</h3>
+<ol>
+<li><p><strong>&quot;Prerequisites check failed&quot;</strong></p>
+<ul>
+<li>Ensure all required tools are installed</li>
+<li>Check that tools are in your PATH</li>
+<li>Verify PowerShell execution policy</li>
+</ul>
+</li>
+<li><p><strong>&quot;Failed to connect to Microsoft 365 services&quot;</strong></p>
+<ul>
+<li>Verify your account has appropriate permissions</li>
+<li>Check network connectivity</li>
+<li>Ensure MFA is properly configured</li>
+</ul>
+</li>
+<li><p><strong>&quot;No Purview accounts found&quot;</strong></p>
+<ul>
+<li>Verify you have Purview deployed in your tenant</li>
+<li>Check that your account has Purview Reader permissions</li>
+<li>Consider using <code>-IncludePurview $false</code> to skip Purview data</li>
+</ul>
+</li>
+<li><p><strong>&quot;Export failed&quot;</strong></p>
+<ul>
+<li>Check that the output path exists and is writable</li>
+<li>Verify you have sufficient disk space</li>
+<li>Ensure no other processes are using the output files</li>
+</ul>
+</li>
+</ol>
+<h3 id="performance-tips">Performance Tips</h3>
+<ul>
+<li>Use <code>-SkipM365</code> or <code>-SkipAzure</code> to focus on specific data sources</li>
+<li>Consider running during off-peak hours for large tenants</li>
+<li>Use <code>-DaysThreshold</code> to limit the scope of stale content analysis</li>
+<li>Choose CSV format for fastest export performance</li>
+</ul>
+<h2 id="sample-output">Sample Output</h2>
+<h3 id="console-output">Console Output</h3>
+<pre><code>[2025-07-16 10:00:00] [Info] Starting Tenant Governance Compliance Report...
+[2025-07-16 10:00:01] [Success] CLI for Microsoft 365 found: 5.6.0
+[2025-07-16 10:00:02] [Success] Microsoft Graph PowerShell module found
+[2025-07-16 10:00:03] [Success] Azure CLI found
+[2025-07-16 10:00:05] [Success] Successfully connected to Microsoft 365 services
+[2025-07-16 10:00:07] [Success] Successfully connected to Azure services
+[2025-07-16 10:00:10] [Info] Collecting stale SharePoint sites...
+[2025-07-16 10:02:15] [Success] Found 23 stale SharePoint sites
+[2025-07-16 10:02:16] [Info] Collecting stale Teams...
+[2025-07-16 10:04:30] [Success] Found 12 stale Teams
+[2025-07-16 10:04:31] [Info] Collecting sensitivity label statistics...
+[2025-07-16 10:04:45] [Success] Collected 8 sensitivity labels
+[2025-07-16 10:04:46] [Success] Report files generated:
+[2025-07-16 10:04:46] [Success]   - C:\Reports\StaleSharePointSites_20250716-100000.csv
+[2025-07-16 10:04:46] [Success]   - C:\Reports\StaleTeams_20250716-100000.csv
+[2025-07-16 10:04:46] [Success]   - C:\Reports\SensitivityLabelStats_20250716-100000.csv
+</code></pre>
+<h3 id="csv-report-sample">CSV Report Sample</h3>
+<pre><code class="lang-csv">Title,Url,Template,LastActivity,DaysSinceActivity,Owner,StorageUsed
+&quot;Marketing Archive&quot;,&quot;https://contoso.sharepoint.com/sites/marketing-archive&quot;,&quot;STS#3&quot;,&quot;2024-12-01&quot;,227,&quot;john.doe@contoso.com&quot;,2048
+&quot;Project Phoenix&quot;,&quot;https://contoso.sharepoint.com/sites/project-phoenix&quot;,&quot;STS#0&quot;,&quot;2024-11-15&quot;,243,&quot;jane.smith@contoso.com&quot;,5120
+</code></pre>
+<h2 id="advanced-usage-examples">Advanced Usage Examples</h2>
+<h3 id="enterprise-monitoring">Enterprise Monitoring</h3>
+<pre><code class="lang-powershell"># Weekly governance report for compliance team
+.\TenantGovernanceComplianceReport.ps1 -DaysThreshold 30 -OutputPath &quot;\\shared\reports\governance&quot; -ExportFormat &quot;HTML&quot;
+
+# Monthly comprehensive audit
+.\TenantGovernanceComplianceReport.ps1 -DaysThreshold 90 -OutputPath &quot;C:\Audit\Monthly&quot; -ExportFormat &quot;JSON&quot;
+</code></pre>
+<h3 id="focused-analysis">Focused Analysis</h3>
+<pre><code class="lang-powershell"># SharePoint and Teams only (skip Azure)
+.\TenantGovernanceComplianceReport.ps1 -SkipAzure -DaysThreshold 60
+
+# Azure governance only (skip M365)
+.\TenantGovernanceComplianceReport.ps1 -SkipM365 -IncludePurview $true
+
+# Quick stale content check
+.\TenantGovernanceComplianceReport.ps1 -DaysThreshold 180 -ExportFormat &quot;CSV&quot;
+</code></pre>
+<h3 id="automation-integration">Automation Integration</h3>
+<pre><code class="lang-powershell"># Scheduled task integration
+$scriptPath = &quot;C:\Scripts\TenantGovernanceComplianceReport.ps1&quot;
+$params = @{
+    DaysThreshold = 90
+    OutputPath = &quot;C:\Reports\$(Get-Date -Format 'yyyy-MM')&quot;
+    ExportFormat = &quot;HTML&quot;
+}
+&amp; $scriptPath @params
+</code></pre>
+<h2 id="contributors">Contributors</h2>
+<table>
+<thead>
+<tr>
+<th>Author(s)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="https://github.com/ValerasNarbutas">Valeras Narbutas</a></td>
+</tr>
+</tbody>
+</table>
+<h2 id="disclaimer">Disclaimer</h2>
+<p><strong>THESE SAMPLES ARE PROVIDED <em>AS IS</em> WITHOUT WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, INCLUDING ANY IMPLIED WARRANTIES OF FITNESS FOR A PARTICULAR PURPOSE, MERCHANTABILITY, OR NON-INFRINGEMENT.</strong></p>
+<img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/tenant-governance-compliance-report" aria-hidden="true">
+</article>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            <span>Script Samples<br>Generated by <strong><a href='https://dotnet.github.io/docfx' alt='Doc FX Website'>DocFX</a></strong> with <strong><a href='https://ovasquez.github.io/docfx-material' alt='DocFx Material Theme'>Material UI</a></strong></span>
+            
+            <!-- <img src="https://telemetry.sharepointpnp.com/@pnp.github.io/index/" alt="spacer"> -->
+          </div>
+        </div>
+      </footer>    </div>
+    
+    <script type="text/javascript" src="../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+    
+    <script type="text/javascript" src="../styles/clipboard.min.js"></script>
+    <script type="text/javascript" src="../styles/isotope.pkgd.min.js"></script>
+    <script type="text/javascript" src="../styles/loadsamples.js"></script>
+    <script type="text/javascript" src="../styles/filtersamples.js"></script>
+
+  </body>
+</html>

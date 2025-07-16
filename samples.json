@@ -16599,6 +16599,73 @@
     ]
   },
   {
+    "name": "tenant-governance-compliance-report",
+    "title": "Tenant Governance Compliance Report",
+    "shortDescription": "Auto-collect stale Teams/sites, label stats, Purview scans using CLI for M365, Graph PowerShell, and Azure CLI",
+    "url": "tenant-governance-compliance-report/README.html",
+    "creationDateTime": "2025-07-16",
+    "updateDateTime": "2025-07-16",
+    "products": [
+      "SharePoint",
+      "Graph",
+      "Teams",
+      "Azure",
+      "Microsoft 365 Copilot"
+    ],
+    "metadata": [
+      {
+        "key": "CLI-FOR-MICROSOFT365",
+        "value": "5.6.0"
+      },
+      {
+        "key": "GRAPH-POWERSHELL",
+        "value": "2.0.0"
+      },
+      {
+        "key": "AZURE-CLI",
+        "value": "2.50.0"
+      }
+    ],
+    "categories": [
+      "Report",
+      "Security",
+      "Data",
+      "Configure"
+    ],
+    "tags": [
+      "m365 spo site list",
+      "m365 teams team list",
+      "Get-MgInformationProtectionPolicyLabel",
+      "Get-MgSecurityAlert",
+      "az purview account list",
+      "az purview scan list",
+      "az group list",
+      "Connect-MgGraph",
+      "Disconnect-MgGraph",
+      "governance",
+      "compliance",
+      "purview",
+      "sensitivity labels",
+      "stale content"
+    ],
+    "thumbnails": [
+      {
+        "type": "image",
+        "order": 100,
+        "url": "tenant-governance-compliance-report/assets/preview.png",
+        "alt": "Preview of the sample Tenant Governance Compliance Report"
+      }
+    ],
+    "authors": [
+      {
+        "gitHubAccount": "ValerasNarbutas",
+        "company": "",
+        "pictureUrl": "https://github.com/ValerasNarbutas.png",
+        "name": "Valeras Narbutas"
+      }
+    ]
+  },
+  {
     "schema": null,
     "name": "tenant-health-notify-teams",
     "version": null,
