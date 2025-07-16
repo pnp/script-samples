@@ -15,7 +15,7 @@ Key features:
 
 This solution is ideal for compliance officers, IT administrators, and governance teams who need regular insights into their Microsoft 365 environment's health and security posture.
 
-## Complete PowerShell Script
+# [PnP PowerShell](#tab/pnpps)
 
 ```powershell
 <#
