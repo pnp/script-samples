@@ -125,3 +125,4 @@ As mentioned, this script doesn't solve everything:
 
 
 [!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
+<img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/spo-list-contenttype-migration" aria-hidden="true" />
