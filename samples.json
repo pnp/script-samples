@@ -12131,6 +12131,55 @@
     ]
   },
   {
+    "name": "spo-list-contenttype-migration",
+    "title": "SharePoint List Content Type Migration with Data Preservation",
+    "shortDescription": "Migrate SharePoint list to new content type while preserving all existing data",
+    "url": "spo-list-contenttype-migration/README.html",
+    "creationDateTime": "2025-07-29",
+    "updateDateTime": "2025-07-29",
+    "products": [
+      "SharePoint"
+    ],
+    "metadata": [
+      {
+        "key": "PNP-POWERSHELL",
+        "value": "3.1.0"
+      }
+    ],
+    "categories": [
+      "Modernize",
+      "Data",
+      "Migration"
+    ],
+    "tags": [
+      "Connect-PnPOnline",
+      "Set-PnPList",
+      "Get-PnPListItem",
+      "Remove-PnPField",
+      "Invoke-PnPSiteTemplate",
+      "Get-PnPContentType",
+      "Add-PnPContentTypeToList",
+      "Set-PnPListItem",
+      "Disconnect-PnPOnline"
+    ],
+    "thumbnails": [
+      {
+        "type": "image",
+        "order": 100,
+        "url": "spo-list-contenttype-migration/assets/preview.png",
+        "alt": "Preview of SharePoint List Content Type Migration with Data Preservation"
+      }
+    ],
+    "authors": [
+      {
+        "gitHubAccount": "jeppesc11",
+        "company": "",
+        "pictureUrl": "https://github.com/jeppesc11.png",
+        "name": "Jeppe Spanggaard"
+      }
+    ]
+  },
+  {
     "name": "spo-list-disable-quick-property-editing",
     "title": "Disable Quick property editing (Grid view) from SharePoint list",
     "shortDescription": "This sample script will show you how to disable the Quick property editing (Grid view) from SharePoint list.",
