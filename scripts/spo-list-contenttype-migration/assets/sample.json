@@ -1,0 +1,62 @@
+[
+  {
+    "name": "spo-list-contenttype-migration",
+    "source": "pnp",
+    "title": "SharePoint List Content Type Migration with Data Preservation",
+    "shortDescription": "Migrate SharePoint list to new content type while preserving all existing data",
+    "url": "https://pnp.github.io/script-samples/spo-list-contenttype-migration/README.html",
+    "longDescription": [
+      "This PowerShell script demonstrates how to migrate a SharePoint list to use a different content type while preserving all existing data. The script backs up existing column data, removes old columns, applies a PnP provisioning template with the new content type, and restores all data to the new columns. Perfect for scenarios where you need to replace existing columns with new ones from a content type without losing any data."
+    ],
+    "creationDateTime": "2025-07-29",
+    "updateDateTime": "2025-07-29",
+    "products": [
+      "SharePoint"
+    ],
+    "metadata": [
+      {
+        "key": "PNP-POWERSHELL",
+        "value": "3.1.0"
+      }
+    ],
+    "categories": [
+      "Modernize",
+      "Data",
+      "Migration"
+    ],
+    "tags": [
+      "Connect-PnPOnline",
+      "Set-PnPList",
+      "Get-PnPListItem",
+      "Remove-PnPField",
+      "Invoke-PnPSiteTemplate",
+      "Get-PnPContentType",
+      "Add-PnPContentTypeToList",
+      "Set-PnPListItem",
+      "Disconnect-PnPOnline"
+    ],
+    "thumbnails": [
+      {
+        "type": "image",
+        "order": 100,
+        "url": "https://raw.githubusercontent.com/pnp/script-samples/main/scripts/spo-list-contenttype-migration/assets/preview.png",
+        "alt": "Preview of SharePoint List Content Type Migration with Data Preservation"
+      }
+    ],
+    "authors": [
+      {
+        "gitHubAccount": "jeppesc11",
+        "company": "",
+        "pictureUrl": "https://github.com/jeppesc11.png",
+        "name": "Jeppe Spanggaard"
+      }
+    ],
+    "references": [
+{
+        "name": "Want to learn more about PnP PowerShell and the cmdlets",
+        "description": "Check out the PnP PowerShell site to get started and for the reference to the cmdlets.",
+        "url": "https://aka.ms/pnp/powershell"
+      }
+    ]
+  }
+]
