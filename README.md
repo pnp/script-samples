@@ -18,7 +18,7 @@ These samples are direct from the feature teams, PnP team (https://aka.ms/m365pn
 We are looking for contributions in the following areas:
 
 * Create a new scenario with a script
-* Update a scenario with an alternative script using another tool e.g. Adding a PnP PowerShell script to a scenario that only has CLI for Microsoft 365.
+* Update a scenario with an alternative script using another tool e.g. Adding a PnP PowerShell script to a scenario that only has CLI for Microsoft 365 as an example.
 * Feedback on the usability of the site, we are always looking to improve the experience.
 
 In this repo, we are created a template submission folder and files, complete the readme, add any screenshots and submit your GitHub Pull Request, please contact us via issues list to communicate what your planning.
