@@ -1,6 +1,6 @@
 
 
-# Delete Empty Folders in SharePoint Document Library with PnP PowerShell
+# Delete Empty Folders in SharePoint Document Library
 
 ## Summary
 
