@@ -1,0 +1,65 @@
+[
+    {
+      "name": "spo-delete-empty-folders",
+      "source": "pnp",
+      "title": "Delete Empty Folders in SharePoint Document Library with PnP PowerShell",
+      "shortDescription": "This script identifies and deletes empty folders in a SharePoint document library using PnP PowerShell",
+      "url": "https://pnp.github.io/script-samples/spo-delete-empty-folders/README.html",
+      "longDescription": [
+        "This sample demonstrates how to identify and delete empty folders in a SharePoint document library using PnP PowerShell. The script connects to a specified site, scans the target library (and optional folder path), checks each folder for files and size, and deletes those that are empty. You can run the script in report-only mode to list empty folders without deleting them.",
+        "SharePoint document libraries can accumulate empty folders over time due to user actions, migrations, or automated processes. Empty folders clutter the library, making navigation and management harder for users and administrators. By identifying and removing these folders, the script helps keep the document library organized, improves user experience, and can enhance performance by reducing unnecessary items. The report-only mode also allows safe auditing before deletion, minimizing accidental data loss."
+      ],
+      "creationDateTime": "2025-09-02",
+      "updateDateTime": "2025-09-02",
+      "products": [
+        "SharePoint"
+      ],
+      "metadata": [
+        {
+          "key": "PnP-PowerShell",
+          "value": "2.2.0"
+        }
+      ],
+      "tags": [
+        "Connect-PnPOnline",
+        "Get-PnPFolderItem",
+        "Get-PnPFolderStorageMetric",
+        "Remove-PnPFolder",
+        "Get-PnPList",
+        "Get-PnPWeb"
+      ],
+      "categories": [
+        "Cleanup",
+        "Maintenance"
+      ],
+      "thumbnails": [
+        {
+          "type": "image",
+          "order": 100,
+          "url": "https://raw.githubusercontent.com/pnp/script-samples/main/scripts/spo-delete-empty-folders/assets/preview.png",
+          "alt": "Delete Empty Folders in SharePoint Document Library"
+        }
+      ],
+      "authors": [
+        {
+          "gitHubAccount": "nanddeepn",
+          "pictureUrl": "https://github.com/nanddeepn.png",
+          "name": "Nanddeep Nachan"
+        },
+        {
+          "gitHubAccount": "SmitaNachan",
+          "company": "",
+          "pictureUrl": "https://github.com/SmitaNachan.png",
+          "name": "Smita Nachan"
+        }
+      ],
+      "references": [
+        {
+          "name": "Want to learn more about PnP PowerShell and the commands",
+          "description": "Check out the PnP PowerShell site to get started and for the reference to the commands.",
+          "url": "https://aka.ms/pnp/powershell"
+        }
+      ]
+    }
+  ]
+  
