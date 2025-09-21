@@ -1,0 +1,262 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html lang="en">
+  
+  <head>
+    <meta charset="utf-8">
+    <title>Get latest merged PRs with Github APIs | PnP Samples </title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="title" content="Get latest merged PRs with Github APIs | PnP Samples ">
+    <meta name="generator" content="docfx 2.56.7.0">
+    <meta name="description" content="A sample gallery of scripts to manage all things Microsoft 365.">
+  
+    <!-- Social Media -->
+    <meta property="og:locale" content="en_GB">
+    <meta property="og:title" content="Get latest merged PRs with Github APIs | PnP Samples ">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://pnp.github.io/script-samples">
+    <meta property="og:image" content="https://pnp.github.io/script-samples/assets/social-media-screenshot.png">
+    <meta property="og:image:alt" content="Screenshot example of the PnP Script Samples Site">
+    <meta property="og:site_name" content="PnP Script Samples">
+    <meta name="msvalidate.01" content="04EFEDA66EC42C08A1247C979E2F9ADD">
+    <meta property="og:description" content="A sample gallery of scripts to manage all things Microsoft 365.">
+  
+    <link rel="shortcut icon" href="https://c.s-microsoft.com/favicon.ico?v2">
+    <link rel="stylesheet" href="../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../styles/docfx.css">
+    <link rel="stylesheet" href="../styles/main.css">
+    <link rel="stylesheet" href="../styles/extra.css">
+    <link rel="stylesheet" href="../styles/filter.css">
+    <link rel="stylesheet" href="../styles/site.css">
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet"> 
+    <meta property="docfx:navrel" content="../toc.html">
+    <meta property="docfx:tocrel" content="../toc.html">
+    
+    
+    <meta property="docfx:newtab" content="true">
+    <script type="text/javascript">
+      (function(c,l,a,r,i,t,y){
+          c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+          t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+          y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+      })(window, document, "clarity", "script", "8j6pedl344");
+  </script>
+  </head>  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+             <div class="github-mark">
+              <a href="https://github.com/pnp/script-samples" title="Go to repository">
+               <div class="github-wrapper">
+                  <div class="github-icon">
+                    <img src="https://pnp.github.io/script-samples/assets/icons/github-light-64px.png" alt="GitHub Icon Image">
+                  </div>
+                  <div class="github-repository">
+                    <span>GitHub</span>
+                    <ul class="github-facts">
+                      <li>
+                        <i class="fa fa-code-fork" aria-hidden="true"></i>
+                        <span class="github-forks"></span>
+                      </li>
+                      <li>
+                        <i class="fa fa-star-o" aria-hidden="true"></i>
+                        <span class="github-stars"></span>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </a>
+            </div>
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../assets/logo.svg" alt="">
+              </a>    </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <label class="glyphicon glyphicon-search" for="search-query"></label>
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>      </header>
+      <div role="main" class="container body-content hide-when-search">
+        <div class="article row grid">
+          <div class="col-md-12">
+            <article class="content wrap" id="_content" data-uid="">
+                  <div class="contribution-panel mobile-hide pull-right">
+                      <a href="https://github.com/pnp/script-samples/blob/main/scripts/github-api-get-latest-prs/README.md/#L1" title="Improve this Doc" class="improve-doc-lg"><i class="glyphicon glyphicon-pencil"></i></a>
+                  </div>
+                    <h1 id="get-latest-merged-prs-with-github-apis">Get latest merged PRs with Github APIs</h1>
+
+<h2 id="summary">Summary</h2>
+<p>This sample uses the GitHub APIs to get the latest PRs merged in your Repository. Useful for repository maintainers and inspiration of other automate tasks you could perform with GitHub APIs.</p>
+<br>
+<blockquote>
+<p>Note:</p>
+<ul>
+<li>This may (if calls are throttled) require a PAT Token, the sample includes getting the token from a text file.  This isnt the most secure way of storing and is beyond the scope of the sample. Check out this for a better way or use your own preferred way to store these:
+<a href="https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.secretmanagement/?view=ps-modules">https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.secretmanagement/?view=ps-modules</a> <br></li>
+<li>Creating a GitHub token, but advise read only access, with minimal permissions:
+<a href="https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/managing-your-personal-access-tokens#creating-a-fine-grained-personal-access-token">https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/managing-your-personal-access-tokens#creating-a-fine-grained-personal-access-token</a></li>
+</ul>
+</blockquote>
+<p>Script Example Usage:</p>
+<pre><code class="lang-powershell">
+.\Get-GitHubPRsSince.ps1 -RepoOwner &quot;&lt;RepoOwner e.g. pnp&gt;&quot; -RepoName &quot;&lt;RepoName e.g. copilot-pro-dev-samples&gt;&quot; -NoOfWeeksSince 2
+
+</code></pre>
+<div class="tabGroup" id="tabgroup_CeZOj-G++Q">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_CeZOj-G++Q_ps" role="tab" aria-controls="tabpanel_CeZOj-G++Q_ps" data-tab="ps" tabindex="0" aria-selected="true">PowerShell</a>
+</li>
+</ul>
+<section id="tabpanel_CeZOj-G++Q_ps" role="tabpanel" data-tab="ps">
+
+<pre><code class="lang-powershell">
+[CmdletBinding()]
+param (
+    [string]$RepoOwner = &quot;&lt;RepoOwner e.g. pnp&gt;&quot;,
+    [string]$RepoName = &quot;&lt;RepoName e.g. copilot-pro-dev-samples&gt;&quot;,
+    [int]$NoOfWeeksSince = 2 # ISO 8601 format, e.g. &quot;2025-07-01T00:00:00Z&quot;
+)
+begin {
+    
+    # ------------------------------------------------------------------------------
+    # Introduction
+    # ------------------------------------------------------------------------------
+
+    Write-Host &quot; Welcome to GitHub PRs, this script will read latest PRs on a Repository&quot; -ForegroundColor Green
+    
+    # ------------------------------------------------------------------------------
+
+    # Read the Token file get the github token
+    $githubTokenFile = &quot;github-token.txt&quot;
+    $page = 1
+    $perPage = 100
+
+    # Calculate the date since which to fetch PRs
+    $sinceDate = (Get-Date).AddDays( - ($NoOfWeeksSince * 7)).ToString(&quot;yyyy-MM-ddTHH:mm:ssZ&quot;)
+    # Prepare CSV file name
+    $friendlyDate = $sinceDate -replace &quot;:&quot;,&quot;-&quot;
+    $csvFileName = &quot;MergedPRs_$($RepoOwner)_$($RepoName)_Since$($friendlyDate).csv&quot;
+}
+process {
+
+    if (Test-Path $githubTokenFile) {
+        $githubToken = Get-Content -Path $githubTokenFile -ErrorAction Stop
+    }
+    else {
+        Write-Error &quot;GitHub token file not found: $githubTokenFile&quot;
+        exit 1
+    }
+
+    $headers = @{
+        Authorization = &quot;token $githubToken&quot;
+        Accept        = &quot;application/vnd.github+json&quot;
+    }
+    
+    $allPRs = @()
+
+    do {
+        $url = &quot;https://api.github.com/repos/$RepoOwner/$RepoName/pulls?state=closed&amp;sort=merged_at&amp;direction=desc&amp;per_page=$perPage&amp;page=$page&quot;
+        $prs = Invoke-RestMethod -Uri $url -Headers $headers
+
+        foreach ($pr in $prs) {
+            if ($pr.merged_at -ge $sinceDate -and $pr.state -eq &quot;closed&quot;) {
+                $allPRs += $pr
+            }
+        }
+        $page++
+    } while ($prs.Count -eq $perPage)
+    
+
+    #--------------------------------------------------------------------------------------
+    # Produce Report of the latest merged PRs as Output PRs with user login and profile link
+    #--------------------------------------------------------------------------------------
+    if($allPRs.Count -eq 0) {
+        Write-Host &quot;No PRs found that were merged in the last $NoOfWeeksSince weeks.&quot; -ForegroundColor Yellow
+        return
+    }else{
+        $formattedList = $allPRs | Select-Object `
+        @{Name = &quot;ID&quot;; Expression = { $_.number } },
+        @{Name = &quot;PR Title&quot;; Expression = { $_.title } },
+        @{Name = &quot;User Login&quot;; Expression = { $_.user.login } }, 
+        @{Name = &quot;User Public Profile&quot;; Expression = { $_.user.html_url } },
+        @{Name = &quot;Merged&quot;; Expression = { $_.merged_at } } 
+
+        $formattedList | Format-Table -AutoSize
+
+        Write-Host &quot;`nTotal PRs merged in the last $NoOfWeeksSince weeks: $($allPRs.Count)&quot; -ForegroundColor Cyan
+
+        # Write to CSV file
+        $formattedList | Export-Csv -Path $csvFileName -NoTypeInformation -Encoding UTF8
+        Write-Host &quot;Report saved to $csvFileName&quot;
+    }
+}
+end {
+    Write-Host &quot;Done! :)&quot; -ForegroundColor Green
+}
+
+</code></pre>
+<div class="highlight-tool">
+<p>Check out the <strong>GitHub API Docs</strong> to learn more at: <a href="https://docs.github.com/en/rest/using-the-rest-api/getting-started-with-the-rest-api?apiVersion=2022-11-28">https://docs.github.com/en/rest/using-the-rest-api/getting-started-with-the-rest-api?apiVersion=2022-11-28</a></p>
+</div>
+</section>
+</div>
+<h2 id="contributors">Contributors</h2>
+<table>
+<thead>
+<tr>
+<th>Author(s)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Paul Bullock</td>
+</tr>
+</tbody>
+</table>
+<h2 id="disclaimer">Disclaimer</h2>
+<p><strong>THESE SAMPLES ARE PROVIDED <em>AS IS</em> WITHOUT WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, INCLUDING ANY IMPLIED WARRANTIES OF FITNESS FOR A PARTICULAR PURPOSE, MERCHANTABILITY, OR NON-INFRINGEMENT.</strong></p>
+<img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/github-api-get-latest-prs" aria-hidden="true">
+</article>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            <span>Script Samples<br>Generated by <strong><a href='https://dotnet.github.io/docfx' alt='Doc FX Website'>DocFX</a></strong> with <strong><a href='https://ovasquez.github.io/docfx-material' alt='DocFx Material Theme'>Material UI</a></strong></span>
+            
+            <!-- <img src="https://telemetry.sharepointpnp.com/@pnp.github.io/index/" alt="spacer"> -->
+          </div>
+        </div>
+      </footer>    </div>
+    
+    <script type="text/javascript" src="../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+    
+    <script type="text/javascript" src="../styles/clipboard.min.js"></script>
+    <script type="text/javascript" src="../styles/isotope.pkgd.min.js"></script>
+    <script type="text/javascript" src="../styles/loadsamples.js"></script>
+    <script type="text/javascript" src="../styles/filtersamples.js"></script>
+
+  </body>
+</html>
