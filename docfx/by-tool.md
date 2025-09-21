@@ -30,6 +30,8 @@ Find scripts by entering a keyword. You can filter by Tool.
             title="Bash Script"></div>
     <div id="post-sample-filter-112" class="sampletype-item filter-choice python" data-filter="[data-libraries*='Python']"
             title="Python Script"></div>
+    <div id="post-sample-filter-113" class="sampletype-item filter-choice github" data-filter="[data-libraries*='github']"
+            title="GitHub"></div>
 </div>
 
 <div class="search-input-wrapper float-l" aria-hidden="true">
