@@ -1,4 +1,4 @@
-# Get latest merged PRs with Github APIs
+# Get latest merged PRs with GitHub APIs
 
 ## Summary
 
