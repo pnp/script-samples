@@ -1,0 +1,47 @@
+[
+  {
+    "name": "spo-update-lookup-field",
+    "source": "pnp",
+    "title": "Updates a SharePoint Online lookup column to reference a lookup list",
+    "shortDescription": "Updates a SharePoint Online lookup column to reference a lookup list",
+    "url": "https://pnp.github.io/script-samples/spo-update-lookup-field/README.html",
+    "longDescription": [
+      "This script uses PnP PowerShell to update the schema XML of a lookup column in a source list to point to a recreated lookup list by setting or updating the List, WebId, ShowField."
+    ],
+    "creationDateTime": "2025-09-19",
+    "updateDateTime": "2025-09-19",
+    "products": ["SharePoint"],
+    "metadata": [
+      {
+        "key": "PNP-POWERSHELL",
+        "value": "3.1.0"
+      }
+    ],
+    "categories": ["Configure"],
+    "tags": ["Connect-PnPOnline", "Disconnect-PnPOnline", "Get-PnPList", "Get-PnPField", "Set-PnPField"],
+    "thumbnails": [
+      {
+        "type": "image",
+        "order": 100,
+        "url": "https://raw.githubusercontent.com/pnp/script-samples/main/scripts/spo-update-modern-webpart-properties/assets/preview.png",
+        "alt": ""
+      }
+    ],
+    "authors": [
+      {
+        "name": "Harminder Singh",
+        "gitHubAccount": "HarminderSethi",
+        "company": "",
+        "pictureUrl": "https://avatars.githubusercontent.com/u/17841313?v=4",
+        "twitter": "Harminder_Sethi"
+      }
+    ],
+    "references": [
+      {
+        "name": "Want to learn more about PnP PowerShell and the cmdlets",
+        "description": "Check out the PnP PowerShell site to get started and for the reference to the cmdlets.",
+        "url": "https://aka.ms/pnp/powershell"
+      }
+    ]
+  }
+]
