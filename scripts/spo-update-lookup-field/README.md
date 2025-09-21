@@ -1,4 +1,4 @@
-# Update Lookup Field
+# Updates a SharePoint Online lookup column to reference a lookup list
 
 ## Summary
 
