@@ -3,7 +3,7 @@
 
 ## Summary
 
-This sample script integrates Azure's Document Intelligence and OpenAI services to extract from either images or pdfs or embedded images from any unstructured data and to use this script for any other purpose , please change the system prompt in the script.
+This sample script integrates Azure's Document Intelligence and OpenAI services to extract from either images or pdfs or embedded images from any unstructured data and to use this script for any other purpose. Please change the system prompt in the script.
 
 ### **Functionality**
 
@@ -15,9 +15,9 @@ This sample script integrates Azure's Document Intelligence and OpenAI services 
 
 ## Prerequisites
 
-- **OpenAI API Key**: Create an account [here](https://platform.openai.com/signup/) to obtain the API key.  
-- **Document Intelligence API Key**: Create a key in the [Document Intelligence Studio](https://documentintelligence.ai.azure.com/studio/).  
-- **Settings**: The settings of the script is part of set Settings-Agreements.json , ensure the script and its settings file are in same location
+- **OpenAI API Key**: Create an account [here](https://platform.openai.com/signup/) to obtain the API key.
+- **Document Intelligence API Key**: Create a key in the [Document Intelligence Studio](https://documentintelligence.ai.azure.com/studio/).
+- **Settings**: The settings of the script are part of set Settings-Agreements.json. Ensure that the script and its settings file are in the same location.
 
 ---
 
@@ -27,7 +27,7 @@ This sample script integrates Azure's Document Intelligence and OpenAI services 
 {
   "APIKeys": {
     "OpenAI": "<OCRKeyFromAzureOpenAI>",
-    "DocumentIntelligence": "<OCRKeyFromADocumentIntelligence>""
+    "DocumentIntelligence": "<OCRKeyFromADocumentIntelligence>"
   },
   "Endpoints": {
     "OpenAI": "https://<openaiendpoint>.openai.azure.com/openai/deployments/gpt-4o/chat/completions?api-version=2024-08-01-preview",
@@ -176,3 +176,4 @@ Write-Output $Result
 
 [!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
 <img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/azure-ocr-openai-json-invoice-extractor" aria-hidden="true" />
+
