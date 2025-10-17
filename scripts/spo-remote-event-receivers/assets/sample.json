@@ -1,0 +1,55 @@
+[
+  {
+    "name": "spo-remote-event-receivers",
+    "source": "pnp",
+    "title": "spo-remote-event-receivers",
+    "shortDescription": "Identify all your Remote Event Receivers in SharePoint Online before they are deprecated.",
+    "url": "https://pnp.github.io/script-samples/spo-remote-event-receivers/README.html",
+    "longDescription": [
+      "Starting April 2, 2026, Remote Event Receivers (RERs) in SharePoint Online will be deprecated in favor of more modern approaches like Power Automate and webhooks. This script helps administrators identify and manage existing RERs before the deprecation date."
+    ],
+    "creationDateTime": "2025-10-17",
+    "updateDateTime": "2025-10-17",
+    "products": [
+      "SharePoint"
+    ],
+    "metadata": [
+      {
+        "key": "PNP-POWERSHELL",
+        "value": "1.11.0"
+      }
+    ],
+    "categories": [
+      "Modernize"
+    ],
+    "tags": [
+      "Get-PnPEventReceiver",
+      "Get-PnPList",
+      "Get-PnPTenantSite",
+      "Connect-PnPOnline"
+    ],
+    "thumbnails": [
+      {
+        "type": "image",
+        "order": 100,
+        "url": "https://raw.githubusercontent.com/pnp/script-samples/main/scripts/spo-remote-event-receivers/assets/preview.png",
+        "alt": "Preview of the sample spo-remote-event-receivers"
+      }
+    ],
+    "authors": [
+      {
+        "gitHubAccount": "tanddant",
+        "company": "",
+        "pictureUrl": "https://github.com/tanddant.png",
+        "name": "<Full Name>"
+      }
+    ],
+    "references": [
+      {
+        "name": "Want to learn more about PnP PowerShell and the cmdlets",
+        "description": "Check out the PnP PowerShell site to get started and for the reference to the cmdlets.",
+        "url": "https://aka.ms/pnp/powershell"
+      }
+    ]
+  }
+]
