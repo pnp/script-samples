@@ -1,8 +1,5 @@
 # Find all Remote Event Receivers in a SharePoint Online site
 
-> [!Note]
-> This is a submission helper template please find the [contributor guidance](/docfx/contribute.md) to help you write this scenario.
-
 ## Summary
 
 Remote Event Receivers (RERs) are a way to extend the functionality of SharePoint Online by allowing developers to execute custom code in response to specific events that occur within a SharePoint site. However, starting April 2. 2026, Microsoft is deprecating RERs in favor of more modern approaches like Power Automate and webhooks. This script helps administrators identify and manage existing RERs before the deprecation date.
@@ -53,27 +50,14 @@ $ReceiverInfo | Export-Csv -Path "RemoteEventReceivers.csv" -NoTypeInformation;
 
 ```
 [!INCLUDE [More about PnP PowerShell](../../docfx/includes/MORE-PNPPS.md)]
-
-```powershell
-
-<your script>
-
-```
-[!INCLUDE [More about Microsoft Teams PowerShell](../../docfx/includes/MORE-TEAMSPS.md)]
-
 ***
-
-
-## Source Credit
-
-Sample first appeared on [https://pnp.github.io/cli-microsoft365/sample-scripts/spo/add-app-catalog/](https://pnp.github.io/cli-microsoft365/sample-scripts/spo/add-app-catalog/)
 
 ## Contributors
 
 | Author(s) |
 |-----------|
-| <-you-> |
+| Dan Toft |
 
 
 [!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
-<img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/template-script-submission" aria-hidden="true" />
+<img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/spo-remote-event-receivers" aria-hidden="true" />
