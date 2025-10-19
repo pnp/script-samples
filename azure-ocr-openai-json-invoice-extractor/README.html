@@ -99,7 +99,7 @@
                     <h1 id="extract-invoice-details-from-any-file-format-using-azure-ocr-and-openai">Extract Invoice Details from Any File Format Using Azure OCR and OpenAI</h1>
 
 <h2 id="summary">Summary</h2>
-<p>This sample script integrates Azure's Document Intelligence and OpenAI services to extract from either images or pdfs or embedded images from any unstructured data and to use this script for any other purpose , please change the system prompt in the script.</p>
+<p>This sample script integrates Azure's Document Intelligence and OpenAI services to extract from either images or pdfs or embedded images from any unstructured data and to use this script for any other purpose. Please change the system prompt in the script.</p>
 <h3 id="functionality"><strong>Functionality</strong></h3>
 <ul>
 <li><strong>Text Extraction</strong>: Utilizes Azure's Document Intelligence Read OCR model to extract text from documents, including PDFs and images.</li>
@@ -111,14 +111,14 @@
 <ul>
 <li><strong>OpenAI API Key</strong>: Create an account <a href="https://platform.openai.com/signup/">here</a> to obtain the API key.</li>
 <li><strong>Document Intelligence API Key</strong>: Create a key in the <a href="https://documentintelligence.ai.azure.com/studio/">Document Intelligence Studio</a>.</li>
-<li><strong>Settings</strong>: The settings of the script is part of set Settings-Agreements.json , ensure the script and its settings file are in same location</li>
+<li><strong>Settings</strong>: The settings of the script are part of set Settings-Agreements.json. Ensure that the script and its settings file are in the same location.</li>
 </ul>
 <hr>
 <h2 id="settings">Settings</h2>
 <pre><code class="lang-json">{
   &quot;APIKeys&quot;: {
     &quot;OpenAI&quot;: &quot;&lt;OCRKeyFromAzureOpenAI&gt;&quot;,
-    &quot;DocumentIntelligence&quot;: &quot;&lt;OCRKeyFromADocumentIntelligence&gt;&quot;&quot;
+    &quot;DocumentIntelligence&quot;: &quot;&lt;OCRKeyFromADocumentIntelligence&gt;&quot;
   },
   &quot;Endpoints&quot;: {
     &quot;OpenAI&quot;: &quot;https://&lt;openaiendpoint&gt;.openai.azure.com/openai/deployments/gpt-4o/chat/completions?api-version=2024-08-01-preview&quot;,
