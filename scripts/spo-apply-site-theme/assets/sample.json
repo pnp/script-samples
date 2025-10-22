@@ -1,0 +1,54 @@
+[
+  {
+    "name": "spo-apply-site-theme",
+    "source": "pnp",
+    "title": "Apply site theme",
+    "shortDescription": "Apply a theme to a specific SharePoint site without adding a tenant theme that would be available for all sites.",
+    "url": "https://pnp.github.io/script-samples/spo-apply-site-theme/README.html",
+    "longDescription": [
+      "Apply a theme to a specific SharePoint site without adding a tenant theme that would be available for all sites through the 'Change the look' menu."
+    ],
+    "creationDateTime": "2025-10-22",
+    "updateDateTime": "2025-10-22",
+    "products": [
+      "SharePoint"
+    ],
+    "metadata": [
+      {
+        "key": "PNP-POWERSHELL",
+        "value": "3.1.0"
+      }
+    ],
+    "categories": [
+      "Configure"
+    ],
+    "tags": [
+      "Connect-PnPOnline",
+      "Get-PnPAccessToken",
+      "Invoke-RestMethod",
+      "Disconnect-PnPOnline"
+    ],
+    "thumbnails": [
+      {
+        "type": "image",
+        "order": 100,
+        "url": "https://raw.githubusercontent.com/pnp/script-samples/main/scripts/spo-apply-site-theme/assets/preview.png",
+        "alt": "Preview of Apply site theme script"
+      }
+    ],
+    "authors": [
+      {
+        "gitHubAccount": "a1mery",
+        "pictureUrl": "https://github.com/a1mery.png",
+        "name": "Aimery Thomas"
+      }
+    ],
+    "references": [
+      {
+        "name": "Want to learn more about PnP PowerShell and the cmdlets",
+        "description": "Check out the PnP PowerShell site to get started and for the reference to the cmdlets.",
+        "url": "https://aka.ms/pnp/powershell"
+      }
+    ]
+  }
+]
