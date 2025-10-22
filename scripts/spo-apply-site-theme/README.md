@@ -4,7 +4,7 @@
 
 ## Summary
 
-Apply a theme to a specific SharePoint site without adding a tenant theme that would be available for all sites through "Change the look" menu.
+Apply a theme to a specific SharePoint site without adding a tenant theme that would be available for all sites through the "Change the look" menu.
 
 ![Example Screenshot](assets/preview.png)
 
