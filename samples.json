@@ -14794,6 +14794,51 @@
     ]
   },
   {
+    "name": "spo-revoke-app-site-permission",
+    "title": "Revoke permissions for a given Entra ID registration",
+    "shortDescription": "Demonstrates how to audit and revoke Entra ID app permissions across SharePoint site.",
+    "url": "spo-revoke-app-site-permission/README.html",
+    "creationDateTime": "2025-10-23",
+    "updateDateTime": "2025-10-23",
+    "products": [
+      "SharePoint",
+      "Entra ID"
+    ],
+    "metadata": [
+      {
+        "key": "PNP-POWERSHELL",
+        "value": "3.1.0"
+      }
+    ],
+    "categories": [
+      "Configure",
+      "Security"
+    ],
+    "tags": [
+      "Connect-PnPOnline",
+      "Get-PnPAzureADApp",
+      "Get-PnPAzureADAppSitePermission",
+      "Get-PnPTenantSite",
+      "Revoke-PnPAzureADAppSitePermission"
+    ],
+    "thumbnails": [
+      {
+        "type": "image",
+        "order": 100,
+        "url": "spo-revoke-app-site-permission/assets/example.png",
+        "alt": "Preview of the sample Revoke permissions for a given Entra ID application registration"
+      }
+    ],
+    "authors": [
+      {
+        "gitHubAccount": "reshmee011",
+        "company": "",
+        "pictureUrl": "https://github.com/reshmee011.png",
+        "name": "Reshmee Auckloo"
+      }
+    ]
+  },
+  {
     "name": "spo-run-jobs-in-parallel",
     "title": "Run jobs in parallel using ForEach-Object -Parallel to iterate SharePoint site collections",
     "shortDescription": "This script sample shows the basic of using ForEach-Object -Parallel to speed up trivial SharePoint operations across many site collections",
