@@ -1,0 +1,622 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html lang="en">
+  
+  <head>
+    <meta charset="utf-8">
+    <title>SharePoint Clean Comments | PnP Samples </title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="title" content="SharePoint Clean Comments | PnP Samples ">
+    <meta name="generator" content="docfx 2.56.7.0">
+    <meta name="description" content="A sample gallery of scripts to manage all things Microsoft 365.">
+  
+    <!-- Social Media -->
+    <meta property="og:locale" content="en_GB">
+    <meta property="og:title" content="SharePoint Clean Comments | PnP Samples ">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://pnp.github.io/script-samples">
+    <meta property="og:image" content="https://pnp.github.io/script-samples/assets/social-media-screenshot.png">
+    <meta property="og:image:alt" content="Screenshot example of the PnP Script Samples Site">
+    <meta property="og:site_name" content="PnP Script Samples">
+    <meta name="msvalidate.01" content="04EFEDA66EC42C08A1247C979E2F9ADD">
+    <meta property="og:description" content="A sample gallery of scripts to manage all things Microsoft 365.">
+  
+    <link rel="shortcut icon" href="https://c.s-microsoft.com/favicon.ico?v2">
+    <link rel="stylesheet" href="../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../styles/docfx.css">
+    <link rel="stylesheet" href="../styles/main.css">
+    <link rel="stylesheet" href="../styles/extra.css">
+    <link rel="stylesheet" href="../styles/filter.css">
+    <link rel="stylesheet" href="../styles/site.css">
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet"> 
+    <meta property="docfx:navrel" content="../toc.html">
+    <meta property="docfx:tocrel" content="../toc.html">
+    
+    
+    <meta property="docfx:newtab" content="true">
+    <script type="text/javascript">
+      (function(c,l,a,r,i,t,y){
+          c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+          t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+          y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+      })(window, document, "clarity", "script", "8j6pedl344");
+  </script>
+  </head>  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+             <div class="github-mark">
+              <a href="https://github.com/pnp/script-samples" title="Go to repository">
+               <div class="github-wrapper">
+                  <div class="github-icon">
+                    <img src="https://pnp.github.io/script-samples/assets/icons/github-light-64px.png" alt="GitHub Icon Image">
+                  </div>
+                  <div class="github-repository">
+                    <span>GitHub</span>
+                    <ul class="github-facts">
+                      <li>
+                        <i class="fa fa-code-fork" aria-hidden="true"></i>
+                        <span class="github-forks"></span>
+                      </li>
+                      <li>
+                        <i class="fa fa-star-o" aria-hidden="true"></i>
+                        <span class="github-stars"></span>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </a>
+            </div>
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../assets/logo.svg" alt="">
+              </a>    </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <label class="glyphicon glyphicon-search" for="search-query"></label>
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>      </header>
+      <div role="main" class="container body-content hide-when-search">
+        <div class="article row grid">
+          <div class="col-md-12">
+            <article class="content wrap" id="_content" data-uid="">
+                  <div class="contribution-panel mobile-hide pull-right">
+                      <a href="https://github.com/pnp/script-samples/blob/main/scripts/spo-clean-comments/README.md/#L1" title="Improve this Doc" class="improve-doc-lg"><i class="glyphicon glyphicon-pencil"></i></a>
+                  </div>
+                    <h1 id="sharepoint-clean-comments">SharePoint Clean Comments</h1>
+
+<div class="NOTE">
+<h5>Note</h5>
+<p>Further details on registering an app for using PnP PowerShell see Saluadeen &gt; Rajacks <a href="https://www.sharepointdiary.com/2022/10/connect-to-sharepoint-online-using-azure-ad-app-id-from-powershell.html">blog article</a> (External Site)</p>
+</div>
+<h2 id="summary">Summary</h2>
+<p>Remove comments for user(s) across entire site collection or remove all comments or disable them completely:</p>
+<ul>
+<li>Follow the article above to create a pnp app registration</li>
+<li>Use a combination of flags for your desired outcome</li>
+<li>By User -DeleteCommentsByUser &quot;alex.wu@contoso.com&quot;,&quot;i:0#.f|membership|olduser@contoso.com&quot;</li>
+<li>All Comments -DeleteExistingComment</li>
+<li>Disable Comments -DisableComment</li>
+</ul>
+<p><img src="assets/AdelesComments.png" alt="Example Screenshot"></p>
+<p>This Page lists all of Adeles Comments.</p>
+<p>Next we'll execute the script to remove her comments (I've added a new one so you can compare the time stamps)</p>
+<p><img src="assets/SharePointCleanCommentsPwrShell.png" alt="Example Screenshot"></p>
+<p>Here we can see her comments are gone.</p>
+<p><img src="assets/RemoveOnlyAdele.png" alt="Example Screenshot"></p>
+<div class="tabGroup" id="tabgroup_CeZOj-G++Q">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_CeZOj-G++Q_pnpps" role="tab" aria-controls="tabpanel_CeZOj-G++Q_pnpps" data-tab="pnpps" tabindex="0" aria-selected="true">PnP PowerShell</a>
+</li>
+</ul>
+<section id="tabpanel_CeZOj-G++Q_pnpps" role="tabpanel" data-tab="pnpps">
+
+<pre><code class="lang-powershell">
+&lt;# 
+----------------------------------------------------------------------------
+
+Created:      Andrew Burns
+Date:         10/17/2025
+Disclaimer:   
+
+THE SOFTWARE IS PROVIDED &quot;AS IS&quot;, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+
+.Synopsis
+
+    Disable comments and/or delete existing comments on all modern SharePoint pages in a site collection.
+    PnP.PowerShell + App Registration (certificate / thumbprint).
+
+.Usage
+
+    Delete all comments or turn off comments on all pages within a site collection or both.
+
+.Parameters
+-DisableComments            Turn off comments at site/web/page scope.
+-DeleteExistingComments     Delete all comments on each page.
+-DeleteCommentsByUser       One or more UPNs/emails/claims to delete comments from specific user(s).
+-AlsoSetWebLevelDefault     Also set web-level default (subsites too if included).
+-SkipSiteLevelDisable       Skip the site collection level toggle.
+-IncludeSubsites            Include subsites.
+-WhatIfMode                 Dry run—no changes.
+
+    
+.Auth
+    Connect-PnPOnline -Url &lt;...&gt; -ClientId &lt;GUID&gt; -Tenant &lt;tenant&gt; -Thumbprint &lt;thumb&gt;
+    (Requires an Entra ID app with suitable SharePoint **Application** permissions; typically Sites.FullControl.All.) 
+    See: Register an Entra ID app for PnP PowerShell. 
+
+.Reqs
+    - PowerShell 7+
+    - Module: PnP.PowerShell
+
+.References
+    Salaudeen Rajack Connect to SharePoint Online using PnP PowerShell with App Registration
+    https://www.sharepointdiary.com/2022/10/connect-to-sharepoint-online-using-azure-ad-app-id-from-powershell.html
+
+.Examples
+    
+    Remove All Comments By User(s)
+    .\SharePointCleanComments.ps1 -SiteUrl $siteUrl -AdminCenterUrl $adminSiteUrl -IncludeSubsites -AlsoSetWebLevelDefault -ClientId $ClientID -Tenant $tenant -Thumbprint $thumbprint -DeleteCommentsByUser &quot;alex.wu@contoso.com&quot;,&quot;i:0#.f|membership|olduser@contoso.com
+
+    Remove All Comments
+    .\SharePointCleanComments.ps1 -SiteUrl $siteUrl -AdminCenterUrl $adminSiteUrl -IncludeSubsites -AlsoSetWebLevelDefault -ClientId $ClientID -Tenant $tenant -Thumbprint $thumbprint -DeleteExistingComments
+
+    Remove All Comments and Disable all Comments
+    .\SharePointCleanComments.ps1 -SiteUrl $siteUrl -AdminCenterUrl $adminSiteUrl -IncludeSubsites -AlsoSetWebLevelDefault -ClientId $ClientID -Tenant $tenant -Thumbprint $thumbprint -DisableComments -DeleteExistingComments
+
+ ----------------------------------------------------------------------------
+
+ .REFERENCES
+- Connect-PnPOnline (auth options) – https://pnp.github.io/powershell/cmdlets/Connect-PnPOnline.html
+- Get-PnPListItemComment (cmdlet + properties) – PnP repo docs/source
+- Remove-PnPListItemComment (source implementation) – PnP repo
+- Comment replies REST shape – PnP discussion (replies endpoint)
+#&gt;
+
+
+
+[CmdletBinding()]
+param(
+    [Parameter(Mandatory=$true)]
+    [string]$SiteUrl,
+
+    [Parameter(Mandatory=$false)]
+    [string]$AdminCenterUrl,
+
+    [Parameter(Mandatory=$false)]
+    [switch]$IncludeSubsites,
+
+    [Parameter(Mandatory=$false)]
+    [switch]$SkipSiteLevelDisable,
+
+    [Parameter(Mandatory=$false)]
+    [switch]$AlsoSetWebLevelDefault,
+
+    [Parameter(Mandatory=$false)]
+    [switch]$WhatIfMode,
+
+    # --- Work flags ---
+    [Parameter(Mandatory=$false)]
+    [switch]$DisableComments,
+
+    [Parameter(Mandatory=$false)]
+    [switch]$DeleteExistingComments,
+
+    [Parameter(Mandatory=$false)]
+    [Alias('DeleteCommentsByEmail','DeleteCommentsByUpn')]
+    [string[]]$DeleteCommentsByUser,               # UPN/email/claims; accepts multiple
+
+    # --- App registration (certificate) ---
+    [Parameter(Mandatory=$true)]
+    [string]$ClientId,
+
+    [Parameter(Mandatory=$true)]
+    [string]$Tenant,      # e.g. contoso.onmicrosoft.com or Tenant GUID
+
+    [Parameter(Mandatory=$true)]
+    [string]$Thumbprint
+)
+
+function Ensure-Module {
+    param([Parameter(Mandatory=$true)][string]$Name)
+    if (-not (Get-Module -ListAvailable -Name $Name)) {
+        Write-Host &quot;Installing module $Name...&quot; -ForegroundColor Yellow
+        try { Install-Module $Name -Scope CurrentUser -Force -AllowClobber -ErrorAction Stop }
+        catch { throw &quot;Failed to install module '$Name'. Error: $($_.Exception.Message)&quot; }
+    }
+    Import-Module $Name -ErrorAction Stop
+}
+
+function Connect-PnPApp {
+    param(
+        [Parameter(Mandatory=$true)][string]$Url,
+        [Parameter(Mandatory=$true)][string]$ClientId,
+        [Parameter(Mandatory=$true)][string]$Tenant,
+        [Parameter(Mandatory=$true)][string]$Thumbprint
+    )
+    Connect-PnPOnline -Url $Url -ClientId $ClientId -Tenant $Tenant -Thumbprint $Thumbprint -ReturnConnection
+}
+
+function Normalize-IdentityString {
+    param([string]$Value)
+    if ([string]::IsNullOrWhiteSpace($Value)) { return $null }
+    return ($Value.Trim().ToLower() -replace '^i:0#.f\|membership\|','')
+}
+
+function Should-DeleteByUser {
+    param(
+        [Parameter(Mandatory=$true)]$Comment,      # PnP comment object
+        [Parameter(Mandatory=$true)][string[]]$UserFilters
+    )
+    if (-not $UserFilters -or $UserFilters.Count -eq 0) { return $false }
+
+    $targets = $UserFilters | ForEach-Object { Normalize-IdentityString $_ } | Where-Object { $_ }
+    if ($targets.Count -eq 0) { return $false }
+
+    $login = $null; $email = $null; $title = $null
+    try { $login = Normalize-IdentityString $Comment.Author.LoginName } catch {}
+    try { $email = Normalize-IdentityString $Comment.Author.Email } catch {}
+    try { $title = Normalize-IdentityString $Comment.Author.Title } catch {}
+
+    foreach ($t in $targets) {
+        if ($t -and ($t -eq $login -or $t -eq $email -or $t -eq $title)) { return $true }
+    }
+    return $false
+}
+
+function Remove-CommentByIdRest {
+    param(
+        [Parameter(Mandatory=$true)][string]$WebUrl,
+        [Parameter(Mandatory=$true)][int]$ItemId,
+        [Parameter(Mandatory=$true)][int]$CommentId,
+        [Parameter(Mandatory=$true)]$Connection
+    )
+    # DELETE /_api/web/lists/getByTitle('Site%20Pages')/items({id})/comments({commentId})
+    $url = &quot;$WebUrl/_api/web/lists/getByTitle('Site%20Pages')/items($ItemId)/comments($CommentId)&quot;
+    Invoke-PnPSPRestMethod -Method Delete -Url $url -Connection $Connection -ErrorAction Stop | Out-Null
+}
+
+function Disable-SiteLevelComments {
+    param(
+        [Parameter(Mandatory=$true)][string]$AdminCenterUrl,
+        [Parameter(Mandatory=$true)][string]$TargetSiteUrl,
+        [Parameter(Mandatory=$true)][string]$ClientId,
+        [Parameter(Mandatory=$true)][string]$Tenant,
+        [Parameter(Mandatory=$true)][string]$Thumbprint,
+        [switch]$WhatIfMode
+    )
+    if (-not $DisableComments) { return }
+
+    Write-Host &quot;Disabling comments at the *site collection* level for $TargetSiteUrl...&quot; -ForegroundColor Cyan
+    if ($WhatIfMode) {
+        Write-Host &quot;[WhatIf] Set-PnPSite -Identity $TargetSiteUrl -CommentsOnSitePagesDisabled&quot; -ForegroundColor DarkGray
+        return
+    }
+
+    $adminCon = Connect-PnPApp -Url $AdminCenterUrl -ClientId $ClientId -Tenant $Tenant -Thumbprint $Thumbprint
+    try {
+        Set-PnPSite -Identity $TargetSiteUrl -CommentsOnSitePagesDisabled -Connection $adminCon -ErrorAction Stop
+        Write-Host &quot;Site-level comments disabled.&quot; -ForegroundColor Green
+    } catch {
+        Write-Warning &quot;Set-PnPSite failed for $TargetSiteUrl. Error: $($_.Exception.Message)&quot;
+    }
+}
+
+function Get-AllWebUrls {
+    param(
+        [Parameter(Mandatory=$true)][string]$RootSiteUrl,
+        [Parameter(Mandatory=$true)][string]$ClientId,
+        [Parameter(Mandatory=$true)][string]$Tenant,
+        [Parameter(Mandatory=$true)][string]$Thumbprint,
+        [switch]$IncludeSubsites
+    )
+
+    $urls = New-Object System.Collections.Generic.List[string]
+    $urls.Add($RootSiteUrl)
+
+    $rootCon = Connect-PnPApp -Url $RootSiteUrl -ClientId $ClientId -Tenant $Tenant -Thumbprint $Thumbprint
+
+    if ($IncludeSubsites) {
+        try {
+            $subs = Get-PnPSubWeb -Recurse -IncludeRootWeb:$false -Connection $rootCon -ErrorAction Stop
+            foreach ($w in $subs) { if ($w.Url) { $urls.Add($w.Url) } }
+        } catch {
+            Write-Warning &quot;Failed to enumerate subsites. Error: $($_.Exception.Message)&quot;
+        }
+    }
+    return $urls
+}
+
+function Set-WebDefaultIfRequested {
+    param(
+        [Parameter(Mandatory=$true)][string]$WebUrl,
+        [Parameter(Mandatory=$true)][string]$ClientId,
+        [Parameter(Mandatory=$true)][string]$Tenant,
+        [Parameter(Mandatory=$true)][string]$Thumbprint,
+        [switch]$WhatIfMode
+    )
+    if (-not ($AlsoSetWebLevelDefault -and $DisableComments)) { return }
+
+    if ($WhatIfMode) {
+        Write-Host &quot;[WhatIf] $WebUrl : Set-PnPWeb -CommentsOnSitePagesDisabled&quot; -ForegroundColor DarkGray
+    } else {
+        $con = Connect-PnPApp -Url $WebUrl -ClientId $ClientId -Tenant $Tenant -Thumbprint $Thumbprint
+        try {
+            Set-PnPWeb -CommentsOnSitePagesDisabled -Connection $con -ErrorAction Stop
+            Write-Host &quot;Set web-level default (comments disabled) for $WebUrl&quot; -ForegroundColor Green
+        } catch {
+            Write-Warning &quot;Failed to set web-level default for $WebUrl. Error: $($_.Exception.Message)&quot;
+        }
+    }
+}
+
+function Process-PagesInWeb {
+    param(
+        [Parameter(Mandatory=$true)][string]$WebUrl,
+        [Parameter(Mandatory=$true)][string]$ClientId,
+        [Parameter(Mandatory=$true)][string]$Tenant,
+        [Parameter(Mandatory=$true)][string]$Thumbprint,
+        [switch]$WhatIfMode
+    )
+
+    Write-Host &quot;Processing 'Site Pages' in: $WebUrl&quot; -ForegroundColor Cyan
+    $con = Connect-PnPApp -Url $WebUrl -ClientId $ClientId -Tenant $Tenant -Thumbprint $Thumbprint
+
+    try { $null = Get-PnPList -Identity &quot;Site Pages&quot; -Connection $con -ErrorAction Stop }
+    catch {
+        Write-Host &quot;No 'Site Pages' library in $WebUrl. Skipping.&quot; -ForegroundColor DarkYellow
+        return [pscustomobject]@{ WebUrl=$WebUrl; PagesEvaluated=0; PagesChanged=0; CommentsRemoved=0; Skipped=0; Errors=0 }
+    }
+
+    $pagesChanged = 0
+    $pagesEvaluated = 0
+    $commentsRemoved = 0
+    $skipped = 0
+    $errors = 0
+
+    $query = @&quot;
+&lt;View Scope='RecursiveAll'&gt;
+  &lt;Query&gt;
+    &lt;Where&gt;
+      &lt;And&gt;
+        &lt;Eq&gt;&lt;FieldRef Name='FSObjType'/&gt;&lt;Value Type='Integer'&gt;0&lt;/Value&gt;&lt;/Eq&gt;
+        &lt;Contains&gt;&lt;FieldRef Name='FileLeafRef'/&gt;&lt;Value Type='File'&gt;.aspx&lt;/Value&gt;&lt;/Contains&gt;
+      &lt;/And&gt;
+    &lt;/Where&gt;
+  &lt;/Query&gt;
+  &lt;RowLimit&gt;5000&lt;/RowLimit&gt;
+&lt;/View&gt;
+&quot;@
+
+    try {
+        $items = Get-PnPListItem -List &quot;Site Pages&quot; -PageSize 2000 -Query $query -Connection $con -ErrorAction Stop
+    } catch {
+        Write-Warning &quot;Failed to enumerate pages in $WebUrl. Error: $($_.Exception.Message)&quot;
+        return [pscustomobject]@{ WebUrl=$WebUrl; PagesEvaluated=0; PagesChanged=0; CommentsRemoved=0; Skipped=0; Errors=1 }
+    }
+
+    $hasField = $false
+    try { $fld = Get-PnPField -List &quot;Site Pages&quot; -Identity &quot;CommentsDisabled&quot; -Connection $con -ErrorAction Stop; if ($fld) { $hasField = $true } } catch {}
+
+    $targetUsers = @()
+    if ($DeleteCommentsByUser) { $targetUsers = $DeleteCommentsByUser | ForEach-Object { Normalize-IdentityString $_ } | Where-Object { $_ } }
+
+    foreach ($i in $items) {
+        try {
+            $pagesEvaluated++
+            $name = $i.FieldValues[&quot;FileLeafRef&quot;]
+
+            # --- DELETE EXISTING COMMENTS (All OR by user) ---
+            if ($DeleteExistingComments -or ($targetUsers.Count -gt 0)) {
+
+                if ($WhatIfMode) {
+                    if ($DeleteExistingComments) {
+                        Write-Host &quot;[WhatIf] $WebUrl : $name -&gt; Remove-PnPListItemComment -List 'Site Pages' -Identity $($i.Id) -All -Force&quot; -ForegroundColor DarkGray
+                    } elseif ($targetUsers.Count -gt 0) {
+                        Write-Host &quot;[WhatIf] $WebUrl : $name -&gt; delete comments from user(s): $($targetUsers -join ', ')&quot; -ForegroundColor DarkGray
+                    }
+                } else {
+                    # Fetch comments once
+                    $existing = @()
+                    try { $existing = Get-PnPListItemComment -List &quot;Site Pages&quot; -Identity $i.Id -Connection $con -ErrorAction SilentlyContinue } catch {}
+                    $existing = @($existing)
+
+                    if ($DeleteExistingComments) {
+                        if ($existing.Count -gt 0) {
+                            try {
+                                Remove-PnPListItemComment -List &quot;Site Pages&quot; -Identity $i.Id -All -Force -Connection $con -ErrorAction Stop
+                                $commentsRemoved += $existing.Count
+                            } catch {
+                                $errors++; Write-Warning &quot;Failed to remove all comments on $name. Error: $($_.Exception.Message)&quot;
+                            }
+                        }
+                    } elseif ($targetUsers.Count -gt 0 -and $existing.Count -gt 0) {
+                        # Filter by author; delete precisely by ID through REST, fallback to -Text if needed
+                        foreach ($c in $existing) {
+                            if (Should-DeleteByUser -Comment $c -UserFilters $targetUsers) {
+                                try {
+                                    if ($c.Id -is [int]) {
+                                        Remove-CommentByIdRest -WebUrl $WebUrl -ItemId $i.Id -CommentId $c.Id -Connection $con
+                                    } else {
+                                        # Fallback to text-based deletion (less precise if duplicates)
+                                        Remove-PnPListItemComment -List &quot;Site Pages&quot; -Identity $i.Id -Text $c.Text -Force -Connection $con -ErrorAction Stop
+                                    }
+                                    $commentsRemoved++
+                                } catch {
+                                    $errors++; Write-Warning &quot;Failed to remove a comment on $name (author=$($c.Author.LoginName)). Error: $($_.Exception.Message)&quot;
+                                }
+                            }
+                        }
+                    }
+                } # end not WhatIf
+            } # end deletion block
+
+            # --- DISABLE COMMENTS (optional) ---
+            if ($DisableComments) {
+                if ($hasField) {
+                    $current = $i.FieldValues[&quot;CommentsDisabled&quot;]
+                    if ($current -ne $true) {
+                        if ($WhatIfMode) {
+                            Write-Host &quot;[WhatIf] $WebUrl : $name -&gt; Set CommentsDisabled = \$true&quot; -ForegroundColor DarkGray
+                        } else {
+                            Set-PnPListItem -List &quot;Site Pages&quot; -Identity $i.Id -Values @{&quot;CommentsDisabled&quot;=$true} -SystemUpdate -Connection $con | Out-Null
+                        }
+                        $pagesChanged++
+                    } else { $skipped++ }
+                } else {
+                    if ($WhatIfMode) {
+                        Write-Host &quot;[WhatIf] $WebUrl : $name -&gt; Set-PnPPage -Identity '$name' -CommentsEnabled:\$false&quot; -ForegroundColor DarkGray
+                    } else {
+                        $setOk = $false
+                        try { Set-PnPPage -Identity $name -CommentsEnabled:$false -Connection $con -ErrorAction Stop; $setOk = $true }
+                        catch {
+                            try { Set-PnPClientSidePage -Identity $name -CommentsEnabled:$false -Connection $con -ErrorAction Stop; $setOk = $true }
+                            catch { $setOk = $false }
+                        }
+                        if ($setOk) { $pagesChanged++ } else { $errors++; Write-Warning &quot;Could not disable comments for $name.&quot; }
+                    }
+                }
+            }
+
+        } catch {
+            $errors++
+            Write-Warning &quot;Failed processing page (Id=$($i.Id)) in $WebUrl. Error: $($_.Exception.Message)&quot;
+        }
+    }
+
+    return [pscustomobject]@{
+        WebUrl          = $WebUrl
+        PagesEvaluated  = $pagesEvaluated
+        PagesChanged    = $pagesChanged
+        CommentsRemoved = $commentsRemoved
+        Skipped         = $skipped
+        Errors          = $errors
+    }
+}
+
+# -----------------------------
+# Main
+# -----------------------------
+try {
+    Ensure-Module -Name &quot;PnP.PowerShell&quot;
+
+    if (-not $DisableComments -and -not $DeleteExistingComments -and -not $DeleteCommentsByUser) {
+        Write-Warning &quot;No work selected. Add -DisableComments and/or -DeleteExistingComments and/or -DeleteCommentsByUser.&quot;
+        return
+    }
+
+    if ($DisableComments -and -not $SkipSiteLevelDisable) {
+        if ([string]::IsNullOrWhiteSpace($AdminCenterUrl)) {
+            Write-Warning &quot;AdminCenterUrl not provided. Skipping site-level toggle. (Pass -AdminCenterUrl https://&lt;tenant&gt;-admin.sharepoint.com)&quot;
+        } else {
+            Disable-SiteLevelComments -AdminCenterUrl $AdminCenterUrl -TargetSiteUrl $SiteUrl `
+                -ClientId $ClientId -Tenant $Tenant -Thumbprint $Thumbprint -WhatIfMode:$WhatIfMode
+        }
+    }
+
+    $webUrls = Get-AllWebUrls -RootSiteUrl $SiteUrl -ClientId $ClientId -Tenant $Tenant -Thumbprint $Thumbprint -IncludeSubsites:$IncludeSubsites
+
+    $results = New-Object System.Collections.Generic.List[object]
+    foreach ($w in $webUrls) {
+        Set-WebDefaultIfRequested -WebUrl $w -ClientId $ClientId -Tenant $Tenant -Thumbprint $Thumbprint -WhatIfMode:$WhatIfMode
+        $r = Process-PagesInWeb -WebUrl $w -ClientId $ClientId -Tenant $Tenant -Thumbprint $Thumbprint -WhatIfMode:$WhatIfMode
+        $results.Add($r)
+    }
+
+    # Summary
+    Write-Host &quot;`nSummary&quot; -ForegroundColor White
+    Write-Host &quot;-------&quot;
+    $totalEval     = ($results | Measure-Object -Property PagesEvaluated  -Sum).Sum
+    $totalChanged  = ($results | Measure-Object -Property PagesChanged    -Sum).Sum
+    $totalDeleted  = ($results | Measure-Object -Property CommentsRemoved -Sum).Sum
+    $totalSkipped  = ($results | Measure-Object -Property Skipped         -Sum).Sum
+    $totalErrors   = ($results | Measure-Object -Property Errors          -Sum).Sum
+
+    $results | Format-Table -AutoSize
+
+    Write-Host &quot;`nTotals: Evaluated=$totalEval, Changed=$totalChanged, CommentsDeleted=$totalDeleted, Skipped=$totalSkipped, Errors=$totalErrors&quot; -ForegroundColor White
+
+    if ($WhatIfMode) { Write-Host &quot;`n(WhatIf mode was ON. No changes were made.)&quot; -ForegroundColor DarkYellow }
+    else { Write-Host &quot;`nCompleted.&quot; -ForegroundColor Green }
+
+} catch {
+    Write-Error $_.Exception.Message
+    exit 1
+}
+
+
+</code></pre>
+<div class="highlight-tool">
+<p>Check out the <strong>PnP PowerShell</strong> to learn more at: <a href="https://aka.ms/pnp/powershell">https://aka.ms/pnp/powershell</a></p>
+</div>
+<div class="highlight-tool">
+<p>The way you login into PnP PowerShell has changed please read <a href="https://github.com/pnp/powershell/discussions/4249">PnP Management Shell EntraID app is deleted : what should I do ?</a></p>
+</div>
+</section>
+</div>
+<h2 id="contributors">Contributors</h2>
+<table>
+<thead>
+<tr>
+<th>Author(s)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Andrew Burns</td>
+</tr>
+</tbody>
+</table>
+<h2 id="disclaimer">Disclaimer</h2>
+<p><strong>THESE SAMPLES ARE PROVIDED <em>AS IS</em> WITHOUT WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, INCLUDING ANY IMPLIED WARRANTIES OF FITNESS FOR A PARTICULAR PURPOSE, MERCHANTABILITY, OR NON-INFRINGEMENT.</strong></p>
+<img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/spo-clean-comments" aria-hidden="true">
+</article>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            <span>Script Samples<br>Generated by <strong><a href='https://dotnet.github.io/docfx' alt='Doc FX Website'>DocFX</a></strong> with <strong><a href='https://ovasquez.github.io/docfx-material' alt='DocFx Material Theme'>Material UI</a></strong></span>
+            
+            <!-- <img src="https://telemetry.sharepointpnp.com/@pnp.github.io/index/" alt="spacer"> -->
+          </div>
+        </div>
+      </footer>    </div>
+    
+    <script type="text/javascript" src="../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+    
+    <script type="text/javascript" src="../styles/clipboard.min.js"></script>
+    <script type="text/javascript" src="../styles/isotope.pkgd.min.js"></script>
+    <script type="text/javascript" src="../styles/loadsamples.js"></script>
+    <script type="text/javascript" src="../styles/filtersamples.js"></script>
+
+  </body>
+</html>

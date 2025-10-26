@@ -5953,6 +5953,53 @@
     ]
   },
   {
+    "name": "spo-clean-comments",
+    "title": "SharePoint Clean Comments",
+    "shortDescription": "Removes or disables all comments in a site collection including by user",
+    "url": "spo-clean-comments/README.html",
+    "creationDateTime": "2025-10-24",
+    "updateDateTime": "2025-10-24",
+    "products": [
+      "SharePoint"
+    ],
+    "metadata": [
+      {
+        "key": "PNP-POWERSHELL",
+        "value": "1.11.0"
+      }
+    ],
+    "categories": [
+      "Modernize",
+      "Data",
+      "Deploy",
+      "Provision",
+      "Configure",
+      "Report",
+      "Security",
+      "AI",
+      "Microsoft 365 Copilot"
+    ],
+    "tags": [
+      "<Cmdlets-Used>"
+    ],
+    "thumbnails": [
+      {
+        "type": "image",
+        "order": 100,
+        "url": "spo-clean-comments/assets/preview.png",
+        "alt": "Preview of the sample SharePointCleanComments"
+      }
+    ],
+    "authors": [
+      {
+        "gitHubAccount": "GeorgiaGit",
+        "company": "",
+        "pictureUrl": "https://github.com/GeorgiaGit.png",
+        "name": "Andrew Burns"
+      }
+    ]
+  },
+  {
     "name": "spo-cleanup-site-column-usage",
     "title": "Clean Up Unwanted Site Columns from Content Types and Lists/Libraries",
     "shortDescription": "We decide we want to trim away a few of the Site Columns we've created, here is the script that does just that",
