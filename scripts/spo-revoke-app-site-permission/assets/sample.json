@@ -1,0 +1,58 @@
+[
+  {
+    "name": "spo-revoke-app-site-permission",
+    "source": "pnp",
+    "title": "Revoke permissions for a given Entra ID registration",
+    "shortDescription": "Demonstrates how to audit and revoke Entra ID app permissions across SharePoint site.",
+    "url": "https://pnp.github.io/script-samples/spo-revoke-app-site-permission/README.html",
+    "longDescription": [
+      ""
+    ],
+    "creationDateTime": "2025-10-23",
+    "updateDateTime": "2025-10-23",
+    "products": [
+      "SharePoint",
+      "Entra ID"
+    ],
+    "metadata": [
+      {
+        "key": "PNP-POWERSHELL",
+        "value": "3.1.0"
+      }
+    ],
+    "categories": [
+      "Configure",
+      "Security"
+    ],
+    "tags": [
+      "Connect-PnPOnline",
+      "Get-PnPAzureADApp",
+      "Get-PnPAzureADAppSitePermission",
+      "Get-PnPTenantSite",
+      "Revoke-PnPAzureADAppSitePermission"
+    ],
+    "thumbnails": [
+      {
+        "type": "image",
+        "order": 100,
+        "url": "https://raw.githubusercontent.com/pnp/script-samples/main/scripts/spo-revoke-app-site-permission/assets/example.png",
+        "alt": "Preview of the sample Revoke permissions for a given Entra ID application registration"
+      }
+    ],
+    "authors": [
+      {
+        "gitHubAccount": "reshmee011",
+        "company": "",
+        "pictureUrl": "https://github.com/reshmee011.png",
+        "name": "Reshmee Auckloo"
+      }
+    ],
+    "references": [
+      {
+        "name": "Want to learn more about PnP PowerShell and the cmdlets",
+        "description": "Check out the PnP PowerShell site to get started and for the reference to the cmdlets.",
+        "url": "https://aka.ms/pnp/powershell"
+      }
+    ]
+  }
+]
