@@ -106,7 +106,7 @@ else {
 
 ## Source Credit
 
-Sample idea first appeared on (Revoke Entra ID App Permissions from SharePoint Sites Using PnP PowerShell)[https://reshmeeauckloo.com/posts/powershell-sharepoint-revokeentraidpermissions/]. 
+Sample idea first appeared on [Revoke Entra ID App Permissions from SharePoint Sites Using PnP PowerShell](https://reshmeeauckloo.com/posts/powershell-sharepoint-revokeentraidpermissions/). 
 
 ## Contributors
 
