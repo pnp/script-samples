@@ -1,0 +1,531 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html lang="en">
+  
+  <head>
+    <meta charset="utf-8">
+    <title>Maintain and Replace SharePoint List Webhook Subscriptions | PnP Samples </title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="title" content="Maintain and Replace SharePoint List Webhook Subscriptions | PnP Samples ">
+    <meta name="generator" content="docfx 2.56.7.0">
+    <meta name="description" content="A sample gallery of scripts to manage all things Microsoft 365.">
+  
+    <!-- Social Media -->
+    <meta property="og:locale" content="en_GB">
+    <meta property="og:title" content="Maintain and Replace SharePoint List Webhook Subscriptions | PnP Samples ">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://pnp.github.io/script-samples">
+    <meta property="og:image" content="https://pnp.github.io/script-samples/assets/social-media-screenshot.png">
+    <meta property="og:image:alt" content="Screenshot example of the PnP Script Samples Site">
+    <meta property="og:site_name" content="PnP Script Samples">
+    <meta name="msvalidate.01" content="04EFEDA66EC42C08A1247C979E2F9ADD">
+    <meta property="og:description" content="A sample gallery of scripts to manage all things Microsoft 365.">
+  
+    <link rel="shortcut icon" href="https://c.s-microsoft.com/favicon.ico?v2">
+    <link rel="stylesheet" href="../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../styles/docfx.css">
+    <link rel="stylesheet" href="../styles/main.css">
+    <link rel="stylesheet" href="../styles/extra.css">
+    <link rel="stylesheet" href="../styles/filter.css">
+    <link rel="stylesheet" href="../styles/site.css">
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet"> 
+    <meta property="docfx:navrel" content="../toc.html">
+    <meta property="docfx:tocrel" content="../toc.html">
+    
+    
+    <meta property="docfx:newtab" content="true">
+    <script type="text/javascript">
+      (function(c,l,a,r,i,t,y){
+          c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+          t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+          y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+      })(window, document, "clarity", "script", "8j6pedl344");
+  </script>
+  </head>  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+             <div class="github-mark">
+              <a href="https://github.com/pnp/script-samples" title="Go to repository">
+               <div class="github-wrapper">
+                  <div class="github-icon">
+                    <img src="https://pnp.github.io/script-samples/assets/icons/github-light-64px.png" alt="GitHub Icon Image">
+                  </div>
+                  <div class="github-repository">
+                    <span>GitHub</span>
+                    <ul class="github-facts">
+                      <li>
+                        <i class="fa fa-code-fork" aria-hidden="true"></i>
+                        <span class="github-forks"></span>
+                      </li>
+                      <li>
+                        <i class="fa fa-star-o" aria-hidden="true"></i>
+                        <span class="github-stars"></span>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </a>
+            </div>
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../assets/logo.svg" alt="">
+              </a>    </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <label class="glyphicon glyphicon-search" for="search-query"></label>
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>      </header>
+      <div role="main" class="container body-content hide-when-search">
+        <div class="article row grid">
+          <div class="col-md-12">
+            <article class="content wrap" id="_content" data-uid="">
+                  <div class="contribution-panel mobile-hide pull-right">
+                      <a href="https://github.com/pnp/script-samples/blob/main/scripts/spo-webhook-subscription-maintenance/README.md/#L1" title="Improve this Doc" class="improve-doc-lg"><i class="glyphicon glyphicon-pencil"></i></a>
+                  </div>
+                    <h1 id="maintain-and-replace-sharepoint-list-webhook-subscriptions">Maintain and Replace SharePoint List Webhook Subscriptions</h1>
+
+<h2 id="summary">Summary</h2>
+<p>This PowerShell script helps maintain and replace SharePoint list webhook subscriptions across multiple sites. It identifies existing webhook subscriptions, removes old webhook URLs, and replaces them with updated Power Automate webhook subscriptions. The script includes retry logic for reliability and exports detailed results to a CSV file.</p>
+<p><img src="assets/example.png" alt="Example Screenshot"></p>
+<p>The script provides a comprehensive solution for managing webhook subscriptions in SharePoint, ensuring that organizations can keep their integrations up to date and functioning smoothly.</p>
+<div class="tabGroup" id="tabgroup_CeZOj-G++Q">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_CeZOj-G++Q_pnpps" role="tab" aria-controls="tabpanel_CeZOj-G++Q_pnpps" data-tab="pnpps" tabindex="0" aria-selected="true">PnP PowerShell</a>
+</li>
+</ul>
+<section id="tabpanel_CeZOj-G++Q_pnpps" role="tabpanel" data-tab="pnpps">
+
+<pre><code class="lang-powershell">
+&lt;#
+.SYNOPSIS
+    Maintain and replace SharePoint list webhook subscriptions across multiple sites.
+
+.DESCRIPTION
+    This script checks SharePoint sites for a specific list, identifies existing webhook subscriptions,
+    removes old webhook URLs, and replaces them with updated Power Automate webhook subscriptions.
+    
+    Features:
+    - Connects to multiple SharePoint sites
+    - Identifies and removes old webhook URLs
+    - Adds new webhook subscriptions with configurable expiration
+    - Implements retry logic for reliability
+    - Exports detailed results to CSV
+    - Provides comprehensive logging
+
+.PARAMETER SiteUrls
+    Array of SharePoint site URLs to process. Can be provided directly or from a CSV file.
+
+.PARAMETER ListName
+    Name of the SharePoint list to check for webhooks (default: &quot;Documents&quot;)
+
+.PARAMETER OldWebhookUrl
+    The old webhook URL that should be replaced (optional)
+
+.PARAMETER NewWebhookUrl
+    The new webhook URL to add
+
+.PARAMETER ClientId
+    Azure AD Application (Client) ID for authentication
+
+.PARAMETER Tenant
+    Tenant name (e.g., contoso.onmicrosoft.com)
+
+.PARAMETER Thumbprint
+    Certificate thumbprint for authentication (optional, if using certificate auth)
+
+.PARAMETER ExpirationDays
+    Number of days until webhook expiration (default: 179, max: 180)
+
+.PARAMETER MaxRetries
+    Maximum number of retry attempts for adding webhooks (default: 3)
+
+.PARAMETER RetryDelaySeconds
+    Delay in seconds between retry attempts (default: 5)
+
+.PARAMETER OutputPath
+    Path for the output CSV report (default: current directory)
+
+.EXAMPLE
+    .\script.ps1 -SiteUrls @(&quot;https://contoso.sharepoint.com/sites/site1&quot;, &quot;https://contoso.sharepoint.com/sites/site2&quot;) `
+                 -ListName &quot;Documents&quot; `
+                 -NewWebhookUrl &quot;https://prod.westeurope.logic.azure.com:443/workflows/abc123/triggers/manual/paths/invoke...&quot; `
+                 -ClientId &quot;12345678-1234-1234-1234-123456789abc&quot; `
+                 -Tenant &quot;contoso.onmicrosoft.com&quot; `
+                 -Thumbprint &quot;ABC123...&quot;
+
+.EXAMPLE
+    # Using interactive authentication
+    .\script.ps1 -SiteUrls @(&quot;https://contoso.sharepoint.com/sites/site1&quot;) `
+                 -ListName &quot;Media&quot; `
+                 -OldWebhookUrl &quot;https://old-webhook-url.com/...&quot; `
+                 -NewWebhookUrl &quot;https://new-webhook-url.com/...&quot;
+
+.NOTES
+    Author: Valeras Narbutas
+    GitHub: ValerasNarbutas
+    Requires: PnP PowerShell module
+#&gt;
+
+[CmdletBinding()]
+param(
+    [Parameter(Mandatory = $true, HelpMessage = &quot;Array of SharePoint site URLs to process&quot;)]
+    [ValidateNotNullOrEmpty()]
+    [string[]]$SiteUrls,
+    
+    [Parameter(Mandatory = $false, HelpMessage = &quot;Name of the SharePoint list&quot;)]
+    [string]$ListName = &quot;Documents&quot;,
+    
+    [Parameter(Mandatory = $false, HelpMessage = &quot;Old webhook URL to replace (optional)&quot;)]
+    [string]$OldWebhookUrl,
+    
+    [Parameter(Mandatory = $true, HelpMessage = &quot;New webhook URL to add&quot;)]
+    [ValidateNotNullOrEmpty()]
+    [string]$NewWebhookUrl,
+    
+    [Parameter(Mandatory = $false, HelpMessage = &quot;Azure AD Application (Client) ID&quot;)]
+    [string]$ClientId,
+    
+    [Parameter(Mandatory = $false, HelpMessage = &quot;Tenant name (e.g., contoso.onmicrosoft.com)&quot;)]
+    [string]$Tenant,
+    
+    [Parameter(Mandatory = $false, HelpMessage = &quot;Certificate thumbprint for authentication&quot;)]
+    [string]$Thumbprint,
+    
+    [Parameter(Mandatory = $false, HelpMessage = &quot;Number of days until webhook expiration&quot;)]
+    [ValidateRange(1, 180)]
+    [int]$ExpirationDays = 179,
+    
+    [Parameter(Mandatory = $false, HelpMessage = &quot;Maximum number of retry attempts&quot;)]
+    [ValidateRange(1, 10)]
+    [int]$MaxRetries = 3,
+    
+    [Parameter(Mandatory = $false, HelpMessage = &quot;Delay in seconds between retries&quot;)]
+    [ValidateRange(1, 60)]
+    [int]$RetryDelaySeconds = 5,
+    
+    [Parameter(Mandatory = $false, HelpMessage = &quot;Output path for CSV report&quot;)]
+    [string]$OutputPath = &quot;.&quot;
+)
+
+# Initialize client state with timestamp
+$clientState = &quot;WebhookUpdate-&quot; + (Get-Date -Format &quot;yyyyMMdd-HHmmss&quot;)
+
+# Initialize results array
+$results = @()
+
+Write-Host &quot;========================================&quot; -ForegroundColor Cyan
+Write-Host &quot;SharePoint Webhook Subscription Maintenance&quot; -ForegroundColor Cyan
+Write-Host &quot;========================================&quot; -ForegroundColor Cyan
+Write-Host &quot;&quot;
+Write-Host &quot;Configuration:&quot; -ForegroundColor Yellow
+Write-Host &quot;  - List Name: $ListName&quot; -ForegroundColor Gray
+Write-Host &quot;  - Sites to process: $($SiteUrls.Count)&quot; -ForegroundColor Gray
+Write-Host &quot;  - Expiration days: $ExpirationDays&quot; -ForegroundColor Gray
+Write-Host &quot;  - Max retries: $MaxRetries&quot; -ForegroundColor Gray
+Write-Host &quot;&quot;
+
+# Process each site
+foreach ($siteUrl in $SiteUrls) {
+    Write-Host &quot;Processing site: $siteUrl&quot; -ForegroundColor Cyan
+    
+    try {
+        # Connect to site using appropriate authentication method
+        if ($ClientId -and $Tenant -and $Thumbprint) {
+            Write-Host &quot;  - Connecting with certificate authentication...&quot; -ForegroundColor Gray
+            Connect-PnPOnline -Url $siteUrl -ClientId $ClientId -Tenant $Tenant -Thumbprint $Thumbprint
+        }
+        elseif ($ClientId -and $Tenant) {
+            Write-Host &quot;  - Connecting with interactive authentication...&quot; -ForegroundColor Gray
+            Connect-PnPOnline -Url $siteUrl -ClientId $ClientId -Tenant $Tenant -Interactive
+        }
+        else {
+            Write-Host &quot;  - Connecting with interactive authentication...&quot; -ForegroundColor Gray
+            Connect-PnPOnline -Url $siteUrl -Interactive
+        }
+        
+        # Check if the specified list exists
+        $list = Get-PnPList -Identity $ListName -ErrorAction Stop
+        
+        if ($null -ne $list) {
+            Write-Host &quot;  - List '$ListName' found&quot; -ForegroundColor Green
+            
+            # Get existing webhooks for the list
+            $webhooks = Get-PnPWebhookSubscriptions -List $ListName
+            
+            # Initialize tracking variables
+            $oldWebhookFound = $false
+            $oldWebhookRemoved = $false
+            $newWebhookAdded = $false
+            $otherWebhooksCount = 0
+            $removedWebhookId = &quot;&quot;
+            $newWebhookId = &quot;&quot;
+            $newWebhookExpiration = &quot;&quot;
+            $newWebhookAlreadyExists = $false
+            $retryCount = 0
+            $webhookError = &quot;&quot;
+            
+            if ($webhooks.Count -gt 0) {
+                Write-Host &quot;  - Found $($webhooks.Count) existing webhook(s)&quot; -ForegroundColor Gray
+                
+                # Check existing webhooks
+                foreach ($webhook in $webhooks) {
+                    # Check for old webhook URL (if specified)
+                    if ($OldWebhookUrl -and $webhook.NotificationUrl -eq $OldWebhookUrl) {
+                        $oldWebhookFound = $true
+                        $removedWebhookId = $webhook.Id
+                        
+                        Write-Host &quot;  - Found old webhook, removing...&quot; -ForegroundColor Yellow
+                        Remove-PnPWebhookSubscription -List $ListName -Identity $webhook.Id -Force
+                        $oldWebhookRemoved = $true
+                        Write-Host &quot;    Removed webhook ID: $($webhook.Id)&quot; -ForegroundColor Gray
+                    }
+                    # Check if new webhook already exists
+                    elseif ($webhook.NotificationUrl -eq $NewWebhookUrl) {
+                        $newWebhookAlreadyExists = $true
+                        $newWebhookId = $webhook.Id
+                        $newWebhookExpiration = $webhook.ExpirationDateTime
+                        Write-Host &quot;  - New webhook already exists (ID: $($webhook.Id))&quot; -ForegroundColor Green
+                    }
+                    else {
+                        $otherWebhooksCount++
+                        Write-Host &quot;  - Found other webhook: $($webhook.Id)&quot; -ForegroundColor Gray
+                    }
+                }
+            }
+            else {
+                Write-Host &quot;  - No existing webhooks found&quot; -ForegroundColor Gray
+            }
+            
+            # Add new webhook if it doesn't already exist (with retry logic)
+            if (-not $newWebhookAlreadyExists) {
+                $webhookAddSuccess = $false
+                
+                for ($retryCount = 0; $retryCount -lt $MaxRetries; $retryCount++) {
+                    try {
+                        if ($retryCount -gt 0) {
+                            Write-Host &quot;  - Retry attempt $retryCount of $($MaxRetries - 1)...&quot; -ForegroundColor Yellow
+                            Start-Sleep -Seconds $RetryDelaySeconds
+                        }
+                        else {
+                            Write-Host &quot;  - Adding new webhook...&quot; -ForegroundColor Yellow
+                        }
+                        
+                        # Set expiration date
+                        $expirationDate = (Get-Date).AddDays($ExpirationDays).ToUniversalTime()
+                        
+                        # Add webhook subscription
+                        $newWebhook = Add-PnPWebhookSubscription -List $ListName `
+                                                                  -NotificationUrl $NewWebhookUrl `
+                                                                  -ExpirationDate $expirationDate `
+                                                                  -ClientState $clientState
+                        
+                        $newWebhookAdded = $true
+                        $newWebhookId = $newWebhook.Id
+                        $newWebhookExpiration = $newWebhook.ExpirationDateTime
+                        $webhookAddSuccess = $true
+                        Write-Host &quot;  - New webhook created successfully!&quot; -ForegroundColor Green
+                        Write-Host &quot;    Webhook ID: $newWebhookId&quot; -ForegroundColor Gray
+                        Write-Host &quot;    Expires: $newWebhookExpiration&quot; -ForegroundColor Gray
+                        break
+                    }
+                    catch {
+                        $webhookError = $_.Exception.Message
+                        Write-Host &quot;  - Failed to add webhook (attempt $($retryCount + 1)): $webhookError&quot; -ForegroundColor Red
+                        
+                        if ($retryCount -eq ($MaxRetries - 1)) {
+                            Write-Host &quot;  - Max retries reached. Webhook addition failed.&quot; -ForegroundColor Red
+                        }
+                    }
+                }
+            }
+            
+            # Determine action taken
+            $action = &quot;No action&quot;
+            if ($oldWebhookRemoved -and $newWebhookAdded) {
+                $action = &quot;Replaced old webhook&quot;
+            }
+            elseif ($oldWebhookRemoved -and $newWebhookAlreadyExists) {
+                $action = &quot;Removed old webhook (new already existed)&quot;
+            }
+            elseif ($newWebhookAdded -and -not $oldWebhookFound) {
+                $action = &quot;Added new webhook&quot;
+            }
+            elseif ($newWebhookAlreadyExists -and -not $oldWebhookFound) {
+                $action = &quot;New webhook already exists&quot;
+            }
+            elseif (-not $newWebhookAlreadyExists -and -not $newWebhookAdded) {
+                $action = &quot;Failed to add webhook after retries&quot;
+            }
+            
+            Write-Host &quot;  - Action: $action&quot; -ForegroundColor $(if ($action -like &quot;*Failed*&quot; -or $action -eq &quot;No action&quot;) { &quot;Yellow&quot; } else { &quot;Green&quot; })
+            
+            # Add to results
+            $results += [PSCustomObject]@{
+                SiteUrl = $siteUrl
+                ListName = $ListName
+                Action = $action
+                OldWebhookFound = $oldWebhookFound
+                OldWebhookRemoved = $oldWebhookRemoved
+                RemovedWebhookId = if ($removedWebhookId) { $removedWebhookId } else { &quot;N/A&quot; }
+                NewWebhookAdded = $newWebhookAdded
+                NewWebhookAlreadyExists = $newWebhookAlreadyExists
+                NewWebhookId = if ($newWebhookId) { $newWebhookId } else { &quot;N/A&quot; }
+                NewWebhookExpiration = if ($newWebhookExpiration) { $newWebhookExpiration } else { &quot;N/A&quot; }
+                OtherWebhooksCount = $otherWebhooksCount
+                RetryAttempts = $retryCount
+                ClientState = $clientState
+                UpdatedDate = Get-Date -Format &quot;yyyy-MM-dd HH:mm:ss&quot;
+                WebhookError = if ($webhookError) { $webhookError } else { &quot;N/A&quot; }
+            }
+        }
+        else {
+            Write-Host &quot;  - List '$ListName' not found in this site&quot; -ForegroundColor Yellow
+            
+            $results += [PSCustomObject]@{
+                SiteUrl = $siteUrl
+                ListName = $ListName
+                Action = &quot;List not found&quot;
+                OldWebhookFound = $false
+                OldWebhookRemoved = $false
+                RemovedWebhookId = &quot;N/A&quot;
+                NewWebhookAdded = $false
+                NewWebhookAlreadyExists = $false
+                NewWebhookId = &quot;N/A&quot;
+                NewWebhookExpiration = &quot;N/A&quot;
+                OtherWebhooksCount = 0
+                RetryAttempts = 0
+                ClientState = &quot;N/A&quot;
+                UpdatedDate = Get-Date -Format &quot;yyyy-MM-dd HH:mm:ss&quot;
+                WebhookError = &quot;List '$ListName' not found&quot;
+            }
+        }
+    }
+    catch {
+        $errorMessage = $_.Exception.Message
+        Write-Host &quot;  - Failed to process site: $errorMessage&quot; -ForegroundColor Red
+        
+        $results += [PSCustomObject]@{
+            SiteUrl = $siteUrl
+            ListName = $ListName
+            Action = &quot;Error&quot;
+            OldWebhookFound = $false
+            OldWebhookRemoved = $false
+            RemovedWebhookId = &quot;N/A&quot;
+            NewWebhookAdded = $false
+            NewWebhookAlreadyExists = $false
+            NewWebhookId = &quot;N/A&quot;
+            NewWebhookExpiration = &quot;N/A&quot;
+            OtherWebhooksCount = 0
+            RetryAttempts = 0
+            ClientState = &quot;N/A&quot;
+            UpdatedDate = Get-Date -Format &quot;yyyy-MM-dd HH:mm:ss&quot;
+            WebhookError = $errorMessage
+        }
+    }
+    finally {
+        # Disconnect to avoid connection limits
+        try {
+            Disconnect-PnPOnline -ErrorAction SilentlyContinue
+        }
+        catch {
+            # Ignore disconnect errors
+        }
+    }
+    
+    Write-Host &quot;&quot;
+}
+
+# Export results to CSV
+$timestamp = Get-Date -Format 'yyyyMMdd_HHmmss'
+$outputFile = Join-Path $OutputPath &quot;WebhookUpdate_$timestamp.csv&quot;
+$results | Export-Csv -Path $outputFile -NoTypeInformation -Encoding UTF8
+
+# Display summary
+Write-Host &quot;========================================&quot; -ForegroundColor Cyan
+Write-Host &quot;Summary Report&quot; -ForegroundColor Cyan
+Write-Host &quot;========================================&quot; -ForegroundColor Cyan
+Write-Host &quot;&quot;
+Write-Host &quot;Results exported to: $outputFile&quot; -ForegroundColor Green
+Write-Host &quot;&quot;
+Write-Host &quot;Statistics:&quot; -ForegroundColor Yellow
+Write-Host &quot;  Total sites processed: $($results.Count)&quot; -ForegroundColor White
+Write-Host &quot;  Old webhooks replaced: $(($results | Where-Object { $_.Action -eq 'Replaced old webhook' }).Count)&quot; -ForegroundColor Green
+Write-Host &quot;  New webhooks added: $(($results | Where-Object { $_.Action -eq 'Added new webhook' }).Count)&quot; -ForegroundColor Green
+Write-Host &quot;  New webhook already existed: $(($results | Where-Object { $_.Action -eq 'New webhook already exists' }).Count)&quot; -ForegroundColor Yellow
+Write-Host &quot;  Old webhook removed (new existed): $(($results | Where-Object { $_.Action -eq 'Removed old webhook (new already existed)' }).Count)&quot; -ForegroundColor Yellow
+Write-Host &quot;  List not found: $(($results | Where-Object { $_.Action -eq 'List not found' }).Count)&quot; -ForegroundColor Yellow
+Write-Host &quot;  Failed after retries: $(($results | Where-Object { $_.Action -eq 'Failed to add webhook after retries' }).Count)&quot; -ForegroundColor Red
+Write-Host &quot;  Errors: $(($results | Where-Object { $_.Action -eq 'Error' }).Count)&quot; -ForegroundColor Red
+Write-Host &quot;&quot;
+Write-Host &quot;========================================&quot; -ForegroundColor Cyan 
+
+</code></pre>
+<div class="highlight-tool">
+<p>Check out the <strong>PnP PowerShell</strong> to learn more at: <a href="https://aka.ms/pnp/powershell">https://aka.ms/pnp/powershell</a></p>
+</div>
+<div class="highlight-tool">
+<p>The way you login into PnP PowerShell has changed please read <a href="https://github.com/pnp/powershell/discussions/4249">PnP Management Shell EntraID app is deleted : what should I do ?</a></p>
+</div>
+</section>
+</div>
+<h2 id="contributors">Contributors</h2>
+<table>
+<thead>
+<tr>
+<th>Author(s)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="https://github.com/ValerasNarbutas">Valeras Narbutas</a></td>
+</tr>
+</tbody>
+</table>
+<h2 id="disclaimer">Disclaimer</h2>
+<p><strong>THESE SAMPLES ARE PROVIDED <em>AS IS</em> WITHOUT WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, INCLUDING ANY IMPLIED WARRANTIES OF FITNESS FOR A PARTICULAR PURPOSE, MERCHANTABILITY, OR NON-INFRINGEMENT.</strong></p>
+<img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/spo-webhook-subscription-maintenance" aria-hidden="true">
+</article>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            <span>Script Samples<br>Generated by <strong><a href='https://dotnet.github.io/docfx' alt='Doc FX Website'>DocFX</a></strong> with <strong><a href='https://ovasquez.github.io/docfx-material' alt='DocFx Material Theme'>Material UI</a></strong></span>
+            
+            <!-- <img src="https://telemetry.sharepointpnp.com/@pnp.github.io/index/" alt="spacer"> -->
+          </div>
+        </div>
+      </footer>    </div>
+    
+    <script type="text/javascript" src="../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+    
+    <script type="text/javascript" src="../styles/clipboard.min.js"></script>
+    <script type="text/javascript" src="../styles/isotope.pkgd.min.js"></script>
+    <script type="text/javascript" src="../styles/loadsamples.js"></script>
+    <script type="text/javascript" src="../styles/filtersamples.js"></script>
+
+  </body>
+</html>

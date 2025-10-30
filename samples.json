@@ -16142,6 +16142,55 @@
     ]
   },
   {
+    "name": "spo-webhook-subscription-maintenance",
+    "title": "Maintain and Replace SharePoint List Webhook Subscriptions",
+    "shortDescription": "This script checks SharePoint sites and specific list, removes old webhook URLs, and adds or replaces them with updated Power Automate webhook subscriptions.",
+    "url": "spo-webhook-subscription-maintenance/README.html",
+    "creationDateTime": "2025-10-28",
+    "updateDateTime": "2025-10-28",
+    "products": [
+      "SharePoint",
+      "Graph",
+      "Webhooks",
+      "Power Automate"
+    ],
+    "metadata": [
+      {
+        "key": "PNP-POWERSHELL",
+        "value": "3.1.0"
+      }
+    ],
+    "categories": [
+      "Data",
+      "Deploy",
+      "Provision",
+      "Configure",
+      "Report"
+    ],
+    "tags": [
+      "Connect-PnPOnline",
+      "Get-PnPWebhookSubscription",
+      "Remove-PnPWebhookSubscription",
+      "New-PnPWebhookSubscription"
+    ],
+    "thumbnails": [
+      {
+        "type": "image",
+        "order": 100,
+        "url": "spo-webhook-subscription-maintenance/assets/preview.png",
+        "alt": "Preview of the sample Maintain and Replace SharePoint List Webhook Subscriptions"
+      }
+    ],
+    "authors": [
+      {
+        "gitHubAccount": "ValerasNarbutas",
+        "company": "",
+        "pictureUrl": "https://github.com/ValerasNarbutas.png",
+        "name": "Valeras Narbutas"
+      }
+    ]
+  },
+  {
     "name": "stream-report-videos",
     "title": "Export a csv report on all Microsoft Stream videos",
     "shortDescription": "This script export a report on all Microsoft Stream videos (complete list and all videos not yet migrated)",
