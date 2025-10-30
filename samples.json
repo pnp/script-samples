@@ -1029,6 +1029,49 @@
     ]
   },
   {
+    "name": "azure-devops-clone-all-repositories",
+    "title": "Clone all repositories from Azure DevOps",
+    "shortDescription": "A secure, user-friendly PowerShell script to clone all accessible Git repositories from an Azure DevOps organization",
+    "url": "azure-devops-clone-all-repositories/README.html",
+    "creationDateTime": "2025-10-29",
+    "updateDateTime": "2025-10-29",
+    "products": [
+      "Azure"
+    ],
+    "metadata": [
+      {
+        "key": "AZURE-CLI",
+        "value": "2.27.0"
+      }
+    ],
+    "categories": [
+      "Configure"
+    ],
+    "tags": [
+      "az extension add --name azure-devops",
+      "az login",
+      "az devops configure",
+      "az devops project",
+      " Clone-Repo"
+    ],
+    "thumbnails": [
+      {
+        "type": "image",
+        "order": 100,
+        "url": "azure-devops-clone-all-repositories/assets/preview.png",
+        "alt": "Preview of the sample Clone all repositories from Azure DevOps"
+      }
+    ],
+    "authors": [
+      {
+        "gitHubAccount": "HarminderSethi",
+        "company": "",
+        "pictureUrl": "https://github.com/HarminderSethi.png",
+        "name": "Harminder Singh"
+      }
+    ]
+  },
+  {
     "name": "azure-ocr-openai-json-invoice-extractor",
     "title": "Get data from OpenAI deployment/model",
     "shortDescription": "This sample shows how to use both OpenAI and document intelligene studio to process and extract data in a json format",
