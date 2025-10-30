@@ -1,4 +1,4 @@
-# # Azure DevOps Repo Cloner (PowerShell & AzureCli)
+# Azure DevOps Repo Cloner (PowerShell & AzureCli)
 
 ## Summary
 
@@ -31,8 +31,10 @@ A **secure, user-friendly PowerShell script** to clone **all accessible Git repo
 1. **Save** the script as `Clone-All-DevOpsRepos.ps1`
 2. **Run in PowerShell**:
 
-````powershell
+
+```powershell
 .\Clone-All-DevOpsRepos.ps1
+```
 
 # [Azure CLI](#tab/azure-cli)
 
@@ -283,10 +285,9 @@ if ($LogStream) {
     $LogStream.Dispose()
 }
 
-
-````
-
----
+```
+[!INCLUDE [More about Azure CLI](../../docfx/includes/MORE-AZURECLI.md)]
+***
 
 ## Contributors
 
