@@ -172,7 +172,7 @@ Export-M365ActiveUsers | Out-Null
 
 | Author(s) |
 |-----------|
-| Divya Akula|
+| [Divya Akula](https://github.com/divya-akula)|
 
 [!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
 
