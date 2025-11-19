@@ -1,0 +1,313 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html lang="en">
+  
+  <head>
+    <meta charset="utf-8">
+    <title>Export Microsoft 365 Active Users to CSV Using Microsoft Graph (Cross-Platform) | PnP Samples </title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="title" content="Export Microsoft 365 Active Users to CSV Using Microsoft Graph (Cross-Platform) | PnP Samples ">
+    <meta name="generator" content="docfx 2.56.7.0">
+    <meta name="description" content="A sample gallery of scripts to manage all things Microsoft 365.">
+  
+    <!-- Social Media -->
+    <meta property="og:locale" content="en_GB">
+    <meta property="og:title" content="Export Microsoft 365 Active Users to CSV Using Microsoft Graph (Cross-Platform) | PnP Samples ">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://pnp.github.io/script-samples">
+    <meta property="og:image" content="https://pnp.github.io/script-samples/assets/social-media-screenshot.png">
+    <meta property="og:image:alt" content="Screenshot example of the PnP Script Samples Site">
+    <meta property="og:site_name" content="PnP Script Samples">
+    <meta name="msvalidate.01" content="04EFEDA66EC42C08A1247C979E2F9ADD">
+    <meta property="og:description" content="A sample gallery of scripts to manage all things Microsoft 365.">
+  
+    <link rel="shortcut icon" href="https://c.s-microsoft.com/favicon.ico?v2">
+    <link rel="stylesheet" href="../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../styles/docfx.css">
+    <link rel="stylesheet" href="../styles/main.css">
+    <link rel="stylesheet" href="../styles/extra.css">
+    <link rel="stylesheet" href="../styles/filter.css">
+    <link rel="stylesheet" href="../styles/site.css">
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet"> 
+    <meta property="docfx:navrel" content="../toc.html">
+    <meta property="docfx:tocrel" content="../toc.html">
+    
+    
+    <meta property="docfx:newtab" content="true">
+    <script type="text/javascript">
+      (function(c,l,a,r,i,t,y){
+          c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+          t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+          y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+      })(window, document, "clarity", "script", "8j6pedl344");
+  </script>
+  </head>  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+             <div class="github-mark">
+              <a href="https://github.com/pnp/script-samples" title="Go to repository">
+               <div class="github-wrapper">
+                  <div class="github-icon">
+                    <img src="https://pnp.github.io/script-samples/assets/icons/github-light-64px.png" alt="GitHub Icon Image">
+                  </div>
+                  <div class="github-repository">
+                    <span>GitHub</span>
+                    <ul class="github-facts">
+                      <li>
+                        <i class="fa fa-code-fork" aria-hidden="true"></i>
+                        <span class="github-forks"></span>
+                      </li>
+                      <li>
+                        <i class="fa fa-star-o" aria-hidden="true"></i>
+                        <span class="github-stars"></span>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </a>
+            </div>
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../assets/logo.svg" alt="">
+              </a>    </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <label class="glyphicon glyphicon-search" for="search-query"></label>
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>      </header>
+      <div role="main" class="container body-content hide-when-search">
+        <div class="article row grid">
+          <div class="col-md-12">
+            <article class="content wrap" id="_content" data-uid="">
+                  <div class="contribution-panel mobile-hide pull-right">
+                      <a href="https://github.com/pnp/script-samples/blob/main/scripts/graph-get-users-export-to-csv/README.md/#L1" title="Improve this Doc" class="improve-doc-lg"><i class="glyphicon glyphicon-pencil"></i></a>
+                  </div>
+                    <h1 id="export-microsoft-365-active-users-to-csv-using-microsoft-graph-cross-platform">Export Microsoft 365 Active Users to CSV Using Microsoft Graph (Cross-Platform)</h1>
+
+<h2 id="summary">Summary</h2>
+<p>This PowerShell script exports Microsoft 365 users — including properties such as Display Name, UPN, Department, Job Title, Account Status, and Manager Email — into a CSV file using the Microsoft Graph API.</p>
+<p>It automatically ensures that the Microsoft.Graph module is installed, connects securely using interactive or device-code authentication, and retrieves enabled users by default (with optional switches for guests, disabled accounts, and manager lookups).</p>
+<p>The script is fully optimized for macOS and Linux, performing a safe write-access check on the Graph cache directory (~/.mg) to prevent permission issues caused by previous sudo runs.
+If you are running on Windows, that permission check can be safely skipped or removed since Windows manages Graph credentials differently.</p>
+<div class="tabGroup" id="tabgroup_CeZOj-G++Q">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_CeZOj-G++Q_graphps" role="tab" aria-controls="tabpanel_CeZOj-G++Q_graphps" data-tab="graphps" tabindex="0" aria-selected="true">Microsoft Graph PowerShell</a>
+</li>
+</ul>
+<section id="tabpanel_CeZOj-G++Q_graphps" role="tabpanel" data-tab="graphps">
+
+<pre><code class="lang-powershell">
+&lt;#
+.SYNOPSIS
+Export active Microsoft 365 users to CSV using Microsoft Graph.
+
+.DESCRIPTION
+Wraps the script in an advanced function that ensures the Microsoft.Graph module is available,
+connects using device code (with a macOS-friendly context scope), queries enabled users by default,
+optionally looks up manager email, and writes a CSV. Includes a fallback to interactive login if
+device code fails on macOS environments.
+
+.EXAMPLE
+Export-M365ActiveUsers
+Exports enabled Member users to Desktop/M365_ActiveUsers.csv using device-code authentication.
+
+.EXAMPLE
+Export-M365ActiveUsers -IncludeGuests -Path &quot;/tmp/users.csv&quot;
+Includes Guests in addition to Members and writes to /tmp/users.csv
+#&gt;
+function Export-M365ActiveUsers {
+    [CmdletBinding(SupportsShouldProcess)]
+    param(
+        [Parameter()]
+        [string]$Path =  'M365_ActiveUsers.csv',
+
+        [Parameter()]
+        [string]$TenantId = $(Read-Host &quot;Enter your Azure AD Tenant ID&quot;),
+
+        [Parameter()]
+        [string[]]$Scopes = @('User.Read.All','Directory.Read.All'),
+
+        [Parameter()]
+        [switch]$IncludeGuests,
+
+        [Parameter()]
+        [switch]$IncludeDisabled,
+
+        [Parameter()]
+        [switch]$IncludeManager = $true,
+
+        [Parameter()]
+        [switch]$DeviceCode = $true,
+
+        [Parameter()]
+        [switch]$Force
+    )
+
+    # 1) Ensure Graph module exists
+    $moduleName = 'Microsoft.Graph'
+    if (-not (Get-Module -ListAvailable -Name $moduleName)) {
+        Write-Host &quot;Microsoft Graph module not found. Installing to CurrentUser scope...&quot; -ForegroundColor Yellow
+        try {
+            Install-Module -Name $moduleName -Scope CurrentUser -Force -AllowClobber -ErrorAction Stop | Out-Null
+        } catch {
+            throw &quot;Failed to install module '$moduleName': $($_.Exception.Message)&quot;
+        }
+    }
+    Import-Module -Name $moduleName -ErrorAction Stop
+
+    # Preflight check: warn if ~/.mg is owned by root (from a previous sudo run)
+   $platform = [System.Environment]::OSVersion.Platform
+if ($platform -eq 'Unix' -or $platform -eq 'MacOSX') {
+    $mgDir = Join-Path $HOME '.mg'
+    if (Test-Path $mgDir) {
+        try {
+            $testFile = Join-Path $mgDir &quot;test_write_$(Get-Random).tmp&quot;
+            [void][System.IO.File]::WriteAllText($testFile, 'test')
+            Remove-Item $testFile -Force -ErrorAction SilentlyContinue
+        } catch {
+            Write-Warning &quot;Cannot write to $mgDir — likely owned by root from a previous sudo run.&quot;
+            Write-Host &quot;Fix with: sudo chown -R `$USER:staff ~/.mg &amp;&amp; sudo chmod 700 ~/.mg&quot; -ForegroundColor Yellow
+            Write-Host &quot;Or remove it: sudo rm -rf ~/.mg`n&quot; -ForegroundColor Yellow
+            throw &quot;Access denied to Microsoft Graph cache directory. See instructions above.&quot;
+        }
+    }
+} else {
+    Write-Verbose &quot;Windows detected — skipping ~/.mg permission check.&quot;
+}
+
+    # 2) Connect to Graph
+    Disconnect-MgGraph -ErrorAction SilentlyContinue | Out-Null
+
+    Write-Host &quot;`n🔐 Connecting to Microsoft Graph...&quot; -ForegroundColor Cyan
+    Write-Host &quot;A browser window will open for authentication.`n&quot; -ForegroundColor Yellow
+
+    try {
+        # Use interactive browser login - more reliable on macOS than device code
+        # ContextScope Process keeps tokens in memory only (not persisted to disk)
+        Connect-MgGraph -Scopes $Scopes -TenantId $TenantId -ContextScope Process -ErrorAction Stop
+    } catch {
+        $msg = $_.Exception.Message
+        Write-Error &quot;Failed to connect to Microsoft Graph: $msg&quot;
+        Write-Host &quot;`n💡 Troubleshooting:&quot; -ForegroundColor Yellow
+        Write-Host &quot;   1. Make sure you complete the browser sign-in&quot; -ForegroundColor Yellow
+        Write-Host &quot;   2. If the browser doesn't open, check for popup blockers&quot; -ForegroundColor Yellow
+        Write-Host &quot;   3. Close all browser windows and try again`n&quot; -ForegroundColor Yellow
+        throw
+    }
+
+    $context = Get-MgContext
+    if (-not $context) { throw &quot;Authentication context not available after login.&quot; }
+    Write-Host &quot;✅ Connected as: $($context.Account)&quot; -ForegroundColor Green
+
+    # 3) Query users
+    $filters = @()
+    if (-not $IncludeDisabled) { $filters += &quot;accountEnabled eq true&quot; }
+    if (-not $IncludeGuests) { $filters += &quot;userType eq 'Member'&quot; }
+    $filterStr = $filters -join ' and '
+
+    $props = @('Id','DisplayName','UserPrincipalName','Department','JobTitle','AccountEnabled')
+    if ([string]::IsNullOrWhiteSpace($filterStr)) {
+        $users = Get-MgUser -All -Property $props
+    } else {
+        $users = Get-MgUser -All -Filter $filterStr -Property $props
+    }
+
+    # 4) Project output
+    $export = @()
+    foreach ($u in $users) {
+        $mgr = $null
+        if ($IncludeManager) {
+            try {
+                $mgrObj = Get-MgUserManager -UserId $u.Id -ErrorAction SilentlyContinue
+                if ($mgrObj) { $mgr = $mgrObj.AdditionalProperties.mail }
+            } catch {}
+        }
+        $export += [PSCustomObject]@{
+            EmployeeId     = $u.Id
+            EmployeeName   = $u.DisplayName
+            Email          = $u.UserPrincipalName
+            Department     = $u.Department
+            JobTitle       = $u.JobTitle
+            ManagerEmail   = $mgr
+            AccountEnabled = $u.AccountEnabled
+        }
+    }
+
+    # 5) Export
+    if ($PSCmdlet.ShouldProcess($Path, 'Export users to CSV')) {
+        $export | Export-Csv -Path $Path -NoTypeInformation -Encoding UTF8 -Force:$Force
+        Write-Host &quot;📄 Export complete. File saved to $Path&quot; -ForegroundColor Cyan
+    }
+
+    return $export
+}
+
+# Run with defaults if executed directly
+Export-M365ActiveUsers | Out-Null
+</code></pre>
+<div class="highlight-tool">
+<p>Check out the <strong>Microsoft Graph PowerShell SDK</strong> to learn more at: <a href="https://learn.microsoft.com/graph/powershell/get-started">https://learn.microsoft.com/graph/powershell/get-started</a></p>
+</div>
+</section>
+</div>
+<h2 id="contributors">Contributors</h2>
+<table>
+<thead>
+<tr>
+<th>Author(s)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="https://github.com/divya-akula">Divya Akula</a></td>
+</tr>
+</tbody>
+</table>
+<h2 id="disclaimer">Disclaimer</h2>
+<p><strong>THESE SAMPLES ARE PROVIDED <em>AS IS</em> WITHOUT WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, INCLUDING ANY IMPLIED WARRANTIES OF FITNESS FOR A PARTICULAR PURPOSE, MERCHANTABILITY, OR NON-INFRINGEMENT.</strong></p>
+<img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/graph-get-teams-tabs-export-to-csv" aria-hidden="true">
+</article>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            <span>Script Samples<br>Generated by <strong><a href='https://dotnet.github.io/docfx' alt='Doc FX Website'>DocFX</a></strong> with <strong><a href='https://ovasquez.github.io/docfx-material' alt='DocFx Material Theme'>Material UI</a></strong></span>
+            
+            <!-- <img src="https://telemetry.sharepointpnp.com/@pnp.github.io/index/" alt="spacer"> -->
+          </div>
+        </div>
+      </footer>    </div>
+    
+    <script type="text/javascript" src="../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+    
+    <script type="text/javascript" src="../styles/clipboard.min.js"></script>
+    <script type="text/javascript" src="../styles/isotope.pkgd.min.js"></script>
+    <script type="text/javascript" src="../styles/loadsamples.js"></script>
+    <script type="text/javascript" src="../styles/filtersamples.js"></script>
+
+  </body>
+</html>
