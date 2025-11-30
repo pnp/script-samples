@@ -159,7 +159,7 @@ function Invoke-SiteColumnCleanup {
             }
 
             $query = "[?Title=='$SiteColumnName' || InternalName=='$SiteColumnName']"
-            $fieldsOutput = m365 spo contenttype field list --webUrl $SiteUrl --contentTypeName $ctName --properties Title,Id,InternalName --query $query --output json 2>&1
+            $fieldsOutput = m365 spo contenttype field list --webUrl $SiteUrl --contentTypeName $ctName --properties "Title,Id,InternalName" --query $query --output json 2>&1
             if ($LASTEXITCODE -ne 0) {
                 $script:Summary.Failures++
                 Write-Warning "Failed to list fields for content type '$ctName'. CLI output: $fieldsOutput"
@@ -211,7 +211,7 @@ function Invoke-SiteColumnCleanup {
             Write-Host "Examining list '$listTitle'."
 
             $listQuery = "[?Title=='$SiteColumnName' || InternalName=='$SiteColumnName']"
-            $listFieldsOutput = m365 spo field list --webUrl $SiteUrl --listTitle $listTitle --properties Title,InternalName,Id --query $listQuery --output json 2>&1
+            $listFieldsOutput = m365 spo field list --webUrl $SiteUrl --listTitle $listTitle --query $listQuery --output json 2>&1
             if ($LASTEXITCODE -ne 0) {
                 $script:Summary.Failures++
                 Write-Warning "Failed to list fields for list '$listTitle'. CLI output: $listFieldsOutput"
@@ -285,7 +285,7 @@ function Invoke-SiteColumnCleanup {
 # Example usage:
 # Invoke-SiteColumnCleanup -SiteUrl "https://tenant.sharepoint.com/sites/sitename" -ContentTypeNames 'testCT1','CustomContentType1' -SiteColumnName 'EffectiveDate' -ReportOnly
 
-Invoke-SiteColumnCleanup -SiteUrl "https://tenant.sharepoint.com/sites/sitename" -ContentTypeNames 'testCT1','CustomContentType1' -SiteColumnName 'EffectiveDate' -ReportOnly
+Invoke-SiteColumnCleanup -SiteUrl "https://tenanttocheck.sharepoint.com/sites/PnPDemo2" -ContentTypeNames 'testContentTypeA','testContentTypeB','testContentTypeC' -SiteColumnName 'testColumn1' -ReportOnly
 ```
 [!INCLUDE [More about CLI for Microsoft 365](../../docfx/includes/MORE-CLIM365.md)]
 ***
