@@ -102,72 +102,190 @@ if (!$reportOnly) {
 
 # [CLI for Microsoft 365](#tab/cli-m365-ps)
 ```powershell
+function Invoke-SiteColumnCleanup {
+    [CmdletBinding(SupportsShouldProcess)]
+    param(
+        [Parameter(Mandatory, HelpMessage = "SharePoint site URL hosting the content types and lists")]
+        [ValidateNotNullOrEmpty()][string] $SiteUrl,
 
-# Base variables
-$siteURL = "https://tenant.sharepoint.com/sites/sitename"
-$contentTypeArray = @('testCT1','CustomContentType1')
-$siteColumn = "EffectiveDate"
-$reportOnly = $true # If $true, just report. If $false, take action.
+        [Parameter(Mandatory, HelpMessage = "Names of content types that should be scanned for the site column")]
+        [ValidateNotNullOrEmpty()][string[]] $ContentTypeNames,
 
-$m365Status = m365 status
-if ($m365Status -match "Logged Out") {
-    m365 login
-}
+        [Parameter(Mandatory, HelpMessage = "Display name of the site column to remove")]
+        [ValidateNotNullOrEmpty()][string] $SiteColumnName,
 
-# Remove the Site Column from all Content Types which have it
-Write-Host -BackgroundColor Blue "Checking Content Types"
+        [Parameter(HelpMessage = "When set, only report usage without removing the column")]
+        [switch] $ReportOnly
+    )
 
-foreach ($contentTypeName in $contentTypeArray) {
-
-    Write-Host "Checking Content Type $contentTypeName"
-
-    $contentType = m365 spo contenttype get --webUrl $siteURL --name $contentTypeName
-    $contentType = $contentType | ConvertFrom-Json
-    $schemaXml = $contentType.SchemaXml
-    $schemaXml = [xml]"<xml>$schemaXml</xml>"
-    $field = $schemaXml.xml.ContentType.Fields.Field | ? { $_.Name -eq $siteColumn }
-
-    if ($field) {
-        Write-Host -ForegroundColor Green "Found column $($siteColumn) in $($contentTypeName)"
-        if (!$reportOnly) {
-            Write-Host -ForegroundColor Yellow "Removing column $($siteColumn) in $($contentTypeName)"
-            $contentTypeId = $contentType.Id.StringValue
-            $fieldLinkId = $field.ID.Replace("{", "").Replace("}", "")
-            m365 spo contenttype field remove  --contentTypeId $contentTypeId --fieldLinkId $fieldLinkId --webUrl $siteURL --confirm
+    begin {
+        Write-Verbose "Ensuring CLI session is authenticated."
+        $loginOutput = m365 login --ensure 2>&1
+        if ($LASTEXITCODE -ne 0) {
+            throw "Failed to ensure CLI login. CLI output: $loginOutput"
         }
+
+        $script:Summary = [ordered]@{
+            ContentTypesChecked   = 0
+            ContentTypesUpdated   = 0
+            ListsChecked          = 0
+            ListsUpdated          = 0
+            SiteColumnRemoved     = 0
+            Failures              = 0
+        }
+    }
+
+    process {
+        Write-Host "Checking content types for column '$SiteColumnName'."
+
+        foreach ($ctName in $ContentTypeNames) {
+            $script:Summary.ContentTypesChecked++
+            Write-Host "Examining content type '$ctName'."
+
+            $ctOutput = m365 spo contenttype get --webUrl $SiteUrl --name $ctName --output json 2>&1
+            if ($LASTEXITCODE -ne 0) {
+                $script:Summary.Failures++
+                Write-Warning "Failed to retrieve content type '$ctName'. CLI output: $ctOutput"
+                continue
+            }
+
+            try {
+                $ct = $ctOutput | ConvertFrom-Json -ErrorAction Stop
+            }
+            catch {
+                $script:Summary.Failures++
+                Write-Warning "Unable to parse content type '$ctName'. $($_.Exception.Message)"
+                continue
+            }
+
+            $query = "[?Title=='$SiteColumnName' || InternalName=='$SiteColumnName']"
+            $fieldsOutput = m365 spo contenttype field list --webUrl $SiteUrl --contentTypeName $ctName --properties "Title,Id,InternalName" --query $query --output json 2>&1
+            if ($LASTEXITCODE -ne 0) {
+                $script:Summary.Failures++
+                Write-Warning "Failed to list fields for content type '$ctName'. CLI output: $fieldsOutput"
+                continue
+            }
+
+            try {
+                $ctFields = $fieldsOutput | ConvertFrom-Json -ErrorAction Stop
+            }
+            catch {
+                $script:Summary.Failures++
+                Write-Warning "Unable to parse field list for '$ctName'. $($_.Exception.Message)"
+                continue
+            }
+
+            $fieldLink = $ctFields | Select-Object -First 1
+            if ($fieldLink) {
+                Write-Host -ForegroundColor Green "Found field '$SiteColumnName' in content type '$ctName'."
+                if (-not $ReportOnly -and $PSCmdlet.ShouldProcess("Content type '$ctName'", "Remove field link")) {
+                    $removeOutput = m365 spo contenttype field remove --webUrl $SiteUrl --contentTypeId $ct.Id.StringValue --id $fieldLink.Id --force 2>&1
+                    if ($LASTEXITCODE -ne 0) {
+                        $script:Summary.Failures++
+                        Write-Warning "Failed to remove field '$SiteColumnName' from '$ctName'. CLI output: $removeOutput"
+                    }
+                    else {
+                        $script:Summary.ContentTypesUpdated++
+                    }
+                }
+            }
+        }
+
+        Write-Host "Checking lists for orphaned column '$SiteColumnName'."
+        $listOutput = m365 spo list list --webUrl $SiteUrl --output json 2>&1
+        if ($LASTEXITCODE -ne 0) {
+            $script:Summary.Failures++
+            throw "Failed to retrieve lists. CLI output: $listOutput"
+        }
+
+        try {
+            $lists = $listOutput | ConvertFrom-Json -ErrorAction Stop
+        }
+        catch {
+            throw "Unable to parse lists response. $($_.Exception.Message)"
+        }
+
+        foreach ($list in $lists) {
+            $script:Summary.ListsChecked++
+            $listTitle = $list.Title
+            Write-Host "Examining list '$listTitle'."
+
+            $listQuery = "[?Title=='$SiteColumnName' || InternalName=='$SiteColumnName']"
+            $listFieldsOutput = m365 spo field list --webUrl $SiteUrl --listTitle $listTitle --query $listQuery --output json 2>&1
+            if ($LASTEXITCODE -ne 0) {
+                $script:Summary.Failures++
+                Write-Warning "Failed to list fields for list '$listTitle'. CLI output: $listFieldsOutput"
+                continue
+            }
+
+            try {
+                $listFields = $listFieldsOutput | ConvertFrom-Json -ErrorAction Stop
+            }
+            catch {
+                $script:Summary.Failures++
+                Write-Warning "Unable to parse field list for '$listTitle'. $($_.Exception.Message)"
+                continue
+            }
+
+            $listField = $listFields | Select-Object -First 1
+            if (-not $listField) {
+                continue
+            }
+
+            Write-Host -ForegroundColor Green "Found field '$SiteColumnName' in list '$listTitle'."
+            if (-not $ReportOnly -and $PSCmdlet.ShouldProcess("List '$listTitle'", "Remove field")) {
+                $removeFieldOutput = m365 spo field remove --webUrl $SiteUrl --listTitle $listTitle --id $listField.Id --force 2>&1
+                if ($LASTEXITCODE -ne 0) {
+                    $script:Summary.Failures++
+                    Write-Warning "Failed to remove field from list '$listTitle'. CLI output: $removeFieldOutput"
+                }
+                else {
+                    $script:Summary.ListsUpdated++
+                }
+            }
+        }
+
+        if (-not $ReportOnly -and $PSCmdlet.ShouldProcess("Site '$SiteUrl'", "Remove site column '$SiteColumnName'")) {
+            $siteFieldOutput = m365 spo field get --webUrl $SiteUrl --title $SiteColumnName --output json 2>&1
+            if ($LASTEXITCODE -eq 0) {
+                try {
+                    $siteField = $siteFieldOutput | ConvertFrom-Json -ErrorAction Stop
+                }
+                catch {
+                    $script:Summary.Failures++
+                    throw "Unable to parse site column details for '$SiteColumnName'. $($_.Exception.Message)"
+                }
+
+                $removeSiteField = m365 spo field remove --webUrl $SiteUrl --id $siteField.Id --force 2>&1
+                if ($LASTEXITCODE -ne 0) {
+                    $script:Summary.Failures++
+                    Write-Warning "Failed to remove site column '$SiteColumnName'. CLI output: $removeSiteField"
+                }
+                else {
+                    $script:Summary.SiteColumnRemoved++
+                }
+            }
+            else {
+                Write-Verbose "Site column '$SiteColumnName' was not found at the site level."
+            }
+        }
+    }
+
+    end {
+        Write-Host "`nCleanup summary:" -ForegroundColor Cyan
+        Write-Host "  Content types checked : $($script:Summary.ContentTypesChecked)"
+        Write-Host "  Content types updated : $($script:Summary.ContentTypesUpdated)"
+        Write-Host "  Lists checked         : $($script:Summary.ListsChecked)"
+        Write-Host "  Lists updated         : $($script:Summary.ListsUpdated)"
+        Write-Host "  Site columns removed  : $($script:Summary.SiteColumnRemoved)"
+        Write-Host "  Failures              : $($script:Summary.Failures)"
     }
 }
 
+# Example usage:
+# Invoke-SiteColumnCleanup -SiteUrl "https://tenant.sharepoint.com/sites/sitename" -ContentTypeNames 'testCT1','CustomContentType1' -SiteColumnName 'EffectiveDate' -ReportOnly
 
-# Remove the orphaned Site Column from all lists/libraries which have it
-Write-Host -BackgroundColor Blue "Checking Lists"
-
-$lists = m365 spo list list --webUrl $siteURL
-$lists = $lists | ConvertFrom-Json
-
-foreach ($list in $lists) {
-
-    $listTitle = $list.Title
-    Write-Host "Checking list $($listTitle)"
-
-    $field = m365 spo field get --webUrl $siteURL --listTitle $listTitle --fieldTitle $siteColumn
-
-    if ($field) {
-        Write-Host -ForegroundColor Green "Found column $($siteColumn) in $($listTitle)"
-
-        if (!$reportOnly) {
-            Write-Host -ForegroundColor Yellow "Removing column $($siteColumn) in $($listTitle)"
-            m365 spo field remove --webUrl $siteURL --listTitle $listTitle --fieldTitle $siteColumn --confirm
-        }
-    }
-}
-
-# Remove the Site Column itself
-if (!$reportOnly) {
-    m365 spo field remove --webUrl $siteURL --fieldTitle $siteColumn --confirm
-}
-
-
+Invoke-SiteColumnCleanup -SiteUrl "https://tenanttocheck.sharepoint.com/sites/PnPDemo2" -ContentTypeNames 'testContentTypeA','testContentTypeB','testContentTypeC' -SiteColumnName 'testColumn1' -ReportOnly
 ```
 [!INCLUDE [More about CLI for Microsoft 365](../../docfx/includes/MORE-CLIM365.md)]
 ***
