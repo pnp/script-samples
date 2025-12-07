@@ -6,6 +6,10 @@
 
 Find all the Microsoft 365 Groups that a user is an Owner of and replace them with someone else useful for when an employee leaves and ownership needs to be updated. 
 
+Example usage of CLI for Microsoft 365 sample:
+
+![Example CLI for Microsoft 365](assets/exampleCLI.png)
+
 # [PnP PowerShell](#tab/pnpps)
 
 ```powershell
@@ -166,7 +170,7 @@ process {
 
             if ($PSCmdlet.ShouldProcess($group.displayName, "Replace owner '$OldOwnerUpn' with '$NewOwnerUpn'")) {
                 Write-Host "  Adding '$NewOwnerUpn' as owner"
-                $addOutput = & m365 entra m365group user add --groupId $group.id --userName $NewOwnerUpn --role Owner --output json 2>&1
+                $addOutput = & m365 entra m365group user add --groupId $group.id --userNames $NewOwnerUpn --role Owner --output json 2>&1
                 if ($LASTEXITCODE -ne 0) {
                     Write-Warning "  Failed to add '$NewOwnerUpn'. CLI: $addOutput"
                     $Summary.ReplacementFails++
@@ -175,7 +179,7 @@ process {
                 }
 
                 Write-Host "  Removing '$OldOwnerUpn' as owner"
-                $removeArgs = @('entra', 'm365group', 'user', 'remove', '--groupId', $group.id, '--userName', $OldOwnerUpn, '--output', 'json')
+                $removeArgs = @('entra', 'm365group', 'user', 'remove', '--groupId', $group.id, '--userNames', $OldOwnerUpn, '--output', 'json')
                 if ($Force) { $removeArgs += '--force' }
 
                 $removeOutput = & m365 @removeArgs 2>&1
@@ -242,6 +246,7 @@ end {
 |-----------|
 | Reshmee Auckloo |
 | [Ganesh Sanap](https://ganeshsanapblogs.wordpress.com/) |
+| Adam Wójcik |
 
 
 [!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
