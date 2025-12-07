@@ -122,114 +122,114 @@ begin {
     }
 
     $Script:Results = [System.Collections.Generic.List[pscustomobject]]::new()
-}
 
-function Ensure-SiteField {
-    param (
-        [Parameter(Mandatory = $true)] [string]$WebUrl,
-        [Parameter(Mandatory = $true)] [System.Collections.Hashtable]$Definition
-    )
+    function Ensure-SiteField {
+        param (
+            [Parameter(Mandatory = $true)] [string]$WebUrl,
+            [Parameter(Mandatory = $true)] [System.Collections.Hashtable]$Definition
+        )
 
-    $fieldLookup = m365 spo field list --webUrl $WebUrl --output json | ConvertFrom-Json
-    $existingField = $fieldLookup | Where-Object { $_.Title -eq $Definition.FieldName -or $_.InternalName -eq $Definition.FieldName -or $_.Id -eq $Definition.FieldId }
+        $fieldLookup = m365 spo field list --webUrl $WebUrl --output json | ConvertFrom-Json
+        $existingField = $fieldLookup | Where-Object { $_.Title -eq $Definition.FieldName -or $_.InternalName -eq $Definition.FieldName -or $_.Id -eq $Definition.FieldId }
 
-    if ($existingField) {
+        if ($existingField) {
+            $Script:Results.Add([pscustomobject]@{
+                    Action  = 'Field'
+                    Target  = $Definition.FieldName
+                    Status  = 'Skipped'
+                    Message = 'Field already exists'
+                })
+            return $existingField
+        }
+
+        if (-not $PSCmdlet.ShouldProcess($Definition.FieldName, 'Create site column')) {
+            $Script:Results.Add([pscustomobject]@{
+                    Action  = 'Field'
+                    Target  = $Definition.FieldName
+                    Status  = 'WhatIf'
+                    Message = 'Field creation skipped'
+                })
+            return $null
+        }
+
+        $createOutput = m365 spo field add --webUrl $WebUrl --xml $Definition.FieldXml --output json 2>&1
+        if ($LASTEXITCODE -ne 0) {
+            $Script:Results.Add([pscustomobject]@{
+                    Action  = 'Field'
+                    Target  = $Definition.FieldName
+                    Status  = 'Failed'
+                    Message = $createOutput
+                })
+            return $null
+        }
+
+        $createdField = $createOutput | ConvertFrom-Json
         $Script:Results.Add([pscustomobject]@{
-            Action   = 'Field'
-            Target   = $Definition.FieldName
-            Status   = 'Skipped'
-            Message  = 'Field already exists'
-        })
-        return $existingField
+                Action  = 'Field'
+                Target  = $Definition.FieldName
+                Status  = 'Created'
+                Message = 'Field created successfully'
+            })
+        return $createdField
     }
 
-    if (-not $PSCmdlet.ShouldProcess($Definition.FieldName, 'Create site column')) {
+    function Add-FieldToContentType {
+        param (
+            [Parameter(Mandatory = $true)] [string]$WebUrl,
+            [Parameter(Mandatory = $true)] [string]$ContentTypeName,
+            [Parameter(Mandatory = $true)] [System.Collections.Hashtable]$Definition
+        )
+
+        $contentTypeJson = m365 spo contenttype get --webUrl $WebUrl --name $ContentTypeName --output json 2>&1
+        if ($LASTEXITCODE -ne 0) {
+            $Script:Results.Add([pscustomobject]@{
+                    Action  = 'ContentType'
+                    Target  = $ContentTypeName
+                    Status  = 'Failed'
+                    Message = $contentTypeJson
+                })
+            return
+        }
+
+        $contentType = $contentTypeJson | ConvertFrom-Json
+        if (-not $contentType.StringId) {
+            $Script:Results.Add([pscustomobject]@{
+                    Action  = 'ContentType'
+                    Target  = $ContentTypeName
+                    Status  = 'Failed'
+                    Message = 'Content type not found'
+                })
+            return
+        }
+
+        if (-not $PSCmdlet.ShouldProcess($ContentTypeName, "Add field $($Definition.FieldName)")) {
+            $Script:Results.Add([pscustomobject]@{
+                    Action  = 'ContentType'
+                    Target  = $ContentTypeName
+                    Status  = 'WhatIf'
+                    Message = "Skipped adding field $($Definition.FieldName)"
+                })
+            return
+        }
+
+        $setOutput = m365 spo contenttype field set --webUrl $WebUrl --contentTypeId $contentType.StringId --id $Definition.FieldId --output json 2>&1
+        if ($LASTEXITCODE -ne 0) {
+            $Script:Results.Add([pscustomobject]@{
+                    Action  = 'ContentType'
+                    Target  = $ContentTypeName
+                    Status  = 'Failed'
+                    Message = $setOutput
+                })
+            return
+        }
+
         $Script:Results.Add([pscustomobject]@{
-            Action   = 'Field'
-            Target   = $Definition.FieldName
-            Status   = 'WhatIf'
-            Message  = 'Field creation skipped'
-        })
-        return $null
+                Action  = 'ContentType'
+                Target  = $ContentTypeName
+                Status  = 'Updated'
+                Message = "Field $($Definition.FieldName) bound successfully"
+            })
     }
-
-    $createOutput = m365 spo field add --webUrl $WebUrl --xml $Definition.FieldXml --output json 2>&1
-    if ($LASTEXITCODE -ne 0) {
-        $Script:Results.Add([pscustomobject]@{
-            Action   = 'Field'
-            Target   = $Definition.FieldName
-            Status   = 'Failed'
-            Message  = $createOutput
-        })
-        return $null
-    }
-
-    $createdField = $createOutput | ConvertFrom-Json
-    $Script:Results.Add([pscustomobject]@{
-        Action   = 'Field'
-        Target   = $Definition.FieldName
-        Status   = 'Created'
-        Message  = 'Field created successfully'
-    })
-    return $createdField
-}
-
-function Add-FieldToContentType {
-    param (
-        [Parameter(Mandatory = $true)] [string]$WebUrl,
-        [Parameter(Mandatory = $true)] [string]$ContentTypeName,
-        [Parameter(Mandatory = $true)] [System.Collections.Hashtable]$Definition
-    )
-
-    $contentTypeJson = m365 spo contenttype get --webUrl $WebUrl --name $ContentTypeName --output json 2>&1
-    if ($LASTEXITCODE -ne 0) {
-        $Script:Results.Add([pscustomobject]@{
-            Action   = 'ContentType'
-            Target   = $ContentTypeName
-            Status   = 'Failed'
-            Message  = $contentTypeJson
-        })
-        return
-    }
-
-    $contentType = $contentTypeJson | ConvertFrom-Json
-    if (-not $contentType.StringId) {
-        $Script:Results.Add([pscustomobject]@{
-            Action   = 'ContentType'
-            Target   = $ContentTypeName
-            Status   = 'Failed'
-            Message  = 'Content type not found'
-        })
-        return
-    }
-
-    if (-not $PSCmdlet.ShouldProcess($ContentTypeName, "Add field $($Definition.FieldName)")) {
-        $Script:Results.Add([pscustomobject]@{
-            Action   = 'ContentType'
-            Target   = $ContentTypeName
-            Status   = 'WhatIf'
-            Message  = "Skipped adding field $($Definition.FieldName)"
-        })
-        return
-    }
-
-    $setOutput = m365 spo contenttype field set --webUrl $WebUrl --contentTypeId $contentType.StringId --id $Definition.FieldId --output json 2>&1
-    if ($LASTEXITCODE -ne 0) {
-        $Script:Results.Add([pscustomobject]@{
-            Action   = 'ContentType'
-            Target   = $ContentTypeName
-            Status   = 'Failed'
-            Message  = $setOutput
-        })
-        return
-    }
-
-    $Script:Results.Add([pscustomobject]@{
-        Action   = 'ContentType'
-        Target   = $ContentTypeName
-        Status   = 'Updated'
-        Message  = "Field $($Definition.FieldName) bound successfully"
-    })
 }
 
 process {
