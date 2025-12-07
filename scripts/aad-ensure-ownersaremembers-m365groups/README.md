@@ -6,6 +6,10 @@
 
 It may happen that owners are not members of the m365 group because of the various methods of managing M365 group permissions, such as through the Teams admin center, Microsoft Teams, SharePoint admin center, SharePoint connected sites, Planner, or scripting using PowerShell. The script will help identify these discrepancies and ensures m365 group owners are also m365 group members.
 
+CLI for Microsoft 365 script sample usage example:
+
+![Example Screenshot of CLI for Microsoft 365 sample](assets/exampleCLI.png)
+
 # [PnP PowerShell](#tab/pnpps)
 
 ```powershell
@@ -102,30 +106,30 @@ process {
         $owners = m365 entra m365group user list --role Owner --groupId $groupId --output json | ConvertFrom-Json
 
         foreach ($owner in $owners) {
-            $ownerDisplayName = $owner.displayName
-            $isMember = m365 entra m365group user list --role Member --groupId $groupId --query "[?displayName == '$ownerDisplayName']" --output json | ConvertFrom-Json
+            $ownerUserPrincipalName = $owner.userPrincipalName
+            $isMember = m365 entra m365group user list --role Member --groupId $groupId --query "[?userPrincipalName == '$ownerUserPrincipalName']" --output json | ConvertFrom-Json
 
             if (-not $isMember) {
-                Write-Host "  Owner '$ownerDisplayName' missing from members, attempting to add..."
+                Write-Host "  Owner '$ownerUserPrincipalName' missing from members, attempting to add..."
 
                 $ReportItems.Add([pscustomobject]@{
                     'Site Name'  = $site.Title
                     'Site URL'   = $site.Url
-                    'Owner Name' = $ownerDisplayName
+                    'Owner Name' = $ownerUserPrincipalName
                 })
 
-                $addResult = m365 entra m365group user add --role Member --groupId $groupId --userName $owner.userPrincipalName --output json 2>&1
+                $addResult = m365 entra m365group user add --role Member --groupId $groupId --userNames $ownerUserPrincipalName --output json 2>&1
 
                 if ($LASTEXITCODE -ne 0) {
-                    Write-Warning "Failed to add $ownerDisplayName as member in $($site.Url). CLI returned: $addResult"
+                    Write-Warning "Failed to add $ownerUserPrincipalName as member in $($site.Url). CLI returned: $addResult"
                     $Summary.OwnersFailed++
                     continue
                 }
 
-                Write-Host "  Added $ownerDisplayName as member in $($site.Url)"
+                Write-Host "  Added $ownerUserPrincipalName as member in $($site.Url)"
                 $Summary.OwnersAdded++
             } else {
-                Write-Host "  Owner '$ownerDisplayName' already a member; skipping"
+                Write-Host "  Owner '$ownerUserPrincipalName' already a member; skipping"
             }
         }
     }
