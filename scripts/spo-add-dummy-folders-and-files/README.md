@@ -249,8 +249,6 @@ Add-DummySharePointContent -SiteUrl "https://contoso.sharepoint.com/sites/Compan
 |-----------|
 | [Reshmee Auckloo](https://github.com/reshmee011)|
 | [Ganesh Sanap](https://ganeshsanapblogs.wordpress.com/about) |
-| [Reshmee Auckloo](https://github.com/reshmee011)|
-| [Ganesh Sanap](https://ganeshsanapblogs.wordpress.com/about) |
 | Adam Wójcik |
 
 [!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
