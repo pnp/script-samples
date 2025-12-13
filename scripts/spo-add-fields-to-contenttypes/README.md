@@ -259,6 +259,7 @@ end {
 | ------------------- |
 | Ahamed Fazil Buhari |
 | [Ganesh Sanap](https://ganeshsanapblogs.wordpress.com/about) |
+| Adam Wójcik |
 
 [!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
 <img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/spo-add-fields-to-contenttypes" aria-hidden="true" />
