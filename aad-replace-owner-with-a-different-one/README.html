@@ -100,6 +100,8 @@
 
 <h2 id="summary">Summary</h2>
 <p>Find all the Microsoft 365 Groups that a user is an Owner of and replace them with someone else useful for when an employee leaves and ownership needs to be updated.</p>
+<p>Example usage of CLI for Microsoft 365 sample:</p>
+<p><img src="assets/exampleCLI.png" alt="Example CLI for Microsoft 365"></p>
 <div class="tabGroup" id="tabgroup_CeZOj-G++Q">
 <ul role="tablist">
 <li role="presentation">
@@ -174,63 +176,167 @@ Disconnect-PnPOnline
 </section>
 <section id="tabpanel_CeZOj-G++Q_cli-m365-ps" role="tabpanel" data-tab="cli-m365-ps" aria-hidden="true" hidden="hidden">
 
-<pre><code class="lang-powershell">$oldOwnerUPN = Read-Host &quot;Enter the old owner UPN to be replaced with&quot; #testUser1@contose.onmicrosoft.com
-$newOwnerUPN = Read-Host &quot;Enter the new owner UPN to replace with&quot; #testuser2@contoso.onmicrosoft.com
+<pre><code class="lang-powershell">[CmdletBinding(SupportsShouldProcess = $true)]
+param(
+    [Parameter(Mandatory, HelpMessage = &quot;UPN of the current owner to replace.&quot;)]
+    [string]$OldOwnerUpn,
 
-#Get Credentials to connect
-$m365Status = m365 status
-if ($m365Status -match &quot;Logged Out&quot;) {
-    m365 login
+    [Parameter(Mandatory, HelpMessage = &quot;UPN of the new owner to add.&quot;)]
+    [string]$NewOwnerUpn,
+
+    [Parameter(HelpMessage = &quot;Filter applied to group display names when querying Microsoft 365 groups.&quot;)]
+    [string]$DisplayNameFilter = &quot;Permission&quot;,
+
+    [Parameter(HelpMessage = &quot;Directory where the CSV report will be created.&quot;)]
+    [string]$OutputDirectory,
+
+    [Parameter(HelpMessage = &quot;Prefix for the generated CSV report file name.&quot;)]
+    [string]$ReportNamePrefix = &quot;m365GroupOwnersReport&quot;,
+
+    [switch]$Force
+)
+
+begin {
+    m365 login --ensure
+
+    if (-not $OutputDirectory) {
+        $OutputDirectory = if ($MyInvocation.MyCommand.Path) {
+            Join-Path -Path (Split-Path -Path $MyInvocation.MyCommand.Path) -ChildPath 'Logs'
+        } else {
+            Join-Path -Path (Get-Location).Path -ChildPath 'Logs'
+        }
+    }
+
+    if (-not (Test-Path -Path $OutputDirectory -PathType Container)) {
+        New-Item -ItemType Directory -Path $OutputDirectory -Force | Out-Null
+    }
+
+    $timestamp = Get-Date -Format 'yyyyMMdd-HHmmss'
+    $script:ReportPath = Join-Path -Path $OutputDirectory -ChildPath (&quot;{0}-{1}.csv&quot; -f $ReportNamePrefix, $timestamp)
+    $script:ReportItems = [System.Collections.Generic.List[psobject]]::new()
+    $script:Summary = [ordered]@{
+        GroupsEvaluated  = 0
+        OwnersReplaced   = 0
+        OwnersSimulated  = 0
+        OwnersNotFound   = 0
+        ReplacementFails = 0
+    }
+
+    Write-Host &quot;Starting ownership replacement audit...&quot;
+    Write-Host &quot;Report will be saved to $ReportPath&quot;
 }
 
-$dateTime = (Get-Date).toString(&quot;dd-MM-yyyy&quot;)
-$invocation = (Get-Variable MyInvocation).Value
-$directorypath = Split-Path $invocation.MyCommand.Path
-$fileName = &quot;m365GroupOwnersReport-&quot; + $dateTime + &quot;.csv&quot;
-$OutPutView = $directorypath + &quot;\Logs\&quot;+ $fileName
+process {
+    $groupArgs = @('entra', 'm365group', 'list', '--output', 'json')
+    if ($DisplayNameFilter) {
+        $groupArgs += @('--displayName', $DisplayNameFilter)
+    }
 
-#Array to Hold Result - PSObjects
-$m365GroupCollection = @()
+    $groupsOutput = &amp; m365 @groupArgs 2&gt;&amp;1
+    if ($LASTEXITCODE -ne 0) {
+        throw &quot;Failed to retrieve Microsoft 365 groups. CLI output: $groupsOutput&quot;
+    }
 
-#Retrieve any M365 group starting with &quot;Permission&quot; (you can use filter as per your requirements)
-$m365Groups = m365 entra m365group list --displayName Permission | ConvertFrom-Json
+    $groups = if ([string]::IsNullOrWhiteSpace($groupsOutput)) { @() } else { $groupsOutput | ConvertFrom-Json }
+    if (-not $groups) {
+        Write-Host &quot;No groups matched filter '$DisplayNameFilter'.&quot;
+        return
+    }
 
-$m365Groups | ForEach-Object {
-	$ExportVw = New-Object PSObject
-	$ExportVw | Add-Member -MemberType NoteProperty -name &quot;Group Name&quot; -value $_.displayName
-	$m365GroupOwnersName = &quot;&quot;;
-	
-	try
-	{
-		#Check if old user is an owner of the group
-		$oldOwner = m365 entra m365group user list --groupId $_.id --role Owner --filter &quot;userPrincipalName eq '$($oldOwnerUPN)'&quot;
+    foreach ($group in $groups) {
+        $Summary.GroupsEvaluated++
+        Write-Host &quot;Processing group '$($group.displayName)' ($($group.id))&quot;
 
-		if($oldOwner)
-		{
-			#Add new user as an owner of the group
-			m365 entra m365group user add --groupId $_.id --userName $newOwnerUPN --role Owner
-			
-			#Remove old user from the group
-			m365 entra m365group user remove --groupId $_.id --userName $oldOwnerUPN --force
-		}
-	}
-	catch
-	{
-		write-host $(&quot;Error occured while updating the group &quot; + $_.displayName + $Error)
-	}
-	
-	#For auditing purposes - get owners of the group
-	$m365GroupOwnersName = (m365 entra m365group user list --groupId $_.id --role Owner | ConvertFrom-Json | select -ExpandProperty displayName) -join &quot;;&quot;;
+        $action = 'Skipped'
+        $ownersForReport = @()
 
-	$ExportVw | Add-Member -MemberType NoteProperty -name &quot; Group Owners&quot; -value $m365GroupOwnersName
-	$m365GroupCollection += $ExportVw
+        do {
+            $ownersOutput = &amp; m365 entra m365group user list --groupId $group.id --role Owner --output json 2&gt;&amp;1
+            if ($LASTEXITCODE -ne 0) {
+                Write-Warning &quot;  Unable to retrieve owners for $($group.displayName). CLI: $ownersOutput&quot;
+                $Summary.ReplacementFails++
+                $ownersForReport = 'Owners unavailable'
+                $action = 'Failed - Owners lookup'
+                break
+            }
+
+            $owners = if ([string]::IsNullOrWhiteSpace($ownersOutput)) { @() } else { $ownersOutput | ConvertFrom-Json }
+            $ownersForReport = $owners
+            $oldOwner = $owners | Where-Object { $_.userPrincipalName -eq $OldOwnerUpn }
+
+            if (-not $oldOwner) {
+                Write-Host &quot;  Old owner '$OldOwnerUpn' not found; skipping&quot;
+                $Summary.OwnersNotFound++
+                $action = 'Original owner missing'
+                break
+            }
+
+            if ($PSCmdlet.ShouldProcess($group.displayName, &quot;Replace owner '$OldOwnerUpn' with '$NewOwnerUpn'&quot;)) {
+                Write-Host &quot;  Adding '$NewOwnerUpn' as owner&quot;
+                $addOutput = &amp; m365 entra m365group user add --groupId $group.id --userNames $NewOwnerUpn --role Owner --output json 2&gt;&amp;1
+                if ($LASTEXITCODE -ne 0) {
+                    Write-Warning &quot;  Failed to add '$NewOwnerUpn'. CLI: $addOutput&quot;
+                    $Summary.ReplacementFails++
+                    $action = 'Failed - Add owner'
+                    break
+                }
+
+                Write-Host &quot;  Removing '$OldOwnerUpn' as owner&quot;
+                $removeArgs = @('entra', 'm365group', 'user', 'remove', '--groupId', $group.id, '--userNames', $OldOwnerUpn, '--output', 'json')
+                if ($Force) { $removeArgs += '--force' }
+
+                $removeOutput = &amp; m365 @removeArgs 2&gt;&amp;1
+                if ($LASTEXITCODE -ne 0) {
+                    Write-Warning &quot;  Failed to remove '$OldOwnerUpn'. CLI: $removeOutput&quot;
+                    $Summary.ReplacementFails++
+                    $action = 'Failed - Remove owner'
+                    break
+                }
+
+                $Summary.OwnersReplaced++
+                $action = 'Replaced'
+
+                $ownersAfterOutput = &amp; m365 entra m365group user list --groupId $group.id --role Owner --output json 2&gt;&amp;1
+                if ($LASTEXITCODE -eq 0 -and -not [string]::IsNullOrWhiteSpace($ownersAfterOutput)) {
+                    $ownersForReport = $ownersAfterOutput | ConvertFrom-Json
+                }
+            } else {
+                Write-Host &quot;  WhatIf: would add '$NewOwnerUpn' and remove '$OldOwnerUpn'&quot;
+                $Summary.OwnersSimulated++
+                $action = 'Simulated'
+            }
+        } while ($false)
+
+        $ownerNames = if ($ownersForReport -is [string]) {
+            $ownersForReport
+        } elseif ($ownersForReport) {
+            ($ownersForReport | Select-Object -ExpandProperty displayName -ErrorAction SilentlyContinue) -join ';'
+        } else {
+            ''
+        }
+
+        $ReportItems.Add([pscustomobject]@{
+            'Group Name'    = $group.displayName
+            'Group Id'      = $group.id
+            'Owners'        = $ownerNames
+            'Old Owner UPN' = $OldOwnerUpn
+            'New Owner UPN' = $NewOwnerUpn
+            'Action'        = $action
+        })
+    }
 }
 
-#Export the result Array to CSV file
-$m365GroupCollection | sort &quot;Group Name&quot; |Export-CSV $OutPutView -Force -NoTypeInformation
+end {
+    if ($ReportItems.Count -gt 0) {
+        $ReportItems | Sort-Object 'Group Name' | Export-Csv -Path $ReportPath -NoTypeInformation -Force
+        Write-Host &quot;Report exported to $ReportPath&quot;
+    } else {
+        Write-Host &quot;No groups matched the criteria; nothing exported.&quot;
+    }
 
-#Disconnect online connection
-m365 logout
+    Write-Host (&quot;Summary: {0} groups evaluated, {1} owners replaced, {2} simulated, {3} groups missing original owner, {4} failures.&quot; -f `
+        $Summary.GroupsEvaluated, $Summary.OwnersReplaced, $Summary.OwnersSimulated, $Summary.OwnersNotFound, $Summary.ReplacementFails)
+}
 </code></pre>
 <div class="highlight-tool">
 <p>Check out the <strong>CLI for Microsoft 365</strong> to learn more at: <a href="https://aka.ms/cli-m365">https://aka.ms/cli-m365</a></p>
@@ -253,6 +359,9 @@ m365 logout
 </tr>
 <tr>
 <td><a href="https://ganeshsanapblogs.wordpress.com/">Ganesh Sanap</a></td>
+</tr>
+<tr>
+<td>Adam Wójcik</td>
 </tr>
 </tbody>
 </table>
