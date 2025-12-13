@@ -100,6 +100,8 @@
 
 <h2 id="summary">Summary</h2>
 <p>It may happen that owners are not members of the m365 group because of the various methods of managing M365 group permissions, such as through the Teams admin center, Microsoft Teams, SharePoint admin center, SharePoint connected sites, Planner, or scripting using PowerShell. The script will help identify these discrepancies and ensures m365 group owners are also m365 group members.</p>
+<p>CLI for Microsoft 365 script sample usage example:</p>
+<p><img src="assets/exampleCLI.png" alt="Example Screenshot of CLI for Microsoft 365 sample"></p>
 <div class="tabGroup" id="tabgroup_CeZOj-G++Q">
 <ul role="tablist">
 <li role="presentation">
@@ -154,44 +156,99 @@ $m365GroupCollection | sort-object &quot;Site Name&quot; | Export-CSV $OutPutVie
 </section>
 <section id="tabpanel_CeZOj-G++Q_cli-m365-ps" role="tabpanel" data-tab="cli-m365-ps" aria-hidden="true" hidden="hidden">
 
-<pre><code class="lang-powershell">$m365Status = m365 status
-if ($m365Status -match &quot;Logged Out&quot;) {
-    m365 login
+<pre><code class="lang-powershell">[CmdletBinding()]
+param(
+    [Parameter(HelpMessage = &quot;Directory path where the CSV report will be stored.&quot;)]
+    [string]$OutputDirectory,
+
+    [Parameter(HelpMessage = &quot;Optional custom file name (with or without .csv) for the owners-not-members report.&quot;)]
+    [string]$ReportFileName
+)
+
+begin {
+    m365 login --ensure
+
+    if (-not $OutputDirectory) {
+        $OutputDirectory = if ($MyInvocation.MyCommand.Path) {
+            Split-Path -Path $MyInvocation.MyCommand.Path
+        } else {
+            (Get-Location).Path
+        }
+    }
+
+    if (-not (Test-Path -Path $OutputDirectory -PathType Container)) {
+        New-Item -ItemType Directory -Path $OutputDirectory -Force | Out-Null
+    }
+
+    if (-not $ReportFileName) {
+        $ReportFileName = 'm365OwnersNotMembers-{0}.csv' -f (Get-Date -Format 'yyyyMMdd-HHmmss')
+    } elseif (-not $ReportFileName.EndsWith('.csv')) {
+        $ReportFileName = &quot;$ReportFileName.csv&quot;
+    }
+
+    $script:ReportPath = Join-Path -Path $OutputDirectory -ChildPath $ReportFileName
+    $script:ReportItems = [System.Collections.Generic.List[psobject]]::new()
+    $script:Summary = [ordered]@{
+        GroupsEvaluated = 0
+        OwnersAdded     = 0
+        OwnersFailed    = 0
+    }
+
+    Write-Host &quot;Starting owner membership audit...&quot;
+    Write-Host &quot;Report will be saved to $ReportPath&quot;
 }
 
-$dateTime = (Get-Date).toString(&quot;dd-MM-yyyy&quot;)
-$invocation = (Get-Variable MyInvocation).Value
-$directorypath = Split-Path $invocation.MyCommand.Path
-$fileName = &quot;m365OwnersNotMembers-&quot; + $dateTime + &quot;.csv&quot;
-$OutPutView = $directorypath + &quot;\&quot; + $fileName
-# Array to Hold Result - PSObjects
-$m365GroupCollection = @()
-#Write-host $&quot;$ownerName not part of member in $siteUrl&quot;;
-$m365Sites = m365 spo site list --query &quot;[?Template == 'GROUP#0' &amp;&amp; Template != 'RedirectSite#0'].{GroupId:GroupId, Url:Url, Title:Title}&quot; --output json | ConvertFrom-Json
-$m365Sites | ForEach-Object {   
-    $groupId = $_.GroupId -replace &quot;/Guid\((.*)\)/&quot;,'$1';
-    $siteUrl = $_.Url;
-    $siteName = $_.Title
-    #if owner is not part of m365 group member
-    (m365 entra m365group user list --role Owner --groupId $groupId --output json | ConvertFrom-Json) | foreach-object {
-        $owner = $_;
-        $ownerDisplayName = $owner.displayName
-        if (!(m365 entra m365group user list --role Member --groupId $groupId --query &quot;[?displayName == '$ownerDisplayName']&quot; --output json | ConvertFrom-Json)) {
-            $ExportVw = New-Object PSObject
-            $ExportVw | Add-Member -MemberType NoteProperty -name &quot;Site Name&quot; -value $siteName
-            $ExportVw | Add-Member -MemberType NoteProperty -name &quot;Site URL&quot; -value $siteUrl
-            $ExportVw | Add-Member -MemberType NoteProperty -name &quot;Owner Name&quot; -value $ownerDisplayName
-            $m365GroupCollection += $ExportVw
-            m365 entra m365group user add --role Owner --groupId $groupId --userName $owner.userPrincipalName
-            Write-host &quot;$ownerDisplayName has been added as member in $siteUrl&quot;;
+process {
+    $sites = m365 spo site list --query &quot;[?Template == 'GROUP#0' &amp;&amp; Template != 'RedirectSite#0'].{GroupId:GroupId, Url:Url, Title:Title}&quot; --output json | ConvertFrom-Json
+
+    foreach ($site in $sites) {
+        $Summary.GroupsEvaluated++
+        Write-Host &quot;Processing group '$($site.Title)' ($($site.Url))&quot;
+
+        $groupId = $site.GroupId -replace &quot;/Guid\((.*)\)/&quot;, '$1'
+        $owners = m365 entra m365group user list --role Owner --groupId $groupId --output json | ConvertFrom-Json
+
+        foreach ($owner in $owners) {
+            $ownerUserPrincipalName = $owner.userPrincipalName
+            $isMember = m365 entra m365group user list --role Member --groupId $groupId --query &quot;[?userPrincipalName == '$ownerUserPrincipalName']&quot; --output json | ConvertFrom-Json
+
+            if (-not $isMember) {
+                Write-Host &quot;  Owner '$ownerUserPrincipalName' missing from members, attempting to add...&quot;
+
+                $ReportItems.Add([pscustomobject]@{
+                    'Site Name'  = $site.Title
+                    'Site URL'   = $site.Url
+                    'Owner Name' = $ownerUserPrincipalName
+                })
+
+                $addResult = m365 entra m365group user add --role Member --groupId $groupId --userNames $ownerUserPrincipalName --output json 2&gt;&amp;1
+
+                if ($LASTEXITCODE -ne 0) {
+                    Write-Warning &quot;Failed to add $ownerUserPrincipalName as member in $($site.Url). CLI returned: $addResult&quot;
+                    $Summary.OwnersFailed++
+                    continue
+                }
+
+                Write-Host &quot;  Added $ownerUserPrincipalName as member in $($site.Url)&quot;
+                $Summary.OwnersAdded++
+            } else {
+                Write-Host &quot;  Owner '$ownerUserPrincipalName' already a member; skipping&quot;
+            }
         }
     }
 }
-# Export the result array to CSV file
-$m365GroupCollection | sort-object &quot;Site Name&quot; | Export-CSV $OutPutView -Force -NoTypeInformation
 
-#Disconnect SharePoint online connection
-m365 logout
+end {
+    if ($ReportItems.Count -gt 0) {
+        $ReportItems | Sort-Object 'Site Name' | Export-Csv -Path $ReportPath -NoTypeInformation -Force
+        Write-Host &quot;Report exported to $ReportPath&quot;
+    } else {
+        Write-Host &quot;No discrepancies detected across the evaluated groups.&quot;
+    }
+
+    Write-Host (&quot;Summary: {0} groups checked, {1} owners added as members, {2} owners failed to add.&quot; -f $Summary.GroupsEvaluated, $Summary.OwnersAdded, $Summary.OwnersFailed)
+}
+
 </code></pre>
 <div class="highlight-tool">
 <p>Check out the <strong>CLI for Microsoft 365</strong> to learn more at: <a href="https://aka.ms/cli-m365">https://aka.ms/cli-m365</a></p>
@@ -216,6 +273,9 @@ m365 logout
 </tr>
 <tr>
 <td><a href="https://github.com/mkm17">Michał Kornet (CLI for M365 version)</a></td>
+</tr>
+<tr>
+<td>Adam Wójcik</td>
 </tr>
 </tbody>
 </table>
