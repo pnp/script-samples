@@ -199,100 +199,159 @@ finally {
 </section>
 <section id="tabpanel_CeZOj-G++Q_cli-m365-ps" role="tabpanel" data-tab="cli-m365-ps" aria-hidden="true" hidden="hidden">
 
-<pre><code class="lang-powershell">
-function CreateField {
-    param ([string] $FieldName, [string] $FieldXML)
+<pre><code class="lang-powershell"># .\Add-FieldsToContentTypes.ps1 -SiteUrl &quot;https://contoso.sharepoint.com/sites/CLIForM365&quot; -ContentTypes &quot;My Review CT&quot;,&quot;Global User Review CT&quot; -WhatIf
+[CmdletBinding(SupportsShouldProcess = $true, ConfirmImpact = 'Medium')]
+param (
+    [Parameter(Mandatory = $true, HelpMessage = &quot;Absolute URL of the site where the fields and content types exist.&quot;)]
+    [ValidatePattern('^https://')]
+    [string]$SiteUrl,
 
-    try {
-        # Check if the field exists and create
-        $field = m365 spo field get --webUrl $siteUrl --title $FieldName | ConvertFrom-Json
+    [Parameter(Mandatory = $true, HelpMessage = &quot;Content type names to which the fields should be added.&quot;)]
+    [ValidateNotNullOrEmpty()]
+    [string[]]$ContentTypes,
 
-        if ($null -eq $field) {
-            # Add new field based on XML
-            m365 spo field add --webUrl $siteUrl --xml $FieldXML
-            Write-Host &quot;Successfully created field '$FieldName'&quot; -ForegroundColor Green
-        }
-        else {
-            Write-Host &quot;Field '$FieldName' already exists. Skipping creation&quot; -f Green
-        }
+    [Parameter(HelpMessage = &quot;Optional override for the field definitions.&quot;)]
+    [ValidateNotNull()]
+    [System.Collections.Hashtable[]]$FieldDefinitions
+)
+
+begin {
+    Write-Verbose &quot;Ensuring CLI for Microsoft 365 session.&quot;
+    m365 login --ensure
+
+    if (-not $FieldDefinitions) {
+        $FieldDefinitions = @(
+            @{ FieldName = 'admin_review'; FieldId = '3eccccb1-9789-40e9-bee8-0e27a2b0ea9f'; FieldXml = &quot;&lt;Field Type='User' DisplayName='Admin Reviewer' Required='false' EnforceUniqueValues='false' Hidden='false' UserSelectionMode='PeopleAndGroups' Group='My Site Columns' ID='{3eccccb1-9789-40e9-bee8-0e27a2b0ea9f}' StaticName='admin_review' Name='admin_review' /&gt;&quot; },
+            @{ FieldName = 'admin_reviewdate'; FieldId = 'bee79067-c92c-4d9c-b80c-63a75a468b16'; FieldXml = &quot;&lt;Field Type='DateTime' DisplayName='Admin Review Date' Required='false' EnforceUniqueValues='false' Hidden='false' Group='My Site Columns' ID='{bee79067-c92c-4d9c-b80c-63a75a468b16}' StaticName='admin_reviewdate' Name='admin_reviewdate' /&gt;&quot; }
+        )
     }
-    catch {
-        Write-Error &quot;Error in CreateField - $_&quot;
-        throw
-    }
-}
 
-function CreateAndAddFieldsToCTs {
-    param ([string[]] $ContentTypes)
+    $Script:Results = [System.Collections.Generic.List[pscustomobject]]::new()
 
-    try {
-        #region Create SharePoint Site Columns
-        $fieldsToCreate = @(
-            @{
-                FieldName = &quot;admin_review&quot;
-                FieldID   = &quot;3eccccb1-9789-40e9-bee8-0e27a2b0ea9f&quot; 
-                FieldXML  = &quot;&lt;Field Type='User' DisplayName='Admin Reviewer' Required='false' EnforceUniqueValues='false' Hidden='false' UserSelectionMode='PeopleAndGroups' Group='My Site Columns' ID='{3eccccb1-9789-40e9-bee8-0e27a2b0ea9f}' StaticName='admin_review' Name='admin_review'&gt;&lt;/Field&gt;&quot;
-            },
-            @{
-                FieldName = &quot;admin_reviewdate&quot;
-                FieldID   = &quot;bee79067-c92c-4d9c-b80c-63a75a468b16&quot;
-                FieldXML  = &quot;&lt;Field Type='DateTime' DisplayName='Admin Review Date' Required='false' EnforceUniqueValues='false' Hidden='false' Group='My Site Columns' ID='{bee79067-c92c-4d9c-b80c-63a75a468b16}' StaticName='admin_reviewdate' Name='admin_reviewdate'&gt;&lt;/Field&gt;&quot;
-            }
+    function Ensure-SiteField {
+        param (
+            [Parameter(Mandatory = $true)] [string]$WebUrl,
+            [Parameter(Mandatory = $true)] [System.Collections.Hashtable]$Definition
         )
 
-        foreach ($fieldToCreate in $fieldsToCreate) {
-            Write-Host &quot;Creating the field - $($fieldToCreate.FieldName)&quot; -ForegroundColor Yellow
-            CreateField -FieldName $($fieldToCreate.FieldName) -FieldXML $($fieldToCreate.FieldXML)
+        $fieldLookup = m365 spo field list --webUrl $WebUrl --output json | ConvertFrom-Json
+        $existingField = $fieldLookup | Where-Object { $_.Title -eq $Definition.FieldName -or $_.InternalName -eq $Definition.FieldName -or $_.Id -eq $Definition.FieldId }
+
+        if ($existingField) {
+            $Script:Results.Add([pscustomobject]@{
+                    Action  = 'Field'
+                    Target  = $Definition.FieldName
+                    Status  = 'Skipped'
+                    Message = 'Field already exists'
+                })
+            return $existingField
         }
-        Write-Host `n `n
-        #endregion
 
-        #region Add Site Columns to Content Types
-        foreach ($contentType in $ContentTypes) {
-            $contentTypeObj = m365 spo contenttype get --webUrl $siteUrl --name $contentType | ConvertFrom-Json
-            if ($contentTypeObj.StringId) {
-                foreach ($fieldToCreate in $fieldsToCreate) {
-                    Write-Host &quot;Adding field - $($fieldToCreate.FieldName) to CT $contentType&quot; -ForegroundColor Yellow
-                
-                    m365 spo contenttype field set --webUrl $siteUrl --contentTypeId $contentTypeObj.StringId --id $fieldToCreate.FieldID
-                    Write-Host &quot;Successfully added fields to CT $contentType&quot; -ForegroundColor Green
-                    Write-Host `n
-                }
-            } 
-            else {
-                Write-Host &quot;Content Type not found: $contentType&quot; -ForegroundColor Green
-                Write-Host `n
-            }
-
+        if (-not $PSCmdlet.ShouldProcess($Definition.FieldName, 'Create site column')) {
+            $Script:Results.Add([pscustomobject]@{
+                    Action  = 'Field'
+                    Target  = $Definition.FieldName
+                    Status  = 'WhatIf'
+                    Message = 'Field creation skipped'
+                })
+            return $null
         }
-        #endregion
+
+        $createOutput = m365 spo field add --webUrl $WebUrl --xml $Definition.FieldXml --output json 2&gt;&amp;1
+        if ($LASTEXITCODE -ne 0) {
+            $Script:Results.Add([pscustomobject]@{
+                    Action  = 'Field'
+                    Target  = $Definition.FieldName
+                    Status  = 'Failed'
+                    Message = $createOutput
+                })
+            return $null
+        }
+
+        $createdField = $createOutput | ConvertFrom-Json
+        $Script:Results.Add([pscustomobject]@{
+                Action  = 'Field'
+                Target  = $Definition.FieldName
+                Status  = 'Created'
+                Message = 'Field created successfully'
+            })
+        return $createdField
     }
-    catch {
-        Write-Error &quot;Error in CreateAndAddFieldsToCTs - $_&quot;
+
+    function Add-FieldToContentType {
+        param (
+            [Parameter(Mandatory = $true)] [string]$WebUrl,
+            [Parameter(Mandatory = $true)] [string]$ContentTypeName,
+            [Parameter(Mandatory = $true)] [System.Collections.Hashtable]$Definition
+        )
+
+        $contentTypeJson = m365 spo contenttype get --webUrl $WebUrl --name $ContentTypeName --output json 2&gt;&amp;1
+        if ($LASTEXITCODE -ne 0) {
+            $Script:Results.Add([pscustomobject]@{
+                    Action  = 'ContentType'
+                    Target  = $ContentTypeName
+                    Status  = 'Failed'
+                    Message = $contentTypeJson
+                })
+            return
+        }
+
+        $contentType = $contentTypeJson | ConvertFrom-Json
+        if (-not $contentType.StringId) {
+            $Script:Results.Add([pscustomobject]@{
+                    Action  = 'ContentType'
+                    Target  = $ContentTypeName
+                    Status  = 'Failed'
+                    Message = 'Content type not found'
+                })
+            return
+        }
+
+        if (-not $PSCmdlet.ShouldProcess($ContentTypeName, &quot;Add field $($Definition.FieldName)&quot;)) {
+            $Script:Results.Add([pscustomobject]@{
+                    Action  = 'ContentType'
+                    Target  = $ContentTypeName
+                    Status  = 'WhatIf'
+                    Message = &quot;Skipped adding field $($Definition.FieldName)&quot;
+                })
+            return
+        }
+
+        $setOutput = m365 spo contenttype field set --webUrl $WebUrl --contentTypeId $contentType.StringId --id $Definition.FieldId --output json 2&gt;&amp;1
+        if ($LASTEXITCODE -ne 0) {
+            $Script:Results.Add([pscustomobject]@{
+                    Action  = 'ContentType'
+                    Target  = $ContentTypeName
+                    Status  = 'Failed'
+                    Message = $setOutput
+                })
+            return
+        }
+
+        $Script:Results.Add([pscustomobject]@{
+                Action  = 'ContentType'
+                Target  = $ContentTypeName
+                Status  = 'Updated'
+                Message = &quot;Field $($Definition.FieldName) bound successfully&quot;
+            })
     }
 }
 
-try {
-    # SharePoint Online Site Url
-    $siteUrl = &quot;https://contoso.sharepoint.com/sites/CLIForM365&quot;
-
-    # Get Credentials to connect
-    $m365Status = m365 status
-    if ($m365Status -match &quot;Logged Out&quot;) {
-        m365 login
+process {
+    foreach ($definition in $FieldDefinitions) {
+        Ensure-SiteField -WebUrl $SiteUrl -Definition $definition
     }
 
-    # Create and add fields to SharePoint content types
-    CreateAndAddFieldsToCTs -ContentTypes @(&quot;My Review CT&quot;, &quot;Global User Review CT&quot;)
-}
-catch {
-    Write-Error &quot;Something wrong: &quot; $_
-}
-finally {
-    # Disconnect SharePoint online connection
-    m365 logout
+    foreach ($contentType in $ContentTypes) {
+        foreach ($definition in $FieldDefinitions) {
+            Add-FieldToContentType -WebUrl $SiteUrl -ContentTypeName $contentType -Definition $definition
+        }
+    }
 }
 
+end {
+    $Script:Results | Sort-Object Action, Target | Format-Table -AutoSize
+}
 </code></pre>
 <div class="highlight-tool">
 <p>Check out the <strong>CLI for Microsoft 365</strong> to learn more at: <a href="https://aka.ms/cli-m365">https://aka.ms/cli-m365</a></p>
@@ -315,6 +374,9 @@ finally {
 </tr>
 <tr>
 <td><a href="https://ganeshsanapblogs.wordpress.com/about">Ganesh Sanap</a></td>
+</tr>
+<tr>
+<td>Adam Wójcik</td>
 </tr>
 </tbody>
 </table>
