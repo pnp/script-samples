@@ -189,74 +189,159 @@ Catch {
 </section>
 <section id="tabpanel_CeZOj-G++Q_cli-m365-ps" role="tabpanel" data-tab="cli-m365-ps" aria-hidden="true" hidden="hidden">
 
-<pre><code class="lang-powershell"># SharePoint online site URL
-$SiteURL = Read-Host -Prompt &quot;Enter your SharePoint site URL (e.g https://contoso.sharepoint.com/sites/Company311)&quot;
+<pre><code class="lang-powershell">function Add-DummySharePointContent {
+    [CmdletBinding(SupportsShouldProcess)]
+    param(
+        [Parameter(Mandatory, HelpMessage = &quot;URL of the SharePoint site (e.g. https://contoso.sharepoint.com/sites/Company311)&quot;)]
+        [ValidateNotNullOrEmpty()]
+        [string]
+        $SiteUrl,
 
-# Document library URL where you want to create the dummy folders and files 
-$LibraryName = Read-Host -Prompt &quot;Enter site-relative URL of your Document library (e.g '/Shared Documents')&quot;
+        [Parameter(Mandatory, HelpMessage = &quot;Site-relative URL of the document library (e.g. /Shared Documents)&quot;)]
+        [ValidateNotNullOrEmpty()]
+        [string]
+        $LibraryServerRelativeUrl,
 
-# Location of the dummy file
-$LocalFile= &quot;D:\dtemp\TestDoc.docx&quot;
+        [Parameter(Mandatory, HelpMessage = &quot;Path to the local seed file that will be uploaded&quot;)]
+        [ValidateScript({ Test-Path $_ -PathType Leaf })]
+        [string]
+        $LocalSeedFile,
 
-# Number of files to create within each folder
-$MaxFilesCount = 20
+        [Parameter(HelpMessage = &quot;Number of folders to create&quot;)]
+        [ValidateRange(1, 2000)]
+        [int]
+        $FolderCount = 50,
 
-# Number of folders to create in the libraru
-$MaxFolderCount = 500
+        [Parameter(HelpMessage = &quot;Number of files to create within each folder&quot;)]
+        [ValidateRange(1, 500)]
+        [int]
+        $FilesPerFolder = 10,
 
-# The name of the folder to be created
-$FolderName  = &quot;Folder&quot;
+        [Parameter(HelpMessage = &quot;Folder name prefix&quot;)]
+        [ValidateNotNullOrEmpty()]
+        [string]
+        $FolderPrefix = &quot;Folder&quot;
+    )
 
-# Get Credentials to connect
-$m365Status = m365 status
-if ($m365Status -match &quot;Logged Out&quot;) {
-    m365 login
+    begin {
+        Write-Host &quot;Ensuring Microsoft 365 CLI session...&quot; -ForegroundColor Cyan
+        $loginOutput = m365 login --ensure 2&gt;&amp;1
+        if ($LASTEXITCODE -ne 0) {
+            throw &quot;Failed to ensure CLI login. CLI output: $loginOutput&quot;
+        }
+
+        $seedFile = Get-Item -LiteralPath $LocalSeedFile -ErrorAction Stop
+
+        $script:Summary = [ordered]@{
+            FoldersRequested = $FolderCount
+            FilesRequested   = $FolderCount * $FilesPerFolder
+            FoldersCreated   = 0
+            FoldersSkipped   = 0
+            FilesUploaded    = 0
+            FilesSkipped     = 0
+            Failures         = 0
+        }
+
+        $script:Report = New-Object System.Collections.Generic.List[object]
+        $script:ReportPath = Join-Path -Path (Get-Location) -ChildPath (&quot;dummy-content-report-{0}.csv&quot; -f (Get-Date -Format 'yyyyMMdd-HHmmss'))
+    }
+
+    process {
+        for ($folderIndex = 1; $folderIndex -le $FolderCount; $folderIndex++) {
+            $folderName = &quot;{0}_{1}&quot; -f $FolderPrefix, $folderIndex
+            $folderDisplayPath = &quot;$LibraryServerRelativeUrl/$folderName&quot;
+
+            if (-not $PSCmdlet.ShouldProcess($folderDisplayPath, &quot;Create folder&quot;)) {
+                $script:Summary.FoldersSkipped++
+                $script:Report.Add([pscustomobject]@{
+                    ItemType   = 'Folder'
+                    Name       = $folderName
+                    Path       = $folderDisplayPath
+                    Status     = 'Skipped'
+                    Note       = 'WhatIf'
+                })
+                continue
+            }
+
+            $folderOutput = m365 spo folder add --webUrl $SiteUrl --parentFolderUrl $LibraryServerRelativeUrl --name $folderName --output json 2&gt;&amp;1
+            if ($LASTEXITCODE -ne 0) {
+                $script:Summary.Failures++
+                Write-Warning &quot;Failed to create folder '$folderName'. CLI output: $folderOutput&quot;
+            }
+            else {
+                $script:Summary.FoldersCreated++
+            }
+
+            $script:Report.Add([pscustomobject]@{
+                ItemType   = 'Folder'
+                Name       = $folderName
+                Path       = $folderDisplayPath
+                Status     = if ($LASTEXITCODE -eq 0) { 'Created' } else { 'Failed' }
+                Note       = if ($LASTEXITCODE -eq 0) { '' } else { $folderOutput }
+            })
+
+            for ($fileIndex = 1; $fileIndex -le $FilesPerFolder; $fileIndex++) {
+                $newFileName = &quot;{0}_{1}{2}&quot; -f $seedFile.BaseName, $fileIndex, $seedFile.Extension
+                $targetFolder = &quot;$LibraryServerRelativeUrl/$folderName&quot;
+
+                if (-not $PSCmdlet.ShouldProcess(&quot;$targetFolder/$newFileName&quot;, &quot;Upload file&quot;)) {
+                    $script:Summary.FilesSkipped++
+                    $script:Report.Add([pscustomobject]@{
+                        ItemType   = 'File'
+                        Name       = $newFileName
+                        Path       = &quot;$targetFolder/$newFileName&quot;
+                        Status     = 'Skipped'
+                        Note       = 'WhatIf'
+                    })
+                    continue
+                }
+
+                $fileOutput = m365 spo file add --webUrl $SiteUrl --folder $targetFolder --path $seedFile.FullName --fileName $newFileName --output json 2&gt;&amp;1
+                if ($LASTEXITCODE -ne 0) {
+                    $script:Summary.Failures++
+                    Write-Warning &quot;Failed to upload file '$newFileName'. CLI output: $fileOutput&quot;
+                }
+                else {
+                    $script:Summary.FilesUploaded++
+                }
+
+                $script:Report.Add([pscustomobject]@{
+                    ItemType   = 'File'
+                    Name       = $newFileName
+                    Path       = &quot;$targetFolder/$newFileName&quot;
+                    Status     = if ($LASTEXITCODE -eq 0) { 'Uploaded' } else { 'Failed' }
+                    Note       = if ($LASTEXITCODE -eq 0) { '' } else { $fileOutput }
+                })
+            }
+        }
+    }
+
+    end {
+        try {
+            $script:Report | Export-Csv -Path $script:ReportPath -NoTypeInformation -Encoding UTF8
+            Write-Host &quot;Report saved to $($script:ReportPath).&quot; -ForegroundColor Green
+        }
+        catch {
+            $script:Summary.Failures++
+            Write-Error &quot;Failed to write report: $($_.Exception.Message)&quot;
+        }
+
+        Write-Host &quot;----- Summary -----&quot; -ForegroundColor Cyan
+        Write-Host &quot;Folders requested : $($script:Summary.FoldersRequested)&quot;
+        Write-Host &quot;Folders created   : $($script:Summary.FoldersCreated)&quot;
+        Write-Host &quot;Folders skipped   : $($script:Summary.FoldersSkipped)&quot;
+        Write-Host &quot;Files requested   : $($script:Summary.FilesRequested)&quot;
+        Write-Host &quot;Files uploaded    : $($script:Summary.FilesUploaded)&quot;
+        Write-Host &quot;Files skipped     : $($script:Summary.FilesSkipped)&quot;
+        Write-Host &quot;Failures          : $($script:Summary.Failures)&quot;
+
+        if ($script:Summary.Failures -gt 0) {
+            Write-Warning &quot;Some operations failed. Review the report for details.&quot;
+        }
+    }
 }
 
-Try {
-	# Get the File from file server
-	$File = Get-ChildItem $LocalFile
-
-	# Initialize folder counter
-	$FolderCounter = 1
-    
-	While($FolderCounter -le $MaxFolderCount)
-	{
-		$newFolderName = $FolderName + &quot;_&quot; + $FolderCounter
-		Try {
-			# Add new folder in the library
-			m365 spo folder add --webUrl $SiteURL --parentFolderUrl $LibraryName --name $newFolderName
-			Write-Host -f Green &quot;New Folder '$newFolderName' Created ($FolderCounter of $MaxFolderCount)!&quot;   
-			
-			# Initialize file counter
-			$FileCounter = 1
-			
-			While($FileCounter -le $MaxFilesCount)
-			{
-				$NewFileName = $File.BaseName + &quot;_&quot; + $FileCounter + &quot;.docx&quot;
-				Try {
-					# Add new file in the folder
-					m365 spo file add --webUrl $SiteURL --folder &quot;$($LibraryName)/$newFolderName&quot; --path $File --FileLeafRef $NewFileName
-				}
-				Catch {
-					Write-Host &quot;Error while creating a new file: $($_.Exception.Message)&quot; -ForegroundColor Red
-				}
-				Write-Host -f Green &quot;New File '$NewFileName' Created ($FileCounter of $MaxFilesCount)!&quot;
-				$FileCounter++
-		   }
-		}
-        Catch {
-			Write-Host &quot;Error while creating a new folder: $($_.Exception.Message)&quot; -ForegroundColor Red
-		}
-		$FolderCounter++;
-	}
-}
-Catch {
-	write-host -f Red &quot;Error Uploading File:&quot;$_.Exception.Message
-}
-
-# Disconnect SharePoint online connection
-m365 logout
+Add-DummySharePointContent -SiteUrl &quot;https://contoso.sharepoint.com/sites/Company311&quot; -LibraryServerRelativeUrl &quot;/Shared Documents&quot; -LocalSeedFile &quot;D:\dtemp\TestDoc.docx&quot; -FolderCount 100 -FilesPerFolder 10
 </code></pre>
 <div class="highlight-tool">
 <p>Check out the <strong>CLI for Microsoft 365</strong> to learn more at: <a href="https://aka.ms/cli-m365">https://aka.ms/cli-m365</a></p>
@@ -279,6 +364,9 @@ m365 logout
 </tr>
 <tr>
 <td><a href="https://ganeshsanapblogs.wordpress.com/about">Ganesh Sanap</a></td>
+</tr>
+<tr>
+<td>Adam Wójcik</td>
 </tr>
 </tbody>
 </table>
