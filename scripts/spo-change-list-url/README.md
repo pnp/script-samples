@@ -29,15 +29,29 @@ $newListName = "Logo Universe"
 # Connect to SharePoint online site
 Connect-PnPOnline -Url $siteUrl -Interactive
 
-# Get the SharePoint list
-$list = Get-PnPList -Identity $oldListName
+try {
+    # Get the list object
+    $list = Get-PnPList -Identity $oldListName -ErrorAction Stop
 
-# Move SharePoint list to the new URL
-$list.Rootfolder.MoveTo($newListUrl)
-Invoke-PnPQuery
+    # Check if the target URL already exists
+    $existingFolder = Get-PnPFolder -Url $newListUrl -ErrorAction SilentlyContinue
+    if ($existingFolder) {
+        Write-Host "Error: A list or folder already exists at '$newListUrl'. Aborting." -ForegroundColor Red
+        return
+    }
 
-# Rename List
-Set-PnPList -Identity $oldListName -Title $newListName
+    # Move the list's root folder to the new URL
+    $list.RootFolder.MoveTo($newListUrl)
+    Invoke-PnPQuery
+    Write-Host "List URL successfully changed to '$newListUrl'." -ForegroundColor Green
+
+    # Rename the list display name
+    Set-PnPList -Identity $list -Title $newListName
+    Write-Host "List display name successfully changed to '$newListName'." -ForegroundColor Green
+
+} catch {
+    Write-Host "An error occurred: $_" -ForegroundColor Red
+}
 
 ```
 
@@ -50,6 +64,7 @@ Set-PnPList -Identity $oldListName -Title $newListName
 | Author(s) |
 |-----------|
 | [Ganesh Sanap](https://ganeshsanapblogs.wordpress.com/about) |
+| ojopiyo |
 
 [!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
 <img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/spo-change-list-url" aria-hidden="true" />
