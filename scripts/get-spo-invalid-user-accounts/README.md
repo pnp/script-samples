@@ -17,8 +17,6 @@ In this script I have checked for two things:
 
 ```powershell
 
-
-
 #extract all users from a site collection and check for validity
 $SiteURL = "https://contoso.sharepoint.com/sites/workspaces"
 if(-not $conn)
@@ -109,6 +107,7 @@ Write-Host "Script completed. Invalid users exported to C:\temp\invalidusers.csv
 | Author(s) |
 |-----------|
 | Kasper Larsen |
+| ojopiyo |
 
 [!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
 <img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/get-spo-invalid-user-accounts" aria-hidden="true" />
