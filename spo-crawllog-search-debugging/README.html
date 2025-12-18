@@ -1,0 +1,265 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html lang="en">
+  
+  <head>
+    <meta charset="utf-8">
+    <title>Debugging SharePoint Search by inspecting crawl log | PnP Samples </title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="title" content="Debugging SharePoint Search by inspecting crawl log | PnP Samples ">
+    <meta name="generator" content="docfx 2.56.7.0">
+    <meta name="description" content="A sample gallery of scripts to manage all things Microsoft 365.">
+  
+    <!-- Social Media -->
+    <meta property="og:locale" content="en_GB">
+    <meta property="og:title" content="Debugging SharePoint Search by inspecting crawl log | PnP Samples ">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://pnp.github.io/script-samples">
+    <meta property="og:image" content="https://pnp.github.io/script-samples/assets/social-media-screenshot.png">
+    <meta property="og:image:alt" content="Screenshot example of the PnP Script Samples Site">
+    <meta property="og:site_name" content="PnP Script Samples">
+    <meta name="msvalidate.01" content="04EFEDA66EC42C08A1247C979E2F9ADD">
+    <meta property="og:description" content="A sample gallery of scripts to manage all things Microsoft 365.">
+  
+    <link rel="shortcut icon" href="https://c.s-microsoft.com/favicon.ico?v2">
+    <link rel="stylesheet" href="../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../styles/docfx.css">
+    <link rel="stylesheet" href="../styles/main.css">
+    <link rel="stylesheet" href="../styles/extra.css">
+    <link rel="stylesheet" href="../styles/filter.css">
+    <link rel="stylesheet" href="../styles/site.css">
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet"> 
+    <meta property="docfx:navrel" content="../toc.html">
+    <meta property="docfx:tocrel" content="../toc.html">
+    
+    
+    <meta property="docfx:newtab" content="true">
+    <script type="text/javascript">
+      (function(c,l,a,r,i,t,y){
+          c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+          t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+          y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+      })(window, document, "clarity", "script", "8j6pedl344");
+  </script>
+  </head>  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+             <div class="github-mark">
+              <a href="https://github.com/pnp/script-samples" title="Go to repository">
+               <div class="github-wrapper">
+                  <div class="github-icon">
+                    <img src="https://pnp.github.io/script-samples/assets/icons/github-light-64px.png" alt="GitHub Icon Image">
+                  </div>
+                  <div class="github-repository">
+                    <span>GitHub</span>
+                    <ul class="github-facts">
+                      <li>
+                        <i class="fa fa-code-fork" aria-hidden="true"></i>
+                        <span class="github-forks"></span>
+                      </li>
+                      <li>
+                        <i class="fa fa-star-o" aria-hidden="true"></i>
+                        <span class="github-stars"></span>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </a>
+            </div>
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../assets/logo.svg" alt="">
+              </a>    </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <label class="glyphicon glyphicon-search" for="search-query"></label>
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>      </header>
+      <div role="main" class="container body-content hide-when-search">
+        <div class="article row grid">
+          <div class="col-md-12">
+            <article class="content wrap" id="_content" data-uid="">
+                  <div class="contribution-panel mobile-hide pull-right">
+                      <a href="https://github.com/pnp/script-samples/blob/main/scripts/spo-crawllog-search-debugging/README.md/#L1" title="Improve this Doc" class="improve-doc-lg"><i class="glyphicon glyphicon-pencil"></i></a>
+                  </div>
+                    <h1 id="debugging-sharepoint-search-by-inspecting-crawl-log">Debugging SharePoint Search by inspecting crawl log</h1>
+
+<p>This script helps identify files that appear in the crawl logs but are still not searchable. The underlying cause can vary, and in many cases you may need to raise a support case with Microsoft for deeper investigation.</p>
+<p>In our scenario, the issue was caused by sensitivity labels already applied to files that had been moved from another location. This created a conflict with the sensitivity label inherited from the parent library, which prevented the files from being indexed correctly.</p>
+<p>A key indicator was that the <code>SPItemModifiedTime</code> field was blank in the crawl log, a symptom that often correlates with search indexing problems. To confirm the issue, I also performed a search query to verify that the affected files were indeed not discoverable.</p>
+<h2 id="summary">Summary</h2>
+<div class="tabGroup" id="tabgroup_CeZOj-G++Q">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_CeZOj-G++Q_pnpps" role="tab" aria-controls="tabpanel_CeZOj-G++Q_pnpps" data-tab="pnpps" tabindex="0" aria-selected="true">PnP PowerShell</a>
+</li>
+</ul>
+<section id="tabpanel_CeZOj-G++Q_pnpps" role="tabpanel" data-tab="pnpps">
+
+<pre><code class="lang-powershell">cls
+
+# ===== Settings =====
+$clientId    = &quot;xxxxxxxx&quot;
+$dateTime    = Get-Date -Format &quot;yyyy-MM-dd-HH-mm-ss&quot;
+
+$invocation      = Get-Variable -Name MyInvocation -ValueOnly
+$directoryPath   = Split-Path $invocation.MyCommand.Path
+$csvPath         = Join-Path $directoryPath &quot;Sites.csv&quot;     # CSV must have a column 'SiteUrl'
+
+# Ensure output folder exists
+$outputFolder    = Join-Path $directoryPath &quot;output_files&quot;
+if (-not (Test-Path $outputFolder)) { New-Item -ItemType Directory -Path $outputFolder | Out-Null }
+$outputCsv       = Join-Path $outputFolder (&quot;CrawlLog-SPItemModifiedTime-Null-&quot; + $dateTime + &quot;.csv&quot;)
+
+# System/ignored lists
+$ExcludedLists = @(
+    &quot;Access Requests&quot;,&quot;App Packages&quot;,&quot;appdata&quot;,&quot;appfiles&quot;,&quot;Apps in Testing&quot;,&quot;Cache Profiles&quot;,&quot;Composed Looks&quot;,
+    &quot;Content and Structure Reports&quot;,&quot;Content type publishing error log&quot;,&quot;Converted Forms&quot;,&quot;Device Channels&quot;,
+    &quot;Form Templates&quot;,&quot;fpdatasources&quot;,&quot;Get started with Apps for Office and SharePoint&quot;,&quot;List Template Gallery&quot;,
+    &quot;Long Running Operation Status&quot;,&quot;Maintenance Log Library&quot;,&quot;Images&quot;,&quot;site collection images&quot;,&quot;Master Docs&quot;,
+    &quot;Master Page Gallery&quot;,&quot;MicroFeed&quot;,&quot;NintexFormXml&quot;,&quot;Quick Deploy Items&quot;,&quot;Relationships List&quot;,&quot;Reusable Content&quot;,
+    &quot;Reporting Metadata&quot;,&quot;Reporting Templates&quot;,&quot;Search Config List&quot;,&quot;Site Assets&quot;,&quot;Preservation Hold Library&quot;,
+    &quot;Site Pages&quot;,&quot;Solution Gallery&quot;,&quot;Style Library&quot;,&quot;Suggested Content Browser Locations&quot;,&quot;Theme Gallery&quot;,
+    &quot;TaxonomyHiddenList&quot;,&quot;User Information List&quot;,&quot;Web Part Gallery&quot;,&quot;wfpub&quot;,&quot;wfsvc&quot;,&quot;Workflow History&quot;,
+    &quot;Workflow Tasks&quot;,&quot;Pages&quot;
+)
+
+# ===== Collect results =====
+$results = New-Object System.Collections.Generic.List[object]
+$sites   = Import-Csv -Path $csvPath   # expects column &quot;SiteUrl&quot;
+
+foreach ($s in $sites) {
+    $siteUrl = $s.SiteUrl
+    Write-Host &quot;Connecting to site: $siteUrl&quot; -ForegroundColor Cyan
+
+    # Connect interactively with the client ID (adjust auth as needed for your tenant)
+    Connect-PnPOnline -ClientId $clientId -Url $siteUrl -Interactive
+
+    # Get only visible document libraries
+    $lists = Get-PnPList -Includes BaseType, BaseTemplate, Hidden, Title, ItemCount, RootFolder |
+        Where-Object {
+            $_.Hidden -eq $false -and
+            $_.BaseType -eq &quot;DocumentLibrary&quot; -and
+            $_.Title -notin $ExcludedLists
+        }
+
+    foreach ($library in $lists) {
+        # Build library URL: e.g. https://tenant/sites/site/Shared Documents
+        $libraryUrl = ($siteUrl.TrimEnd('/')) + '/' +  $library.rootfolder.Name
+        Write-Host &quot;Querying library: $($library.Title)&quot; -ForegroundColor Yellow
+
+        # Keep row limit reasonable to avoid huge payloads
+        $rowLimit = $library.ItemCount
+
+        # Pull crawl log entries; filter to items with null/empty SPItemModifiedTime
+        $entries = Get-PnPSearchCrawlLog -Filter $libraryUrl -RowLimit $rowLimit -RawFormat |
+            Where-Object { $_.SPItemModifiedTime -eq $null }
+
+        # Shape results for export; include FullUrl (fallback to DocumentUrl if missing)
+        $output = $entries | Where-Object {$_.FullUrl -ne $libraryUrl -and $_.FullUrl -notlike &quot;*`/Forms/Default.aspx&quot; -and $_.FullUrl -notlike &quot;*.aspx*&quot; -and $_.FullUrl -notlike &quot;*.one*&quot;}
+        
+        foreach($result in $output)
+        {   
+            # Filter to a site/library path$result.FullUrl and select extra properties
+            try{
+            $kql = &quot;Path:`&quot;$($result.FullUrl)`&quot;&quot;
+            $searchr = Submit-PnPSearchQuery -Query $kql -All -SelectProperties @(
+            &quot;Title&quot;,&quot;Path&quot;
+            ) -SortList @{LastModifiedTime=&quot;Descending&quot;}
+     
+            if($searchr.Rowcount -lt 1)
+            {
+            # Create a PSCustomObject row
+                    $projected = [pscustomobject]@{
+                        FullUrl            = $result.FullUrl
+                        DocumentUrl        = $libraryUrl
+                        SPItemModifiedTime = $result.SPItemModifiedTime
+                        ErrorCode          = $result.ErrorCode
+                    }        
+                $results.Add($projected)
+    
+            }
+        }
+        catch{
+            Write-Error &quot;$($_.Exception.Message) for $($result.FullUrl)&quot;
+        }
+        }    
+    }
+   # Disconnect-PnPOnline
+}
+
+# ===== Export =====
+$results | Export-Csv -Path $outputCsv -NoTypeInformation -Encoding UTF8
+Write-Host &quot;Export complete: $outputCsv&quot; -ForegroundColor Green
+
+</code></pre>
+<div class="highlight-tool">
+<p>Check out the <strong>PnP PowerShell</strong> to learn more at: <a href="https://aka.ms/pnp/powershell">https://aka.ms/pnp/powershell</a></p>
+</div>
+<div class="highlight-tool">
+<p>The way you login into PnP PowerShell has changed please read <a href="https://github.com/pnp/powershell/discussions/4249">PnP Management Shell EntraID app is deleted : what should I do ?</a></p>
+</div>
+<h2 id="source-credit">Source Credit</h2>
+<p>Sample idea first appeared on <a href="https://reshmeeauckloo.com/posts/powershell-sharepoint-debugging-crawllog/">Debugging SharePoint Search with PnP PowerShell and Crawl Logs</a>.</p>
+<h2 id="contributors">Contributors</h2>
+<table>
+<thead>
+<tr>
+<th>Author(s)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="https://github.com/reshmee011">Reshmee Auckloo</a></td>
+</tr>
+</tbody>
+</table>
+<h2 id="disclaimer">Disclaimer</h2>
+<p><strong>THESE SAMPLES ARE PROVIDED <em>AS IS</em> WITHOUT WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, INCLUDING ANY IMPLIED WARRANTIES OF FITNESS FOR A PARTICULAR PURPOSE, MERCHANTABILITY, OR NON-INFRINGEMENT.</strong></p>
+<img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/spo-crawllog-search-debugging" aria-hidden="true">
+</section>
+</div>
+</article>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            <span>Script Samples<br>Generated by <strong><a href='https://dotnet.github.io/docfx' alt='Doc FX Website'>DocFX</a></strong> with <strong><a href='https://ovasquez.github.io/docfx-material' alt='DocFx Material Theme'>Material UI</a></strong></span>
+            
+            <!-- <img src="https://telemetry.sharepointpnp.com/@pnp.github.io/index/" alt="spacer"> -->
+          </div>
+        </div>
+      </footer>    </div>
+    
+    <script type="text/javascript" src="../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+    
+    <script type="text/javascript" src="../styles/clipboard.min.js"></script>
+    <script type="text/javascript" src="../styles/isotope.pkgd.min.js"></script>
+    <script type="text/javascript" src="../styles/loadsamples.js"></script>
+    <script type="text/javascript" src="../styles/filtersamples.js"></script>
+
+  </body>
+</html>
