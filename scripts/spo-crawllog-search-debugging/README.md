@@ -1,6 +1,6 @@
 
 
-# Debugging SharePoint Search by inspecting crawllog
+# Debugging SharePoint Search by inspecting crawl log
 
 This script helps identify files that appear in the crawl logs but are still not searchable. The underlying cause can vary, and in many cases you may need to raise a support case with Microsoft for deeper investigation.
 
