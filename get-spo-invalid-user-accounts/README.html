@@ -115,8 +115,6 @@
 <section id="tabpanel_CeZOj-G++Q_pnpps" role="tabpanel" data-tab="pnpps">
 
 <pre><code class="lang-powershell">
-
-
 #extract all users from a site collection and check for validity
 $SiteURL = &quot;https://contoso.sharepoint.com/sites/workspaces&quot;
 if(-not $conn)
@@ -124,65 +122,78 @@ if(-not $conn)
     $conn = Connect-PnPOnline -Url $SiteURL -Interactive -ReturnConnection
 }
 
-function Get-AllUsersFromUPA
-{
-    $allUPAusers = @()
-    $UPAusers = Submit-PnPSearchQuery -Query &quot;*&quot; -SourceId &quot;b09a7990-05ea-4af9-81ef-edfab16c4e31&quot; -SelectProperties &quot;Title,WorkEmail&quot; -All -Connection $conn
-    foreach($user in $UPAusers.ResultRows)
-    {
-        $allUPAusers += $user.LoginName
-    }
-    $allUPAusers
+# ---------------------------
+# Function: Get all users from UPA
+# ---------------------------
+function Get-AllUsersFromUPA {
+    param([Parameter(Mandatory)] $Connection)
+
+    $UPAusers = Submit-PnPSearchQuery `
+        -Query &quot;*&quot; `
+        -SourceId &quot;b09a7990-05ea-4af9-81ef-edfab16c4e31&quot; `
+        -SelectProperties &quot;Title,WorkEmail&quot; `
+        -All `
+        -Connection $Connection
+
+    return $UPAusers.ResultRows | ForEach-Object { $_.LoginName }
 }
 
-function Get-UserFromGraph 
-{
-    $disabledusersfromgraph = @()
-    $result = Invoke-PnPGraphMethod -Url &quot;users?`$select=displayName,mail, AccountEnabled&quot; -Connection $conn
+# ---------------------------
+# Function: Get disabled users from Azure AD (Graph)
+# ---------------------------
+function Get-DisabledUsersFromGraph {
+    param([Parameter(Mandatory)] $Connection)
 
-    $result.value.Count
-    foreach($account in $result.value)
-    {
-        if($account.accountEnabled -eq $false)
-        {
-            $disabledusersfromgraph += $account.mail
-        }
-    }
-    $disabledusersfromgraph
+    $result = Invoke-PnPGraphMethod -Url &quot;users?`$select=displayName,mail,accountEnabled&quot; -Connection $Connection
+    return $result.value | Where-Object { $_.accountEnabled -eq $false } | ForEach-Object { $_.mail }
 }
 
-$disabledusersfromgraph = Get-UserFromGraph
-$allUPAusers = Get-AllUsersFromUPA
+# ---------------------------
+# Function: Validate site users
+# ---------------------------
+function Validate-SiteUsers {
+    param(
+        [Parameter(Mandatory)] $Connection,
+        [Parameter(Mandatory)] $UPAusers,
+        [Parameter(Mandatory)] $DisabledUsers
+    )
 
-$allSiteUsers = Get-PnPUser -Connection $conn
-$validUsers = @()
-$invalidUsers = @()
-foreach($user in $allSiteUsers)
-{
-    try {
-        $userObj = Get-PnPUser -Identity $user.LoginName -Connection $conn -ErrorAction Stop
-        if($userObj.Email -in $disabledusersfromgraph)
-        {
-            Write-Host &quot;User $($userObj.LoginName) is disabled in Azure AD&quot;
-            $invalidUsers += $user
-        }
-        else
-        {
-            $hit = $allUPAusers | Where-Object {$_ -eq $userObj.LoginName}
-            if(-not $hit)
-            {
-                Write-Host &quot;User $($userObj.LoginName) is not in the UPA&quot;
+    $invalidUsers = @()
+    $allSiteUsers = Get-PnPUser -Connection $Connection
+
+    foreach ($user in $allSiteUsers) {
+        try {
+            $userObj = Get-PnPUser -Identity $user.LoginName -Connection $Connection -ErrorAction Stop
+
+            if ($userObj.Email -in $DisabledUsers) {
+                Write-Host &quot;User $($userObj.LoginName) is disabled in Azure AD&quot; -ForegroundColor Yellow
+                $invalidUsers += $user
+            }
+            elseif (-not ($UPAusers -contains $userObj.LoginName)) {
+                Write-Host &quot;User $($userObj.LoginName) is not in the UPA&quot; -ForegroundColor Yellow
                 $invalidUsers += $user
             }
         }
-        
-        
+        catch {
+            Write-Host &quot;Error retrieving user $($user.LoginName), marking as invalid.&quot; -ForegroundColor Red
+            $invalidUsers += $user
+        }
     }
-    catch {
-        $invalidUsers += $user
-    }
+
+    return $invalidUsers
 }
+
+# ---------------------------
+# Main Script Execution
+# ---------------------------
+$allUPAusers = Get-AllUsersFromUPA -Connection $conn
+$disabledUsersFromGraph = Get-DisabledUsersFromGraph -Connection $conn
+$invalidUsers = Validate-SiteUsers -Connection $conn -UPAusers $allUPAusers -DisabledUsers $disabledUsersFromGraph
+
+# Export invalid users to CSV
 $invalidUsers | Export-Csv -Path &quot;C:\temp\invalidusers.csv&quot; -Delimiter &quot;|&quot; -Encoding utf8 -Force
+
+Write-Host &quot;Script completed. Invalid users exported to C:\temp\invalidusers.csv&quot; -ForegroundColor Green
 
 </code></pre>
 <div class="highlight-tool">
@@ -203,6 +214,9 @@ $invalidUsers | Export-Csv -Path &quot;C:\temp\invalidusers.csv&quot; -Delimiter
 <tbody>
 <tr>
 <td>Kasper Larsen</td>
+</tr>
+<tr>
+<td>ojopiyo</td>
 </tr>
 </tbody>
 </table>
