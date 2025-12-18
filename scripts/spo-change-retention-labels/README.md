@@ -58,55 +58,79 @@ Import-Module -Name pnp.powershell -DisableNameChecking
 $CsvFilePath = "<PATH>\URLStoScan.csv"
 $SiteUrls = Import-Csv -Path $CsvFilePath | Select-Object -ExpandProperty SiteUrl
 
-# Iterate through each SharePoint site URL
-foreach ($SiteUrl in $SiteUrls) {
-    Write-Host "Processing SharePoint site: $SiteUrl" -ForegroundColor yellow
-    
-        # Connect to SharePoint site
-        Connect-PnPOnline -Url $SiteUrl -interactive
-        
-        # Retrieve all lists and libraries
-        $Lists = Get-PnPList
-          Write-Host "Lists Retrieved!" -ForegroundColor Green
-        foreach ($List in $Lists) {
-            if ($List.BaseType -eq "GenericList" -or $List.BaseType -eq "DocumentLibrary") {
-                # Retrieve all items in the list or library
-                 Write-Host "Retrieving List items for list" -ForegroundColor yellow
-                $Items = Get-PnPListItem -List $List
-                
-                # Set retention label field
-                $RetentionLabelField = Get-PnPField -List $List -Identity "_ComplianceTag"
-                write-host "Retention label field is: $RetentionLabelField"
-                
-                foreach ($Item in $Items) {
-                     Write-Host "Processing Item" -ForegroundColor yellow
-                     $ExistingRetentionLabel = $Item[$RetentionLabelField.InternalName]
-                     Write-Host "Current label is $ExistingRetentionLabel" -ForegroundColor Blue   
-                     
-                     
-                     if ($ExistingRetentionLabel -eq "Script Test 1 Old") {
-                   Set-PnPListItem -List $List -Identity $Item.Id -label "Script Test 1 New"
-        }
-        elseif ($ExistingRetentionLabel -eq "Script Test 2 Old") {
-            Set-PnPListItem -List $List -Identity $Item.Id -label "Script Test 2 New"
-                    }
-        #elseif ($ExistingRetentionLabel -eq "25 years") {
-         #   Set-PnPListItem -List $List -Identity $Item.Id -Values @{ "_ComplianceTag" = "New 25 Years Label" }
-        #}
-        #elseif ($ExistingRetentionLabel -eq "30 years") {
-         #   Set-PnPListItem -List $List -Identity $Item.Id -Values @{ "_ComplianceTag" = "New 30 Years Label" }
-        #}
-        #elseif ($ExistingRetentionLabel -eq "35 years") {
-         #   Set-PnPListItem -List $List -Identity $Item.Id -Values @{ "_ComplianceTag" = "New 35 Years Label" }
-        #}
-        
-        else {
-            Write-Host "No matching retention label found for item $($Item.Id) in $($List.Title)."
-        }
+# Define retention label mapping
+$RetentionLabelMapping = @{
+    "Script Test 1 Old" = "Script Test 1 New"
+    "Script Test 2 Old" = "Script Test 2 New"
+    #"25 years"          = "New 25 Years Label"
+    #"30 years"          = "New 30 Years Label"
+    #"35 years"          = "New 35 Years Label"
+}
+
+# Function to process a single list item
+function Set-RetentionLabel {
+    param (
+        [Parameter(Mandatory)]
+        $List,
+
+        [Parameter(Mandatory)]
+        $Item,
+
+        [Parameter(Mandatory)]
+        $FieldInternalName,
+
+        [Parameter(Mandatory)]
+        $Mapping
+    )
+
+    $CurrentLabel = $Item[$FieldInternalName]
+    Write-Host "Item ID: $($Item.Id) | Current label: $CurrentLabel" -ForegroundColor Blue
+
+    if ($Mapping.ContainsKey($CurrentLabel)) {
+        $NewLabel = $Mapping[$CurrentLabel]
+        Set-PnPListItem -List $List -Identity $Item.Id -Label $NewLabel
+        Write-Host "Updated label to: $NewLabel" -ForegroundColor Green
+    } else {
+        Write-Host "No matching retention label found for Item ID $($Item.Id) in List '$($List.Title)'" -ForegroundColor Yellow
     }
-    
-    Write-Host "Retention labels set successfully."
-}}} stop-Transcript
+}
+
+# Iterate through each SharePoint site
+foreach ($SiteUrl in $SiteUrls) {
+    Write-Host "Processing SharePoint site: $SiteUrl" -ForegroundColor Cyan
+
+    Connect-PnPOnline -Url $SiteUrl -Interactive
+
+    # Retrieve all lists and libraries
+    $Lists = Get-PnPList | Where-Object { $_.BaseType -in @("GenericList","DocumentLibrary") }
+    Write-Host "$($Lists.Count) lists/libraries retrieved." -ForegroundColor Green
+
+    foreach ($List in $Lists) {
+        Write-Host "Processing list: $($List.Title)" -ForegroundColor Cyan
+
+        # Get retention label field
+        $RetentionField = Get-PnPField -List $List -Identity "_ComplianceTag"
+        if (-not $RetentionField) {
+            Write-Host "Retention label field not found in list $($List.Title)." -ForegroundColor Red
+            continue
+        }
+
+        # Retrieve all items
+        $Items = Get-PnPListItem -List $List
+        Write-Host "$($Items.Count) items found in list $($List.Title)." -ForegroundColor Yellow
+
+        foreach ($Item in $Items) {
+            Set-RetentionLabel -List $List -Item $Item -FieldInternalName $RetentionField.InternalName -Mapping $RetentionLabelMapping
+        }
+
+        Write-Host "Finished processing list $($List.Title)." -ForegroundColor Green
+    }
+
+    Write-Host "Finished processing site $SiteUrl." -ForegroundColor Cyan
+}
+
+Stop-Transcript
+
 ```
 [!INCLUDE [More about PnP PowerShell](../../docfx/includes/MORE-PNPPS.md)]
 
@@ -116,7 +140,8 @@ foreach ($SiteUrl in $SiteUrls) {
 
 | Author(s) |
 |-----------|
-| Nick Brattoli|
+| Nick Brattoli |
+| ojopiyo |
 
 
 [!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
