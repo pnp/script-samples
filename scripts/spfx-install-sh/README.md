@@ -447,8 +447,7 @@ fi
 
 | Author(s) |
 |-----------|
-| Don Kirkham |
-
+| [Don Kirkham](https://github.com/donkirkham) |
 
 [!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
-<img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/spfx-install" aria-hidden="true" />
+<img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/spfx-install-sh" aria-hidden="true" />
