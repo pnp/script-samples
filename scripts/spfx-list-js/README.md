@@ -17,7 +17,7 @@ The script provides several useful features:
 - Displays aliases configured with the "spfx-" prefix
 - Limits output when querying available versions
 
-> **Note:** This script is a companion to the [install-spfx.js](../spfx-install/README.md) script, which installs SPFx versions and configures the "spfx-" aliases that this script highlights.
+> **Note:** This script is a companion to the [install-spfx.js](../spfx-install-js/README.md) script, which installs SPFx versions and configures the "spfx-" aliases that this script highlights.
 
 ## Prerequisites
 
