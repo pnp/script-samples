@@ -4,7 +4,7 @@ plugin: add-to-gallery
 
 # spfx-install.sh
 
-> ##### DEPRECATED: Please use the updated version of this script located at [scripts/spfx-install-js](../spfx-install/README.md)
+> ##### DEPRECATED: Please use the updated version of this script located at [scripts/spfx-install-js](../spfx-install-js/README.md)
 
 ## Summary
 
