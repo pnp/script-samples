@@ -4,14 +4,18 @@ plugin: add-to-gallery
 
 # spfx-install.sh
 
+> ##### DEPRECATED: Please use the updated version of this script located at [scripts/spfx-install-js](../spfx-install-js/README.md)
+
 ## Summary
 
-This script installs specific versions of SharePoint Framework (SPFx) development environments, including NodeJS, npm, and gulp-cli. By including the 'full' option, Yeoman and the SPFx generator are also installed. If no version is specified, the SharePoint Online (spo/latest) version is installed.
+This script installs specific versions of SharePoint Framework (SPFx) development environments, including NodeJS, npm, and either @rushstack/heft or gulp-cli as needed. By including the 'full' option, Yeoman and the SPFx generator are also installed. If no version is specified, the SharePoint Online (spo/latest) version is installed.
+
+This script is designed to be run from the command line in any version of Node.js. It can be run in a Windows environment using PowerShell, the command prompt, or Windows Subsystem for Linux (WSL). It can also be run in a macOS or Linux environment.
 
 If you want to install a specific version of SPFx, you can specify the version number as an argument. For example, to install SPFx v1.11.0, you would run the script as follows:
 
 ```bash
-./spfx-install.sh 1.11.0
+./spfx-install.js 1.11.0
 ```
 or 
 ```bash
@@ -443,8 +447,7 @@ fi
 
 | Author(s) |
 |-----------|
-| Don Kirkham |
-
+| [Don Kirkham](https://github.com/donkirkham) |
 
 [!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
-<img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/spfx-install" aria-hidden="true" />
+<img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/spfx-install-sh" aria-hidden="true" />
