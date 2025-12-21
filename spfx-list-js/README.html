@@ -1,0 +1,830 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html lang="en">
+  
+  <head>
+    <meta charset="utf-8">
+    <title>List SPFx Versions | PnP Samples </title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="title" content="List SPFx Versions | PnP Samples ">
+    <meta name="generator" content="docfx 2.56.7.0">
+    <meta name="description" content="A sample gallery of scripts to manage all things Microsoft 365.">
+  
+    <!-- Social Media -->
+    <meta property="og:locale" content="en_GB">
+    <meta property="og:title" content="List SPFx Versions | PnP Samples ">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://pnp.github.io/script-samples">
+    <meta property="og:image" content="https://pnp.github.io/script-samples/assets/social-media-screenshot.png">
+    <meta property="og:image:alt" content="Screenshot example of the PnP Script Samples Site">
+    <meta property="og:site_name" content="PnP Script Samples">
+    <meta name="msvalidate.01" content="04EFEDA66EC42C08A1247C979E2F9ADD">
+    <meta property="og:description" content="A sample gallery of scripts to manage all things Microsoft 365.">
+  
+    <link rel="shortcut icon" href="https://c.s-microsoft.com/favicon.ico?v2">
+    <link rel="stylesheet" href="../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../styles/docfx.css">
+    <link rel="stylesheet" href="../styles/main.css">
+    <link rel="stylesheet" href="../styles/extra.css">
+    <link rel="stylesheet" href="../styles/filter.css">
+    <link rel="stylesheet" href="../styles/site.css">
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet"> 
+    <meta property="docfx:navrel" content="../toc.html">
+    <meta property="docfx:tocrel" content="../toc.html">
+    
+    
+    <meta property="docfx:newtab" content="true">
+    <script type="text/javascript">
+      (function(c,l,a,r,i,t,y){
+          c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+          t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+          y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+      })(window, document, "clarity", "script", "8j6pedl344");
+  </script>
+  </head>  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+             <div class="github-mark">
+              <a href="https://github.com/pnp/script-samples" title="Go to repository">
+               <div class="github-wrapper">
+                  <div class="github-icon">
+                    <img src="https://pnp.github.io/script-samples/assets/icons/github-light-64px.png" alt="GitHub Icon Image">
+                  </div>
+                  <div class="github-repository">
+                    <span>GitHub</span>
+                    <ul class="github-facts">
+                      <li>
+                        <i class="fa fa-code-fork" aria-hidden="true"></i>
+                        <span class="github-forks"></span>
+                      </li>
+                      <li>
+                        <i class="fa fa-star-o" aria-hidden="true"></i>
+                        <span class="github-stars"></span>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </a>
+            </div>
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../assets/logo.svg" alt="">
+              </a>    </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <label class="glyphicon glyphicon-search" for="search-query"></label>
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>      </header>
+      <div role="main" class="container body-content hide-when-search">
+        <div class="article row grid">
+          <div class="col-md-12">
+            <article class="content wrap" id="_content" data-uid="">
+                  <div class="contribution-panel mobile-hide pull-right">
+                      <a href="https://github.com/pnp/script-samples/blob/main/scripts/spfx-list-js/README.md/#L1" title="Improve this Doc" class="improve-doc-lg"><i class="glyphicon glyphicon-pencil"></i></a>
+                  </div>
+                    <h1 id="list-spfx-versions">List SPFx Versions</h1>
+
+<h2 id="summary">Summary</h2>
+<p>This Node.js script lists SharePoint Framework (SPFx) versions installed via fnm (Fast Node Manager) along with their corresponding Node.js versions. It can also query the npm registry to show all available SPFx versions that can be installed.</p>
+<p>The script provides several useful features:</p>
+<ul>
+<li>Lists installed SPFx versions with their Node.js requirements and installation types (Full or Node-only)</li>
+<li>Optionally displays all available SPFx versions from the npm registry</li>
+<li>Filters results by version pattern (e.g., show only versions starting with &quot;1.19&quot;)</li>
+<li>Shows installation status (Full installation includes Yeoman and SPFx generator, Node-only is just Node.js)</li>
+<li>Displays aliases configured with the &quot;spfx-&quot; prefix</li>
+<li>Limits output when querying available versions</li>
+</ul>
+<blockquote>
+<p><strong>Note:</strong> This script is a companion to the <a href="../spfx-install-js/README.html">install-spfx.js</a> script, which installs SPFx versions and configures the &quot;spfx-&quot; aliases that this script highlights.</p>
+</blockquote>
+<h2 id="prerequisites">Prerequisites</h2>
+<ul>
+<li><p>Node.js installed. This script uses features that are only available in Node.js 14 and later.</p>
+</li>
+<li><p><strong>fnm (Fast Node Manager)</strong> installed and configured</p>
+<ul>
+<li>Windows: <code>winget install Schniz.fnm</code></li>
+<li>macOS/Linux: <code>curl -fsSL https://fnm.vercel.app/install | bash</code></li>
+</ul>
+<blockquote>
+<p><strong>Note:</strong> fnm is used to provide cross-platform support for Windows, macOS, and Linux, whereas nvm only works on macOS/Linux.</p>
+</blockquote>
+</li>
+<li><p>For available(i.e., remote) version lookups, internet connectivity is needed to access the npm registry</p>
+</li>
+</ul>
+<h2 id="setup-as-a-command">Setup as a Command</h2>
+<p>You can set up this script to run as a simple command like <code>list-spfx</code> instead of typing <code>node /path/to/list-spfx.js</code> every time.</p>
+<p><strong>Linux/macOS (bash/zsh):</strong></p>
+<pre><code class="lang-bash"># Navigate to script directory and make script executable
+cd /path/to/list-spfx.js
+chmod +x list-spfx.js
+
+# Add to PATH in ~/.bashrc (or ~/.zshrc if using zsh)
+echo 'export PATH=&quot;$PATH:$PWD&quot;' &gt;&gt; ~/.bashrc
+source ~/.bashrc
+</code></pre>
+<p><strong>Windows (PowerShell):</strong></p>
+<pre><code class="lang-powershell"># Edit PowerShell profile
+notepad $PROFILE
+
+# Add this line:
+function list-spfx { node C:\path\to\list-spfx.js $args }
+
+# Reload profile
+. $PROFILE
+</code></pre>
+<h2 id="screenshots">Screenshots</h2>
+<p><strong>Basic Usage - Installed Versions Only</strong>
+<img src="assets/example1.png" alt="Basic Usage - Installed Versions Only"></p>
+<p><strong>Show All Available Versions</strong>
+<img src="assets/example2.png" alt="Show All Available Versions"></p>
+<p><strong>Filter by Version Pattern</strong>
+<img src="assets/example3.png" alt="Filter by Version Pattern"></p>
+<p><strong>Limit Available Versions</strong>
+<img src="assets/example4.png" alt="Limited Available Versions"></p>
+<p><strong>Help Output</strong>
+<img src="assets/example5.png" alt="Help Output"></p>
+<div class="tabGroup" id="tabgroup_CeZOj-G++Q">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_CeZOj-G++Q_javascript" role="tab" aria-controls="tabpanel_CeZOj-G++Q_javascript" data-tab="javascript" tabindex="0" aria-selected="true">Javascript</a>
+</li>
+</ul>
+<section id="tabpanel_CeZOj-G++Q_javascript" role="tabpanel" data-tab="javascript">
+
+<pre><code class="lang-javascript">#!/usr/bin/env node
+
+/**
+ * List SPFx Versions Script
+ * Lists SharePoint Framework (SPFx) versions installed via fnm with their Node.js versions
+ */
+
+const { execSync } = require('child_process');
+const https = require('https');
+const fs = require('fs');
+const path = require('path');
+const os = require('os');
+
+// ANSI color codes for terminal output
+const colors = {
+    reset: '\x1b[0m',
+    cyan: '\x1b[36m',
+    green: '\x1b[32m',
+    yellow: '\x1b[33m',
+    red: '\x1b[31m',
+    white: '\x1b[37m',
+    magenta: '\x1b[35m'
+};
+
+// Constants
+const INSTALL_TYPE = {
+    FULL: 'Full',
+    NODE_ONLY: 'NodeJs Only',
+    NONE: ''
+};
+
+const LABELS = {
+    NO_ALIAS: '&lt;no alias&gt;',
+    NOT_SPECIFIED: 'Not specified'
+};
+
+const ALIAS_PREFIX = 'spfx-';
+
+function colorize(text, color) {
+    return `${colors[color]}${text}${colors.reset}`;
+}
+
+// Helper: Check if version matches pattern
+function matchesPattern(version, pattern) {
+    return !pattern || version.startsWith(pattern);
+}
+
+// Helper: Sort aliases with spfx- aliases first, then others
+function sortAliases(aliases) {
+    return aliases.sort((a, b) =&gt; {
+        const aIsSpfx = a.startsWith(ALIAS_PREFIX);
+        const bIsSpfx = b.startsWith(ALIAS_PREFIX);
+        
+        // Both spfx or both non-spfx: maintain alphabetical order
+        if (aIsSpfx === bIsSpfx) return a.localeCompare(b);
+        
+        // spfx aliases come first
+        return aIsSpfx ? -1 : 1;
+    });
+}
+
+// Parse command line arguments
+function parseArgs() {
+    const args = process.argv.slice(2);
+    const params = {
+        pattern: null,
+        all: false,
+        limit: 0,
+        help: false
+    };
+
+    for (let i = 0; i &lt; args.length; i++) {
+        const arg = args[i].toLowerCase();
+        if (arg === '-all' || arg === '--all') {
+            params.all = true;
+        } else if (arg === '-limit' || arg === '--limit') {
+            params.limit = parseInt(args[++i], 10) || 0;
+        } else if (arg === '-h' || arg === '--help' || arg === '-help') {
+            params.help = true;
+        } else if (!params.pattern) {
+            params.pattern = args[i];
+        }
+    }
+
+    // If Pattern or Limit is provided, automatically enable -all behavior
+    if ((params.pattern || params.limit &gt; 0) &amp;&amp; !params.all) {
+        params.all = true;
+    }
+
+    return params;
+}
+
+// Show help message
+function showHelp() {
+    console.log(colorize('=== SPFx Version List ===', 'cyan'));
+    console.log('');
+    console.log('Usage: node list-spfx.js [pattern] [-all] [-limit &lt;number&gt;]');
+    console.log('');
+    console.log('Arguments:');
+    console.log('  [pattern]     Filter to show only SPFx versions starting with pattern (e.g., &quot;1.19&quot;)');
+    console.log('  -all          Show both installed and available versions from npm registry');
+    console.log('  -limit &lt;num&gt;  Limits the number of available versions shown');
+    console.log('');
+    console.log('Examples:');
+    console.log('  node list-spfx.js              # Shows only installed SPFx versions');
+    console.log('  node list-spfx.js -all         # Shows both installed and available versions');
+    console.log('  node list-spfx.js 1.19         # Shows all versions starting with &quot;1.19&quot;');
+    console.log('  node list-spfx.js -all -limit 20  # Shows installed + first 20 available versions');
+    console.log('');
+    console.log(colorize('Setup as &quot;list-spfx&quot; command:', 'cyan'));
+    console.log('');
+    
+    const platform = os.platform();
+    
+    if (platform === 'win32') {
+        // Windows
+        console.log(colorize('  Windows (PowerShell):', 'yellow'));
+        console.log('    1. Create alias in PowerShell profile:');
+        console.log(colorize('       notepad $PROFILE', 'white'));
+        console.log('    2. Add this line:');
+        console.log(colorize('       function list-spfx { node C:\\path\\to\\list-spfx.js $args }', 'white'));
+        console.log('    3. Reload profile:');
+        console.log(colorize('       . $PROFILE', 'white'));
+    } else {
+        // Linux/macOS
+        const shell = process.env.SHELL || '/bin/bash';
+        const shellName = shell.includes('zsh') ? 'zsh' : 'bash';
+        const rcFile = shellName === 'zsh' ? '~/.zshrc' : '~/.bashrc';
+        
+        console.log(colorize(`  Linux/macOS (${shellName}):`, 'yellow'));
+        console.log('    1. Navigate to script directory and make executable:');
+        console.log(colorize('       cd /path/to/list-spfx.js', 'white'));
+        console.log(colorize('       chmod +x list-spfx.js', 'white'));
+        console.log(`    2. Add current folder to PATH in ${rcFile}:`);
+        console.log(colorize(`       echo 'export PATH=&quot;$PATH:$PWD&quot;' &gt;&gt; ${rcFile}`, 'white'));
+        console.log('    3. Reload shell:');
+        console.log(colorize(`       source ${rcFile}`, 'white'));
+        console.log('');
+        console.log(colorize('  Alternative (use alias):', 'yellow'));
+        console.log(`    Add alias to ${rcFile}:`);
+        console.log(colorize(`       echo &quot;alias list-spfx='/path/to/list-spfx.js'&quot; &gt;&gt; ${rcFile}`, 'white'));
+        console.log(colorize(`       source ${rcFile}`, 'white'));
+    }
+}
+
+// Execute shell command synchronously
+function execCommand(command, options = {}) {
+    try {
+        const result = execSync(command, {
+            encoding: 'utf8',
+            stdio: options.silent ? 'pipe' : 'inherit',
+            ...options
+        });
+        return { success: true, output: result, exitCode: 0 };
+    } catch (error) {
+        return { success: false, output: error.stdout || '', exitCode: error.status || 1 };
+    }
+}
+
+// Check if fnm is installed
+function checkFnmInstalled() {
+    const result = execCommand('fnm --version', { silent: true });
+    return result.success;
+}
+
+// Show fnm installation instructions
+function showFnmInstallInstructions() {
+    console.log('');
+    console.log(colorize('ERROR: fnm (Fast Node Manager) is not installed or not in PATH', 'red'));
+    console.log('');
+    console.log(colorize('To install fnm:', 'yellow'));
+    console.log(colorize('  Windows (PowerShell): ', 'white') + colorize('winget install Schniz.fnm', 'cyan'));
+    console.log(colorize('  macOS/Linux:          ', 'white') + colorize('curl -fsSL https://fnm.vercel.app/install | bash', 'cyan'));
+    console.log('');
+}
+
+// HTTP GET request helper
+function httpGet(url) {
+    return new Promise((resolve, reject) =&gt; {
+        https.get(url, (res) =&gt; {
+            let data = '';
+            res.on('data', (chunk) =&gt; data += chunk);
+            res.on('end', () =&gt; {
+                try {
+                    resolve(JSON.parse(data));
+                } catch (e) {
+                    reject(e);
+                }
+            });
+        }).on('error', reject);
+    });
+}
+
+// Parse SPFx version from alias
+function getSpfxVersionFromAlias(alias) {
+    const match = alias.match(new RegExp(`^${ALIAS_PREFIX}(\\d+\\.\\d+\\.\\d+.*)$`));
+    return match ? match[1] : null;
+}
+
+// Get sortable version with pre-release info
+function getSortVersion(ver) {
+    if (!ver) {
+        return { major: 0, minor: 0, patch: 0, preRelease: null, preReleaseNum: 0 };
+    }
+    const match = ver.match(/^(\d+)\.(\d+)\.(\d+)(?:-([a-z]+)\.(\d+))?/);
+    if (match) {
+        return {
+            major: parseInt(match[1]),
+            minor: parseInt(match[2]),
+            patch: parseInt(match[3]),
+            preRelease: match[4] || null, // 'beta' or 'rc' or null
+            preReleaseNum: match[5] ? parseInt(match[5]) : 0
+        };
+    }
+    return { major: 0, minor: 0, patch: 0, preRelease: null, preReleaseNum: 0 };
+}
+
+// Compare Node.js version strings (descending order)
+function compareNodeVersions(a, b) {
+    const aVer = a.split('.').map(Number);
+    const bVer = b.split('.').map(Number);
+    for (let i = 0; i &lt; 3; i++) {
+        if (aVer[i] !== bVer[i]) return bVer[i] - aVer[i];
+    }
+    return 0;
+}
+
+// Compare version objects (descending order)
+// GA versions first, then rc (highest first), then beta (highest first)
+function compareVersions(a, b) {
+    // Compare major.minor.patch first
+    if (a.major !== b.major) return b.major - a.major;
+    if (a.minor !== b.minor) return b.minor - a.minor;
+    if (a.patch !== b.patch) return b.patch - a.patch;
+    
+    // If versions are equal, handle pre-release tags (GA comes first)
+    if (!a.preRelease &amp;&amp; !b.preRelease) return 0;
+    if (!a.preRelease) return -1;
+    if (!b.preRelease) return 1;
+    
+    // Both have pre-release tags: rc before beta
+    if (a.preRelease !== b.preRelease) {
+        return a.preRelease === 'rc' ? -1 : 1;
+    }
+    
+    // Same pre-release type, compare numbers (higher first)
+    return b.preReleaseNum - a.preReleaseNum;
+}
+
+// Main function
+async function main() {
+    const params = parseArgs();
+
+    if (params.help) {
+        showHelp();
+        process.exit(0);
+    }
+
+    // Check fnm
+    if (!checkFnmInstalled()) {
+        showFnmInstallInstructions();
+        process.exit(1);
+    }
+
+    // Display header
+    console.log(colorize('=== SPFx Version List ===', 'cyan'));
+
+    if (params.pattern) {
+        console.log(colorize(`Gathering SPFx versions starting with '${params.pattern}' ...`, 'cyan'));
+    }
+    else {
+        console.log(colorize(`Gathering SPFx versions ...`, 'cyan'));
+    }
+
+    // Get list of Node versions from fnm
+    const fnmResult = execCommand('fnm list', { silent: true });
+    if (!fnmResult.success) {
+        console.log(colorize('ERROR: Failed to get fnm list', 'red'));
+        console.log(colorize(`Error details: ${fnmResult.output}`, 'red'));
+        process.exit(1);
+    }
+
+    // Parse fnm output
+    const nodeVersions = {};
+    const aliasPattern = /^\*?\s*v(\d+\.\d+\.\d+)(?:\s+(.+))?$/;
+
+    fnmResult.output.split('\n').forEach(line =&gt; {
+        const match = line.match(aliasPattern);
+        if (match) {
+            const nodeVersion = match[1];
+            const aliasesString = match[2];
+
+            if (!nodeVersions[nodeVersion]) {
+                nodeVersions[nodeVersion] = {
+                    aliases: [],
+                    isCurrent: line.startsWith('*')
+                };
+            }
+
+            if (aliasesString) {
+                const aliases = aliasesString
+                    .split(/[,\s]+/)
+                    .filter(a =&gt; a &amp;&amp; a !== 'system')
+                    .map(a =&gt; a.trim());
+                nodeVersions[nodeVersion].aliases.push(...aliases);
+            }
+        }
+    });
+
+    // Collect installed versions
+    const installedVersions = [];
+    const currentNodeResult = execCommand('fnm current', { silent: true });
+    const currentNode = currentNodeResult.success ? currentNodeResult.output.trim() : null;
+
+    // Build cache of generator versions for each Node version (check file system directly - much faster!)
+    const generatorCache = {};
+    const fnmDir = process.env.FNM_DIR || path.join(os.homedir(), '.fnm');
+    const nodeInstallsDir = path.join(fnmDir, 'node-versions');
+    
+    for (const nodeVersion in nodeVersions) {
+        const aliases = nodeVersions[nodeVersion].aliases;
+        const spfxAliases = aliases.filter(a =&gt; a.match(/^spfx-(\d+\.\d+\.\d+.*)$/));
+
+        if (spfxAliases.length &gt; 0) {
+            // Check file system directly without switching Node versions
+            const nodePath = path.join(nodeInstallsDir, `v${nodeVersion}`);
+            
+            const genPaths = [
+                path.join(nodePath, 'installation', 'lib', 'node_modules', '@microsoft', 'generator-sharepoint', 'package.json'),
+                path.join(nodePath, 'installation', 'node_modules', '@microsoft', 'generator-sharepoint', 'package.json')
+            ];
+
+            for (const fullPath of genPaths) {
+                if (fs.existsSync(fullPath)) {
+                    try {
+                        const pkgContent = JSON.parse(fs.readFileSync(fullPath, 'utf8'));
+                        generatorCache[nodeVersion] = pkgContent.version;
+                        break;
+                    } catch (e) {
+                        // Ignore JSON parse errors and try next path
+                    }
+                }
+            }
+        }
+    }
+
+    // Now build the installed versions list using the cache
+    for (const nodeVersion in nodeVersions) {
+        const aliases = nodeVersions[nodeVersion].aliases;
+        const spfxAliases = aliases.filter(a =&gt; a.startsWith(ALIAS_PREFIX) &amp;&amp; a.match(/\d+\.\d+\.\d+/));
+
+        // If filtering by pattern, skip versions without SPFx aliases early
+        if (params.pattern &amp;&amp; spfxAliases.length === 0) {
+            continue;
+        }
+
+        const installedGenVersion = generatorCache[nodeVersion] || null;
+
+        if (spfxAliases.length &gt; 0) {
+            for (const alias of spfxAliases) {
+                const spfxVersion = getSpfxVersionFromAlias(alias);
+                if (!spfxVersion || !matchesPattern(spfxVersion, params.pattern)) continue;
+
+                // Verify generator version matches SPFx version
+                const isFullInstall = installedGenVersion &amp;&amp; installedGenVersion === spfxVersion;
+
+                installedVersions.push({
+                    spfxVersion,
+                    nodeVersion,
+                    alias,
+                    installType: isFullInstall ? INSTALL_TYPE.FULL : INSTALL_TYPE.NODE_ONLY,
+                    hasAlias: true
+                });
+            }
+        } else if (!params.pattern) {
+            // Only include node-only versions if not filtering by pattern
+            const otherAliases = aliases.join(', ');
+            installedVersions.push({
+                spfxVersion: null,
+                nodeVersion,
+                alias: otherAliases || LABELS.NO_ALIAS,
+                installType: INSTALL_TYPE.NONE,
+                hasAlias: otherAliases.length &gt; 0
+            });
+        }
+    }
+
+    // Fetch npm requirements (only fetch if we have installed versions or need all versions)
+    const npmRequirements = {};
+    const availableVersions = [];
+
+    let npmDataPromise = null;
+    if (params.all || installedVersions.length &gt; 0) {
+        npmDataPromise = httpGet('https://registry.npmjs.org/@microsoft/sp-core-library').catch(() =&gt; null);
+    }
+
+    if (npmDataPromise) {
+        try {
+            const npmData = await npmDataPromise;
+            
+            if (npmData) {
+                // Create Set of installed versions for faster lookup
+                const installedSpfxVersions = new Set(
+                    installedVersions.filter(v =&gt; v.spfxVersion).map(v =&gt; v.spfxVersion)
+                );
+
+                if (params.all) {
+                    // Get all available versions from npm registry
+                    for (const version in npmData.versions) {
+                        if (!matchesPattern(version, params.pattern)) continue;
+
+                        const versionData = npmData.versions[version];
+                        const nodeRequirement = versionData.engines?.node || LABELS.NOT_SPECIFIED;
+                        npmRequirements[version] = nodeRequirement;
+
+                        availableVersions.push({
+                            spfxVersion: version,
+                            nodeRequirement
+                        });
+                    }
+
+                    // Add installed versions not in npm registry
+                    for (const spfxVer of installedSpfxVersions) {
+                        if (!matchesPattern(spfxVer, params.pattern)) continue;
+                        
+                        if (!npmRequirements[spfxVer]) {
+                            npmRequirements[spfxVer] = LABELS.NOT_SPECIFIED;
+                            availableVersions.push({
+                                spfxVersion: spfxVer,
+                                nodeRequirement: LABELS.NOT_SPECIFIED
+                            });
+                        }
+                    }
+                } else {
+                    // Only fetch requirements for installed versions
+                    for (const spfxVer of installedSpfxVersions) {
+                        const versionData = npmData.versions[spfxVer];
+                        if (versionData) {
+                            npmRequirements[spfxVer] = versionData.engines?.node || LABELS.NOT_SPECIFIED;
+                        }
+                    }
+                }
+            }
+        } catch (error) {
+            console.log(colorize('Warning: Failed to fetch Node.js requirements from npm registry', 'yellow'));
+        }
+    }
+
+    // Display installed versions
+    if (installedVersions.length === 0) {
+        const msg = params.pattern 
+            ? `No SPFx versions found starting with '${params.pattern}'`
+            : 'No SPFx versions installed via fnm';
+        console.log(colorize(msg, 'yellow'));
+        if (!params.all) {
+            console.log(colorize('Use -all to see all available versions.', 'white'));
+        }
+    } else {
+        if (params.all) {
+            console.log(colorize('Installed versions:', 'yellow'));
+        }
+
+        // Display table header
+        console.log(colorize(sprintf('%-20s %-15s %-15s %-18s', 'Alias', 'NodeJs Version', 'Install Type', 'Engine Requirement'), 'white'));
+        console.log(colorize(sprintf('%-20s %-15s %-15s %-18s', '-----', '--------------', '------------', '------------------'), 'white'));
+
+        // Partition and sort versions once
+        const withAliases = [];
+        const withoutAliases = [];
+        
+        for (const version of installedVersions) {
+            (version.hasAlias ? withAliases : withoutAliases).push(version);
+        }
+        
+        withAliases.sort((a, b) =&gt; compareVersions(getSortVersion(a.spfxVersion), getSortVersion(b.spfxVersion)));
+        withoutAliases.sort((a, b) =&gt; compareNodeVersions(a.nodeVersion, b.nodeVersion));
+
+        // Track displayed primary versions
+        const displayedPrimary = {};
+
+        // Display versions with aliases
+        for (const version of withAliases) {
+            const key = `${version.nodeVersion}-${version.spfxVersion}`;
+
+            if (!displayedPrimary[key]) {
+                displayedPrimary[key] = true;
+
+                const installColor = version.installType === INSTALL_TYPE.FULL ? 'green' : 'yellow';
+                const nodeReq = npmRequirements[version.spfxVersion] || '';
+
+                // Display row
+                process.stdout.write(colorize(sprintf('%-20s', version.alias), 'magenta') + ' ');
+                process.stdout.write(colorize(sprintf('%-15s', `v${version.nodeVersion}`), 'cyan') + ' ');
+                process.stdout.write(colorize(sprintf('%-15s', version.installType), installColor) + ' ');
+                console.log(colorize(nodeReq, 'white'));
+
+                // Display additional aliases (spfx- aliases first, then others)
+                const allNodeAliases = nodeVersions[version.nodeVersion].aliases;
+                const additionalAliases = sortAliases(
+                    allNodeAliases.filter(a =&gt; a !== version.alias)
+                );
+                for (const addAlias of additionalAliases) {
+                    console.log(colorize(`  ${addAlias}`, 'magenta'));
+                }
+            }
+        }
+
+        // Display versions without aliases
+        for (const version of withoutAliases) {
+            const installColor = version.installType === INSTALL_TYPE.FULL ? 'green' : 'yellow';
+
+            // Display alias or no alias label
+            const aliasText = version.alias || LABELS.NO_ALIAS;
+            process.stdout.write(colorize(sprintf('%-20s', aliasText), 'yellow') + ' ');
+            process.stdout.write(colorize(sprintf('%-15s', `v${version.nodeVersion}`), 'cyan') + ' ');
+            console.log(colorize(sprintf('%-15s', version.installType), installColor));
+
+            // Display any aliases this node version has (spfx- aliases first, then others)
+            if (nodeVersions[version.nodeVersion] &amp;&amp; version.alias !== LABELS.NO_ALIAS) {
+                const allNodeAliases = nodeVersions[version.nodeVersion].aliases;
+                const additionalAliases = sortAliases(
+                    allNodeAliases.filter(a =&gt; a !== version.alias)
+                );
+                for (const alias of additionalAliases) {
+                    console.log(colorize(`  ${alias}`, 'magenta'));
+                }
+            }
+        }
+
+        console.log('');
+
+        // Summary for installed versions (single pass)
+        const uniqueNodeVersions = new Set();
+        let fullSpfxCount = 0;
+        let nodeOnlySpfxCount = 0;
+        
+        for (const v of installedVersions) {
+            uniqueNodeVersions.add(v.nodeVersion);
+            if (v.spfxVersion) {
+                if (v.installType === INSTALL_TYPE.FULL) fullSpfxCount++;
+                else if (v.installType === INSTALL_TYPE.NODE_ONLY) nodeOnlySpfxCount++;
+            }
+        }
+
+        console.log(colorize(`Node.js versions: ${uniqueNodeVersions.size}`, 'white'));
+        console.log(colorize(`SPFx versions: ${fullSpfxCount + nodeOnlySpfxCount} (${fullSpfxCount} full, ${nodeOnlySpfxCount} nodejs only)`, 'white'));
+    }
+
+    // Display available versions if -all is specified
+    if (params.all &amp;&amp; availableVersions.length &gt; 0) {
+        console.log('');
+        console.log(colorize('Available versions ', 'yellow') + '(' + colorize('installed', 'magenta') + '):');
+        console.log(colorize(sprintf('%-20s %-18s', 'SPFx Version', 'Engine Requirement'), 'white'));
+        console.log(colorize(sprintf('%-20s %-18s', '------------', '------------------'), 'white'));
+
+        // Get list of installed SPFx versions for highlighting
+        const installedSpfxVersions = installedVersions
+            .filter(v =&gt; v.spfxVersion)
+            .map(v =&gt; v.spfxVersion);
+
+        // Sort all available versions descending
+        let sortedAvailable = availableVersions.sort((a, b) =&gt; 
+            compareVersions(getSortVersion(a.spfxVersion), getSortVersion(b.spfxVersion))
+        );
+
+        // Apply limit if specified
+        if (params.limit &gt; 0) {
+            sortedAvailable = sortedAvailable.slice(0, params.limit);
+        }
+
+        for (const version of sortedAvailable) {
+            const isInstalled = installedSpfxVersions.includes(version.spfxVersion);
+
+            if (isInstalled) {
+                console.log(colorize(sprintf('%-20s %-18s', version.spfxVersion, version.nodeRequirement), 'magenta'));
+            } else {
+                process.stdout.write(colorize(sprintf('%-20s', version.spfxVersion), 'cyan') + ' ');
+                console.log(colorize(version.nodeRequirement, 'white'));
+            }
+        }
+
+        console.log('');
+        if (params.limit &gt; 0 &amp;&amp; sortedAvailable.length &lt; availableVersions.length) {
+            console.log(colorize(`Showing: ${sortedAvailable.length} of ${availableVersions.length} available version(s)`, 'white'));
+        } else {
+            console.log(colorize(`Total: ${availableVersions.length} version(s)`, 'white'));
+        }
+        if (installedVersions.length &gt; 0) {
+            const uniqueInstalled = new Set(installedVersions.filter(v =&gt; v.spfxVersion).map(v =&gt; v.spfxVersion)).size;
+            console.log(colorize(`Installed: ${uniqueInstalled} version(s) (shown in magenta)`, 'white'));
+        }
+    }
+
+    console.log('');
+}
+
+// Simple sprintf implementation for padding
+function sprintf(format, ...args) {
+    let argIndex = 0;
+    return format.replace(/%-?(\d+)s/g, (match, width) =&gt; {
+        const arg = String(args[argIndex++] || '');
+        const w = parseInt(width);
+        return match.startsWith('%-') ? arg.padEnd(w) : arg.padStart(w);
+    });
+}
+
+// Run main function
+main().catch(error =&gt; {
+    console.error(colorize('Unexpected error:', 'red'), error);
+    process.exit(1);
+});
+</code></pre>
+</section>
+</div>
+<h2 id="contributors">Contributors</h2>
+<table>
+<thead>
+<tr>
+<th>Author(s)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="https://github.com/donkirkham">Don Kirkham</a></td>
+</tr>
+</tbody>
+</table>
+<h2 id="disclaimer">Disclaimer</h2>
+<p><strong>THESE SAMPLES ARE PROVIDED <em>AS IS</em> WITHOUT WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, INCLUDING ANY IMPLIED WARRANTIES OF FITNESS FOR A PARTICULAR PURPOSE, MERCHANTABILITY, OR NON-INFRINGEMENT.</strong></p>
+<img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/spfx-list-js" aria-hidden="true">
+</article>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            <span>Script Samples<br>Generated by <strong><a href='https://dotnet.github.io/docfx' alt='Doc FX Website'>DocFX</a></strong> with <strong><a href='https://ovasquez.github.io/docfx-material' alt='DocFx Material Theme'>Material UI</a></strong></span>
+            
+            <!-- <img src="https://telemetry.sharepointpnp.com/@pnp.github.io/index/" alt="spacer"> -->
+          </div>
+        </div>
+      </footer>    </div>
+    
+    <script type="text/javascript" src="../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+    
+    <script type="text/javascript" src="../styles/clipboard.min.js"></script>
+    <script type="text/javascript" src="../styles/isotope.pkgd.min.js"></script>
+    <script type="text/javascript" src="../styles/loadsamples.js"></script>
+    <script type="text/javascript" src="../styles/filtersamples.js"></script>
+
+  </body>
+</html>

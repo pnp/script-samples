@@ -1,0 +1,571 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html lang="en">
+  
+  <head>
+    <meta charset="utf-8">
+    <title>spfx-install.sh | PnP Samples </title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="title" content="spfx-install.sh | PnP Samples ">
+    <meta name="generator" content="docfx 2.56.7.0">
+    <meta name="description" content="A sample gallery of scripts to manage all things Microsoft 365.">
+  
+    <!-- Social Media -->
+    <meta property="og:locale" content="en_GB">
+    <meta property="og:title" content="spfx-install.sh | PnP Samples ">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://pnp.github.io/script-samples">
+    <meta property="og:image" content="https://pnp.github.io/script-samples/assets/social-media-screenshot.png">
+    <meta property="og:image:alt" content="Screenshot example of the PnP Script Samples Site">
+    <meta property="og:site_name" content="PnP Script Samples">
+    <meta name="msvalidate.01" content="04EFEDA66EC42C08A1247C979E2F9ADD">
+    <meta property="og:description" content="A sample gallery of scripts to manage all things Microsoft 365.">
+  
+    <link rel="shortcut icon" href="https://c.s-microsoft.com/favicon.ico?v2">
+    <link rel="stylesheet" href="../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../styles/docfx.css">
+    <link rel="stylesheet" href="../styles/main.css">
+    <link rel="stylesheet" href="../styles/extra.css">
+    <link rel="stylesheet" href="../styles/filter.css">
+    <link rel="stylesheet" href="../styles/site.css">
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet"> 
+    <meta property="docfx:navrel" content="../toc.html">
+    <meta property="docfx:tocrel" content="../toc.html">
+    
+    
+    <meta property="docfx:newtab" content="true">
+    <script type="text/javascript">
+      (function(c,l,a,r,i,t,y){
+          c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+          t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+          y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+      })(window, document, "clarity", "script", "8j6pedl344");
+  </script>
+  </head>  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+             <div class="github-mark">
+              <a href="https://github.com/pnp/script-samples" title="Go to repository">
+               <div class="github-wrapper">
+                  <div class="github-icon">
+                    <img src="https://pnp.github.io/script-samples/assets/icons/github-light-64px.png" alt="GitHub Icon Image">
+                  </div>
+                  <div class="github-repository">
+                    <span>GitHub</span>
+                    <ul class="github-facts">
+                      <li>
+                        <i class="fa fa-code-fork" aria-hidden="true"></i>
+                        <span class="github-forks"></span>
+                      </li>
+                      <li>
+                        <i class="fa fa-star-o" aria-hidden="true"></i>
+                        <span class="github-stars"></span>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </a>
+            </div>
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../assets/logo.svg" alt="">
+              </a>    </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <label class="glyphicon glyphicon-search" for="search-query"></label>
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>      </header>
+      <div role="main" class="container body-content hide-when-search">
+        <div class="article row grid">
+          <div class="col-md-12">
+            <article class="content wrap" id="_content" data-uid="">
+                  <div class="contribution-panel mobile-hide pull-right">
+                      <a href="https://github.com/pnp/script-samples/blob/main/scripts/spfx-install-sh/README.md/#L1" title="Improve this Doc" class="improve-doc-lg"><i class="glyphicon glyphicon-pencil"></i></a>
+                  </div>
+                    <h1 id="spfx-installsh">spfx-install.sh</h1>
+
+<blockquote>
+<h5 id="deprecated-please-use-the-updated-version-of-this-script-located-at-scriptsspfx-install-js">DEPRECATED: Please use the updated version of this script located at <a href="../spfx-install-js/README.html">scripts/spfx-install-js</a></h5>
+</blockquote>
+<h2 id="summary">Summary</h2>
+<p>This script installs specific versions of SharePoint Framework (SPFx) development environments, including NodeJS, npm, and either @rushstack/heft or gulp-cli as needed. By including the 'full' option, Yeoman and the SPFx generator are also installed. If no version is specified, the SharePoint Online (spo/latest) version is installed.</p>
+<p>This script is designed to be run from the command line in any version of Node.js. It can be run in a Windows environment using PowerShell, the command prompt, or Windows Subsystem for Linux (WSL). It can also be run in a macOS or Linux environment.</p>
+<p>If you want to install a specific version of SPFx, you can specify the version number as an argument. For example, to install SPFx v1.11.0, you would run the script as follows:</p>
+<pre><code class="lang-bash">./spfx-install.js 1.11.0
+</code></pre>
+<p>or</p>
+<pre><code class="lang-bash">./spfx-install.sh 1.11.0 full
+</code></pre>
+<p>To get help one all options for the command line, run the script as follows:</p>
+<pre><code class="lang-bash">./spfx-install.sh -help
+</code></pre>
+<p>The script will also create an alias for the version of SPFx you installed. For example, if you installed SPFx v1.11.0, the alias will be <code>spfx-1.11.0</code>. You can use this alias to switch to that version of SPFx as follows:</p>
+<pre><code class="lang-bash">nvm use spfx-&lt;version&gt;
+</code></pre>
+<p>You can also use the following commands to switch to special versions of SPFx:</p>
+<pre><code class="lang-bash">nvm use spfx-spo    #latest released version supported by SharePoint Online
+nvm use spfx-sp2019 #latest version supported by SP2019
+nvm use spfx-sp2016 #latest version supported by SP2016
+nvm use spfx-sse    #latest version supported by SharePoint Server Subscription Edition
+nvm use spfx-next   #latest version in development
+</code></pre>
+<h1 id="screenshots">Screenshots</h1>
+<h4 id="command">Command</h4>
+<p><img src="assets/Command.png" alt="Command"></p>
+<h4 id="results">Results</h4>
+<p><img src="assets/Results1.png" alt="Results">
+<img src="assets/Results2.png" alt="Results">
+<img src="assets/Results3.png" alt="Results">
+<img src="assets/Results4.png" alt="Results"></p>
+<p>When new versions of SPFx are released, the script can be easily updated to include the new version. Instructions on how to do this are included in the script starting around line 138.</p>
+<h2 id="prerequisites">Prerequisites</h2>
+<p>The script is designed to be run from a bash shell, and it requires Node Version Manager (nvm) to be installed. If you don't have nvm installed, follow the installation instructions here: <a href="https://github.com/nvm-sh/nvm?tab=readme-ov-file#installing-and-updating">Installing nvm-sh</a></p>
+<p>If you install the script in a location that is not in your PATH, you can create a bash alias to make it easier to run. For example, you could add the following line to your <code>.bashrc</code> or <code>.bash_profile</code> file:</p>
+<pre><code class="lang-bash">alias spfx-install='/path/to/spfx-install.sh'
+</code></pre>
+<p>Then, you can run the script from any directory by simply typing <code>spfx-install</code>.</p>
+<div class="tabGroup" id="tabgroup_CeZOj-G++Q">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_CeZOj-G++Q_bash" role="tab" aria-controls="tabpanel_CeZOj-G++Q_bash" data-tab="bash" tabindex="0" aria-selected="true">Bash Script</a>
+</li>
+</ul>
+<section id="tabpanel_CeZOj-G++Q_bash" role="tabpanel" data-tab="bash">
+
+<pre><code class="lang-bash">########################################################################################
+# This script quickly installs an environment for specific versions of SPFx.           #
+#                                                                                      #
+# For details on how to use this script, see the #HELP section at the bottom of this   #
+# file.                                                                                #
+#                                                                                      #
+# Node Version Manager (nvm) is required to run this script. If you don't have nvm     #
+# installed, follow the installation instructions here:                                #
+#    https://github.com/nvm-sh/nvm?tab=readme-ov-file#installing-and-updating          #
+#                                                                                      #
+# To uninstall nvm, run the following command:                                         #
+#    rm -rf ~/.nvm                                                                     #
+#                                                                                      # 
+######################################################################################## 
+#!/bin/bash
+if [[ -n $1 ]]; then
+  version=$1
+else
+  version=&quot;spo&quot;
+fi
+
+if [[ &quot;$1&quot; == &quot;-help&quot; ||
+  &quot;$1&quot; == &quot;-H&quot; ||
+  &quot;$1&quot; == &quot;--help&quot; ||
+  &quot;$1&quot; == &quot;help&quot; ]] \
+  ; then
+  gotoHelp=&quot;true&quot;
+else
+  gotoHelp=&quot;false&quot;
+fi
+
+if [[ $gotoHelp == &quot;false&quot; ]]; then
+
+  if [[ -n $2 ]]; then
+    fullInstall=&quot;true&quot;
+  else
+    fullInstall=&quot;false&quot;
+  fi
+  unset latestAlias
+
+  ############################################################
+  # This is the function to install specific versions of     #
+  # NodeJs, npm, and gulp-cli.                               #
+  #                                                          #
+  # If $6(FULL INSTALL) is included, Yeoman and the SPFx     #
+  # generator are also installed.                            #
+  #                                                          #
+  # PARAMETERS:                                              #
+  # $1 = SPFX VERSION                                        #
+  # $2 = NODE VERSION                                        #
+  # $3 = NPM VERSION                                         #
+  # $4 = YO VERSION                                          #
+  # $5 = GULP VERSION                                        #
+  # $6 = FULL INSTALL (true/false)                           #
+  ############################################################
+  installSPFx() {
+    spfxVersion=$1
+    nodeVersion=$2
+    npmVersion=$3
+    yoVersion=$4
+    gulpVersion=$5
+    unset fullInstall
+    fullInstall=$6
+
+    . ~/.nvm/nvm.sh
+
+    echo
+    echo -e &quot;\e[1;43m Installing dev environment for SPFx@$1 ... \e[0m&quot;
+    echo
+    if [[ $fullInstall == &quot;true&quot; ]]; then
+      echo &quot;Performing full install&quot;
+    else
+      echo &quot;Performing basic install (NodeJs &amp; gulp-cli)&quot;
+    fi
+    echo
+
+    nodeInstalled=$(nvm ls $nodeVersion)
+    if [[ $nodeInstalled == *&quot;N/A&quot;* ]]; then
+      echo -e &quot;\e[1;45m (SPFx@$spfxVersion) Installing nodeJS $nodeVersion ... \e[0m&quot;
+      nvm install $nodeVersion
+      echo -e &quot;\e[1;44m (SPFx@$spfxVersion) Installing nodeJS (v$nodeVersion) ... DONE \e[0m&quot;
+    else
+      echo -e &quot;\e[1;45m (SPFx@$spfxVersion) NodeJs v'$nodeVersion' already installed \e[0m&quot;
+    fi
+    nvm use $nodeVersion
+    previousloglevel=$(npm get loglevel)
+    npm config set loglevel warn
+
+    #always install gulp-cli
+    echo
+    echo -e &quot;\e[1;44m (SPFx@$spfxVersion) Installing gulp-cli@$gulpVersion ... \e[0m&quot;
+    npm install -g gulp-cli@$gulpVersion --quiet
+    echo -e &quot;\e[1;44m (SPFx@$spfxVersion) Installing gulp-cli@$gulpVersion ... DONE \e[0m&quot;
+
+    if [[ &quot;$fullInstall&quot; == &quot;true&quot; &amp;&amp; &quot;$npmVersion&quot; != &quot;0&quot; ]]; then
+      echo
+      echo -e &quot;\e[1;44m (SPFx@$spfxVersion) Installing npm@$npmVersion ... \e[0m&quot;
+      npm install -g npm@$npmVersion --quiet
+      echo -e &quot;\e[1;44m (SPFx@$spfxVersion) Installing npm@$npmVersion ... DONE \e[0m&quot;
+    fi
+
+    if [[ &quot;$fullInstall&quot; == &quot;true&quot; ]]; then
+      echo
+      echo -e &quot;\e[1;44m (SPFx@$spfxVersion) Installing yo@$yoVersion ... \e[0m&quot;
+      npm install -g yo@$yoVersion --quiet
+      echo -e &quot;\e[1;44m (SPFx@$spfxVersion) Installing yo@$yoVersion ... DONE \e[0m&quot;
+      if [[ $nodeVersion[1] == 6 ]]; then
+        echo
+        echo -e &quot;\e[1;45m (SPFx@$spfxVersion) Fixing yeoman-environment issue for Node v6 \e[0m&quot;
+        echo
+        echo -e &quot;\e[1;45m Deleting the yeoman-environment package installed by yeoman as a dependency ... \e[0m&quot;
+        rm -rf ~/.nvm/versions/node/v$nodeVersion/lib/node_modules/yo/node_modules/yeoman-environment
+        echo -e &quot;\e[1;45m Deleting the yeoman-environment package installed by yeoman as a dependency ... DONE \e[0m&quot;
+        echo
+        echo -e &quot;\e[1;45m Installing yeoman-environment@2.7.0 ... \e[0m&quot;
+        npm install -g yeoman-environment@2.7.0 --quiet
+        echo -e &quot;\e[1;45m Installing yeoman-environment@2.7.0 ... DONE \e[0m&quot;
+        echo
+        echo -e &quot;\e[1;45m (SPFx@$spfxVersion) Fixing yeoman-environment issue for Node v6... DONE \e[0m&quot;
+      fi
+    fi
+
+    if [[ &quot;$fullInstall&quot; == &quot;true&quot; ]]; then
+      echo
+      echo -e &quot;\e[1;44m (SPFx@$spfxVersion) Installing @microsoft/generator-sharepoint@$spfxVersion ... \e[0m&quot;
+      npm install -g @microsoft/generator-sharepoint@$spfxVersion --quiet
+      echo -e &quot;\e[1;44m (SPFx@$spfxVersion) Installing @microsoft/generator-sharepoint@$spfxVersion ... DONE \e[0m&quot;
+    fi
+
+    echo
+    echo -e &quot;\e[1;45m Creating alias 'spfx-$spfxVersion' ... \e[0m&quot;
+    nvm alias spfx-$spfxVersion $nodeVersion
+    npm set loglevel $previousloglevel
+
+  }
+
+  ############################################################
+  # HERE IS WHERE TO UPDATE WITH NEW VERSIONS                #
+  #                     IMPORTANT!!!                         #
+  #    MAKE SURE EACH VERSION GETS A UNIQUE NODEJS VERSION   #
+  #                                                          #
+  # TO UPDATE:                                               #
+  # 1. Change $spoVersion to latest LTS version              #
+  # 2. Add section for new spfx version                      #
+  # 3. Update versions of yo and gulp-cli, as needed         #
+  #                                                          #
+  # spfxInstall parameters                                   #
+  # $1 = SPFX VERSION                                        #
+  # $2 = NODE VERSION                                        #
+  # $3 = NPM VERSION (0 means to use npm from nodejs)        #
+  # $4 = YO VERSION                                          #
+  # $5 = GULP-CLI VERSION                                    #
+  # $6 = FULL INSTALL (true/false)                           #
+  ############################################################
+  clear
+  echo
+
+  if [[ &quot;$version&quot; == &quot;next&quot; ]]; then
+    nextNodeVersion=22.11.0 # THIS IS THE NODE VERSION, NOT SPFX
+    nextAlias=$nextNodeVersion
+    echo -e &quot;\e[1;43m Installing dev environment for SPFx@next using NodeJs v$nextNodeVersion ... \e[0m&quot;
+    installSPFx next $nextNodeVersion 0 5 3 true
+  fi
+
+  if [[ &quot;$version&quot; == &quot;spo&quot; ]]; then
+    spoVersion=&quot;1.21.1&quot; #used to create the alias
+    version=$spoVersion
+    echo -e &quot;\e[1;43m Installing dev environment for SPFx@spo(v$version) ... \e[0m&quot;
+  fi
+
+  if [[ &quot;$version&quot; == &quot;1.21.1&quot; || &quot;$version&quot; == &quot;all&quot; ]]; then 
+    installSPFx 1.21.1 22.14.0 0 5.1 3.0.0 $fullInstall
+  fi
+
+  if [[ &quot;$version&quot; == &quot;1.21.0&quot; || &quot;$version&quot; == &quot;all&quot; ]]; then 
+    installSPFx 1.21.0 22.15.0 0 5.1 3.0.0 $fullInstall
+  fi
+
+  if [[ &quot;$version&quot; == &quot;1.20.0&quot; || &quot;$version&quot; == &quot;all&quot; ]]; then 
+    installSPFx 1.20.0 18.18.2 0 5.0.0 3.0.0 $fullInstall
+  fi
+
+  if [[ &quot;$version&quot; == &quot;1.19.0&quot; || &quot;$version&quot; == &quot;all&quot; ]]; then
+    installSPFx 1.19.0 18.18.1 0 5.0.0 3.0.0 $fullInstall
+  fi
+
+  if [[ &quot;$version&quot; == &quot;1.18.1&quot; || &quot;$version&quot; == &quot;all&quot; ]]; then
+    installSPFx 1.18.1 18.18.0 0 4.3.1 2.3.0 $fullInstall
+  fi
+
+  if [[ &quot;$version&quot; == &quot;1.18.0&quot; || &quot;$version&quot; == &quot;all&quot; ]]; then
+    installSPFx 1.18.0 18.17.1 0 4.3.1 2.3.0 $fullInstall
+  fi
+
+  if [[ &quot;$version&quot; == &quot;1.17.4&quot; || &quot;$version&quot; == &quot;all&quot; ]]; then
+    installSPFx 1.17.4 16.20.2 0 4.3.1 2.3.0 $fullInstall
+  fi
+
+  if [[ &quot;$version&quot; == &quot;1.17.3&quot; || &quot;$version&quot; == &quot;all&quot; ]]; then
+    installSPFx 1.17.3 16.20.1 0 4.3.1 2.3.0 $fullInstall
+  fi
+
+  if [[ &quot;$version&quot; == &quot;1.17.2&quot; || &quot;$version&quot; == &quot;all&quot; ]]; then
+    installSPFx 1.17.2 16.20.0 0 4.3.1 2.3.0 $fullInstall
+  fi
+
+  if [[ &quot;$version&quot; == &quot;1.17.0&quot; || &quot;$version&quot; == &quot;all&quot; ]]; then
+    installSPFx 1.17.0 16.19.1 0 4.3.1 2.3.0 $fullInstall
+  fi
+
+  if [[ &quot;$version&quot; == &quot;1.16.1&quot; || &quot;$version&quot; == &quot;all&quot; ]]; then
+    installSPFx 1.16.1 16.19.0 0 4.3.1 2.3.0 $fullInstall
+  fi
+
+  if [[ &quot;$version&quot; == &quot;1.16.0&quot; || &quot;$version&quot; == &quot;all&quot; ]]; then
+    installSPFx 1.16.0 16.18.1 0 4.3.1 2.3.0 $fullInstall
+  fi
+
+  if [[ &quot;$version&quot; == &quot;1.15.2&quot; || &quot;$version&quot; == &quot;all&quot; ]]; then
+    installSPFx 1.15.2 16.15.0 0 4.3.1 2.3.0 $fullInstall
+  fi
+
+  if [[ &quot;$version&quot; == &quot;1.15.0&quot; || &quot;$version&quot; == &quot;all&quot; ]]; then
+    installSPFx 1.15.0 16.15.1 0 4.3.0 2.3.0 $fullInstall
+  fi
+
+  if [[ &quot;$version&quot; == &quot;1.14.0&quot; || &quot;$version&quot; == &quot;all&quot; ]]; then
+    installSPFx 1.14.0 14.18.1 0 4.3.0 2.3.0 $fullInstall
+  fi
+
+  if [[ &quot;$version&quot; == &quot;1.13.1&quot; || &quot;$version&quot; == &quot;all&quot; ]]; then
+    installSPFx 1.13.1 14.18.0 0 4.3.0 2.3.0 $fullInstall
+  fi
+
+  if [[ &quot;$version&quot; == &quot;1.13.0&quot; || &quot;$version&quot; == &quot;all&quot; ]]; then
+    installSPFx 1.13.0 14.17.1 0 4.3.0 2.3.0 $fullInstall
+  fi
+
+  if [[ &quot;$version&quot; == &quot;1.12.1&quot; || &quot;$version&quot; == &quot;all&quot; ]]; then
+    installSPFx 1.12.1 14.17.0 0 4.1.0 2.3.0 $fullInstall
+  fi
+
+  if [[ &quot;$version&quot; == &quot;1.11.0&quot; || &quot;$version&quot; == &quot;all&quot; ]]; then
+    installSPFx 1.11.0 10.22.0 0 3.1.1 2.3.0 $fullInstall
+  fi
+
+  if [[ &quot;$version&quot; == &quot;1.10.0&quot; || &quot;$version&quot; == &quot;all&quot; ]]; then
+    installSPFx 1.10.0 10.18.1 0 3.1.1 2.3.0 $fullInstall
+  fi
+
+  if [[ &quot;$version&quot; == &quot;1.9.1&quot; || &quot;$version&quot; == &quot;all&quot; ]]; then
+    installSPFx 1.9.1 10.23.3 0 2.0.5 2.3.0 $fullInstall
+  fi
+
+  if [[ &quot;$version&quot; == &quot;1.8.2&quot; || &quot;$version&quot; == &quot;all&quot; ]]; then
+    installSPFx 1.8.2 10.24.1 0 2.0.5 2.3.0 $fullInstall
+  fi
+
+  if [[ &quot;$version&quot; == &quot;1.8.1&quot; || &quot;$version&quot; == &quot;all&quot; ]]; then
+    installSPFx 1.8.1 8.16.2 0 2.0.5 2.3.0 $fullInstall
+  fi
+
+  if [[ &quot;$version&quot; == &quot;1.8.0&quot; || &quot;$version&quot; == &quot;all&quot; ]]; then
+    installSPFx 1.8.0 8.16.1 0 2.0.5 2.3.0 $fullInstall
+  fi
+
+  if [[ &quot;$version&quot; == &quot;1.7.1&quot; || &quot;$version&quot; == &quot;all&quot; ]]; then
+    installSPFx 1.7.1 8.16.0 0 2.0.5 2.3.0 $fullInstall
+  fi
+
+  if [[ &quot;$version&quot; == &quot;1.7.0&quot; || &quot;$version&quot; == &quot;all&quot; ]]; then
+    installSPFx 1.7.0 8.17.0 0 3.1.1 2.3.0 $fullInstall
+  fi
+
+  if [[ &quot;$version&quot; == &quot;1.6.0&quot; || &quot;$version&quot; == &quot;all&quot; ]]; then
+    installSPFx 1.6.0 8.12.0 0 2.0.5 2.3.0 $fullInstall
+  fi
+
+  if [[ &quot;$version&quot; == &quot;1.5.1&quot; || &quot;$version&quot; == &quot;all&quot; ]]; then
+    installSPFx 1.5.1 8.11.4 0 2.0.2 2.3.0 $fullInstall
+  fi
+
+  if [[ &quot;$version&quot; == &quot;1.5.0&quot; || &quot;$version&quot; == &quot;all&quot; || &quot;$version&quot; == &quot;sse&quot; ]]; then
+    installSPFx 1.5.0 8.11.3 0 2.0.2 2.3.0 $fullInstall
+    echo
+    echo -e &quot;\e[1;45m Creating alias 'spfx-sse' ... \e[0m&quot;
+    nvm alias spfx-sse spfx-1.5.1
+  fi
+
+  if [[ &quot;$version&quot; == &quot;1.4.1&quot; || &quot;$version&quot; == &quot;all&quot; || &quot;$version&quot; == &quot;sp2019&quot; ]]; then
+    installSPFx 1.4.1 8.9.4 0 2.0.1 2.3.0 $fullInstall
+    echo
+    echo -e &quot;\e[1;45m Creating alias 'spfx-sp2019' ... \e[0m&quot;
+    nvm alias spfx-sp2019 spfx-1.4.1
+  fi
+
+  if [[ &quot;$version&quot; == &quot;1.4.0&quot; || &quot;$version&quot; == &quot;all&quot; ]]; then
+    installSPFx 1.4.0 6.12.1 0 2.0.0 2.3.0 $fullInstall
+  fi
+
+  if [[ &quot;$version&quot; == &quot;1.3.0&quot; || &quot;$version&quot; == &quot;all&quot; ]]; then
+    installSPFx 1.3.0 6.11.3 0 2.0.0 2.3.0 $fullInstall
+  fi
+
+  if [[ &quot;$version&quot; == &quot;1.1.0&quot; || &quot;$version&quot; == &quot;all&quot; || &quot;$version&quot; == &quot;sp2016&quot; ]]; then
+    installSPFx 1.1.0 6.10.3 0 2.0.0 2.3.0 $fullInstall
+    #installSPFx 1.1.0 6 0 1.8.5 2.3.0 $fullInstall
+    echo
+    echo -e &quot;\e[1;45m Creating alias 'spfx-sp2016' ... \e[0m&quot;
+    nvm alias spfx-sp2016 spfx-1.1.0
+  fi
+
+  if [[ &quot;$version&quot; == &quot;1.0.0&quot; || &quot;$version&quot; == &quot;all&quot; ]]; then
+    installSPFx 1.0.0 6.15.1 0 2.0.0 2.3.0 $fullInstall
+  fi
+
+  #additional aliases
+  if [[ -n &quot;$spoVersion&quot; ]]; then
+    echo
+    echo -e &quot;\e[1;45m Creating alias 'spfx-spo (latest)' ... \e[0m&quot;
+    nvm alias spfx-spo spfx-$spoVersion
+    nvm alias default spfx-spo
+  fi
+  if [[ -n &quot;$nextAlias&quot; ]]; then
+    echo
+    echo -e &quot;\e[1;45m Creating alias 'spfx-next' ... \e[0m&quot;
+    nvm alias spfx-next $nextAlias
+  fi
+
+  echo
+  echo -e &quot;\e[1;46m Current Node installations \e[0m&quot;
+  nvm ls
+  echo
+  echo -e &quot;\e[1;46m Current environment \e[0m&quot;
+  echo &quot;Node version: $(node -v)&quot;
+  npm ls -g --depth=0
+
+  echo -e &quot;\e[1;43m Installing dev environment for SPFx@$1 ... DONE\e[0m&quot;
+
+else 
+#HELP
+  echo &quot;Installs specific versions of SPFx environments, including NodeJS, npm, and gulp-cli.&quot;
+  echo &quot;By including the 'full' option, yeoman and the SPFx generator are also installed.&quot;
+  echo &quot;If no version is specified, the SharePoint Online (spo/latest) version is installed.&quot;
+  echo
+  echo &quot;Usage: install-spfx [options]&quot;
+  echo &quot;  if bash alias is installed, the above can be run from any folder, &quot;
+  echo &quot;  otherwise run from the folder where the script is located&quot;
+  echo
+  echo &quot;Options:&quot;
+  echo &quot;  help, -help, -H, --help      output usage information&quot;
+  echo &quot;  &lt;version&gt; full               installs yeoman, SPFx generator, and gulp-cli&quot;
+  echo &quot;  &lt;version&gt;                    if 'full' ommitted, only gulp-cli is installed&quot;
+  echo
+  echo &quot;Examples:&quot;
+  echo &quot;  spfx-install spo full        installs full tools to build SPFx solutions with latest version&quot;
+  echo &quot;  spfx-install 1.11.0          installs basic tools to use SPFx v1.11.0&quot;
+  echo &quot;  spfx-install 1.15.0 full     installs full tools to build SPFx v1.15.0 solutions&quot;
+  echo &quot;  spfx-install next            installs full tools to build SPFx solutions with next (beta) version&quot;
+  echo &quot;  spfx-install all             installs basic tools for all versions of SPFx&quot;
+  echo &quot;  spfx-install sp2016          installs basic tools for SPFx v1.4.1 (latest version supported by SP2016)&quot;
+  echo &quot;  spfx-install sp2019          installs basic tools for SPFx v1.8.2 (latest version supported by SP2019)&quot;
+  echo &quot;  spfx-install sse             installs basic tools for SPFx v1.5.0 (latest version supported by SharePoint Server Subscription Edition)&quot;
+  echo
+  echo &quot;Once a specific version of SPFx is installed, you can use the following command to switch to it:&quot;
+  echo &quot;  nvm use spfx-&lt;version&gt;&quot;
+  echo
+  echo &quot;You can also use the following command to switch to special versions of SPFx:&quot;
+  echo &quot;  nvm use spfx-spo    #latest released version supported by SharePoint Online&quot;
+  echo &quot;  nvm use spfx-sp2019 #latest version supported by SP2019&quot;
+  echo &quot;  nvm use spfx-sp2016 #latest version supported by SP2016&quot;
+  echo &quot;  nvm use spfx-sse    #latest version supported by SharePoint Server Subscription Edition&quot;
+  echo &quot;  nvm use spfx-next   #latest version in development&quot;
+fi
+</code></pre>
+</section>
+</div>
+<h2 id="contributors">Contributors</h2>
+<table>
+<thead>
+<tr>
+<th>Author(s)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="https://github.com/donkirkham">Don Kirkham</a></td>
+</tr>
+</tbody>
+</table>
+<h2 id="disclaimer">Disclaimer</h2>
+<p><strong>THESE SAMPLES ARE PROVIDED <em>AS IS</em> WITHOUT WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, INCLUDING ANY IMPLIED WARRANTIES OF FITNESS FOR A PARTICULAR PURPOSE, MERCHANTABILITY, OR NON-INFRINGEMENT.</strong></p>
+<img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/spfx-install-sh" aria-hidden="true">
+</article>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            <span>Script Samples<br>Generated by <strong><a href='https://dotnet.github.io/docfx' alt='Doc FX Website'>DocFX</a></strong> with <strong><a href='https://ovasquez.github.io/docfx-material' alt='DocFx Material Theme'>Material UI</a></strong></span>
+            
+            <!-- <img src="https://telemetry.sharepointpnp.com/@pnp.github.io/index/" alt="spacer"> -->
+          </div>
+        </div>
+      </footer>    </div>
+    
+    <script type="text/javascript" src="../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+    
+    <script type="text/javascript" src="../styles/clipboard.min.js"></script>
+    <script type="text/javascript" src="../styles/isotope.pkgd.min.js"></script>
+    <script type="text/javascript" src="../styles/loadsamples.js"></script>
+    <script type="text/javascript" src="../styles/filtersamples.js"></script>
+
+  </body>
+</html>

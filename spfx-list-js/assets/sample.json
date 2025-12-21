@@ -1,0 +1,74 @@
+[
+  {
+    "name": "spfx-list-js",
+    "source": "pnp",
+    "title": "List SPFx Versions",
+    "shortDescription": "Node.js script to list SharePoint Framework (SPFx) versions installed via fnm with their Node.js versions and optionally query available versions from npm.",
+    "url": "https://pnp.github.io/script-samples/spfx-list-js/README.html",
+    "longDescription": [
+      "This Node.js script lists SharePoint Framework (SPFx) versions installed via fnm (Fast Node Manager) along with their corresponding Node.js versions. It can also query the npm registry to show all available SPFx versions that can be installed. Features include filtering by version pattern, showing installation types (Full or Node-only), displaying configured aliases with the 'spfx-' prefix, and limiting output when querying available versions."
+    ],
+    "creationDateTime": "2025-12-14",
+    "updateDateTime": "2025-12-14",
+    "products": [
+      "SharePoint"
+    ],
+    "metadata": [
+      {
+        "key": "JAVASCRIPT",
+        "value": "node, fnm, npm"
+      }
+    ],
+    "categories": [
+      "Configure",
+      "Report"
+    ],
+    "tags": [
+      "SPFx",
+      "fnm",
+      "Node.js",
+      "npm",
+      "version management"
+    ],
+    "thumbnails": [
+      {
+        "type": "image",
+        "order": 100,
+        "url": "https://raw.githubusercontent.com/pnp/script-samples/main/scripts/spfx-list-js/assets/example1.png",
+        "alt": "Basic usage showing installed SPFx versions"
+      },
+      {
+        "type": "image",
+        "order": 200,
+        "url": "https://raw.githubusercontent.com/pnp/script-samples/main/scripts/spfx-list-js/assets/example2.png",
+        "alt": "Show all available versions from npm"
+      },
+      {
+        "type": "image",
+        "order": 300,
+        "url": "https://raw.githubusercontent.com/pnp/script-samples/main/scripts/spfx-list-js/assets/example3.png",
+        "alt": "Filter by version pattern"
+      }
+    ],
+    "authors": [
+      {
+        "gitHubAccount": "donkirkham",
+        "company": "",
+        "pictureUrl": "https://github.com/donkirkham.png",
+        "name": "Don Kirkham"
+      }
+    ],
+    "references": [
+      {
+        "name": "SharePoint Framework Overview",
+        "description": "Overview of the SharePoint Framework",
+        "url": "https://docs.microsoft.com/en-us/sharepoint/dev/spfx/sharepoint-framework-overview"
+      },
+      {
+        "name": "fnm - Fast Node Manager",
+        "description": "Fast and simple Node.js version manager",
+        "url": "https://github.com/Schniz/fnm"
+      }
+    ]
+  }
+]

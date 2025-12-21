@@ -4004,6 +4004,51 @@
     ]
   },
   {
+    "name": "spfx-install-js",
+    "title": "Install SharePoint Framework Development Environment",
+    "shortDescription": "Node.js script to install SharePoint Framework (SPFx) development environments with correct Node.js versions and build tools using fnm.",
+    "url": "spfx-install-js/README.html",
+    "creationDateTime": "2025-12-20",
+    "updateDateTime": "2025-12-20",
+    "products": [
+      "SharePoint"
+    ],
+    "metadata": [
+      {
+        "key": "JAVASCRIPT",
+        "value": "Node.js, fnm"
+      }
+    ],
+    "categories": [
+      "Configure",
+      "Provision"
+    ],
+    "tags": [
+      "SPFx",
+      "SharePoint Framework",
+      "Development Environment",
+      "Node.js",
+      "fnm",
+      "Yeoman"
+    ],
+    "thumbnails": [
+      {
+        "type": "image",
+        "order": 100,
+        "url": "spfx-install-js/assets/preview.png",
+        "alt": "Preview of the Install SharePoint Framework Development Environment script"
+      }
+    ],
+    "authors": [
+      {
+        "gitHubAccount": "donkirkham",
+        "company": "",
+        "pictureUrl": "https://github.com/donkirkham.png",
+        "name": "Don Kirkham"
+      }
+    ]
+  },
+  {
     "name": "spfx-install",
     "title": "spfx-install.sh",
     "shortDescription": "Bash script to install custom version of NodeJs (using nvm) and dependencies for any version of SPFx.",
@@ -4047,6 +4092,62 @@
         "order": 100,
         "url": "spfx-install/assets/Results1.png",
         "alt": "Preview of the sample spfx-install.sh"
+      }
+    ],
+    "authors": [
+      {
+        "gitHubAccount": "donkirkham",
+        "company": "",
+        "pictureUrl": "https://github.com/donkirkham.png",
+        "name": "Don Kirkham"
+      }
+    ]
+  },
+  {
+    "name": "spfx-list-js",
+    "title": "List SPFx Versions",
+    "shortDescription": "Node.js script to list SharePoint Framework (SPFx) versions installed via fnm with their Node.js versions and optionally query available versions from npm.",
+    "url": "spfx-list-js/README.html",
+    "creationDateTime": "2025-12-14",
+    "updateDateTime": "2025-12-14",
+    "products": [
+      "SharePoint"
+    ],
+    "metadata": [
+      {
+        "key": "JAVASCRIPT",
+        "value": "node, fnm, npm"
+      }
+    ],
+    "categories": [
+      "Configure",
+      "Report"
+    ],
+    "tags": [
+      "SPFx",
+      "fnm",
+      "Node.js",
+      "npm",
+      "version management"
+    ],
+    "thumbnails": [
+      {
+        "type": "image",
+        "order": 100,
+        "url": "spfx-list-js/assets/example1.png",
+        "alt": "Basic usage showing installed SPFx versions"
+      },
+      {
+        "type": "image",
+        "order": 200,
+        "url": "spfx-list-js/assets/example2.png",
+        "alt": "Show all available versions from npm"
+      },
+      {
+        "type": "image",
+        "order": 300,
+        "url": "spfx-list-js/assets/example3.png",
+        "alt": "Filter by version pattern"
       }
     ],
     "authors": [

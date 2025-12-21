@@ -1,0 +1,63 @@
+[
+  {
+    "name": "spfx-install-js",
+    "source": "pnp",
+    "title": "Install SharePoint Framework Development Environment",
+    "shortDescription": "Node.js script to install SharePoint Framework (SPFx) development environments with correct Node.js versions and build tools using fnm.",
+    "url": "https://pnp.github.io/script-samples/spfx-install-js/README.html",
+    "longDescription": [
+      "This Node.js script automates the installation and configuration of SharePoint Framework (SPFx) development environments with the correct Node.js versions and build tools. It uses fnm (Fast Node Manager) for Node.js version management and ensures compatibility between SPFx versions and Node.js versions based on Microsoft's official compatibility matrix."
+    ],
+    "creationDateTime": "2025-12-20",
+    "updateDateTime": "2025-12-20",
+    "products": [
+      "SharePoint"
+    ],
+    "metadata": [
+      {
+        "key": "JAVASCRIPT",
+        "value": "Node.js, fnm"
+      }
+    ],
+    "categories": [
+      "Configure",
+      "Provision"
+    ],
+    "tags": [
+      "SPFx",
+      "SharePoint Framework",
+      "Development Environment",
+      "Node.js",
+      "fnm",
+      "Yeoman"
+    ],
+    "thumbnails": [
+      {
+        "type": "image",
+        "order": 100,
+        "url": "https://raw.githubusercontent.com/pnp/script-samples/main/scripts/spfx-install-js/assets/preview.png",
+        "alt": "Preview of the Install SharePoint Framework Development Environment script"
+      }
+    ],
+    "authors": [
+      {
+        "gitHubAccount": "donkirkham",
+        "company": "",
+        "pictureUrl": "https://github.com/donkirkham.png",
+        "name": "Don Kirkham"
+      }
+    ],
+    "references": [
+      {
+        "name": "Fast Node Manager (fnm)",
+        "description": "Fast and simple Node.js version manager",
+        "url": "https://github.com/Schniz/fnm"
+      },
+      {
+        "name": "SharePoint Framework Overview",
+        "description": "Official Microsoft documentation for SharePoint Framework",
+        "url": "https://learn.microsoft.com/en-us/sharepoint/dev/spfx/sharepoint-framework-overview"
+      }
+    ]
+  }
+]
