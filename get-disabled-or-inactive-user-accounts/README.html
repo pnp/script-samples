@@ -99,18 +99,165 @@
                     <h1 id="get-disabled-or-inactive-user-accounts">Get disabled or inactive user accounts</h1>
 
 <h2 id="summary">Summary</h2>
-<p>In order to keep your tenant clean (Governance), you might want to ensure that disabled or inactive user accounts will be replaced where oppropriate (Think Owners of sites/groups, assignedto user on tasks/planner and so on). This script will help you find those accounts.</p>
+<p>Maintaining a clean and well-governed Microsoft 365 tenant requires visibility into disabled and inactive user accounts. These accounts can unintentionally retain ownership or assignments across SharePoint sites, Microsoft Teams, Microsoft 365 Groups, and task-based workloads such as Planner.</p>
+<p>This script helps identify disabled and inactive user accounts from multiple sources, enabling administrators to proactively review and replace users where appropriate. By doing so, organizations can reduce operational risk, improve governance, and ensure continued accountability for owned resources and assigned workloads.</p>
 <p><img src="assets/example.png" alt="Example Screenshot"></p>
+<h3 id="purpose">Purpose</h3>
+<p>The purpose of this script is to support Microsoft 365 governance by identifying user accounts that are disabled or inactive but may still hold ownership, permissions, or assignments across the tenant. The output can be used as an input for remediation activities such as ownership reassignment, access review, or account cleanup.</p>
+<h3 id="use-cases">Use Cases</h3>
+<ul>
+<li>Identifying disabled users who still own SharePoint sites or Microsoft Teams</li>
+<li>Detecting inactive users assigned to Planner tasks or project deliverables</li>
+<li>Supporting periodic access reviews and governance audits</li>
+<li>Preparing for offboarding or tenant cleanup initiatives</li>
+</ul>
 <div class="tabGroup" id="tabgroup_CeZOj-G++Q">
 <ul role="tablist">
 <li role="presentation">
-<a href="#tabpanel_CeZOj-G++Q_pnpps" role="tab" aria-controls="tabpanel_CeZOj-G++Q_pnpps" data-tab="pnpps" tabindex="0" aria-selected="true">PnP PowerShell</a>
+<a href="#tabpanel_CeZOj-G++Q_pnppsv2" role="tab" aria-controls="tabpanel_CeZOj-G++Q_pnppsv2" data-tab="pnppsv2" tabindex="0" aria-selected="true">PnP PowerShell V2</a>
+</li>
+<li role="presentation">
+<a href="#tabpanel_CeZOj-G++Q_pnpps" role="tab" aria-controls="tabpanel_CeZOj-G++Q_pnpps" data-tab="pnpps" tabindex="-1">PnP PowerShell</a>
 </li>
 </ul>
-<section id="tabpanel_CeZOj-G++Q_pnpps" role="tabpanel" data-tab="pnpps">
+<section id="tabpanel_CeZOj-G++Q_pnppsv2" role="tabpanel" data-tab="pnppsv2">
 
 <pre><code class="lang-powershell">
+# =========================================
+# Script: User Status Discovery (PnP + Graph)
+# Purpose: Identify disabled and inactive users from multiple sources
+# =========================================
 
+function Get-DisabledUsersFromGraph {
+    param (
+        [Parameter(Mandatory)]
+        [PnP.PowerShell.Commands.Base.PnPConnection]$Connection
+    )
+
+    Invoke-PnPGraphMethod `
+        -Url &quot;users?`$select=displayName,userPrincipalName,mail,accountEnabled&quot; `
+        -All `
+        -Connection $Connection |
+    Where-Object { $_.accountEnabled -eq $false } |
+    ForEach-Object {
+        [PSCustomObject]@{
+            DisplayName       = $_.displayName
+            UserPrincipalName = $_.userPrincipalName
+            Mail              = $_.mail
+            Reason            = &quot;AccountDisabled&quot;
+            Source            = &quot;EntraID&quot;
+        }
+    }
+}
+
+function Get-DisabledUsersFromSharePointSearch {
+    param (
+        [Parameter(Mandatory)]
+        [PnP.PowerShell.Commands.Base.PnPConnection]$Connection
+    )
+
+    $results = Invoke-PnPSearchQuery `
+        -Query &quot;*&quot; `
+        -SourceId &quot;b09a7990-05ea-4af9-81ef-edfab16c4e31&quot; `
+        -SelectProperties &quot;WorkEmail,SPS-HideFromAddressLists&quot; `
+        -All `
+        -Connection $Connection
+
+    $results.ResultRows |
+    Where-Object { $_[&quot;SPS-HideFromAddressLists&quot;] -eq $true } |
+    ForEach-Object {
+        [PSCustomObject]@{
+            DisplayName       = $null
+            UserPrincipalName = $_[&quot;WorkEmail&quot;]
+            Mail              = $_[&quot;WorkEmail&quot;]
+            Reason            = &quot;HiddenFromGAL&quot;
+            Source            = &quot;SharePointSearch&quot;
+        }
+    }
+}
+
+function Get-InactiveUsersFromGraph {
+    param (
+        [Parameter(Mandatory)]
+        [PnP.PowerShell.Commands.Base.PnPConnection]$Connection,
+
+        [int]$InactiveDays = 90
+    )
+
+    $token = Get-PnPGraphAccessToken -Connection $Connection
+    $headers = @{
+        Authorization  = &quot;Bearer $token&quot;
+        &quot;Content-Type&quot; = &quot;application/json&quot;
+    }
+
+    $users = Invoke-RestMethod `
+        -Uri &quot;https://graph.microsoft.com/v1.0/users?`$select=id,displayName,userPrincipalName&quot; `
+        -Headers $headers `
+        -Method GET
+
+    foreach ($user in $users.value) {
+        $signInUri = &quot;https://graph.microsoft.com/v1.0/auditLogs/signIns?`$top=1&amp;`$filter=userPrincipalName eq '$($user.userPrincipalName)'&quot;
+        $signIn = Invoke-RestMethod -Uri $signInUri -Headers $headers -Method GET
+
+        if (
+            $signIn.value.Count -eq 0 -or
+            $signIn.value[0].createdDateTime -lt (Get-Date).AddDays(-$InactiveDays)
+        ) {
+            [PSCustomObject]@{
+                DisplayName       = $user.displayName
+                UserPrincipalName = $user.userPrincipalName
+                Mail              = $null
+                Reason            = &quot;Inactive &gt; $InactiveDays days&quot;
+                Source            = &quot;AuditLogs&quot;
+            }
+        }
+    }
+}
+
+# ---------------------------
+# Connection
+# ---------------------------
+
+$ClientId = &quot;clientid&quot;
+$TenantName = &quot;[domain].onmicrosoft.com&quot;
+$AdminUrl = &quot;https://[domain]-admin.sharepoint.com&quot;
+
+$conn = Connect-PnPOnline `
+    -Url $AdminUrl `
+    -ClientId $ClientId `
+    -Tenant $TenantName `
+    -CertificatePath &quot;C:\Certs\Cert.pfx&quot; `
+    -CertificatePassword (ConvertTo-SecureString &quot;ThePassword&quot; -AsPlainText -Force) `
+    -ReturnConnection
+
+# ---------------------------
+# Execution
+# ---------------------------
+
+$results = @()
+$results += Get-DisabledUsersFromGraph -Connection $conn
+$results += Get-DisabledUsersFromSharePointSearch -Connection $conn
+$results += Get-InactiveUsersFromGraph -Connection $conn -InactiveDays 90
+
+$results |
+    Sort-Object UserPrincipalName, Reason |
+    Export-Csv &quot;C:\Temp\UserStatusFindings.csv&quot; -NoTypeInformation -Encoding UTF8
+
+
+ 
+
+</code></pre>
+<div class="highlight-tool">
+<p>Check out the <strong>PnP PowerShell</strong> to learn more at: <a href="https://aka.ms/pnp/powershell">https://aka.ms/pnp/powershell</a></p>
+</div>
+<div class="highlight-tool">
+<p>The way you login into PnP PowerShell has changed please read <a href="https://github.com/pnp/powershell/discussions/4249">PnP Management Shell EntraID app is deleted : what should I do ?</a></p>
+</div>
+</section>
+<section id="tabpanel_CeZOj-G++Q_pnpps" role="tabpanel" data-tab="pnpps" aria-hidden="true" hidden="hidden">
+
+<p>In order to keep your tenant clean (Governance), you might want to ensure that disabled or inactive user accounts will be replaced where oppropriate (Think Owners of sites/groups, assignedto user on tasks/planner and so on). This script will help you find those accounts.</p>
+<pre><code class="lang-powershell">
 function Get-UserFromGraph 
 {
     $disabledusersfromgraph = @()
@@ -179,8 +326,6 @@ function Get-UserFromGraphThatHasntLoggedInResently($duration = 90)
 }
 
 
-
-
 $ClientId = &quot;clientid&quot;
 $TenantName = &quot;[domain].onmicrosoft.com&quot;
 $SharePointAdminSiteURL = &quot;https://[domain]-admin.sharepoint.com/&quot;
@@ -214,6 +359,9 @@ $userd1 | Export-Csv -Path &quot;C:\temp\disabledusers.csv&quot; -NoTypeInformat
 <tbody>
 <tr>
 <td>Kasper Larsen</td>
+</tr>
+<tr>
+<td><a href="https://github.com/ojopiyo">Josiah Opiyo</a></td>
 </tr>
 </tbody>
 </table>
