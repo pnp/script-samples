@@ -83,4 +83,4 @@ Write-Host "Script completed. Direct permissions exported to $ExportPath" -Foreg
 | [Josiah Opiyo](https://github.com/ojopiyo) |
 
 [!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
-<img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/get-spo-invalid-user-accounts" aria-hidden="true" />
+<img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/spo-get-m365-users-with-direct-sharepoint-permissions" aria-hidden="true" />
