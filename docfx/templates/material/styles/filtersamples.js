@@ -24,9 +24,11 @@ document.addEventListener('DOMContentLoaded', function () {
       title: '.sample-title'
     },
     filter: function (itemElem) {
-      var keywords = itemElem.getAttribute('data-keywords');
+      // Isotope may pass the element directly or need to access it from this
+      var element = itemElem.nodeType ? itemElem : this;
+      var keywords = element.getAttribute('data-keywords');
       var searchResult = qsRegex ? keywords.match(qsRegex) : true;
-      var buttonResult = buttonFilter ? itemElem.matches(buttonFilter) : true;
+      var buttonResult = buttonFilter ? element.matches(buttonFilter) : true;
       return searchResult && buttonResult;
     },
     fitRows: {
