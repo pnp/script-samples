@@ -11,7 +11,7 @@ Set-StrictMode -Version 2.0
 ./main/docfx/generate-samplesJson.ps1 -BaseDir "./main" -OutputFile "./main/docfx/samples.json"
 
 # Main DocFX build
-docfx build ./main/docfx/docfx.json --warningsAsErrors $args
+dotnet docfx build ./main/docfx/docfx.json --warningsAsErrors $args
 
 # Copy the created site to the pnpcoredocs folder (= clone of the gh-pages branch)
 #Remove-Item ./gh-pages/*/* -Recurse -Force
