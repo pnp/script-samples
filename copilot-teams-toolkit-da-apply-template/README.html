@@ -1,15 +1,15 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <!--[if IE]><![endif]-->
 <html lang="en">
-  
+
   <head>
     <meta charset="utf-8">
     <title>Create and apply template to Teams Toolkit Declarative Agent | PnP Samples </title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <meta name="title" content="Create and apply template to Teams Toolkit Declarative Agent | PnP Samples ">
-    <meta name="generator" content="docfx 2.56.7.0">
-    <meta name="description" content="A sample gallery of scripts to manage all things Microsoft 365.">
-  
+    <meta name="generator" content="docfx ">
+  <meta name="description" content="A sample gallery of scripts to manage all things Microsoft 365.">
+
     <!-- Social Media -->
     <meta property="og:locale" content="en_GB">
     <meta property="og:title" content="Create and apply template to Teams Toolkit Declarative Agent | PnP Samples ">
@@ -19,10 +19,10 @@
     <meta property="og:image:alt" content="Screenshot example of the PnP Script Samples Site">
     <meta property="og:site_name" content="PnP Script Samples">
     <meta name="msvalidate.01" content="04EFEDA66EC42C08A1247C979E2F9ADD">
-    <meta property="og:description" content="A sample gallery of scripts to manage all things Microsoft 365.">
-  
+  <meta property="og:description" content="A sample gallery of scripts to manage all things Microsoft 365.">
+
     <link rel="shortcut icon" href="https://c.s-microsoft.com/favicon.ico?v2">
-    <link rel="stylesheet" href="../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../styles/docfx.vendor.min.css">
     <link rel="stylesheet" href="../styles/docfx.css">
     <link rel="stylesheet" href="../styles/main.css">
     <link rel="stylesheet" href="../styles/extra.css">
@@ -31,9 +31,9 @@
     <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet"> 
     <meta property="docfx:navrel" content="../toc.html">
     <meta property="docfx:tocrel" content="../toc.html">
-    
-    
-    <meta property="docfx:newtab" content="true">
+  
+  
+  <meta property="docfx:newtab" content="true">
     <script type="text/javascript">
       (function(c,l,a,r,i,t,y){
           c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
@@ -44,7 +44,7 @@
   </head>  <body data-spy="scroll" data-target="#affix" data-offset="120">
     <div id="wrapper">
       <header>
-        
+
         <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
           <div class="container">
              <div class="github-mark">
@@ -78,7 +78,7 @@
               </button>
               <a class="navbar-brand" href="../index.html">
                 <img id="logo" class="svg" src="../assets/logo.svg" alt="">
-              </a>    </div>
+              </a>            </div>
             <div class="collapse navbar-collapse" id="navbar">
               <form class="navbar-form navbar-right" role="search" id="search">
                 <div class="form-group">
@@ -94,9 +94,9 @@
           <div class="col-md-12">
             <article class="content wrap" id="_content" data-uid="">
                   <div class="contribution-panel mobile-hide pull-right">
-                      <a href="https://github.com/pnp/script-samples/blob/main/scripts/copilot-teams-toolkit-da-apply-template/README.md/#L1" title="Improve this Doc" class="improve-doc-lg"><i class="glyphicon glyphicon-pencil"></i></a>
+                      <a href="https://github.com/pnp/script-samples/blob/main/scripts/copilot-teams-toolkit-da-apply-template/README.md/#L1" title="Edit this page" class="improve-doc-lg"><i class="glyphicon glyphicon-pencil"></i></a>
                   </div>
-                    <h1 id="create-and-apply-template-to-teams-toolkit-declarative-agent">Create and apply template to Teams Toolkit Declarative Agent</h1>
+  <h1 id="create-and-apply-template-to-teams-toolkit-declarative-agent">Create and apply template to Teams Toolkit Declarative Agent</h1>
 
 <h2 id="summary">Summary</h2>
 <p>When generating a set of templates for a Teams Toolkit Declarative Agent, you may want to apply the template to overlay the default Declarative agent reducing the need to repeat the same changes each time you develop your agent. This starter script will help you do that, as a principle. In theory, you can use a set of scripts to generate many agents with Teams Toolkit CLI.</p>
@@ -144,16 +144,16 @@
 </li>
 <li>Invoke-CoolScript.ps1</li>
 </ul>
-<div class="tabGroup" id="tabgroup_CeZOj-G++Q">
+<div class="tabGroup" id="tabgroup_1">
 <ul role="tablist">
 <li role="presentation">
-<a href="#tabpanel_CeZOj-G++Q_ps" role="tab" aria-controls="tabpanel_CeZOj-G++Q_ps" data-tab="ps" tabindex="0" aria-selected="true">PowerShell - Teams App CLI</a>
+<a href="#tabpanel_1_ps" role="tab" aria-controls="tabpanel_1_ps" data-tab="ps" tabindex="0" aria-selected="true">PowerShell - Teams App CLI</a>
 </li>
 <li role="presentation">
-<a href="#tabpanel_CeZOj-G++Q_ps1" role="tab" aria-controls="tabpanel_CeZOj-G++Q_ps1" data-tab="ps1" tabindex="-1">PowerShell - Teams App CLI (Bulk)</a>
+<a href="#tabpanel_1_ps1" role="tab" aria-controls="tabpanel_1_ps1" data-tab="ps1" tabindex="-1">PowerShell - Teams App CLI (Bulk)</a>
 </li>
 </ul>
-<section id="tabpanel_CeZOj-G++Q_ps" role="tabpanel" data-tab="ps">
+<section id="tabpanel_1_ps" role="tabpanel" data-tab="ps">
 
 <pre><code class="lang-powershell"># Name the PowerShell Script Set-TemplateOverlay.ps1
 [CmdletBinding()]
@@ -280,7 +280,7 @@ end{
 
 </code></pre>
 </section>
-<section id="tabpanel_CeZOj-G++Q_ps1" role="tabpanel" data-tab="ps1" aria-hidden="true" hidden="hidden">
+<section id="tabpanel_1_ps1" role="tabpanel" data-tab="ps1" aria-hidden="true" hidden="hidden">
 
 <pre><code class="lang-powershell">Read-Host -Prompt &quot;This script will set the template overlay for all folders in the current directory. Press Enter to continue or Ctrl+C to cancel.&quot;
 
@@ -296,19 +296,19 @@ end{
 <p>Check out the <strong>Microsoft Teams Toolkit CLI</strong> to learn more at: <a href="https://learn.microsoft.com/en-us/microsoftteams/platform/toolkit/teams-toolkit-cli?pivots=version-three">https://learn.microsoft.com/en-us/microsoftteams/platform/toolkit/teams-toolkit-cli?pivots=version-three</a></p>
 </div>
 <h2 id="template-files">Template Files</h2>
-<div class="tabGroup" id="tabgroup_CeZOj-G++Q-1">
+<div class="tabGroup" id="tabgroup_2">
 <ul role="tablist">
 <li role="presentation">
-<a href="#tabpanel_CeZOj-G++Q-1_json1" role="tab" aria-controls="tabpanel_CeZOj-G++Q-1_json1" data-tab="json1" tabindex="0" aria-selected="true">JSON - declarativeAgent.json </a>
+<a href="#tabpanel_2_json1" role="tab" aria-controls="tabpanel_2_json1" data-tab="json1" tabindex="0" aria-selected="true">JSON - declarativeAgent.json </a>
 </li>
 <li role="presentation">
-<a href="#tabpanel_CeZOj-G++Q-1_json2" role="tab" aria-controls="tabpanel_CeZOj-G++Q-1_json2" data-tab="json2" tabindex="-1">JSON - instruction.md </a>
+<a href="#tabpanel_2_json2" role="tab" aria-controls="tabpanel_2_json2" data-tab="json2" tabindex="-1">JSON - instruction.md </a>
 </li>
 <li role="presentation">
-<a href="#tabpanel_CeZOj-G++Q-1_json3" role="tab" aria-controls="tabpanel_CeZOj-G++Q-1_json3" data-tab="json3" tabindex="-1">JSON - manifest.json </a>
+<a href="#tabpanel_2_json3" role="tab" aria-controls="tabpanel_2_json3" data-tab="json3" tabindex="-1">JSON - manifest.json </a>
 </li>
 </ul>
-<section id="tabpanel_CeZOj-G++Q-1_json1" role="tabpanel" data-tab="json1">
+<section id="tabpanel_2_json1" role="tabpanel" data-tab="json1">
 
 <pre><code class="lang-json">{
     &quot;$schema&quot;: &quot;https://developer.microsoft.com/json-schemas/copilot/declarative-agent/v1.3/schema.json&quot;,
@@ -329,12 +329,12 @@ end{
 }
 </code></pre>
 </section>
-<section id="tabpanel_CeZOj-G++Q-1_json2" role="tabpanel" data-tab="json2" aria-hidden="true" hidden="hidden">
+<section id="tabpanel_2_json2" role="tabpanel" data-tab="json2" aria-hidden="true" hidden="hidden">
 
 <pre><code class="lang-json">You are a declarative agent and were created to support developers in extending and developing agents for Microsoft 365 Copilot. 
 </code></pre>
 </section>
-<section id="tabpanel_CeZOj-G++Q-1_json3" role="tabpanel" data-tab="json3" aria-hidden="true" hidden="hidden">
+<section id="tabpanel_2_json3" role="tabpanel" data-tab="json3" aria-hidden="true" hidden="hidden">
 
 <pre><code class="lang-json">{
   &quot;$schema&quot;: &quot;https://developer.microsoft.com/json-schemas/teams/v1.19/MicrosoftTeams.schema.json&quot;,
@@ -398,11 +398,12 @@ end{
 <h2 id="disclaimer">Disclaimer</h2>
 <p><strong>THESE SAMPLES ARE PROVIDED <em>AS IS</em> WITHOUT WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, INCLUDING ANY IMPLIED WARRANTIES OF FITNESS FOR A PARTICULAR PURPOSE, MERCHANTABILITY, OR NON-INFRINGEMENT.</strong></p>
 <img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/copilot-teams-toolkit-da-apply-template" aria-hidden="true">
+
 </article>
           </div>
         </div>
       </div>
-      
+
       <footer>
         <div class="grad-bottom"></div>
         <div class="footer">
@@ -410,17 +411,17 @@ end{
             <span class="pull-right">
               <a href="#top">Back to top</a>
             </span>
-            <span>Script Samples<br>Generated by <strong><a href='https://dotnet.github.io/docfx' alt='Doc FX Website'>DocFX</a></strong> with <strong><a href='https://ovasquez.github.io/docfx-material' alt='DocFx Material Theme'>Material UI</a></strong></span>
-            
+      <span>Script Samples<br>Generated by <strong><a href='https://dotnet.github.io/docfx' alt='Doc FX Website'>DocFX</a></strong> with <strong><a href='https://ovasquez.github.io/docfx-material' alt='DocFx Material Theme'>Material UI</a></strong></span>
+      
             <!-- <img src="https://telemetry.sharepointpnp.com/@pnp.github.io/index/" alt="spacer"> -->
           </div>
         </div>
       </footer>    </div>
-    
-    <script type="text/javascript" src="../styles/docfx.vendor.js"></script>
+
+    <script type="text/javascript" src="../styles/docfx.vendor.min.js"></script>
     <script type="text/javascript" src="../styles/docfx.js"></script>
     <script type="text/javascript" src="../styles/main.js"></script>
-    
+
     <script type="text/javascript" src="../styles/clipboard.min.js"></script>
     <script type="text/javascript" src="../styles/isotope.pkgd.min.js"></script>
     <script type="text/javascript" src="../styles/loadsamples.js"></script>

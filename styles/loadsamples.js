@@ -104,7 +104,7 @@ function loadSample(sample, filter, viewMode) {
 
         // Extract tags
         var tags = "";
-        $.each(sample.tags, function (_u, tag) {
+        sample.tags.forEach(function (tag) {
           tags = tags + "#" + tag + ",";
         });
 
@@ -113,9 +113,9 @@ function loadSample(sample, filter, viewMode) {
         keywords = keywords.toLowerCase();
 
         // Build the HTML to insert
-        var $items;
+        var itemHTML;
         if (viewMode === 'compact-view') {
-          $items = $(`
+          itemHTML = `
 <a class="sample-thumbnail compact-view" href="${sample.url}" data-modified="${sample.updateDateTime}" data-title="${title}" data-keywords="${keywords}" data-tags="${tags}" data-libraries="${libraries}" data-operation="${operations}" data-products="${products}">
   <div class="sample-inner">
     <div class="sample-details">
@@ -133,9 +133,9 @@ function loadSample(sample, filter, viewMode) {
       </div>
     </div>
   </div>
-</a>`);
+</a>`;
         } else {
-          $items = $(`
+          itemHTML = `
 <a class="sample-thumbnail" href="${sample.url}" data-modified="${sample.updateDateTime}" data-title="${title}" data-keywords="${keywords}" data-tags="${tags}" data-libraries="${libraries}" data-operation="${operations}" data-products="${products}">
   <div class="sample-inner">
     <div class="sample-preview">
@@ -156,10 +156,10 @@ function loadSample(sample, filter, viewMode) {
       </div>
     </div>
   </div>
-</a>`);
+</a>`;
         }
 
-       return $items;
+       return itemHTML;
       } catch (error) {
         console.log("Error with one sample", error, sample);
       }

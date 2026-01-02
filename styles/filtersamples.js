@@ -1,11 +1,20 @@
-$(document).ready(function () {
-  var filterText = $('#sample-listing').data("filter");
+document.addEventListener('DOMContentLoaded', function () {
+  var sampleListing = document.getElementById('sample-listing');
+  if (!sampleListing) return;
+
+  var filterText = sampleListing.getAttribute('data-filter');
   var qsRegex;
   var buttonFilter;
-  var viewMode = $('#sample-listing').data("view") || 'grid'; // Default view mode
+  var viewMode = sampleListing.getAttribute('data-view') || 'grid'; // Default view mode
+
+  // Check if Isotope is available
+  if (typeof Isotope === 'undefined') {
+    console.error('Isotope library is not loaded');
+    return;
+  }
 
   // init Isotope
-  var $grid = $('#sample-listing').isotope({
+  var grid = new Isotope('#sample-listing', {
     itemSelector: '.sample-thumbnail',
     layoutMode: 'fitRows',
     sortBy: 'modified',
@@ -14,9 +23,14 @@ $(document).ready(function () {
       modified: '[data-modified]',
       title: '.sample-title'
     },
-    filter: function () {
-      var searchResult = qsRegex ? $(this).data("keywords").match(qsRegex) : true;
-      var buttonResult = buttonFilter ? $(this).is(buttonFilter) : true;
+    filter: function (itemElem) {
+      // Isotope's filter function context: In jQuery mode, `this` refers to the element.
+      // In vanilla JS, the element may be passed as a parameter. Check if itemElem is a DOM node,
+      // otherwise fall back to `this` context for Isotope compatibility.
+      var element = itemElem.nodeType ? itemElem : this;
+      var keywords = element.getAttribute('data-keywords');
+      var searchResult = qsRegex ? keywords.match(qsRegex) : true;
+      var buttonResult = buttonFilter ? element.matches(buttonFilter) : true;
       return searchResult && buttonResult;
     },
     fitRows: {
@@ -25,79 +39,105 @@ $(document).ready(function () {
   });
 
   // Display/hide a message when there are no results
-  $grid.on('arrangeComplete', function (_event, filteredItems) {
-    if (filteredItems.length > 0) {
-      $("#noresults").hide();
-    } else {
-      $("#noresults").show();
+  grid.on('arrangeComplete', function (filteredItems) {
+    var noResults = document.getElementById('noresults');
+    if (noResults) {
+      if (filteredItems.length > 0) {
+        noResults.style.display = 'none';
+      } else {
+        noResults.style.display = 'block';
+      }
     }
   });
 
   // Get the JSON
-  $.getJSON(jsonPath, function (data) {
-    var asc = true;
-    var prop = "updateDateTime";
+  fetch(jsonPath)
+    .then(response => response.json())
+    .then(data => {
+      var asc = true;
+      var prop = "updateDateTime";
 
-    // Sort data descending order
-    data = data.sort(function (a, b) {
-      try {
-        if (asc) return (a[prop] > b[prop]) ? 1 : ((a[prop] < b[prop]) ? -1 : 0);
-        else return (b[prop] > a[prop]) ? 1 : ((b[prop] < a[prop]) ? -1 : 0);
-      } catch (error) {
-        return 0;
-      }
-    });
-
-    $.each(data, function (_u, sample) {
-      var item = loadSample(sample, filterText, viewMode);
-      if (item !== null) {
-        $grid.append(item).isotope('appended', item);
-      }
-    });
-
-    // Update the sort
-    $grid.isotope('updateSortData').isotope();
-  });
-
-  // Get the list of filters to use
-  var filter = $('#filters .filter-choice');
-
-  // Get the search box
-  var search = $('#post-search-input');
-
-  $('.filter-list').each(function (_i, buttonGroup) {
-    var $buttonGroup = $(buttonGroup);
-    $buttonGroup.on('click', '.filter-choice', function () {
-      $buttonGroup.find('.active').removeClass('active');
-      $(this).addClass('active');
-      var filters = [];
-
-      filter.filter('.active').each(function () {
-        filters.push($(this).data("filter"));
+      // Sort data descending order
+      data = data.sort(function (a, b) {
+        try {
+          if (asc) return (a[prop] > b[prop]) ? 1 : ((a[prop] < b[prop]) ? -1 : 0);
+          else return (b[prop] > a[prop]) ? 1 : ((b[prop] < a[prop]) ? -1 : 0);
+        } catch (error) {
+          return 0;
+        }
       });
 
-      filters = filters.join('');
-      buttonFilter = filters;
-      $grid.isotope();
+      data.forEach(function (sample) {
+        var item = loadSample(sample, filterText, viewMode);
+        if (item !== null) {
+          var tempDiv = document.createElement('div');
+          tempDiv.innerHTML = item;
+          var element = tempDiv.firstElementChild;
+          sampleListing.appendChild(element);
+          grid.appended(element);
+        }
+      });
+
+      // Update the sort
+      grid.updateSortData();
+      grid.arrange();
+    })
+    .catch(error => console.error('Error loading samples:', error));
+
+  // Get the list of filters to use
+  var filterChoices = document.querySelectorAll('#filters .filter-choice');
+
+  // Get the search box
+  var searchInput = document.getElementById('post-search-input');
+
+  var filterLists = document.querySelectorAll('.filter-list');
+  filterLists.forEach(function (buttonGroup) {
+    buttonGroup.addEventListener('click', function (event) {
+      var target = event.target;
+      if (target.classList.contains('filter-choice')) {
+        var activeInGroup = buttonGroup.querySelector('.active');
+        if (activeInGroup) {
+          activeInGroup.classList.remove('active');
+        }
+        target.classList.add('active');
+        
+        var filters = [];
+        var activeFilters = document.querySelectorAll('#filters .filter-choice.active');
+        activeFilters.forEach(function (filter) {
+          filters.push(filter.getAttribute('data-filter'));
+        });
+
+        filters = filters.join('');
+        buttonFilter = filters;
+        grid.arrange();
+      }
     });
   });
 
-  search.on('change keyup paste', debounce(function () {
-    qsRegex = new RegExp(search.val(), 'gi');
-    $grid.isotope();
+  if (searchInput) {
+    // Create a single function for search handling
+    function handleSearch() {
+      qsRegex = new RegExp(searchInput.value, 'gi');
+      grid.arrange();
 
-    // Update the URL
-    var url = window.location.href;
-    var urlParts = url.split("?");
-    var searchVal = search.val();
-    var newUrl = urlParts[0];
+      // Update the URL
+      var url = window.location.href;
+      var urlParts = url.split("?");
+      var searchVal = searchInput.value;
+      var newUrl = urlParts[0];
 
-    if (searchVal.length > 0) {
-      newUrl = urlParts[0] + "?query=" + searchVal;
+      if (searchVal.length > 0) {
+        newUrl = urlParts[0] + "?query=" + searchVal;
+      }
+
+      window.history.pushState({}, "", newUrl);
     }
 
-    window.history.pushState({}, "", newUrl);
-  }, 200));
+    // Attach the handler to all relevant events
+    searchInput.addEventListener('input', debounce(handleSearch, 200));
+    searchInput.addEventListener('keyup', debounce(handleSearch, 200));
+    searchInput.addEventListener('paste', debounce(handleSearch, 200));
+  }
 
   // debounce so filtering doesn't happen every millisecond
   function debounce(fn, threshold) {
@@ -116,11 +156,12 @@ $(document).ready(function () {
 
   // See if there are any passed parameters
   try {
-    $grid.one('arrangeComplete', function () {
+    grid.once('arrangeComplete', function () {
       var urlParams = new URLSearchParams(window.location.search);
       var query = urlParams.get('query');
-      if (query !== "") {
-        search.val(query).change();
+      if (query !== "" && query !== null && searchInput) {
+        searchInput.value = query;
+        searchInput.dispatchEvent(new Event('input'));
       }
     });
   } catch (error) {
