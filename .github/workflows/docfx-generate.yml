@@ -43,7 +43,23 @@ jobs:
     - name: Build docs
       shell: pwsh
       run: |
-        ./main/docfx/build.ps1
+        $ErrorActionPreference = "Stop"
+        Set-StrictMode -Version 2.0
+        
+        cd main
+        
+        # Data Generated Content
+        ./docfx/report-matrix.ps1 -BaseDir "." -ReportFile "./docfx/matrix.md"
+        ./docfx/report-metadata.ps1 -BaseDir "." -ReportFile "./docfx/metadata.md"
+        ./docfx/report-cmdusage.ps1 -BaseDir "." -ReportFile "./docfx/cmdusage.md"
+        ./docfx/report-age.ps1 -BaseDir "." -ReportFile "./docfx/age.md"
+        ./docfx/generate-samplesJson.ps1 -BaseDir "." -OutputFile "./docfx/samples.json"
+        
+        # Main DocFX build
+        dotnet docfx build ./docfx/docfx.json --warningsAsErrors $args
+        
+        # Copy the created site to the gh-pages folder
+        copy-item -Force -Recurse ./docfx/_site/* -Destination "../gh-pages"
     # Add, commit and push the changes
     - name: Add & Commit & Push
       uses: EndBug/add-and-commit@v6
