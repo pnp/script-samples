@@ -30,17 +30,15 @@ jobs:
       with: 
         ref: gh-pages
         path: gh-pages
-    # Install docfx, stick with version 2.51 as higher versions result in https://github.com/dotnet/docfx/issues/5785 > fixed in 2.56.4+
-    - name: Install dependencies
+    # Install .NET SDK (if not already available) and DocFx as a dotnet tool
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: '8.x'
+    - name: Install DocFx
       run: |
-        wget https://github.com/dotnet/docfx/releases/download/v2.56.7/docfx.zip
-        sudo unzip docfx.zip -d /usr/local/lib/docfx
-        rm docfx.zip
-        echo '#!/bin/sh' | sudo tee -a /usr/local/bin/docfx > /dev/null
-        echo 'exec `which mono` $MONO_OPTIONS /usr/local/lib/docfx/docfx.exe "$@"' | sudo tee -a /usr/local/bin/docfx > /dev/null
-        sudo chmod +wx /usr/local/bin/docfx
-        sudo mkdir /usr/local/lib/docfx/plugins
-        sudo cp ./main/docfx/plugins/* /usr/local/lib/docfx/plugins
+        cd main
+        dotnet tool restore
     # Build docs
     - name: Build docs
       shell: pwsh
