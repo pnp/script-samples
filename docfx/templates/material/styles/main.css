@@ -57,7 +57,6 @@ body {
   -ms-text-size-adjust: 100%;
   -webkit-text-size-adjust: 100%;
   word-wrap: break-word;
-  background-color: rgba(213, 209, 205, 0.15);
 }
 
 /* HIGHLIGHT COLOR */
@@ -80,11 +79,11 @@ button:focus,
 a:hover,
 a:focus,
 .sample-inner:not() {
-  text-decoration: underline;
+  text-decoration: none;
 }
 
 .article p a{
-  text-decoration: underline;
+  text-decoration: none;
 }
 
 wrapper{
