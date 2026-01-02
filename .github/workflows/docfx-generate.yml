@@ -8,6 +8,8 @@ on:
 jobs:
   # This workflow contains a single job called "build"
   docfx:
+    permissions:
+      contents: write
     # The type of runner that the job will run on
     # Note temporary patch - https://github.com/actions/runner-images/issues/10636
     runs-on: ubuntu-latest
