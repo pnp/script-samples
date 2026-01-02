@@ -24,7 +24,9 @@ document.addEventListener('DOMContentLoaded', function () {
       title: '.sample-title'
     },
     filter: function (itemElem) {
-      // Isotope may pass the element directly or need to access it from this
+      // Isotope's filter function context: In jQuery mode, `this` refers to the element.
+      // In vanilla JS, the element may be passed as a parameter. Check if itemElem is a DOM node,
+      // otherwise fall back to `this` context for Isotope compatibility.
       var element = itemElem.nodeType ? itemElem : this;
       var keywords = element.getAttribute('data-keywords');
       var searchResult = qsRegex ? keywords.match(qsRegex) : true;
