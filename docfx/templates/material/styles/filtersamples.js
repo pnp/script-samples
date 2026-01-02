@@ -111,7 +111,8 @@ document.addEventListener('DOMContentLoaded', function () {
   });
 
   if (searchInput) {
-    searchInput.addEventListener('input', debounce(function () {
+    // Create a single function for search handling
+    function handleSearch() {
       qsRegex = new RegExp(searchInput.value, 'gi');
       grid.arrange();
 
@@ -126,41 +127,12 @@ document.addEventListener('DOMContentLoaded', function () {
       }
 
       window.history.pushState({}, "", newUrl);
-    }, 200));
+    }
 
-    searchInput.addEventListener('keyup', debounce(function () {
-      qsRegex = new RegExp(searchInput.value, 'gi');
-      grid.arrange();
-
-      // Update the URL
-      var url = window.location.href;
-      var urlParts = url.split("?");
-      var searchVal = searchInput.value;
-      var newUrl = urlParts[0];
-
-      if (searchVal.length > 0) {
-        newUrl = urlParts[0] + "?query=" + searchVal;
-      }
-
-      window.history.pushState({}, "", newUrl);
-    }, 200));
-
-    searchInput.addEventListener('paste', debounce(function () {
-      qsRegex = new RegExp(searchInput.value, 'gi');
-      grid.arrange();
-
-      // Update the URL
-      var url = window.location.href;
-      var urlParts = url.split("?");
-      var searchVal = searchInput.value;
-      var newUrl = urlParts[0];
-
-      if (searchVal.length > 0) {
-        newUrl = urlParts[0] + "?query=" + searchVal;
-      }
-
-      window.history.pushState({}, "", newUrl);
-    }, 200));
+    // Attach the handler to all relevant events
+    searchInput.addEventListener('input', debounce(handleSearch, 200));
+    searchInput.addEventListener('keyup', debounce(handleSearch, 200));
+    searchInput.addEventListener('paste', debounce(handleSearch, 200));
   }
 
   // debounce so filtering doesn't happen every millisecond
