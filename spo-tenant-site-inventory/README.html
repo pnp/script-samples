@@ -100,13 +100,106 @@
 
 <h2 id="summary">Summary</h2>
 <p>This script provides you the list of active sites in your tenant with their administrator and usage in MB.</p>
+<h2 id="why-it-matters--real-world-scenario">Why It Matters / Real-World Scenario</h2>
+<p>In many Microsoft 365 tenants, SharePoint sites can quickly grow in number, with varying levels of administrative access and external sharing. Without visibility, it’s easy for unused or inactive sites to remain accessible, or for administrators to have unnecessary access to sensitive content.</p>
+<p>For example, an organization may have hundreds of departmental and project sites, some of which have never been used or have files shared externally. Security and compliance teams need to know:</p>
+<ul>
+<li>Which sites have active administrators.</li>
+<li>Which sites have sensitive data shared externally.</li>
+<li>How recently sites have been used.</li>
+<li>The age of sites for lifecycle and archiving decisions.</li>
+</ul>
+<p>This script addresses these challenges by providing a single, comprehensive report. It allows administrators to identify inactive or outdated sites, review external sharing risks, and ensure that administrative permissions are appropriate. The insights generated help enforce least-privilege access, improve governance, and support compliance audits across the tenant.</p>
 <div class="tabGroup" id="tabgroup_1">
 <ul role="tablist">
 <li role="presentation">
-<a href="#tabpanel_1_pnpps" role="tab" aria-controls="tabpanel_1_pnpps" data-tab="pnpps" tabindex="0" aria-selected="true">PnP PowerShell</a>
+<a href="#tabpanel_1_pnppsV2" role="tab" aria-controls="tabpanel_1_pnppsV2" data-tab="pnppsV2" tabindex="0" aria-selected="true">PnP PowerShell V2</a>
+</li>
+<li role="presentation">
+<a href="#tabpanel_1_pnpps" role="tab" aria-controls="tabpanel_1_pnpps" data-tab="pnpps" tabindex="-1">PnP PowerShell</a>
 </li>
 </ul>
-<section id="tabpanel_1_pnpps" role="tabpanel" data-tab="pnpps">
+<section id="tabpanel_1_pnppsV2" role="tabpanel" data-tab="pnppsV2">
+
+<pre><code class="lang-powershell">
+param(
+    [Parameter(Mandatory=$true)]
+    [string]$AdminURL,
+
+    [Parameter(Mandatory=$true)]
+    [string]$OutputFile,
+
+    [switch]$IncludeLastActivity,
+
+    [switch]$IncludeExternalSharing
+)
+
+# Connect once to Admin Center
+Connect-PnPOnline -Url $AdminURL -Interactive
+
+# Get all SharePoint sites once
+$sites = Get-PnPTenantSite -IncludeOneDriveSites -Detailed
+$results = @()
+
+foreach ($site in $sites) {
+    try {
+        Write-Host &quot;Processing site: $($site.Url)&quot; -ForegroundColor Green
+
+        # Get site collection admins directly from the tenant-wide site object
+        $admins = $site.Owner | ForEach-Object { $_.Title }
+
+        # Storage usage from tenant site object
+        $storageSize = $site.StorageUsageCurrent
+        $createdDate = $site.CreationDate
+
+        $lastActivity = $null
+        $externalSharing = $null
+
+        if ($IncludeLastActivity) {
+            # Connect to site once to get last modified item
+            Connect-PnPOnline -Url $site.Url -Interactive
+            $lastItem = Get-PnPListItem -List &quot;Documents&quot; -PageSize 1 -SortField &quot;Modified&quot; -SortOrder Descending -ErrorAction SilentlyContinue
+            if ($lastItem) {
+                $lastActivity = $lastItem.FieldValues.Modified
+            }
+        }
+
+        if ($IncludeExternalSharing) {
+            Connect-PnPOnline -Url $site.Url -Interactive
+            $externalFiles = Get-PnPSharingForSite -Detailed | Where-Object { $_.SharedWithUsers -match &quot;External&quot; }
+            $externalSharing = if ($externalFiles) { &quot;Yes&quot; } else { &quot;No&quot; }
+        }
+
+        $siteInfo = [PSCustomObject]@{
+            SiteUrl = $site.Url
+            SiteName = $site.Title
+            Administrators = $admins -join &quot;;&quot;
+            StorageSizeMB = $storageSize
+            CreatedDate = $createdDate
+            LastActivity = $lastActivity
+            ExternalSharing = $externalSharing
+        }
+
+        $results += $siteInfo
+    }
+    catch {
+        Write-Host &quot;Error processing site $($site.Url): $_&quot; -ForegroundColor Red
+    }
+}
+
+# Export once
+$results | Export-Csv -Path $OutputFile -NoTypeInformation -Encoding UTF8
+Disconnect-PnPOnline
+Write-Host &quot;Site inventory exported to $OutputFile&quot; -ForegroundColor Green
+</code></pre>
+<div class="highlight-tool">
+<p>Check out the <strong>PnP PowerShell</strong> to learn more at: <a href="https://aka.ms/pnp/powershell">https://aka.ms/pnp/powershell</a></p>
+</div>
+<div class="highlight-tool">
+<p>The way you login into PnP PowerShell has changed please read <a href="https://github.com/pnp/powershell/discussions/4249">PnP Management Shell EntraID app is deleted : what should I do ?</a></p>
+</div>
+</section>
+<section id="tabpanel_1_pnpps" role="tabpanel" data-tab="pnpps" aria-hidden="true" hidden="hidden">
 
 <pre><code class="lang-powershell">
 Connect-PnPOnline -Url &quot;https://contoso-admin.sharepoint.com/&quot; -Interactive
@@ -153,6 +246,8 @@ Disconnect-PnPOnline
 <div class="highlight-tool">
 <p>The way you login into PnP PowerShell has changed please read <a href="https://github.com/pnp/powershell/discussions/4249">PnP Management Shell EntraID app is deleted : what should I do ?</a></p>
 </div>
+</section>
+</div>
 <h2 id="contributors">Contributors</h2>
 <table>
 <thead>
@@ -164,13 +259,14 @@ Disconnect-PnPOnline
 <tr>
 <td><a href="https://github.com/Diksha-Bhura">Diksha Bhura</a></td>
 </tr>
+<tr>
+<td><a href="https://github.com/ojopiyo">Josiah Opiyo</a></td>
+</tr>
 </tbody>
 </table>
 <h2 id="disclaimer">Disclaimer</h2>
 <p><strong>THESE SAMPLES ARE PROVIDED <em>AS IS</em> WITHOUT WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, INCLUDING ANY IMPLIED WARRANTIES OF FITNESS FOR A PARTICULAR PURPOSE, MERCHANTABILITY, OR NON-INFRINGEMENT.</strong></p>
 <img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/spo-tenant-site-inventory" aria-hidden="true">
-</section>
-</div>
 
 </article>
           </div>
