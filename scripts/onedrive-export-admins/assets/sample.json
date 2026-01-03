@@ -9,14 +9,14 @@
       "This script exports every OneDrive in the tenant, and the site collection admins of the site. This helps audit which admins have unnecessary access to user OneDrives."
     ],
     "creationDateTime": "2022-04-16",
-    "updateDateTime": "2022-04-16",
+    "updateDateTime": "2025-12-18",
     "products": [
       "SharePoint"
     ],
     "metadata": [
       {
         "key": "PNP-POWERSHELL",
-        "value": "1.5.0"
+        "value": "3.1.0"
       }
     ],
     "categories": [
@@ -31,10 +31,16 @@
         "type": "image",
         "order": 100,
         "url": "https://raw.githubusercontent.com/pnp/script-samples/main/scripts/onedrive-export-admins/assets/OneDriveAdmins.png",
-        "alt": "Preview of the sample <title>"
+        "alt": "Preview of the sample Export OneDrive Admins"
       }
     ],
     "authors": [
+      {
+        "gitHubAccount": "ojopiyo",
+        "company": "",
+        "pictureUrl": "https://github.com/ojopiyo.png",
+        "name": "Josiah Opiyo"
+      },
       {
         "gitHubAccount": "Maher256",
         "company": "Netwoven",
