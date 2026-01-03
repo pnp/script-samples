@@ -1,20 +1,10 @@
 
 
-# Export OneDrive Admins
+# M365 Get OneDrive Admins Report
 
 ## Summary
-Have you ever needed to know which Admins have added themselves to which OneDrives? This script exports every OneDrive in the tenant, and the site collection admins of the site. This helps audit which admins have unnecessary access to user OneDrives. Once you have the report, you can identify unnecessary access by filtering in Excel.
+Imagine your organization recently had an internal audit, or you’re reviewing governance after a team restructure. You need to know which administrators have access to employee OneDrive accounts to ensure no unnecessary permissions exist. Get-OneDrive-Admins helps by exporting all OneDrive sites in the tenant along with their Site Collection Administrators. With this report, you can quickly identify administrators who may have elevated access they don’t need — for example, ex-managers, IT staff who no longer require direct access, or temporary admins — and take action to remove unnecessary permissions. The output is CSV-based, making it easy to filter, sort, and review in Excel.
 
-![Example Screenshot](assets/OneDriveAdmins.png)
-
-The report produces a csv file with one row per Site Collection Admin and OneDrive. This report has four columns:
-SiteURL
-SiteName
-SiteCollectionAdmin
-SiteCollectionAdminName
-
-
-# [PnP PowerShell v2](#tab/pnppsv2)
 
 ## Parameters / Configuration
 
@@ -44,6 +34,8 @@ The CSV output file will contain the following values:
 - For large tenants, consider running in PowerShell 7 for better performance
 - CSV can be filtered in Excel to quickly identify unnecessary or excessive access
 - The script is **read-only**; it does not modify permissions
+
+# [PnP PowerShell](#tab/pnpps)
 
 ```powershell
 
@@ -109,56 +101,6 @@ Write-Host "Script completed successfully!" -ForegroundColor Green
 
 ```
 [!INCLUDE [More about PnP PowerShell](../../docfx/includes/MORE-PNPPS.md)]
-
-
-# [PnP PowerShell](#tab/pnpps)
-
-```powershell
-
-#Parameters
-$AdminURL = "https://contoso-admin.sharepoint.com"
-$ReportOutput = "OneDriveAdmins.csv"
-
-#Authentication Details - If you have not registered PnP before, simply run the command Register-PnPAzureADApp to create an App
-$ClientId = "xxxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxx"
-$Thumbprint = "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
-$Tenant = "contoso.onmicrosoft.com"
-
-#Connect to SharePoint Online Admin site
-Connect-PnPOnline $AdminURL -ClientId $ClientId -Thumbprint $Thumbprint  -Tenant $Tenant 
-
-#Get all Mysites
-$MySites = Get-PnPTenantSite -IncludeOneDriveSites -Filter "Url -like '-my.sharepoint.com/personal/'"
-
-foreach ($MySite in $MySites) {
-    try{
-        write-host "Processing"$Mysite.Title -ForegroundColor Green
-        #Connect to the MySite
-        Connect-PnPOnline $MySite.Url -ClientId $ClientId -Thumbprint $Thumbprint  -Tenant $Tenant -ErrorAction Stop
-        #Get the admins
-        $Admins = Get-PnPSiteCollectionAdmin -ErrorAction Stop
-        
-        foreach($admin in $Admins){
-            #Foreach admin make a record to output to CSV   
-            $Result = New-Object PSObject -Property ([ordered]@{
-                SiteURL = $Mysite.Url
-                SiteName = $Mysite.Title
-                SiteCollectionAdmin = $admin.Email
-                SiteCollectionAdminName = $admin.Title
-            })
-            
-            #Export the results to CSV
-            $Result | Export-Csv -Path $ReportOutput -NoTypeInformation -Append
-
-        }
-    }catch{
-        #We encountered an error, print it to the screen
-        write-host "Error with site collection"$Mysite.Title -ForegroundColor Red
-    }
-}
-
-```
-[!INCLUDE [More about PnP PowerShell](../../docfx/includes/MORE-PNPPS.md)]
 ***
 
 
@@ -166,7 +108,6 @@ foreach ($MySite in $MySites) {
 
 | Author(s) |
 |-----------|
-| Matt Maher |
 | [Josiah Opiyo](https://github.com/ojopiyo) |
 
 
