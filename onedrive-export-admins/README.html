@@ -109,10 +109,112 @@ SiteCollectionAdminName</p>
 <div class="tabGroup" id="tabgroup_1">
 <ul role="tablist">
 <li role="presentation">
-<a href="#tabpanel_1_pnpps" role="tab" aria-controls="tabpanel_1_pnpps" data-tab="pnpps" tabindex="0" aria-selected="true">PnP PowerShell</a>
+<a href="#tabpanel_1_pnppsv2" role="tab" aria-controls="tabpanel_1_pnppsv2" data-tab="pnppsv2" tabindex="0" aria-selected="true">PnP PowerShell v2</a>
+</li>
+<li role="presentation">
+<a href="#tabpanel_1_pnpps" role="tab" aria-controls="tabpanel_1_pnpps" data-tab="pnpps" tabindex="-1">PnP PowerShell</a>
 </li>
 </ul>
-<section id="tabpanel_1_pnpps" role="tabpanel" data-tab="pnpps">
+<section id="tabpanel_1_pnppsv2" role="tabpanel" data-tab="pnppsv2">
+<h2 id="parameters--configuration">Parameters / Configuration</h2>
+<p>Customize the following values:</p>
+<ul>
+<li><strong>AdminURL</strong> – SharePoint Admin Center URL</li>
+<li><strong>ClientId</strong> – Azure AD App Client ID</li>
+<li><strong>Thumbprint</strong> – Certificate thumbprint</li>
+<li><strong>Tenant</strong> – Tenant domain (e.g., contoso.onmicrosoft.com)</li>
+<li><strong>OutputFile</strong> – Path to export the CSV</li>
+</ul>
+<h2 id="output-details">Output Details</h2>
+<p>The CSV output file will contain the following values:</p>
+<ul>
+<li><strong>SiteURL</strong> – URL of the OneDrive site</li>
+<li><strong>SiteName</strong> – Name of the OneDrive site</li>
+<li><strong>SiteCollectionAdmin</strong> – Admin email address</li>
+<li><strong>SiteCollectionAdminName</strong> – Admin display name</li>
+</ul>
+<h2 id="real-world-scenarios--use-cases">Real-World Scenarios / Use Cases</h2>
+<ul>
+<li>Auditing OneDrive admins after an internal restructure or staff departures</li>
+<li>Ensuring compliance and least-privilege access policies</li>
+<li>Preparing for internal or external security audits</li>
+</ul>
+<h2 id="notes--tips">Notes / Tips</h2>
+<ul>
+<li>For large tenants, consider running in PowerShell 7 for better performance</li>
+<li>CSV can be filtered in Excel to quickly identify unnecessary or excessive access</li>
+<li>The script is <strong>read-only</strong>; it does not modify permissions</li>
+</ul>
+<pre><code class="lang-powershell">
+# Parameters
+$AdminURL = &quot;https://contoso-admin.sharepoint.com&quot;
+$ClientId = &quot;xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx&quot;
+$Thumbprint = &quot;XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX&quot;
+$Tenant = &quot;contoso.onmicrosoft.com&quot;
+$OutputFile = &quot;C:\Reports\OneDriveAdmins.csv&quot;
+
+# Connect to SharePoint Admin Center
+Connect-PnPOnline -Url $AdminURL -ClientId $ClientId -Thumbprint $Thumbprint -Tenant $Tenant -ErrorAction Stop
+
+# Get all OneDrive (MySite) sites
+$MySites = Get-PnPTenantSite -IncludeOneDriveSites -Filter &quot;Url -like '-my.sharepoint.com/personal/'&quot;
+
+# Initialize results and error logs
+$AllAdmins = @()
+$ErrorLog = @()
+
+# Process each MySite
+foreach ($MySite in $MySites) {
+    try {
+        Write-Host &quot;Processing: $($MySite.Title)&quot; -ForegroundColor Green
+
+        # Connect to the MySite
+        Connect-PnPOnline -Url $MySite.Url -ClientId $ClientId -Thumbprint $Thumbprint -Tenant $Tenant -ErrorAction Stop
+
+        # Get site collection admins
+        $Admins = Get-PnPSiteCollectionAdmin -ErrorAction Stop
+
+        foreach ($admin in $Admins) {
+            $AllAdmins += [PSCustomObject]@{
+                SiteURL                 = $MySite.Url
+                SiteName                = $MySite.Title
+                SiteCollectionAdmin     = $admin.Email
+                SiteCollectionAdminName = $admin.Title
+            }
+        }
+    }
+    catch {
+        Write-Warning &quot;Error processing site $($MySite.Title): $_&quot;
+        $ErrorLog += [PSCustomObject]@{
+            SiteURL = $MySite.Url
+            SiteName = $MySite.Title
+            ErrorMessage = $_.Exception.Message
+        }
+    }
+}
+
+# Export results to CSV
+$AllAdmins | Export-Csv -Path $OutputFile -NoTypeInformation -Encoding UTF8
+
+# Export errors if any
+if ($ErrorLog.Count -gt 0) {
+    $ErrorFile = &quot;C:\Reports\Errors-OneDriveAdmins.csv&quot;
+    $ErrorLog | Export-Csv -Path $ErrorFile -NoTypeInformation -Encoding UTF8
+    Write-Warning &quot;Errors encountered. See $ErrorFile for details.&quot;
+}
+
+Write-Host &quot;Script completed successfully!&quot; -ForegroundColor Green
+
+
+</code></pre>
+<div class="highlight-tool">
+<p>Check out the <strong>PnP PowerShell</strong> to learn more at: <a href="https://aka.ms/pnp/powershell">https://aka.ms/pnp/powershell</a></p>
+</div>
+<div class="highlight-tool">
+<p>The way you login into PnP PowerShell has changed please read <a href="https://github.com/pnp/powershell/discussions/4249">PnP Management Shell EntraID app is deleted : what should I do ?</a></p>
+</div>
+</section>
+<section id="tabpanel_1_pnpps" role="tabpanel" data-tab="pnpps" aria-hidden="true" hidden="hidden">
 
 <pre><code class="lang-powershell">
 #Parameters
@@ -176,6 +278,9 @@ foreach ($MySite in $MySites) {
 <tbody>
 <tr>
 <td>Matt Maher</td>
+</tr>
+<tr>
+<td><a href="https://github.com/ojopiyo">Josiah Opiyo</a></td>
 </tr>
 </tbody>
 </table>

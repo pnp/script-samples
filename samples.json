@@ -3251,14 +3251,14 @@
     "shortDescription": "Exports every OneDrive in the tenant, and the site collection admins. Audit which admins have access to user OneDrives.",
     "url": "onedrive-export-admins/README.html",
     "creationDateTime": "2022-04-16",
-    "updateDateTime": "2022-04-16",
+    "updateDateTime": "2025-12-18",
     "products": [
       "SharePoint"
     ],
     "metadata": [
       {
         "key": "PNP-POWERSHELL",
-        "value": "1.5.0"
+        "value": "3.1.0"
       }
     ],
     "categories": [
@@ -3273,10 +3273,16 @@
         "type": "image",
         "order": 100,
         "url": "onedrive-export-admins/assets/OneDriveAdmins.png",
-        "alt": "Preview of the sample <title>"
+        "alt": "Preview of the sample Export OneDrive Admins"
       }
     ],
     "authors": [
+      {
+        "gitHubAccount": "ojopiyo",
+        "company": "",
+        "pictureUrl": "https://github.com/ojopiyo.png",
+        "name": "Josiah Opiyo"
+      },
       {
         "gitHubAccount": "Maher256",
         "company": "Netwoven",
