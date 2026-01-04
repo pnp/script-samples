@@ -6,7 +6,9 @@
 
 Apply a theme to a specific SharePoint site without adding a tenant theme that would be available for all sites through the "Change the look" menu. This sample is available in both PnP PowerShell and CLI for Microsoft 365.
 
-![Example Screenshot](assets/preview.png)
+Example of applying a custom theme to a SharePoint site using CLI for Microsoft 365:
+
+![Example Screenshot of CLI for Microsoft 365](assets/preview.png)
 
 
 # [PnP PowerShell](#tab/pnpps)
