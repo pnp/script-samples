@@ -6,6 +6,9 @@
 
 This script compares files from two different SharePoint tenants by calculating and comparing their hash values. This is useful for verifying file integrity after migrations or ensuring files are identical across tenants. This sample is available in both PnP PowerShell and CLI for Microsoft 365.
 
+Example of script output of the CLI for Microsoft 365 version:
+
+![preview CLI for Microsoft 365 output](assets/preview.png)
 
 # [PnP PowerShell](#tab/pnpps)
 
