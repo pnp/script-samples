@@ -151,7 +151,7 @@ Treat MFA phone numbers as **confidential information**.
 
 ---
 
-## 📝 Script Header Example (Optional)
+## 📝 Script 
 
 ```powershell
 <#
