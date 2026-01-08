@@ -8,7 +8,7 @@ Key behaviors:
 - Calls the Graph API `authentication/phoneMethods` endpoint for each user to collect MFA phone numbers.
 - Cleans phone numbers (removes non-digit characters) and writes/upserts user and phone data into the `MFAUserData` list using PnP.PowerShell.
 
-## Important security note (READ FIRST)
+## Important security note
 
 The version of the script included here contains a hard-coded client secret in `Get-UserToken`. Do NOT commit client secrets into source control. Before running in any production or shared repo, remove any hard-coded secrets and use one of the recommended approaches below:
 
