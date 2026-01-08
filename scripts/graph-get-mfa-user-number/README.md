@@ -86,19 +86,6 @@ After completion you'll have a UTF-8 CSV at the path you provided.
 
 If you want `MethodType` or other phone-method metadata, add that property when building each PSCustomObject from `$m`.
 
-## Troubleshooting
-
-- No phone methods for user: the script records a row with empty phone fields for users without phone methods (adjust logic if you prefer to skip those users).
-- Permission errors: ensure the app has the required application permissions and admin consent. Use the Azure portal to double-check consent.
-- Graph throttling: implement retry/backoff for `Invoke-RestMethod` calls if you hit rate limits.
-
-## Suggested improvements / next steps
-
-- Do not echo secrets; use `Read-Host -AsSecureString` or environment variables.
-- Replace raw REST calls with Microsoft.Graph SDK method calls where feasible for consistency.
-- Add paging support or server-side filtering to only retrieve the users you need (the current script enumerates all users via `Get-MgUser -All`).
-- Add logging, error handling, and a dry-run or verbose mode.
-
 ``` powershell
 <#
 .SYNOPSIS
@@ -240,6 +227,19 @@ Export-UserMfaPhoneDetailsToCsv -AccessToken $token -OutputPath $outputPath
 [!INCLUDE [More about Microsoft Graph PowerShell SDK](../../docfx/includes/MORE-GRAPHSDK.md)]
 ***
 
+## Troubleshooting
+
+- No phone methods for user: the script records a row with empty phone fields for users without phone methods (adjust logic if you prefer to skip those users).
+- Permission errors: ensure the app has the required application permissions and admin consent. Use the Azure portal to double-check consent.
+- Graph throttling: implement retry/backoff for `Invoke-RestMethod` calls if you hit rate limits.
+
+## Suggested improvements / next steps
+
+- Do not echo secrets; use `Read-Host -AsSecureString` or environment variables.
+- Replace raw REST calls with Microsoft.Graph SDK method calls where feasible for consistency.
+- Add paging support or server-side filtering to only retrieve the users you need (the current script enumerates all users via `Get-MgUser -All`).
+- Add logging, error handling, and a dry-run or verbose mode.
+- 
 ## Contributors
 
 | Author(s) |
