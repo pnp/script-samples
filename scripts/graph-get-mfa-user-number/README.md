@@ -8,16 +8,6 @@ Key behaviors:
 - Calls the Graph API `authentication/phoneMethods` endpoint for each user to collect MFA phone numbers.
 - Cleans phone numbers (removes non-digit characters) and writes/upserts user and phone data into the `MFAUserData` list using PnP.PowerShell.
 
-## Important security note
-
-The version of the script included here contains a hard-coded client secret in `Get-UserToken`. Do NOT commit client secrets into source control. Before running in any production or shared repo, remove any hard-coded secrets and use one of the recommended approaches below:
-
-- Use environment variables or a secure vault (Azure Key Vault, Windows Credential Manager, SecretManager).
-- Use a certificate-based credential for app-only auth instead of a client secret.
-- Use Managed Identity (if running from an Azure resource that supports it).
-
-If this repository contains real secrets, rotate those credentials immediately.
-
 ### Prerequisites
 
 - PowerShell 7+ (pwsh) is recommended.
