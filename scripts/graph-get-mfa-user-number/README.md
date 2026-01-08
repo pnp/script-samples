@@ -1,6 +1,6 @@
-# Export Entra ID user MFA phone details to CSV
+# Export Entra ID user MFA phone details instead of masked phone number to CSV
 
-Export Entra ID user MFA phone details to CSV.This PowerShell script enumerates users in Microsoft Entra ID (Azure AD) and reads their MFA/phone authentication methods from Microsoft Graph, then upserts that data into a Microsoft List named `MFAUserData` in SharePoint. If we directly query Phone number via Microsoft Graph it returns only last 4 digits. This script mimics that and gets complete user number.
+Export Entra ID user MFA phone details to CSV.This PowerShell script enumerates users in Microsoft Entra ID (Azure AD) and reads their MFA/phone authentication methods from Microsoft Graph, then upserts that data into a Microsoft List named `MFAUserData` in SharePoint. If we directly query Phone number instead of masked number. This script mimics that and gets complete user number.
 
 Key behaviors:
 
@@ -58,18 +58,6 @@ Recommended: Export client secret and other values via environment variables and
 
 > Note: The original header included `MethodType` in comments; the current script exports the five columns above. You can append `MethodType` when iterating phone methods by adding the `@odata.type` or other method properties to the PSCustomObject.
 
-
-
-## Security notes (very important)
-
-- The interactive script prompts for a client secret. Avoid printing secrets to the console. The sample `Get-UserToken` implementation currently writes the secret back with `Write-Host` — remove that line immediately.
-- Prefer one of these secure approaches instead of pasting secrets into the console:
-
-  - Store secrets in Azure Key Vault and read them at runtime.
-  - Use environment variables (e.g., $env:MYAPP_CLIENT_SECRET) and read them in the script.
-  - Use certificate-based app credentials or managed identities where possible.
-
-- If any real client secrets existed in this repository, rotate them now.
 
 ## How to run
 
