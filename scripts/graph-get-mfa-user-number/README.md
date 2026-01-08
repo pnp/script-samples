@@ -1,6 +1,6 @@
 # Export Entra ID user MFA phone details to CSV
 
-Export Entra ID user MFA phone details to CSV.This PowerShell script enumerates users in Microsoft Entra ID (Azure AD) and reads their MFA/phone authentication methods from Microsoft Graph, then upserts that data into a Microsoft List named `MFAUserData` in SharePoint.
+Export Entra ID user MFA phone details to CSV.This PowerShell script enumerates users in Microsoft Entra ID (Azure AD) and reads their MFA/phone authentication methods from Microsoft Graph, then upserts that data into a Microsoft List named `MFAUserData` in SharePoint. If we directly query Phone number via Microsoft Graph it returns only last 4 digits. This script mimics that and gets complete user number.
 
 Key behaviors:
 
