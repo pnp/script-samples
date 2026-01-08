@@ -1,17 +1,45 @@
-# Export Entra ID user MFA phone details instead of masked phone number to CSV
+# Export Entra ID User MFA Phone Details (Unmasked) to CSV
 
-Export Entra ID user MFA phone details to CSV.This PowerShell script enumerates users in Microsoft Entra ID (Azure AD) and reads their MFA/phone authentication methods from Microsoft Graph, then upserts that data into a Microsoft List named `MFAUserData` in SharePoint. If we directly query Phone number instead of masked number. This script mimics that and gets complete user number.
+This PowerShell script enumerates users in Microsoft Entra ID (formerly Azure AD) and retrieves their **Multi-Factor Authentication (MFA) / phone authentication methods** using Microsoft Graph.  
+Unlike standard user directory properties that return **masked** phone numbers, this script queries the **Authentication Phone Methods API**, which returns the **actual configured MFA phone number**, and exports the data to CSV.
 
-Key behaviors:
+This is useful for administrators who need to reconcile MFA phone numbers, validate ownership, or support audit and migration activities.
 
-- Retrieves users (uses `Get-MgUser` with a filter for UPNs starting with 'T' in the provided script).
-- Calls the Graph API `authentication/phoneMethods` endpoint for each user to collect MFA phone numbers.
-- Cleans phone numbers (removes non-digit characters) and writes/upserts user and phone data into the `MFAUserData` list using PnP.PowerShell.
+> ⚠️ **Security Notice**  
+> MFA phone numbers are sensitive data. Ensure correct governance, storage protection, and access controls when running or distributing this script.
 
-### Prerequisites
 
-- PowerShell 7+ (pwsh) is recommended.
-- Install the Microsoft Graph PowerShell SDK and PnP.PowerShell modules:
+## ✨ Features
+
+- Retrieves Microsoft Entra ID users  
+- Calls the Graph `authentication/phoneMethods` endpoint to return **unmasked MFA phone numbers**
+- Cleans and normalizes phone numbers (digits-only format included)
+- Supports **app-only authentication** using OAuth2 client credentials
+- Exports structured output to CSV containing:
+  - `DisplayName`
+  - `UserPrincipalName`
+  - `LDAPUserName` (`onPremisesSamAccountName`)
+  - `PhoneNumber`
+  - `CleanedPhone` (digits only)
+
+---
+
+## 🔐 Required Microsoft Graph Permissions (Application / App-Only)
+
+Create an App Registration and grant **admin-consented** Graph API permissions such as:
+
+- `AuthenticationMethod.Read.All`  
+  **or**
+- `AuthenticationMethods.Read.All`
+- `User.Read.All`
+- `Directory.Read.All`
+
+> Use least-privilege permissions and validate in a non-production tenant first.
+
+## 🧰 Prerequisites
+
+- **PowerShell 7+ (recommended)**
+- Install required modules:
 
 ```powershell
 Install-Module -Name Microsoft.Graph -Scope CurrentUser -AllowClobber
@@ -19,80 +47,123 @@ Install-Module -Name PnP.PowerShell -Scope CurrentUser
 ```
 
 - An Azure AD application with the required application permissions (granted by an administrator).
-
-Suggested Graph application permissions (app-only) you'll likely need:
-
-- Authentication Methods / phone read permission (e.g., AuthenticationMethods.Read.All or AuthenticationMethods.ReadWrite.All) — grant admin consent.
-- User read permissions (User.Read.All) — grant admin consent.
-- Directory.Read.All - grant admin consent
+- Suggested Graph application permissions (app-only) you'll likely need:
+  - Authentication Methods / phone read permission (e.g., AuthenticationMethods.Read.All or AuthenticationMethods.ReadWrite.All) — grant admin consent.
+  - User read permissions (User.Read.All) — grant admin consent.
+  - Directory.Read.All - grant admin consent
 
 Note: permission names sometimes vary between SDKs and portal UI; grant the minimal required app permissions and test in a non-production tenant first.
 
-### Configuration
+## ⚙️ Authentication & Security
 
-Recommended: Export client secret and other values via environment variables and update `Get-UserToken` to read them:
+The script securely prompts for the following values at runtime:
 
-## Description
+- **Tenant ID**
+- **Client ID**
+- **Client Secret**
+- **Output CSV path**
 
-- Prompts for Tenant Id, Client Id, and Client Secret (no secrets hard-coded)
-- Uses Microsoft Graph REST with client credentials flow
-- Retrieves users (script currently enumerates all users via `Get-MgUser`) and filters in code for the intended set (example: UPN starts with 'T')
-- For each user, retrieves `authentication/phoneMethods` via Microsoft Graph
-- Exports the following columns to CSV:
+No credentials or secrets are stored in the script.
 
-  - DisplayName
-  - UserPrincipalName
-  - LDAPUserName (onPremisesSamAccountName)
-  - PhoneNumber
-  - CleanedPhone (digits only)
+Authentication is performed using the **OAuth2 client credentials flow** against Microsoft Graph.
 
-> Note: The original header included `MethodType` in comments; the current script exports the five columns above. You can append `MethodType` when iterating phone methods by adding the `@odata.type` or other method properties to the PSCustomObject.
+> 🔐 **Security Best Practice**  
+> Use least-privileged access, store secrets securely, and rotate credentials regularly.
 
+---
 
-## How to run
+## ▶️ How It Works
 
-1. Open PowerShell (pwsh).
-2. Install the Microsoft.Graph module (see Prerequisites).
-3. Save the script file locally (e.g., `Export-UserMfaPhoneDetails.ps1`).
-4. Run the script. The script prompts for Tenant Id, Client Id, Client Secret and an output CSV path.
+1. Authenticates to Microsoft Graph using the App Registration  
+2. Retrieves users via:
 
-Example run:
+   ```powershell
+   Get-MgUser
+   ```
+3. Queries each user’s authentication phone methods using:
+   https://graph.microsoft.com/v1.0/users/{id}/authentication/phoneMethods
+4. Extracts the configured MFA phone number(s)
 
-``` powershell
-# Run the script; you'll be prompted for TenantId, ClientId, ClientSecret and output path
+5. Normalizes phone values (including a digits-only variant)
+
+6. Exports the results to CSV
+
+---
+
+## 📄 Output Columns
+
+| Column | Description |
+|--------|-------------|
+| **DisplayName** | User display name |
+| **UserPrincipalName** | Sign-in name |
+| **LDAPUserName** | `onPremisesSamAccountName` |
+| **PhoneNumber** | Full MFA phone number |
+| **CleanedPhone** | Digits-only version of the phone |
+
+Additional properties such as `@odata.type` may be included if required.
+
+---
+
+## ▶️ Running the Script
+
+Run the script in PowerShell:
+
+```powershell
 .\Export-UserMfaPhoneDetails.ps1
-
 ```
+## 🛠 Troubleshooting
 
-After completion you'll have a UTF-8 CSV at the path you provided.
+- **No phone number returned**  
+  The user does not have any phone-based MFA method configured.
 
-## Output columns
+- **403 – Permission Denied**  
+  Verify that the App Registration has the required **admin-consented** Microsoft Graph permissions.
 
-- DisplayName
-- UserPrincipalName
-- LDAPUserName (onPremisesSamAccountName)
-- PhoneNumber
-- CleanedPhone (digits only)
+- **Rate limiting / throttling**  
+  For large tenants, implement retry logic with exponential back-off when calling Microsoft Graph.
 
-If you want `MethodType` or other phone-method metadata, add that property when building each PSCustomObject from `$m`.
+- **Masked phone values appear**  
+  Ensure the script is querying the **Authentication Phone Methods API** and not user profile attributes.
 
-``` powershell
+---
+
+## 🔄 Suggested Enhancements
+
+- Replace raw REST calls with Microsoft Graph PowerShell SDK equivalents
+- Secure credentials using environment variables or Azure Key Vault
+- Add structured logging and verbose tracing
+- Introduce paging and server-side filtering to limit user scope
+- Implement retry and resilience policies for Graph calls
+- Optionally upsert results into a SharePoint List
+
+---
+
+## 🛡 Governance & Data Handling
+
+Because this script retrieves **unmasked MFA phone numbers**, ensure that:
+
+- Script execution is restricted to authorized administrators
+- Exported CSV files are encrypted and stored securely
+- Data retention policies are followed
+- Script usage and access are auditable
+
+Treat MFA phone numbers as **confidential information**.
+
+---
+
+## 📝 Script Header Example (Optional)
+
+```powershell
 <#
 .SYNOPSIS
-    Export Entra ID user MFA phone details to CSV.
+    Export Entra ID user MFA phone details (unmasked) to CSV.
 
 .DESCRIPTION
-    - Prompts for Tenant Id, Client Id, and Client Secret (no secrets hard-coded)
-    - Uses Microsoft Graph REST with client credentials flow
-    - Retrieves users where userPrincipalName starts with 'T'
-    - For each user, retrieves authentication phoneMethods
-    - Exports:
-        DisplayName
-        UserPrincipalName
-        LDAPUserName (onPremisesSamAccountName)
-        PhoneNumber
-        CleanedPhone (digits only)
-        MethodType (@odata.type from phoneMethods)
+    Retrieves MFA phone authentication methods from Microsoft Graph
+    using app-only authentication and exports the full MFA phone number
+    along with user metadata to CSV.
+
+    Warning: Output contains sensitive authentication data.
 #>
 
 # ================================
@@ -217,18 +288,6 @@ Export-UserMfaPhoneDetailsToCsv -AccessToken $token -OutputPath $outputPath
 [!INCLUDE [More about Microsoft Graph PowerShell SDK](../../docfx/includes/MORE-GRAPHSDK.md)]
 ***
 
-## Troubleshooting
-
-- No phone methods for user: the script records a row with empty phone fields for users without phone methods (adjust logic if you prefer to skip those users).
-- Permission errors: ensure the app has the required application permissions and admin consent. Use the Azure portal to double-check consent.
-- Graph throttling: implement retry/backoff for `Invoke-RestMethod` calls if you hit rate limits.
-
-## Suggested improvements / next steps
-
-- Do not echo secrets; use `Read-Host -AsSecureString` or environment variables.
-- Replace raw REST calls with Microsoft.Graph SDK method calls where feasible for consistency.
-- Add paging support or server-side filtering to only retrieve the users you need (the current script enumerates all users via `Get-MgUser -All`).
-- Add logging, error handling, and a dry-run or verbose mode.
 - 
 ## Contributors
 
