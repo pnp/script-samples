@@ -99,25 +99,158 @@
   <h1 id="export-all-site-pages-details-from-site-pages-library">Export all site pages details from Site Pages library</h1>
 
 <h2 id="summary">Summary</h2>
-<p>This sample will export the required site pages information to CSV.</p>
+<p>This PowerShell script uses the PnP PowerShell module to connect to a SharePoint Online site and extract metadata from the Site Pages library. It collects key information for each page—such as titles, URLs, authorship, creation and modification dates, layout type, and banner image details—and exports the results to a timestamped CSV file for reporting and analysis purposes.</p>
+<h2 id="why-it-matters--real-world-scenarios">Why It Matters / Real-World Scenarios</h2>
+<p>Organizations often lack visibility into the volume, ownership, and status of modern SharePoint pages. This script enables administrators and site owners to:</p>
+<ul>
+<li>Perform content audits prior to migrations, restructures, or clean-up initiatives</li>
+<li>Identify outdated, unused, or orphaned pages</li>
+<li>Support governance and compliance reviews by providing page ownership and modification history</li>
+<li>Create an inventory of pages for site redesigns or information architecture planning</li>
+</ul>
+<h2 id="benefits-of-the-reported-data">Benefits of the Reported Data</h2>
+<ul>
+<li>Improved Governance: Clear visibility into who created and last modified each page</li>
+<li>Operational Insight: Understand page usage patterns and content lifecycle</li>
+<li>Risk Reduction: Identify pages with missing ownership or stale content</li>
+<li>Decision Support: Enables data-driven decisions for site cleanup, archiving, or redesign</li>
+<li>Audit Readiness: Produces a structured, exportable record of SharePoint page metadata</li>
+</ul>
 <h2 id="implementation">Implementation</h2>
 <ul>
 <li>Open Windows PowerShell ISE</li>
 <li>Create a new file</li>
 <li>Write a script as below,</li>
-<li>First, we will connect to the site from which site we want to get Site Pages library details.
-<ul>
+<li>First, we will connect to the site from which site we want to get Site Pages library details.</li>
 <li>Then we will get Site Pages details and export it to CSV.</li>
-</ul>
-</li>
 </ul>
 <div class="tabGroup" id="tabgroup_1">
 <ul role="tablist">
 <li role="presentation">
-<a href="#tabpanel_1_pnpps" role="tab" aria-controls="tabpanel_1_pnpps" data-tab="pnpps" tabindex="0" aria-selected="true">PnP PowerShell</a>
+<a href="#tabpanel_1_pnpps2" role="tab" aria-controls="tabpanel_1_pnpps2" data-tab="pnpps2" tabindex="0" aria-selected="true">PnP PowerShell V2</a>
+</li>
+<li role="presentation">
+<a href="#tabpanel_1_pnpps" role="tab" aria-controls="tabpanel_1_pnpps" data-tab="pnpps" tabindex="-1">PnP PowerShell</a>
 </li>
 </ul>
-<section id="tabpanel_1_pnpps" role="tabpanel" data-tab="pnpps">
+<section id="tabpanel_1_pnpps2" role="tabpanel" data-tab="pnpps2">
+
+<pre><code class="lang-powershell">
+# ============================
+# Configuration
+# ============================
+$SiteUrl  = &quot;https://domain.sharepoint.com/&quot;
+$BasePath = &quot;E:\Contribution\PnP-Scripts\Logs&quot;
+$DateTime = Get-Date -Format &quot;MM_dd_yy_HH_mm_ss&quot;
+$CsvPath  = Join-Path $BasePath &quot;SitePages_$DateTime.csv&quot;
+
+# Ensure log directory exists
+if (-not (Test-Path $BasePath)) {
+    New-Item -ItemType Directory -Path $BasePath | Out-Null
+}
+
+# ============================
+# Connect to SharePoint
+# ============================
+function Connect-ToSharePoint {
+    param (
+        [Parameter(Mandatory)]
+        [string]$Url
+    )
+
+    try {
+        Write-Host &quot;Connecting to $Url...&quot; -ForegroundColor Yellow
+        Connect-PnPOnline -Url $Url -Interactive
+        Write-Host &quot;Connected successfully!&quot; -ForegroundColor Green
+    }
+    catch {
+        throw &quot;Failed to connect to SharePoint: $($_.Exception.Message)&quot;
+    }
+}
+
+# ============================
+# Get Site Pages Metadata
+# ============================
+function Get-SitePagesDetails {
+    try {
+        Write-Host &quot;Retrieving Site Pages...&quot; -ForegroundColor Yellow
+
+        $pages = Get-PnPListItem `
+            -List &quot;Site Pages&quot; `
+            -PageSize 500 `
+            -Fields ID,Title,Description,PageLayoutType,FileRef,FileLeafRef,
+                    Created_x0020_Date,Last_x0020_Modified,
+                    Modified_x0020_By,Created_x0020_By,
+                    Author,Editor,BannerImageUrl,File_x0020_Type
+
+        $results = foreach ($page in $pages) {
+            [PSCustomObject]@{
+                ID              = $page.Id
+                Title           = $page[&quot;Title&quot;]
+                Description     = $page[&quot;Description&quot;]
+                PageLayoutType  = $page[&quot;PageLayoutType&quot;]
+                FileRef         = $page[&quot;FileRef&quot;]
+                FileName        = $page[&quot;FileLeafRef&quot;]
+                Created         = $page[&quot;Created_x0020_Date&quot;]
+                Modified        = $page[&quot;Last_x0020_Modified&quot;]
+                CreatedBy       = $page[&quot;Author&quot;]?.Email
+                ModifiedBy      = $page[&quot;Editor&quot;]?.Email
+                BannerImageUrl  = $page[&quot;BannerImageUrl&quot;]?.Url
+                FileType        = $page[&quot;File_x0020_Type&quot;]
+            }
+        }
+
+        return $results
+    }
+    catch {
+        throw &quot;Error retrieving Site Pages: $($_.Exception.Message)&quot;
+    }
+}
+
+# ============================
+# Export to CSV
+# ============================
+function Export-ToCsv {
+    param (
+        [Parameter(Mandatory)]
+        [object[]]$Data,
+
+        [Parameter(Mandatory)]
+        [string]$Path
+    )
+
+    try {
+        Write-Host &quot;Exporting data to CSV...&quot; -ForegroundColor Yellow
+        $Data | Export-Csv -Path $Path -NoTypeInformation
+        Write-Host &quot;Export completed: $Path&quot; -ForegroundColor Green
+    }
+    catch {
+        throw &quot;CSV export failed: $($_.Exception.Message)&quot;
+    }
+}
+
+# ============================
+# Main Execution
+# ============================
+try {
+    Connect-ToSharePoint -Url $SiteUrl
+    $SitePages = Get-SitePagesDetails
+    Export-ToCsv -Data $SitePages -Path $CsvPath
+}
+catch {
+    Write-Host $_ -ForegroundColor Red
+}
+
+
+</code></pre>
+<div class="highlight-tool">
+<p>Check out the <strong>PnP PowerShell</strong> to learn more at: <a href="https://aka.ms/pnp/powershell">https://aka.ms/pnp/powershell</a></p>
+</div>
+<div class="highlight-tool">
+<p>The way you login into PnP PowerShell has changed please read <a href="https://github.com/pnp/powershell/discussions/4249">PnP Management Shell EntraID app is deleted : what should I do ?</a></p>
+</div>
+</section>
+<section id="tabpanel_1_pnpps" role="tabpanel" data-tab="pnpps" aria-hidden="true" hidden="hidden">
 
 <pre><code class="lang-powershell">$siteURL = &quot;https://domain.sharepoint.com/&quot;
 $username = &quot;username@domain.onmicrosoft.com&quot;
@@ -185,6 +318,18 @@ StartProcessing
 </div>
 </section>
 </div>
+<h2 id="output">Output</h2>
+<ul>
+<li><strong>Format</strong>: CSV</li>
+<li><strong>Location</strong>: Configurable output directory</li>
+<li><strong>File Naming</strong>: Timestamped (prevents overwriting previous reports)</li>
+</ul>
+<h2 id="notes">Notes</h2>
+<ul>
+<li>Requires appropriate permissions to read the Site Pages library</li>
+<li>Supports modern authentication (MFA-compatible)</li>
+<li>Designed for single-site execution but easily extendable to multiple sites</li>
+</ul>
 <h2 id="contributors">Contributors</h2>
 <table>
 <thead>
@@ -194,10 +339,14 @@ StartProcessing
 </thead>
 <tbody>
 <tr>
-<td>Chandani Prajapati (<a href="https://github.com/chandaniprajapati">https://github.com/chandaniprajapati</a>)</td>
+<td><a href="https://github.com/chandaniprajapati">Chandani Prajapati</a></td>
+</tr>
+<tr>
+<td><a href="https://github.com/ojopiyo">Josiah Opiyo</a></td>
 </tr>
 </tbody>
 </table>
+<p><em>Built with a focus on automation, governance, least privilege, and clean Microsoft 365 tenants—helping M365 admins gain visibility and reduce operational risk.</em></p>
 <h2 id="disclaimer">Disclaimer</h2>
 <p><strong>THESE SAMPLES ARE PROVIDED <em>AS IS</em> WITHOUT WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, INCLUDING ANY IMPLIED WARRANTIES OF FITNESS FOR A PARTICULAR PURPOSE, MERCHANTABILITY, OR NON-INFRINGEMENT.</strong></p>
 <img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/spo-export-all-site-pages-details" aria-hidden="true">
