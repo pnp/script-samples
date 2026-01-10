@@ -93,7 +93,7 @@ $results |
 
 ```
 
-# [Usage](#tab/pnpps)
+# [Usage](#tab/usage)
 
 ```powershell
 
@@ -140,4 +140,4 @@ Version|Date|Comments
 
 
 [!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
-
+<img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/aad-audit-directory-role-assignments" aria-hidden="true" />
