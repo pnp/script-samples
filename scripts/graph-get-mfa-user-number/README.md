@@ -153,6 +153,8 @@ Treat MFA phone numbers as **confidential information**.
 
 ## 📝 Script 
 
+# [Microsoft Graph PowerShell](#tab/graphps)
+
 ```powershell
 <#
 .SYNOPSIS
@@ -288,7 +290,6 @@ Export-UserMfaPhoneDetailsToCsv -AccessToken $token -OutputPath $outputPath
 [!INCLUDE [More about Microsoft Graph PowerShell SDK](../../docfx/includes/MORE-GRAPHSDK.md)]
 ***
 
-- 
 ## Contributors
 
 | Author(s) |
@@ -296,4 +297,4 @@ Export-UserMfaPhoneDetailsToCsv -AccessToken $token -OutputPath $outputPath
 | [Divya Akula](https://github.com/divya-akula)|
 
 [!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
-<img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/graph-get-licenses-by-sku-email-if-low" aria-hidden="true" />
+<img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/graph-get-mfa-user-number" aria-hidden="true" />
