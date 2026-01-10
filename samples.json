@@ -197,6 +197,48 @@
     ]
   },
   {
+    "name": "aad-audit-directory-role-assignments",
+    "title": "Audit Azure AD (Entra ID) Role Assignments",
+    "shortDescription": "This script audits all privileged Entra ID directory role assignments across a Microsoft 365 tenant",
+    "url": "aad-audit-directory-role-assignments/README.html",
+    "creationDateTime": "2026-01-03",
+    "updateDateTime": "2026-01-03",
+    "products": [
+      "Graph"
+    ],
+    "metadata": [
+      {
+        "key": "GRAPH-POWERSHELL",
+        "value": "1.0.0"
+      }
+    ],
+    "categories": [
+      "Report"
+    ],
+    "tags": [
+      "Get-MgRoleManagementDirectoryRoleAssignment",
+      "Get-MgRoleManagementDirectoryRoleDefinition",
+      "Get-MgUser",
+      "Get-MgGroup"
+    ],
+    "thumbnails": [
+      {
+        "type": "image",
+        "order": 100,
+        "url": "aad-audit-directory-role-assignments/assets/preview.png",
+        "alt": "Preview of the sample Audit Azure AD (Entra ID) Role Assignments"
+      }
+    ],
+    "authors": [
+      {
+        "gitHubAccount": "ojopiyo",
+        "company": "",
+        "pictureUrl": "https://github.com/ojopiyo.png",
+        "name": "Josiah Opiyo"
+      }
+    ]
+  },
+  {
     "name": "aad-control-guestaccount-m365-groups-teams",
     "title": "Prevent Guests from Being Added to a Specific Microsoft 365 Group or Microsoft Teams team",
     "shortDescription": "Prevent Guests from Being Added to a Specific Microsoft 365 Group or Microsoft Teams team",

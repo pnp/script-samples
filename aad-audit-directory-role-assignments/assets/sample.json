@@ -1,0 +1,55 @@
+[
+  {
+    "name": "aad-audit-directory-role-assignments",
+    "source": "pnp",
+    "title": "Audit Azure AD (Entra ID) Role Assignments",
+    "shortDescription": "This script audits all privileged Entra ID directory role assignments across a Microsoft 365 tenant",
+    "url": "https://pnp.github.io/script-samples/aad-audit-directory-role-assignments/README.html",
+    "longDescription": [
+      ""
+    ],
+    "creationDateTime": "2026-01-03",
+    "updateDateTime": "2026-01-03",
+    "products": [
+      "Graph"
+    ],
+    "metadata": [
+      {
+        "key": "GRAPH-POWERSHELL",
+        "value": "1.0.0"
+      }
+    ],
+    "categories": [
+      "Report"
+    ],
+    "tags": [
+      "Get-MgRoleManagementDirectoryRoleAssignment",
+      "Get-MgRoleManagementDirectoryRoleDefinition",
+      "Get-MgUser",
+      "Get-MgGroup"
+    ],
+    "thumbnails": [
+      {
+        "type": "image",
+        "order": 100,
+        "url": "https://raw.githubusercontent.com/pnp/script-samples/main/scripts/aad-audit-directory-role-assignments/assets/preview.png",
+        "alt": "Preview of the sample Audit Azure AD (Entra ID) Role Assignments"
+      }
+    ],
+    "authors": [
+      {
+        "gitHubAccount": "ojopiyo",
+        "company": "",
+        "pictureUrl": "https://github.com/ojopiyo.png",
+        "name": "Josiah Opiyo"
+      }
+    ],
+    "references": [
+      {
+        "name": "Want to learn more about Microsoft Graph PowerShell SDK and the cmdlets",
+        "description": "Check out the Microsoft Graph PowerShell SDK documentation site to get started and for the reference to the cmdlets.",
+        "url": "https://learn.microsoft.com/graph/powershell/get-started"
+      }
+    ]
+  }
+]

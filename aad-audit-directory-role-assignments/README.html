@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html lang="en">
+
+  <head>
+    <meta charset="utf-8">
+    <title>Audit Azure AD (Entra ID) Role Assignments | PnP Samples </title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="title" content="Audit Azure AD (Entra ID) Role Assignments | PnP Samples ">
+    <meta name="generator" content="docfx ">
+  <meta name="description" content="A sample gallery of scripts to manage all things Microsoft 365.">
+
+    <!-- Social Media -->
+    <meta property="og:locale" content="en_GB">
+    <meta property="og:title" content="Audit Azure AD (Entra ID) Role Assignments | PnP Samples ">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://pnp.github.io/script-samples">
+    <meta property="og:image" content="https://pnp.github.io/script-samples/assets/social-media-screenshot.png">
+    <meta property="og:image:alt" content="Screenshot example of the PnP Script Samples Site">
+    <meta property="og:site_name" content="PnP Script Samples">
+    <meta name="msvalidate.01" content="04EFEDA66EC42C08A1247C979E2F9ADD">
+  <meta property="og:description" content="A sample gallery of scripts to manage all things Microsoft 365.">
+
+    <link rel="shortcut icon" href="https://c.s-microsoft.com/favicon.ico?v2">
+    <link rel="stylesheet" href="../styles/docfx.vendor.min.css">
+    <link rel="stylesheet" href="../styles/docfx.css">
+    <link rel="stylesheet" href="../styles/main.css">
+    <link rel="stylesheet" href="../styles/extra.css">
+    <link rel="stylesheet" href="../styles/filter.css">
+    <link rel="stylesheet" href="../styles/site.css">
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet"> 
+    <meta property="docfx:navrel" content="../toc.html">
+    <meta property="docfx:tocrel" content="../toc.html">
+  
+  
+  <meta property="docfx:newtab" content="true">
+    <script type="text/javascript">
+      (function(c,l,a,r,i,t,y){
+          c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+          t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+          y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+      })(window, document, "clarity", "script", "8j6pedl344");
+  </script>
+  </head>  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+             <div class="github-mark">
+              <a href="https://github.com/pnp/script-samples" title="Go to repository">
+               <div class="github-wrapper">
+                  <div class="github-icon">
+                    <img src="https://pnp.github.io/script-samples/assets/icons/github-light-64px.png" alt="GitHub Icon Image">
+                  </div>
+                  <div class="github-repository">
+                    <span>GitHub</span>
+                    <ul class="github-facts">
+                      <li>
+                        <i class="fa fa-code-fork" aria-hidden="true"></i>
+                        <span class="github-forks"></span>
+                      </li>
+                      <li>
+                        <i class="fa fa-star-o" aria-hidden="true"></i>
+                        <span class="github-stars"></span>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </a>
+            </div>
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../assets/logo.svg" alt="">
+              </a>            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <label class="glyphicon glyphicon-search" for="search-query"></label>
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>      </header>
+      <div role="main" class="container body-content hide-when-search">
+        <div class="article row grid">
+          <div class="col-md-12">
+            <article class="content wrap" id="_content" data-uid="">
+                  <div class="contribution-panel mobile-hide pull-right">
+                      <a href="https://github.com/pnp/script-samples/blob/main/scripts/aad-audit-directory-role-assignments/README.md/#L1" title="Edit this page" class="improve-doc-lg"><i class="glyphicon glyphicon-pencil"></i></a>
+                  </div>
+  <h1 id="audit-azure-ad-entra-id-role-assignments">Audit Azure AD (Entra ID) Role Assignments</h1>
+
+<h2 id="summary">Summary</h2>
+<p>This script audits all privileged Entra ID directory role assignments across a Microsoft 365 tenant using Microsoft Graph. It enumerates role assignments (direct and group-based), resolves the assigned principals (users, groups, service principals), and exports a clean, audit-ready report suitable for large tenants.</p>
+<h2 id="why-it-matters">Why It Matters</h2>
+<p>Security reviews, compliance attestations, and least-privilege initiatives require a single source of truth for who holds privileged access. Over time, directory roles are often granted via groups, inherited, or left assigned to inactive identities. This audit provides the evidence needed to identify excessive privilege, remediate risk, and satisfy auditors.</p>
+<h2 id="benefits">Benefits</h2>
+<ul>
+<li><strong>Complete visibility</strong> into privileged role assignments (not limited to currently activated roles).</li>
+<li><strong>Detects risky patterns</strong> (guest users, service principals, group-based elevation).</li>
+<li><strong>Audit-ready output</strong> for compliance and governance reviews.</li>
+<li><strong>Scales to large tenants</strong> using Microsoft Graph paging.</li>
+</ul>
+<div class="tabGroup" id="tabgroup_1">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_1_pnpps" role="tab" aria-controls="tabpanel_1_pnpps" data-tab="pnpps" tabindex="0" aria-selected="true">PowerShell Script</a>
+</li>
+<li role="presentation">
+<a href="#tabpanel_1_usage" role="tab" aria-controls="tabpanel_1_usage" data-tab="usage" tabindex="-1">Usage</a>
+</li>
+</ul>
+<section id="tabpanel_1_pnpps" role="tabpanel" data-tab="pnpps">
+
+<pre><code class="lang-powershell">
+param(
+    [Parameter(Mandatory)]
+    [string]$OutputPath
+)
+
+Connect-MgGraph -Scopes @(
+    &quot;RoleManagement.Read.Directory&quot;,
+    &quot;Directory.Read.All&quot;,
+    &quot;User.Read.All&quot;,
+    &quot;Group.Read.All&quot;
+)
+
+$roleDefinitions = Get-MgRoleManagementDirectoryRoleDefinition -All |
+    Select-Object Id, DisplayName
+
+$roleDefinitionLookup = @{}
+foreach ($rd in $roleDefinitions) {
+    $roleDefinitionLookup[$rd.Id] = $rd.DisplayName
+}
+
+$assignments = Get-MgRoleManagementDirectoryRoleAssignment -All
+
+$results = foreach ($assignment in $assignments) {
+
+    $roleName = $roleDefinitionLookup[$assignment.RoleDefinitionId]
+
+    $principalType = $assignment.PrincipalType
+    $principalId   = $assignment.PrincipalId
+
+    $principalName = $null
+    $principalUPN  = $null
+    $principalAppId = $null
+
+    switch ($principalType) {
+        &quot;User&quot; {
+            $user = Get-MgUser -UserId $principalId -ErrorAction SilentlyContinue
+            if ($user) {
+                $principalName = $user.DisplayName
+                $principalUPN  = $user.UserPrincipalName
+            }
+        }
+        &quot;Group&quot; {
+            $group = Get-MgGroup -GroupId $principalId -ErrorAction SilentlyContinue
+            if ($group) {
+                $principalName = $group.DisplayName
+            }
+        }
+        &quot;ServicePrincipal&quot; {
+            $sp = Get-MgServicePrincipal -ServicePrincipalId $principalId -ErrorAction SilentlyContinue
+            if ($sp) {
+                $principalName  = $sp.DisplayName
+                $principalAppId = $sp.AppId
+            }
+        }
+    }
+
+    [PSCustomObject]@{
+        RoleName        = $roleName
+        RoleDefinitionId= $assignment.RoleDefinitionId
+        AssignmentId    = $assignment.Id
+        AssignmentType  = if ($assignment.PrincipalType -eq &quot;Group&quot;) { &quot;GroupBased&quot; } else { &quot;Direct&quot; }
+        PrincipalType   = $principalType
+        PrincipalName   = $principalName
+        UserPrincipalName = $principalUPN
+        AppId           = $principalAppId
+        Scope           = $assignment.DirectoryScopeId
+    }
+}
+
+$results |
+    Sort-Object RoleName, PrincipalType, PrincipalName |
+    Export-Csv -Path $OutputPath -NoTypeInformation
+
+</code></pre>
+</section>
+<section id="tabpanel_1_usage" role="tabpanel" data-tab="usage" aria-hidden="true" hidden="hidden">
+
+<pre><code class="lang-powershell">
+# Prerequisites (once)
+Install-Module Microsoft.Graph -Scope CurrentUser
+
+# Permissions required (delegated or app):
+# RoleManagement.Read.Directory, Directory.Read.All, User.Read.All, Group.Read.All
+
+# Run
+.\Audit-EntraRoleAssignments.ps1 -OutputPath &quot;.\EntraRoleAssignments.csv&quot;
+
+</code></pre>
+<div class="highlight-tool">
+<p>Check out the <strong>PnP PowerShell</strong> to learn more at: <a href="https://aka.ms/pnp/powershell">https://aka.ms/pnp/powershell</a></p>
+</div>
+<div class="highlight-tool">
+<p>The way you login into PnP PowerShell has changed please read <a href="https://github.com/pnp/powershell/discussions/4249">PnP Management Shell EntraID app is deleted : what should I do ?</a></p>
+</div>
+</section>
+</div>
+<h2 id="output">Output</h2>
+<p>The CSV report includes the following fields:</p>
+<ul>
+<li>Role name and scope.</li>
+<li>Assignment type (Direct / Group).</li>
+<li>Principal type (User / Group / ServicePrincipal).</li>
+<li>Principal details (UPN/AppId/DisplayName).</li>
+<li>Assignment ID.</li>
+</ul>
+<h2 id="notes">Notes</h2>
+<ul>
+<li>Group-based assignments list the <strong>group</strong> as the principal (by design). Expand group membership separately if needed.</li>
+<li>PIM <strong>eligibility vs active</strong> can be added by querying PIM endpoints if required.</li>
+</ul>
+<h2 id="contributors">Contributors</h2>
+<table>
+<thead>
+<tr>
+<th>Author(s)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="https://github.com/ojopiyo">Josiah Opiyo</a></td>
+</tr>
+</tbody>
+</table>
+<p><em>Built with a focus on automation, governance, least privilege, and clean Microsoft 365 tenants—helping M365 admins gain visibility and reduce operational risk.</em></p>
+<h2 id="version-history">Version history</h2>
+<table>
+<thead>
+<tr>
+<th>Version</th>
+<th>Date</th>
+<th>Comments</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1.0</td>
+<td>Jan 03, 2026</td>
+<td>Initial release</td>
+</tr>
+</tbody>
+</table>
+<h2 id="disclaimer">Disclaimer</h2>
+<p><strong>THESE SAMPLES ARE PROVIDED <em>AS IS</em> WITHOUT WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, INCLUDING ANY IMPLIED WARRANTIES OF FITNESS FOR A PARTICULAR PURPOSE, MERCHANTABILITY, OR NON-INFRINGEMENT.</strong></p>
+<img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/aad-audit-directory-role-assignments" aria-hidden="true">
+
+</article>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+      <span>Script Samples<br>Generated by <strong><a href='https://dotnet.github.io/docfx' alt='Doc FX Website'>DocFX</a></strong> with <strong><a href='https://ovasquez.github.io/docfx-material' alt='DocFx Material Theme'>Material UI</a></strong></span>
+      
+            <!-- <img src="https://telemetry.sharepointpnp.com/@pnp.github.io/index/" alt="spacer"> -->
+          </div>
+        </div>
+      </footer>    </div>
+
+    <script type="text/javascript" src="../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+
+    <script type="text/javascript" src="../styles/clipboard.min.js"></script>
+    <script type="text/javascript" src="../styles/isotope.pkgd.min.js"></script>
+    <script type="text/javascript" src="../styles/loadsamples.js"></script>
+    <script type="text/javascript" src="../styles/filtersamples.js"></script>
+
+  </body>
+</html>
