@@ -1,0 +1,61 @@
+[
+  {
+    "name": "graph-get-mfa-user-number",
+    "source": "pnp",
+    "title": "Export Entra ID User MFA Phone Details (Unmasked) to CSV",
+    "shortDescription": "This PowerShell script enumerates users in Microsoft Entra ID (formerly Azure AD) and retrieves their **Multi-Factor Authentication (MFA) / phone authentication methods** using Microsoft Graph.",
+    "url": "https://pnp.github.io/script-samples/graph-get-mfa-user-number/README.html",
+    "longDescription": [
+      ""
+    ],
+    "creationDateTime": "2026-01-10",
+    "updateDateTime": "2026-01-10",
+    "products": [
+      "Graph"
+    ],
+    "metadata": [
+      {
+        "key": "PNP-POWERSHELL",
+        "value": "1.11.0"
+      },
+      {
+        "key": "GRAPH-POWERSHELL",
+        "value": "1.0.0"
+      }
+    ],
+    "categories": [
+      "Report"
+    ],
+    "tags": [
+      "<Cmdlets-Used>"
+    ],
+    "thumbnails": [
+      {
+        "type": "image",
+        "order": 100,
+        "url": "https://raw.githubusercontent.com/pnp/script-samples/main/scripts/graph-get-mfa-user-number/assets/preview.png",
+        "alt": "Preview of the sample Export Entra ID User MFA Phone Details (Unmasked) to CSV"
+      }
+    ],
+    "authors": [
+      {
+        "gitHubAccount": "divya-akula",
+        "company": "",
+        "pictureUrl": "https://github.com/divya-akula.png",
+        "name": "Divya Akula"
+      }
+    ],
+    "references": [
+      {
+        "name": "Want to learn more about PnP PowerShell and the cmdlets",
+        "description": "Check out the PnP PowerShell site to get started and for the reference to the cmdlets.",
+        "url": "https://aka.ms/pnp/powershell"
+      },
+      {
+        "name": "Want to learn more about Microsoft Graph PowerShell SDK and the cmdlets",
+        "description": "Check out the Microsoft Graph PowerShell SDK documentation site to get started and for the reference to the cmdlets.",
+        "url": "https://learn.microsoft.com/graph/powershell/get-started"
+      }
+    ]
+  }
+]
