@@ -64,9 +64,9 @@ Disconnect-PnPOnline
 
 
 ```
+[!INCLUDE [More about PnP PowerShell](../../docfx/includes/MORE-PNPPS.md)]
 
-
-# [Usage](#tab/pnpps)
+# [Usage](#tab/pnpps2)
 
 ```powershell
 
