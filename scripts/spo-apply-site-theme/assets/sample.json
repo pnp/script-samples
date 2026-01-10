@@ -9,7 +9,7 @@
       "Apply a theme to a specific SharePoint site without adding a tenant theme that would be available for all sites through the 'Change the look' menu."
     ],
     "creationDateTime": "2025-10-22",
-    "updateDateTime": "2025-10-22",
+    "updateDateTime": "2026-01-10",
     "products": [
       "SharePoint"
     ],
@@ -17,6 +17,10 @@
       {
         "key": "PNP-POWERSHELL",
         "value": "3.1.0"
+      },
+      {
+        "key": "CLI-FOR-MICROSOFT365",
+        "value": "11.3.0"
       }
     ],
     "categories": [
@@ -26,7 +30,11 @@
       "Connect-PnPOnline",
       "Get-PnPAccessToken",
       "Invoke-RestMethod",
-      "Disconnect-PnPOnline"
+      "Disconnect-PnPOnline",
+      "m365 login",
+      "m365 spo theme set",
+      "m365 spo theme apply",
+      "m365 spo theme remove"
     ],
     "thumbnails": [
       {
@@ -41,6 +49,11 @@
         "gitHubAccount": "a1mery",
         "pictureUrl": "https://github.com/a1mery.png",
         "name": "Aimery Thomas"
+      },
+      {
+        "gitHubAccount": "Adam-it",
+        "pictureUrl": "https://avatars.githubusercontent.com/u/58668583?v=4",
+        "name": "Adam Wójcik"
       }
     ],
     "references": [
@@ -48,6 +61,11 @@
         "name": "Want to learn more about PnP PowerShell and the cmdlets",
         "description": "Check out the PnP PowerShell site to get started and for the reference to the cmdlets.",
         "url": "https://aka.ms/pnp/powershell"
+      },
+      {
+        "name": "Want to learn more about CLI for Microsoft 365 and the commands",
+        "description": "Check out the CLI for Microsoft 365 site to get started and for the reference to the commands.",
+        "url": "https://aka.ms/cli-m365"
       }
     ]
   }
