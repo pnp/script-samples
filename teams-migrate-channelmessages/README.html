@@ -1,0 +1,1621 @@
+<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html lang="en">
+
+  <head>
+    <meta charset="utf-8">
+    <title>Migrate Teams Channel Messages | PnP Samples </title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="title" content="Migrate Teams Channel Messages | PnP Samples ">
+    <meta name="generator" content="docfx ">
+  <meta name="description" content="A sample gallery of scripts to manage all things Microsoft 365.">
+
+    <!-- Social Media -->
+    <meta property="og:locale" content="en_GB">
+    <meta property="og:title" content="Migrate Teams Channel Messages | PnP Samples ">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://pnp.github.io/script-samples">
+    <meta property="og:image" content="https://pnp.github.io/script-samples/assets/social-media-screenshot.png">
+    <meta property="og:image:alt" content="Screenshot example of the PnP Script Samples Site">
+    <meta property="og:site_name" content="PnP Script Samples">
+    <meta name="msvalidate.01" content="04EFEDA66EC42C08A1247C979E2F9ADD">
+  <meta property="og:description" content="A sample gallery of scripts to manage all things Microsoft 365.">
+
+    <link rel="shortcut icon" href="https://c.s-microsoft.com/favicon.ico?v2">
+    <link rel="stylesheet" href="../styles/docfx.vendor.min.css">
+    <link rel="stylesheet" href="../styles/docfx.css">
+    <link rel="stylesheet" href="../styles/main.css">
+    <link rel="stylesheet" href="../styles/extra.css">
+    <link rel="stylesheet" href="../styles/filter.css">
+    <link rel="stylesheet" href="../styles/site.css">
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet"> 
+    <meta property="docfx:navrel" content="../toc.html">
+    <meta property="docfx:tocrel" content="../toc.html">
+  
+  
+  <meta property="docfx:newtab" content="true">
+    <script type="text/javascript">
+      (function(c,l,a,r,i,t,y){
+          c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+          t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+          y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+      })(window, document, "clarity", "script", "8j6pedl344");
+  </script>
+  </head>  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+             <div class="github-mark">
+              <a href="https://github.com/pnp/script-samples" title="Go to repository">
+               <div class="github-wrapper">
+                  <div class="github-icon">
+                    <img src="https://pnp.github.io/script-samples/assets/icons/github-light-64px.png" alt="GitHub Icon Image">
+                  </div>
+                  <div class="github-repository">
+                    <span>GitHub</span>
+                    <ul class="github-facts">
+                      <li>
+                        <i class="fa fa-code-fork" aria-hidden="true"></i>
+                        <span class="github-forks"></span>
+                      </li>
+                      <li>
+                        <i class="fa fa-star-o" aria-hidden="true"></i>
+                        <span class="github-stars"></span>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </a>
+            </div>
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../assets/logo.svg" alt="">
+              </a>            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <label class="glyphicon glyphicon-search" for="search-query"></label>
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>      </header>
+      <div role="main" class="container body-content hide-when-search">
+        <div class="article row grid">
+          <div class="col-md-12">
+            <article class="content wrap" id="_content" data-uid="">
+                  <div class="contribution-panel mobile-hide pull-right">
+                      <a href="https://github.com/pnp/script-samples/blob/main/scripts/teams-migrate-channelmessages/README.md/#L1" title="Edit this page" class="improve-doc-lg"><i class="glyphicon glyphicon-pencil"></i></a>
+                  </div>
+  <h1 id="migrate-teams-channel-messages">Migrate Teams Channel Messages</h1>
+
+<h2 id="summary">Summary</h2>
+<p>This script provides a solution for migrating Teams channel content using the Microsoft Graph API with certificate-based authentication. It creates a new channel in the destination Team and migrates all messages, replies, and files while maintaining the original conversation structure and timestamps. This can also upgrade Standard Channels to Shared or Private Channels.</p>
+<p>The script follows these steps:</p>
+<ol>
+<li><strong>Authenticates</strong> to Graph API using certificate-based authentication</li>
+<li><strong>Looks up team IDs</strong> from source and destination team names</li>
+<li><strong>Looks up source channel ID</strong> from channel name</li>
+<li><strong>Validates channel type</strong> and owner requirements for Private and Shared Channels</li>
+<li><strong>Retrieves source channel</strong> information including Title and Description</li>
+<li><strong>Creates new channel</strong> with timestamped name (e.g., &quot;General_migrate_20260107_143052&quot;)</li>
+<li><strong>Starts migration mode</strong> on the new channel</li>
+<li><strong>Copies all files</strong> from source channel's SharePoint folder (with retry logic for private/shared channels)</li>
+<li><strong>Retrieves all messages</strong> including replies from source channel</li>
+<li><strong>Migrates messages</strong> with preserved authorship and timestamps</li>
+<li><strong>Finalizes migration mode</strong></li>
+</ol>
+<p><img src="assets/example.png" alt="Example Screenshot"></p>
+<h2 id="features">Features</h2>
+<h3 id="what-gets-migrated">What Gets Migrated</h3>
+<ul>
+<li><strong>All files</strong> in the channel's SharePoint folder (recursively copied)</li>
+<li><strong>All channel messages</strong> with original timestamps preserved</li>
+<li><strong>All replies</strong> to messages with conversation threading intact</li>
+<li><strong>Message formatting</strong> and @mentions</li>
+<li><strong>Inline images</strong> (hostedContents)</li>
+<li><strong>File attachments</strong></li>
+<li><strong>Original message authors</strong> (or uses fallback user for deleted accounts)</li>
+</ul>
+<h3 id="what-doesnt-get-migrated">What Doesn't Get Migrated</h3>
+<ul>
+<li><strong>Deleted messages</strong> (cannot be retrieved from API)</li>
+<li><strong>System messages</strong> (without user information)</li>
+<li><strong>Reactions</strong> (likes, hearts, etc.)</li>
+<li><strong>Non-Unicode Chars</strong> (Some Emojis are non unicode)</li>
+<li><strong>Messages with missing/empty content</strong></li>
+<li><strong>Emojis and certain Unicode characters</strong> (automatically removed to prevent API errors)</li>
+</ul>
+<h2 id="prerequisites">Prerequisites</h2>
+<h3 id="required-microsoft-graph-application-permissions">Required Microsoft Graph Application Permissions</h3>
+<p>Your Azure AD application must have the following <strong>Application</strong> permissions (not Delegated):</p>
+<ul>
+<li><code>Teamwork.Migrate.All</code> - <strong>CRITICAL</strong> for message migration with historical timestamps</li>
+<li><code>User.ReadBasic.All</code> - To look up user information</li>
+<li><code>ChannelMessage.Read.All</code> - To read messages from source channel</li>
+<li><code>Channel.ReadBasic.All</code> - To read channel information</li>
+<li><code>Channel.Create</code> - To create destination channel</li>
+<li><code>Team.ReadBasic.All</code> - To read team information</li>
+<li><code>Files.ReadWrite.All</code> - To copy channel files from SharePoint</li>
+</ul>
+<h2 id="usage">Usage</h2>
+<h3 id="basic-migration-standard-channel">Basic Migration (Standard Channel)</h3>
+<pre><code class="lang-powershell">.\teams-migrate-channelmessages.ps1 `
+    -SourceTeamName &quot;Sales Team&quot; `
+    -SourceChannelName &quot;General&quot; `
+    -DestinationTeamName &quot;Archive Team&quot; `
+    -TenantId &quot;34120a19-2a32-48c7-834a-87218704e000&quot; `
+    -ClientId &quot;bb1b1d44-41c4-4d56-a68f-f8a0920000a1&quot; `
+    -CertificateThumbprint &quot;751B60033CFD0B9F3FCAE0B4D0C8B0B00F09A24E&quot;
+</code></pre>
+<h3 id="migration-with-fallback-user">Migration with Fallback User</h3>
+<p>For handling messages from deleted users, bots, and apps:</p>
+<pre><code class="lang-powershell">.\teams-migrate-channelmessages.ps1 `
+    -SourceTeamName &quot;Sales Team&quot; `
+    -SourceChannelName &quot;Sales Team&quot; `
+    -DestinationTeamName &quot;Archive Team&quot; `
+    -TenantId &quot;34120a19-2a32-48c7-834a-87218704e000&quot; `
+    -ClientId &quot;bb1b1d44-41c4-4d56-a68f-f8a0920000a1&quot; `
+    -CertificateThumbprint &quot;751B60033CFD0B9F3FCAE0B4D0C8B0B00F09A24E&quot; `
+    -FallbackUserUPN &quot;admin@contoso.com&quot; `
+    -FallbackUserDisplayName &quot;Migration Bot&quot;
+</code></pre>
+<h3 id="migrate-to-a-private-channel">Migrate to a Private Channel</h3>
+<pre><code class="lang-powershell">.\teams-migrate-channelmessages.ps1 `
+    -SourceTeamName &quot;Sales Team&quot; `
+    -SourceChannelName &quot;Confidential Deals&quot; `
+    -DestinationTeamName &quot;Archive Team&quot; `
+    -ChannelType &quot;Private&quot; `
+    -ChannelOwnerUPN &quot;admin@contoso.com&quot; `
+    -TenantId &quot;34120a19-2a32-48c7-834a-87218704e000&quot; `
+    -ClientId &quot;bb1b1d44-41c4-4d56-a68f-f8a0920000a1&quot; `
+    -CertificateThumbprint &quot;751B60033CFD0B9F3FCAE0B4D0C8B0B00F09A24E&quot;
+</code></pre>
+<div class="tabGroup" id="tabgroup_1">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_1_graphps" role="tab" aria-controls="tabpanel_1_graphps" data-tab="graphps" tabindex="0" aria-selected="true">Microsoft Graph PowerShell</a>
+</li>
+</ul>
+<section id="tabpanel_1_graphps" role="tabpanel" data-tab="graphps">
+
+<pre><code class="lang-powershell">
+&lt;#
+.SYNOPSIS
+    Migrates all messages and files from a Teams channel to a new channel in a different team.
+
+.DESCRIPTION
+    This script performs a complete migration of a Teams channel including:
+    - All channel files from SharePoint (documents, images, etc.)
+    - All channel messages with preserved authorship and timestamps
+    - Conversation threading (replies to messages)
+    - Inline images and attachments
+    - Support for messages from deleted users (using fallback user)
+
+    Uses certificate-based authentication for Microsoft Graph API access.
+    The new channel is created with a timestamped name and can be configured as Standard, Private, or Shared.
+
+    IMPORTANT: Requires the following Microsoft Graph Application permissions:
+    - Teamwork.Migrate.All 
+    - User.ReadBasic.All
+    - ChannelMessage.Read.All
+    - Channel.ReadBasic.All 
+    - Channel.Create 
+    - Team.ReadBasic.All
+    - Files.ReadWrite.All
+
+.PARAMETER SourceTeamName
+    The display name of the source team containing the channel to migrate.
+    The script will automatically look up the team ID from the name.
+
+.PARAMETER SourceChannelName
+    The display name of the channel to migrate from (e.g., &quot;General&quot;, &quot;Sales&quot;).
+    The script will automatically look up the channel ID from the name.
+
+.PARAMETER DestinationTeamName
+    The display name of the destination team where the new channel and content will be created.
+    The script will automatically look up the team ID from the name.
+
+.PARAMETER TenantId
+    The Azure AD Tenant ID (GUID).
+    Found in Azure Portal &gt; Azure Active Directory &gt; Properties &gt; Tenant ID.
+
+.PARAMETER ClientId
+    The Azure AD Application (Client) ID (GUID).
+    Found in Azure Portal &gt; Azure Active Directory &gt; App registrations &gt; Your App &gt; Application ID.
+
+.PARAMETER CertificateThumbprint
+    The thumbprint of the certificate used for authentication.
+    The certificate must be uploaded to the Azure AD application and installed in the certificate store.
+
+.PARAMETER FallbackUserUPN
+    Optional. The User Principal Name (email address) to use as the author for messages from deleted users, bots, and apps.
+    When a message author no longer exists in the tenant, or when the message is from a bot/app,
+    the message will be attributed to this user with the original author/source noted in the message content.
+    Example: &quot;MigrationBot1@demo.netwoven.com&quot;
+
+.PARAMETER FallbackUserDisplayName
+    Optional. The display name for the fallback user (shown in migrated messages).
+    Default: &quot;Former Team Member&quot;
+    Example: &quot;Migration Bot&quot; or &quot;Archive Service&quot;
+
+.PARAMETER ChannelType
+    Optional. The type of channel to create in the destination team.
+    Valid values: &quot;Standard&quot;, &quot;Private&quot;, &quot;Shared&quot;
+    Default: &quot;Standard&quot;
+    Note: For Private and Shared channels, you must provide ChannelOwnerUPN.
+
+.PARAMETER ChannelOwnerUPN
+    Required when ChannelType is &quot;Private&quot; or &quot;Shared&quot;. The User Principal Name (email) of the user who will be the owner of the new channel.
+    This user must be a member of the destination team.
+    Example: &quot;admin@contoso.com&quot;
+
+.PARAMETER LogFilePath
+    Optional. Path to the log file where detailed migration information will be written.
+    Default: &quot;TeamsMigration_&lt;timestamp&gt;.log&quot; in the current directory.
+
+.EXAMPLE
+    # Basic migration using team and channel names
+    .\Migrate-TeamChannelMessages.ps1 `
+        -SourceTeamName &quot;Sales Team&quot; `
+        -SourceChannelName &quot;General&quot; `
+        -DestinationTeamName &quot;Archive Team&quot; `
+        -TenantId &quot;34120a19-2a32-48c7-834a-87218704e000&quot; `
+        -ClientId &quot;bb1b1d44-41c4-4d56-a68f-f8a0920000a1&quot; `
+        -CertificateThumbprint &quot;751B60033CFD0B9F3FCAE0B4D0C8B0B00F09A24E&quot;
+
+.EXAMPLE
+    # Migration with fallback user for deleted accounts
+    .\Migrate-TeamChannelMessages.ps1 `
+        -SourceTeamName &quot;Sales Team&quot; `
+        -SourceChannelName &quot;Sales Team&quot; `
+        -DestinationTeamName &quot;Archive Team&quot; `
+        -TenantId &quot;34120a19-2a32-48c7-834a-87218704e000&quot; `
+        -ClientId &quot;bb1b1d44-41c4-4d56-a68f-f8a0920000a1&quot; `
+        -CertificateThumbprint &quot;751B60033CFD0B9F3FCAE0B4D0C8B0B00F09A24E&quot; `
+        -FallbackUserUPN &quot;MigrationBot@contoso.com&quot; `
+        -FallbackUserDisplayName &quot;Migration Bot&quot;
+
+.EXAMPLE
+    # Migration creating a private channel
+    .\Migrate-TeamChannelMessages.ps1 `
+        -SourceTeamName &quot;Sales Team&quot; `
+        -SourceChannelName &quot;Confidential Deals&quot; `
+        -DestinationTeamName &quot;Archive Team&quot; `
+        -ChannelType &quot;Private&quot; `
+        -ChannelOwnerUPN &quot;admin@contoso.com&quot; `
+        -TenantId &quot;34120a19-2a32-48c7-834a-87218704e000&quot; `
+        -ClientId &quot;bb1b1d44-41c4-4d56-a68f-f8a0920000a1&quot; `
+        -CertificateThumbprint &quot;751B60033CFD0B9F3FCAE0B4D0C8B0B00F09A24E&quot;
+
+.NOTES
+    Author: Matt Maher
+    Version: 4.2
+    PowerShell: 7.0+
+
+    Migration Process:
+    1. Authenticates using certificate-based authentication
+    2. Looks up source and destination team IDs from team names
+    3. Looks up source channel ID from channel name
+    4. Validates channel type and owner requirements
+    5. Retrieves source channel information
+    6. Creates new channel with timestamped name (Standard/Private/Shared)
+    7. Starts migration mode on new channel
+    8. Copies all files from source channel's SharePoint folder
+       - For Private/Shared channels: Includes automatic retry logic (up to 10 retries, 30 sec intervals)
+         to wait for backend storage provisioning
+    9. Retrieves all messages and replies from source channel
+    10. Migrates messages with preserved authorship and timestamps
+        - Automatically removes unsupported Unicode characters (emojis) that cause API errors
+    11. Finalizes migration mode
+
+    What Gets Migrated:
+    - All files in the channel's SharePoint folder (recursively)
+    - All channel messages with original timestamps
+    - All replies to messages (conversation threading)
+    - Message formatting and mentions
+    - Inline images (hostedContents)
+    - File attachments
+    - Original message authors (or fallback user if author deleted)
+
+    What Doesn't Get Migrated:
+    - Deleted messages
+    - System messages (without user information)
+    - Messages with missing/empty content
+    - Emojis and certain Unicode characters (automatically removed to prevent API errors)
+#&gt;
+
+[CmdletBinding()]
+param(
+    [Parameter(Mandatory = $true, HelpMessage = &quot;Source Team Name&quot;)]
+    [ValidateNotNullOrEmpty()]
+    [string]$SourceTeamName,
+
+    [Parameter(Mandatory = $true, HelpMessage = &quot;Source Channel Name&quot;)]
+    [ValidateNotNullOrEmpty()]
+    [string]$SourceChannelName,
+
+    [Parameter(Mandatory = $true, HelpMessage = &quot;Destination Team Name&quot;)]
+    [ValidateNotNullOrEmpty()]
+    [string]$DestinationTeamName,
+
+    [Parameter(Mandatory = $true, HelpMessage = &quot;Azure AD Tenant ID&quot;)]
+    [ValidateNotNullOrEmpty()]
+    [string]$TenantId,
+
+    [Parameter(Mandatory = $true, HelpMessage = &quot;Azure AD Client ID&quot;)]
+    [ValidateNotNullOrEmpty()]
+    [string]$ClientId,
+
+    [Parameter(Mandatory = $true, HelpMessage = &quot;Certificate Thumbprint&quot;)]
+    [ValidateNotNullOrEmpty()]
+    [string]$CertificateThumbprint,
+
+    [Parameter(Mandatory = $false, HelpMessage = &quot;Fallback User UPN (email) for messages from deleted users, bots, and apps&quot;)]
+    [string]$FallbackUserUPN = $null,
+
+    [Parameter(Mandatory = $false, HelpMessage = &quot;Fallback User Display Name&quot;)]
+    [string]$FallbackUserDisplayName = &quot;Former Team Member&quot;,
+
+    [Parameter(Mandatory = $false, HelpMessage = &quot;Channel Type (Standard, Private, or Shared)&quot;)]
+    [ValidateSet('Standard', 'Private', 'Shared')]
+    [string]$ChannelType = &quot;Standard&quot;,
+
+    [Parameter(Mandatory = $false, HelpMessage = &quot;Channel Owner UPN (required for Private and Shared channels)&quot;)]
+    [string]$ChannelOwnerUPN = $null,
+
+    [Parameter(Mandatory = $false, HelpMessage = &quot;Log file path&quot;)]
+    [string]$LogFilePath = &quot;TeamsMigration_$(Get-Date -Format 'yyyyMMdd_HHmmss').log&quot;
+)
+
+#region Helper Functions
+
+function Write-Log {
+    param(
+        [Parameter(Mandatory = $true)]
+        [string]$Message,
+
+        [Parameter(Mandatory = $false)]
+        [ValidateSet('Info', 'Success', 'Warning', 'Error')]
+        [string]$Level = 'Info'
+    )
+
+    $timestamp = Get-Date -Format 'yyyy-MM-dd HH:mm:ss'
+    $logMessage = &quot;[$timestamp] [$Level] $Message&quot;
+
+    # Color mapping
+    $color = switch ($Level) {
+        'Success' { 'Green' }
+        'Warning' { 'Yellow' }
+        'Error'   { 'Red' }
+        default   { 'White' }
+    }
+
+    Write-Host $logMessage -ForegroundColor $color
+    Add-Content -Path $LogFilePath -Value $logMessage
+}
+
+function Get-GraphAccessToken {
+    param(
+        [Parameter(Mandatory = $true)]
+        [string]$TenantId,
+
+        [Parameter(Mandatory = $true)]
+        [string]$ClientId,
+
+        [Parameter(Mandatory = $true)]
+        [string]$CertificateThumbprint
+    )
+
+    try {
+        Write-Log &quot;Acquiring Graph API access token...&quot;
+
+        # Get certificate from store using .NET API
+        $cert = $null
+        $store = [System.Security.Cryptography.X509Certificates.X509Store]::new(&quot;My&quot;, &quot;CurrentUser&quot;)
+        $store.Open([System.Security.Cryptography.X509Certificates.OpenFlags]::ReadOnly)
+        $cert = $store.Certificates | Where-Object { $_.Thumbprint -eq $CertificateThumbprint }
+        $store.Close()
+
+        if (-not $cert) {
+            $store = [System.Security.Cryptography.X509Certificates.X509Store]::new(&quot;My&quot;, &quot;LocalMachine&quot;)
+            $store.Open([System.Security.Cryptography.X509Certificates.OpenFlags]::ReadOnly)
+            $cert = $store.Certificates | Where-Object { $_.Thumbprint -eq $CertificateThumbprint }
+            $store.Close()
+        }
+
+        if (-not $cert) {
+            throw &quot;Certificate not found with thumbprint: $CertificateThumbprint&quot;
+        }
+
+        if (-not $cert.HasPrivateKey) {
+            throw &quot;Certificate does not have a private key&quot;
+        }
+
+        Write-Log &quot;Certificate found: $($cert.Subject)&quot;
+
+        # Build JWT token for authentication
+        $scope = &quot;https://graph.microsoft.com/.default&quot;
+        $tokenEndpoint = &quot;https://login.microsoftonline.com/$TenantId/oauth2/v2.0/token&quot;
+
+        $now = [Math]::Floor([DateTime]::UtcNow.Subtract([DateTime]::Parse(&quot;1970-01-01&quot;)).TotalSeconds)
+        $exp = $now + 300
+
+        # Create JWT header
+        $certHash = $cert.GetCertHash()
+        $x5t = [Convert]::ToBase64String($certHash).TrimEnd('=').Replace('+', '-').Replace('/', '_')
+
+        $header = @{
+            alg = &quot;RS256&quot;
+            typ = &quot;JWT&quot;
+            x5t = $x5t
+        } | ConvertTo-Json -Compress
+
+        # Create JWT payload
+        $payload = @{
+            aud = $tokenEndpoint
+            exp = $exp
+            iss = $ClientId
+            jti = [Guid]::NewGuid().ToString()
+            nbf = $now
+            sub = $ClientId
+        } | ConvertTo-Json -Compress
+
+        # Base64URL encode
+        $headerEncoded = [Convert]::ToBase64String([System.Text.Encoding]::UTF8.GetBytes($header)).TrimEnd('=').Replace('+', '-').Replace('/', '_')
+        $payloadEncoded = [Convert]::ToBase64String([System.Text.Encoding]::UTF8.GetBytes($payload)).TrimEnd('=').Replace('+', '-').Replace('/', '_')
+
+        # Sign the JWT
+        $jwtToken = &quot;$headerEncoded.$payloadEncoded&quot;
+        $dataToSign = [System.Text.Encoding]::UTF8.GetBytes($jwtToken)
+        $rsa = [System.Security.Cryptography.X509Certificates.RSACertificateExtensions]::GetRSAPrivateKey($cert)
+        $signature = $rsa.SignData($dataToSign, [System.Security.Cryptography.HashAlgorithmName]::SHA256, [System.Security.Cryptography.RSASignaturePadding]::Pkcs1)
+        $signatureEncoded = [Convert]::ToBase64String($signature).TrimEnd('=').Replace('+', '-').Replace('/', '_')
+
+        $clientAssertion = &quot;$jwtToken.$signatureEncoded&quot;
+
+        # Request access token
+        $body = @{
+            client_id             = $ClientId
+            client_assertion_type = &quot;urn:ietf:params:oauth:client-assertion-type:jwt-bearer&quot;
+            client_assertion      = $clientAssertion
+            scope                 = $scope
+            grant_type            = &quot;client_credentials&quot;
+        }
+
+        $response = Invoke-RestMethod -Method Post -Uri $tokenEndpoint -Body $body -ContentType &quot;application/x-www-form-urlencoded&quot;
+        Write-Log &quot;Access token acquired successfully&quot; -Level Success
+        return $response.access_token
+
+    } catch {
+        Write-Log &quot;Failed to acquire access token: $($_.Exception.Message)&quot; -Level Error
+        throw
+    }
+}
+
+function Invoke-GraphApiRequest {
+    param(
+        [Parameter(Mandatory = $true)]
+        [string]$Uri,
+
+        [Parameter(Mandatory = $true)]
+        [string]$AccessToken,
+
+        [Parameter(Mandatory = $false)]
+        [ValidateSet('GET', 'POST', 'PATCH', 'DELETE')]
+        [string]$Method = 'GET',
+
+        [Parameter(Mandatory = $false)]
+        [object]$Body = $null
+    )
+
+    try {
+        $headers = @{
+            'Authorization' = &quot;Bearer $AccessToken&quot;
+            'Content-Type'  = 'application/json'
+        }
+
+        $params = @{
+            Uri                      = $Uri
+            Headers                  = $headers
+            Method                   = $Method
+            ResponseHeadersVariable  = 'responseHeaders'
+        }
+
+        if ($Body -and $Method -ne 'GET') {
+            $params.Body = ($Body | ConvertTo-Json -Depth 10 -Compress)
+        }
+
+        $result = Invoke-RestMethod @params
+        return $result
+
+    } catch {
+        $errorMessage = $_.Exception.Message
+        $fullResponseInfo = @{
+            StatusCode = $null
+            StatusDescription = $null
+            Headers = @{}
+            Body = $null
+        }
+
+        # Capture full response details
+        if ($_.Exception.Response) {
+            $response = $_.Exception.Response
+            $fullResponseInfo.StatusCode = [int]$response.StatusCode
+            $fullResponseInfo.StatusDescription = $response.StatusDescription
+
+            # Capture all headers
+            foreach ($header in $response.Headers) {
+                $fullResponseInfo.Headers[$header.Key] = $header.Value -join ', '
+            }
+        }
+
+        # Capture response body
+        if ($_.ErrorDetails.Message) {
+            $fullResponseInfo.Body = $_.ErrorDetails.Message
+            $errorDetails = $_.ErrorDetails.Message | ConvertFrom-Json
+            $errorMessage += &quot; - $($errorDetails.error.message)&quot;
+        }
+
+        # Build detailed error message with full response
+        if($Debug){
+            $errorMessage += &quot;`n`n    === FULL HTTP RESPONSE ===&quot;
+            $errorMessage += &quot;`n    Status: $($fullResponseInfo.StatusCode) $($fullResponseInfo.StatusDescription)&quot;
+            $errorMessage += &quot;`n`n    Response Headers:&quot;
+            foreach ($key in $fullResponseInfo.Headers.Keys | Sort-Object) {
+                $errorMessage += &quot;`n      $key`: $($fullResponseInfo.Headers[$key])&quot;
+            }
+            $errorMessage += &quot;`n`n    Response Body:&quot;
+            if ($fullResponseInfo.Body) {
+                $errorMessage += &quot;`n$($fullResponseInfo.Body)&quot;
+            } else {
+                $errorMessage += &quot;`n      (empty)&quot;
+            }
+            $errorMessage += &quot;`n    ===========================&quot;
+        }
+
+        throw $errorMessage
+    }
+}
+
+function Get-AllMessages {
+    param(
+        [Parameter(Mandatory = $true)]
+        [string]$TeamId,
+
+        [Parameter(Mandatory = $true)]
+        [string]$ChannelId,
+
+        [Parameter(Mandatory = $true)]
+        [string]$AccessToken
+    )
+
+    $allMessages = @()
+    # Attachments and hostedContents are included by default in the beta API
+    $uri = &quot;https://graph.microsoft.com/beta/teams/$TeamId/channels/$ChannelId/messages&quot;
+
+    do {
+        $response = Invoke-GraphApiRequest -Uri $uri -AccessToken $AccessToken -Method GET
+
+        if ($response.value) {
+            $allMessages += $response.value
+        }
+
+        $uri = $response.'@odata.nextLink'
+    } while ($uri)
+
+    return $allMessages
+}
+
+function Get-MessageReplies {
+    param(
+        [Parameter(Mandatory = $true)]
+        [string]$TeamId,
+
+        [Parameter(Mandatory = $true)]
+        [string]$ChannelId,
+
+        [Parameter(Mandatory = $true)]
+        [string]$MessageId,
+
+        [Parameter(Mandatory = $true)]
+        [string]$AccessToken
+    )
+
+    $allReplies = @()
+    # Attachments and hostedContents are included by default in the beta API
+    $uri = &quot;https://graph.microsoft.com/beta/teams/$TeamId/channels/$ChannelId/messages/$MessageId/replies&quot;
+
+    try {
+        do {
+            $response = Invoke-GraphApiRequest -Uri $uri -AccessToken $AccessToken -Method GET
+
+            if ($response.value) {
+                $allReplies += $response.value
+            }
+
+            $uri = $response.'@odata.nextLink'
+        } while ($uri)
+    } catch {
+        Write-Log &quot;Warning: Could not retrieve replies for message $MessageId&quot; -Level Warning
+    }
+
+    return $allReplies
+}
+
+function Remove-UnsupportedUnicodeCharacters {
+    param(
+        [Parameter(Mandatory = $true)]
+        [string]$Content
+    )
+
+    if ([string]::IsNullOrEmpty($Content)) {
+        return $Content
+    }
+
+    # Remove or replace unsupported Unicode characters
+    # This includes emojis and other characters outside the Basic Multilingual Plane (BMP)
+    # Characters with code points above U+FFFF (supplementary characters)
+
+    $sanitized = $Content
+
+    # Remove characters outside BMP (surrogate pairs and supplementary characters)
+    # These are typically emojis and special symbols
+    $sanitized = [regex]::Replace($sanitized, '[\uD800-\uDFFF]', '')
+
+    # Remove specific problematic Unicode ranges
+    # Emoticons: U+1F600-U+1F64F
+    # Transport symbols: U+1F680-U+1F6FF
+    # Misc symbols: U+1F700-U+1F77F
+    # And other common emoji ranges
+
+    # Since .NET regex doesn't handle surrogate pairs well, we'll iterate through chars
+    $chars = [System.Collections.Generic.List[char]]::new()
+    $i = 0
+    while ($i -lt $sanitized.Length) {
+        $char = $sanitized[$i]
+
+        # Check if this is a high surrogate (start of a surrogate pair)
+        if ([char]::IsHighSurrogate($char)) {
+            # Skip this character and the next one (the low surrogate)
+            if ($i + 1 -lt $sanitized.Length -and [char]::IsLowSurrogate($sanitized[$i + 1])) {
+                # Get the full Unicode code point
+                $codePoint = [char]::ConvertToUtf32($char, $sanitized[$i + 1])
+
+                # Skip emoji ranges and other problematic characters
+                # Common emoji ranges: 0x1F300-0x1F9FF
+                if ($codePoint -ge 0x1F300 -and $codePoint -le 0x1F9FF) {
+                    # Skip both characters of the surrogate pair
+                    $i += 2
+                    continue
+                } elseif ($codePoint -ge 0x2600 -and $codePoint -le 0x26FF) {
+                    # Misc symbols
+                    $i += 2
+                    continue
+                } elseif ($codePoint -ge 0x2700 -and $codePoint -le 0x27BF) {
+                    # Dingbats
+                    $i += 2
+                    continue
+                }
+
+                # Keep the character pair
+                $chars.Add($char)
+                $i++
+                if ($i -lt $sanitized.Length) {
+                    $chars.Add($sanitized[$i])
+                }
+            }
+            $i++
+        } else {
+            # Regular character, keep it
+            $chars.Add($char)
+            $i++
+        }
+    }
+
+    return [string]::new($chars.ToArray())
+}
+
+function New-MigratedMessage {
+    param(
+        [Parameter(Mandatory = $true)]
+        [object]$SourceMessage,
+
+        [Parameter(Mandatory = $true)]
+        [string]$DestinationTeamId,
+
+        [Parameter(Mandatory = $true)]
+        [string]$DestinationChannelId,
+
+        [Parameter(Mandatory = $true)]
+        [string]$AccessToken,
+
+        [Parameter(Mandatory = $false)]
+        [string]$ParentMessageId = $null,
+
+        [Parameter(Mandatory = $false)]
+        [string]$FallbackUserId = $null,
+
+        [Parameter(Mandatory = $false)]
+        [string]$FallbackUserDisplayName = &quot;Former Team Member&quot;
+    )
+
+    # Prepare message content and handle inline images
+    $originalAuthor = $null
+    $isBotOrApp = $false
+    $botOrAppName = &quot;Unknown Bot/App&quot;
+
+    if ($SourceMessage.from -and $SourceMessage.from.user) {
+        $originalAuthor = $SourceMessage.from.user.displayName
+        $originalUserId = $SourceMessage.from.user.id
+    } elseif ($SourceMessage.from) {
+        # This is a bot or app message
+        $isBotOrApp = $true
+        if ($SourceMessage.from.application) {
+            $botOrAppName = $SourceMessage.from.application.displayName
+        } elseif ($SourceMessage.from.device) {
+            $botOrAppName = $SourceMessage.from.device.displayName
+        }
+    }
+
+    # Copy hosted contents (inline images) if present
+    $hostedContentResult = Copy-HostedContents -SourceMessage $SourceMessage `
+        -DestinationTeamId $DestinationTeamId `
+        -DestinationChannelId $DestinationChannelId `
+        -AccessToken $AccessToken `
+        -ParentMessageId $ParentMessageId
+
+    # Prepare message content
+    $messageContent = $hostedContentResult.updatedContent
+
+    # Remove unsupported Unicode characters (emojis, etc.) that cause 400 errors
+    $messageContent = Remove-UnsupportedUnicodeCharacters -Content $messageContent
+
+    # If this is a bot/app message and we have a fallback user, add attribution
+    if ($isBotOrApp -and $FallbackUserId) {
+        $attributionHeader = &quot;&lt;p&gt;&lt;em&gt;[Originally posted by bot/app: &lt;strong&gt;$botOrAppName&lt;/strong&gt;]&lt;/em&gt;&lt;/p&gt;&lt;hr/&gt;&quot;
+        if ($SourceMessage.body.contentType -eq &quot;html&quot;) {
+            $messageContent = $attributionHeader + $messageContent
+        } else {
+            $messageContent = &quot;[Originally posted by bot/app: $botOrAppName]`n`n&quot; + $messageContent
+        }
+    }
+
+    # Build message body for migration
+    $messageBody = @{
+        body = @{
+            content     = $messageContent
+            contentType = $SourceMessage.body.contentType
+        }
+    }
+
+    # Add created timestamp (required for migration)
+    if ($SourceMessage.createdDateTime) {
+        $messageBody.createdDateTime = $SourceMessage.createdDateTime
+    }
+
+    # Add author information (required for migration)
+    if ($SourceMessage.from -and $SourceMessage.from.user) {
+        # Regular user message
+        $messageBody.from = @{
+            user = @{
+                id               = $SourceMessage.from.user.id
+                displayName      = $SourceMessage.from.user.displayName
+                userIdentityType = &quot;aadUser&quot;
+            }
+        }
+    } elseif ($isBotOrApp -and $FallbackUserId) {
+        # Bot/app message - use fallback user
+        $messageBody.from = @{
+            user = @{
+                id               = $FallbackUserId
+                displayName      = $FallbackUserDisplayName
+                userIdentityType = &quot;aadUser&quot;
+            }
+        }
+    }
+
+    # Add subject if present
+    if ($SourceMessage.subject) {
+        $messageBody.subject = $SourceMessage.subject
+    }
+
+    # Add importance
+    if ($SourceMessage.importance) {
+        $messageBody.importance = $SourceMessage.importance
+    }
+
+    # Add mentions if present
+    if ($SourceMessage.mentions -and $SourceMessage.mentions.Count -gt 0) {
+        $messageBody.mentions = $SourceMessage.mentions
+    }
+
+    # Add attachments if present (file references)
+    if ($SourceMessage.attachments -and $SourceMessage.attachments.Count -gt 0) {
+        $messageBody.attachments = $SourceMessage.attachments
+    }
+
+    # Add hosted contents (inline images) if we successfully copied them
+    if ($hostedContentResult.hostedContents -and $hostedContentResult.hostedContents.Count -gt 0) {
+        $messageBody.hostedContents = $hostedContentResult.hostedContents
+    }
+
+    # Determine the endpoint
+    if ($ParentMessageId) {
+        # This is a reply
+        $uri = &quot;https://graph.microsoft.com/beta/teams/$DestinationTeamId/channels/$DestinationChannelId/messages/$ParentMessageId/replies&quot;
+    } else {
+        # This is a top-level message
+        $uri = &quot;https://graph.microsoft.com/beta/teams/$DestinationTeamId/channels/$DestinationChannelId/messages&quot;
+    }
+
+    # Try to post the message
+    try {
+        return Invoke-GraphApiRequest -Uri $uri -AccessToken $AccessToken -Method POST -Body $messageBody
+    } catch {
+        # Check if error is &quot;user not found&quot; and we have a fallback user
+        if ($_.Exception.Message -match &quot;could not be found in the tenant&quot; -and $FallbackUserId) {
+            Write-Host &quot;    Original author not found, using fallback user...&quot; -ForegroundColor Yellow
+
+            # Prepend original author attribution to message content
+            $attributionHeader = &quot;&lt;p&gt;&lt;em&gt;[Originally posted by: &lt;strong&gt;$originalAuthor&lt;/strong&gt;]&lt;/em&gt;&lt;/p&gt;&lt;hr/&gt;&quot;
+            if ($messageBody.body.contentType -eq &quot;html&quot;) {
+                $messageBody.body.content = $attributionHeader + $messageBody.body.content
+            } else {
+                $messageBody.body.content = &quot;[Originally posted by: $originalAuthor]`n`n&quot; + $messageBody.body.content
+            }
+
+            # Replace author with fallback user
+            $messageBody.from = @{
+                user = @{
+                    id               = $FallbackUserId
+                    displayName      = $FallbackUserDisplayName
+                    userIdentityType = &quot;aadUser&quot;
+                }
+            }
+
+            # Retry with fallback user
+            return Invoke-GraphApiRequest -Uri $uri -AccessToken $AccessToken -Method POST -Body $messageBody
+        } else {
+            # Re-throw if it's a different error or no fallback configured
+            throw
+        }
+    }
+}
+
+function Copy-HostedContents {
+    param(
+        [Parameter(Mandatory = $true)]
+        [object]$SourceMessage,
+
+        [Parameter(Mandatory = $true)]
+        [string]$DestinationTeamId,
+
+        [Parameter(Mandatory = $true)]
+        [string]$DestinationChannelId,
+
+        [Parameter(Mandatory = $true)]
+        [string]$AccessToken,
+
+        [Parameter(Mandatory = $false)]
+        [string]$ParentMessageId = $null
+    )
+
+    if (-not $SourceMessage.hostedContents -or $SourceMessage.hostedContents.Count -eq 0) {
+        return @{
+            hostedContents = @()
+            updatedContent = $SourceMessage.body.content
+        }
+    }
+
+    $newHostedContents = @()
+    $updatedContent = $SourceMessage.body.content
+
+    foreach ($hostedContent in $SourceMessage.hostedContents) {
+        try {
+            # Create new hosted content with the same data
+            $newHostedContent = @{
+                &quot;@microsoft.graph.temporaryId&quot; = $hostedContent.id
+                contentBytes = $hostedContent.contentBytes
+                contentType = $hostedContent.contentType
+            }
+
+            $newHostedContents += $newHostedContent
+
+            # Update references in the message body if needed
+            # The contentUrl format is: ../hostedContents/{id}/$value
+            if ($updatedContent -match $hostedContent.id) {
+                # References will be updated automatically by Teams using the temporaryId
+            }
+        } catch {
+            Write-Log &quot;Warning: Could not copy hosted content $($hostedContent.id): $($_.Exception.Message)&quot; -Level Warning
+        }
+    }
+
+    return @{
+        hostedContents = $newHostedContents
+        updatedContent = $updatedContent
+    }
+}
+
+function Copy-ChannelFiles {
+    param(
+        [Parameter(Mandatory = $true)]
+        [string]$SourceTeamId,
+
+        [Parameter(Mandatory = $true)]
+        [string]$SourceChannelId,
+
+        [Parameter(Mandatory = $true)]
+        [string]$DestinationTeamId,
+
+        [Parameter(Mandatory = $true)]
+        [string]$DestinationChannelId,
+
+        [Parameter(Mandatory = $true)]
+        [string]$AccessToken
+    )
+
+    try {
+        Write-Log &quot;Retrieving source channel files folder...&quot; -Level Info
+
+        # Get source channel's files folder
+        $sourceFolderUri = &quot;https://graph.microsoft.com/v1.0/teams/$SourceTeamId/channels/$SourceChannelId/filesFolder&quot;
+        $sourceFolder = Invoke-GraphApiRequest -Uri $sourceFolderUri -AccessToken $AccessToken -Method GET
+
+        Write-Log &quot;Source folder: $($sourceFolder.webUrl)&quot; -Level Info
+
+        # Get destination channel's files folder with retry logic
+        # Private and Shared channels may take time for backend storage to be provisioned
+        $destFolderUri = &quot;https://graph.microsoft.com/v1.0/teams/$DestinationTeamId/channels/$DestinationChannelId/filesFolder&quot;
+        $destFolder = $null
+        $maxRetries = 10
+        $retryDelaySeconds = 30
+        $currentRetry = 0
+
+        while ($currentRetry -lt $maxRetries) {
+            try {
+                $destFolder = Invoke-GraphApiRequest -Uri $destFolderUri -AccessToken $AccessToken -Method GET
+                Write-Log &quot;Destination folder: $($destFolder.webUrl)&quot; -Level Success
+                break
+            } catch {
+                $errorMessage = $_.Exception.Message
+
+                # Check if this is the &quot;not ready yet&quot; error
+                if ($errorMessage -match &quot;not ready yet|please try again later&quot;) {
+                    $currentRetry++
+                    if ($currentRetry -lt $maxRetries) {
+                        Write-Log &quot;Destination channel folder not ready yet. Waiting $retryDelaySeconds seconds before retry $currentRetry/$maxRetries...&quot; -Level Warning
+                        Start-Sleep -Seconds $retryDelaySeconds
+                    } else {
+                        throw &quot;Destination channel folder did not become ready after $maxRetries attempts. Error: $errorMessage&quot;
+                    }
+                } else {
+                    # Different error, don't retry
+                    throw
+                }
+            }
+        }
+
+        if (-not $destFolder) {
+            throw &quot;Failed to retrieve destination channel files folder after $maxRetries retries&quot;
+        }
+
+        # Get all files from source folder recursively
+        $allFiles = Get-FolderFilesRecursive -DriveId $sourceFolder.parentReference.driveId -FolderId $sourceFolder.id -AccessToken $AccessToken
+
+        if ($allFiles.Count -eq 0) {
+            Write-Log &quot;No files found in source channel&quot; -Level Warning
+            return @{ Copied = 0; Failed = 0 }
+        }
+
+        Write-Log &quot;Found $($allFiles.Count) files to copy&quot; -Level Success
+        Write-Host &quot;&quot;
+
+        $copiedCount = 0
+        $failedCount = 0
+
+        foreach ($file in $allFiles) {
+            try {
+                Write-Log &quot;  Copying: $($file.name)&quot; -Level Info
+
+                # Copy the file to destination
+                $copyUri = &quot;https://graph.microsoft.com/v1.0/drives/$($sourceFolder.parentReference.driveId)/items/$($file.id)/copy&quot;
+
+                $copyBody = @{
+                    parentReference = @{
+                        driveId = $destFolder.parentReference.driveId
+                        id = $destFolder.id
+                    }
+                    name = $file.name
+                }
+
+                # The copy operation is asynchronous - it returns a location header to monitor progress
+                $copyResponse = Invoke-GraphApiRequest -Uri $copyUri -AccessToken $AccessToken -Method POST -Body $copyBody
+
+                $copiedCount++
+                Write-Log &quot;    ✓ Copied successfully&quot; -Level Success
+            } catch {
+                $failedCount++
+                Write-Log &quot;    ✗ Failed to copy: $($_.Exception.Message)&quot; -Level Error
+            }
+        }
+
+        Write-Host &quot;&quot;
+        Write-Log &quot;File copy summary: $copiedCount copied, $failedCount failed&quot; -Level Info
+
+        return @{ Copied = $copiedCount; Failed = $failedCount }
+
+    } catch {
+        Write-Log &quot;Error copying channel files: $($_.Exception.Message)&quot; -Level Error
+        return @{ Copied = 0; Failed = 0 }
+    }
+}
+
+function Get-FolderFilesRecursive {
+    param(
+        [Parameter(Mandatory = $true)]
+        [string]$DriveId,
+
+        [Parameter(Mandatory = $true)]
+        [string]$FolderId,
+
+        [Parameter(Mandatory = $true)]
+        [string]$AccessToken
+    )
+
+    $allFiles = @()
+
+    try {
+        # Get items in current folder
+        $itemsUri = &quot;https://graph.microsoft.com/v1.0/drives/$DriveId/items/$FolderId/children&quot;
+
+        do {
+            $response = Invoke-GraphApiRequest -Uri $itemsUri -AccessToken $AccessToken -Method GET
+
+            if ($response.value) {
+                foreach ($item in $response.value) {
+                    if ($item.folder) {
+                        # Recursively get files from subfolders
+                        $subFiles = Get-FolderFilesRecursive -DriveId $DriveId -FolderId $item.id -AccessToken $AccessToken
+                        $allFiles += $subFiles
+                    } else {
+                        # Add file to list
+                        $allFiles += $item
+                    }
+                }
+            }
+
+            $itemsUri = $response.'@odata.nextLink'
+        } while ($itemsUri)
+
+    } catch {
+        Write-Log &quot;Warning: Could not retrieve files from folder $FolderId : $($_.Exception.Message)&quot; -Level Warning
+    }
+
+    return $allFiles
+}
+
+function Get-UserIdByUPN {
+    param(
+        [Parameter(Mandatory = $true)]
+        [string]$UserPrincipalName,
+
+        [Parameter(Mandatory = $true)]
+        [string]$AccessToken
+    )
+
+    try {
+        $userUri = &quot;https://graph.microsoft.com/v1.0/users/$UserPrincipalName&quot;
+        $user = Invoke-GraphApiRequest -Uri $userUri -AccessToken $AccessToken -Method GET
+        return $user.id
+    } catch {
+        throw &quot;Failed to find user with UPN '$UserPrincipalName': $($_.Exception.Message)&quot;
+    }
+}
+
+function Get-ChannelIdByName {
+    param(
+        [Parameter(Mandatory = $true)]
+        [string]$TeamId,
+
+        [Parameter(Mandatory = $true)]
+        [string]$ChannelName,
+
+        [Parameter(Mandatory = $true)]
+        [string]$AccessToken
+    )
+
+    try {
+        $channelsUri = &quot;https://graph.microsoft.com/v1.0/teams/$TeamId/channels&quot;
+        $response = Invoke-GraphApiRequest -Uri $channelsUri -AccessToken $AccessToken -Method GET
+
+        $channel = $response.value | Where-Object { $_.displayName -eq $ChannelName }
+
+        if (-not $channel) {
+            throw &quot;Channel '$ChannelName' not found in team $TeamId&quot;
+        }
+
+        if ($channel.Count -gt 1) {
+            Write-Log &quot;Warning: Multiple channels found with name '$ChannelName'. Using the first one.&quot; -Level Warning
+            return $channel[0].id
+        }
+
+        return $channel.id
+    } catch {
+        throw &quot;Failed to find channel '$ChannelName': $($_.Exception.Message)&quot;
+    }
+}
+
+function Get-TeamIdByName {
+    param(
+        [Parameter(Mandatory = $true)]
+        [string]$TeamName,
+
+        [Parameter(Mandatory = $true)]
+        [string]$AccessToken
+    )
+
+    try {
+        $teamsUri = &quot;https://graph.microsoft.com/v1.0/teams?`$select=id,displayName&amp;`$filter=displayName eq '$TeamName'&quot;
+
+        $allTeams = @()
+
+        do {
+            $response = Invoke-GraphApiRequest -Uri $teamsUri -AccessToken $AccessToken -Method GET
+
+            if ($response.value) {
+                $allTeams += $response.value
+            }
+
+            $teamsUri = $response.'@odata.nextLink'
+        } while ($teamsUri)
+
+        $team = $allTeams | Where-Object { $_.displayName -eq $TeamName }
+
+        if (-not $team) {
+            throw &quot;Team '$TeamName' not found in tenant&quot;
+        }
+
+        if ($team.Count -gt 1) {
+            Write-Log &quot;Warning: Multiple teams found with name '$TeamName'. Using the first one.&quot; -Level Warning
+            return $team[0].id
+        }
+
+        return $team.id
+    } catch {
+        throw &quot;Failed to find team '$TeamName': $($_.Exception.Message)&quot;
+    }
+}
+
+#endregion
+
+#region Main Script
+
+try {
+    Write-Log &quot;========================================&quot; -Level Info
+    Write-Log &quot;Teams Channel Message Migration Script&quot; -Level Info
+    Write-Log &quot;========================================&quot; -Level Info
+    Write-Log &quot;PowerShell Version: $($PSVersionTable.PSVersion)&quot;
+    Write-Log &quot;Source Team: $SourceTeamName&quot;
+    Write-Log &quot;Source Channel: $SourceChannelName&quot;
+    Write-Log &quot;Destination Team: $DestinationTeamName&quot;
+    Write-Log &quot;Log File: $LogFilePath&quot;
+    Write-Host &quot;&quot;
+
+    # Step 1: Authenticate
+    Write-Log &quot;[Step 1/8] Authenticating...&quot; -Level Info
+    $accessToken = Get-GraphAccessToken -TenantId $TenantId -ClientId $ClientId -CertificateThumbprint $CertificateThumbprint
+    Write-Host &quot;&quot;
+
+    # Step 1.5: Lookup team IDs from names
+    Write-Log &quot;[Step 1.5/8] Looking up team IDs...&quot; -Level Info
+    Write-Log &quot;Looking up source team ID from name: $SourceTeamName&quot; -Level Info
+    $SourceTeamId = Get-TeamIdByName -TeamName $SourceTeamName -AccessToken $accessToken
+    Write-Log &quot;Found source team ID: $SourceTeamId&quot; -Level Success
+
+    Write-Log &quot;Looking up destination team ID from name: $DestinationTeamName&quot; -Level Info
+    $DestinationTeamId = Get-TeamIdByName -TeamName $DestinationTeamName -AccessToken $accessToken
+    Write-Log &quot;Found destination team ID: $DestinationTeamId&quot; -Level Success
+    Write-Host &quot;&quot;
+
+    # Step 1.6: Lookup source channel ID from name
+    Write-Log &quot;[Step 1.6/8] Looking up source channel ID...&quot; -Level Info
+    $SourceChannelId = Get-ChannelIdByName -TeamId $SourceTeamId -ChannelName $SourceChannelName -AccessToken $accessToken
+    Write-Log &quot;Found channel ID: $SourceChannelId&quot; -Level Success
+    Write-Host &quot;&quot;
+
+    # Step 1.7: Configure fallback user for deleted user accounts, bots, and apps
+    $FallbackUserId = $null
+    if (-not $FallbackUserUPN) {
+        Write-Log &quot;No fallback user specified. Messages from deleted users, bots, and apps will fail to migrate.&quot; -Level Warning
+        Write-Log &quot;Tip: Provide -FallbackUserUPN to migrate messages from deleted users, bots, and apps&quot; -Level Info
+    } else {
+        Write-Log &quot;Looking up fallback user ID from UPN: $FallbackUserUPN&quot; -Level Info
+        try {
+            $FallbackUserId = Get-UserIdByUPN -UserPrincipalName $FallbackUserUPN -AccessToken $accessToken
+            Write-Log &quot;Fallback user configured: $FallbackUserDisplayName ($FallbackUserId)&quot; -Level Success
+            Write-Log &quot;Messages from deleted users, bots, and apps will be attributed to this user with original author noted&quot; -Level Info
+        } catch {
+            Write-Log &quot;Failed to look up fallback user: $($_.Exception.Message)&quot; -Level Error
+            Write-Log &quot;Messages from deleted users, bots, and apps will fail to migrate.&quot; -Level Warning
+        }
+    }
+    Write-Host &quot;&quot;
+
+    # Step 2: Get source channel details
+    Write-Log &quot;[Step 2/8] Retrieving source channel information...&quot; -Level Info
+    $sourceChannelUri = &quot;https://graph.microsoft.com/v1.0/teams/$SourceTeamId/channels/$SourceChannelId&quot;
+    $sourceChannel = Invoke-GraphApiRequest -Uri $sourceChannelUri -AccessToken $accessToken -Method GET
+
+    Write-Log &quot;Channel Name: $($sourceChannel.displayName)&quot; -Level Success
+    Write-Log &quot;Description: $($sourceChannel.description)&quot;
+    Write-Log &quot;Membership Type: $($sourceChannel.membershipType)&quot;
+    Write-Host &quot;&quot;
+
+    # Step 3: Validate channel type and owner requirements
+    Write-Log &quot;[Step 3/8] Validating channel type configuration...&quot; -Level Info
+    $newChannelType = $ChannelType.ToLower()
+    Write-Log &quot;Channel type: $newChannelType&quot; -Level Success
+
+    # Validate that ChannelOwnerUPN is provided for Private and Shared channels
+    if (($newChannelType -eq &quot;private&quot; -or $newChannelType -eq &quot;shared&quot;) -and [string]::IsNullOrWhiteSpace($ChannelOwnerUPN)) {
+        throw &quot;ChannelOwnerUPN parameter is required when creating Private or Shared channels&quot;
+    }
+
+    # Lookup channel owner ID if needed
+    $ChannelOwnerId = $null
+    if ($newChannelType -eq &quot;private&quot; -or $newChannelType -eq &quot;shared&quot;) {
+        Write-Log &quot;Looking up channel owner ID from UPN: $ChannelOwnerUPN&quot; -Level Info
+        try {
+            $ChannelOwnerId = Get-UserIdByUPN -UserPrincipalName $ChannelOwnerUPN -AccessToken $accessToken
+            Write-Log &quot;Channel owner: $ChannelOwnerUPN ($ChannelOwnerId)&quot; -Level Success
+        } catch {
+            throw &quot;Failed to look up channel owner: $($_.Exception.Message)&quot;
+        }
+    }
+    Write-Host &quot;&quot;
+
+    # Step 4: Create new channel
+    Write-Log &quot;[Step 4/8] Creating new channel in destination team...&quot; -Level Info
+
+    # Generate unique channel name with timestamp
+    $timestamp = Get-Date -Format &quot;yyyyMMdd_HHmmss&quot;
+    $newChannelName = &quot;$($sourceChannel.displayName)_migrate_$timestamp&quot;
+
+    # Ensure name is within 50 character limit
+    if ($newChannelName.Length -gt 50) {
+        $newChannelName = $newChannelName.Substring(0, 50)
+        Write-Log &quot;Channel name truncated to 50 characters: $newChannelName&quot; -Level Warning
+    }
+
+    # Build the channel creation request body
+    $newChannelBody = @{
+        &quot;@odata.type&quot;  = &quot;#Microsoft.Graph.channel&quot;
+        displayName    = $newChannelName
+        description    = $sourceChannel.description
+        membershipType = $newChannelType
+    }
+
+    # For Private and Shared channels, add the owner as a member
+    if ($newChannelType -eq &quot;private&quot; -or $newChannelType -eq &quot;shared&quot;) {
+        $newChannelBody.members = @(
+            @{
+                &quot;@odata.type&quot; = &quot;#microsoft.graph.aadUserConversationMember&quot;
+                &quot;user@odata.bind&quot; = &quot;https://graph.microsoft.com/v1.0/users('$ChannelOwnerId')&quot;
+                roles = @(&quot;owner&quot;)
+            }
+        )
+        Write-Log &quot;Adding channel owner to members: $ChannelOwnerUPN&quot; -Level Info
+    }
+
+    $createChannelUri = &quot;https://graph.microsoft.com/v1.0/teams/$DestinationTeamId/channels&quot;
+    $newChannel = Invoke-GraphApiRequest -Uri $createChannelUri -AccessToken $accessToken -Method POST -Body $newChannelBody
+
+    Write-Log &quot;New channel created: $($newChannel.displayName)&quot; -Level Success
+    Write-Log &quot;Channel ID: $($newChannel.id)&quot; -Level Success
+    Write-Host &quot;&quot;
+
+    # Step 4.5: Start migration mode on the new channel
+    Write-Log &quot;Starting migration mode on new channel...&quot; -Level Info
+    try {
+        # Use the correct startMigration endpoint (beta API)
+        $startMigrationUri = &quot;https://graph.microsoft.com/beta/teams/$DestinationTeamId/channels/$($newChannel.id)/startMigration&quot;
+
+        # Set conversation creation date to allow backdating messages
+        # Using 2015-01-01 to ensure all historical messages can be imported
+        $migrationBody = @{
+            conversationCreationDateTime = &quot;2015-01-01T00:00:00Z&quot;
+        }
+
+        Invoke-GraphApiRequest -Uri $startMigrationUri -AccessToken $accessToken -Method POST -Body $migrationBody
+        Write-Log &quot;Migration mode started successfully with conversation creation date: 2015-01-01&quot; -Level Success
+    } catch {
+        Write-Log &quot;Failed to start migration mode: $($_.Exception.Message)&quot; -Level Error
+        Write-Log &quot;Migration may fail without this. Check that Teamwork.Migrate.All permission is granted.&quot; -Level Warning
+    }
+    Write-Host &quot;&quot;
+
+    # Step 4.6: Copy channel files
+    Write-Log &quot;[Step 4.6/8] Copying files from source channel...&quot; -Level Info
+    $fileCopyResult = Copy-ChannelFiles -SourceTeamId $SourceTeamId `
+        -SourceChannelId $SourceChannelId `
+        -DestinationTeamId $DestinationTeamId `
+        -DestinationChannelId $newChannel.id `
+        -AccessToken $accessToken
+    Write-Host &quot;&quot;
+
+    # Step 5: Retrieve all messages from source channel
+    Write-Log &quot;[Step 5/8] Retrieving messages from source channel...&quot; -Level Info
+    $messages = Get-AllMessages -TeamId $SourceTeamId -ChannelId $SourceChannelId -AccessToken $accessToken
+    Write-Log &quot;Retrieved $($messages.Count) top-level messages&quot; -Level Success
+    Write-Host &quot;&quot;
+
+    # Step 6: Migrate messages
+    Write-Log &quot;[Step 6/8] Migrating messages to new channel...&quot; -Level Info
+    Write-Log &quot;NOTE: Attempting to migrate message text, attachments, and inline images&quot; -Level Info
+    Write-Host &quot;&quot;
+
+    $successCount = 0
+    $errorCount = 0
+    $Debug = $false
+    $messageMap = @{}  # Map old message IDs to new message IDs
+    $detailedErrorsShown = 0
+    $maxDetailedErrors = 3  # Show detailed info for first 3 errors
+
+    foreach ($message in $messages) {
+        try {
+            $messageNumber = $messages.IndexOf($message) + 1
+            Write-Log &quot;Processing message $messageNumber of $($messages.Count)...&quot;
+
+            # Skip deleted messages
+            if ($message.deletedDateTime) {
+                Write-Log &quot;  Skipping deleted message&quot; -Level Warning
+                continue
+            }
+
+            # Skip system event messages (cannot be migrated)
+            if ($message.body.content -eq &quot;&lt;systemEventMessage/&gt;&quot;) {
+                Write-Log &quot;  Skipping system event message&quot; -Level Warning
+                continue
+            }
+
+            # Skip messages with no content
+            if (-not $message.body -or [string]::IsNullOrWhiteSpace($message.body.content)) {
+                Write-Log &quot;  Skipping message with no content&quot; -Level Warning
+                continue
+            }
+
+            # Handle messages without user information (bots, apps, system messages)
+            if (-not $message.from -or -not $message.from.user) {
+                if (-not $FallbackUserId) {
+                    Write-Log &quot;  Skipping bot/app message (no fallback user configured)&quot; -Level Warning
+                    continue
+                }
+                Write-Log &quot;  Bot/app message detected, will use fallback user&quot; -Level Info
+            }
+
+            # Migrate the message
+            $newMessage = New-MigratedMessage -SourceMessage $message `
+                -DestinationTeamId $DestinationTeamId `
+                -DestinationChannelId $newChannel.id `
+                -AccessToken $accessToken `
+                -FallbackUserId $FallbackUserId `
+                -FallbackUserDisplayName $FallbackUserDisplayName
+
+            $messageMap[$message.id] = $newMessage.id
+            $successCount++
+
+            Write-Log &quot;  Message migrated successfully&quot; -Level Success
+
+            # Get and migrate replies
+            try {
+                $replies = Get-MessageReplies -TeamId $SourceTeamId -ChannelId $SourceChannelId -MessageId $message.id -AccessToken $accessToken
+
+                if ($replies.Count -gt 0) {
+                    Write-Log &quot;  Migrating $($replies.Count) replies...&quot;
+                    $repliesSuccessCount = 0
+                    $repliesErrorCount = 0
+
+                    foreach ($reply in $replies) {
+                        try {
+                            # Skip system event messages
+                            if ($reply.body.content -eq &quot;&lt;systemEventMessage/&gt;&quot;) {
+                                Write-Log &quot;    Skipping system event reply&quot; -Level Warning
+                                continue
+                            }
+
+                            # Skip messages with no content
+                            if (-not $reply.body -or [string]::IsNullOrWhiteSpace($reply.body.content)) {
+                                Write-Log &quot;    Skipping reply with no content&quot; -Level Warning
+                                continue
+                            }
+
+                            # Handle replies without user information (bots, apps)
+                            if (-not $reply.from -or -not $reply.from.user) {
+                                if (-not $FallbackUserId) {
+                                    Write-Log &quot;    Skipping bot/app reply (no fallback user configured)&quot; -Level Warning
+                                    continue
+                                }
+                                Write-Log &quot;    Bot/app reply detected, will use fallback user&quot; -Level Info
+                            }
+
+                            # Migrate the reply
+                            $null = New-MigratedMessage -SourceMessage $reply `
+                                -DestinationTeamId $DestinationTeamId `
+                                -DestinationChannelId $newChannel.id `
+                                -AccessToken $accessToken `
+                                -ParentMessageId $newMessage.id `
+                                -FallbackUserId $FallbackUserId `
+                                -FallbackUserDisplayName $FallbackUserDisplayName
+
+                            Write-Log &quot;    Reply migrated successfully&quot; -Level Success
+                            $successCount++
+                            $repliesSuccessCount++
+
+                        } catch {
+                            Write-Log &quot;    Failed to migrate reply: $($_.Exception.Message)&quot; -Level Error
+                            $errorCount++
+                            $repliesErrorCount++
+                        }
+                    }
+
+                    Write-Log &quot;  Reply summary: $repliesSuccessCount succeeded, $repliesErrorCount failed&quot; -Level Info
+                }
+            } catch {
+                Write-Log &quot;  Warning: Failed to retrieve replies for this message: $($_.Exception.Message)&quot; -Level Warning
+                Write-Log &quot;  Continuing with next message...&quot; -Level Info
+            }
+
+            # Small delay to avoid throttling
+            Start-Sleep -Milliseconds 200
+
+        } catch {
+            $errorCount++
+
+            # Show detailed error info for first few failures
+            if ($detailedErrorsShown -lt $maxDetailedErrors) {
+                Write-Host &quot;&quot;
+                Write-Host &quot;  ========================================&quot; -ForegroundColor Red
+                Write-Host &quot;  DETAILED ERROR #$($detailedErrorsShown + 1)&quot; -ForegroundColor Red
+                Write-Host &quot;  ========================================&quot; -ForegroundColor Red
+                Write-Host &quot;  Message Number: $messageNumber&quot; -ForegroundColor Yellow
+                Write-Host &quot;  Message ID: $($message.id)&quot; -ForegroundColor Yellow
+                Write-Host &quot;  Created: $($message.createdDateTime)&quot; -ForegroundColor Yellow
+                Write-Host &quot;  Author: $($message.from.user.displayName) ($($message.from.user.id))&quot; -ForegroundColor Yellow
+                Write-Host &quot;&quot;
+                Write-Host &quot;  Request Body:&quot; -ForegroundColor Cyan
+                $debugBody = @{
+                    body = @{
+                        content     = $message.body.content.Substring(0, [Math]::Min(100, $message.body.content.Length))
+                        contentType = $message.body.contentType
+                    }
+                    createdDateTime = $message.createdDateTime
+                    from = @{
+                        user = @{
+                            id               = $message.from.user.id
+                            displayName      = $message.from.user.displayName
+                            userIdentityType = &quot;aadUser&quot;
+                        }
+                    }
+                }
+                Write-Host &quot;  $($debugBody | ConvertTo-Json -Depth 5)&quot; -ForegroundColor White
+                Write-Host &quot;&quot;
+                Write-Host &quot;  Error Details:&quot; -ForegroundColor Cyan
+                Write-Host &quot;  $($_.Exception.Message)&quot; -ForegroundColor Red
+                Write-Host &quot;  ========================================&quot; -ForegroundColor Red
+                Write-Host &quot;&quot;
+                $detailedErrorsShown++
+            } else {
+                Write-Log &quot;  Failed to migrate message: $($_.Exception.Message)&quot; -Level Error
+            }
+        }
+    }
+
+    Write-Host &quot;&quot;
+    # Step 7: Complete migration mode
+    Write-Log &quot;[Step 7/8] Finalizing migration...&quot; -Level Info
+    try {
+        $completeMigrationUri = &quot;https://graph.microsoft.com/beta/teams/$DestinationTeamId/channels/$($newChannel.id)/completeMigration&quot;
+        Invoke-GraphApiRequest -Uri $completeMigrationUri -AccessToken $accessToken -Method POST
+        Write-Log &quot;Migration mode completed successfully&quot; -Level Success
+    } catch {
+        Write-Log &quot;Warning: Failed to complete migration mode: $($_.Exception.Message)&quot; -Level Warning
+        Write-Log &quot;The channel may remain in migration mode. You may need to manually complete it.&quot; -Level Warning
+    }
+
+    Write-Host &quot;&quot;
+    Write-Log &quot;Migration Complete!&quot; -Level Success
+    Write-Host &quot;&quot;
+    Write-Log &quot;========================================&quot; -Level Info
+    Write-Log &quot;Migration Summary&quot; -Level Info
+    Write-Log &quot;========================================&quot; -Level Info
+    Write-Log &quot;Source Channel: $($sourceChannel.displayName)&quot;
+    Write-Log &quot;New Channel: $($newChannel.displayName)&quot;
+    Write-Log &quot;New Channel ID: $($newChannel.id)&quot;
+    Write-Log &quot;Total Messages Processed: $($messages.Count)&quot;
+    Write-Log &quot;Successfully Migrated: $successCount&quot; -Level Success
+    Write-Log &quot;Errors: $errorCount&quot; -Level $(if ($errorCount -eq 0) { 'Success' } else { 'Warning' })
+    Write-Log &quot;Log File: $LogFilePath&quot;
+    Write-Log &quot;========================================&quot; -Level Info
+
+    if ($errorCount -gt 0) {
+        Write-Host &quot;&quot;
+        Write-Log &quot;Some messages failed to migrate. Please check the log file for details.&quot; -Level Warning
+    }
+
+} catch {
+    Write-Host &quot;&quot;
+    Write-Log &quot;========================================&quot; -Level Error
+    Write-Log &quot;CRITICAL ERROR&quot; -Level Error
+    Write-Log &quot;========================================&quot; -Level Error
+    Write-Log &quot;Error: $($_.Exception.Message)&quot; -Level Error
+    Write-Log &quot;Stack Trace: $($_.ScriptStackTrace)&quot; -Level Error
+    throw
+}
+
+#endregion
+
+
+</code></pre>
+<div class="highlight-tool">
+<p>Check out the <strong>Microsoft Graph PowerShell SDK</strong> to learn more at: <a href="https://learn.microsoft.com/graph/powershell/get-started">https://learn.microsoft.com/graph/powershell/get-started</a></p>
+</div>
+</section>
+</div>
+<h2 id="contributors">Contributors</h2>
+<table>
+<thead>
+<tr>
+<th>Author(s)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Matt Maher</td>
+</tr>
+</tbody>
+</table>
+<h2 id="disclaimer">Disclaimer</h2>
+<p><strong>THESE SAMPLES ARE PROVIDED <em>AS IS</em> WITHOUT WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, INCLUDING ANY IMPLIED WARRANTIES OF FITNESS FOR A PARTICULAR PURPOSE, MERCHANTABILITY, OR NON-INFRINGEMENT.</strong></p>
+<img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/teams-migrate-channelmessages" aria-hidden="true">
+
+</article>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+      <span>Script Samples<br>Generated by <strong><a href='https://dotnet.github.io/docfx' alt='Doc FX Website'>DocFX</a></strong> with <strong><a href='https://ovasquez.github.io/docfx-material' alt='DocFx Material Theme'>Material UI</a></strong></span>
+      
+            <!-- <img src="https://telemetry.sharepointpnp.com/@pnp.github.io/index/" alt="spacer"> -->
+          </div>
+        </div>
+      </footer>    </div>
+
+    <script type="text/javascript" src="../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+
+    <script type="text/javascript" src="../styles/clipboard.min.js"></script>
+    <script type="text/javascript" src="../styles/isotope.pkgd.min.js"></script>
+    <script type="text/javascript" src="../styles/loadsamples.js"></script>
+    <script type="text/javascript" src="../styles/filtersamples.js"></script>
+
+  </body>
+</html>
