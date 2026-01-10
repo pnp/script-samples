@@ -99,11 +99,16 @@
   <h1 id="get-and-compare-documents-hash-from-different-tenants">Get and compare documents hash from different tenants</h1>
 
 <h2 id="summary">Summary</h2>
-<p>This script first connects to the first tenant using the Connect-PnPOnline cmdlet, then uses the Get-PnPFile cmdlet to retrieve the file in question. It then connects to the second tenant and retrieves the same file. The script then uses the Get-FileHash cmdlet to retrieve the hash of the file in both tenants. Finally, it compares the hashes of the two files and outputs the results to the console.</p>
+<p>This script compares files from two different SharePoint tenants by calculating and comparing their hash values. This is useful for verifying file integrity after migrations or ensuring files are identical across tenants. This sample is available in both PnP PowerShell and CLI for Microsoft 365.</p>
+<p>Example of script output of the CLI for Microsoft 365 version:</p>
+<p><img src="assets/preview.png" alt="preview CLI for Microsoft 365 output"></p>
 <div class="tabGroup" id="tabgroup_1">
 <ul role="tablist">
 <li role="presentation">
 <a href="#tabpanel_1_pnpps" role="tab" aria-controls="tabpanel_1_pnpps" data-tab="pnpps" tabindex="0" aria-selected="true">PnP PowerShell</a>
+</li>
+<li role="presentation">
+<a href="#tabpanel_1_cli-m365-ps" role="tab" aria-controls="tabpanel_1_cli-m365-ps" data-tab="cli-m365-ps" tabindex="-1">CLI for Microsoft 365</a>
 </li>
 </ul>
 <section id="tabpanel_1_pnpps" role="tabpanel" data-tab="pnpps">
@@ -136,6 +141,121 @@ if ($hash1 -eq $hash2) {
 <p>The way you login into PnP PowerShell has changed please read <a href="https://github.com/pnp/powershell/discussions/4249">PnP Management Shell EntraID app is deleted : what should I do ?</a></p>
 </div>
 </section>
+<section id="tabpanel_1_cli-m365-ps" role="tabpanel" data-tab="cli-m365-ps" aria-hidden="true" hidden="hidden">
+
+<pre><code class="lang-powershell">[CmdletBinding()]
+param(
+    [Parameter(Mandatory, HelpMessage = &quot;URL of the site in first tenant&quot;)]
+    [string]$WebUrl1,
+    
+    [Parameter(Mandatory, HelpMessage = &quot;Server-relative URL of the file in first tenant&quot;)]
+    [string]$FileUrl1,
+    
+    [Parameter(Mandatory, HelpMessage = &quot;URL of the site in second tenant&quot;)]
+    [string]$WebUrl2,
+    
+    [Parameter(HelpMessage = &quot;Server-relative URL of the file in second tenant (defaults to same as FileUrl1)&quot;)]
+    [string]$FileUrl2,
+    
+    [Parameter(HelpMessage = &quot;Name for the first tenant connection (defaults to 'tenant1')&quot;)]
+    [string]$Connection1Name = &quot;tenant1&quot;,
+    
+    [Parameter(HelpMessage = &quot;Name for the second tenant connection (defaults to 'tenant2')&quot;)]
+    [string]$Connection2Name = &quot;tenant2&quot;
+)
+
+begin {
+    if ([string]::IsNullOrEmpty($FileUrl2)) {
+        $FileUrl2 = $FileUrl1
+    }
+    
+    Write-Host &quot;Setting up connections to both tenants...&quot; -ForegroundColor Cyan
+    
+    Write-Host &quot;Logging in to first tenant ($WebUrl1)...&quot; -ForegroundColor Cyan
+    m365 login --connectionName $Connection1Name
+    if ($LASTEXITCODE -ne 0) {
+        throw &quot;Failed to login to first tenant&quot;
+    }
+    
+    Write-Host &quot;Logging in to second tenant ($WebUrl2)...&quot; -ForegroundColor Cyan
+    m365 login --connectionName $Connection2Name
+    if ($LASTEXITCODE -ne 0) {
+        throw &quot;Failed to login to second tenant&quot;
+    }
+    
+    $tempDir = Join-Path $env:TEMP &quot;CompareFiles-$(Get-Date -Format 'yyyyMMddHHmmss')&quot;
+    New-Item -ItemType Directory -Path $tempDir -Force | Out-Null
+    $tempFile1 = Join-Path $tempDir &quot;file1.tmp&quot;
+    $tempFile2 = Join-Path $tempDir &quot;file2.tmp&quot;
+}
+
+process {
+    try {
+        Write-Host &quot;`nSwitching to first tenant connection...&quot; -ForegroundColor Cyan
+        m365 connection use --name $Connection1Name | Out-Null
+        if ($LASTEXITCODE -ne 0) {
+            throw &quot;Failed to switch to first tenant connection&quot;
+        }
+        
+        Write-Host &quot;Downloading file from first tenant: $FileUrl1&quot; -ForegroundColor Cyan
+        $result1 = m365 spo file get --webUrl $WebUrl1 --url $FileUrl1 --asFile --path $tempFile1 2&gt;&amp;1
+        if ($LASTEXITCODE -ne 0) {
+            throw &quot;Failed to download file from first tenant: $result1&quot;
+        }
+        
+        Write-Host &quot;`nSwitching to second tenant connection...&quot; -ForegroundColor Cyan
+        m365 connection use --name $Connection2Name | Out-Null
+        if ($LASTEXITCODE -ne 0) {
+            throw &quot;Failed to switch to second tenant connection&quot;
+        }
+        
+        Write-Host &quot;Downloading file from second tenant: $FileUrl2&quot; -ForegroundColor Cyan
+        $result2 = m365 spo file get --webUrl $WebUrl2 --url $FileUrl2 --asFile --path $tempFile2 2&gt;&amp;1
+        if ($LASTEXITCODE -ne 0) {
+            throw &quot;Failed to download file from second tenant: $result2&quot;
+        }
+        
+        Write-Host &quot;`nCalculating file hashes...&quot; -ForegroundColor Cyan
+        $hash1 = (Get-FileHash -Path $tempFile1 -Algorithm SHA256).Hash
+        $hash2 = (Get-FileHash -Path $tempFile2 -Algorithm SHA256).Hash
+        
+        Write-Host &quot;`nComparison Results:&quot; -ForegroundColor White
+        Write-Host &quot;==================&quot; -ForegroundColor White
+        Write-Host &quot;File 1 ($Connection1Name): $FileUrl1&quot; -ForegroundColor Gray
+        Write-Host &quot;Hash 1: $hash1&quot; -ForegroundColor Gray
+        Write-Host &quot;`nFile 2 ($Connection2Name): $FileUrl2&quot; -ForegroundColor Gray
+        Write-Host &quot;Hash 2: $hash2&quot; -ForegroundColor Gray
+        
+        Write-Host &quot;`nResult: &quot; -NoNewline
+        if ($hash1 -eq $hash2) {
+            Write-Host &quot;Files are IDENTICAL&quot; -ForegroundColor Green
+        } else {
+            Write-Host &quot;Files are DIFFERENT&quot; -ForegroundColor Red
+        }
+    } finally {
+        if (Test-Path $tempDir) {
+            Remove-Item -Path $tempDir -Recurse -Force
+        }
+    }
+}
+
+# Example 1: Compare same file across two tenants
+# .\Compare-Files.ps1 -WebUrl1 &quot;https://contoso.sharepoint.com/sites/Site1&quot; -FileUrl1 &quot;/Shared Documents/document.docx&quot; -WebUrl2 &quot;https://fabrikam.sharepoint.com/sites/Site2&quot; -Connection1Name &quot;contoso&quot; -Connection2Name &quot;fabrikam&quot;
+
+# Example 2: Compare different file paths
+# .\Compare-Files.ps1 -WebUrl1 &quot;https://contoso.sharepoint.com/sites/Site1&quot; -FileUrl1 &quot;/Shared Documents/doc1.pdf&quot; -WebUrl2 &quot;https://fabrikam.sharepoint.com/sites/Site2&quot; -FileUrl2 &quot;/Documents/doc2.pdf&quot;
+
+# Example 3: Compare with default connection names (tenant1, tenant2)
+# .\Compare-Files.ps1 -WebUrl1 &quot;https://contoso.sharepoint.com/sites/Site1&quot; -FileUrl1 &quot;/Shared Documents/report.xlsx&quot; -WebUrl2 &quot;https://fabrikam.sharepoint.com/sites/Site2&quot;
+
+</code></pre>
+<div class="highlight-tool">
+<p>Check out the <strong>CLI for Microsoft 365</strong> to learn more at: <a href="https://aka.ms/cli-m365">https://aka.ms/cli-m365</a></p>
+</div>
+<div class="highlight-tool-red">
+<p>Important changes coming to the way you login into CLI for Microsoft 365 (effective 9th September 2024) see <a href="https://pnp.github.io/blog/post/changes-pnp-management-shell-registration/">Changes in PnP Management Shell registration in Microsoft 365</a></p>
+</div>
+</section>
 </div>
 <h2 id="contributors">Contributors</h2>
 <table>
@@ -147,6 +267,9 @@ if ($hash1 -eq $hash2) {
 <tbody>
 <tr>
 <td><a href="https://github.com/ValerasNarbutas">Valeras Narbutas</a></td>
+</tr>
+<tr>
+<td>Adam Wójcik <a href="https://github.com/Adam-it">@Adam-it</a></td>
 </tr>
 </tbody>
 </table>
