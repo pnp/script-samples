@@ -11265,6 +11265,45 @@
     ]
   },
   {
+    "name": "spo-get-inactive-sites-report",
+    "title": "Get Inactive SharePoint Sites Report",
+    "shortDescription": "This script identifies SharePoint Online sites that have had no content activity for a defined period (default: 365 days) and generates a CSV report containing site metadata.",
+    "url": "spo-get-inactive-sites-report/README.html",
+    "creationDateTime": "2026-01-10",
+    "updateDateTime": "2026-01-10",
+    "products": [
+      "SharePoint"
+    ],
+    "metadata": [
+      {
+        "key": "PNP-POWERSHELL",
+        "value": "3.1.0"
+      }
+    ],
+    "categories": [
+      "Report"
+    ],
+    "tags": [
+      "Get-PnPTenantSite"
+    ],
+    "thumbnails": [
+      {
+        "type": "image",
+        "order": 100,
+        "url": "spo-get-inactive-sites-report/assets/preview.png",
+        "alt": "Preview of the sample Get Inactive SharePoint Sites Report"
+      }
+    ],
+    "authors": [
+      {
+        "gitHubAccount": "ojopiyo",
+        "company": "",
+        "pictureUrl": "https://github.com/ojopiyo.png",
+        "name": "Josiah Opiyo"
+      }
+    ]
+  },
+  {
     "name": "spo-get-items-not-indexed-since-last-update",
     "title": "Pinpoint the items/docs that hasn't been indexed yet",
     "shortDescription": "Pinpoint the items/docs that hasn't been indexed yet since the last time the item was updated",

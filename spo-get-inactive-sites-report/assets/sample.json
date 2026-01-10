@@ -1,0 +1,52 @@
+[
+  {
+    "name": "spo-get-inactive-sites-report",
+    "source": "pnp",
+    "title": "Get Inactive SharePoint Sites Report",
+    "shortDescription": "This script identifies SharePoint Online sites that have had no content activity for a defined period (default: 365 days) and generates a CSV report containing site metadata.",
+    "url": "https://pnp.github.io/script-samples/spo-get-inactive-sites-report/README.html",
+    "longDescription": [
+      ""
+    ],
+    "creationDateTime": "2026-01-10",
+    "updateDateTime": "2026-01-10",
+    "products": [
+      "SharePoint"
+    ],
+    "metadata": [
+      {
+        "key": "PNP-POWERSHELL",
+        "value": "3.1.0"
+      }
+    ],
+    "categories": [
+      "Report"
+    ],
+    "tags": [
+      "Get-PnPTenantSite"
+    ],
+    "thumbnails": [
+      {
+        "type": "image",
+        "order": 100,
+        "url": "https://raw.githubusercontent.com/pnp/script-samples/main/scripts/spo-get-inactive-sites-report/assets/preview.png",
+        "alt": "Preview of the sample Get Inactive SharePoint Sites Report"
+      }
+    ],
+    "authors": [
+      {
+        "gitHubAccount": "ojopiyo",
+        "company": "",
+        "pictureUrl": "https://github.com/ojopiyo.png",
+        "name": "Josiah Opiyo"
+      }
+    ],
+    "references": [
+      {
+        "name": "Want to learn more about PnP PowerShell and the cmdlets",
+        "description": "Check out the PnP PowerShell site to get started and for the reference to the cmdlets.",
+        "url": "https://aka.ms/pnp/powershell"
+      }
+    ]
+  }
+]
