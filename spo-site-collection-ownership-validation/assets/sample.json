@@ -1,0 +1,58 @@
+[
+  {
+    "name": "spo-site-collection-ownership-validation",
+    "source": "pnp",
+    "title": "Site Collection Ownership Validation",
+    "shortDescription": "This script audits all SharePoint Online site collections in a Microsoft 365 tenant to validate site ownership.",
+    "url": "https://pnp.github.io/script-samples/spo-site-collection-ownership-validation/README.html",
+    "longDescription": [
+      ""
+    ],
+    "creationDateTime": "2026-01-10",
+    "updateDateTime": "2026-01-10",
+    "products": [
+      "SharePoint"
+    ],
+    "metadata": [
+      {
+        "key": "PNP-POWERSHELL",
+        "value": "3.1.0"
+      }
+    ],
+    "categories": [
+      "Report"
+    ],
+    "tags": [
+      "Get-PnPTenantSite",
+      "Get-PnPSiteCollectionAdmin"
+    ],
+    "thumbnails": [
+      {
+        "type": "image",
+        "order": 100,
+        "url": "https://raw.githubusercontent.com/pnp/script-samples/main/scripts/spo-site-collection-ownership-validation/assets/preview.png",
+        "alt": "Preview of the sample Site Collection Ownership Validation"
+      }
+    ],
+    "authors": [
+      {
+        "gitHubAccount": "ojopiyo",
+        "company": "",
+        "pictureUrl": "https://github.com/ojopiyo.png",
+        "name": "Josiah Opiyo"
+      }
+    ],
+    "references": [
+      {
+        "name": "Want to learn more about PnP PowerShell and the cmdlets",
+        "description": "Check out the PnP PowerShell site to get started and for the reference to the cmdlets.",
+        "url": "https://aka.ms/pnp/powershell"
+      },      
+      {
+        "name": "Want to learn more about Microsoft Graph PowerShell SDK and the cmdlets",
+        "description": "Check out the Microsoft Graph PowerShell SDK documentation site to get started and for the reference to the cmdlets.",
+        "url": "https://learn.microsoft.com/graph/powershell/get-started"
+      }
+    ]
+  }
+]

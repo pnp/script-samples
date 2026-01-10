@@ -15722,6 +15722,46 @@
     ]
   },
   {
+    "name": "spo-site-collection-ownership-validation",
+    "title": "Site Collection Ownership Validation",
+    "shortDescription": "This script audits all SharePoint Online site collections in a Microsoft 365 tenant to validate site ownership.",
+    "url": "spo-site-collection-ownership-validation/README.html",
+    "creationDateTime": "2026-01-10",
+    "updateDateTime": "2026-01-10",
+    "products": [
+      "SharePoint"
+    ],
+    "metadata": [
+      {
+        "key": "PNP-POWERSHELL",
+        "value": "3.1.0"
+      }
+    ],
+    "categories": [
+      "Report"
+    ],
+    "tags": [
+      "Get-PnPTenantSite",
+      "Get-PnPSiteCollectionAdmin"
+    ],
+    "thumbnails": [
+      {
+        "type": "image",
+        "order": 100,
+        "url": "spo-site-collection-ownership-validation/assets/preview.png",
+        "alt": "Preview of the sample Site Collection Ownership Validation"
+      }
+    ],
+    "authors": [
+      {
+        "gitHubAccount": "ojopiyo",
+        "company": "",
+        "pictureUrl": "https://github.com/ojopiyo.png",
+        "name": "Josiah Opiyo"
+      }
+    ]
+  },
+  {
     "name": "spo-tenant-site-inventory",
     "title": "List of active sites in Tenant with Admins and storage used",
     "shortDescription": "This script provides you the list of active sites in your tenant with their administrator and usage in MB",
