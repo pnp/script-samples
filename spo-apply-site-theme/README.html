@@ -99,12 +99,16 @@
   <h1 id="apply-site-theme">Apply site theme</h1>
 
 <h2 id="summary">Summary</h2>
-<p>Apply a theme to a specific SharePoint site without adding a tenant theme that would be available for all sites through the &quot;Change the look&quot; menu.</p>
-<p><img src="assets/preview.png" alt="Example Screenshot"></p>
+<p>Apply a theme to a specific SharePoint site without adding a tenant theme that would be available for all sites through the &quot;Change the look&quot; menu. This sample is available in both PnP PowerShell and CLI for Microsoft 365.</p>
+<p>Example of applying a custom theme to a SharePoint site using CLI for Microsoft 365:</p>
+<p><img src="assets/preview.png" alt="Example Screenshot of CLI for Microsoft 365"></p>
 <div class="tabGroup" id="tabgroup_1">
 <ul role="tablist">
 <li role="presentation">
 <a href="#tabpanel_1_pnpps" role="tab" aria-controls="tabpanel_1_pnpps" data-tab="pnpps" tabindex="0" aria-selected="true">PnP PowerShell</a>
+</li>
+<li role="presentation">
+<a href="#tabpanel_1_cli-m365-ps" role="tab" aria-controls="tabpanel_1_cli-m365-ps" data-tab="cli-m365-ps" tabindex="-1">CLI for Microsoft 365</a>
 </li>
 </ul>
 <section id="tabpanel_1_pnpps" role="tabpanel" data-tab="pnpps">
@@ -173,6 +177,90 @@ Disconnect-PnPOnline
 <p>The way you login into PnP PowerShell has changed please read <a href="https://github.com/pnp/powershell/discussions/4249">PnP Management Shell EntraID app is deleted : what should I do ?</a></p>
 </div>
 </section>
+<section id="tabpanel_1_cli-m365-ps" role="tabpanel" data-tab="cli-m365-ps" aria-hidden="true" hidden="hidden">
+
+<pre><code class="lang-powershell">[CmdletBinding(SupportsShouldProcess = $true)]
+param(
+    [Parameter(Mandatory, HelpMessage = &quot;SharePoint site URL to apply the theme&quot;)]
+    [string]$SiteUrl,
+    
+    [Parameter(Mandatory, HelpMessage = &quot;Path to theme JSON file or inline JSON string&quot;)]
+    [string]$ThemeJson,
+    
+    [Parameter(HelpMessage = &quot;Unique name for the temporary theme&quot;)]
+    [string]$ThemeName = &quot;TempTheme-$(Get-Date -Format 'yyyyMMddHHmmss')&quot;,
+    
+    [Parameter(HelpMessage = &quot;Keep the theme registered in tenant after applying&quot;)]
+    [switch]$KeepTheme
+)
+
+begin {
+    m365 login --ensure
+    if ($LASTEXITCODE -ne 0) {
+        throw &quot;Failed to verify login status&quot;
+    }
+    
+    $themeContent = if ($ThemeJson.StartsWith('@')) {
+        $filePath = $ThemeJson.Substring(1)
+        if (-not (Test-Path $filePath)) {
+            throw &quot;Theme file not found: $filePath&quot;
+        }
+        Get-Content $filePath -Raw
+    } else {
+        $ThemeJson
+    }
+}
+
+process {
+    if (-not $PSCmdlet.ShouldProcess($SiteUrl, &quot;Apply theme '$ThemeName'&quot;)) {
+        return
+    }
+    
+    Write-Host &quot;Registering theme '$ThemeName'...&quot; -ForegroundColor Cyan
+    $setResult = m365 spo theme set --name $ThemeName --theme $themeContent 2&gt;&amp;1
+    if ($LASTEXITCODE -ne 0) {
+        throw &quot;Failed to register theme: $setResult&quot;
+    }
+    
+    Write-Host &quot;Applying theme to: $SiteUrl&quot; -ForegroundColor Cyan
+    $applyResult = m365 spo theme apply --name $ThemeName --webUrl $SiteUrl --output json 2&gt;&amp;1
+    if ($LASTEXITCODE -ne 0) {
+        throw &quot;Failed to apply theme: $applyResult&quot;
+    }
+    
+    Write-Host &quot;Theme applied successfully!&quot; -ForegroundColor Green
+    Write-Host &quot;Catalog path: $applyResult&quot; -ForegroundColor Gray
+    
+    if (-not $KeepTheme) {
+        $removeResult = m365 spo theme remove --name $ThemeName --force 2&gt;&amp;1
+        if ($LASTEXITCODE -ne 0) {
+            Write-Warning &quot;Failed to remove temporary theme. You may need to remove it manually.&quot;
+        }
+    } else {
+        Write-Host &quot;Theme kept in tenant gallery&quot; -ForegroundColor Yellow
+    }
+}
+
+# Example 1: Apply theme from JSON file
+# .\Apply-SiteTheme.ps1 -SiteUrl &quot;https://contoso.sharepoint.com/sites/ProjectX&quot; -ThemeJson &quot;@C:\themes\custom-theme.json&quot;
+
+# Example 2: Apply theme from inline JSON and keep it in tenant
+# .\Apply-SiteTheme.ps1 -SiteUrl &quot;https://contoso.sharepoint.com/sites/ProjectX&quot; -ThemeJson '{&quot;themePrimary&quot;:&quot;#d81e05&quot;,&quot;themeLighterAlt&quot;:&quot;#fdf5f4&quot;,&quot;themeLighter&quot;:&quot;#f9d6d2&quot;,&quot;themeLight&quot;:&quot;#f4b4ac&quot;,&quot;themeTertiary&quot;:&quot;#e87060&quot;,&quot;themeSecondary&quot;:&quot;#dd351e&quot;,&quot;themeDarkAlt&quot;:&quot;#c31a04&quot;,&quot;themeDark&quot;:&quot;#a51603&quot;,&quot;themeDarker&quot;:&quot;#791002&quot;,&quot;neutralLighterAlt&quot;:&quot;#eeeeee&quot;,&quot;neutralLighter&quot;:&quot;#f5f5f5&quot;,&quot;neutralLight&quot;:&quot;#e1e1e1&quot;,&quot;neutralQuaternaryAlt&quot;:&quot;#d1d1d1&quot;,&quot;neutralQuaternary&quot;:&quot;#c8c8c8&quot;,&quot;neutralTertiaryAlt&quot;:&quot;#c0c0c0&quot;,&quot;neutralTertiary&quot;:&quot;#c2c2c2&quot;,&quot;neutralSecondary&quot;:&quot;#858585&quot;,&quot;neutralPrimaryAlt&quot;:&quot;#4b4b4b&quot;,&quot;neutralPrimary&quot;:&quot;#333333&quot;,&quot;neutralDark&quot;:&quot;#272727&quot;,&quot;black&quot;:&quot;#1d1d1d&quot;,&quot;white&quot;:&quot;#f5f5f5&quot;}' -KeepTheme
+
+# Example 3: Test with WhatIf before applying
+# .\Apply-SiteTheme.ps1 -SiteUrl &quot;https://contoso.sharepoint.com/sites/ProjectX&quot; -ThemeJson &quot;@theme.json&quot; -WhatIf
+
+# Example 4: Apply with verbose output
+# .\Apply-SiteTheme.ps1 -SiteUrl &quot;https://contoso.sharepoint.com/sites/ProjectX&quot; -ThemeJson &quot;@theme.json&quot; -Verbose
+
+</code></pre>
+<div class="highlight-tool">
+<p>Check out the <strong>CLI for Microsoft 365</strong> to learn more at: <a href="https://aka.ms/cli-m365">https://aka.ms/cli-m365</a></p>
+</div>
+<div class="highlight-tool-red">
+<p>Important changes coming to the way you login into CLI for Microsoft 365 (effective 9th September 2024) see <a href="https://pnp.github.io/blog/post/changes-pnp-management-shell-registration/">Changes in PnP Management Shell registration in Microsoft 365</a></p>
+</div>
+</section>
 </div>
 <h2 id="contributors">Contributors</h2>
 <table>
@@ -184,6 +272,9 @@ Disconnect-PnPOnline
 <tbody>
 <tr>
 <td><a href="https://github.com/a1mery">Aimery Thomas</a></td>
+</tr>
+<tr>
+<td>Adam Wójcik <a href="https://github.com/Adam-it">@Adam-it</a></td>
 </tr>
 </tbody>
 </table>
