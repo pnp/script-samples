@@ -89,7 +89,7 @@ $results
 ```
 
 
-# [Usage](#tab/pnpps)
+# [Usage](#tab/usage)
 
 1. Install required modules:
 
@@ -148,4 +148,4 @@ Version|Date|Comments
 
 
 [!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
-
+<img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/spo-site-collection-ownership-validation" aria-hidden="true" />
