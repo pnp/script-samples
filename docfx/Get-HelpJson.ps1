@@ -119,8 +119,15 @@ function Process-CliForM365Docs
 # For optimatization - only use help where cmdlet is used
 
 # To refresh functions use . .\Get-HelpJson.ps1 in cmd window
-$currentLocation = "C:\git\readonly\script-samples-help\"
-$outputPath = "$(Get-Location)\assets\help"
+# Get the script directory and calculate paths relative to it
+$scriptPath = if ($PSScriptRoot) { $PSScriptRoot } else { Get-Location }
+$currentLocation = Join-Path -Path $scriptPath -ChildPath "help-repos"
+$outputPath = Join-Path -Path $scriptPath -ChildPath "assets\help"
+
+# Ensure output directory exists
+if (!(Test-Path -Path $outputPath)) {
+    New-Item -ItemType Directory -Path $outputPath -Force | Out-Null
+}
 
 Process-PnPPowerShellDocs
 Process-SPOManagementShellDocs
