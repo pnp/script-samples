@@ -107,7 +107,7 @@ Write-Host "Script completed. Invalid users exported to C:\temp\invalidusers.csv
 | Author(s) |
 |-----------|
 | Kasper Larsen |
-| ojopiyo |
+| [Josiah Opiyo](https://github.com/ojopiyo)  |
 
 [!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
 <img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/get-spo-invalid-user-accounts" aria-hidden="true" />
