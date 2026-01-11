@@ -1,0 +1,73 @@
+name: Update Cmdlet Help
+on:
+  schedule:
+    # Run monthly on the 1st day at 00:00 UTC
+    - cron: '0 0 1 * *'
+  workflow_dispatch: # Allow manual triggering
+
+jobs:
+  update-help:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Clone help repositories
+        run: |
+          mkdir -p docfx/help-repos
+          cd docfx/help-repos
+          
+          # Clone PnP PowerShell documentation
+          git clone --depth 1 https://github.com/pnp/powershell.git pnp-powershell
+          
+          # Clone CLI for Microsoft 365 documentation
+          git clone --depth 1 https://github.com/pnp/cli-microsoft365.git cli-microsoft365
+          
+          # Clone SharePoint PowerShell documentation
+          git clone --depth 1 https://github.com/MicrosoftDocs/OfficeDocs-SharePoint-PowerShell.git OfficeDocs-SharePoint-PowerShell
+
+      - name: Run Get-HelpJson.ps1
+        shell: pwsh
+        run: |
+          cd docfx
+          ./Get-HelpJson.ps1
+
+      - name: Check for changes
+        id: check_changes
+        run: |
+          if git diff --quiet docfx/assets/help/*.help.json; then
+            echo "has_changes=false" >> $GITHUB_OUTPUT
+          else
+            echo "has_changes=true" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Create Pull Request
+        if: steps.check_changes.outputs.has_changes == 'true'
+        uses: peter-evans/create-pull-request@v6
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          commit-message: 'Update cmdlet help documentation'
+          title: 'Update Cmdlet Help Documentation'
+          body: |
+            ## Automated Cmdlet Help Update
+            
+            This PR updates the cmdlet help documentation by pulling the latest changes from the upstream repositories:
+            - [pnp/powershell](https://github.com/pnp/powershell)
+            - [pnp/cli-microsoft365](https://github.com/pnp/cli-microsoft365)
+            - [MicrosoftDocs/OfficeDocs-SharePoint-PowerShell](https://github.com/MicrosoftDocs/OfficeDocs-SharePoint-PowerShell)
+            
+            The following help files have been updated:
+            - `docfx/assets/help/powershell.help.json` - PnP PowerShell cmdlets
+            - `docfx/assets/help/cli.help.json` - CLI for Microsoft 365 commands
+            - `docfx/assets/help/spoms.help.json` - SharePoint Online Management Shell cmdlets
+            
+            Please review the changes and merge if everything looks correct.
+          branch: automated/update-cmdlet-help
+          delete-branch: true
+          labels: |
+            automated
+            documentation
