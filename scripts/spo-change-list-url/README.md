@@ -64,7 +64,7 @@ try {
 | Author(s) |
 |-----------|
 | [Ganesh Sanap](https://ganeshsanapblogs.wordpress.com/about) |
-| ojopiyo |
+| [Josiah Opiyo](https://github.com/ojopiyo) |
 
 [!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
 <img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/spo-change-list-url" aria-hidden="true" />
