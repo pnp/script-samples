@@ -141,7 +141,7 @@ Stop-Transcript
 | Author(s) |
 |-----------|
 | Nick Brattoli |
-| ojopiyo |
+| [Josiah Opiyo](https://github.com/ojopiyo)  |
 
 
 [!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
