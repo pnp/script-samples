@@ -109,5 +109,5 @@ Disconnect-SPOService
 | [Ganesh Sanap](https://ganeshsanapblogs.wordpress.com/about) |
 
 [!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
-<img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/spo-create-sharepointgroups-bulk-csv" aria-hidden="true" />
+<img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/spo-create-sharepoint-groups-bulk-csv" aria-hidden="true" />
 
