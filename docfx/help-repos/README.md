@@ -4,15 +4,15 @@ This directory contains automation for updating cmdlet help documentation from e
 
 ## Overview
 
-The cmdlet help documentation is automatically synchronized from three upstream repositories using Git submodules:
+The cmdlet help documentation is automatically synchronized from three upstream repositories using `git clone`:
 
 - **PnP PowerShell**: [pnp/powershell](https://github.com/pnp/powershell)
 - **CLI for Microsoft 365**: [pnp/cli-microsoft365](https://github.com/pnp/cli-microsoft365)
 - **SharePoint Online Management Shell**: [MicrosoftDocs/OfficeDocs-SharePoint-PowerShell](https://github.com/MicrosoftDocs/OfficeDocs-SharePoint-PowerShell)
 
-## Git Submodules
+## Directory Structure
 
-The submodules are located in `docfx/help-repos/` directory:
+The repositories are cloned into `docfx/help-repos/` directory during the GitHub Action workflow:
 
 ```
 docfx/help-repos/
@@ -21,17 +21,7 @@ docfx/help-repos/
 └── OfficeDocs-SharePoint-PowerShell/
 ```
 
-### Working with Submodules
-
-To clone the repository with submodules:
-```bash
-git clone --recurse-submodules https://github.com/pnp/script-samples.git
-```
-
-To update submodules to the latest version:
-```bash
-git submodule update --remote --merge
-```
+**Note:** The `help-repos/` directory is ignored by Git (via `.gitignore`) and is only created during the automated workflow or manual updates.
 
 ## Automation
 
@@ -39,22 +29,32 @@ git submodule update --remote --merge
 
 A GitHub Action workflow (`.github/workflows/update-cmdlet-help.yml`) runs monthly on the 1st day of each month to:
 
-1. Update all submodules to their latest versions
+1. Clone the latest versions of all three documentation repositories
 2. Run `Get-HelpJson.ps1` to regenerate help JSON files
 3. Create a pull request if changes are detected
 
 ### Manual Updates
 
-You can manually trigger the workflow from the GitHub Actions tab or run the script locally:
+You can manually run the update process locally:
 
-```powershell
-cd docfx
-./Get-HelpJson.ps1
+```bash
+# Create the help-repos directory
+mkdir -p docfx/help-repos
+cd docfx/help-repos
+
+# Clone the repositories
+git clone --depth 1 https://github.com/pnp/powershell.git pnp-powershell
+git clone --depth 1 https://github.com/pnp/cli-microsoft365.git cli-microsoft365
+git clone --depth 1 https://github.com/MicrosoftDocs/OfficeDocs-SharePoint-PowerShell.git OfficeDocs-SharePoint-PowerShell
+
+# Go back to docfx directory and run the script
+cd ..
+pwsh ./Get-HelpJson.ps1
 ```
 
 ## Get-HelpJson.ps1
 
-This PowerShell script processes the documentation from the submodules and generates JSON files containing cmdlet names and their documentation URLs.
+This PowerShell script processes the documentation from the cloned repositories and generates JSON files containing cmdlet names and their documentation URLs.
 
 ### Generated Files
 
@@ -70,5 +70,6 @@ These JSON files are used by the documentation website to provide quick links to
 
 - **Always up-to-date**: Monthly automatic updates ensure documentation links stay current
 - **Human review**: All updates go through a PR review process
-- **Traceability**: Git submodules track exact versions of upstream documentation
+- **No local clutter**: Cloned repositories are not committed to the main repository
+- **Simple approach**: Uses standard `git clone` instead of submodules
 - **No manual maintenance**: Eliminates the need to manually sync documentation

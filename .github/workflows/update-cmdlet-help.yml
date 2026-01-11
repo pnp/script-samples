@@ -13,15 +13,22 @@ jobs:
       pull-requests: write
 
     steps:
-      - name: Checkout repository with submodules
+      - name: Checkout repository
         uses: actions/checkout@v4
-        with:
-          submodules: recursive
-          fetch-depth: 0
 
-      - name: Update submodules to latest
+      - name: Clone help repositories
         run: |
-          git submodule update --remote --merge
+          mkdir -p docfx/help-repos
+          cd docfx/help-repos
+          
+          # Clone PnP PowerShell documentation
+          git clone --depth 1 https://github.com/pnp/powershell.git pnp-powershell
+          
+          # Clone CLI for Microsoft 365 documentation
+          git clone --depth 1 https://github.com/pnp/cli-microsoft365.git cli-microsoft365
+          
+          # Clone SharePoint PowerShell documentation
+          git clone --depth 1 https://github.com/MicrosoftDocs/OfficeDocs-SharePoint-PowerShell.git OfficeDocs-SharePoint-PowerShell
 
       - name: Run Get-HelpJson.ps1
         shell: pwsh
