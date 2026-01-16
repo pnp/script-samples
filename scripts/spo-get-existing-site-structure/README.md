@@ -255,4 +255,4 @@ Sample taken from [https://github.com/tmaestrini/easyProvisioning/](https://gith
 
 
 [!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
-<img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/spo-copy-hubsite-navigation" aria-hidden="true" />
+<img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/spo-get-existing-site-structure" aria-hidden="true" />

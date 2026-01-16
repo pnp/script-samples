@@ -87,4 +87,4 @@ m365 spo site appcatalog add --siteUrl $siteUrl
 
 [!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
 
-<img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/add-app-catalogue-to-sp-site" aria-hidden="true" />
+<img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/spo-add-app-catalog" aria-hidden="true" />
