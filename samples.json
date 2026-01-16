@@ -2803,6 +2803,49 @@
     ]
   },
   {
+    "name": "graph-get-mfa-user-number",
+    "title": "Export Entra ID User MFA Phone Details (Unmasked) to CSV",
+    "shortDescription": "This PowerShell script enumerates users in Microsoft Entra ID (formerly Azure AD) and retrieves their **Multi-Factor Authentication (MFA) / phone authentication methods** using Microsoft Graph.",
+    "url": "graph-get-mfa-user-number/README.html",
+    "creationDateTime": "2026-01-10",
+    "updateDateTime": "2026-01-10",
+    "products": [
+      "Graph"
+    ],
+    "metadata": [
+      {
+        "key": "PNP-POWERSHELL",
+        "value": "1.11.0"
+      },
+      {
+        "key": "GRAPH-POWERSHELL",
+        "value": "1.0.0"
+      }
+    ],
+    "categories": [
+      "Report"
+    ],
+    "tags": [
+      "<Cmdlets-Used>"
+    ],
+    "thumbnails": [
+      {
+        "type": "image",
+        "order": 100,
+        "url": "graph-get-mfa-user-number/assets/preview.png",
+        "alt": "Preview of the sample Export Entra ID User MFA Phone Details (Unmasked) to CSV"
+      }
+    ],
+    "authors": [
+      {
+        "gitHubAccount": "divya-akula",
+        "company": "",
+        "pictureUrl": "https://github.com/divya-akula.png",
+        "name": "Divya Akula"
+      }
+    ]
+  },
+  {
     "name": "graph-get-teams-tabs-export-to-csv",
     "title": "Locate all Teams having a Wiki and export the list to CSV",
     "shortDescription": "Locate all Teams having a Wiki and export the list to CSV",

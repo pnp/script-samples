@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html lang="en">
+
+  <head>
+    <meta charset="utf-8">
+    <title>Export Entra ID User MFA Phone Details (Unmasked) to CSV | PnP Samples </title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="title" content="Export Entra ID User MFA Phone Details (Unmasked) to CSV | PnP Samples ">
+    <meta name="generator" content="docfx ">
+  <meta name="description" content="A sample gallery of scripts to manage all things Microsoft 365.">
+
+    <!-- Social Media -->
+    <meta property="og:locale" content="en_GB">
+    <meta property="og:title" content="Export Entra ID User MFA Phone Details (Unmasked) to CSV | PnP Samples ">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://pnp.github.io/script-samples">
+    <meta property="og:image" content="https://pnp.github.io/script-samples/assets/social-media-screenshot.png">
+    <meta property="og:image:alt" content="Screenshot example of the PnP Script Samples Site">
+    <meta property="og:site_name" content="PnP Script Samples">
+    <meta name="msvalidate.01" content="04EFEDA66EC42C08A1247C979E2F9ADD">
+  <meta property="og:description" content="A sample gallery of scripts to manage all things Microsoft 365.">
+
+    <link rel="shortcut icon" href="https://c.s-microsoft.com/favicon.ico?v2">
+    <link rel="stylesheet" href="../styles/docfx.vendor.min.css">
+    <link rel="stylesheet" href="../styles/docfx.css">
+    <link rel="stylesheet" href="../styles/main.css">
+    <link rel="stylesheet" href="../styles/extra.css">
+    <link rel="stylesheet" href="../styles/filter.css">
+    <link rel="stylesheet" href="../styles/site.css">
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet"> 
+    <meta property="docfx:navrel" content="../toc.html">
+    <meta property="docfx:tocrel" content="../toc.html">
+  
+  
+  <meta property="docfx:newtab" content="true">
+    <script type="text/javascript">
+      (function(c,l,a,r,i,t,y){
+          c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+          t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+          y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+      })(window, document, "clarity", "script", "8j6pedl344");
+  </script>
+  </head>  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+             <div class="github-mark">
+              <a href="https://github.com/pnp/script-samples" title="Go to repository">
+               <div class="github-wrapper">
+                  <div class="github-icon">
+                    <img src="https://pnp.github.io/script-samples/assets/icons/github-light-64px.png" alt="GitHub Icon Image">
+                  </div>
+                  <div class="github-repository">
+                    <span>GitHub</span>
+                    <ul class="github-facts">
+                      <li>
+                        <i class="fa fa-code-fork" aria-hidden="true"></i>
+                        <span class="github-forks"></span>
+                      </li>
+                      <li>
+                        <i class="fa fa-star-o" aria-hidden="true"></i>
+                        <span class="github-stars"></span>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </a>
+            </div>
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../assets/logo.svg" alt="">
+              </a>            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <label class="glyphicon glyphicon-search" for="search-query"></label>
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>      </header>
+      <div role="main" class="container body-content hide-when-search">
+        <div class="article row grid">
+          <div class="col-md-12">
+            <article class="content wrap" id="_content" data-uid="">
+                  <div class="contribution-panel mobile-hide pull-right">
+                      <a href="https://github.com/pnp/script-samples/blob/main/scripts/graph-get-mfa-user-number/README.md/#L1" title="Edit this page" class="improve-doc-lg"><i class="glyphicon glyphicon-pencil"></i></a>
+                  </div>
+  <h1 id="export-entra-id-user-mfa-phone-details-unmasked-to-csv">Export Entra ID User MFA Phone Details (Unmasked) to CSV</h1>
+
+<p>This PowerShell script enumerates users in Microsoft Entra ID (formerly Azure AD) and retrieves their <strong>Multi-Factor Authentication (MFA) / phone authentication methods</strong> using Microsoft Graph.<br>
+Unlike standard user directory properties that return <strong>masked</strong> phone numbers, this script queries the <strong>Authentication Phone Methods API</strong>, which returns the <strong>actual configured MFA phone number</strong>, and exports the data to CSV.</p>
+<p>This is useful for administrators who need to reconcile MFA phone numbers, validate ownership, or support audit and migration activities.</p>
+<blockquote>
+<p>⚠️ <strong>Security Notice</strong><br>
+MFA phone numbers are sensitive data. Ensure correct governance, storage protection, and access controls when running or distributing this script.</p>
+</blockquote>
+<h2 id="-features">✨ Features</h2>
+<ul>
+<li>Retrieves Microsoft Entra ID users</li>
+<li>Calls the Graph <code>authentication/phoneMethods</code> endpoint to return <strong>unmasked MFA phone numbers</strong></li>
+<li>Cleans and normalizes phone numbers (digits-only format included)</li>
+<li>Supports <strong>app-only authentication</strong> using OAuth2 client credentials</li>
+<li>Exports structured output to CSV containing:
+<ul>
+<li><code>DisplayName</code></li>
+<li><code>UserPrincipalName</code></li>
+<li><code>LDAPUserName</code> (<code>onPremisesSamAccountName</code>)</li>
+<li><code>PhoneNumber</code></li>
+<li><code>CleanedPhone</code> (digits only)</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h2 id="-required-microsoft-graph-permissions-application--app-only">🔐 Required Microsoft Graph Permissions (Application / App-Only)</h2>
+<p>Create an App Registration and grant <strong>admin-consented</strong> Graph API permissions such as:</p>
+<ul>
+<li><code>AuthenticationMethod.Read.All</code><br>
+<strong>or</strong></li>
+<li><code>AuthenticationMethods.Read.All</code></li>
+<li><code>User.Read.All</code></li>
+<li><code>Directory.Read.All</code></li>
+</ul>
+<blockquote>
+<p>Use least-privilege permissions and validate in a non-production tenant first.</p>
+</blockquote>
+<h2 id="-prerequisites">🧰 Prerequisites</h2>
+<ul>
+<li><strong>PowerShell 7+ (recommended)</strong></li>
+<li>Install required modules:</li>
+</ul>
+<pre><code class="lang-powershell">Install-Module -Name Microsoft.Graph -Scope CurrentUser -AllowClobber
+Install-Module -Name PnP.PowerShell -Scope CurrentUser
+</code></pre>
+<ul>
+<li>An Azure AD application with the required application permissions (granted by an administrator).</li>
+<li>Suggested Graph application permissions (app-only) you'll likely need:
+<ul>
+<li>Authentication Methods / phone read permission (e.g., AuthenticationMethods.Read.All or AuthenticationMethods.ReadWrite.All) — grant admin consent.</li>
+<li>User read permissions (User.Read.All) — grant admin consent.</li>
+<li>Directory.Read.All - grant admin consent</li>
+</ul>
+</li>
+</ul>
+<p>Note: permission names sometimes vary between SDKs and portal UI; grant the minimal required app permissions and test in a non-production tenant first.</p>
+<h2 id="-authentication--security">⚙️ Authentication &amp; Security</h2>
+<p>The script securely prompts for the following values at runtime:</p>
+<ul>
+<li><strong>Tenant ID</strong></li>
+<li><strong>Client ID</strong></li>
+<li><strong>Client Secret</strong></li>
+<li><strong>Output CSV path</strong></li>
+</ul>
+<p>No credentials or secrets are stored in the script.</p>
+<p>Authentication is performed using the <strong>OAuth2 client credentials flow</strong> against Microsoft Graph.</p>
+<blockquote>
+<p>🔐 <strong>Security Best Practice</strong><br>
+Use least-privileged access, store secrets securely, and rotate credentials regularly.</p>
+</blockquote>
+<hr>
+<h2 id="-how-it-works">▶️ How It Works</h2>
+<ol>
+<li><p>Authenticates to Microsoft Graph using the App Registration</p>
+</li>
+<li><p>Retrieves users via:</p>
+<pre><code class="lang-powershell">Get-MgUser
+</code></pre>
+</li>
+<li><p>Queries each user’s authentication phone methods using:
+<a href="https://graph.microsoft.com/v1.0/users/%7Bid%7D/authentication/phoneMethods">https://graph.microsoft.com/v1.0/users/{id}/authentication/phoneMethods</a></p>
+</li>
+<li><p>Extracts the configured MFA phone number(s)</p>
+</li>
+<li><p>Normalizes phone values (including a digits-only variant)</p>
+</li>
+<li><p>Exports the results to CSV</p>
+</li>
+</ol>
+<hr>
+<h2 id="-output-columns">📄 Output Columns</h2>
+<table>
+<thead>
+<tr>
+<th>Column</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>DisplayName</strong></td>
+<td>User display name</td>
+</tr>
+<tr>
+<td><strong>UserPrincipalName</strong></td>
+<td>Sign-in name</td>
+</tr>
+<tr>
+<td><strong>LDAPUserName</strong></td>
+<td><code>onPremisesSamAccountName</code></td>
+</tr>
+<tr>
+<td><strong>PhoneNumber</strong></td>
+<td>Full MFA phone number</td>
+</tr>
+<tr>
+<td><strong>CleanedPhone</strong></td>
+<td>Digits-only version of the phone</td>
+</tr>
+</tbody>
+</table>
+<p>Additional properties such as <code>@odata.type</code> may be included if required.</p>
+<hr>
+<h2 id="-running-the-script">▶️ Running the Script</h2>
+<p>Run the script in PowerShell:</p>
+<pre><code class="lang-powershell">.\Export-UserMfaPhoneDetails.ps1
+</code></pre>
+<h2 id="-troubleshooting">🛠 Troubleshooting</h2>
+<ul>
+<li><p><strong>No phone number returned</strong><br>
+The user does not have any phone-based MFA method configured.</p>
+</li>
+<li><p><strong>403 – Permission Denied</strong><br>
+Verify that the App Registration has the required <strong>admin-consented</strong> Microsoft Graph permissions.</p>
+</li>
+<li><p><strong>Rate limiting / throttling</strong><br>
+For large tenants, implement retry logic with exponential back-off when calling Microsoft Graph.</p>
+</li>
+<li><p><strong>Masked phone values appear</strong><br>
+Ensure the script is querying the <strong>Authentication Phone Methods API</strong> and not user profile attributes.</p>
+</li>
+</ul>
+<hr>
+<h2 id="-suggested-enhancements">🔄 Suggested Enhancements</h2>
+<ul>
+<li>Replace raw REST calls with Microsoft Graph PowerShell SDK equivalents</li>
+<li>Secure credentials using environment variables or Azure Key Vault</li>
+<li>Add structured logging and verbose tracing</li>
+<li>Introduce paging and server-side filtering to limit user scope</li>
+<li>Implement retry and resilience policies for Graph calls</li>
+<li>Optionally upsert results into a SharePoint List</li>
+</ul>
+<hr>
+<h2 id="-governance--data-handling">🛡 Governance &amp; Data Handling</h2>
+<p>Because this script retrieves <strong>unmasked MFA phone numbers</strong>, ensure that:</p>
+<ul>
+<li>Script execution is restricted to authorized administrators</li>
+<li>Exported CSV files are encrypted and stored securely</li>
+<li>Data retention policies are followed</li>
+<li>Script usage and access are auditable</li>
+</ul>
+<p>Treat MFA phone numbers as <strong>confidential information</strong>.</p>
+<hr>
+<h2 id="-script">📝 Script</h2>
+<div class="tabGroup" id="tabgroup_1">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_1_graphps" role="tab" aria-controls="tabpanel_1_graphps" data-tab="graphps" tabindex="0" aria-selected="true">Microsoft Graph PowerShell</a>
+</li>
+</ul>
+<section id="tabpanel_1_graphps" role="tabpanel" data-tab="graphps">
+
+<pre><code class="lang-powershell">&lt;#
+.SYNOPSIS
+    Export Entra ID user MFA phone details (unmasked) to CSV.
+
+.DESCRIPTION
+    Retrieves MFA phone authentication methods from Microsoft Graph
+    using app-only authentication and exports the full MFA phone number
+    along with user metadata to CSV.
+
+    Warning: Output contains sensitive authentication data.
+#&gt;
+
+# ================================
+# Get access token (interactive)
+# ================================
+function Get-UserToken {
+    # Read from user
+    $TenantId  = Read-Host &quot;Enter Tenant Id (Directory Id / GUID)&quot;
+    $ClientId  = Read-Host &quot;Enter Client Id (App Registration Id)&quot;
+    $SecSecret = Read-Host &quot;Enter Client Secret&quot; 
+
+    # Convert secure string to plain text for token request
+    $Body = @{ 
+        grant_type    = &quot;client_credentials&quot;
+        scope         = &quot;https://graph.microsoft.com/.default&quot;
+        client_id     = $ClientId
+        client_secret = $SecSecret
+    }
+
+    try {
+        $TokenResponse = Invoke-RestMethod -Method Post `
+            -Uri &quot;https://login.microsoftonline.com/$TenantId/oauth2/v2.0/token&quot; `
+            -Body $Body -ErrorAction Stop
+
+        $AccessToken = $TokenResponse.access_token
+        Write-Host &quot;Access Token Obtained Successfully&quot; -ForegroundColor Green
+        return $AccessToken
+    }
+    catch {
+        Write-Error &quot;Failed to obtain access token: $($_.Exception.Message)&quot;
+        throw
+    }
+}
+
+# ================================
+# Export MFA phone details to CSV
+# ================================
+function Export-UserMfaPhoneDetailsToCsv {
+    param (
+        [Parameter(Mandatory)]
+        [string]$AccessToken,
+
+        [Parameter(Mandatory)]
+        [string]$OutputPath
+    )
+
+    $headers = @{
+        Authorization = &quot;Bearer $AccessToken&quot;
+        'Content-Type' = 'application/json'
+    }
+
+    # Helper: clean phone (digits only)
+    function CleanPhone {
+        param([string]$p)
+        if ([string]::IsNullOrWhiteSpace($p)) { return '' }
+        return ($p.ToCharArray() | Where-Object { [char]::IsDigit($_) }) -join ''
+    }
+
+    # Get all users (UPN starts with 'T')
+    $users = Get-MgUser -All -Property &quot;displayName,userPrincipalName,onPremisesSamAccountName,Id&quot; 
+         Write-Host &quot;Retrieved $($users.Count) users from Graph&quot; -ForegroundColor Cyan
+
+    $results = @()
+
+    foreach ($u in $users) {
+        $userId      = $u.id
+        $displayName = $u.displayName
+        $upn         = $u.userPrincipalName
+        $ldapUser    = $u.onPremisesSamAccountName   # This is your LDAP username
+
+        $pmUrl = &quot;https://graph.microsoft.com/v1.0/users/$([uri]::EscapeDataString($userId))/authentication/phoneMethods&quot;
+        try {
+            $pm = Invoke-RestMethod -Headers $headers -Uri $pmUrl -Method Get -ErrorAction Stop
+        }
+        catch {
+            Write-Verbose &quot;Failed phoneMethods for $upn : $($_.Exception.Message)&quot;
+            continue
+        }
+       # Write-Host $pm.value
+        if (-not $pm.value) {
+            # No phone methods: still record the user if you want them in the CSV
+            $results += [PSCustomObject]@{
+                DisplayName       = $displayName
+                UserPrincipalName = $upn
+                LDAPUserName      = $ldapUser
+                PhoneNumber       = $null
+                CleanedPhone      = $null
+            }
+            continue
+        }
+
+        foreach ($m in $pm.value) {
+            $phone      = $m.phoneNumber
+            $cleaned    = CleanPhone $phone
+
+            $results += [PSCustomObject]@{
+                DisplayName       = $displayName
+                UserPrincipalName = $upn
+                LDAPUserName      = $ldapUser
+                PhoneNumber       = $phone
+                CleanedPhone      = $cleaned
+            }
+        }
+    }
+
+    # Write to CSV
+    $results | Export-Csv -Path $OutputPath -NoTypeInformation -Encoding UTF8
+    Write-Host $results.Count
+    Write-Host &quot;Exported $($results.Count) rows to $OutputPath&quot; -ForegroundColor Green
+}
+
+# ================================
+# Main
+# ================================
+$token = Get-UserToken
+
+$outputPath = Read-Host &quot;Enter full path for CSV output (e.g. C:\Temp\MfaUserData.csv)&quot;
+
+Export-UserMfaPhoneDetailsToCsv -AccessToken $token -OutputPath $outputPath
+</code></pre>
+<div class="highlight-tool">
+<p>Check out the <strong>Microsoft Graph PowerShell SDK</strong> to learn more at: <a href="https://learn.microsoft.com/graph/powershell/get-started">https://learn.microsoft.com/graph/powershell/get-started</a></p>
+</div>
+</section>
+</div>
+<h2 id="contributors">Contributors</h2>
+<table>
+<thead>
+<tr>
+<th>Author(s)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="https://github.com/divya-akula">Divya Akula</a></td>
+</tr>
+</tbody>
+</table>
+<h2 id="disclaimer">Disclaimer</h2>
+<p><strong>THESE SAMPLES ARE PROVIDED <em>AS IS</em> WITHOUT WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, INCLUDING ANY IMPLIED WARRANTIES OF FITNESS FOR A PARTICULAR PURPOSE, MERCHANTABILITY, OR NON-INFRINGEMENT.</strong></p>
+<img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/graph-get-mfa-user-number" aria-hidden="true">
+
+</article>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+      <span>Script Samples<br>Generated by <strong><a href='https://dotnet.github.io/docfx' alt='Doc FX Website'>DocFX</a></strong> with <strong><a href='https://ovasquez.github.io/docfx-material' alt='DocFx Material Theme'>Material UI</a></strong></span>
+      
+            <!-- <img src="https://telemetry.sharepointpnp.com/@pnp.github.io/index/" alt="spacer"> -->
+          </div>
+        </div>
+      </footer>    </div>
+
+    <script type="text/javascript" src="../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+
+    <script type="text/javascript" src="../styles/clipboard.min.js"></script>
+    <script type="text/javascript" src="../styles/isotope.pkgd.min.js"></script>
+    <script type="text/javascript" src="../styles/loadsamples.js"></script>
+    <script type="text/javascript" src="../styles/filtersamples.js"></script>
+
+  </body>
+</html>
