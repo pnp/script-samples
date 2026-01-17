@@ -4,6 +4,16 @@
 
 This script demonstrates how to audit and revoke Entra ID app permissions across SharePoint sites. The script automates the process of scanning all tenant sites, generating CSV reports of app permissions, and revoking access while implementing verification steps to ensure successful removal. 
 
+## Usage examples
+
+Usage example of the CLI for Microsoft 365 version:
+
+![CLI for Microsoft 365 Example](assets/example-cli.png)
+
+Usage example of the PnP PowerShell version:
+
+![PnP PowerShell Example](assets/example.png)
+
 ## Summary
 
 # [CLI for Microsoft 365](#tab/cli-m365-ps)
@@ -65,9 +75,9 @@ begin {
 }
 
 process {
-    # Get all SharePoint sites (excluding redirect sites)
-    Write-Host "\nRetrieving all SharePoint sites (excluding redirect sites)..." -ForegroundColor Yellow
-    $sitesJson = m365 spo site list --filter "Template ne 'RedirectSite#0'" --output json 2>&1
+    # Get all SharePoint sites
+    Write-Host "Retrieving all SharePoint sites..." -ForegroundColor Yellow
+    $sitesJson = m365 spo site list --output json 2>&1
     if ($LASTEXITCODE -ne 0) {
         Write-Warning "Failed to retrieve sites: $sitesJson"
         return
@@ -166,16 +176,16 @@ process {
 end {
     # Export CSV report
     if ($script:ReportCollection.Count -gt 0) {
-        Write-Host "\nExporting report to CSV..." -ForegroundColor Yellow
+        Write-Host "Exporting report to CSV..." -ForegroundColor Yellow
         $script:ReportCollection | Sort-Object SiteUrl | Export-Csv -Path $OutputPath -NoTypeInformation -Force
         Write-Host "Report exported to: $OutputPath" -ForegroundColor Green
     }
     else {
-        Write-Host "\nNo app permissions found for '$AppDisplayName'" -ForegroundColor Yellow
+        Write-Host "No app permissions found for '$AppDisplayName'" -ForegroundColor Yellow
     }
 
     # Display summary
-    Write-Host "\n" -NoNewline
+    Write-Host "" -NoNewline
     Write-Host "========================================" -ForegroundColor Cyan
     Write-Host "         SUMMARY" -ForegroundColor Cyan
     Write-Host "========================================" -ForegroundColor Cyan
@@ -198,11 +208,11 @@ end {
     Write-Host "========================================" -ForegroundColor Cyan
 
     if ($RevokePermissions -and $script:PermissionsRevoked -gt 0) {
-        Write-Host "\nPermissions have been revoked. Please verify in your Entra ID admin center." -ForegroundColor Yellow
+        Write-Host "Permissions have been revoked. Please verify in your Entra ID admin center." -ForegroundColor Yellow
     }
 
     # Stop transcript
-    Write-Host "\nTranscript saved to: $transcriptPath" -ForegroundColor Cyan
+    Write-Host "Transcript saved to: $transcriptPath" -ForegroundColor Cyan
     Stop-Transcript | Out-Null
 }
 
