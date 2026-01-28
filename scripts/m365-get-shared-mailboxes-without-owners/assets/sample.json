@@ -1,0 +1,52 @@
+[
+  {
+    "name": "m365-get-shared-mailboxes-without-owners",
+    "source": "pnp",
+    "title": "Get Shared Mailboxes Without Owners",
+    "shortDescription": "This script identifies shared mailboxes that have no assigned owners or members by analysing mailbox permissions in Exchange Online.",
+    "url": "https://pnp.github.io/script-samples/m365-get-shared-mailboxes-without-owners/README.html",
+    "longDescription": [
+      ""
+    ],
+    "creationDateTime": "2026-01-11",
+    "updateDateTime": "2026-01-11",
+    "products": [
+      "Office"
+    ],
+    "metadata": [
+      {
+        "key": "POWERSHELL",
+        "value": "7.2.0"
+      }
+    ],
+    "categories": [
+      "Report"
+    ],
+    "tags": [
+      "Connect-ExchangeOnline"
+    ],
+    "thumbnails": [
+      {
+        "type": "image",
+        "order": 100,
+        "url": "https://raw.githubusercontent.com/pnp/script-samples/main/scripts/m365-get-shared-mailboxes-without-owners/assets/preview.png",
+        "alt": "Preview of the sample Get Shared Mailboxes Without Owners"
+      }
+    ],
+    "authors": [
+      {
+        "gitHubAccount": "ojopiyo",
+        "company": "",
+        "pictureUrl": "https://github.com/ojopiyo.png",
+        "name": "Josiah Opiyo"
+      }
+    ],
+    "references": [
+      {
+        "name": "Want to learn more about Microsoft Graph PowerShell SDK and the cmdlets",
+        "description": "Check out the Microsoft Graph PowerShell SDK documentation site to get started and for the reference to the cmdlets.",
+        "url": "https://learn.microsoft.com/graph/powershell/get-started"
+      }
+    ]
+  }
+]
