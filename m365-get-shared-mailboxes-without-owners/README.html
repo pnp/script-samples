@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html lang="en">
+
+  <head>
+    <meta charset="utf-8">
+    <title>Get Shared Mailboxes Without Owners | PnP Samples </title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="title" content="Get Shared Mailboxes Without Owners | PnP Samples ">
+    <meta name="generator" content="docfx ">
+  <meta name="description" content="A sample gallery of scripts to manage all things Microsoft 365.">
+
+    <!-- Social Media -->
+    <meta property="og:locale" content="en_GB">
+    <meta property="og:title" content="Get Shared Mailboxes Without Owners | PnP Samples ">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://pnp.github.io/script-samples">
+    <meta property="og:image" content="https://pnp.github.io/script-samples/assets/social-media-screenshot.png">
+    <meta property="og:image:alt" content="Screenshot example of the PnP Script Samples Site">
+    <meta property="og:site_name" content="PnP Script Samples">
+    <meta name="msvalidate.01" content="04EFEDA66EC42C08A1247C979E2F9ADD">
+  <meta property="og:description" content="A sample gallery of scripts to manage all things Microsoft 365.">
+
+    <link rel="shortcut icon" href="https://c.s-microsoft.com/favicon.ico?v2">
+    <link rel="stylesheet" href="../styles/docfx.vendor.min.css">
+    <link rel="stylesheet" href="../styles/docfx.css">
+    <link rel="stylesheet" href="../styles/main.css">
+    <link rel="stylesheet" href="../styles/extra.css">
+    <link rel="stylesheet" href="../styles/filter.css">
+    <link rel="stylesheet" href="../styles/site.css">
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet"> 
+    <meta property="docfx:navrel" content="../toc.html">
+    <meta property="docfx:tocrel" content="../toc.html">
+  
+  
+  <meta property="docfx:newtab" content="true">
+    <script type="text/javascript">
+      (function(c,l,a,r,i,t,y){
+          c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+          t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+          y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+      })(window, document, "clarity", "script", "8j6pedl344");
+  </script>
+  </head>  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+             <div class="github-mark">
+              <a href="https://github.com/pnp/script-samples" title="Go to repository">
+               <div class="github-wrapper">
+                  <div class="github-icon">
+                    <img src="https://pnp.github.io/script-samples/assets/icons/github-light-64px.png" alt="GitHub Icon Image">
+                  </div>
+                  <div class="github-repository">
+                    <span>GitHub</span>
+                    <ul class="github-facts">
+                      <li>
+                        <i class="fa fa-code-fork" aria-hidden="true"></i>
+                        <span class="github-forks"></span>
+                      </li>
+                      <li>
+                        <i class="fa fa-star-o" aria-hidden="true"></i>
+                        <span class="github-stars"></span>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </a>
+            </div>
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../assets/logo.svg" alt="">
+              </a>            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <label class="glyphicon glyphicon-search" for="search-query"></label>
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>      </header>
+      <div role="main" class="container body-content hide-when-search">
+        <div class="article row grid">
+          <div class="col-md-12">
+            <article class="content wrap" id="_content" data-uid="">
+                  <div class="contribution-panel mobile-hide pull-right">
+                      <a href="https://github.com/pnp/script-samples/blob/main/scripts/m365-get-shared-mailboxes-without-owners/README.md/#L1" title="Edit this page" class="improve-doc-lg"><i class="glyphicon glyphicon-pencil"></i></a>
+                  </div>
+  <h1 id="get-shared-mailboxes-without-owners">Get Shared Mailboxes Without Owners</h1>
+
+<h2 id="summary">Summary</h2>
+<p>This script identifies <strong>shared mailboxes that have no assigned owners or members</strong> by analysing mailbox permissions in Exchange Online. It detects shared mailboxes where no user (other than system accounts) has <strong>FullAccess</strong> permissions, indicating the mailbox is effectively unmanaged.</p>
+<p>The output can be used for <strong>governance reviews, access audits, compliance reporting, and remediation planning</strong> in large Microsoft 365 tenants.</p>
+<h2 id="why-it-matters">Why It Matters</h2>
+<p>In many organisations, shared mailboxes are created for teams, projects, or business functions. Over time, users leave, teams are restructured, or ownership is never formally assigned.</p>
+<p>Unowned shared mailboxes can:</p>
+<ul>
+<li>Contain sensitive or regulated data</li>
+<li>Remain accessible to unintended users</li>
+<li>Fail internal access control or audit requirements</li>
+<li>Become unmanaged attack surfaces</li>
+</ul>
+<p>This script enables administrators to <strong>proactively identify and remediate orphaned shared mailboxes</strong> before they become a security or compliance risk.</p>
+<h2 id="benefits">Benefits</h2>
+<ul>
+<li>Improves mailbox ownership governance</li>
+<li>Supports security and compliance audits</li>
+<li>Reduces risk of unauthorised data access</li>
+<li>Helps maintain least-privilege access</li>
+<li>Scales efficiently for large Microsoft 365 tenants</li>
+</ul>
+<div class="tabGroup" id="tabgroup_1">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_1_exc" role="tab" aria-controls="tabpanel_1_exc" data-tab="exc" tabindex="0" aria-selected="true">Exchange</a>
+</li>
+<li role="presentation">
+<a href="#tabpanel_1_pnpps" role="tab" aria-controls="tabpanel_1_pnpps" data-tab="pnpps" tabindex="-1">Usage</a>
+</li>
+</ul>
+<section id="tabpanel_1_exc" role="tabpanel" data-tab="exc">
+
+<pre><code class="lang-powershell">
+Connect-ExchangeOnline -ShowBanner:$false
+
+$sharedMailboxes = Get-Mailbox -RecipientTypeDetails SharedMailbox -ResultSize Unlimited
+$results = @()
+
+foreach ($mailbox in $sharedMailboxes) {
+
+    $permissions = Get-MailboxPermission -Identity $mailbox.Identity |
+        Where-Object {
+            $_.AccessRights -contains &quot;FullAccess&quot; -and
+            $_.IsInherited -eq $false -and
+            $_.User -notlike &quot;NT AUTHORITY\SELF&quot;
+        }
+
+    if ($permissions.Count -eq 0) {
+        $results += [PSCustomObject]@{
+            DisplayName       = $mailbox.DisplayName
+            PrimarySmtpAddress = $mailbox.PrimarySmtpAddress
+            MailboxGuid       = $mailbox.Guid
+        }
+    }
+}
+
+$results
+
+
+</code></pre>
+</section>
+<section id="tabpanel_1_pnpps" role="tabpanel" data-tab="pnpps" aria-hidden="true" hidden="hidden">
+
+<ol>
+<li>Connect to Exchange Online with sufficient permissions:
+<ul>
+<li>Exchange Administrator or Global Administrator</li>
+</ul>
+</li>
+<li>Run the script</li>
+<li>Review the output in the console or pipe it to export formats, for example:</li>
+</ol>
+<pre><code class="lang-powershell">
+$results | Export-Csv &quot;.\SharedMailboxesWithoutOwners.csv&quot; -NoTypeInformation
+
+
+</code></pre>
+<div class="highlight-tool">
+<p>Check out the <strong>PnP PowerShell</strong> to learn more at: <a href="https://aka.ms/pnp/powershell">https://aka.ms/pnp/powershell</a></p>
+</div>
+<div class="highlight-tool">
+<p>The way you login into PnP PowerShell has changed please read <a href="https://github.com/pnp/powershell/discussions/4249">PnP Management Shell EntraID app is deleted : what should I do ?</a></p>
+</div>
+</section>
+</div>
+<h2 id="output">Output</h2>
+<p>The script returns objects with the following properties:</p>
+<ul>
+<li><strong>DisplayName</strong></li>
+<li><strong>PrimarySmtpAddress</strong></li>
+<li><strong>MailboxGuid</strong></li>
+</ul>
+<p>Each row represents a shared mailbox with <strong>no assigned owners or members</strong>.</p>
+<h2 id="notes">Notes</h2>
+<ul>
+<li>The script evaluates <strong>explicit FullAccess permissions only</strong></li>
+<li>Mailboxes managed exclusively via groups will appear as owned only if group permissions are assigned directly</li>
+<li>Designed for large tenants using server-side filtering and minimal object expansion</li>
+<li>Can be safely scheduled or integrated into governance reporting workflows</li>
+</ul>
+<h2 id="contributors">Contributors</h2>
+<table>
+<thead>
+<tr>
+<th>Author(s)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="https://github.com/ojopiyo">Josiah Opiyo</a></td>
+</tr>
+</tbody>
+</table>
+<p><em>Built with a focus on automation, governance, least privilege, and clean Microsoft 365 tenants—helping M365 admins gain visibility and reduce operational risk.</em></p>
+<h2 id="version-history">Version history</h2>
+<table>
+<thead>
+<tr>
+<th>Version</th>
+<th>Date</th>
+<th>Comments</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1.0</td>
+<td>Jan 11, 2026</td>
+<td>Initial release</td>
+</tr>
+</tbody>
+</table>
+<h2 id="disclaimer">Disclaimer</h2>
+<p><strong>THESE SAMPLES ARE PROVIDED <em>AS IS</em> WITHOUT WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, INCLUDING ANY IMPLIED WARRANTIES OF FITNESS FOR A PARTICULAR PURPOSE, MERCHANTABILITY, OR NON-INFRINGEMENT.</strong></p>
+<img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/m365-get-shared-mailboxes-without-owners" aria-hidden="true">
+
+</article>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+      <span>Script Samples<br>Generated by <strong><a href='https://dotnet.github.io/docfx' alt='Doc FX Website'>DocFX</a></strong> with <strong><a href='https://ovasquez.github.io/docfx-material' alt='DocFx Material Theme'>Material UI</a></strong></span>
+      
+            <!-- <img src="https://telemetry.sharepointpnp.com/@pnp.github.io/index/" alt="spacer"> -->
+          </div>
+        </div>
+      </footer>    </div>
+
+    <script type="text/javascript" src="../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+
+    <script type="text/javascript" src="../styles/clipboard.min.js"></script>
+    <script type="text/javascript" src="../styles/isotope.pkgd.min.js"></script>
+    <script type="text/javascript" src="../styles/loadsamples.js"></script>
+    <script type="text/javascript" src="../styles/filtersamples.js"></script>
+
+  </body>
+</html>

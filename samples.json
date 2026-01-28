@@ -3106,6 +3106,45 @@
     ]
   },
   {
+    "name": "m365-get-shared-mailboxes-without-owners",
+    "title": "Get Shared Mailboxes Without Owners",
+    "shortDescription": "This script identifies shared mailboxes that have no assigned owners or members by analysing mailbox permissions in Exchange Online.",
+    "url": "m365-get-shared-mailboxes-without-owners/README.html",
+    "creationDateTime": "2026-01-11",
+    "updateDateTime": "2026-01-11",
+    "products": [
+      "Office"
+    ],
+    "metadata": [
+      {
+        "key": "POWERSHELL",
+        "value": "7.2.0"
+      }
+    ],
+    "categories": [
+      "Report"
+    ],
+    "tags": [
+      "Connect-ExchangeOnline"
+    ],
+    "thumbnails": [
+      {
+        "type": "image",
+        "order": 100,
+        "url": "m365-get-shared-mailboxes-without-owners/assets/preview.png",
+        "alt": "Preview of the sample Get Shared Mailboxes Without Owners"
+      }
+    ],
+    "authors": [
+      {
+        "gitHubAccount": "ojopiyo",
+        "company": "",
+        "pictureUrl": "https://github.com/ojopiyo.png",
+        "name": "Josiah Opiyo"
+      }
+    ]
+  },
+  {
     "name": "m365-get-unifiedlog-spo-dlp-exchange-entra",
     "title": "Get Unified log for SharePoint DLP Exchange and Entra",
     "shortDescription": "Understand and track activities within your M365 environment is crucial for maintaining security and compliance.",
