@@ -15393,7 +15393,7 @@
     "shortDescription": "Demonstrates how to audit and revoke Entra ID app permissions across SharePoint site.",
     "url": "spo-revoke-app-site-permission/README.html",
     "creationDateTime": "2025-10-23",
-    "updateDateTime": "2025-10-23",
+    "updateDateTime": "2026-01-17",
     "products": [
       "SharePoint",
       "Entra ID"
@@ -15402,6 +15402,10 @@
       {
         "key": "PNP-POWERSHELL",
         "value": "3.1.0"
+      },
+      {
+        "key": "CLI-FOR-MICROSOFT365",
+        "value": "11.3.0"
       }
     ],
     "categories": [
@@ -15413,7 +15417,11 @@
       "Get-PnPAzureADApp",
       "Get-PnPAzureADAppSitePermission",
       "Get-PnPTenantSite",
-      "Revoke-PnPAzureADAppSitePermission"
+      "Revoke-PnPAzureADAppSitePermission",
+      "m365 login",
+      "m365 spo site list",
+      "m365 spo site apppermission list",
+      "m365 spo site apppermission remove"
     ],
     "thumbnails": [
       {
@@ -15429,6 +15437,12 @@
         "company": "",
         "pictureUrl": "https://github.com/reshmee011.png",
         "name": "Reshmee Auckloo"
+      },
+      {
+        "gitHubAccount": "Adam-it",
+        "company": "",
+        "pictureUrl": "https://avatars.githubusercontent.com/u/58668583?v=4",
+        "name": "Adam Wójcik"
       }
     ]
   },

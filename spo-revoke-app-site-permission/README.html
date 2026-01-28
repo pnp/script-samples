@@ -99,14 +99,240 @@
   <h1 id="revoke-permissions-for-a-given-azure-entra-id-application-registration">Revoke permissions for a given Azure Entra ID application registration</h1>
 
 <p>This script demonstrates how to audit and revoke Entra ID app permissions across SharePoint sites. The script automates the process of scanning all tenant sites, generating CSV reports of app permissions, and revoking access while implementing verification steps to ensure successful removal.</p>
+<h2 id="usage-examples">Usage examples</h2>
+<p>Usage example of the CLI for Microsoft 365 version:</p>
+<p><img src="assets/example-cli.png" alt="CLI for Microsoft 365 Example"></p>
+<p>Usage example of the PnP PowerShell version:</p>
+<p><img src="assets/example.png" alt="PnP PowerShell Example"></p>
 <h2 id="summary">Summary</h2>
 <div class="tabGroup" id="tabgroup_1">
 <ul role="tablist">
 <li role="presentation">
-<a href="#tabpanel_1_pnpps" role="tab" aria-controls="tabpanel_1_pnpps" data-tab="pnpps" tabindex="0" aria-selected="true">PnP PowerShell</a>
+<a href="#tabpanel_1_cli-m365-ps" role="tab" aria-controls="tabpanel_1_cli-m365-ps" data-tab="cli-m365-ps" tabindex="0" aria-selected="true">CLI for Microsoft 365</a>
+</li>
+<li role="presentation">
+<a href="#tabpanel_1_pnpps" role="tab" aria-controls="tabpanel_1_pnpps" data-tab="pnpps" tabindex="-1">PnP PowerShell</a>
 </li>
 </ul>
-<section id="tabpanel_1_pnpps" role="tabpanel" data-tab="pnpps">
+<section id="tabpanel_1_cli-m365-ps" role="tabpanel" data-tab="cli-m365-ps">
+
+<pre><code class="lang-powershell">[CmdletBinding(SupportsShouldProcess)]
+param(
+    [Parameter(Mandatory = $true, HelpMessage = &quot;SharePoint admin center URL (e.g., https://contoso-admin.sharepoint.com)&quot;)]
+    [ValidatePattern('^https://')]
+    [string]$TenantAdminUrl,
+
+    [Parameter(Mandatory = $true, HelpMessage = &quot;Display name of the Entra ID application to search for&quot;)]
+    [string]$AppDisplayName,
+
+    [Parameter(Mandatory = $false, HelpMessage = &quot;Path for CSV export (optional, defaults to current directory)&quot;)]
+    [string]$OutputPath,
+
+    [Parameter(Mandatory = $false, HelpMessage = &quot;Switch to revoke permissions (requires confirmation unless -Force is used)&quot;)]
+    [switch]$RevokePermissions
+)
+
+begin {
+    # Start transcript logging
+    $dateTime = Get-Date -Format &quot;yyyy-MM-dd_HH-mm-ss&quot;
+    $transcriptPath = &quot;RevokeAppPermissions_$dateTime.log&quot;
+    Start-Transcript -Path $transcriptPath | Out-Null
+    Write-Host &quot;Transcript started: $transcriptPath&quot; -ForegroundColor Cyan
+
+    # Set OutputPath if not specified
+    if ([string]::IsNullOrEmpty($OutputPath)) {
+        $OutputPath = Join-Path -Path (Get-Location) -ChildPath &quot;EntraIDAppPermissions_$dateTime.csv&quot;
+    }
+    else {
+        # Validate parent folder exists when user specifies path
+        $parentFolder = Split-Path -Path $OutputPath -Parent
+        if (-not (Test-Path -Path $parentFolder)) {
+            Stop-Transcript
+            throw &quot;Output path parent folder does not exist: $parentFolder&quot;
+        }
+    }
+
+    Write-Host &quot;Output CSV will be saved to: $OutputPath&quot; -ForegroundColor Cyan
+
+    # Ensure user is signed in to CLI for Microsoft 365
+    Write-Host &quot;Ensuring CLI for Microsoft 365 authentication...&quot; -ForegroundColor Yellow
+    m365 login --ensure
+    if ($LASTEXITCODE -ne 0) {
+        Stop-Transcript
+        throw &quot;Failed to authenticate with CLI for Microsoft 365. Please run 'm365 login' manually.&quot;
+    }
+    Write-Host &quot;Successfully authenticated&quot; -ForegroundColor Green
+
+    # Initialize script-level variables
+    $script:ReportCollection = [System.Collections.Generic.List[PSCustomObject]]::new()
+    $script:TotalSites = 0
+    $script:PermissionsFound = 0
+    $script:PermissionsRevoked = 0
+    $script:Failures = 0
+}
+
+process {
+    # Get all SharePoint sites
+    Write-Host &quot;Retrieving all SharePoint sites...&quot; -ForegroundColor Yellow
+    $sitesJson = m365 spo site list --output json 2&gt;&amp;1
+    if ($LASTEXITCODE -ne 0) {
+        Write-Warning &quot;Failed to retrieve sites: $sitesJson&quot;
+        return
+    }
+
+    $sites = @($sitesJson | ConvertFrom-Json)
+    $script:TotalSites = $sites.Count
+    Write-Host &quot;Found $($script:TotalSites) sites to scan&quot; -ForegroundColor Green
+
+    if ($script:TotalSites -eq 0) {
+        Write-Host &quot;No sites found to process&quot; -ForegroundColor Yellow
+        return
+    }
+
+    # Process each site
+    $siteCounter = 0
+    foreach ($site in $sites) {
+        $siteCounter++
+        Write-Progress -Activity &quot;Scanning sites for app permissions&quot; -Status &quot;Processing site $siteCounter of $($script:TotalSites): $($site.Url)&quot; -PercentComplete (($siteCounter / $script:TotalSites) * 100)
+
+        Write-Verbose &quot;Processing site: $($site.Url)&quot;
+
+        # Get app permissions for the specified app
+        try {
+            $permissionsJson = m365 spo site apppermission list --siteUrl $site.Url --appDisplayName $AppDisplayName --output json 2&gt;&amp;1
+            if ($LASTEXITCODE -ne 0) {
+                Write-Verbose &quot;No permissions found or error retrieving permissions for site: $($site.Url)&quot;
+                continue
+            }
+
+            $permissions = @($permissionsJson | ConvertFrom-Json)
+            if ($permissions.Count -eq 0) {
+                Write-Verbose &quot;No permissions found for app '$AppDisplayName' on site: $($site.Url)&quot;
+                continue
+            }
+
+            # Process each permission
+            foreach ($permission in $permissions) {
+                $script:PermissionsFound++
+
+                $reportItem = [PSCustomObject]@{
+                    PermissionId    = $permission.permissionId
+                    SiteUrl         = $site.Url
+                    SiteTitle       = $site.Title
+                    AppDisplayName  = $permission.appDisplayName
+                    AppId           = $permission.appId
+                    Roles           = ($permission.roles -join '|')
+                    RevokedDate     = &quot;&quot;
+                    Status          = &quot;Not Revoked&quot;
+                }
+
+                # Revoke permission if switch is enabled
+                if ($RevokePermissions) {
+                    if ($PSCmdlet.ShouldProcess($site.Url, &quot;Revoke permission for app '$AppDisplayName' (ID: $($permission.permissionId))&quot;)) {
+                        try {
+                            Write-Host &quot;  Revoking permission ID: $($permission.permissionId) on $($site.Url)&quot; -ForegroundColor Yellow
+                            m365 spo site apppermission remove --siteUrl $site.Url --id $permission.permissionId --force 2&gt;&amp;1 | Out-Null
+                            if ($LASTEXITCODE -eq 0) {
+                                $script:PermissionsRevoked++
+                                $reportItem.RevokedDate = Get-Date -Format &quot;yyyy-MM-dd HH:mm:ss&quot;
+                                $reportItem.Status = &quot;Success&quot;
+                                Write-Host &quot;  Successfully revoked permission&quot; -ForegroundColor Green
+                            }
+                            else {
+                                $script:Failures++
+                                $reportItem.Status = &quot;Failed&quot;
+                                Write-Warning &quot;  Failed to revoke permission ID: $($permission.permissionId)&quot;
+                            }
+                        }
+                        catch {
+                            $script:Failures++
+                            $reportItem.Status = &quot;Failed&quot;
+                            Write-Warning &quot;  Error revoking permission: $($_.Exception.Message)&quot;
+                        }
+                    }
+                    else {
+                        $reportItem.Status = &quot;Skipped (WhatIf)&quot;
+                    }
+                }
+                else {
+                    Write-Host &quot;  Found permission ID: $($permission.permissionId) (report only mode)&quot; -ForegroundColor Cyan
+                }
+
+                $script:ReportCollection.Add($reportItem)
+            }
+        }
+        catch {
+            Write-Warning &quot;Error processing site $($site.Url): $($_.Exception.Message)&quot;
+            continue
+        }
+    }
+
+    Write-Progress -Activity &quot;Scanning sites for app permissions&quot; -Completed
+}
+
+end {
+    # Export CSV report
+    if ($script:ReportCollection.Count -gt 0) {
+        Write-Host &quot;Exporting report to CSV...&quot; -ForegroundColor Yellow
+        $script:ReportCollection | Sort-Object SiteUrl | Export-Csv -Path $OutputPath -NoTypeInformation -Force
+        Write-Host &quot;Report exported to: $OutputPath&quot; -ForegroundColor Green
+    }
+    else {
+        Write-Host &quot;No app permissions found for '$AppDisplayName'&quot; -ForegroundColor Yellow
+    }
+
+    # Display summary
+    Write-Host &quot;&quot; -NoNewline
+    Write-Host &quot;========================================&quot; -ForegroundColor Cyan
+    Write-Host &quot;         SUMMARY&quot; -ForegroundColor Cyan
+    Write-Host &quot;========================================&quot; -ForegroundColor Cyan
+    Write-Host &quot;Total sites scanned       : &quot; -NoNewline
+    Write-Host $script:TotalSites -ForegroundColor White
+    Write-Host &quot;Permissions found         : &quot; -NoNewline
+    Write-Host $script:PermissionsFound -ForegroundColor White
+    
+    if ($RevokePermissions) {
+        Write-Host &quot;Permissions revoked       : &quot; -NoNewline
+        Write-Host $script:PermissionsRevoked -ForegroundColor Green
+        Write-Host &quot;Failures                  : &quot; -NoNewline
+        if ($script:Failures -gt 0) {
+            Write-Host $script:Failures -ForegroundColor Red
+        }
+        else {
+            Write-Host $script:Failures -ForegroundColor Green
+        }
+    }
+    Write-Host &quot;========================================&quot; -ForegroundColor Cyan
+
+    if ($RevokePermissions -and $script:PermissionsRevoked -gt 0) {
+        Write-Host &quot;Permissions have been revoked. Please verify in your Entra ID admin center.&quot; -ForegroundColor Yellow
+    }
+
+    # Stop transcript
+    Write-Host &quot;Transcript saved to: $transcriptPath&quot; -ForegroundColor Cyan
+    Stop-Transcript | Out-Null
+}
+
+# Report only mode - scan all sites for app permissions
+# ./Revoke-AppSitePermissions.ps1 -TenantAdminUrl &quot;https://contoso-admin.sharepoint.com&quot; -AppDisplayName &quot;MyApp&quot;
+
+# Revoke permissions with confirmation prompt
+# ./Revoke-AppSitePermissions.ps1 -TenantAdminUrl &quot;https://contoso-admin.sharepoint.com&quot; -AppDisplayName &quot;MyApp&quot; -RevokePermissions
+
+# Revoke permissions without confirmation (use with caution)
+# ./Revoke-AppSitePermissions.ps1 -TenantAdminUrl &quot;https://contoso-admin.sharepoint.com&quot; -AppDisplayName &quot;MyApp&quot; -RevokePermissions -Force
+
+# Preview what would be revoked (WhatIf mode)
+# ./Revoke-AppSitePermissions.ps1 -TenantAdminUrl &quot;https://contoso-admin.sharepoint.com&quot; -AppDisplayName &quot;MyApp&quot; -RevokePermissions -WhatIf
+</code></pre>
+<div class="highlight-tool">
+<p>Check out the <strong>CLI for Microsoft 365</strong> to learn more at: <a href="https://aka.ms/cli-m365">https://aka.ms/cli-m365</a></p>
+</div>
+<div class="highlight-tool-red">
+<p>Important changes coming to the way you login into CLI for Microsoft 365 (effective 9th September 2024) see <a href="https://pnp.github.io/blog/post/changes-pnp-management-shell-registration/">Changes in PnP Management Shell registration in Microsoft 365</a></p>
+</div>
+</section>
+<section id="tabpanel_1_pnpps" role="tabpanel" data-tab="pnpps" aria-hidden="true" hidden="hidden">
 
 <pre><code class="lang-powershell">param (
     [Parameter(Mandatory = $true)]
@@ -206,6 +432,8 @@ else {
 <div class="highlight-tool">
 <p>The way you login into PnP PowerShell has changed please read <a href="https://github.com/pnp/powershell/discussions/4249">PnP Management Shell EntraID app is deleted : what should I do ?</a></p>
 </div>
+</section>
+</div>
 <h2 id="source-credit">Source Credit</h2>
 <p>Sample idea first appeared on <a href="https://reshmeeauckloo.com/posts/powershell-sharepoint-revokeentraidpermissions/">Revoke Entra ID App Permissions from SharePoint Sites Using PnP PowerShell</a>.</p>
 <h2 id="contributors">Contributors</h2>
@@ -219,13 +447,14 @@ else {
 <tr>
 <td><a href="https://github.com/reshmee011">Reshmee Auckloo</a></td>
 </tr>
+<tr>
+<td><a href="https://github.com/Adam-it">Adam Wójcik</a></td>
+</tr>
 </tbody>
 </table>
 <h2 id="disclaimer">Disclaimer</h2>
 <p><strong>THESE SAMPLES ARE PROVIDED <em>AS IS</em> WITHOUT WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, INCLUDING ANY IMPLIED WARRANTIES OF FITNESS FOR A PARTICULAR PURPOSE, MERCHANTABILITY, OR NON-INFRINGEMENT.</strong></p>
 <img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/spo-revoke-app-site-permission" aria-hidden="true">
-</section>
-</div>
 
 </article>
           </div>
