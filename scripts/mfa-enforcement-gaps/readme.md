@@ -27,7 +27,7 @@ This script surfaces those risks proactively, allowing security teams to:
 - Improves audit outcomes with evidence-based reporting
 - Builds confidence in identity security controls with measurable insight
 
-# [PnP PowerShell](#tab/pnpps)
+# [Graph PowerShell SDK](#tab/graphps)
 
 ```powershell
 
@@ -127,7 +127,8 @@ $results |
 
 
 ```
-
+[!INCLUDE [More about Microsoft Graph PowerShell SDK](../../docfx/includes/MORE-GRAPHSDK.md)]
+***
 
 
 ## Usage
@@ -175,4 +176,4 @@ Version|Date|Comments
 
 
 [!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
-
+<img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/mfa-enforcement-gaps" aria-hidden="true" />
