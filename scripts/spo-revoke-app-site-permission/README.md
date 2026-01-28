@@ -228,6 +228,8 @@ end {
 # Preview what would be revoked (WhatIf mode)
 # ./Revoke-AppSitePermissions.ps1 -TenantAdminUrl "https://contoso-admin.sharepoint.com" -AppDisplayName "MyApp" -RevokePermissions -WhatIf
 ```
+[!INCLUDE [More about CLI for Microsoft 365](../../docfx/includes/MORE-CLIM365.md)]
+
 
 # [PnP PowerShell](#tab/pnpps)
 
@@ -325,7 +327,7 @@ else {
 }
 ```
 [!INCLUDE [More about PnP PowerShell](../../docfx/includes/MORE-PNPPS.md)]
-
+***
 
 ## Source Credit
 
