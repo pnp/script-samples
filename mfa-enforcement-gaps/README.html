@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html lang="en">
+
+  <head>
+    <meta charset="utf-8">
+    <title>MFA Enforcement Gaps | PnP Samples </title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="title" content="MFA Enforcement Gaps | PnP Samples ">
+    <meta name="generator" content="docfx ">
+  <meta name="description" content="A sample gallery of scripts to manage all things Microsoft 365.">
+
+    <!-- Social Media -->
+    <meta property="og:locale" content="en_GB">
+    <meta property="og:title" content="MFA Enforcement Gaps | PnP Samples ">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://pnp.github.io/script-samples">
+    <meta property="og:image" content="https://pnp.github.io/script-samples/assets/social-media-screenshot.png">
+    <meta property="og:image:alt" content="Screenshot example of the PnP Script Samples Site">
+    <meta property="og:site_name" content="PnP Script Samples">
+    <meta name="msvalidate.01" content="04EFEDA66EC42C08A1247C979E2F9ADD">
+  <meta property="og:description" content="A sample gallery of scripts to manage all things Microsoft 365.">
+
+    <link rel="shortcut icon" href="https://c.s-microsoft.com/favicon.ico?v2">
+    <link rel="stylesheet" href="../styles/docfx.vendor.min.css">
+    <link rel="stylesheet" href="../styles/docfx.css">
+    <link rel="stylesheet" href="../styles/main.css">
+    <link rel="stylesheet" href="../styles/extra.css">
+    <link rel="stylesheet" href="../styles/filter.css">
+    <link rel="stylesheet" href="../styles/site.css">
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet"> 
+    <meta property="docfx:navrel" content="../toc.html">
+    <meta property="docfx:tocrel" content="../toc.html">
+  
+  
+  <meta property="docfx:newtab" content="true">
+    <script type="text/javascript">
+      (function(c,l,a,r,i,t,y){
+          c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+          t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+          y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+      })(window, document, "clarity", "script", "8j6pedl344");
+  </script>
+  </head>  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+             <div class="github-mark">
+              <a href="https://github.com/pnp/script-samples" title="Go to repository">
+               <div class="github-wrapper">
+                  <div class="github-icon">
+                    <img src="https://pnp.github.io/script-samples/assets/icons/github-light-64px.png" alt="GitHub Icon Image">
+                  </div>
+                  <div class="github-repository">
+                    <span>GitHub</span>
+                    <ul class="github-facts">
+                      <li>
+                        <i class="fa fa-code-fork" aria-hidden="true"></i>
+                        <span class="github-forks"></span>
+                      </li>
+                      <li>
+                        <i class="fa fa-star-o" aria-hidden="true"></i>
+                        <span class="github-stars"></span>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </a>
+            </div>
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../assets/logo.svg" alt="">
+              </a>            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <label class="glyphicon glyphicon-search" for="search-query"></label>
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>      </header>
+      <div role="main" class="container body-content hide-when-search">
+        <div class="article row grid">
+          <div class="col-md-12">
+            <article class="content wrap" id="_content" data-uid="">
+                  <div class="contribution-panel mobile-hide pull-right">
+                      <a href="https://github.com/pnp/script-samples/blob/main/scripts/mfa-enforcement-gaps/README.md/#L1" title="Edit this page" class="improve-doc-lg"><i class="glyphicon glyphicon-pencil"></i></a>
+                  </div>
+  <h1 id="mfa-enforcement-gaps">MFA Enforcement Gaps</h1>
+
+<h2 id="professional-summary">Professional Summary</h2>
+<p>This script identifies users in a Microsoft 365 tenant who are not effectively protected by Multi-Factor Authentication (MFA). It highlights accounts with no registered MFA methods and flags users explicitly excluded from Conditional Access (CA) policies, providing a clear view of MFA enforcement gaps across the organisation.</p>
+<p>The output supports security hardening, audit readiness, and governance decision-making with minimal operational overhead.</p>
+<h2 id="why-it-matters">Why It Matters</h2>
+<p>In many tenants, MFA is assumed to be “on” globally, yet exceptions quietly accumulate over time:
+legacy service accounts, temporary exclusions, break-glass users, or staff onboarded before policy maturity.</p>
+<p>These gaps are often discovered <strong>only during incidents or audits</strong>.</p>
+<p>This script surfaces those risks proactively, allowing security teams to:</p>
+<ul>
+<li>Detect silent exposure before compromise</li>
+<li>Validate Conditional Access design assumptions</li>
+<li>Demonstrate effective access controls to auditors and stakeholders</li>
+</ul>
+<h2 id="benefits">Benefits</h2>
+<ul>
+<li>Protects work accounts by exposing users without strong authentication</li>
+<li>Reduces cyber risk by identifying high-impact misconfigurations</li>
+<li>Improves compliance posture aligned with ISO 27001, GDPR best practices, and Zero Trust</li>
+<li>Strengthens defence in depth by validating MFA + Conditional Access together</li>
+<li>Improves audit outcomes with evidence-based reporting</li>
+<li>Builds confidence in identity security controls with measurable insight</li>
+</ul>
+<div class="tabGroup" id="tabgroup_1">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_1_graphps" role="tab" aria-controls="tabpanel_1_graphps" data-tab="graphps" tabindex="0" aria-selected="true">Graph PowerShell SDK</a>
+</li>
+</ul>
+<section id="tabpanel_1_graphps" role="tabpanel" data-tab="graphps">
+
+<pre><code class="lang-powershell">
+$ErrorActionPreference = 'Stop'
+
+# ==============================
+# Authentication Configuration
+# ==============================
+
+$TenantId    = &quot;&quot;   # e.g. contoso.onmicrosoft.com
+$ClientId   = &quot;&quot;   # App Registration Client ID
+$Thumbprint = &quot;&quot;   # Certificate Thumbprint
+
+$requiredScopes = @(
+    'User.Read.All',
+    'Directory.Read.All',
+    'Policy.Read.All',
+    'AuthenticationMethod.Read.All'
+)
+
+# ==============================
+# Connect to Microsoft Graph
+# ==============================
+
+$graphContext = Get-MgContext
+
+if (-not $graphContext) {
+
+    if ($TenantId -and $ClientId -and $Thumbprint) {
+
+        Connect-MgGraph `
+            -TenantId $TenantId `
+            -ClientId $ClientId `
+            -CertificateThumbprint $Thumbprint `
+            -NoWelcome
+
+    } else {
+
+        Connect-MgGraph `
+            -Scopes $requiredScopes `
+            -NoWelcome
+    }
+}
+
+# ==============================
+# Data Collection
+# ==============================
+
+$users = Get-MgUser -All -Property Id,DisplayName,UserPrincipalName,AccountEnabled,UserType
+
+$enabledCAPolicies = Get-MgConditionalAccessPolicy -All |
+    Where-Object { $_.State -eq 'enabled' }
+
+$excludedUserIds = $enabledCAPolicies |
+    ForEach-Object { $_.Conditions.Users.ExcludeUsers } |
+    Where-Object { $_ } |
+    Select-Object -Unique
+
+# ==============================
+# MFA Evaluation
+# ==============================
+
+$results = foreach ($user in $users) {
+
+    if (-not $user.AccountEnabled -or $user.UserType -ne 'Member') {
+        continue
+    }
+
+    $authMethods = Get-MgUserAuthenticationMethod -UserId $user.Id
+
+    $hasStrongMfa = $authMethods |
+        Where-Object {
+            $_.'@odata.type' -match 'microsoftAuthenticator|fido2|phoneAuthenticationMethod'
+        }
+
+    [PSCustomObject]@{
+        DisplayName       = $user.DisplayName
+        UserPrincipalName = $user.UserPrincipalName
+        MFARegistered     = [bool]$hasStrongMfa
+        ExcludedFromCA    = $excludedUserIds -contains $user.Id
+        RiskStatus        = if (-not $hasStrongMfa -or ($excludedUserIds -contains $user.Id)) {
+                                'MFA Gap'
+                            } else {
+                                'Protected'
+                            }
+    }
+}
+
+# ==============================
+# Output
+# ==============================
+
+$results |
+    Where-Object { $_.RiskStatus -eq 'MFA Gap' } |
+    Sort-Object ExcludedFromCA, MFARegistered |
+    Export-Csv -Path '.\MFA-Enforcement-Gaps.csv' -NoTypeInformation -Encoding UTF8
+
+
+</code></pre>
+<div class="highlight-tool">
+<p>Check out the <strong>Microsoft Graph PowerShell SDK</strong> to learn more at: <a href="https://learn.microsoft.com/graph/powershell/get-started">https://learn.microsoft.com/graph/powershell/get-started</a></p>
+</div>
+</section>
+</div>
+<h2 id="usage">Usage</h2>
+<ol>
+<li>Run from a secure admin workstation</li>
+<li>Ensure the executing identity has:
+<ul>
+<li>Global Reader or Security Reader</li>
+<li>Graph API consent for required scopes</li>
+</ul>
+</li>
+<li>Review the generated CSV:
+<ul>
+<li>Prioritise users excluded from Conditional Access</li>
+<li>Validate whether exclusions are intentional and justified</li>
+</ul>
+</li>
+</ol>
+<h2 id="output">Output</h2>
+<p><strong>MFA-Enforcement-Gaps.csv</strong></p>
+<table>
+<thead>
+<tr>
+<th>Column</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>DisplayName</td>
+<td>User display name</td>
+</tr>
+<tr>
+<td>UserPrincipalName</td>
+<td>Sign-in identity</td>
+</tr>
+<tr>
+<td>MFARegistered</td>
+<td>Strong MFA methods detected</td>
+</tr>
+<tr>
+<td>ExcludedFromCA</td>
+<td>Explicit CA exclusion</td>
+</tr>
+<tr>
+<td>RiskIndicator</td>
+<td>MFA Gap / Protected</td>
+</tr>
+</tbody>
+</table>
+<h2 id="notes">Notes</h2>
+<ul>
+<li>This script focuses on effective MFA protection, not legacy per-user MFA states</li>
+<li>Conditional Access exclusions represent the highest risk signal</li>
+<li>Designed to scale across large tenants using Graph paging and filtering</li>
+<li>Suitable for scheduled execution and security reporting pipelines</li>
+</ul>
+<h2 id="contributors">Contributors</h2>
+<table>
+<thead>
+<tr>
+<th>Author(s)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="https://github.com/ojopiyo">Josiah Opiyo</a></td>
+</tr>
+</tbody>
+</table>
+<p><em>Built with a focus on automation, governance, least privilege, and clean Microsoft 365 tenants—helping M365 admins gain visibility and reduce operational risk.</em></p>
+<h2 id="version-history">Version history</h2>
+<table>
+<thead>
+<tr>
+<th>Version</th>
+<th>Date</th>
+<th>Comments</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1.0</td>
+<td>Jan 21, 2026</td>
+<td>Initial release</td>
+</tr>
+</tbody>
+</table>
+<h2 id="disclaimer">Disclaimer</h2>
+<p><strong>THESE SAMPLES ARE PROVIDED <em>AS IS</em> WITHOUT WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, INCLUDING ANY IMPLIED WARRANTIES OF FITNESS FOR A PARTICULAR PURPOSE, MERCHANTABILITY, OR NON-INFRINGEMENT.</strong></p>
+<img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/mfa-enforcement-gaps" aria-hidden="true">
+
+</article>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+      <span>Script Samples<br>Generated by <strong><a href='https://dotnet.github.io/docfx' alt='Doc FX Website'>DocFX</a></strong> with <strong><a href='https://ovasquez.github.io/docfx-material' alt='DocFx Material Theme'>Material UI</a></strong></span>
+      
+            <!-- <img src="https://telemetry.sharepointpnp.com/@pnp.github.io/index/" alt="spacer"> -->
+          </div>
+        </div>
+      </footer>    </div>
+
+    <script type="text/javascript" src="../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+
+    <script type="text/javascript" src="../styles/clipboard.min.js"></script>
+    <script type="text/javascript" src="../styles/isotope.pkgd.min.js"></script>
+    <script type="text/javascript" src="../styles/loadsamples.js"></script>
+    <script type="text/javascript" src="../styles/filtersamples.js"></script>
+
+  </body>
+</html>
