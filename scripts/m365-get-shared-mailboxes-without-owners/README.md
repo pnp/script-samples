@@ -28,7 +28,7 @@ This script enables administrators to **proactively identify and remediate orpha
 - Scales efficiently for large Microsoft 365 tenants
 
 
-# [PnP PowerShell](#tab/pnpps)
+# [Exchange](#tab/exc)
 
 ```powershell
 
@@ -110,4 +110,4 @@ Version|Date|Comments
 
 
 [!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
-
+<img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/m365-get-shared-mailboxes-without-owners" aria-hidden="true" />
