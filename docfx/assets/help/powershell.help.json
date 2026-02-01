@@ -16,18 +16,6 @@
     "helpUrl": "https://pnp.github.io/powershell/cmdlets/Add-PnPAvailableSiteClassification.html"
   },
   {
-    "cmd": "Add-PnPAzureADGroupMember",
-    "helpUrl": "https://pnp.github.io/powershell/cmdlets/Add-PnPAzureADGroupMember.html"
-  },
-  {
-    "cmd": "Add-PnPAzureADGroupOwner",
-    "helpUrl": "https://pnp.github.io/powershell/cmdlets/Add-PnPAzureADGroupOwner.html"
-  },
-  {
-    "cmd": "Add-PnPAzureADServicePrincipalAppRole",
-    "helpUrl": "https://pnp.github.io/powershell/cmdlets/Add-PnPAzureADServicePrincipalAppRole.html"
-  },
-  {
     "cmd": "Add-PnPBrandCenterFont",
     "helpUrl": "https://pnp.github.io/powershell/cmdlets/Add-PnPBrandCenterFont.html"
   },
@@ -62,6 +50,18 @@
   {
     "cmd": "Add-PnPDocumentSet",
     "helpUrl": "https://pnp.github.io/powershell/cmdlets/Add-PnPDocumentSet.html"
+  },
+  {
+    "cmd": "Add-PnPEntraIDGroupMember",
+    "helpUrl": "https://pnp.github.io/powershell/cmdlets/Add-PnPEntraIDGroupMember.html"
+  },
+  {
+    "cmd": "Add-PnPEntraIDGroupOwner",
+    "helpUrl": "https://pnp.github.io/powershell/cmdlets/Add-PnPEntraIDGroupOwner.html"
+  },
+  {
+    "cmd": "Add-PnPEntraIDServicePrincipalAppRole",
+    "helpUrl": "https://pnp.github.io/powershell/cmdlets/Add-PnPEntraIDServicePrincipalAppRole.html"
   },
   {
     "cmd": "Add-PnPEventReceiver",
@@ -384,16 +384,16 @@
     "helpUrl": "https://pnp.github.io/powershell/cmdlets/Approve-PnPTenantServicePrincipalPermissionRequest.html"
   },
   {
-    "cmd": "Clear-PnPAzureADGroupMember",
-    "helpUrl": "https://pnp.github.io/powershell/cmdlets/Clear-PnPAzureADGroupMember.html"
-  },
-  {
-    "cmd": "Clear-PnPAzureADGroupOwner",
-    "helpUrl": "https://pnp.github.io/powershell/cmdlets/Clear-PnPAzureADGroupOwner.html"
-  },
-  {
     "cmd": "Clear-PnPDefaultColumnValues",
     "helpUrl": "https://pnp.github.io/powershell/cmdlets/Clear-PnPDefaultColumnValues.html"
+  },
+  {
+    "cmd": "Clear-PnPEntraIDGroupMember",
+    "helpUrl": "https://pnp.github.io/powershell/cmdlets/Clear-PnPEntraIDGroupMember.html"
+  },
+  {
+    "cmd": "Clear-PnPEntraIDGroupOwner",
+    "helpUrl": "https://pnp.github.io/powershell/cmdlets/Clear-PnPEntraIDGroupOwner.html"
   },
   {
     "cmd": "Clear-PnPListItemAsRecord",
@@ -632,54 +632,6 @@
     "helpUrl": "https://pnp.github.io/powershell/cmdlets/Get-PnPAzureACSPrincipal.html"
   },
   {
-    "cmd": "Get-PnPAzureADActivityReportDirectoryAudit",
-    "helpUrl": "https://pnp.github.io/powershell/cmdlets/Get-PnPAzureADActivityReportDirectoryAudit.html"
-  },
-  {
-    "cmd": "Get-PnPAzureADActivityReportSignIn",
-    "helpUrl": "https://pnp.github.io/powershell/cmdlets/Get-PnPAzureADActivityReportSignIn.html"
-  },
-  {
-    "cmd": "Get-PnPAzureADApp",
-    "helpUrl": "https://pnp.github.io/powershell/cmdlets/Get-PnPAzureADApp.html"
-  },
-  {
-    "cmd": "Get-PnPAzureADAppPermission",
-    "helpUrl": "https://pnp.github.io/powershell/cmdlets/Get-PnPAzureADAppPermission.html"
-  },
-  {
-    "cmd": "Get-PnPAzureADAppSitePermission",
-    "helpUrl": "https://pnp.github.io/powershell/cmdlets/Get-PnPAzureADAppSitePermission.html"
-  },
-  {
-    "cmd": "Get-PnPAzureADGroup",
-    "helpUrl": "https://pnp.github.io/powershell/cmdlets/Get-PnPAzureADGroup.html"
-  },
-  {
-    "cmd": "Get-PnPAzureADGroupMember",
-    "helpUrl": "https://pnp.github.io/powershell/cmdlets/Get-PnPAzureADGroupMember.html"
-  },
-  {
-    "cmd": "Get-PnPAzureADGroupOwner",
-    "helpUrl": "https://pnp.github.io/powershell/cmdlets/Get-PnPAzureADGroupOwner.html"
-  },
-  {
-    "cmd": "Get-PnPAzureADServicePrincipal",
-    "helpUrl": "https://pnp.github.io/powershell/cmdlets/Get-PnPAzureADServicePrincipal.html"
-  },
-  {
-    "cmd": "Get-PnPAzureADServicePrincipalAssignedAppRole",
-    "helpUrl": "https://pnp.github.io/powershell/cmdlets/Get-PnPAzureADServicePrincipalAssignedAppRole.html"
-  },
-  {
-    "cmd": "Get-PnPAzureADServicePrincipalAvailableAppRole",
-    "helpUrl": "https://pnp.github.io/powershell/cmdlets/Get-PnPAzureADServicePrincipalAvailableAppRole.html"
-  },
-  {
-    "cmd": "Get-PnPAzureADUser",
-    "helpUrl": "https://pnp.github.io/powershell/cmdlets/Get-PnPAzureADUser.html"
-  },
-  {
     "cmd": "Get-PnPAzureCertificate",
     "helpUrl": "https://pnp.github.io/powershell/cmdlets/Get-PnPAzureCertificate.html"
   },
@@ -794,6 +746,54 @@
   {
     "cmd": "Get-PnPEnterpriseAppInsightsReport",
     "helpUrl": "https://pnp.github.io/powershell/cmdlets/Get-PnPEnterpriseAppInsightsReport.html"
+  },
+  {
+    "cmd": "Get-PnPEntraIDActivityReportDirectoryAudit",
+    "helpUrl": "https://pnp.github.io/powershell/cmdlets/Get-PnPEntraIDActivityReportDirectoryAudit.html"
+  },
+  {
+    "cmd": "Get-PnPEntraIDActivityReportSignIn",
+    "helpUrl": "https://pnp.github.io/powershell/cmdlets/Get-PnPEntraIDActivityReportSignIn.html"
+  },
+  {
+    "cmd": "Get-PnPEntraIDApp",
+    "helpUrl": "https://pnp.github.io/powershell/cmdlets/Get-PnPEntraIDApp.html"
+  },
+  {
+    "cmd": "Get-PnPEntraIDAppPermission",
+    "helpUrl": "https://pnp.github.io/powershell/cmdlets/Get-PnPEntraIDAppPermission.html"
+  },
+  {
+    "cmd": "Get-PnPEntraIDAppSitePermission",
+    "helpUrl": "https://pnp.github.io/powershell/cmdlets/Get-PnPEntraIDAppSitePermission.html"
+  },
+  {
+    "cmd": "Get-PnPEntraIDGroup",
+    "helpUrl": "https://pnp.github.io/powershell/cmdlets/Get-PnPEntraIDGroup.html"
+  },
+  {
+    "cmd": "Get-PnPEntraIDGroupMember",
+    "helpUrl": "https://pnp.github.io/powershell/cmdlets/Get-PnPEntraIDGroupMember.html"
+  },
+  {
+    "cmd": "Get-PnPEntraIDGroupOwner",
+    "helpUrl": "https://pnp.github.io/powershell/cmdlets/Get-PnPEntraIDGroupOwner.html"
+  },
+  {
+    "cmd": "Get-PnPEntraIDServicePrincipal",
+    "helpUrl": "https://pnp.github.io/powershell/cmdlets/Get-PnPEntraIDServicePrincipal.html"
+  },
+  {
+    "cmd": "Get-PnPEntraIDServicePrincipalAssignedAppRole",
+    "helpUrl": "https://pnp.github.io/powershell/cmdlets/Get-PnPEntraIDServicePrincipalAssignedAppRole.html"
+  },
+  {
+    "cmd": "Get-PnPEntraIDServicePrincipalAvailableAppRole",
+    "helpUrl": "https://pnp.github.io/powershell/cmdlets/Get-PnPEntraIDServicePrincipalAvailableAppRole.html"
+  },
+  {
+    "cmd": "Get-PnPEntraIDUser",
+    "helpUrl": "https://pnp.github.io/powershell/cmdlets/Get-PnPEntraIDUser.html"
   },
   {
     "cmd": "Get-PnPEventReceiver",
@@ -1596,8 +1596,8 @@
     "helpUrl": "https://pnp.github.io/powershell/cmdlets/Get-PnPWikiPageContent.html"
   },
   {
-    "cmd": "Grant-PnPAzureADAppSitePermission",
-    "helpUrl": "https://pnp.github.io/powershell/cmdlets/Grant-PnPAzureADAppSitePermission.html"
+    "cmd": "Grant-PnPEntraIDAppSitePermission",
+    "helpUrl": "https://pnp.github.io/powershell/cmdlets/Grant-PnPEntraIDAppSitePermission.html"
   },
   {
     "cmd": "Grant-PnPHubSiteRights",
@@ -1720,14 +1720,6 @@
     "helpUrl": "https://pnp.github.io/powershell/cmdlets/Move-PnPTermSet.html"
   },
   {
-    "cmd": "New-PnPAzureADGroup",
-    "helpUrl": "https://pnp.github.io/powershell/cmdlets/New-PnPAzureADGroup.html"
-  },
-  {
-    "cmd": "New-PnPAzureADUserTemporaryAccessPass",
-    "helpUrl": "https://pnp.github.io/powershell/cmdlets/New-PnPAzureADUserTemporaryAccessPass.html"
-  },
-  {
     "cmd": "New-PnPAzureCertificate",
     "helpUrl": "https://pnp.github.io/powershell/cmdlets/New-PnPAzureCertificate.html"
   },
@@ -1738,6 +1730,14 @@
   {
     "cmd": "New-PnPContainerType",
     "helpUrl": "https://pnp.github.io/powershell/cmdlets/New-PnPContainerType.html"
+  },
+  {
+    "cmd": "New-PnPEntraIDGroup",
+    "helpUrl": "https://pnp.github.io/powershell/cmdlets/New-PnPEntraIDGroup.html"
+  },
+  {
+    "cmd": "New-PnPEntraIDUserTemporaryAccessPass",
+    "helpUrl": "https://pnp.github.io/powershell/cmdlets/New-PnPEntraIDUserTemporaryAccessPass.html"
   },
   {
     "cmd": "New-PnPExtensibilityHandlerObject",
@@ -1920,8 +1920,8 @@
     "helpUrl": "https://pnp.github.io/powershell/cmdlets/Register-PnPAppCatalogSite.html"
   },
   {
-    "cmd": "Register-PnPAzureADApp",
-    "helpUrl": "https://pnp.github.io/powershell/cmdlets/Register-PnPAzureADApp.html"
+    "cmd": "Register-PnPEntraIDApp",
+    "helpUrl": "https://pnp.github.io/powershell/cmdlets/Register-PnPEntraIDApp.html"
   },
   {
     "cmd": "Register-PnPEntraIDAppForInteractiveLogin",
@@ -1952,30 +1952,6 @@
     "helpUrl": "https://pnp.github.io/powershell/cmdlets/Remove-PnPAvailableSiteClassification.html"
   },
   {
-    "cmd": "Remove-PnPAzureADApp",
-    "helpUrl": "https://pnp.github.io/powershell/cmdlets/Remove-PnPAzureADApp.html"
-  },
-  {
-    "cmd": "Remove-PnPAzureADGroup",
-    "helpUrl": "https://pnp.github.io/powershell/cmdlets/Remove-PnPAzureADGroup.html"
-  },
-  {
-    "cmd": "Remove-PnPAzureADGroupMember",
-    "helpUrl": "https://pnp.github.io/powershell/cmdlets/Remove-PnPAzureADGroupMember.html"
-  },
-  {
-    "cmd": "Remove-PnPAzureADGroupOwner",
-    "helpUrl": "https://pnp.github.io/powershell/cmdlets/Remove-PnPAzureADGroupOwner.html"
-  },
-  {
-    "cmd": "Remove-PnPAzureADServicePrincipalAssignedAppRole",
-    "helpUrl": "https://pnp.github.io/powershell/cmdlets/Remove-PnPAzureADServicePrincipalAssignedAppRole.html"
-  },
-  {
-    "cmd": "Remove-PnPAzureADUser",
-    "helpUrl": "https://pnp.github.io/powershell/cmdlets/Remove-PnPAzureADUser.html"
-  },
-  {
     "cmd": "Remove-PnPContainer",
     "helpUrl": "https://pnp.github.io/powershell/cmdlets/Remove-PnPContainer.html"
   },
@@ -2002,6 +1978,30 @@
   {
     "cmd": "Remove-PnPDeletedMicrosoft365Group",
     "helpUrl": "https://pnp.github.io/powershell/cmdlets/Remove-PnPDeletedMicrosoft365Group.html"
+  },
+  {
+    "cmd": "Remove-PnPEntraIDApp",
+    "helpUrl": "https://pnp.github.io/powershell/cmdlets/Remove-PnPEntraIDApp.html"
+  },
+  {
+    "cmd": "Remove-PnPEntraIDGroup",
+    "helpUrl": "https://pnp.github.io/powershell/cmdlets/Remove-PnPEntraIDGroup.html"
+  },
+  {
+    "cmd": "Remove-PnPEntraIDGroupMember",
+    "helpUrl": "https://pnp.github.io/powershell/cmdlets/Remove-PnPEntraIDGroupMember.html"
+  },
+  {
+    "cmd": "Remove-PnPEntraIDGroupOwner",
+    "helpUrl": "https://pnp.github.io/powershell/cmdlets/Remove-PnPEntraIDGroupOwner.html"
+  },
+  {
+    "cmd": "Remove-PnPEntraIDServicePrincipalAssignedAppRole",
+    "helpUrl": "https://pnp.github.io/powershell/cmdlets/Remove-PnPEntraIDServicePrincipalAssignedAppRole.html"
+  },
+  {
+    "cmd": "Remove-PnPEntraIDUser",
+    "helpUrl": "https://pnp.github.io/powershell/cmdlets/Remove-PnPEntraIDUser.html"
   },
   {
     "cmd": "Remove-PnPEventReceiver",
@@ -2468,8 +2468,8 @@
     "helpUrl": "https://pnp.github.io/powershell/cmdlets/Restore-PnPTenantSite.html"
   },
   {
-    "cmd": "Revoke-PnPAzureADAppSitePermission",
-    "helpUrl": "https://pnp.github.io/powershell/cmdlets/Revoke-PnPAzureADAppSitePermission.html"
+    "cmd": "Revoke-PnPEntraIDAppSitePermission",
+    "helpUrl": "https://pnp.github.io/powershell/cmdlets/Revoke-PnPEntraIDAppSitePermission.html"
   },
   {
     "cmd": "Revoke-PnPHubSiteRights",
@@ -2524,14 +2524,6 @@
     "helpUrl": "https://pnp.github.io/powershell/cmdlets/Set-PnPAvailablePageLayouts.html"
   },
   {
-    "cmd": "Set-PnPAzureADAppSitePermission",
-    "helpUrl": "https://pnp.github.io/powershell/cmdlets/Set-PnPAzureADAppSitePermission.html"
-  },
-  {
-    "cmd": "Set-PnPAzureADGroup",
-    "helpUrl": "https://pnp.github.io/powershell/cmdlets/Set-PnPAzureADGroup.html"
-  },
-  {
     "cmd": "Set-PnPBrowserIdleSignout",
     "helpUrl": "https://pnp.github.io/powershell/cmdlets/Set-PnPBrowserIdleSignout.html"
   },
@@ -2574,6 +2566,14 @@
   {
     "cmd": "Set-PnPDocumentSetField",
     "helpUrl": "https://pnp.github.io/powershell/cmdlets/Set-PnPDocumentSetField.html"
+  },
+  {
+    "cmd": "Set-PnPEntraIDAppSitePermission",
+    "helpUrl": "https://pnp.github.io/powershell/cmdlets/Set-PnPEntraIDAppSitePermission.html"
+  },
+  {
+    "cmd": "Set-PnPEntraIDGroup",
+    "helpUrl": "https://pnp.github.io/powershell/cmdlets/Set-PnPEntraIDGroup.html"
   },
   {
     "cmd": "Set-PnPField",
