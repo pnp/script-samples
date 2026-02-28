@@ -1,0 +1,66 @@
+[
+    {
+        "name": "entra-remove-user-mfa-methods",
+        "source": "pnp",
+        "title": "Remove MFA Authentication Methods for Users",
+        "shortDescription": "Removes MFA authentication methods (phone, Microsoft Authenticator, software OATH token) for all or specific users in a Microsoft 365 tenant using Microsoft Graph PowerShell.",
+        "url": "https://pnp.github.io/script-samples/entra-remove-user-mfa-methods/README.html",
+        "longDescription": [
+            "This script connects to Microsoft Graph and removes multi-factor authentication (MFA) methods for users in a Microsoft 365 tenant. It supports two modes: removing MFA for all users in the tenant (except excluded accounts), or targeting specific users only using the -TargetUsers parameter. Admin and other accounts can be protected via the -ExcludedUsers parameter."
+        ],
+        "creationDateTime": "2026-02-28",
+        "updateDateTime": "2026-02-28",
+        "products": [
+            "Entra ID",
+            "Microsoft 365"
+        ],
+        "metadata": [
+            {
+                "key": "GRAPH-POWERSHELL",
+                "value": "2.0.0"
+            }
+        ],
+        "categories": [
+            "Security",
+            "Identity"
+        ],
+        "tags": [
+            "Connect-MgGraph",
+            "Get-MgUser",
+            "Get-MgUserAuthenticationMethod",
+            "Remove-MgUserAuthenticationPhoneMethod",
+            "Remove-MgUserAuthenticationMicrosoftAuthenticatorMethod",
+            "Remove-MgUserAuthenticationSoftwareOathMethod",
+            "MFA",
+            "Authentication"
+        ],
+        "thumbnails": [
+            {
+                "type": "image",
+                "order": 100,
+                "url": "",
+                "alt": "Preview of the sample Remove MFA Authentication Methods for Users"
+            }
+        ],
+        "authors": [
+            {
+                "gitHubAccount": "nirav-raval",
+                "company": "",
+                "pictureUrl": "https://github.com/nirav-raval.png",
+                "name": "Nirav Raval"
+            }
+        ],
+        "references": [
+            {
+                "name": "Microsoft Graph PowerShell SDK documentation",
+                "description": "Get started with the Microsoft Graph PowerShell SDK and explore the available cmdlets.",
+                "url": "https://learn.microsoft.com/en-us/powershell/microsoftgraph/overview"
+            },
+            {
+                "name": "Authentication methods API overview",
+                "description": "Learn about the Microsoft Graph authentication methods API used in this script.",
+                "url": "https://learn.microsoft.com/en-us/graph/api/resources/authenticationmethods-overview"
+            }
+        ]
+    }
+]
