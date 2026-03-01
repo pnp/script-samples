@@ -174,3 +174,20 @@ The script produces a structured dataset with:
 - Run periodically and store historical CSVs to track permission drift over time.
 - Consider feeding the CSV into Power BI for visual access review dashboards.
 - For very large tenants, you can parallelise mailbox processing with ForEach-Object -Parallel in PowerShell 7, if your operational standards allow it.
+
+## Contributors
+
+| Author(s) |
+|-----------|
+| [Josiah Opiyo](https://github.com/ojopiyo) |
+
+*Built with a focus on automation, governance, least privilege, and clean Microsoft 365 tenants-helping M365 admins gain visibility and reduce operational risk.*
+
+## Version history
+
+Version|Date|Comments
+-------|----|--------
+1.0|Mar 01, 2026|Initial release
+
+[!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
+
