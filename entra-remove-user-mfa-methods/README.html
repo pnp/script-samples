@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html lang="en">
+
+  <head>
+    <meta charset="utf-8">
+    <title>Remove MFA Authentication Methods for Users | PnP Samples </title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="title" content="Remove MFA Authentication Methods for Users | PnP Samples ">
+    <meta name="generator" content="docfx ">
+  <meta name="description" content="A sample gallery of scripts to manage all things Microsoft 365.">
+
+    <!-- Social Media -->
+    <meta property="og:locale" content="en_GB">
+    <meta property="og:title" content="Remove MFA Authentication Methods for Users | PnP Samples ">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://pnp.github.io/script-samples">
+    <meta property="og:image" content="https://pnp.github.io/script-samples/assets/social-media-screenshot.png">
+    <meta property="og:image:alt" content="Screenshot example of the PnP Script Samples Site">
+    <meta property="og:site_name" content="PnP Script Samples">
+    <meta name="msvalidate.01" content="04EFEDA66EC42C08A1247C979E2F9ADD">
+  <meta property="og:description" content="A sample gallery of scripts to manage all things Microsoft 365.">
+
+    <link rel="shortcut icon" href="https://c.s-microsoft.com/favicon.ico?v2">
+    <link rel="stylesheet" href="../styles/docfx.vendor.min.css">
+    <link rel="stylesheet" href="../styles/docfx.css">
+    <link rel="stylesheet" href="../styles/main.css">
+    <link rel="stylesheet" href="../styles/extra.css">
+    <link rel="stylesheet" href="../styles/filter.css">
+    <link rel="stylesheet" href="../styles/site.css">
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet"> 
+    <meta property="docfx:navrel" content="../toc.html">
+    <meta property="docfx:tocrel" content="../toc.html">
+  
+  
+  <meta property="docfx:newtab" content="true">
+    <script type="text/javascript">
+      (function(c,l,a,r,i,t,y){
+          c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+          t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+          y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+      })(window, document, "clarity", "script", "8j6pedl344");
+  </script>
+  </head>  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+             <div class="github-mark">
+              <a href="https://github.com/pnp/script-samples" title="Go to repository">
+               <div class="github-wrapper">
+                  <div class="github-icon">
+                    <img src="https://pnp.github.io/script-samples/assets/icons/github-light-64px.png" alt="GitHub Icon Image">
+                  </div>
+                  <div class="github-repository">
+                    <span>GitHub</span>
+                    <ul class="github-facts">
+                      <li>
+                        <i class="fa fa-code-fork" aria-hidden="true"></i>
+                        <span class="github-forks"></span>
+                      </li>
+                      <li>
+                        <i class="fa fa-star-o" aria-hidden="true"></i>
+                        <span class="github-stars"></span>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </a>
+            </div>
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../assets/logo.svg" alt="">
+              </a>            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <label class="glyphicon glyphicon-search" for="search-query"></label>
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>      </header>
+      <div role="main" class="container body-content hide-when-search">
+        <div class="article row grid">
+          <div class="col-md-12">
+            <article class="content wrap" id="_content" data-uid="">
+                  <div class="contribution-panel mobile-hide pull-right">
+                      <a href="https://github.com/pnp/script-samples/blob/main/scripts/entra-remove-user-mfa-methods/README.md/#L1" title="Edit this page" class="improve-doc-lg"><i class="glyphicon glyphicon-pencil"></i></a>
+                  </div>
+  <h1 id="remove-mfa-authentication-methods-for-users">Remove MFA Authentication Methods for Users</h1>
+
+<h2 id="summary">Summary</h2>
+<p>This script removes all MFA (Multi-Factor Authentication) methods from user accounts in a Microsoft 365 tenant using Microsoft Graph PowerShell. It supports removing <strong>phone</strong>, <strong>Microsoft Authenticator app</strong>, and <strong>software OATH token</strong> methods.</p>
+<p>The script supports two modes:</p>
+<ul>
+<li><strong>All users mode</strong> — removes MFA for every user in the tenant except those in the exclusion list</li>
+<li><strong>Targeted mode</strong> — removes MFA for specific users only by passing <code>-TargetUsers</code></li>
+</ul>
+<p>In both modes, accounts in <code>-ExcludedUsers</code> (e.g. admin or break-glass accounts) are always protected.</p>
+<div class="WARNING">
+<h5>Warning</h5>
+<p>Please be aware this script contains commands that will <strong>remove MFA authentication methods</strong> for users in bulk. This is a <strong>destructive and irreversible operation</strong>. Ensure you test in a non-production environment first, and always exclude your admin and other temporary accounts.</p>
+</div>
+<p><img src="assets/example.png" alt="Example Screenshot"></p>
+<h2 id="compatibility">Compatibility</h2>
+<table>
+<thead>
+<tr>
+<th>Tool</th>
+<th>Version</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Microsoft Graph PowerShell</td>
+<td>v2.x+</td>
+</tr>
+</tbody>
+</table>
+<h2 id="prerequisites">Prerequisites</h2>
+<p>The signed-in account must have the following Graph API permissions:</p>
+<table>
+<thead>
+<tr>
+<th>Permission</th>
+<th>Type</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>UserAuthenticationMethod.ReadWrite.All</code></td>
+<td>Delegated</td>
+</tr>
+<tr>
+<td><code>User.Read.All</code></td>
+<td>Delegated</td>
+</tr>
+</tbody>
+</table>
+<pre><code class="lang-powershell"># Install required sub-modules if not already installed
+Install-Module Microsoft.Graph.Authentication -Scope CurrentUser -Repository PSGallery -Force
+Install-Module Microsoft.Graph.Users -Scope CurrentUser -Repository PSGallery -Force
+Install-Module Microsoft.Graph.Identity.SignIns -Scope CurrentUser -Repository PSGallery -Force
+</code></pre>
+<div class="NOTE">
+<h5>Note</h5>
+<p>Install only the three sub-modules listed above rather than the full <code>Microsoft.Graph</code> bundle.</p>
+</div>
+<h2 id="script">Script</h2>
+<div class="tabGroup" id="tabgroup_1">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_1_graphps" role="tab" aria-controls="tabpanel_1_graphps" data-tab="graphps" tabindex="0" aria-selected="true">Microsoft Graph PowerShell</a>
+</li>
+</ul>
+<section id="tabpanel_1_graphps" role="tabpanel" data-tab="graphps">
+
+<pre><code class="lang-powershell">#Requires -Modules Microsoft.Graph.Authentication, Microsoft.Graph.Users, Microsoft.Graph.Identity.SignIns
+
+&lt;#
+.SYNOPSIS
+    Removes MFA authentication methods for all users in a tenant using Microsoft Graph PowerShell.
+
+.DESCRIPTION
+    This script connects to Microsoft Graph and removes multi-factor authentication (MFA) methods
+    for all users in the tenant, with the ability to exclude specific accounts (e.g., break-glass
+    or admin accounts). It handles phone, Microsoft Authenticator app, and software OATH token methods.
+
+    You can optionally target specific users only using -TargetUsers. If not specified, all users
+    (except excluded ones) will be processed.
+
+.PARAMETER ExcludedUsers
+    An array of User Principal Names (UPNs) to exclude from MFA removal.
+    Typically used to protect admin or break-glass accounts.
+    These are always excluded regardless of whether -TargetUsers is used.
+
+.PARAMETER TargetUsers
+    An optional array of User Principal Names (UPNs) to target specifically.
+    If provided, only these users will have their MFA methods removed (excluding any in ExcludedUsers).
+    If not provided, ALL users in the tenant will be processed (except ExcludedUsers).
+
+.EXAMPLE
+    .\RemoveMFA.ps1
+    Removes MFA methods from ALL users except the excluded accounts.
+
+.EXAMPLE
+    .\RemoveMFA.ps1 -TargetUsers @(&quot;john@contoso.onmicrosoft.com&quot;, &quot;jane@contoso.onmicrosoft.com&quot;)
+    Removes MFA methods for specific users only.
+
+.EXAMPLE
+    .\RemoveMFA.ps1 -ExcludedUsers @(&quot;admin@contoso.onmicrosoft.com&quot;, &quot;breakglass@contoso.onmicrosoft.com&quot;)
+    Removes MFA methods from ALL users except the specified excluded accounts.
+#&gt;
+
+[CmdletBinding(SupportsShouldProcess)]
+param (
+    [Parameter(Mandatory = $false)]
+    [string[]]$ExcludedUsers = @(
+        &quot;admin@contoso.onmicrosoft.com&quot;
+        # &quot;breakglass@contoso.onmicrosoft.com&quot;
+    ),
+
+    [Parameter(Mandatory = $false)]
+    [string[]]$TargetUsers = @()
+)
+
+# ---------------------------------------------------------------------------
+# Install module if needed (uncomment the line below on first run)
+# Install-Module Microsoft.Graph -Scope CurrentUser -Repository PSGallery -Force
+# ---------------------------------------------------------------------------
+
+# Connect to Microsoft Graph with required scopes
+Connect-MgGraph -Scopes &quot;UserAuthenticationMethod.ReadWrite.All&quot;, &quot;User.Read.All&quot; -NoWelcome
+
+Write-Host &quot;============================================&quot; -ForegroundColor Cyan
+Write-Host &quot; Remove MFA Methods - Microsoft Graph&quot; -ForegroundColor Cyan
+Write-Host &quot;============================================&quot; -ForegroundColor Cyan
+Write-Host &quot;&quot;
+Write-Host &quot;Excluded accounts:&quot; -ForegroundColor Yellow
+$ExcludedUsers | ForEach-Object { Write-Host &quot;  - $_&quot; -ForegroundColor Yellow }
+Write-Host &quot;&quot;
+
+# ---------------------------------------------------------------------------
+# Determine which users to process:
+#   -TargetUsers provided     -&gt; process only those specific users
+#   -TargetUsers not provided -&gt; process ALL users except ExcludedUsers
+# ---------------------------------------------------------------------------
+if ($TargetUsers.Count -gt 0) {
+
+    Write-Host &quot;Mode: Targeted - processing specified users only.&quot; -ForegroundColor Magenta
+    Write-Host &quot;&quot;
+
+    $users = [System.Collections.Generic.List[object]]::new()
+
+    foreach ($upn in $TargetUsers) {
+        if ($upn -in $ExcludedUsers) {
+            Write-Host &quot;Skipping excluded account: $upn&quot; -ForegroundColor Yellow
+            continue
+        }
+        $user = Get-MgUser -UserId $upn -Property Id, UserPrincipalName, DisplayName -ErrorAction SilentlyContinue
+        if ($null -eq $user) {
+            Write-Host &quot;WARNING: User not found - $upn&quot; -ForegroundColor Red
+        }
+        else {
+            $users.Add($user)
+        }
+    }
+
+}
+else {
+
+    Write-Host &quot;Mode: All users - processing entire tenant (except excluded accounts).&quot; -ForegroundColor Magenta
+    Write-Host &quot;&quot;
+
+    Write-Host &quot;Retrieving users from tenant...&quot; -ForegroundColor Cyan
+    $users = Get-MgUser -All -Property Id, UserPrincipalName, DisplayName |
+        Where-Object { $_.UserPrincipalName -notin $ExcludedUsers }
+
+}
+
+Write-Host &quot;Found $($users.Count) user(s) to process.&quot; -ForegroundColor Cyan
+Write-Host &quot;&quot;
+
+$totalRemoved = 0
+$totalErrors = 0
+
+foreach ($user in $users) {
+
+    Write-Host &quot;Processing: $($user.DisplayName) ($($user.UserPrincipalName))&quot; -ForegroundColor White
+
+    try {
+        # Retrieve all authentication methods for the user
+        $authMethods = Get-MgUserAuthenticationMethod -UserId $user.Id -ErrorAction Stop
+
+        if ($authMethods.Count -eq 0) {
+            Write-Host &quot;  No authentication methods found.&quot; -ForegroundColor Gray
+            continue
+        }
+
+        foreach ($method in $authMethods) {
+
+            $odataType = $method.AdditionalProperties[&quot;@odata.type&quot;]
+
+            switch ($odataType) {
+
+                &quot;#microsoft.graph.phoneAuthenticationMethod&quot; {
+                    if ($PSCmdlet.ShouldProcess($user.UserPrincipalName, &quot;Remove phone authentication method&quot;)) {
+                        Remove-MgUserAuthenticationPhoneMethod `
+                            -UserId $user.Id `
+                            -PhoneAuthenticationMethodId $method.Id `
+                            -ErrorAction Stop
+                        Write-Host &quot;  Removed: Phone authentication method&quot; -ForegroundColor Green
+                        $totalRemoved++
+                    }
+                }
+
+                &quot;#microsoft.graph.microsoftAuthenticatorAuthenticationMethod&quot; {
+                    if ($PSCmdlet.ShouldProcess($user.UserPrincipalName, &quot;Remove Microsoft Authenticator method&quot;)) {
+                        Remove-MgUserAuthenticationMicrosoftAuthenticatorMethod `
+                            -UserId $user.Id `
+                            -MicrosoftAuthenticatorAuthenticationMethodId $method.Id `
+                            -ErrorAction Stop
+                        Write-Host &quot;  Removed: Microsoft Authenticator app&quot; -ForegroundColor Green
+                        $totalRemoved++
+                    }
+                }
+
+                &quot;#microsoft.graph.softwareOathAuthenticationMethod&quot; {
+                    if ($PSCmdlet.ShouldProcess($user.UserPrincipalName, &quot;Remove software OATH token method&quot;)) {
+                        Remove-MgUserAuthenticationSoftwareOathMethod `
+                            -UserId $user.Id `
+                            -SoftwareOathAuthenticationMethodId $method.Id `
+                            -ErrorAction Stop
+                        Write-Host &quot;  Removed: Software OATH token&quot; -ForegroundColor Green
+                        $totalRemoved++
+                    }
+                }
+
+                default {
+                    # Password methods and other built-in methods cannot be removed
+                    Write-Host &quot;  Skipped: $odataType (not removable via API)&quot; -ForegroundColor Gray
+                }
+            }
+        }
+    }
+    catch {
+        Write-Host &quot;  ERROR: $($_.Exception.Message)&quot; -ForegroundColor Red
+        $totalErrors++
+    }
+}
+
+Write-Host &quot;&quot;
+Write-Host &quot;============================================&quot; -ForegroundColor Cyan
+Write-Host &quot; Summary&quot; -ForegroundColor Cyan
+Write-Host &quot;============================================&quot; -ForegroundColor Cyan
+Write-Host &quot;  Methods removed : $totalRemoved&quot; -ForegroundColor Green
+Write-Host &quot;  Errors          : $totalErrors&quot;  -ForegroundColor $(if ($totalErrors -gt 0) { &quot;Red&quot; } else { &quot;Green&quot; })
+Write-Host &quot;&quot;
+
+# Disconnect from Microsoft Graph
+Disconnect-MgGraph
+Write-Host &quot;Disconnected from Microsoft Graph.&quot; -ForegroundColor Cyan
+</code></pre>
+<div class="highlight-tool">
+<p>Check out the <strong>Microsoft Graph PowerShell SDK</strong> to learn more at: <a href="https://learn.microsoft.com/powershell/microsoftgraph/get-started">https://learn.microsoft.com/powershell/microsoftgraph/get-started</a></p>
+</div>
+</section>
+</div>
+<hr>
+<h2 id="contributors">Contributors</h2>
+<table>
+<thead>
+<tr>
+<th>Author(s)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="https://github.com/nirav-raval">Nirav Raval</a></td>
+</tr>
+</tbody>
+</table>
+<h2 id="version-history">Version history</h2>
+<table>
+<thead>
+<tr>
+<th>Version</th>
+<th>Date</th>
+<th>Comments</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1.0</td>
+<td>Feb 28, 2026</td>
+<td>Initial release</td>
+</tr>
+</tbody>
+</table>
+<h2 id="disclaimer">Disclaimer</h2>
+<p><strong>THESE SAMPLES ARE PROVIDED <em>AS IS</em> WITHOUT WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, INCLUDING ANY IMPLIED WARRANTIES OF FITNESS FOR A PARTICULAR PURPOSE, MERCHANTABILITY, OR NON-INFRINGEMENT.</strong></p>
+<img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/entra-remove-user-mfa-methods" aria-hidden="true"> 
+
+</article>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+      <span>Script Samples<br>Generated by <strong><a href='https://dotnet.github.io/docfx' alt='Doc FX Website'>DocFX</a></strong> with <strong><a href='https://ovasquez.github.io/docfx-material' alt='DocFx Material Theme'>Material UI</a></strong></span>
+      
+            <!-- <img src="https://telemetry.sharepointpnp.com/@pnp.github.io/index/" alt="spacer"> -->
+          </div>
+        </div>
+      </footer>    </div>
+
+    <script type="text/javascript" src="../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+
+    <script type="text/javascript" src="../styles/clipboard.min.js"></script>
+    <script type="text/javascript" src="../styles/isotope.pkgd.min.js"></script>
+    <script type="text/javascript" src="../styles/loadsamples.js"></script>
+    <script type="text/javascript" src="../styles/filtersamples.js"></script>
+
+  </body>
+</html>

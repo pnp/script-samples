@@ -1618,6 +1618,54 @@
     ]
   },
   {
+    "name": "entra-remove-user-mfa-methods",
+    "title": "Remove MFA Authentication Methods for Users",
+    "shortDescription": "Removes MFA authentication methods (phone, Microsoft Authenticator, software OATH token) for all or specific users in a Microsoft 365 tenant using Microsoft Graph PowerShell.",
+    "url": "entra-remove-user-mfa-methods/README.html",
+    "creationDateTime": "2026-02-28",
+    "updateDateTime": "2026-02-28",
+    "products": [
+      "Entra ID",
+      "Microsoft 365"
+    ],
+    "metadata": [
+      {
+        "key": "GRAPH-POWERSHELL",
+        "value": "2.0.0"
+      }
+    ],
+    "categories": [
+      "Security",
+      "Identity"
+    ],
+    "tags": [
+      "Connect-MgGraph",
+      "Get-MgUser",
+      "Get-MgUserAuthenticationMethod",
+      "Remove-MgUserAuthenticationPhoneMethod",
+      "Remove-MgUserAuthenticationMicrosoftAuthenticatorMethod",
+      "Remove-MgUserAuthenticationSoftwareOathMethod",
+      "MFA",
+      "Authentication"
+    ],
+    "thumbnails": [
+      {
+        "type": "image",
+        "order": 100,
+        "url": "entra-remove-user-mfa-methods/assets/example.png",
+        "alt": "Preview of the sample Remove MFA Authentication Methods for Users"
+      }
+    ],
+    "authors": [
+      {
+        "gitHubAccount": "nirav-raval",
+        "company": "",
+        "pictureUrl": "https://github.com/nirav-raval.png",
+        "name": "Nirav Raval"
+      }
+    ]
+  },
+  {
     "name": "export-data-from-microsoft-search",
     "title": "Export data from MS Search",
     "shortDescription": "Shows how to export data from MS Search, in this case the entityType externalItem ",
