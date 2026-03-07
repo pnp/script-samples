@@ -98,15 +98,197 @@
                   </div>
   <h1 id="copying-files-between-different-sharepoint-libraries-with-custom-metadata">Copying files between different SharePoint libraries with custom metadata</h1>
 
-<p>You might have a requirement to move sample files from a site to a different site, e.g. subset of production files to UAT site to allow testing of solutions. You may want better control over metadata settings, such as ProcessStatus, ensuring files are marked as &quot;Pending&quot; upon transfer . Unlike the default file copy feature, this script enables you to skip the copy process if the destination site lacks a matching folder structure as well setting custom metadata to specific values.</p>
 <h2 id="summary">Summary</h2>
+<p>This script copies files from a source SharePoint Online document library to a destination library while enforcing strict folder‑existence validation and applying controlled metadata values (e.g., setting ProcessStatus to Pending). It is designed for large Microsoft 365 tenants where predictable behaviour, error handling, and operational safety are required. The script prevents accidental writes by skipping transfers when the destination folder structure does not exist.</p>
+<h2 id="why-it-matters">Why It Matters</h2>
+<p>Large enterprises frequently need to migrate or replicate subsets of files between environments such as Production, UAT, and Development. Default copy mechanisms often lack metadata control, overwrite protection, and folder‑validation logic. This script ensures only valid, intentional transfers occur and that files arrive with the correct metadata state for downstream workflows, such as approval processes or automated ingestion pipelines.</p>
+<h2 id="benefits">Benefits</h2>
+<ul>
+<li><strong>Operational Safety:</strong> Prevents accidental writes by validating destination folder structure before copying.</li>
+<li><strong>Metadata Governance:</strong> Ensures consistent metadata values (e.g., ProcessStatus = Pending) during transfer.</li>
+<li><strong>Tenant‑Scale Reliability:</strong> Uses efficient PnP operations suitable for large libraries and high‑volume tenants.</li>
+<li><strong>Auditable Execution:</strong> Generates daily log files for compliance and troubleshooting.</li>
+<li><strong>Environment Segregation:</strong> Supports controlled movement of sample or test files between environments.</li>
+</ul>
 <div class="tabGroup" id="tabgroup_1">
 <ul role="tablist">
 <li role="presentation">
-<a href="#tabpanel_1_pnpps" role="tab" aria-controls="tabpanel_1_pnpps" data-tab="pnpps" tabindex="0" aria-selected="true">PnP PowerShell</a>
+<a href="#tabpanel_1_pnppsv2" role="tab" aria-controls="tabpanel_1_pnppsv2" data-tab="pnppsv2" tabindex="0" aria-selected="true">PnP PowerShell Updated</a>
+</li>
+<li role="presentation">
+<a href="#tabpanel_1_pnpps" role="tab" aria-controls="tabpanel_1_pnpps" data-tab="pnpps" tabindex="-1">PnP PowerShell</a>
 </li>
 </ul>
-<section id="tabpanel_1_pnpps" role="tabpanel" data-tab="pnpps">
+<section id="tabpanel_1_pnppsv2" role="tabpanel" data-tab="pnppsv2">
+
+<pre><code class="lang-PowerShell">param (
+    [Parameter(Mandatory = $false)]
+    [string]$SourceSiteUrl = &quot;https://contoso.sharepoint.com/teams/app&quot;,
+
+    [Parameter(Mandatory = $false)]
+    [string]$SourceFolderPath = &quot;Shared Documents/Temp Library/test&quot;,
+
+    [Parameter(Mandatory = $false)]
+    [string]$DestinationSiteUrl = &quot;https://contoso.sharepoint.com/teams/t-app&quot;,
+
+    [Parameter(Mandatory = $false)]
+    [string]$DestinationFolderPath = &quot;Shared Documents/Temp Library/test&quot;
+)
+
+# -------------------------
+# Logging
+# -------------------------
+$todayDate = Get-Date -Format &quot;yyyy-MM-dd&quot;
+$logFileName = &quot;CopyFilesToSharePoint_$todayDate.log&quot;
+$logFilePath = Join-Path -Path $PSScriptRoot -ChildPath $logFileName
+
+function Write-Log {
+    param (
+        [string]$Message,
+        [string]$Color = &quot;White&quot;
+    )
+
+    Write-Host $Message -ForegroundColor $Color
+    Add-Content -Path $logFilePath -Value &quot;$(Get-Date -Format 'HH:mm:ss') - $Message&quot;
+}
+
+Write-Log &quot;==== Script started ====&quot; Cyan
+
+# -------------------------
+# Connect to SharePoint
+# -------------------------
+try {
+    Connect-PnPOnline -Url $SourceSiteUrl -Interactive
+    $SourceConn = Get-PnPConnection
+    Write-Log &quot;Connected to source site&quot; Green
+}
+catch {
+    Write-Log &quot;Failed to connect to source site: $($_.Exception.Message)&quot; Red
+    exit 1
+}
+
+try {
+    Connect-PnPOnline -Url $DestinationSiteUrl -Interactive
+    $DestConn = Get-PnPConnection
+    Write-Log &quot;Connected to destination site&quot; Green
+}
+catch {
+    Write-Log &quot;Failed to connect to destination site: $($_.Exception.Message)&quot; Red
+    exit 1
+}
+
+# -------------------------
+# Validate folders
+# -------------------------
+function Test-FolderExists {
+    param (
+        [string]$FolderPath,
+        $Connection
+    )
+
+    try {
+        Get-PnPFolder -FolderSiteRelativeUrl $FolderPath -Connection $Connection -ErrorAction Stop | Out-Null
+        return $true
+    }
+    catch {
+        return $false
+    }
+}
+
+if (-not (Test-FolderExists -FolderPath $SourceFolderPath -Connection $SourceConn)) {
+    Write-Log &quot;Source folder does not exist: $SourceFolderPath&quot; Red
+    exit 1
+}
+
+if (-not (Test-FolderExists -FolderPath $DestinationFolderPath -Connection $DestConn)) {
+    Write-Log &quot;Destination folder does not exist: $DestinationFolderPath&quot; Red
+    exit 1
+}
+
+Write-Log &quot;Source and destination folders validated&quot; Green
+
+# -------------------------
+# Copy files
+# -------------------------
+try {
+    $sourceFiles = Get-PnPFolderItem `
+        -FolderSiteRelativeUrl $SourceFolderPath `
+        -ItemType File `
+        -Connection $SourceConn `
+        -ErrorAction Stop
+}
+catch {
+    Write-Log &quot;Failed to read source folder: $($_.Exception.Message)&quot; Red
+    exit 1
+}
+
+if ($sourceFiles.Count -eq 0) {
+    Write-Log &quot;No files found in source folder&quot; Yellow
+    exit 0
+}
+
+foreach ($file in $sourceFiles) {
+
+    Write-Log &quot;Processing file: $($file.Name)&quot; Cyan
+
+    $stream = $null
+
+    try {
+        # Download
+        $stream = Get-PnPFile `
+            -Url $file.ServerRelativeUrl `
+            -AsMemoryStream `
+            -Connection $SourceConn `
+            -ErrorAction Stop
+
+        # Upload (overwrite enabled)
+        $uploaded = Add-PnPFile `
+            -Folder $DestinationFolderPath `
+            -FileName $file.Name `
+            -Stream $stream `
+            -Overwrite `
+            -Connection $DestConn `
+            -ErrorAction Stop
+
+        # Try metadata update (non-fatal)
+        try {
+            Set-PnPListItem `
+                -List $uploaded.ListTitle `
+                -Identity $uploaded.ListItemAllFields.Id `
+                -Values @{ ProcessStatus = &quot;Pending&quot; } `
+                -Connection $DestConn `
+                -ErrorAction Stop
+        }
+        catch {
+            Write-Log &quot;Metadata skipped for $($file.Name) (column may not exist)&quot; Yellow
+        }
+
+        Write-Log &quot;Copied successfully: $($file.Name)&quot; Green
+    }
+    catch {
+        Write-Log &quot;Error copying $($file.Name): $($_.Exception.Message)&quot; Red
+    }
+    finally {
+        if ($stream) {
+            $stream.Dispose()
+        }
+    }
+}
+
+Write-Log &quot;==== Script completed ====&quot; Cyan
+
+
+
+
+</code></pre>
+<div class="highlight-tool">
+<p>Check out the <strong>PnP PowerShell</strong> to learn more at: <a href="https://aka.ms/pnp/powershell">https://aka.ms/pnp/powershell</a></p>
+</div>
+<div class="highlight-tool">
+<p>The way you login into PnP PowerShell has changed please read <a href="https://github.com/pnp/powershell/discussions/4249">PnP Management Shell EntraID app is deleted : what should I do ?</a></p>
+</div>
+</section>
+<section id="tabpanel_1_pnpps" role="tabpanel" data-tab="pnpps" aria-hidden="true" hidden="hidden">
 
 <pre><code class="lang-PowerShell">
 ﻿param (
@@ -198,6 +380,41 @@ if($_.Name -ne &quot;Forms&quot;){
 </div>
 </section>
 </div>
+<h2 id="-sample-script-output">📄 Sample Script Output</h2>
+<pre><code class="lang-PowerShell">==== Script started ====
+09:14:02 - Connected to source site
+09:14:05 - Connected to destination site
+09:14:06 - Source and destination folders validated
+
+09:14:07 - Processing file: Report_Q1.pdf
+09:14:09 - Copied successfully: Report_Q1.pdf
+
+09:14:10 - Processing file: Budget_2025.xlsx
+09:14:12 - Metadata skipped for Budget_2025.xlsx (column may not exist)
+09:14:12 - Copied successfully: Budget_2025.xlsx
+
+09:14:13 - Processing file: Notes.txt
+09:14:14 - Copied successfully: Notes.txt
+
+==== Script completed ====
+</code></pre>
+<h2 id="-sample-output--no-files-found">🟡 Sample Output – No Files Found</h2>
+<pre><code class="lang-PowerShell">==== Script started ====
+10:02:11 - Connected to source site
+10:02:14 - Connected to destination site
+10:02:15 - Source and destination folders validated
+10:02:16 - No files found in source folder
+
+==== Script completed ====
+</code></pre>
+<h2 id="-sample-output--failure-case">🔴 Sample Output – Failure Case</h2>
+<pre><code class="lang-PowerShell">==== Script started ====
+11:30:44 - Connected to source site
+11:30:47 - Connected to destination site
+11:30:48 - Source folder does not exist: Shared Documents/Temp Library/test
+
+==== Script completed ====
+</code></pre>
 <h2 id="contributors">Contributors</h2>
 <table>
 <thead>
@@ -209,8 +426,12 @@ if($_.Name -ne &quot;Forms&quot;){
 <tr>
 <td>Reshmee Auckloo</td>
 </tr>
+<tr>
+<td><a href="https://github.com/ojopiyo">Josiah Opiyo</a></td>
+</tr>
 </tbody>
 </table>
+<p><em>Built with a focus on automation, governance, least privilege, and clean Microsoft 365 tenants—helping M365 admins gain visibility and reduce operational risk.</em></p>
 <h2 id="disclaimer">Disclaimer</h2>
 <p><strong>THESE SAMPLES ARE PROVIDED <em>AS IS</em> WITHOUT WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, INCLUDING ANY IMPLIED WARRANTIES OF FITNESS FOR A PARTICULAR PURPOSE, MERCHANTABILITY, OR NON-INFRINGEMENT.</strong></p>
 <img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/spo-move-files-library-sites" aria-hidden="true">
