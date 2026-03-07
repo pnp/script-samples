@@ -52,6 +52,18 @@ function GetReadme{
         
         $readmeFilePath = Join-Path -Path $SamplePath -ChildPath "README.md"
 
+        # On case-sensitive file systems (e.g. Linux), try a case-insensitive fallback
+        # if the exact path does not exist (e.g. readme.md instead of README.md)
+        if(-not (Test-Path -Path $readmeFilePath)){
+            $readmeFile = Get-ChildItem -Path $SamplePath | Where-Object { $_.Name -ieq "README.md" } | Select-Object -First 1
+            if($readmeFile){
+                $readmeFilePath = $readmeFile.FullName
+            }else{
+                Write-Host "Warning: README not found in $SamplePath"
+                return $null
+            }
+        }
+
         $content = Get-Content $readmeFilePath -Raw
 
         return $content
@@ -122,6 +134,12 @@ $files | Foreach-Object {
     }
 
     $content = GetReadme -SamplePath $_.Directory
+
+    if($null -eq $content){
+        Write-Host "Warning: Skipping $($_.Directory.Name) - README.md could not be loaded"
+        return
+    }
+
     $title = GetTitleFromSampleJson -SamplePath $_.Directory -DefaultReturn $_.Directory.Name
     $dirName = $_.Directory.Name
     $cmdletsUsed = ""
