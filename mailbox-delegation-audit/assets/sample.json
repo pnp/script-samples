@@ -1,0 +1,57 @@
+[
+  {
+    "name": "mailbox-delegation-audit",
+    "source": "pnp",
+    "title": "Mailbox Delegation Audit",
+    "shortDescription": "This script connects to Exchange Online, enumerates mailboxes, and reports FullAccess, SendAs, and SendOnBehalf delegates.",
+    "url": "https://pnp.github.io/script-samples/mailbox-delegation-audit/README.html",
+    "longDescription": [
+      "Produces a consolidated mailbox delegation report across user and shared mailboxes for governance, compliance, and access reviews."
+    ],
+    "creationDateTime": "2026-03-07",
+    "updateDateTime": "2026-03-07",
+    "products": [
+      "Office"
+    ],
+    "metadata": [
+      {
+        "key": "POWERSHELL",
+        "value": "7.2.0"
+      }
+    ],
+    "categories": [
+      "Report",
+      "Security"
+    ],
+    "tags": [
+      "Connect-ExchangeOnline",
+      "Get-ExoMailbox",
+      "Get-ExoMailboxPermission",
+      "Get-ExoRecipientPermission",
+      "Export-Csv"
+    ],
+    "thumbnails": [
+      {
+        "type": "image",
+        "order": 100,
+        "url": "https://raw.githubusercontent.com/pnp/script-samples/main/scripts/mailbox-delegation-audit/assets/preview.png",
+        "alt": "Preview of the sample Mailbox Delegation Audit"
+      }
+    ],
+    "authors": [
+      {
+        "gitHubAccount": "ojopiyo",
+        "company": "",
+        "pictureUrl": "https://github.com/ojopiyo.png",
+        "name": "Josiah Opiyo"
+      }
+    ],
+    "references": [
+      {
+        "name": "Exchange Online PowerShell module",
+        "description": "Learn how to connect to Exchange Online and use Exchange Online PowerShell cmdlets.",
+        "url": "https://learn.microsoft.com/powershell/exchange/connect-to-exchange-online-powershell"
+      }
+    ]
+  }
+]

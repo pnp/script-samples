@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html lang="en">
+
+  <head>
+    <meta charset="utf-8">
+    <title>Mailbox Delegation Audit | PnP Samples </title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="title" content="Mailbox Delegation Audit | PnP Samples ">
+    <meta name="generator" content="docfx ">
+  <meta name="description" content="A sample gallery of scripts to manage all things Microsoft 365.">
+
+    <!-- Social Media -->
+    <meta property="og:locale" content="en_GB">
+    <meta property="og:title" content="Mailbox Delegation Audit | PnP Samples ">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://pnp.github.io/script-samples">
+    <meta property="og:image" content="https://pnp.github.io/script-samples/assets/social-media-screenshot.png">
+    <meta property="og:image:alt" content="Screenshot example of the PnP Script Samples Site">
+    <meta property="og:site_name" content="PnP Script Samples">
+    <meta name="msvalidate.01" content="04EFEDA66EC42C08A1247C979E2F9ADD">
+  <meta property="og:description" content="A sample gallery of scripts to manage all things Microsoft 365.">
+
+    <link rel="shortcut icon" href="https://c.s-microsoft.com/favicon.ico?v2">
+    <link rel="stylesheet" href="../styles/docfx.vendor.min.css">
+    <link rel="stylesheet" href="../styles/docfx.css">
+    <link rel="stylesheet" href="../styles/main.css">
+    <link rel="stylesheet" href="../styles/extra.css">
+    <link rel="stylesheet" href="../styles/filter.css">
+    <link rel="stylesheet" href="../styles/site.css">
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet"> 
+    <meta property="docfx:navrel" content="../toc.html">
+    <meta property="docfx:tocrel" content="../toc.html">
+  
+  
+  <meta property="docfx:newtab" content="true">
+    <script type="text/javascript">
+      (function(c,l,a,r,i,t,y){
+          c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+          t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+          y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+      })(window, document, "clarity", "script", "8j6pedl344");
+  </script>
+  </head>  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+             <div class="github-mark">
+              <a href="https://github.com/pnp/script-samples" title="Go to repository">
+               <div class="github-wrapper">
+                  <div class="github-icon">
+                    <img src="https://pnp.github.io/script-samples/assets/icons/github-light-64px.png" alt="GitHub Icon Image">
+                  </div>
+                  <div class="github-repository">
+                    <span>GitHub</span>
+                    <ul class="github-facts">
+                      <li>
+                        <i class="fa fa-code-fork" aria-hidden="true"></i>
+                        <span class="github-forks"></span>
+                      </li>
+                      <li>
+                        <i class="fa fa-star-o" aria-hidden="true"></i>
+                        <span class="github-stars"></span>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </a>
+            </div>
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../assets/logo.svg" alt="">
+              </a>            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <label class="glyphicon glyphicon-search" for="search-query"></label>
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>      </header>
+      <div role="main" class="container body-content hide-when-search">
+        <div class="article row grid">
+          <div class="col-md-12">
+            <article class="content wrap" id="_content" data-uid="">
+                  <div class="contribution-panel mobile-hide pull-right">
+                      <a href="https://github.com/pnp/script-samples/blob/main/scripts/mailbox-delegation-audit/README.md/#L1" title="Edit this page" class="improve-doc-lg"><i class="glyphicon glyphicon-pencil"></i></a>
+                  </div>
+  <h1 id="mailbox-delegation-audit">Mailbox Delegation Audit</h1>
+
+<h2 id="professional-summary">Professional Summary</h2>
+<p>This script connects to Exchange Online, enumerates all user and shared mailboxes, and produces a consolidated report of every delegate with:</p>
+<ul>
+<li><strong>FullAccess</strong></li>
+<li><strong>SendAs</strong></li>
+<li><strong>SendOnBehalf</strong></li>
+</ul>
+<p>permissions per mailbox. The output is optimized for large tenants and can be exported to CSV or consumed by downstream governance and audit processes.</p>
+<h2 id="why-it-matters">Why it matters</h2>
+<p>In most organisations, mailbox delegation grows organically-shared mailboxes, executive assistants, team mailboxes, and legacy access that no one remembers granting. Over time, this creates risk: excessive access, stale permissions for leavers, and a lack of clear ownership.</p>
+<p>This script gives Microsoft 365 engineers a single, authoritative view of who can read from, and send as/on behalf of, any mailbox. It supports:</p>
+<ul>
+<li>Access reviews for security and compliance</li>
+<li>Offboarding checks to ensure leavers lose access</li>
+<li>Audit evidence for internal and external regulators</li>
+<li>Cleanup projects to remove unnecessary delegation</li>
+</ul>
+<h2 id="benefits">Benefits</h2>
+<ul>
+<li>Centralised visibility: One report covering all key mailbox delegate permissions.</li>
+<li>Risk reduction: Quickly identify over-permissioned or unexpected delegates.</li>
+<li>Operational efficiency: Avoid manual, per-mailbox checks in the EAC.</li>
+<li>Audit-ready output: CSV-friendly structure for Power BI, Excel, or GRC tools.</li>
+<li>Scales to large tenants: Uses efficient querying and avoids unnecessary processing.</li>
+</ul>
+<h2 id="usage">Usage</h2>
+<ol>
+<li>Register an Azure AD App</li>
+<li>Assign Exchange.ManageAsApp application permissions</li>
+<li>Upload a certificate and note:
+<ul>
+<li>Client ID</li>
+<li>Tenant ID</li>
+<li>Certificate Thumbprint</li>
+</ul>
+</li>
+<li>Run the script from a secure automation host</li>
+<li>Review or export the $Report object</li>
+</ol>
+<div class="tabGroup" id="tabgroup_1">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_1_pnpps" role="tab" aria-controls="tabpanel_1_pnpps" data-tab="pnpps" tabindex="0" aria-selected="true">PnP PowerShell</a>
+</li>
+</ul>
+<section id="tabpanel_1_pnpps" role="tabpanel" data-tab="pnpps">
+
+<pre><code class="lang-powershell">
+
+
+param(
+    [Parameter(Mandatory)]
+    [string]$TenantId,
+
+    [Parameter(Mandatory)]
+    [string]$ClientId,
+
+    [Parameter(Mandatory)]
+    [string]$CertificateThumbprint,
+
+    [string]$OutputPath = &quot;.\MailboxDelegatesReport.csv&quot;,
+
+    [switch]$IncludeRoomAndEquipment
+)
+
+# Connect using App-Only Certificate Authentication
+Connect-ExchangeOnline `
+    -AppId $ClientId `
+    -CertificateThumbprint $CertificateThumbprint `
+    -Organization $TenantId `
+    -ShowBanner:$false
+
+# Determine mailbox types
+$recipientTypes = @(&quot;UserMailbox&quot;, &quot;SharedMailbox&quot;)
+if ($IncludeRoomAndEquipment) {
+    $recipientTypes += &quot;RoomMailbox&quot;, &quot;EquipmentMailbox&quot;
+}
+
+# Retrieve mailboxes
+$mailboxes = Get-ExoMailbox `
+    -RecipientTypeDetails $recipientTypes `
+    -ResultSize Unlimited `
+    -Properties DisplayName, PrimarySmtpAddress, GrantSendOnBehalfTo
+
+# Pre-size collection for performance
+$Report = New-Object System.Collections.Generic.List[object]
+
+foreach ($mailbox in $mailboxes) {
+
+    $identity = $mailbox.PrimarySmtpAddress.ToString()
+
+    # --- FullAccess ---
+    $fullAccess = Get-ExoMailboxPermission -Identity $identity -ResultSize Unlimited |
+        Where-Object {
+            $_.AccessRights -contains &quot;FullAccess&quot; -and
+            -not $_.IsInherited -and
+            $_.User -ne &quot;NT AUTHORITY\SELF&quot;
+        }
+
+    foreach ($perm in $fullAccess) {
+        $Report.Add([pscustomobject]@{
+            MailboxIdentity    = $identity
+            MailboxDisplayName = $mailbox.DisplayName
+            RecipientType      = $mailbox.RecipientTypeDetails
+            PermissionType     = &quot;FullAccess&quot;
+            DelegateIdentity   = $perm.User
+            IsInherited        = $perm.IsInherited
+            AccessRights       = ($perm.AccessRights -join &quot;,&quot;)
+        })
+    }
+
+    # --- SendAs ---
+    $sendAs = Get-ExoRecipientPermission -Identity $identity -ResultSize Unlimited |
+        Where-Object {
+            $_.AccessRights -contains &quot;SendAs&quot; -and
+            -not $_.IsInherited -and
+            $_.Trustee -ne &quot;NT AUTHORITY\SELF&quot;
+        }
+
+    foreach ($perm in $sendAs) {
+        $Report.Add([pscustomobject]@{
+            MailboxIdentity    = $identity
+            MailboxDisplayName = $mailbox.DisplayName
+            RecipientType      = $mailbox.RecipientTypeDetails
+            PermissionType     = &quot;SendAs&quot;
+            DelegateIdentity   = $perm.Trustee
+            IsInherited        = $perm.IsInherited
+            AccessRights       = ($perm.AccessRights -join &quot;,&quot;)
+        })
+    }
+
+    # --- SendOnBehalf ---
+    if ($mailbox.GrantSendOnBehalfTo) {
+        foreach ($delegate in $mailbox.GrantSendOnBehalfTo) {
+
+            $resolved = Get-ExoRecipient -Identity $delegate -ErrorAction SilentlyContinue
+            $delegateIdentity = if ($resolved) { $resolved.PrimarySmtpAddress } else { $delegate.ToString() }
+
+            $Report.Add([pscustomobject]@{
+                MailboxIdentity    = $identity
+                MailboxDisplayName = $mailbox.DisplayName
+                RecipientType      = $mailbox.RecipientTypeDetails
+                PermissionType     = &quot;SendOnBehalf&quot;
+                DelegateIdentity   = $delegateIdentity
+                IsInherited        = $false
+                AccessRights       = &quot;SendOnBehalf&quot;
+            })
+        }
+    }
+}
+
+# Export
+$Report |
+    Sort-Object MailboxIdentity, PermissionType, DelegateIdentity |
+    Export-Csv -Path $OutputPath -NoTypeInformation -Encoding UTF8
+
+Write-Host &quot;Mailbox delegate report generated: $OutputPath&quot; -ForegroundColor Green
+
+
+</code></pre>
+<h2 id="output">Output</h2>
+<p>The script produces a structured dataset with:</p>
+<ul>
+<li>MailboxIdentity</li>
+<li>MailboxDisplayName</li>
+<li>RecipientType</li>
+<li>PermissionType</li>
+<li>DelegateIdentity</li>
+<li>IsInherited</li>
+<li>AccessRights</li>
+</ul>
+<h2 id="notes">Notes</h2>
+<ul>
+<li>Run periodically and store historical CSVs to track permission drift over time.</li>
+<li>Consider feeding the CSV into Power BI for visual access review dashboards.</li>
+<li>For very large tenants, you can parallelise mailbox processing with ForEach-Object -Parallel in PowerShell 7, if your operational standards allow it.</li>
+</ul>
+<h2 id="contributors">Contributors</h2>
+<table>
+<thead>
+<tr>
+<th>Author(s)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="https://github.com/ojopiyo">Josiah Opiyo</a></td>
+</tr>
+</tbody>
+</table>
+<p><em>Built with a focus on automation, governance, least privilege, and clean Microsoft 365 tenants-helping M365 admins gain visibility and reduce operational risk.</em></p>
+<h2 id="version-history">Version history</h2>
+<table>
+<thead>
+<tr>
+<th>Version</th>
+<th>Date</th>
+<th>Comments</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1.0</td>
+<td>Mar 01, 2026</td>
+<td>Initial release</td>
+</tr>
+</tbody>
+</table>
+<h2 id="disclaimer">Disclaimer</h2>
+<p><strong>THESE SAMPLES ARE PROVIDED <em>AS IS</em> WITHOUT WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, INCLUDING ANY IMPLIED WARRANTIES OF FITNESS FOR A PARTICULAR PURPOSE, MERCHANTABILITY, OR NON-INFRINGEMENT.</strong></p>
+<img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/mailbox-delegation-audit" aria-hidden="true">
+</section>
+</div>
+
+</article>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+      <span>Script Samples<br>Generated by <strong><a href='https://dotnet.github.io/docfx' alt='Doc FX Website'>DocFX</a></strong> with <strong><a href='https://ovasquez.github.io/docfx-material' alt='DocFx Material Theme'>Material UI</a></strong></span>
+      
+            <!-- <img src="https://telemetry.sharepointpnp.com/@pnp.github.io/index/" alt="spacer"> -->
+          </div>
+        </div>
+      </footer>    </div>
+
+    <script type="text/javascript" src="../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+
+    <script type="text/javascript" src="../styles/clipboard.min.js"></script>
+    <script type="text/javascript" src="../styles/isotope.pkgd.min.js"></script>
+    <script type="text/javascript" src="../styles/loadsamples.js"></script>
+    <script type="text/javascript" src="../styles/filtersamples.js"></script>
+
+  </body>
+</html>
