@@ -126,13 +126,18 @@
 </li>
 </ul>
 <h2 id="pre-requisites">Pre-requisites</h2>
-<p>Several things must be configured or installed ahead of time
-An App registration with a certificate and appropriate permissions has to be created in Azure
-That certificate must be installed on any machine that will run the scripts
-PowerShell 7 must be installed
-The following PowerShell modules are needed:
-PnP.PowerShell
-ImportExcel</p>
+<p>Several things must be configured or installed ahead of time</p>
+<ul>
+<li>An App registration with a certificate and appropriate permissions has to be created in Azure</li>
+<li>That certificate must be installed on any machine that will run the scripts</li>
+<li>PowerShell 7 must be installed</li>
+<li>The following PowerShell modules are needed:
+<ul>
+<li>PnP.PowerShell</li>
+<li>ImportExcel</li>
+</ul>
+</li>
+</ul>
 <h2 id="setup">Setup</h2>
 <p>Each of these scripts runs off of a csv file that you must fill out before running. You also have to configure the scripts themselves. See below for more details.</p>
 <h3 id="all-scripts">All Scripts</h3>
@@ -453,6 +458,288 @@ Stop-Transcript
 </div>
 </section>
 </div>
+<h2 id="all-in-one-cli-for-microsoft-365-version">All in one CLI for Microsoft 365 version</h2>
+<div class="tabGroup" id="tabgroup_4">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_4_cli-m365-ps" role="tab" aria-controls="tabpanel_4_cli-m365-ps" data-tab="cli-m365-ps" tabindex="0" aria-selected="true">CLI for Microsoft 365</a>
+</li>
+</ul>
+<section id="tabpanel_4_cli-m365-ps" role="tabpanel" data-tab="cli-m365-ps">
+
+<pre><code class="lang-powershell">
+[CmdletBinding(SupportsShouldProcess)]
+param(
+    [Parameter(Mandatory = $false, HelpMessage = &quot;SharePoint admin center URL (e.g., https://contoso-admin.sharepoint.com)&quot;)]
+    [ValidatePattern('^https://')]
+    [string]$TenantAdminUrl,
+
+    [Parameter(Mandatory = $false, HelpMessage = &quot;SharePoint site URL to scan (e.g., https://contoso.sharepoint.com/sites/project)&quot;)]
+    [ValidatePattern('^https://')]
+    [string]$SiteUrl,
+
+    [Parameter(Mandatory = $false, HelpMessage = &quot;Title of a specific document library to scan&quot;)]
+    [string]$LibraryName,
+
+    [Parameter(Mandatory = $false, HelpMessage = &quot;Server-relative URL of a specific folder to scan&quot;)]
+    [string]$FolderUrl,
+
+    [Parameter(Mandatory = $false, HelpMessage = &quot;Number of days to use as age threshold (default: 1460 = 4 years)&quot;)]
+    [int]$DaysOld = 1460,
+
+    [Parameter(Mandatory = $false, HelpMessage = &quot;Full path for the CSV report file&quot;)]
+    [string]$OutputPath,
+
+    [Parameter(Mandatory = $false, HelpMessage = &quot;Include OneDrive personal sites in scan (requires TenantAdminUrl)&quot;)]
+    [switch]$IncludeOneDrive,
+
+    [Parameter(Mandatory = $false, HelpMessage = &quot;Scan subfolders recursively&quot;)]
+    [switch]$Recursive
+)
+
+begin {
+    if (-not $TenantAdminUrl -and -not $SiteUrl) {
+        throw &quot;You must specify either -TenantAdminUrl or -SiteUrl parameter.&quot;
+    }
+
+    if ($TenantAdminUrl -and $SiteUrl) {
+        throw &quot;Cannot specify both -TenantAdminUrl and -SiteUrl. Choose one scan mode.&quot;
+    }
+
+    if ($IncludeOneDrive -and -not $TenantAdminUrl) {
+        throw &quot;-IncludeOneDrive requires -TenantAdminUrl parameter.&quot;
+    }
+
+    if ($LibraryName -and -not $SiteUrl) {
+        throw &quot;-LibraryName requires -SiteUrl parameter.&quot;
+    }
+
+    if ($FolderUrl -and -not $SiteUrl) {
+        throw &quot;-FolderUrl requires -SiteUrl parameter.&quot;
+    }
+
+    if (-not $OutputPath) {
+        $timestamp = Get-Date -Format &quot;yyyyMMdd-HHmmss&quot;
+        $OutputPath = Join-Path (Get-Location) &quot;OldFilesReport-$timestamp.csv&quot;
+    } else {
+        $parentFolder = Split-Path -Path $OutputPath -Parent
+        if (-not (Test-Path -Path $parentFolder)) {
+            throw &quot;Output folder does not exist: $parentFolder&quot;
+        }
+    }
+
+    $transcriptPath = $OutputPath -replace '\.csv$', '-Transcript.log'
+    Start-Transcript -Path $transcriptPath
+
+    Write-Host &quot;Starting old file report generation...&quot; -ForegroundColor Cyan
+    Write-Host &quot;Age threshold: $DaysOld days&quot; -ForegroundColor Cyan
+    Write-Host &quot;Output path: $OutputPath&quot; -ForegroundColor Cyan
+
+    Write-Verbose &quot;Ensuring CLI for Microsoft 365 login...&quot;
+    m365 login --ensure
+    if ($LASTEXITCODE -ne 0) {
+        Stop-Transcript
+        throw &quot;Failed to authenticate with CLI for Microsoft 365.&quot;
+    }
+
+    $cutoffDate = (Get-Date).AddDays(-$DaysOld)
+    $cutoffDateString = $cutoffDate.ToString(&quot;yyyy-MM-ddTHH:mm:ssZ&quot;)
+    Write-Verbose &quot;Cutoff date: $cutoffDateString&quot;
+
+    $script:ReportCollection = [System.Collections.Generic.List[object]]::new()
+    $script:Summary = @{
+        SitesProcessed = 0
+        LibrariesProcessed = 0
+        OldFilesFound = 0
+        Failures = 0
+    }
+}
+
+process {
+    try {
+        $sitesToProcess = @()
+
+        if ($TenantAdminUrl) {
+            Write-Host &quot;Retrieving sites from tenant...&quot; -ForegroundColor Cyan
+            Write-Verbose &quot;Building site list command...&quot;
+
+            $siteListArgs = @('spo', 'site', 'list', '--output', 'json')
+            if ($IncludeOneDrive) {
+                Write-Verbose &quot;Including OneDrive sites&quot;
+                $siteListArgs += '--withOneDriveSites'
+            } else {
+                Write-Verbose &quot;Filtering for SharePoint sites only&quot;
+                $siteListArgs += '--filter'
+                $siteListArgs += &quot;Url -like '/sites/'&quot;
+            }
+
+            $sitesJson = m365 @siteListArgs 2&gt;&amp;1
+            if ($LASTEXITCODE -ne 0) {
+                Write-Warning &quot;Failed to retrieve sites. CLI: $sitesJson&quot;
+                $script:Summary.Failures++
+                return
+            }
+
+            $sitesToProcess = @($sitesJson | ConvertFrom-Json)
+            Write-Host &quot;Found $($sitesToProcess.Count) sites to scan&quot; -ForegroundColor Green
+        } else {
+            Write-Verbose &quot;Using single site: $SiteUrl&quot;
+            $sitesToProcess = @(@{ Url = $SiteUrl; Title = &quot;&quot; })
+        }
+
+        $siteCounter = 0
+        foreach ($site in $sitesToProcess) {
+            $siteCounter++
+            $siteUrl = $site.Url
+            $siteTitle = if ($site.Title) { $site.Title } else { $siteUrl }
+
+            Write-Progress -Activity &quot;Processing sites&quot; -Status &quot;Site $siteCounter of $($sitesToProcess.Count): $siteTitle&quot; -PercentComplete (($siteCounter / $sitesToProcess.Count) * 100)
+            Write-Verbose &quot;Processing site: $siteUrl&quot;
+
+            try {
+                $librariesToProcess = @()
+
+                if ($LibraryName) {
+                    Write-Verbose &quot;Using specific library: $LibraryName&quot;
+                    $libraryListJson = m365 spo list list --webUrl $siteUrl --filter &quot;Title eq '$LibraryName' and BaseTemplate eq 101 and Hidden eq false&quot; --properties &quot;Title,RootFolder/ServerRelativeUrl&quot; --output json 2&gt;&amp;1
+                    if ($LASTEXITCODE -ne 0) {
+                        Write-Warning &quot;Failed to retrieve library '$LibraryName' from site '$siteUrl'. CLI: $libraryListJson&quot;
+                        $script:Summary.Failures++
+                        continue
+                    }
+                    $librariesToProcess = @($libraryListJson | ConvertFrom-Json)
+                } else {
+                    Write-Verbose &quot;Retrieving all document libraries...&quot;
+                    $libraryListJson = m365 spo list list --webUrl $siteUrl --filter &quot;BaseTemplate eq 101 and Hidden eq false&quot; --properties &quot;Title,RootFolder/ServerRelativeUrl&quot; --output json 2&gt;&amp;1
+                    if ($LASTEXITCODE -ne 0) {
+                        Write-Warning &quot;Failed to retrieve libraries from site '$siteUrl'. CLI: $libraryListJson&quot;
+                        $script:Summary.Failures++
+                        continue
+                    }
+                    $librariesToProcess = @($libraryListJson | ConvertFrom-Json)
+                }
+
+                if ($librariesToProcess.Count -eq 0) {
+                    Write-Verbose &quot;No document libraries found in site '$siteUrl'&quot;
+                    continue
+                }
+
+                $script:Summary.SitesProcessed++
+
+                foreach ($library in $librariesToProcess) {
+                    $libraryTitle = $library.Title
+                    $folderPath = if ($FolderUrl) { $FolderUrl } else { $library.RootFolder.ServerRelativeUrl }
+
+                    Write-Verbose &quot;Scanning library: $libraryTitle (Folder: $folderPath)&quot;
+
+                    try {
+                        $fileListArgs = @(
+                            'spo', 'file', 'list',
+                            '--webUrl', $siteUrl,
+                            '--folderUrl', $folderPath,
+                            '--fields', 'Name,ServerRelativeUrl,TimeLastModified,TimeCreated,Length,ListItemAllFields/Author,ListItemAllFields/Editor',
+                            '--filter', &quot;TimeLastModified lt datetime'$cutoffDateString'&quot;,
+                            '--output', 'json'
+                        )
+                        if ($Recursive) {
+                            $fileListArgs += '--recursive'
+                        }
+
+                        $filesJson = m365 @fileListArgs 2&gt;&amp;1
+                        if ($LASTEXITCODE -ne 0) {
+                            Write-Warning &quot;Failed to retrieve files from library '$libraryTitle' in site '$siteUrl'. CLI: $filesJson&quot;
+                            $script:Summary.Failures++
+                            continue
+                        }
+
+                        $files = @($filesJson | ConvertFrom-Json)
+                        Write-Verbose &quot;Found $($files.Count) old files in library '$libraryTitle'&quot;
+
+                        foreach ($file in $files) {
+                            $lastModified = [DateTime]::Parse($file.TimeLastModified)
+                            $daysOldValue = [Math]::Round((Get-Date).Subtract($lastModified).TotalDays)
+
+                            $script:ReportCollection.Add([PSCustomObject]@{
+                                SiteUrl = $siteUrl
+                                SiteTitle = $siteTitle
+                                LibraryTitle = $libraryTitle
+                                FileName = $file.Name
+                                FilePath = $file.ServerRelativeUrl
+                                LastModified = $file.TimeLastModified
+                                Created = $file.TimeCreated
+                                SizeBytes = $file.Length
+                                Author = if ($file.ListItemAllFields.Author) { $file.ListItemAllFields.Author.LookupValue } else { &quot;N/A&quot; }
+                                Editor = if ($file.ListItemAllFields.Editor) { $file.ListItemAllFields.Editor.LookupValue } else { &quot;N/A&quot; }
+                                DaysOld = $daysOldValue
+                            })
+                            $script:Summary.OldFilesFound++
+                        }
+
+                        $script:Summary.LibrariesProcessed++
+                    } catch {
+                        Write-Warning &quot;Error scanning library '$libraryTitle' in site '$siteUrl': $_&quot;
+                        $script:Summary.Failures++
+                        continue
+                    }
+                }
+            } catch {
+                Write-Warning &quot;Error processing site '$siteUrl': $_&quot;
+                $script:Summary.Failures++
+                continue
+            }
+        }
+    } catch {
+        Write-Warning &quot;Unexpected error during processing: $_&quot;
+        $script:Summary.Failures++
+    }
+}
+
+end {
+    Write-Progress -Activity &quot;Processing sites&quot; -Completed
+
+    if ($script:ReportCollection.Count -gt 0) {
+        Write-Host &quot;Exporting report to CSV...&quot; -ForegroundColor Cyan
+        $script:ReportCollection | Sort-Object SiteUrl, LibraryTitle, LastModified | Export-Csv -Path $OutputPath -NoTypeInformation -Encoding UTF8
+        Write-Host &quot;Report exported: $OutputPath&quot; -ForegroundColor Green
+    } else {
+        Write-Host &quot;No old files found matching criteria.&quot; -ForegroundColor Yellow
+    }
+
+    Write-Host &quot;`n===== Summary =====&quot; -ForegroundColor Cyan
+    Write-Host &quot;Sites processed: $($script:Summary.SitesProcessed)&quot; -ForegroundColor White
+    Write-Host &quot;Libraries processed: $($script:Summary.LibrariesProcessed)&quot; -ForegroundColor White
+    Write-Host &quot;Old files found: $($script:Summary.OldFilesFound)&quot; -ForegroundColor White
+    if ($script:Summary.Failures -gt 0) {
+        Write-Host &quot;Failures: $($script:Summary.Failures)&quot; -ForegroundColor Red
+    } else {
+        Write-Host &quot;Failures: 0&quot; -ForegroundColor Green
+    }
+    Write-Host &quot;==================`n&quot; -ForegroundColor Cyan
+
+    Stop-Transcript
+}
+
+# Scans all SharePoint sites for files older than 3 years
+# .\Report-OldFiles.ps1 -TenantAdminUrl &quot;https://contoso-admin.sharepoint.com&quot; -DaysOld 1095
+
+# Scans all SharePoint AND OneDrive sites for files older than 4 years
+# .\Report-OldFiles.ps1 -TenantAdminUrl &quot;https://contoso-admin.sharepoint.com&quot; -IncludeOneDrive
+
+# Scans all libraries in a specific site recursively
+# .\Report-OldFiles.ps1 -SiteUrl &quot;https://contoso.sharepoint.com/sites/project&quot; -Recursive
+
+# Scans a specific folder in a specific library with verbose output
+# .\Report-OldFiles.ps1 -SiteUrl &quot;https://contoso.sharepoint.com/sites/project&quot; -LibraryName &quot;Documents&quot; -FolderUrl &quot;/sites/project/Documents/Archive&quot; -DaysOld 730 -Recursive -Verbose
+
+</code></pre>
+<div class="highlight-tool">
+<p>Check out the <strong>CLI for Microsoft 365</strong> to learn more at: <a href="https://aka.ms/cli-m365">https://aka.ms/cli-m365</a></p>
+</div>
+<div class="highlight-tool-red">
+<p>Important changes coming to the way you login into CLI for Microsoft 365 (effective 9th September 2024) see <a href="https://pnp.github.io/blog/post/changes-pnp-management-shell-registration/">Changes in PnP Management Shell registration in Microsoft 365</a></p>
+</div>
+</section>
+</div>
 <h2 id="contributors">Contributors</h2>
 <table>
 <thead>
@@ -463,6 +750,9 @@ Stop-Transcript
 <tbody>
 <tr>
 <td>Nick Brattoli</td>
+</tr>
+<tr>
+<td>Adam Wójcik</td>
 </tr>
 </tbody>
 </table>
