@@ -71,3 +71,22 @@ jobs:
         branch: gh-pages
         push: true
         token: ${{ secrets.GITHUB_TOKEN }}
+    # Notify IndexNow (Bing) that the site has been updated
+    - name: Notify IndexNow
+      run: |
+        HTTP_STATUS=$(curl -s -o /dev/null -w "%{http_code}" \
+          -X POST "https://api.indexnow.org/indexnow" \
+          -H "Content-Type: application/json; charset=utf-8" \
+          -d '{
+            "host": "pnp.github.io",
+            "key": "1b648b4546244e86bfb986feb97aa7ea",
+            "keyLocation": "https://pnp.github.io/script-samples/1b648b4546244e86bfb986feb97aa7ea.txt",
+            "urlList": [
+              "https://pnp.github.io/script-samples/",
+              "https://pnp.github.io/script-samples/index.html"
+            ]
+          }')
+        echo "IndexNow response status: $HTTP_STATUS"
+        if [ "$HTTP_STATUS" != "200" ] && [ "$HTTP_STATUS" != "202" ]; then
+          echo "Warning: IndexNow notification returned unexpected status $HTTP_STATUS"
+        fi
