@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html lang="en">
+
+  <head>
+    <meta charset="utf-8">
+    <title>Find Files which are not searchable | PnP Samples </title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="title" content="Find Files which are not searchable | PnP Samples ">
+    <meta name="generator" content="docfx ">
+  <meta name="description" content="A sample gallery of scripts to manage all things Microsoft 365.">
+
+    <!-- Social Media -->
+    <meta property="og:locale" content="en_GB">
+    <meta property="og:title" content="Find Files which are not searchable | PnP Samples ">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://pnp.github.io/script-samples">
+    <meta property="og:image" content="https://pnp.github.io/script-samples/assets/social-media-screenshot.png">
+    <meta property="og:image:alt" content="Screenshot example of the PnP Script Samples Site">
+    <meta property="og:site_name" content="PnP Script Samples">
+    <meta name="msvalidate.01" content="04EFEDA66EC42C08A1247C979E2F9ADD">
+  <meta property="og:description" content="A sample gallery of scripts to manage all things Microsoft 365.">
+
+    <link rel="shortcut icon" href="https://c.s-microsoft.com/favicon.ico?v2">
+    <link rel="stylesheet" href="../styles/docfx.vendor.min.css">
+    <link rel="stylesheet" href="../styles/docfx.css">
+    <link rel="stylesheet" href="../styles/main.css">
+    <link rel="stylesheet" href="../styles/extra.css">
+    <link rel="stylesheet" href="../styles/filter.css">
+    <link rel="stylesheet" href="../styles/site.css">
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet"> 
+    <meta property="docfx:navrel" content="../toc.html">
+    <meta property="docfx:tocrel" content="../toc.html">
+  
+  
+  <meta property="docfx:newtab" content="true">
+    <script type="text/javascript">
+      (function(c,l,a,r,i,t,y){
+          c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+          t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+          y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+      })(window, document, "clarity", "script", "8j6pedl344");
+  </script>
+  </head>  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+             <div class="github-mark">
+              <a href="https://github.com/pnp/script-samples" title="Go to repository">
+               <div class="github-wrapper">
+                  <div class="github-icon">
+                    <img src="https://pnp.github.io/script-samples/assets/icons/github-light-64px.png" alt="GitHub Icon Image">
+                  </div>
+                  <div class="github-repository">
+                    <span>GitHub</span>
+                    <ul class="github-facts">
+                      <li>
+                        <i class="fa fa-code-fork" aria-hidden="true"></i>
+                        <span class="github-forks"></span>
+                      </li>
+                      <li>
+                        <i class="fa fa-star-o" aria-hidden="true"></i>
+                        <span class="github-stars"></span>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </a>
+            </div>
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../assets/logo.svg" alt="">
+              </a>            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <label class="glyphicon glyphicon-search" for="search-query"></label>
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>      </header>
+      <div role="main" class="container body-content hide-when-search">
+        <div class="article row grid">
+          <div class="col-md-12">
+            <article class="content wrap" id="_content" data-uid="">
+                  <div class="contribution-panel mobile-hide pull-right">
+                      <a href="https://github.com/pnp/script-samples/blob/main/scripts/spo-crawllog-indexed-searchable/README.md/#L1" title="Edit this page" class="improve-doc-lg"><i class="glyphicon glyphicon-pencil"></i></a>
+                  </div>
+  <h1 id="find-files-which-are-not-searchable">Find Files which are not searchable</h1>
+
+<p>The script gets the crawl log information to determine indexing recency and check whether the file is actually searchable. The underlying cause can vary, and in many cases you may need to raise a support case with Microsoft for deeper investigation if reindexing the site or library does not fix the issues.</p>
+<h2 id="summary">Summary</h2>
+<div class="tabGroup" id="tabgroup_1">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_1_pnpps" role="tab" aria-controls="tabpanel_1_pnpps" data-tab="pnpps" tabindex="0" aria-selected="true">PnP PowerShell</a>
+</li>
+</ul>
+<section id="tabpanel_1_pnpps" role="tabpanel" data-tab="pnpps">
+
+<pre><code class="lang-powershell">cls
+#Requires -Modules PnP.PowerShell
+Clear-Host
+
+# ===== Settings =====
+$clientId     = &quot;xxxxxx&quot;
+$dateTime     = Get-Date -Format &quot;yyyy-MM-dd-HH-mm-ss&quot;
+$tenantUrl    = &quot;https://contoso.sharepoint.com&quot;
+
+# NEW: File extensions to exclude (case-insensitive) as they can't be searched using their Path metadata, e.g. Path:FileUrl
+$ExcludedExtensions = @('.png', '.jpg', '.jpeg', '.xltx', '.one', '.onetoc2', '.gif','.mp4','.agent')
+
+$invocation     = Get-Variable -Name MyInvocation -ValueOnly
+$directoryPath  = Split-Path $invocation.MyCommand.Path
+$csvPath        = Join-Path $directoryPath &quot;sites1.csv&quot;   # CSV must have a column 'SiteUrl' containing a list of site urls
+
+# Ensure output folder exists
+$outputFolder = Join-Path $directoryPath &quot;output_files&quot;
+if (-not (Test-Path $outputFolder)) { New-Item -ItemType Directory -Path $outputFolder | Out-Null }
+$outputCsv    = Join-Path $outputFolder (&quot;NonSearchableIndexable-&quot; + $dateTime + &quot;.csv&quot;)
+
+# Lists/libraries to exclude
+$ExcludedLists = @(
+    &quot;Access Requests&quot;,&quot;App Packages&quot;,&quot;appdata&quot;,&quot;appfiles&quot;,&quot;Apps in Testing&quot;,&quot;Cache Profiles&quot;,&quot;Composed Looks&quot;,
+    &quot;Content and Structure Reports&quot;,&quot;Content type publishing error log&quot;,&quot;Converted Forms&quot;,&quot;Device Channels&quot;,
+    &quot;Form Templates&quot;,&quot;fpdatasources&quot;,&quot;Get started with Apps for Office and SharePoint&quot;,&quot;List Template Gallery&quot;,
+    &quot;Long Running Operation Status&quot;,&quot;Maintenance Log Library&quot;,&quot;Images&quot;,&quot;site collection images&quot;,&quot;Master Docs&quot;,
+    &quot;Master Page Gallery&quot;,&quot;MicroFeed&quot;,&quot;NintexFormXml&quot;,&quot;Quick Deploy Items&quot;,&quot;Relationships List&quot;,&quot;Reusable Content&quot;,
+    &quot;Reporting Metadata&quot;,&quot;Reporting Templates&quot;,&quot;Search Config List&quot;,&quot;Site Assets&quot;,&quot;Preservation Hold Library&quot;,
+    &quot;Site Pages&quot;,&quot;Solution Gallery&quot;,&quot;Style Library&quot;,&quot;Suggested Content Browser Locations&quot;,&quot;Theme Gallery&quot;,
+    &quot;TaxonomyHiddenList&quot;,&quot;User Information List&quot;,&quot;Web Part Gallery&quot;,&quot;wfpub&quot;,&quot;wfsvc&quot;,&quot;Workflow History&quot;,
+    &quot;Workflow Tasks&quot;,&quot;Pages&quot;
+)
+
+# ===== Safety checks =====
+if (-not (Test-Path $csvPath)) {
+    Write-Error &quot;CSV not found at $csvPath. Ensure it exists and includes a 'SiteUrl' column.&quot;
+    exit 1
+}
+
+# ===== Helpers =====
+function Normalize-Url {
+    param([string]$Url)
+    if ([string]::IsNullOrWhiteSpace($Url)) { return $null }
+    return ($Url.Trim().TrimEnd('/') ).ToLowerInvariant()
+}
+function Get-UrlVariants {
+    param([string]$Url)
+    if ([string]::IsNullOrWhiteSpace($Url)) { return @() }
+    $u = $Url.Trim()
+    $variants = New-Object System.Collections.Generic.List[string]
+    $variants.Add((Normalize-Url $u))
+    # Add encoded/decode space variants
+    $variants.Add((Normalize-Url ($u -replace ' ', '%20')))
+    $variants.Add((Normalize-Url ($u -replace '%20', ' ')))
+    $variants | Where-Object { $_ } | Select-Object -Unique
+}
+
+# ===== Collect results =====
+$results = New-Object System.Collections.Generic.List[object]
+$sites   = Import-Csv -Path $csvPath   # expects column &quot;SiteUrl&quot;
+
+foreach ($s in $sites) {
+    $siteUrl = $s.SiteUrl
+    if ([string]::IsNullOrWhiteSpace($siteUrl)) { continue }
+
+    Write-Host &quot;Connecting to site: $siteUrl&quot; -ForegroundColor Cyan
+
+    try {
+        # Connect interactively with the client ID
+        Connect-PnPOnline -ClientId $clientId -Url $siteUrl -Interactive
+
+        # Get only visible document libraries (exclude hidden/system libraries)
+        $libraries = Get-PnPList -Includes BaseType, BaseTemplate, Hidden, Title, ItemCount, RootFolder `
+        | Where-Object {
+                $_.Hidden -eq $false -and
+                $_.BaseType -eq &quot;DocumentLibrary&quot; -and
+                $_.Title -notin $ExcludedLists
+            }
+
+        foreach ($library in $libraries) {
+            $libraryAbsUrl = ($tenantUrl.TrimEnd('/')) + $library.RootFolder.ServerRelativeUrl
+            Write-Host &quot;  Library: $($library.Title)&quot; -ForegroundColor Yellow
+
+            # Pull only fields we need and page for large lists
+            $listItems = Get-PnPListItem -List $library -PageSize 500 `
+                                         -Fields &quot;FileRef&quot;,&quot;FSObjType&quot;  `
+                                         -ErrorAction SilentlyContinue
+
+            # ==== SEARCH RESULTS (library scope) ====
+            $kql = &quot;Path:`&quot;$libraryAbsUrl`&quot;&quot;
+            $searchresults = $null
+            try {
+                $searchresults = Submit-PnPSearchQuery `
+                    -Query $kql `
+                    -All `
+                    -SelectProperties @(&quot;Title&quot;,&quot;Path&quot;,&quot;LastModifiedTime&quot;) `
+                    -SortList @{ &quot;LastModifiedTime&quot; = &quot;Descending&quot; } `
+                    -ErrorAction SilentlyContinue
+            } catch {}
+
+            # Build a fast lookup of paths from search results
+            $searchPathSet = New-Object 'System.Collections.Generic.HashSet[string]'
+            if ($searchresults) {
+                $searchRows = @()
+                if ($searchresults.ResultRows) { $searchRows = $searchresults.ResultRows }
+
+                foreach ($row in $searchRows) {
+                    $p = $null
+                    if ($row -is [System.Collections.IDictionary])      { $p = [string]$row[&quot;Path&quot;] }
+                    elseif ($row.PSObject.Properties.Match(&quot;Path&quot;))     { $p = [string]$row.Path }
+                    if ($p) {
+                        # OPTIONAL: skip excluded extensions to keep the set cleaner
+                        $ext = [System.IO.Path]::GetExtension($p)
+                        if ($ext -and ($ExcludedExtensions -contains $ext.ToLower())) { continue }
+                        $null = $searchPathSet.Add((Normalize-Url $p))
+                    }
+                }
+            }
+
+            # ==== CRAWL LOG (library scope) ====
+            $crawlresults = $null
+            $crawlMap = @{}   # url (normalized) -&gt; [DateTime] max last indexed time
+            try {
+                $crawlresults = Get-PnPSearchCrawlLog -Filter $libraryAbsUrl -RowLimit (($library.ItemCount * 2)+10)
+                if ($crawlresults) {
+                    foreach ($cr in $crawlresults) {
+                        $urlVal = $cr.Url
+                        if (-not $urlVal) { continue }
+
+                        # OPTIONAL: skip excluded extensions here as well
+                        $ext = [System.IO.Path]::GetExtension($urlVal)
+                        if ($ext -and ($ExcludedExtensions -contains $ext.ToLower())) { continue }
+
+                        $lastIdx = $null
+                        try { $lastIdx = [datetime]$cr.CrawlTime } catch {}
+
+                        $nUrl = Normalize-Url $urlVal
+                        if ($nUrl) {
+                            if (-not $crawlMap.ContainsKey($nUrl)) {
+                                $crawlMap[$nUrl] = $lastIdx
+                            } else {
+                                if ($lastIdx -and $crawlMap[$nUrl] -and ($lastIdx -gt $crawlMap[$nUrl])) {
+                                    $crawlMap[$nUrl] = $lastIdx
+                                } elseif ($lastIdx -and -not $crawlMap[$nUrl]) {
+                                    $crawlMap[$nUrl] = $lastIdx
+                                }
+                            }
+                        }
+                    }
+                }
+            } catch {
+                Write-Verbose &quot;Crawl log query failed for $libraryAbsUrl : $($_.Exception.Message)&quot;
+            }
+
+            # ==== Evaluate each file ====
+            foreach ($item in $listItems) {
+                # FSObjType: 0=file, 1=folder
+                if ($item.FieldValues[&quot;FSObjType&quot;] -ne 0) { continue }
+
+                $serverRelative = $item.FieldValues[&quot;FileRef&quot;]
+                if ([string]::IsNullOrWhiteSpace($serverRelative)) { continue }
+
+                # NEW: Skip unwanted extensions up front
+                $ext = [System.IO.Path]::GetExtension($serverRelative)
+                if ($ext -and ($ExcludedExtensions -contains $ext.ToLower())) { continue }
+
+                $fullUrl = ($tenantUrl.TrimEnd('/')) + $serverRelative
+                $urlVariants = Get-UrlVariants -Url $fullUrl
+
+                # SEARCHABLE? (if any variant appears in search results)
+                $searchable = &quot;No&quot;
+                foreach ($v in $urlVariants) {
+                    if ($searchPathSet.Contains($v)) { $searchable = &quot;Yes&quot;; break }
+                }
+
+                # INDEXED? (if any variant appears in crawl log map)
+                $indexed = &quot;No&quot;
+                $lastIndexedTime = $null
+                foreach ($v in $urlVariants) {
+                    if ($crawlMap.ContainsKey($v)) {
+                        $indexed = &quot;Yes&quot;
+                        $lastIndexedTime = $crawlMap[$v]
+                        break
+                    }
+                }
+
+                if (!($indexed -eq &quot;Yes&quot; -and $searchable -eq &quot;Yes&quot;)) { 
+                    $results.Add([pscustomobject]@{
+                        SiteUrl                = $siteUrl
+                        LibraryTitle           = $library.Title
+                        LibraryUrl             = $libraryAbsUrl
+                        FileServerRelativePath = $serverRelative
+                        FullUrl                = $fullUrl
+                        Indexed                = $indexed
+                        LastIndexedTime        = $lastIndexedTime
+                        Searchable             = $searchable
+                    })
+                }
+            }
+        }
+    }
+    catch {
+        Write-Warning &quot;Failed on site $siteUrl. Error: $($_.Exception.Message)&quot;
+        continue
+    }
+}
+# ===== Export =====
+$results | Export-Csv -Path $outputCsv -NoTypeInformation -Encoding UTF8
+Write-Host &quot;Export complete: $outputCsv&quot; -ForegroundColor Green
+
+</code></pre>
+<div class="highlight-tool">
+<p>Check out the <strong>PnP PowerShell</strong> to learn more at: <a href="https://aka.ms/pnp/powershell">https://aka.ms/pnp/powershell</a></p>
+</div>
+<div class="highlight-tool">
+<p>The way you login into PnP PowerShell has changed please read <a href="https://github.com/pnp/powershell/discussions/4249">PnP Management Shell EntraID app is deleted : what should I do ?</a></p>
+</div>
+<h2 id="source-credit">Source Credit</h2>
+<p>Sample idea first appeared on <a href="https://reshmeeauckloo.com/posts/powershell-sharepoint-files-indexable-searchable/">Get-PnPSearchCrawlLog. Search as alternatives with gotchas. Not a replacement for crawl log</a>.</p>
+<h2 id="contributors">Contributors</h2>
+<table>
+<thead>
+<tr>
+<th>Author(s)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="https://github.com/reshmee011">Reshmee Auckloo</a></td>
+</tr>
+</tbody>
+</table>
+<h2 id="disclaimer">Disclaimer</h2>
+<p><strong>THESE SAMPLES ARE PROVIDED <em>AS IS</em> WITHOUT WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, INCLUDING ANY IMPLIED WARRANTIES OF FITNESS FOR A PARTICULAR PURPOSE, MERCHANTABILITY, OR NON-INFRINGEMENT.</strong></p>
+<img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/spo-crawllog-indexed-searchable" aria-hidden="true">
+</section>
+</div>
+
+</article>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+      <span>Script Samples<br>Generated by <strong><a href='https://dotnet.github.io/docfx' alt='Doc FX Website'>DocFX</a></strong> with <strong><a href='https://ovasquez.github.io/docfx-material' alt='DocFx Material Theme'>Material UI</a></strong></span>
+      
+            <!-- <img src="https://telemetry.sharepointpnp.com/@pnp.github.io/index/" alt="spacer"> -->
+          </div>
+        </div>
+      </footer>    </div>
+
+    <script type="text/javascript" src="../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+
+    <script type="text/javascript" src="../styles/clipboard.min.js"></script>
+    <script type="text/javascript" src="../styles/isotope.pkgd.min.js"></script>
+    <script type="text/javascript" src="../styles/loadsamples.js"></script>
+    <script type="text/javascript" src="../styles/filtersamples.js"></script>
+
+  </body>
+</html>
