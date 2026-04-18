@@ -1,0 +1,52 @@
+[
+  {
+    "name": "spo-cleanup-spfx-solution",
+    "source": "pnp",
+    "title": "Cleanup a SPFx Solution from every Site and App Catalog",
+    "shortDescription": "Remove a SPFx Solution from every Site installed, from Recycle bin and from App Catalog. This is needed if you need a complete cleanup or reinstall.",
+    "url": "https://pnp.github.io/script-samples/spo-cleanup-spfx-solution/README.html",
+    "longDescription": [
+      ""
+    ],
+    "creationDateTime": "2026-04-10",
+    "updateDateTime": "2026-04-10",
+    "products": [
+      "SharePoint"
+    ],
+    "metadata": [
+      {
+        "key": "PNP-POWERSHELL",
+        "value": "3.1.0"
+      }
+    ],
+    "categories": [
+      "Deploy"
+    ],
+    "tags": [
+      "Get-PnPTenantSite",
+      "Get-PnPApp",
+      "Uninstall-PnPApp",
+      "Remove-PnPApp",
+      "Get-PnPRecycleBinItem",
+      "Clear-PnPRecycleBinItem"
+    ],
+    "thumbnails": [
+      {
+        "type": "image",
+        "order": 100,
+        "url": "https://raw.githubusercontent.com/pnp/script-samples/main/scripts/spo-cleanup-spfx-solution/assets/example.png",
+        "alt": "Preview of the sample Cleanup a SPFx Solution from every Site and App Catalog"
+      }
+    ],
+    "authors": [
+      {
+        "gitHubAccount": "fabianhutzli",
+        "pictureUrl": "https://github.com/fabianhutzli.png",
+        "name": "Fabian Hutzli"
+      }
+    ],
+    "references": [
+      null
+    ]
+  }
+]
