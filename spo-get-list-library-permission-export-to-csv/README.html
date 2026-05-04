@@ -246,7 +246,7 @@ StartProcessing
 <section id="tabpanel_1_cli-m365-ps" role="tabpanel" data-tab="cli-m365-ps" aria-hidden="true" hidden="hidden">
 
 <pre><code class="lang-powershell"># Usage example:
-# .\Exoprt-ListLibraryPermissions.ps1 -WebUrl &quot;https://contoso.sharepoint.com/sites/Intranet&quot; -ListName &quot;Demo List&quot;
+# .\Export-ListLibraryPermissions.ps1 -WebUrl &quot;https://contoso.sharepoint.com/sites/Intranet&quot; -ListName &quot;Demo List&quot;
 
 [CmdletBinding()]
 param (
@@ -283,7 +283,7 @@ process {
 
         If ($permissionType -eq 8) {
             # Get members of a SharePoint Group
-            $groupMembers = m365 spo group user list --webUrl $WebUrl --groupName $roleAssignment.Member.LoginName | ConvertFrom-Json
+            $groupMembers = m365 spo group member list --webUrl $WebUrl --groupName $roleAssignment.Member.LoginName | ConvertFrom-Json
 
             ForEach ($user in $groupMembers.value) {
                 Write-Host &quot;$($user.Title) have $($permissionLevels -join &quot;,&quot;) permission(s) as part of group $($roleAssignment.Member.LoginName)&quot;
