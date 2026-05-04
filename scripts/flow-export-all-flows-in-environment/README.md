@@ -15,7 +15,7 @@ This script will get all flows in your default environment and export them as bo
 ```powershell
 $environmentName = "Personal Productivity"
 
-$FlowEnv = Get-PnPFlowEnvironment | Where-Object { $_.Properties.DisplayName -eq $environmentName }
+$FlowEnv = Get-PnPPowerPlatformEnvironment | Where-Object { $_.Properties.DisplayName -eq $environmentName }
 
 Write-Host "Getting All Flows in $environmentName Environment"
 $flows = Get-PnPFlow -Environment $FlowEnv -AsAdmin #Remove -AsAdmin Parameter to only target Flows you have permission to access
@@ -23,7 +23,6 @@ $flows = Get-PnPFlow -Environment $FlowEnv -AsAdmin #Remove -AsAdmin Parameter t
 Write-Host "Found $($flows.Count) Flows to export..."
 
 foreach ($flow in $flows) {
-
     Write-Host "Exporting as ZIP & JSON... $($flow.Properties.DisplayName)"
     $filename = $flow.Properties.DisplayName.Replace(" ", "")
     $timestamp = Get-Date -Format "yyyymmddhhmmss"
@@ -31,7 +30,6 @@ foreach ($flow in $flows) {
     $exportPath = $exportPath.Split([IO.Path]::GetInvalidFileNameChars()) -join '_'
     Export-PnPFlow -Environment $FlowEnv -Identity $flow.Name -PackageDisplayName $flow.Properties.DisplayName -AsZipPackage -OutPath "$exportPath.zip" -Force
     Export-PnPFlow -Environment $FlowEnv -Identity $flow.Name | Out-File "$exportPath.json"
-
 }
 
 ```
@@ -41,13 +39,14 @@ foreach ($flow in $flows) {
 ## Source Credit
 
 Added PnP PowerShell version from [PnP.PowerShell + Bonus Script: Export all Flows using PnP.PowerShell](https://www.leonarmston.com/2021/01/testing-out-the-new-power-automate-flow-commands-in-pnp-powershell-bonus-script-export-all-flows-using-pnp-powershell/)
+
 ## Contributors
 
 | Author(s) |
 |-----------|
 | Luise Freese |
 | [Leon Armston](https://github.com/LeonArmston) |
+| [Smita Nachan](https://github.com/SmitaNachan) |
 
 [!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
 <img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/flow-export-all-flows-in-environment" aria-hidden="true" />
-
