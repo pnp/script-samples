@@ -17031,6 +17031,53 @@
     ]
   },
   {
+    "schema": null,
+    "name": "spo-update-version-expirydate",
+    "version": null,
+    "title": "Set SharePoint File Versions to Never Expire",
+    "url": "spo-update-version-expirydate/README.html",
+    "creationDateTime": "2025-08-12",
+    "updateDateTime": "2025-08-12",
+    "shortDescription": "How to Set SharePoint File Versions to Never Expire Using PowerShell.",
+    "products": [
+      "Teams"
+    ],
+    "categories": [
+      "Deploy",
+      "Provision"
+    ],
+    "tags": [
+      "Governance",
+      "Connect-PnPOnline",
+      "Get-PnPListItem",
+      "Invoke-PnPSPRestMethod",
+      "Set-PnPFileVersion"
+    ],
+    "metadata": [
+      {
+        "key": "PNP-POWERSHELL",
+        "value": "3.1.285"
+      }
+    ],
+    "thumbnails": [
+      {
+        "type": "image",
+        "order": 100,
+        "url": "spo-update-version-expirydate/assets/example.png",
+        "alt": "preview image for the sample",
+        "slides": null
+      }
+    ],
+    "authors": [
+      {
+        "gitHubAccount": "reshmee011",
+        "company": "",
+        "pictureUrl": "https://avatars.githubusercontent.com/u/7693852?v=4",
+        "name": "Reshmee Auckloo"
+      }
+    ]
+  },
+  {
     "name": "spo-webhook-subscription-maintenance",
     "title": "Maintain and Replace SharePoint List Webhook Subscriptions",
     "shortDescription": "This script checks SharePoint sites and specific list, removes old webhook URLs, and adds or replaces them with updated Power Automate webhook subscriptions.",
