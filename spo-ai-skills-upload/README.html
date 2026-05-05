@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html lang="en">
+
+  <head>
+    <meta charset="utf-8">
+    <title>Upload SharePoint AI Skills to Agent Assets | PnP Samples </title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="title" content="Upload SharePoint AI Skills to Agent Assets | PnP Samples ">
+    <meta name="generator" content="docfx ">
+  <meta name="description" content="A sample gallery of scripts to manage all things Microsoft 365.">
+
+    <!-- Social Media -->
+    <meta property="og:locale" content="en_GB">
+    <meta property="og:title" content="Upload SharePoint AI Skills to Agent Assets | PnP Samples ">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://pnp.github.io/script-samples">
+    <meta property="og:image" content="https://pnp.github.io/script-samples/assets/social-media-screenshot.png">
+    <meta property="og:image:alt" content="Screenshot example of the PnP Script Samples Site">
+    <meta property="og:site_name" content="PnP Script Samples">
+    <meta name="msvalidate.01" content="04EFEDA66EC42C08A1247C979E2F9ADD">
+  <meta property="og:description" content="A sample gallery of scripts to manage all things Microsoft 365.">
+
+    <link rel="shortcut icon" href="https://c.s-microsoft.com/favicon.ico?v2">
+    <link rel="stylesheet" href="../styles/docfx.vendor.min.css">
+    <link rel="stylesheet" href="../styles/docfx.css">
+    <link rel="stylesheet" href="../styles/main.css">
+    <link rel="stylesheet" href="../styles/extra.css">
+    <link rel="stylesheet" href="../styles/filter.css">
+    <link rel="stylesheet" href="../styles/site.css">
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet"> 
+    <meta property="docfx:navrel" content="../toc.html">
+    <meta property="docfx:tocrel" content="../toc.html">
+  
+  
+  <meta property="docfx:newtab" content="true">
+    <script type="text/javascript">
+      (function(c,l,a,r,i,t,y){
+          c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+          t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+          y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+      })(window, document, "clarity", "script", "8j6pedl344");
+  </script>
+  </head>  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+             <div class="github-mark">
+              <a href="https://github.com/pnp/script-samples" title="Go to repository">
+               <div class="github-wrapper">
+                  <div class="github-icon">
+                    <img src="https://pnp.github.io/script-samples/assets/icons/github-light-64px.png" alt="GitHub Icon Image">
+                  </div>
+                  <div class="github-repository">
+                    <span>GitHub</span>
+                    <ul class="github-facts">
+                      <li>
+                        <i class="fa fa-code-fork" aria-hidden="true"></i>
+                        <span class="github-forks"></span>
+                      </li>
+                      <li>
+                        <i class="fa fa-star-o" aria-hidden="true"></i>
+                        <span class="github-stars"></span>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </a>
+            </div>
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../assets/logo.svg" alt="">
+              </a>            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <label class="glyphicon glyphicon-search" for="search-query"></label>
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>      </header>
+      <div role="main" class="container body-content hide-when-search">
+        <div class="article row grid">
+          <div class="col-md-12">
+            <article class="content wrap" id="_content" data-uid="">
+                  <div class="contribution-panel mobile-hide pull-right">
+                      <a href="https://github.com/pnp/script-samples/blob/main/scripts/spo-ai-skills-upload/README.md/#L1" title="Edit this page" class="improve-doc-lg"><i class="glyphicon glyphicon-pencil"></i></a>
+                  </div>
+  <h1 id="upload-sharepoint-ai-skills-to-agent-assets">Upload SharePoint AI Skills to Agent Assets</h1>
+
+<h2 id="summary">Summary</h2>
+<p>This sample uploads a local <code>SKILL.md</code> file into the SharePoint <code>AgentAssets/Skills/&lt;folder&gt;</code> location for a site where Agent Assets are enabled. It checks the site feature, validates that the Agent Assets library exists, resolves the target folder, and uploads the skill file.</p>
+<p><img src="assets/example.png" alt="Example Screenshot"></p>
+<h2 id="implementation">Implementation</h2>
+<ul>
+<li>Open PowerShell 7+ and install/connect PnP PowerShell.</li>
+<li>Save your skills markdown file locally (default expected name is <code>SKILL.md</code>).</li>
+<li>Update parameters for your target site and folder.</li>
+<li>Run the script from the same folder as your skill file.</li>
+</ul>
+<blockquote>
+<p>Note: The skill itself is largely untested, just an illustration of where to upload the skill to SharePoint.</p>
+</blockquote>
+<div class="tabGroup" id="tabgroup_1">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_1_pnpps" role="tab" aria-controls="tabpanel_1_pnpps" data-tab="pnpps" tabindex="0" aria-selected="true">PnP PowerShell</a>
+</li>
+<li role="presentation">
+<a href="#tabpanel_1_skill" role="tab" aria-controls="tabpanel_1_skill" data-tab="skill" tabindex="-1">SKILL.md</a>
+</li>
+</ul>
+<section id="tabpanel_1_pnpps" role="tabpanel" data-tab="pnpps">
+
+<pre><code class="lang-powershell">
+&lt;# 
+----------------------------------------------------------------------------
+
+Created:      Paul Bullock
+Date:         04/05/2026
+
+.Example
+
+	./Set-SiteAISkills.ps1 -SiteUrl &quot;https://&lt;tenant&gt;.sharepoint.com/sites/Site1&quot; -ClientId &quot;&lt;application-client-id-for-pnp-powershell&gt;&quot; -SkillFolderName &quot;has-been-customised&quot; -SkillFileName &quot;SKILL.md&quot;
+
+.Notes
+
+	https://pnp.github.io/powershell/cmdlets/Get-PnPFeature.html
+	https://pnp.github.io/powershell/cmdlets/Resolve-PnPFolder.html
+	https://pnp.github.io/powershell/cmdlets/Add-PnPFile.html
+
+ ----------------------------------------------------------------------------
+#&gt;
+
+[CmdletBinding()]
+param (
+	$SiteUrl = &quot;https://&lt;tenant&gt;.sharepoint.com/sites/Site1&quot;, #SharePointAISkills
+	$ClientId = &quot;&lt;application-client-id-for-pnp-powershell&gt;&quot;,
+	$SkillFolderName = &quot;has-been-customised&quot;,
+	$SkillFileName = &quot;SKILL.md&quot;
+)
+begin {
+
+	# ------------------------------------------------------------------------------
+	# Introduction
+	# ------------------------------------------------------------------------------
+
+	Write-Host &quot; This script will set SharePoint skills into the Agents Assets library&quot; -ForegroundColor Green
+    
+	# ------------------------------------------------------------------------------
+
+	$featureName = &quot;AgentAssets&quot;
+	$featureId = &quot;9e14d30c-1e0d-4c8c-8dcb-a8d29f7d4c15&quot;
+	$baseSkillsFolderName = &quot;Skills&quot;
+	$agentAssetsLibraryName = &quot;AgentAssets&quot;
+
+}
+process {
+
+	Connect-PnPOnline -Url $SiteUrl -ClientId $ClientId -Interactive
+
+	# Check if feature is activate and get the document library called &quot;Agent Assets&quot;
+	$agentAssetsFeature = Get-PnPFeature -Identity $featureId -Scope Site
+
+	if ($null -ne $agentAssetsFeature) {
+		Write-Host &quot;Feature $featureName is activated.&quot; -ForegroundColor Green
+
+		# Check if the &quot;Agent Assets&quot; library exists
+		$library = Get-PnPList -Identity $agentAssetsLibraryName -ErrorAction SilentlyContinue
+
+		if ($library) {
+			Write-Host &quot;Document library '$agentAssetsLibraryName' exists as expected&quot; -ForegroundColor Cyan
+
+			# Ensure Folder called Skills Exist
+			Write-Host &quot;Ensuring folder '$baseSkillsFolderName' exists in library '$agentAssetsLibraryName'...&quot; -ForegroundColor Cyan
+			$targetFolderPath = &quot;$agentAssetsLibraryName/$baseSkillsFolderName/$SkillFolderName&quot;
+			$targetFolder = Resolve-PnPFolder -SiteRelativePath $targetFolderPath
+
+			if ($null -ne $targetFolder) {
+
+				# Uploading the SKILL file to the library in the subfolder            
+				Write-Host &quot;Uploading skill file '$SkillFileName' to '$targetFolderPath'...&quot; -ForegroundColor Cyan
+				Add-PnPFile -Path &quot;$SkillFileName&quot; -Folder $targetFolderPath
+				Write-Host &quot;Skill file '$SkillFileName' uploaded successfully to '$targetFolderPath'.&quot; -ForegroundColor Green
+                
+			}else{
+				Write-Host &quot;Folder '$targetFolderPath' does not exist. Skipping folder creation and file upload.&quot; -ForegroundColor Yellow
+			}
+            
+
+		} 
+	}
+	else {
+		Write-Host &quot;Feature $featureName is not activated. Please activate the Site Collection feature to create the 'Agent Assets' library.&quot; -ForegroundColor Red
+	}
+}
+end {
+	Write-Host &quot;Done! :)&quot; -ForegroundColor Green
+}
+
+</code></pre>
+<div class="highlight-tool">
+<p>Check out the <strong>PnP PowerShell</strong> to learn more at: <a href="https://aka.ms/pnp/powershell">https://aka.ms/pnp/powershell</a></p>
+</div>
+<div class="highlight-tool">
+<p>The way you login into PnP PowerShell has changed please read <a href="https://github.com/pnp/powershell/discussions/4249">PnP Management Shell EntraID app is deleted : what should I do ?</a></p>
+</div>
+</section>
+<section id="tabpanel_1_skill" role="tabpanel" data-tab="skill" aria-hidden="true" hidden="hidden">
+
+<p>File found in repo at scripts/spo-ai-skills-upload/assets/SKILL.md</p>
+<pre><code class="lang-markdown">---
+name: has-been-customised
+description: This is a skill to check whether a list has been customised beyond the default list or document library template. 
+---
+
+# Check if a list has been customised beyond the default list or library template
+
+This is a simple skill that checks whether a list has been customised beyond the default list or library template. It does this by comparing the list schema with the default schema for the list template. If there are any differences, it returns true, indicating that the list has been customised.
+
+## Example of customised library or list
+
+These are examples of how a document library or list has been customised:
+
+- The view has changed from the default columns
+- New Columns have been added to the library or list
+- The default content type has been changed
+- The permissions have been changed from inheriting the site permissions
+
+</code></pre>
+</section>
+</div>
+<h2 id="contributors">Contributors</h2>
+<table>
+<thead>
+<tr>
+<th>Author(s)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Paul Bullock</td>
+</tr>
+</tbody>
+</table>
+<h2 id="disclaimer">Disclaimer</h2>
+<p><strong>THESE SAMPLES ARE PROVIDED <em>AS IS</em> WITHOUT WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, INCLUDING ANY IMPLIED WARRANTIES OF FITNESS FOR A PARTICULAR PURPOSE, MERCHANTABILITY, OR NON-INFRINGEMENT.</strong></p>
+<img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/spo-ai-skills-upload" aria-hidden="true">
+
+</article>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+      <span>Script Samples<br>Generated by <strong><a href='https://dotnet.github.io/docfx' alt='Doc FX Website'>DocFX</a></strong> with <strong><a href='https://ovasquez.github.io/docfx-material' alt='DocFx Material Theme'>Material UI</a></strong></span>
+      
+            <!-- <img src="https://telemetry.sharepointpnp.com/@pnp.github.io/index/" alt="spacer"> -->
+          </div>
+        </div>
+      </footer>    </div>
+
+    <script type="text/javascript" src="../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+
+    <script type="text/javascript" src="../styles/clipboard.min.js"></script>
+    <script type="text/javascript" src="../styles/isotope.pkgd.min.js"></script>
+    <script type="text/javascript" src="../styles/loadsamples.js"></script>
+    <script type="text/javascript" src="../styles/filtersamples.js"></script>
+
+  </body>
+</html>

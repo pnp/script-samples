@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html lang="en">
+
+  <head>
+    <meta charset="utf-8">
+    <title>Report Important Information to my Line Manager | PnP Samples </title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="title" content="Report Important Information to my Line Manager | PnP Samples ">
+    <meta name="generator" content="docfx ">
+  <meta name="description" content="A sample gallery of scripts to manage all things Microsoft 365.">
+
+    <!-- Social Media -->
+    <meta property="og:locale" content="en_GB">
+    <meta property="og:title" content="Report Important Information to my Line Manager | PnP Samples ">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://pnp.github.io/script-samples">
+    <meta property="og:image" content="https://pnp.github.io/script-samples/assets/social-media-screenshot.png">
+    <meta property="og:image:alt" content="Screenshot example of the PnP Script Samples Site">
+    <meta property="og:site_name" content="PnP Script Samples">
+    <meta name="msvalidate.01" content="04EFEDA66EC42C08A1247C979E2F9ADD">
+  <meta property="og:description" content="A sample gallery of scripts to manage all things Microsoft 365.">
+
+    <link rel="shortcut icon" href="https://c.s-microsoft.com/favicon.ico?v2">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.min.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <link rel="stylesheet" href="../../styles/extra.css">
+    <link rel="stylesheet" href="../../styles/filter.css">
+    <link rel="stylesheet" href="../../styles/site.css">
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet"> 
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="../../toc.html">
+  
+  
+  <meta property="docfx:newtab" content="true">
+    <script type="text/javascript">
+      (function(c,l,a,r,i,t,y){
+          c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+          t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+          y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+      })(window, document, "clarity", "script", "8j6pedl344");
+  </script>
+  </head>  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+             <div class="github-mark">
+              <a href="https://github.com/pnp/script-samples" title="Go to repository">
+               <div class="github-wrapper">
+                  <div class="github-icon">
+                    <img src="https://pnp.github.io/script-samples/assets/icons/github-light-64px.png" alt="GitHub Icon Image">
+                  </div>
+                  <div class="github-repository">
+                    <span>GitHub</span>
+                    <ul class="github-facts">
+                      <li>
+                        <i class="fa fa-code-fork" aria-hidden="true"></i>
+                        <span class="github-forks"></span>
+                      </li>
+                      <li>
+                        <i class="fa fa-star-o" aria-hidden="true"></i>
+                        <span class="github-stars"></span>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </a>
+            </div>
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../assets/logo.svg" alt="">
+              </a>            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <label class="glyphicon glyphicon-search" for="search-query"></label>
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>      </header>
+      <div role="main" class="container body-content hide-when-search">
+        <div class="article row grid">
+          <div class="col-md-12">
+            <article class="content wrap" id="_content" data-uid="">
+                  <div class="contribution-panel mobile-hide pull-right">
+                      <a href="https://github.com/pnp/script-samples/blob/main/scripts/cowork-skills-upload/assets/SKILL.md/#L1" title="Edit this page" class="improve-doc-lg"><i class="glyphicon glyphicon-pencil"></i></a>
+                  </div>
+  <h1 id="report-important-information-to-my-line-manager">Report Important Information to my Line Manager</h1>
+
+<p>Quickly notify your line manager of an issue, incident, or important update —
+delivered as an email or Teams message, with an optional coordination chat.</p>
+<h2 id="when-not-to-use">When NOT to Use</h2>
+<ul>
+<li>General manager lookups (&quot;who is my manager&quot;) — use people tools directly</li>
+<li>Scheduling a meeting with your manager — use schedule-meeting</li>
+<li>Replying inline to an existing thread from your manager — use Outlook reply directly</li>
+<li>Updates aimed at leadership broadly or the wider team — use stakeholder-comms</li>
+</ul>
+<h2 id="workflow">Workflow</h2>
+<ol>
+<li><p><strong>Resolve the manager.</strong> Call <code>GetManagerDetails</code> to get name and email. If
+no manager is configured, stop and tell the user.</p>
+</li>
+<li><p><strong>Gather context with one combined question.</strong> Use <code>AskUserQuestion</code> to ask:</p>
+<ul>
+<li>Channel: Email or Teams message</li>
+<li>Criticality: Notify, Important, or Critical</li>
+<li>Topic / what happened (free text — or reference an existing email/Teams message ID)</li>
+<li>Anyone else to copy in (optional)</li>
+</ul>
+</li>
+<li><p><strong>If referencing existing content</strong>, retrieve it first: <code>GetMessage</code> for an
+email, <code>GetChatMessage</code> for a Teams message. Quote the relevant excerpt in
+the body.</p>
+</li>
+<li><p><strong>Draft the message</strong> using this template:</p>
+<ul>
+<li><strong>Subject / headline:</strong> <code>[CRITICAL] | [IMPORTANT] | [FYI] — &lt;topic&gt;</code>
+(only Critical and Important get a bracketed prefix; Notify uses plain subject)</li>
+<li><strong>Body:</strong>
+<ul>
+<li><em>What happened</em> — one or two sentences</li>
+<li><em>Impact</em> — who/what is affected</li>
+<li><em>What I need from you</em> — explicit ask, or &quot;for awareness, no action needed&quot;</li>
+<li><em>Source</em> — link or quote of the underlying email/message if applicable</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p><strong>Preview and confirm before sending.</strong> Show the full drafted subject and
+body. Ask: &quot;Send this now, or change anything?&quot; Do NOT send Critical or
+Important messages without explicit confirmation. Notify-level may send
+directly if the user has already approved the draft.</p>
+</li>
+<li><p><strong>Send:</strong></p>
+<ul>
+<li>Email mode: <code>SendEmailWithAttachments</code> to manager (CC any extra recipients).</li>
+<li>Teams mode: <code>PostMessage</code> with <code>recipients=[manager email, ...extras]</code>.</li>
+</ul>
+</li>
+<li><p><strong>Optional coordination chat</strong> — only for Important or Critical, and only
+if the user said yes in step 2: <code>CreateChat</code> (group if extras included)
+with topic = <code>&lt;criticality&gt; — &lt;short topic&gt;</code> (e.g. <code>Critical — Prod outage 02 May</code>).</p>
+</li>
+</ol>
+<h2 id="guardrails">Guardrails</h2>
+<ul>
+<li>Never send a Critical or Important message without showing the full draft and
+getting explicit confirmation.</li>
+<li>If the manager cannot be resolved, stop — do not guess or fall back to
+skip-level without asking.</li>
+<li>Do not create a coordination chat unless the user opted in.</li>
+<li>Keep the message concise — manager's time is the constraint.</li>
+</ul>
+
+</article>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+      <span>Script Samples<br>Generated by <strong><a href='https://dotnet.github.io/docfx' alt='Doc FX Website'>DocFX</a></strong> with <strong><a href='https://ovasquez.github.io/docfx-material' alt='DocFx Material Theme'>Material UI</a></strong></span>
+      
+            <!-- <img src="https://telemetry.sharepointpnp.com/@pnp.github.io/index/" alt="spacer"> -->
+          </div>
+        </div>
+      </footer>    </div>
+
+    <script type="text/javascript" src="../../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+
+    <script type="text/javascript" src="../../styles/clipboard.min.js"></script>
+    <script type="text/javascript" src="../../styles/isotope.pkgd.min.js"></script>
+    <script type="text/javascript" src="../../styles/loadsamples.js"></script>
+    <script type="text/javascript" src="../../styles/filtersamples.js"></script>
+
+  </body>
+</html>

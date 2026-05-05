@@ -1459,6 +1459,52 @@
     ]
   },
   {
+    "name": "cowork-skills-upload",
+    "title": "Upload Cowork Skills to your OneDrive",
+    "shortDescription": "Uploads a custom SKILL.md file to the Cowork/skills folder in a user's OneDrive Agent Assets library using PnP PowerShell.",
+    "url": "cowork-skills-upload/README.html",
+    "creationDateTime": "2026-05-05",
+    "updateDateTime": "2026-05-05",
+    "products": [
+      "SharePoint",
+      "Microsoft 365 Copilot"
+    ],
+    "metadata": [
+      {
+        "key": "PNP-POWERSHELL",
+        "value": "3.1.0"
+      }
+    ],
+    "categories": [
+      "Configure",
+      "AI",
+      "Microsoft 365 Copilot"
+    ],
+    "tags": [
+      "Connect-PnPOnline",
+      "Get-PnPUserProfileProperty",
+      "Get-PnPList",
+      "Resolve-PnPFolder",
+      "Add-PnPFile"
+    ],
+    "thumbnails": [
+      {
+        "type": "image",
+        "order": 100,
+        "url": "cowork-skills-upload/assets/preview.png",
+        "alt": "Preview of the sample Upload Cowork Skills to OneDrive"
+      }
+    ],
+    "authors": [
+      {
+        "gitHubAccount": "pkbullock",
+        "company": "",
+        "pictureUrl": "https://github.com/pkbullock.png",
+        "name": "Paul Bullock"
+      }
+    ]
+  },
+  {
     "name": "create-comm-sites-specific-locale",
     "title": "Create Modern Sites as alternative primary language",
     "shortDescription": "Create a modern site in another language as the primary language",
@@ -5641,6 +5687,52 @@
     ]
   },
   {
+    "name": "spo-ai-skills-upload",
+    "title": "Upload SharePoint AI Skills to Agent Assets",
+    "shortDescription": "Upload a SKILL.md file into the SharePoint Agent Assets > Skills folder for a target site.",
+    "url": "spo-ai-skills-upload/README.html",
+    "creationDateTime": "2026-05-05",
+    "updateDateTime": "2026-05-05",
+    "products": [
+      "SharePoint",
+      "Microsoft 365 Copilot"
+    ],
+    "metadata": [
+      {
+        "key": "PNP-POWERSHELL",
+        "value": "3.1.0"
+      }
+    ],
+    "categories": [
+      "Configure",
+      "AI",
+      "Microsoft 365 Copilot"
+    ],
+    "tags": [
+      "Connect-PnPOnline",
+      "Get-PnPFeature",
+      "Get-PnPList",
+      "Resolve-PnPFolder",
+      "Add-PnPFile"
+    ],
+    "thumbnails": [
+      {
+        "type": "image",
+        "order": 100,
+        "url": "spo-ai-skills-upload/assets/preview.png",
+        "alt": "Preview of the sample Upload SharePoint AI Skills to Agent Assets"
+      }
+    ],
+    "authors": [
+      {
+        "gitHubAccount": "pkbullock",
+        "company": "",
+        "pictureUrl": "https://github.com/pkbullock.png",
+        "name": "Paul Bullock"
+      }
+    ]
+  },
+  {
     "name": "spo-allow-custom-scripts",
     "title": "Allow custom scripts in SharePoint online site",
     "shortDescription": "This sample script shows how to allow use of custom scripts in SharePoint online at site level",
@@ -8924,6 +9016,47 @@
         "company": "",
         "pictureUrl": "https://avatars.githubusercontent.com/u/25476310?v=4",
         "name": "Ganesh Sanap"
+      }
+    ]
+  },
+  {
+    "name": "spo-enable-ai-skills",
+    "title": "Enable AI skills in SharePoint Online",
+    "shortDescription": "This script enables AI skills in SharePoint Online by activating the Agent Assets site collection feature",
+    "url": "spo-enable-ai-skills/README.html",
+    "creationDateTime": "2026-05-05",
+    "updateDateTime": "2026-05-05",
+    "products": [
+      "SharePoint",
+      "Microsoft 365 Copilot"
+    ],
+    "metadata": [
+      {
+        "key": "PNP-POWERSHELL",
+        "value": "3.1.0"
+      }
+    ],
+    "categories": [
+      "Configure",
+      "Microsoft 365 Copilot"
+    ],
+    "tags": [
+      "<Cmdlets-Used>"
+    ],
+    "thumbnails": [
+      {
+        "type": "image",
+        "order": 100,
+        "url": "spo-enable-ai-skills/assets/preview.png",
+        "alt": "Preview of the sample Enable AI skills in SharePoint Online"
+      }
+    ],
+    "authors": [
+      {
+        "gitHubAccount": "pkbullock",
+        "company": "",
+        "pictureUrl": "https://github.com/pkbullock.png",
+        "name": "Paul Bullock"
       }
     ]
   },
