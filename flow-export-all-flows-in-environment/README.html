@@ -112,7 +112,7 @@
 
 <pre><code class="lang-powershell">$environmentName = &quot;Personal Productivity&quot;
 
-$FlowEnv = Get-PnPFlowEnvironment | Where-Object { $_.Properties.DisplayName -eq $environmentName }
+$FlowEnv = Get-PnPPowerPlatformEnvironment | Where-Object { $_.Properties.DisplayName -eq $environmentName }
 
 Write-Host &quot;Getting All Flows in $environmentName Environment&quot;
 $flows = Get-PnPFlow -Environment $FlowEnv -AsAdmin #Remove -AsAdmin Parameter to only target Flows you have permission to access
@@ -120,7 +120,6 @@ $flows = Get-PnPFlow -Environment $FlowEnv -AsAdmin #Remove -AsAdmin Parameter t
 Write-Host &quot;Found $($flows.Count) Flows to export...&quot;
 
 foreach ($flow in $flows) {
-
     Write-Host &quot;Exporting as ZIP &amp; JSON... $($flow.Properties.DisplayName)&quot;
     $filename = $flow.Properties.DisplayName.Replace(&quot; &quot;, &quot;&quot;)
     $timestamp = Get-Date -Format &quot;yyyymmddhhmmss&quot;
@@ -128,7 +127,6 @@ foreach ($flow in $flows) {
     $exportPath = $exportPath.Split([IO.Path]::GetInvalidFileNameChars()) -join '_'
     Export-PnPFlow -Environment $FlowEnv -Identity $flow.Name -PackageDisplayName $flow.Properties.DisplayName -AsZipPackage -OutPath &quot;$exportPath.zip&quot; -Force
     Export-PnPFlow -Environment $FlowEnv -Identity $flow.Name | Out-File &quot;$exportPath.json&quot;
-
 }
 
 </code></pre>
@@ -155,6 +153,9 @@ foreach ($flow in $flows) {
 </tr>
 <tr>
 <td><a href="https://github.com/LeonArmston">Leon Armston</a></td>
+</tr>
+<tr>
+<td><a href="https://github.com/SmitaNachan">Smita Nachan</a></td>
 </tr>
 </tbody>
 </table>
