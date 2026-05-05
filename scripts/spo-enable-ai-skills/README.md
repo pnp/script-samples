@@ -23,7 +23,21 @@ The script:
 # [PnP PowerShell](#tab/pnpps)
 
 ```powershell
+<# 
+----------------------------------------------------------------------------
 
+Created:      Paul Bullock
+Date:         04/05/2026
+
+.Notes
+
+    Features of Knowledge Agent include:
+
+	Agent Assets
+    Provides storage for agent plans, skills, and other contextual information that makes Knowledge Agent more knowledgeable on the site.
+
+ ----------------------------------------------------------------------------
+#>
 [CmdletBinding()]
 param (
 	$SiteUrl = "https://<tenant>.sharepoint.com/sites/SiteA",
@@ -53,7 +67,6 @@ end {
 
 ```
 [!INCLUDE [More about PnP PowerShell](../../docfx/includes/MORE-PNPPS.md)]
-
 ***
 
 
