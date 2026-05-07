@@ -155,4 +155,4 @@ Start-Processing -csvFilePath:$Path -processBatchCount:$NoInBatch | Export-Csv $
 | [Paul Matthews](https://github.com/pmatthews05) |
 
 [!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
-<img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/bulk-restore-from-recycle-bin" aria-hidden="true" />
+<img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/bulk-restore-from-recyclebin" aria-hidden="true" />

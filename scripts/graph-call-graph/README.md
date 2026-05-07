@@ -72,4 +72,4 @@ Sample first appeared on  [Authenticate with and call the Microsoft Graph](https
 
 [!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
 
-<img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/authenticate-graph" aria-hidden="true" />
+<img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/graph-call-graph" aria-hidden="true" />

@@ -114,4 +114,4 @@ Sample first appeared on [Automate SharePoint Document Set Configuration with Po
 
 
 [!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
-<img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/spo-multiline-field-properties" aria-hidden="true" />
+<img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/spo-documentset-configuration" aria-hidden="true" />
