@@ -1121,9 +1121,12 @@ Sample first appeared on [PnP Script Samples](https://pnp.github.io/script-sampl
 
 ## Contributors
 
+## Contributors
+
 | Author(s) |
 |-----------|
 | [Sam Larson](https://github.com/salarson) |
+| [Jill McClenahan](https://github.com/JillTh) |
 
 [!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
 <img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/spo-onedrive-overquota-license-report" aria-hidden="true" />
