@@ -1100,7 +1100,7 @@ Write-Host "`nDone." -ForegroundColor Cyan
 
 ***
 
-[!INCLUDE [More about Microsoft Graph PowerShell](../../docfx/includes/MORE-GRAPHPS.md)]
+[!INCLUDE [More about Microsoft Graph PowerShell](../../docfx/includes/MORE-GRAPHSDK.md)]
 
 ## Parameters
 

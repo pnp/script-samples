@@ -1,0 +1,68 @@
+[
+  {
+    "name": "onedrive-overquota-report",
+    "source": "pnp",
+    "title": "Identify OneDrive Users Over License-Based Storage Quota",
+    "shortDescription": "Identifies OneDrive for Business users who are over their expected storage quota based on their assigned license tier, with special handling for EDU A1 enforcement.",
+    "url": "https://pnp.github.io/script-samples/onedrive-overquota-report/README.html",
+    "longDescription": [
+      "Microsoft Graph-based report that identifies OneDrive users whose storage usage exceeds their license-based expected quota."
+    ],
+    "creationDateTime": "2026-05-22",
+    "updateDateTime": "2026-05-22",
+    "products": [
+      "Graph"
+    ],
+    "metadata": [
+      {
+        "key": "GRAPH-POWERSHELL",
+        "value": "2.0.0"
+      },
+      {
+        "key": "POWERSHELL",
+        "value": "5.1"
+      }
+    ],
+    "categories": [
+      "Report",
+      "Security"
+    ],
+    "tags": [
+      "Connect-MgGraph",
+      "Get-MgUser",
+      "Invoke-MgGraphRequest",
+      "Microsoft Graph Reports API",
+      "OneDrive",
+      "CSV"
+    ],
+    "thumbnails": [
+      {
+        "type": "image",
+        "order": 100,
+        "url": "https://raw.githubusercontent.com/pnp/script-samples/main/scripts/onedrive-overquota-report/assets/example.png",
+        "alt": "Preview of the sample Identify OneDrive Users Over License-Based Storage Quota"
+      }
+    ],
+    "authors": [
+      {
+        "gitHubAccount": "salarson",
+        "company": "",
+        "pictureUrl": "https://github.com/salarson.png",
+        "name": "Sam Larson"
+      },
+      {
+        "gitHubAccount": "JillTh",
+        "company": "",
+        "pictureUrl": "https://github.com/JillTh.png",
+        "name": "Jill McClenahan"
+      }
+    ],
+    "references": [
+      {
+        "name": "Want to learn more about Microsoft Graph PowerShell and the cmdlets",
+        "description": "Check out the Microsoft Graph PowerShell SDK documentation site to get started and for the reference to the cmdlets.",
+        "url": "https://learn.microsoft.com/graph/powershell/get-started"
+      }
+    ]
+  }
+]
