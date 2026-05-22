@@ -1,0 +1,1405 @@
+<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html lang="en">
+
+  <head>
+    <meta charset="utf-8">
+    <title>Identify OneDrive Users Over License-Based Storage Quota | PnP Samples </title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="title" content="Identify OneDrive Users Over License-Based Storage Quota | PnP Samples ">
+    <meta name="generator" content="docfx ">
+  <meta name="description" content="A sample gallery of scripts to manage all things Microsoft 365.">
+
+    <!-- Social Media -->
+    <meta property="og:locale" content="en_GB">
+    <meta property="og:title" content="Identify OneDrive Users Over License-Based Storage Quota | PnP Samples ">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://pnp.github.io/script-samples">
+    <meta property="og:image" content="https://pnp.github.io/script-samples/assets/social-media-screenshot.png">
+    <meta property="og:image:alt" content="Screenshot example of the PnP Script Samples Site">
+    <meta property="og:site_name" content="PnP Script Samples">
+    <meta name="msvalidate.01" content="04EFEDA66EC42C08A1247C979E2F9ADD">
+  <meta property="og:description" content="A sample gallery of scripts to manage all things Microsoft 365.">
+
+    <link rel="shortcut icon" href="https://c.s-microsoft.com/favicon.ico?v2">
+    <link rel="stylesheet" href="../styles/docfx.vendor.min.css">
+    <link rel="stylesheet" href="../styles/docfx.css">
+    <link rel="stylesheet" href="../styles/main.css">
+    <link rel="stylesheet" href="../styles/extra.css">
+    <link rel="stylesheet" href="../styles/filter.css">
+    <link rel="stylesheet" href="../styles/site.css">
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet"> 
+    <meta property="docfx:navrel" content="../toc.html">
+    <meta property="docfx:tocrel" content="../toc.html">
+  
+  
+  <meta property="docfx:newtab" content="true">
+    <script type="text/javascript">
+      (function(c,l,a,r,i,t,y){
+          c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+          t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+          y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+      })(window, document, "clarity", "script", "8j6pedl344");
+  </script>
+  </head>  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+             <div class="github-mark">
+              <a href="https://github.com/pnp/script-samples" title="Go to repository">
+               <div class="github-wrapper">
+                  <div class="github-icon">
+                    <img src="https://pnp.github.io/script-samples/assets/icons/github-light-64px.png" alt="GitHub Icon Image">
+                  </div>
+                  <div class="github-repository">
+                    <span>GitHub</span>
+                    <ul class="github-facts">
+                      <li>
+                        <i class="fa fa-code-fork" aria-hidden="true"></i>
+                        <span class="github-forks"></span>
+                      </li>
+                      <li>
+                        <i class="fa fa-star-o" aria-hidden="true"></i>
+                        <span class="github-stars"></span>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </a>
+            </div>
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../assets/logo.svg" alt="">
+              </a>            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <label class="glyphicon glyphicon-search" for="search-query"></label>
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>      </header>
+      <div role="main" class="container body-content hide-when-search">
+        <div class="article row grid">
+          <div class="col-md-12">
+            <article class="content wrap" id="_content" data-uid="">
+                  <div class="contribution-panel mobile-hide pull-right">
+                      <a href="https://github.com/pnp/script-samples/blob/main/scripts/onedrive-overquota-report/README.md/#L1" title="Edit this page" class="improve-doc-lg"><i class="glyphicon glyphicon-pencil"></i></a>
+                  </div>
+  <h1 id="identify-onedrive-users-over-license-based-storage-quota">Identify OneDrive Users Over License-Based Storage Quota</h1>
+
+<h2 id="summary">Summary</h2>
+<p>Identifies OneDrive for Business users who are over their <strong>expected</strong> storage quota based on their assigned license tier, with special handling for EDU A1 enforcement (100 GB entitlement). The script uses <strong>Microsoft Graph exclusively</strong> — no SharePoint Online Management Shell, no PnP, no third-party modules.</p>
+<p>OneDrive sites are provisioned with a default storage quota based on tenant settings, but the <em>expected</em> quota varies by license tier. EDU A1 users, for example, are entitled to 100 GB — but if they were provisioned before A1 enforcement, they may have a 1 TB or 5 TB allocation and be storing far more than 100 GB today. This script answers: <strong>Which OneDrive sites are storing more data than the owner's license tier entitles them to?</strong></p>
+<p>The script is <strong>strictly read-only</strong>. It never modifies a quota, license, or file. It only reports.</p>
+<p>Works on Windows PowerShell 5.1+ and PowerShell 7+, on commercial, GCC Moderate, GCC High, DoD, and 21Vianet (China) tenants.</p>
+<p><img src="assets/example.png" alt="Example Screenshot"></p>
+<h2 id="implementation">Implementation</h2>
+<h3 id="quota-tiers-it-evaluates">Quota tiers it evaluates</h3>
+<p>The expected quota is derived from the <strong>highest-tier OneDrive service plan</strong> in the user's licenses (SKUs stack — the script picks the most generous):</p>
+<table>
+<thead>
+<tr>
+<th>Tier</th>
+<th>Expected Quota</th>
+<th>Typical SKUs</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Enterprise</td>
+<td>5 TB</td>
+<td>E3, E5, A3, A5, Plan 2</td>
+</tr>
+<tr>
+<td>Standard</td>
+<td>1 TB</td>
+<td>Plan 1, Multi-Geo</td>
+</tr>
+<tr>
+<td>Lite / <strong>A1 (EDU)</strong></td>
+<td>100 GB</td>
+<td>OneDrive Lite, <strong>Office 365 A1</strong></td>
+</tr>
+<tr>
+<td>BasicP2</td>
+<td>10 GB</td>
+<td>Basic 2</td>
+</tr>
+<tr>
+<td>Viral / Basic</td>
+<td>5 GB</td>
+<td>Office for the web, Basic</td>
+</tr>
+<tr>
+<td>Deskless</td>
+<td>2 GB</td>
+<td>F1, F3, Kiosk</td>
+</tr>
+</tbody>
+</table>
+<p>Unlicensed users with a OneDrive (e.g. retained offboarded accounts) are flagged as over quota whenever <code>StorageUsed &gt; 0</code>.</p>
+<h3 id="scan-modes">Scan modes</h3>
+<table>
+<thead>
+<tr>
+<th>Mode</th>
+<th>How invoked</th>
+<th>Speed</th>
+<th>Data freshness</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>FastScan</strong></td>
+<td><em>default</em></td>
+<td>~minutes on 100k-user tenants</td>
+<td>Daily snapshot (~24-48h latency)</td>
+<td>Uses Reports API. Returns provisioned OneDrives only. Won't work if tenant report anonymization is on.</td>
+</tr>
+<tr>
+<td><strong>LegacyScan</strong></td>
+<td><code>-LegacyScan</code></td>
+<td>~hours on 100k-user tenants</td>
+<td>Real-time</td>
+<td>Per-user enumeration. Works regardless of anonymization.</td>
+</tr>
+<tr>
+<td><strong>TargetedUser</strong></td>
+<td><code>-UserPrincipalName</code></td>
+<td>seconds</td>
+<td>Real-time</td>
+<td>Looks up only the specified UPN(s). Bypasses both modes above.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="prerequisites">Prerequisites</h3>
+<table>
+<thead>
+<tr>
+<th>Requirement</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>PowerShell 5.1+ or PowerShell 7+</td>
+<td>Script enforces <code>#Requires -Version 5.1</code>.</td>
+</tr>
+<tr>
+<td><code>Microsoft.Graph.Authentication</code> ≥ 2.0.0</td>
+<td>Auto-installable with <code>-InstallPrerequisites</code>.</td>
+</tr>
+<tr>
+<td><code>Microsoft.Graph.Users</code> ≥ 2.0.0</td>
+<td>Same.</td>
+</tr>
+<tr>
+<td>Graph delegated scopes</td>
+<td><code>User.Read.All</code>, <code>Directory.Read.All</code>, <code>Reports.Read.All</code>, <code>Sites.Read.All</code>. May need Global Admin consent on first run.</td>
+</tr>
+<tr>
+<td>M365 role</td>
+<td><strong>Global Reader</strong> is sufficient and recommended (least privilege).</td>
+</tr>
+</tbody>
+</table>
+<h3 id="csv-output">CSV output</h3>
+<p>When <code>-ExportPath</code> is set, the CSV contains <strong>every</strong> evaluated site, sorted so over-quota rows appear first.</p>
+<table>
+<thead>
+<tr>
+<th>Column</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>Owner</code>, <code>DisplayName</code>, <code>SiteUrl</code></td>
+<td>Identity and site location</td>
+</tr>
+<tr>
+<td><code>LicenseTier</code></td>
+<td>e.g. &quot;Enterprise (5 TB)&quot;, &quot;A1 (100 GB)&quot;, &quot;Unlicensed&quot;</td>
+</tr>
+<tr>
+<td><code>ExpectedQuota</code> / <code>CurrentQuota</code> / <code>StorageUsed</code></td>
+<td>Human-readable storage figures</td>
+</tr>
+<tr>
+<td><code>OverBy</code></td>
+<td>Amount over (blank if under)</td>
+</tr>
+<tr>
+<td><code>OverQuota</code></td>
+<td><strong><code>True</code> / <code>False</code></strong> — filter on this in Excel</td>
+</tr>
+<tr>
+<td><code>StorageUsedMB</code>, <code>ExpectedQuotaMB</code>, <code>CurrentQuotaMB</code>, <code>OverByMB</code></td>
+<td>Numeric versions for pivots</td>
+</tr>
+<tr>
+<td><code>AssignedSKUs</code></td>
+<td>Comma-separated SKU part numbers</td>
+</tr>
+</tbody>
+</table>
+<div class="tabGroup" id="tabgroup_1">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_1_graphps" role="tab" aria-controls="tabpanel_1_graphps" data-tab="graphps" tabindex="0" aria-selected="true">Microsoft Graph PowerShell</a>
+</li>
+</ul>
+<section id="tabpanel_1_graphps" role="tabpanel" data-tab="graphps">
+
+<pre><code class="lang-powershell">&lt;#
+.SYNOPSIS
+    Identifies OneDrive users who may be over their expected storage quota based on
+    their license, with special handling for EDU A1 enforcement.
+
+.DESCRIPTION
+    Uses Microsoft Graph exclusively to:
+    1. Discover OneDrive sites in the tenant (FastScan or LegacyScan; see below).
+    2. Retrieve each owner's license SKUs via Microsoft Graph.
+    3. Calculate the expected quota based on the highest license tier:
+       - Enterprise (E3/E5/A3/A5): 5 TB
+       - EDU A1 (highest SKU is A1): 100 GB
+       - Standard (Plan 1/Plan 2 with CloudStorage): 1 TB
+       - Lite (OneDrive Lite): 100 GB
+       - BasicP2: 10 GB
+       - Viral: 5 GB
+       - Basic: 5 GB
+       - Deskless (F1/F3): 2 GB
+    4. Flags users where StorageUsed &gt; expected quota via an OverQuota column.
+    5. Outputs a formatted console report and (optionally) a single CSV containing
+       ALL sites with an OverQuota True/False column for filtering in Excel.
+
+    SCAN MODES
+    ==========
+    This script supports two ways to discover OneDrive sites in the tenant.
+
+      FastScan  (DEFAULT — recommended for most tenants)
+      --------------------------------------------------
+      Uses the Microsoft Graph Reports API (getOneDriveUsageAccountDetail) to
+      pull every PROVISIONED OneDrive in the tenant in a single bulk download.
+      Then queries license details only for the owners of those sites.
+
+        Pros:  Dramatically faster on large tenants. A 100,000-user tenant
+               takes a few minutes instead of ~2 hours, because we don't
+               iterate every user in the directory — we start from the list
+               of OneDrives that actually exist.
+        Cons:  Report data is refreshed daily by Microsoft 365 (up to ~48h
+               latency on storage figures, which is fine for &quot;who is over
+               quota&quot; — quota usage doesn't shift TB-level numbers minute
+               to minute). Will NOT work if your tenant has &quot;Display
+               concealed user names in reports&quot; enabled in SharePoint Admin Center — the script detects
+               this and exits with instructions for how to fix it.
+
+      LegacyScan  (opt-in via -LegacyScan)
+      ------------------------------------
+      Enumerates every user in the directory, checks each for a provisioned
+      OneDrive, and pulls live drive quota per user.
+
+        Pros:  Real-time storage numbers (not from a daily snapshot). Works
+               regardless of report anonymization settings. Reports licensed
+               users WITHOUT a provisioned OneDrive.
+        Cons:  Very slow on large tenants. A 100,000-user tenant takes
+               ~2 hours; FastScan on the same tenant takes under a minute.
+
+    -UserPrincipalName bypasses BOTH modes and queries the specified users
+    directly. It is not affected by the scan-mode choice.
+
+.PARAMETER ExportPath
+    Optional. CSV export path. When set, the CSV contains every evaluated site
+    (not just over-quota ones), sorted so that over-quota sites appear first.
+    The OverQuota column lets admins filter to over-quota users in Excel.
+    Use a full path (e.g. &quot;C:\Users\you\Downloads\report.csv&quot;) to avoid path
+    resolution surprises when running PowerShell as Administrator.
+
+.PARAMETER TenantId
+    Optional. Target tenant ID (GUID) or domain. Required for multi-tenant admins
+    (MSPs, CSPs, delegated admins, or guests) who need to target a specific customer
+    tenant rather than their home tenant.
+
+.PARAMETER Environment
+    Optional. The Microsoft Graph national cloud to connect to. Defaults to 'Global'
+    (commercial / GCC Moderate). Use 'USGov' for GCC High, 'USGovDoD' for DoD,
+    or 'China' for 21Vianet.
+
+.PARAMETER UserPrincipalName
+    Optional. One or more user principal names (UPNs) to evaluate. When specified,
+    only these users are checked — the full tenant is NOT enumerated. Useful for
+    spot-checking a specific user or a small list. Bypasses both FastScan and
+    LegacyScan.
+
+.PARAMETER LegacyScan
+    Optional. Use the original per-user enumeration method instead of the default
+    FastScan. Slower but returns real-time storage numbers and works with
+    anonymized tenant reports. See SCAN MODES in the description.
+
+.PARAMETER InstallPrerequisites
+    Optional. When set, the script will install any missing required modules to the
+    current user scope. Without this switch, missing modules produce a clear error
+    with the command to run manually. Recommended on hardened/corporate machines
+    where silent installs are not desired.
+
+.EXAMPLE
+    .\Get-ODBOverQuotaUsers.ps1
+    # FastScan (default) — bulk Reports API discovery
+
+.EXAMPLE
+    .\Get-ODBOverQuotaUsers.ps1 -ExportPath &quot;C:\Reports\OneDriveQuotaReport.csv&quot;
+
+.EXAMPLE
+    .\Get-ODBOverQuotaUsers.ps1 -LegacyScan
+    # Per-user enumeration — slower but live storage figures
+
+.EXAMPLE
+    .\Get-ODBOverQuotaUsers.ps1 -TenantId &quot;contoso.onmicrosoft.com&quot; -Environment USGov
+
+.EXAMPLE
+    .\Get-ODBOverQuotaUsers.ps1 -UserPrincipalName alice@contoso.com
+
+.EXAMPLE
+    .\Get-ODBOverQuotaUsers.ps1 -UserPrincipalName alice@contoso.com,bob@contoso.com -ExportPath .\spotcheck.csv
+
+.EXAMPLE
+    .\Get-ODBOverQuotaUsers.ps1 -InstallPrerequisites
+#&gt;
+
+[CmdletBinding()]
+param(
+    [string]$ExportPath,
+
+    [string]$TenantId,
+
+    [ValidateSet('Global','USGov','USGovDoD','China')]
+    [string]$Environment = 'Global',
+
+    [string[]]$UserPrincipalName,
+
+    [switch]$LegacyScan,
+
+    [switch]$InstallPrerequisites
+)
+
+#region --- Constants matching OdbQuotaManager.cs ---
+# From OdbQuotaManager:
+#   Enterprise = &quot;Personal Site Enterprise&quot;  -&gt; 5 TB
+#   A1 = A1QuotaInBytes = 107,374,182,400    -&gt; 100 GB
+#   Standard = &quot;StandardQuotaTemplate&quot;       -&gt; 1 TB (default for CloudStorage + MySite)
+#   Lite = &quot;Personal Site Lite&quot;              -&gt; 100 GB
+#   BasicP2 = &quot;Personal Site Basic P2&quot;       -&gt; 10 GB
+#   Viral = &quot;Personal Site Viral&quot;            -&gt; 5 GB
+#   Basic = &quot;Personal Site Basic&quot;            -&gt; 5 GB
+#   Deskless = &quot;Personal Site Deskless&quot;      -&gt; 2 GB
+
+$QuotaLimits = @{
+    Enterprise = 5TB / 1MB   # 5,242,880 MB
+    A1Edu      = 100GB / 1MB # 102,400 MB
+    Standard   = 1TB / 1MB   # 1,048,576 MB
+    Lite       = 100GB / 1MB # 102,400 MB
+    BasicP2    = 10GB / 1MB  # 10,240 MB
+    Viral      = 5GB / 1MB   # 5,120 MB
+    Basic      = 5GB / 1MB   # 5,120 MB
+    Deskless   = 2GB / 1MB   # 2,048 MB
+    Unknown    = 5TB / 1MB   # 5,242,880 MB (safe default)
+}
+
+# Service Plan ID → OD4B Quota Tier mapping
+# Source: ODSP FairUse Dashboard (sku-mapping) — all non-archived service plans with storage limits
+# Tier priority: Enterprise (5TB) &gt; Standard (1TB) &gt; Lite (100GB) &gt; BasicP2 (10GB) &gt; Basic (5GB) &gt; Deskless (2GB)
+$ServicePlanOD4BMap = @{
+    # --- Enterprise (5 TB) ---
+    &quot;5dbe027f-2339-4123-9542-606e4d348a72&quot; = &quot;Enterprise&quot;  # SharePoint (Plan 2)
+    &quot;63038b2c-28d0-45f6-bc36-33062963b498&quot; = &quot;Enterprise&quot;  # SharePoint (Plan 2) for Education
+    &quot;6b5b6a67-fc72-4a1f-a2b5-beecf05de761&quot; = &quot;Enterprise&quot;  # SharePoint (Plan 1) [5TB variant]
+    &quot;afcafa6a-d966-4462-918c-ec0b4e0fe642&quot; = &quot;Enterprise&quot;  # OneDrive for Business (Plan 2)
+    &quot;e8474baf-0959-45d7-b041-91407b2c358d&quot; = &quot;Enterprise&quot;  # ONEDRIVE FOR BUSINESS (PLAN 2G)
+    &quot;153f85dd-d912-4762-af6c-d6e0fb4f6692&quot; = &quot;Enterprise&quot;  # SharePoint Plan 2G
+    &quot;6fc31d91-cb7f-45ad-885a-bb357a2c98b5&quot; = &quot;Enterprise&quot;  # SharePoint Online (Plan 2) LRG
+    &quot;3f804828-b016-40cd-be71-fb1368e8dcbb&quot; = &quot;Enterprise&quot;  # SharePoint Online (Plan 2) LRG for Education
+    &quot;a361d6e2-509e-4e25-a8ad-950060064ef4&quot; = &quot;Enterprise&quot;  # SharePoint for Developer (directLimit=5TB)
+    &quot;6c1e1afb-e231-4bff-abf2-5c93e271f694&quot; = &quot;Enterprise&quot;  # SharePoint for Developer (directLimit=5TB)
+    # --- Standard (1 TB) ---
+    &quot;c7699d2e-19aa-44de-8edf-1736da088ca1&quot; = &quot;Standard&quot;    # SharePoint (Plan 1)
+    &quot;a1f3d0a8-84c0-4ae0-bae4-685917b8ab48&quot; = &quot;Standard&quot;    # SharePoint (P1)
+    &quot;0a4983bb-d3e5-4a09-95d8-b2d0127b3df5&quot; = &quot;Standard&quot;    # SharePoint (Plan 1) for Education
+    &quot;5dba4eee-6994-480c-88d5-44c9c1de647e&quot; = &quot;Standard&quot;    # SHAREPOINT (PLAN 1) FOR EDUCATION
+    &quot;f9c43823-deb4-46a8-aa65-8b551f0c4f8a&quot; = &quot;Standard&quot;    # SharePoint Plan 1G
+    &quot;13696edf-5a08-49f6-8134-03083ed8ba30&quot; = &quot;Standard&quot;    # OneDrive for Business (Plan 1)
+    &quot;f0488f6e-4b1b-450c-86ec-bcef5fa9e372&quot; = &quot;Standard&quot;    # ONEDRIVE FOR BUSINESS (PLAN 1)
+    &quot;1fadb9de-98e3-4026-bd66-3afa483e8565&quot; = &quot;Standard&quot;    # SharePoint Online Multi-Geo
+    # --- Lite (100 GB) ---
+    &quot;595b0f5e-1426-424a-9072-78737b4d9c80&quot; = &quot;Lite&quot;        # ONEDRIVELITE
+    &quot;ffa8818c-1a05-44e6-a2c5-0b2a1e2f572d&quot; = &quot;Lite&quot;        # SharePoint Plan 2A
+    # --- BasicP2 (10 GB) ---
+    &quot;4495894f-534f-41ca-9d3b-0ebf1220a423&quot; = &quot;BasicP2&quot;     # OneDrive for Business (Basic 2)
+    # --- Viral (5 GB) ---
+    &quot;b4ac11a0-32ff-4e78-982d-e039fa803dec&quot; = &quot;Viral&quot;       # Office for the web with OneDrive for business
+    # --- Basic (5 GB) ---
+    &quot;da792a53-cbc0-4184-a10d-e544dd34b3c1&quot; = &quot;Basic&quot;       # OneDrive for Business (Basic)
+    &quot;98709c2e-96b5-4244-95f5-a0ebe139fb8a&quot; = &quot;Basic&quot;       # OneDrive for Business (Basic)
+    &quot;39be5b40-baea-4768-ac2f-c814be691b98&quot; = &quot;Basic&quot;       # ONEDRIVE FOR BUSINESS BASIC
+    &quot;d2310dc8-4e1a-4c32-ba74-d18a378b0581&quot; = &quot;Basic&quot;       # OneDrive for Business Basic
+    &quot;e51b74f5-07d8-46c2-9fad-dfc75a782427&quot; = &quot;Basic&quot;       # OneDrive for Business Basic
+    &quot;93839697-a963-4cf8-9cac-fb71c4c07d7b&quot; = &quot;Basic&quot;       # OneDrive for Business Basic
+    &quot;bf56428d-a479-4f5b-82cc-f788d6b5d449&quot; = &quot;Basic&quot;       # OneDrive for Business (Basic 3)
+    # --- Deskless (2 GB) ---
+    &quot;902b47e5-dcb2-4fdc-858b-c63a90a2bdb9&quot; = &quot;Deskless&quot;    # SharePoint Kiosk
+    &quot;7c156078-6e6c-46c7-adb0-83d1a671b591&quot; = &quot;Deskless&quot;    # SharePoint Kiosk
+    &quot;4f88d6a3-c0be-4854-89e0-302bacd5b1c7&quot; = &quot;Deskless&quot;    # SHAREPOINT KIOSK
+    &quot;b1aeb897-3a19-46e2-8c27-a609413cf193&quot; = &quot;Deskless&quot;    # SharePoint KioskG
+     # --- Archived / Retired — Enterprise (5 TB) ---
+    &quot;32c173cd-bbde-4b64-a45c-6234f756e1b2&quot; = &quot;Enterprise&quot;  # Archived - SHAREPOINT_S_ENTERPRISE_B_PILOT
+    &quot;ae978e94-23ef-4c3b-8cd0-ba576f9c455c&quot; = &quot;Enterprise&quot;  # Archived - SHAREPOINT_S_ENTERPRISE_PILOT
+    &quot;639e4bc2-37bc-4ec9-8e4a-280d9dbf8649&quot; = &quot;Enterprise&quot;  # Archived - SHAREPOINTSTANDARD_EDU_PILOT
+    &quot;828c2b6a-bf85-4103-bbc7-d22d36d7dec5&quot; = &quot;Enterprise&quot;  # Archived - SHAREPOINT_S_DEVELOPER_B_PILOT (directLimit=5TB)
+    &quot;6bfc447a-7497-43af-9561-3ee81260e2b1&quot; = &quot;Enterprise&quot;  # Archived - SHAREPOINT_S_DEVELOPER_PILOT (directLimit=5TB)
+    # --- Archived / Retired — Standard (1 TB) ---
+    &quot;aeaf2f0f-7d48-4dd4-a498-dde2f12cc9f4&quot; = &quot;Standard&quot;    # Archived - SHAREPOINT_L_PROFESSIONAL_B_PILOT
+    &quot;1876e0a3-16c9-4cd1-a75f-d40797badd78&quot; = &quot;Standard&quot;    # Archived - SHAREPOINT_L_PROFESSIONAL_PILOT
+}
+
+# Tier priority for comparing service plans (higher = more storage)
+$TierPriority = @{
+    Enterprise = 7
+    Standard   = 6
+    Lite       = 5
+    BasicP2    = 4
+    Viral      = 3
+    Basic      = 2
+    Deskless   = 1
+}
+
+# Graph base URL — defined once and referenced as a simple variable everywhere a
+# URL is constructed. This avoids the $(...) subexpression-in-string pattern,
+# which can be fragile if the file is copy-pasted through editors that convert
+# straight quotes to curly quotes.
+$GraphBaseUrl = 'https://graph.microsoft.com/v1.0'
+#endregion
+
+#region --- Helper Functions ---
+
+function Invoke-GraphRequestWithRetry {
+    &lt;#
+    .SYNOPSIS
+        Wraps Invoke-MgGraphRequest with throttling/retry support.
+    .DESCRIPTION
+        Honors the Retry-After header on HTTP 429 (throttled) and 503/504
+        (transient service errors). Falls back to capped exponential backoff
+        when no Retry-After header is provided. This is required for tenants
+        of any meaningful size because the /users/{id}/drive and
+        /users/{id}/licenseDetails endpoints throttle aggressively, and
+        unhandled 429s would otherwise cause silent gaps in the report.
+    #&gt;
+    param(
+        [Parameter(Mandatory)]
+        [string]$Uri,
+
+        [string]$Method = 'GET',
+
+        [int]$MaxRetries = 5
+    )
+
+    $attempt = 0
+    while ($true) {
+        try {
+            return Invoke-MgGraphRequest -Method $Method -Uri $Uri -ErrorAction Stop
+        }
+        catch {
+            $status = $null
+            if ($_.Exception.PSObject.Properties.Name -contains 'Response' -and $_.Exception.Response) {
+                try { $status = [int]$_.Exception.Response.StatusCode } catch {}
+            }
+
+            $attempt++
+            if ($status -in 429, 503, 504 -and $attempt -le $MaxRetries) {
+                # Prefer Retry-After header when present
+                $retryAfter = $null
+                try {
+                    $headers = $_.Exception.Response.Headers
+                    if ($headers -and $headers['Retry-After']) {
+                        $retryAfter = [int]$headers['Retry-After']
+                    }
+                } catch {}
+
+                if (-not $retryAfter -or $retryAfter -le 0) {
+                    # Capped exponential backoff: 2, 4, 8, 16, 32 seconds (max 60)
+                    $retryAfter = [int][Math]::Min([Math]::Pow(2, $attempt), 60)
+                }
+
+                Write-Verbose &quot;Graph returned HTTP $status on $Uri. Retry $attempt/$MaxRetries in ${retryAfter}s.&quot;
+                Start-Sleep -Seconds $retryAfter
+                continue
+            }
+
+            throw
+        }
+    }
+}
+
+function Get-OneDriveUsageReportCsv {
+    &lt;#
+    .SYNOPSIS
+        Downloads the OneDrive usage report (CSV) from the Microsoft Graph Reports API.
+    .DESCRIPTION
+        Returns the report as a temp file path. The caller is responsible for
+        Import-Csv'ing it and deleting the temp file when finished.
+        Includes retry-on-throttle semantics matching Invoke-GraphRequestWithRetry.
+    #&gt;
+    param(
+        [string]$Period = 'D7',
+        [int]$MaxRetries = 5
+    )
+
+    $uri      = &quot;$GraphBaseUrl/reports/getOneDriveUsageAccountDetail(period='$Period')&quot;
+    $tempCsv  = [System.IO.Path]::Combine([System.IO.Path]::GetTempPath(),
+                                          ('odb-usage-' + [Guid]::NewGuid().ToString() + '.csv'))
+    $attempt = 0
+    while ($true) {
+        try {
+            # -OutputFilePath writes the raw response body straight to disk,
+            # which avoids any JSON/CSV content-type parsing surprises.
+            Invoke-MgGraphRequest -Method GET -Uri $uri -OutputFilePath $tempCsv -ErrorAction Stop
+            return $tempCsv
+        }
+        catch {
+            $status = $null
+            if ($_.Exception.PSObject.Properties.Name -contains 'Response' -and $_.Exception.Response) {
+                try { $status = [int]$_.Exception.Response.StatusCode } catch {}
+            }
+
+            $attempt++
+            if ($status -in 429, 503, 504 -and $attempt -le $MaxRetries) {
+                $retryAfter = $null
+                try {
+                    $headers = $_.Exception.Response.Headers
+                    if ($headers -and $headers['Retry-After']) {
+                        $retryAfter = [int]$headers['Retry-After']
+                    }
+                } catch {}
+                if (-not $retryAfter -or $retryAfter -le 0) {
+                    $retryAfter = [int][Math]::Min([Math]::Pow(2, $attempt), 60)
+                }
+                Write-Verbose &quot;Reports API HTTP $status. Retry $attempt/$MaxRetries in ${retryAfter}s.&quot;
+                Start-Sleep -Seconds $retryAfter
+                continue
+            }
+
+            if (Test-Path $tempCsv) { Remove-Item $tempCsv -Force -ErrorAction SilentlyContinue }
+            throw
+        }
+    }
+}
+
+function Get-ExpectedQuotaTier {
+    &lt;#
+    .SYNOPSIS
+        Determines the expected OneDrive quota tier for a user based on their license SKUs.
+    #&gt;
+    param(
+        [Parameter(Mandatory)]
+        [object[]]$LicenseDetails
+    )
+
+    # Check service plans by ID using the comprehensive OD4B mapping from the FairUse Dashboard.
+    # Find the highest-tier OD4B service plan the user has provisioned.
+    $bestTier = $null
+    $bestPriority = 0
+    foreach ($license in $LicenseDetails) {
+        if ($license.servicePlans) {
+            foreach ($plan in $license.servicePlans) {
+                if ($plan.provisioningStatus -eq &quot;Success&quot; -or $plan.provisioningStatus -eq &quot;PendingInput&quot;) {
+                    $planId = $plan.servicePlanId.ToLower()
+                    if ($ServicePlanOD4BMap.ContainsKey($planId)) {
+                        $tier = $ServicePlanOD4BMap[$planId]
+                        $priority = $TierPriority[$tier]
+                        if ($priority -gt $bestPriority) {
+                            $bestTier = $tier
+                            $bestPriority = $priority
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    if ($bestTier) {
+        $desc = switch ($bestTier) {
+            &quot;Enterprise&quot; { &quot;Enterprise (5 TB)&quot; }
+            &quot;Standard&quot;   { &quot;Standard (1 TB)&quot; }
+            &quot;Lite&quot;       { &quot;Lite (100 GB)&quot; }
+            &quot;BasicP2&quot;    { &quot;BasicP2 (10 GB)&quot; }
+            &quot;Viral&quot;      { &quot;Viral (5 GB)&quot; }
+            &quot;Basic&quot;      { &quot;Basic (5 GB)&quot; }
+            &quot;Deskless&quot;   { &quot;Deskless (2 GB)&quot; }
+        }
+        return @{ Tier = $bestTier; LimitMB = $QuotaLimits[$bestTier]; Description = $desc }
+    }
+
+    # Fall back to Unknown (5 TB default)
+    return @{ Tier = &quot;Unknown&quot;; LimitMB = $QuotaLimits.Unknown; Description = &quot;Unknown (default 5 TB)&quot; }
+}
+
+function Format-StorageSize {
+    param([long]$MB)
+    if ($MB -ge 1048576) { return &quot;{0:N2} TB&quot; -f ($MB / 1048576) }
+    if ($MB -ge 1024)    { return &quot;{0:N2} GB&quot; -f ($MB / 1024) }
+    return &quot;$MB MB&quot;
+}
+#endregion
+
+#region --- Prerequisites (detect + optional install) ---
+# We detect required modules and either:
+#   (a) install them automatically when -InstallPrerequisites is set, OR
+#   (b) print a clear remediation banner and exit.
+
+$requiredModules = @(
+    @{ Name = 'Microsoft.Graph.Authentication'; MinVersion = '2.0.0' }
+    @{ Name = 'Microsoft.Graph.Users';          MinVersion = '2.0.0' }
+)
+
+$missing = @()
+foreach ($mod in $requiredModules) {
+    $installed = Get-Module -ListAvailable -Name $mod.Name |
+                 Where-Object { $_.Version -ge [version]$mod.MinVersion } |
+                 Select-Object -First 1
+    if (-not $installed) { $missing += $mod }
+}
+
+if ($missing.Count -gt 0) {
+    if ($InstallPrerequisites) {
+        Write-Host &quot;Bootstrapping prerequisites...&quot; -ForegroundColor Yellow
+
+        $gallery = Get-PSRepository -Name PSGallery -ErrorAction SilentlyContinue
+        if ($gallery -and $gallery.InstallationPolicy -ne 'Trusted') {
+            Set-PSRepository -Name PSGallery -InstallationPolicy Trusted
+        }
+
+        if (-not (Get-PackageProvider -Name NuGet -ErrorAction SilentlyContinue)) {
+            Install-PackageProvider -Name NuGet -MinimumVersion 2.8.5.201 -Force -Scope CurrentUser | Out-Null
+        }
+
+        foreach ($mod in $missing) {
+            Write-Host &quot;Installing $($mod.Name) (&gt;= $($mod.MinVersion))...&quot; -ForegroundColor Yellow
+            Install-Module -Name $mod.Name -MinimumVersion $mod.MinVersion -Scope CurrentUser -Force -AllowClobber -ErrorAction Stop
+        }
+    }
+    else {
+        $names = ($missing | ForEach-Object { $_.Name }) -join ', '
+        Write-Host &quot;&quot;
+        Write-Host &quot;======================================================&quot; -ForegroundColor Red
+        Write-Host &quot;  MISSING PREREQUISITES&quot; -ForegroundColor Red
+        Write-Host &quot;======================================================&quot; -ForegroundColor Red
+        Write-Host &quot;&quot;
+        Write-Host &quot;The following required PowerShell modules are missing or below the minimum version:&quot; -ForegroundColor Yellow
+        Write-Host &quot;&quot;
+        foreach ($mod in $missing) {
+            Write-Host &quot;  - $($mod.Name) (&gt;= $($mod.MinVersion))&quot; -ForegroundColor Yellow
+        }
+        Write-Host &quot;&quot;
+        Write-Host &quot;FIX (recommended) - re-run this script with the install switch:&quot; -ForegroundColor Green
+        Write-Host &quot;  .\Get-ODBOverQuotaUsers.ps1 -InstallPrerequisites&quot; -ForegroundColor White
+        Write-Host &quot;&quot;
+        Write-Host &quot;OR install the modules manually for the current user:&quot; -ForegroundColor Green
+        Write-Host &quot;  Install-Module $names -Scope CurrentUser&quot; -ForegroundColor White
+        Write-Host &quot;&quot;
+        exit 1
+    }
+}
+
+foreach ($mod in $requiredModules) {
+    if (-not (Get-Module -Name $mod.Name)) {
+        Import-Module $mod.Name -ErrorAction Stop
+    }
+}
+#endregion
+
+#region --- Connect ---
+Write-Host &quot;`n======================================================&quot; -ForegroundColor Cyan
+Write-Host &quot;  OneDrive Over-Quota Detection (License-Based)&quot; -ForegroundColor Cyan
+Write-Host &quot;======================================================`n&quot; -ForegroundColor Cyan
+
+# Decide scan mode for the run (informational only — actual branching happens below)
+$scanMode = if ($UserPrincipalName) { 'TargetedUser' }
+            elseif ($LegacyScan)    { 'LegacyScan' }
+            else                    { 'FastScan' }
+Write-Host &quot;Scan mode: $scanMode&quot; -ForegroundColor Cyan
+
+Write-Host &quot;Connecting to Microsoft Graph ($Environment)...&quot; -ForegroundColor Green
+$graphParams = @{
+    Scopes      = @(&quot;User.Read.All&quot;, &quot;Directory.Read.All&quot;, &quot;Reports.Read.All&quot;, &quot;Sites.Read.All&quot;, &quot;Files.Read.All&quot;)
+    Environment = $Environment
+    NoWelcome   = $true
+}
+if ($TenantId) { $graphParams['TenantId'] = $TenantId }
+
+try {
+    Connect-MgGraph @graphParams -ErrorAction Stop
+}
+catch {
+    Write-Host &quot;&quot;
+    Write-Host &quot;======================================================&quot; -ForegroundColor Red
+    Write-Host &quot;  MICROSOFT GRAPH CONNECTION FAILED&quot; -ForegroundColor Red
+    Write-Host &quot;======================================================&quot; -ForegroundColor Red
+    Write-Host &quot;&quot;
+    Write-Host &quot;Error: $($_.Exception.Message)&quot; -ForegroundColor Yellow
+    Write-Host &quot;&quot;
+    Write-Host &quot;Common causes:&quot; -ForegroundColor Yellow
+    Write-Host &quot;  - Authentication was cancelled, timed out, or MFA was not completed&quot;
+    Write-Host &quot;  - Admin consent has not been granted for the required scopes&quot;
+    Write-Host &quot;  - Wrong -Environment for your tenant&quot;
+    Write-Host &quot;      (use 'USGov' for GCC High, 'USGovDoD' for DoD, 'China' for 21Vianet)&quot;
+    Write-Host &quot;  - Wrong -TenantId, or your account is not a member of that tenant&quot;
+    Write-Host &quot;&quot;
+    exit 1
+}
+
+$graphCtx = Get-MgContext
+if (-not $graphCtx -or -not $graphCtx.TenantId) {
+    Write-Host &quot;&quot;
+    Write-Host &quot;======================================================&quot; -ForegroundColor Red
+    Write-Host &quot;  MICROSOFT GRAPH CONNECTION FAILED&quot; -ForegroundColor Red
+    Write-Host &quot;======================================================&quot; -ForegroundColor Red
+    Write-Host &quot;&quot;
+    Write-Host &quot;Connect-MgGraph completed without throwing, but no valid Graph session&quot; -ForegroundColor Yellow
+    Write-Host &quot;was established (no tenant context). Aborting to avoid an empty report.&quot; -ForegroundColor Yellow
+    Write-Host &quot;&quot;
+    exit 1
+}
+
+Write-Host &quot;Microsoft Graph connected. [OK]&quot; -ForegroundColor Yellow
+Write-Host &quot;Connected to Graph as: $($graphCtx.Account)&quot; -ForegroundColor Yellow
+Write-Host &quot;Tenant:                $($graphCtx.TenantId)&quot; -ForegroundColor Yellow
+Write-Host &quot;Environment:           $($graphCtx.Environment)&quot; -ForegroundColor Yellow
+#endregion
+
+#region --- Validate ExportPath early (before the long-running tenant scan) ---
+$ResolvedExportPath = $null
+if ($ExportPath) {
+    try {
+        $leaf = Split-Path $ExportPath -Leaf
+        if (-not $leaf) {
+            throw &quot;ExportPath '$ExportPath' has no filename. Add a file name (e.g. '\report.csv').&quot;
+        }
+        if ([System.IO.Path]::GetExtension($leaf) -eq '') {
+            Write-Host &quot;Warning: ExportPath has no file extension. Treating as a CSV file.&quot; -ForegroundColor Yellow
+        }
+
+        if ([System.IO.Path]::IsPathRooted($ExportPath)) {
+            $ResolvedExportPath = $ExportPath
+        }
+        else {
+            $ResolvedExportPath = Join-Path -Path $PWD.Path -ChildPath $ExportPath
+        }
+        $ResolvedExportPath = [System.IO.Path]::GetFullPath($ResolvedExportPath)
+        $resolvedDir        = Split-Path $ResolvedExportPath -Parent
+
+        if (-not (Test-Path $resolvedDir)) {
+            New-Item -Path $resolvedDir -ItemType Directory -Force -ErrorAction Stop | Out-Null
+        }
+
+        $probe = Join-Path $resolvedDir ([Guid]::NewGuid().ToString() + '.tmp')
+        try {
+            [IO.File]::WriteAllText($probe, '')
+            Remove-Item $probe -Force -ErrorAction SilentlyContinue
+        }
+        catch {
+            throw &quot;Cannot write to '$resolvedDir'. $($_.Exception.Message)&quot;
+        }
+
+        Write-Host &quot;Export target validated: $ResolvedExportPath&quot; -ForegroundColor DarkGray
+    }
+    catch {
+        Write-Host &quot;&quot;
+        Write-Host &quot;======================================================&quot; -ForegroundColor Red
+        Write-Host &quot;  CSV EXPORT PATH INVALID&quot; -ForegroundColor Red
+        Write-Host &quot;======================================================&quot; -ForegroundColor Red
+        Write-Host &quot;&quot;
+        Write-Host &quot;Path requested: $ExportPath&quot; -ForegroundColor Yellow
+        if ($ResolvedExportPath) { Write-Host &quot;Resolved to:    $ResolvedExportPath&quot; -ForegroundColor Yellow }
+        Write-Host &quot;Error:          $($_.Exception.Message)&quot; -ForegroundColor Yellow
+        Write-Host &quot;&quot;
+        Write-Host &quot;Common causes and fixes:&quot; -ForegroundColor Yellow
+        Write-Host &quot;  1. ExportPath is missing a filename. Include the .csv name at the end:&quot;
+        Write-Host &quot;        -ExportPath &quot;&quot;C:\Users\$env:USERNAME\Downloads\report.csv&quot;&quot;&quot;
+        Write-Host &quot;&quot;
+        Write-Host &quot;  2. Running PowerShell as Administrator: relative paths resolve to&quot;
+        Write-Host &quot;     C:\WINDOWS\system32. Use a FULL path (drive letter and all):&quot;
+        Write-Host &quot;        -ExportPath &quot;&quot;C:\Users\$env:USERNAME\Downloads\report.csv&quot;&quot;&quot;
+        Write-Host &quot;&quot;
+        Write-Host &quot;  3. OneDrive Known Folder Move on Downloads can block elevated writes.&quot;
+        Write-Host &quot;     Try C:\Temp\ or run this script from a non-elevated PowerShell window&quot;
+        Write-Host &quot;     (admin rights for this script come from your M365 account, not Windows).&quot;
+        Write-Host &quot;&quot;
+        Write-Host &quot;Aborting before tenant scan to avoid losing work.&quot; -ForegroundColor Red
+        Write-Host &quot;&quot;
+        exit 1
+    }
+}
+#endregion
+
+#region --- Discover OneDrive sites (FastScan / LegacyScan / TargetedUser) ---
+# All three modes converge by populating the same $allODBSites collection with
+# the same shape, so the downstream evaluation loop doesn't care which path ran.
+
+$allODBSites    = [System.Collections.Generic.List[PSCustomObject]]::new()
+$usersWithoutOD = [System.Collections.Generic.List[PSCustomObject]]::new()
+$errors         = [System.Collections.Generic.List[string]]::new()
+
+if ($scanMode -eq 'TargetedUser') {
+    #---------------------------------------------------------------
+    # TargetedUser: per-UPN lookup (unchanged from prior behavior)
+    #---------------------------------------------------------------
+    Write-Host &quot;`nLooking up $($UserPrincipalName.Count) specific user(s)...&quot; -ForegroundColor Cyan
+    $userProps = 'id','userPrincipalName','displayName','assignedLicenses','accountEnabled'
+    $targetedUsers = foreach ($upn in $UserPrincipalName) {
+        try {
+            Get-MgUser -UserId $upn -Property $userProps -ErrorAction Stop
+        }
+        catch {
+            $errors.Add(&quot;[$upn] User not found or inaccessible: $($_.Exception.Message)&quot;)
+        }
+    }
+    $targetedUsers = @($targetedUsers)
+
+    if ($targetedUsers.Count -eq 0) {
+        Write-Host &quot;&quot;
+        Write-Host &quot;======================================================&quot; -ForegroundColor Red
+        Write-Host &quot;  NO USERS RETURNED&quot; -ForegroundColor Red
+        Write-Host &quot;======================================================&quot; -ForegroundColor Red
+        Write-Host &quot;&quot;
+        Write-Host &quot;None of the specified users were found in tenant $($graphCtx.TenantId):&quot; -ForegroundColor Yellow
+        foreach ($upn in $UserPrincipalName) { Write-Host &quot;  - $upn&quot; -ForegroundColor Yellow }
+        Write-Host &quot;&quot;
+        Write-Host &quot;Check the UPN spelling and that the user exists in this tenant.&quot; -ForegroundColor Yellow
+        exit 1
+    }
+
+    foreach ($user in $targetedUsers) {
+        $upn = $user.UserPrincipalName
+        $hasLicense = $user.assignedLicenses.Count -gt 0
+        try {
+            $driveUri = &quot;$GraphBaseUrl/users/$upn/drive&quot;
+            $drive    = Invoke-GraphRequestWithRetry -Uri $driveUri
+            if ($drive.quota) {
+                $allODBSites.Add([PSCustomObject]@{
+                    UserId             = $user.id
+                    Owner              = $user.userPrincipalName
+                    DisplayName        = $user.displayName
+                    HasLicense         = $hasLicense
+                    SiteUrl            = $drive.webUrl
+                    StorageAllocatedMB = [math]::Round([long]$drive.quota.total / 1MB, 2)
+                    StorageUsedMB      = [math]::Round([long]$drive.quota.used  / 1MB, 2)
+                })
+            }
+            else {
+                $usersWithoutOD.Add([PSCustomObject]@{
+                    Owner = $upn; DisplayName = $user.displayName
+                    HasLicense = $hasLicense; AccountEnabled = $user.accountEnabled
+                })
+            }
+        }
+        catch {
+            $errors.Add(&quot;[$upn] Error getting drive: $($_.Exception.Message)&quot;)
+        }
+    }
+}
+elseif ($scanMode -eq 'LegacyScan') {
+    #---------------------------------------------------------------
+    # LegacyScan: enumerate ALL users, check each for OneDrive.
+    # This is the original behavior, byte-identical for compliance.
+    #---------------------------------------------------------------
+    Write-Host &quot;`nLegacyScan: enumerating all users in tenant...&quot; -ForegroundColor Cyan
+    Write-Host &quot;(This can take 1-2 hours on large tenants. Use FastScan default for speed.)&quot; -ForegroundColor DarkGray
+    $userProps = 'id','userPrincipalName','displayName','assignedLicenses','accountEnabled'
+    $allUsers = Get-MgUser -All -Property $userProps
+
+    if (-not $allUsers -or @($allUsers).Count -eq 0) {
+        Write-Host &quot;&quot;
+        Write-Host &quot;======================================================&quot; -ForegroundColor Red
+        Write-Host &quot;  NO USERS RETURNED&quot; -ForegroundColor Red
+        Write-Host &quot;======================================================&quot; -ForegroundColor Red
+        Write-Host &quot;&quot;
+        Write-Host &quot;Get-MgUser returned 0 users for tenant $($graphCtx.TenantId).&quot; -ForegroundColor Yellow
+        Write-Host &quot;Likely cause: the signed-in account does not have User.Read.All / Directory.Read.All consented.&quot;
+        exit 1
+    }
+
+    $allUsers  = @($allUsers)
+    Write-Host &quot;Found $($allUsers.Count) users. Retrieving OneDrive info for each...&quot; -ForegroundColor Green
+    $userCount = 0
+
+    foreach ($user in $allUsers) {
+        $userCount++
+        if ($userCount % 50 -eq 0) {
+            Write-Host &quot;  Checked $userCount of $($allUsers.Count) users...&quot; -ForegroundColor DarkGray
+        }
+
+        $upn = $user.UserPrincipalName
+        $mySiteUrl = $null
+        try {
+            $userDetail = Get-MgUser -UserId $upn -Property &quot;mySite&quot; -ErrorAction Stop
+            $mySiteUrl  = $userDetail.MySite
+        }
+        catch {}
+
+        $hasLicense = $user.assignedLicenses.Count -gt 0
+
+        if ($null -eq $mySiteUrl) {
+            $usersWithoutOD.Add([PSCustomObject]@{
+                Owner = $upn; DisplayName = $user.displayName
+                HasLicense = $hasLicense; AccountEnabled = $user.accountEnabled
+            })
+        }
+        else {
+            try {
+                $driveUri = &quot;$GraphBaseUrl/users/$upn/drive&quot;
+                $drive    = Invoke-GraphRequestWithRetry -Uri $driveUri
+                if ($drive.quota) {
+                    $allODBSites.Add([PSCustomObject]@{
+                        UserId             = $user.id
+                        Owner              = $user.userPrincipalName
+                        DisplayName        = $user.displayName
+                        HasLicense         = $hasLicense
+                        SiteUrl            = $drive.webUrl
+                        StorageAllocatedMB = [math]::Round([long]$drive.quota.total / 1MB, 2)
+                        StorageUsedMB      = [math]::Round([long]$drive.quota.used  / 1MB, 2)
+                    })
+                }
+            }
+            catch {
+                $errors.Add(&quot;[$upn] Error getting quota: $($_.Exception.Message)&quot;)
+            }
+        }
+    }
+}
+else {
+    #---------------------------------------------------------------
+    # FastScan (default): bulk pull via Reports API, then per-owner license lookup.
+    #---------------------------------------------------------------
+    Write-Host &quot;`nFastScan: pulling OneDrive usage report via Microsoft Graph Reports API...&quot; -ForegroundColor Cyan
+    $tempCsv = $null
+    try {
+        $tempCsv = Get-OneDriveUsageReportCsv -Period 'D7'
+        $reportRows = @(Import-Csv -Path $tempCsv)
+    }
+    catch {
+        Write-Host &quot;&quot;
+        Write-Host &quot;======================================================&quot; -ForegroundColor Red
+        Write-Host &quot;  FASTSCAN: REPORTS API REQUEST FAILED&quot; -ForegroundColor Red
+        Write-Host &quot;======================================================&quot; -ForegroundColor Red
+        Write-Host &quot;&quot;
+        Write-Host &quot;Error: $($_.Exception.Message)&quot; -ForegroundColor Yellow
+        Write-Host &quot;&quot;
+        Write-Host &quot;Common causes and fixes:&quot; -ForegroundColor Yellow
+        Write-Host &quot;  - Reports.Read.All scope was not consented during sign-in.&quot;
+        Write-Host &quot;    Sign out (Disconnect-MgGraph) and run again so consent can be requested.&quot;
+        Write-Host &quot;  - Tenant is new and the report has not been generated yet (try again later).&quot;
+        Write-Host &quot;  - You can fall back to per-user enumeration with: -LegacyScan&quot;
+        Write-Host &quot;&quot;
+        if ($tempCsv -and (Test-Path $tempCsv)) { Remove-Item $tempCsv -Force -ErrorAction SilentlyContinue }
+        exit 1
+    }
+
+    if (-not $reportRows -or $reportRows.Count -eq 0) {
+        Write-Host &quot;&quot;
+        Write-Host &quot;Reports API returned no rows. The tenant may have no provisioned OneDrives,&quot; -ForegroundColor Yellow
+        Write-Host &quot;or the report has not been generated yet. Try -LegacyScan for live enumeration.&quot; -ForegroundColor Yellow
+        if (Test-Path $tempCsv) { Remove-Item $tempCsv -Force -ErrorAction SilentlyContinue }
+        exit 0
+    }
+
+    # Anonymization detection. When &quot;Display concealed user names in reports&quot; is enabled
+    # in M365 admin, the Owner Principal Name column contains hashes (no '@'), and
+    # license lookups will fail for every row. Detect this up front.
+    $hasRealUpn = $reportRows | Where-Object { $_.'Owner Principal Name' -match '@' } | Select-Object -First 1
+    if (-not $hasRealUpn) {
+        Write-Host &quot;&quot;
+        Write-Host &quot;======================================================&quot; -ForegroundColor Red
+        Write-Host &quot;  FASTSCAN: ANONYMIZED REPORTS DETECTED&quot; -ForegroundColor Red
+        Write-Host &quot;======================================================&quot; -ForegroundColor Red
+        Write-Host &quot;&quot;
+        Write-Host &quot;The Microsoft Graph Reports API returned hashed identifiers instead of real&quot; -ForegroundColor Yellow
+        Write-Host &quot;user principal names. License lookup is impossible without the real UPN.&quot;   -ForegroundColor Yellow
+        Write-Host &quot;&quot;
+        Write-Host &quot;FIX: in the M365 Admin Center, go to:&quot; -ForegroundColor Green
+        Write-Host &quot;  Settings -&gt; Org settings -&gt; Services -&gt; Reports&quot; -ForegroundColor White
+        Write-Host &quot;and TURN OFF: 'Display concealed user, group, and site names in all reports'.&quot; -ForegroundColor White
+        Write-Host &quot;&quot;
+        Write-Host &quot;OR re-run this script with -LegacyScan to fall back to per-user enumeration&quot; -ForegroundColor Green
+        Write-Host &quot;(which is unaffected by report anonymization, but much slower).&quot; -ForegroundColor Green
+        Write-Host &quot;&quot;
+        if (Test-Path $tempCsv) { Remove-Item $tempCsv -Force -ErrorAction SilentlyContinue }
+        exit 1
+    }
+
+    Write-Host &quot;Reports API returned $($reportRows.Count) OneDrive site(s).&quot; -ForegroundColor Green
+
+    foreach ($row in $reportRows) {
+        # Skip rows that don't have a usable UPN (deleted owners, anonymized strays, etc.)
+        $ownerUpn = $row.'Owner Principal Name'
+        if ([string]::IsNullOrWhiteSpace($ownerUpn) -or $ownerUpn -notmatch '@') { continue }
+        if ($row.'Is Deleted' -eq 'True') { continue }
+
+        # Coerce numeric columns safely
+        $usedBytes  = 0L
+        $allocBytes = 0L
+        [void][long]::TryParse($row.'Storage Used (Byte)',      [ref]$usedBytes)
+        [void][long]::TryParse($row.'Storage Allocated (Byte)', [ref]$allocBytes)
+
+        $allODBSites.Add([PSCustomObject]@{
+            UserId             = $ownerUpn   # license lookup endpoint accepts UPN
+            Owner              = $ownerUpn
+            DisplayName        = $row.'Owner Display Name'
+            HasLicense         = $null       # determined during evaluation
+            SiteUrl            = $row.'Site URL'
+            StorageAllocatedMB = [math]::Round($allocBytes / 1MB, 2)
+            StorageUsedMB      = [math]::Round($usedBytes  / 1MB, 2)
+        })
+    }
+
+    if (Test-Path $tempCsv) { Remove-Item $tempCsv -Force -ErrorAction SilentlyContinue }
+}
+
+Write-Host &quot;Found $($allODBSites.Count) OneDrive site(s) to evaluate.&quot; -ForegroundColor Green
+#endregion
+
+#region --- Evaluate each site against license-based expected quota ---
+Write-Host &quot;`nEvaluating storage usage vs. license-based expected quota...`n&quot; -ForegroundColor Yellow
+
+$allUserDetails = [System.Collections.Generic.List[PSCustomObject]]::new()
+$overQuotaUsers = [System.Collections.Generic.List[PSCustomObject]]::new()
+$processed      = 0
+
+foreach ($site in $allODBSites) {
+    $processed++
+    if ($processed % 25 -eq 0) {
+        Write-Host &quot;  Processed $processed of $($allODBSites.Count)...&quot; -ForegroundColor DarkGray
+    }
+
+    $owner = $site.Owner
+    if ([string]::IsNullOrWhiteSpace($owner)) { continue }
+
+    # Get user license details from Graph.
+    # NOTE: copy $site.UserId into a plain local variable before string interpolation.
+    # This avoids the $(...) subexpression-in-string pattern, which can be fragile if
+    # the file is copy-pasted through editors that convert straight quotes to curly quotes.
+    # In FastScan, UserId is set to the UPN — the licenseDetails endpoint accepts either.
+    $userIdForUri = $site.UserId
+    try {
+        $licenseUri      = &quot;$GraphBaseUrl/users/$userIdForUri/licenseDetails&quot;
+        $licenseResponse = Invoke-GraphRequestWithRetry -Uri $licenseUri
+        $licenseDetails  = $licenseResponse.value
+    }
+    catch {
+        $errors.Add(&quot;Could not retrieve licenses for $owner : $($_.Exception.Message)&quot;)
+        continue
+    }
+
+    if (-not $licenseDetails -or $licenseDetails.Count -eq 0) {
+        # Unlicensed user with OneDrive — they have no entitlement, flag as over quota
+        $isOver = $site.StorageUsedMB -gt 0
+        $allUserDetails.Add([PSCustomObject]@{
+            Owner           = $owner
+            DisplayName     = $site.DisplayName
+            SiteUrl         = $site.SiteUrl
+            HasOneDrive     = $true
+            LicenseTier     = &quot;Unlicensed&quot;
+            ExpectedQuota   = &quot;0 MB&quot;
+            CurrentQuota    = Format-StorageSize -MB $site.StorageAllocatedMB
+            StorageUsed     = Format-StorageSize -MB $site.StorageUsedMB
+            StorageUsedMB   = $site.StorageUsedMB
+            ExpectedQuotaMB = 0
+            CurrentQuotaMB  = $site.StorageAllocatedMB
+            OverBy          = if ($isOver) { Format-StorageSize -MB $site.StorageUsedMB } else { &quot;&quot; }
+            OverByMB        = if ($isOver) { $site.StorageUsedMB } else { 0 }
+            OverQuota       = $isOver
+            AssignedSKUs    = &quot;&quot;
+        })
+        if ($isOver) {
+            $overQuotaUsers.Add([PSCustomObject]@{
+                Owner = $owner; DisplayName = $site.DisplayName; SiteUrl = $site.SiteUrl
+                LicenseTier = &quot;Unlicensed&quot;; ExpectedQuota = &quot;0 MB&quot;; ExpectedQuotaMB = 0
+                CurrentQuota = Format-StorageSize -MB $site.StorageAllocatedMB
+                CurrentQuotaMB = $site.StorageAllocatedMB
+                StorageUsed = Format-StorageSize -MB $site.StorageUsedMB
+                StorageUsedMB = $site.StorageUsedMB
+                OverBy = Format-StorageSize -MB $site.StorageUsedMB
+                OverByMB = $site.StorageUsedMB; AssignedSKUs = &quot;&quot;
+            })
+        }
+        continue
+    }
+
+    $quotaInfo       = Get-ExpectedQuotaTier -LicenseDetails $licenseDetails
+    $expectedQuotaMB = $quotaInfo.LimitMB
+    $isOver          = $site.StorageUsedMB -gt $expectedQuotaMB
+    $overByMB        = if ($isOver) { $site.StorageUsedMB - $expectedQuotaMB } else { 0 }
+    $skuList         = ($licenseDetails | ForEach-Object { $_.skuPartNumber }) -join &quot;, &quot;
+
+    $allUserDetails.Add([PSCustomObject]@{
+        Owner           = $owner
+        DisplayName     = $site.DisplayName
+        SiteUrl         = $site.SiteUrl
+        HasOneDrive     = $true
+        LicenseTier     = $quotaInfo.Description
+        ExpectedQuota   = Format-StorageSize -MB $expectedQuotaMB
+        CurrentQuota    = Format-StorageSize -MB $site.StorageAllocatedMB
+        StorageUsed     = Format-StorageSize -MB $site.StorageUsedMB
+        StorageUsedMB   = $site.StorageUsedMB
+        ExpectedQuotaMB = $expectedQuotaMB
+        CurrentQuotaMB  = $site.StorageAllocatedMB
+        OverBy          = if ($isOver) { Format-StorageSize -MB $overByMB } else { &quot;&quot; }
+        OverByMB        = $overByMB
+        OverQuota       = $isOver
+        AssignedSKUs    = $skuList
+    })
+
+    if ($isOver) {
+        $overQuotaUsers.Add([PSCustomObject]@{
+            Owner           = $owner
+            DisplayName     = $site.DisplayName
+            SiteUrl         = $site.SiteUrl
+            LicenseTier     = $quotaInfo.Description
+            ExpectedQuota   = Format-StorageSize -MB $expectedQuotaMB
+            ExpectedQuotaMB = $expectedQuotaMB
+            CurrentQuota    = Format-StorageSize -MB $site.StorageAllocatedMB
+            CurrentQuotaMB  = $site.StorageAllocatedMB
+            StorageUsed     = Format-StorageSize -MB $site.StorageUsedMB
+            StorageUsedMB   = $site.StorageUsedMB
+            OverBy          = Format-StorageSize -MB $overByMB
+            OverByMB        = $overByMB
+            AssignedSKUs    = $skuList
+        })
+    }
+}
+#endregion
+
+#region --- All Users Summary ---
+Write-Host &quot;`n======================================================&quot; -ForegroundColor Cyan
+Write-Host &quot;  ALL USERS WITH ONEDRIVE&quot; -ForegroundColor Cyan
+Write-Host &quot;======================================================`n&quot; -ForegroundColor Cyan
+
+if ($allUserDetails.Count -gt 0) {
+    $allUserDetails | Sort-Object StorageUsedMB -Descending |
+        Format-Table @(
+            @{ Label = &quot;User&quot;; Expression = { $_.Owner }; Width = 40 }
+            @{ Label = &quot;Display Name&quot;; Expression = { $_.DisplayName }; Width = 20 }
+            @{ Label = &quot;License Tier&quot;; Expression = { $_.LicenseTier }; Width = 20 }
+            @{ Label = &quot;Expected Quota&quot;; Expression = { $_.ExpectedQuota }; Width = 14 }
+            @{ Label = &quot;Current Quota&quot;; Expression = { $_.CurrentQuota }; Width = 14 }
+            @{ Label = &quot;Storage Used&quot;; Expression = { $_.StorageUsed }; Width = 14 }
+            @{ Label = &quot;Over?&quot;; Expression = { if ($_.OverQuota) { &quot;YES&quot; } else { &quot;No&quot; } }; Width = 5 }
+        ) -AutoSize -Wrap
+}
+else {
+    Write-Host &quot;No users with provisioned OneDrive found.&quot; -ForegroundColor Yellow
+}
+#endregion
+
+#region --- Output ---
+Write-Host &quot;`n======================================================&quot; -ForegroundColor Cyan
+Write-Host &quot;  RESULTS  ($scanMode)&quot; -ForegroundColor Cyan
+Write-Host &quot;======================================================&quot; -ForegroundColor Cyan
+Write-Host &quot;Total OneDrive sites evaluated:  $($allODBSites.Count)&quot;
+Write-Host &quot;Users over expected quota:       $($overQuotaUsers.Count)&quot; -ForegroundColor $(if ($overQuotaUsers.Count -gt 0) { &quot;Red&quot; } else { &quot;Green&quot; })
+Write-Host &quot;License lookup errors:           $($errors.Count)&quot; -ForegroundColor $(if ($errors.Count -gt 0) { &quot;Yellow&quot; } else { &quot;Green&quot; })
+if ($scanMode -eq 'FastScan') {
+    Write-Host &quot;Note: FastScan returns provisioned OneDrives only. Storage figures are from the&quot;
+    Write-Host &quot;      daily M365 usage report (up to ~48h latency). Use -LegacyScan for live data.&quot; -ForegroundColor DarkGray
+}
+Write-Host &quot;======================================================`n&quot; -ForegroundColor Cyan
+
+if ($overQuotaUsers.Count -gt 0) {
+    $tierSummary = $overQuotaUsers | Group-Object LicenseTier | Sort-Object Count -Descending
+    Write-Host &quot;Breakdown by license tier (over-quota users only):&quot; -ForegroundColor Yellow
+    foreach ($group in $tierSummary) {
+        $totalOverMB = ($group.Group | Measure-Object -Property OverByMB -Sum).Sum
+        Write-Host (&quot;  {0,-25} {1,5} users   ({2} total over)&quot; -f $group.Name, $group.Count, (Format-StorageSize -MB $totalOverMB))
+    }
+    Write-Host &quot;&quot;
+
+    $overQuotaUsers | Sort-Object OverByMB -Descending |
+        Format-Table @(
+            @{ Label = &quot;Owner&quot;; Expression = { $_.Owner }; Width = 40 }
+            @{ Label = &quot;License Tier&quot;; Expression = { $_.LicenseTier }; Width = 20 }
+            @{ Label = &quot;Expected Quota&quot;; Expression = { $_.ExpectedQuota }; Width = 15 }
+            @{ Label = &quot;Current Quota&quot;; Expression = { $_.CurrentQuota }; Width = 15 }
+            @{ Label = &quot;Storage Used&quot;; Expression = { $_.StorageUsed }; Width = 15 }
+            @{ Label = &quot;Over By&quot;; Expression = { $_.OverBy }; Width = 12 }
+        ) -AutoSize -Wrap
+}
+else {
+    Write-Host &quot;No users found exceeding their license-based expected quota.&quot; -ForegroundColor Green
+}
+
+if ($ResolvedExportPath) {
+    if ($allUserDetails.Count -eq 0) {
+        Write-Host &quot;No data to export (no users with provisioned OneDrive).&quot; -ForegroundColor Yellow
+    }
+    else {
+        try {
+            $allUserDetails |
+                Sort-Object @{ Expression = 'OverQuota'; Descending = $true },
+                            @{ Expression = 'StorageUsedMB'; Descending = $true } |
+                Select-Object Owner,
+                              DisplayName,
+                              SiteUrl,
+                              LicenseTier,
+                              ExpectedQuota,
+                              CurrentQuota,
+                              StorageUsed,
+                              OverBy,
+                              OverQuota,
+                              StorageUsedMB,
+                              ExpectedQuotaMB,
+                              CurrentQuotaMB,
+                              OverByMB,
+                              AssignedSKUs |
+                Export-Csv -Path $ResolvedExportPath -NoTypeInformation -Encoding UTF8 -ErrorAction Stop
+
+            Write-Host (&quot;Full report exported to: {0}&quot; -f $ResolvedExportPath) -ForegroundColor Green
+            Write-Host (&quot;  Sites in report: {0}   |   Over quota: {1}   |   Scan mode: {2}&quot; -f `
+                       $allUserDetails.Count, $overQuotaUsers.Count, $scanMode) -ForegroundColor Green
+            Write-Host &quot;  Tip: open the CSV in Excel and filter the OverQuota column to TRUE to see only over-quota sites.&quot; -ForegroundColor DarkGray
+        }
+        catch {
+            Write-Host &quot;&quot;
+            Write-Host &quot;CSV export failed at write time: $($_.Exception.Message)&quot; -ForegroundColor Red
+            Write-Host &quot;Target: $ResolvedExportPath&quot; -ForegroundColor Yellow
+            Write-Host &quot;(Console results above are still valid.)&quot; -ForegroundColor DarkGray
+        }
+    }
+}
+
+if ($errors.Count -gt 0) {
+    Write-Host &quot;`nErrors encountered ($($errors.Count) total):&quot; -ForegroundColor Yellow
+    $errors | Select-Object -First 10 | ForEach-Object { Write-Host &quot;  $_&quot; -ForegroundColor DarkYellow }
+    if ($errors.Count -gt 10) {
+        Write-Host &quot;  ... and $($errors.Count - 10) more&quot; -ForegroundColor DarkYellow
+    }
+}
+#endregion
+
+Write-Host &quot;`nDone.&quot; -ForegroundColor Cyan
+</code></pre>
+</section>
+</div>
+<div class="highlight-tool">
+<p>Check out the <strong>Microsoft Graph PowerShell SDK</strong> to learn more at: <a href="https://learn.microsoft.com/powershell/microsoftgraph/get-started">https://learn.microsoft.com/powershell/microsoftgraph/get-started</a></p>
+</div>
+<h2 id="parameters">Parameters</h2>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>-ExportPath</code></td>
+<td>string</td>
+<td><em>(none)</em></td>
+<td>Full path for CSV export. <strong>Use a full path</strong> (e.g. <code>C:\Reports\report.csv</code>) — relative paths in elevated shells resolve to <code>C:\WINDOWS\system32</code>. Script validates writability before scanning.</td>
+</tr>
+<tr>
+<td><code>-TenantId</code></td>
+<td>string</td>
+<td><em>(home tenant)</em></td>
+<td>Tenant ID (GUID) or verified domain. Required for multi-tenant admins.</td>
+</tr>
+<tr>
+<td><code>-Environment</code></td>
+<td>string</td>
+<td><code>Global</code></td>
+<td><code>Global</code> (commercial / GCC Moderate), <code>USGov</code> (GCC High), <code>USGovDoD</code>, or <code>China</code>.</td>
+</tr>
+<tr>
+<td><code>-UserPrincipalName</code></td>
+<td>string[]</td>
+<td><em>(none)</em></td>
+<td>One or more UPNs to evaluate. Bypasses FastScan/LegacyScan.</td>
+</tr>
+<tr>
+<td><code>-LegacyScan</code></td>
+<td>switch</td>
+<td>off</td>
+<td>Use per-user enumeration instead of the Reports API. Slower but real-time.</td>
+</tr>
+<tr>
+<td><code>-InstallPrerequisites</code></td>
+<td>switch</td>
+<td>off</td>
+<td>Auto-install missing Graph modules to current-user scope.</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Parameter precedence:</strong> <code>-UserPrincipalName</code> wins over <code>-LegacyScan</code>. All parameters compose freely with <code>-TenantId</code> and <code>-Environment</code>.</p>
+<h2 id="source-credit">Source Credit</h2>
+<p>Sample first appeared on <a href="https://pnp.github.io/script-samples/">PnP Script Samples</a>.</p>
+<h2 id="contributors">Contributors</h2>
+<table>
+<thead>
+<tr>
+<th>Author(s)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="https://github.com/salarson">Sam Larson</a></td>
+</tr>
+<tr>
+<td><a href="https://github.com/JillTh">Jill McClenahan</a></td>
+</tr>
+</tbody>
+</table>
+<h2 id="disclaimer">Disclaimer</h2>
+<p><strong>THESE SAMPLES ARE PROVIDED <em>AS IS</em> WITHOUT WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, INCLUDING ANY IMPLIED WARRANTIES OF FITNESS FOR A PARTICULAR PURPOSE, MERCHANTABILITY, OR NON-INFRINGEMENT.</strong></p>
+<img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/onedrive-overquota-report" aria-hidden="true">
+
+</article>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+      <span>Script Samples<br>Generated by <strong><a href='https://dotnet.github.io/docfx' alt='Doc FX Website'>DocFX</a></strong> with <strong><a href='https://ovasquez.github.io/docfx-material' alt='DocFx Material Theme'>Material UI</a></strong></span>
+      
+            <!-- <img src="https://telemetry.sharepointpnp.com/@pnp.github.io/index/" alt="spacer"> -->
+          </div>
+        </div>
+      </footer>    </div>
+
+    <script type="text/javascript" src="../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+
+    <script type="text/javascript" src="../styles/clipboard.min.js"></script>
+    <script type="text/javascript" src="../styles/isotope.pkgd.min.js"></script>
+    <script type="text/javascript" src="../styles/loadsamples.js"></script>
+    <script type="text/javascript" src="../styles/filtersamples.js"></script>
+
+  </body>
+</html>
