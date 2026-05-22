@@ -1,26 +1,20 @@
-# Get-ODBOverQuotaUsers
+# Identify OneDrive Users Over License-Based Storage Quota
 
-A PowerShell script for identifying OneDrive for Business users who are over their **expected** storage quota based on their assigned license tier, with special handling for EDU A1 enforcement.
+## Summary
 
-Uses **Microsoft Graph exclusively** — no SharePoint Online Management Shell, no PnP, no third-party modules. Works on Windows PowerShell 5.1+ and PowerShell 7+, on commercial, GCC Moderate, GCC High, DoD, and 21Vianet (China) tenants.
+Identifies OneDrive for Business users who are over their **expected** storage quota based on their assigned license tier, with special handling for EDU A1 enforcement (100 GB entitlement). The script uses **Microsoft Graph exclusively** — no SharePoint Online Management Shell, no PnP, no third-party modules.
 
----
+OneDrive sites are provisioned with a default storage quota based on tenant settings, but the *expected* quota varies by license tier. EDU A1 users, for example, are entitled to 100 GB — but if they were provisioned before A1 enforcement, they may have a 1 TB or 5 TB allocation and be storing far more than 100 GB today. This script answers: **Which OneDrive sites are storing more data than the owner's license tier entitles them to?**
 
-## What this script does
+The script is **strictly read-only**. It never modifies a quota, license, or file. It only reports.
 
-OneDrive sites are provisioned with a default storage quota based on tenant settings, but the *expected* quota varies by license tier. EDU A1 users, for example, are entitled to 100 GB — but if they were provisioned before A1 enforcement, they may have a 1 TB or 5 TB allocation and be storing far more than 100 GB today.
+Works on Windows PowerShell 5.1+ and PowerShell 7+, on commercial, GCC Moderate, GCC High, DoD, and 21Vianet (China) tenants.
 
-This script answers a single question:
+![Example Screenshot](assets/sample-output.png)
 
-> **Which OneDrive sites are storing more data than the owner's license tier entitles them to?**
+## Implementation
 
-It produces a console summary plus an optional CSV containing **every** evaluated site with an `OverQuota` True/False column for filtering in Excel.
-
-**Important:** the script is **strictly read-only**. It never modifies a quota, license, or file. It only reports.
-
----
-
-## Quota tiers it evaluates
+### Quota tiers it evaluates
 
 The expected quota is derived from the **highest-tier OneDrive service plan** in the user's licenses (SKUs stack — the script picks the most generous):
 
@@ -35,9 +29,7 @@ The expected quota is derived from the **highest-tier OneDrive service plan** in
 
 Unlicensed users with a OneDrive (e.g. retained offboarded accounts) are flagged as over quota whenever `StorageUsed > 0`.
 
----
-
-## Scan modes
+### Scan modes
 
 | Mode | How invoked | Speed | Data freshness | Notes |
 |---|---|---|---|---|
@@ -45,91 +37,17 @@ Unlicensed users with a OneDrive (e.g. retained offboarded accounts) are flagged
 | **LegacyScan** | `-LegacyScan` | ~hours on 100k-user tenants | Real-time | Per-user enumeration. Works regardless of anonymization. |
 | **TargetedUser** | `-UserPrincipalName` | seconds | Real-time | Looks up only the specified UPN(s). Bypasses both modes above. |
 
----
+### Prerequisites
 
-## Quick start
+| Requirement | Notes |
+|---|---|
+| PowerShell 5.1+ or PowerShell 7+ | Script enforces `#Requires -Version 5.1`. |
+| `Microsoft.Graph.Authentication` ≥ 2.0.0 | Auto-installable with `-InstallPrerequisites`. |
+| `Microsoft.Graph.Users` ≥ 2.0.0 | Same. |
+| Graph delegated scopes | `User.Read.All`, `Directory.Read.All`, `Reports.Read.All`, `Sites.Read.All`. May need Global Admin consent on first run. |
+| M365 role | **Global Reader** is sufficient and recommended (least privilege). |
 
-### First run on a new machine
-
-```powershell
-.\Get-ODBOverQuotaUsers.ps1 -InstallPrerequisites
-```
-Bootstraps NuGet, trusts PSGallery, installs `Microsoft.Graph.Authentication` and `Microsoft.Graph.Users` to current-user scope, then runs the scan.
-
-### Tenant-wide scan with CSV export (recommended baseline)
-
-```powershell
-.\Get-ODBOverQuotaUsers.ps1 -ExportPath "C:\Reports\OneDriveQuota.csv"
-```
-Uses FastScan by default. Produces a console summary and a CSV with every site and an `OverQuota` column you can filter in Excel.
-
-### Spot-check a specific user
-
-```powershell
-.\Get-ODBOverQuotaUsers.ps1 -UserPrincipalName alice@contoso.com
-```
-Skips tenant enumeration. Useful after a single user's complaint or to verify a known account.
-
-### Spot-check several users with CSV export
-
-```powershell
-.\Get-ODBOverQuotaUsers.ps1 `
-    -UserPrincipalName alice@contoso.com,bob@contoso.com,carol@contoso.com `
-    -ExportPath "C:\Reports\SpotCheck.csv"
-```
-Targeted mode accepts a comma-separated list. Each UPN is looked up directly — no full-tenant scan.
-
-### Force real-time scan instead of the daily snapshot
-
-```powershell
-.\Get-ODBOverQuotaUsers.ps1 -LegacyScan -ExportPath "C:\Reports\Live.csv"
-```
-Use this when the tenant has anonymized reports turned on, or when you need point-in-time storage numbers (e.g. verifying a quota cleanup within the last few hours).
-
-### Sovereign cloud (GCC High, DoD, 21Vianet)
-
-```powershell
-.\Get-ODBOverQuotaUsers.ps1 -Environment USGov   -ExportPath "C:\Reports\GCCH.csv"
-.\Get-ODBOverQuotaUsers.ps1 -Environment USGovDoD -ExportPath "C:\Reports\DoD.csv"
-.\Get-ODBOverQuotaUsers.ps1 -Environment China    -ExportPath "C:\Reports\Vianet.csv"
-```
-GCC Moderate uses the commercial endpoint (`-Environment Global`, the default).
-
-### Multi-tenant admin (MSP, CSP, delegated)
-
-```powershell
-.\Get-ODBOverQuotaUsers.ps1 -TenantId "contoso.onmicrosoft.com" -ExportPath "C:\Reports\Contoso.csv"
-```
-`-TenantId` accepts either a GUID or a verified domain. Without it, the script connects to your home tenant.
-
-### Combine parameters freely
-
-```powershell
-# Customer tenant in GCC High, exported to a specific file
-.\Get-ODBOverQuotaUsers.ps1 `
-    -TenantId "agency.onmicrosoft.us" `
-    -Environment USGov `
-    -ExportPath "C:\Reports\Agency-GCCH.csv"
-
-# Spot-check a user in a specific customer tenant
-.\Get-ODBOverQuotaUsers.ps1 `
-    -TenantId "contoso.onmicrosoft.com" `
-    -UserPrincipalName alice@contoso.com
-
-# Real-time scan of a customer tenant
-.\Get-ODBOverQuotaUsers.ps1 `
-    -TenantId "contoso.onmicrosoft.com" `
-    -LegacyScan `
-    -ExportPath "C:\Reports\Contoso-Live.csv"
-
-# First run on a fresh machine — install prereqs and scan in one shot
-.\Get-ODBOverQuotaUsers.ps1 `
-    -InstallPrerequisites `
-    -ExportPath "C:\Reports\FirstRun.csv"
-```
----
-
-## CSV output
+### CSV output
 
 When `-ExportPath` is set, the CSV contains **every** evaluated site, sorted so over-quota rows appear first.
 
@@ -143,17 +61,67 @@ When `-ExportPath` is set, the CSV contains **every** evaluated site, sorted so 
 | `StorageUsedMB`, `ExpectedQuotaMB`, `CurrentQuotaMB`, `OverByMB` | Numeric versions for pivots |
 | `AssignedSKUs` | Comma-separated SKU part numbers |
 
----
+# [Microsoft Graph PowerShell](#tab/graphps)
 
-## Prerequisites
+```powershell
+# First run on a new machine — installs Graph modules and runs the scan
+.\Get-ODBOverQuotaUsers.ps1 -InstallPrerequisites
 
-| Requirement | Notes |
-|---|---|
-| PowerShell 5.1+ or PowerShell 7+ | Script enforces `#Requires -Version 5.1`. |
-| `Microsoft.Graph.Authentication` ≥ 2.0.0 | Auto-installable with `-InstallPrerequisites`. |
-| `Microsoft.Graph.Users` ≥ 2.0.0 | Same. |
-| Graph delegated scopes | `User.Read.All`, `Directory.Read.All`, `Reports.Read.All`, `Sites.Read.All`. May need Global Admin consent on first run. |
-| M365 role | **Global Reader** is sufficient and recommended (least privilege). Reports Reader works for FastScan only. |
+# Tenant-wide scan with CSV export (recommended baseline)
+.\Get-ODBOverQuotaUsers.ps1 -ExportPath "C:\Reports\OneDriveQuota.csv"
 
+# Spot-check a specific user
+.\Get-ODBOverQuotaUsers.ps1 -UserPrincipalName alice@contoso.com
 
+# Spot-check several users with CSV export
+.\Get-ODBOverQuotaUsers.ps1 `
+    -UserPrincipalName alice@contoso.com,bob@contoso.com,carol@contoso.com `
+    -ExportPath "C:\Reports\SpotCheck.csv"
 
+# Force real-time scan instead of the daily snapshot (slower but live data)
+.\Get-ODBOverQuotaUsers.ps1 -LegacyScan -ExportPath "C:\Reports\Live.csv"
+
+# Sovereign cloud (GCC High shown; use USGovDoD or China as needed)
+.\Get-ODBOverQuotaUsers.ps1 -Environment USGov -ExportPath "C:\Reports\GCCH.csv"
+
+# Multi-tenant admin (MSP, CSP, delegated) targeting a customer tenant
+.\Get-ODBOverQuotaUsers.ps1 -TenantId "contoso.onmicrosoft.com" -ExportPath "C:\Reports\Contoso.csv"
+
+# Combine parameters freely — customer tenant in GCC High
+.\Get-ODBOverQuotaUsers.ps1 `
+    -TenantId "agency.onmicrosoft.us" `
+    -Environment USGov `
+    -ExportPath "C:\Reports\Agency-GCCH.csv"
+```
+
+The full script is in this folder: [`Get-ODBOverQuotaUsers.ps1`](./Get-ODBOverQuotaUsers.ps1).
+
+***
+
+[!INCLUDE [More about Microsoft Graph PowerShell](../../docfx/includes/MORE-GRAPHPS.md)]
+
+## Parameters
+
+| Parameter | Type | Default | Description |
+|---|---|---|---|
+| `-ExportPath` | string | *(none)* | Full path for CSV export. **Use a full path** (e.g. `C:\Reports\report.csv`) — relative paths in elevated shells resolve to `C:\WINDOWS\system32`. Script validates writability before scanning. |
+| `-TenantId` | string | *(home tenant)* | Tenant ID (GUID) or verified domain. Required for multi-tenant admins. |
+| `-Environment` | string | `Global` | `Global` (commercial / GCC Moderate), `USGov` (GCC High), `USGovDoD`, or `China`. |
+| `-UserPrincipalName` | string[] | *(none)* | One or more UPNs to evaluate. Bypasses FastScan/LegacyScan. |
+| `-LegacyScan` | switch | off | Use per-user enumeration instead of the Reports API. Slower but real-time. |
+| `-InstallPrerequisites` | switch | off | Auto-install missing Graph modules to current-user scope. |
+
+**Parameter precedence:** `-UserPrincipalName` wins over `-LegacyScan`. All parameters compose freely with `-TenantId` and `-Environment`.
+
+## Source Credit
+
+Sample first appeared on [PnP Script Samples](https://pnp.github.io/script-samples/).
+
+## Contributors
+
+| Author(s) |
+|-----------|
+| [Sam Larson](https://github.com/salarson) |
+
+[!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
+<img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/spo-onedrive-overquota-license-report" aria-hidden="true" />
