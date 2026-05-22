@@ -10,7 +10,7 @@ The script is **strictly read-only**. It never modifies a quota, license, or fil
 
 Works on Windows PowerShell 5.1+ and PowerShell 7+, on commercial, GCC Moderate, GCC High, DoD, and 21Vianet (China) tenants.
 
-![Example Screenshot](assets/sample-output.png)
+![Example Screenshot](assets/example.png)
 
 ## Implementation
 
@@ -1121,12 +1121,10 @@ Sample first appeared on [PnP Script Samples](https://pnp.github.io/script-sampl
 
 ## Contributors
 
-## Contributors
-
 | Author(s) |
 |-----------|
 | [Sam Larson](https://github.com/salarson) |
 | [Jill McClenahan](https://github.com/JillTh) |
 
 [!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
-<img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/spo-onedrive-overquota-license-report" aria-hidden="true" />
+<img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/onedrive-overquota-report" aria-hidden="true" />
