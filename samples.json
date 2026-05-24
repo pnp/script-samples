@@ -1664,6 +1664,61 @@
     ]
   },
   {
+    "name": "dataverse-check-security-role-assignments",
+    "title": "Check Dataverse Security Role Direct vs Group Assignments",
+    "shortDescription": "Identify which users have security roles assigned directly vs via Dataverse Group Teams - useful for compliance reporting",
+    "url": "dataverse-check-security-role-assignments/README.html",
+    "creationDateTime": "2026-05-19",
+    "updateDateTime": "2026-05-19",
+    "products": [
+      "SharePoint",
+      "Office",
+      "Graph",
+      "PowerApps",
+      "Teams",
+      "Power Automate",
+      "Microsoft Todo",
+      "Azure",
+      "Microsoft 365 Copilot"
+    ],
+    "metadata": [
+      {
+        "key": "GRAPH-POWERSHELL",
+        "value": "1.0.0"
+      }
+    ],
+    "categories": [
+      "Modernize",
+      "Data",
+      "Deploy",
+      "Provision",
+      "Configure",
+      "Report",
+      "Security",
+      "AI",
+      "Microsoft 365 Copilot"
+    ],
+    "tags": [
+      "<Cmdlets-Used>"
+    ],
+    "thumbnails": [
+      {
+        "type": "image",
+        "order": 100,
+        "url": "dataverse-check-security-role-assignments/assets/preview.png",
+        "alt": "Preview of the sample Check Dataverse Security Role Direct vs Group Assignments"
+      }
+    ],
+    "authors": [
+      {
+        "gitHubAccount": "MichaelRoth42",
+        "company": "",
+        "pictureUrl": "https://github.com/MichaelRoth42.png",
+        "name": "Michael Roth"
+      }
+    ]
+  },
+  {
     "name": "entra-remove-user-mfa-methods",
     "title": "Remove MFA Authentication Methods for Users",
     "shortDescription": "Removes MFA authentication methods (phone, Microsoft Authenticator, software OATH token) for all or specific users in a Microsoft 365 tenant using Microsoft Graph PowerShell.",
