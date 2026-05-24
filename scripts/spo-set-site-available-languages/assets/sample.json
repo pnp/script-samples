@@ -1,0 +1,56 @@
+[
+  {
+    "name": "spo-set-site-available-languages",
+    "source": "pnp",
+    "title": "Set available languages for a SharePoint site",
+    "shortDescription": "Updates a SharePoint site's available languages by keeping only the specified languages enabled.",
+    "url": "https://pnp.github.io/script-samples/spo-set-site-available-languages/README.html",
+    "longDescription": [
+      "Updates the multilingual settings of a SharePoint site by keeping only the specified alternate languages enabled while preserving the site's default language."
+    ],
+    "creationDateTime": "2026-05-21",
+    "updateDateTime": "2026-05-21",
+    "products": [
+      "SharePoint"
+    ],
+    "metadata": [
+      {
+        "key": "PNP-POWERSHELL",
+        "value": "3.2.0"
+      }
+    ],
+    "categories": [
+      "Configure"
+    ],
+    "tags": [
+      "Connect-PnPOnline",
+      "Get-PnPWeb",
+      "Invoke-PnPQuery",
+      "sharepoint-online",
+      "multilingual"
+    ],
+    "thumbnails": [
+      {
+        "type": "image",
+        "order": 100,
+        "url": "https://raw.githubusercontent.com/pnp/script-samples/main/scripts/spo-set-site-available-languages/assets/preview.png",
+        "alt": "Preview of the sample Set available languages for a SharePoint site"
+      }
+    ],
+    "authors": [
+      {
+        "gitHubAccount": "kasperbolarsen",
+        "company": "",
+        "pictureUrl": "https://github.com/kasperbolarsen.png",
+        "name": "Kasper Larsen"
+      }
+    ],
+    "references": [
+      {
+        "name": "Want to learn more about PnP PowerShell and the cmdlets",
+        "description": "Check out the PnP PowerShell site to get started and for the reference to the cmdlets.",
+        "url": "https://aka.ms/pnp/powershell"
+      }
+    ]
+  }
+]
