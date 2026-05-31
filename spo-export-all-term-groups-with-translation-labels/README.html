@@ -1,0 +1,644 @@
+<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html lang="en">
+
+  <head>
+    <meta charset="utf-8">
+    <title>Export all term groups with translation labels | PnP Samples </title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="title" content="Export all term groups with translation labels | PnP Samples ">
+    <meta name="generator" content="docfx ">
+  <meta name="description" content="A sample gallery of scripts to manage all things Microsoft 365.">
+
+    <!-- Social Media -->
+    <meta property="og:locale" content="en_GB">
+    <meta property="og:title" content="Export all term groups with translation labels | PnP Samples ">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://pnp.github.io/script-samples">
+    <meta property="og:image" content="https://pnp.github.io/script-samples/assets/social-media-screenshot.png">
+    <meta property="og:image:alt" content="Screenshot example of the PnP Script Samples Site">
+    <meta property="og:site_name" content="PnP Script Samples">
+    <meta name="msvalidate.01" content="04EFEDA66EC42C08A1247C979E2F9ADD">
+  <meta property="og:description" content="A sample gallery of scripts to manage all things Microsoft 365.">
+
+    <link rel="shortcut icon" href="https://c.s-microsoft.com/favicon.ico?v2">
+    <link rel="stylesheet" href="../styles/docfx.vendor.min.css">
+    <link rel="stylesheet" href="../styles/docfx.css">
+    <link rel="stylesheet" href="../styles/main.css">
+    <link rel="stylesheet" href="../styles/extra.css">
+    <link rel="stylesheet" href="../styles/filter.css">
+    <link rel="stylesheet" href="../styles/site.css">
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet"> 
+    <meta property="docfx:navrel" content="../toc.html">
+    <meta property="docfx:tocrel" content="../toc.html">
+  
+  
+  <meta property="docfx:newtab" content="true">
+    <script type="text/javascript">
+      (function(c,l,a,r,i,t,y){
+          c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+          t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+          y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+      })(window, document, "clarity", "script", "8j6pedl344");
+  </script>
+  </head>  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+             <div class="github-mark">
+              <a href="https://github.com/pnp/script-samples" title="Go to repository">
+               <div class="github-wrapper">
+                  <div class="github-icon">
+                    <img src="https://pnp.github.io/script-samples/assets/icons/github-light-64px.png" alt="GitHub Icon Image">
+                  </div>
+                  <div class="github-repository">
+                    <span>GitHub</span>
+                    <ul class="github-facts">
+                      <li>
+                        <i class="fa fa-code-fork" aria-hidden="true"></i>
+                        <span class="github-forks"></span>
+                      </li>
+                      <li>
+                        <i class="fa fa-star-o" aria-hidden="true"></i>
+                        <span class="github-stars"></span>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </a>
+            </div>
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../assets/logo.svg" alt="">
+              </a>            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <label class="glyphicon glyphicon-search" for="search-query"></label>
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>      </header>
+      <div role="main" class="container body-content hide-when-search">
+        <div class="article row grid">
+          <div class="col-md-12">
+            <article class="content wrap" id="_content" data-uid="">
+                  <div class="contribution-panel mobile-hide pull-right">
+                      <a href="https://github.com/pnp/script-samples/blob/main/scripts/spo-export-all-term-groups-with-translation-labels/README.md/#L1" title="Edit this page" class="improve-doc-lg"><i class="glyphicon glyphicon-pencil"></i></a>
+                  </div>
+  <h1 id="export-all-term-groups-with-translation-labels">Export all term groups with translation labels</h1>
+
+<h2 id="summary">Summary</h2>
+<p>This script exports SharePoint Term Store data across all available term groups (or a selected subset) including term sets, terms, and multilingual labels.</p>
+<p><img src="assets/example.png" alt="Example Screenshot"></p>
+<p>The output can be generated as CSV, JSON, or both formats. The script handles token expiration by reconnecting and retrying, supports optional filtering by term group names, and writes one output file per term group.</p>
+<p>Use this sample when you need a complete export of taxonomy structures and translated labels for governance, migration, or reporting.</p>
+<div class="tabGroup" id="tabgroup_1">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_1_pnpps" role="tab" aria-controls="tabpanel_1_pnpps" data-tab="pnpps" tabindex="0" aria-selected="true">PnP PowerShell</a>
+</li>
+</ul>
+<section id="tabpanel_1_pnpps" role="tabpanel" data-tab="pnpps">
+
+<pre><code class="lang-powershell">
+[CmdletBinding()]
+param(
+	[Parameter(Mandatory = $true)]
+	[string]$TenantAdminUrl,
+
+	[Parameter(Mandatory = $true)]
+	[string]$ClientId,
+
+	[Parameter(Mandatory = $false)]
+	[string]$OutputPath,
+
+	[Parameter(Mandatory = $false)]
+	[ValidateSet(&quot;Csv&quot;, &quot;Json&quot;, &quot;Both&quot;)]
+	[string]$ExportFormat = &quot;Csv&quot;,
+
+	[Parameter(Mandatory = $false)]
+	[string[]]$TermGroups = @(),
+
+	[Parameter(Mandatory = $false)]
+	[switch]$IncludeSiteCollectionGroups
+)
+
+# Requires PnP.PowerShell v3.2+
+$requiredVersion = [version]&quot;3.2.0&quot;
+$installedModule = Get-Module -ListAvailable -Name PnP.PowerShell |
+	Sort-Object Version -Descending |
+	Select-Object -First 1
+
+if ($null -eq $installedModule -or $installedModule.Version -lt $requiredVersion)
+{
+	throw &quot;PnP.PowerShell v3.2.0 or newer is required. Install-Module PnP.PowerShell -Scope CurrentUser&quot;
+}
+
+function Get-PropValue
+{
+	param(
+		[Parameter(Mandatory = $true)]$Object,
+		[Parameter(Mandatory = $true)][string[]]$Names,
+		$Default = $null
+	)
+
+	foreach ($name in $Names)
+	{
+		if ($Object.PSObject.Properties.Name -contains $name)
+		{
+			try
+			{
+				$value = $Object.$name
+			}
+			catch
+			{
+				continue
+			}
+
+			if ($null -ne $value)
+			{
+				try
+				{
+					if (-not [string]::IsNullOrWhiteSpace([string]$value))
+					{
+						return $value
+					}
+				}
+				catch
+				{
+					continue
+				}
+			}
+		}
+	}
+
+	return $Default
+}
+
+function Connect-TermStorePnP
+{
+	Write-Host &quot;Connecting to $TenantAdminUrl ...&quot; -ForegroundColor Cyan
+	return (Connect-PnPOnline -Url $TenantAdminUrl -Interactive -ClientId $ClientId -ReturnConnection)
+}
+
+function Test-IsExpiredPnPTokenError
+{
+	param(
+		[Parameter(Mandatory = $true)]$Exception
+	)
+
+	$message = [string]$Exception
+	return (
+		$message -match &quot;AADSTS70043&quot; -or
+		$message -match &quot;refresh token has expired&quot; -or
+		$message -match &quot;sign-in frequency&quot;
+	)
+}
+
+function Invoke-PnPWithReconnect
+{
+	param(
+		[Parameter(Mandatory = $true)][scriptblock]$Operation,
+		[Parameter(Mandatory = $true)][ref]$ConnectionRef,
+		[string]$ActionDescription = &quot;PnP operation&quot;
+	)
+
+	try
+	{
+		return (&amp; $Operation $ConnectionRef.Value)
+	}
+	catch
+	{
+		if (-not (Test-IsExpiredPnPTokenError -Exception $_.Exception))
+		{
+			throw
+		}
+
+		Write-Warning (&quot;{0} failed because the delegated token expired. Reconnecting and retrying once...&quot; -f $ActionDescription)
+		$ConnectionRef.Value = Connect-TermStorePnP
+		return (&amp; $Operation $ConnectionRef.Value)
+	}
+}
+
+function Get-AllTermsUnique
+{
+	param(
+		[Parameter(Mandatory = $true)]$TermGroup,
+		[Parameter(Mandatory = $true)]$TermSet,
+		[Parameter(Mandatory = $true)][ref]$ConnectionRef
+	)
+
+	$terms = @(Invoke-PnPWithReconnect -ConnectionRef $ConnectionRef -ActionDescription (&quot;Reading terms for term set '{0}'&quot; -f $TermSet.Name) -Operation {
+			param($activeConnection)
+			@(Get-PnPTerm -TermGroup $TermGroup.Id -TermSet $TermSet.Id -IncludeChildTerms -IncludeDeprecated -Connection $activeConnection -ErrorAction Stop)
+		})
+
+	# Defensive deduplication: recursive retrieval can occasionally return overlaps.
+	$byId = @{}
+	foreach ($term in $terms)
+	{
+		$byId[$term.Id.Guid.ToString()] = $term
+	}
+
+	return @($byId.Values)
+}
+
+function Resolve-OutputPath
+{
+	param(
+		[string]$Path,
+		[Parameter(Mandatory = $true)][ValidateSet(&quot;Csv&quot;, &quot;Json&quot;, &quot;Both&quot;)][string]$Format
+	)
+
+	$ticks = [DateTime]::UtcNow.Ticks
+
+	if ([string]::IsNullOrWhiteSpace($Path))
+	{
+		$baseName = &quot;TermStore_AllGroups_AllLabels_{0}&quot; -f $ticks
+
+		switch ($Format)
+		{
+			&quot;Csv&quot;
+			{
+				return (Join-Path -Path (Get-Location) -ChildPath (&quot;{0}.csv&quot; -f $baseName))
+			}
+			&quot;Json&quot;
+			{
+				return (Join-Path -Path (Get-Location) -ChildPath (&quot;{0}.json&quot; -f $baseName))
+			}
+			default
+			{
+				return (Join-Path -Path (Get-Location) -ChildPath $baseName)
+			}
+		}
+	}
+
+	$resolved = $Path
+
+	# Supported placeholders:
+	# - {ticks}
+	# - {0:...} (legacy date-format placeholder): replaced with ticks to keep filenames valid and unique.
+	$resolved = $resolved.Replace(&quot;{ticks}&quot;, [string]$ticks)
+	$resolved = [regex]::Replace($resolved, &quot;\{0:[^}]+\}&quot;, [string]$ticks)
+
+	# If no placeholder was used, append ticks before extension (or at end if no extension).
+	if ($resolved -notmatch [regex]::Escape([string]$ticks))
+	{
+		$ext = [System.IO.Path]::GetExtension($resolved)
+		if ([string]::IsNullOrWhiteSpace($ext))
+		{
+			$resolved = &quot;{0}_{1}&quot; -f $resolved, $ticks
+		}
+		else
+		{
+			$dir = [System.IO.Path]::GetDirectoryName($resolved)
+			$name = [System.IO.Path]::GetFileNameWithoutExtension($resolved)
+			$resolved = [System.IO.Path]::Combine($dir, (&quot;{0}_{1}{2}&quot; -f $name, $ticks, $ext))
+		}
+	}
+
+	return $resolved
+}
+
+function Convert-ToSafeString
+{
+	param(
+		$Value,
+		[string]$Default = &quot;&quot;
+	)
+
+	if ($null -eq $Value)
+	{
+		return $Default
+	}
+
+	try
+	{
+		return [string]$Value
+	}
+	catch
+	{
+		return $Default
+	}
+}
+
+function Convert-ToSafeFileName
+{
+	param(
+		[string]$Value,
+		[string]$Default = &quot;UnknownGroup&quot;
+	)
+
+	if ([string]::IsNullOrWhiteSpace($Value))
+	{
+		return $Default
+	}
+
+	$safeValue = $Value
+	foreach ($invalidChar in [System.IO.Path]::GetInvalidFileNameChars())
+	{
+		$safeValue = $safeValue.Replace([string]$invalidChar, &quot;_&quot;)
+	}
+
+	$safeValue = $safeValue.Trim().Trim('.')
+	if ([string]::IsNullOrWhiteSpace($safeValue))
+	{
+		return $Default
+	}
+
+	return $safeValue
+}
+
+function Resolve-GroupOutputPath
+{
+	param(
+		[Parameter(Mandatory = $true)][string]$ResolvedPath,
+		[Parameter(Mandatory = $true)][string]$GroupName,
+		[Parameter(Mandatory = $true)][ValidateSet(&quot;Csv&quot;, &quot;Json&quot;, &quot;Both&quot;)][string]$Format
+	)
+
+	$safeGroupName = Convert-ToSafeFileName -Value $GroupName
+	$extension = [System.IO.Path]::GetExtension($ResolvedPath)
+
+	if ($Format -eq &quot;Both&quot; -or [string]::IsNullOrWhiteSpace($extension))
+	{
+		return &quot;{0}_{1}&quot; -f $ResolvedPath, $safeGroupName
+	}
+
+	$directory = [System.IO.Path]::GetDirectoryName($ResolvedPath)
+	$nameWithoutExtension = [System.IO.Path]::GetFileNameWithoutExtension($ResolvedPath)
+	$fileName = &quot;{0}_{1}{2}&quot; -f $nameWithoutExtension, $safeGroupName, $extension
+
+	if ([string]::IsNullOrWhiteSpace($directory))
+	{
+		return $fileName
+	}
+
+	return [System.IO.Path]::Combine($directory, $fileName)
+}
+
+function Convert-LcidToLanguageTag
+{
+	param(
+		$Lcid
+	)
+
+	if ($null -eq $Lcid)
+	{
+		return &quot;&quot;
+	}
+
+	try
+	{
+		$lcidInt = [int]$Lcid
+		return [System.Globalization.CultureInfo]::GetCultureInfo($lcidInt).Name
+	}
+	catch
+	{
+		return &quot;&quot;
+	}
+}
+
+$conn = Connect-TermStorePnP
+
+try
+{
+	Write-Host &quot;Reading term groups...&quot; -ForegroundColor Cyan
+	$allGroups = @(Invoke-PnPWithReconnect -ConnectionRef ([ref]$conn) -ActionDescription &quot;Reading term groups&quot; -Operation {
+			param($activeConnection)
+			@(Get-PnPTermGroup -Connection $activeConnection -ErrorAction Stop)
+		})
+
+	if (-not $IncludeSiteCollectionGroups)
+	{
+		$allGroups = @($allGroups | Where-Object { -not $_.IsSiteCollectionGroup })
+	}
+
+	if ($TermGroups.Count -gt 0)
+	{
+		$selectedGroupNames = @(
+			$TermGroups |
+				ForEach-Object { $_.Trim() } |
+				Where-Object { -not [string]::IsNullOrWhiteSpace($_) }
+		)
+
+		if ($selectedGroupNames.Count -gt 0)
+		{
+			Write-Host (&quot;Filtering to selected term groups: {0}&quot; -f ($selectedGroupNames -join &quot;, &quot;)) -ForegroundColor Cyan
+			$allGroups = @($allGroups | Where-Object { $_.Name -in $selectedGroupNames })
+		}
+	}
+	else
+	{
+		Write-Host &quot;No term group filter provided. Exporting all available term groups.&quot; -ForegroundColor Cyan
+	}
+
+	$rows = New-Object System.Collections.Generic.List[object]
+	$groupCount = 0
+	$setCount = 0
+	$termCount = 0
+	$labelCount = 0
+
+	foreach ($group in $allGroups)
+	{
+		$groupCount++
+		Write-Host (&quot;[{0}/{1}] Group: {2}&quot; -f $groupCount, $allGroups.Count, $group.Name) -ForegroundColor Yellow
+
+		$termSets = @(Invoke-PnPWithReconnect -ConnectionRef ([ref]$conn) -ActionDescription (&quot;Reading term sets for group '{0}'&quot; -f $group.Name) -Operation {
+				param($activeConnection)
+				@(Get-PnPTermSet -TermGroup $group.Id -Connection $activeConnection -ErrorAction Stop)
+			})
+		foreach ($set in $termSets)
+		{
+			$setCount++
+			$terms = Get-AllTermsUnique -TermGroup $group -TermSet $set -ConnectionRef ([ref]$conn)
+			Write-Host (&quot;  Term set: {0}, number of terms = {1}&quot; -f $set.Name, $terms.Count) -ForegroundColor Green
+
+			foreach ($term in $terms)
+			{
+				$termCount++
+
+				$labels = @(Invoke-PnPWithReconnect -ConnectionRef ([ref]$conn) -ActionDescription (&quot;Reading labels for term '{0}'&quot; -f $term.Name) -Operation {
+						param($activeConnection)
+						@(Get-PnPTermLabel -Term $term.Id -TermSet $set.Id -TermGroup $group.Id -Connection $activeConnection -ErrorAction SilentlyContinue)
+					})
+
+				if ($labels.Count -eq 0)
+				{
+					# Export at least one row even when no labels are returned.
+					$rows.Add([pscustomobject]@{
+						TermGroupName = Convert-ToSafeString -Value $group.Name
+						TermGroupId = Convert-ToSafeString -Value $group.Id
+						TermSetName = Convert-ToSafeString -Value $set.Name
+						TermSetId = Convert-ToSafeString -Value $set.Id
+						TermName = Convert-ToSafeString -Value $term.Name
+						TermId = Convert-ToSafeString -Value $term.Id
+						ParentTermId = Convert-ToSafeString -Value (Get-PropValue -Object $term -Names @(&quot;ParentId&quot;) -Default &quot;&quot;)
+						TermPath = Convert-ToSafeString -Value (Get-PropValue -Object $term -Names @(&quot;PathOfTerm&quot;) -Default &quot;&quot;)
+						IsDeprecated = (Get-PropValue -Object $term -Names @(&quot;IsDeprecated&quot;) -Default $false)
+						IsAvailableForTagging = (Get-PropValue -Object $term -Names @(&quot;IsAvailableForTagging&quot;) -Default $false)
+						LabelValue = Convert-ToSafeString -Value $term.Name
+						LabelLcid = &quot;&quot;
+						LabelLanguage = &quot;&quot;
+						IsDefaultLabel = $true
+					})
+					$labelCount++
+					continue
+				}
+
+				foreach ($label in $labels)
+				{
+					$labelText = Convert-ToSafeString -Value (Get-PropValue -Object $label -Names @(&quot;Value&quot;, &quot;Name&quot;) -Default &quot;&quot;)
+					$labelLcid = Convert-ToSafeString -Value (Get-PropValue -Object $label -Names @(&quot;Language&quot;, &quot;Lcid&quot;) -Default &quot;&quot;)
+					$isDefault = [bool](Get-PropValue -Object $label -Names @(&quot;IsDefault&quot;, &quot;IsDefaultForLanguage&quot;) -Default $false)
+					$labelLanguage = Convert-ToSafeString -Value (Get-PropValue -Object $label -Names @(&quot;LanguageTag&quot;) -Default &quot;&quot;)
+					if ([string]::IsNullOrWhiteSpace($labelLanguage))
+					{
+						$labelLanguage = Convert-LcidToLanguageTag -Lcid $labelLcid
+					}
+
+					$rows.Add([pscustomobject]@{
+						TermGroupName = Convert-ToSafeString -Value $group.Name
+						TermGroupId = Convert-ToSafeString -Value $group.Id
+						TermSetName = Convert-ToSafeString -Value $set.Name
+						TermSetId = Convert-ToSafeString -Value $set.Id
+						TermName = Convert-ToSafeString -Value $term.Name
+						TermId = Convert-ToSafeString -Value $term.Id
+						ParentTermId = Convert-ToSafeString -Value (Get-PropValue -Object $term -Names @(&quot;ParentId&quot;) -Default &quot;&quot;)
+						TermPath = Convert-ToSafeString -Value (Get-PropValue -Object $term -Names @(&quot;PathOfTerm&quot;) -Default &quot;&quot;)
+						IsDeprecated = (Get-PropValue -Object $term -Names @(&quot;IsDeprecated&quot;) -Default $false)
+						IsAvailableForTagging = (Get-PropValue -Object $term -Names @(&quot;IsAvailableForTagging&quot;) -Default $false)
+						LabelValue = $labelText
+						LabelLcid = $labelLcid
+						LabelLanguage = $labelLanguage
+						IsDefaultLabel = $isDefault
+					})
+					$labelCount++
+				}
+			}
+		}
+	}
+
+	$resolvedOutputPath = Resolve-OutputPath -Path $OutputPath -Format $ExportFormat
+
+	$writtenFiles = New-Object System.Collections.Generic.List[string]
+	$groupedRows = $rows | Group-Object TermGroupName | Sort-Object Name
+
+	foreach ($groupRows in $groupedRows)
+	{
+		$groupOutputPath = Resolve-GroupOutputPath -ResolvedPath $resolvedOutputPath -GroupName $groupRows.Name -Format $ExportFormat
+		$sortedRows = $groupRows.Group | Sort-Object TermGroupName, TermSetName, TermPath, TermName, LabelLcid, LabelValue
+
+		switch ($ExportFormat)
+		{
+			&quot;Csv&quot;
+			{
+				$sortedRows | Export-Csv -Path $groupOutputPath -Delimiter &quot;|&quot; -NoTypeInformation -Encoding utf8BOM -Force
+				$writtenFiles.Add($groupOutputPath)
+			}
+			&quot;Json&quot;
+			{
+				$sortedRows | ConvertTo-Json -Depth 8 | Set-Content -Path $groupOutputPath -Encoding UTF8
+				$writtenFiles.Add($groupOutputPath)
+			}
+			&quot;Both&quot;
+			{
+				$csvPath = &quot;{0}.csv&quot; -f $groupOutputPath
+				$jsonPath = &quot;{0}.json&quot; -f $groupOutputPath
+
+				$sortedRows | Export-Csv -Path $csvPath -Delimiter &quot;|&quot; -NoTypeInformation -Encoding utf8BOM -Force
+				$sortedRows | ConvertTo-Json -Depth 8 | Set-Content -Path $jsonPath -Encoding UTF8
+
+				$writtenFiles.Add($csvPath)
+				$writtenFiles.Add($jsonPath)
+			}
+		}
+	}
+
+	Write-Host &quot;&quot;
+	Write-Host &quot;Export completed.&quot; -ForegroundColor Cyan
+	Write-Host (&quot;Groups : {0}&quot; -f $groupCount)
+	Write-Host (&quot;Sets   : {0}&quot; -f $setCount)
+	Write-Host (&quot;Terms  : {0}&quot; -f $termCount)
+	Write-Host (&quot;Labels : {0}&quot; -f $labelCount)
+	foreach ($file in $writtenFiles)
+	{
+		Write-Host (&quot;File   : {0}&quot; -f $file)
+	}
+}
+finally
+{
+	# Disconnect-PnPOnline -Connection $conn -ErrorAction SilentlyContinue
+}
+
+
+# Example:
+# .\Export-AllTermGroupsWithTranslationLabels.ps1 -TenantAdminUrl &quot;https://contoso-admin.sharepoint.com/&quot; -ClientId &quot;&lt;client-id&gt;&quot; -ExportFormat Both -OutputPath &quot;C:\Temp\TermStoreExport_{0:yyyyMMdd_HHmmss}&quot; -TermGroups &quot;HR&quot;
+
+</code></pre>
+<div class="highlight-tool">
+<p>Check out the <strong>PnP PowerShell</strong> to learn more at: <a href="https://aka.ms/pnp/powershell">https://aka.ms/pnp/powershell</a></p>
+</div>
+<div class="highlight-tool">
+<p>The way you login into PnP PowerShell has changed please read <a href="https://github.com/pnp/powershell/discussions/4249">PnP Management Shell EntraID app is deleted : what should I do ?</a></p>
+</div>
+</section>
+</div>
+<h2 id="contributors">Contributors</h2>
+<table>
+<thead>
+<tr>
+<th>Author(s)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Kasper Larsen</td>
+</tr>
+</tbody>
+</table>
+<h2 id="disclaimer">Disclaimer</h2>
+<p><strong>THESE SAMPLES ARE PROVIDED <em>AS IS</em> WITHOUT WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, INCLUDING ANY IMPLIED WARRANTIES OF FITNESS FOR A PARTICULAR PURPOSE, MERCHANTABILITY, OR NON-INFRINGEMENT.</strong></p>
+<img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/spo-export-all-term-groups-with-translation-labels" aria-hidden="true">
+
+</article>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+      <span>Script Samples<br>Generated by <strong><a href='https://dotnet.github.io/docfx' alt='Doc FX Website'>DocFX</a></strong> with <strong><a href='https://ovasquez.github.io/docfx-material' alt='DocFx Material Theme'>Material UI</a></strong></span>
+      
+            <!-- <img src="https://telemetry.sharepointpnp.com/@pnp.github.io/index/" alt="spacer"> -->
+          </div>
+        </div>
+      </footer>    </div>
+
+    <script type="text/javascript" src="../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+
+    <script type="text/javascript" src="../styles/clipboard.min.js"></script>
+    <script type="text/javascript" src="../styles/isotope.pkgd.min.js"></script>
+    <script type="text/javascript" src="../styles/loadsamples.js"></script>
+    <script type="text/javascript" src="../styles/filtersamples.js"></script>
+
+  </body>
+</html>
