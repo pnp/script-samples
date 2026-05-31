@@ -62,4 +62,4 @@ Sample first appeared on [Create a library from Out-of-the-Box (OOB) library tem
 
 
 [!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
-<img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/spo-create-from-OOB-LibraryTemplate" aria-hidden="true" />
+<img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/spo-create-from-oob-library-template" aria-hidden="true" />
