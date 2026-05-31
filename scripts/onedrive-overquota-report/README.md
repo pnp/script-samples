@@ -29,6 +29,8 @@ The expected quota is derived from the **highest-tier OneDrive service plan** in
 
 Unlicensed users with a OneDrive (e.g. retained offboarded accounts) are flagged as over quota whenever `StorageUsed > 0`.
 
+**Enterprise tier is never flagged as over quota.** Enterprise users sit at the top of the license stack and cannot exceed their true entitlement — any usage above 5 TB is legitimate (tenant-level OneDrive storage boost up to 25 TB, an admin-raised quota, or a Microsoft Support exception). Their usage still appears in the report, but `OverQuota` is always `False` for Enterprise rows.
+
 ### Scan modes
 
 | Mode | How invoked | Speed | Data freshness | Notes |
@@ -947,7 +949,14 @@ foreach ($site in $allODBSites) {
 
     $quotaInfo       = Get-ExpectedQuotaTier -LicenseDetails $licenseDetails
     $expectedQuotaMB = $quotaInfo.LimitMB
-    $isOver          = $site.StorageUsedMB -gt $expectedQuotaMB
+
+    # Enterprise users are at the top of the license stack , they cannot exceed
+    # their true entitlement. If they show over 5 TB, it's because the tenant has
+    # OneDrive storage boost enabled (legitimately permitting up to 25 TB) or
+    # Microsoft Support has granted an exception. Flagging Enterprise users
+    # produces false positives, so we never mark them as over quota.
+    $isOver          = if ($quotaInfo.Tier -eq 'Enterprise') { $false }
+                       else { $site.StorageUsedMB -gt $expectedQuotaMB }
     $overByMB        = if ($isOver) { $site.StorageUsedMB - $expectedQuotaMB } else { 0 }
     $skuList         = ($licenseDetails | ForEach-Object { $_.skuPartNumber }) -join ", "
 
