@@ -1,0 +1,70 @@
+[
+  {
+    "name": "conditional-access-policy-impact-analysis",
+    "source": "pnp",
+    "title": "Conditional Access Policy Impact Analysis",
+    "shortDescription": "Analyze Microsoft Entra Conditional Access policies and export an impact assessment report before policy changes are made.",
+    "url": "https://pnp.github.io/script-samples/conditional-access-policy-impact-analysis/README.html",
+    "longDescription": [
+      ""
+    ],
+    "creationDateTime": "2026-06-02",
+    "updateDateTime": "2026-06-02",
+    "products": [
+      "Azure",
+      "Graph"
+    ],
+    "metadata": [
+      {
+        "key": "GRAPH-POWERSHELL",
+        "value": "1.0.0"
+      },
+      {
+        "key": "POWERSHELL",
+        "value": "7.2.0"
+      }
+    ],
+    "categories": [
+      "Report",
+      "Security"
+    ],
+    "tags": [
+      "Import-Module",
+      "Connect-MgGraph",
+      "Get-MgIdentityConditionalAccessPolicy",
+      "Get-MgDirectoryRole",
+      "Get-MgDirectoryRoleMember",
+      "Sort-Object",
+      "Export-Csv",
+      "Write-Host"
+    ],
+    "thumbnails": [
+      {
+        "type": "image",
+        "order": 100,
+        "url": "https://raw.githubusercontent.com/pnp/script-samples/main/scripts/conditional-access-policy-impact-analysis/assets/preview.png",
+        "alt": "Preview of the sample Conditional Access Policy Impact Analysis"
+      }
+    ],
+    "authors": [
+      {
+        "gitHubAccount": "ojopiyo",
+        "company": "",
+        "pictureUrl": "https://github.com/ojopiyo.png",
+        "name": "Josiah Opiyo"
+      }
+    ],
+    "references": [
+      {
+        "name": "Want to learn more about Microsoft Graph PowerShell SDK and the cmdlets",
+        "description": "Check out the Microsoft Graph PowerShell SDK documentation site to get started and for the reference to the cmdlets.",
+        "url": "https://learn.microsoft.com/graph/powershell/get-started"
+      },
+      {
+        "name": "Want to learn more about PowerShell and the cmdlets",
+        "description": "Check out the PowerShell site to get started and for command references.",
+        "url": "https://aka.ms/powershell"
+      }
+    ]
+  }
+]

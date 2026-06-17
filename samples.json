@@ -1305,6 +1305,58 @@
     ]
   },
   {
+    "name": "conditional-access-policy-impact-analysis",
+    "title": "Conditional Access Policy Impact Analysis",
+    "shortDescription": "Analyze Microsoft Entra Conditional Access policies and export an impact assessment report before policy changes are made.",
+    "url": "conditional-access-policy-impact-analysis/README.html",
+    "creationDateTime": "2026-06-02",
+    "updateDateTime": "2026-06-02",
+    "products": [
+      "Azure",
+      "Graph"
+    ],
+    "metadata": [
+      {
+        "key": "GRAPH-POWERSHELL",
+        "value": "1.0.0"
+      },
+      {
+        "key": "POWERSHELL",
+        "value": "7.2.0"
+      }
+    ],
+    "categories": [
+      "Report",
+      "Security"
+    ],
+    "tags": [
+      "Import-Module",
+      "Connect-MgGraph",
+      "Get-MgIdentityConditionalAccessPolicy",
+      "Get-MgDirectoryRole",
+      "Get-MgDirectoryRoleMember",
+      "Sort-Object",
+      "Export-Csv",
+      "Write-Host"
+    ],
+    "thumbnails": [
+      {
+        "type": "image",
+        "order": 100,
+        "url": "conditional-access-policy-impact-analysis/assets/preview.png",
+        "alt": "Preview of the sample Conditional Access Policy Impact Analysis"
+      }
+    ],
+    "authors": [
+      {
+        "gitHubAccount": "ojopiyo",
+        "company": "",
+        "pictureUrl": "https://github.com/ojopiyo.png",
+        "name": "Josiah Opiyo"
+      }
+    ]
+  },
+  {
     "name": "copilot-bulk-deploy-declarative-agents",
     "title": "Bulk Deployment of Teams Toolkit Declarative Agents",
     "shortDescription": "This sample deploys multiple Copilot Teams Toolkit declarative agents in bulk using PowerShell and Teams Toolkit CLI.",

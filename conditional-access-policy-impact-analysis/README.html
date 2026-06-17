@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html lang="en">
+
+  <head>
+    <meta charset="utf-8">
+    <title>Conditional Access Policy Impact Analysis | PnP Samples </title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="title" content="Conditional Access Policy Impact Analysis | PnP Samples ">
+    <meta name="generator" content="docfx ">
+  <meta name="description" content="A sample gallery of scripts to manage all things Microsoft 365.">
+
+    <!-- Social Media -->
+    <meta property="og:locale" content="en_GB">
+    <meta property="og:title" content="Conditional Access Policy Impact Analysis | PnP Samples ">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://pnp.github.io/script-samples">
+    <meta property="og:image" content="https://pnp.github.io/script-samples/assets/social-media-screenshot.png">
+    <meta property="og:image:alt" content="Screenshot example of the PnP Script Samples Site">
+    <meta property="og:site_name" content="PnP Script Samples">
+    <meta name="msvalidate.01" content="04EFEDA66EC42C08A1247C979E2F9ADD">
+  <meta property="og:description" content="A sample gallery of scripts to manage all things Microsoft 365.">
+
+    <link rel="shortcut icon" href="https://c.s-microsoft.com/favicon.ico?v2">
+    <link rel="stylesheet" href="../styles/docfx.vendor.min.css">
+    <link rel="stylesheet" href="../styles/docfx.css">
+    <link rel="stylesheet" href="../styles/main.css">
+    <link rel="stylesheet" href="../styles/extra.css">
+    <link rel="stylesheet" href="../styles/filter.css">
+    <link rel="stylesheet" href="../styles/site.css">
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet"> 
+    <meta property="docfx:navrel" content="../toc.html">
+    <meta property="docfx:tocrel" content="../toc.html">
+  
+  
+  <meta property="docfx:newtab" content="true">
+    <script type="text/javascript">
+      (function(c,l,a,r,i,t,y){
+          c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+          t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+          y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+      })(window, document, "clarity", "script", "8j6pedl344");
+  </script>
+  </head>  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+             <div class="github-mark">
+              <a href="https://github.com/pnp/script-samples" title="Go to repository">
+               <div class="github-wrapper">
+                  <div class="github-icon">
+                    <img src="https://pnp.github.io/script-samples/assets/icons/github-light-64px.png" alt="GitHub Icon Image">
+                  </div>
+                  <div class="github-repository">
+                    <span>GitHub</span>
+                    <ul class="github-facts">
+                      <li>
+                        <i class="fa fa-code-fork" aria-hidden="true"></i>
+                        <span class="github-forks"></span>
+                      </li>
+                      <li>
+                        <i class="fa fa-star-o" aria-hidden="true"></i>
+                        <span class="github-stars"></span>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </a>
+            </div>
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../assets/logo.svg" alt="">
+              </a>            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <label class="glyphicon glyphicon-search" for="search-query"></label>
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>      </header>
+      <div role="main" class="container body-content hide-when-search">
+        <div class="article row grid">
+          <div class="col-md-12">
+            <article class="content wrap" id="_content" data-uid="">
+                  <div class="contribution-panel mobile-hide pull-right">
+                      <a href="https://github.com/pnp/script-samples/blob/main/scripts/conditional-access-policy-impact-analysis/README.md/#L1" title="Edit this page" class="improve-doc-lg"><i class="glyphicon glyphicon-pencil"></i></a>
+                  </div>
+  <h1 id="conditional-access-policy-impact-analysis">Conditional Access Policy Impact Analysis</h1>
+
+<h2 id="professional-summary">Professional Summary</h2>
+<p>This script analyzes Microsoft Entra ID Conditional Access policies and produces an impact assessment report before policy modifications are implemented. It identifies enabled policies, targeted users and groups, included applications, grant controls, session controls, and potential administrative lockout risks.</p>
+<p>The report helps administrators validate Conditional Access changes, understand policy scope, and reduce the likelihood of tenant-wide authentication disruptions during security hardening initiatives.</p>
+<h2 id="why-it-matters">Why it matters</h2>
+<p>Conditional Access is one of the most critical security controls in Microsoft 365. A misconfigured policy can unintentionally block administrators, service accounts, executives, remote users, or entire business units from accessing Microsoft 365 services.</p>
+<p>Before enabling, modifying, or consolidating policies, organizations should perform an impact assessment to understand:</p>
+<ul>
+<li>Which users and groups are affected</li>
+<li>Which cloud applications are targeted</li>
+<li>Whether emergency access accounts are excluded</li>
+<li>Potential administrator lockout scenarios</li>
+<li>Overlapping or conflicting policy assignments</li>
+</ul>
+<h2 id="benefits">Benefits</h2>
+<ul>
+<li>Prevents accidental administrator lockouts</li>
+<li>Identifies high-risk policy configurations</li>
+<li>Improves Conditional Access governance</li>
+<li>Supports CAB and change review processes</li>
+<li>Accelerates security assessments</li>
+<li>Creates an exportable report for documentation and auditing</li>
+<li>Scales efficiently across large Microsoft 365 tenants</li>
+</ul>
+<h2 id="usage">Usage</h2>
+<ol>
+<li>Register an Azure AD App</li>
+<li>Assign Exchange.ManageAsApp application permissions</li>
+<li>Upload a certificate and note:
+<ul>
+<li>Client ID</li>
+<li>Tenant ID</li>
+<li>Certificate Thumbprint</li>
+</ul>
+</li>
+<li>Run the script from a secure automation host</li>
+<li>Review or export the $Report object</li>
+</ol>
+<div class="tabGroup" id="tabgroup_1">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_1_graphps" role="tab" aria-controls="tabpanel_1_graphps" data-tab="graphps" tabindex="0" aria-selected="true">Graph SDK PowerShell</a>
+</li>
+<li role="presentation">
+<a href="#tabpanel_1_graphps2" role="tab" aria-controls="tabpanel_1_graphps2" data-tab="graphps2" tabindex="-1">PowerShell</a>
+</li>
+</ul>
+<section id="tabpanel_1_graphps" role="tabpanel" data-tab="graphps">
+
+<pre><code class="lang-powershell">
+
+Import-Module Microsoft.Graph.Identity.SignIns
+
+$ReportPath = &quot;.\ConditionalAccessImpactAnalysis.csv&quot;
+
+Connect-MgGraph -Scopes `
+    &quot;Policy.Read.All&quot;,
+    &quot;Directory.Read.All&quot;,
+    &quot;Group.Read.All&quot;
+
+$policies = Get-MgIdentityConditionalAccessPolicy -All
+$directoryRoles = Get-MgDirectoryRole -All
+
+$adminGroupIds = @()
+
+foreach ($role in $directoryRoles) {
+    $members = Get-MgDirectoryRoleMember -DirectoryRoleId $role.Id -All -ErrorAction SilentlyContinue
+
+    foreach ($member in $members) {
+        if ($member.AdditionalProperties.'@odata.type' -eq '#microsoft.graph.group') {
+            $adminGroupIds += $member.Id
+        }
+    }
+}
+
+$results = foreach ($policy in $policies) {
+
+    $conditions = $policy.Conditions
+    $users = $conditions.Users
+
+    $includedUsers = ($users.IncludeUsers -join '; ')
+    $excludedUsers = ($users.ExcludeUsers -join '; ')
+    $includedGroups = ($users.IncludeGroups -join '; ')
+    $excludedGroups = ($users.ExcludeGroups -join '; ')
+
+    $targetsAdmins = $false
+
+    if ($users.IncludeUsers -contains &quot;All&quot;) {
+        $targetsAdmins = $true
+    }
+
+    if ($users.IncludeGroups) {
+        foreach ($groupId in $users.IncludeGroups) {
+            if ($groupId -in $adminGroupIds) {
+                $targetsAdmins = $true
+                break
+            }
+        }
+    }
+
+    $emergencyAccessExcluded = $false
+
+    if (
+        $users.ExcludeUsers.Count -gt 0 -or
+        $users.ExcludeGroups.Count -gt 0
+    ) {
+        $emergencyAccessExcluded = $true
+    }
+
+    $applications = if ($conditions.Applications.IncludeApplications) {
+        $conditions.Applications.IncludeApplications -join '; '
+    }
+    else {
+        &quot;Not Specified&quot;
+    }
+
+    $grantControls = if ($policy.GrantControls.BuiltInControls) {
+        $policy.GrantControls.BuiltInControls -join '; '
+    }
+    else {
+        &quot;None&quot;
+    }
+
+    $sessionControls = @()
+
+    if ($policy.SessionControls.SignInFrequency) {
+        $sessionControls += &quot;SignInFrequency&quot;
+    }
+
+    if ($policy.SessionControls.PersistentBrowser) {
+        $sessionControls += &quot;PersistentBrowser&quot;
+    }
+
+    if ($policy.SessionControls.ApplicationEnforcedRestrictions) {
+        $sessionControls += &quot;ApplicationRestrictions&quot;
+    }
+
+    if ($policy.SessionControls.CloudAppSecurity) {
+        $sessionControls += &quot;CloudAppSecurity&quot;
+    }
+
+    [PSCustomObject]@{
+        PolicyName                = $policy.DisplayName
+        State                     = $policy.State
+        IncludedUsers             = $includedUsers
+        ExcludedUsers             = $excludedUsers
+        IncludedGroups            = $includedGroups
+        ExcludedGroups            = $excludedGroups
+        Applications              = $applications
+        GrantControls             = $grantControls
+        SessionControls           = ($sessionControls -join '; ')
+        TargetsAdministrators     = $targetsAdmins
+        EmergencyAccessExcluded   = $emergencyAccessExcluded
+        CreatedDateTime           = $policy.CreatedDateTime
+        ModifiedDateTime          = $policy.ModifiedDateTime
+    }
+}
+
+$results |
+    Sort-Object PolicyName |
+    Export-Csv -Path $ReportPath -NoTypeInformation -Encoding UTF8
+
+Write-Host &quot;&quot;
+Write-Host &quot;Conditional Access Impact Analysis Complete&quot; -ForegroundColor Green
+Write-Host &quot;Report: $ReportPath&quot;
+Write-Host &quot;Policies Analyzed: $($results.Count)&quot;
+
+</code></pre>
+</section>
+<section id="tabpanel_1_graphps2" role="tabpanel" data-tab="graphps2" aria-hidden="true" hidden="hidden">
+
+<pre><code class="lang-powershell">
+.\ConditionalAccessImpactAnalysis.ps1
+
+</code></pre>
+</section>
+</div>
+
+<p>Required Microsoft Graph permissions:</p>
+<ul>
+<li>Policy.Read.All</li>
+<li>Directory.Read.All</li>
+<li>Group.Read.All</li>
+</ul>
+<h2 id="output">Output</h2>
+<p>CSV report containing:</p>
+<table>
+<thead>
+<tr>
+<th>Column</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>PolicyName</td>
+<td>Conditional Access policy name</td>
+</tr>
+<tr>
+<td>State</td>
+<td>Enabled, Disabled, Report-Only</td>
+</tr>
+<tr>
+<td>IncludedUsers</td>
+<td>Targeted users</td>
+</tr>
+<tr>
+<td>ExcludedUsers</td>
+<td>Excluded users</td>
+</tr>
+<tr>
+<td>IncludedGroups</td>
+<td>Targeted groups</td>
+</tr>
+<tr>
+<td>ExcludedGroups</td>
+<td>Excluded groups</td>
+</tr>
+<tr>
+<td>Applications</td>
+<td>Targeted cloud applications</td>
+</tr>
+<tr>
+<td>GrantControls</td>
+<td>MFA, Compliant Device, Hybrid Join, etc.</td>
+</tr>
+<tr>
+<td>SessionControls</td>
+<td>Session restrictions configured</td>
+</tr>
+<tr>
+<td>TargetsAdministrators</td>
+<td>Indicates potential admin impact</td>
+</tr>
+<tr>
+<td>EmergencyAccessExcluded</td>
+<td>Indicates whether exclusions exist</td>
+</tr>
+<tr>
+<td>CreatedDateTime</td>
+<td>Policy creation date</td>
+</tr>
+<tr>
+<td>ModifiedDateTime</td>
+<td>Last modification date</td>
+</tr>
+</tbody>
+</table>
+<h2 id="notes">Notes</h2>
+<ul>
+<li>Designed for Microsoft Entra ID Conditional Access.</li>
+<li>Uses Microsoft Graph PowerShell SDK.</li>
+<li>Suitable for pre-change reviews, CAB approvals, security audits, and governance assessments.</li>
+<li>Review emergency access account exclusions before enabling any policy targeting all users or privileged administrators.</li>
+<li>Consider scheduling periodic exports to establish a historical baseline of Conditional Access configurations.</li>
+</ul>
+<h2 id="contributors">Contributors</h2>
+<table>
+<thead>
+<tr>
+<th>Author(s)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="https://github.com/ojopiyo">Josiah Opiyo</a></td>
+</tr>
+</tbody>
+</table>
+<p><em>Built with a focus on automation, governance, least privilege, and clean Microsoft 365 tenants-helping M365 admins gain visibility and reduce operational risk.</em></p>
+<h2 id="version-history">Version history</h2>
+<table>
+<thead>
+<tr>
+<th>Version</th>
+<th>Date</th>
+<th>Comments</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1.0</td>
+<td>June 02, 2026</td>
+<td>Initial release</td>
+</tr>
+</tbody>
+</table>
+<h2 id="disclaimer">Disclaimer</h2>
+<p><strong>THESE SAMPLES ARE PROVIDED <em>AS IS</em> WITHOUT WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, INCLUDING ANY IMPLIED WARRANTIES OF FITNESS FOR A PARTICULAR PURPOSE, MERCHANTABILITY, OR NON-INFRINGEMENT.</strong></p>
+<img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/conditional-access-policy-impact-analysis" aria-hidden="true">
+
+</article>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+      <span>Script Samples<br>Generated by <strong><a href='https://dotnet.github.io/docfx' alt='Doc FX Website'>DocFX</a></strong> with <strong><a href='https://ovasquez.github.io/docfx-material' alt='DocFx Material Theme'>Material UI</a></strong></span>
+      
+            <!-- <img src="https://telemetry.sharepointpnp.com/@pnp.github.io/index/" alt="spacer"> -->
+          </div>
+        </div>
+      </footer>    </div>
+
+    <script type="text/javascript" src="../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+
+    <script type="text/javascript" src="../styles/clipboard.min.js"></script>
+    <script type="text/javascript" src="../styles/isotope.pkgd.min.js"></script>
+    <script type="text/javascript" src="../styles/loadsamples.js"></script>
+    <script type="text/javascript" src="../styles/filtersamples.js"></script>
+
+  </body>
+</html>
