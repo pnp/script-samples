@@ -39,7 +39,7 @@ Before enabling, modifying, or consolidating policies, organizations should perf
 4. Run the script from a secure automation host
 5. Review or export the $Report object
 
-# [PnP PowerShell](#tab/pnpps)
+# [Graph SDK PowerShell](#tab/graphps)
 
 ```powershell
 
@@ -160,17 +160,16 @@ Write-Host "Conditional Access Impact Analysis Complete" -ForegroundColor Green
 Write-Host "Report: $ReportPath"
 Write-Host "Policies Analyzed: $($results.Count)"
 
-
 ```
 
-# [PowerShell](#tab/pnpps)
+# [PowerShell](#tab/graphps2)
 
 ```powershell
-
 
 .\ConditionalAccessImpactAnalysis.ps1
 
 ```
+***
 
 Required Microsoft Graph permissions:
 
@@ -221,3 +220,4 @@ Version|Date|Comments
 1.0|June 02, 2026|Initial release
 
 [!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
+<img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/conditional-access-policy-impact-analysis" aria-hidden="true" />
