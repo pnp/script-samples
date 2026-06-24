@@ -1,0 +1,66 @@
+[
+  {
+    "name": "spo-report-version-expiration-and-trim",
+    "source": "pnp",
+    "title": "Generate File version report and trim on specific Teams",
+    "shortDescription": "Reports on file version history across Microsoft Teams sites and private channels, calculates storage savings, and trims expired versions using SharePoint's automatic versioning policy.",
+    "url": "https://pnp.github.io/script-samples/spo-report-version-expiration-and-trim/README.html",
+    "longDescription": [
+      ""
+    ],
+    "creationDateTime": "2026-06-24",
+    "updateDateTime": "2026-06-24",
+    "products": [
+      "SharePoint"
+    ],
+    "metadata": [
+      {
+        "key": "PNP-POWERSHELL",
+        "value": "3.2.0"
+      }
+    ],
+    "categories": [
+      "Data",
+      "Configure",
+      "Report"
+    ],
+    "tags": [
+      "Get-PnPMicrosoft365Group",
+      "Get-PnPMicrosoft365GroupOwner",
+      "Get-PnPTeamsTeam",
+      "Get-PnPTeamsChannel",
+      "Get-PnPTeamsPrimaryChannel",
+      "Get-PnPTeamsChannelFilesFolder",
+      "Get-PnPTeamsChannelUser",
+      "Get-PnPTenantSite",
+      "Get-PnPList",
+      "New-PnPList",
+      "Set-PnPList",
+      "Get-PnPFile",
+      "Get-PnPSiteFileVersionExpirationReportJobStatus",
+      "New-PnPSiteFileVersionExpirationReportJob",
+      "Get-PnPSiteFileVersionBatchDeleteJobStatus",
+      "New-PnPSiteFileVersionBatchDeleteJob",
+      "Set-PnPSiteVersionPolicy"
+    ],
+    "thumbnails": [
+      {
+        "type": "image",
+        "order": 100,
+        "url": "https://raw.githubusercontent.com/pnp/script-samples/main/scripts/spo-report-version-expiration-and-trim/assets/preview.png",
+        "alt": "Preview of the sample Generate File version report and trim on specific Teams"
+      }
+    ],
+    "authors": [
+      {
+        "gitHubAccount": "fabianhutzli",
+        "company": "",
+        "pictureUrl": "https://github.com/fabianhutzli.png",
+        "name": "Fabian Hutzli"
+      }
+    ],
+    "references": [
+      null
+    ]
+  }
+]
