@@ -1,0 +1,62 @@
+[
+  {
+    "name": "group-connected-sharepoint-sites-and-microsoft-teams-relationship-report",
+    "source": "pnp",
+    "title": "Group-Connected SharePoint Sites and Microsoft Teams Relationship Report",
+    "shortDescription": "Generate a tenant-wide CSV report of Microsoft 365 Group-connected SharePoint sites, ownership, and Microsoft Teams linkage.",
+    "url": "https://pnp.github.io/script-samples/group-connected-sharepoint-sites-and-microsoft-teams-relationship-report/README.html",
+    "longDescription": [
+      "This script inventories Microsoft 365 Group-connected SharePoint Online sites, identifies associated group owners, determines whether each group is connected to Microsoft Teams, and exports the results to a timestamped CSV report for governance and operational review."
+    ],
+    "creationDateTime": "2026-06-17",
+    "updateDateTime": "2026-06-17",
+    "products": [
+      "SharePoint",
+      "Teams",
+      "Graph",
+      "Microsoft 365"
+    ],
+    "metadata": [
+      {
+        "key": "PNP-POWERSHELL",
+        "value": "1.11.0"
+      }
+    ],
+    "categories": [
+      "Report"
+    ],
+    "tags": [
+      "Get-PnPTenantSite",
+      "Get-PnPMicrosoft365GroupOwners",
+      "Get-PnPTeamsTeam",
+      "Export-Csv",
+      "SharePoint Online",
+      "Microsoft 365 Groups",
+      "Microsoft Teams",
+      "Governance"
+    ],
+    "thumbnails": [
+      {
+        "type": "image",
+        "order": 100,
+        "url": "https://raw.githubusercontent.com/pnp/script-samples/main/scripts/group-connected-sharepoint-sites-and-microsoft-teams-relationship-report/assets/preview.png",
+        "alt": "Preview of the sample Group-Connected SharePoint Sites and Microsoft Teams Relationship Report"
+      }
+    ],
+    "authors": [
+      {
+        "gitHubAccount": "ojopiyo",
+        "company": "",
+        "pictureUrl": "https://github.com/ojopiyo.png",
+        "name": "Josiah Opiyo"
+      }
+    ],
+    "references": [
+      {
+        "name": "Want to learn more about PnP PowerShell and the cmdlets",
+        "description": "Check out the PnP PowerShell site to get started and for the reference to the cmdlets.",
+        "url": "https://aka.ms/pnp/powershell"
+      }
+    ]
+  }
+]
