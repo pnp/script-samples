@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html lang="en">
+
+  <head>
+    <meta charset="utf-8">
+    <title>Group-Connected SharePoint Sites and Microsoft Teams Relationship Report | PnP Samples </title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="title" content="Group-Connected SharePoint Sites and Microsoft Teams Relationship Report | PnP Samples ">
+    <meta name="generator" content="docfx ">
+  <meta name="description" content="A sample gallery of scripts to manage all things Microsoft 365.">
+
+    <!-- Social Media -->
+    <meta property="og:locale" content="en_GB">
+    <meta property="og:title" content="Group-Connected SharePoint Sites and Microsoft Teams Relationship Report | PnP Samples ">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://pnp.github.io/script-samples">
+    <meta property="og:image" content="https://pnp.github.io/script-samples/assets/social-media-screenshot.png">
+    <meta property="og:image:alt" content="Screenshot example of the PnP Script Samples Site">
+    <meta property="og:site_name" content="PnP Script Samples">
+    <meta name="msvalidate.01" content="04EFEDA66EC42C08A1247C979E2F9ADD">
+  <meta property="og:description" content="A sample gallery of scripts to manage all things Microsoft 365.">
+
+    <link rel="shortcut icon" href="https://c.s-microsoft.com/favicon.ico?v2">
+    <link rel="stylesheet" href="../styles/docfx.vendor.min.css">
+    <link rel="stylesheet" href="../styles/docfx.css">
+    <link rel="stylesheet" href="../styles/main.css">
+    <link rel="stylesheet" href="../styles/extra.css">
+    <link rel="stylesheet" href="../styles/filter.css">
+    <link rel="stylesheet" href="../styles/site.css">
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet"> 
+    <meta property="docfx:navrel" content="../toc.html">
+    <meta property="docfx:tocrel" content="../toc.html">
+  
+  
+  <meta property="docfx:newtab" content="true">
+    <script type="text/javascript">
+      (function(c,l,a,r,i,t,y){
+          c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+          t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+          y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+      })(window, document, "clarity", "script", "8j6pedl344");
+  </script>
+  </head>  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+             <div class="github-mark">
+              <a href="https://github.com/pnp/script-samples" title="Go to repository">
+               <div class="github-wrapper">
+                  <div class="github-icon">
+                    <img src="https://pnp.github.io/script-samples/assets/icons/github-light-64px.png" alt="GitHub Icon Image">
+                  </div>
+                  <div class="github-repository">
+                    <span>GitHub</span>
+                    <ul class="github-facts">
+                      <li>
+                        <i class="fa fa-code-fork" aria-hidden="true"></i>
+                        <span class="github-forks"></span>
+                      </li>
+                      <li>
+                        <i class="fa fa-star-o" aria-hidden="true"></i>
+                        <span class="github-stars"></span>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </a>
+            </div>
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../assets/logo.svg" alt="">
+              </a>            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <label class="glyphicon glyphicon-search" for="search-query"></label>
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>      </header>
+      <div role="main" class="container body-content hide-when-search">
+        <div class="article row grid">
+          <div class="col-md-12">
+            <article class="content wrap" id="_content" data-uid="">
+                  <div class="contribution-panel mobile-hide pull-right">
+                      <a href="https://github.com/pnp/script-samples/blob/main/scripts/group-connected-sharepoint-sites-and-microsoft-teams-relationship-report/README.md/#L1" title="Edit this page" class="improve-doc-lg"><i class="glyphicon glyphicon-pencil"></i></a>
+                  </div>
+  <h1 id="group-connected-sharepoint-sites-and-microsoft-teams-relationship-report">Group-Connected SharePoint Sites and Microsoft Teams Relationship Report</h1>
+
+<h2 id="professional-summary">Professional Summary</h2>
+<p>This PowerShell script generates a comprehensive inventory of Microsoft 365 Group-connected SharePoint Online sites across the tenant. It identifies the associated Microsoft 365 Group, determines whether the group is connected to Microsoft Teams, retrieves group ownership information, and exports the results to a CSV report for analysis and governance purposes.</p>
+<p>The report provides visibility into the relationship between SharePoint Online, Microsoft 365 Groups, and Microsoft Teams, enabling administrators to better understand collaboration workloads across the tenant.</p>
+<h2 id="why-it-matters">Why it matters</h2>
+<p>As Microsoft 365 environments mature, organisations often accumulate hundreds or thousands of Microsoft 365 Groups, SharePoint sites, and Teams workspaces.</p>
+<p>Without a central inventory, administrators can face challenges such as:</p>
+<ul>
+<li>Identifying orphaned collaboration workspaces with no owners.</li>
+<li>Determining which SharePoint sites are actively associated with Teams.</li>
+<li>Assessing migration readiness during tenant consolidations or mergers.</li>
+<li>Reviewing governance compliance for Microsoft 365 Groups.</li>
+<li>Understanding the relationship between Teams, Groups, and SharePoint resources.</li>
+</ul>
+<p>This report provides a single source of truth for Group-connected SharePoint sites and their associated ownership and Teams status.</p>
+<h2 id="benefits">Benefits</h2>
+<ul>
+<li>Provides a complete inventory of Microsoft 365 Group-connected SharePoint sites.</li>
+<li>Identifies sites with no assigned owners.</li>
+<li>Highlights which Groups are connected to Microsoft Teams.</li>
+<li>Supports governance and lifecycle management initiatives.</li>
+<li>Assists with migration and tenant consolidation projects.</li>
+<li>Simplifies audit and compliance reviews.</li>
+<li>Enables proactive management of collaboration workloads.</li>
+<li>Produces a timestamped CSV report suitable for further analysis and reporting.</li>
+</ul>
+<h2 id="prerequisites">Prerequisites</h2>
+<ul>
+<li>PowerShell 7.x or Windows PowerShell 5.1</li>
+<li>PnP PowerShell module</li>
+<li>SharePoint Administrator permissions</li>
+<li>Microsoft Entra ID App Registration configured for certificate-based authentication</li>
+<li>Appropriate SharePoint Online application permissions granted and consented</li>
+</ul>
+<h2 id="usage">Usage</h2>
+<ol>
+<li>Configure tenant-specific values:
+<ul>
+<li>Admin Center URL</li>
+<li>Client ID</li>
+<li>Certificate Thumbprint</li>
+<li>Tenant Name</li>
+<li>Output Folder</li>
+</ul>
+</li>
+<li>Execute the script using a privileged administrative account context.</li>
+<li>Review the generated CSV reports.</li>
+</ol>
+<div class="tabGroup" id="tabgroup_1">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_1_pnpps" role="tab" aria-controls="tabpanel_1_pnpps" data-tab="pnpps" tabindex="0" aria-selected="true">PnP PowerShell</a>
+</li>
+</ul>
+<section id="tabpanel_1_pnpps" role="tabpanel" data-tab="pnpps">
+
+<pre><code class="lang-powershell">
+
+# ==========================================
+# Group-Connected SharePoint Sites Report
+# ==========================================
+
+# ---------- Configuration ----------
+$AdminCenterUrl =  &quot;https://contoso-admin.sharepoint.com&quot;
+$ClientID = &quot;xxxxxxxxxxxxxxxxxxxxxxxxx&quot;
+$ThumbPrint = &quot;xxxxxxxxxxxxxxxxxxxxxxxxxx&quot;  
+$Tenant = &quot;contoso.onmicrosoft.com&quot; 
+
+$OutputFolder   = &quot;C:\Temp\GroupConnectedSites&quot;
+
+# ---------- Initialization ----------
+$TimeStamp  = Get-Date -Format &quot;yyyyMMdd_HHmmss&quot;
+$OutputFile = Join-Path $OutputFolder &quot;GroupConnectedSites_$TimeStamp.csv&quot;
+
+if (-not (Test-Path $OutputFolder)) {
+    New-Item -Path $OutputFolder -ItemType Directory -Force | Out-Null
+}
+
+$StartTime = Get-Date
+
+Write-Host &quot;===== GROUP CONNECTED SITES REPORT =====&quot; -ForegroundColor Cyan
+
+# ---------- Connect ----------
+Connect-PnPOnline `
+    -Url $AdminCenterUrl `
+    -ClientId $ClientID `
+    -Thumbprint $ThumbPrint `
+    -Tenant $Tenant
+
+# ---------- Processing ----------
+$Results = @()
+
+try {
+
+    Write-Host &quot;Retrieving tenant sites...&quot; -ForegroundColor Yellow
+
+    $Sites = Get-PnPTenantSite -Detailed |
+        Where-Object { $_.GroupId -ne [Guid]::Empty }
+
+    $TotalSites = $Sites.Count
+    $Index = 0
+
+    foreach ($Site in $Sites) {
+
+        $Index++
+
+        Write-Progress `
+            -Activity &quot;Processing Group-Connected Sites&quot; `
+            -Status &quot;[$Index/$TotalSites] $($Site.Url)&quot; `
+            -PercentComplete (($Index / $TotalSites) * 100)
+
+        try {
+
+            $GroupId = $Site.GroupId
+            $Owners = @()
+            $TeamConnected = $false
+
+            # ---------- Get Owners ----------
+            try {
+                $Owners = Get-PnPMicrosoft365GroupOwners -Identity $GroupId |
+                    Select-Object -ExpandProperty UserPrincipalName
+            }
+            catch {
+                Write-Warning &quot;Failed to retrieve owners for $GroupId&quot;
+            }
+
+            # ---------- Check Teams Connection ----------
+            try {
+                $Team = Get-PnPTeamsTeam -Identity $GroupId -ErrorAction Stop
+                if ($Team) { $TeamConnected = $true }
+            }
+            catch {
+                $TeamConnected = $false
+            }
+
+            # ---------- Add Result ----------
+            $Results += [PSCustomObject]@{
+                SiteUrl       = $Site.Url
+                SiteTitle     = $Site.Title
+                GroupId       = $GroupId
+                TeamConnected = $TeamConnected
+                OwnerCount    = $Owners.Count
+                Owners        = ($Owners -join &quot;; &quot;)
+                CreatedDate   = $Site.CreationDate
+                StorageMB     = $Site.StorageUsageCurrent
+                Template      = $Site.Template
+            }
+        }
+        catch {
+            Write-Warning &quot;Failed processing site: $($Site.Url)&quot;
+        }
+    }
+
+    # ---------- Export ----------
+    $Results |
+        Sort-Object SiteTitle |
+        Export-Csv -Path $OutputFile -NoTypeInformation -Encoding UTF8
+
+    # ---------- Summary ----------
+    $Summary = [PSCustomObject]@{
+        TotalSites        = $Results.Count
+        TeamsConnected    = ($Results | Where-Object TeamConnected).Count
+        NonTeamsSites     = ($Results | Where-Object { -not $_.TeamConnected }).Count
+        SitesNoOwners     = ($Results | Where-Object { $_.OwnerCount -eq 0 }).Count
+        GeneratedUtc      = (Get-Date).ToUniversalTime().ToString(&quot;yyyy-MM-ddTHH:mm:ssZ&quot;)
+        RuntimeMinutes    = [math]::Round(((Get-Date) - $StartTime).TotalMinutes, 2)
+    }
+
+    # ---------- Output ----------
+    Write-Host &quot;&quot;
+    Write-Host &quot;===== SUMMARY =====&quot; -ForegroundColor Cyan
+    $Summary | Format-List
+
+    Write-Host &quot;&quot;
+    Write-Host &quot;Report exported:&quot; -ForegroundColor Green
+    Write-Host $OutputFile -ForegroundColor Green
+
+}
+finally {
+    Disconnect-PnPOnline
+    Write-Host &quot;&quot;
+    Write-Host &quot;Disconnected from SharePoint&quot; -ForegroundColor DarkGray
+}
+
+Write-Host &quot;&quot;
+Write-Host &quot;===== COMPLETE =====&quot;
+
+
+</code></pre>
+<h2 id="output">Output</h2>
+<h3 id="detailed-report">Detailed Report</h3>
+<p>The script exports a timestamped CSV file containing the following information:</p>
+<table>
+<thead>
+<tr>
+<th>Column</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>SiteUrl</td>
+<td>SharePoint site URL</td>
+</tr>
+<tr>
+<td>SiteTitle</td>
+<td>SharePoint site title</td>
+</tr>
+<tr>
+<td>GroupId</td>
+<td>Associated Microsoft 365 Group ID</td>
+</tr>
+<tr>
+<td>TeamConnected</td>
+<td>Indicates whether a Team exists</td>
+</tr>
+<tr>
+<td>OwnerCount</td>
+<td>Number of Group owners</td>
+</tr>
+<tr>
+<td>Owners</td>
+<td>Group owner UPNs</td>
+</tr>
+<tr>
+<td>CreatedDate</td>
+<td>Site creation date</td>
+</tr>
+<tr>
+<td>StorageMB</td>
+<td>Current storage consumption</td>
+</tr>
+<tr>
+<td>Template</td>
+<td>SharePoint site template</td>
+</tr>
+</tbody>
+</table>
+<h2 id="notes">Notes</h2>
+<ul>
+<li>Only Microsoft 365 Group-connected SharePoint sites are included.</li>
+<li>Standalone SharePoint sites are excluded from the report.</li>
+<li>Teams-connected sites are identified using Microsoft Graph through PnP PowerShell.</li>
+<li>Sites without owners should be reviewed as part of ongoing governance and lifecycle management processes.</li>
+<li>The script uses certificate-based authentication and is suitable for unattended execution via Azure Automation, Task Scheduler, or other automation platforms.</li>
+</ul>
+<h2 id="contributors">Contributors</h2>
+<table>
+<thead>
+<tr>
+<th>Author(s)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="https://github.com/ojopiyo">Josiah Opiyo</a></td>
+</tr>
+</tbody>
+</table>
+<p><em>Built with a focus on automation, governance, least privilege, and clean Microsoft 365 tenants-helping M365 admins gain visibility and reduce operational risk.</em></p>
+<h2 id="version-history">Version history</h2>
+<table>
+<thead>
+<tr>
+<th>Version</th>
+<th>Date</th>
+<th>Comments</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1.0</td>
+<td>June 17, 2026</td>
+<td>Initial release</td>
+</tr>
+</tbody>
+</table>
+<h2 id="disclaimer">Disclaimer</h2>
+<p><strong>THESE SAMPLES ARE PROVIDED <em>AS IS</em> WITHOUT WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, INCLUDING ANY IMPLIED WARRANTIES OF FITNESS FOR A PARTICULAR PURPOSE, MERCHANTABILITY, OR NON-INFRINGEMENT.</strong></p>
+<img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/group-connected-sharepoint-sites-and-microsoft-teams-relationship-report" aria-hidden="true">
+</section>
+</div>
+
+</article>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+      <span>Script Samples<br>Generated by <strong><a href='https://dotnet.github.io/docfx' alt='Doc FX Website'>DocFX</a></strong> with <strong><a href='https://ovasquez.github.io/docfx-material' alt='DocFx Material Theme'>Material UI</a></strong></span>
+      
+            <!-- <img src="https://telemetry.sharepointpnp.com/@pnp.github.io/index/" alt="spacer"> -->
+          </div>
+        </div>
+      </footer>    </div>
+
+    <script type="text/javascript" src="../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+
+    <script type="text/javascript" src="../styles/clipboard.min.js"></script>
+    <script type="text/javascript" src="../styles/isotope.pkgd.min.js"></script>
+    <script type="text/javascript" src="../styles/loadsamples.js"></script>
+    <script type="text/javascript" src="../styles/filtersamples.js"></script>
+
+  </body>
+</html>
