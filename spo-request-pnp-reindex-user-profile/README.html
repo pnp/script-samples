@@ -225,7 +225,7 @@ Request-PnPReindexUserProfile -url https://contoso.sharepoint.com/sites/IT -Docu
         
         $filename = &quot;upa-batch-trigger&quot;;
 
-        Set-Content -Path &quot;$tempPath\$filename.txt&quot; -value $json
+        Set-Content -Path &quot;$tempPath\$filename.txt&quot; -value $json -Encoding UTF8
 
         Write-Output &quot;Kicking off import job - Please be patient and allow for 4-24h before profiles are updates in search.`n`nDo NOT re-run because you are impatient!&quot;
 
@@ -289,6 +289,9 @@ Request-PnPReindexUserProfile -url https://contoso.sharepoint.com/sites/IT -Docu
 </tr>
 <tr>
 <td><a href="https://www.toddklindt.com">Todd Klindt</a></td>
+</tr>
+<tr>
+<td>Juan Andres Rodriguez</td>
 </tr>
 </tbody>
 </table>
