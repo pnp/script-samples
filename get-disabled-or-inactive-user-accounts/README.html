@@ -119,6 +119,9 @@
 <li role="presentation">
 <a href="#tabpanel_1_pnpps" role="tab" aria-controls="tabpanel_1_pnpps" data-tab="pnpps" tabindex="-1">PnP PowerShell</a>
 </li>
+<li role="presentation">
+<a href="#tabpanel_1_cli-m365-ps" role="tab" aria-controls="tabpanel_1_cli-m365-ps" data-tab="cli-m365-ps" tabindex="-1">CLI for Microsoft 365 using PowerShell</a>
+</li>
 </ul>
 <section id="tabpanel_1_pnppsv2" role="tabpanel" data-tab="pnppsv2">
 
@@ -348,6 +351,146 @@ $userd1 | Export-Csv -Path &quot;C:\temp\disabledusers.csv&quot; -NoTypeInformat
 <p>The way you login into PnP PowerShell has changed please read <a href="https://github.com/pnp/powershell/discussions/4249">PnP Management Shell EntraID app is deleted : what should I do ?</a></p>
 </div>
 </section>
+<section id="tabpanel_1_cli-m365-ps" role="tabpanel" data-tab="cli-m365-ps" aria-hidden="true" hidden="hidden">
+
+<p>In order to keep your tenant clean (Governance), you might want to ensure that disabled or inactive user accounts will be replaced where appropriate (Think Owners of sites/groups, assignedto user on tasks/planner and so on). This script will help you find those accounts using CLI for Microsoft 365.</p>
+<pre><code class="lang-powershell">
+# =========================================
+# Script: User Status Discovery (CLI for Microsoft 365)
+# Purpose: Identify disabled and inactive users from multiple sources
+# =========================================
+
+# User Input
+$InactiveDays = 90
+$ExportPath   = &quot;$env:TEMP\UserStatusFindings.csv&quot;
+# People result source id used for the SharePoint user profile search
+$peopleSourceId = &quot;b09a7990-05ea-4af9-81ef-edfab16c4e31&quot;
+
+# Connect to Microsoft 365
+if ($(m365 status) -match &quot;Logged Out&quot;) {
+  m365 login
+}
+
+# Configure the CLI to output as JSON on each execution
+$m365output = m365 cli config get --key output
+if ($m365output -notmatch &quot;json&quot;) {
+    m365 cli config set --key output --value json
+}
+
+# Get CLI commands JSON output converted as objects
+function Get-CLIValue {
+    [cmdletbinding()]
+    param(
+        [parameter(Mandatory = $true, ValueFromPipeline = $true)]
+        $input
+    )
+
+    $output = $input | ConvertFrom-Json
+    if ($null -ne $output.error) {
+        throw $output.error
+    }
+    return $output
+}
+
+# Helper to call Microsoft Graph and follow paging (@odata.nextLink)
+function Invoke-GraphRequestAll {
+    param(
+        [Parameter(Mandatory)][string]$Url
+    )
+
+    $items = @()
+    $next = $Url
+    while ($next) {
+        $page = m365 request --url $next | Get-CLIValue
+        if ($page.value) { $items += $page.value }
+        $next = $page.'@odata.nextLink'
+    }
+    return $items
+}
+
+# 1) Disabled accounts from Entra ID (Microsoft Graph)
+function Get-DisabledUsersFromGraph {
+    Invoke-GraphRequestAll -Url &quot;https://graph.microsoft.com/v1.0/users?`$select=displayName,userPrincipalName,mail,accountEnabled&quot; |
+    Where-Object { $_.accountEnabled -eq $false } |
+    ForEach-Object {
+        [PSCustomObject]@{
+            DisplayName       = $_.displayName
+            UserPrincipalName = $_.userPrincipalName
+            Mail              = $_.mail
+            Reason            = &quot;AccountDisabled&quot;
+            Source            = &quot;EntraID&quot;
+        }
+    }
+}
+
+# 2) Accounts tagged as left/disabled in the SharePoint user profile (People search)
+function Get-DisabledUsersFromSharePointSearch {
+    # How an account is tagged as disabled varies from org to org, so you might need to change the
+    # filter below (e.g. a custom EmployeeStatus / DateLeft property, or a naming convention).
+    $results = m365 spo search --queryText &quot;*&quot; --sourceId $peopleSourceId `
+        --selectProperties &quot;WorkEmail,SPS-HideFromAddressLists,PreferredName&quot; --allResults | Get-CLIValue
+
+    $results |
+    Where-Object { &quot;$($_.'SPS-HideFromAddressLists')&quot; -eq &quot;true&quot; } |
+    ForEach-Object {
+        [PSCustomObject]@{
+            DisplayName       = $_.PreferredName
+            UserPrincipalName = $_.WorkEmail
+            Mail              = $_.WorkEmail
+            Reason            = &quot;HiddenFromGAL&quot;
+            Source            = &quot;SharePointSearch&quot;
+        }
+    }
+}
+
+# 3) Inactive accounts based on last interactive sign-in (requires AuditLog.Read.All + Entra ID P1)
+function Get-InactiveUsersFromGraph {
+    param(
+        [int]$Days = 90
+    )
+
+    $cutoff = (Get-Date).AddDays(-$Days)
+    $users = Invoke-GraphRequestAll -Url &quot;https://graph.microsoft.com/v1.0/users?`$select=id,displayName,userPrincipalName&quot;
+
+    foreach ($user in $users) {
+        $signInUrl = &quot;https://graph.microsoft.com/v1.0/auditLogs/signIns?`$top=1&amp;`$filter=userPrincipalName eq '$($user.userPrincipalName)'&quot;
+        $signIn = m365 request --url $signInUrl | Get-CLIValue
+
+        if ($signIn.value.Count -eq 0 -or [datetime]$signIn.value[0].createdDateTime -lt $cutoff) {
+            [PSCustomObject]@{
+                DisplayName       = $user.displayName
+                UserPrincipalName = $user.userPrincipalName
+                Mail              = $null
+                Reason            = &quot;Inactive &gt; $Days days&quot;
+                Source            = &quot;AuditLogs&quot;
+            }
+        }
+    }
+}
+
+# ---------------------------
+# Execution
+# ---------------------------
+
+$results = @()
+$results += Get-DisabledUsersFromGraph
+$results += Get-DisabledUsersFromSharePointSearch
+$results += Get-InactiveUsersFromGraph -Days $InactiveDays
+
+$results |
+    Sort-Object UserPrincipalName, Reason |
+    Export-Csv -Path $ExportPath -NoTypeInformation -Encoding UTF8
+
+Write-Host &quot;Exported $($results.Count) findings to $ExportPath&quot;
+
+</code></pre>
+<div class="highlight-tool">
+<p>Check out the <strong>CLI for Microsoft 365</strong> to learn more at: <a href="https://aka.ms/cli-m365">https://aka.ms/cli-m365</a></p>
+</div>
+<div class="highlight-tool-red">
+<p>Important changes coming to the way you login into CLI for Microsoft 365 (effective 9th September 2024) see <a href="https://pnp.github.io/blog/post/changes-pnp-management-shell-registration/">Changes in PnP Management Shell registration in Microsoft 365</a></p>
+</div>
+</section>
 </div>
 <h2 id="contributors">Contributors</h2>
 <table>
@@ -362,6 +505,9 @@ $userd1 | Export-Csv -Path &quot;C:\temp\disabledusers.csv&quot; -NoTypeInformat
 </tr>
 <tr>
 <td><a href="https://github.com/ojopiyo">Josiah Opiyo</a></td>
+</tr>
+<tr>
+<td><a href="https://github.com/juandresrodca">juandresrodca</a></td>
 </tr>
 </tbody>
 </table>

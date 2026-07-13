@@ -2399,7 +2399,7 @@
     "shortDescription": "Find the user accounts which have been disabled or are inactive, export report to CSV",
     "url": "get-disabled-or-inactive-user-accounts/README.html",
     "creationDateTime": "2023-10-15",
-    "updateDateTime": "2025-12-18",
+    "updateDateTime": "2026-06-24",
     "products": [
       "SharePoint",
       "Graph",
@@ -2409,6 +2409,10 @@
       {
         "key": "PNP-POWERSHELL",
         "value": "3.1.0"
+      },
+      {
+        "key": "CLI-FOR-MICROSOFT365",
+        "value": "11.6.0"
       }
     ],
     "categories": [
@@ -2417,7 +2421,8 @@
       "Security"
     ],
     "tags": [
-      "Invoke-PnPGraphMethod,Invoke-PnPSearchQuery,Invoke-RestMethod"
+      "Invoke-PnPGraphMethod,Invoke-PnPSearchQuery,Invoke-RestMethod",
+      "m365 request,m365 spo search"
     ],
     "thumbnails": [
       {
@@ -2439,6 +2444,12 @@
         "company": "",
         "pictureUrl": "https://github.com/kasperbolarsen.png",
         "name": "Kasper Larsen"
+      },
+      {
+        "gitHubAccount": "juandresrodca",
+        "company": "",
+        "pictureUrl": "https://github.com/juandresrodca.png",
+        "name": "juandresrodca"
       }
     ]
   },
