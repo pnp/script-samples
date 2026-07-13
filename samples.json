@@ -6699,6 +6699,49 @@
     ]
   },
   {
+    "name": "spo-check-and-correct-translation-config",
+    "title": "Check the Site Pages translations config and correct.",
+    "shortDescription": "Validates the multilingual translation metadata (_SPTranslatedLanguages, _SPTranslationLanguage, _SPTranslationSourceItemId, _SPIsTranslation) of every page in the Site Pages library and optionally corrects clear-cut misconfigurations.",
+    "url": "spo-check-and-correct-translation-config/README.html",
+    "creationDateTime": "2026-06-24",
+    "updateDateTime": "2026-06-24",
+    "products": [
+      "SharePoint"
+    ],
+    "metadata": [
+      {
+        "key": "PNP-POWERSHELL",
+        "value": "3.2.0"
+      }
+    ],
+    "categories": [
+      "Configure",
+      "Report"
+    ],
+    "tags": [
+      "Connect-PnPOnline",
+      "Get-PnPListItem",
+      "Set-PnPListItem",
+      "Disconnect-PnPOnline"
+    ],
+    "thumbnails": [
+      {
+        "type": "image",
+        "order": 100,
+        "url": "spo-check-and-correct-translation-config/assets/preview.png",
+        "alt": "Preview of the sample Check the Site Pages translations config and correct."
+      }
+    ],
+    "authors": [
+      {
+        "gitHubAccount": "fabianhutzli",
+        "company": "",
+        "pictureUrl": "https://github.com/fabianhutzli.png",
+        "name": "Fabian Hutzli"
+      }
+    ]
+  },
+  {
     "name": "spo-check-unaccessable-homepages",
     "title": "Scan for potential inaccessible site collection homepages",
     "shortDescription": "Looks for site collections where the home page has custom permissions and outputs to a CSV file.",

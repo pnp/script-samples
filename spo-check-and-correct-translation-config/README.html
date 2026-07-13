@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html lang="en">
+
+  <head>
+    <meta charset="utf-8">
+    <title>Check and Correct Site Pages Translation Configuration | PnP Samples </title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="title" content="Check and Correct Site Pages Translation Configuration | PnP Samples ">
+    <meta name="generator" content="docfx ">
+  <meta name="description" content="A sample gallery of scripts to manage all things Microsoft 365.">
+
+    <!-- Social Media -->
+    <meta property="og:locale" content="en_GB">
+    <meta property="og:title" content="Check and Correct Site Pages Translation Configuration | PnP Samples ">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://pnp.github.io/script-samples">
+    <meta property="og:image" content="https://pnp.github.io/script-samples/assets/social-media-screenshot.png">
+    <meta property="og:image:alt" content="Screenshot example of the PnP Script Samples Site">
+    <meta property="og:site_name" content="PnP Script Samples">
+    <meta name="msvalidate.01" content="04EFEDA66EC42C08A1247C979E2F9ADD">
+  <meta property="og:description" content="A sample gallery of scripts to manage all things Microsoft 365.">
+
+    <link rel="shortcut icon" href="https://c.s-microsoft.com/favicon.ico?v2">
+    <link rel="stylesheet" href="../styles/docfx.vendor.min.css">
+    <link rel="stylesheet" href="../styles/docfx.css">
+    <link rel="stylesheet" href="../styles/main.css">
+    <link rel="stylesheet" href="../styles/extra.css">
+    <link rel="stylesheet" href="../styles/filter.css">
+    <link rel="stylesheet" href="../styles/site.css">
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet"> 
+    <meta property="docfx:navrel" content="../toc.html">
+    <meta property="docfx:tocrel" content="../toc.html">
+  
+  
+  <meta property="docfx:newtab" content="true">
+    <script type="text/javascript">
+      (function(c,l,a,r,i,t,y){
+          c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+          t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+          y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+      })(window, document, "clarity", "script", "8j6pedl344");
+  </script>
+  </head>  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+             <div class="github-mark">
+              <a href="https://github.com/pnp/script-samples" title="Go to repository">
+               <div class="github-wrapper">
+                  <div class="github-icon">
+                    <img src="https://pnp.github.io/script-samples/assets/icons/github-light-64px.png" alt="GitHub Icon Image">
+                  </div>
+                  <div class="github-repository">
+                    <span>GitHub</span>
+                    <ul class="github-facts">
+                      <li>
+                        <i class="fa fa-code-fork" aria-hidden="true"></i>
+                        <span class="github-forks"></span>
+                      </li>
+                      <li>
+                        <i class="fa fa-star-o" aria-hidden="true"></i>
+                        <span class="github-stars"></span>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </a>
+            </div>
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../assets/logo.svg" alt="">
+              </a>            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <label class="glyphicon glyphicon-search" for="search-query"></label>
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>      </header>
+      <div role="main" class="container body-content hide-when-search">
+        <div class="article row grid">
+          <div class="col-md-12">
+            <article class="content wrap" id="_content" data-uid="">
+                  <div class="contribution-panel mobile-hide pull-right">
+                      <a href="https://github.com/pnp/script-samples/blob/main/scripts/spo-check-and-correct-translation-config/README.md/#L1" title="Edit this page" class="improve-doc-lg"><i class="glyphicon glyphicon-pencil"></i></a>
+                  </div>
+  <h1 id="check-and-correct-site-pages-translation-configuration">Check and Correct Site Pages Translation Configuration</h1>
+
+<h2 id="summary">Summary</h2>
+<p>This script inspects every page in the Site Pages library and validates whether the SharePoint multilingual translation metadata is correctly set. It covers three page roles:</p>
+<ul>
+<li><strong>Standalone</strong> – a page with no translations: all <code>_SP*</code> fields must be empty.</li>
+<li><strong>Master page</strong> – a page that has translations: <code>_SPTranslatedLanguages</code> must list exactly the languages of all translation copies; the other translation fields must be empty.</li>
+<li><strong>Translated page</strong> – a copy linked to a master: <code>_SPTranslationLanguage</code>, <code>_SPTranslationSourceItemId</code>, and <code>_SPIsTranslation</code> must be set; <code>_SPTranslatedLanguages</code> must be empty.</li>
+</ul>
+<p>Run without <code>-Fix</code> to get a full report. Add <code>-Fix</code> to automatically clear fields that are incorrectly set on standalone and master pages. Issues on translated pages that require context (missing language code, broken source reference) are flagged for manual review.</p>
+<blockquote>
+<p><strong>Important:</strong> The <code>-Fix</code> switch can only handle clear-cut cases where the correct value can be derived unambiguously from the existing metadata. It cannot cover every misconfiguration scenario, and automated fixes carry inherent risk. Always run a report first, review the findings carefully, and verify the results in SharePoint after applying any fix.</p>
+</blockquote>
+<div class="tabGroup" id="tabgroup_1">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_1_pnpps" role="tab" aria-controls="tabpanel_1_pnpps" data-tab="pnpps" tabindex="0" aria-selected="true">PnP PowerShell</a>
+</li>
+</ul>
+<section id="tabpanel_1_pnpps" role="tabpanel" data-tab="pnpps">
+
+<pre><code class="lang-powershell">param (
+    [Parameter(Mandatory = $true)]
+    [string]$SiteUrl,
+
+    [string]$ClientId = &quot;2f1689f1-1859-4b5e-aa23-08442a625125&quot;,
+
+    [switch]$Fix
+)
+
+$cn = Connect-PnPOnline -Url $SiteUrl -Interactive -ClientId $ClientId -ReturnConnection
+
+$fields = &quot;FileLeafRef&quot;, &quot;Title&quot;, &quot;_SPTranslatedLanguages&quot;, &quot;_SPTranslationLanguage&quot;,
+          &quot;_SPTranslationSourceItemId&quot;, &quot;_SPIsTranslation&quot;, &quot;UniqueId&quot;, &quot;LinkFilename&quot;
+
+$items = Get-PnPListItem -List &quot;SitePages&quot; -Fields $fields -Connection $cn -PageSize 500
+Write-Host &quot;Loaded $($items.Count) pages from Site Pages library.&quot;
+
+# Build lookup: UniqueId -&gt; item (used to validate _SPTranslationSourceItemId references)
+$itemByUniqueId = @{}
+foreach ($item in $items) {
+    $uid = $item.FieldValues.UniqueId
+    if ($uid) { $itemByUniqueId[$uid.ToString()] = $item }
+}
+
+# Group pages by filename – translations share the same FileLeafRef as their master page
+# but live in language sub-folders (e.g. /SitePages/de/page.aspx)
+$byFileName = $items | Group-Object { $_.FieldValues.FileLeafRef }
+
+$issues = [System.Collections.Generic.List[PSCustomObject]]::new()
+
+foreach ($group in $byFileName) {
+    $sameNameCount = $group.Count
+
+    foreach ($item in $group.Group) {
+        $fv                      = $item.FieldValues
+        $isTranslation           = ($fv._SPIsTranslation -eq $true)
+        $translatedLanguages     = $fv._SPTranslatedLanguages
+        $translationLanguage     = $fv._SPTranslationLanguage
+        $translationSourceItemId = $fv._SPTranslationSourceItemId
+        $uniqueId                = $fv.UniqueId.ToString()
+
+        $langArray = if ($translatedLanguages -is [array]) { $translatedLanguages }
+                     elseif ($translatedLanguages)         { @($translatedLanguages) }
+                     else                                  { @() }
+
+        # Helper: add an issue entry
+        $addIssue = {
+            param ([string]$Type, [string]$Message, [bool]$Fixable = $false, [string]$ResolvedValue = $null)
+            $issues.Add([PSCustomObject]@{
+                File          = $fv.FileLeafRef
+                UniqueId      = $uniqueId
+                ItemId        = $item.Id
+                Type          = $Type
+                Issue         = $Message
+                Fixable       = $Fixable
+                ResolvedValue = $ResolvedValue
+            })
+        }
+
+        if (-not $isTranslation -and $sameNameCount -eq 1) {
+            # ── Case 1: Standalone page ──────────────────────────────────────────────
+            # No other page shares this filename → all translation fields must be empty
+            if ($langArray.Count -gt 0)   { &amp; $addIssue &quot;Standalone&quot; &quot;_SPTranslatedLanguages should be empty&quot;     $true }
+            if ($translationLanguage)      { &amp; $addIssue &quot;Standalone&quot; &quot;_SPTranslationLanguage should be empty&quot;     $true }
+            if ($translationSourceItemId)  { &amp; $addIssue &quot;Standalone&quot; &quot;_SPTranslationSourceItemId should be empty&quot; $true }
+
+        }
+        elseif (-not $isTranslation) {
+            # ── Case 2a: Master page ─────────────────────────────────────────────────
+            # Multiple pages share this filename; this one is not a translation itself
+            $expectedLangCount = $sameNameCount - 1
+
+            if ($langArray.Count -eq 0) {
+                &amp; $addIssue &quot;Master&quot; &quot;_SPTranslatedLanguages is empty, expected $expectedLangCount language(s)&quot; $false
+            }
+            elseif ($langArray.Count -ne $expectedLangCount) {
+                &amp; $addIssue &quot;Master&quot; &quot;_SPTranslatedLanguages has $($langArray.Count) entry/entries, expected $expectedLangCount&quot; $false
+            }
+
+            if ($translationLanguage)      { &amp; $addIssue &quot;Master&quot; &quot;_SPTranslationLanguage should be empty&quot;     $true }
+            if ($translationSourceItemId)  { &amp; $addIssue &quot;Master&quot; &quot;_SPTranslationSourceItemId should be empty&quot; $true }
+
+        }
+        else {
+            # ── Case 2b: Translated page ─────────────────────────────────────────────
+            if ($langArray.Count -gt 0) {
+                &amp; $addIssue &quot;Translation&quot; &quot;_SPTranslatedLanguages should be empty on a translated page&quot; $true
+            }
+            if (-not $translationLanguage) {
+                # Try to derive the missing language from the master page:
+                # master._SPTranslatedLanguages minus languages already claimed by sibling translations
+                $resolvedLang = $null
+                if ($translationSourceItemId -and $itemByUniqueId.ContainsKey($translationSourceItemId.ToString())) {
+                    $masterFv        = $itemByUniqueId[$translationSourceItemId.ToString()].FieldValues
+                    $masterLangs     = $masterFv._SPTranslatedLanguages
+                    $masterLangArray = if ($masterLangs -is [array]) { $masterLangs }
+                                       elseif ($masterLangs)         { @($masterLangs) }
+                                       else                          { @() }
+
+                    $claimedLangs = @($items | Where-Object {
+                        $_.FieldValues._SPIsTranslation -eq $true -and
+                        $_.FieldValues._SPTranslationSourceItemId -eq $translationSourceItemId -and
+                        $_.FieldValues.UniqueId.ToString() -ne $uniqueId -and
+                        $_.FieldValues._SPTranslationLanguage
+                    } | ForEach-Object { $_.FieldValues._SPTranslationLanguage })
+
+                    $unclaimed = @($masterLangArray | Where-Object { $_ -notin $claimedLangs })
+                    if ($unclaimed.Count -eq 1) { $resolvedLang = $unclaimed[0] }
+                }
+                &amp; $addIssue &quot;Translation&quot; &quot;_SPTranslationLanguage is not set&quot; ($null -ne $resolvedLang) $resolvedLang
+            }
+            if (-not $translationSourceItemId) {
+                # Try to find the master page within the same FileLeafRef group:
+                # the one non-translation item is the master
+                $resolvedSourceId  = $null
+                $potentialMasters  = @($group.Group | Where-Object { $_.FieldValues._SPIsTranslation -ne $true })
+                if ($potentialMasters.Count -eq 1) {
+                    $resolvedSourceId = $potentialMasters[0].FieldValues.UniqueId.ToString()
+                }
+                &amp; $addIssue &quot;Translation&quot; &quot;_SPTranslationSourceItemId is not set&quot; ($null -ne $resolvedSourceId) $resolvedSourceId
+            }
+            elseif (-not $itemByUniqueId.ContainsKey($translationSourceItemId.ToString())) {
+                &amp; $addIssue &quot;Translation&quot; &quot;_SPTranslationSourceItemId '$translationSourceItemId' does not match any page in the library (orphaned)&quot; $false
+            }
+        }
+    }
+}
+
+# ── Report ───────────────────────────────────────────────────────────────────────
+Write-Host &quot;&quot;
+if ($issues.Count -eq 0) {
+    Write-Host &quot;OK – All $($items.Count) pages have correct translation configuration.&quot; -ForegroundColor Green
+}
+else {
+    Write-Warning &quot;$($issues.Count) issue(s) found across $($items.Count) pages:&quot;
+    $issues | Select-Object File, Type, Issue, UniqueId, ItemId | Format-Table -AutoSize
+}
+
+# ── Fix ──────────────────────────────────────────────────────────────────────────
+if ($Fix -and $issues.Count -gt 0) {
+    $fixable = $issues | Where-Object { $_.Fixable }
+    $manual  = $issues | Where-Object { -not $_.Fixable }
+
+    if ($fixable.Count -gt 0) {
+        Write-Host &quot;Applying $($fixable.Count) fixable issue(s)...&quot; -ForegroundColor Cyan
+
+        foreach ($issue in $fixable) {
+            $values = @{}
+            if ($issue.Issue -like &quot;*_SPTranslatedLanguages*&quot;)              { $values[&quot;_SPTranslatedLanguages&quot;]     = $null }
+            if ($issue.Issue -like &quot;*_SPTranslationLanguage should be empty*&quot;) { $values[&quot;_SPTranslationLanguage&quot;]     = $null }
+            elseif ($issue.Issue -like &quot;*_SPTranslationLanguage is not set*&quot; -and $issue.ResolvedValue) {
+                $values[&quot;_SPTranslationLanguage&quot;] = $issue.ResolvedValue
+            }
+            if ($issue.Issue -like &quot;*_SPTranslationSourceItemId should be empty*&quot;) { $values[&quot;_SPTranslationSourceItemId&quot;] = $null }
+            elseif ($issue.Issue -like &quot;*_SPTranslationSourceItemId is not set*&quot; -and $issue.ResolvedValue) {
+                $values[&quot;_SPTranslationSourceItemId&quot;] = $issue.ResolvedValue
+            }
+
+            if ($values.Count -gt 0) {
+                try {
+                    Set-PnPListItem -List &quot;SitePages&quot; -Identity $issue.ItemId -Values $values -Connection $cn | Out-Null
+                    Write-Host &quot;Fixed item $($issue.ItemId) ($($issue.File))&quot; -ForegroundColor Green
+                }
+                catch {
+                    Write-Warning &quot;Failed to fix item $($issue.ItemId) ($($issue.File)): $_&quot;
+                }
+            }
+        }
+    }
+
+    if ($manual.Count -gt 0) {
+        Write-Host &quot;&quot;
+        Write-Warning &quot;$($manual.Count) issue(s) require manual review:&quot;
+        $manual | Select-Object File, Type, Issue | Format-Table -AutoSize
+    }
+}
+
+Disconnect-PnPOnline -Connection $cn
+</code></pre>
+<div class="highlight-tool">
+<p>Check out the <strong>PnP PowerShell</strong> to learn more at: <a href="https://aka.ms/pnp/powershell">https://aka.ms/pnp/powershell</a></p>
+</div>
+<div class="highlight-tool">
+<p>The way you login into PnP PowerShell has changed please read <a href="https://github.com/pnp/powershell/discussions/4249">PnP Management Shell EntraID app is deleted : what should I do ?</a></p>
+</div>
+</section>
+</div>
+<h2 id="contributors">Contributors</h2>
+<table>
+<thead>
+<tr>
+<th>Author(s)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Fabian Hutzli</td>
+</tr>
+</tbody>
+</table>
+<h2 id="disclaimer">Disclaimer</h2>
+<p><strong>THESE SAMPLES ARE PROVIDED <em>AS IS</em> WITHOUT WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, INCLUDING ANY IMPLIED WARRANTIES OF FITNESS FOR A PARTICULAR PURPOSE, MERCHANTABILITY, OR NON-INFRINGEMENT.</strong></p>
+<img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/spo-check-and-correct-translation-config" aria-hidden="true">
+
+</article>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+      <span>Script Samples<br>Generated by <strong><a href='https://dotnet.github.io/docfx' alt='Doc FX Website'>DocFX</a></strong> with <strong><a href='https://ovasquez.github.io/docfx-material' alt='DocFx Material Theme'>Material UI</a></strong></span>
+      
+            <!-- <img src="https://telemetry.sharepointpnp.com/@pnp.github.io/index/" alt="spacer"> -->
+          </div>
+        </div>
+      </footer>    </div>
+
+    <script type="text/javascript" src="../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+
+    <script type="text/javascript" src="../styles/clipboard.min.js"></script>
+    <script type="text/javascript" src="../styles/isotope.pkgd.min.js"></script>
+    <script type="text/javascript" src="../styles/loadsamples.js"></script>
+    <script type="text/javascript" src="../styles/filtersamples.js"></script>
+
+  </body>
+</html>
