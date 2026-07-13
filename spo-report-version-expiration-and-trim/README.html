@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html lang="en">
+
+  <head>
+    <meta charset="utf-8">
+    <title>Generate File version report and trim on specific Teams | PnP Samples </title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="title" content="Generate File version report and trim on specific Teams | PnP Samples ">
+    <meta name="generator" content="docfx ">
+  <meta name="description" content="A sample gallery of scripts to manage all things Microsoft 365.">
+
+    <!-- Social Media -->
+    <meta property="og:locale" content="en_GB">
+    <meta property="og:title" content="Generate File version report and trim on specific Teams | PnP Samples ">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://pnp.github.io/script-samples">
+    <meta property="og:image" content="https://pnp.github.io/script-samples/assets/social-media-screenshot.png">
+    <meta property="og:image:alt" content="Screenshot example of the PnP Script Samples Site">
+    <meta property="og:site_name" content="PnP Script Samples">
+    <meta name="msvalidate.01" content="04EFEDA66EC42C08A1247C979E2F9ADD">
+  <meta property="og:description" content="A sample gallery of scripts to manage all things Microsoft 365.">
+
+    <link rel="shortcut icon" href="https://c.s-microsoft.com/favicon.ico?v2">
+    <link rel="stylesheet" href="../styles/docfx.vendor.min.css">
+    <link rel="stylesheet" href="../styles/docfx.css">
+    <link rel="stylesheet" href="../styles/main.css">
+    <link rel="stylesheet" href="../styles/extra.css">
+    <link rel="stylesheet" href="../styles/filter.css">
+    <link rel="stylesheet" href="../styles/site.css">
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet"> 
+    <meta property="docfx:navrel" content="../toc.html">
+    <meta property="docfx:tocrel" content="../toc.html">
+  
+  
+  <meta property="docfx:newtab" content="true">
+    <script type="text/javascript">
+      (function(c,l,a,r,i,t,y){
+          c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+          t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+          y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+      })(window, document, "clarity", "script", "8j6pedl344");
+  </script>
+  </head>  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+             <div class="github-mark">
+              <a href="https://github.com/pnp/script-samples" title="Go to repository">
+               <div class="github-wrapper">
+                  <div class="github-icon">
+                    <img src="https://pnp.github.io/script-samples/assets/icons/github-light-64px.png" alt="GitHub Icon Image">
+                  </div>
+                  <div class="github-repository">
+                    <span>GitHub</span>
+                    <ul class="github-facts">
+                      <li>
+                        <i class="fa fa-code-fork" aria-hidden="true"></i>
+                        <span class="github-forks"></span>
+                      </li>
+                      <li>
+                        <i class="fa fa-star-o" aria-hidden="true"></i>
+                        <span class="github-stars"></span>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </a>
+            </div>
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../assets/logo.svg" alt="">
+              </a>            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <label class="glyphicon glyphicon-search" for="search-query"></label>
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>      </header>
+      <div role="main" class="container body-content hide-when-search">
+        <div class="article row grid">
+          <div class="col-md-12">
+            <article class="content wrap" id="_content" data-uid="">
+                  <div class="contribution-panel mobile-hide pull-right">
+                      <a href="https://github.com/pnp/script-samples/blob/main/scripts/spo-report-version-expiration-and-trim/README.md/#L1" title="Edit this page" class="improve-doc-lg"><i class="glyphicon glyphicon-pencil"></i></a>
+                  </div>
+  <h1 id="generate-file-version-report-and-trim-on-specific-teams">Generate File version report and trim on specific Teams</h1>
+
+<h2 id="summary">Summary</h2>
+<p>This script helps you <strong>report on and trim file version history</strong> across multiple Microsoft Teams sites (including private channels) to reclaim SharePoint storage. It is not designed to run from start to end in one go — it is organized into <strong>sequential blocks</strong> that you execute step by step, with an optional batching mechanism for large-scale environments.</p>
+<h3 id="script-blocks-must-be-run-in-order">Script blocks (must be run in order)</h3>
+<table>
+<thead>
+<tr>
+<th>Block</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Login</strong></td>
+<td>Establishes a PnP connection using your chosen credentials (interactive, app registration, etc.). The same connection object is reused across blocks.</td>
+</tr>
+<tr>
+<td><strong>Report Block</strong></td>
+<td>Iterates over a list of M365 group names. For each group it resolves the main Teams site and all associated private channel sites, collecting owners, document libraries, storage usage, and current auto-expiration policy into a <code>$result</code> array.</td>
+</tr>
+<tr>
+<td><strong>Batch variables</strong> <em>(optional)</em></td>
+<td>Splits <code>$result</code> into fixed-size batches (e.g. <code>$batch1</code>, <code>$batch2</code>) so you can process a large number of sites incrementally instead of all at once.</td>
+</tr>
+<tr>
+<td><strong>Site Version Report Job</strong></td>
+<td>For every site in <code>$result</code> (or a batch), creates a hidden <code>StorageReport</code> document library and triggers <code>New-PnPSiteFileVersionExpirationReportJob</code> — an async SharePoint job that writes a CSV listing all file versions eligible for expiry. Once completed, the CSV is downloaded locally. A <code>$reportMode</code> flag lets you check job status without starting new jobs.</td>
+</tr>
+<tr>
+<td><strong>Sum of Storage Savings</strong></td>
+<td>Reads all downloaded CSVs and sums the bytes for versions whose <code>AutomaticPolicyExpirationDate</code> is in the past — giving you the total storage that would be freed before you commit to deletion.</td>
+</tr>
+<tr>
+<td><strong>Site Version Deletion</strong></td>
+<td>For every site, triggers <code>New-PnPSiteFileVersionBatchDeleteJob -Automatic</code> to delete expired versions and then sets the site to automatic versioning via <code>Set-PnPSiteVersionPolicy</code>. The same <code>$reportMode</code> flag is used here as a safety gate: set it to <code>$false</code> only when you are ready to delete.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="important-user-context-requirement">Important: user context requirement</h3>
+<p><code>New-PnPSiteFileVersionExpirationReportJob</code> and <code>New-PnPSiteFileVersionBatchDeleteJob</code> <strong>must be triggered in a delegated (user) context</strong> — they do not work with app-only authentication. All other blocks can run with an app registration. A practical split is:</p>
+<ul>
+<li><strong>App registration</strong> (high tenant privileges): Login, Report Block, Batch variables, Sum block</li>
+<li><strong>SPO admin user / service account</strong> (with access to all target sites): Site Version Report Job block, Site Version Deletion block</li>
+</ul>
+<p>For simplicity, the script is written to use a single connection throughout — adapt the Login block credentials accordingly for your environment.</p>
+<div class="tabGroup" id="tabgroup_1">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_1_pnpps" role="tab" aria-controls="tabpanel_1_pnpps" data-tab="pnpps" tabindex="0" aria-selected="true">PnP PowerShell</a>
+</li>
+</ul>
+<section id="tabpanel_1_pnpps" role="tabpanel" data-tab="pnpps">
+
+<pre><code class="lang-powershell">#### LOGIN BLOCK
+# set creds to $Creds
+$Creds = @{
+    Interactive = $true
+    ClientId    = &quot;6e0b566f-bb83-44b0-86fa-013dd60c383d&quot;
+}
+$cn = Connect-PnPOnline @Creds -ReturnConnection
+# -&gt; Describe what permissions are needed
+#### END LOGIN BLOCK
+
+### START REPORT BLOCK
+$teamsByM365GroupName = @(&quot;My Team1&quot;,&quot;My Team2&quot;)
+$result = @()
+
+foreach ($teamName in $teamsByM365GroupName) {
+
+   Write-Host &quot;Processing $teamName...&quot; -ForegroundColor Cyan
+
+   # 1. Get M365 Group
+   $group = Get-PnPMicrosoft365Group -Identity $teamName -IncludeSiteUrl  -Connection $cn
+
+   if (!$group) {
+       Write-Warning &quot;Group not found: $teamName&quot;
+       continue
+   }
+
+   # 2. Get Group Owners
+   $owners = Get-PnPMicrosoft365GroupOwner -Identity $group.Id -Connection $cn
+
+   # 3. Get Main SharePoint Site (General channel)
+   $mainSiteUrl = $group.SiteUrl
+
+   # 4. Get Team + Channels
+   $team = Get-PnPTeamsTeam -Identity $group.Id -Connection $cn
+   $channels = Get-PnPTeamsChannel -Team $team -Connection $cn
+
+   # Filter private channels
+   $privateChannels = $channels | Where-Object {$_.MembershipType -eq &quot;private&quot;}
+
+   $primaryChannel = Get-PnPTeamsPrimaryChannel -Team $team -Connection $cn
+
+   $tenantSite = Get-PnPTenantSite -Url $mainSiteUrl -Connection $cn -Detailed | Select Url, StorageUsageCurrent, EnableAutoExpirationVersionTrim
+
+   $cnSite = Connect-PnPOnline -Url $mainSiteUrl @Creds -ReturnConnection
+
+   $docLibs = Get-PnPList -Connection $cnSite | Where-Object {
+       $_.BaseTemplate -eq 101 -and $_.Hidden -eq $false
+   }
+
+   $result += [PSCustomObject]@{
+       TeamName                = $team.DisplayName
+       GroupId                 = $group.Id
+       MainSiteUrl             = $mainSiteUrl
+       GroupOwners             = ($owners.UserPrincipalName -join &quot;;&quot;)
+       ChannelType             = &quot;Default&quot;
+       ChannelName             = $primaryChannel.DisplayName
+       ChannelSite             = $mainSiteUrl
+       ChannelOwners           = ($owners.UserPrincipalName -join &quot;;&quot;)
+       ChannelDocLibs          = ($docLibs.Title -join &quot;;&quot;)
+       ChannelStorageUsage     = $tenantSite.StorageUsageCurrent # in MB -&gt; / 1024 for GB
+       ChannelAutoExpiration   = $tenantSite.EnableAutoExpirationVersionTrim
+   }
+
+   foreach ($channel in $privateChannels) {
+
+       Write-Host &quot;Processing Private Channel $($channel.DisplayName)...&quot; -ForegroundColor Cyan
+
+       # 5. Get Private Channel SPO Site URL
+       # Pattern: https://tenant.sharepoint.com/sites/&lt;GroupName&gt;-&lt;ChannelName&gt;
+       # Better: resolve via PnP
+
+       $channelSite = Get-PnPTeamsChannelFilesFolder -Team $team -Channel $channel -Connection $cn
+
+       # 6. Get Private Channel Owners
+       $channelOwners = Get-PnPTeamsChannelUser -Team $team -Channel $channel -Role Owner -Connection $cn
+
+       $channelSite = $($channelSite.webUrl.split(&quot;/&quot;)[0..4] -join &quot;/&quot;)
+
+       $tenantSite = Get-PnPTenantSite -Url $channelSite -Connection $cn -Detailed | Select Url, StorageUsageCurrent, EnableAutoExpirationVersionTrim
+
+       $cnSite = Connect-PnPOnline -Url $channelSite @Creds -ReturnConnection
+
+       $docLibs = Get-PnPList -Connection $cnSite | Where-Object {
+           $_.BaseTemplate -eq 101 -and $_.Hidden -eq $false
+       }
+
+       $result += [PSCustomObject]@{
+           TeamName                = $team.DisplayName
+           GroupId                 = $group.Id
+           MainSiteUrl             = $mainSiteUrl
+           GroupOwners             = ($owners.UserPrincipalName -join &quot;;&quot;)
+           ChannelType             = &quot;Private&quot;
+           ChannelName             = $channel.DisplayName
+           ChannelSite             = $channelSite
+           ChannelOwners           = ($channelOwners.Email -join &quot;;&quot;)
+           ChannelDocLibs          = ($docLibs.Title -join &quot;;&quot;)
+           ChannelStorageUsage     = $tenantSite.StorageUsageCurrent # in MB -&gt; / 1024 for GB
+           ChannelAutoExpiration   = $tenantSite.EnableAutoExpirationVersionTrim
+       }
+   }
+}
+
+$result
+
+### END REPORT BLOCK
+
+### IF BATCHES ARE NEEDED
+$batchSize = 20
+
+for ($start = 0; $start -lt $result.Count; $start += $batchSize) {
+   $batchNumber = [int]($start / $batchSize) + 1
+   $end = [Math]::Min($start + $batchSize - 1, $result.Count - 1)
+
+   Set-Variable -Name &quot;batch$batchNumber&quot; -Value $result[$start..$end]
+}
+
+### START SITE VERSION REPORT JOB BLOCK
+
+$reportMode = $true  #to check job status only
+#$reportMode = $false #to start new report jobs
+
+foreach($c in $result){
+#foreach($c in $batch1){
+
+   $cnSite = Connect-PnPOnline -Url $c.ChannelSite @Creds -ReturnConnection
+
+   $list = Get-PnPList -Identity &quot;StorageReport&quot; -Connection $cnSite -ErrorAction SilentlyContinue
+
+   if (-not $list) {
+       New-PnPList -Title &quot;StorageReport&quot; -Template DocumentLibrary -OnQuickLaunch:$false -Connection $cnSite
+       Set-PnPList -Identity &quot;StorageReport&quot; -Hidden:$true -NoCrawl:$true -BreakRoleInheritance:$true -CopyRoleAssignments:$false -Connection $cnSite
+   }
+
+   $reportUrl = &quot;$($c.ChannelSite)/StorageReport/SiteVersionReport_$($c.ChannelSite.Split('/')[-1]).csv&quot;
+   $status = Get-PnPSiteFileVersionExpirationReportJobStatus -ReportUrl $reportUrl -Connection $cnSite -ErrorAction SilentlyContinue
+
+   if ((-not $status -or $status.Status -in @(&quot;no_report_found&quot;)) -and $reportMode -eq $false){
+       New-PnPSiteFileVersionExpirationReportJob -ReportUrl $reportUrl -Connection $cnSite
+   }
+   else {
+       Write-Host &quot;Report $reportUrl in Status $($status.Status)&quot;
+   }
+
+   if($status.Status -eq &quot;completed&quot;){
+       $tenantBaseUrl = &quot;$([Uri]::new($c.ChannelSite).Scheme)://$([Uri]::new($c.ChannelSite).Host)&quot;
+       $siteName = $c.ChannelSite.Split('/')[-1]
+       Get-PnPFile -Url &quot;$($c.ChannelSite.Replace($tenantBaseUrl,''))/StorageReport/SiteVersionReport_$siteName.csv&quot; -AsFile -Path &quot;.&quot; -Filename &quot;SiteVersionReport_$siteName.csv&quot; -Force -Connection $cnSite
+   }
+}
+### END SITE VERSION REPORT JOB BLOCK
+
+### START GET SUM OF STORAGE SAVINGS BLOCK
+$now = Get-Date
+ 
+$batchResult = Get-ChildItem -Path &quot;.&quot; -Filter *.csv | ForEach-Object {
+ 
+$sumBytes = Import-Csv $_.FullName |
+        Where-Object {
+            -not [string]::IsNullOrWhiteSpace($_.AutomaticPolicyExpirationDate) -and
+            ([datetime]$_.AutomaticPolicyExpirationDate -lt $now)
+        } |
+        Measure-Object -Property Size -Sum |
+        Select-Object -ExpandProperty Sum
+ 
+    $sumMB = [math]::Round(($sumBytes / 1048576), 2)
+ 
+    [PSCustomObject]@{
+        FileName = $_.Name
+        ExpiredSizeMB = $sumMB
+    }
+}
+ 
+$batchResult
+($batchResult | Measure-Object -Property ExpiredSizeMB -Sum).Sum
+### END GET SUM OF STORAGE SAVINGS BLOCK
+
+### START SITE VERSION DELETION
+
+$reportMode = $true #to get job status only
+#$reportMode = $false #to start the job
+
+foreach($c in $result){
+#foreach($c in $batch1){
+
+   $cnSite = Connect-PnPOnline -Url $c.ChannelSite @Creds -ReturnConnection
+
+   $status = Get-PnPSiteFileVersionBatchDeleteJobStatus -Connection $cnSite -ErrorAction SilentlyContinue
+   $status
+
+   if ((-not $status -or $status.Status -eq &quot;NoRequestFound&quot;) -and $reportMode -eq $false){
+       New-PnPSiteFileVersionBatchDeleteJob -Automatic -Connection $cnSite
+       Set-PnPSiteVersionPolicy -EnableAutoExpirationVersionTrim $true -Connection $cnSite
+   }
+   else {
+       Write-Host &quot;$($c.ChannelSite) - Site File Version Batch Delete Job in Status $($status.Status)&quot;
+   }
+}
+
+### END SITE VERSION DELETION
+</code></pre>
+<div class="highlight-tool">
+<p>Check out the <strong>PnP PowerShell</strong> to learn more at: <a href="https://aka.ms/pnp/powershell">https://aka.ms/pnp/powershell</a></p>
+</div>
+<div class="highlight-tool">
+<p>The way you login into PnP PowerShell has changed please read <a href="https://github.com/pnp/powershell/discussions/4249">PnP Management Shell EntraID app is deleted : what should I do ?</a></p>
+</div>
+</section>
+</div>
+<h2 id="contributors">Contributors</h2>
+<table>
+<thead>
+<tr>
+<th>Author(s)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Fabian Hutzli</td>
+</tr>
+</tbody>
+</table>
+<h2 id="disclaimer">Disclaimer</h2>
+<p><strong>THESE SAMPLES ARE PROVIDED <em>AS IS</em> WITHOUT WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, INCLUDING ANY IMPLIED WARRANTIES OF FITNESS FOR A PARTICULAR PURPOSE, MERCHANTABILITY, OR NON-INFRINGEMENT.</strong></p>
+<img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/spo-report-version-expiration-and-trim" aria-hidden="true">
+
+</article>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+      <span>Script Samples<br>Generated by <strong><a href='https://dotnet.github.io/docfx' alt='Doc FX Website'>DocFX</a></strong> with <strong><a href='https://ovasquez.github.io/docfx-material' alt='DocFx Material Theme'>Material UI</a></strong></span>
+      
+            <!-- <img src="https://telemetry.sharepointpnp.com/@pnp.github.io/index/" alt="spacer"> -->
+          </div>
+        </div>
+      </footer>    </div>
+
+    <script type="text/javascript" src="../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+
+    <script type="text/javascript" src="../styles/clipboard.min.js"></script>
+    <script type="text/javascript" src="../styles/isotope.pkgd.min.js"></script>
+    <script type="text/javascript" src="../styles/loadsamples.js"></script>
+    <script type="text/javascript" src="../styles/filtersamples.js"></script>
+
+  </body>
+</html>
