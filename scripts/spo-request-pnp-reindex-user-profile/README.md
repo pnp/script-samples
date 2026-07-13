@@ -183,6 +183,7 @@ Sample first appeared on [https://github.com/wobba/SPO-Trigger-Reindex](https://
 | Valeras Narbutas |
 | Mikael Svenson |
 | [Todd Klindt](https://www.toddklindt.com)|
+| Juan Andres Rodriguez |
 
 
 [!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
