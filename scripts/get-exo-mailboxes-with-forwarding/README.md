@@ -280,3 +280,4 @@ The report contains the following fields:
 |1.0|July 04, 2026|Initial release|
 
 [!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
+<img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/get-exo-mailboxes-with-forwarding" aria-hidden="true" />
