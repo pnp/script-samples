@@ -2454,6 +2454,50 @@
     ]
   },
   {
+    "name": "get-exo-mailboxes-with-forwarding",
+    "title": "Get Exchange Online Mailboxes Configured With Email Forwarding",
+    "shortDescription": "This script identifies all Exchange Online mailboxes configured with email forwarding and exports the results to a timestamped CSV report.",
+    "url": "get-exo-mailboxes-with-forwarding/README.html",
+    "creationDateTime": "2026-07-04",
+    "updateDateTime": "2026-07-04",
+    "products": [
+      "Office"
+    ],
+    "metadata": [
+      {
+        "key": "POWERSHELL",
+        "value": "7.2.0"
+      }
+    ],
+    "categories": [
+      "Report",
+      "Security"
+    ],
+    "tags": [
+      "Connect-ExchangeOnline",
+      "Get-EXOMailbox",
+      "Export-Csv",
+      "Exchange Online",
+      "Mailbox Forwarding"
+    ],
+    "thumbnails": [
+      {
+        "type": "image",
+        "order": 100,
+        "url": "get-exo-mailboxes-with-forwarding/assets/preview.png",
+        "alt": "Preview of the sample Get Exchange Online Mailboxes Configured With Email Forwarding"
+      }
+    ],
+    "authors": [
+      {
+        "gitHubAccount": "ojopiyo",
+        "company": "",
+        "pictureUrl": "https://github.com/ojopiyo.png",
+        "name": "Josiah Opiyo"
+      }
+    ]
+  },
+  {
     "name": "get-spo-invalid-user-accounts",
     "title": "Get Site Collection invalid user accounts",
     "shortDescription": "Find the user accounts which no longer is valid, export report to CSV",
