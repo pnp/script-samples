@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html lang="en">
+
+  <head>
+    <meta charset="utf-8">
+    <title>Exchange Online Shared Mailbox Storage Audit (Threshold-Based Reporting Script) | PnP Samples </title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="title" content="Exchange Online Shared Mailbox Storage Audit (Threshold-Based Reporting Script) | PnP Samples ">
+    <meta name="generator" content="docfx ">
+  <meta name="description" content="A sample gallery of scripts to manage all things Microsoft 365.">
+
+    <!-- Social Media -->
+    <meta property="og:locale" content="en_GB">
+    <meta property="og:title" content="Exchange Online Shared Mailbox Storage Audit (Threshold-Based Reporting Script) | PnP Samples ">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://pnp.github.io/script-samples">
+    <meta property="og:image" content="https://pnp.github.io/script-samples/assets/social-media-screenshot.png">
+    <meta property="og:image:alt" content="Screenshot example of the PnP Script Samples Site">
+    <meta property="og:site_name" content="PnP Script Samples">
+    <meta name="msvalidate.01" content="04EFEDA66EC42C08A1247C979E2F9ADD">
+  <meta property="og:description" content="A sample gallery of scripts to manage all things Microsoft 365.">
+
+    <link rel="shortcut icon" href="https://c.s-microsoft.com/favicon.ico?v2">
+    <link rel="stylesheet" href="../styles/docfx.vendor.min.css">
+    <link rel="stylesheet" href="../styles/docfx.css">
+    <link rel="stylesheet" href="../styles/main.css">
+    <link rel="stylesheet" href="../styles/extra.css">
+    <link rel="stylesheet" href="../styles/filter.css">
+    <link rel="stylesheet" href="../styles/site.css">
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet"> 
+    <meta property="docfx:navrel" content="../toc.html">
+    <meta property="docfx:tocrel" content="../toc.html">
+  
+  
+  <meta property="docfx:newtab" content="true">
+    <script type="text/javascript">
+      (function(c,l,a,r,i,t,y){
+          c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+          t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+          y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+      })(window, document, "clarity", "script", "8j6pedl344");
+  </script>
+  </head>  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+             <div class="github-mark">
+              <a href="https://github.com/pnp/script-samples" title="Go to repository">
+               <div class="github-wrapper">
+                  <div class="github-icon">
+                    <img src="https://pnp.github.io/script-samples/assets/icons/github-light-64px.png" alt="GitHub Icon Image">
+                  </div>
+                  <div class="github-repository">
+                    <span>GitHub</span>
+                    <ul class="github-facts">
+                      <li>
+                        <i class="fa fa-code-fork" aria-hidden="true"></i>
+                        <span class="github-forks"></span>
+                      </li>
+                      <li>
+                        <i class="fa fa-star-o" aria-hidden="true"></i>
+                        <span class="github-stars"></span>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </a>
+            </div>
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../assets/logo.svg" alt="">
+              </a>            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <label class="glyphicon glyphicon-search" for="search-query"></label>
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>      </header>
+      <div role="main" class="container body-content hide-when-search">
+        <div class="article row grid">
+          <div class="col-md-12">
+            <article class="content wrap" id="_content" data-uid="">
+                  <div class="contribution-panel mobile-hide pull-right">
+                      <a href="https://github.com/pnp/script-samples/blob/main/scripts/exchange-online-shared-mailbox-storage-audit/README.md/#L1" title="Edit this page" class="improve-doc-lg"><i class="glyphicon glyphicon-pencil"></i></a>
+                  </div>
+  <h1 id="exchange-online-shared-mailbox-storage-audit-threshold-based-reporting-script">Exchange Online Shared Mailbox Storage Audit (Threshold-Based Reporting Script)</h1>
+
+<h2 id="professional-summary">Professional Summary</h2>
+<p>This PowerShell script connects to Microsoft Exchange Online using app-based authentication and retrieves all shared mailboxes within a Microsoft 365 tenant. It calculates mailbox sizes in gigabytes, compares them against a defined storage threshold, and generates a structured CSV report containing only mailboxes exceeding that limit.</p>
+<p>The script includes real-time progress tracking, error-resilient mailbox processing, and execution metadata such as total scan count and execution duration.</p>
+<h3 id="what-it-does">What it does</h3>
+<p>Identifies shared mailboxes in Exchange Online that exceed a defined storage threshold (e.g., 40 GB), then exports detailed statistics (size, item count, last logon time) to a timestamped CSV file for administrative review and governance reporting.</p>
+<h2 id="why-it-matters">Why it matters</h2>
+<p>In enterprise Microsoft 365 environments, unmanaged mailbox growth can lead to performance degradation, compliance risks, and storage inefficiencies. Shared mailboxes are often overlooked because they do not have a direct user owner actively monitoring growth.</p>
+<p>This script supports governance scenarios such as:</p>
+<ul>
+<li>Identifying oversized shared mailboxes impacting Exchange Online performance</li>
+<li>Supporting mailbox cleanup and archiving initiatives</li>
+<li>Preparing for tenant migrations or storage optimization projects</li>
+<li>Enforcing internal compliance policies on mailbox size limits</li>
+<li>Assisting service desk and messaging teams with proactive capacity management</li>
+</ul>
+<h2 id="benefits">Benefits</h2>
+<ul>
+<li>Proactive storage governance: Quickly identifies mailboxes exceeding defined thresholds</li>
+<li>Operational visibility: Provides clear reporting on mailbox growth and usage patterns</li>
+<li>Reduced risk: Helps prevent service disruption due to oversized mailboxes</li>
+<li>Audit readiness: Produces exportable CSV data suitable for compliance and reporting</li>
+<li>Automation-friendly: Can be integrated into scheduled tasks or monitoring workflows</li>
+<li>Improved efficiency: Eliminates manual mailbox size checking in Exchange Admin Center</li>
+</ul>
+<h2 id="prerequisites">Prerequisites</h2>
+<ul>
+<li>PowerShell 7.x or Windows PowerShell 5.1</li>
+<li>Exchange Online PowerShell Module</li>
+<li>Microsoft Entra ID App Registration configured for certificate-based authentication</li>
+<li>Exchange.ManageAsApp permission granted</li>
+<li>Exchange Administrator (or equivalent application permissions)</li>
+</ul>
+<h2 id="usage">Usage</h2>
+<ol>
+<li>Configure tenant-specific values:
+<ul>
+<li>Client ID</li>
+<li>Certificate Thumbprint</li>
+<li>Tenant Name</li>
+<li>Output Folder</li>
+</ul>
+</li>
+<li>Execute the script using a privileged administrative account context.</li>
+<li>Review the generated CSV reports.</li>
+</ol>
+<div class="tabGroup" id="tabgroup_1">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_1_pnpps" role="tab" aria-controls="tabpanel_1_pnpps" data-tab="pnpps" tabindex="0" aria-selected="true">PnP PowerShell</a>
+</li>
+</ul>
+<section id="tabpanel_1_pnpps" role="tabpanel" data-tab="pnpps">
+
+<pre><code class="lang-powershell">
+# Requires -Modules ExchangeOnlineManagement
+
+#==========================================
+# Configuration
+#==========================================
+
+$ClientID   = &quot;xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx&quot;
+$ThumbPrint = &quot;xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx&quot;
+$Tenant     = &quot;contoso.onmicrosoft.com&quot;
+
+# Mailbox size threshold (GB)
+$ThresholdGB = 40
+
+# Output
+$OutputFolder = &quot;C:\Temp\Mailbox&quot;
+$TimeStamp    = Get-Date -Format &quot;yyyyMMdd_HHmmss&quot;
+
+# Metadata
+$StartTime = Get-Date
+
+# Create output folder if it doesn't exist
+if (!(Test-Path $OutputFolder))
+{
+    New-Item -ItemType Directory -Path $OutputFolder | Out-Null
+}
+
+$CsvFile = Join-Path $OutputFolder &quot;SharedMailboxes_Over_${ThresholdGB}GB_$TimeStamp.csv&quot;
+
+try
+{
+    #==========================================
+    # Connect to Exchange Online
+    #==========================================
+
+    Write-Host &quot;Connecting to Exchange Online...&quot; -ForegroundColor Cyan
+
+    Connect-ExchangeOnline `
+        -AppId $ClientID `
+        -CertificateThumbprint $ThumbPrint `
+        -Organization $Tenant `
+        -ShowBanner:$false `
+        -ErrorAction Stop
+
+    Write-Host &quot;Connected.&quot; -ForegroundColor Green
+
+    #==========================================
+    # Get Shared Mailboxes
+    #==========================================
+
+    Write-Host &quot;Retrieving shared mailboxes...&quot; -ForegroundColor Cyan
+
+    $mailboxes = Get-EXOMailbox `
+        -RecipientTypeDetails SharedMailbox `
+        -ResultSize Unlimited `
+        -Properties DisplayName,PrimarySmtpAddress
+
+    $Results = @()
+    $TotalMailboxes = $mailboxes.Count
+    $Scanned = 0
+
+    foreach ($mailbox in $mailboxes)
+    {
+        $Scanned++
+
+        Write-Progress `
+            -Activity &quot;Scanning shared mailboxes&quot; `
+            -Status &quot;$Scanned of $TotalMailboxes : $($mailbox.DisplayName)&quot; `
+            -PercentComplete (($Scanned / $TotalMailboxes) * 100)
+
+        Write-Host &quot;Checking $($mailbox.DisplayName)...&quot;
+
+        try
+        {
+            $stats = Get-EXOMailboxStatistics -Identity $mailbox.UserPrincipalName -ErrorAction Stop
+
+            $SizeBytes = $stats.TotalItemSize.Value.ToBytes()
+            $SizeGB = [math]::Round(($SizeBytes / 1GB),2)
+
+            if ($SizeGB -ge $ThresholdGB)
+            {
+                $Results += [PSCustomObject]@{
+                    DisplayName   = $mailbox.DisplayName
+                    EmailAddress  = $mailbox.PrimarySmtpAddress
+                    SizeGB        = $SizeGB
+                    ItemCount     = $stats.ItemCount
+                    LastLogonTime = $stats.LastLogonTime
+                }
+
+                Write-Host &quot;  -&gt; $SizeGB GB&quot; -ForegroundColor Yellow
+            }
+        }
+        catch
+        {
+            Write-Warning &quot;Failed to retrieve statistics for '$($mailbox.DisplayName)': $($_.Exception.Message)&quot;
+        }
+    }
+
+    Write-Progress -Activity &quot;Scanning shared mailboxes&quot; -Completed
+
+    #==========================================
+    # Export Results
+    #==========================================
+
+    if ($Results.Count -gt 0)
+    {
+        $Results |
+            Sort-Object SizeGB -Descending |
+            Export-Csv -Path $CsvFile -NoTypeInformation -Encoding UTF8
+
+        Write-Host &quot;&quot;
+        Write-Host &quot;==========================================&quot; -ForegroundColor Green
+        Write-Host &quot;Report complete.&quot; -ForegroundColor Green
+        Write-Host &quot;Total shared mailboxes scanned : $Scanned&quot;
+        Write-Host &quot;Mailboxes over $ThresholdGB GB : $($Results.Count)&quot;
+        Write-Host &quot;CSV saved to:&quot;
+        Write-Host $CsvFile -ForegroundColor Cyan
+        Write-Host &quot;==========================================&quot;
+    }
+    else
+    {
+        Write-Host &quot;&quot;
+        Write-Host &quot;==========================================&quot; -ForegroundColor Yellow
+        Write-Host &quot;No shared mailboxes were found over $ThresholdGB GB.&quot;
+        Write-Host &quot;Total shared mailboxes scanned : $Scanned&quot;
+        Write-Host &quot;==========================================&quot;
+    }
+}
+catch
+{
+    Write-Error &quot;Script failed: $($_.Exception.Message)&quot;
+}
+finally
+{
+    $EndTime = Get-Date
+
+    Write-Host &quot;&quot;
+    Write-Host &quot;Started : $StartTime&quot;
+    Write-Host &quot;Finished: $EndTime&quot;
+    Write-Host (&quot;Elapsed : {0:hh\:mm\:ss}&quot; -f ($EndTime - $StartTime))
+
+    Disconnect-ExchangeOnline -Confirm:$false -ErrorAction SilentlyContinue
+}
+
+</code></pre>
+<h2 id="output">Output</h2>
+<h3 id="csv-report-location">CSV Report Location</h3>
+<p>C:\Temp\Mailbox\</p>
+<h3 id="file-naming-convention">File Naming Convention</h3>
+<p>SharedMailboxes_Over_<thresholdgb>GB_<timestamp>.csv</timestamp></thresholdgb></p>
+<h3 id="report-contents">Report Contents</h3>
+<ul>
+<li>Display Name</li>
+<li>Primary SMTP Address</li>
+<li>Mailbox Size (GB)</li>
+<li>Item Count</li>
+<li>Last Logon Time</li>
+</ul>
+<h2 id="notes">Notes</h2>
+<ul>
+<li>The script uses Get-EXOMailbox and Get-EXOMailboxStatistics, which are optimized for Exchange Online performance.</li>
+<li>Progress tracking is displayed during execution for large tenant environments.</li>
+<li>Failed mailbox queries are handled gracefully and logged as warnings without interrupting execution.</li>
+<li>If no mailboxes exceed the threshold, a controlled &quot;No results&quot; output is displayed instead of generating an empty file.</li>
+<li>Execution metadata (start time, end time, duration) is included for audit and troubleshooting purposes.</li>
+</ul>
+<h2 id="contributors">Contributors</h2>
+<table>
+<thead>
+<tr>
+<th>Author(s)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="https://github.com/ojopiyo">Josiah Opiyo</a></td>
+</tr>
+</tbody>
+</table>
+<p><em>Built with a focus on automation, governance, least privilege, and clean Microsoft 365 tenants-helping M365 admins gain visibility and reduce operational risk.</em></p>
+<h2 id="version-history">Version history</h2>
+<table>
+<thead>
+<tr>
+<th>Version</th>
+<th>Date</th>
+<th>Comments</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1.0</td>
+<td>July 05, 2026</td>
+<td>Initial release</td>
+</tr>
+</tbody>
+</table>
+<h2 id="disclaimer">Disclaimer</h2>
+<p><strong>THESE SAMPLES ARE PROVIDED <em>AS IS</em> WITHOUT WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, INCLUDING ANY IMPLIED WARRANTIES OF FITNESS FOR A PARTICULAR PURPOSE, MERCHANTABILITY, OR NON-INFRINGEMENT.</strong></p>
+<img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/exchange-online-shared-mailbox-storage-audit" aria-hidden="true">
+</section>
+</div>
+
+</article>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+      <span>Script Samples<br>Generated by <strong><a href='https://dotnet.github.io/docfx' alt='Doc FX Website'>DocFX</a></strong> with <strong><a href='https://ovasquez.github.io/docfx-material' alt='DocFx Material Theme'>Material UI</a></strong></span>
+      
+            <!-- <img src="https://telemetry.sharepointpnp.com/@pnp.github.io/index/" alt="spacer"> -->
+          </div>
+        </div>
+      </footer>    </div>
+
+    <script type="text/javascript" src="../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+
+    <script type="text/javascript" src="../styles/clipboard.min.js"></script>
+    <script type="text/javascript" src="../styles/isotope.pkgd.min.js"></script>
+    <script type="text/javascript" src="../styles/loadsamples.js"></script>
+    <script type="text/javascript" src="../styles/filtersamples.js"></script>
+
+  </body>
+</html>
