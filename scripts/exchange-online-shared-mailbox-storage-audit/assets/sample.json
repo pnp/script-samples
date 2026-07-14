@@ -1,0 +1,56 @@
+[
+  {
+    "name": "exchange-online-shared-mailbox-storage-audit",
+    "source": "pnp",
+    "title": "Exchange Online Shared Mailbox Storage Audit (Threshold-Based Reporting Script)",
+    "shortDescription": "This script connects to Exchange Online, identifies shared mailboxes over a size threshold, and exports a CSV report for governance and capacity monitoring.",
+    "url": "https://pnp.github.io/script-samples/exchange-online-shared-mailbox-storage-audit/README.html",
+    "longDescription": [
+      "Audits shared mailbox storage growth by scanning all shared mailboxes, calculating mailbox size in GB, and reporting only entries that exceed the configured threshold."
+    ],
+    "creationDateTime": "2026-07-05",
+    "updateDateTime": "2026-07-05",
+    "products": [
+      "Office"
+    ],
+    "metadata": [
+      {
+        "key": "POWERSHELL",
+        "value": "7.2.0"
+      }
+    ],
+    "categories": [
+      "Report",
+      "Security"
+    ],
+    "tags": [
+      "Connect-ExchangeOnline",
+      "Get-EXOMailbox",
+      "Get-EXOMailboxStatistics",
+      "Export-Csv"
+    ],
+    "thumbnails": [
+      {
+        "type": "image",
+        "order": 100,
+        "url": "https://raw.githubusercontent.com/pnp/script-samples/main/scripts/exchange-online-shared-mailbox-storage-audit/assets/preview.png",
+        "alt": "Preview of the sample Exchange Online Shared Mailbox Storage Audit"
+      }
+    ],
+    "authors": [
+      {
+        "gitHubAccount": "ojopiyo",
+        "company": "",
+        "pictureUrl": "https://github.com/ojopiyo.png",
+        "name": "Josiah Opiyo"
+      }
+    ],
+    "references": [
+      {
+        "name": "Exchange Online PowerShell module",
+        "description": "Learn how to connect to Exchange Online and use Exchange Online PowerShell cmdlets.",
+        "url": "https://learn.microsoft.com/powershell/exchange/connect-to-exchange-online-powershell"
+      }
+    ]
+  }
+]
