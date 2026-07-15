@@ -1511,6 +1511,49 @@
     ]
   },
   {
+    "name": "copy-sharepoint-list-columns-between-lists",
+    "title": "How to Copy SharePoint List Columns Between Lists Using PowerShell",
+    "shortDescription": "This script copies selected SharePoint list fields from a source list to a destination list using PnP PowerShell and certificate-based authentication.",
+    "url": "copy-sharepoint-list-columns-between-lists/README.html",
+    "creationDateTime": "2026-07-11",
+    "updateDateTime": "2026-07-11",
+    "products": [
+      "SharePoint"
+    ],
+    "metadata": [
+      {
+        "key": "PNP-POWERSHELL",
+        "value": "2.2.0"
+      }
+    ],
+    "categories": [
+      "Provision",
+      "Configure"
+    ],
+    "tags": [
+      "Connect-PnPOnline",
+      "Get-PnPField",
+      "Add-PnPFieldFromXml",
+      "Export-Csv"
+    ],
+    "thumbnails": [
+      {
+        "type": "image",
+        "order": 100,
+        "url": "copy-sharepoint-list-columns-between-lists/assets/preview.png",
+        "alt": "Preview of the sample How to Copy SharePoint List Columns Between Lists Using PowerShell"
+      }
+    ],
+    "authors": [
+      {
+        "gitHubAccount": "ojopiyo",
+        "company": "",
+        "pictureUrl": "https://github.com/ojopiyo.png",
+        "name": "Josiah Opiyo"
+      }
+    ]
+  },
+  {
     "name": "cowork-skills-upload",
     "title": "Upload Cowork Skills to your OneDrive",
     "shortDescription": "Uploads a custom SKILL.md file to the Cowork/skills folder in a user's OneDrive Agent Assets library using PnP PowerShell.",
