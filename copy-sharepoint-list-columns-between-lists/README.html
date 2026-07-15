@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html lang="en">
+
+  <head>
+    <meta charset="utf-8">
+    <title>How to Copy SharePoint List Columns Between Lists Using PowerShell | PnP Samples </title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="title" content="How to Copy SharePoint List Columns Between Lists Using PowerShell | PnP Samples ">
+    <meta name="generator" content="docfx ">
+  <meta name="description" content="A sample gallery of scripts to manage all things Microsoft 365.">
+
+    <!-- Social Media -->
+    <meta property="og:locale" content="en_GB">
+    <meta property="og:title" content="How to Copy SharePoint List Columns Between Lists Using PowerShell | PnP Samples ">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://pnp.github.io/script-samples">
+    <meta property="og:image" content="https://pnp.github.io/script-samples/assets/social-media-screenshot.png">
+    <meta property="og:image:alt" content="Screenshot example of the PnP Script Samples Site">
+    <meta property="og:site_name" content="PnP Script Samples">
+    <meta name="msvalidate.01" content="04EFEDA66EC42C08A1247C979E2F9ADD">
+  <meta property="og:description" content="A sample gallery of scripts to manage all things Microsoft 365.">
+
+    <link rel="shortcut icon" href="https://c.s-microsoft.com/favicon.ico?v2">
+    <link rel="stylesheet" href="../styles/docfx.vendor.min.css">
+    <link rel="stylesheet" href="../styles/docfx.css">
+    <link rel="stylesheet" href="../styles/main.css">
+    <link rel="stylesheet" href="../styles/extra.css">
+    <link rel="stylesheet" href="../styles/filter.css">
+    <link rel="stylesheet" href="../styles/site.css">
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet"> 
+    <meta property="docfx:navrel" content="../toc.html">
+    <meta property="docfx:tocrel" content="../toc.html">
+  
+  
+  <meta property="docfx:newtab" content="true">
+    <script type="text/javascript">
+      (function(c,l,a,r,i,t,y){
+          c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+          t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+          y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+      })(window, document, "clarity", "script", "8j6pedl344");
+  </script>
+  </head>  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+             <div class="github-mark">
+              <a href="https://github.com/pnp/script-samples" title="Go to repository">
+               <div class="github-wrapper">
+                  <div class="github-icon">
+                    <img src="https://pnp.github.io/script-samples/assets/icons/github-light-64px.png" alt="GitHub Icon Image">
+                  </div>
+                  <div class="github-repository">
+                    <span>GitHub</span>
+                    <ul class="github-facts">
+                      <li>
+                        <i class="fa fa-code-fork" aria-hidden="true"></i>
+                        <span class="github-forks"></span>
+                      </li>
+                      <li>
+                        <i class="fa fa-star-o" aria-hidden="true"></i>
+                        <span class="github-stars"></span>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </a>
+            </div>
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../assets/logo.svg" alt="">
+              </a>            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <label class="glyphicon glyphicon-search" for="search-query"></label>
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>      </header>
+      <div role="main" class="container body-content hide-when-search">
+        <div class="article row grid">
+          <div class="col-md-12">
+            <article class="content wrap" id="_content" data-uid="">
+                  <div class="contribution-panel mobile-hide pull-right">
+                      <a href="https://github.com/pnp/script-samples/blob/main/scripts/copy-sharepoint-list-columns-between-lists/README.md/#L1" title="Edit this page" class="improve-doc-lg"><i class="glyphicon glyphicon-pencil"></i></a>
+                  </div>
+  <h1 id="how-to-copy-sharepoint-list-columns-between-lists-using-powershell">How to Copy SharePoint List Columns Between Lists Using PowerShell</h1>
+
+<h2 id="professional-summary">Professional Summary</h2>
+<p>This PowerShell script copies selected SharePoint list fields from a source Microsoft 365 SharePoint site to a destination SharePoint site using PnP PowerShell authentication with an Azure AD application certificate.</p>
+<p>The script validates existing destination fields, identifies missing source fields, creates required fields using the original SharePoint schema XML, and produces an operational CSV report containing execution results, status, and error details.</p>
+<p>Designed for Microsoft 365 administrators, the script supports repeatable tenant administration tasks, controlled migrations, and SharePoint list standardisation activities.</p>
+<h2 id="why-it-matters">Why it matters</h2>
+<p>During Microsoft 365 migrations, tenant consolidations, SharePoint information architecture projects, or application deployments, administrators often need to replicate SharePoint list structures across sites.
+Manually recreating fields introduces risks:</p>
+<ul>
+<li>Incorrect field types</li>
+<li>Missing internal names</li>
+<li>Configuration inconsistencies</li>
+<li>Deployment delays</li>
+<li>Lack of audit visibility</li>
+</ul>
+<p>This script provides a controlled method to replicate required list columns while maintaining SharePoint schema integrity and generating an audit trail suitable for enterprise change management.</p>
+<h2 id="benefits">Benefits</h2>
+<ul>
+<li>Automates SharePoint field replication at scale</li>
+<li>Preserves SharePoint field schema definitions</li>
+<li>Avoids duplicate field creation</li>
+<li>Provides detailed operational reporting</li>
+<li>Supports unattended execution using certificate-based authentication</li>
+<li>Suitable for large Microsoft 365 environments</li>
+<li>Improves consistency across SharePoint site collections</li>
+<li>Provides migration validation evidence for governance and compliance requirements</li>
+<li>Helps teams adopt a more controlled Dev/Test/Production lifecycle for SharePoint solutions</li>
+</ul>
+<h2 id="prerequisites">Prerequisites</h2>
+<ul>
+<li>PowerShell 7+</li>
+<li>PnP.PowerShell module</li>
+<li>Azure AD application registration</li>
+<li>Certificate-based authentication permissions:
+<ul>
+<li>SharePoint Sites.Selected or appropriate SharePoint application permissions</li>
+</ul>
+</li>
+</ul>
+<div class="tabGroup" id="tabgroup_1">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_1_pnpps" role="tab" aria-controls="tabpanel_1_pnpps" data-tab="pnpps" tabindex="0" aria-selected="true">PnP PowerShell</a>
+</li>
+<li role="presentation">
+<a href="#tabpanel_1_module" role="tab" aria-controls="tabpanel_1_module" data-tab="module" tabindex="-1">Install module</a>
+</li>
+<li role="presentation">
+<a href="#tabpanel_1_run" role="tab" aria-controls="tabpanel_1_run" data-tab="run" tabindex="-1">Run</a>
+</li>
+</ul>
+<section id="tabpanel_1_pnpps" role="tabpanel" data-tab="pnpps">
+
+<pre><code class="lang-powershell">#==========================================
+# Configuration
+#==========================================
+$SourceSiteUrl      = &quot;https://contoso.sharepoint.com/sites/TEST-Finance&quot;
+$DestinationSiteUrl = &quot;https://contoso.sharepoint.com/sites/PROD-Finance&quot;
+
+$ClientId   = &quot;xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx&quot;
+$Thumbprint = &quot;xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx&quot;
+$Tenant     = &quot;contoso.onmicrosoft.com&quot;
+
+$SourceListName      = &quot;Finance&quot;
+$DestinationListName = &quot;Finance&quot;
+
+$FieldsToCopy = @(
+    &quot;CostCentre&quot;
+    &quot;Department&quot;
+    &quot;BudgetCode&quot;
+    &quot;GLAccount&quot;
+    &quot;ExpenseCategory&quot;
+    &quot;BudgetAmount&quot;
+    &quot;ForecastAmount&quot;
+    &quot;ClaimAmount&quot;
+    &quot;Supplier&quot;
+    &quot;InvoiceNumber&quot;
+    &quot;PurchaseOrder&quot;
+    &quot;FinancialYear&quot;
+    &quot;ApprovalStatus&quot;
+    &quot;Approver&quot;
+    &quot;ReceiptReference&quot;
+)
+
+$OutputFolder = &quot;C:\Temp\FieldCopy&quot;
+
+#==========================================
+# Initialisation
+#==========================================
+
+$null = New-Item -Path $OutputFolder -ItemType Directory -Force
+
+$timeStamp = Get-Date -Format &quot;yyyyMMdd_HHmmss&quot;
+
+$reportPath = Join-Path $OutputFolder &quot;FieldCopy_$timeStamp.csv&quot;
+
+$startTime = Get-Date
+$operator = [System.Security.Principal.WindowsIdentity]::GetCurrent().Name
+$computer = $env:COMPUTERNAME
+
+$results = [System.Collections.Generic.List[object]]::new()
+
+Write-Host &quot;&quot;
+Write-Host &quot;Field Copy Started&quot; -ForegroundColor Cyan
+Write-Host &quot;Operator          : $operator&quot;
+Write-Host &quot;Computer          : $computer&quot;
+Write-Host &quot;Source Site       : $SourceSiteUrl&quot;
+Write-Host &quot;Destination Site  : $DestinationSiteUrl&quot;
+Write-Host &quot;&quot;
+
+#==========================================
+# Authentication
+#==========================================
+
+try {
+
+    $sourceConnection = Connect-PnPOnline `
+        -Url $SourceSiteUrl `
+        -ClientId $ClientId `
+        -Thumbprint $Thumbprint `
+        -Tenant $Tenant `
+        -ReturnConnection `
+        -ErrorAction Stop
+
+    $destinationConnection = Connect-PnPOnline `
+        -Url $DestinationSiteUrl `
+        -ClientId $ClientId `
+        -Thumbprint $Thumbprint `
+        -Tenant $Tenant `
+        -ReturnConnection `
+        -ErrorAction Stop
+
+    $sourceFields = Get-PnPField `
+        -List $SourceListName `
+        -Connection $sourceConnection `
+        -ErrorAction Stop
+
+    $destinationFields = Get-PnPField `
+        -List $DestinationListName `
+        -Connection $destinationConnection `
+        -ErrorAction Stop
+}
+catch {
+    throw &quot;Failed to connect to SharePoint or retrieve list fields. $($_.Exception.Message)&quot;
+}
+
+$destinationFieldNames = [System.Collections.Generic.HashSet[string]]::new(
+    [string[]]$destinationFields.InternalName
+)
+
+$totalFields = $FieldsToCopy.Count
+$currentField = 0
+
+foreach ($fieldName in $FieldsToCopy) {
+
+    $currentField++
+
+    Write-Progress `
+        -Activity &quot;Copying SharePoint Fields&quot; `
+        -Status &quot;Processing $fieldName ($currentField of $totalFields)&quot; `
+        -PercentComplete (($currentField / $totalFields) * 100)
+
+    $status = &quot;&quot;
+    $errorMessage = &quot;&quot;
+
+    try {
+
+        if ($destinationFieldNames.Contains($fieldName)) {
+
+            $status = &quot;Already Exists&quot;
+
+            Write-Host &quot;[SKIP] $fieldName already exists.&quot; -ForegroundColor Yellow
+        }
+        else {
+
+            $sourceField = $sourceFields | Where-Object InternalName -eq $fieldName
+
+            if ($null -eq $sourceField) {
+
+                $status = &quot;Source Missing&quot;
+
+                Write-Host &quot;[WARN] $fieldName not found in source list.&quot; -ForegroundColor Yellow
+            }
+            else {
+
+                Add-PnPFieldFromXml `
+                    -List $DestinationListName `
+                    -FieldXml $sourceField.SchemaXml `
+                    -Connection $destinationConnection `
+                    -ErrorAction Stop | Out-Null
+
+                $destinationFieldNames.Add($fieldName) | Out-Null
+
+                $status = &quot;Copied&quot;
+
+                Write-Host &quot;[OK]   $fieldName copied.&quot; -ForegroundColor Green
+            }
+        }
+    }
+    catch {
+
+        $status = &quot;Failed&quot;
+        $errorMessage = $_.Exception.Message
+
+        Write-Host &quot;[FAIL] $fieldName&quot; -ForegroundColor Red
+        Write-Host &quot;       $errorMessage&quot; -ForegroundColor DarkRed
+    }
+
+    $results.Add([PSCustomObject]@{
+        Date              = Get-Date
+        Operator          = $operator
+        Computer          = $computer
+        SourceSite        = $SourceSiteUrl
+        DestinationSite   = $DestinationSiteUrl
+        SourceList        = $SourceListName
+        DestinationList   = $DestinationListName
+        Field             = $fieldName
+        Status            = $status
+        Error             = $errorMessage
+    })
+}
+
+Write-Progress -Activity &quot;Copying SharePoint Fields&quot; -Completed
+
+$results |
+    Sort-Object Field |
+    Export-Csv $reportPath -NoTypeInformation -Encoding UTF8
+
+$endTime = Get-Date
+$duration = $endTime - $startTime
+
+$copied = ($results | Where-Object Status -eq &quot;Copied&quot;).Count
+$existing = ($results | Where-Object Status -eq &quot;Already Exists&quot;).Count
+$missing = ($results | Where-Object Status -eq &quot;Source Missing&quot;).Count
+$failed = ($results | Where-Object Status -eq &quot;Failed&quot;).Count
+
+Write-Host &quot;&quot;
+Write-Host &quot;========================================&quot; -ForegroundColor Cyan
+Write-Host &quot;Field Copy Complete&quot; -ForegroundColor Green
+Write-Host &quot;========================================&quot; -ForegroundColor Cyan
+Write-Host &quot;&quot;
+Write-Host (&quot;Fields Requested : {0}&quot; -f $totalFields)
+Write-Host (&quot;Copied           : {0}&quot; -f $copied) -ForegroundColor Green
+Write-Host (&quot;Already Exists   : {0}&quot; -f $existing) -ForegroundColor Yellow
+Write-Host (&quot;Source Missing   : {0}&quot; -f $missing) -ForegroundColor Yellow
+Write-Host (&quot;Failed           : {0}&quot; -f $failed) -ForegroundColor Red
+Write-Host &quot;&quot;
+Write-Host (&quot;Started          : {0}&quot; -f $startTime)
+Write-Host (&quot;Completed        : {0}&quot; -f $endTime)
+Write-Host (&quot;Duration         : {0}&quot; -f $duration)
+Write-Host &quot;&quot;
+Write-Host (&quot;CSV Report       : {0}&quot; -f $reportPath)
+Write-Host &quot;&quot;
+
+</code></pre>
+<div class="highlight-tool">
+<p>Check out the <strong>PnP PowerShell</strong> to learn more at: <a href="https://aka.ms/pnp/powershell">https://aka.ms/pnp/powershell</a></p>
+</div>
+<div class="highlight-tool">
+<p>The way you login into PnP PowerShell has changed please read <a href="https://github.com/pnp/powershell/discussions/4249">PnP Management Shell EntraID app is deleted : what should I do ?</a></p>
+</div>
+</section>
+<section id="tabpanel_1_module" role="tabpanel" data-tab="module" aria-hidden="true" hidden="hidden">
+
+<pre><code class="lang-powershell">
+Install-Module PnP.PowerShell -Scope CurrentUser
+
+</code></pre>
+</section>
+<section id="tabpanel_1_run" role="tabpanel" data-tab="run" aria-hidden="true" hidden="hidden">
+
+<pre><code class="lang-powershell">
+.\Copy-SharePointListColumnsBetweenLists.ps1
+
+</code></pre>
+<div class="highlight-tool">
+<p>Check out the <strong>PnP PowerShell</strong> to learn more at: <a href="https://aka.ms/pnp/powershell">https://aka.ms/pnp/powershell</a></p>
+</div>
+<div class="highlight-tool">
+<p>The way you login into PnP PowerShell has changed please read <a href="https://github.com/pnp/powershell/discussions/4249">PnP Management Shell EntraID app is deleted : what should I do ?</a></p>
+</div>
+</section>
+</div>
+<h2 id="output">Output</h2>
+<h3 id="csv-report-location">CSV Report Location</h3>
+<p>C:\Temp\FieldCopy\</p>
+<h3 id="report-contents">Report Contents</h3>
+<p>The script generates a CSV report containing:</p>
+<table>
+<thead>
+<tr>
+<th>Column</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Date</td>
+<td>Execution timestamp</td>
+</tr>
+<tr>
+<td>Operator</td>
+<td>Account running the script</td>
+</tr>
+<tr>
+<td>Computer</td>
+<td>Execution host</td>
+</tr>
+<tr>
+<td>SourceSite</td>
+<td>Source SharePoint site</td>
+</tr>
+<tr>
+<td>DestinationSite</td>
+<td>Target SharePoint site</td>
+</tr>
+<tr>
+<td>SourceList</td>
+<td>Source list name</td>
+</tr>
+<tr>
+<td>DestinationList</td>
+<td>Destination list name</td>
+</tr>
+<tr>
+<td>Field</td>
+<td>Field processed</td>
+</tr>
+<tr>
+<td>Status</td>
+<td>Copy result</td>
+</tr>
+<tr>
+<td>Error</td>
+<td>Failure details if applicable</td>
+</tr>
+</tbody>
+</table>
+<h2 id="notes">Notes</h2>
+<ul>
+<li>Field creation uses the original SharePoint SchemaXml to preserve configuration.</li>
+<li>Existing destination fields are skipped automatically.</li>
+<li>The script is idempotent and safe to rerun.</li>
+<li>For enterprise deployments, store application IDs and certificates securely using Azure Key Vault, managed automation accounts, or enterprise credential management solutions.</li>
+</ul>
+<h2 id="contributors">Contributors</h2>
+<table>
+<thead>
+<tr>
+<th>Author(s)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="https://github.com/ojopiyo">Josiah Opiyo</a></td>
+</tr>
+</tbody>
+</table>
+<p><em>Built with a focus on automation, governance, least privilege, and clean Microsoft 365 tenants-helping M365 admins gain visibility and reduce operational risk.</em></p>
+<h2 id="version-history">Version history</h2>
+<table>
+<thead>
+<tr>
+<th>Version</th>
+<th>Date</th>
+<th>Comments</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1.0</td>
+<td>July 11, 2026</td>
+<td>Initial release</td>
+</tr>
+</tbody>
+</table>
+<h2 id="disclaimer">Disclaimer</h2>
+<p><strong>THESE SAMPLES ARE PROVIDED <em>AS IS</em> WITHOUT WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, INCLUDING ANY IMPLIED WARRANTIES OF FITNESS FOR A PARTICULAR PURPOSE, MERCHANTABILITY, OR NON-INFRINGEMENT.</strong></p>
+<img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/copy-sharepoint-list-columns-between-lists" aria-hidden="true">
+
+</article>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+      <span>Script Samples<br>Generated by <strong><a href='https://dotnet.github.io/docfx' alt='Doc FX Website'>DocFX</a></strong> with <strong><a href='https://ovasquez.github.io/docfx-material' alt='DocFx Material Theme'>Material UI</a></strong></span>
+      
+            <!-- <img src="https://telemetry.sharepointpnp.com/@pnp.github.io/index/" alt="spacer"> -->
+          </div>
+        </div>
+      </footer>    </div>
+
+    <script type="text/javascript" src="../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+
+    <script type="text/javascript" src="../styles/clipboard.min.js"></script>
+    <script type="text/javascript" src="../styles/isotope.pkgd.min.js"></script>
+    <script type="text/javascript" src="../styles/loadsamples.js"></script>
+    <script type="text/javascript" src="../styles/filtersamples.js"></script>
+
+  </body>
+</html>
