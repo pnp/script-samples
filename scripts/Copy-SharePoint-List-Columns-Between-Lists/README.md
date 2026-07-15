@@ -246,8 +246,9 @@ Write-Host ("CSV Report       : {0}" -f $reportPath)
 Write-Host ""
 
 ```
+[!INCLUDE [More about PnP PowerShell](../../docfx/includes/MORE-PNPPS.md)]
 
-# [Install module](#tab/pnpps)
+# [Install module](#tab/module)
 
 ```powershell
 
@@ -255,13 +256,15 @@ Install-Module PnP.PowerShell -Scope CurrentUser
 
 ```
 
-# [Run](#tab/pnpps)
+# [Run](#tab/run)
 
 ```powershell
 
 .\Copy-SharePointListColumnsBetweenLists.ps1
 
 ```
+[!INCLUDE [More about PnP PowerShell](../../docfx/includes/MORE-PNPPS.md)]
+***
 
 ## Output
 
@@ -308,3 +311,4 @@ The script generates a CSV report containing:
 |1.0|July 11, 2026|Initial release|
 
 [!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
+<img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/copy-sharepoint-list-columns-between-lists" aria-hidden="true" />

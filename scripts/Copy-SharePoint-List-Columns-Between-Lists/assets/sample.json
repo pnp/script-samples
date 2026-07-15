@@ -1,0 +1,56 @@
+[
+  {
+    "name": "copy-sharepoint-list-columns-between-lists",
+    "source": "pnp",
+    "title": "How to Copy SharePoint List Columns Between Lists Using PowerShell",
+    "shortDescription": "This script copies selected SharePoint list fields from a source list to a destination list using PnP PowerShell and certificate-based authentication.",
+    "url": "https://pnp.github.io/script-samples/copy-sharepoint-list-columns-between-lists/README.html",
+    "longDescription": [
+      "Replicates selected SharePoint list columns by comparing destination fields, copying missing source fields with SchemaXml, and exporting a CSV execution report."
+    ],
+    "creationDateTime": "2026-07-11",
+    "updateDateTime": "2026-07-11",
+    "products": [
+      "SharePoint"
+    ],
+    "metadata": [
+      {
+        "key": "PNP-POWERSHELL",
+        "value": "2.2.0"
+      }
+    ],
+    "categories": [
+      "Provision",
+      "Configure"
+    ],
+    "tags": [
+      "Connect-PnPOnline",
+      "Get-PnPField",
+      "Add-PnPFieldFromXml",
+      "Export-Csv"
+    ],
+    "thumbnails": [
+      {
+        "type": "image",
+        "order": 100,
+        "url": "https://raw.githubusercontent.com/pnp/script-samples/main/scripts/copy-sharepoint-list-columns-between-lists/assets/preview.png",
+        "alt": "Preview of the sample How to Copy SharePoint List Columns Between Lists Using PowerShell"
+      }
+    ],
+    "authors": [
+      {
+        "gitHubAccount": "ojopiyo",
+        "company": "",
+        "pictureUrl": "https://github.com/ojopiyo.png",
+        "name": "Josiah Opiyo"
+      }
+    ],
+    "references": [
+      {
+        "name": "Want to learn more about PnP PowerShell and the cmdlets",
+        "description": "Check out the PnP PowerShell site to get started and for the reference to the cmdlets.",
+        "url": "https://aka.ms/pnp/powershell"
+      }
+    ]
+  }
+]
