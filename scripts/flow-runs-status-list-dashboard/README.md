@@ -121,4 +121,4 @@ foreach ($flow in $flows) {
 
 
 [!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
-<img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/flow-search-flows-for-connection" aria-hidden="true" />
+<img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/flow-runs-status-list-dashboard" aria-hidden="true" />

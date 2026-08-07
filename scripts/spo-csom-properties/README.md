@@ -105,4 +105,4 @@ ExampleWithCSOM
 | Giacomo Pozzoni |
 
 [!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
-<img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/spo-export-page-html" aria-hidden="true" />
+<img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/spo-csom-properties" aria-hidden="true" />

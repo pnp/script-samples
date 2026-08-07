@@ -117,4 +117,4 @@ Invoke-RestMethod @Params
 
 
 [!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
-<img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/flow-search-flows-for-connection" aria-hidden="true" />
+<img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/flow-runs-day-summary" aria-hidden="true" />

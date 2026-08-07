@@ -92,4 +92,4 @@ Sample first appeared on [Blimped | Getting notified of service incidents in Mic
 
 
 [!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
-<img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/tenant-monitor-notify-healthstatus" aria-hidden="true" />
+<img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/tenant-health-notify-teams" aria-hidden="true" />

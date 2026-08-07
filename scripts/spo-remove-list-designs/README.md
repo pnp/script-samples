@@ -47,4 +47,4 @@ foreach ($listDesign in $listDesigns)
 
 
 [!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
-<img src="https://telemetry.sharepointpnp.com/script-samples/scripts/spo-remove-list-designs" aria-hidden="true" />
+<img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/spo-remove-list-designs" aria-hidden="true" />
