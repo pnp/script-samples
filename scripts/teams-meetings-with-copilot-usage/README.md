@@ -129,7 +129,7 @@ Connect-ExchangeOnline
 # Unified Audit Log timestamps are stored in UTC.
 $StartDateUtc = $StartDate.ToUniversalTime()
 $EndDateUtc = $EndDate.ToUniversalTime()
-
+if ($StartDateUtc -gt $EndDateUtc) { throw "StartDate must be earlier than or equal to EndDate." }
 Write-Host "Searching audit log from $StartDateUtc to $EndDateUtc (UTC)..." -ForegroundColor Cyan
 
 $Operations = @(
