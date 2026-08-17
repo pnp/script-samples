@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html lang="en">
+
+  <head>
+    <meta charset="utf-8">
+    <title>SharePoint Online - Export Sites with Custom Script Enabled | PnP Samples </title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="title" content="SharePoint Online - Export Sites with Custom Script Enabled | PnP Samples ">
+    <meta name="generator" content="docfx ">
+  <meta name="description" content="A sample gallery of scripts to manage all things Microsoft 365.">
+
+    <!-- Social Media -->
+    <meta property="og:locale" content="en_GB">
+    <meta property="og:title" content="SharePoint Online - Export Sites with Custom Script Enabled | PnP Samples ">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://pnp.github.io/script-samples">
+    <meta property="og:image" content="https://pnp.github.io/script-samples/assets/social-media-screenshot.png">
+    <meta property="og:image:alt" content="Screenshot example of the PnP Script Samples Site">
+    <meta property="og:site_name" content="PnP Script Samples">
+    <meta name="msvalidate.01" content="04EFEDA66EC42C08A1247C979E2F9ADD">
+  <meta property="og:description" content="A sample gallery of scripts to manage all things Microsoft 365.">
+
+    <link rel="shortcut icon" href="https://c.s-microsoft.com/favicon.ico?v2">
+    <link rel="stylesheet" href="../styles/docfx.vendor.min.css">
+    <link rel="stylesheet" href="../styles/docfx.css">
+    <link rel="stylesheet" href="../styles/main.css">
+    <link rel="stylesheet" href="../styles/extra.css">
+    <link rel="stylesheet" href="../styles/filter.css">
+    <link rel="stylesheet" href="../styles/site.css">
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet"> 
+    <meta property="docfx:navrel" content="../toc.html">
+    <meta property="docfx:tocrel" content="../toc.html">
+  
+  
+  <meta property="docfx:newtab" content="true">
+    <script type="text/javascript">
+      (function(c,l,a,r,i,t,y){
+          c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+          t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+          y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+      })(window, document, "clarity", "script", "8j6pedl344");
+  </script>
+  </head>  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+             <div class="github-mark">
+              <a href="https://github.com/pnp/script-samples" title="Go to repository">
+               <div class="github-wrapper">
+                  <div class="github-icon">
+                    <img src="https://pnp.github.io/script-samples/assets/icons/github-light-64px.png" alt="GitHub Icon Image">
+                  </div>
+                  <div class="github-repository">
+                    <span>GitHub</span>
+                    <ul class="github-facts">
+                      <li>
+                        <i class="fa fa-code-fork" aria-hidden="true"></i>
+                        <span class="github-forks"></span>
+                      </li>
+                      <li>
+                        <i class="fa fa-star-o" aria-hidden="true"></i>
+                        <span class="github-stars"></span>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </a>
+            </div>
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../assets/logo.svg" alt="">
+              </a>            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <label class="glyphicon glyphicon-search" for="search-query"></label>
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>      </header>
+      <div role="main" class="container body-content hide-when-search">
+        <div class="article row grid">
+          <div class="col-md-12">
+            <article class="content wrap" id="_content" data-uid="">
+                  <div class="contribution-panel mobile-hide pull-right">
+                      <a href="https://github.com/pnp/script-samples/blob/main/scripts/spo-export-sites-with-custom-script-enabled/README.md/#L1" title="Edit this page" class="improve-doc-lg"><i class="glyphicon glyphicon-pencil"></i></a>
+                  </div>
+  <h1 id="sharepoint-online---export-sites-with-custom-script-enabled">SharePoint Online - Export Sites with Custom Script Enabled</h1>
+
+<h2 id="professional-summary">Professional Summary</h2>
+<p>This PowerShell script connects to the SharePoint Online Admin Center using certificate-based authentication and audits all SharePoint Online site collections to identify sites where Custom Script is enabled. The results are exported to a timestamped CSV report containing key site metadata, including site name, URL, owner, template, creation date, and execution metadata for audit purposes.</p>
+<p>The script is designed for Microsoft 365 administrators who require a tenant-wide inventory of sites that permit custom scripting, enabling governance, security, and compliance reviews.</p>
+<h2 id="why-it-matters">Why it matters</h2>
+<p>Custom Script allows users to add or modify JavaScript, master pages, and other customizations within SharePoint Online. While this capability is required for some legacy business solutions, it also increases the potential attack surface and may bypass modern SharePoint development practices.</p>
+<p>Many organizations intentionally disable Custom Script across their tenant to improve security, standardization, and supportability. However, exceptions are often granted for legacy applications, migration projects, or business-critical solutions.</p>
+<p>Maintaining an accurate inventory of sites where Custom Script is enabled helps administrators:</p>
+<ul>
+<li>Identify legacy or non-standard SharePoint implementations.</li>
+<li>Validate compliance with organizational governance policies.</li>
+<li>Support security assessments and audit activities.</li>
+<li>Plan modernization initiatives by locating sites that rely on classic customization techniques.</li>
+<li>Reduce operational risk by reviewing sites that permit unsupported or legacy customizations.</li>
+</ul>
+<h2 id="prerequisites">Prerequisites</h2>
+<ul>
+<li>PowerShell 7.x or Windows PowerShell 5.1</li>
+<li>PnP.PowerShell module installed</li>
+<li>SharePoint Administrator or Global Administrator permissions</li>
+<li>Microsoft Entra ID App Registration configured for certificate-based authentication</li>
+<li>Certificate installed on the execution host</li>
+<li>Appropriate Microsoft Graph and SharePoint application permissions granted</li>
+</ul>
+<div class="tabGroup" id="tabgroup_1">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_1_pnpps" role="tab" aria-controls="tabpanel_1_pnpps" data-tab="pnpps" tabindex="0" aria-selected="true">PnP PowerShell</a>
+</li>
+</ul>
+<section id="tabpanel_1_pnpps" role="tabpanel" data-tab="pnpps">
+
+<pre><code class="lang-powershell">#==========================================
+# Configuration 
+#==========================================
+
+$ClientID   = &quot;xxxxxxxxxxxxxxxx&quot;
+$ThumbPrint = &quot;xxxxxxxxxxxxxxxx&quot; 
+$Tenant     = &quot;contoso.onmicrosoft.com&quot;
+
+$AdminUrl = &quot;https://contoso-admin.sharepoint.com&quot;
+
+#==========================================
+# Audit Metadata
+#==========================================
+
+$RunBy     = $env:USERNAME
+$RunDate   = Get-Date
+$ReportID  = [Guid]::NewGuid()
+
+#==========================================
+# Output 
+#==========================================
+
+$OutputFolder = &quot;C:\Temp\Report&quot;
+$TimeStamp    = Get-Date -Format &quot;yyyyMMdd_HHmmss&quot;
+$OutputFile   = Join-Path $OutputFolder &quot;CustomScriptEnabledSites_$TimeStamp.csv&quot;
+
+if (!(Test-Path $OutputFolder)) {
+    New-Item -Path $OutputFolder -ItemType Directory -Force | Out-Null
+}
+
+#==========================================
+# Connect
+#==========================================
+
+try {
+    Connect-PnPOnline -Url $AdminUrl -ClientId $ClientID -Thumbprint $ThumbPrint -Tenant $Tenant
+}
+catch {
+    Write-Host &quot;Connection failed: $($_.Exception.Message)&quot; -ForegroundColor Red
+    exit
+}
+
+#==========================================
+# Retrieve Sites
+#==========================================
+
+Write-Host &quot;Retrieving tenant sites...&quot; -ForegroundColor Cyan
+
+$Sites   = Get-PnPTenantSite -Detailed
+$Results = [System.Collections.Generic.List[object]]::new()
+
+foreach ($Site in $Sites) {
+
+    # Custom Script Enabled = 1
+    if ($Site.DenyAddAndCustomizePages -eq 1) {
+
+        $Results.Add([PSCustomObject]@{
+            SiteName     = $Site.Title
+            SiteUrl      = $Site.Url
+            Owner        = $Site.Owner
+            Template     = $Site.Template
+            CreatedDate  = $Site.CreationDate
+
+            CustomScriptEnabled = $true
+
+            RunBy        = $RunBy
+            RunDate      = $RunDate
+            ReportID     = $ReportID
+        })
+    }
+}
+
+#==========================================
+# Export
+#==========================================
+
+$Results |
+    Sort-Object SiteName |
+    Export-Csv -Path $OutputFile -NoTypeInformation -Encoding UTF8
+
+#==========================================
+# Summary
+#==========================================
+
+Write-Host &quot;&quot;
+Write-Host &quot;============================================&quot; -ForegroundColor Cyan
+Write-Host &quot;Custom Script Enabled Sites Report Complete&quot;
+Write-Host &quot;============================================&quot; -ForegroundColor Cyan
+
+Write-Host &quot;Sites Scanned : $($Sites.Count)&quot;
+Write-Host &quot;Custom Script Enabled Sites : $($Results.Count)&quot;
+Write-Host &quot;Report ID     : $ReportID&quot;
+Write-Host &quot;Run By        : $RunBy&quot;
+Write-Host &quot;Run Date      : $RunDate&quot;
+Write-Host &quot;&quot;
+Write-Host &quot;Report saved to:&quot;
+Write-Host $OutputFile -ForegroundColor Green
+
+Disconnect-PnPOnline
+
+
+</code></pre>
+<h2 id="authentication">Authentication</h2>
+<p>The script authenticates using certificate-based application authentication, making it suitable for:</p>
+<ul>
+<li>Scheduled Tasks</li>
+<li>Azure Automation</li>
+<li>Azure Functions</li>
+<li>Unattended administrative execution</li>
+<li>Secure enterprise automation</li>
+</ul>
+<p>No interactive sign-in is required.</p>
+<h2 id="usage">Usage</h2>
+<ol>
+<li>Configure the following variables:
+<ul>
+<li>Client ID</li>
+<li>Certificate Thumbprint</li>
+<li>Tenant Name</li>
+<li>SharePoint Admin Center URL</li>
+</ul>
+</li>
+<li>Execute the script.</li>
+<li>Review the generated CSV report located in the configured output directory.</li>
+</ol>
+<h2 id="output">Output</h2>
+<h3 id="csv-report-location">CSV Report Location</h3>
+<p>C:\Temp\Report\</p>
+<h3 id="report-contents">Report Contents</h3>
+<p>The script generates a CSV report containing:</p>
+<table>
+<thead>
+<tr>
+<th>Column</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>SiteName</td>
+<td>SharePoint site title</td>
+</tr>
+<tr>
+<td>SiteUrl</td>
+<td>Site collection URL</td>
+</tr>
+<tr>
+<td>Owner</td>
+<td>Primary site owner</td>
+</tr>
+<tr>
+<td>Template</td>
+<td>Site template</td>
+</tr>
+<tr>
+<td>CreatedDate</td>
+<td>Site creation date</td>
+</tr>
+<tr>
+<td>CustomScriptEnabled</td>
+<td>Indicates Custom Script status</td>
+</tr>
+<tr>
+<td>RunBy</td>
+<td>User executing the script</td>
+</tr>
+<tr>
+<td>RunDate</td>
+<td>Script execution date/time</td>
+</tr>
+<tr>
+<td>ReportID</td>
+<td>Unique execution identifier</td>
+</tr>
+</tbody>
+</table>
+<h2 id="notes">Notes</h2>
+<ul>
+<li>The report is read-only and makes no changes to the Microsoft 365 tenant.</li>
+<li>Hidden, redirected, and special-purpose SharePoint sites may also be returned depending on tenant configuration.</li>
+<li>Ensure the executing identity has sufficient permissions to enumerate all SharePoint Online site collections.</li>
+<li>Verify that the script checks DenyAddAndCustomizePages -eq 0 when reporting sites with Custom Script enabled.</li>
+</ul>
+<h2 id="contributors">Contributors</h2>
+<table>
+<thead>
+<tr>
+<th>Author(s)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="https://github.com/ojopiyo">Josiah Opiyo</a></td>
+</tr>
+</tbody>
+</table>
+<p><em>Built with a focus on automation, governance, least privilege, and clean Microsoft 365 tenants-helping M365 admins gain visibility and reduce operational risk.</em></p>
+<h2 id="version-history">Version history</h2>
+<table>
+<thead>
+<tr>
+<th>Version</th>
+<th>Date</th>
+<th>Comments</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1.0</td>
+<td>August 02, 2026</td>
+<td>Initial release</td>
+</tr>
+</tbody>
+</table>
+<h2 id="disclaimer">Disclaimer</h2>
+<p><strong>THESE SAMPLES ARE PROVIDED <em>AS IS</em> WITHOUT WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, INCLUDING ANY IMPLIED WARRANTIES OF FITNESS FOR A PARTICULAR PURPOSE, MERCHANTABILITY, OR NON-INFRINGEMENT.</strong></p>
+</section>
+</div>
+
+</article>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+      <span>Script Samples<br>Generated by <strong><a href='https://dotnet.github.io/docfx' alt='Doc FX Website'>DocFX</a></strong> with <strong><a href='https://ovasquez.github.io/docfx-material' alt='DocFx Material Theme'>Material UI</a></strong></span>
+      
+            <!-- <img src="https://telemetry.sharepointpnp.com/@pnp.github.io/index/" alt="spacer"> -->
+          </div>
+        </div>
+      </footer>    </div>
+
+    <script type="text/javascript" src="../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+
+    <script type="text/javascript" src="../styles/clipboard.min.js"></script>
+    <script type="text/javascript" src="../styles/isotope.pkgd.min.js"></script>
+    <script type="text/javascript" src="../styles/loadsamples.js"></script>
+    <script type="text/javascript" src="../styles/filtersamples.js"></script>
+
+  </body>
+</html>
