@@ -118,67 +118,128 @@
 </ul>
 <section id="tabpanel_1_pnpps" role="tabpanel" data-tab="pnpps">
 
-<pre><code class="lang-powershell">
-# ---------------------------
-# Script: Find Users with Direct SharePoint Permissions
-# Purpose: Identify users who have direct permissions on SharePoint sites rather than via groups
-# ---------------------------
+<pre><code class="lang-powershell"># ------------------------------------------------------------
+# Script: Find Users with Direct SharePoint Site Permissions
+# Purpose: Report users assigned direct permissions at the
+#          SharePoint site (root web) level.
+# ------------------------------------------------------------
 
-# Set the SharePoint Admin Center URL
-$AdminCenterURL = &quot;https://contoso-admin.sharepoint.com&quot;
+# ---------- Configuration ----------
+$AdminCenterUrl = &quot;https://contoso-admin.sharepoint.com&quot;
 
-# Connect to SharePoint Online Admin Center
-Connect-PnPOnline -Url $AdminCenterURL -Interactive
+$ClientID       = &quot;xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx&quot;
+$Thumbprint     = &quot;xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx&quot;
+$Tenant         = &quot;contoso.onmicrosoft.com&quot;
 
-# Get all site collections in the tenant
-$AllSites = Get-PnPTenantSite
+$OutputFolder   = &quot;C:\Temp\SharePointReports&quot;
+$TimeStamp      = Get-Date -Format &quot;yyyyMMdd_HHmmss&quot;
+$OutputFile     = Join-Path $OutputFolder &quot;DirectSitePermissions_$TimeStamp.csv&quot;
 
-# Prepare an array to hold results
-$DirectPermissions = @()
-
-foreach ($Site in $AllSites) {
-
-    Write-Host &quot;Processing site: $($Site.Url)&quot; -ForegroundColor Cyan
-
-    # Connect to each site
-    Connect-PnPOnline -Url $Site.Url -Interactive
-
-    # Get all users and groups with access to the site
-    $RoleAssignments = Get-PnPProperty -ClientObject (Get-PnPSite) -Property RoleAssignments
-
-    foreach ($RoleAssignment in $RoleAssignments) {
-        $Member = $RoleAssignment.Member
-
-        # Check if the member is a user (not a group)
-        if ($Member.PrincipalType -eq &quot;User&quot;) {
-
-            # Store details
-            $DirectPermissions += [PSCustomObject]@{
-                SiteUrl        = $Site.Url
-                SiteTitle      = $Site.Title
-                UserName       = $Member.LoginName
-                UserEmail      = $Member.Email
-                PermissionRole = ($RoleAssignment.RoleDefinitionBindings | ForEach-Object { $_.Name }) -join &quot;, &quot;
-            }
-        }
-    }
+# ---------- Create Output Folder ----------
+if (!(Test-Path $OutputFolder)) {
+    New-Item -ItemType Directory -Path $OutputFolder | Out-Null
 }
 
-# Export results to CSV
-$ExportPath = &quot;C:\Temp\DirectSharePointPermissions.csv&quot;
-$DirectPermissions | Export-Csv -Path $ExportPath -NoTypeInformation -Encoding UTF8
+# ---------- Connect to SharePoint Admin ----------
+Connect-PnPOnline `
+    -Url $AdminCenterUrl `
+    -ClientId $ClientID `
+    -Thumbprint $Thumbprint `
+    -Tenant $Tenant
 
-Write-Host &quot;Script completed. Direct permissions exported to $ExportPath&quot; -ForegroundColor Green
+# ---------- Retrieve Sites ----------
+$Sites = Get-PnPTenantSite |
+Where-Object {
+    $_.Template -notmatch &quot;RedirectSite&quot;
+}
+
+$TotalSites = $Sites.Count
+$CurrentSite = 0
+$FailedSites = 0
+
+$Results = foreach ($Site in $Sites) {
+
+    $CurrentSite++
+
+    Write-Progress `
+        -Activity &quot;Scanning SharePoint Sites&quot; `
+        -Status &quot;$CurrentSite of $TotalSites&quot; `
+        -PercentComplete (($CurrentSite / $TotalSites) * 100)
+
+    try {
+
+        Connect-PnPOnline `
+            -Url $Site.Url `
+            -ClientId $ClientID `
+            -Thumbprint $Thumbprint `
+            -Tenant $Tenant
+
+        $Web = Get-PnPWeb -Includes RoleAssignments
+
+        foreach ($RoleAssignment in $Web.RoleAssignments) {
+
+            Get-PnPProperty -ClientObject $RoleAssignment -Property Member,RoleDefinitionBindings
+
+            if ($RoleAssignment.Member.PrincipalType -eq &quot;User&quot;) {
+
+                [PSCustomObject]@{
+
+                    SiteTitle          = $Site.Title
+                    SiteUrl            = $Site.Url
+
+                    UserDisplayName    = $RoleAssignment.Member.Title
+                    UserEmail          = $RoleAssignment.Member.Email
+                    LoginName          = $RoleAssignment.Member.LoginName
+
+                    IsExternalUser     = $RoleAssignment.Member.LoginName -match &quot;#EXT#&quot;
+
+                    PermissionLevels   = (
+                        $RoleAssignment.RoleDefinitionBindings |
+                        Select-Object -ExpandProperty Name
+                    ) -join &quot;, &quot;
+
+                    CollectionDate     = Get-Date
+                }
+
+            }
+
+        }
+
+    }
+
+    catch {
+
+        $FailedSites++
+
+        Write-Warning &quot;Failed to process $($Site.Url)&quot;
+
+    }
+
+}
+
+# ---------- Export ----------
+$Results |
+Sort-Object SiteTitle, UserDisplayName |
+Export-Csv `
+    -Path $OutputFile `
+    -NoTypeInformation `
+    -Encoding UTF8
+
+# ---------- Summary ----------
+Write-Host &quot;&quot;
+Write-Host &quot;----------------------------------------&quot; -ForegroundColor Cyan
+Write-Host &quot;SharePoint Direct Permission Report&quot;
+Write-Host &quot;----------------------------------------&quot; -ForegroundColor Cyan
+Write-Host &quot;Sites Scanned        : $TotalSites&quot;
+Write-Host &quot;Failed Sites         : $FailedSites&quot;
+Write-Host &quot;Permissions Found    : $($Results.Count)&quot;
+Write-Host &quot;Report               : $OutputFile&quot;
+Write-Host &quot;Completed            : $(Get-Date)&quot;
+Write-Host &quot;----------------------------------------&quot; -ForegroundColor Cyan
+
+Disconnect-PnPOnline
 
 </code></pre>
-<div class="highlight-tool">
-<p>Check out the <strong>PnP PowerShell</strong> to learn more at: <a href="https://aka.ms/pnp/powershell">https://aka.ms/pnp/powershell</a></p>
-</div>
-<div class="highlight-tool">
-<p>The way you login into PnP PowerShell has changed please read <a href="https://github.com/pnp/powershell/discussions/4249">PnP Management Shell EntraID app is deleted : what should I do ?</a></p>
-</div>
-</section>
-</div>
 <h2 id="contributors">Contributors</h2>
 <table>
 <thead>
@@ -192,9 +253,92 @@ Write-Host &quot;Script completed. Direct permissions exported to $ExportPath&qu
 </tr>
 </tbody>
 </table>
+<p><em>Built with a focus on automation, governance, least privilege, and clean Microsoft 365 tenants-helping M365 admins gain visibility and reduce operational risk.</em></p>
+<h2 id="version-history">Version history</h2>
+<table>
+<thead>
+<tr>
+<th>Version</th>
+<th>Date</th>
+<th>Comments</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1.0</td>
+<td>December 03, 2025</td>
+<td>Initial release</td>
+</tr>
+<tr>
+<td>2.0</td>
+<td>August 03, 2026</td>
+<td>Refactored for production use with improved performance, certificate authentication, error handling, reporting enhancements, and scalability improvements.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="version-20-release-notes">Version 2.0 Release Notes</h3>
+<table>
+<thead>
+<tr>
+<th>Area</th>
+<th>Improvement</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Authentication</td>
+<td>Replaced interactive authentication with certificate-based authentication for unattended execution.</td>
+</tr>
+<tr>
+<td>Performance</td>
+<td>Removed inefficient <code>+=</code> array operations and adopted pipeline-based object processing for improved scalability.</td>
+</tr>
+<tr>
+<td>Error Handling</td>
+<td>Added per-site <code>try/catch</code> blocks so inaccessible sites no longer terminate the script.</td>
+</tr>
+<tr>
+<td>Reporting</td>
+<td>Added timestamped CSV filenames and included the collection date in the output.</td>
+</tr>
+<tr>
+<td>Progress</td>
+<td>Added <code>Write-Progress</code> to display scan progress across all SharePoint sites.</td>
+</tr>
+<tr>
+<td>Scalability</td>
+<td>Optimised for Microsoft 365 tenants containing hundreds or thousands of SharePoint sites.</td>
+</tr>
+<tr>
+<td>Filtering</td>
+<td>Excludes SharePoint redirect sites from processing.</td>
+</tr>
+<tr>
+<td>Output</td>
+<td>Expanded the report to include display name, email address, login name, permission levels, and an external user indicator.</td>
+</tr>
+<tr>
+<td>Configuration</td>
+<td>Centralised configuration variables to improve readability and simplify maintenance.</td>
+</tr>
+<tr>
+<td>Sorting</td>
+<td>Results are sorted by site title and user before export.</td>
+</tr>
+<tr>
+<td>Summary</td>
+<td>Added an execution summary showing sites processed, failures, permissions identified, report location, and completion time.</td>
+</tr>
+<tr>
+<td>Safety</td>
+<td>Script remains read-only and makes no changes to SharePoint permissions.</td>
+</tr>
+</tbody>
+</table>
 <h2 id="disclaimer">Disclaimer</h2>
 <p><strong>THESE SAMPLES ARE PROVIDED <em>AS IS</em> WITHOUT WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, INCLUDING ANY IMPLIED WARRANTIES OF FITNESS FOR A PARTICULAR PURPOSE, MERCHANTABILITY, OR NON-INFRINGEMENT.</strong></p>
-<img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/spo-get-m365-users-with-direct-sharepoint-permissions" aria-hidden="true">
+</section>
+</div>
 
 </article>
           </div>
