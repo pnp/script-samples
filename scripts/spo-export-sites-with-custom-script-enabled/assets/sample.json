@@ -1,0 +1,56 @@
+[
+  {
+    "name": "spo-export-sites-with-custom-script-enabled",
+    "source": "pnp",
+    "title": "SharePoint Online - Export Sites with Custom Script Enabled",
+    "shortDescription": "This PowerShell script connects to the SharePoint Online Admin Center using certificate-based authentication and audits all SharePoint Online site collections to identify sites where Custom Script is enabled. The results are exported to a timestamped CSV report for audit purposes.",
+    "url": "https://pnp.github.io/script-samples/spo-export-sites-with-custom-script-enabled/README.html",
+    "longDescription": [
+      "This script connects to the SharePoint Online Admin Center using certificate-based authentication and audits all SharePoint Online site collections to identify sites where Custom Script is enabled. The results are exported to a timestamped CSV report containing key site metadata for audit purposes."
+    ],
+    "creationDateTime": "2026-08-02",
+    "updateDateTime": "2026-08-02",
+    "products": [
+      "SharePoint"
+    ],
+    "metadata": [
+      {
+        "key": "PNP-POWERSHELL",
+        "value": "1.12.0"
+      }
+    ],
+    "categories": [
+      "Report",
+      "Security"
+    ],
+    "tags": [
+      "Get-PnPTenantSite",
+      "Custom Script",
+      "DenyAddAndCustomizePages",
+      "Audit"
+    ],
+    "thumbnails": [
+      {
+        "type": "image",
+        "order": 100,
+        "url": "https://raw.githubusercontent.com/pnp/script-samples/main/scripts/spo-export-sites-with-custom-script-enabled/assets/preview.png",
+        "alt": "Preview of SharePoint Online - Export Sites with Custom Script Enabled"
+      }
+    ],
+    "authors": [
+      {
+        "gitHubAccount": "ojopiyo",
+        "company": "",
+        "pictureUrl": "https://github.com/ojopiyo.png",
+        "name": "Josiah Opiyo"
+      }
+    ],
+    "references": [
+      {
+        "name": "Want to learn more about PnP PowerShell and the cmdlets",
+        "description": "Check out the PnP PowerShell site to get started and for the reference to the cmdlets.",
+        "url": "https://aka.ms/pnp/powershell"
+      }
+    ]
+  }
+]
