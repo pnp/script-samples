@@ -64,6 +64,10 @@
     "helpUrl": "https://learn.microsoft.com/powershell/module/microsoft.online.sharepoint.powershell/Add-SPOSiteScriptPackage"
   },
   {
+    "cmd": "Add-SPOSiteToFileArchivePolicy",
+    "helpUrl": "https://learn.microsoft.com/powershell/module/microsoft.online.sharepoint.powershell/Add-SPOSiteToFileArchivePolicy"
+  },
+  {
     "cmd": "Add-SPOTenantCdnOrigin",
     "helpUrl": "https://learn.microsoft.com/powershell/module/microsoft.online.sharepoint.powershell/Add-SPOTenantCdnOrigin"
   },
@@ -254,6 +258,18 @@
   {
     "cmd": "Get-SPOExternalUser",
     "helpUrl": "https://learn.microsoft.com/powershell/module/microsoft.online.sharepoint.powershell/Get-SPOExternalUser"
+  },
+  {
+    "cmd": "Get-SPOFileArchivePolicy",
+    "helpUrl": "https://learn.microsoft.com/powershell/module/microsoft.online.sharepoint.powershell/Get-SPOFileArchivePolicy"
+  },
+  {
+    "cmd": "Get-SPOFileArchivePolicyReport",
+    "helpUrl": "https://learn.microsoft.com/powershell/module/microsoft.online.sharepoint.powershell/Get-SPOFileArchivePolicyReport"
+  },
+  {
+    "cmd": "Get-SPOFileArchivePolicySites",
+    "helpUrl": "https://learn.microsoft.com/powershell/module/microsoft.online.sharepoint.powershell/Get-SPOFileArchivePolicySites"
   },
   {
     "cmd": "Get-SPOFileRequestBrandingProfiles",
@@ -472,6 +488,10 @@
     "helpUrl": "https://learn.microsoft.com/powershell/module/microsoft.online.sharepoint.powershell/Get-SPOTenant"
   },
   {
+    "cmd": "Get-SPOTenantApplyFileVersionPolicyJobImpact",
+    "helpUrl": "https://learn.microsoft.com/powershell/module/microsoft.online.sharepoint.powershell/Get-SPOTenantApplyFileVersionPolicyJobImpact"
+  },
+  {
     "cmd": "Get-SPOTenantApplyFileVersionPolicyJobProgress",
     "helpUrl": "https://learn.microsoft.com/powershell/module/microsoft.online.sharepoint.powershell/Get-SPOTenantApplyFileVersionPolicyJobProgress"
   },
@@ -528,6 +548,10 @@
     "helpUrl": "https://learn.microsoft.com/powershell/module/microsoft.online.sharepoint.powershell/Get-SPOTenantTaxonomyReplicationParameters"
   },
   {
+    "cmd": "Get-SPOTenantVersionPolicy",
+    "helpUrl": "https://learn.microsoft.com/powershell/module/microsoft.online.sharepoint.powershell/Get-SPOTenantVersionPolicy"
+  },
+  {
     "cmd": "Get-SPOTheme",
     "helpUrl": "https://learn.microsoft.com/powershell/module/microsoft.online.sharepoint.powershell/Get-SPOTheme"
   },
@@ -550,6 +574,10 @@
   {
     "cmd": "Get-SPOUserOneDriveLocation",
     "helpUrl": "https://learn.microsoft.com/powershell/module/microsoft.online.sharepoint.powershell/Get-SPOUserOneDriveLocation"
+  },
+  {
+    "cmd": "Get-SPOVersionPolicyWithChanges",
+    "helpUrl": "https://learn.microsoft.com/powershell/module/microsoft.online.sharepoint.powershell/Get-SPOVersionPolicyWithChanges"
   },
   {
     "cmd": "Get-SPOWebTemplate",
@@ -586,6 +614,10 @@
   {
     "cmd": "New-SPOContainerType",
     "helpUrl": "https://learn.microsoft.com/powershell/module/microsoft.online.sharepoint.powershell/New-SPOContainerType"
+  },
+  {
+    "cmd": "New-SPOFileArchivePolicy",
+    "helpUrl": "https://learn.microsoft.com/powershell/module/microsoft.online.sharepoint.powershell/New-SPOFileArchivePolicy"
   },
   {
     "cmd": "New-SPOListFileVersionBatchDeleteJob",
@@ -692,8 +724,16 @@
     "helpUrl": "https://learn.microsoft.com/powershell/module/microsoft.online.sharepoint.powershell/Remove-SPOExternalUser"
   },
   {
+    "cmd": "Remove-SPOFileArchivePolicy",
+    "helpUrl": "https://learn.microsoft.com/powershell/module/microsoft.online.sharepoint.powershell/Remove-SPOFileArchivePolicy"
+  },
+  {
     "cmd": "Remove-SPOFileRequestBrandingProfile",
     "helpUrl": "https://learn.microsoft.com/powershell/module/microsoft.online.sharepoint.powershell/Remove-SPOFileRequestBrandingProfile"
+  },
+  {
+    "cmd": "Remove-SPOFontFile",
+    "helpUrl": "https://learn.microsoft.com/powershell/module/microsoft.online.sharepoint.powershell/Remove-SPOFontFile"
   },
   {
     "cmd": "Remove-SPOFontPackage",
@@ -794,6 +834,10 @@
   {
     "cmd": "Remove-SPOSiteScript",
     "helpUrl": "https://learn.microsoft.com/powershell/module/microsoft.online.sharepoint.powershell/Remove-SPOSiteScript"
+  },
+  {
+    "cmd": "Remove-SPOSiteToFileArchivePolicy",
+    "helpUrl": "https://learn.microsoft.com/powershell/module/microsoft.online.sharepoint.powershell/Remove-SPOSiteToFileArchivePolicy"
   },
   {
     "cmd": "Remove-SPOSiteUserInvitations",
@@ -932,8 +976,16 @@
     "helpUrl": "https://learn.microsoft.com/powershell/module/microsoft.online.sharepoint.powershell/Set-SPOCrossTenantRelationship"
   },
   {
+    "cmd": "Set-SPOCustomFontCatalog",
+    "helpUrl": "https://learn.microsoft.com/powershell/module/microsoft.online.sharepoint.powershell/Set-SPOCustomFontCatalog"
+  },
+  {
     "cmd": "Set-SPODisableSpacesActivation",
     "helpUrl": "https://learn.microsoft.com/powershell/module/microsoft.online.sharepoint.powershell/Set-SPODisableSpacesActivation"
+  },
+  {
+    "cmd": "Set-SPOFileArchivePolicy",
+    "helpUrl": "https://learn.microsoft.com/powershell/module/microsoft.online.sharepoint.powershell/Set-SPOFileArchivePolicy"
   },
   {
     "cmd": "Set-SPOFontPackage",

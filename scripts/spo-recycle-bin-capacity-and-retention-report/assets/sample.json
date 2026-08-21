@@ -1,0 +1,57 @@
+[
+  {
+    "name": "spo-recycle-bin-capacity-and-retention-report",
+    "source": "pnp",
+    "title": "SharePoint Online Recycle Bin Capacity and Retention Report (All Sites)",
+    "shortDescription": "Generates a tenant-wide report of first and second stage recycle bin usage, retention windows, and upcoming purge dates across SharePoint Online site collections.",
+    "url": "https://pnp.github.io/script-samples/spo-recycle-bin-capacity-and-retention-report/README.html",
+    "longDescription": [
+      "Uses PnP PowerShell with app-only authentication to enumerate SharePoint Online sites, analyze first and second stage recycle bin content, calculate storage usage, determine time-to-purge, and export detailed and summary CSV reports for governance and operational monitoring."
+    ],
+    "creationDateTime": "2026-06-17",
+    "updateDateTime": "2026-06-17",
+    "products": [
+      "SharePoint"
+    ],
+    "metadata": [
+      {
+        "key": "PNP-POWERSHELL",
+        "value": "1.11.0"
+      }
+    ],
+    "categories": [
+      "Report"
+    ],
+    "tags": [
+      "Connect-PnPOnline",
+      "Get-PnPContext",
+      "Get-PnPTenantSite",
+      "Get-PnPRecycleBinItem",
+      "Set-PnPContext",
+      "Export-Csv"
+    ],
+    "thumbnails": [
+      {
+        "type": "image",
+        "order": 100,
+        "url": "https://raw.githubusercontent.com/pnp/script-samples/main/scripts/spo-recycle-bin-capacity-and-retention-report/assets/preview.png",
+        "alt": "Preview of the sample SharePoint Online Recycle Bin Capacity and Retention Report (All Sites)"
+      }
+    ],
+    "authors": [
+      {
+        "gitHubAccount": "ojopiyo",
+        "company": "",
+        "pictureUrl": "https://github.com/ojopiyo.png",
+        "name": "Josiah Opiyo"
+      }
+    ],
+    "references": [
+      {
+        "name": "Want to learn more about PnP PowerShell and the cmdlets",
+        "description": "Check out the PnP PowerShell site to get started and for the reference to the cmdlets.",
+        "url": "https://aka.ms/pnp/powershell"
+      }
+    ]
+  }
+]

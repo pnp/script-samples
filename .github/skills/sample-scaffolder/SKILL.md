@@ -1,11 +1,11 @@
 ---
 name: sample-scaffolder
-description: This skill is designed to take a skill that has been submitted as a PR and scaffold it into the sample format as an expected standard by the repository. 
+description: This skill is designed to take a script sample that has been submitted as a PR and scaffold it into the sample format expected by the repository.
 ---
 
 # Sample Scaffolder Skill
 
-This will wrap the scaffolding process for a skill that has been submitted as a PR. It will take the skill and scaffold it into the sample format as an expected standard by the repository.
+This will wrap the scaffolding process for a script sample that has been submitted as a PR. It will take the sample and scaffold it into the format expected by the repository.
 
 ## Expectations of the sample
 
@@ -21,10 +21,10 @@ It contains
 - assets folder with template.sample.json file
 - assets folder with a sample image
 
-When running this skill it should be points in the folder in which the sample files are located e.g. script/my-sample/
+When running this skill, it should be pointed at the folder in which the sample files are located, e.g. `scripts/my-sample/`.
 
 This skill should
 
-- If a readme.md file is not present, it should create one using the template readme.md file and fill in the relevant information from the skill submission.
-- Copy the template.sample.json file to the assets folder and rename it to sample.json. It should then fill in the relevant information from the skill submission into the sample.json file.
+- If a readme.md file is not present, it should create one using the template readme.md file and fill in the relevant information from the sample submission.
+- Copy the template.sample.json file to the assets folder and rename it to sample.json. It should then fill in the relevant information from the sample submission into the sample.json file.
 - Copy the sample image to the assets folder.

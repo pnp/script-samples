@@ -130,7 +130,7 @@ Request-PnPReindexUserProfile -url https://contoso.sharepoint.com/sites/IT -Docu
         
         $filename = "upa-batch-trigger";
 
-        Set-Content -Path "$tempPath\$filename.txt" -value $json
+        Set-Content -Path "$tempPath\$filename.txt" -value $json -Encoding UTF8
 
         Write-Output "Kicking off import job - Please be patient and allow for 4-24h before profiles are updates in search.`n`nDo NOT re-run because you are impatient!"
 
@@ -183,6 +183,7 @@ Sample first appeared on [https://github.com/wobba/SPO-Trigger-Reindex](https://
 | Valeras Narbutas |
 | Mikael Svenson |
 | [Todd Klindt](https://www.toddklindt.com)|
+| Juan Andres Rodriguez |
 
 
 [!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]

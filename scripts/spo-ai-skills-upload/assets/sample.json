@@ -1,0 +1,59 @@
+[
+  {
+    "name": "spo-ai-skills-upload",
+    "source": "pnp",
+    "title": "Upload SharePoint AI Skills to Agent Assets",
+    "shortDescription": "Upload a SKILL.md file into the SharePoint Agent Assets > Skills folder for a target site.",
+    "url": "https://pnp.github.io/script-samples/spo-ai-skills-upload/README.html",
+    "longDescription": [
+      "Check that Agent Assets is enabled on a SharePoint site, validate the Agent Assets library and Skills folder path, and upload a local SKILL.md file into the requested skills subfolder."
+    ],
+    "creationDateTime": "2026-05-05",
+    "updateDateTime": "2026-05-05",
+    "products": [
+      "SharePoint",
+      "Microsoft 365 Copilot"
+    ],
+    "metadata": [
+      {
+        "key": "PNP-POWERSHELL",
+        "value": "3.1.0"
+      }
+    ],
+    "categories": [
+      "Configure",
+      "AI",
+      "Microsoft 365 Copilot"
+    ],
+    "tags": [
+      "Connect-PnPOnline",
+      "Get-PnPFeature",
+      "Get-PnPList",
+      "Resolve-PnPFolder",
+      "Add-PnPFile"
+    ],
+    "thumbnails": [
+      {
+        "type": "image",
+        "order": 100,
+        "url": "https://raw.githubusercontent.com/pnp/script-samples/main/scripts/spo-ai-skills-upload/assets/preview.png",
+        "alt": "Preview of the sample Upload SharePoint AI Skills to Agent Assets"
+      }
+    ],
+    "authors": [
+      {
+        "gitHubAccount": "pkbullock",
+        "company": "",
+        "pictureUrl": "https://github.com/pkbullock.png",
+        "name": "Paul Bullock"
+      }
+    ],
+    "references": [
+      {
+        "name": "Want to learn more about PnP PowerShell and the cmdlets",
+        "description": "Check out the PnP PowerShell site to get started and for the reference to the cmdlets.",
+        "url": "https://aka.ms/pnp/powershell"
+      }
+    ]
+  }
+]

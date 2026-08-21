@@ -1,0 +1,69 @@
+[
+  {
+    "name": "cowork-skills-upload",
+    "source": "pnp",
+    "title": "Upload Cowork Skills to your OneDrive",
+    "shortDescription": "Uploads a custom SKILL.md file to the Cowork/skills folder in a user's OneDrive Agent Assets library using PnP PowerShell.",
+    "url": "https://pnp.github.io/script-samples/cowork-skills-upload/README.html",
+    "longDescription": [
+      "Uploads a custom SKILL.md file to the Cowork/skills folder in a user's OneDrive using PnP PowerShell."
+    ],
+    "creationDateTime": "2026-05-05",
+    "updateDateTime": "2026-05-05",
+    "products": [
+      "SharePoint",
+      "Microsoft 365 Copilot"
+    ],
+    "metadata": [
+      {
+        "key": "PNP-POWERSHELL",
+        "value": "3.1.0"
+      }
+    ],
+    "categories": [
+      "Configure",
+      "AI",
+      "Microsoft 365 Copilot"
+    ],
+    "tags": [
+      "Connect-PnPOnline",
+      "Get-PnPUserProfileProperty",
+      "Get-PnPList",
+      "Resolve-PnPFolder",
+      "Add-PnPFile"
+    ],
+    "thumbnails": [
+      {
+        "type": "image",
+        "order": 100,
+        "url": "https://raw.githubusercontent.com/pnp/script-samples/main/scripts/cowork-skills-upload/assets/preview.png",
+        "alt": "Preview of the sample Upload Cowork Skills to OneDrive"
+      }
+    ],
+    "authors": [
+      {
+        "gitHubAccount": "pkbullock",
+        "company": "",
+        "pictureUrl": "https://github.com/pkbullock.png",
+        "name": "Paul Bullock"
+      }
+    ],
+    "references": [
+      {
+        "name": "Want to learn more about PnP PowerShell and the cmdlets",
+        "description": "Check out the PnP PowerShell site to get started and for the reference to the cmdlets.",
+        "url": "https://aka.ms/pnp/powershell"
+      },
+      {
+        "name": "Resolve-PnPFolder cmdlet reference",
+        "description": "Official cmdlet documentation for resolving and creating folder paths in SharePoint and OneDrive.",
+        "url": "https://pnp.github.io/powershell/cmdlets/Resolve-PnPFolder.html"
+      },
+      {
+        "name": "Add-PnPFile cmdlet reference",
+        "description": "Official cmdlet documentation for uploading files to SharePoint and OneDrive libraries.",
+        "url": "https://pnp.github.io/powershell/cmdlets/Add-PnPFile.html"
+      }
+    ]
+  }
+]

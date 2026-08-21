@@ -135,7 +135,7 @@ StartProcessing
 # [CLI for Microsoft 365](#tab/cli-m365-ps)
 ```powershell
 # Usage example:
-# .\Exoprt-ListLibraryPermissions.ps1 -WebUrl "https://contoso.sharepoint.com/sites/Intranet" -ListName "Demo List"
+# .\Export-ListLibraryPermissions.ps1 -WebUrl "https://contoso.sharepoint.com/sites/Intranet" -ListName "Demo List"
 
 [CmdletBinding()]
 param (
@@ -172,7 +172,7 @@ process {
 
         If ($permissionType -eq 8) {
             # Get members of a SharePoint Group
-            $groupMembers = m365 spo group user list --webUrl $WebUrl --groupName $roleAssignment.Member.LoginName | ConvertFrom-Json
+            $groupMembers = m365 spo group member list --webUrl $WebUrl --groupName $roleAssignment.Member.LoginName | ConvertFrom-Json
 
             ForEach ($user in $groupMembers.value) {
                 Write-Host "$($user.Title) have $($permissionLevels -join ",") permission(s) as part of group $($roleAssignment.Member.LoginName)"

@@ -1,0 +1,50 @@
+[
+  {
+    "name": "spo-remove-sitecollection-admins-after-providing-support",
+    "source": "pnp",
+    "title": "Get and Remove Site Admins after providing Support.",
+    "shortDescription": "Find site collection administrators granted for support cases and remove them once support is complete",
+    "url": "https://pnp.github.io/script-samples/spo-remove-sitecollection-admins-after-providing-support/README.html",
+    "longDescription": [
+      "Regularly reports on directly-assigned site collection administrators that match a known list of support/admin accounts across all sites in the tenant, exporting them to CSV so they can be reviewed and flagged, then removes the flagged administrators on a second run."
+    ],
+    "creationDateTime": "2026-07-08",
+    "updateDateTime": "2026-07-08",
+    "products": [
+      "SharePoint"
+    ],
+    "metadata": [
+      {
+        "key": "PNP-POWERSHELL",
+        "value": "3.2.0"
+      }
+    ],
+    "categories": [
+      "Security"
+    ],
+    "tags": [
+      "Get-PnPTenantSite",
+      "Get-PnPSiteCollectionAdmin",
+      "Remove-PnPSiteCollectionAdmin"
+    ],
+    "thumbnails": [
+      {
+        "type": "image",
+        "order": 100,
+        "url": "https://raw.githubusercontent.com/pnp/script-samples/main/scripts/spo-remove-sitecollection-admins-after-providing-support/assets/preview.png",
+        "alt": "Preview of the sample Get and Remove Site Admins after providing Support."
+      }
+    ],
+    "authors": [
+      {
+        "gitHubAccount": "fabianhutzli",
+        "company": "",
+        "pictureUrl": "https://github.com/fabianhutzli.png",
+        "name": "Fabian Hutzli"
+      }
+    ],
+    "references": [
+      null
+    ]
+  }
+]
