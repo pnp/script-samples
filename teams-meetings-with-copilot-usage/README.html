@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html lang="en">
+
+  <head>
+    <meta charset="utf-8">
+    <title>Teams Meetings With Copilot Usage | PnP Samples </title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="title" content="Teams Meetings With Copilot Usage | PnP Samples ">
+    <meta name="generator" content="docfx ">
+  <meta name="description" content="A sample gallery of scripts to manage all things Microsoft 365.">
+
+    <!-- Social Media -->
+    <meta property="og:locale" content="en_GB">
+    <meta property="og:title" content="Teams Meetings With Copilot Usage | PnP Samples ">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://pnp.github.io/script-samples">
+    <meta property="og:image" content="https://pnp.github.io/script-samples/assets/social-media-screenshot.png">
+    <meta property="og:image:alt" content="Screenshot example of the PnP Script Samples Site">
+    <meta property="og:site_name" content="PnP Script Samples">
+    <meta name="msvalidate.01" content="04EFEDA66EC42C08A1247C979E2F9ADD">
+  <meta property="og:description" content="A sample gallery of scripts to manage all things Microsoft 365.">
+
+    <link rel="shortcut icon" href="https://c.s-microsoft.com/favicon.ico?v2">
+    <link rel="stylesheet" href="../styles/docfx.vendor.min.css">
+    <link rel="stylesheet" href="../styles/docfx.css">
+    <link rel="stylesheet" href="../styles/main.css">
+    <link rel="stylesheet" href="../styles/extra.css">
+    <link rel="stylesheet" href="../styles/filter.css">
+    <link rel="stylesheet" href="../styles/site.css">
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet"> 
+    <meta property="docfx:navrel" content="../toc.html">
+    <meta property="docfx:tocrel" content="../toc.html">
+  
+  
+  <meta property="docfx:newtab" content="true">
+    <script type="text/javascript">
+      (function(c,l,a,r,i,t,y){
+          c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+          t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+          y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+      })(window, document, "clarity", "script", "8j6pedl344");
+  </script>
+  </head>  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+             <div class="github-mark">
+              <a href="https://github.com/pnp/script-samples" title="Go to repository">
+               <div class="github-wrapper">
+                  <div class="github-icon">
+                    <img src="https://pnp.github.io/script-samples/assets/icons/github-light-64px.png" alt="GitHub Icon Image">
+                  </div>
+                  <div class="github-repository">
+                    <span>GitHub</span>
+                    <ul class="github-facts">
+                      <li>
+                        <i class="fa fa-code-fork" aria-hidden="true"></i>
+                        <span class="github-forks"></span>
+                      </li>
+                      <li>
+                        <i class="fa fa-star-o" aria-hidden="true"></i>
+                        <span class="github-stars"></span>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </a>
+            </div>
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../assets/logo.svg" alt="">
+              </a>            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <label class="glyphicon glyphicon-search" for="search-query"></label>
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>      </header>
+      <div role="main" class="container body-content hide-when-search">
+        <div class="article row grid">
+          <div class="col-md-12">
+            <article class="content wrap" id="_content" data-uid="">
+                  <div class="contribution-panel mobile-hide pull-right">
+                      <a href="https://github.com/pnp/script-samples/blob/main/scripts/teams-meetings-with-copilot-usage/README.md/#L1" title="Edit this page" class="improve-doc-lg"><i class="glyphicon glyphicon-pencil"></i></a>
+                  </div>
+  <h1 id="teams-meetings-with-copilot-usage">Teams Meetings With Copilot Usage</h1>
+
+<h2 id="summary">Summary</h2>
+<p>This script provides a solution for identifying Microsoft Teams meetings where Copilot or Facilitator capabilities were used by analyzing Microsoft Purview Unified Audit Logs. It searches for the Copilot-related audit events <strong>AINotesUpdate</strong>, <strong>LiveNotesUpdate</strong>, and <strong>TeamCopilotMsgInteraction</strong>, parses the audit data, and correlates the activity with Teams meeting identifiers and users.</p>
+<p>The script follows these steps:</p>
+<ol>
+<li><strong>Connects</strong> to Exchange Online and Microsoft Purview audit logging</li>
+<li><strong>Defines the date range</strong> for the audit log search</li>
+<li><strong>Searches Unified Audit Logs</strong> for <code>AINotesUpdate</code>, <code>LiveNotesUpdate</code>, and <code>TeamCopilotMsgInteraction</code></li>
+<li><strong>Handles audit log pagination</strong> to retrieve larger result sets</li>
+<li><strong>Parses AuditData</strong> from each Copilot-related event</li>
+<li><strong>Identifies Copilot activity</strong> such as AI Notes, Live Notes, Meeting Moderator, and Team Copilot messages</li>
+<li><strong>Extracts Teams meeting information</strong> including Meeting ID, Thread ID, user, timestamp, and application context</li>
+<li><strong>Correlates multiple Copilot events</strong> belonging to the same Teams meeting</li>
+<li><strong>Generates a detailed activity report</strong> containing individual Copilot interactions</li>
+<li><strong>Generates a consolidated meeting report</strong> showing unique Teams meetings where Copilot was used, including users, Copilot features used, first and last usage time, and interaction count</li>
+<li><strong>Exports the results to CSV files</strong> for further analysis and reporting</li>
+</ol>
+<p><img src="assets/example.png" alt="Example Screenshot"></p>
+<h2 id="output-files">Output Files</h2>
+<p>The script generates two CSV files for analyzing Microsoft Teams Copilot usage.</p>
+<h3 id="1-teamscopilotactivitycsv">1. TeamsCopilotActivity.csv</h3>
+<p>This file provides a <strong>detailed event-level report</strong> of Copilot activity captured from the Microsoft Purview Unified Audit Log. Each row represents an individual Copilot-related audit event.</p>
+<p>The report includes information such as:</p>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>TimeUTC</strong></td>
+<td>Date and time when the Copilot activity occurred, recorded in UTC.</td>
+</tr>
+<tr>
+<td><strong>User</strong></td>
+<td>User associated with the Copilot audit event.</td>
+</tr>
+<tr>
+<td><strong>Operation</strong></td>
+<td>Audit operation captured, such as <code>AINotesUpdate</code>, <code>LiveNotesUpdate</code>, or <code>TeamCopilotMsgInteraction</code>.</td>
+</tr>
+<tr>
+<td><strong>CopilotActivity</strong></td>
+<td>User-friendly description of the Copilot capability used, such as AI Notes, Live Notes, Meeting Moderator, or Team Copilot Message.</td>
+</tr>
+<tr>
+<td><strong>AppIdentity</strong></td>
+<td>Identifies the specific Copilot application or capability responsible for the event.</td>
+</tr>
+<tr>
+<td><strong>AppHost</strong></td>
+<td>Microsoft 365 application where the Copilot activity occurred, typically Teams.</td>
+</tr>
+<tr>
+<td><strong>MeetingId</strong></td>
+<td>Identifier used to associate the Copilot activity with a Teams meeting.</td>
+</tr>
+<tr>
+<td><strong>ContextType</strong></td>
+<td>Type of Copilot context associated with the event, such as <code>TeamsMeeting</code>.</td>
+</tr>
+<tr>
+<td><strong>ThreadId</strong></td>
+<td>Teams conversation or meeting thread identifier associated with the activity.</td>
+</tr>
+<tr>
+<td><strong>RecordType</strong></td>
+<td>Microsoft Purview audit record type for the event.</td>
+</tr>
+<tr>
+<td><strong>AuditRecordId</strong></td>
+<td>Unique identifier of the Microsoft Purview audit record.</td>
+</tr>
+<tr>
+<td><strong>ClientIP</strong></td>
+<td>Client IP address recorded for the audit activity, when available.</td>
+</tr>
+<tr>
+<td><strong>ClientRegion</strong></td>
+<td>Geographic/client region associated with the audit event, when available.</td>
+</tr>
+</tbody>
+</table>
+<p>This file is useful for <strong>detailed investigation, auditing, and understanding individual Copilot interactions</strong> within Teams meetings.</p>
+<h3 id="2-teamsmeetingswithcopilotcsv">2. TeamsMeetingsWithCopilot.csv</h3>
+<p>This file provides a <strong>consolidated meeting-level report</strong>. Multiple Copilot audit events associated with the same Meeting ID are grouped into a single record.</p>
+<p>The report includes:</p>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>MeetingId</strong></td>
+<td>Unique identifier of the Teams meeting where Copilot activity was detected.</td>
+</tr>
+<tr>
+<td><strong>FirstCopilotUse</strong></td>
+<td>Timestamp of the first Copilot-related activity detected for the meeting.</td>
+</tr>
+<tr>
+<td><strong>LastCopilotUse</strong></td>
+<td>Timestamp of the last Copilot-related activity detected for the meeting.</td>
+</tr>
+<tr>
+<td><strong>Users</strong></td>
+<td>List of unique users associated with Copilot activities in the meeting.</td>
+</tr>
+<tr>
+<td><strong>CopilotFeatures</strong></td>
+<td>Copilot capabilities detected during the meeting, such as AI Notes, Live Notes, Meeting Moderator, or Team Copilot Message.</td>
+</tr>
+<tr>
+<td><strong>AuditOperations</strong></td>
+<td>Unique audit operations detected for the meeting, such as <code>AINotesUpdate</code>, <code>LiveNotesUpdate</code>, and <code>TeamCopilotMsgInteraction</code>.</td>
+</tr>
+<tr>
+<td><strong>InteractionCount</strong></td>
+<td>Total number of Copilot-related audit events detected for the meeting.</td>
+</tr>
+</tbody>
+</table>
+<p>This file is useful for <strong>reporting and adoption analysis</strong>, as it provides a quick view of which Teams meetings used Copilot and how Copilot was used during those meetings.</p>
+<h2 id="permissions">Permissions</h2>
+<p>The account running the script must have sufficient permissions to search the Microsoft Purview Unified Audit Log and retrieve Copilot-related audit events.</p>
+<p>The following permissions and roles are required:</p>
+<ul>
+<li><strong>Microsoft Purview Audit permissions</strong> – The user must be assigned the <strong>Audit Reader</strong> or <strong>Audit Manager</strong> role in Microsoft Purview to search and retrieve audit records.</li>
+<li><strong>Exchange Online access</strong> – The script uses the <strong>ExchangeOnlineManagement</strong> PowerShell module and <code>Search-UnifiedAuditLog</code> cmdlet. The signed-in account must be authorized to run audit log searches.</li>
+<li><strong>Audit logging enabled</strong> – Microsoft Purview auditing must be enabled for the tenant so that Teams and Copilot activities are recorded.</li>
+<li><strong>Copilot/Teams audit data access</strong> – The account must have permission to retrieve the relevant audit operations, including <code>AINotesUpdate</code>, <code>LiveNotesUpdate</code>, and <code>TeamCopilotMsgInteraction</code>.</li>
+</ul>
+<p>For least-privilege access, assigning the user to the <strong>Audit Reader</strong> role group is generally sufficient when the requirement is only to retrieve and analyze audit events without modifying audit configuration.</p>
+<h2 id="implementation">Implementation</h2>
+<ul>
+<li>Open Windows PowerShell ISE</li>
+<li>Create a new file</li>
+<li>Copy the code below</li>
+<li>Save the file and run it</li>
+</ul>
+<div class="tabGroup" id="tabgroup_1">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_1_ps" role="tab" aria-controls="tabpanel_1_ps" data-tab="ps" tabindex="0" aria-selected="true">PowerShell</a>
+</li>
+</ul>
+<section id="tabpanel_1_ps" role="tabpanel" data-tab="ps">
+
+<pre><code class="lang-powershell">&lt;#
+.SYNOPSIS
+    Reports on Microsoft Teams meetings where Copilot or Facilitator was used.
+
+.DESCRIPTION
+    Searches the Microsoft 365 Unified Audit Log for Copilot-related Teams events
+    (AI Notes, Live Notes, Meeting Moderator, and Team Copilot messages) and produces
+    two CSV reports: a detailed per-event report and a summary per-meeting report.
+
+.PARAMETER StartDate
+    Start of the audit log search window. Defaults to 30 days ago.
+
+.PARAMETER EndDate
+    End of the audit log search window. Defaults to now.
+
+.PARAMETER OutputFolder
+    Folder to write the CSV reports to. Defaults to the current directory.
+
+.NOTES
+    Requires the ExchangeOnlineManagement module and Exchange Online audit log permissions.
+
+.EXAMPLE
+    .\Get-TeamsMeetingsWithCopilot.ps1 -StartDate (Get-Date).AddDays(-7) -OutputFolder &quot;C:\Reports&quot;
+#&gt;
+
+[CmdletBinding()]
+param (
+    [datetime]$StartDate = (Get-Date).AddDays(-30),
+    [datetime]$EndDate = (Get-Date),
+    [string]$OutputFolder = &quot;.&quot;
+)
+
+Import-Module ExchangeOnlineManagement
+Connect-ExchangeOnline
+
+# Unified Audit Log timestamps are stored in UTC.
+$StartDateUtc = $StartDate.ToUniversalTime()
+$EndDateUtc = $EndDate.ToUniversalTime()
+if ($StartDateUtc -gt $EndDateUtc) { throw &quot;StartDate must be earlier than or equal to EndDate.&quot; }
+Write-Host &quot;Searching audit log from $StartDateUtc to $EndDateUtc (UTC)...&quot; -ForegroundColor Cyan
+
+$Operations = @(
+    &quot;AINotesUpdate&quot;,
+    &quot;LiveNotesUpdate&quot;,
+    &quot;TeamCopilotMsgInteraction&quot;
+)
+
+# Search-UnifiedAuditLog paginates results; ReturnLargeSet supports up to 50,000 records per session.
+$SessionId = &quot;TeamsCopilot-$([guid]::NewGuid())&quot;
+$AuditRecords = @()
+
+do {
+    $Results = Search-UnifiedAuditLog -StartDate $StartDateUtc -EndDate $EndDateUtc `
+        -Operations $Operations -SessionId $SessionId -SessionCommand ReturnLargeSet -ResultSize 5000
+
+    if ($Results) {
+        $AuditRecords += $Results
+        Write-Host &quot;Retrieved $($AuditRecords.Count) audit records...&quot; -ForegroundColor Yellow
+    }
+}
+while ($Results.Count -gt 0)
+
+Write-Host &quot;Total audit records found: $($AuditRecords.Count)&quot; -ForegroundColor Green
+
+$DetailedResults = foreach ($Record in $AuditRecords) {
+    try {
+        $AuditData = $Record.AuditData | ConvertFrom-Json
+        $CopilotEventData = $AuditData.CopilotEventData
+
+        $AppHost = $null
+        $ThreadId = $null
+        $Contexts = $null
+
+        if ($CopilotEventData) {
+            $AppHost = $CopilotEventData.AppHost
+            $ThreadId = $CopilotEventData.ThreadId
+            $Contexts = $CopilotEventData.Contexts
+        }
+
+        # Expected values: Copilot.TeamCopilot.AINotes, LiveNotes, MeetingModerator, Message
+        $AppIdentity = $null
+
+        if ($AuditData.AppIdentity) {
+            $AppIdentity = $AuditData.AppIdentity
+        }
+        elseif ($CopilotEventData.AppIdentity) {
+            $AppIdentity = $CopilotEventData.AppIdentity
+        }
+
+        $MeetingContext = $Contexts | Where-Object { $_.Type -eq &quot;TeamsMeeting&quot; } | Select-Object -First 1
+
+        $MeetingId = $null
+        $ContextType = $null
+
+        if ($MeetingContext) {
+            $MeetingId = $MeetingContext.Id
+            $ContextType = $MeetingContext.Type
+        }
+
+        # Fall back to alternate properties if no Teams meeting context was found.
+        if (-not $MeetingId) {
+            if ($AuditData.MeetingId) {
+                $MeetingId = $AuditData.MeetingId
+            }
+            elseif ($AuditData.ThreadId) {
+                $MeetingId = $AuditData.ThreadId
+            }
+            elseif ($ThreadId) {
+                $MeetingId = $ThreadId
+            }
+        }
+
+        $CopilotActivity = switch ($AuditData.Operation) {
+            &quot;AINotesUpdate&quot; { &quot;AI Notes&quot; }
+            &quot;LiveNotesUpdate&quot; {
+                if ($AppIdentity -match &quot;MeetingModerator&quot;) { &quot;Meeting Moderator&quot; } else { &quot;Live Notes&quot; }
+            }
+            &quot;TeamCopilotMsgInteraction&quot; { &quot;Team Copilot Message&quot; }
+            default { $AuditData.Operation }
+        }
+
+        [PSCustomObject]@{
+            TimeUTC         = $AuditData.CreationTime
+            User            = $AuditData.UserId
+            Operation       = $AuditData.Operation
+            CopilotActivity = $CopilotActivity
+            AppIdentity     = $AppIdentity
+            AppHost         = $AppHost
+            MeetingId       = $MeetingId
+            ContextType     = $ContextType
+            ThreadId        = $ThreadId
+            RecordType      = $AuditData.RecordType
+            AuditRecordId   = $AuditData.Id
+            ClientIP        = $AuditData.ClientIP
+            ClientRegion    = $AuditData.ClientRegion
+        }
+    }
+    catch {
+        Write-Warning &quot;Unable to parse audit record $($Record.Identity)&quot;
+    }
+}
+
+$DetailedFile = Join-Path $OutputFolder &quot;TeamsCopilotActivity.csv&quot;
+$DetailedResults | Sort-Object TimeUTC | Export-Csv -Path $DetailedFile -NoTypeInformation -Encoding UTF8
+
+$MeetingResults = $DetailedResults | Where-Object { $_.MeetingId } | Group-Object MeetingId | ForEach-Object {
+    $MeetingEvents = $_.Group | Sort-Object TimeUTC
+
+    $Users = ($MeetingEvents.User | Where-Object { $_ } | Sort-Object -Unique) -join &quot;; &quot;
+    $Activities = ($MeetingEvents.CopilotActivity | Where-Object { $_ } | Sort-Object -Unique) -join &quot;; &quot;
+    $OperationsUsed = ($MeetingEvents.Operation | Sort-Object -Unique) -join &quot;; &quot;
+
+    [PSCustomObject]@{
+        MeetingId         = $_.Name
+        FirstCopilotUse   = $MeetingEvents[0].TimeUTC
+        LastCopilotUse    = $MeetingEvents[-1].TimeUTC
+        Users             = $Users
+        CopilotFeatures   = $Activities
+        AuditOperations   = $OperationsUsed
+        InteractionCount  = $MeetingEvents.Count
+    }
+}
+
+$MeetingFile = Join-Path $OutputFolder &quot;TeamsMeetingsWithCopilot.csv&quot;
+$MeetingResults | Sort-Object FirstCopilotUse | Export-Csv -Path $MeetingFile -NoTypeInformation -Encoding UTF8
+
+Write-Host &quot;&quot;
+Write-Host &quot;============================================&quot; -ForegroundColor Cyan
+Write-Host &quot;Copilot audit events : $($DetailedResults.Count)&quot;
+Write-Host &quot;Meetings found       : $($MeetingResults.Count)&quot;
+Write-Host &quot;&quot;
+Write-Host &quot;Detailed report: $DetailedFile&quot; -ForegroundColor Green
+Write-Host &quot;Meeting report : $MeetingFile&quot; -ForegroundColor Green
+Write-Host &quot;============================================&quot; -ForegroundColor Cyan
+
+Disconnect-ExchangeOnline -Confirm:$false
+</code></pre>
+<div class="highlight-tool">
+<p>Check out the <strong>PowerShell</strong> to learn more at: <a href="https://learn.microsoft.com/powershell">PowerShell Documentation | Microsoft Learn</a></p>
+</div>
+<h2 id="contributors">Contributors</h2>
+<table>
+<thead>
+<tr>
+<th>Author(s)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="https://github.com/nanddeepn">Nanddeep Nachan</a></td>
+</tr>
+<tr>
+<td><a href="https://github.com/SmitaNachan">Smita Nachan</a></td>
+</tr>
+</tbody>
+</table>
+<h2 id="references">References</h2>
+<h2 id="disclaimer">Disclaimer</h2>
+<p><strong>THESE SAMPLES ARE PROVIDED <em>AS IS</em> WITHOUT WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, INCLUDING ANY IMPLIED WARRANTIES OF FITNESS FOR A PARTICULAR PURPOSE, MERCHANTABILITY, OR NON-INFRINGEMENT.</strong></p>
+<img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/teams-meetings-with-copilot-usage" aria-hidden="true">
+</section>
+</div>
+
+</article>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+      <span>Script Samples<br>Generated by <strong><a href='https://dotnet.github.io/docfx' alt='Doc FX Website'>DocFX</a></strong> with <strong><a href='https://ovasquez.github.io/docfx-material' alt='DocFx Material Theme'>Material UI</a></strong></span>
+      
+            <!-- <img src="https://telemetry.sharepointpnp.com/@pnp.github.io/index/" alt="spacer"> -->
+          </div>
+        </div>
+      </footer>    </div>
+
+    <script type="text/javascript" src="../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+
+    <script type="text/javascript" src="../styles/clipboard.min.js"></script>
+    <script type="text/javascript" src="../styles/isotope.pkgd.min.js"></script>
+    <script type="text/javascript" src="../styles/loadsamples.js"></script>
+    <script type="text/javascript" src="../styles/filtersamples.js"></script>
+
+  </body>
+</html>
