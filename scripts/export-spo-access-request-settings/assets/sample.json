@@ -1,0 +1,58 @@
+[
+  {
+    "name": "export-spo-access-request-settings",
+    "source": "pnp",
+    "title": "Export SharePoint Access Request Settings",
+    "shortDescription": "Audit SharePoint Online access request settings across site collections and subsites.",
+    "url": "https://pnp.github.io/script-samples/export-spo-access-request-settings/README.html",
+    "longDescription": [
+      "Audit SharePoint Online access request settings across all site collections and subsites, including whether requests are enabled, disabled, inherited, or configured for an email address or Owners group."
+    ],
+    "creationDateTime": "2026-08-08",
+    "updateDateTime": "2026-08-08",
+    "products": [
+      "SharePoint"
+    ],
+    "metadata": [
+      {
+        "key": "PNP-POWERSHELL",
+        "value": "3.6.0"
+      }
+    ],
+    "categories": [
+      "Report",
+      "Security",
+      "SharePoint"
+    ],
+    "tags": [
+      "Connect-PnPOnline",
+      "Get-PnPSubWeb",
+      "Get-PnPTenantSite",
+      "Get-PnPGroup",
+      "Export-Csv"
+    ],
+    "thumbnails": [
+      {
+        "type": "image",
+        "order": 100,
+        "url": "https://raw.githubusercontent.com/pnp/script-samples/main/scripts/export-spo-access-request-settings/assets/preview.png",
+        "alt": "Preview of the sample Export SharePoint Access Request Settings"
+      }
+    ],
+    "authors": [
+      {
+        "gitHubAccount": "ojopiyo",
+        "company": "",
+        "pictureUrl": "https://github.com/ojopiyo.png",
+        "name": "Josiah Opiyo"
+      }
+    ],
+    "references": [
+      {
+        "name": "Want to learn more about PnP PowerShell and the cmdlets",
+        "description": "Check out the PnP PowerShell site to get started and for the reference to the cmdlets.",
+        "url": "https://aka.ms/pnp/powershell"
+      }
+    ]
+  }
+]

@@ -177,6 +177,8 @@ $Results | Export-Csv -Path $CSVPath -NoTypeInformation -Encoding UTF8
 Write-Host -ForegroundColor Green "Access Request Report generated: $CSVPath"
 
 ```
+[!INCLUDE [More about PnP PowerShell](../../docfx/includes/MORE-PNPPS.md)]
+***
 
 ## Output
 
@@ -226,3 +228,4 @@ The CSV contains:
 |1.0|August 08, 2026|Initial release|
 
 [!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
+<img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/export-spo-access-request-settings" aria-hidden="true" />
