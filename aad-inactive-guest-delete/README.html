@@ -98,26 +98,604 @@
                   </div>
   <h1 id="delete-inactive-guest-user">Delete inactive Guest User</h1>
 
-<p>The script will report inactive users for x days and provides an option to delete them.</p>
 <h2 id="summary">Summary</h2>
-<p>This PowerShell script identifies and optionally deletes inactive guest users in Microsoft 365. It connects to Microsoft Graph, retrieves guest users, checks their last sign-in date, and lists those who have been inactive for a specified number of days. The script then prompts the user to confirm whether to delete these inactive users.</p>
+<p>This PowerShell script audits Microsoft Entra ID guest accounts for inactivity using the Microsoft Graph PowerShell SDK.</p>
+<p>The script:</p>
 <ul>
-<li>Open Windows PowerShell ISE or VS Code</li>
-<li>Copy script below to your clipboard</li>
-<li>Modify the $daysInactive variable as needed.</li>
-<li>Run the script to identify and optionally delete inactive guest users.</li>
+<li>Retrieves all users with userType set to Guest.</li>
+<li>Evaluates inactivity using LastSuccessfulSignInDateTime.</li>
+<li>Optionally identifies guests who have never successfully signed in using CreatedDateTime.</li>
+<li>Applies configurable user and domain exclusions.</li>
+<li>Generates a timestamped CSV audit report.</li>
+<li>Maintains an execution log for operational traceability.</li>
+<li>Runs in REPORT ONLY mode by default.</li>
+<li>Supports optional deletion of identified inactive guest accounts following administrative review and approval.</li>
+<li>Records deletion attempts, successful deletions, and errors in the final audit report.
+The default inactivity threshold is 90 days, but this can be changed through the configuration section.</li>
 </ul>
+<h2 id="why-it-matters">Why It Matters</h2>
+<p>Guest accounts can accumulate in Microsoft 365 environments as external collaborators, suppliers, consultants, partners, and temporary project users leave the organisation.</p>
+<p>Without periodic review, inactive guest accounts can:</p>
+<ul>
+<li>Increase the external identity attack surface.</li>
+<li>Retain access that is no longer required.</li>
+<li>Complicate access governance and entitlement reviews.</li>
+<li>Increase the number of identities administrators must maintain.</li>
+<li>Create unnecessary audit and compliance exposure.
+This script provides a repeatable PROD process for identifying potentially stale guest identities and producing an auditable dataset for review before remediation.</li>
+</ul>
+<p>A typical operational workflow is:</p>
+<ol>
+<li>Run the script in REPORT ONLY mode.</li>
+<li>Review the generated CSV report.</li>
+<li>Validate exclusions and business ownership.</li>
+<li>Obtain the appropriate PROD/change approval.</li>
+<li>Enable deletion if remediation has been authorised.</li>
+<li>Retain the generated reports and execution logs according to organisational retention requirements.</li>
+</ol>
 <div class="WARNING">
 <h5>Warning</h5>
 <p>Please be aware this script contains a command that will remove or delete an artifact, ensure you test and understand the implications of running the script.</p>
 </div>
+<h2 id="requirements">Requirements</h2>
+<h3 id="powershell-module">PowerShell Module</h3>
+<p>The script requires:</p>
+<blockquote>
+<p>#requires -Modules Microsoft.Graph.Users</p>
+</blockquote>
+<p>Install the Microsoft Graph PowerShell SDK module if required:</p>
+<blockquote>
+<p>Install-Module Microsoft.Graph.Users -Scope CurrentUser</p>
+</blockquote>
+<h3 id="microsoft-graph-permissions">Microsoft Graph Permissions</h3>
+<p>For audit/reporting:</p>
+<ul>
+<li><strong>User.Read.All</strong></li>
+<li><strong>AuditLog.Read.All</strong>
+Deletion requires additional Microsoft Graph permissions appropriate to the organisation's identity governance and delegated/application access model.</li>
+</ul>
+<p>The executing identity must also be authorised to perform the requested operations.</p>
+<h2 id="configuration">Configuration</h2>
+<p>The primary configuration is controlled through <code>$Config</code>:</p>
+<table>
+<thead>
+<tr>
+<th>Setting</th>
+<th>Default</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>InactiveDays</code></td>
+<td><code>90</code></td>
+<td>Number of days before a guest is considered inactive</td>
+</tr>
+<tr>
+<td><code>IncludeNeverUsedGuests</code></td>
+<td><code>$true</code></td>
+<td>Includes guests who have never successfully signed in</td>
+</tr>
+<tr>
+<td><code>ExecuteDeletion</code></td>
+<td><code>$false</code></td>
+<td>Controls whether inactive guests are deleted</td>
+</tr>
+<tr>
+<td><code>ReportPath</code></td>
+<td><code>C:\Temp\GuestAccountAudit</code></td>
+<td>CSV report directory</td>
+</tr>
+<tr>
+<td><code>LogPath</code></td>
+<td><code>C:\Temp\GuestAccountAudit\GuestAccountAudit.log</code></td>
+<td>Execution log location</td>
+</tr>
+<tr>
+<td><code>ExcludedUserPrincipalNames</code></td>
+<td><code>Empty</code></td>
+<td>Specific guest UPNs excluded from processing</td>
+</tr>
+<tr>
+<td><code>ExcludedDomains</code></td>
+<td><code>Empty</code></td>
+<td>Guest domains excluded from processing</td>
+</tr>
+</tbody>
+</table>
 <div class="tabGroup" id="tabgroup_1">
 <ul role="tablist">
 <li role="presentation">
-<a href="#tabpanel_1_graphps" role="tab" aria-controls="tabpanel_1_graphps" data-tab="graphps" tabindex="0" aria-selected="true">Microsoft Graph PowerShell</a>
+<a href="#tabpanel_1_pnpps2" role="tab" aria-controls="tabpanel_1_pnpps2" data-tab="pnpps2" tabindex="0" aria-selected="true">PnP PowerShell V2</a>
+</li>
+<li role="presentation">
+<a href="#tabpanel_1_graphps" role="tab" aria-controls="tabpanel_1_graphps" data-tab="graphps" tabindex="-1">Microsoft Graph PowerShell</a>
 </li>
 </ul>
-<section id="tabpanel_1_graphps" role="tabpanel" data-tab="graphps">
+<section id="tabpanel_1_pnpps2" role="tabpanel" data-tab="pnpps2">
+
+<pre><code class="lang-powershell">#requires -Modules Microsoft.Graph.Users
+
+&lt;#
+.SYNOPSIS
+    Identifies inactive Microsoft Entra ID guest accounts and optionally deletes them.
+
+.DESCRIPTION
+    This script:
+      - Retrieves all guest accounts
+      - Determines inactivity using lastSuccessfulSignInDateTime
+      - Handles guests who have never successfully signed in
+      - Produces an audit CSV report
+      - Runs in REPORT-ONLY mode by default
+      - Supports exclusions
+      - Includes error handling and execution logging
+      - Supports optional deletion after review
+
+    IMPORTANT:
+      Deletion is disabled by default.
+      Set $Config.ExecuteDeletion = $true only after appropriate PROD approval.
+
+.NOTES
+    Recommended permissions:
+      - User.Read.All
+      - AuditLog.Read.All
+
+    Deletion additionally requires appropriate write/delete permissions.
+#&gt;
+
+# ============================================================
+# CONFIGURATION
+# ============================================================
+
+$Config = @{
+    # Number of days after which a guest is considered inactive
+    InactiveDays = 90
+
+    # If a guest has never successfully signed in,
+    # use CreatedDateTime to determine inactivity
+    IncludeNeverUsedGuests = $true
+
+    # Safety control:
+    # FALSE = report only
+    # TRUE  = perform deletion
+    ExecuteDeletion = $false
+
+    # Output locations
+    ReportPath = &quot;C:\Temp\GuestAccountAudit&quot;
+    LogPath    = &quot;C:\Temp\GuestAccountAudit\GuestAccountAudit.log&quot;
+
+    # Optional exclusions
+    ExcludedUserPrincipalNames = @(
+        # &quot;important.external.user@external.com&quot;
+    )
+
+    # Optional excluded domains
+    ExcludedDomains = @(
+        # &quot;trustedpartner.com&quot;
+    )
+}
+
+# ============================================================
+# INITIALISE
+# ============================================================
+
+$ErrorActionPreference = &quot;Stop&quot;
+
+$ExecutionStart = Get-Date
+$CalcDate = $ExecutionStart.AddDays(-$Config.InactiveDays)
+
+# Ensure output directory exists
+if (-not (Test-Path -Path $Config.ReportPath)) {
+    New-Item -Path $Config.ReportPath -ItemType Directory -Force | Out-Null
+}
+
+# ============================================================
+# LOGGING FUNCTION
+# ============================================================
+
+function Write-Log {
+    param (
+        [Parameter(Mandatory)]
+        [string]$Message,
+
+        [ValidateSet(&quot;INFO&quot;, &quot;WARNING&quot;, &quot;ERROR&quot;)]
+        [string]$Level = &quot;INFO&quot;
+    )
+
+    $Timestamp = Get-Date -Format &quot;yyyy-MM-dd HH:mm:ss&quot;
+    $LogEntry = &quot;$Timestamp [$Level] $Message&quot;
+
+    Write-Host $LogEntry
+
+    Add-Content -Path $Config.LogPath -Value $LogEntry
+}
+
+# ============================================================
+# START
+# ============================================================
+
+Write-Log &quot;============================================================&quot;
+Write-Log &quot;Guest account inactivity audit started&quot;
+Write-Log &quot;Execution mode: $(if ($Config.ExecuteDeletion) { 'DELETE' } else { 'REPORT ONLY' })&quot;
+Write-Log &quot;Inactivity threshold: $($Config.InactiveDays) days&quot;
+Write-Log &quot;Cut-off date: $($CalcDate.ToString('yyyy-MM-dd HH:mm:ss'))&quot;
+Write-Log &quot;============================================================&quot;
+
+# ============================================================
+# CONNECT TO MICROSOFT GRAPH
+# ============================================================
+
+try {
+
+    Write-Log &quot;Connecting to Microsoft Graph...&quot;
+
+    Connect-MgGraph `
+        -Scopes &quot;User.Read.All&quot;, &quot;AuditLog.Read.All&quot; `
+        -NoWelcome
+
+    Write-Log &quot;Successfully connected to Microsoft Graph.&quot;
+
+}
+catch {
+
+    Write-Log &quot;Failed to connect to Microsoft Graph: $($_.Exception.Message)&quot; &quot;ERROR&quot;
+    throw
+}
+
+# ============================================================
+# RETRIEVE GUEST USERS
+# ============================================================
+
+try {
+
+    Write-Log &quot;Retrieving guest accounts...&quot;
+
+    $GuestUsers = Get-MgUser `
+        -Filter &quot;userType eq 'Guest'&quot; `
+        -All `
+        -Property Id,
+                   DisplayName,
+                   Mail,
+                   UserPrincipalName,
+                   UserType,
+                   CreatedDateTime,
+                   AccountEnabled,
+                   SignInActivity
+
+    Write-Log &quot;Guest accounts retrieved: $($GuestUsers.Count)&quot;
+
+}
+catch {
+
+    Write-Log &quot;Failed to retrieve guest accounts: $($_.Exception.Message)&quot; &quot;ERROR&quot;
+
+    Disconnect-MgGraph | Out-Null
+    throw
+}
+
+# ============================================================
+# IDENTIFY INACTIVE USERS
+# ============================================================
+
+$InactiveUsers = [System.Collections.Generic.List[object]]::new()
+
+$ExcludedUsers = 0
+$ActiveUsers = 0
+$NeverUsedUsers = 0
+
+foreach ($User in $GuestUsers) {
+
+    $UPN = $User.UserPrincipalName
+    $Domain = if ($UPN -and $UPN.Contains(&quot;@&quot;)) {
+        $UPN.Split(&quot;@&quot;)[1].ToLower()
+    }
+    else {
+        &quot;&quot;
+    }
+
+    # --------------------------------------------------------
+    # EXCLUSIONS
+    # --------------------------------------------------------
+
+    if ($Config.ExcludedUserPrincipalNames -contains $UPN) {
+
+        $ExcludedUsers++
+
+        Write-Log &quot;Excluded user: $UPN&quot;
+
+        continue
+    }
+
+    if ($Domain -and ($Config.ExcludedDomains -contains $Domain)) {
+
+        $ExcludedUsers++
+
+        Write-Log &quot;Excluded domain user: $UPN&quot;
+
+        continue
+    }
+
+    # --------------------------------------------------------
+    # DETERMINE LAST SUCCESSFUL ACTIVITY
+    # --------------------------------------------------------
+
+    $LastSuccessfulSignIn = $null
+
+    if ($User.SignInActivity) {
+
+        $LastSuccessfulSignIn =
+            $User.SignInActivity.LastSuccessfulSignInDateTime
+    }
+
+    $ActivityDate = $null
+    $ActivitySource = $null
+    $IsInactive = $false
+
+    # --------------------------------------------------------
+    # USER HAS SUCCESSFUL SIGN-IN HISTORY
+    # --------------------------------------------------------
+
+    if ($LastSuccessfulSignIn) {
+
+        $ActivityDate = [DateTime]$LastSuccessfulSignIn
+        $ActivitySource = &quot;LastSuccessfulSignInDateTime&quot;
+
+        if ($ActivityDate -lt $CalcDate) {
+
+            $IsInactive = $true
+        }
+        else {
+
+            $ActiveUsers++
+        }
+    }
+
+    # --------------------------------------------------------
+    # USER HAS NEVER SUCCESSFULLY SIGNED IN
+    # --------------------------------------------------------
+
+    elseif ($Config.IncludeNeverUsedGuests) {
+
+        if ($User.CreatedDateTime) {
+
+            $ActivityDate = [DateTime]$User.CreatedDateTime
+            $ActivitySource = &quot;CreatedDateTime - Never Successfully Signed In&quot;
+
+            if ($ActivityDate -lt $CalcDate) {
+
+                $IsInactive = $true
+                $NeverUsedUsers++
+            }
+        }
+    }
+
+    # --------------------------------------------------------
+    # ADD INACTIVE USER TO REPORT
+    # --------------------------------------------------------
+
+    if ($IsInactive) {
+
+        $DaysInactive = [math]::Floor(
+            ($ExecutionStart - $ActivityDate).TotalDays
+        )
+
+        $InactiveUsers.Add(
+            [PSCustomObject]@{
+                Id                         = $User.Id
+                DisplayName                = $User.DisplayName
+                UserPrincipalName          = $User.UserPrincipalName
+                Mail                       = $User.Mail
+                AccountEnabled             = $User.AccountEnabled
+                CreatedDateTime            = $User.CreatedDateTime
+                LastSuccessfulSignIn      = $LastSuccessfulSignIn
+                ActivityDateUsed           = $ActivityDate
+                ActivitySource             = $ActivitySource
+                DaysInactive               = $DaysInactive
+                InactivityThresholdDays   = $Config.InactiveDays
+                RecommendedAction          = &quot;Review&quot;
+                DeletionAttempted          = $false
+                DeletionSuccessful         = $false
+                Error                      = $null
+            }
+        )
+    }
+}
+
+# ============================================================
+# SUMMARY
+# ============================================================
+
+Write-Log &quot;Guest accounts assessed: $($GuestUsers.Count)&quot;
+Write-Log &quot;Active accounts: $ActiveUsers&quot;
+Write-Log &quot;Excluded accounts: $ExcludedUsers&quot;
+Write-Log &quot;Never-used inactive accounts: $NeverUsedUsers&quot;
+Write-Log &quot;Inactive accounts identified: $($InactiveUsers.Count)&quot;
+
+# ============================================================
+# EXPORT REPORT
+# ============================================================
+
+$ReportTimestamp = Get-Date -Format &quot;yyyyMMdd_HHmmss&quot;
+
+$ReportPath = Join-Path `
+    $Config.ReportPath `
+    &quot;GuestAccountAudit_$ReportTimestamp.csv&quot;
+
+try {
+
+    if ($InactiveUsers.Count -gt 0) {
+
+        $InactiveUsers |
+            Export-Csv `
+                -Path $ReportPath `
+                -NoTypeInformation `
+                -Encoding UTF8
+
+        Write-Log &quot;Audit report created: $ReportPath&quot;
+    }
+    else {
+
+        Write-Log &quot;No inactive guest accounts identified.&quot;
+
+        # Still create a report so that every execution
+        # has an auditable output.
+        $InactiveUsers |
+            Export-Csv `
+                -Path $ReportPath `
+                -NoTypeInformation `
+                -Encoding UTF8
+
+        Write-Log &quot;Empty audit report created: $ReportPath&quot;
+    }
+
+}
+catch {
+
+    Write-Log &quot;Failed to create audit report: $($_.Exception.Message)&quot; &quot;ERROR&quot;
+}
+
+# ============================================================
+# DELETE USERS
+# ============================================================
+
+if ($Config.ExecuteDeletion -and $InactiveUsers.Count -gt 0) {
+
+    Write-Log &quot;============================================================&quot;
+    Write-Log &quot;DELETION MODE ENABLED&quot;
+    Write-Log &quot;Inactive users scheduled for deletion: $($InactiveUsers.Count)&quot;
+    Write-Log &quot;============================================================&quot;
+
+    foreach ($InactiveUser in $InactiveUsers) {
+
+        try {
+
+            Write-Log &quot;Attempting deletion: $($InactiveUser.UserPrincipalName)&quot;
+
+            $InactiveUser.DeletionAttempted = $true
+
+            Remove-MgUser `
+                -UserId $InactiveUser.Id `
+                -Confirm:$false `
+                -ErrorAction Stop
+
+            $InactiveUser.DeletionSuccessful = $true
+            $InactiveUser.RecommendedAction = &quot;Deleted&quot;
+
+            Write-Log &quot;Successfully deleted: $($InactiveUser.UserPrincipalName)&quot;
+
+        }
+        catch {
+
+            $InactiveUser.DeletionSuccessful = $false
+            $InactiveUser.RecommendedAction = &quot;Deletion Failed&quot;
+            $InactiveUser.Error = $_.Exception.Message
+
+            Write-Log `
+                &quot;Failed to delete $($InactiveUser.UserPrincipalName): $($_.Exception.Message)&quot; `
+                &quot;ERROR&quot;
+        }
+    }
+
+    # Re-export report with deletion results
+    try {
+
+        $InactiveUsers |
+            Export-Csv `
+                -Path $ReportPath `
+                -NoTypeInformation `
+                -Encoding UTF8
+
+        Write-Log &quot;Final deletion audit report updated.&quot;
+
+    }
+    catch {
+
+        Write-Log &quot;Failed to update final audit report: $($_.Exception.Message)&quot; &quot;ERROR&quot;
+    }
+}
+else {
+
+    if ($InactiveUsers.Count -gt 0) {
+
+        Write-Log &quot;REPORT ONLY mode enabled.&quot;
+        Write-Log &quot;No accounts were deleted.&quot;
+        Write-Log &quot;Review the audit report before any remediation.&quot;
+    }
+}
+
+# ============================================================
+# DISCONNECT
+# ============================================================
+
+try {
+
+    Disconnect-MgGraph | Out-Null
+
+    Write-Log &quot;Disconnected from Microsoft Graph.&quot;
+
+}
+catch {
+
+    Write-Log &quot;Unable to disconnect cleanly from Microsoft Graph.&quot; &quot;WARNING&quot;
+}
+
+# ============================================================
+# FINAL SUMMARY
+# ============================================================
+
+$ExecutionEnd = Get-Date
+$Duration = $ExecutionEnd - $ExecutionStart
+
+Write-Log &quot;============================================================&quot;
+Write-Log &quot;Guest account inactivity audit completed&quot;
+Write-Log &quot;Execution duration: $($Duration.ToString())&quot;
+Write-Log &quot;Inactive accounts identified: $($InactiveUsers.Count)&quot;
+Write-Log &quot;Report: $ReportPath&quot;
+Write-Log &quot;============================================================&quot;
+
+</code></pre>
+<div class="highlight-tool">
+<p>Check out the <strong>Microsoft Graph PowerShell SDK</strong> to learn more at: <a href="https://learn.microsoft.com/powershell/microsoftgraph/get-started">https://learn.microsoft.com/powershell/microsoftgraph/get-started</a></p>
+</div>
+<h2 id="output">Output</h2>
+<h3 id="csv-audit-report">CSV Audit Report</h3>
+<p>Default output: <em>C:\Temp\GuestAccountAudit_yyyyMMdd_HHmmss.csv</em></p>
+<p>The CSV contains:</p>
+<ul>
+<li>Entra ID object ID</li>
+<li>Display name</li>
+<li>User principal name</li>
+<li>Mail address</li>
+<li>Account enabled state</li>
+<li>Account creation date</li>
+<li>Last successful sign-in</li>
+<li>Activity date used for inactivity evaluation</li>
+<li>Activity source</li>
+<li>Calculated days inactive</li>
+<li>Configured inactivity threshold</li>
+<li>Recommended action</li>
+<li>Whether deletion was attempted</li>
+<li>Whether deletion succeeded</li>
+<li>Error information</li>
+</ul>
+<h3 id="execution-log">Execution Log</h3>
+<p>The execution log records:</p>
+<ul>
+<li>Script start and completion</li>
+<li>Execution mode</li>
+<li>Inactivity threshold</li>
+<li>Number of guests retrieved</li>
+<li>Number of active guests</li>
+<li>Number of excluded guests</li>
+<li>Number of never-used guests</li>
+<li>Number of inactive guests</li>
+<li>Report location</li>
+<li>Deletion attempts and outcomes</li>
+<li>Graph connection and disconnection events</li>
+<li>Errors encountered during execution</li>
+</ul>
+</section>
+<section id="tabpanel_1_graphps" role="tabpanel" data-tab="graphps" aria-hidden="true" hidden="hidden">
 
 <pre><code class="lang-powershell">#Install-Module Microsoft.Graph
 # Define the number of days of inactivity
@@ -174,11 +752,36 @@ Disconnect-MgGraph
 <tr>
 <td><a href="https://github.com/petkir">Peter Paul Kirschner</a></td>
 </tr>
+<tr>
+<td><a href="https://github.com/ojopiyo">Josiah Opiyo</a></td>
+</tr>
+</tbody>
+</table>
+<p><em>Built with a focus on automation, governance, least privilege, and clean Microsoft 365 tenants-helping M365 admins gain visibility and reduce operational risk.</em></p>
+<h2 id="version-history">Version history</h2>
+<table>
+<thead>
+<tr>
+<th>Version</th>
+<th>Date</th>
+<th>Comments</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1.0</td>
+<td>October 02, 2024</td>
+<td>Initial release</td>
+</tr>
+<tr>
+<td>2.0</td>
+<td>August 23, 2026</td>
+<td>Refactored and improved version</td>
+</tr>
 </tbody>
 </table>
 <h2 id="disclaimer">Disclaimer</h2>
 <p><strong>THESE SAMPLES ARE PROVIDED <em>AS IS</em> WITHOUT WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, INCLUDING ANY IMPLIED WARRANTIES OF FITNESS FOR A PARTICULAR PURPOSE, MERCHANTABILITY, OR NON-INFRINGEMENT.</strong></p>
-<img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/aad-inactive-guest-delete" aria-hidden="true">
 
 </article>
           </div>
