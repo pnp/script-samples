@@ -6,6 +6,8 @@ This PowerShell script connects to the SharePoint Online Tenant Administration s
 
 The script is designed for unattended execution using an Azure AD application and certificate, making it suitable for scheduled tasks, automation platforms, and enterprise administration. It includes execution logging, error handling, and clean session termination to support reliable operation in production environments.
 
+![Example Screenshot](assets/preview.png)
+
 ## Why It Matters
 
 The Add Shortcut to OneDrive feature blurs the line between personal storage and shared organisational content. While it can be convenient in small or simple environments, it often introduces complexity at scale. Shortcuts behave differently from traditional sync connections, and when they break - due to permission changes, site restructuring, or sync conflicts - users experience errors they don't understand and support teams inherit the fallout.
@@ -114,6 +116,8 @@ finally {
 
 ```
 
+[!INCLUDE [More about PnP PowerShell](../../docfx/includes/MORE-PNPPS.md)]
+
 ## Usage
 
 1. Configure the authentication variables.
@@ -155,3 +159,4 @@ The script provides console output including:
 |1.0|August 07, 2026|Initial release|
 
 [!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
+<img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/disable-the-sharepoint-online-add-shortcut-to-onedrive-feature" aria-hidden="true" />

@@ -1,0 +1,59 @@
+[
+  {
+    "name": "disable-the-sharepoint-online-add-shortcut-to-onedrive-feature",
+    "source": "pnp",
+    "title": "Disable the SharePoint Online Add Shortcut to OneDrive Feature",
+    "shortDescription": "Disable the Add Shortcut to OneDrive feature at the SharePoint Online tenant level using certificate-based authentication.",
+    "url": "https://pnp.github.io/script-samples/disable-the-sharepoint-online-add-shortcut-to-onedrive-feature/README.html",
+    "longDescription": [
+      "This PowerShell script connects to the SharePoint Online Tenant Administration site using certificate-based authentication and disables the Add Shortcut to OneDrive feature at the tenant level."
+    ],
+    "creationDateTime": "2026-08-07",
+    "updateDateTime": "2026-08-07",
+    "products": [
+      "SharePoint",
+      "Microsoft 365"
+    ],
+    "metadata": [
+      {
+        "key": "PNP-POWERSHELL",
+        "value": "2.12.0"
+      }
+    ],
+    "categories": [
+      "Configure",
+      "Security"
+    ],
+    "tags": [
+      "SharePoint Online",
+      "Add Shortcut to OneDrive",
+      "Connect-PnPOnline",
+      "Set-PnPTenant",
+      "DisableAddToOneDrive",
+      "certificate authentication"
+    ],
+    "thumbnails": [
+      {
+        "type": "image",
+        "order": 100,
+        "url": "https://raw.githubusercontent.com/pnp/script-samples/main/scripts/disable-the-sharepoint-online-add-shortcut-to-onedrive-feature/assets/preview.png",
+        "alt": "Preview of the sample Disable the SharePoint Online Add Shortcut to OneDrive Feature"
+      }
+    ],
+    "authors": [
+      {
+        "gitHubAccount": "ojopiyo",
+        "company": "",
+        "pictureUrl": "https://github.com/ojopiyo.png",
+        "name": "Josiah Opiyo"
+      }
+    ],
+    "references": [
+      {
+        "name": "Want to learn more about PnP PowerShell and the cmdlets",
+        "description": "Check out the PnP PowerShell site to get started and for the reference to the cmdlets.",
+        "url": "https://aka.ms/pnp/powershell"
+      }
+    ]
+  }
+]
