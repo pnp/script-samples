@@ -1814,6 +1814,52 @@
     ]
   },
   {
+    "name": "disable-the-sharepoint-online-add-shortcut-to-onedrive-feature",
+    "title": "Disable the SharePoint Online Add Shortcut to OneDrive Feature",
+    "shortDescription": "Disable the Add Shortcut to OneDrive feature at the SharePoint Online tenant level using certificate-based authentication.",
+    "url": "disable-the-sharepoint-online-add-shortcut-to-onedrive-feature/README.html",
+    "creationDateTime": "2026-08-07",
+    "updateDateTime": "2026-08-07",
+    "products": [
+      "SharePoint",
+      "Microsoft 365"
+    ],
+    "metadata": [
+      {
+        "key": "PNP-POWERSHELL",
+        "value": "2.12.0"
+      }
+    ],
+    "categories": [
+      "Configure",
+      "Security"
+    ],
+    "tags": [
+      "SharePoint Online",
+      "Add Shortcut to OneDrive",
+      "Connect-PnPOnline",
+      "Set-PnPTenant",
+      "DisableAddToOneDrive",
+      "certificate authentication"
+    ],
+    "thumbnails": [
+      {
+        "type": "image",
+        "order": 100,
+        "url": "disable-the-sharepoint-online-add-shortcut-to-onedrive-feature/assets/preview.png",
+        "alt": "Preview of the sample Disable the SharePoint Online Add Shortcut to OneDrive Feature"
+      }
+    ],
+    "authors": [
+      {
+        "gitHubAccount": "ojopiyo",
+        "company": "",
+        "pictureUrl": "https://github.com/ojopiyo.png",
+        "name": "Josiah Opiyo"
+      }
+    ]
+  },
+  {
     "name": "entra-remove-user-mfa-methods",
     "title": "Remove MFA Authentication Methods for Users",
     "shortDescription": "Removes MFA authentication methods (phone, Microsoft Authenticator, software OATH token) for all or specific users in a Microsoft 365 tenant using Microsoft Graph PowerShell.",
