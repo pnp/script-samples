@@ -2086,6 +2086,51 @@
     ]
   },
   {
+    "name": "export-spo-access-request-settings",
+    "title": "Export SharePoint Access Request Settings",
+    "shortDescription": "Audit SharePoint Online access request settings across site collections and subsites.",
+    "url": "export-spo-access-request-settings/README.html",
+    "creationDateTime": "2026-08-08",
+    "updateDateTime": "2026-08-08",
+    "products": [
+      "SharePoint"
+    ],
+    "metadata": [
+      {
+        "key": "PNP-POWERSHELL",
+        "value": "3.6.0"
+      }
+    ],
+    "categories": [
+      "Report",
+      "Security",
+      "SharePoint"
+    ],
+    "tags": [
+      "Connect-PnPOnline",
+      "Get-PnPSubWeb",
+      "Get-PnPTenantSite",
+      "Get-PnPGroup",
+      "Export-Csv"
+    ],
+    "thumbnails": [
+      {
+        "type": "image",
+        "order": 100,
+        "url": "export-spo-access-request-settings/assets/preview.png",
+        "alt": "Preview of the sample Export SharePoint Access Request Settings"
+      }
+    ],
+    "authors": [
+      {
+        "gitHubAccount": "ojopiyo",
+        "company": "",
+        "pictureUrl": "https://github.com/ojopiyo.png",
+        "name": "Josiah Opiyo"
+      }
+    ]
+  },
+  {
     "name": "fetch-user-profile-properties",
     "title": "Fetch User Profile Properties From Site Collection And Export To CSV",
     "shortDescription": "Get users or user profile properties from any SharePoint site collection and we need it in CSV or Excel format",

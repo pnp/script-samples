@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html lang="en">
+
+  <head>
+    <meta charset="utf-8">
+    <title>Export SharePoint Access Request Settings | PnP Samples </title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="title" content="Export SharePoint Access Request Settings | PnP Samples ">
+    <meta name="generator" content="docfx ">
+  <meta name="description" content="A sample gallery of scripts to manage all things Microsoft 365.">
+
+    <!-- Social Media -->
+    <meta property="og:locale" content="en_GB">
+    <meta property="og:title" content="Export SharePoint Access Request Settings | PnP Samples ">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://pnp.github.io/script-samples">
+    <meta property="og:image" content="https://pnp.github.io/script-samples/assets/social-media-screenshot.png">
+    <meta property="og:image:alt" content="Screenshot example of the PnP Script Samples Site">
+    <meta property="og:site_name" content="PnP Script Samples">
+    <meta name="msvalidate.01" content="04EFEDA66EC42C08A1247C979E2F9ADD">
+  <meta property="og:description" content="A sample gallery of scripts to manage all things Microsoft 365.">
+
+    <link rel="shortcut icon" href="https://c.s-microsoft.com/favicon.ico?v2">
+    <link rel="stylesheet" href="../styles/docfx.vendor.min.css">
+    <link rel="stylesheet" href="../styles/docfx.css">
+    <link rel="stylesheet" href="../styles/main.css">
+    <link rel="stylesheet" href="../styles/extra.css">
+    <link rel="stylesheet" href="../styles/filter.css">
+    <link rel="stylesheet" href="../styles/site.css">
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet"> 
+    <meta property="docfx:navrel" content="../toc.html">
+    <meta property="docfx:tocrel" content="../toc.html">
+  
+  
+  <meta property="docfx:newtab" content="true">
+    <script type="text/javascript">
+      (function(c,l,a,r,i,t,y){
+          c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+          t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+          y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+      })(window, document, "clarity", "script", "8j6pedl344");
+  </script>
+  </head>  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+             <div class="github-mark">
+              <a href="https://github.com/pnp/script-samples" title="Go to repository">
+               <div class="github-wrapper">
+                  <div class="github-icon">
+                    <img src="https://pnp.github.io/script-samples/assets/icons/github-light-64px.png" alt="GitHub Icon Image">
+                  </div>
+                  <div class="github-repository">
+                    <span>GitHub</span>
+                    <ul class="github-facts">
+                      <li>
+                        <i class="fa fa-code-fork" aria-hidden="true"></i>
+                        <span class="github-forks"></span>
+                      </li>
+                      <li>
+                        <i class="fa fa-star-o" aria-hidden="true"></i>
+                        <span class="github-stars"></span>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </a>
+            </div>
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../assets/logo.svg" alt="">
+              </a>            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <label class="glyphicon glyphicon-search" for="search-query"></label>
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>      </header>
+      <div role="main" class="container body-content hide-when-search">
+        <div class="article row grid">
+          <div class="col-md-12">
+            <article class="content wrap" id="_content" data-uid="">
+                  <div class="contribution-panel mobile-hide pull-right">
+                      <a href="https://github.com/pnp/script-samples/blob/main/scripts/export-spo-access-request-settings/README.md/#L1" title="Edit this page" class="improve-doc-lg"><i class="glyphicon glyphicon-pencil"></i></a>
+                  </div>
+  <h1 id="export-sharepoint-access-request-settings">Export SharePoint Access Request Settings</h1>
+
+<h2 id="summary">Summary</h2>
+<p>This PowerShell script audits SharePoint Online access request settings across all site collections and subsites in a Microsoft 365 tenant.</p>
+<p>It uses PnP PowerShell app-only certificate authentication, retrieves the relevant SharePoint web properties, identifies whether access requests are enabled, disabled, or inherited, and determines whether requests are configured for a specific email address or the site's associated Owners group.</p>
+<p>The results are exported to a CSV file for administrative review, compliance analysis, and remediation planning.</p>
+<p>The script uses Get-PnPSubWeb -IncludeRootWeb -Recurse to enumerate root webs and nested subsites.</p>
+<h2 id="why-it-matters">Why It Matters</h2>
+<p>Access Request settings determine where users' requests for access to SharePoint sites are directed.</p>
+<p>In a large Microsoft 365 environment, these settings can become inconsistent following site migrations, ownership changes, legacy site creation, or changes to site permissions.</p>
+<p>For example, an administrator may need to identify:</p>
+<ul>
+<li>Sites where access requests are enabled.</li>
+<li>Sites sending requests to individual email addresses.</li>
+<li>Sites relying on their associated Owners group.</li>
+<li>Sites where settings are inherited from a parent web.</li>
+<li>Sites where access requests have been explicitly disabled.</li>
+</ul>
+<p>The resulting CSV provides a tenant-wide inventory that can be reviewed before standardising or remediating access request configuration.</p>
+<h2 id="benefits">Benefits</h2>
+<ul>
+<li><strong>Tenant-wide visibility</strong> - Audits all included site collections and nested subsites.</li>
+<li><strong>Centralised reporting</strong> - Produces a single CSV for analysis and evidence.</li>
+<li><strong>Identifies configuration differences</strong> - Highlights email-based, Owners-group, disabled, and inherited configurations.</li>
+<li><strong>Supports governance</strong> - Helps identify legacy or inconsistent access request configurations.</li>
+<li><strong>Automation-ready</strong> - Uses certificate-based app-only authentication rather than interactive sign-in.</li>
+<li><strong>Suitable for large environments</strong> - Results are collected in memory and exported once rather than repeatedly writing to the CSV.</li>
+<li><strong>Minimal permissions footprint</strong> - The script only retrieves the information required for the audit.</li>
+</ul>
+<p>Get-PnPGroup -AssociatedOwnerGroup is the PnP-supported method used to retrieve the associated Owners group.</p>
+<div class="tabGroup" id="tabgroup_1">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_1_pnpps" role="tab" aria-controls="tabpanel_1_pnpps" data-tab="pnpps" tabindex="0" aria-selected="true">PnP PowerShell</a>
+</li>
+</ul>
+<section id="tabpanel_1_pnpps" role="tabpanel" data-tab="pnpps">
+
+<pre><code class="lang-powershell"># ======================================================
+# Configuration
+# ======================================================
+
+$TenantAdminURL = &quot;https://contoso-admin.sharepoint.com&quot;
+$ClientID       = &quot;xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx&quot;
+$ThumbPrint     = &quot;xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx&quot;
+$Tenant         = &quot;contoso.onmicrosoft.com&quot;
+
+# ======================================================
+# Script Information 
+# ======================================================
+$RunDate = Get-Date -Format &quot;yyyy-MM-dd HH\:mm\:ss&quot;
+$RunBy   = [System.Security.Principal.WindowsIdentity]::GetCurrent().Name
+
+# ---------- Output ----------
+
+$CSVPath = &quot;C:\Temp\AccessRequestData.csv&quot;
+$Results = @()
+# ======================================================
+# Connect to SharePoint Online (App-Only) 
+# ======================================================
+
+Connect-PnPOnline -Url $TenantAdminURL -ClientId $ClientID -Tenant $Tenant -Thumbprint $ThumbPrint
+
+# Remove old CSV if present
+
+if (Test-Path $CSVPath) {
+    Remove-Item $CSVPath -Force
+}
+
+# ======================================================
+# Get All Site Collections
+# ======================================================
+
+$SiteCollections = Get-PnPTenantSite | Where-Object {
+    $_.Template -notin @(
+        &quot;SRCHCEN#0&quot;,
+        &quot;REDIRECTSITE#0&quot;,
+        &quot;SPSMSITEHOST#0&quot;,
+        &quot;APPCATALOG#0&quot;,
+        &quot;POINTPUBLISHINGHUB#0&quot;,
+        &quot;EDISC#0&quot;,
+        &quot;STS#-1&quot;
+    )
+}
+
+# ======================================================
+# Function: Get Access Request Settings
+# ======================================================
+
+function Get-AccessRequestConfig {
+    param($Web)
+
+    Write-Host -ForegroundColor Yellow &quot;Checking: $($Web.Url)&quot;
+
+    $AccessRequest       = &quot;&quot;
+    $EmailOrGroup        = &quot;&quot;
+    $AccessRequestConfig = &quot;&quot;
+
+    if ($Web.HasUniqueRoleAssignments) {
+
+        if (-not [string]::IsNullOrEmpty($Web.RequestAccessEmail)) {
+
+            $AccessRequest       = &quot;Enabled&quot;
+            $EmailOrGroup        = &quot;Email&quot;
+            $AccessRequestConfig = $Web.RequestAccessEmail
+        }
+        elseif ($Web.UseAccessRequestDefault) {
+
+            $AccessRequest = &quot;Enabled&quot;
+            $EmailOrGroup  = &quot;Default Owner Group&quot;
+
+            $OwnersGroup = Get-PnPGroup -AssociatedOwnerGroup -ErrorAction SilentlyContinue
+
+            if ($null -ne $OwnersGroup) {
+                $AccessRequestConfig = $OwnersGroup.Title
+            }
+        }
+        else {
+            $AccessRequest = &quot;Disabled&quot;
+        }
+    }
+    else {
+        $AccessRequest = &quot;Inherited&quot;
+    }
+
+    return [PSCustomObject]@{
+        RunDate             = $RunDate
+        RunBy               = $RunBy
+        WebUrl              = $Web.Url
+        AccessRequest       = $AccessRequest
+        EmailOrGroup        = $EmailOrGroup
+        AccessRequestConfig = $AccessRequestConfig
+    }
+}
+
+# ======================================================
+# Process Each Site Collection
+# ======================================================
+
+foreach ($Site in $SiteCollections) {
+
+    Write-Host -ForegroundColor Cyan &quot;Connecting to site: $($Site.Url)&quot;
+
+    try {
+
+        Connect-PnPOnline `
+            -Url $Site.Url `
+            -ClientId $ClientID `
+            -Tenant $Tenant `
+            -Thumbprint $ThumbPrint `
+            -ErrorAction Stop
+
+        $Webs = Get-PnPSubWeb -IncludeRootWeb -Recurse -Includes `
+            HasUniqueRoleAssignments, RequestAccessEmail, UseAccessRequestDefault `
+            -ErrorAction Stop
+
+        foreach ($Web in $Webs) {
+            $Results += Get-AccessRequestConfig -Web $Web
+        }
+    }
+    catch {
+        Write-Host -ForegroundColor Red &quot;Error processing $($Site.Url): $($_.Exception.Message)&quot;
+    }
+}
+
+# ======================================================
+# Export Final Report 
+# ======================================================
+
+$Results | Export-Csv -Path $CSVPath -NoTypeInformation -Encoding UTF8
+
+Write-Host -ForegroundColor Green &quot;Access Request Report generated: $CSVPath&quot;
+
+</code></pre>
+<div class="highlight-tool">
+<p>Check out the <strong>PnP PowerShell</strong> to learn more at: <a href="https://aka.ms/pnp/powershell">https://aka.ms/pnp/powershell</a></p>
+</div>
+<div class="highlight-tool">
+<p>The way you login into PnP PowerShell has changed please read <a href="https://github.com/pnp/powershell/discussions/4249">PnP Management Shell EntraID app is deleted : what should I do ?</a></p>
+</div>
+</section>
+</div>
+<h2 id="output">Output</h2>
+<p>Default output: <em>C:\Temp\AccessRequestData.csv</em></p>
+<p>The CSV contains:</p>
+<table>
+<thead>
+<tr>
+<th>Column</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>RunDate</code></td>
+<td>Date and time the audit was executed</td>
+</tr>
+<tr>
+<td><code>RunBy</code></td>
+<td>Windows account running the script</td>
+</tr>
+<tr>
+<td><code>WebUrl</code></td>
+<td>SharePoint site or subsite URL</td>
+</tr>
+<tr>
+<td><code>AccessRequest</code></td>
+<td><code>Enabled</code>, <code>Disabled</code>, or <code>Inherited</code></td>
+</tr>
+<tr>
+<td><code>EmailOrGroup</code></td>
+<td><code>Email</code> or <code>Default Owner Group</code></td>
+</tr>
+<tr>
+<td><code>AccessRequestConfig</code></td>
+<td>Configured email address or Owners group name</td>
+</tr>
+</tbody>
+</table>
+<h2 id="interpretation">Interpretation</h2>
+<table>
+<thead>
+<tr>
+<th>AccessRequest</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>Enabled</code></td>
+<td>Access requests are enabled for the web</td>
+</tr>
+<tr>
+<td><code>Disabled</code></td>
+<td>Access requests are explicitly disabled</td>
+</tr>
+<tr>
+<td><code>Inherited</code></td>
+<td>The web does not have unique permissions and inherits permissions from its parent</td>
+</tr>
+</tbody>
+</table>
+<h2 id="notes">Notes</h2>
+<ul>
+<li>Requires PnP.PowerShell.</li>
+<li>Uses certificate-based app-only authentication.</li>
+<li>The certificate must be accessible to the account running PowerShell.</li>
+<li>The script does not modify SharePoint configuration.</li>
+<li>Existing CSV output is removed before the new report is generated.</li>
+<li>The script is intended as an audit/reporting tool, not a remediation script.</li>
+<li>For very large tenants, avoid unnecessary additional properties or per-web operations because they increase SharePoint requests.</li>
+</ul>
+<h2 id="contributors">Contributors</h2>
+<table>
+<thead>
+<tr>
+<th>Author(s)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="https://github.com/ojopiyo">Josiah Opiyo</a></td>
+</tr>
+</tbody>
+</table>
+<p><em>Built with a focus on automation, governance, least privilege, and clean Microsoft 365 tenants-helping M365 admins gain visibility and reduce operational risk.</em></p>
+<h2 id="version-history">Version history</h2>
+<table>
+<thead>
+<tr>
+<th>Version</th>
+<th>Date</th>
+<th>Comments</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1.0</td>
+<td>August 08, 2026</td>
+<td>Initial release</td>
+</tr>
+</tbody>
+</table>
+<h2 id="disclaimer">Disclaimer</h2>
+<p><strong>THESE SAMPLES ARE PROVIDED <em>AS IS</em> WITHOUT WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, INCLUDING ANY IMPLIED WARRANTIES OF FITNESS FOR A PARTICULAR PURPOSE, MERCHANTABILITY, OR NON-INFRINGEMENT.</strong></p>
+<img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/export-spo-access-request-settings" aria-hidden="true">
+
+</article>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+      <span>Script Samples<br>Generated by <strong><a href='https://dotnet.github.io/docfx' alt='Doc FX Website'>DocFX</a></strong> with <strong><a href='https://ovasquez.github.io/docfx-material' alt='DocFx Material Theme'>Material UI</a></strong></span>
+      
+            <!-- <img src="https://telemetry.sharepointpnp.com/@pnp.github.io/index/" alt="spacer"> -->
+          </div>
+        </div>
+      </footer>    </div>
+
+    <script type="text/javascript" src="../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+
+    <script type="text/javascript" src="../styles/clipboard.min.js"></script>
+    <script type="text/javascript" src="../styles/isotope.pkgd.min.js"></script>
+    <script type="text/javascript" src="../styles/loadsamples.js"></script>
+    <script type="text/javascript" src="../styles/filtersamples.js"></script>
+
+  </body>
+</html>
