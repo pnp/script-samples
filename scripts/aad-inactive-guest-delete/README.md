@@ -39,6 +39,9 @@ A typical operational workflow is:
 5. Enable deletion if remediation has been authorised.
 6. Retain the generated reports and execution logs according to organisational retention requirements.
 
+
+[!INCLUDE [Delete Warning](../../docfx/includes/DELETE-WARN.md)]
+
 ## Requirements
 
 ### PowerShell Module
@@ -75,7 +78,7 @@ The primary configuration is controlled through `$Config`:
 | `ExcludedUserPrincipalNames` | `Empty` | Specific guest UPNs excluded from processing |
 | `ExcludedDomains` | `Empty` | Guest domains excluded from processing |
 
-# [PnP PowerShell](#tab/pnpps)
+# [PnP PowerShell V2](#tab/pnpps2)
 
 ```powershell
 #requires -Modules Microsoft.Graph.Users
@@ -517,8 +520,8 @@ Write-Log "Inactive accounts identified: $($InactiveUsers.Count)"
 Write-Log "Report: $ReportPath"
 Write-Log "============================================================"
 
-
 ```
+[!INCLUDE [More about Microsoft Graph PowerShell SDK](../../docfx/includes/MORE-GRAPHSDK.md)]
 
 ## Output
 
@@ -560,6 +563,54 @@ The execution log records:
 - Deletion attempts and outcomes
 - Graph connection and disconnection events
 - Errors encountered during execution
+
+
+# [Microsoft Graph PowerShell](#tab/graphps)
+
+```powershell
+#Install-Module Microsoft.Graph
+# Define the number of days of inactivity
+$daysInactive = 30
+
+Connect-MgGraph -Scopes "User.Read.All", "User.ReadWrite.All","AuditLog.Read.All"
+
+$calcDate = (Get-Date).AddDays($daysInactive * -1)
+
+$guestUsers = Get-MgUser -Filter "userType eq 'Guest'" -All -Property id,displayName,mail,signInActivity,UserPrincipalName
+
+$inactiveUsers = @()
+
+foreach ($user in $guestUsers) {
+        if ($user.SignInActivity.LastSignInDateTime -ge $calcDate) {
+            $inactiveUsers += $user
+        }
+}
+
+if ($inactiveUsers.Count -gt 0) {
+    Write-Host "The following guest users have been inactive for $daysInactive days or more:"
+    $inactiveUsers | ForEach-Object {
+        Write-Host "$($_.DisplayName) ($($_.UserPrincipalName))"
+    }
+
+    # Ask if the user wants to delete the inactive users
+    $delete = Read-Host "Do you want to delete these users? (y/n)"
+    if ($delete -eq 'y') {
+        $inactiveUsers | ForEach-Object {
+            Remove-MgUser -UserId $_.Id -Confirm:$false
+            Write-Host "Deleted user: $($_.DisplayName) ($($_.UserPrincipalName))"
+        }
+    }
+} else {
+    Write-Host "No inactive guest users found."
+}
+
+
+Disconnect-MgGraph
+```
+[!INCLUDE [More about Microsoft Graph PowerShell SDK](../../docfx/includes/MORE-GRAPHSDK.md)]
+***
+
+
 
 ## Contributors
 
