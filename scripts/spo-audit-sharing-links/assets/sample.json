@@ -1,0 +1,59 @@
+[
+  {
+    "name": "spo-audit-sharing-links",
+    "source": "pnp",
+    "title": "Find and risk-rate SharePoint sharing links (spot oversharing before Copilot)",
+    "shortDescription": "Finds every sharing link on a SharePoint Online site through the hidden SharingLinks groups, resolves them to files, and risk-rates each one (Anonymous / Organization / Users, View / Edit, expiry, password) so you can spot oversharing before Search and Copilot surface it.",
+    "url": "https://pnp.github.io/script-samples/spo-audit-sharing-links/README.html",
+    "longDescription": [
+      "Broad sharing links ('Anyone with the link' and 'People in your organization') are a common source of Microsoft Search and Copilot oversharing. This script finds them without walking every file: it reads the hidden groups SharePoint creates to back each link (named SharingLinks.<fileGuid>.<type>.<linkId>), so the work scales with how much is actually shared rather than with library size. It resolves those file GUIDs to paths in one pass, pulls the real link with Get-PnPFileSharingLink (the type in the group name is only a hint, the authoritative scope and access come from the cmdlet), and scores each link Low / Medium / High / Critical based on scope, View versus Edit, expiry, and password. Use -MinRisk to show only the links worth acting on, and -CsvPath to export."
+    ],
+    "creationDateTime": "2026-08-29",
+    "updateDateTime": "2026-08-29",
+    "products": [
+      "SharePoint"
+    ],
+    "metadata": [
+      {
+        "key": "PNP-POWERSHELL",
+        "value": "2.12.0"
+      }
+    ],
+    "categories": [
+      "Report",
+      "Security"
+    ],
+    "tags": [
+      "Connect-PnPOnline",
+      "Get-PnPGroup",
+      "Get-PnPList",
+      "Get-PnPListItem",
+      "Get-PnPFileSharingLink",
+      "Get-PnPFolderSharingLink",
+      "Get-PnPWeb"
+    ],
+    "thumbnails": [
+      {
+        "type": "image",
+        "order": 100,
+        "url": "https://raw.githubusercontent.com/pnp/script-samples/main/scripts/spo-audit-sharing-links/assets/preview.png",
+        "alt": "Report of SharePoint sharing links risk-rated Low to Critical"
+      }
+    ],
+    "authors": [
+      {
+        "gitHubAccount": "gvijaikumar9",
+        "company": "",
+        "pictureUrl": "https://github.com/gvijaikumar9.png",
+        "name": "Vijay Kumar G"
+      }
+    ],
+    "references": [
+      {
+        "name": "Want to learn more about PnP PowerShell and the cmdlets",
+        "description": "Check out the PnP PowerShell site to get started and for the reference to the cmdlets.",
+        "url": "https://aka.ms/pnp/powershell"
+      }
+    ]
+  }
+]
