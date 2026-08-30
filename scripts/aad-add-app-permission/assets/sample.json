@@ -1,19 +1,18 @@
 [
   {
-    "name": "aad-get-app-permission",
+    "name": "aad-add-app-permission",
     "source": "pnp",
-    "title": "Get Azure AD app permission info (delegated or application)",
-    "shortDescription": "Get any existing delegated or application permission info associated to a Microsoft AAD app from its name",
-    "url": "https://pnp.github.io/script-samples/aad-get-app-permission/README.html",
+    "title": "Add API permissions to an Entra app registration",
+    "shortDescription": "Adds delegated or application API permissions to an Entra app registration using Microsoft Graph.",
+    "url": "https://pnp.github.io/script-samples/aad-add-app-permission/README.html",
     "longDescription": [
       ""
     ],
-    "creationDateTime": "2022-08-10",
-    "updateDateTime": "2022-08-10",
+    "creationDateTime": "2026-08-30",
+    "updateDateTime": "2026-08-30",
     "products": [
-      "SharePoint",
       "Graph",
-      "Azure"
+      "Entra ID"
     ],
     "metadata": [
       {
@@ -30,35 +29,32 @@
       }
     ],
     "categories": [
-      "Data",
       "Configure",
-      "Report",
       "Security"
     ],
     "tags": [
-      "classic",
-      "m365 login",
-      "m365 status",
-      "m365 aad sp get",
-      "m365 cli config get",
-      "m365 cli config set",
       "Connect-MgGraph",
-      "Get-MgServicePrincipal"
+      "Invoke-MgGraphRequest",
+      "Application.ReadWrite.All",
+      "requiredResourceAccess",
+      "app registration",
+      "delegated permission",
+      "application permission"
     ],
     "thumbnails": [
       {
         "type": "image",
         "order": 100,
-        "url": "https://raw.githubusercontent.com/pnp/script-samples/main/scripts/aad-get-app-permission/assets/preview.png",
-        "alt": "Preview of the sample Get Azure AD app permission info (delegated or application)"
+        "url": "https://raw.githubusercontent.com/pnp/script-samples/main/scripts/aad-add-app-permission/assets/example.png",
+        "alt": "Preview of the sample Add API permissions to an Entra app registration"
       }
     ],
     "authors": [
       {
-        "gitHubAccount": "michaelmaillot",
-        "company": "onepoint",
-        "pictureUrl": "https://github.com/michaelmaillot.png",
-        "name": "Michaël Maillot"
+        "gitHubAccount": "nelladath",
+        "company": "",
+        "pictureUrl": "https://github.com/nelladath.png",
+        "name": "Sujin Nelladath"
       }
     ],
     "references": [
