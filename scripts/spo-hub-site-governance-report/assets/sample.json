@@ -1,0 +1,64 @@
+[
+  {
+    "name": "spo-hub-site-governance-report",
+    "source": "pnp",
+    "title": "SharePoint Hub Site Governance Report",
+    "shortDescription": "Generate a tenant-wide report of SharePoint Hub Sites, associated sites, site collection administrators, and execution audit details using certificate-based PnP PowerShell authentication.",
+    "url": "https://pnp.github.io/script-samples/spo-hub-site-governance-report/README.html",
+    "longDescription": [
+      "Creates a timestamped CSV inventory of SharePoint Hub Sites and their associated sites, including site collection administrator details and execution audit information."
+    ],
+    "creationDateTime": "2026-09-01",
+    "updateDateTime": "2026-09-09",
+    "products": [
+      "SharePoint"
+    ],
+    "metadata": [
+      {
+        "key": "PNP-POWERSHELL",
+        "value": "3.0.0"
+      },
+      {
+        "key": "POWERSHELL",
+        "value": "7.2.0"
+      }
+    ],
+    "categories": [
+      "Configure",
+      "Report",
+      "Security"
+    ],
+    "tags": [
+      "SharePoint Online",
+      "Hub Site",
+      "Get-PnPHubSite",
+      "Get-PnPHubSiteChild",
+      "Get-PnPSiteCollectionAdmin",
+      "Connect-PnPOnline",
+      "Export-Csv"
+    ],
+    "thumbnails": [
+      {
+        "type": "image",
+        "order": 100,
+        "url": "https://raw.githubusercontent.com/pnp/script-samples/main/scripts/spo-hub-site-governance-report/assets/preview.png",
+        "alt": "Preview of the SharePoint Hub Site Governance Report sample"
+      }
+    ],
+    "authors": [
+      {
+        "gitHubAccount": "ojopiyo",
+        "company": "",
+        "pictureUrl": "https://github.com/ojopiyo.png",
+        "name": "Josiah Opiyo"
+      }
+    ],
+    "references": [
+      {
+        "name": "Want to learn more about PnP PowerShell and the cmdlets",
+        "description": "Check out the PnP PowerShell site to get started and for the reference to the cmdlets.",
+        "url": "https://aka.ms/pnp/powershell"
+      }
+    ]
+  }
+]
