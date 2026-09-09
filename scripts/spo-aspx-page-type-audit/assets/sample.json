@@ -1,0 +1,73 @@
+[
+  {
+    "name": "spo-aspx-page-type-audit",
+    "source": "pnp",
+    "title": "SharePoint Online ASPX Page Type Audit",
+    "shortDescription": "Audits SharePoint Online page libraries and classifies ASPX pages as Modern or Classic.",
+    "url": "https://pnp.github.io/script-samples/spo-aspx-page-type-audit/README.html",
+    "longDescription": [
+      "This script audits ASPX pages in a SharePoint Online page library and classifies each page as Modern or Classic based on the ClientSideApplicationId field.",
+      "It is designed for governance and modernization reviews, helping administrators identify legacy classic pages that may require further assessment."
+    ],
+    "creationDateTime": "2026-09-09",
+    "updateDateTime": "2026-09-09",
+    "products": [
+      "SharePoint",
+      "Microsoft 365"
+    ],
+    "metadata": [
+      {
+        "key": "PNP-POWERSHELL",
+        "value": "2.7.0"
+      },
+      {
+        "key": "POWERSHELL",
+        "value": "7.4.0"
+      }
+    ],
+    "categories": [
+      "Report",
+      "Configure",
+      "Security"
+    ],
+    "tags": [
+      "Modern",
+      "Classic",
+      "Pages",
+      "ASPX",
+      "Audit",
+      "PnP.PowerShell",
+      "Connect-PnPOnline",
+      "Get-PnPListItem",
+      "Export-Csv"
+    ],
+    "thumbnails": [
+      {
+        "type": "image",
+        "order": 100,
+        "url": "https://raw.githubusercontent.com/pnp/script-samples/main/scripts/spo-aspx-page-type-audit/assets/preview.png",
+        "alt": "Preview of the SharePoint Online ASPX Page Type Audit"
+      }
+    ],
+    "authors": [
+      {
+        "gitHubAccount": "ojopiyo",
+        "company": "",
+        "pictureUrl": "https://github.com/ojopiyo.png",
+        "name": "Josiah Opiyo"
+      }
+    ],
+    "references": [
+      {
+        "name": "Want to learn more about PnP PowerShell and the cmdlets",
+        "description": "Check out the PnP PowerShell site to get started and for the reference to the cmdlets.",
+        "url": "https://aka.ms/pnp/powershell"
+      },
+      {
+        "name": "Want to learn more about SharePoint Online and page modernization",
+        "description": "Review the SharePoint Online page modernization guidance and modern page architecture documentation.",
+        "url": "https://learn.microsoft.com/sharepoint/dev/solution-guidance/modern-experience-customizations"
+      }
+    ]
+  }
+]
