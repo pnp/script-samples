@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html lang="en">
+
+  <head>
+    <meta charset="utf-8">
+    <title>List Custom Connectors Across All Environments | PnP Samples </title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="title" content="List Custom Connectors Across All Environments | PnP Samples ">
+    <meta name="generator" content="docfx ">
+  <meta name="description" content="A sample gallery of scripts to manage all things Microsoft 365.">
+
+    <!-- Social Media -->
+    <meta property="og:locale" content="en_GB">
+    <meta property="og:title" content="List Custom Connectors Across All Environments | PnP Samples ">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://pnp.github.io/script-samples">
+    <meta property="og:image" content="https://pnp.github.io/script-samples/assets/social-media-screenshot.png">
+    <meta property="og:image:alt" content="Screenshot example of the PnP Script Samples Site">
+    <meta property="og:site_name" content="PnP Script Samples">
+    <meta name="msvalidate.01" content="04EFEDA66EC42C08A1247C979E2F9ADD">
+  <meta property="og:description" content="A sample gallery of scripts to manage all things Microsoft 365.">
+
+    <link rel="shortcut icon" href="https://c.s-microsoft.com/favicon.ico?v2">
+    <link rel="stylesheet" href="../styles/docfx.vendor.min.css">
+    <link rel="stylesheet" href="../styles/docfx.css">
+    <link rel="stylesheet" href="../styles/main.css">
+    <link rel="stylesheet" href="../styles/extra.css">
+    <link rel="stylesheet" href="../styles/filter.css">
+    <link rel="stylesheet" href="../styles/site.css">
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet"> 
+    <meta property="docfx:navrel" content="../toc.html">
+    <meta property="docfx:tocrel" content="../toc.html">
+  
+  
+  <meta property="docfx:newtab" content="true">
+    <script type="text/javascript">
+      (function(c,l,a,r,i,t,y){
+          c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+          t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+          y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+      })(window, document, "clarity", "script", "8j6pedl344");
+  </script>
+  </head>  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+             <div class="github-mark">
+              <a href="https://github.com/pnp/script-samples" title="Go to repository">
+               <div class="github-wrapper">
+                  <div class="github-icon">
+                    <img src="https://pnp.github.io/script-samples/assets/icons/github-light-64px.png" alt="GitHub Icon Image">
+                  </div>
+                  <div class="github-repository">
+                    <span>GitHub</span>
+                    <ul class="github-facts">
+                      <li>
+                        <i class="fa fa-code-fork" aria-hidden="true"></i>
+                        <span class="github-forks"></span>
+                      </li>
+                      <li>
+                        <i class="fa fa-star-o" aria-hidden="true"></i>
+                        <span class="github-stars"></span>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </a>
+            </div>
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../assets/logo.svg" alt="">
+              </a>            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <label class="glyphicon glyphicon-search" for="search-query"></label>
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>      </header>
+      <div role="main" class="container body-content hide-when-search">
+        <div class="article row grid">
+          <div class="col-md-12">
+            <article class="content wrap" id="_content" data-uid="">
+                  <div class="contribution-panel mobile-hide pull-right">
+                      <a href="https://github.com/pnp/script-samples/blob/main/scripts/power-platform-custom-connector-inventory/README.md/#L1" title="Edit this page" class="improve-doc-lg"><i class="glyphicon glyphicon-pencil"></i></a>
+                  </div>
+  <h1 id="list-custom-connectors-across-all-environments">List Custom Connectors Across All Environments</h1>
+
+<h2 id="summary">Summary</h2>
+<p>Custom connectors are one of the easiest things to lose track of in a Power Platform tenant. Unlike standard connectors, they're built and registered by individual makers, and there's no single admin screen that shows all of them tenant-wide with the details that actually matter for governance: who created it, what authentication it uses, and what backend endpoint it calls.</p>
+<p>This is a real gap: a maker can register a custom connector against any HTTPS endpoint, with or without authentication, and it will happily show up as an option in Power Automate and Power Apps for anyone in that environment. Nothing in the standard admin experience flags this for review.</p>
+<p>This script enumerates every environment in the tenant and every custom connector in each one, and surfaces owner, endpoint, and authentication type in one readable list. The output is a plain object list you can inspect in the console, export to CSV, or pipe into whatever reporting you already use.</p>
+<p><strong>A known limitation:</strong> authentication type is read from the connector's <code>connectionParameters</code>. Some connectors define their authentication only inside their swagger/OpenAPI definition instead, which this script does not fetch or parse. Those will show up as <code>No authentication found</code> even though they may not actually be unauthenticated - treat that value as &quot;no auth declared in connectionParameters&quot;, not as a guarantee the endpoint is open.</p>
+<p><img src="assets/example.png" alt="Example screenshot"></p>
+<h2 id="prerequisites">Prerequisites</h2>
+<ul>
+<li>The <code>Microsoft.PowerApps.Administration.PowerShell</code> module:
+<pre><code class="lang-powershell">Install-Module Microsoft.PowerApps.Administration.PowerShell
+</code></pre>
+</li>
+<li>Environment Admin rights in each environment you want to inspect, or Global Admin / Power Platform Admin for a full tenant view.</li>
+</ul>
+<h2 id="script">Script</h2>
+<div class="tabGroup" id="tabgroup_1">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_1_powerapps-ps" role="tab" aria-controls="tabpanel_1_powerapps-ps" data-tab="powerapps-ps" tabindex="0" aria-selected="true">PowerApps PowerShell</a>
+</li>
+</ul>
+<section id="tabpanel_1_powerapps-ps" role="tabpanel" data-tab="powerapps-ps">
+
+<pre><code class="lang-powershell">&lt;#
+.SYNOPSIS
+    Lists all custom connectors across every environment in your Power Platform tenant.
+
+.DESCRIPTION
+    Custom connectors don't show up in most day-to-day admin views, so it's easy to
+    lose track of who created one, what it authenticates with, and what endpoint it
+    actually talks to. This script pulls that together in one table using the
+    official Power Apps admin module.
+
+.EXAMPLE
+    .\Get-CustomConnectorInventory.ps1
+
+.EXAMPLE
+    .\Get-CustomConnectorInventory.ps1 | Export-Csv connectors.csv -NoTypeInformation
+
+.NOTES
+    Requires the Microsoft.PowerApps.Administration.PowerShell module and
+    Environment Admin rights (Global Admin for a full tenant view):
+    Install-Module Microsoft.PowerApps.Administration.PowerShell
+#&gt;
+
+[CmdletBinding()]
+param()
+
+if (-not (Get-Module -ListAvailable -Name Microsoft.PowerApps.Administration.PowerShell)) {
+    throw &quot;Missing module. Run: Install-Module Microsoft.PowerApps.Administration.PowerShell&quot;
+}
+
+Import-Module Microsoft.PowerApps.Administration.PowerShell -ErrorAction Stop
+Add-PowerAppsAccount
+
+$environments = Get-AdminPowerAppEnvironment
+
+$results = foreach ($env in $environments) {
+
+    $connectors = Get-AdminPowerAppConnector -EnvironmentName $env.EnvironmentName
+    if (-not $connectors) { continue }
+
+    foreach ($connector in $connectors) {
+
+        $internal = $connector.Internal
+
+        # connectionParameters is where API-key / OAuth2 auth normally shows up.
+        # Some connectors define auth only inside their swagger file instead, which
+        # isn't fetched here - those will show as &quot;No authentication found&quot; too,
+        # so treat that value as &quot;not declared here&quot;, not as a hard guarantee.
+        $authType = ($internal.connectionParameters.PSObject.Properties.Value.type -join &quot;, &quot;)
+        if (-not $authType) { $authType = &quot;No authentication found&quot; }
+
+        $endpoint = $internal.backendService.serviceUrl
+        if (-not $endpoint) { $endpoint = $internal.primaryRuntimeUrl }
+
+        [PSCustomObject]@{
+            Environment = $env.DisplayName
+            Connector   = $connector.DisplayName
+            Owner       = $connector.CreatedBy.displayName
+            OwnerEmail  = $connector.CreatedBy.email
+            Endpoint    = $endpoint
+            AuthType    = $authType
+            Created     = $connector.CreatedTime
+            LastChanged = $connector.LastModifiedTime
+        }
+    }
+}
+
+$results | Sort-Object Environment, Connector
+</code></pre>
+</section>
+</div>
+<h2 id="contributors">Contributors</h2>
+<table>
+<thead>
+<tr>
+<th>Author(s)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Michael Roth</td>
+</tr>
+</tbody>
+</table>
+<h2 id="disclaimer">Disclaimer</h2>
+<p><strong>THESE SAMPLES ARE PROVIDED <em>AS IS</em> WITHOUT WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, INCLUDING ANY IMPLIED WARRANTIES OF FITNESS FOR A PARTICULAR PURPOSE, MERCHANTABILITY, OR NON-INFRINGEMENT.</strong></p>
+<p><img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/power-platform-custom-connector-inventory" alt=""></p>
+
+</article>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+      <span>Script Samples<br>Generated by <strong><a href='https://dotnet.github.io/docfx' alt='Doc FX Website'>DocFX</a></strong> with <strong><a href='https://ovasquez.github.io/docfx-material' alt='DocFx Material Theme'>Material UI</a></strong></span>
+      
+            <!-- <img src="https://telemetry.sharepointpnp.com/@pnp.github.io/index/" alt="spacer"> -->
+          </div>
+        </div>
+      </footer>    </div>
+
+    <script type="text/javascript" src="../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+
+    <script type="text/javascript" src="../styles/clipboard.min.js"></script>
+    <script type="text/javascript" src="../styles/isotope.pkgd.min.js"></script>
+    <script type="text/javascript" src="../styles/loadsamples.js"></script>
+    <script type="text/javascript" src="../styles/filtersamples.js"></script>
+
+  </body>
+</html>
