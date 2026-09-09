@@ -1,0 +1,644 @@
+<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html lang="en">
+
+  <head>
+    <meta charset="utf-8">
+    <title>SharePoint Online ASPX Page Type Audit | PnP Samples </title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="title" content="SharePoint Online ASPX Page Type Audit | PnP Samples ">
+    <meta name="generator" content="docfx ">
+  <meta name="description" content="A sample gallery of scripts to manage all things Microsoft 365.">
+
+    <!-- Social Media -->
+    <meta property="og:locale" content="en_GB">
+    <meta property="og:title" content="SharePoint Online ASPX Page Type Audit | PnP Samples ">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://pnp.github.io/script-samples">
+    <meta property="og:image" content="https://pnp.github.io/script-samples/assets/social-media-screenshot.png">
+    <meta property="og:image:alt" content="Screenshot example of the PnP Script Samples Site">
+    <meta property="og:site_name" content="PnP Script Samples">
+    <meta name="msvalidate.01" content="04EFEDA66EC42C08A1247C979E2F9ADD">
+  <meta property="og:description" content="A sample gallery of scripts to manage all things Microsoft 365.">
+
+    <link rel="shortcut icon" href="https://c.s-microsoft.com/favicon.ico?v2">
+    <link rel="stylesheet" href="../styles/docfx.vendor.min.css">
+    <link rel="stylesheet" href="../styles/docfx.css">
+    <link rel="stylesheet" href="../styles/main.css">
+    <link rel="stylesheet" href="../styles/extra.css">
+    <link rel="stylesheet" href="../styles/filter.css">
+    <link rel="stylesheet" href="../styles/site.css">
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet"> 
+    <meta property="docfx:navrel" content="../toc.html">
+    <meta property="docfx:tocrel" content="../toc.html">
+  
+  
+  <meta property="docfx:newtab" content="true">
+    <script type="text/javascript">
+      (function(c,l,a,r,i,t,y){
+          c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+          t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+          y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+      })(window, document, "clarity", "script", "8j6pedl344");
+  </script>
+  </head>  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+             <div class="github-mark">
+              <a href="https://github.com/pnp/script-samples" title="Go to repository">
+               <div class="github-wrapper">
+                  <div class="github-icon">
+                    <img src="https://pnp.github.io/script-samples/assets/icons/github-light-64px.png" alt="GitHub Icon Image">
+                  </div>
+                  <div class="github-repository">
+                    <span>GitHub</span>
+                    <ul class="github-facts">
+                      <li>
+                        <i class="fa fa-code-fork" aria-hidden="true"></i>
+                        <span class="github-forks"></span>
+                      </li>
+                      <li>
+                        <i class="fa fa-star-o" aria-hidden="true"></i>
+                        <span class="github-stars"></span>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </a>
+            </div>
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../assets/logo.svg" alt="">
+              </a>            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <label class="glyphicon glyphicon-search" for="search-query"></label>
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>      </header>
+      <div role="main" class="container body-content hide-when-search">
+        <div class="article row grid">
+          <div class="col-md-12">
+            <article class="content wrap" id="_content" data-uid="">
+                  <div class="contribution-panel mobile-hide pull-right">
+                      <a href="https://github.com/pnp/script-samples/blob/main/scripts/spo-aspx-page-type-audit/README.md/#L1" title="Edit this page" class="improve-doc-lg"><i class="glyphicon glyphicon-pencil"></i></a>
+                  </div>
+  <h1 id="sharepoint-online-aspx-page-type-audit">SharePoint Online ASPX Page Type Audit</h1>
+
+<h2 id="summary">Summary</h2>
+<p>This PowerShell 7.4+ script audits ASPX pages within a specified SharePoint Online page library and classifies each page as <strong>Modern</strong> or <strong>Classic</strong>.</p>
+<p>The script:</p>
+<ul>
+<li>Authenticates to SharePoint Online using an Entra ID application and certificate-based authentication.</li>
+<li>Validates the configured page library.</li>
+<li>Retrieves page library items and filters for <strong>.aspx</strong> files.</li>
+<li>Determines the page type using the SharePoint <strong>ClientSideApplicationId</strong> field.</li>
+<li>Exports page-level audit results to a timestamped CSV file.</li>
+<li>Creates a transcript log for operational troubleshooting and audit purposes.</li>
+<li>Provides execution metadata, including report ID, executing account, timestamps, and source site.</li>
+</ul>
+<h2 id="why-it-matters">Why It Matters</h2>
+<p>Microsoft is retiring and deprecating a number of legacy SharePoint capabilities in phases through 2026, including <strong>SharePoint Alerts, SharePoint Add-Ins, and the legacy Azure Access Control Services (ACS) authentication model</strong>. For organisations with long-lived SharePoint Online environments, legacy dependencies can remain embedded across intranet sites, HR onboarding, approval processes, finance workflows, and other business-critical solutions.</p>
+<p><strong>Classic SharePoint pages</strong> can be an important indicator of this technical debt. A classic ASPX page may depend on legacy scripts, customisations, web parts, add-ins, or other components that require assessment as part of a wider modernisation programme.</p>
+<p>This audit provides an initial, repeatable inventory of <strong>Modern vs. Classic ASPX pages</strong>, helping administrators establish where legacy content exists before prioritising remediation.</p>
+<p>Use the results to:</p>
+<ul>
+<li>Identify remaining classic ASPX pages that may require further assessment.</li>
+<li>Establish a baseline for SharePoint modernisation and migration programmes.</li>
+<li>Prioritise investigation based on business criticality and technical dependencies.</li>
+<li>Reduce the risk of broken business processes, governance gaps, and costly last-minute remediation.</li>
+<li>Support decisions around <strong>transform, rebuild, retire, or retain</strong> rather than migrating legacy content unnecessarily.</li>
+<li>Feed the resulting inventory into wider dependency and governance assessments.</li>
+</ul>
+<h2 id="requirements">Requirements</h2>
+<ul>
+<li>PowerShell <strong>7.4 or later</strong></li>
+<li><strong>PnP.PowerShell</strong> module</li>
+<li>Entra ID application registration</li>
+<li>Certificate with private key installed in the Windows certificate store</li>
+<li>Appropriate SharePoint Online application permissions</li>
+<li>Access to the target SharePoint Online site</li>
+<li>Configured:
+<ul>
+<li><em>Client ID</em></li>
+<li><em>Certificate thumbprint</em></li>
+<li><em>Tenant</em></li>
+<li><em>Site URL</em></li>
+<li><em>Page library</em></li>
+</ul>
+</li>
+</ul>
+<h2 id="classification-logic">Classification Logic</h2>
+<p>The script identifies ASPX files and evaluates the SharePoint <strong>ClientSideApplicationId</strong> field.</p>
+<table>
+<thead>
+<tr>
+<th>Condition</th>
+<th>Classification</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>ClientSideApplicationId</code> matches the configured modern page application ID</td>
+<td>Modern</td>
+</tr>
+<tr>
+<td>Any other value, including blank</td>
+<td>Classic</td>
+</tr>
+</tbody>
+</table>
+<p>The modern page application ID used by the script is:</p>
+<blockquote>
+<p>b6917cb1-93a0-4b97-a84d-7cf49975d4ec</p>
+</blockquote>
+<div class="tabGroup" id="tabgroup_1">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_1_pnpps" role="tab" aria-controls="tabpanel_1_pnpps" data-tab="pnpps" tabindex="0" aria-selected="true">PnP PowerShell</a>
+</li>
+</ul>
+<section id="tabpanel_1_pnpps" role="tabpanel" data-tab="pnpps">
+
+<pre><code class="lang-powershell">
+# ============================================================
+# CONFIGURATION
+# ============================================================
+
+$ClientID   = &quot;xxxxxxxxxxxxxxxxxxxxx&quot;
+$ThumbPrint = &quot;xxxxxxxxxxxxxxxxxxxxx&quot;
+$Tenant     = &quot;contoso.onmicrosoft.com&quot;
+$SiteUrl    = &quot;https://contoso.sharepoint.com/sites/A&quot;
+
+# SharePoint page library.
+# Modern SharePoint sites normally use &quot;Site Pages&quot;.
+# Publishing/classic sites may use &quot;Pages&quot;.
+$PageLibrary = &quot;Site Pages&quot;
+
+# Modern SharePoint page application ID
+$ModernPageApplicationId = &quot;b6917cb1-93a0-4b97-a84d-7cf49975d4ec&quot;
+
+# ============================================================
+# OUTPUT CONFIGURATION
+# ============================================================
+
+$OutputFolder = &quot;C:\Temp\Report&quot;
+
+# Create output folder if required
+try {
+    if (-not (Test-Path -LiteralPath $OutputFolder)) {
+        New-Item `
+            -Path $OutputFolder `
+            -ItemType Directory `
+            -Force `
+            -ErrorAction Stop |
+            Out-Null
+    }
+}
+catch {
+    Write-Error &quot;Unable to create or access output folder '$OutputFolder'. $($_.Exception.Message)&quot;
+    exit 1
+}
+
+# One timestamp is used for all files generated during this run
+$TimeStamp = Get-Date -Format &quot;yyyyMMdd_HHmmss&quot;
+
+$OutputFile = Join-Path `
+    -Path $OutputFolder `
+    -ChildPath &quot;SharePoint-Page-Type-Report_$TimeStamp.csv&quot;
+
+$LogFile = Join-Path `
+    -Path $OutputFolder `
+    -ChildPath &quot;SharePoint-Page-Type-Report_$TimeStamp.log&quot;
+
+# ============================================================
+# AUDIT METADATA
+# ============================================================
+
+$ScriptStart = Get-Date
+$RunBy       = [System.Security.Principal.WindowsIdentity]::GetCurrent().Name
+$RunDateTime = Get-Date
+$ReportID    = [guid]::NewGuid()
+
+$Connected = $false
+
+# ============================================================
+# START TRANSCRIPT
+# ============================================================
+
+try {
+    Start-Transcript `
+        -Path $LogFile `
+        -Force `
+        -ErrorAction Stop |
+        Out-Null
+}
+catch {
+    Write-Warning &quot;Unable to start transcript: $($_.Exception.Message)&quot;
+}
+
+try {
+
+    # ========================================================
+    # HEADER
+    # ========================================================
+
+    Write-Host &quot;&quot;
+    Write-Host &quot;============================================================&quot; -ForegroundColor Cyan
+    Write-Host &quot; SharePoint Page Type Audit&quot; -ForegroundColor Cyan
+    Write-Host &quot;============================================================&quot; -ForegroundColor Cyan
+    Write-Host &quot;&quot;
+
+    Write-Host &quot;Report ID     : $ReportID&quot;
+    Write-Host &quot;Run by        : $RunBy&quot;
+    Write-Host &quot;Started       : $RunDateTime&quot;
+    Write-Host &quot;Site          : $SiteUrl&quot;
+    Write-Host &quot;Page library  : $PageLibrary&quot;
+    Write-Host &quot;Output folder : $OutputFolder&quot;
+    Write-Host &quot;&quot;
+
+    # ========================================================
+    # VALIDATE CONFIGURATION
+    # ========================================================
+
+    if ([string]::IsNullOrWhiteSpace($ClientID)) {
+        throw &quot;ClientID has not been configured.&quot;
+    }
+
+    if ([string]::IsNullOrWhiteSpace($ThumbPrint)) {
+        throw &quot;ThumbPrint has not been configured.&quot;
+    }
+
+    if ([string]::IsNullOrWhiteSpace($Tenant)) {
+        throw &quot;Tenant has not been configured.&quot;
+    }
+
+    if ([string]::IsNullOrWhiteSpace($SiteUrl)) {
+        throw &quot;SiteUrl has not been configured.&quot;
+    }
+
+    # ========================================================
+    # CONNECT TO SHAREPOINT
+    # ========================================================
+
+    Write-Host &quot;Connecting to SharePoint...&quot; -ForegroundColor Cyan
+
+    try {
+        Connect-PnPOnline `
+            -Url $SiteUrl `
+            -ClientId $ClientID `
+            -Thumbprint $ThumbPrint `
+            -Tenant $Tenant `
+            -ErrorAction Stop
+
+        $Connected = $true
+
+        Write-Host &quot;Connected successfully.&quot; -ForegroundColor Green
+    }
+    catch {
+        throw &quot;Connection to '$SiteUrl' failed. $($_.Exception.Message)&quot;
+    }
+
+    # ========================================================
+    # VALIDATE PAGE LIBRARY
+    # ========================================================
+
+    Write-Host &quot;&quot;
+    Write-Host &quot;Validating page library '$PageLibrary'...&quot; -ForegroundColor Cyan
+
+    try {
+        $Library = Get-PnPList `
+            -Identity $PageLibrary `
+            -ErrorAction Stop
+    }
+    catch {
+
+        Write-Host &quot;&quot;
+        Write-Host &quot;The '$PageLibrary' library was not found.&quot; `
+            -ForegroundColor Red
+
+        Write-Host &quot;&quot;
+        Write-Host &quot;Document libraries available on this site:&quot; `
+            -ForegroundColor Yellow
+
+        Get-PnPList |
+            Where-Object {
+                $_.BaseType -eq &quot;DocumentLibrary&quot; -and
+                -not $_.Hidden
+            } |
+            Select-Object Title, ItemCount, Hidden |
+            Sort-Object Title |
+            Format-Table -AutoSize
+
+        throw &quot;Required page library '$PageLibrary' was not found.&quot;
+    }
+
+    Write-Host &quot;Page library found: $($Library.Title)&quot; `
+        -ForegroundColor Green
+
+    Write-Host &quot;Library item count: $($Library.ItemCount)&quot;
+
+    # ========================================================
+    # GET PAGE ITEMS
+    # ========================================================
+
+    Write-Host &quot;&quot;
+    Write-Host &quot;Reading items from '$PageLibrary'...&quot; -ForegroundColor Cyan
+
+    try {
+        $Items = @(
+            Get-PnPListItem `
+                -List $Library.Id `
+                -PageSize 500 `
+                -Fields `
+                    &quot;FileLeafRef&quot;,
+                    &quot;FileRef&quot;,
+                    &quot;FSObjType&quot;,
+                    &quot;Title&quot;,
+                    &quot;ClientSideApplicationId&quot;,
+                    &quot;Created&quot;,
+                    &quot;Modified&quot; `
+                -ErrorAction Stop
+        )
+    }
+    catch {
+        throw &quot;Unable to read items from '$PageLibrary'. $($_.Exception.Message)&quot;
+    }
+
+    Write-Host &quot;Items retrieved: $($Items.Count)&quot;
+
+    # ========================================================
+    # CLASSIFY ASPX PAGES
+    # ========================================================
+
+    Write-Host &quot;&quot;
+    Write-Host &quot;Classifying ASPX pages...&quot; -ForegroundColor Cyan
+
+    $Report = foreach ($Item in $Items) {
+
+        $FileName = [string]$Item.FieldValues[&quot;FileLeafRef&quot;]
+
+        # Skip folders and anything that is not an ASPX page
+        if (
+            $Item.FileSystemObjectType -ne &quot;File&quot; -or
+            [string]::IsNullOrWhiteSpace($FileName) -or
+            $FileName -notlike &quot;*.aspx&quot;
+        ) {
+            continue
+        }
+
+        $ClientSideApplicationId = [string]$Item.FieldValues[
+            &quot;ClientSideApplicationId&quot;
+        ]
+
+        if (
+            $ClientSideApplicationId -eq $ModernPageApplicationId
+        ) {
+            $PageType = &quot;Modern&quot;
+        }
+        else {
+            $PageType = &quot;Classic&quot;
+        }
+
+        [PSCustomObject]@{
+            ReportID                = $ReportID
+            SiteUrl                 = $SiteUrl
+            Library                 = $PageLibrary
+            PageName                = $FileName
+            Title                   = [string]$Item.FieldValues[&quot;Title&quot;]
+            PageType                = $PageType
+            ClientSideApplicationId = $ClientSideApplicationId
+            PageUrl                 = [string]$Item.FieldValues[&quot;FileRef&quot;]
+            Created                 = $Item.FieldValues[&quot;Created&quot;]
+            Modified                = $Item.FieldValues[&quot;Modified&quot;]
+            AuditedBy               = $RunBy
+            AuditDateTime           = $RunDateTime
+        }
+    }
+
+    $Report = @(
+        $Report |
+            Sort-Object PageType, PageName
+    )
+
+    # ========================================================
+    # CHECK RESULTS
+    # ========================================================
+
+    if ($Report.Count -eq 0) {
+
+        Write-Host &quot;&quot;
+        Write-Host &quot;No ASPX pages were found in '$PageLibrary'.&quot; `
+            -ForegroundColor Yellow
+
+        Write-Host &quot;&quot;
+        Write-Host &quot;If this is a classic publishing site, try:&quot; `
+            -ForegroundColor Yellow
+
+        Write-Host '$PageLibrary = &quot;Pages&quot;' `
+            -ForegroundColor Yellow
+
+        return
+    }
+
+    # ========================================================
+    # COUNTS
+    # ========================================================
+
+    $ModernCount = @(
+        $Report |
+            Where-Object { $_.PageType -eq &quot;Modern&quot; }
+    ).Count
+
+    $ClassicCount = @(
+        $Report |
+            Where-Object { $_.PageType -eq &quot;Classic&quot; }
+    ).Count
+
+    # ========================================================
+    # EXPORT CSV
+    # ========================================================
+
+    Write-Host &quot;&quot;
+    Write-Host &quot;Exporting report...&quot; -ForegroundColor Cyan
+
+    $Report |
+        Export-Csv `
+            -Path $OutputFile `
+            -NoTypeInformation `
+            -Encoding UTF8 `
+            -Force `
+            -ErrorAction Stop
+
+    # ========================================================
+    # RESULTS
+    # ========================================================
+
+    $ScriptEnd = Get-Date
+    $Duration  = $ScriptEnd - $ScriptStart
+
+    Write-Host &quot;&quot;
+    Write-Host &quot;============================================================&quot; `
+        -ForegroundColor Cyan
+
+    Write-Host &quot; Page classification results&quot; `
+        -ForegroundColor Cyan
+
+    Write-Host &quot;============================================================&quot;
+
+    Write-Host &quot;Report ID     : $ReportID&quot;
+    Write-Host &quot;Library       : $PageLibrary&quot;
+    Write-Host &quot;Total pages   : $($Report.Count)&quot;
+    Write-Host &quot;Modern pages  : $ModernCount&quot; -ForegroundColor Green
+    Write-Host &quot;Classic pages : $ClassicCount&quot; -ForegroundColor Yellow
+    Write-Host &quot;Report        : $OutputFile&quot;
+    Write-Host &quot;Log           : $LogFile&quot;
+    Write-Host &quot;Duration      : $($Duration.ToString('hh\:mm\:ss'))&quot;
+
+    Write-Host &quot;&quot;
+    Write-Host &quot;Page summary:&quot; -ForegroundColor Cyan
+    Write-Host &quot;&quot;
+
+    $Report |
+        Select-Object PageName, PageType, Modified, PageUrl |
+        Format-Table -AutoSize
+
+    Write-Host &quot;&quot;
+    Write-Host &quot;Audit completed successfully.&quot; -ForegroundColor Green
+}
+catch {
+
+    Write-Host &quot;&quot;
+    Write-Host &quot;============================================================&quot; `
+        -ForegroundColor Red
+
+    Write-Host &quot; AUDIT FAILED&quot; -ForegroundColor Red
+
+    Write-Host &quot;============================================================&quot;
+    Write-Host &quot;&quot;
+
+    Write-Host $_.Exception.Message -ForegroundColor Red
+
+    Write-Host &quot;&quot;
+    Write-Host &quot;Check the transcript log:&quot; -ForegroundColor Yellow
+    Write-Host $LogFile
+
+    exit 1
+}
+
+
+</code></pre>
+<h2 id="output">Output</h2>
+<p>Results are written to:</p>
+<blockquote>
+<p>C:\Temp\Report</p>
+</blockquote>
+<p>Each execution generates:</p>
+<ul>
+<li><strong>SharePoint-Page-Type-Report_YYYYMMDD_HHMMSS.csv</strong></li>
+<li><strong>SharePoint-Page-Type-Report_YYYYMMDD_HHMMSS.log</strong></li>
+</ul>
+<p>The CSV contains information including:</p>
+<ul>
+<li>Report ID</li>
+<li>Site URL</li>
+<li>Page library</li>
+<li>Page name</li>
+<li>Page title</li>
+<li>Page type</li>
+<li>Client-side application ID</li>
+<li>Page URL</li>
+<li>Created date</li>
+<li>Modified date</li>
+<li>Auditing account</li>
+<li>Audit timestamp</li>
+</ul>
+<h2 id="notes">Notes</h2>
+<ul>
+<li>The script is read-only against SharePoint content; it does not modify or delete pages.</li>
+<li>Authentication uses certificate-based app-only authentication rather than interactive credentials.</li>
+<li>The script only classifies <strong>.aspx</strong> files within the configured library.</li>
+<li>A page classified as <strong>Classic</strong> should be treated as an audit finding rather than definitive proof that the page requires migration; further validation may be appropriate for complex SharePoint implementations.</li>
+<li>The output directory is created automatically if it does not already exist.</li>
+<li>A unique <strong>ReportID</strong> allows individual audit runs to be correlated across exported reports and logs.</li>
+<li>The transcript provides additional diagnostic information if authentication, library discovery, or item retrieval fails.</li>
+</ul>
+<h2 id="contributors">Contributors</h2>
+<table>
+<thead>
+<tr>
+<th>Author(s)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="https://github.com/ojopiyo">Josiah Opiyo</a></td>
+</tr>
+</tbody>
+</table>
+<p><em>Built with a focus on automation, governance, least privilege, and clean Microsoft 365 tenants - helping M365 admins gain visibility and reduce operational risk.</em></p>
+<h2 id="version-history">Version history</h2>
+<table>
+<thead>
+<tr>
+<th>Version</th>
+<th>Date</th>
+<th>Comments</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1.0</td>
+<td>September 09, 2026</td>
+<td>Initial release</td>
+</tr>
+</tbody>
+</table>
+<h2 id="disclaimer">Disclaimer</h2>
+<p><strong>THESE SAMPLES ARE PROVIDED <em>AS IS</em> WITHOUT WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, INCLUDING ANY IMPLIED WARRANTIES OF FITNESS FOR A PARTICULAR PURPOSE, MERCHANTABILITY, OR NON-INFRINGEMENT.</strong></p>
+</section>
+</div>
+
+</article>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+      <span>Script Samples<br>Generated by <strong><a href='https://dotnet.github.io/docfx' alt='Doc FX Website'>DocFX</a></strong> with <strong><a href='https://ovasquez.github.io/docfx-material' alt='DocFx Material Theme'>Material UI</a></strong></span>
+      
+            <!-- <img src="https://telemetry.sharepointpnp.com/@pnp.github.io/index/" alt="spacer"> -->
+          </div>
+        </div>
+      </footer>    </div>
+
+    <script type="text/javascript" src="../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+
+    <script type="text/javascript" src="../styles/clipboard.min.js"></script>
+    <script type="text/javascript" src="../styles/isotope.pkgd.min.js"></script>
+    <script type="text/javascript" src="../styles/loadsamples.js"></script>
+    <script type="text/javascript" src="../styles/filtersamples.js"></script>
+
+  </body>
+</html>
