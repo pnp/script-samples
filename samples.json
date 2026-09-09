@@ -14005,6 +14005,57 @@
     ]
   },
   {
+    "name": "spo-hub-site-governance-report",
+    "title": "SharePoint Hub Site Governance Report",
+    "shortDescription": "Generate a tenant-wide report of SharePoint Hub Sites, associated sites, site collection administrators, and execution audit details using certificate-based PnP PowerShell authentication.",
+    "url": "spo-hub-site-governance-report/README.html",
+    "creationDateTime": "2026-09-01",
+    "updateDateTime": "2026-09-09",
+    "products": [
+      "SharePoint"
+    ],
+    "metadata": [
+      {
+        "key": "PNP-POWERSHELL",
+        "value": "3.0.0"
+      },
+      {
+        "key": "POWERSHELL",
+        "value": "7.2.0"
+      }
+    ],
+    "categories": [
+      "Configure",
+      "Report",
+      "Security"
+    ],
+    "tags": [
+      "SharePoint Online",
+      "Hub Site",
+      "Get-PnPHubSite",
+      "Get-PnPHubSiteChild",
+      "Get-PnPSiteCollectionAdmin",
+      "Connect-PnPOnline",
+      "Export-Csv"
+    ],
+    "thumbnails": [
+      {
+        "type": "image",
+        "order": 100,
+        "url": "spo-hub-site-governance-report/assets/preview.png",
+        "alt": "Preview of the SharePoint Hub Site Governance Report sample"
+      }
+    ],
+    "authors": [
+      {
+        "gitHubAccount": "ojopiyo",
+        "company": "",
+        "pictureUrl": "https://github.com/ojopiyo.png",
+        "name": "Josiah Opiyo"
+      }
+    ]
+  },
+  {
     "name": "spo-hub-sites-association",
     "title": "SharePoint Online Hub Site Association",
     "shortDescription": "This script sample shows how to associate SharePoint online site with a hub site.",
