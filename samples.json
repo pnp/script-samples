@@ -6604,6 +6604,52 @@
     ]
   },
   {
+    "name": "spo-audit-sharing-links",
+    "title": "Find and risk-rate SharePoint sharing links (spot oversharing before Copilot)",
+    "shortDescription": "Finds every sharing link on a SharePoint Online site through the hidden SharingLinks groups, resolves them to files, and risk-rates each one (Anonymous / Organization / Users, View / Edit, expiry, password) so you can spot oversharing before Search and Copilot surface it.",
+    "url": "spo-audit-sharing-links/README.html",
+    "creationDateTime": "2026-08-29",
+    "updateDateTime": "2026-08-29",
+    "products": [
+      "SharePoint"
+    ],
+    "metadata": [
+      {
+        "key": "PNP-POWERSHELL",
+        "value": "2.12.0"
+      }
+    ],
+    "categories": [
+      "Report",
+      "Security"
+    ],
+    "tags": [
+      "Connect-PnPOnline",
+      "Get-PnPGroup",
+      "Get-PnPList",
+      "Get-PnPListItem",
+      "Get-PnPFileSharingLink",
+      "Get-PnPFolderSharingLink",
+      "Get-PnPWeb"
+    ],
+    "thumbnails": [
+      {
+        "type": "image",
+        "order": 100,
+        "url": "spo-audit-sharing-links/assets/example.png",
+        "alt": "Report of SharePoint sharing links risk-rated Low to Critical"
+      }
+    ],
+    "authors": [
+      {
+        "gitHubAccount": "gvijaikumar9",
+        "company": "",
+        "pictureUrl": "https://github.com/gvijaikumar9.png",
+        "name": "Vijay Kumar G"
+      }
+    ]
+  },
+  {
     "name": "spo-audit-user-and-site-access",
     "title": "Report SharePoint site access and flag oversharing (by site or by user)",
     "shortDescription": "Report who can reach a SharePoint Online site and how, or what a given user can reach, classifying every route as Granted or Overshared (Everyone claims and sharing links).",
