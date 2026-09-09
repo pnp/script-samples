@@ -1,0 +1,55 @@
+[
+  {
+    "name": "exchange-online-distribution-group-external-sender-audit",
+    "source": "pnp",
+    "title": "Exchange Online Distribution Group External Sender Audit",
+    "shortDescription": "Audits distribution groups that allow messages from external or unauthenticated senders and exports the results to CSV.",
+    "url": "https://pnp.github.io/script-samples/exchange-online-distribution-group-external-sender-audit/README.html",
+    "longDescription": [
+      "Connects to Exchange Online with certificate-based app-only authentication, inventories distribution groups, identifies groups that permit external senders, and produces an audit report with summary statistics."
+    ],
+    "creationDateTime": "2026-09-02",
+    "updateDateTime": "2026-09-02",
+    "products": [
+      "Office"
+    ],
+    "metadata": [
+      {
+        "key": "POWERSHELL",
+        "value": "7.2.0"
+      }
+    ],
+    "categories": [
+      "Report",
+      "Security"
+    ],
+    "tags": [
+      "Connect-ExchangeOnline",
+      "Get-DistributionGroup",
+      "Export-Csv"
+    ],
+    "thumbnails": [
+      {
+        "type": "image",
+        "order": 100,
+        "url": "https://raw.githubusercontent.com/pnp/script-samples/main/scripts/exchange-online-distribution-group-external-sender-audit/assets/preview.png",
+        "alt": "Preview of the sample Exchange Online Distribution Group External Sender Audit"
+      }
+    ],
+    "authors": [
+      {
+        "gitHubAccount": "ojopiyo",
+        "company": "",
+        "pictureUrl": "https://github.com/ojopiyo.png",
+        "name": "Josiah Opiyo"
+      }
+    ],
+    "references": [
+      {
+        "name": "Exchange Online PowerShell module",
+        "description": "Learn how to connect to Exchange Online and use Exchange Online PowerShell cmdlets.",
+        "url": "https://learn.microsoft.com/powershell/exchange/connect-to-exchange-online-powershell"
+      }
+    ]
+  }
+]
