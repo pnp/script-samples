@@ -58,6 +58,61 @@
     ]
   },
   {
+    "name": "aad-add-app-permission",
+    "title": "Add API permissions to an Entra app registration",
+    "shortDescription": "Adds delegated or application API permissions to an Entra app registration using Microsoft Graph.",
+    "url": "aad-add-app-permission/README.html",
+    "creationDateTime": "2026-08-30",
+    "updateDateTime": "2026-08-30",
+    "products": [
+      "Graph",
+      "Entra ID"
+    ],
+    "metadata": [
+      {
+        "key": "CLI-FOR-MICROSOFT365",
+        "value": "5.5.0"
+      },
+      {
+        "key": "GRAPH-POWERSHELL",
+        "value": "1.11.0"
+      },
+      {
+        "key": "POWERSHELL",
+        "value": "7.2.1"
+      }
+    ],
+    "categories": [
+      "Configure",
+      "Security"
+    ],
+    "tags": [
+      "Connect-MgGraph",
+      "Invoke-MgGraphRequest",
+      "Application.ReadWrite.All",
+      "requiredResourceAccess",
+      "app registration",
+      "delegated permission",
+      "application permission"
+    ],
+    "thumbnails": [
+      {
+        "type": "image",
+        "order": 100,
+        "url": "aad-add-app-permission/assets/example.png",
+        "alt": "Preview of the sample Add API permissions to an Entra app registration"
+      }
+    ],
+    "authors": [
+      {
+        "gitHubAccount": "nelladath",
+        "company": "",
+        "pictureUrl": "https://github.com/nelladath.png",
+        "name": "Sujin Nelladath"
+      }
+    ]
+  },
+  {
     "schema": null,
     "name": "aad-add-app-permissions-and-connect-to-sharepoint",
     "version": null,

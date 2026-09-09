@@ -1,0 +1,78 @@
+[
+  {
+    "name": "aad-add-app-permission",
+    "source": "pnp",
+    "title": "Add API permissions to an Entra app registration",
+    "shortDescription": "Adds delegated or application API permissions to an Entra app registration using Microsoft Graph.",
+    "url": "https://pnp.github.io/script-samples/aad-add-app-permission/README.html",
+    "longDescription": [
+      ""
+    ],
+    "creationDateTime": "2026-08-30",
+    "updateDateTime": "2026-08-30",
+    "products": [
+      "Graph",
+      "Entra ID"
+    ],
+    "metadata": [
+      {
+        "key": "CLI-FOR-MICROSOFT365",
+        "value": "5.5.0"
+      },
+      {
+        "key": "GRAPH-POWERSHELL",
+        "value": "1.11.0"
+      },
+      {
+        "key": "POWERSHELL",
+        "value": "7.2.1"
+      }
+    ],
+    "categories": [
+      "Configure",
+      "Security"
+    ],
+    "tags": [
+      "Connect-MgGraph",
+      "Invoke-MgGraphRequest",
+      "Application.ReadWrite.All",
+      "requiredResourceAccess",
+      "app registration",
+      "delegated permission",
+      "application permission"
+    ],
+    "thumbnails": [
+      {
+        "type": "image",
+        "order": 100,
+        "url": "https://raw.githubusercontent.com/pnp/script-samples/main/scripts/aad-add-app-permission/assets/example.png",
+        "alt": "Preview of the sample Add API permissions to an Entra app registration"
+      }
+    ],
+    "authors": [
+      {
+        "gitHubAccount": "nelladath",
+        "company": "",
+        "pictureUrl": "https://github.com/nelladath.png",
+        "name": "Sujin Nelladath"
+      }
+    ],
+    "references": [
+      {
+        "name": "Want to learn more about PnP PowerShell and the cmdlets",
+        "description": "Check out the PnP PowerShell site to get started and for the reference to the cmdlets.",
+        "url": "https://aka.ms/pnp/powershell"
+      },
+      {
+        "name": "Want to learn more about CLI for Microsoft 365 and the commands",
+        "description": "Check out the CLI for Microsoft 365 site to get started and for the reference to the commands.",
+        "url": "https://aka.ms/cli-m365"
+      },
+      {
+        "name": "Want to learn more about Microsoft Graph PowerShell SDK and the cmdlets",
+        "description": "Check out the Microsoft Graph PowerShell SDK documentation site to get started and for the reference to the cmdlets.",
+        "url": "https://learn.microsoft.com/graph/powershell/get-started"
+      }
+    ]
+  }
+]
