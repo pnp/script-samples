@@ -277,3 +277,4 @@ The CSV contains one row per Hub Site / associated-site relationship.
 |1.0|September 01, 2026|Initial release|
 
 [!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
+<img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/spo-hub-site-governance-report" aria-hidden="true" />
