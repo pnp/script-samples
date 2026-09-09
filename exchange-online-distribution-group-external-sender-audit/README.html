@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html lang="en">
+
+  <head>
+    <meta charset="utf-8">
+    <title>Exchange Online Distribution Group External Sender Audit | PnP Samples </title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="title" content="Exchange Online Distribution Group External Sender Audit | PnP Samples ">
+    <meta name="generator" content="docfx ">
+  <meta name="description" content="A sample gallery of scripts to manage all things Microsoft 365.">
+
+    <!-- Social Media -->
+    <meta property="og:locale" content="en_GB">
+    <meta property="og:title" content="Exchange Online Distribution Group External Sender Audit | PnP Samples ">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://pnp.github.io/script-samples">
+    <meta property="og:image" content="https://pnp.github.io/script-samples/assets/social-media-screenshot.png">
+    <meta property="og:image:alt" content="Screenshot example of the PnP Script Samples Site">
+    <meta property="og:site_name" content="PnP Script Samples">
+    <meta name="msvalidate.01" content="04EFEDA66EC42C08A1247C979E2F9ADD">
+  <meta property="og:description" content="A sample gallery of scripts to manage all things Microsoft 365.">
+
+    <link rel="shortcut icon" href="https://c.s-microsoft.com/favicon.ico?v2">
+    <link rel="stylesheet" href="../styles/docfx.vendor.min.css">
+    <link rel="stylesheet" href="../styles/docfx.css">
+    <link rel="stylesheet" href="../styles/main.css">
+    <link rel="stylesheet" href="../styles/extra.css">
+    <link rel="stylesheet" href="../styles/filter.css">
+    <link rel="stylesheet" href="../styles/site.css">
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet"> 
+    <meta property="docfx:navrel" content="../toc.html">
+    <meta property="docfx:tocrel" content="../toc.html">
+  
+  
+  <meta property="docfx:newtab" content="true">
+    <script type="text/javascript">
+      (function(c,l,a,r,i,t,y){
+          c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+          t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+          y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+      })(window, document, "clarity", "script", "8j6pedl344");
+  </script>
+  </head>  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+             <div class="github-mark">
+              <a href="https://github.com/pnp/script-samples" title="Go to repository">
+               <div class="github-wrapper">
+                  <div class="github-icon">
+                    <img src="https://pnp.github.io/script-samples/assets/icons/github-light-64px.png" alt="GitHub Icon Image">
+                  </div>
+                  <div class="github-repository">
+                    <span>GitHub</span>
+                    <ul class="github-facts">
+                      <li>
+                        <i class="fa fa-code-fork" aria-hidden="true"></i>
+                        <span class="github-forks"></span>
+                      </li>
+                      <li>
+                        <i class="fa fa-star-o" aria-hidden="true"></i>
+                        <span class="github-stars"></span>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </a>
+            </div>
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../assets/logo.svg" alt="">
+              </a>            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <label class="glyphicon glyphicon-search" for="search-query"></label>
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>      </header>
+      <div role="main" class="container body-content hide-when-search">
+        <div class="article row grid">
+          <div class="col-md-12">
+            <article class="content wrap" id="_content" data-uid="">
+                  <div class="contribution-panel mobile-hide pull-right">
+                      <a href="https://github.com/pnp/script-samples/blob/main/scripts/exchange-online-distribution-group-external-sender-audit/README.md/#L1" title="Edit this page" class="improve-doc-lg"><i class="glyphicon glyphicon-pencil"></i></a>
+                  </div>
+  <h1 id="exchange-online-distribution-group-external-sender-audit">Exchange Online Distribution Group External Sender Audit</h1>
+
+<h2 id="summary">Summary</h2>
+<p>This PowerShell script connects to Exchange Online using certificate-based app-only authentication, retrieves all distribution groups in the tenant, and identifies whether each group permits messages from external or unauthenticated senders.</p>
+<p>The results are displayed in the console and exported to a CSV report for auditing, security review, and operational documentation.</p>
+<h2 id="why-it-matters">Why It Matters</h2>
+<p>Distribution groups that accept messages from external senders can be intentionally configured for legitimate business purposes, but they can also increase exposure to unsolicited email, spoofing attempts, and abuse.</p>
+<p>This report provides administrators with a tenant-wide inventory of distribution groups and their external sender configuration, allowing potentially exposed groups to be identified and reviewed.</p>
+<h3 id="benefits">Benefits</h3>
+<ul>
+<li>Provides a tenant-wide distribution group audit.</li>
+<li>Identifies groups that allow external senders.</li>
+<li>Produces a CSV suitable for security and compliance reviews.</li>
+<li>Supports large tenants using -ResultSize Unlimited.</li>
+<li>Uses certificate-based, non-interactive authentication suitable for automation.</li>
+<li>Provides summary statistics for rapid assessment.</li>
+<li>Includes error handling and guaranteed Exchange Online disconnection.</li>
+<li>Can be scheduled or incorporated into broader Microsoft 365 reporting processes.</li>
+</ul>
+<h2 id="requirements">Requirements</h2>
+<ul>
+<li>Exchange Online PowerShell module installed.</li>
+<li>An Entra ID application configured for Exchange Online app-only authentication.</li>
+<li>A valid certificate installed and accessible to the account running the script.</li>
+<li>The application configured with the required Exchange Online permissions/RBAC configuration.</li>
+<li>Appropriate administrative permissions to retrieve distribution group information.</li>
+</ul>
+<h2 id="usage">Usage</h2>
+<p>Update the configuration values before execution:</p>
+<table>
+<thead>
+<tr>
+<th>Variable</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>$ClientID</code></td>
+<td>Azure AD Application (Client) ID</td>
+</tr>
+<tr>
+<td><code>$ThumbPrint</code></td>
+<td>Certificate thumbprint</td>
+</tr>
+<tr>
+<td><code>$Tenant</code></td>
+<td>Microsoft 365 tenant name (e.g. <code>contoso.onmicrosoft.com</code>)</td>
+</tr>
+</tbody>
+</table>
+<div class="tabGroup" id="tabgroup_1">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_1_pnpps" role="tab" aria-controls="tabpanel_1_pnpps" data-tab="pnpps" tabindex="0" aria-selected="true">PnP PowerShell</a>
+</li>
+</ul>
+<section id="tabpanel_1_pnpps" role="tabpanel" data-tab="pnpps">
+
+<pre><code class="lang-powershell">
+# ==========================================================
+# Configuration 
+# ==========================================================
+
+$ClientID = &quot;xxxxxxxxxxxxxxxxxxxxxxxxx&quot;
+$ThumbPrint = &quot;xxxxxxxxxxxxxxxxxxxxxxxxx&quot;
+$Tenant = &quot;contoso.onmicrosoft.com&quot;
+
+$OutputFolder = &quot;C:\Temp\Outlook&quot;
+$OutputFile = Join-Path -Path $OutputFolder -ChildPath &quot;DistributionGroups-ExternalSendersAllowed.csv&quot;
+
+# ==========================================================
+# Create Output Folder 
+# ==========================================================
+
+try {
+    if (-not (Test-Path -Path $OutputFolder)) {
+        New-Item -Path $OutputFolder -ItemType Directory -Force -ErrorAction Stop | Out-Null
+    }
+}
+catch {
+    Write-Error &quot;Failed to create output folder '$OutputFolder'. Error: $($_.Exception.Message)&quot;
+    exit 1
+}
+
+# ==========================================================
+# Connect to Exchange Online
+# ==========================================================
+
+$exchangeConnected = $false
+
+try {
+    Write-Host &quot;Connecting to Exchange Online...&quot; -ForegroundColor Cyan
+
+    Connect-ExchangeOnline `
+        -AppId $ClientID `
+        -CertificateThumbprint $ThumbPrint `
+        -Organization $Tenant `
+        -ShowBanner:$false `
+        -ErrorAction Stop
+
+    $exchangeConnected = $true
+
+    Write-Host &quot;Connected successfully.&quot; -ForegroundColor Green
+}
+catch {
+    Write-Error &quot;Failed to connect to Exchange Online. Error: $($_.Exception.Message)&quot;
+    exit 1
+}
+
+
+try {
+
+    # ==========================================================
+    # Retrieve Distribution Groups
+    # ==========================================================
+    
+        Write-Host &quot;Retrieving distribution groups...&quot; -ForegroundColor Cyan
+
+    $distributionGroups = @(
+        Get-DistributionGroup `
+            -ResultSize Unlimited `
+            -ErrorAction Stop |
+            Select-Object `
+                DisplayName,
+                PrimarySmtpAddress,
+                @{
+                    Name = &quot;ExternalSendersAllowed&quot;
+                    Expression = {
+                        if ($_.RequireSenderAuthenticationEnabled -eq $false) {
+                            &quot;YES&quot;
+                        }
+                        else {
+                            &quot;NO&quot;
+                        }
+                    }
+                }
+    )
+
+    # ==========================================================
+    # Display Results
+    # ==========================================================
+
+    Write-Host &quot;&quot;
+    Write-Host &quot;Distribution Groups&quot; -ForegroundColor Cyan
+    Write-Host &quot;====================&quot; -ForegroundColor Cyan
+    Write-Host &quot;&quot;
+
+    if ($distributionGroups.Count -gt 0) {
+        $distributionGroups |
+            Format-Table -AutoSize
+    }
+    else {
+        Write-Host &quot;No distribution groups found.&quot; -ForegroundColor Yellow
+    }
+
+    # ==========================================================
+    # Export Results
+    # ==========================================================
+
+    $distributionGroups |
+        Export-Csv `
+            -Path $OutputFile `
+            -NoTypeInformation `
+            -Encoding UTF8 `
+            -ErrorAction Stop
+
+    Write-Host &quot;&quot;
+    Write-Host &quot;Report saved to:&quot; -ForegroundColor Green
+    Write-Host $OutputFile
+
+    # ==========================================================
+    # Summary
+    # ==========================================================
+
+    $totalGroups = $distributionGroups.Count
+
+    $externalSendersAllowed = @(
+        $distributionGroups |
+            Where-Object { $_.ExternalSendersAllowed -eq &quot;YES&quot; }
+    ).Count
+
+    $externalSendersBlocked = @(
+        $distributionGroups |
+            Where-Object { $_.ExternalSendersAllowed -eq &quot;NO&quot; }
+    ).Count
+
+    Write-Host &quot;&quot;
+    Write-Host &quot;Audit Summary&quot; -ForegroundColor Cyan
+    Write-Host &quot;=============&quot;
+    Write-Host &quot;Total distribution groups : $totalGroups&quot;
+    Write-Host &quot;External senders allowed  : $externalSendersAllowed&quot;
+    Write-Host &quot;External senders blocked  : $externalSendersBlocked&quot;
+}
+catch {
+    Write-Error &quot;An error occurred while retrieving or exporting distribution groups. Error: $($_.Exception.Message)&quot;
+}
+finally {
+    
+    # ==========================================================
+    # Disconnect
+    # ==========================================================
+
+    if ($exchangeConnected) {
+        Write-Host &quot;&quot;
+        Write-Host &quot;Disconnecting from Exchange Online...&quot; -ForegroundColor Cyan
+
+        Disconnect-ExchangeOnline `
+            -Confirm:$false `
+            -ErrorAction SilentlyContinue
+
+        Write-Host &quot;Disconnected.&quot; -ForegroundColor Green
+    }
+}
+
+</code></pre>
+<h2 id="output">Output</h2>
+<p>The script generates:</p>
+<blockquote>
+<p>C:\Temp\Outlook\DistributionGroups-ExternalSendersAllowed.csv</p>
+</blockquote>
+<p>The CSV contains:</p>
+<ul>
+<li>DisplayName</li>
+<li>PrimarySmtpAddress</li>
+<li>ExternalSendersAllowed</li>
+</ul>
+<p>The console also provides an audit summary:</p>
+<ul>
+<li>Total distribution groups : 1250</li>
+<li>External senders allowed  : 37</li>
+<li>External senders blocked  : 1213</li>
+</ul>
+<h2 id="interpretation">Interpretation</h2>
+<table>
+<thead>
+<tr>
+<th>Value</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>YES</code></td>
+<td>The distribution group permits messages from unauthenticated/external senders.</td>
+</tr>
+<tr>
+<td><code>NO</code></td>
+<td>The distribution group requires sender authentication.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="notes">Notes</h2>
+<ul>
+<li>The script reports the current value of <code>RequireSenderAuthenticationEnabled</code>; it does not modify any distribution group configuration.</li>
+<li><code>-ResultSize Unlimited</code> is used to support tenants with large numbers of distribution groups.</li>
+<li>The CSV is overwritten if the script is run again with the same output path.</li>
+<li>Certificate-based authentication is non-interactive and is appropriate for scheduled automation when the required Entra ID and Exchange Online configuration is in place.</li>
+<li>The report should be treated as an audit/inventory report rather than proof that a particular external message will be delivered. Mail flow rules, moderation, transport restrictions, and other Exchange Online controls can also affect message delivery.</li>
+</ul>
+<h2 id="contributors">Contributors</h2>
+<table>
+<thead>
+<tr>
+<th>Author(s)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="https://github.com/ojopiyo">Josiah Opiyo</a></td>
+</tr>
+</tbody>
+</table>
+<p><em>Built with a focus on automation, governance, least privilege, and clean Microsoft 365 tenants-helping M365 admins gain visibility and reduce operational risk.</em></p>
+<h2 id="version-history">Version history</h2>
+<table>
+<thead>
+<tr>
+<th>Version</th>
+<th>Date</th>
+<th>Comments</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1.0</td>
+<td>September 02, 2026</td>
+<td>Initial release</td>
+</tr>
+</tbody>
+</table>
+<h2 id="disclaimer">Disclaimer</h2>
+<p><strong>THESE SAMPLES ARE PROVIDED <em>AS IS</em> WITHOUT WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, INCLUDING ANY IMPLIED WARRANTIES OF FITNESS FOR A PARTICULAR PURPOSE, MERCHANTABILITY, OR NON-INFRINGEMENT.</strong></p>
+<img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/exchange-online-distribution-group-external-sender-audit" aria-hidden="true">
+</section>
+</div>
+
+</article>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+      <span>Script Samples<br>Generated by <strong><a href='https://dotnet.github.io/docfx' alt='Doc FX Website'>DocFX</a></strong> with <strong><a href='https://ovasquez.github.io/docfx-material' alt='DocFx Material Theme'>Material UI</a></strong></span>
+      
+            <!-- <img src="https://telemetry.sharepointpnp.com/@pnp.github.io/index/" alt="spacer"> -->
+          </div>
+        </div>
+      </footer>    </div>
+
+    <script type="text/javascript" src="../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+
+    <script type="text/javascript" src="../styles/clipboard.min.js"></script>
+    <script type="text/javascript" src="../styles/isotope.pkgd.min.js"></script>
+    <script type="text/javascript" src="../styles/loadsamples.js"></script>
+    <script type="text/javascript" src="../styles/filtersamples.js"></script>
+
+  </body>
+</html>
