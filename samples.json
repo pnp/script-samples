@@ -6604,6 +6604,51 @@
     ]
   },
   {
+    "name": "spo-audit-user-and-site-access",
+    "title": "Report SharePoint site access and flag oversharing (by site or by user)",
+    "shortDescription": "Report who can reach a SharePoint Online site and how, or what a given user can reach, classifying every route as Granted or Overshared (Everyone claims and sharing links).",
+    "url": "spo-audit-user-and-site-access/README.html",
+    "creationDateTime": "2026-08-29",
+    "updateDateTime": "2026-08-29",
+    "products": [
+      "SharePoint"
+    ],
+    "metadata": [
+      {
+        "key": "PNP-POWERSHELL",
+        "value": "2.12.0"
+      }
+    ],
+    "categories": [
+      "Report",
+      "Security"
+    ],
+    "tags": [
+      "Connect-PnPOnline",
+      "Get-PnPWeb",
+      "Get-PnPContext",
+      "Get-PnPProperty",
+      "Get-PnPGroupMember",
+      "Get-PnPUser"
+    ],
+    "thumbnails": [
+      {
+        "type": "image",
+        "order": 100,
+        "url": "spo-audit-user-and-site-access/assets/preview.png",
+        "alt": "Report of who can access a SharePoint site with oversharing routes flagged"
+      }
+    ],
+    "authors": [
+      {
+        "gitHubAccount": "gvijaikumar9",
+        "company": "",
+        "pictureUrl": "https://github.com/gvijaikumar9.png",
+        "name": "Vijay Kumar G"
+      }
+    ]
+  },
+  {
     "name": "spo-build-hierarchical-team-channel-navigation",
     "title": "Create Hub Navigation from Teams and Channels",
     "shortDescription": "Create Hub Navigation from Teams and Channels",

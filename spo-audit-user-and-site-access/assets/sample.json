@@ -1,0 +1,58 @@
+[
+  {
+    "name": "spo-audit-user-and-site-access",
+    "source": "pnp",
+    "title": "Report SharePoint site access and flag oversharing (by site or by user)",
+    "shortDescription": "Report who can reach a SharePoint Online site and how, or what a given user can reach, classifying every route as Granted or Overshared (Everyone claims and sharing links).",
+    "url": "https://pnp.github.io/script-samples/spo-audit-user-and-site-access/README.html",
+    "longDescription": [
+      "Permission reports usually tell you the 'what' (this group has Edit) but not how the access was granted or whether it should be there. This script walks a site's role assignments and classifies every route as Granted (a named user or a deliberately added group) or Overshared (an 'Everyone' / 'Everyone except external users' claim, or a sharing-link group, that nobody was explicitly given). It runs in two directions: -Mode BySite lists every principal that can reach the site (Overshared first, with group member counts), and -Mode ByUser reports what a given user can reach and by which route, using GetUserEffectivePermissions plus a role-assignment walk. Useful for spotting the oversharing that drives Microsoft Search and Copilot exposure."
+    ],
+    "creationDateTime": "2026-08-29",
+    "updateDateTime": "2026-08-29",
+    "products": [
+      "SharePoint"
+    ],
+    "metadata": [
+      {
+        "key": "PNP-POWERSHELL",
+        "value": "2.12.0"
+      }
+    ],
+    "categories": [
+      "Report",
+      "Security"
+    ],
+    "tags": [
+      "Connect-PnPOnline",
+      "Get-PnPWeb",
+      "Get-PnPContext",
+      "Get-PnPProperty",
+      "Get-PnPGroupMember",
+      "Get-PnPUser"
+    ],
+    "thumbnails": [
+      {
+        "type": "image",
+        "order": 100,
+        "url": "https://raw.githubusercontent.com/pnp/script-samples/main/scripts/spo-audit-user-and-site-access/assets/preview.png",
+        "alt": "Report of who can access a SharePoint site with oversharing routes flagged"
+      }
+    ],
+    "authors": [
+      {
+        "gitHubAccount": "gvijaikumar9",
+        "company": "",
+        "pictureUrl": "https://github.com/gvijaikumar9.png",
+        "name": "Vijay Kumar G"
+      }
+    ],
+    "references": [
+      {
+        "name": "Want to learn more about PnP PowerShell and the cmdlets",
+        "description": "Check out the PnP PowerShell site to get started and for the reference to the cmdlets.",
+        "url": "https://aka.ms/pnp/powershell"
+      }
+    ]
+  }
+]

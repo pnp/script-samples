@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html lang="en">
+
+  <head>
+    <meta charset="utf-8">
+    <title>Report SharePoint site access and flag oversharing (by site or by user) | PnP Samples </title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="title" content="Report SharePoint site access and flag oversharing (by site or by user) | PnP Samples ">
+    <meta name="generator" content="docfx ">
+  <meta name="description" content="A sample gallery of scripts to manage all things Microsoft 365.">
+
+    <!-- Social Media -->
+    <meta property="og:locale" content="en_GB">
+    <meta property="og:title" content="Report SharePoint site access and flag oversharing (by site or by user) | PnP Samples ">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://pnp.github.io/script-samples">
+    <meta property="og:image" content="https://pnp.github.io/script-samples/assets/social-media-screenshot.png">
+    <meta property="og:image:alt" content="Screenshot example of the PnP Script Samples Site">
+    <meta property="og:site_name" content="PnP Script Samples">
+    <meta name="msvalidate.01" content="04EFEDA66EC42C08A1247C979E2F9ADD">
+  <meta property="og:description" content="A sample gallery of scripts to manage all things Microsoft 365.">
+
+    <link rel="shortcut icon" href="https://c.s-microsoft.com/favicon.ico?v2">
+    <link rel="stylesheet" href="../styles/docfx.vendor.min.css">
+    <link rel="stylesheet" href="../styles/docfx.css">
+    <link rel="stylesheet" href="../styles/main.css">
+    <link rel="stylesheet" href="../styles/extra.css">
+    <link rel="stylesheet" href="../styles/filter.css">
+    <link rel="stylesheet" href="../styles/site.css">
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet"> 
+    <meta property="docfx:navrel" content="../toc.html">
+    <meta property="docfx:tocrel" content="../toc.html">
+  
+  
+  <meta property="docfx:newtab" content="true">
+    <script type="text/javascript">
+      (function(c,l,a,r,i,t,y){
+          c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+          t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+          y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+      })(window, document, "clarity", "script", "8j6pedl344");
+  </script>
+  </head>  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+             <div class="github-mark">
+              <a href="https://github.com/pnp/script-samples" title="Go to repository">
+               <div class="github-wrapper">
+                  <div class="github-icon">
+                    <img src="https://pnp.github.io/script-samples/assets/icons/github-light-64px.png" alt="GitHub Icon Image">
+                  </div>
+                  <div class="github-repository">
+                    <span>GitHub</span>
+                    <ul class="github-facts">
+                      <li>
+                        <i class="fa fa-code-fork" aria-hidden="true"></i>
+                        <span class="github-forks"></span>
+                      </li>
+                      <li>
+                        <i class="fa fa-star-o" aria-hidden="true"></i>
+                        <span class="github-stars"></span>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </a>
+            </div>
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../assets/logo.svg" alt="">
+              </a>            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <label class="glyphicon glyphicon-search" for="search-query"></label>
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>      </header>
+      <div role="main" class="container body-content hide-when-search">
+        <div class="article row grid">
+          <div class="col-md-12">
+            <article class="content wrap" id="_content" data-uid="">
+                  <div class="contribution-panel mobile-hide pull-right">
+                      <a href="https://github.com/pnp/script-samples/blob/main/scripts/spo-audit-user-and-site-access/README.md/#L1" title="Edit this page" class="improve-doc-lg"><i class="glyphicon glyphicon-pencil"></i></a>
+                  </div>
+  <h1 id="report-sharepoint-site-access-and-flag-oversharing-by-site-or-by-user">Report SharePoint site access and flag oversharing (by site or by user)</h1>
+
+<h2 id="summary">Summary</h2>
+<p>Permission reports usually tell you the <em>what</em> (this group has Edit) but not <em>how</em> the access was granted or whether it should be there. This script walks a site's role assignments and classifies every route as one of:</p>
+<table>
+<thead>
+<tr>
+<th>Route type</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Granted</strong></td>
+<td>A named user, or a group someone deliberately added.</td>
+</tr>
+<tr>
+<td><strong>Overshared</strong></td>
+<td>An &quot;Everyone&quot; / &quot;Everyone except external users&quot; claim, or a sharing-link group. Access nobody was explicitly given, and the usual source of Microsoft Search and Copilot exposure.</td>
+</tr>
+</tbody>
+</table>
+<p>It runs in two directions:</p>
+<ul>
+<li><strong><code>-Mode BySite</code></strong> (default) lists every principal that can reach the site, one row each, <strong>Overshared first</strong>, with the member count for groups. Answers <em>&quot;who can see this site?&quot;</em>.</li>
+<li><strong><code>-Mode ByUser</code></strong> reports what a given user can reach and by which route. It first asks the definitive question with <code>GetUserEffectivePermissions</code> (can they actually access the site, and at what level), then attributes that access to each route: a direct grant, a SharePoint group membership, or an Everyone claim.</li>
+</ul>
+<p>Everyone-claim and sharing-link detection is matched on the login name, not the display title, because a tenant can rename a group but not its underlying claim. Add <code>-OversharedOnly</code> to see just the routes worth acting on, <code>-ExpandGroups</code> to expand SharePoint groups to people, and <code>-CsvPath</code> to export.</p>
+<p><img src="assets/example.png" alt="Example Screenshot"></p>
+<div class="NOTE">
+<h5>Note</h5>
+<p>Reading permissions requires <strong>Full Control</strong> on the site (Contributor is not enough). Register an app for interactive sign-in once with <code>Register-PnPEntraIDAppForInteractiveLogin</code> and pass its client id with <code>-ClientId</code>.</p>
+</div>
+<p>This is a focused, single-site sample. The full tool it is drawn from adds tenant-wide scans, item-level deep crawl, Entra-group expansion via Microsoft Graph, and a GUI: <a href="https://github.com/gvijaikumar9/UserAccessExplorer">User Access Explorer</a>.</p>
+<div class="tabGroup" id="tabgroup_1">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_1_pnpps" role="tab" aria-controls="tabpanel_1_pnpps" data-tab="pnpps" tabindex="0" aria-selected="true">PnP PowerShell</a>
+</li>
+</ul>
+<section id="tabpanel_1_pnpps" role="tabpanel" data-tab="pnpps">
+
+<pre><code class="lang-powershell">&lt;#
+.SYNOPSIS
+    Reports who can reach a SharePoint Online site and how, and flags oversharing
+    (access nobody was explicitly given). Works from two directions: the site's
+    side (&quot;who can reach this site?&quot;) or a user's side (&quot;what can this user reach
+    here, and by which route?&quot;).
+
+.DESCRIPTION
+    Permission reports usually tell you the &quot;what&quot; (this group has Edit) but not
+    the &quot;how it got there&quot; or &quot;should it be there&quot;. This script walks a site's
+    role assignments and classifies every route as one of:
+
+        Granted    - a named user or a group someone deliberately added
+        Overshared - an &quot;Everyone&quot; / &quot;Everyone except external users&quot; claim, or a
+                     sharing-link group. Access that was never explicitly granted
+                     and is the usual source of Copilot / search oversharing.
+
+    -Mode BySite (default): one row per principal that can reach the site, with the
+        member count for groups. Answers &quot;who can see this site?&quot;.
+
+    -Mode ByUser: pick a user. First it asks the definitive question with
+        GetUserEffectivePermissions (can they actually access the site, at what
+        level), then it attributes that access to each route (direct grant,
+        SharePoint group membership, or an Everyone claim).
+
+    Everyone-claim and sharing-link detection is matched on the login name, not the
+    display title, because a tenant can rename the group but not its claim.
+
+.PARAMETER SiteUrl
+    The SharePoint Online site to audit, e.g. https://contoso.sharepoint.com/sites/Marketing
+
+.PARAMETER Mode
+    BySite (default) = who can reach the site. ByUser = what a given user can reach.
+
+.PARAMETER UserLogin
+    Required for -Mode ByUser. A UPN (jane@contoso.com) or a full claims login.
+
+.PARAMETER ClientId
+    The Entra app (client) ID registered for PnP PowerShell interactive sign-in.
+
+.PARAMETER ExpandGroups
+    BySite only. Expand each SharePoint group to one row per member.
+
+.PARAMETER OversharedOnly
+    Return only the Overshared routes (the ones worth acting on first).
+
+.PARAMETER CsvPath
+    Optional. Also write the rows to this CSV path.
+
+.EXAMPLE
+    .\Audit-UserAndSiteAccess.ps1 -SiteUrl https://contoso.sharepoint.com/sites/Marketing -ClientId 00000000-0000-0000-0000-000000000000
+
+    Lists every principal that can reach the Marketing site, Overshared first.
+
+.EXAMPLE
+    .\Audit-UserAndSiteAccess.ps1 -SiteUrl https://contoso.sharepoint.com/sites/Marketing -Mode ByUser -UserLogin jane@contoso.com -ClientId 00000000-0000-0000-0000-000000000000
+
+    Shows what Jane can reach on the site and by which route.
+
+.EXAMPLE
+    .\Audit-UserAndSiteAccess.ps1 -SiteUrl https://contoso.sharepoint.com/sites/Marketing -ClientId &lt;id&gt; -OversharedOnly -CsvPath .\marketing-oversharing.csv
+
+.NOTES
+    Requires the PnP.PowerShell module and Full Control on the site (reading
+    permissions is not possible with Contributor). Register an app for interactive
+    sign-in once with Register-PnPEntraIDAppForInteractiveLogin.
+
+    This is a focused, single-site sample. The full tool it is drawn from adds
+    tenant-wide scans, item-level deep crawl, Entra-group expansion via Graph, and
+    a GUI: https://github.com/gvijaikumar9/UserAccessExplorer
+#&gt;
+[CmdletBinding()]
+param(
+    [Parameter(Mandatory)][string] $SiteUrl,
+    [ValidateSet('BySite', 'ByUser')][string] $Mode = 'BySite',
+    [string] $UserLogin,
+    [Parameter(Mandatory)][string] $ClientId,
+    [switch] $ExpandGroups,
+    [switch] $OversharedOnly,
+    [string] $CsvPath
+)
+
+Set-StrictMode -Version Latest
+$ErrorActionPreference = 'Stop'
+
+# --------------------------------------------------------------------------
+# Pure helpers - the classification logic, no SharePoint calls.
+# --------------------------------------------------------------------------
+
+function Test-EveryoneClaim {
+    # The two claims that mean &quot;everyone in the organisation&quot;. Matched on the login
+    # name because the title is whatever the tenant renamed it to.
+    param([string] $LoginName, [string] $Title)
+    return $LoginName -match 'spo-grid-all-users' -or
+           $LoginName -match 'c:0\(\.s\|true' -or
+           $Title -match '^Everyone'
+}
+
+function Test-SystemGroup {
+    # SharePoint's internal &quot;Limited Access System Group&quot; plumbing - noise, never a
+    # meaningful route.
+    param([string] $Title)
+    return $Title -like 'Limited Access System Group*'
+}
+
+function Test-SharingLinkGroup {
+    # The hidden group SharePoint creates to back a sharing link
+    # (SharingLinks.&lt;guid&gt;.&lt;type&gt;.&lt;linkId&gt;). Its presence in role assignments is
+    # what a sharing link IS at the permission layer.
+    param([string] $Title, [string] $LoginName)
+    return $Title -like 'SharingLinks.*' -or $LoginName -like '*SharingLinks.*'
+}
+
+function Get-SharingLinkKind {
+    # Pull the link type (Flexible / etc.) from the group name for display.
+    param([string] $Title)
+    $parts = $Title -split '\.'
+    if ($parts.Count -ge 3) { return $parts[2] }
+    return 'Unknown'
+}
+
+function ConvertTo-ClaimLogin {
+    # UPN -&gt; the claims login SharePoint stores for an Entra member user. Passes a
+    # value that is already a claims login (has a pipe) straight through.
+    param([Parameter(Mandatory)][string] $User)
+    if ($User -match '\|') { return $User }
+    return &quot;i:0#.f|membership|$User&quot;
+}
+
+function Get-PrincipalClassification {
+    # Classify one role-assignment principal: what it is, and Granted vs Overshared.
+    param([string] $PrincipalType, [string] $LoginName, [string] $Title)
+
+    if (Test-EveryoneClaim $LoginName $Title) {
+        return [pscustomobject]@{ Kind = 'Everyone'; RouteType = 'Overshared'; Display = $Title }
+    }
+    if (Test-SharingLinkGroup $Title $LoginName) {
+        return [pscustomobject]@{ Kind = 'SharingLink'; RouteType = 'Overshared'; Display = &quot;Sharing link ($(Get-SharingLinkKind $Title))&quot; }
+    }
+    switch (&quot;$PrincipalType&quot;) {
+        'User'            { [pscustomobject]@{ Kind = 'User';            RouteType = 'Granted'; Display = $Title } }
+        'SharePointGroup' { [pscustomobject]@{ Kind = 'SharePointGroup'; RouteType = 'Granted'; Display = $Title } }
+        'SecurityGroup'   { [pscustomobject]@{ Kind = 'EntraGroup';      RouteType = 'Granted'; Display = $Title } }
+        default           { [pscustomobject]@{ Kind = 'Other';           RouteType = 'Granted'; Display = $Title } }
+    }
+}
+
+# --------------------------------------------------------------------------
+# Engines
+# --------------------------------------------------------------------------
+
+function Get-RoleAssignmentMember {
+    # Load a securable's role assignments with every principal sub-property loaded
+    # explicitly - under StrictMode a lazily-loaded LoginName/Title/PrincipalType
+    # throws &quot;property cannot be found&quot;.
+    param($Securable)
+    $assignments = Get-PnPProperty -ClientObject $Securable -Property RoleAssignments
+    foreach ($ra in $assignments) {
+        $member = Get-PnPProperty -ClientObject $ra -Property Member
+        [pscustomobject]@{
+            LoginName     = Get-PnPProperty -ClientObject $member -Property LoginName
+            Title         = Get-PnPProperty -ClientObject $member -Property Title
+            PrincipalType = Get-PnPProperty -ClientObject $member -Property PrincipalType
+            Roles         = (Get-PnPProperty -ClientObject $ra -Property RoleDefinitionBindings |
+                                ForEach-Object { $_.Name }) -join ', '
+        }
+    }
+}
+
+function Get-SiteAccessRow {
+    # BySite: one row per principal that can reach the web.
+    param($Web, [string] $SiteTitle, [switch] $ExpandGroups)
+    foreach ($m in Get-RoleAssignmentMember -Securable $Web) {
+        if (Test-SystemGroup $m.Title) { continue }
+        $c = Get-PrincipalClassification -PrincipalType &quot;$($m.PrincipalType)&quot; -LoginName $m.LoginName -Title $m.Title
+
+        $memberCount = $null
+        $people      = @()
+        if ($c.Kind -eq 'SharePointGroup') {
+            $mem = @(Get-PnPGroupMember -Group $m.Title -ErrorAction SilentlyContinue)
+            $memberCount = $mem.Count
+            if ($ExpandGroups) { $people = $mem }
+        }
+        elseif ($c.Kind -eq 'EntraGroup') {
+            $memberCount = 'Entra group (not expanded in this sample)'
+        }
+
+        if ($ExpandGroups -and $c.Kind -eq 'SharePointGroup' -and $people.Count -gt 0) {
+            foreach ($p in $people) {
+                [pscustomobject]@{
+                    SiteTitle   = $SiteTitle
+                    Principal   = if ($p.Title) { $p.Title } else { ($p.LoginName -split '\|')[-1] }
+                    Type        = 'User'
+                    MemberCount = $null
+                    Via         = $c.Display
+                    Permission  = $m.Roles
+                    RouteType   = $c.RouteType
+                }
+            }
+        }
+        else {
+            [pscustomobject]@{
+                SiteTitle   = $SiteTitle
+                Principal   = $c.Display
+                Type        = $c.Kind
+                MemberCount = $memberCount
+                Via         = if ($c.Kind -eq 'User') { 'Direct grant' } else { '' }
+                Permission  = $m.Roles
+                RouteType   = $c.RouteType
+            }
+        }
+    }
+}
+
+function Get-UserAccessRow {
+    # ByUser: does the user have effective access, and by which routes.
+    param($Web, [string] $SiteTitle, [string] $ClaimsLogin, [string] $Display)
+
+    $ctx   = Get-PnPContext
+    $perms = $Web.GetUserEffectivePermissions($ClaimsLogin)
+    $ctx.ExecuteQuery()
+
+    $level =
+        if     ($perms.Value.Has('FullMask') -or $perms.Value.Has('ManagePermissions')) { 'Full Control' }
+        elseif ($perms.Value.Has('EditListItems')) { 'Edit' }
+        elseif ($perms.Value.Has('ViewListItems')) { 'Read' }
+        elseif ($perms.Value.Has('Open'))          { 'Limited Access' }  # reached an item, not the site itself
+        else                                        { 'None' }
+
+    if ($level -eq 'None') {
+        Write-Host &quot;$Display has no effective access to $SiteTitle.&quot; -ForegroundColor DarkYellow
+        return
+    }
+
+    foreach ($m in Get-RoleAssignmentMember -Securable $Web) {
+        if (Test-SystemGroup $m.Title) { continue }
+
+        $route = $null; $routeType = $null
+        if (Test-EveryoneClaim $m.LoginName $m.Title) {
+            $route = &quot;Everyone claim ($($m.Title))&quot;; $routeType = 'Overshared'
+        }
+        elseif (&quot;$($m.PrincipalType)&quot; -eq 'User' -and $m.LoginName -eq $ClaimsLogin) {
+            $route = 'Direct grant'; $routeType = 'Granted'
+        }
+        elseif (&quot;$($m.PrincipalType)&quot; -eq 'SharePointGroup') {
+            $mem = @(Get-PnPGroupMember -Group $m.Title -ErrorAction SilentlyContinue)
+            if ($mem | Where-Object { $_.LoginName -eq $ClaimsLogin }) {
+                $route = &quot;SharePoint group '$($m.Title)'&quot;; $routeType = 'Granted'
+            }
+        }
+        elseif (&quot;$($m.PrincipalType)&quot; -eq 'SecurityGroup') {
+            # Entra security / M365 group. This sample does not confirm membership
+            # (that needs Graph), so it is reported as a possible route.
+            $route = &quot;Entra group '$($m.Title)' (membership not checked in this sample)&quot;; $routeType = 'Granted'
+        }
+
+        if ($route) {
+            [pscustomobject]@{
+                User            = $Display
+                SiteTitle       = $SiteTitle
+                EffectiveAccess = $level
+                Via             = $route
+                Permission      = $m.Roles
+                RouteType       = $routeType
+            }
+        }
+    }
+}
+
+# --------------------------------------------------------------------------
+# Main
+# --------------------------------------------------------------------------
+
+if ($Mode -eq 'ByUser' -and [string]::IsNullOrWhiteSpace($UserLogin)) {
+    throw &quot;-UserLogin is required when -Mode is ByUser.&quot;
+}
+
+Connect-PnPOnline -Url $SiteUrl -Interactive -ClientId $ClientId
+$web = Get-PnPWeb
+$siteTitle = if ([string]::IsNullOrWhiteSpace($web.Title)) { $SiteUrl } else { $web.Title }
+
+if ($Mode -eq 'ByUser') {
+    $claims  = ConvertTo-ClaimLogin $UserLogin
+    $display = ($UserLogin -split '\|')[-1]
+    $rows = @(Get-UserAccessRow -Web $web -SiteTitle $siteTitle -ClaimsLogin $claims -Display $display)
+}
+else {
+    $rows = @(Get-SiteAccessRow -Web $web -SiteTitle $siteTitle -ExpandGroups:$ExpandGroups)
+}
+
+if ($OversharedOnly) { $rows = @($rows | Where-Object { $_.RouteType -eq 'Overshared' }) }
+
+# Overshared first, so the rows that matter are at the top.
+$rows = @($rows | Sort-Object @{ Expression = { $_.RouteType -eq 'Overshared' }; Descending = $true }, Principal, Via)
+
+if ($rows.Count -eq 0) {
+    Write-Host &quot;No matching access routes found on $siteTitle.&quot; -ForegroundColor DarkYellow
+}
+else {
+    $rows | Format-Table -AutoSize
+    $overshared = @($rows | Where-Object { $_.RouteType -eq 'Overshared' }).Count
+    Write-Host (&quot;{0} route(s) found, {1} overshared.&quot; -f $rows.Count, $overshared) -ForegroundColor Cyan
+}
+
+if ($CsvPath -and $rows.Count -gt 0) {
+    $rows | Export-Csv -Path $CsvPath -NoTypeInformation -Encoding UTF8
+    Write-Host &quot;Report written to $CsvPath&quot; -ForegroundColor Green
+}
+</code></pre>
+<div class="highlight-tool">
+<p>Check out the <strong>PnP PowerShell</strong> to learn more at: <a href="https://aka.ms/pnp/powershell">https://aka.ms/pnp/powershell</a></p>
+</div>
+<div class="highlight-tool">
+<p>The way you login into PnP PowerShell has changed please read <a href="https://github.com/pnp/powershell/discussions/4249">PnP Management Shell EntraID app is deleted : what should I do ?</a></p>
+</div>
+</section>
+</div>
+<h2 id="source-credit">Source Credit</h2>
+<p>Sample first appeared on <a href="https://github.com/gvijaikumar9/UserAccessExplorer">https://github.com/gvijaikumar9/UserAccessExplorer</a></p>
+<h2 id="contributors">Contributors</h2>
+<table>
+<thead>
+<tr>
+<th>Author(s)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Vijay Kumar G</td>
+</tr>
+</tbody>
+</table>
+<h2 id="disclaimer">Disclaimer</h2>
+<p><strong>THESE SAMPLES ARE PROVIDED <em>AS IS</em> WITHOUT WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, INCLUDING ANY IMPLIED WARRANTIES OF FITNESS FOR A PARTICULAR PURPOSE, MERCHANTABILITY, OR NON-INFRINGEMENT.</strong></p>
+<img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/spo-audit-user-and-site-access" aria-hidden="true">
+
+</article>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+      <span>Script Samples<br>Generated by <strong><a href='https://dotnet.github.io/docfx' alt='Doc FX Website'>DocFX</a></strong> with <strong><a href='https://ovasquez.github.io/docfx-material' alt='DocFx Material Theme'>Material UI</a></strong></span>
+      
+            <!-- <img src="https://telemetry.sharepointpnp.com/@pnp.github.io/index/" alt="spacer"> -->
+          </div>
+        </div>
+      </footer>    </div>
+
+    <script type="text/javascript" src="../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+
+    <script type="text/javascript" src="../styles/clipboard.min.js"></script>
+    <script type="text/javascript" src="../styles/isotope.pkgd.min.js"></script>
+    <script type="text/javascript" src="../styles/loadsamples.js"></script>
+    <script type="text/javascript" src="../styles/filtersamples.js"></script>
+
+  </body>
+</html>
