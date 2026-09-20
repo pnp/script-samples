@@ -1,0 +1,724 @@
+<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html lang="en">
+
+  <head>
+    <meta charset="utf-8">
+    <title>Get Azure AD app permission info (delegated or application) | PnP Samples </title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="title" content="Get Azure AD app permission info (delegated or application) | PnP Samples ">
+    <meta name="generator" content="docfx ">
+  <meta name="description" content="A sample gallery of scripts to manage all things Microsoft 365.">
+
+    <!-- Social Media -->
+    <meta property="og:locale" content="en_GB">
+    <meta property="og:title" content="Get Azure AD app permission info (delegated or application) | PnP Samples ">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://pnp.github.io/script-samples">
+    <meta property="og:image" content="https://pnp.github.io/script-samples/assets/social-media-screenshot.png">
+    <meta property="og:image:alt" content="Screenshot example of the PnP Script Samples Site">
+    <meta property="og:site_name" content="PnP Script Samples">
+    <meta name="msvalidate.01" content="04EFEDA66EC42C08A1247C979E2F9ADD">
+  <meta property="og:description" content="A sample gallery of scripts to manage all things Microsoft 365.">
+
+    <link rel="shortcut icon" href="https://c.s-microsoft.com/favicon.ico?v2">
+    <link rel="stylesheet" href="../styles/docfx.vendor.min.css">
+    <link rel="stylesheet" href="../styles/docfx.css">
+    <link rel="stylesheet" href="../styles/main.css">
+    <link rel="stylesheet" href="../styles/extra.css">
+    <link rel="stylesheet" href="../styles/filter.css">
+    <link rel="stylesheet" href="../styles/site.css">
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet"> 
+    <meta property="docfx:navrel" content="../toc.html">
+    <meta property="docfx:tocrel" content="../toc.html">
+  
+  
+  <meta property="docfx:newtab" content="true">
+    <script type="text/javascript">
+      (function(c,l,a,r,i,t,y){
+          c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+          t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+          y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+      })(window, document, "clarity", "script", "8j6pedl344");
+  </script>
+  </head>  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+             <div class="github-mark">
+              <a href="https://github.com/pnp/script-samples" title="Go to repository">
+               <div class="github-wrapper">
+                  <div class="github-icon">
+                    <img src="https://pnp.github.io/script-samples/assets/icons/github-light-64px.png" alt="GitHub Icon Image">
+                  </div>
+                  <div class="github-repository">
+                    <span>GitHub</span>
+                    <ul class="github-facts">
+                      <li>
+                        <i class="fa fa-code-fork" aria-hidden="true"></i>
+                        <span class="github-forks"></span>
+                      </li>
+                      <li>
+                        <i class="fa fa-star-o" aria-hidden="true"></i>
+                        <span class="github-stars"></span>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </a>
+            </div>
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../assets/logo.svg" alt="">
+              </a>            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <label class="glyphicon glyphicon-search" for="search-query"></label>
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>      </header>
+      <div role="main" class="container body-content hide-when-search">
+        <div class="article row grid">
+          <div class="col-md-12">
+            <article class="content wrap" id="_content" data-uid="">
+                  <div class="contribution-panel mobile-hide pull-right">
+                      <a href="https://github.com/pnp/script-samples/blob/main/scripts/aad-entrauser-offboarding/README.md/#L1" title="Edit this page" class="improve-doc-lg"><i class="glyphicon glyphicon-pencil"></i></a>
+                  </div>
+  <h1 id="get-azure-ad-app-permission-info-delegated-or-application">Get Azure AD app permission info (delegated or application)</h1>
+
+<h2 id="summary">Summary</h2>
+<p>Add-EntraAppPermission.ps1 adds requested Graph permissions to the app registration's requiredResourceAccess collection. It resolves permission names against the Microsoft Graph service principal and updates the app registration using Microsoft Graph. The script connects with Application.ReadWrite.All.</p>
+<p><img src="assets/example.png" alt="Example Screenshot"></p>
+<p>By default, the script has only registered Microsoft Graph and SharePoint Online Microsoft AAD apps (with their respective appId property). Feel free to add any other API listed <a href="https://learn.microsoft.com/troubleshoot/azure/active-directory/verify-first-party-apps-sign-in#application-ids-for-commonly-used-microsoft-applications">here</a> in the <code>AadApis</code> class!</p>
+<div class="tabGroup" id="tabgroup_1">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_1_cli-m365-ps" role="tab" aria-controls="tabpanel_1_cli-m365-ps" data-tab="cli-m365-ps" tabindex="0" aria-selected="true">CLI for Microsoft 365 using PowerShell</a>
+</li>
+<li role="presentation">
+<a href="#tabpanel_1_graphps" role="tab" aria-controls="tabpanel_1_graphps" data-tab="graphps" tabindex="-1">Microsoft Graph PowerShell</a>
+</li>
+</ul>
+<section id="tabpanel_1_cli-m365-ps" role="tabpanel" data-tab="cli-m365-ps">
+
+<pre><code class="lang-powershell">
+# User Input
+$api = &quot;Microsoft Graph&quot; # Or &quot;SharePoint&quot;
+$permission = &quot;Sites.Read.All&quot; # Can be &quot;Read&quot; if seeking more permissions
+
+# Connect to Microsoft 365
+if ($(m365 status) -match &quot;Logged Out&quot;) {
+  m365 login
+}
+
+# Configure the CLI to output as JSON on each execution
+$m365output = m365 cli config get --key output
+if ($m365output -notmatch &quot;json&quot;) {
+    m365 cli config set --key output --value json
+}
+
+# Get CLI commands JSON output converted as objects
+function Get-CLIValue {
+    [cmdletbinding()]
+    param(
+        [parameter(Mandatory = $true, ValueFromPipeline = $true)]
+        $input
+    )
+    
+    $output = $input | ConvertFrom-Json
+    if ($null -ne $output.error) {
+        throw $output.error
+    }
+    return $output
+}
+
+# Dedicated class to store Azure AD (AAD) Enterprise Microsoft Apps as valid param inputs 
+class AadApis : System.Management.Automation.IValidateSetValuesGenerator {
+    [String[]] GetValidValues() {
+        $Global:aadApis = @{
+            &quot;SharePoint&quot; = &quot;00000003-0000-0ff1-ce00-000000000000&quot;
+            &quot;Microsoft Graph&quot; = &quot;00000003-0000-0000-c000-000000000000&quot;
+        }
+
+        return ($Global:aadApis).Keys
+    }
+}
+
+# Method to get delegated or application permissions from a registered AAD MS App, based on name
+function Get-AADPermission {
+    [cmdletbinding()]
+    param(
+        [parameter(Mandatory)]
+        [ValidateSet([AadApis], IgnoreCase = $false)]
+        $ApiName,
+        [parameter(Mandatory)]
+        $PermissionName,
+        [parameter(Mandatory = $false)]
+        [Switch]$Delegated,
+        [parameter(Mandatory = $false)]
+        [Switch]$Application
+    )
+
+    try {
+        $sp = m365 aad sp get --appId ($Global:aadApis)[$ApiName] | Get-CLIValue
+
+        if ($Delegated) {
+            $permissionsInfo = $sp.oauth2PermissionScopes | Where-Object { $_.value -match $PermissionName }
+        }
+        elseif ($Application) {
+            $permissionsInfo = $sp.appRoles | Where-Object { $_.value -match $PermissionName }
+        }
+        else {
+            throw &quot;Please define if seeked permission is a delegated (-Scope) or an application (-Role) one&quot;
+        }
+
+        if ($permissionsInfo) {
+            Write-Host &quot;AAD app info:&quot;
+            Write-Host ($sp | Select-Object id, appId, displayName | Format-List | Out-String)
+            Write-Host &quot;-----------&quot;
+            Write-Host &quot;Permissions info:&quot;
+
+            foreach ($perm in $permissionsInfo) {
+                Write-Host ($perm | Format-List | Out-String)
+            }
+        }
+        else {
+            $permissionType = (&amp;{If($Delegated -eq $true) {&quot;Delegated&quot;} Else {&quot;Application&quot;}})
+            
+            Write-Warning &quot;No $($permissionType) permission named [$($PermissionName)] found for $($ApiName) App&quot;
+        }
+    }
+    catch {
+        Write-Error $_.Exception
+    }
+}
+
+# Run the command
+Get-AADPermission -ApiName $api -PermissionName $permission -Application
+
+</code></pre>
+<div class="highlight-tool">
+<p>Check out the <strong>CLI for Microsoft 365</strong> to learn more at: <a href="https://aka.ms/cli-m365">https://aka.ms/cli-m365</a></p>
+</div>
+<div class="highlight-tool-red">
+<p>Important changes coming to the way you login into CLI for Microsoft 365 (effective 9th September 2024) see <a href="https://pnp.github.io/blog/post/changes-pnp-management-shell-registration/">Changes in PnP Management Shell registration in Microsoft 365</a></p>
+</div>
+</section>
+<section id="tabpanel_1_graphps" role="tabpanel" data-tab="graphps" aria-hidden="true" hidden="hidden">
+
+<pre><code class="lang-powershell">
+##########################################################################
+
+#EntraUser-OffBoarding.ps1
+
+#This PowerShell script provides a comprehensive, automated solution for securely offboarding users from an organization's Microsoft 365/Entra ID environment. It ensures that departing users lose all access to organizational resources while maintaining proper audit trails.
+
+#Author: Sujin Nelladath, Microsoft Graph MVP
+
+#LinkedIn : https://www.linkedin.com/in/sujin-nelladath-8911968a/
+
+############################################################################
+
+
+# ENTRA ID- FULL OFFBOARDING
+
+# ===============================
+
+# Define mandatory parameter for user UPN
+
+param(
+    [Parameter(Mandatory = $true)]
+    [string]$userUPN
+)
+if (-not $userUPN) 
+{
+    $userUPN = Read-Host &quot;Enter the user UPN to offboard&quot;
+}
+
+#Set-ExecutionPolicy
+
+Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser
+
+
+# ===============================
+
+# Connect to Microsoft Graph
+
+Connect-MgGraph -Scopes  &quot;User.ReadWrite.All&quot;, &quot;Group.ReadWrite.All&quot;, &quot;Directory.ReadWrite.All&quot;, &quot;AppRoleAssignment.ReadWrite.All&quot;
+ 
+
+# -------------------------------
+
+# USER TO OFFBOARD
+
+# -------------------------------
+
+
+ 
+
+# Get user with error handling
+try
+
+{
+    $UserEndpoint = &quot;https://graph.microsoft.com/v1.0/users/$userUPN&quot;
+    $user = Invoke-MgGraphRequest -Method GET -Uri $UserEndpoint
+    
+    Write-Host &quot;Found user: $($user.displayName)&quot; -ForegroundColor Green
+}
+catch
+
+{
+    Write-Host &quot;Error: User not found - $userUPN&quot; -ForegroundColor Red
+    exit 1
+}
+
+ 
+
+Write-Host &quot;Offboarding user:&quot; $user.displayName -ForegroundColor Cyan
+
+ 
+
+# -------------------------------
+
+# 1. BLOCK SIGN-IN
+
+# -------------------------------
+
+# Block user sign-in using Graph API
+$updateEndpoint = &quot;https://graph.microsoft.com/v1.0/users/$($user.id)&quot;
+$updateBody = @{
+    accountEnabled = $false
+} | ConvertTo-Json
+
+Invoke-MgGraphRequest -Method PATCH -Uri $updateEndpoint -Body $updateBody -ContentType &quot;application/json&quot;
+
+Write-Host &quot;User sign-in blocked&quot;
+
+ 
+
+# -------------------------------
+
+# 2. REVOKE ACTIVE SESSIONS
+
+# -------------------------------
+
+# Revoke user sessions using Graph API
+$revokeEndpoint = &quot;https://graph.microsoft.com/v1.0/users/$($user.id)/revokeSignInSessions&quot;
+Invoke-MgGraphRequest -Method POST -Uri $revokeEndpoint
+
+Write-Host &quot;Sessions revoked&quot;
+
+ 
+
+# -------------------------------
+
+# 3. REMOVE FROM ALL GROUPS
+
+# -------------------------------
+
+# Get user group memberships using Graph API
+$groupsEndpoint = &quot;https://graph.microsoft.com/v1.0/users/$($user.id)/memberOf&quot;
+$groupsResponse = Invoke-MgGraphRequest -Method GET -Uri $groupsEndpoint
+$groups = $groupsResponse.value
+
+ 
+
+foreach ($group in $groups) 
+
+{
+    try 
+    
+    {
+        # Remove user from group using Graph API
+        $removeGroupEndpoint = &quot;https://graph.microsoft.com/v1.0/groups/$($group.id)/members/$($user.id)/`$ref&quot;
+        Invoke-MgGraphRequest -Method DELETE -Uri $removeGroupEndpoint -ErrorAction Stop
+        Write-Host &quot;Removed from group: $($group.displayName)&quot; -ForegroundColor Yellow
+    }
+    catch 
+    
+    {
+        Write-Host &quot;  Warning: Could not remove from group $($group.id) - $($_.Exception.Message)&quot; -ForegroundColor Yellow
+    }
+}
+
+ 
+
+Write-Host &quot;Removed from all groups&quot;
+
+ 
+
+# -------------------------------
+
+# 4. REMOVE ALL APP ASSIGNMENTS
+
+# -------------------------------
+
+# Get user app role assignments using Graph API
+$appAssignmentsEndpoint = &quot;https://graph.microsoft.com/v1.0/users/$($user.id)/appRoleAssignments&quot;
+$appAssignmentsResponse = Invoke-MgGraphRequest -Method GET -Uri $appAssignmentsEndpoint
+$appAssignments = $appAssignmentsResponse.value
+
+ 
+
+foreach ($app in $appAssignments)
+
+ {
+    try
+    
+    {
+        # Remove app role assignment using Graph API
+        $removeAppEndpoint = &quot;https://graph.microsoft.com/v1.0/users/$($user.id)/appRoleAssignments/$($app.id)&quot;
+        Invoke-MgGraphRequest -Method DELETE -Uri $removeAppEndpoint -ErrorAction Stop
+        Write-Host &quot;  Removed app assignment: $($app.resourceDisplayName)&quot; -ForegroundColor Yellow
+    }
+    catch 
+    
+    {
+        Write-Host &quot;  Warning: Could not remove app assignment $($app.id) - $($_.Exception.Message)&quot; -ForegroundColor Yellow
+    }
+}
+
+ 
+
+Write-Host &quot;Application access removed&quot;
+
+ 
+
+# -------------------------------
+
+# 5. REMOVE ALL LICENSES
+
+# -------------------------------
+
+# Get user licenses using Graph API
+$licensesEndpoint = &quot;https://graph.microsoft.com/v1.0/users/$($user.id)/licenseDetails&quot;
+$licensesResponse = Invoke-MgGraphRequest -Method GET -Uri $licensesEndpoint
+$licenses = $licensesResponse.value | ForEach-Object { $_.skuId }
+
+ 
+
+if ($licenses.Count -gt 0)
+
+ {
+    try 
+    
+    {
+        # Remove licenses using Graph API
+        $assignLicenseEndpoint = &quot;https://graph.microsoft.com/v1.0/users/$($user.id)/assignLicense&quot;
+        $licenseBody = @{
+            addLicenses    = @()
+            removeLicenses = $licenses
+        } | ConvertTo-Json -Depth 3
+        Invoke-MgGraphRequest -Method POST -Uri $assignLicenseEndpoint -Body $licenseBody -ContentType &quot;application/json&quot; -ErrorAction Stop
+        Write-Host &quot;Licenses removed&quot; -ForegroundColor Yellow
+    }
+    catch 
+    
+    {
+        Write-Host &quot;Warning: Could not remove licenses - $($_.Exception.Message)&quot; -ForegroundColor Yellow
+    }
+}
+else 
+
+{
+    Write-Host &quot;No licenses assigned&quot;
+}
+
+ 
+
+# -------------------------------
+
+# OFFBOARDING COMPLETE
+
+# -------------------------------
+
+Write-Host &quot;User has NO remaining access&quot; -ForegroundColor Green
+
+# USER ACCESS INVENTORY (Console Output Only)
+# Covers:
+# Directory (Entra ID) roles
+# Group memberships
+# Enterprise applications (SSO access)
+# App registrations owned
+
+# ================================
+
+# USER ACCESS INVENTORY- CONSOLE
+
+# ================================
+
+ 
+
+
+
+ 
+
+# -------------------------------
+
+# Connect (Read-only scopes)
+
+# -------------------------------
+
+
+$user = Invoke-MgGraphRequest -Method GET -Uri $UserEndpoint
+
+ 
+
+Write-Host &quot;`n===============================&quot; -ForegroundColor Cyan
+
+Write-Host &quot; USER ACCESS CHECKLIST&quot; -ForegroundColor Cyan
+
+Write-Host &quot;===============================&quot; -ForegroundColor Cyan
+
+Write-Host &quot;User        : $($user.displayName)&quot;
+
+Write-Host &quot;UPN         : $($user.userPrincipalName)&quot;
+
+Write-Host &quot;Account     : $(if ($user.accountEnabled) {'Enabled'} else {'Disabled'})&quot;
+
+Write-Host &quot;--------------------------------&quot;
+
+ 
+
+# ===============================
+
+# 1. DIRECTORY (ENTRA ID) ROLES
+
+# ===============================
+
+Write-Host &quot;`n[1] DIRECTORY ROLES&quot; -ForegroundColor Yellow
+
+ 
+
+# Get directory role assignments using Graph API
+$directoryRolesEndpoint = &quot;https://graph.microsoft.com/v1.0/roleManagement/directory/roleAssignments?`$filter=principalId eq '$($user.id)'&quot;
+$directoryRolesResponse = Invoke-MgGraphRequest -Method GET -Uri $directoryRolesEndpoint
+$directoryRoles = $directoryRolesResponse.value
+
+ 
+
+if ($directoryRoles) 
+
+{
+
+    foreach ($role in $directoryRoles) 
+    
+    {
+
+        # Get role definition using Graph API
+        $roleDefEndpoint = &quot;https://graph.microsoft.com/v1.0/roleManagement/directory/roleDefinitions/$($role.roleDefinitionId)&quot;
+        $roleDef = Invoke-MgGraphRequest -Method GET -Uri $roleDefEndpoint
+        Write-Host &quot; - $($roleDef.displayName)&quot;
+
+    }
+
+}
+else 
+
+{
+
+    Write-Host &quot; - None&quot;
+
+}
+
+ 
+
+# ===============================
+
+# 2. GROUP MEMBERSHIPS
+
+# ===============================
+
+Write-Host &quot;`n[2] GROUP MEMBERSHIPS&quot; -ForegroundColor Yellow
+
+ 
+
+# Get user group memberships using Graph API
+$groupsEndpoint = &quot;https://graph.microsoft.com/v1.0/users/$($user.id)/memberOf&quot;
+$groupsResponse = Invoke-MgGraphRequest -Method GET -Uri $groupsEndpoint
+$groups = $groupsResponse.value
+
+ 
+
+if ($groups)
+
+ {
+
+    foreach ($group in $groups) 
+    
+    {
+
+        # Get group details using Graph API
+        $groupEndpoint = &quot;https://graph.microsoft.com/v1.0/groups/$($group.id)&quot;
+        $g = Invoke-MgGraphRequest -Method GET -Uri $groupEndpoint -ErrorAction SilentlyContinue
+        if ($g) {
+            $type = if ($g.securityEnabled) { &quot;Security&quot; } else { &quot;M365 / Distribution&quot; }
+            Write-Host &quot; - $($g.displayName) [$type]&quot;
+        }
+
+    }
+
+} 
+
+else
+
+{
+
+    Write-Host &quot; - None&quot;
+
+}
+
+ 
+
+# ===============================
+
+# 3. ENTERPRISE APPLICATION ACCESS
+
+# ===============================
+
+Write-Host &quot;`n[3] ENTERPRISE APPLICATION ACCESS&quot; -ForegroundColor Yellow
+
+ 
+
+# Get user app role assignments using Graph API
+$appAssignmentsEndpoint = &quot;https://graph.microsoft.com/v1.0/users/$($user.id)/appRoleAssignments&quot;
+$appAssignmentsResponse = Invoke-MgGraphRequest -Method GET -Uri $appAssignmentsEndpoint
+$appAssignments = $appAssignmentsResponse.value
+
+ 
+
+if ($appAssignments)
+
+{
+    foreach ($app in $appAssignments) 
+    
+    {
+        # Get service principal using Graph API
+        $spEndpoint = &quot;https://graph.microsoft.com/v1.0/servicePrincipals/$($app.resourceId)&quot;
+        $sp = Invoke-MgGraphRequest -Method GET -Uri $spEndpoint -ErrorAction SilentlyContinue
+        if ($sp)
+        {
+            Write-Host &quot; - $($sp.displayName)&quot;
+        }
+    }
+}
+
+else
+{
+    Write-Host &quot; - None&quot;
+}
+
+ 
+
+# ===============================
+
+# 4. APP REGISTRATIONS OWNED
+
+# ===============================
+
+Write-Host &quot;`n[4] APP REGISTRATIONS OWNED&quot; -ForegroundColor Yellow
+
+ 
+
+# Get user owned objects using Graph API
+$ownedObjectsEndpoint = &quot;https://graph.microsoft.com/v1.0/users/$($user.id)/ownedObjects&quot;
+$ownedObjectsResponse = Invoke-MgGraphRequest -Method GET -Uri $ownedObjectsEndpoint
+$ownedApps = $ownedObjectsResponse.value | Where-Object { $_.'@odata.type' -eq '#microsoft.graph.application' }
+
+ 
+
+if ($ownedApps) 
+{
+    foreach ($app in $ownedApps) 
+    {
+        Write-Host &quot; - $($app.displayName)&quot;
+    }
+}
+else 
+{
+    Write-Host &quot; - None&quot;
+}
+
+ 
+
+# ===============================
+
+
+
+# ===============================
+
+
+Write-Host &quot;`n===============================&quot; -ForegroundColor Green
+
+Write-Host &quot; CHECKLIST COMPLETE&quot; -ForegroundColor Green
+
+
+Write-Host &quot;===============================&quot;
+
+</code></pre>
+<div class="highlight-tool">
+<p>Check out the <strong>Microsoft Graph PowerShell SDK</strong> to learn more at: <a href="https://learn.microsoft.com/powershell/microsoftgraph/get-started">https://learn.microsoft.com/powershell/microsoftgraph/get-started</a></p>
+</div>
+</section>
+</div>
+<h2 id="contributors">Contributors</h2>
+<table>
+<thead>
+<tr>
+<th>Author(s)</th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="https://github.com/nelladath">Sujin Nelladath</a></td>
+<td>(<a href="https://www.linkedin.com/in/sujin-nelladath-8911968a/">https://www.linkedin.com/in/sujin-nelladath-8911968a/</a>)</td>
+</tr>
+</tbody>
+</table>
+<h2 id="disclaimer">Disclaimer</h2>
+<p><strong>THESE SAMPLES ARE PROVIDED <em>AS IS</em> WITHOUT WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, INCLUDING ANY IMPLIED WARRANTIES OF FITNESS FOR A PARTICULAR PURPOSE, MERCHANTABILITY, OR NON-INFRINGEMENT.</strong></p>
+<img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/aad-add-app-permission" aria-hidden="true">
+
+</article>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+      <span>Script Samples<br>Generated by <strong><a href='https://dotnet.github.io/docfx' alt='Doc FX Website'>DocFX</a></strong> with <strong><a href='https://ovasquez.github.io/docfx-material' alt='DocFx Material Theme'>Material UI</a></strong></span>
+      
+            <!-- <img src="https://telemetry.sharepointpnp.com/@pnp.github.io/index/" alt="spacer"> -->
+          </div>
+        </div>
+      </footer>    </div>
+
+    <script type="text/javascript" src="../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+
+    <script type="text/javascript" src="../styles/clipboard.min.js"></script>
+    <script type="text/javascript" src="../styles/isotope.pkgd.min.js"></script>
+    <script type="text/javascript" src="../styles/loadsamples.js"></script>
+    <script type="text/javascript" src="../styles/filtersamples.js"></script>
+
+  </body>
+</html>

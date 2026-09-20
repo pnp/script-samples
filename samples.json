@@ -478,6 +478,64 @@
     ]
   },
   {
+    "name": "aad-entrauser-offboarding",
+    "title": "Offboard an Entra user",
+    "shortDescription": "Offboards an Entra user by removing their access and permissions.",
+    "url": "aad-entrauser-offboarding/README.html",
+    "creationDateTime": "2026-09-10",
+    "updateDateTime": "2026-09-10",
+    "products": [
+      "Graph",
+      "Entra ID"
+    ],
+    "metadata": [
+      {
+        "key": "CLI-FOR-MICROSOFT365",
+        "value": "5.5.0"
+      },
+      {
+        "key": "GRAPH-POWERSHELL",
+        "value": "1.11.0"
+      },
+      {
+        "key": "POWERSHELL",
+        "value": "7.2.1"
+      }
+    ],
+    "categories": [
+      "Configure",
+      "Security"
+    ],
+    "tags": [
+      "Connect-MgGraph",
+      "Invoke-MgGraphRequest",
+      "User.ReadWrite.All",
+      "Group.ReadWrite.All",
+      "Directory.ReadWrite.All",
+      "AppRoleAssignment.ReadWrite.All",
+      "requiredResourceAccess",
+      "app registration",
+      "delegated permission",
+      "application permission"
+    ],
+    "thumbnails": [
+      {
+        "type": "image",
+        "order": 100,
+        "url": "aad-entrauser-offboarding/assets/preview.png",
+        "alt": "Preview of the sample Offboard an Entra user"
+      }
+    ],
+    "authors": [
+      {
+        "gitHubAccount": "nelladath",
+        "company": "",
+        "pictureUrl": "https://github.com/nelladath.png",
+        "name": "Sujin Nelladath"
+      }
+    ]
+  },
+  {
     "name": "aad-export-compare-conditional-access-policies",
     "title": "Export & Compare Conditional-Access Policies (drift-detect)",
     "shortDescription": "This script exports Conditional Access Policies to JSON, stores them for version control, and detects changes between runs.",
