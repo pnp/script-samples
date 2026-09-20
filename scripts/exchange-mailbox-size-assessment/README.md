@@ -47,7 +47,7 @@ Run the script from a PowerShell session with access to the configured certifica
 
 The `$TopN` value can be changed to control how many of the largest mailboxes are included in the report.
 
-# [PnP PowerShell](#tab/pnpps)
+# [PowerShell](#tab/ps)
 
 ```powershell
 
@@ -274,3 +274,14 @@ Records:
 - The script uses **Get-EXOMailbox** and **Get-EXOMailboxStatistics**, which are appropriate Exchange Online REST-backed cmdlets for modern Exchange Online administration.
 - Application authentication should use a certificate stored and managed according to the organisation's security standards.
 - The script currently contains the application ID and certificate thumbprint in its configuration section; production implementations should consider securely managing configuration and secrets rather than embedding sensitive authentication material directly in scripts.
+
+***
+
+## Contributors
+
+| Author(s)|
+|-----------|
+|[Josiah Opiyo](https://github.com/ojopiyo)|
+
+[!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
+<img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/exchange-mailbox-size-assessment" aria-hidden="true" />
