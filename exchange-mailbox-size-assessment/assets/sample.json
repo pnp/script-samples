@@ -1,0 +1,56 @@
+[
+  {
+    "name": "exchange-mailbox-size-assessment",
+    "source": "pnp",
+    "title": "Exchange Online Mailbox Size Assessment",
+    "shortDescription": "This script connects to Exchange Online, lists user mailboxes, calculates mailbox sizes, and exports the largest mailboxes to a CSV report.",
+    "url": "https://pnp.github.io/script-samples/exchange-mailbox-size-assessment/README.html",
+    "longDescription": [
+      "Assesses mailbox growth across Exchange Online by collecting mailbox statistics, ranking the largest mailboxes, and exporting a timestamped CSV report with item counts and last logon details."
+    ],
+    "creationDateTime": "2026-09-20",
+    "updateDateTime": "2026-09-20",
+    "products": [
+      "Office"
+    ],
+    "metadata": [
+      {
+        "key": "POWERSHELL",
+        "value": "7.2.0"
+      }
+    ],
+    "categories": [
+      "Report",
+      "Security"
+    ],
+    "tags": [
+      "Connect-ExchangeOnline",
+      "Get-EXOMailbox",
+      "Get-EXOMailboxStatistics",
+      "Export-Csv"
+    ],
+    "thumbnails": [
+      {
+        "type": "image",
+        "order": 100,
+        "url": "https://raw.githubusercontent.com/pnp/script-samples/main/scripts/exchange-mailbox-size-assessment/assets/preview.png",
+        "alt": "Preview of the sample Exchange Online Mailbox Size Assessment"
+      }
+    ],
+    "authors": [
+      {
+        "gitHubAccount": "ojopiyo",
+        "company": "",
+        "pictureUrl": "https://github.com/ojopiyo.png",
+        "name": "Josiah Opiyo"
+      }
+    ],
+    "references": [
+      {
+        "name": "Exchange Online PowerShell module",
+        "description": "Learn how to connect to Exchange Online and use Exchange Online PowerShell cmdlets.",
+        "url": "https://learn.microsoft.com/powershell/exchange/connect-to-exchange-online-powershell"
+      }
+    ]
+  }
+]
