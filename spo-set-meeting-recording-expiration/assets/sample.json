@@ -1,0 +1,66 @@
+[
+  {
+    "name": "spo-set-meeting-recording-expiration",
+    "source": "pnp",
+    "title": "Set or extend the expiration date on existing Teams meeting recordings",
+    "shortDescription": "Bulk-sets the expiration date on Teams meeting recordings already stored in OneDrive or SharePoint using File.SetExpirationDate, the only write path for the read-only _ExpirationDate column.",
+    "url": "https://pnp.github.io/script-samples/spo-set-meeting-recording-expiration/README.html",
+    "longDescription": [
+      "Teams meeting recordings carry an expiration date stamped at creation from the meeting policy, and changing the policy does not touch existing files. The hidden _ExpirationDate column rejects every list item write, so this sample uses the CSOM File.SetExpirationDate method, which is what the OneDrive details pane calls. It lists each recording in a folder with its current date, then sets a new date a chosen number of days out. Works around the 5000-item list view threshold on large OneDrives by enumerating the folder rather than querying the library."
+    ],
+    "creationDateTime": "2026-09-10",
+    "updateDateTime": "2026-09-10",
+    "products": [
+      "SharePoint",
+      "Teams"
+    ],
+    "metadata": [
+      {
+        "key": "PNP-POWERSHELL",
+        "value": "3.4.1"
+      },
+      {
+        "key": "POWERSHELL",
+        "value": "7.6.4"
+      }
+    ],
+    "categories": [
+      "Configure",
+      "Data"
+    ],
+    "tags": [
+      "Connect-PnPOnline",
+      "Get-PnPFolderItem",
+      "Get-PnPFile",
+      "Invoke-PnPQuery"
+    ],
+    "thumbnails": [
+      {
+        "type": "image",
+        "order": 100,
+        "url": "https://raw.githubusercontent.com/pnp/script-samples/main/scripts/spo-set-meeting-recording-expiration/assets/preview.png",
+        "alt": "Preview of the sample Set or extend the expiration date on existing Teams meeting recordings"
+      }
+    ],
+    "authors": [
+      {
+        "gitHubAccount": "gabrooks",
+        "company": "",
+        "pictureUrl": "https://github.com/gabrooks.png",
+        "name": "George Brooks"
+      }
+    ],
+    "references": [
+      {
+        "name": "Want to learn more about PnP PowerShell and the cmdlets",
+        "description": "Check out the PnP PowerShell site to get started and for the reference to the cmdlets.",
+        "url": "https://aka.ms/pnp/powershell"
+      },
+      {
+        "name": "Manage Teams recording expiration policy",
+        "description": "Microsoft Learn article on the meeting policy setting that controls the default expiration for new recordings.",
+        "url": "https://learn.microsoft.com/en-us/microsoftteams/manage-teams-recording-expiration-policy"
+      }
+    ]
+  }
+]

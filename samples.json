@@ -17406,6 +17406,54 @@
     ]
   },
   {
+    "name": "spo-set-meeting-recording-expiration",
+    "title": "Set or extend the expiration date on existing Teams meeting recordings",
+    "shortDescription": "Bulk-sets the expiration date on Teams meeting recordings already stored in OneDrive or SharePoint using File.SetExpirationDate, the only write path for the read-only _ExpirationDate column.",
+    "url": "spo-set-meeting-recording-expiration/README.html",
+    "creationDateTime": "2026-09-10",
+    "updateDateTime": "2026-09-10",
+    "products": [
+      "SharePoint",
+      "Teams"
+    ],
+    "metadata": [
+      {
+        "key": "PNP-POWERSHELL",
+        "value": "3.4.1"
+      },
+      {
+        "key": "POWERSHELL",
+        "value": "7.6.4"
+      }
+    ],
+    "categories": [
+      "Configure",
+      "Data"
+    ],
+    "tags": [
+      "Connect-PnPOnline",
+      "Get-PnPFolderItem",
+      "Get-PnPFile",
+      "Invoke-PnPQuery"
+    ],
+    "thumbnails": [
+      {
+        "type": "image",
+        "order": 100,
+        "url": "spo-set-meeting-recording-expiration/assets/preview.png",
+        "alt": "Preview of the sample Set or extend the expiration date on existing Teams meeting recordings"
+      }
+    ],
+    "authors": [
+      {
+        "gitHubAccount": "gabrooks",
+        "company": "",
+        "pictureUrl": "https://github.com/gabrooks.png",
+        "name": "George Brooks"
+      }
+    ]
+  },
+  {
     "name": "spo-set-page-authorbyline",
     "title": "Set Page Author Byline",
     "shortDescription": "Sets the author by line of a modern page",
