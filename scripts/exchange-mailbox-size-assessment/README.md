@@ -279,9 +279,17 @@ Records:
 
 ## Contributors
 
-| Author(s)|
+|Author(s)|
 |-----------|
 |[Josiah Opiyo](https://github.com/ojopiyo)|
+
+*Built with a focus on automation, governance, least privilege, and clean Microsoft 365 tenants - helping M365 admins gain visibility and reduce operational risk.*
+
+## Version history
+
+|Version|Date|Comments|
+|-------|----|--------|
+|1.0|September 20, 2026|Initial release|
 
 [!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
 <img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/exchange-mailbox-size-assessment" aria-hidden="true" />
