@@ -175,3 +175,5 @@ Disconnect-PnPOnline
 | Safety         | Script remains read-only and makes no changes to SharePoint permissions.                                                    |
 
 [!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
+
+<img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/spo-get-m365-users-with-direct-sharepoint-permissions" />

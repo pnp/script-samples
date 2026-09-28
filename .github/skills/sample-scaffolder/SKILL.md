@@ -12,6 +12,7 @@ This will wrap the scaffolding process for a script sample that has been submitt
 - README.md file
 - assets folder with sample.json file
 - assets folder with a sample image
+- The final line of the script-root README.md must be `<img src="https://m365-visitor-stats.azurewebsites.net/script-samples/{script-path}" />`, where `{script-path}` is the repository-relative sample directory.
 
 ## Step by Step Workflow
 
@@ -26,5 +27,6 @@ When running this skill, it should be pointed at the folder in which the sample 
 This skill should
 
 - If a readme.md file is not present, it should create one using the template readme.md file and fill in the relevant information from the sample submission.
+- Ensure the script-root README.md ends with the current tracking image and replace `{script-path}` with a path such as `scripts/my-sample`.
 - Copy the template.sample.json file to the assets folder and rename it to sample.json. It should then fill in the relevant information from the sample submission into the sample.json file.
 - Copy the sample image to the assets folder.

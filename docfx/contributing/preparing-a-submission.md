@@ -24,8 +24,10 @@ There is a template submission folder called **"_template-script-submission"** i
 
 The template submission folder contains:
 
-- **README.md** - Sample Readme with the structure, remove the dummy text and update the areas for your submission
-- **assets/example.png** - image for the sample, simply replace with a screenshot to show in the article
+- **README.md** - Sample README with the required structure; remove the dummy text and update every section for your submission
+- **assets/template.sample.json** - Gallery metadata template; rename it to `sample.json` and replace the placeholder values
+- **assets/example.png** - Screenshot used in the README; replace it with an image of your sample
+- **assets/preview.png** - Gallery preview image; replace the placeholder with an image that represents your sample
 
 > [!note]
 > If you would like an example, please refer to the following script: [Generate Demo Events for SharePoint Events List | PnP Script Samples](https://pnp.github.io/script-samples/spo-generate-demo-events/README.html) <br />
@@ -75,8 +77,10 @@ The minimum we need for the submission is:
 - **Image**, ideally named "example.png" in an assets folder, presenting the end result of the operation. The more visual the better.
 - **Script** - minimum of at least one type. We support a wide range of script types, if this is not listed in the template file, we can add support for that type when you submit your PR.
 - **Contributors** - your name, or if a joint submission those you have worked with - so that we can attribute credit for the submission.
+- **Gallery metadata** - an `assets/sample.json` file with the sample name, description, products, categories, tools, author, and preview image details.
+- **Gallery preview** - an `assets/preview.png` image referenced by `assets/sample.json`.
 
-We add the disclaimer statement at the bottom.
+Keep the disclaimer near the bottom and the required tracking image as the final line of the script-root `README.md`.
 
 ### What is Markdown?
 
@@ -143,10 +147,10 @@ We add an additional block to provide guidance back to the tool guiding site:
 [!INCLUDE [More about CLI for Microsoft 365](../../docfx/includes/MORE-CLIM365.md)]
 ```
 
-## Optional files
+## Gallery metadata and preview
 
-- **assets/template.sample.json** - this is a metadata file used for the gallery views, this is optional *DO NOT HAVE TO COMPLETE THIS*
-- **assets/preview.png** - we generate a preview from the example.png file, you do not have to update this.
+- **assets/sample.json** - Required metadata used to publish the sample in gallery views. `New-Sample.ps1` creates this file. If you copy the template manually, rename `assets/template.sample.json` to `assets/sample.json` and replace its placeholder values.
+- **assets/preview.png** - Required preview image referenced by `assets/sample.json`. Replace the template image with a representative preview of your sample.
 
 ## Folder Structure
 
@@ -165,11 +169,21 @@ When you are submitting a new sample, it has to follow up below guidelines
 
 ### ReadMe File
 
-You will need to have a `README.md` file for your contribution, which is based on [the provided template](/../scripts/template-script-submission/README.md) under the `scripts` folder. Please copy this template to your project and update it accordingly. Your `README.md` must be named exactly `README.md` -- with capital letters -- as this is the information we use to make your sample public.
+You will need to have a `README.md` file for your contribution, which is based on [the provided template](../../scripts/_template-script-submission/README.md) under the `scripts` folder. Please copy this template to your project and update it accordingly. Your `README.md` must be named exactly `README.md` -- with capital letters -- as this is the information we use to make your sample public.
 
-Please update the image source at the bottom of the template, the `src` attribute according with the repository name and folder information. For example, if your sample is named `sampleA` in the `scripts` folder, you should update the `src` attribute to `https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/sampleA`
+The final line of every script-root `README.md` must be the tracking image:
 
-We use this for tracking your samples usage and popularity.
+```html
+<img src="https://m365-visitor-stats.azurewebsites.net/script-samples/{script-path}" />
+```
+
+Replace `{script-path}` with the sample folder's repository-relative path, using `/` separators and excluding the `README.md` filename. For example, `scripts/spo-get-list-items/README.md` must end with:
+
+```html
+<img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/spo-get-list-items" />
+```
+
+We use this image for tracking your sample's usage and popularity.
 
 ### Screenshot (optional)
 
@@ -204,6 +218,6 @@ e.g.
 
 ### We Track the Samples Usage
 
-The `README` template contains a specific tracking image at the bottom of the file with an `img` tag, where the `src` attribute points to `https://m365-visitor-stats.azurewebsites.net/script-samples/samples/readme-template`. This is a transparent image which is used to track viewership of individual samples in GitHub.
+The `README` template ends with a transparent tracking image used to track viewership of individual samples in GitHub. Keep the tracking image as the final line and replace `{script-path}` with the repository-relative sample directory, for example `scripts/spo-get-list-items`.
 
 <img src="https://m365-visitor-stats.azurewebsites.net/script-samples/contributing/preparing-a-submission" aria-hidden="true" />

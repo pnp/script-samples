@@ -77,3 +77,4 @@ Converts all blog pages in a site, this includes:
 
 [!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
 
+<img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/modernize-blog-pages" />

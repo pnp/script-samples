@@ -85,7 +85,7 @@ begin{
     $pluginDefaultName = "plugin: add-to-gallery-preparation"
     $pluginActiveName = "plugin: add-to-gallery"
     $readmeDefaultTitle = "<title>"
-    $readmeDefaultTelemetryLink = "https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/template-script-submission"
+    $readmeDefaultTelemetryLink = "https://m365-visitor-stats.azurewebsites.net/script-samples/{script-path}"
     $readmeDefaultAuthorName = "<-you->"
 
     $readmeSourceCreditTitle = "## Source Credit"
