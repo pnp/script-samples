@@ -29,7 +29,7 @@ If you need any support or want to know how to use GitHub then we have a great p
 
 ## Join the community calls
 
-Stay up to date with the latest Copilot, Microsoft 365, and Power Platform topics by joining our weekly community calls. Everyone is welcome—come to learn, ask questions, and connect with the community.
+Stay up to date with the latest Copilot, Microsoft 365, and Power Platform topics by joining our weekly community calls. Everyone is welcome. Come to learn, ask questions, and connect with the community.
 
 [View the call schedule and download the recurring invites](https://aka.ms/community/calls) so you don't miss an upcoming call.
 
