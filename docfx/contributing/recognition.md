@@ -3,10 +3,11 @@
 In PnP, we are all about community and we want to recognize your contributions. We have a few ways to do this
 
 
-## Community Calls
+## Community calls and demos
 
-Your submission is announced on the next "Microsoft 365 & Power Platform Development Community call", Bi-weekly on Thursdays 7:00 AM PT / 3:00 PM GMT.
-You are invited to join the call and we will provide a mention of your submission as a Thank you! - Join here: [https://aka.ms/spdev-sig-call-join](https://aka.ms/spdev-sig-call-join)
+Weekly Copilot, Microsoft 365, and Power Platform community calls are open to everyone. See the schedule and join at [https://aka.ms/community/calls](https://aka.ms/community/calls).
+
+You can also [request a community demo slot](https://aka.ms/community/request/demo) to share what you learned, show your solution, and provide input to the community.
 
 ## Social Media
 

@@ -482,3 +482,5 @@ The CSV contains information including:
 |1.0|September 09, 2026|Initial release|
 
 [!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
+
+<img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/spo-aspx-page-type-audit" />

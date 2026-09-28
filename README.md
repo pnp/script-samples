@@ -26,6 +26,13 @@ In this repo, we are created a template submission folder and files, complete th
 Check out our [Contribution Guidance](https://pnp.github.io/script-samples/contributing/index.html) before submitting your pull requests, so that we can get your contribution processed as fast as possible.
 
 If you need any support or want to know how to use GitHub then we have a great programme to [support new contributors | sharing is caring](https://pnp.github.io/sharing-is-caring/).
+
+## Join the community calls
+
+Stay up to date with the latest Copilot, Microsoft 365, and Power Platform topics by joining our weekly community calls. Everyone is welcome. Come to learn, ask questions, and connect with the community.
+
+[View the call schedule and download the recurring invites](https://aka.ms/community/calls) so you don't miss an upcoming call.
+
 ## Code of Conduct
 
 This repository has adopted the [Microsoft Open Source Code of Conduct](https://opensource.microsoft.com/codeofconduct/). For more information see the [Code of Conduct FAQ](https://opensource.microsoft.com/codeofconduct/faq/) or contact [opencode@microsoft.com](mailto:opencode@microsoft.com) with any additional questions or comments.

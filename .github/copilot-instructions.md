@@ -28,4 +28,6 @@
 
 - When advising the user on how to create a sample, instruct them to use the New-Sample.ps1 script, then post their PowerShell into the tabs in the Readme.md file. There are placeholders called "<your script>".
 
+- Every script-root `README.md` must end with `<img src="https://m365-visitor-stats.azurewebsites.net/script-samples/{script-path}" />`. Replace `{script-path}` with the repository-relative sample directory, such as `scripts/spo-get-list-items`.
+
 - If the user needs more help, there is contribution guidance here: https://pnp.github.io/script-samples/contributing/index.html

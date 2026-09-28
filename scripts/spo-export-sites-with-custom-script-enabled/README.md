@@ -201,3 +201,5 @@ The script generates a CSV report containing:
 |1.0|August 02, 2026|Initial release|
 
 [!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
+
+<img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/spo-export-sites-with-custom-script-enabled" />

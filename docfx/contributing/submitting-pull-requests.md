@@ -42,13 +42,11 @@ Please visit this page - [Preparing a submission](preparing-a-submission.md), to
 
 ## Step 4 - Create a pull request
 
-Ensure you commit your changes to your fork (copy of the site code) 
+Commit your changes and push or sync the branch to your fork.
 
 ![Commit Changes](../assets/contributing/commit-changes.png)
 
-Then click "Sync Changes"
-
-When you are ready to submit your sample, you will see a button to ```Open a Pull Request```
+When you are ready to submit your sample, open the branch on GitHub and select **Compare & pull request** or **Open a pull request**.
 
 ![Open a Pull Request](../assets/contributing/open-pull-request.png)
 
@@ -57,7 +55,7 @@ You will then be taken to a form, where you can complete:
 - Title of the Pull Request e.g. ```New Sample - Saving File to SharePoint```
 - Description - include some detail about the sample
 
-When you are happy with the Pull Request, click ```Create Pull Request```
+When you are happy with the pull request, select **Create pull request**.
 
 ![Complete Pull Request](../assets/contributing/complete-pull-request-form.png)
 

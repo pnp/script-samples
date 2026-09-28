@@ -1,7 +1,7 @@
 # <title>
 
 > [!Note]
-> This is a submission helper template please find the [contributor guidance](/docfx/contribute.md) to help you write this scenario.
+> This is a submission helper template. See the [preparing a submission guide](../../docfx/contributing/preparing-a-submission.md) for the required sample structure.
 
 ## Summary
 
@@ -98,4 +98,4 @@ Sample first appeared on [https://pnp.github.io/cli-microsoft365/sample-scripts/
 
 
 [!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
-<img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/template-script-submission" aria-hidden="true" />
+<img src="https://m365-visitor-stats.azurewebsites.net/script-samples/{script-path}" />

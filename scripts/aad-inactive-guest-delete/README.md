@@ -629,3 +629,5 @@ Disconnect-MgGraph
 |2.0|August 23, 2026|Refactored and improved version|
 
 [!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
+
+<img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/aad-inactive-guest-delete" />

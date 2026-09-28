@@ -33,7 +33,7 @@ Whenever you are submitting any changes to the SharePoint repositories, please f
 
 * Always [fork the repository](https://docs.github.com/en/get-started/quickstart/fork-a-repo) to your own account before making your modifications
 * Do not combine multiple changes to one [pull request](https://docs.github.com/en/pull-requests). For example, submit any samples and documentation updates using separate PRs. If you do no worries, this is a preference to help us organize the PRs.
-* If your pull request shows merge conflicts, make sure to update your local master to be a mirror of what's in the main repo before making your modifications. In your fork, GitHub shows a sync button to update your branch.
+* If your pull request shows merge conflicts, update your local `main` branch to match the upstream repository before making your modifications. In your fork, GitHub provides a sync option to update the branch.
 
 
 <img src="https://m365-visitor-stats.azurewebsites.net/script-samples/how-can-i-contribute" aria-hidden="true" />
