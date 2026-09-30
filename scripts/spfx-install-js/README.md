@@ -158,36 +158,38 @@ function getSpfxVersionFromAlias(alias) {
   return match ? match[1] : null;
 }
 
-// SPFx to Node.js compatibility matrix for versions without engines specification
-// Based on Microsoft's official SPFx compatibility documentation
+// SPFx to Node.js compatibility matrix for the releases that never declared an engines
+// range in the registry (everything before 1.12.1-rc.1), taken from the "SPFx development
+// environment compatibility" table at
+// https://learn.microsoft.com/sharepoint/dev/spfx/compatibility. Entries are keyed by
+// major.minor; an exact version entry overrides its minor where one patch differs.
 const COMPATIBILITY_MATRIX = {
-  "1.0.0": ">=6.9.1 <7.0.0",
-  "1.0.1": ">=6.9.1 <7.0.0",
-  "1.0.2": ">=6.9.1 <7.0.0",
-  "1.1.0": ">=6.9.1 <7.0.0",
-  "1.1.1": ">=6.9.1 <7.0.0",
-  "1.1.3": ">=6.9.1 <7.0.0",
-  "1.2.0": ">=6.9.1 <7.0.0",
-  "1.3.0": ">=8.9.4 <9.0.0",
-  "1.3.1": ">=8.9.4 <9.0.0",
-  "1.3.2": ">=8.9.4 <9.0.0",
-  "1.3.4": ">=8.9.4 <9.0.0",
-  "1.4.0": ">=8.9.4 <9.0.0",
-  "1.4.1": ">=8.9.4 <9.0.0",
-  "1.5.0": ">=8.9.4 <9.0.0",
-  "1.5.1": ">=8.9.4 <9.0.0",
-  "1.6.0": ">=8.9.4 <9.0.0",
-  "1.7.0": ">=8.9.4 <9.0.0",
-  "1.7.1": ">=8.9.4 <9.0.0",
-  "1.8.0": ">=10.13.0 <11.0.0",
-  "1.8.1": ">=10.13.0 <11.0.0",
-  "1.8.2": ">=10.13.0 <11.0.0",
-  "1.9.0": ">=10.13.0 <11.0.0",
-  "1.9.1": ">=10.13.0 <11.0.0",
-  "1.10.0": ">=10.13.0 <11.0.0",
-  "1.11.0": ">=10.13.0 <13.0.0",
-  "1.12.0": ">=10.13.0 <13.0.0",
+  "1.0": ">=6.9.1 <7.0.0",
+  "1.1": ">=6.9.1 <7.0.0",
+  "1.2": ">=6.9.1 <7.0.0",
+  "1.3": ">=6.9.1 <7.0.0",
+  "1.4.0": ">=6.9.1 <7.0.0",
+  "1.4": ">=6.9.1 <7.0.0 || >=8.9.4 <9.0.0",
+  "1.5": ">=6.9.1 <7.0.0 || >=8.9.4 <9.0.0",
+  "1.6": ">=6.9.1 <7.0.0 || >=8.9.4 <9.0.0",
+  "1.7": ">=8.9.4 <9.0.0",
+  "1.8.0": ">=8.9.4 <9.0.0",
+  "1.8.1": ">=8.9.4 <9.0.0",
+  "1.8": ">=8.9.4 <9.0.0 || >=10.13.0 <11.0.0",
+  "1.9": ">=8.9.4 <9.0.0 || >=10.13.0 <11.0.0",
+  "1.10": ">=8.9.4 <9.0.0 || >=10.13.0 <11.0.0",
+  "1.11": ">=10.13.0 <11.0.0",
+  "1.12": ">=10.13.0 <11.0.0 || >=12.13.0 <13.0.0",
 };
+
+// The matrix range for a version: an entry for the exact version wins (so one release can
+// pin a single Node.js version, e.g. "1.1.1": "6.10.3"), then its major.minor, else null.
+function matrixEngineRange(version) {
+  const exact = COMPATIBILITY_MATRIX[version];
+  if (exact) return exact;
+  const match = String(version).match(/^(\d+)\.(\d+)/);
+  return match ? COMPATIBILITY_MATRIX[`${match[1]}.${match[2]}`] || null : null;
+}
 
 // ---------------------------------------------------------------------------
 // npm registry
@@ -628,15 +630,20 @@ function detectSpfxVersionFromPackageJson() {
   return null;
 }
 
+// The package whose registry entry defines what an SPFx version is: the generator is what
+// gets installed, and its version list is exactly the installable set (it has patch
+// releases sp-core-library never shipped, and none of that package's plusbeta builds).
+const SPFX_PACKAGE = "@microsoft/generator-sharepoint";
+
 // The registry's own dist-tags name the current GA and prerelease; sorting version keys by
 // hand would keep picking a prerelease after its GA shipped.
 async function fetchSpfxDistTags() {
   const [latest, next] = await Promise.all([
-    fetchVersionManifest("@microsoft/sp-core-library", "latest"),
-    fetchVersionManifest("@microsoft/sp-core-library", "next"),
+    fetchVersionManifest(SPFX_PACKAGE, "latest"),
+    fetchVersionManifest(SPFX_PACKAGE, "next"),
   ]);
   if (!latest) {
-    throw new Error("@microsoft/sp-core-library has no 'latest' dist-tag");
+    throw new Error(`${SPFX_PACKAGE} has no 'latest' dist-tag`);
   }
   return { latest: latest.version, next: next ? next.version : null };
 }
@@ -738,9 +745,15 @@ async function resolveSpecialVersionAlias(version) {
   }
 }
 
-// The npm this run installs global packages with. Defaults to whatever is on PATH and is
-// repointed at the target Node version once that version is known (see npmForVersion).
-let targetNpm = "npm";
+// The npm this run installs global packages with: the target Node version's own, set once
+// that version is known (see resolveTargetNpm). Never the npm on PATH, which would put the
+// packages into whichever Node the shell happens to have active.
+let targetNpm = null;
+
+function targetNpmCommand() {
+  if (!targetNpm) throw new Error("no target npm resolved before a global npm operation");
+  return targetNpm;
+}
 
 // The npm of a specific Node version, run by that version's own node binary. `fnm use`
 // cannot switch a shell that has not evaluated `fnm env`, and a bare `npm install -g`
@@ -767,7 +780,24 @@ function npmForVersion(nodeVersion) {
 
   return fs.existsSync(node) && fs.existsSync(npmCli)
     ? `"${node}" "${npmCli}"`
-    : "npm";
+    : null;
+}
+
+// The target's npm command, or exit: falling back to the npm on PATH would install into
+// another Node's tree and report success.
+function resolveTargetNpm(nodeVersion) {
+  const npm = npmForVersion(nodeVersion);
+  if (npm) return npm;
+  const installation = path.join(
+    resolveFnmDir(),
+    "node-versions",
+    `v${nodeVersion}`,
+    "installation",
+  );
+  console.log(
+    colorize(`ERROR: Node.js ${nodeVersion} has no usable npm under ${installation}`, "red"),
+  );
+  process.exit(1);
 }
 
 // Node.js 6 ships npm 3, which fails in node_modules/.staging (ENOTDIR/ENOENT) on the first
@@ -797,7 +827,7 @@ function globalModulesDirFor(nodeVersion) {
 // The version its own npm reports, or null when the target has no working npm.
 function installedNpmVersion(nodeVersion) {
   const npm = npmForVersion(nodeVersion);
-  if (npm === "npm") return null; // launcher or CLI missing
+  if (!npm) return null; // launcher or CLI missing
   const result = execCommand(`${npm} --version`, { silent: true });
   return result.success ? result.output.trim() : null;
 }
@@ -882,7 +912,7 @@ async function ensureModernNpm(nodeVersion) {
     console.log(colorize(`ERROR: Could not replace npm: ${failure.message}`, "red"));
     process.exit(1);
   }
-  globalPackagesCache.delete(targetNpm);
+  globalPackagesCache.clear();
   console.log(colorize(`✓ npm ${NODE6_NPM_VERSION} installed into Node.js ${nodeVersion}`, "green"));
   console.log("");
 }
@@ -943,6 +973,18 @@ function createAlias(nodeVersion, aliasName) {
   }
 }
 
+// Create an alias or stop: continuing without it would print activation instructions for
+// an alias that does not exist. Nothing needs undoing at this point.
+function createAliasOrExit(nodeVersion, aliasName) {
+  const result = createAlias(nodeVersion, aliasName);
+  if (result.success) return;
+  console.log(
+    colorize(`ERROR: Could not create alias '${aliasName}' for Node.js ${nodeVersion}`, "red"),
+  );
+  if (result.output) console.log(colorize(`  ${result.output.trim()}`, "red"));
+  process.exit(1);
+}
+
 // Pinned per SPFx version, so an installation carrying these must keep exactly one SPFx
 // alias. The task runner is not pinned and is safe to share.
 const SCAFFOLDING_PACKAGES = ["yo", "@microsoft/generator-sharepoint"];
@@ -974,10 +1016,11 @@ function getSpfxAliasesForVersion(nodeVersion, ownAliases = []) {
 const globalPackagesCache = new Map();
 
 function getGlobalPackages() {
-  if (globalPackagesCache.has(targetNpm)) return globalPackagesCache.get(targetNpm);
+  const npm = targetNpmCommand();
+  if (globalPackagesCache.has(npm)) return globalPackagesCache.get(npm);
 
   let packages = {};
-  const result = execCommand(`${targetNpm} ls -g --depth=0 --json`, {
+  const result = execCommand(`${npm} ls -g --depth=0 --json`, {
     silent: true,
   });
   if (result.output) {
@@ -985,7 +1028,7 @@ function getGlobalPackages() {
       packages = JSON.parse(result.output).dependencies || {};
     } catch (e) {}
   }
-  globalPackagesCache.set(targetNpm, packages);
+  globalPackagesCache.set(npm, packages);
   return packages;
 }
 
@@ -997,8 +1040,9 @@ function checkGlobalPackage(packageName) {
 // Run `npm install -g <spec>` against the target npm and drop the cached listing on success.
 function installGlobalPackage(spec, force) {
   const forceFlag = force ? " --force" : "";
-  const result = execCommand(`${targetNpm} install -g ${spec}${forceFlag}`);
-  if (result.success) globalPackagesCache.delete(targetNpm);
+  const npm = targetNpmCommand();
+  const result = execCommand(`${npm} install -g ${spec}${forceFlag}`);
+  if (result.success) globalPackagesCache.delete(npm);
   return result;
 }
 
@@ -1159,7 +1203,9 @@ function parseEngineRange(engineRange) {
             max = [version[0], version[1] + 1, 0];
             break;
           default:
+            // A bare version is exact: that one patch and nothing newer.
             min = version;
+            max = [version[0], version[1], version[2] + 1];
             break;
         }
       }
@@ -1342,6 +1388,35 @@ async function installPackageManager(name, force, nodeVersion) {
 }
 
 async function installGenerators(version, force, nodeVersion) {
+  // Yeoman first: the generator is the largest install and the likeliest to fail, so a
+  // failure there leaves everything else already in place.
+  const yoSelectedVersion = await determineYeomanVersion(nodeVersion);
+  const yo = checkGlobalPackage("yo");
+
+  if (!force && yo.installed && yo.version === yoSelectedVersion) {
+    console.log(
+      colorize(
+        `✓ Yeoman ${yo.version} already installed; skipping (use -force to update)`,
+        "green",
+      ),
+    );
+  } else {
+    const msg = force
+      ? `Force (re)installing Yeoman ${yoSelectedVersion}`
+      : `Installing Yeoman version ${yoSelectedVersion}`;
+    console.log(colorize(`${msg}...`, "yellow"));
+
+    const result = installGlobalPackage(`yo@${yoSelectedVersion}`, force);
+    if (!result.success) {
+      console.log(
+        colorize(`ERROR: Failed to install Yeoman ${yoSelectedVersion}`, "red"),
+      );
+      process.exit(1);
+    }
+    console.log(colorize(`✓ Yeoman ${yoSelectedVersion} installed`, "green"));
+  }
+  console.log("");
+
   const generator = checkGlobalPackage("@microsoft/generator-sharepoint");
   const generatorInstalled =
     generator.installed && generator.version === version;
@@ -1367,33 +1442,6 @@ async function installGenerators(version, force, nodeVersion) {
       process.exit(1);
     }
     console.log(colorize("✓ SPFx generator installed", "green"));
-  }
-  console.log("");
-
-  const yoSelectedVersion = await determineYeomanVersion(nodeVersion);
-  const yo = checkGlobalPackage("yo");
-
-  if (!force && yo.installed && yo.version === yoSelectedVersion) {
-    console.log(
-      colorize(
-        `✓ Yeoman ${yo.version} already installed; skipping (use -force to update)`,
-        "green",
-      ),
-    );
-  } else {
-    const msg = force
-      ? `Force (re)installing Yeoman ${yoSelectedVersion}`
-      : `Installing Yeoman version ${yoSelectedVersion}`;
-    console.log(colorize(`${msg}...`, "yellow"));
-
-    const result = installGlobalPackage(`yo@${yoSelectedVersion}`, force);
-    if (!result.success) {
-      console.log(
-        colorize(`ERROR: Failed to install Yeoman ${yoSelectedVersion}`, "red"),
-      );
-      process.exit(1);
-    }
-    console.log(colorize(`✓ Yeoman ${yoSelectedVersion} installed`, "green"));
   }
   console.log("");
 
@@ -1514,7 +1562,7 @@ async function main() {
         console.log(
           colorize(`Creating friendly alias '${friendlyAlias}'...`, "yellow"),
         );
-        createAlias(aliasNodeVersion, friendlyAlias);
+        createAliasOrExit(aliasNodeVersion, friendlyAlias);
         console.log(colorize(`✓ Alias '${friendlyAlias}' created`, "green"));
       } else if (currentNodeVer !== aliasNodeVersion) {
         console.log(
@@ -1523,15 +1571,16 @@ async function main() {
             "yellow",
           ),
         );
-        createAlias(aliasNodeVersion, friendlyAlias);
+        createAliasOrExit(aliasNodeVersion, friendlyAlias);
         console.log(colorize(`✓ Alias '${friendlyAlias}' updated`, "green"));
       }
     }
 
     // Target the alias's own npm, so the checks and installs below read and write the same
-    // tree whether or not `fnm use` can switch this shell.
-    targetNpm = npmForVersion(aliasNodeVersion);
+    // tree whether or not `fnm use` can switch this shell. A Node.js 6 target may need its
+    // npm replaced first, so resolve the command only after that has run.
     await ensureModernNpm(aliasNodeVersion);
+    targetNpm = resolveTargetNpm(aliasNodeVersion);
 
     // Activate alias. Only a shell that has evaluated `fnm env` can be switched; say so
     // rather than claim success, as the new-installation path does.
@@ -1600,7 +1649,7 @@ async function main() {
 
     console.log("");
     console.log(colorize("Globally installed packages:", "yellow"));
-    execCommand(`${targetNpm} ls -g`);
+    execCommand(`${targetNpmCommand()} ls -g --depth=0`);
 
     return;
   }
@@ -1608,10 +1657,7 @@ async function main() {
   // New installation
   console.log(colorize("Fetching SPFx package information...", "yellow"));
   try {
-    const versionData = await fetchVersionManifest(
-      "@microsoft/sp-core-library",
-      version,
-    );
+    const versionData = await fetchVersionManifest(SPFX_PACKAGE, version);
 
     if (!versionData) {
       console.log(
@@ -1629,8 +1675,8 @@ async function main() {
 
     if (!nodeVersion) {
       // Try compatibility matrix fallback
-      if (COMPATIBILITY_MATRIX[version]) {
-        nodeVersion = COMPATIBILITY_MATRIX[version];
+      if (matrixEngineRange(version)) {
+        nodeVersion = matrixEngineRange(version);
         console.log(
           colorize(
             `  Required Node.js version: ${nodeVersion} (from compatibility matrix)`,
@@ -1940,7 +1986,7 @@ async function main() {
         "yellow",
       ),
     );
-    createAlias(nodeVersionSelected, aliasName);
+    createAliasOrExit(nodeVersionSelected, aliasName);
     console.log(colorize(`✓ Alias '${aliasName}' created`, "green"));
 
     if (specialAlias) {
@@ -1951,15 +1997,16 @@ async function main() {
           "yellow",
         ),
       );
-      createAlias(nodeVersionSelected, friendlyAlias);
+      createAliasOrExit(nodeVersionSelected, friendlyAlias);
       console.log(colorize(`✓ Alias '${friendlyAlias}' created`, "green"));
     }
     console.log("");
 
     // Point every subsequent global install at the version just installed, before
-    // attempting activation — the installs must not depend on activation succeeding.
-    targetNpm = npmForVersion(nodeVersionSelected);
+    // attempting activation — the installs must not depend on activation succeeding. A
+    // Node.js 6 target may need its npm replaced first, so resolve the command after that.
     await ensureModernNpm(nodeVersionSelected);
+    targetNpm = resolveTargetNpm(nodeVersionSelected);
 
     // Activate Node. This only works in a shell that has evaluated `fnm env`; report the
     // failure honestly rather than claiming success, since PATH still holds the old Node.
@@ -1987,7 +2034,7 @@ async function main() {
     }
     console.log("");
 
-    const npmVersionTarget = execCommand(`${targetNpm} --version`, {
+    const npmVersionTarget = execCommand(`${targetNpmCommand()} --version`, {
       silent: true,
     }).output.trim();
     console.log(colorize(`Target Node.js: v${nodeVersionSelected}`, "cyan"));
@@ -2025,7 +2072,7 @@ async function main() {
 
     console.log("");
     console.log(colorize("Globally installed packages:", "yellow"));
-    execCommand(`${targetNpm} ls -g`);
+    execCommand(`${targetNpmCommand()} ls -g --depth=0`);
     console.log("");
     console.log(colorize("=== Installation Complete ===", "cyan"));
     console.log("");
@@ -2083,6 +2130,7 @@ if (require.main === module) {
 module.exports = {
   ALIAS_PREFIX,
   COMPATIBILITY_MATRIX,
+  matrixEngineRange,
   REGISTRY_URL,
   checkFnmInstalled,
   colorize,
@@ -2102,6 +2150,7 @@ module.exports = {
   showFnmInstallInstructions,
   sortVersionsDescending,
   useColor,
+  createAlias,
   parseEngineRange,
   pickNextVersion,
   testNodeEngineCompatibility,

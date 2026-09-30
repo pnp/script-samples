@@ -44,38 +44,45 @@ function getSpfxVersionFromAlias(alias) {
     return match ? match[1] : null;
 }
 
-// SPFx to Node.js compatibility matrix for versions without engines specification
-// Based on Microsoft's official SPFx compatibility documentation
+// SPFx to Node.js compatibility matrix for the releases that never declared an engines
+// range in the registry (everything before 1.12.1-rc.1), taken from the "SPFx development
+// environment compatibility" table at
+// https://learn.microsoft.com/sharepoint/dev/spfx/compatibility. Entries are keyed by
+// major.minor; an exact version entry overrides its minor where one patch differs.
 const COMPATIBILITY_MATRIX = {
-    "1.0.0": ">=6.9.1 <7.0.0",
-    "1.0.1": ">=6.9.1 <7.0.0",
-    "1.0.2": ">=6.9.1 <7.0.0",
-    "1.1.0": ">=6.9.1 <7.0.0",
-    "1.1.1": ">=6.9.1 <7.0.0",
-    "1.1.3": ">=6.9.1 <7.0.0",
-    "1.2.0": ">=6.9.1 <7.0.0",
-    "1.3.0": ">=8.9.4 <9.0.0",
-    "1.3.1": ">=8.9.4 <9.0.0",
-    "1.3.2": ">=8.9.4 <9.0.0",
-    "1.3.4": ">=8.9.4 <9.0.0",
-    "1.4.0": ">=8.9.4 <9.0.0",
-    "1.4.1": ">=8.9.4 <9.0.0",
-    "1.5.0": ">=8.9.4 <9.0.0",
-    "1.5.1": ">=8.9.4 <9.0.0",
-    "1.6.0": ">=8.9.4 <9.0.0",
-    "1.7.0": ">=8.9.4 <9.0.0",
-    "1.7.1": ">=8.9.4 <9.0.0",
-    "1.8.0": ">=10.13.0 <11.0.0",
-    "1.8.1": ">=10.13.0 <11.0.0",
-    "1.8.2": ">=10.13.0 <11.0.0",
-    "1.9.0": ">=10.13.0 <11.0.0",
-    "1.9.1": ">=10.13.0 <11.0.0",
-    "1.10.0": ">=10.13.0 <11.0.0",
-    "1.11.0": ">=10.13.0 <13.0.0",
-    "1.12.0": ">=10.13.0 <13.0.0",
+    "1.0": ">=6.9.1 <7.0.0",
+    "1.1": ">=6.9.1 <7.0.0",
+    "1.2": ">=6.9.1 <7.0.0",
+    "1.3": ">=6.9.1 <7.0.0",
+    "1.4.0": ">=6.9.1 <7.0.0",
+    "1.4": ">=6.9.1 <7.0.0 || >=8.9.4 <9.0.0",
+    "1.5": ">=6.9.1 <7.0.0 || >=8.9.4 <9.0.0",
+    "1.6": ">=6.9.1 <7.0.0 || >=8.9.4 <9.0.0",
+    "1.7": ">=8.9.4 <9.0.0",
+    "1.8.0": ">=8.9.4 <9.0.0",
+    "1.8.1": ">=8.9.4 <9.0.0",
+    "1.8": ">=8.9.4 <9.0.0 || >=10.13.0 <11.0.0",
+    "1.9": ">=8.9.4 <9.0.0 || >=10.13.0 <11.0.0",
+    "1.10": ">=8.9.4 <9.0.0 || >=10.13.0 <11.0.0",
+    "1.11": ">=10.13.0 <11.0.0",
+    "1.12": ">=10.13.0 <11.0.0 || >=12.13.0 <13.0.0",
 };
 
+// The matrix range for a version: an entry for the exact version wins (so one release can
+// pin a single Node.js version, e.g. "1.1.1": "6.10.3"), then its major.minor, else null.
+function matrixEngineRange(version) {
+    const exact = COMPATIBILITY_MATRIX[version];
+    if (exact) return exact;
+    const match = String(version).match(/^(\d+)\.(\d+)/);
+    return match ? COMPATIBILITY_MATRIX[`${match[1]}.${match[2]}`] || null : null;
+}
+
 const REGISTRY_URL = "https://registry.npmjs.org";
+
+// The package whose registry entry defines what an SPFx version is: the generator is what
+// install-spfx installs, and its version list is exactly the installable set (it has patch
+// releases sp-core-library never shipped, and none of that package's plusbeta builds).
+const SPFX_PACKAGE = '@microsoft/generator-sharepoint';
 
 // Registry documents are large and a run asks for the same ones more than once, so each
 // request is made at most once per run. The key carries the options as well as the URL:
@@ -327,6 +334,15 @@ const LABELS = {
 // Friendly aliases install-spfx.js creates for its named versions, in display order
 const PRESET_ALIASES = ['spo', 'next', 'spse', 'sp2019', 'sp2016'].map(p => `${ALIAS_PREFIX}${p}`);
 
+// Whether a parsed version belongs on the requested channel: -released keeps GA versions
+// only, -prereleased keeps anything with a prerelease tag (beta, rc, plusbeta, ...), and
+// neither flag keeps everything.
+function onChannel(parsed, { released = false, prerelease = false } = {}) {
+    if (released) return !parsed.preRelease;
+    if (prerelease) return Boolean(parsed.preRelease);
+    return true;
+}
+
 // A pattern names a version prefix by whole segment: '1.2' matches 1.2, 1.2.x and
 // 1.2.0-beta.1 but not 1.20.0 or 1.23.x.
 function matchesPattern(version, pattern) {
@@ -431,7 +447,7 @@ function showHelp() {
     console.log('                (e.g., "1.19" matches 1.19.x and 1.19.0-rc.1 but not 1.190)');
     console.log('  -all          Show both installed and all available versions from npm registry');
     console.log('  -released     Like -all, but only released versions');
-    console.log('  -prereleased  Like -all, but only beta and rc versions');
+    console.log('  -prereleased  Like -all, but only prerelease versions (beta, rc, etc.)');
     console.log('  -limit <num>  Limits the number of available versions shown');
     console.log('');
     console.log('Examples:');
@@ -536,7 +552,7 @@ function installTypeFor(generatorVersion, spfxVersion) {
 // Engine requirement for one SPFx version: the registry's engines.node, else the curated
 // matrix for the early releases that never declared one.
 function engineRequirementFor(version, versionData) {
-    return versionData?.engines?.node || COMPATIBILITY_MATRIX[version] || LABELS.NOT_SPECIFIED;
+    return versionData?.engines?.node || matrixEngineRange(version) || LABELS.NOT_SPECIFIED;
 }
 
 const COLUMN = { alias: 20, node: 12, type: 15 };
@@ -578,7 +594,7 @@ async function main() {
     let npmDataPromise = null;
     const startRegistryFetch = () => {
         if (!npmDataPromise) {
-            npmDataPromise = httpGet(packageUrl('@microsoft/sp-core-library'), { abbreviated: true });
+            npmDataPromise = httpGet(packageUrl(SPFX_PACKAGE), { abbreviated: true });
         }
     };
     if (params.all) startRegistryFetch();
@@ -628,12 +644,9 @@ async function main() {
 
             if (params.all) {
                 // Listable: 1.0.0 and later, matching the pattern, and on the requested channel
-                const onChannel = parsed => params.released ? !parsed.preRelease
-                    : params.prerelease ? Boolean(parsed.preRelease)
-                    : true;
                 const isListable = version => {
                     const parsed = getSortVersion(version);
-                    return matchesPattern(version, params.pattern) && parsed.major >= 1 && onChannel(parsed);
+                    return matchesPattern(version, params.pattern) && parsed.major >= 1 && onChannel(parsed, params);
                 };
 
                 for (const version in npmData.versions) {
@@ -766,4 +779,4 @@ if (require.main === module) {
     });
 }
 
-module.exports = { INSTALL_TYPE, compareSpfxVersions, getSortVersion, installTypeFor, matchesPattern };
+module.exports = { INSTALL_TYPE, compareSpfxVersions, getSortVersion, installTypeFor, matchesPattern, onChannel };
