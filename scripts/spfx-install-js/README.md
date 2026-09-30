@@ -26,7 +26,7 @@ Key features:
 - Optionally installs pnpm (`-pnpm`) and yarn (`-yarn`) globally, resolved to versions compatible with the target Node.js.
 - `-force` reinstalls and also refreshes packages already present for the target Node.js version.
 - Global tooling is always installed into the target Node.js version's own tree using that version's npm, so nothing leaks into whichever Node.js happens to be active in your shell.
-- On very old targets (Node.js 6, needed for SPFx 1.1.0), replaces npm 3 with npm 6 so scoped packages can be installed.
+- Whenever the target is Node.js 6 (required by SPFx 1.0 through 1.3 and 1.4.0, including the SP2016 alias), replaces the bundled npm 3 with npm 6 so scoped packages can be installed.
 - Registry lookups use abbreviated manifests with a timeout and in-process cache, so repeated runs are fast and a flaky network fails clearly rather than hanging.
 - Built-in help (`-help`).
 
