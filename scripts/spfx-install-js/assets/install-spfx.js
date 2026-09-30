@@ -1836,25 +1836,12 @@ async function main() {
                 "yellow",
               ),
             );
-          } else if (compatibleInstalled.length > 0) {
-            // Only installations already claimed by another SPFx version remain.
-            nodeVersionSelected = compatibleInstalled[0].version;
-            reusedInstalled = true;
-            console.log(
-              colorize(
-                `  No unclaimed version left in range; reusing Node.js ${nodeVersionSelected}`,
-                "yellow",
-              ),
-            );
-            console.log(
-              colorize(
-                `  WARNING: Node.js ${nodeVersionSelected} is already claimed by another SPFx version; its global tools will be shared.`,
-                "yellow",
-              ),
-            );
           } else {
             console.log(
-              colorize("ERROR: No suitable Node.js version found!", "red"),
+              colorize(
+                "ERROR: No unclaimed Node.js version is available in the required range.",
+                "red",
+              ),
             );
             process.exit(1);
           }
