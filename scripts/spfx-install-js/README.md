@@ -1046,59 +1046,57 @@ function installGlobalPackage(spec, force) {
   return result;
 }
 
-// Determine build tool based on Heft version in sp-webpart-base
+// Which task runner an SPFx release builds with, read from the generator's own manifest:
+// no @rushstack/heft devDependency or a 0.x pin means the gulp toolchain (SPFx 1.0 to
+// 1.21.1 and the 1.22.0 betas); a 1.x or later pin means Heft, installed at that pin.
+function taskRunnerFor(manifest) {
+  const heftVersion = manifest?.devDependencies?.["@rushstack/heft"] || null;
+  if (!heftVersion) return { useHeft: false, heftVersion: null };
+  const heftMajor = parseInt(heftVersion.replace(/[\^~>=<]/g, "").split(".")[0], 10);
+  return heftMajor >= 1
+    ? { useHeft: true, heftVersion }
+    : { useHeft: false, heftVersion };
+}
+
+// Decide the task runner for a release, or exit: defaulting to gulp when the registry
+// cannot be read would install the wrong toolchain for a Heft release and call it ready.
 async function determineTaskRunner(version) {
+  let manifest;
   try {
-    const versionData = await fetchVersionManifest(
-      "@microsoft/sp-webpart-base",
-      version,
-    );
-
-    if (!versionData?.devDependencies?.["@rushstack/heft"]) {
-      return { useHeft: false, heftVersion: null };
-    }
-
-    const heftVersionString = versionData.devDependencies["@rushstack/heft"];
-    const heftMajor = parseInt(
-      heftVersionString.replace(/[\^~>=<]/g, "").split(".")[0],
-      10,
-    );
-
-    if (heftMajor >= 1) {
-      console.log(
-        colorize(
-          `SPFx ${version} uses Heft (Heft version ${heftVersionString})`,
-          "cyan",
-        ),
-      );
-
-      // Read the pinned Heft version from the generator's devDependencies.
-      const generatorData = await fetchVersionManifest(
-        "@microsoft/generator-sharepoint",
-        version,
-      );
-      const heftVersion =
-        generatorData?.devDependencies?.["@rushstack/heft"] || null;
-
-      return { useHeft: true, heftVersion };
-    } else {
-      console.log(
-        colorize(
-          `SPFx ${version} uses Gulp (Heft version ${heftVersionString} is pre-1.0)`,
-          "cyan",
-        ),
-      );
-      return { useHeft: false, heftVersion: null };
-    }
+    manifest = await fetchVersionManifest(SPFX_PACKAGE, version);
   } catch (error) {
     console.log(
       colorize(
-        "Warning: Could not check build tool, defaulting to Gulp",
-        "yellow",
+        `ERROR: Could not determine the task runner for SPFx ${version}: ${error.message}`,
+        "red",
       ),
     );
-    return { useHeft: false, heftVersion: null };
+    process.exit(1);
   }
+  if (!manifest) {
+    console.log(
+      colorize(
+        `ERROR: Could not determine the task runner for SPFx ${version}: not in the registry`,
+        "red",
+      ),
+    );
+    process.exit(1);
+  }
+
+  const runner = taskRunnerFor(manifest);
+  if (runner.useHeft) {
+    console.log(
+      colorize(`SPFx ${version} uses Heft (Heft version ${runner.heftVersion})`, "cyan"),
+    );
+  } else if (runner.heftVersion) {
+    console.log(
+      colorize(
+        `SPFx ${version} uses Gulp (Heft version ${runner.heftVersion} is pre-1.0)`,
+        "cyan",
+      ),
+    );
+  }
+  return { useHeft: runner.useHeft, heftVersion: runner.useHeft ? runner.heftVersion : null };
 }
 
 // Any "||" alternative may match; within one alternative every comparator must.
@@ -1111,105 +1109,107 @@ function testNodeEngineCompatibility(engineRange, nodeVersion) {
   );
 }
 
-// Split into {operator, version} pairs. An operator may be separated from its version by
-// whitespace — SPFx ships ">=22.14.0 < 23.0.0" — so the two must be matched together.
+// Split into {operator, version, specified} triples. An operator may be separated from its
+// version by whitespace — SPFx ships ">=22.14.0 < 23.0.0" — so the two must be matched
+// together. `specified` is how many numeric parts were written: npm reads a bare "18" as
+// 18.x.x, so a partial version is a range while a full one is exact. Wildcard parts (x, X,
+// *) end the numeric prefix, as in ">=18.*". A set that is only "*" or "x" (or empty)
+// means anything and yields []. Syntax this parser does not model, such as a hyphen range,
+// yields null.
 function tokenizeComparatorSet(range) {
+  const trimmed = range.trim();
+  if (trimmed === "" || trimmed === "*" || trimmed === "x" || trimmed === "X") return [];
+
   const tokens = [];
-  const pattern = /(>=|<=|>|<|\^|~)?\s*(\d+(?:\.\d+){0,2})/g;
+  const pattern = /(>=|<=|>|<|\^|~)?\s*(\d+(?:\.\d+){0,2})(?:\.[xX*])*/g;
   let match;
   let consumed = 0;
 
-  while ((match = pattern.exec(range)) !== null) {
+  while ((match = pattern.exec(trimmed)) !== null) {
     // Anything skipped between matches is syntax this parser does not model.
-    if (range.slice(consumed, match.index).trim()) return null;
+    if (trimmed.slice(consumed, match.index).trim()) return null;
     consumed = match.index + match[0].length;
     const version = parseVersionParts(match[2]);
     if (!version) return null;
-    tokens.push({ operator: match[1] || "=", version });
+    tokens.push({
+      operator: match[1] || "=",
+      version,
+      specified: match[2].split(".").length,
+    });
   }
 
-  if (range.slice(consumed).trim()) return null;
+  if (trimmed.slice(consumed).trim()) return null;
   return tokens.length > 0 ? tokens : null;
 }
 
-// Test a single comparator set (no "||") against a Node version. Returns false for a range
-// this parser cannot read, so unrecognized syntax never reads as "compatible".
-function testComparatorSet(range, nodeVersion) {
-  if (!range) return true;
+// The {min, max} window one comparator allows: min inclusive, max exclusive, either null
+// when open. Follows npm's rules for partial versions ("18" is 18.x.x, so ">18" starts at
+// 19.0.0) and for zero majors ("^0.14.0" stops at 0.15.0, "^0.0.3" at 0.0.4).
+function comparatorWindow({ operator, version, specified }) {
+  const [major, minor, patch] = version;
+  const nextMajor = [major + 1, 0, 0];
+  const nextMinor = [major, minor + 1, 0];
+  const nextPatch = [major, minor, patch + 1];
+  // Exclusive upper bound of the version as written: 18 -> 19.0.0, 18.1 -> 18.2.0, 18.1.3 -> 18.1.4
+  const above = specified === 3 ? nextPatch : specified === 2 ? nextMinor : nextMajor;
 
+  switch (operator) {
+    case ">=":
+      return { min: version, max: null };
+    case ">":
+      return { min: above, max: null };
+    case "<":
+      return { min: null, max: version };
+    case "<=":
+      return { min: null, max: above };
+    case "^":
+      if (major > 0 || specified === 1) return { min: version, max: nextMajor };
+      if (minor > 0 || specified === 2) return { min: version, max: nextMinor };
+      return { min: version, max: nextPatch };
+    case "~":
+      return { min: version, max: specified === 1 ? nextMajor : nextMinor };
+    default:
+      return { min: version, max: above };
+  }
+}
+
+// Test a single comparator set (no "||") against a Node version: every comparator's
+// window must contain it. Returns false for a range this parser cannot read, so
+// unrecognized syntax never reads as "compatible".
+function testComparatorSet(range, nodeVersion) {
   const tokens = tokenizeComparatorSet(range);
   if (!tokens) return false;
 
-  return tokens.every(({ operator, version }) => {
-    switch (operator) {
-      case ">=":
-        return compareVersions(nodeVersion, version) >= 0;
-      case ">":
-        return compareVersions(nodeVersion, version) > 0;
-      case "<=":
-        return compareVersions(nodeVersion, version) <= 0;
-      case "<":
-        return compareVersions(nodeVersion, version) < 0;
-      case "^":
-        return (
-          compareVersions(nodeVersion, version) >= 0 &&
-          compareVersions(nodeVersion, [version[0] + 1, 0, 0]) < 0
-        );
-      case "~":
-        return (
-          compareVersions(nodeVersion, version) >= 0 &&
-          compareVersions(nodeVersion, [version[0], version[1] + 1, 0]) < 0
-        );
-      default:
-        return compareVersions(nodeVersion, version) === 0;
-    }
+  return tokens.every((token) => {
+    const { min, max } = comparatorWindow(token);
+    return (
+      (!min || compareVersions(nodeVersion, min) >= 0) &&
+      (!max || compareVersions(nodeVersion, max) < 0)
+    );
   });
 }
 
-// The {min, max} window used to pick a Node version, taking the newest alternative.
-// Null when the range cannot be read, so the caller reports it rather than guessing.
+// The {min, max} window used to pick a Node version, taking the newest alternative. An
+// alternative is the intersection of its comparators' windows; one with no lower bound
+// starts at 0.0.0. Null when the range cannot be read, so the caller reports it rather
+// than guessing.
 function parseEngineRange(engineRange) {
   if (!engineRange) return null;
 
   const windows = engineRange
     .split("||")
     .map((alternative) => {
-      const tokens = tokenizeComparatorSet(alternative.trim());
+      const tokens = tokenizeComparatorSet(alternative);
       if (!tokens) return null;
 
       let min = null;
       let max = null;
-      for (const { operator, version } of tokens) {
-        // min is inclusive and max exclusive, so the strict/inclusive variants shift a patch.
-        switch (operator) {
-          case ">=":
-            min = version;
-            break;
-          case ">":
-            min = [version[0], version[1], version[2] + 1];
-            break;
-          case "<":
-            max = version;
-            break;
-          case "<=":
-            max = [version[0], version[1], version[2] + 1];
-            break;
-          case "^":
-            min = version;
-            max = [version[0] + 1, 0, 0];
-            break;
-          case "~":
-            min = version;
-            max = [version[0], version[1] + 1, 0];
-            break;
-          default:
-            // A bare version is exact: that one patch and nothing newer.
-            min = version;
-            max = [version[0], version[1], version[2] + 1];
-            break;
-        }
+      for (const token of tokens) {
+        const window = comparatorWindow(token);
+        if (window.min && (!min || compareVersions(window.min, min) > 0)) min = window.min;
+        if (window.max && (!max || compareVersions(window.max, max) < 0)) max = window.max;
       }
-      return min ? { min, max } : null;
+      return { min: min || [0, 0, 0], max };
     })
     .filter(Boolean);
 
@@ -1217,10 +1217,12 @@ function parseEngineRange(engineRange) {
 
   windows.sort((a, b) => compareVersions(b.min, a.min));
   const { min, max } = windows[0];
+  const lower = compareVersions(min, [0, 0, 0]) === 0 ? "" : `>=${min.join(".")}`;
+  const upper = max ? `<${max.join(".")}` : "";
   return {
     min,
     max,
-    label: `>=${min.join(".")}${max ? ` <${max.join(".")}` : ""}`,
+    label: [lower, upper].filter(Boolean).join(" ") || "*",
     alternatives: windows.length,
   };
 }
@@ -1237,39 +1239,62 @@ async function determineYeomanVersion(nodeVersion) {
 
 // The dist-tag latest wins whenever the target Node can run it, since the highest version
 // number is not always the current one: yarn 2.4.3 sorts above 1.22.22 but is a deprecated
-// shim. Falls back to "latest" when the registry is unreachable, never blocking an install.
+// shim. Otherwise the highest non-prerelease version that runs there, or null when none does.
+// A version that declares no engines is taken to run anywhere.
+function pickCompatibleVersion(data, nodeVersionParts) {
+  const runsOnTarget = (version) => {
+    const engines = data.versions[version]?.engines?.node;
+    if (!engines) return true;
+    return testNodeEngineCompatibility(engines, nodeVersionParts);
+  };
+
+  const latest = data["dist-tags"]?.latest;
+  if (latest && data.versions[latest] && runsOnTarget(latest)) {
+    return latest;
+  }
+
+  const candidates = sortVersionsDescending(
+    Object.keys(data.versions).filter(
+      (v) => !v.includes("-") && runsOnTarget(v),
+    ),
+  );
+
+  return candidates.length > 0 ? candidates[0] : null;
+}
+
+// The version of a package to install on the target Node, or exit. Installing a release
+// whose engines exclude the target, or guessing when the registry cannot be read, would
+// report an environment as ready when it is not.
 async function determineCompatibleVersion(packageName, nodeVersion) {
+  const nodeVersionParts = nodeVersion
+    .replace(/^v/, "")
+    .split(".")
+    .map(Number);
+
+  let data;
   try {
-    const data = await httpGet(
-      packageUrl(packageName),
-      { abbreviated: true },
-    );
-    const activeNodeVersion = nodeVersion
-      .replace(/^v/, "")
-      .split(".")
-      .map(Number);
-
-    const runsOnTarget = (version) => {
-      const engines = data.versions[version]?.engines?.node;
-      if (!engines) return true;
-      return testNodeEngineCompatibility(engines, activeNodeVersion);
-    };
-
-    const latest = data["dist-tags"]?.latest;
-    if (latest && data.versions[latest] && runsOnTarget(latest)) {
-      return latest;
-    }
-
-    const candidates = sortVersionsDescending(
-      Object.keys(data.versions).filter(
-        (v) => !v.includes("-") && runsOnTarget(v),
+    data = await httpGet(packageUrl(packageName), { abbreviated: true });
+  } catch (error) {
+    console.log(
+      colorize(
+        `ERROR: Could not read ${packageName} from the registry: ${error.message}`,
+        "red",
       ),
     );
-
-    return candidates.length > 0 ? candidates[0] : latest;
-  } catch (error) {
-    return "latest";
+    process.exit(1);
   }
+
+  const selected = pickCompatibleVersion(data, nodeVersionParts);
+  if (!selected) {
+    console.log(
+      colorize(
+        `ERROR: No release of ${packageName} supports Node.js ${nodeVersion}`,
+        "red",
+      ),
+    );
+    process.exit(1);
+  }
+  return selected;
 }
 
 async function installTaskRunnerTool(version, force, nodeVersion) {
@@ -2151,8 +2176,11 @@ module.exports = {
   sortVersionsDescending,
   useColor,
   createAlias,
+  comparatorWindow,
   parseEngineRange,
+  pickCompatibleVersion,
   pickNextVersion,
+  taskRunnerFor,
   testNodeEngineCompatibility,
   tokenizeComparatorSet,
 };

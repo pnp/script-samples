@@ -696,21 +696,24 @@ async function main() {
         spfxRows.sort((a, b) => compareSpfxVersions(getSortVersion(a.spfxVersion), getSortVersion(b.spfxVersion)));
         otherNodeRows.sort((a, b) => compareNodeVersions(a.nodeVersion, b.nodeVersion));
 
-        // One row per Node.js version, claimed by its newest SPFx alias; the rest of that
-        // Node's aliases are listed beneath it. Known limitation: the Install Type and Engine
-        // Requirement shown are those of the claiming alias only.
+        // One row per Node.js version, placed by its newest SPFx alias. The row is labelled
+        // by the first alias in sortAliases order (named alias such as spfx-spo first, then
+        // spfx-<version> aliases descending) and the rest are listed beneath it. Known
+        // limitation: the Install Type and Engine Requirement shown are those of the newest
+        // SPFx alias only.
         const displayedNodeVersions = new Set();
         for (const row of spfxRows) {
             if (displayedNodeVersions.has(row.nodeVersion)) continue;
             displayedNodeVersions.add(row.nodeVersion);
 
+            const [primaryAlias, ...additionalAliases] = sortAliases([...row.aliases]);
             printRow([
-                { text: row.alias, color: 'magenta', width: COLUMN.alias },
+                { text: primaryAlias, color: 'magenta', width: COLUMN.alias },
                 { text: `v${row.nodeVersion}`, color: 'cyan', width: COLUMN.node },
                 { text: row.installType, color: row.installType === INSTALL_TYPE.FULL ? 'green' : 'yellow', width: COLUMN.type },
                 { text: engineRequirements.get(row.spfxVersion) || '', color: 'white' }
             ]);
-            for (const alias of sortAliases(row.aliases.filter(a => a !== row.alias))) {
+            for (const alias of additionalAliases) {
                 console.log(colorize(`  ${alias}`, 'magenta'));
             }
         }
