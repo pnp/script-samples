@@ -80,19 +80,19 @@ function list-spfx { node C:\path\to\list-spfx.js $args }
 
 ## Screenshots
 
-**Basic Usage - Installed Versions Only**
+**Basic Usage - Installed Versions Only**  
 ![Basic Usage - Installed Versions Only](assets/example1.png)
 
-**Show All Available Versions**
+**Show All Available Versions**  
 ![Show All Available Versions](assets/example2.png)
 
-**Filter by Version Pattern**
+**Filter by Version Pattern**  
 ![Filter by Version Pattern](assets/example3.png)
 
-**Limit Available Versions**
+**Limit Available Versions**  
 ![Limit Available Versions](assets/example4.png)
 
-**Help Output**
+**Help Output**  
 ![Help Output](assets/example5.png)
 
 # [Javascript](#tab/javascript)

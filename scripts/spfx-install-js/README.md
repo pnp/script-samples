@@ -89,16 +89,16 @@ function install-spfx { node C:\path\to\install-spfx.js $args }
 
 ## Screenshots
 
-**Help Output**
+**Help Output**  
 ![Help Output](assets/example1.png)
 
-**Installing SPO with Full Environment**
+**Installing SPO with Full Environment**  
 ![Installing SPO with Full Environment](assets/example2.png)
 
-**Installing a Specific Version (task runner only, reusing an installed Node.js)**
+**Installing a Specific Version (task runner only, reusing an installed Node.js)**  
 ![Installing a Specific Version](assets/example3.png)
 
-**Installation Complete with Usage Instructions**
+**Installation Complete with Usage Instructions**  
 ![Installation Complete with Usage Instructions](assets/example4.png)
 
 # [Javascript](#tab/javascript)
