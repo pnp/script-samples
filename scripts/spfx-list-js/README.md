@@ -126,7 +126,7 @@ const colors = {
     red: "\x1b[31m",
     gray: "\x1b[90m",
     white: "\x1b[37m",
-    magenta: "\x1b[35m",
+    magenta: "\x1b[95m",
 };
 
 function colorize(text, color) {
