@@ -31,7 +31,7 @@ const colors = {
   red: "\x1b[31m",
   gray: "\x1b[90m",
   white: "\x1b[37m",
-  magenta: "\x1b[35m",
+  magenta: "\x1b[95m",
 };
 
 function colorize(text, color) {
@@ -438,7 +438,7 @@ function showHelp() {
   console.log("");
   console.log("Arguments:");
   console.log(
-    "  [version]     SPFx version to install (e.g., 1.21.1, SPO, Next, SP2016, SP2019, SPSE)",
+    "  [version]     SPFx version to install (e.g., 1.21.1, SPO, Next, SPSE, SP2019, SP2016)",
   );
   console.log("                Default: SPO (if no version specified)");
   console.log(
@@ -472,9 +472,9 @@ function showHelp() {
     "  SPO           Latest GA release for SharePoint Online (default)",
   );
   console.log("  Next          Latest beta/RC release");
-  console.log("  SP2016        SharePoint 2016 on-premises (SPFx v1.1.0)");
-  console.log("  SP2019        SharePoint 2019 on-premises (SPFx v1.4.1)");
   console.log("  SPSE          SharePoint Subscription Edition (SPFx v1.5.1)");
+  console.log("  SP2019        SharePoint 2019 on-premises (SPFx v1.4.1)");
+  console.log("  SP2016        SharePoint 2016 on-premises (SPFx v1.1.0)");
   console.log("");
   console.log("Examples:");
   console.log("  node install-spfx.js              # Installs SPO (default)");
@@ -648,6 +648,27 @@ let targetNpm = null;
 function targetNpmCommand() {
   if (!targetNpm) throw new Error("no target npm resolved before a global npm operation");
   return targetNpm;
+}
+
+// Root of an fnm-installed Node version: <fnm dir>/node-versions/v<version>/installation
+function installationDir(nodeVersion) {
+  return path.join(
+    resolveFnmDir(),
+    "node-versions",
+    `v${nodeVersion}`,
+    "installation",
+  );
+}
+
+// List the target's global packages with its real installation path as the root. npm
+// otherwise prints the root it derives from the node binary's location, which under fnm on
+// Windows is the per-shell multishell junction rather than the versioned directory.
+function listGlobalPackages(nodeVersion) {
+  console.log("");
+  console.log(colorize("Globally installed packages:", "yellow"));
+  execCommand(
+    `${targetNpmCommand()} ls -g --depth=0 --prefix "${installationDir(nodeVersion)}"`,
+  );
 }
 
 // The npm of a specific Node version, run by that version's own node binary. `fnm use`
@@ -1567,9 +1588,7 @@ async function main() {
       );
     }
 
-    console.log("");
-    console.log(colorize("Globally installed packages:", "yellow"));
-    execCommand(`${targetNpmCommand()} ls -g --depth=0`);
+    listGlobalPackages(nodeVersionActual);
 
     return;
   }
@@ -1836,12 +1855,25 @@ async function main() {
                 "yellow",
               ),
             );
-          } else {
+          } else if (compatibleInstalled.length > 0) {
+            // Only installations already claimed by another SPFx version remain.
+            nodeVersionSelected = compatibleInstalled[0].version;
+            reusedInstalled = true;
             console.log(
               colorize(
-                "ERROR: No unclaimed Node.js version is available in the required range.",
-                "red",
+                `  No unclaimed version left in range; reusing Node.js ${nodeVersionSelected}`,
+                "yellow",
               ),
+            );
+            console.log(
+              colorize(
+                `  WARNING: Node.js ${nodeVersionSelected} is already claimed by another SPFx version; its global tools will be shared.`,
+                "yellow",
+              ),
+            );
+          } else {
+            console.log(
+              colorize("ERROR: No suitable Node.js version found!", "red"),
             );
             process.exit(1);
           }
@@ -1977,9 +2009,7 @@ async function main() {
       );
     }
 
-    console.log("");
-    console.log(colorize("Globally installed packages:", "yellow"));
-    execCommand(`${targetNpmCommand()} ls -g --depth=0`);
+    listGlobalPackages(nodeVersionSelected);
     console.log("");
     console.log(colorize("=== Installation Complete ===", "cyan"));
     console.log("");

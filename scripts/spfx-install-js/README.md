@@ -136,7 +136,7 @@ const colors = {
   red: "\x1b[31m",
   gray: "\x1b[90m",
   white: "\x1b[37m",
-  magenta: "\x1b[35m",
+  magenta: "\x1b[95m",
 };
 
 function colorize(text, color) {
@@ -543,7 +543,7 @@ function showHelp() {
   console.log("");
   console.log("Arguments:");
   console.log(
-    "  [version]     SPFx version to install (e.g., 1.21.1, SPO, Next, SP2016, SP2019, SPSE)",
+    "  [version]     SPFx version to install (e.g., 1.21.1, SPO, Next, SPSE, SP2019, SP2016)",
   );
   console.log("                Default: SPO (if no version specified)");
   console.log(
@@ -577,9 +577,9 @@ function showHelp() {
     "  SPO           Latest GA release for SharePoint Online (default)",
   );
   console.log("  Next          Latest beta/RC release");
-  console.log("  SP2016        SharePoint 2016 on-premises (SPFx v1.1.0)");
-  console.log("  SP2019        SharePoint 2019 on-premises (SPFx v1.4.1)");
   console.log("  SPSE          SharePoint Subscription Edition (SPFx v1.5.1)");
+  console.log("  SP2019        SharePoint 2019 on-premises (SPFx v1.4.1)");
+  console.log("  SP2016        SharePoint 2016 on-premises (SPFx v1.1.0)");
   console.log("");
   console.log("Examples:");
   console.log("  node install-spfx.js              # Installs SPO (default)");
@@ -753,6 +753,27 @@ let targetNpm = null;
 function targetNpmCommand() {
   if (!targetNpm) throw new Error("no target npm resolved before a global npm operation");
   return targetNpm;
+}
+
+// Root of an fnm-installed Node version: <fnm dir>/node-versions/v<version>/installation
+function installationDir(nodeVersion) {
+  return path.join(
+    resolveFnmDir(),
+    "node-versions",
+    `v${nodeVersion}`,
+    "installation",
+  );
+}
+
+// List the target's global packages with its real installation path as the root. npm
+// otherwise prints the root it derives from the node binary's location, which under fnm on
+// Windows is the per-shell multishell junction rather than the versioned directory.
+function listGlobalPackages(nodeVersion) {
+  console.log("");
+  console.log(colorize("Globally installed packages:", "yellow"));
+  execCommand(
+    `${targetNpmCommand()} ls -g --depth=0 --prefix "${installationDir(nodeVersion)}"`,
+  );
 }
 
 // The npm of a specific Node version, run by that version's own node binary. `fnm use`
@@ -1672,9 +1693,7 @@ async function main() {
       );
     }
 
-    console.log("");
-    console.log(colorize("Globally installed packages:", "yellow"));
-    execCommand(`${targetNpmCommand()} ls -g --depth=0`);
+    listGlobalPackages(nodeVersionActual);
 
     return;
   }
@@ -2095,9 +2114,7 @@ async function main() {
       );
     }
 
-    console.log("");
-    console.log(colorize("Globally installed packages:", "yellow"));
-    execCommand(`${targetNpmCommand()} ls -g --depth=0`);
+    listGlobalPackages(nodeVersionSelected);
     console.log("");
     console.log(colorize("=== Installation Complete ===", "cyan"));
     console.log("");
@@ -2191,7 +2208,7 @@ module.exports = {
 Version|Date|Comments
 -------|----|--------
 1.0|Dec 20, 2025|Initial release
-2.0|Sep 30, 2026|Node.js reuse without `-full`; dedicated Node.js per scaffolding install; `-pnpm`/`-yarn` flags; `-force` refreshes existing packages; `SSE` alias renamed `SPSE` (1.5.1); `SPO`/`Next` resolved from npm dist-tags; `\|\|` engine ranges honoured; global tools installed with the target Node.js's own npm; npm 6 on Node.js 6 for scoped packages; registry fetches cached with timeout; aliases pointing at removed Node.js versions rebuilt; help and error output clarified
+2.0|Oct 1, 2026|Node.js reuse without `-full`; dedicated Node.js per scaffolding install; `-pnpm`/`-yarn` flags; `-force` refreshes existing packages; `SSE` alias renamed `SPSE` (1.5.1); `SPO`/`Next` resolved from npm dist-tags; `\|\|` engine ranges honoured; global tools installed with the target Node.js's own npm; npm 6 on Node.js 6 for scoped packages; registry fetches cached with timeout; aliases pointing at removed Node.js versions rebuilt; claimed Node.js reused (with warning) when no unclaimed version is left in range; global package list shows the versioned install path; help and error output clarified
 
 ## Contributors
 
