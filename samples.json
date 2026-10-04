@@ -2155,6 +2155,49 @@
     ]
   },
   {
+    "name": "exo-deleted-recoverable-items-assessment",
+    "title": "Exchange Online Deleted & Recoverable Items Assessment",
+    "shortDescription": "This script assesses Deleted Items and Recoverable Items storage across Exchange Online user mailboxes and exports the highest-consuming mailboxes to CSV.",
+    "url": "exo-deleted-recoverable-items-assessment/README.html",
+    "creationDateTime": "2026-09-21",
+    "updateDateTime": "2026-09-21",
+    "products": [
+      "Office"
+    ],
+    "metadata": [
+      {
+        "key": "POWERSHELL",
+        "value": "7.2.0"
+      }
+    ],
+    "categories": [
+      "Report",
+      "Security"
+    ],
+    "tags": [
+      "Connect-ExchangeOnline",
+      "Get-EXOMailbox",
+      "Get-EXOMailboxFolderStatistics",
+      "Export-Csv"
+    ],
+    "thumbnails": [
+      {
+        "type": "image",
+        "order": 100,
+        "url": "exo-deleted-recoverable-items-assessment/assets/preview.png",
+        "alt": "Preview of the sample Exchange Online Deleted & Recoverable Items Assessment"
+      }
+    ],
+    "authors": [
+      {
+        "gitHubAccount": "ojopiyo",
+        "company": "",
+        "pictureUrl": "https://github.com/ojopiyo.png",
+        "name": "Josiah Opiyo"
+      }
+    ]
+  },
+  {
     "name": "export-data-from-microsoft-search",
     "title": "Export data from MS Search",
     "shortDescription": "Shows how to export data from MS Search, in this case the entityType externalItem ",
