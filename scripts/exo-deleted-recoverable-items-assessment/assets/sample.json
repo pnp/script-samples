@@ -1,0 +1,56 @@
+[
+  {
+    "name": "exo-deleted-recoverable-items-assessment",
+    "source": "pnp",
+    "title": "Exchange Online Deleted & Recoverable Items Assessment",
+    "shortDescription": "This script assesses Deleted Items and Recoverable Items storage across Exchange Online user mailboxes and exports the highest-consuming mailboxes to CSV.",
+    "url": "https://pnp.github.io/script-samples/exo-deleted-recoverable-items-assessment/README.html",
+    "longDescription": [
+      "Connects to Exchange Online with certificate-based app-only authentication, measures Deleted Items and Recoverable Items storage and item counts for user mailboxes, ranks mailboxes by combined storage, and writes a timestamped CSV report and execution log."
+    ],
+    "creationDateTime": "2026-09-21",
+    "updateDateTime": "2026-09-21",
+    "products": [
+      "Office"
+    ],
+    "metadata": [
+      {
+        "key": "POWERSHELL",
+        "value": "7.2.0"
+      }
+    ],
+    "categories": [
+      "Report",
+      "Security"
+    ],
+    "tags": [
+      "Connect-ExchangeOnline",
+      "Get-EXOMailbox",
+      "Get-EXOMailboxFolderStatistics",
+      "Export-Csv"
+    ],
+    "thumbnails": [
+      {
+        "type": "image",
+        "order": 100,
+        "url": "https://raw.githubusercontent.com/pnp/script-samples/main/scripts/exo-deleted-recoverable-items-assessment/assets/preview.png",
+        "alt": "Preview of the sample Exchange Online Deleted & Recoverable Items Assessment"
+      }
+    ],
+    "authors": [
+      {
+        "gitHubAccount": "ojopiyo",
+        "company": "",
+        "pictureUrl": "https://github.com/ojopiyo.png",
+        "name": "Josiah Opiyo"
+      }
+    ],
+    "references": [
+      {
+        "name": "Exchange Online PowerShell module",
+        "description": "Learn how to connect to Exchange Online and use Exchange Online PowerShell cmdlets.",
+        "url": "https://learn.microsoft.com/powershell/exchange/connect-to-exchange-online-powershell"
+      }
+    ]
+  }
+]
