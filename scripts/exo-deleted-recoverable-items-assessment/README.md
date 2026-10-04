@@ -56,7 +56,7 @@ Update the following variables before execution:
 
 `$TopN` controls the number of highest-consuming mailboxes included in the final report.
 
-# [PnP PowerShell](#tab/pnpps)
+# [Exchange Online PowerShell](#tab/exchangeonline)
 
 ```powershell
 
@@ -367,3 +367,4 @@ A failure processing an individual mailbox is logged as a warning and does not t
 |1.0|September 21, 2026|Initial release|
 
 [!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
+<img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/exo-deleted-recoverable-items-assessment" aria-hidden="true" />
