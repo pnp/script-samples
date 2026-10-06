@@ -1,6 +1,6 @@
 
 
-# Get Azure AD app permission info (delegated or application)
+# Audit Microsoft Entra ID Dynamic Groups using Microsoft Graph PowerShell
 
 ## Summary
 
