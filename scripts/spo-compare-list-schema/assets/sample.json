@@ -1,0 +1,54 @@
+[
+  {
+    "name": "spo-compare-list-schema",
+    "source": "pnp",
+    "title": "Compare SharePoint list schema between two sites",
+    "shortDescription": "A schema diff for SharePoint. Reports exactly what drifted between two sites (or a baseline versus a live site): lists only on one side, and per-column Added, Removed, or Changed.",
+    "url": "https://pnp.github.io/script-samples/spo-compare-list-schema/README.html",
+    "longDescription": [
+      "A schema diff for SharePoint, in the spirit of a SQL schema compare or a git diff. It does not copy anything; it reports what is actually different between two sites right now, which provisioning tools do not answer. For every custom column on every list and library it reports Added, Removed, or Changed (type, Required, choices, lookup target, formula, default, indexed), plus lists that exist on only one side. Because raw SchemaXml carries values that differ per site (GUIDs, ColName, version), it normalises each column to a canonical model and matches by internal name, resolving lookup targets from GUID to list title so lookups match across sites. Runs live-vs-live or baseline-vs-live (export a snapshot and commit it), writes console, HTML, and JSON reports, and sets an exit code (0 in sync, 2 drift) so a pipeline can gate on schema drift. Useful for environment drift, provisioning verification, migration validation, and schema in source control."
+    ],
+    "creationDateTime": "2026-09-12",
+    "updateDateTime": "2026-09-12",
+    "products": [
+      "SharePoint"
+    ],
+    "metadata": [
+      {
+        "key": "PNP-POWERSHELL",
+        "value": "3.3.0"
+      }
+    ],
+    "categories": [
+      "Report"
+    ],
+    "tags": [
+      "Connect-PnPOnline",
+      "Get-PnPList",
+      "Get-PnPField"
+    ],
+    "thumbnails": [
+      {
+        "type": "image",
+        "order": 100,
+        "url": "https://raw.githubusercontent.com/pnp/script-samples/main/scripts/spo-compare-list-schema/assets/preview.png",
+        "alt": "A SharePoint schema compare report showing lists and columns that differ between two sites"
+      }
+    ],
+    "authors": [
+      {
+        "gitHubAccount": "gvijaikumar9",
+        "company": "",
+        "pictureUrl": "https://github.com/gvijaikumar9.png",
+        "name": "Vijay Kumar G"
+      }
+    ],
+    "references": [
+      {
+        "name": "Want to learn more about PnP PowerShell and the cmdlets",
+        "description": "Check out the PnP PowerShell site to get started and for the reference to the cmdlets.",
+        "url": "https://aka.ms/pnp/powershell"
+      }
+    ]
+  }
+]
