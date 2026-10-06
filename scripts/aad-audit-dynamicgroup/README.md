@@ -117,11 +117,6 @@ Get-AADPermission -ApiName $api -PermissionName $permission -Application
 
 ```powershell
 
-
-
-```
-[!INCLUDE [More about Microsoft Graph PowerShell SDK](../../docfx/includes/MORE-GRAPHSDK.md)]
-***
 ##########################################################################
 
 #audit-aadDynamicGroup.ps1
@@ -207,6 +202,10 @@ if ($ExportCsv)
     $result | Export-Csv -Path $ExportCsv -NoTypeInformation -Encoding UTF8
     Write-Host "Saved to $ExportCsv"
 }
+
+```
+[!INCLUDE [More about Microsoft Graph PowerShell SDK](../../docfx/includes/MORE-GRAPHSDK.md)]
+***
 
 ## Contributors
 
