@@ -1,6 +1,6 @@
 
 
-# Audit Microsoft Entra ID Dynamic Groups using Microsoft Graph PowerShell
+# Audit Microsoft Entra ID Dynamic Groups using Microsoft Graph API & PowerShell
 
 ## Summary
 
