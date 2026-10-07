@@ -12315,7 +12315,7 @@
     "shortDescription": "Get a list of SharePoint Agents from SharePoint Online site and export agent metadata and contents to CSV.",
     "url": "spo-get-agent-list/README.html",
     "creationDateTime": "2025-03-17",
-    "updateDateTime": "2025-03-17",
+    "updateDateTime": "2026-09-27",
     "products": [
       "SharePoint",
       "Microsoft 365 Copilot"
@@ -12324,6 +12324,10 @@
       {
         "key": "PNP-POWERSHELL",
         "value": "2.99.90"
+      },
+      {
+        "key": "CLI-FOR-MICROSOFT365",
+        "value": "11.8.0"
       }
     ],
     "categories": [
@@ -12336,7 +12340,11 @@
     ],
     "tags": [
       "Connect-PnPOnline",
-      "ConvertFrom-Json"
+      "ConvertFrom-Json",
+      "m365 login",
+      "m365 spo list list",
+      "m365 spo listitem list",
+      "m365 spo file get"
     ],
     "thumbnails": [
       {
@@ -12352,6 +12360,12 @@
         "company": "",
         "pictureUrl": "https://avatars.githubusercontent.com/u/16476453?s=400&v=4",
         "name": "Valeras Narbutas"
+      },
+      {
+        "gitHubAccount": "OwnOptic",
+        "company": "",
+        "pictureUrl": "https://github.com/OwnOptic.png",
+        "name": "Elliot Margot"
       }
     ]
   },

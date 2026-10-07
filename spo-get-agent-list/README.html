@@ -114,6 +114,9 @@
 <li role="presentation">
 <a href="#tabpanel_1_pnpps" role="tab" aria-controls="tabpanel_1_pnpps" data-tab="pnpps" tabindex="0" aria-selected="true">PnP PowerShell</a>
 </li>
+<li role="presentation">
+<a href="#tabpanel_1_cli-m365-ps" role="tab" aria-controls="tabpanel_1_cli-m365-ps" data-tab="cli-m365-ps" tabindex="-1">CLI for Microsoft 365</a>
+</li>
 </ul>
 <section id="tabpanel_1_pnpps" role="tabpanel" data-tab="pnpps">
 
@@ -178,6 +181,71 @@ Write-Host $fileLocation
 <p>The way you login into PnP PowerShell has changed please read <a href="https://github.com/pnp/powershell/discussions/4249">PnP Management Shell EntraID app is deleted : what should I do ?</a></p>
 </div>
 </section>
+<section id="tabpanel_1_cli-m365-ps" role="tabpanel" data-tab="cli-m365-ps" aria-hidden="true" hidden="hidden">
+
+<pre><code class="lang-powershell">
+$url = &quot;https://[TenantName].sharepoint.com/sites/[SiteName]&quot;
+$fileLocation = &quot;C:\Projects\temp\SharePointAgentFiles.csv&quot;
+
+m365 login --ensure
+
+# Get all visible document libraries excluding system libraries
+$documentLibraries = m365 spo list list --webUrl $url --properties &quot;Id,Title,BaseTemplate,Hidden&quot; --filter &quot;BaseTemplate eq 101 and Hidden eq false&quot; --output json | ConvertFrom-Json
+$documentLibraries = $documentLibraries | Where-Object { $_.Title -notmatch &quot;Form Templates|Style Library|Site Pages&quot; }
+
+$allAgentFiles = @()
+$tempFile = Join-Path ([System.IO.Path]::GetTempPath()) &quot;spo-agent-$([guid]::NewGuid()).agent&quot;
+
+foreach ($library in $documentLibraries) {
+
+    # Agent files are the files with the .agent extension
+    $files = m365 spo listitem list --webUrl $url --listId $library.Id --fields &quot;FileLeafRef,FileRef&quot; --output json | ConvertFrom-Json
+    $files = $files | Where-Object { $_.FileLeafRef -like &quot;*.agent&quot; }
+
+    foreach ($file in $files) {
+
+        # An .agent file is JSON, which --asString prints as [object Object], so download it and read it from disk
+        m365 spo file get --webUrl $url --url $file.FileRef --asFile --path $tempFile
+        if ($LASTEXITCODE -ne 0) {
+            Write-Warning &quot;Could not download $($file.FileRef)&quot;
+            continue
+        }
+        $jsonData = Get-Content -Path $tempFile -Raw | ConvertFrom-Json
+
+        $agentData = [PSCustomObject]@{
+            FileName             = $file.FileLeafRef
+            FilePath             = $file.FileRef
+            SchemaVersion        = $jsonData.schemaVersion
+            CopilotName          = $jsonData.customCopilotConfig.gptDefinition.name
+            Description          = $jsonData.customCopilotConfig.gptDefinition.description
+            Instructions         = $jsonData.customCopilotConfig.gptDefinition.instructions
+            WelcomeMessage       = $jsonData.customCopilotConfig.conversationStarters.welcomeMessage.text
+            ConversationStarters = ($jsonData.customCopilotConfig.conversationStarters.conversationStarterList.text -join &quot;; &quot;)
+            Capabilities         = ($jsonData.customCopilotConfig.gptDefinition.capabilities.name -join &quot;; &quot;)
+            ReferencedURLs       = ($jsonData.customCopilotConfig.gptDefinition.capabilities.items_by_url.url -join &quot;; &quot;)
+            SiteIDs              = ($jsonData.customCopilotConfig.gptDefinition.capabilities.items_by_url.site_id -join &quot;; &quot;)
+            WebIDs               = ($jsonData.customCopilotConfig.gptDefinition.capabilities.items_by_url.web_id -join &quot;; &quot;)
+            ListIDs              = ($jsonData.customCopilotConfig.gptDefinition.capabilities.items_by_url.list_id -join &quot;; &quot;)
+            UniqueIDs            = ($jsonData.customCopilotConfig.gptDefinition.capabilities.items_by_url.unique_id -join &quot;; &quot;)
+        }
+
+        $allAgentFiles += $agentData
+    }
+}
+
+Remove-Item -Path $tempFile -ErrorAction SilentlyContinue
+
+$allAgentFiles | Export-Csv -Path $fileLocation -NoTypeInformation
+Write-Host $fileLocation
+
+</code></pre>
+<div class="highlight-tool">
+<p>Check out the <strong>CLI for Microsoft 365</strong> to learn more at: <a href="https://aka.ms/cli-m365">https://aka.ms/cli-m365</a></p>
+</div>
+<div class="highlight-tool-red">
+<p>Important changes coming to the way you login into CLI for Microsoft 365 (effective 9th September 2024) see <a href="https://pnp.github.io/blog/post/changes-pnp-management-shell-registration/">Changes in PnP Management Shell registration in Microsoft 365</a></p>
+</div>
+</section>
 </div>
 <h2 id="contributors">Contributors</h2>
 <table>
@@ -189,6 +257,9 @@ Write-Host $fileLocation
 <tbody>
 <tr>
 <td>Valeras Narbutas</td>
+</tr>
+<tr>
+<td><a href="https://github.com/OwnOptic">Elliot Margot</a></td>
 </tr>
 </tbody>
 </table>
