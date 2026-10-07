@@ -5127,7 +5127,7 @@
     "shortDescription": "Node.js script to install SharePoint Framework (SPFx) development environments with correct Node.js versions and build tools using fnm.",
     "url": "spfx-install-js/README.html",
     "creationDateTime": "2025-12-20",
-    "updateDateTime": "2025-12-20",
+    "updateDateTime": "2026-10-01",
     "products": [
       "SharePoint"
     ],
@@ -5227,7 +5227,7 @@
     "shortDescription": "Node.js script to list SharePoint Framework (SPFx) versions installed via fnm with their Node.js versions and optionally query available versions from npm.",
     "url": "spfx-list-js/README.html",
     "creationDateTime": "2025-12-14",
-    "updateDateTime": "2025-12-14",
+    "updateDateTime": "2026-09-30",
     "products": [
       "SharePoint"
     ],
@@ -5252,18 +5252,24 @@
       {
         "type": "image",
         "order": 100,
+        "url": "spfx-list-js/assets/preview.png",
+        "alt": "Preview of the List SPFx Versions script"
+      },
+      {
+        "type": "image",
+        "order": 200,
         "url": "spfx-list-js/assets/example1.png",
         "alt": "Basic usage showing installed SPFx versions"
       },
       {
         "type": "image",
-        "order": 200,
+        "order": 300,
         "url": "spfx-list-js/assets/example2.png",
         "alt": "Show all available versions from npm"
       },
       {
         "type": "image",
-        "order": 300,
+        "order": 400,
         "url": "spfx-list-js/assets/example3.png",
         "alt": "Filter by version pattern"
       }
