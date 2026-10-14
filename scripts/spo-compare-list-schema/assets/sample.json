@@ -8,8 +8,8 @@
     "longDescription": [
       "A schema diff for SharePoint, in the spirit of a SQL schema compare or a git diff. It does not copy anything; it reports what is actually different between two sites right now, which provisioning tools do not answer. For every custom column on every list and library it reports Added, Removed, or Changed (type, Required, choices, lookup target, formula, default, indexed), plus lists that exist on only one side. Because raw SchemaXml carries values that differ per site (GUIDs, ColName, version), it normalises each column to a canonical model and matches by internal name, resolving lookup targets from GUID to list title so lookups match across sites. Runs live-vs-live or baseline-vs-live (export a snapshot and commit it), writes console, HTML, and JSON reports, and sets an exit code (0 in sync, 2 drift) so a pipeline can gate on schema drift. Useful for environment drift, provisioning verification, migration validation, and schema in source control."
     ],
-    "creationDateTime": "2026-09-12",
-    "updateDateTime": "2026-09-12",
+    "creationDateTime": "2026-10-06",
+    "updateDateTime": "2026-10-06",
     "products": [
       "SharePoint"
     ],
