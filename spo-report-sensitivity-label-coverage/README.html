@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html lang="en">
+
+  <head>
+    <meta charset="utf-8">
+    <title>Report sensitivity label coverage for Copilot readiness | PnP Samples </title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="title" content="Report sensitivity label coverage for Copilot readiness | PnP Samples ">
+    <meta name="generator" content="docfx ">
+  <meta name="description" content="A sample gallery of scripts to manage all things Microsoft 365.">
+
+    <!-- Social Media -->
+    <meta property="og:locale" content="en_GB">
+    <meta property="og:title" content="Report sensitivity label coverage for Copilot readiness | PnP Samples ">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://pnp.github.io/script-samples">
+    <meta property="og:image" content="https://pnp.github.io/script-samples/assets/social-media-screenshot.png">
+    <meta property="og:image:alt" content="Screenshot example of the PnP Script Samples Site">
+    <meta property="og:site_name" content="PnP Script Samples">
+    <meta name="msvalidate.01" content="04EFEDA66EC42C08A1247C979E2F9ADD">
+  <meta property="og:description" content="A sample gallery of scripts to manage all things Microsoft 365.">
+
+    <link rel="shortcut icon" href="https://c.s-microsoft.com/favicon.ico?v2">
+    <link rel="stylesheet" href="../styles/docfx.vendor.min.css">
+    <link rel="stylesheet" href="../styles/docfx.css">
+    <link rel="stylesheet" href="../styles/main.css">
+    <link rel="stylesheet" href="../styles/extra.css">
+    <link rel="stylesheet" href="../styles/filter.css">
+    <link rel="stylesheet" href="../styles/site.css">
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet"> 
+    <meta property="docfx:navrel" content="../toc.html">
+    <meta property="docfx:tocrel" content="../toc.html">
+  
+  
+  <meta property="docfx:newtab" content="true">
+    <script type="text/javascript">
+      (function(c,l,a,r,i,t,y){
+          c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+          t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+          y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+      })(window, document, "clarity", "script", "8j6pedl344");
+  </script>
+  </head>  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+             <div class="github-mark">
+              <a href="https://github.com/pnp/script-samples" title="Go to repository">
+               <div class="github-wrapper">
+                  <div class="github-icon">
+                    <img src="https://pnp.github.io/script-samples/assets/icons/github-light-64px.png" alt="GitHub Icon Image">
+                  </div>
+                  <div class="github-repository">
+                    <span>GitHub</span>
+                    <ul class="github-facts">
+                      <li>
+                        <i class="fa fa-code-fork" aria-hidden="true"></i>
+                        <span class="github-forks"></span>
+                      </li>
+                      <li>
+                        <i class="fa fa-star-o" aria-hidden="true"></i>
+                        <span class="github-stars"></span>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </a>
+            </div>
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../assets/logo.svg" alt="">
+              </a>            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <label class="glyphicon glyphicon-search" for="search-query"></label>
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>      </header>
+      <div role="main" class="container body-content hide-when-search">
+        <div class="article row grid">
+          <div class="col-md-12">
+            <article class="content wrap" id="_content" data-uid="">
+                  <div class="contribution-panel mobile-hide pull-right">
+                      <a href="https://github.com/pnp/script-samples/blob/main/scripts/spo-report-sensitivity-label-coverage/README.md/#L1" title="Edit this page" class="improve-doc-lg"><i class="glyphicon glyphicon-pencil"></i></a>
+                  </div>
+  <h1 id="report-sensitivity-label-coverage-for-copilot-readiness">Report sensitivity label coverage for Copilot readiness</h1>
+
+<h2 id="summary">Summary</h2>
+<p>Before you turn Microsoft 365 Copilot loose on a site, one number matters: how much of the content has a sensitivity label, and how much does not? An unlabeled document is one Copilot can surface and summarise with no classification attached, so &quot;how much is unlabeled, and where?&quot; is a Copilot-readiness question, not just a compliance one.</p>
+<p>This read-only script answers it. It uses SharePoint Search, specifically the crawled managed property <code>InformationProtectionLabelId</code>, which holds a document's sensitivity-label GUID and is empty when the document is unlabeled, to count labeled versus unlabeled documents without walking every file. That means it scales across large libraries instead of enumerating them item by item. It groups the result per library, ranks the worst-covered library first, prints a site coverage percentage and a plain Copilot-exposure line, and can optionally write a CSV of every document and a styled HTML report. It sets an exit code (<code>0</code> fully covered, <code>2</code> gaps found) so a pipeline can gate on label coverage.</p>
+<p>It complements Microsoft Purview rather than reinventing it. Purview owns <em>applying</em> labels (manual labeling, default library labels, and, on the premium tiers, automatic labeling); this script does not change anything, it just finds where labels are missing so you can target them. That makes it useful even on tenants that do not have the premium auto-labeling licences, where you still want to see the gap and label by hand or with a default label.</p>
+<p><img src="assets/example.png" alt="Example Screenshot"></p>
+<div class="NOTE">
+<h5>Note</h5>
+<p>This report reflects the <strong>search index</strong>, not the live state of the site. Freshly uploaded, migrated, or just-labeled documents will not show the correct status until they have been crawled (minutes to a few hours on a fresh site). If a site returns no documents, the content most likely has not been crawled yet.</p>
+</div>
+<div class="NOTE">
+<h5>Note</h5>
+<p>Reading the site via search requires access to it. Register an app for interactive sign-in once with <code>Register-PnPEntraIDAppForInteractiveLogin</code> and pass its client id with <code>-ClientId</code>.</p>
+</div>
+<div class="tabGroup" id="tabgroup_1">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_1_pnpps" role="tab" aria-controls="tabpanel_1_pnpps" data-tab="pnpps" tabindex="0" aria-selected="true">PnP PowerShell</a>
+</li>
+</ul>
+<section id="tabpanel_1_pnpps" role="tabpanel" data-tab="pnpps">
+
+<pre><code class="lang-powershell">&lt;#
+.SYNOPSIS
+    Reports sensitivity-label coverage for a SharePoint site - how many documents
+    are UNLABELED (what Microsoft 365 Copilot would surface with no classification)
+    and where the gaps are.
+
+.DESCRIPTION
+    Read-only. Uses SharePoint Search (the crawled managed property
+    InformationProtectionLabelId) to find labeled vs unlabeled documents, so it
+    scales without walking every file. Groups results by library, ranks the
+    worst-covered first, and frames the gap in Copilot terms.
+
+    It complements Microsoft Purview auto-labeling - it does NOT apply labels, it
+    tells you WHERE labels are missing so you can target auto-labeling / default
+    labels. Nothing is changed.
+
+    IMPORTANT - it reflects the SEARCH INDEX, not real time. Freshly uploaded,
+    migrated or just-labeled documents will not show correct status until they
+    have been crawled (minutes to hours on a fresh site).
+
+.PARAMETER SiteUrl
+    The site to assess, e.g. https://contoso.sharepoint.com/sites/Marketing
+
+.PARAMETER ClientId
+    Entra app registration client id for the interactive PnP connection.
+
+.PARAMETER CsvPath
+    Optional. Writes the per-document rows to this CSV.
+
+.PARAMETER HtmlPath
+    Optional. Writes a styled HTML coverage report to this path.
+
+.PARAMETER MinUnlabeled
+    Optional. Only show libraries with at least this many unlabeled docs (hides noise).
+
+.EXAMPLE
+    .\Get-LabelCoverage.ps1 -SiteUrl &quot;https://contoso.sharepoint.com/sites/Marketing&quot; -ClientId &quot;00000000-0000-0000-0000-000000000000&quot;
+
+.EXAMPLE
+    .\Get-LabelCoverage.ps1 -SiteUrl &quot;https://contoso.sharepoint.com/sites/Marketing&quot; -ClientId &quot;00000000-0000-0000-0000-000000000000&quot; -CsvPath .\coverage.csv -HtmlPath .\coverage.html
+
+.NOTES
+    Exit codes: 0 = all documents labeled, 2 = unlabeled documents found, 1 = error.
+#&gt;
+[CmdletBinding()]
+param(
+    [Parameter(Mandatory)] [string] $SiteUrl,
+    [Parameter(Mandatory)] [string] $ClientId,
+    [string] $CsvPath,
+    [string] $HtmlPath,
+    [int]    $MinUnlabeled = 0
+)
+
+$ErrorActionPreference = 'Stop'
+
+function Write-Stage { param([string]$t) Write-Host &quot;`n=== $t ===&quot; -ForegroundColor Yellow }
+
+try {
+    # --- connect (read-only) ------------------------------------------------
+    Write-Stage &quot;Connecting&quot;
+    Connect-PnPOnline -Url $SiteUrl -ClientId $ClientId -Interactive
+    Write-Host &quot;  Connected to $SiteUrl&quot; -ForegroundColor Green
+
+    # --- pull documents + their label id via search -------------------------
+    Write-Stage &quot;Scanning documents (via search index)&quot;
+
+    # IsDocument:1 limits to files. Path scopes to this site collection.
+    # InformationProtectionLabelId holds the sensitivity-label GUID; empty = unlabeled.
+    $query = &quot;IsDocument:1 Path:$($SiteUrl.TrimEnd('/'))/*&quot;
+    $props = 'Path','Title','FileType','InformationProtectionLabelId','SiteTitle','SPSiteURL'
+
+    $rows = New-Object System.Collections.Generic.List[object]
+    $pageSize = 500
+    $start = 0
+    do {
+        $res = Submit-PnPSearchQuery -Query $query -SelectProperties $props -StartRow $start -MaxResults $pageSize -TrimDuplicates:$false
+        $batch = @($res.ResultRows)
+        foreach ($r in $batch) {
+            $path = [string]$r['Path']
+            if (-not $path) { continue }
+            $label = [string]$r['InformationProtectionLabelId']
+            # library = first path segment after the site collection url
+            $rel = $path.Substring($SiteUrl.TrimEnd('/').Length).TrimStart('/')
+            $lib = ($rel -split '/')[0]
+            $rows.Add([pscustomobject]@{
+                Library  = $lib
+                Title    = [string]$r['Title']
+                FileType = [string]$r['FileType']
+                Path     = $path
+                Labeled  = [bool]($label)        # non-empty label id =&gt; labeled
+                LabelId  = $label
+            })
+        }
+        $start += $pageSize
+    } while ($batch.Count -eq $pageSize -and $start -lt 10000)   # search relevance trim ~10k
+
+    $all = [object[]]$rows.ToArray()
+    if ($all.Count -eq 0) {
+        Write-Warning &quot;No documents returned by search. Either the site has no files, or (more likely on a fresh/just-migrated site) the content has not been crawled yet. Wait for the index and re-run.&quot;
+        exit 0
+    }
+
+    # --- aggregate per library ----------------------------------------------
+    Write-Stage &quot;Coverage&quot;
+
+    $byLib = $all | Group-Object Library | ForEach-Object {
+        $tot = $_.Count
+        $lab = @($_.Group | Where-Object Labeled).Count
+        $unl = $tot - $lab
+        [pscustomobject]@{
+            Library   = $_.Name
+            Total     = $tot
+            Labeled   = $lab
+            Unlabeled = $unl
+            Coverage  = if ($tot) { [math]::Round(100.0 * $lab / $tot, 1) } else { 0 }
+        }
+    } | Where-Object { $_.Unlabeled -ge $MinUnlabeled } |
+        Sort-Object Coverage, @{Expression='Unlabeled';Descending=$true}   # worst coverage first
+
+    $totalDocs = $all.Count
+    $totalUnl  = @($all | Where-Object { -not $_.Labeled }).Count
+    $siteCov   = if ($totalDocs) { [math]::Round(100.0 * ($totalDocs - $totalUnl) / $totalDocs, 1) } else { 0 }
+
+    $byLib | Format-Table Library, Total, Labeled, Unlabeled, @{N='Coverage %';E={$_.Coverage}} -AutoSize
+
+    Write-Host &quot;&quot;
+    Write-Host (&quot;  SITE COVERAGE : {0}%  ({1} of {2} documents labeled)&quot; -f $siteCov, ($totalDocs-$totalUnl), $totalDocs) -ForegroundColor Cyan
+    if ($totalUnl -gt 0) {
+        Write-Host (&quot;  COPILOT EXPOSURE : {0} unlabeled document(s) will be surfaced by Copilot with no classification.&quot; -f $totalUnl) -ForegroundColor Red
+    } else {
+        Write-Host &quot;  No unlabeled documents found.&quot; -ForegroundColor Green
+    }
+
+    # --- optional CSV -------------------------------------------------------
+    if ($CsvPath) {
+        $all | Select-Object Library, Title, FileType, Labeled, LabelId, Path |
+            Export-Csv -Path $CsvPath -NoTypeInformation -Encoding UTF8
+        Write-Host &quot;  CSV written: $CsvPath&quot; -ForegroundColor Green
+    }
+
+    # --- optional HTML ------------------------------------------------------
+    if ($HtmlPath) {
+        Add-Type -AssemblyName System.Web
+        $rowsHtml = ($byLib | ForEach-Object {
+            $cls = if ($_.Coverage -lt 50) { 'bad' } elseif ($_.Coverage -lt 90) { 'warn' } else { 'ok' }
+            &quot;&lt;tr class='$cls'&gt;&lt;td&gt;$([System.Web.HttpUtility]::HtmlEncode($_.Library))&lt;/td&gt;&lt;td&gt;$($_.Total)&lt;/td&gt;&lt;td&gt;$($_.Labeled)&lt;/td&gt;&lt;td&gt;$($_.Unlabeled)&lt;/td&gt;&lt;td&gt;$($_.Coverage)%&lt;/td&gt;&lt;/tr&gt;&quot;
+        }) -join &quot;`n&quot;
+        $html = @&quot;
+&lt;!doctype html&gt;&lt;html&gt;&lt;head&gt;&lt;meta charset=&quot;utf-8&quot;&gt;&lt;title&gt;Sensitivity label coverage&lt;/title&gt;
+&lt;style&gt;body{font-family:Segoe UI,Arial,sans-serif;margin:2rem;color:#201f1e}
+h1{font-size:1.3rem}.sub{color:#605e5c}
+table{border-collapse:collapse;margin-top:1rem;width:100%}
+th,td{border:1px solid #edebe9;padding:.4rem .6rem;text-align:left}
+th{background:#f3f2f1}
+tr.bad td{background:#fdf3f2}tr.warn td{background:#fff8f0}tr.ok td{background:#f3faf3}
+.exposure{color:#a4262c;font-weight:600;margin-top:1rem}&lt;/style&gt;&lt;/head&gt;&lt;body&gt;
+&lt;h1&gt;Sensitivity label coverage&lt;/h1&gt;
+&lt;div class=&quot;sub&quot;&gt;$([System.Web.HttpUtility]::HtmlEncode($SiteUrl)) &amp;middot; generated $(Get-Date -Format 'yyyy-MM-dd HH:mm')&lt;/div&gt;
+&lt;div class=&quot;sub&quot;&gt;Reflects the search index - freshly labeled/migrated content lags until crawled.&lt;/div&gt;
+&lt;p&gt;&lt;strong&gt;Site coverage: $siteCov%&lt;/strong&gt; ($($totalDocs-$totalUnl) of $totalDocs documents labeled)&lt;/p&gt;
+$(if($totalUnl -gt 0){&quot;&lt;p class='exposure'&gt;$totalUnl unlabeled document(s) will be surfaced by Copilot with no classification.&lt;/p&gt;&quot;})
+&lt;table&gt;&lt;tr&gt;&lt;th&gt;Library&lt;/th&gt;&lt;th&gt;Total&lt;/th&gt;&lt;th&gt;Labeled&lt;/th&gt;&lt;th&gt;Unlabeled&lt;/th&gt;&lt;th&gt;Coverage&lt;/th&gt;&lt;/tr&gt;
+$rowsHtml
+&lt;/table&gt;&lt;/body&gt;&lt;/html&gt;
+&quot;@
+        Set-Content -Path $HtmlPath -Value $html -Encoding UTF8
+        Write-Host &quot;  HTML written: $HtmlPath&quot; -ForegroundColor Green
+    }
+
+    if ($totalUnl -gt 0) { exit 2 } else { exit 0 }
+}
+catch {
+    Write-Host &quot;ERROR: $($_.Exception.Message)&quot; -ForegroundColor Red
+    exit 1
+}
+</code></pre>
+<div class="highlight-tool">
+<p>Check out the <strong>PnP PowerShell</strong> to learn more at: <a href="https://aka.ms/pnp/powershell">https://aka.ms/pnp/powershell</a></p>
+</div>
+<div class="highlight-tool">
+<p>The way you login into PnP PowerShell has changed please read <a href="https://github.com/pnp/powershell/discussions/4249">PnP Management Shell EntraID app is deleted : what should I do ?</a></p>
+</div>
+</section>
+</div>
+<h2 id="source-credit">Source Credit</h2>
+<p>Sample first appeared on <a href="https://www.fivenumber.com">https://www.fivenumber.com</a></p>
+<h2 id="contributors">Contributors</h2>
+<table>
+<thead>
+<tr>
+<th>Author(s)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Vijay Kumar G</td>
+</tr>
+</tbody>
+</table>
+<h2 id="disclaimer">Disclaimer</h2>
+<p><strong>THESE SAMPLES ARE PROVIDED <em>AS IS</em> WITHOUT WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, INCLUDING ANY IMPLIED WARRANTIES OF FITNESS FOR A PARTICULAR PURPOSE, MERCHANTABILITY, OR NON-INFRINGEMENT.</strong></p>
+<img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/spo-report-sensitivity-label-coverage" aria-hidden="true">
+
+</article>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+      <span>Script Samples<br>Generated by <strong><a href='https://dotnet.github.io/docfx' alt='Doc FX Website'>DocFX</a></strong> with <strong><a href='https://ovasquez.github.io/docfx-material' alt='DocFx Material Theme'>Material UI</a></strong></span>
+      
+            <!-- <img src="https://telemetry.sharepointpnp.com/@pnp.github.io/index/" alt="spacer"> -->
+          </div>
+        </div>
+      </footer>    </div>
+
+    <script type="text/javascript" src="../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+
+    <script type="text/javascript" src="../styles/clipboard.min.js"></script>
+    <script type="text/javascript" src="../styles/isotope.pkgd.min.js"></script>
+    <script type="text/javascript" src="../styles/loadsamples.js"></script>
+    <script type="text/javascript" src="../styles/filtersamples.js"></script>
+
+  </body>
+</html>

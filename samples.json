@@ -17094,6 +17094,51 @@
     ]
   },
   {
+    "name": "spo-report-sensitivity-label-coverage",
+    "title": "Report sensitivity label coverage for Copilot readiness",
+    "shortDescription": "Reports how many documents in a site are unlabeled - the content Microsoft 365 Copilot would surface with no sensitivity classification - and ranks the gaps worst-covered library first.",
+    "url": "spo-report-sensitivity-label-coverage/README.html",
+    "creationDateTime": "2026-10-07",
+    "updateDateTime": "2026-10-07",
+    "products": [
+      "SharePoint",
+      "Microsoft Purview",
+      "Microsoft 365 Copilot"
+    ],
+    "metadata": [
+      {
+        "key": "PNP-POWERSHELL",
+        "value": "3.4.1"
+      }
+    ],
+    "categories": [
+      "Report"
+    ],
+    "tags": [
+      "Connect-PnPOnline",
+      "Submit-PnPSearchQuery",
+      "Sensitivity labels",
+      "Information Protection",
+      "Copilot"
+    ],
+    "thumbnails": [
+      {
+        "type": "image",
+        "order": 100,
+        "url": "spo-report-sensitivity-label-coverage/assets/example.png",
+        "alt": "A sensitivity label coverage report showing per-library labeled and unlabeled document counts and a site coverage percentage"
+      }
+    ],
+    "authors": [
+      {
+        "gitHubAccount": "gvijaikumar9",
+        "company": "",
+        "pictureUrl": "https://github.com/gvijaikumar9.png",
+        "name": "Vijay Kumar G"
+      }
+    ]
+  },
+  {
     "name": "spo-report-version-expiration-and-trim",
     "title": "Generate File version report and trim on specific Teams",
     "shortDescription": "Reports on file version history across Microsoft Teams sites and private channels, calculates storage savings, and trims expired versions using SharePoint's automatic versioning policy.",
