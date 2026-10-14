@@ -7792,6 +7792,47 @@
     ]
   },
   {
+    "name": "spo-compare-list-schema",
+    "title": "Compare SharePoint list schema between two sites",
+    "shortDescription": "A schema diff for SharePoint. Reports exactly what drifted between two sites (or a baseline versus a live site): lists only on one side, and per-column Added, Removed, or Changed.",
+    "url": "spo-compare-list-schema/README.html",
+    "creationDateTime": "2026-10-06",
+    "updateDateTime": "2026-10-06",
+    "products": [
+      "SharePoint"
+    ],
+    "metadata": [
+      {
+        "key": "PNP-POWERSHELL",
+        "value": "3.3.0"
+      }
+    ],
+    "categories": [
+      "Report"
+    ],
+    "tags": [
+      "Connect-PnPOnline",
+      "Get-PnPList",
+      "Get-PnPField"
+    ],
+    "thumbnails": [
+      {
+        "type": "image",
+        "order": 100,
+        "url": "spo-compare-list-schema/assets/preview.png",
+        "alt": "A SharePoint schema compare report showing lists and columns that differ between two sites"
+      }
+    ],
+    "authors": [
+      {
+        "gitHubAccount": "gvijaikumar9",
+        "company": "",
+        "pictureUrl": "https://github.com/gvijaikumar9.png",
+        "name": "Vijay Kumar G"
+      }
+    ]
+  },
+  {
     "name": "spo-configure-documentid-feature",
     "title": "Enabling and Configuring Document ID in SharePoint",
     "shortDescription": "The script enables and configures Document ID within a SharePoint site",
