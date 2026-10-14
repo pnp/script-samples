@@ -1,0 +1,56 @@
+[
+  {
+    "schema": null,
+    "name": "spo-bulk-file-rename-script",
+    "version": null,
+    "source": "pnp",
+    "title": "SharePoint Bulk File Rename Script",
+    "url": "https://pnp.github.io/script-samples/spo-bulk-file-rename-script/README.html",
+    "creationDateTime": "2026-10-07",
+    "updateDateTime": "2026-10-14",
+    "shortDescription": "Bulk rename SharePoint Online files from a CSV and create an audit report.",
+    "longDescription": [
+      "Renames files in a SharePoint Online document library using PnP PowerShell and CSV input. Displays progress and exports a row-by-row audit report with the outcome of each rename."
+    ],
+    "products": [
+      "SharePoint"
+    ],
+    "categories": [
+      "Configure",
+      "Report"
+    ],
+    "tags": [
+      "SharePoint Online",
+      "Bulk Rename",
+      "PnP PowerShell",
+      "Connect-PnPOnline",
+      "Rename-PnPFile",
+      "PowerShell 7.4"
+    ],
+    "metadata": [],
+    "thumbnails": [
+      {
+        "type": "image",
+        "order": 100,
+        "url": "https://raw.githubusercontent.com/pnp/script-samples/main/scripts/spo-bulk-file-rename-script/assets/preview.png",
+        "alt": "Preview of the SharePoint bulk file rename sample",
+        "slides": null
+      }
+    ],
+    "authors": [
+      {
+        "name": "Josiah Opiyo",
+        "gitHubAccount": "ojopiyo",
+        "company": "",
+        "pictureUrl": "https://github.com/ojopiyo.png"
+      }
+    ],
+    "references": [
+      {
+        "name": "PnP PowerShell documentation",
+        "description": "Documentation and cmdlet reference for PnP PowerShell.",
+        "url": "https://aka.ms/pnp/powershell"
+      }
+    ]
+  }
+]

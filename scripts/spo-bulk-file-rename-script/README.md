@@ -96,7 +96,7 @@ $ReportPath = "C:\Temp\Rename-Files-Audit.csv"
 # ============================================================
 # AUDIT INFORMATION
 # ============================================================
-$RunId      = :NewGuid().ToString()
+$RunId      = [guid]::NewGuid().ToString()
 $RunBy      = [System.Security.Principal.WindowsIdentity]::GetCurrent().Name
 $RunDate    = Get-Date
 
@@ -246,3 +246,4 @@ For very large workloads, consider implementing controlled batching, retry handl
 |1.0|October 07, 2026|Initial release|
 
 [!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
+<img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/spo-bulk-file-rename-script" />
