@@ -119,7 +119,7 @@ Stop-Transcript
 # [CLI for Microsoft 365](#tab/cli-m365-ps)
 ```powershell
 # Usage example:
-# .\Exoprt-SPListItems.ps1 -WebUrl "https://contoso.sharepoint.com/sites/Intranet" -ListName "Demo List"
+# .\Export-SPListItems.ps1 -WebUrl "https://contoso.sharepoint.com/sites/Intranet" -ListName "Demo List"
 
 [CmdletBinding()]
 param (
