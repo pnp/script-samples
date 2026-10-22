@@ -2352,6 +2352,50 @@
     ]
   },
   {
+    "name": "exo-mailboxes-with-calendar-delegates",
+    "title": "Exchange Online Mailboxes with Calendar Delegates",
+    "shortDescription": "This script inventories calendar permissions across Exchange Online mailboxes and exports delegate identities, access rights, and sharing flags to CSV.",
+    "url": "exo-mailboxes-with-calendar-delegates/README.html",
+    "creationDateTime": "2026-10-11",
+    "updateDateTime": "2026-10-11",
+    "products": [
+      "Office"
+    ],
+    "metadata": [
+      {
+        "key": "POWERSHELL",
+        "value": "7.2.0"
+      }
+    ],
+    "categories": [
+      "Report",
+      "Security"
+    ],
+    "tags": [
+      "Connect-ExchangeOnline",
+      "Get-EXOMailbox",
+      "Get-MailboxFolderStatistics",
+      "Get-MailboxFolderPermission",
+      "Export-Csv"
+    ],
+    "thumbnails": [
+      {
+        "type": "image",
+        "order": 100,
+        "url": "exo-mailboxes-with-calendar-delegates/assets/preview.png",
+        "alt": "Preview of the sample Exchange Online Mailboxes with Calendar Delegates"
+      }
+    ],
+    "authors": [
+      {
+        "gitHubAccount": "ojopiyo",
+        "company": "",
+        "pictureUrl": "https://github.com/ojopiyo.png",
+        "name": "Josiah Opiyo"
+      }
+    ]
+  },
+  {
     "name": "export-data-from-microsoft-search",
     "title": "Export data from MS Search",
     "shortDescription": "Shows how to export data from MS Search, in this case the entityType externalItem ",

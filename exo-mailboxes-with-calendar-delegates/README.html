@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html lang="en">
+
+  <head>
+    <meta charset="utf-8">
+    <title>Exchange Online Mailboxes with Calendar Delegates | PnP Samples </title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="title" content="Exchange Online Mailboxes with Calendar Delegates | PnP Samples ">
+    <meta name="generator" content="docfx ">
+  <meta name="description" content="A sample gallery of scripts to manage all things Microsoft 365.">
+
+    <!-- Social Media -->
+    <meta property="og:locale" content="en_GB">
+    <meta property="og:title" content="Exchange Online Mailboxes with Calendar Delegates | PnP Samples ">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://pnp.github.io/script-samples">
+    <meta property="og:image" content="https://pnp.github.io/script-samples/assets/social-media-screenshot.png">
+    <meta property="og:image:alt" content="Screenshot example of the PnP Script Samples Site">
+    <meta property="og:site_name" content="PnP Script Samples">
+    <meta name="msvalidate.01" content="04EFEDA66EC42C08A1247C979E2F9ADD">
+  <meta property="og:description" content="A sample gallery of scripts to manage all things Microsoft 365.">
+
+    <link rel="shortcut icon" href="https://c.s-microsoft.com/favicon.ico?v2">
+    <link rel="stylesheet" href="../styles/docfx.vendor.min.css">
+    <link rel="stylesheet" href="../styles/docfx.css">
+    <link rel="stylesheet" href="../styles/main.css">
+    <link rel="stylesheet" href="../styles/extra.css">
+    <link rel="stylesheet" href="../styles/filter.css">
+    <link rel="stylesheet" href="../styles/site.css">
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet"> 
+    <meta property="docfx:navrel" content="../toc.html">
+    <meta property="docfx:tocrel" content="../toc.html">
+  
+  
+  <meta property="docfx:newtab" content="true">
+    <script type="text/javascript">
+      (function(c,l,a,r,i,t,y){
+          c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+          t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+          y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+      })(window, document, "clarity", "script", "8j6pedl344");
+  </script>
+  </head>  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+             <div class="github-mark">
+              <a href="https://github.com/pnp/script-samples" title="Go to repository">
+               <div class="github-wrapper">
+                  <div class="github-icon">
+                    <img src="https://pnp.github.io/script-samples/assets/icons/github-light-64px.png" alt="GitHub Icon Image">
+                  </div>
+                  <div class="github-repository">
+                    <span>GitHub</span>
+                    <ul class="github-facts">
+                      <li>
+                        <i class="fa fa-code-fork" aria-hidden="true"></i>
+                        <span class="github-forks"></span>
+                      </li>
+                      <li>
+                        <i class="fa fa-star-o" aria-hidden="true"></i>
+                        <span class="github-stars"></span>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </a>
+            </div>
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../assets/logo.svg" alt="">
+              </a>            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <label class="glyphicon glyphicon-search" for="search-query"></label>
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>      </header>
+      <div role="main" class="container body-content hide-when-search">
+        <div class="article row grid">
+          <div class="col-md-12">
+            <article class="content wrap" id="_content" data-uid="">
+                  <div class="contribution-panel mobile-hide pull-right">
+                      <a href="https://github.com/pnp/script-samples/blob/main/scripts/exo-mailboxes-with-calendar-delegates/README.md/#L1" title="Edit this page" class="improve-doc-lg"><i class="glyphicon glyphicon-pencil"></i></a>
+                  </div>
+  <h1 id="exchange-online-mailboxes-with-calendar-delegates">Exchange Online Mailboxes with Calendar Delegates</h1>
+
+<h2 id="summary">Summary</h2>
+<p>This PowerShell assessment script connects to Exchange Online using certificate-based app-only authentication and inventories calendar folder permissions across all mailboxes in a Microsoft 365 tenant.</p>
+<p>The script retrieves mailbox information, identifies each mailbox's default calendar folder, and collects assigned calendar permissions, including delegate identities, access rights, and sharing permission flags. Built-in <code>Default</code> and <code>Anonymous</code> permission entries are excluded from the report.</p>
+<p>Results are exported to a timestamped CSV file, with a corresponding log file recording assessment progress, mailbox processing errors, and execution details.</p>
+<p><img src="assets/preview.png" alt="Preview of the Exchange Online Mailboxes with Calendar Delegates sample"></p>
+<h2 id="why-it-matters">Why It Matters</h2>
+<p>Calendar permissions can accumulate over time as employees change roles, delegates are reassigned, and shared responsibilities evolve. Unreviewed permissions may expose sensitive meeting information or allow users to modify calendars beyond their current business requirements.</p>
+<p>This assessment provides Microsoft 365 administrators with a tenant-wide view of calendar access assignments, supporting security reviews, access governance, and permission remediation.</p>
+<p><strong>Example scenario:</strong> <em>During a Microsoft 365 security assessment, an administrator needs to identify users with access to executive, departmental, or shared mailboxes' calendars. The report provides a consolidated inventory for reviewing delegated access and identifying permissions that may require validation or removal.</em></p>
+<h2 id="prerequisites">Prerequisites</h2>
+<ul>
+<li>Exchange Online PowerShell module (<code>ExchangeOnlineManagement</code>)</li>
+<li>Exchange Online application registration configured for certificate-based authentication</li>
+<li>Valid certificate associated with the application</li>
+<li>Appropriate Exchange Online application permissions and administrative configuration</li>
+<li>Access to the certificate private key from the system executing the script</li>
+</ul>
+<h2 id="configuration">Configuration</h2>
+<p>Update the following variables before execution:</p>
+<table>
+<thead>
+<tr>
+<th>Variable</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>$ClientID</code></td>
+<td>Azure AD Application (Client) ID</td>
+</tr>
+<tr>
+<td><code>$ThumbPrint</code></td>
+<td>Certificate thumbprint</td>
+</tr>
+<tr>
+<td><code>$Tenant</code></td>
+<td>Microsoft 365 tenant name (e.g. <code>contoso.onmicrosoft.com</code>)</td>
+</tr>
+<tr>
+<td><code>$OutputFolder</code></td>
+<td>Currently set to (<code>C:\Temp\MailboxesWithCalendarDelegates</code>)</td>
+</tr>
+</tbody>
+</table>
+<div class="tabGroup" id="tabgroup_1">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_1_pnpps" role="tab" aria-controls="tabpanel_1_pnpps" data-tab="pnpps" tabindex="0" aria-selected="true">PnP PowerShell</a>
+</li>
+</ul>
+<section id="tabpanel_1_pnpps" role="tabpanel" data-tab="pnpps">
+
+<pre><code class="lang-powershell">
+# ===============================================================
+# Assessment: Exchange Online Mailboxes with Calendar Delegates
+# ===============================================================
+
+$ClientID   = &quot;xxxxxxxxxxxxxxxxxxxxx&quot;
+$ThumbPrint = &quot;xxxxxxxxxxxxxxxxxxxxx&quot;
+$Tenant     = &quot;contoso.onmicrosoft.com&quot;
+
+$OutputFolder = &quot;C:\Temp\MailboxesWithCalendarDelegates&quot;
+
+if (-not (Test-Path -LiteralPath $OutputFolder)) {
+    New-Item -Path $OutputFolder -ItemType Directory -Force | Out-Null
+}
+
+$TimeStamp = Get-Date -Format &quot;yyyyMMdd_HHmmss&quot;
+$CsvPath   = Join-Path $OutputFolder &quot;MailboxesWithCalendarDelegates_$TimeStamp.csv&quot;
+$LogPath   = Join-Path $OutputFolder &quot;MailboxesWithCalendarDelegates_$TimeStamp.log&quot;
+
+$Connected = $false
+$Results   = [System.Collections.Generic.List[object]]::new()
+
+try {
+    Add-Content -LiteralPath $LogPath -Value &quot;$(Get-Date -Format 'yyyy-MM-dd HH:mm:ss') - Assessment started.&quot;
+
+    Import-Module ExchangeOnlineManagement -ErrorAction Stop
+
+    Connect-ExchangeOnline `
+        -AppId $ClientID `
+        -CertificateThumbprint $ThumbPrint `
+        -Organization $Tenant `
+        -ShowBanner:$false `
+        -ErrorAction Stop
+
+    $Connected = $true
+
+    Add-Content -LiteralPath $LogPath -Value &quot;$(Get-Date -Format 'yyyy-MM-dd HH:mm:ss') - Connected to Exchange Online.&quot;
+
+    # ===============================================================
+    # Retrieve All Mailboxes
+    # ===============================================================
+    $Mailboxes = @(
+        Get-EXOMailbox `
+            -ResultSize Unlimited `
+            -Properties RecipientTypeDetails `
+            -ErrorAction Stop
+    )
+
+    Add-Content -LiteralPath $LogPath -Value &quot;$(Get-Date -Format 'yyyy-MM-dd HH:mm:ss') - Retrieved $($Mailboxes.Count) mailboxes.&quot;
+
+    foreach ($Mailbox in $Mailboxes) {
+        $MailboxAddress = $Mailbox.PrimarySmtpAddress.ToString()
+
+        try {
+            # ===================================================================
+            # Find The Default Calendar Folder, Including Localized Folder Names
+            # ===================================================================
+            $CalendarFolder = @(
+                Get-MailboxFolderStatistics `
+                    -Identity $MailboxAddress `
+                    -FolderScope Calendar `
+                    -ErrorAction Stop |
+                Where-Object { $_.FolderType -eq &quot;Calendar&quot; }
+            ) | Select-Object -First 1
+
+            if (-not $CalendarFolder) {
+                Add-Content -LiteralPath $LogPath -Value &quot;$(Get-Date -Format 'yyyy-MM-dd HH:mm:ss') - No default calendar folder found for $MailboxAddress.&quot;
+                continue
+            }
+            # ===============================================================
+            # Convert The Folder Path To Exchange Folder Identity Format
+            # ===============================================================
+            $FolderPath = $CalendarFolder.FolderPath -replace '/', '\'
+            $CalendarIdentity = &quot;${MailboxAddress}:$FolderPath&quot;
+
+            # ===============================================================
+            # Retrieve Calendar Permissions
+            # ===============================================================
+            $Permissions = @(
+                Get-MailboxFolderPermission `
+                    -Identity $CalendarIdentity `
+                    -ErrorAction Stop
+            )
+
+            foreach ($Permission in $Permissions) {
+                $DelegateName = [string]$Permission.User
+
+                # ===============================================================
+                # Exclude Built-in Default And Anonymous Entries
+                # ===============================================================
+                if ($DelegateName -in @(&quot;Default&quot;, &quot;Anonymous&quot;)) {
+                    continue
+                }
+
+                $AccessRights = @(
+                    $Permission.AccessRights | ForEach-Object { [string]$_ }
+                ) -join &quot;; &quot;
+
+                $SharingFlags = @(
+                    $Permission.SharingPermissionFlags |
+                    ForEach-Object { [string]$_ }
+                ) -join &quot;; &quot;
+
+                $Results.Add([PSCustomObject]@{
+                    MailboxDisplayName      = $Mailbox.DisplayName
+                    MailboxPrimarySmtpAddress = $MailboxAddress
+                    MailboxType              = [string]$Mailbox.RecipientTypeDetails
+                    CalendarFolder           = $CalendarFolder.FolderPath
+                    Delegate                 = $DelegateName
+                    AccessRights             = $AccessRights
+                    SharingPermissionFlags   = $SharingFlags
+                })
+            }
+        }
+        catch {
+            Add-Content -LiteralPath $LogPath -Value &quot;$(Get-Date -Format 'yyyy-MM-dd HH:mm:ss') - ERROR processing $MailboxAddress : $($_.Exception.Message)&quot;
+            continue
+        }
+    }
+
+    # ===============================================================
+    # Export Results, Retaining Headers When No matches Exist
+    # ===============================================================
+    if ($Results.Count -gt 0) {
+        $Results |
+            Export-Csv -LiteralPath $CsvPath -NoTypeInformation -Encoding UTF8
+    }
+    else {
+        &quot;MailboxDisplayName,MailboxPrimarySmtpAddress,MailboxType,CalendarFolder,Delegate,AccessRights,SharingPermissionFlags&quot; |
+            Set-Content -LiteralPath $CsvPath -Encoding UTF8
+    }
+
+    Add-Content -LiteralPath $LogPath -Value &quot;$(Get-Date -Format 'yyyy-MM-dd HH:mm:ss') - Calendar permission entries exported: $($Results.Count).&quot;
+    Add-Content -LiteralPath $LogPath -Value &quot;$(Get-Date -Format 'yyyy-MM-dd HH:mm:ss') - CSV output: $CsvPath&quot;
+    Add-Content -LiteralPath $LogPath -Value &quot;$(Get-Date -Format 'yyyy-MM-dd HH:mm:ss') - Assessment completed.&quot;
+
+    Write-Host &quot;Assessment completed.&quot; -ForegroundColor Green
+    Write-Host &quot;Mailboxes assessed: $($Mailboxes.Count)&quot;
+    Write-Host &quot;Calendar permission entries: $($Results.Count)&quot;
+    Write-Host &quot;CSV report: $CsvPath&quot;
+    Write-Host &quot;Log file: $LogPath&quot;
+}
+catch {
+    $ErrorMessage = &quot;$(Get-Date -Format 'yyyy-MM-dd HH:mm:ss') - FATAL ERROR: $($_.Exception.Message)&quot;
+    Add-Content -LiteralPath $LogPath -Value $ErrorMessage
+    Write-Error $ErrorMessage
+}
+finally {
+    if ($Connected) {
+        Disconnect-ExchangeOnline -Confirm:$false -ErrorAction SilentlyContinue
+        Add-Content -LiteralPath $LogPath -Value &quot;$(Get-Date -Format 'yyyy-MM-dd HH:mm:ss') - Disconnected from Exchange Online.&quot;
+    }
+}
+
+</code></pre>
+<h2 id="usage">Usage</h2>
+<ol>
+<li>Configure $ClientID, $ThumbPrint, and $Tenant with the appropriate application and tenant details.</li>
+<li>Set $OutputFolder to a suitable location with sufficient storage and appropriate access controls.</li>
+<li>Run the script under an identity that can access the configured certificate and output directory.</li>
+<li>Review the generated CSV report and log file.</li>
+</ol>
+<h2 id="output">Output</h2>
+<p>The script creates the output directory if it does not already exist and generates two timestamped files per execution.</p>
+<table>
+<thead>
+<tr>
+<th>File</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>MailboxesWithCalendarDelegates_&lt;timestamp&gt;.csv</code></td>
+<td>Calendar permission inventory</td>
+</tr>
+<tr>
+<td><code>MailboxesWithCalendarDelegates_&lt;timestamp&gt;.log</code></td>
+<td>Execution status and error log</td>
+</tr>
+</tbody>
+</table>
+<h3 id="csv-report-fields">CSV Report Fields</h3>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>MailboxDisplayName</code></td>
+<td>Display name of the mailbox</td>
+</tr>
+<tr>
+<td><code>MailboxPrimarySmtpAddress</code></td>
+<td>Primary SMTP address of the mailbox</td>
+</tr>
+<tr>
+<td><code>MailboxType</code></td>
+<td>Exchange recipient type, such as <code>UserMailbox</code> or <code>SharedMailbox</code></td>
+</tr>
+<tr>
+<td><code>CalendarFolder</code></td>
+<td>Discovered calendar folder path</td>
+</tr>
+<tr>
+<td><code>Delegate</code></td>
+<td>Permission entry identity</td>
+</tr>
+<tr>
+<td><code>AccessRights</code></td>
+<td>Assigned calendar folder access rights</td>
+</tr>
+<tr>
+<td><code>SharingPermissionFlags</code></td>
+<td>Sharing-related permission flags, where present</td>
+</tr>
+</tbody>
+</table>
+<p>The report contains one row per included calendar permission entry. Mailboxes without a discoverable default calendar folder are logged and skipped. When no qualifying permission entries are found, the CSV is still created with its column headers.</p>
+<h2 id="logging-and-error-handling">Logging and Error Handling</h2>
+<p>The log records assessment initiation, successful connection, mailbox enumeration totals, mailbox-level errors, export details, completion, and disconnection.</p>
+<p>Errors encountered while processing an individual mailbox are logged without terminating the entire assessment. Fatal errors are recorded separately, and the <code>finally</code> block attempts to disconnect from Exchange Online when a connection was established.</p>
+<h2 id="notes">Notes</h2>
+<ul>
+<li>The assessment reports permissions on the discovered default calendar folder. It does not inventory permissions on every calendar or subfolder within each mailbox.</li>
+<li>The <code>Default</code> and <code>Anonymous</code> entries are intentionally excluded. Their permissions can still affect calendar access and should be reviewed separately when evaluating effective access.</li>
+<li>The report reflects configured folder permissions, not necessarily every form of calendar access granted through other mechanisms, such as mailbox-level permissions or application access.</li>
+<li>The <code>Delegate</code> column represents the permission entry's user identity and should not be interpreted as proof of formal Outlook delegate status.</li>
+<li>Mailboxes for which the script cannot retrieve folder statistics or permissions are logged but may be absent from the report.</li>
+<li>The script processes mailboxes sequentially. Runtime depends on tenant size, Exchange Online service responsiveness, throttling, and permission retrieval latency.</li>
+<li>The timestamp identifies the execution time, not a transactional snapshot of tenant permissions. Changes made during execution may result in observations from different points in time.</li>
+<li>CSV output may contain sensitive organizational access information and should be stored, shared, and retained according to the organization's security and audit policies.</li>
+</ul>
+<h2 id="recommended-use">Recommended Use</h2>
+<p>Run the assessment periodically as part of Microsoft 365 access governance, during security reviews, before and after organizational changes, and when investigating unexpected calendar access. Review identified permissions against business requirements before making any changes.</p>
+<p><strong>Execution mode:</strong> Read-only assessment. The script retrieves and reports permissions without modifying mailbox configuration or access assignments.</p>
+<h2 id="contributors">Contributors</h2>
+<table>
+<thead>
+<tr>
+<th>Author(s)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="https://github.com/ojopiyo">Josiah Opiyo</a></td>
+</tr>
+</tbody>
+</table>
+<p><em>Built with a focus on automation, governance, least privilege, and clean Microsoft 365 tenants - helping M365 admins gain visibility and reduce operational risk.</em></p>
+<h2 id="version-history">Version history</h2>
+<table>
+<thead>
+<tr>
+<th>Version</th>
+<th>Date</th>
+<th>Comments</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1.0</td>
+<td>October 11, 2026</td>
+<td>Initial release</td>
+</tr>
+</tbody>
+</table>
+<h2 id="disclaimer">Disclaimer</h2>
+<p><strong>THESE SAMPLES ARE PROVIDED <em>AS IS</em> WITHOUT WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, INCLUDING ANY IMPLIED WARRANTIES OF FITNESS FOR A PARTICULAR PURPOSE, MERCHANTABILITY, OR NON-INFRINGEMENT.</strong></p>
+<img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/exo-mailboxes-with-calendar-delegates">
+</section>
+</div>
+
+</article>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+      <span>Script Samples<br>Generated by <strong><a href='https://dotnet.github.io/docfx' alt='Doc FX Website'>DocFX</a></strong> with <strong><a href='https://ovasquez.github.io/docfx-material' alt='DocFx Material Theme'>Material UI</a></strong></span>
+      
+            <!-- <img src="https://telemetry.sharepointpnp.com/@pnp.github.io/index/" alt="spacer"> -->
+          </div>
+        </div>
+      </footer>    </div>
+
+    <script type="text/javascript" src="../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+
+    <script type="text/javascript" src="../styles/clipboard.min.js"></script>
+    <script type="text/javascript" src="../styles/isotope.pkgd.min.js"></script>
+    <script type="text/javascript" src="../styles/loadsamples.js"></script>
+    <script type="text/javascript" src="../styles/filtersamples.js"></script>
+
+  </body>
+</html>
