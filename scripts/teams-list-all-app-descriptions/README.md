@@ -141,6 +141,64 @@ end {
 
 ```
 [!INCLUDE [More about PnP PowerShell](../../docfx/includes/MORE-PNPPS.md)]
+
+# [CLI for Microsoft 365](#tab/cli-m365-ps)
+
+```powershell
+
+param (
+    [switch]$AllTeamsApps
+)
+
+$outputLocation = Join-Path (Get-Location) "Output"
+if (-not (Test-Path -Path $outputLocation)) {
+    New-Item -Path $outputLocation -ItemType Directory | Out-Null
+}
+$report = Join-Path $outputLocation "TeamsAppDescriptions.csv"
+
+m365 login --ensure
+
+# Expanding appDefinitions returns the descriptions, which "m365 teams app list" does not
+if ($AllTeamsApps) {
+    # All the Teams apps, including those in the store
+    $graphCall = "https://graph.microsoft.com/v1.0/appCatalogs/teamsApps?`$expand=appDefinitions"
+}
+else {
+    # Only the Teams apps defined by the organization
+    $graphCall = "https://graph.microsoft.com/v1.0/appCatalogs/teamsApps?`$filter=distributionMethod eq 'organization'&`$expand=appDefinitions"
+}
+
+$apps = @()
+while ($graphCall) {
+    $result = m365 request --url $graphCall --output json | ConvertFrom-Json
+    $apps += $result.value
+    $graphCall = $result.'@odata.nextLink'
+}
+
+$reportCollection = @()
+
+foreach ($app in $apps) {
+    foreach ($appDefinition in $app.appDefinitions) {
+        Write-Host "App Name: $($appDefinition.displayName)"
+        Write-Host "Short Description: $($appDefinition.shortDescription)"
+        Write-Host "Full Description: $($appDefinition.description)"
+
+        $reportCollection += [PSCustomObject]@{
+            TeamsAppId       = $appDefinition.teamsAppId
+            AppName          = $appDefinition.displayName
+            ShortDescription = $appDefinition.shortDescription
+            FullDescription  = $appDefinition.description
+            PublishingState  = $appDefinition.publishingState
+            Version          = $appDefinition.version
+        }
+    }
+}
+
+$reportCollection | Export-Csv -Path $report -NoTypeInformation -Force
+Write-Host "Report saved to: $report" -ForegroundColor Green
+
+```
+[!INCLUDE [More about CLI for Microsoft 365](../../docfx/includes/MORE-CLIM365.md)]
 ***
 
 
@@ -149,6 +207,7 @@ end {
 | Author(s) |
 |-----------|
 | Paul Bullock |
+| [Elliot Margot](https://github.com/OwnOptic) |
 
 [!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
 <img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/teams-list-all-app-descriptions" aria-hidden="true" />

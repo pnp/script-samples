@@ -9,7 +9,7 @@
       "This Node.js script lists SharePoint Framework (SPFx) versions installed via fnm (Fast Node Manager) along with their corresponding Node.js versions. It can also query the npm registry to show all available SPFx versions that can be installed. Features include filtering by version pattern, showing installation types (Full or Node-only), displaying configured aliases with the 'spfx-' prefix, and limiting output when querying available versions."
     ],
     "creationDateTime": "2025-12-14",
-    "updateDateTime": "2025-12-14",
+    "updateDateTime": "2026-09-30",
     "products": [
       "SharePoint"
     ],
@@ -34,18 +34,24 @@
       {
         "type": "image",
         "order": 100,
+        "url": "https://raw.githubusercontent.com/pnp/script-samples/main/scripts/spfx-list-js/assets/preview.png",
+        "alt": "Preview of the List SPFx Versions script"
+      },
+      {
+        "type": "image",
+        "order": 200,
         "url": "https://raw.githubusercontent.com/pnp/script-samples/main/scripts/spfx-list-js/assets/example1.png",
         "alt": "Basic usage showing installed SPFx versions"
       },
       {
         "type": "image",
-        "order": 200,
+        "order": 300,
         "url": "https://raw.githubusercontent.com/pnp/script-samples/main/scripts/spfx-list-js/assets/example2.png",
         "alt": "Show all available versions from npm"
       },
       {
         "type": "image",
-        "order": 300,
+        "order": 400,
         "url": "https://raw.githubusercontent.com/pnp/script-samples/main/scripts/spfx-list-js/assets/example3.png",
         "alt": "Filter by version pattern"
       }

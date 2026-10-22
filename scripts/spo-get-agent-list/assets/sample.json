@@ -9,7 +9,7 @@
       "This script will get all the SharePoint agents from the SharePoint document libraries and export the data to a CSV file. Data includes agent name, description, instructions, welcome message, conversation starters, capabilities, referenced URLs, site IDs, web IDs, list IDs, and unique IDs."
     ],
     "creationDateTime": "2025-03-17",
-    "updateDateTime": "2025-03-17",
+    "updateDateTime": "2026-09-27",
     "products": [
       "SharePoint",
       "Microsoft 365 Copilot"
@@ -18,6 +18,10 @@
       {
         "key": "PNP-POWERSHELL",
         "value": "2.99.90"
+      },
+      {
+        "key": "CLI-FOR-MICROSOFT365",
+        "value": "11.8.0"
       }
     ],
     "categories": [
@@ -30,7 +34,11 @@
     ],
     "tags": [
       "Connect-PnPOnline",
-      "ConvertFrom-Json"
+      "ConvertFrom-Json",
+      "m365 login",
+      "m365 spo list list",
+      "m365 spo listitem list",
+      "m365 spo file get"
     ],
     "thumbnails": [
       {
@@ -46,6 +54,12 @@
         "company": "",
         "pictureUrl": "https://avatars.githubusercontent.com/u/16476453?s=400&v=4",
         "name": "Valeras Narbutas"
+      },
+      {
+        "gitHubAccount": "OwnOptic",
+        "company": "",
+        "pictureUrl": "https://github.com/OwnOptic.png",
+        "name": "Elliot Margot"
       }
     ],
     "references": [
@@ -53,6 +67,11 @@
         "name": "Want to learn more about PnP PowerShell and the cmdlets",
         "description": "Check out the PnP PowerShell site to get started and for the reference to the cmdlets.",
         "url": "https://aka.ms/pnp/powershell"
+      },
+      {
+        "name": "Want to learn more about CLI for Microsoft 365 and the commands",
+        "description": "Check out the CLI for Microsoft 365 site to get started and for the reference to the commands.",
+        "url": "https://aka.ms/cli-m365"
       }
     ]
   }

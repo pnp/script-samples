@@ -1,0 +1,58 @@
+[
+  {
+    "name": "spo-report-sensitivity-label-coverage",
+    "source": "pnp",
+    "title": "Report sensitivity label coverage for Copilot readiness",
+    "shortDescription": "Reports how many documents in a site are unlabeled - the content Microsoft 365 Copilot would surface with no sensitivity classification - and ranks the gaps worst-covered library first.",
+    "url": "https://pnp.github.io/script-samples/spo-report-sensitivity-label-coverage/README.html",
+    "longDescription": [
+      "Before turning Microsoft 365 Copilot loose on a site, you want to know how much of the content has a sensitivity label and how much does not, because an unlabeled document is one Copilot can surface and summarise with no classification attached. This read-only script answers that. It uses SharePoint Search (the crawled managed property InformationProtectionLabelId, which holds the label GUID and is empty when a document is unlabeled) to count labeled versus unlabeled documents without walking every file, so it scales across large libraries. It groups the result per library, ranks the worst-covered first, prints a site coverage percentage and a plain Copilot-exposure line, and can also write a CSV of every document and a styled HTML report. It complements Microsoft Purview rather than replacing it: Purview owns applying labels (auto-labeling, default labels); this just finds where labels are missing so you can target them, and it is useful even on tenants without the premium auto-labeling licences. It reflects the search index, so freshly uploaded, migrated, or just-labeled documents will not show correct status until they have been crawled."
+    ],
+    "creationDateTime": "2026-10-07",
+    "updateDateTime": "2026-10-07",
+    "products": [
+      "SharePoint",
+      "Microsoft Purview",
+      "Microsoft 365 Copilot"
+    ],
+    "metadata": [
+      {
+        "key": "PNP-POWERSHELL",
+        "value": "3.4.1"
+      }
+    ],
+    "categories": [
+      "Report"
+    ],
+    "tags": [
+      "Connect-PnPOnline",
+      "Submit-PnPSearchQuery",
+      "Sensitivity labels",
+      "Information Protection",
+      "Copilot"
+    ],
+    "thumbnails": [
+      {
+        "type": "image",
+        "order": 100,
+        "url": "https://raw.githubusercontent.com/pnp/script-samples/main/scripts/spo-report-sensitivity-label-coverage/assets/example.png",
+        "alt": "A sensitivity label coverage report showing per-library labeled and unlabeled document counts and a site coverage percentage"
+      }
+    ],
+    "authors": [
+      {
+        "gitHubAccount": "gvijaikumar9",
+        "company": "",
+        "pictureUrl": "https://github.com/gvijaikumar9.png",
+        "name": "Vijay Kumar G"
+      }
+    ],
+    "references": [
+      {
+        "name": "Want to learn more about PnP PowerShell and the cmdlets",
+        "description": "Check out the PnP PowerShell site to get started and for the reference to the cmdlets.",
+        "url": "https://aka.ms/pnp/powershell"
+      }
+    ]
+  }
+]
