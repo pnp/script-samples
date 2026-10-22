@@ -1,0 +1,56 @@
+[
+  {
+    "name": "exo-mailboxes-with-archive-disabled",
+    "source": "pnp",
+    "title": "Exchange Online Mailboxes with Archive Disabled",
+    "shortDescription": "This script identifies Exchange Online mailboxes without an enabled archive and exports the results to a timestamped CSV report.",
+    "url": "https://pnp.github.io/script-samples/exo-mailboxes-with-archive-disabled/README.html",
+    "longDescription": [
+      "Connects to Exchange Online using certificate-based application authentication, retrieves mailboxes and their archive status, then reports mailboxes where ArchiveStatus is None. The read-only assessment creates a timestamped CSV report and execution log."
+    ],
+    "creationDateTime": "2026-10-10",
+    "updateDateTime": "2026-10-10",
+    "products": [
+      "Office"
+    ],
+    "metadata": [
+      {
+        "key": "POWERSHELL",
+        "value": "7.2.0"
+      }
+    ],
+    "categories": [
+      "Report",
+      "Security"
+    ],
+    "tags": [
+      "Connect-ExchangeOnline",
+      "Get-EXOMailbox",
+      "Export-Csv",
+      "ArchiveStatus"
+    ],
+    "thumbnails": [
+      {
+        "type": "image",
+        "order": 100,
+        "url": "https://raw.githubusercontent.com/pnp/script-samples/main/scripts/exo-mailboxes-with-archive-disabled/assets/preview.png",
+        "alt": "Preview of the sample Exchange Online Mailboxes with Archive Disabled"
+      }
+    ],
+    "authors": [
+      {
+        "gitHubAccount": "ojopiyo",
+        "company": "",
+        "pictureUrl": "https://github.com/ojopiyo.png",
+        "name": "Josiah Opiyo"
+      }
+    ],
+    "references": [
+      {
+        "name": "Exchange Online PowerShell module",
+        "description": "Learn how to connect to Exchange Online and use Exchange Online PowerShell cmdlets.",
+        "url": "https://learn.microsoft.com/powershell/exchange/connect-to-exchange-online-powershell"
+      }
+    ]
+  }
+]
