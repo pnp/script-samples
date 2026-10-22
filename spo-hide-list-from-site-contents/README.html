@@ -99,17 +99,289 @@
   <h1 id="hide-sharepoint-list-from-site-contents">Hide SharePoint list from Site Contents</h1>
 
 <h2 id="summary">Summary</h2>
-<p>If you need to hide the SharePoint list from the UI this simple PowerShell script will hide a specific list from the site contents. This will prevent users from easily accessing the list while, for example, you are still setting it up.</p>
+<p>These scripts hide a SharePoint Online list from Site Contents using PnP PowerShell or CLI for Microsoft 365. The updated PnP PowerShell version also generates an audit record of the administrative action.</p>
+<p>The updated version uses PnP PowerShell with certificate-based application authentication to connect to a specified SharePoint Online site, sets the target list's Hidden property to $true, and exports an audit record containing the action date, executing user, site URL, list name, and action performed.</p>
+<p>The generated CSV report provides a lightweight, timestamped record suitable for operational auditing and change tracking.</p>
+<h2 id="why-it-matters">Why It Matters</h2>
+<p>SharePoint lists may contain application configuration, integration data, staging information, or other administrative content that should not be exposed through normal SharePoint navigation.</p>
+<p>A common administrative scenario is hiding a configuration list from the standard SharePoint user interface while retaining the list and its data for application or administrative use.</p>
+<p>This script provides a repeatable approach to:</p>
+<ul>
+<li>Hide a designated SharePoint list without deleting its contents.</li>
+<li>Perform the change using non-interactive certificate authentication.</li>
+<li>Record who performed the action and when it occurred.</li>
+<li>Produce a timestamped audit file for operational records or change management.</li>
+</ul>
 <div class="tabGroup" id="tabgroup_1">
 <ul role="tablist">
 <li role="presentation">
-<a href="#tabpanel_1_pnpps" role="tab" aria-controls="tabpanel_1_pnpps" data-tab="pnpps" tabindex="0" aria-selected="true">PnP PowerShell</a>
+<a href="#tabpanel_1_pnppsv2" role="tab" aria-controls="tabpanel_1_pnppsv2" data-tab="pnppsv2" tabindex="0" aria-selected="true">PnP PowerShell Updated (with audit)</a>
+</li>
+<li role="presentation">
+<a href="#tabpanel_1_pnpps" role="tab" aria-controls="tabpanel_1_pnpps" data-tab="pnpps" tabindex="-1">PnP PowerShell</a>
 </li>
 <li role="presentation">
 <a href="#tabpanel_1_cli-m365-ps" role="tab" aria-controls="tabpanel_1_cli-m365-ps" data-tab="cli-m365-ps" tabindex="-1">CLI for Microsoft 365</a>
 </li>
 </ul>
-<section id="tabpanel_1_pnpps" role="tabpanel" data-tab="pnpps">
+<section id="tabpanel_1_pnppsv2" role="tabpanel" data-tab="pnppsv2">
+<h2 id="prerequisites">Prerequisites</h2>
+<p>The following prerequisites apply to the updated PnP PowerShell version with audit reporting.</p>
+<ul>
+<li>PnP.PowerShell module</li>
+<li>A Microsoft Entra ID application registration</li>
+<li>Certificate-based authentication configured for the application</li>
+<li>Appropriate SharePoint permissions granted to the application</li>
+<li>The certificate corresponding to $ThumbPrint available to the account executing the script</li>
+<li>Access to the target SharePoint site</li>
+<li>The target list must already exist</li>
+</ul>
+<h2 id="configuration">Configuration</h2>
+<p>For the updated PnP PowerShell version, configure the variables at the beginning of the script:</p>
+<table>
+<thead>
+<tr>
+<th>Variable</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>$ClientID</code></td>
+<td>Azure AD Application (Client) ID</td>
+</tr>
+<tr>
+<td><code>$ThumbPrint</code></td>
+<td>Certificate thumbprint</td>
+</tr>
+<tr>
+<td><code>$Tenant</code></td>
+<td>Microsoft 365 tenant name (e.g. <code>contoso.onmicrosoft.com</code>)</td>
+</tr>
+<tr>
+<td><code>$SiteUrl</code></td>
+<td>Your Site URL i.e. <code>https://contoso.sharepoint.com/sites/A</code></td>
+</tr>
+<tr>
+<td><code>$ListName</code></td>
+<td>Your List Name i.e. <code>ListName</code></td>
+</tr>
+</tbody>
+</table>
+<p>The script can then be executed from a PowerShell session or incorporated into an administrative automation process.</p>
+<p>The executing identity must have sufficient permissions to connect to the SharePoint site and modify the target list.</p>
+<pre><code class="lang-powershell">
+# ============================================================
+# CONFIGURATION
+# ============================================================
+
+$ClientID   = &quot;xxxxxxxxxxxxxxxxxxxxx&quot;
+$ThumbPrint = &quot;xxxxxxxxxxxxxxxxxxxxx&quot;
+$Tenant     = &quot;contoso.onmicrosoft.com&quot;
+
+$SiteUrl  = &quot;https://contoso.sharepoint.com/sites/A&quot;
+$ListName = &quot;AppConfig&quot;
+
+$OutputFolder = &quot;C:\Temp\SharePointListAudit&quot;
+
+if (-not (Test-Path -LiteralPath $OutputFolder)) {
+    New-Item -Path $OutputFolder -ItemType Directory -Force | Out-Null
+}
+
+$TimeStamp = Get-Date -Format &quot;yyyyMMdd_HHmmss&quot;
+$CsvFile = Join-Path $OutputFolder &quot;SharePointListAudit_$TimeStamp.csv&quot;
+
+# ============================================================
+# WHO AND WHEN
+# ============================================================
+
+$ActionBy = $env:USERNAME
+$ActionDate = Get-Date -Format &quot;yyyy-MM-dd HH:mm:ss&quot;
+
+# ============================================================
+# CONNECT
+# ============================================================
+
+Connect-PnPOnline `
+    -Url $SiteUrl `
+    -ClientId $ClientID `
+    -Thumbprint $ThumbPrint `
+    -Tenant $Tenant
+
+# ============================================================
+# HIDE SHAREPOINT LIST
+# ============================================================
+
+Set-PnPList -Identity $ListName -Hidden $true
+
+# ============================================================
+# CREATE AUDIT RECORD
+# ============================================================
+
+[PSCustomObject]@{
+    ActionDate = $ActionDate
+    ActionBy   = $ActionBy
+    SiteUrl    = $SiteUrl
+    ListName   = $ListName
+    Action     = &quot;Hide List&quot;
+} | Export-Csv `
+    -Path $CsvFile `
+    -NoTypeInformation `
+    -Encoding UTF8
+
+# ============================================================
+# DISCONNECT
+# ============================================================
+
+Disconnect-PnPOnline
+
+Write-Host &quot;List '$ListName' hidden successfully.&quot;
+Write-Host &quot;Audit report: $CsvFile&quot;
+
+</code></pre>
+<div class="highlight-tool">
+<p>Check out the <strong>PnP PowerShell</strong> to learn more at: <a href="https://aka.ms/pnp/powershell">https://aka.ms/pnp/powershell</a></p>
+</div>
+<div class="highlight-tool">
+<p>The way you login into PnP PowerShell has changed please read <a href="https://github.com/pnp/powershell/discussions/4249">PnP Management Shell EntraID app is deleted : what should I do ?</a></p>
+</div>
+<h2 id="output">Output</h2>
+<p>The updated PnP PowerShell version creates a timestamped CSV file in the configured output directory:</p>
+<blockquote>
+<p>SharePointListAudit_yyyyMMdd_HHmmss.csv</p>
+</blockquote>
+<p>Example record:</p>
+<h3 id="csv-report-fields">CSV Report Fields</h3>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>ActionDate</code></td>
+<td>Date and time the operation was performed</td>
+</tr>
+<tr>
+<td><code>ActionBy</code></td>
+<td>Windows/PowerShell environment username</td>
+</tr>
+<tr>
+<td><code>SiteUrl</code></td>
+<td>SharePoint Online site containing the list</td>
+</tr>
+<tr>
+<td><code>ListName</code></td>
+<td>List modified by the script</td>
+</tr>
+<tr>
+<td><code>Action</code></td>
+<td>Administrative action performed</td>
+</tr>
+</tbody>
+</table>
+<h2 id="notes">Notes</h2>
+<ul>
+<li>Set-PnPList -Hidden $true hides the list; it does not delete the list or its data.</li>
+<li>The script assumes the target list already exists.</li>
+<li>$env:USERNAME identifies the local execution context, not necessarily the identity represented by the Entra ID application used for SharePoint authentication.</li>
+<li>The output directory is created automatically if it does not exist.</li>
+<li>Disconnect-PnPOnline terminates the PnP PowerShell connection after the operation.</li>
+<li>For production automation, avoid storing client IDs, certificate material, or other credentials directly in scripts where possible.</li>
+<li>Consider adding structured error handling and logging if this script is used as part of a larger operational process.</li>
+</ul>
+<h2 id="refactoring-notes">Refactoring Notes</h2>
+<p>The updated version adds an alternative using the <strong>PnP PowerShell module (PnP.PowerShell)</strong> with <strong>certificate-based app-only authentication</strong>. The original PnP PowerShell and CLI for Microsoft 365 scripts remain available in their own tabs.</p>
+<p>The refactoring also introduces explicit configuration variables, execution metadata, output/audit reporting, structured sections, and clearer operational feedback.</p>
+<h3 id="improvements-made-v20">Improvements Made (v2.0)</h3>
+<table>
+<thead>
+<tr>
+<th>Area</th>
+<th>Initial Version</th>
+<th>Updated Version</th>
+<th>Improvement</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>Authentication</code></td>
+<td>m365 login / interactive session</td>
+<td>Connect-PnPOnline with Client ID, certificate thumbprint and tenant</td>
+<td>Supports unattended/service-style execution</td>
+</tr>
+<tr>
+<td><code>SharePoint interaction</code></td>
+<td>m365 spo list set</td>
+<td>Set-PnPList</td>
+<td>Uses native PnP PowerShell cmdlets</td>
+</tr>
+<tr>
+<td><code>Configuration</code></td>
+<td>Site/list values embedded near the top</td>
+<td>Dedicated configuration section</td>
+<td>Easier to maintain and reuse</td>
+</tr>
+<tr>
+<td><code>Authentication configuration</code></td>
+<td>Not explicitly defined</td>
+<td>Client ID, Thumbprint and Tenant variables</td>
+<td>Makes authentication requirements explicit</td>
+</tr>
+<tr>
+<td><code>Output</code></td>
+<td>Console only</td>
+<td>Timestamped CSV audit file</td>
+<td>Provides persistent execution history</td>
+</tr>
+<tr>
+<td><code>Audit information</code></td>
+<td>None</td>
+<td>User, date/time, site, list and action</td>
+<td>Improves traceability</td>
+</tr>
+<tr>
+<td><code>Output directory</code></td>
+<td>None</td>
+<td>Automatically created if required</td>
+<td>Reduces manual setup</td>
+</tr>
+<tr>
+<td><code>File naming</code></td>
+<td>None</td>
+<td>Timestamped audit filename</td>
+<td>Prevents reports from overwriting each other</td>
+</tr>
+<tr>
+<td><code>Script structure</code></td>
+<td>Simple linear script</td>
+<td>Clearly separated functional sections</td>
+<td>Improves readability and maintenance</td>
+</tr>
+<tr>
+<td><code>Connection lifecycle</code></td>
+<td>m365 logout</td>
+<td>Disconnect-PnPOnline</td>
+<td>Explicitly closes the PnP connection</td>
+</tr>
+<tr>
+<td><code>User feedback</code></td>
+<td>Minimal</td>
+<td>Success message plus audit-file location</td>
+<td>Makes execution outcome clearer</td>
+</tr>
+<tr>
+<td><code>Encoding</code></td>
+<td>Not applicable</td>
+<td>UTF-8 CSV output</td>
+<td>Provides consistent report encoding</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="tabpanel_1_pnpps" role="tabpanel" data-tab="pnpps" aria-hidden="true" hidden="hidden">
 
 <pre><code class="lang-powershell">
 # SharePoint online site url
@@ -178,6 +450,32 @@ m365 logout
 </tr>
 <tr>
 <td><a href="https://ganeshsanapblogs.wordpress.com/about">Ganesh Sanap</a></td>
+</tr>
+<tr>
+<td><a href="https://github.com/ojopiyo">Josiah Opiyo</a></td>
+</tr>
+</tbody>
+</table>
+<p><em>Built with a focus on automation, governance, least privilege, and clean Microsoft 365 tenants - helping M365 admins gain visibility and reduce operational risk.</em></p>
+<h2 id="version-history">Version history</h2>
+<table>
+<thead>
+<tr>
+<th>Version</th>
+<th>Date</th>
+<th>Comments</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1.0</td>
+<td>May 09, 2023</td>
+<td>Initial release</td>
+</tr>
+<tr>
+<td>2.0</td>
+<td>October 03, 2026</td>
+<td>Refactored version</td>
 </tr>
 </tbody>
 </table>
