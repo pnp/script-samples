@@ -100,7 +100,7 @@ try {
     Add-Content -LiteralPath $LogPath -Value "$(Get-Date -Format 'yyyy-MM-dd HH:mm:ss') - Retrieved $($Mailboxes.Count) mailboxes."
 
     # ============================================================================
-    # IDENTIFY MAILBOXES WITHOUT AN IDENTIFY MAILBOXES WITHOUT AN ENABLED ARCHIVE
+    # IDENTIFY MAILBOXES WITHOUT AN ENABLED ARCHIVE
     # ============================================================================
     $Results = @(
         $Mailboxes |
@@ -205,3 +205,4 @@ Run the assessment periodically as part of Exchange Online configuration reviews
 |1.0|October 10, 2026|Initial release|
 
 [!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
+<img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/exo-mailboxes-with-archive-disabled" />
