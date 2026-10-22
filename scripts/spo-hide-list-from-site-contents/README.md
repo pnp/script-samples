@@ -1,10 +1,10 @@
-# Hide SPO List using PnP PowerShell
+# Hide SharePoint list from Site Contents
 
 ## Summary
 
-This PowerShell script automates the process of hiding a SharePoint Online list and generating an audit record of the administrative action.
+These scripts hide a SharePoint Online list from Site Contents using PnP PowerShell or CLI for Microsoft 365. The updated PnP PowerShell version also generates an audit record of the administrative action.
 
-It uses PnP PowerShell with certificate-based application authentication to connect to a specified SharePoint Online site, sets the target list's Hidden property to $true, and exports an audit record containing the action date, executing user, site URL, list name, and action performed.
+The updated version uses PnP PowerShell with certificate-based application authentication to connect to a specified SharePoint Online site, sets the target list's Hidden property to $true, and exports an audit record containing the action date, executing user, site URL, list name, and action performed.
 
 The generated CSV report provides a lightweight, timestamped record suitable for operational auditing and change tracking.
 
@@ -21,7 +21,12 @@ This script provides a repeatable approach to:
 - Record who performed the action and when it occurred.
 - Produce a timestamped audit file for operational records or change management.
 
+
+# [PnP PowerShell Updated (with audit)](#tab/pnppsv2)
+
 ## Prerequisites
+
+The following prerequisites apply to the updated PnP PowerShell version with audit reporting.
 
 - PnP.PowerShell module
 - A Microsoft Entra ID application registration
@@ -33,7 +38,7 @@ This script provides a repeatable approach to:
 
 ## Configuration
 
-Configure the variables at the beginning of the script:
+For the updated PnP PowerShell version, configure the variables at the beginning of the script:
 
 | Variable          | Description                                                |
 | ----------------- | ---------------------------------------------------------- |
@@ -46,8 +51,6 @@ Configure the variables at the beginning of the script:
 The script can then be executed from a PowerShell session or incorporated into an administrative automation process.
 
 The executing identity must have sufficient permissions to connect to the SharePoint site and modify the target list.
-
-# [PnP PowerShell](#tab/pnpps)
 
 ```powershell
 
@@ -120,9 +123,11 @@ Write-Host "Audit report: $CsvFile"
 
 ```
 
+[!INCLUDE [More about PnP PowerShell](../../docfx/includes/MORE-PNPPS.md)]
+
 ## Output
 
-A timestamped CSV file is created in the configured output directory:
+The updated PnP PowerShell version creates a timestamped CSV file in the configured output directory:
 
 > SharePointListAudit_yyyyMMdd_HHmmss.csv
 
@@ -150,7 +155,7 @@ Example record:
 
 ## Refactoring Notes
 
-The original script was refactored from using the **CLI for Microsoft 365 (m365)** to using the **PnP PowerShell module (PnP.PowerShell)** with **certificate-based app-only authentication**.
+The updated version adds an alternative using the **PnP PowerShell module (PnP.PowerShell)** with **certificate-based app-only authentication**. The original PnP PowerShell and CLI for Microsoft 365 scripts remain available in their own tabs.
 
 The refactoring also introduces explicit configuration variables, execution metadata, output/audit reporting, structured sections, and clearer operational feedback.
 
@@ -171,6 +176,60 @@ The refactoring also introduces explicit configuration variables, execution meta
 | `User feedback`                 | Minimal                                | Success message plus audit-file location                             | Makes execution outcome clearer                            |
 | `Encoding`                      | Not applicable                         | UTF-8 CSV output                                                     | Provides consistent report encoding                        |
 
+# [PnP PowerShell](#tab/pnpps)
+
+```powershell
+
+# SharePoint online site url
+$siteUrl = "https://contoso.sharepoint.com/sites/SPConnect"
+
+# Display name of SharePoint online list
+$listName = "My List"
+
+# Connect to SharePoint online site
+Connect-PnPOnline -url $siteUrl -Interactive
+
+# Hide SharePoint online list from Site Contents
+Set-PnPList -Identity $listName -Hidden $true
+
+# Disconnect SharePoint online connection
+Disconnect-PnPOnline
+
+```
+
+[!INCLUDE [More about PnP PowerShell](../../docfx/includes/MORE-PNPPS.md)]
+
+# [CLI for Microsoft 365](#tab/cli-m365-ps)
+
+```powershell
+
+# SharePoint online site url
+$siteUrl = "https://contoso.sharepoint.com/sites/SPConnect"
+
+# Display name of SharePoint online list
+$listName = "My List"
+
+# Get Credentials to connect
+$m365Status = m365 status
+if ($m365Status -match "Logged Out") {
+   m365 login
+}
+
+# Hide SharePoint online list from Site Contents
+m365 spo list set --webUrl $siteUrl --title $listName --hidden true
+
+# Disconnect SharePoint online connection
+m365 logout
+
+```
+
+[!INCLUDE [More about CLI for Microsoft 365](../../docfx/includes/MORE-CLIM365.md)]
+
+
+***
+
+
+
 ## Contributors
 
 |Author(s)|
@@ -189,3 +248,4 @@ The refactoring also introduces explicit configuration variables, execution meta
 |2.0|October 03, 2026|Refactored version|
 
 [!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
+<img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/spo-hide-list-from-site-contents" aria-hidden="true" />
