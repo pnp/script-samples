@@ -1,0 +1,57 @@
+[
+  {
+    "name": "exo-mailboxes-with-calendar-delegates",
+    "source": "pnp",
+    "title": "Exchange Online Mailboxes with Calendar Delegates",
+    "shortDescription": "This script inventories calendar permissions across Exchange Online mailboxes and exports delegate identities, access rights, and sharing flags to CSV.",
+    "url": "https://pnp.github.io/script-samples/exo-mailboxes-with-calendar-delegates/README.html",
+    "longDescription": [
+      "Connects to Exchange Online using certificate-based app-only authentication, discovers the default calendar folder for each mailbox, and reports calendar permission entries while excluding the built-in Default and Anonymous entries. Writes a timestamped CSV report and execution log."
+    ],
+    "creationDateTime": "2026-10-11",
+    "updateDateTime": "2026-10-11",
+    "products": [
+      "Office"
+    ],
+    "metadata": [
+      {
+        "key": "POWERSHELL",
+        "value": "7.2.0"
+      }
+    ],
+    "categories": [
+      "Report",
+      "Security"
+    ],
+    "tags": [
+      "Connect-ExchangeOnline",
+      "Get-EXOMailbox",
+      "Get-MailboxFolderStatistics",
+      "Get-MailboxFolderPermission",
+      "Export-Csv"
+    ],
+    "thumbnails": [
+      {
+        "type": "image",
+        "order": 100,
+        "url": "https://raw.githubusercontent.com/pnp/script-samples/main/scripts/exo-mailboxes-with-calendar-delegates/assets/preview.png",
+        "alt": "Preview of the sample Exchange Online Mailboxes with Calendar Delegates"
+      }
+    ],
+    "authors": [
+      {
+        "gitHubAccount": "ojopiyo",
+        "company": "",
+        "pictureUrl": "https://github.com/ojopiyo.png",
+        "name": "Josiah Opiyo"
+      }
+    ],
+    "references": [
+      {
+        "name": "Exchange Online PowerShell module",
+        "description": "Learn how to connect to Exchange Online and use Exchange Online PowerShell cmdlets.",
+        "url": "https://learn.microsoft.com/powershell/exchange/connect-to-exchange-online-powershell"
+      }
+    ]
+  }
+]
