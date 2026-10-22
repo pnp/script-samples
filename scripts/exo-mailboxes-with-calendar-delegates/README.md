@@ -8,6 +8,8 @@ The script retrieves mailbox information, identifies each mailbox's default cale
 
 Results are exported to a timestamped CSV file, with a corresponding log file recording assessment progress, mailbox processing errors, and execution details.
 
+![Preview of the Exchange Online Mailboxes with Calendar Delegates sample](assets/preview.png)
+
 ## Why It Matters
 
 Calendar permissions can accumulate over time as employees change roles, delegates are reassigned, and shared responsibilities evolve. Unreviewed permissions may expose sensitive meeting information or allow users to modify calendars beyond their current business requirements.
@@ -262,3 +264,4 @@ Run the assessment periodically as part of Microsoft 365 access governance, duri
 |1.0|October 11, 2026|Initial release|
 
 [!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
+<img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/exo-mailboxes-with-calendar-delegates" />
