@@ -2309,6 +2309,49 @@
     ]
   },
   {
+    "name": "exo-mailboxes-with-archive-disabled",
+    "title": "Exchange Online Mailboxes with Archive Disabled",
+    "shortDescription": "This script identifies Exchange Online mailboxes without an enabled archive and exports the results to a timestamped CSV report.",
+    "url": "exo-mailboxes-with-archive-disabled/README.html",
+    "creationDateTime": "2026-10-10",
+    "updateDateTime": "2026-10-10",
+    "products": [
+      "Office"
+    ],
+    "metadata": [
+      {
+        "key": "POWERSHELL",
+        "value": "7.2.0"
+      }
+    ],
+    "categories": [
+      "Report",
+      "Security"
+    ],
+    "tags": [
+      "Connect-ExchangeOnline",
+      "Get-EXOMailbox",
+      "Export-Csv",
+      "ArchiveStatus"
+    ],
+    "thumbnails": [
+      {
+        "type": "image",
+        "order": 100,
+        "url": "exo-mailboxes-with-archive-disabled/assets/preview.png",
+        "alt": "Preview of the sample Exchange Online Mailboxes with Archive Disabled"
+      }
+    ],
+    "authors": [
+      {
+        "gitHubAccount": "ojopiyo",
+        "company": "",
+        "pictureUrl": "https://github.com/ojopiyo.png",
+        "name": "Josiah Opiyo"
+      }
+    ]
+  },
+  {
     "name": "export-data-from-microsoft-search",
     "title": "Export data from MS Search",
     "shortDescription": "Shows how to export data from MS Search, in this case the entityType externalItem ",

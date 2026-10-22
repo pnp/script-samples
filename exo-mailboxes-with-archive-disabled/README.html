@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html lang="en">
+
+  <head>
+    <meta charset="utf-8">
+    <title>Exchange Online Mailboxes with Archive Disabled | PnP Samples </title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="title" content="Exchange Online Mailboxes with Archive Disabled | PnP Samples ">
+    <meta name="generator" content="docfx ">
+  <meta name="description" content="A sample gallery of scripts to manage all things Microsoft 365.">
+
+    <!-- Social Media -->
+    <meta property="og:locale" content="en_GB">
+    <meta property="og:title" content="Exchange Online Mailboxes with Archive Disabled | PnP Samples ">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://pnp.github.io/script-samples">
+    <meta property="og:image" content="https://pnp.github.io/script-samples/assets/social-media-screenshot.png">
+    <meta property="og:image:alt" content="Screenshot example of the PnP Script Samples Site">
+    <meta property="og:site_name" content="PnP Script Samples">
+    <meta name="msvalidate.01" content="04EFEDA66EC42C08A1247C979E2F9ADD">
+  <meta property="og:description" content="A sample gallery of scripts to manage all things Microsoft 365.">
+
+    <link rel="shortcut icon" href="https://c.s-microsoft.com/favicon.ico?v2">
+    <link rel="stylesheet" href="../styles/docfx.vendor.min.css">
+    <link rel="stylesheet" href="../styles/docfx.css">
+    <link rel="stylesheet" href="../styles/main.css">
+    <link rel="stylesheet" href="../styles/extra.css">
+    <link rel="stylesheet" href="../styles/filter.css">
+    <link rel="stylesheet" href="../styles/site.css">
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet"> 
+    <meta property="docfx:navrel" content="../toc.html">
+    <meta property="docfx:tocrel" content="../toc.html">
+  
+  
+  <meta property="docfx:newtab" content="true">
+    <script type="text/javascript">
+      (function(c,l,a,r,i,t,y){
+          c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+          t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+          y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+      })(window, document, "clarity", "script", "8j6pedl344");
+  </script>
+  </head>  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+             <div class="github-mark">
+              <a href="https://github.com/pnp/script-samples" title="Go to repository">
+               <div class="github-wrapper">
+                  <div class="github-icon">
+                    <img src="https://pnp.github.io/script-samples/assets/icons/github-light-64px.png" alt="GitHub Icon Image">
+                  </div>
+                  <div class="github-repository">
+                    <span>GitHub</span>
+                    <ul class="github-facts">
+                      <li>
+                        <i class="fa fa-code-fork" aria-hidden="true"></i>
+                        <span class="github-forks"></span>
+                      </li>
+                      <li>
+                        <i class="fa fa-star-o" aria-hidden="true"></i>
+                        <span class="github-stars"></span>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </a>
+            </div>
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../assets/logo.svg" alt="">
+              </a>            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <label class="glyphicon glyphicon-search" for="search-query"></label>
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>      </header>
+      <div role="main" class="container body-content hide-when-search">
+        <div class="article row grid">
+          <div class="col-md-12">
+            <article class="content wrap" id="_content" data-uid="">
+                  <div class="contribution-panel mobile-hide pull-right">
+                      <a href="https://github.com/pnp/script-samples/blob/main/scripts/exo-mailboxes-with-archive-disabled/README.md/#L1" title="Edit this page" class="improve-doc-lg"><i class="glyphicon glyphicon-pencil"></i></a>
+                  </div>
+  <h1 id="exchange-online-mailboxes-with-archive-disabled">Exchange Online Mailboxes with Archive Disabled</h1>
+
+<h2 id="summary">Summary</h2>
+<p>This PowerShell script performs an assessment of Exchange Online mailboxes to identify those that do not have an archive mailbox enabled. It uses certificate-based application authentication to connect securely to Exchange Online and retrieves mailbox information using the Exchange Online PowerShell module.</p>
+<p>The script evaluates the <code>ArchiveStatus</code> property, identifies mailboxes where the status is <code>None</code>, and exports the results to a timestamped CSV report. It also generates a log file documenting the assessment lifecycle, mailbox retrieval count, findings, output locations, and any errors encountered.</p>
+<p>The script is designed for Microsoft 365 administrative assessments, tenant configuration reviews, and ongoing mailbox archive compliance monitoring.</p>
+<h2 id="why-it-matters">Why It Matters</h2>
+<p>Exchange Online archive mailboxes provide additional storage capacity and support organisational email retention strategies. Mailboxes without an enabled archive may require investigation to determine whether their configuration aligns with business, operational, and compliance requirements.</p>
+<p>For example, an M365 Administrator performing a tenant-wide storage assessment can use this script to identify mailboxes without an enabled archive, review the findings with service owners, and determine whether archive provisioning is required.</p>
+<p>The report provides a practical starting point for remediation planning and configuration governance without making changes to mailbox settings.</p>
+<h3 id="benefits">Benefits</h3>
+<ul>
+<li><strong>Tenant-wide visibility:</strong> Assesses mailboxes across the Exchange Online organisation.</li>
+<li><strong>Configuration assessment:</strong> Identifies mailboxes reporting an archive status of <code>None</code>.</li>
+<li><strong>Audit-ready reporting:</strong> Produces a timestamped CSV file suitable for filtering, analysis, and distribution.</li>
+<li><strong>Operational traceability:</strong> Records execution milestones, mailbox counts, results, and errors in a log file.</li>
+<li><strong>Secure authentication:</strong> Uses certificate-based application authentication rather than interactive user sign-in.</li>
+<li><strong>Automation readiness:</strong> Supports scheduled execution and integration into administrative assessment workflows.</li>
+<li><strong>Non-invasive execution:</strong> Performs a read-only assessment and does not enable, disable, or modify archive mailboxes.</li>
+</ul>
+<h2 id="prerequisites">Prerequisites</h2>
+<ul>
+<li>Exchange Online PowerShell module (<code>ExchangeOnlineManagement</code>)</li>
+<li>Exchange Online application registration configured for certificate-based authentication</li>
+<li>Valid certificate associated with the application</li>
+<li>Appropriate Exchange Online application permissions and administrative configuration</li>
+<li>Access to the certificate private key from the system executing the script</li>
+</ul>
+<h2 id="configuration">Configuration</h2>
+<p>Update the following variables before execution:</p>
+<table>
+<thead>
+<tr>
+<th>Variable</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>$ClientID</code></td>
+<td>Azure AD Application (Client) ID</td>
+</tr>
+<tr>
+<td><code>$ThumbPrint</code></td>
+<td>Certificate thumbprint</td>
+</tr>
+<tr>
+<td><code>$Tenant</code></td>
+<td>Microsoft 365 tenant name (e.g. <code>contoso.onmicrosoft.com</code>)</td>
+</tr>
+<tr>
+<td><code>$OutputFolder</code></td>
+<td>Currently set to (<code>C:\Temp\MailboxReport</code>)</td>
+</tr>
+</tbody>
+</table>
+<div class="tabGroup" id="tabgroup_1">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_1_pnpps" role="tab" aria-controls="tabpanel_1_pnpps" data-tab="pnpps" tabindex="0" aria-selected="true">PnP PowerShell</a>
+</li>
+</ul>
+<section id="tabpanel_1_pnpps" role="tabpanel" data-tab="pnpps">
+
+<pre><code class="lang-powershell">
+# ============================================================
+# ASSESSMENT: EXCHANGE ONLINE MAILBOXES WITH ARCHIVE DISABLED
+# ============================================================
+
+$ClientID   = &quot;xxxxxxxxxxxxxxxxxxxxx&quot;
+$ThumbPrint = &quot;xxxxxxxxxxxxxxxxxxxxx&quot;
+$Tenant     = &quot;contoso.onmicrosoft.com&quot;
+
+$OutputFolder = &quot;C:\Temp\MailboxesWithArchiveDisabled&quot;
+
+if (-not (Test-Path -LiteralPath $OutputFolder)) {
+    New-Item -Path $OutputFolder -ItemType Directory -Force | Out-Null
+}
+
+$TimeStamp = Get-Date -Format &quot;yyyyMMdd_HHmmss&quot;
+$CsvPath   = Join-Path $OutputFolder &quot;MailboxesWithArchiveDisabled_$TimeStamp.csv&quot;
+$LogPath   = Join-Path $OutputFolder &quot;MailboxesWithArchiveDisabled_$TimeStamp.log&quot;
+
+$Connected = $false
+
+try {
+    Add-Content -LiteralPath $LogPath -Value &quot;$(Get-Date -Format 'yyyy-MM-dd HH:mm:ss') - Assessment started.&quot;
+
+    # ======================================================================
+    # CONNECT TO EXCHANGE ONLINE USING CERTIFICATE-BASED APP AUTHENTICATION
+    # ======================================================================
+    Import-Module ExchangeOnlineManagement -ErrorAction Stop
+
+    Connect-ExchangeOnline `
+        -AppId $ClientID `
+        -CertificateThumbprint $ThumbPrint `
+        -Organization $Tenant `
+        -ShowBanner:$false `
+        -ErrorAction Stop
+
+    $Connected = $true
+
+    Add-Content -LiteralPath $LogPath -Value &quot;$(Get-Date -Format 'yyyy-MM-dd HH:mm:ss') - Connected to Exchange Online.&quot;
+    # ======================================================================
+    # RETRIEVE ALL MAILBOXES, INCLUDING THE ARCHIVESTATUS PROPERTY
+    # ======================================================================
+    $Mailboxes = @(
+        Get-EXOMailbox `
+            -ResultSize Unlimited `
+            -Properties ArchiveStatus, RecipientTypeDetails `
+            -ErrorAction Stop
+    )
+
+    Add-Content -LiteralPath $LogPath -Value &quot;$(Get-Date -Format 'yyyy-MM-dd HH:mm:ss') - Retrieved $($Mailboxes.Count) mailboxes.&quot;
+
+    # ============================================================================
+    # IDENTIFY MAILBOXES WITHOUT AN ENABLED ARCHIVE
+    # ============================================================================
+    $Results = @(
+        $Mailboxes |
+            Where-Object { $_.ArchiveStatus -eq &quot;None&quot; } |
+            Select-Object `
+                DisplayName,
+                PrimarySmtpAddress,
+                UserPrincipalName,
+                RecipientTypeDetails,
+                ArchiveStatus
+    )
+    # ======================================================================
+    # EXPORT RESULTS, INCLUDING HEADERS WHEN NO MAILBOXES MATCH
+    # ======================================================================
+    if ($Results.Count -gt 0) {
+        $Results | Export-Csv -LiteralPath $CsvPath -NoTypeInformation -Encoding UTF8
+    }
+    else {
+        &quot;DisplayName,PrimarySmtpAddress,UserPrincipalName,RecipientTypeDetails,ArchiveStatus&quot; |
+            Set-Content -LiteralPath $CsvPath -Encoding UTF8
+    }
+
+    Add-Content -LiteralPath $LogPath -Value &quot;$(Get-Date -Format 'yyyy-MM-dd HH:mm:ss') - Mailboxes with archive disabled: $($Results.Count).&quot;
+    Add-Content -LiteralPath $LogPath -Value &quot;$(Get-Date -Format 'yyyy-MM-dd HH:mm:ss') - CSV output: $CsvPath&quot;
+    Add-Content -LiteralPath $LogPath -Value &quot;$(Get-Date -Format 'yyyy-MM-dd HH:mm:ss') - Assessment completed successfully.&quot;
+
+    Write-Host &quot;Assessment completed successfully.&quot; -ForegroundColor Green
+    Write-Host &quot;Total mailboxes assessed: $($Mailboxes.Count)&quot;
+    Write-Host &quot;Mailboxes with archive disabled: $($Results.Count)&quot;
+    Write-Host &quot;CSV report: $CsvPath&quot;
+    Write-Host &quot;Log file: $LogPath&quot;
+}
+catch {
+    $ErrorMessage = &quot;$(Get-Date -Format 'yyyy-MM-dd HH:mm:ss') - ERROR: $($_.Exception.Message)&quot;
+    Add-Content -LiteralPath $LogPath -Value $ErrorMessage
+    Write-Error $ErrorMessage
+}
+finally {
+    if ($Connected) {
+        Disconnect-ExchangeOnline -Confirm:$false -ErrorAction SilentlyContinue
+        Add-Content -LiteralPath $LogPath -Value &quot;$(Get-Date -Format 'yyyy-MM-dd HH:mm:ss') - Disconnected from Exchange Online.&quot;
+    }
+}
+
+
+</code></pre>
+<h2 id="usage">Usage</h2>
+<ol>
+<li>Configure $ClientID, $ThumbPrint, and $Tenant with the appropriate application and tenant details.</li>
+<li>Set $OutputFolder to a suitable location with sufficient storage and appropriate access controls.</li>
+<li>Run the script under an identity that can access the configured certificate and output directory.</li>
+<li>Review the generated CSV report and log file.</li>
+</ol>
+<p>The script creates the output directory if it does not exist. Each execution generates timestamped output files to help preserve historical assessment results.</p>
+<h2 id="output">Output</h2>
+<p>The script generates two files:</p>
+<table>
+<thead>
+<tr>
+<th>File</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>MailboxesWithArchiveDisabled_yyyyMMdd_HHmmss.csv</code></td>
+<td>Mailbox records where ArchiveStatus is <code>None</code></td>
+</tr>
+<tr>
+<td><code>MailboxesWithArchiveDisabled_yyyyMMdd_HHmmss.log</code></td>
+<td>Assessment progress, mailbox counts, output paths, and error details</td>
+</tr>
+</tbody>
+</table>
+<p>The CSV contains the following fields:</p>
+<ul>
+<li><code>DisplayName</code></li>
+<li><code>PrimarySmtpAddress</code></li>
+<li><code>UserPrincipalName</code></li>
+<li><code>RecipientTypeDetails</code></li>
+<li><code>ArchiveStatus</code></li>
+</ul>
+<p>If no matching mailboxes are found, the script creates a CSV containing the column headers without any data rows.</p>
+<h2 id="notes">Notes</h2>
+<ul>
+<li><strong>Assessment scope:</strong> The report includes mailboxes returned by <code>Get-EXOMailbox -ResultSize Unlimited</code> for which <code>ArchiveStatus</code> is <code>None</code>. It should not be interpreted as a definitive inventory of every Exchange recipient type.</li>
+<li><strong>Archive status:</strong> A status of <code>None</code> indicates that an archive is not currently reported as enabled. Validate individual cases against organisational requirements before taking action.</li>
+<li><strong>No remediation:</strong> The script does not provision archives or change retention policies.</li>
+<li><strong>Large tenants:</strong> Retrieving all mailboxes into memory is appropriate for many assessments. For exceptionally large environments, consider implementing paged processing and incremental CSV exports.</li>
+<li><strong>Error handling:</strong> Errors are logged, and the Exchange Online session is disconnected when the connection was successfully established. For unattended automation, consider returning a non-zero process exit code when the assessment fails.</li>
+<li><strong>Credential management:</strong> Do not commit production certificate details, private keys, or other credentials to source control.</li>
+<li><strong>Output protection:</strong> Store reports in an appropriately secured location because mailbox identifiers and addresses may be operationally sensitive.</li>
+</ul>
+<h2 id="recommended-use">Recommended Use</h2>
+<p>Run the assessment periodically as part of Exchange Online configuration reviews, archive provisioning assessments, and Microsoft 365 operational reporting. Use the results to support investigation and remediation decisions rather than treating the absence of an archive as an automatic configuration fault.</p>
+<h2 id="contributors">Contributors</h2>
+<table>
+<thead>
+<tr>
+<th>Author(s)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="https://github.com/ojopiyo">Josiah Opiyo</a></td>
+</tr>
+</tbody>
+</table>
+<p><em>Built with a focus on automation, governance, least privilege, and clean Microsoft 365 tenants - helping M365 admins gain visibility and reduce operational risk.</em></p>
+<h2 id="version-history">Version history</h2>
+<table>
+<thead>
+<tr>
+<th>Version</th>
+<th>Date</th>
+<th>Comments</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1.0</td>
+<td>October 10, 2026</td>
+<td>Initial release</td>
+</tr>
+</tbody>
+</table>
+<h2 id="disclaimer">Disclaimer</h2>
+<p><strong>THESE SAMPLES ARE PROVIDED <em>AS IS</em> WITHOUT WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, INCLUDING ANY IMPLIED WARRANTIES OF FITNESS FOR A PARTICULAR PURPOSE, MERCHANTABILITY, OR NON-INFRINGEMENT.</strong></p>
+<img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/exo-mailboxes-with-archive-disabled">
+</section>
+</div>
+
+</article>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+      <span>Script Samples<br>Generated by <strong><a href='https://dotnet.github.io/docfx' alt='Doc FX Website'>DocFX</a></strong> with <strong><a href='https://ovasquez.github.io/docfx-material' alt='DocFx Material Theme'>Material UI</a></strong></span>
+      
+            <!-- <img src="https://telemetry.sharepointpnp.com/@pnp.github.io/index/" alt="spacer"> -->
+          </div>
+        </div>
+      </footer>    </div>
+
+    <script type="text/javascript" src="../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+
+    <script type="text/javascript" src="../styles/clipboard.min.js"></script>
+    <script type="text/javascript" src="../styles/isotope.pkgd.min.js"></script>
+    <script type="text/javascript" src="../styles/loadsamples.js"></script>
+    <script type="text/javascript" src="../styles/filtersamples.js"></script>
+
+  </body>
+</html>
