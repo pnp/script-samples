@@ -346,6 +346,65 @@
     ]
   },
   {
+    "name": "aad-bulk-restore-deletedgroups",
+    "title": "Restore deleted Microsoft 365 & Entra ID Security Groups",
+    "shortDescription": "Restore deleted Microsoft 365 Groups and Entra ID Security Groups in bulk using Microsoft Graph PowerShell.",
+    "url": "aad-bulk-restore-deletedgroups/README.html",
+    "creationDateTime": "2026-10-10",
+    "updateDateTime": "2026-10-10",
+    "products": [
+      "Graph",
+      "Entra ID",
+      "Microsoft 365"
+    ],
+    "metadata": [
+      {
+        "key": "CLI-FOR-MICROSOFT365",
+        "value": "5.5.0"
+      },
+      {
+        "key": "GRAPH-POWERSHELL",
+        "value": "1.11.0"
+      },
+      {
+        "key": "POWERSHELL",
+        "value": "7.2.1"
+      }
+    ],
+    "categories": [
+      "Configure",
+      "Security"
+    ],
+    "tags": [
+      "Connect-MgGraph",
+      "Invoke-MgGraphRequest",
+      "User.ReadWrite.All",
+      "Group.ReadWrite.All",
+      "Directory.ReadWrite.All",
+      "AppRoleAssignment.ReadWrite.All",
+      "requiredResourceAccess",
+      "app registration",
+      "delegated permission",
+      "application permission"
+    ],
+    "thumbnails": [
+      {
+        "type": "image",
+        "order": 100,
+        "url": "aad-entrauser-offboarding/assets/preview.png",
+        "alt": "Preview of the sample Offboard an Entra user"
+      }
+    ],
+    "authors": [
+      {
+        "gitHubAccount": "nelladath",
+        "company": "",
+        "pictureUrl": "https://github.com/nelladath.png",
+        "name": "Sujin Nelladath"
+      }
+    ]
+  },
+  {
     "name": "aad-control-guestaccount-m365-groups-teams",
     "title": "Prevent Guests from Being Added to a Specific Microsoft 365 Group or Microsoft Teams team",
     "shortDescription": "Prevent Guests from Being Added to a Specific Microsoft 365 Group or Microsoft Teams team",
