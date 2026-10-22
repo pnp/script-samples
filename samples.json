@@ -18234,6 +18234,52 @@
     ]
   },
   {
+    "name": "spo-teams-membership-difference",
+    "title": "Permission discrepancies between Teams and SharePoint sites",
+    "shortDescription": "Permission discrepancies between Teams and SharePoint sites.",
+    "url": "spo-teams-membership-difference/README.html",
+    "creationDateTime": "2026-10-13",
+    "updateDateTime": "2026-10-13",
+    "products": [
+      "SharePoint",
+      "Teams"
+    ],
+    "metadata": [
+      {
+        "key": "PNP-POWERSHELL",
+        "value": "3.2.0"
+      }
+    ],
+    "categories": [
+      "Report",
+      "Permissions"
+    ],
+    "tags": [
+      "modern",
+      "Connect-PnPOnline",
+      "Get-PnPTeamsChannelUser",
+      "Get-PnPTenantSite",
+      "Get-PnPGroup",
+      "Get-PnPGroupMember"
+    ],
+    "thumbnails": [
+      {
+        "type": "image",
+        "order": 100,
+        "url": "spo-teams-membership-difference/assets/preview.png",
+        "alt": ""
+      }
+    ],
+    "authors": [
+      {
+        "gitHubAccount": "reshmee011",
+        "company": "",
+        "pictureUrl": "https://avatars.githubusercontent.com/u/7693852?v=4",
+        "name": "Reshmee Auckloo"
+      }
+    ]
+  },
+  {
     "name": "spo-tenant-site-inventory",
     "title": "List of active sites in Tenant with Admins and storage used",
     "shortDescription": "This script provides you the list of active sites in your tenant with their administrator and usage in MB",
