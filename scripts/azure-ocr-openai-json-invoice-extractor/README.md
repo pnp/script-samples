@@ -137,14 +137,14 @@ function Get-Inputs($ExtractedText) {
 # Function to Process Base64 Document Input
 function Get-Data($Base64String) {
     try {
-        $Base64String = Convert-Base64String $FilePath
         # Step 1: Extract text using OCR
         $ExtractedText = Get-TextFromDocument -Base64String $Base64String
 
         # Step 2: Extract Names using OpenAI
         $Names = Get-Inputs -ExtractedText $ExtractedText
+
         # Step 3: Return as JSON
-        return $Names 
+        return $Names
     }
     catch {
         return @{ "error" = $_.Exception.Message } | ConvertTo-Json
@@ -157,8 +157,10 @@ function Convert-Base64String($path) {
     return $Base64Input
 }
 
+
 # Example Usage: Provide a Base64 String of a PDF or Image
-$Base64Input = ""
+$Base64Input = Convert-Base64String $FilePath
+
 # Call the Function
 $Result = Get-Data -Base64String $Base64Input
 Write-Output $Result
