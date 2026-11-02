@@ -68,11 +68,11 @@ process {
         Authorization = "token $githubToken"
         Accept        = "application/vnd.github+json"
     }
-    
+
     $allPRs = @()
 
     do {
-        $url = "https://api.github.com/repos/$RepoOwner/$RepoName/pulls?state=closed&sort=merged_at&direction=desc&per_page=$perPage&page=$page"
+        $url = "https://api.github.com/repos/$RepoOwner/$RepoName/pulls?state=closed&sort=created&direction=desc&per_page=$perPage&page=$page"
         $prs = Invoke-RestMethod -Uri $url -Headers $headers
 
         foreach ($pr in $prs) {
@@ -82,7 +82,7 @@ process {
         }
         $page++
     } while ($prs.Count -eq $perPage)
-    
+
 
     #--------------------------------------------------------------------------------------
     # Produce Report of the latest merged PRs as Output PRs with user login and profile link
