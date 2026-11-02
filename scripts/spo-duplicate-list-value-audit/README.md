@@ -59,7 +59,7 @@ $ClientID   = "xxxxxxxxx"
 $ThumbPrint = "xxxxxxxxx" 
 $Tenant     = "contoso.onmicrosoft.com"
 
-$SiteUrl    = "https://regulator.sharepoint.com/sites/SiteName"
+$SiteUrl    = "https://contoso.sharepoint.com/sites/SiteName"
 $ListName   = "Batch Log"
 $ColumnName = "Recipient"
 
@@ -193,6 +193,10 @@ if ($Report.Count -gt 0) {
 
 ```
 
+[!INCLUDE [More about PnP PowerShell](../../docfx/includes/MORE-PNPPS.md)]
+
+***
+
 ## Usage
 
 1. Configure the application ID, certificate thumbprint, tenant, site URL, list name, column name, and report path.
@@ -252,3 +256,4 @@ The CSV contains one row for each list item associated with a duplicate value.
 |1.0|October 18, 2026|Initial release|
 
 [!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
+<img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/spo-duplicate-list-value-audit" aria-hidden="true" />
