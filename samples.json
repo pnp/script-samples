@@ -10224,6 +10224,48 @@
     ]
   },
   {
+    "name": "spo-duplicate-list-value-audit",
+    "title": "SPO - Duplicate List Value Audit",
+    "shortDescription": "Identify duplicate values in a SharePoint list column and export them to a CSV report using PnP PowerShell.",
+    "url": "spo-duplicate-list-value-audit/README.html",
+    "creationDateTime": "2026-10-18",
+    "updateDateTime": "2026-10-18",
+    "products": [
+      "SharePoint"
+    ],
+    "metadata": [
+      {
+        "key": "PNP-POWERSHELL",
+        "value": "3.1.0"
+      }
+    ],
+    "categories": [
+      "Report",
+      "Data"
+    ],
+    "tags": [
+      "Connect-PnPOnline",
+      "Get-PnPListItem",
+      "Disconnect-PnPOnline"
+    ],
+    "thumbnails": [
+      {
+        "type": "image",
+        "order": 100,
+        "url": "spo-duplicate-list-value-audit/assets/preview.png",
+        "alt": "Preview of the sample SPO - Duplicate List Value Audit"
+      }
+    ],
+    "authors": [
+      {
+        "gitHubAccount": "ojopiyo",
+        "company": "",
+        "pictureUrl": "https://github.com/ojopiyo.png",
+        "name": "Josiah Opiyo"
+      }
+    ]
+  },
+  {
     "name": "spo-empty-recycle-bin",
     "title": "Empty SharePoint Online Site Recycle Bin",
     "shortDescription": "This sample script shows how to empty SharePoint online site first stage and second stage recycle bin",

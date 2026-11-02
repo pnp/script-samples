@@ -1,0 +1,55 @@
+[
+  {
+    "name": "spo-duplicate-list-value-audit",
+    "source": "pnp",
+    "title": "SPO - Duplicate List Value Audit",
+    "shortDescription": "Identify duplicate values in a SharePoint list column and export them to a CSV report using PnP PowerShell.",
+    "url": "https://pnp.github.io/script-samples/spo-duplicate-list-value-audit/README.html",
+    "longDescription": [
+      "This PowerShell script connects to SharePoint Online using certificate-based app-only authentication, retrieves items from a specified SharePoint list, and identifies duplicate values in a configured column. It generates a CSV report containing the duplicate value, occurrence count, list item ID, site URL, list name, and column name."
+    ],
+    "creationDateTime": "2026-10-18",
+    "updateDateTime": "2026-10-18",
+    "products": [
+      "SharePoint"
+    ],
+    "metadata": [
+      {
+        "key": "PNP-POWERSHELL",
+        "value": "3.1.0"
+      }
+    ],
+    "categories": [
+      "Report",
+      "Data"
+    ],
+    "tags": [
+      "Connect-PnPOnline",
+      "Get-PnPListItem",
+      "Disconnect-PnPOnline"
+    ],
+    "thumbnails": [
+      {
+        "type": "image",
+        "order": 100,
+        "url": "https://raw.githubusercontent.com/pnp/script-samples/main/scripts/spo-duplicate-list-value-audit/assets/preview.png",
+        "alt": "Preview of the sample SPO - Duplicate List Value Audit"
+      }
+    ],
+    "authors": [
+      {
+        "gitHubAccount": "ojopiyo",
+        "company": "",
+        "pictureUrl": "https://github.com/ojopiyo.png",
+        "name": "Josiah Opiyo"
+      }
+    ],
+    "references": [
+      {
+        "name": "Want to learn more about PnP PowerShell and the cmdlets",
+        "description": "Check out the PnP PowerShell site to get started and for the reference to the cmdlets.",
+        "url": "https://aka.ms/pnp/powershell"
+      }
+    ]
+  }
+]
