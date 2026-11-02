@@ -5268,6 +5268,53 @@
     ]
   },
   {
+    "name": "spe-export-container-inventory-to-csv",
+    "title": "Export SharePoint Embedded container inventory to CSV",
+    "shortDescription": "Inventory every SharePoint Embedded container in the tenant (active, archived and deleted) with owning app, storage and sensitivity label, and export it to CSV.",
+    "url": "spe-export-container-inventory-to-csv/README.html",
+    "creationDateTime": "2026-10-20",
+    "updateDateTime": "2026-10-20",
+    "products": [
+      "SharePoint"
+    ],
+    "metadata": [
+      {
+        "key": "PNP-POWERSHELL",
+        "value": "3.4.1"
+      }
+    ],
+    "categories": [
+      "Report",
+      "Security"
+    ],
+    "tags": [
+      "Connect-PnPOnline",
+      "Get-PnPContainerType",
+      "Get-PnPContainerApplication",
+      "Get-PnPContext",
+      "Get-PnPContainer",
+      "Get-PnPDeletedContainer",
+      "Export-Csv",
+      "Disconnect-PnPOnline"
+    ],
+    "thumbnails": [
+      {
+        "type": "image",
+        "order": 100,
+        "url": "spe-export-container-inventory-to-csv/assets/preview.png",
+        "alt": "Preview of the sample Export SharePoint Embedded container inventory to CSV"
+      }
+    ],
+    "authors": [
+      {
+        "gitHubAccount": "ari20089",
+        "company": "Capgemini",
+        "pictureUrl": "https://github.com/ari20089.png",
+        "name": "Arindam Choudhury"
+      }
+    ]
+  },
+  {
     "name": "spfx-install-js",
     "title": "Install SharePoint Framework Development Environment",
     "shortDescription": "Node.js script to install SharePoint Framework (SPFx) development environments with correct Node.js versions and build tools using fnm.",
