@@ -200,7 +200,7 @@ Catch {
   Continue
 }
 ```
-[!INCLUDE [More about CLI for Microsoft 365](../../docfx/includes/MORE-CLIM365.md)]
+[!INCLUDE [More about CLI for Microsoft 365](../../docs/includes/MORE-CLIM365.md)]
 ***
 
 ## Contributors
@@ -209,6 +209,6 @@ Catch {
 |-----------|
 | [Siddharth Vaghasia](https://github.com/siddharth-vaghasia) |
 
-[!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
+[!INCLUDE [DISCLAIMER](../../docs/includes/DISCLAIMER.md)]
 
 <img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/teams-export-channel-conversations-to-html" aria-hidden="true" />

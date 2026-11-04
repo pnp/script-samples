@@ -238,7 +238,7 @@ if ($allDecisions.Count -gt 0) {
 Write-Host "Access review management process completed successfully." -ForegroundColor Cyan
 Disconnect-MgGraph
 ```
-[!INCLUDE [More about Microsoft Graph PowerShell SDK](../../docfx/includes/MORE-GRAPHSDK.md)]
+[!INCLUDE [More about Microsoft Graph PowerShell SDK](../../docs/includes/MORE-GRAPHSDK.md)]
 ***
 
 
@@ -278,5 +278,5 @@ For optimal results, consider scheduling this script to run weekly to ensure tha
 - Completed reviews have their decisions exported for record-keeping
 - You have visibility into the overall access review health of your tenant
 
-[!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
+[!INCLUDE [DISCLAIMER](../../docs/includes/DISCLAIMER.md)]
 <img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/aad-access-review-manager" aria-hidden="true" />

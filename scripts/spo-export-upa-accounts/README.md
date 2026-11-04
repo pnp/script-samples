@@ -76,7 +76,7 @@ $UserProfileData | Export-Csv $CSVPath -Encoding utf8BOM -Delimiter "|"
 write-host -f Green "User Profiles Data Exported Successfully to:" $CSVPath
 
 ```
-[!INCLUDE [More about PnP PowerShell](../../docfx/includes/MORE-PNPPS.md)]
+[!INCLUDE [More about PnP PowerShell](../../docs/includes/MORE-PNPPS.md)]
 
 # [CLI for Microsoft 365](#tab/cli-m365-ps)
 ```powershell
@@ -96,7 +96,7 @@ m365 aad user get --id "@meId"
 m365 aad user get --id "UserID"
 
 ```
-[!INCLUDE [More about CLI for Microsoft 365](../../docfx/includes/MORE-CLIM365.md)]
+[!INCLUDE [More about CLI for Microsoft 365](../../docs/includes/MORE-CLIM365.md)]
 ***
 
 ## Contributors
@@ -106,5 +106,5 @@ m365 aad user get --id "UserID"
 | Kasper Larsen |
 | Valeras Narbutas |
 
-[!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
+[!INCLUDE [DISCLAIMER](../../docs/includes/DISCLAIMER.md)]
 <img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/spo-export-upa-accounts" aria-hidden="true" />

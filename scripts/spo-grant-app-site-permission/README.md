@@ -36,7 +36,7 @@ else {
     Grant-PnPAzureADAppSitePermission -Permissions $Permissions -Site $SiteUrl -AppId $AppId -DisplayName $DisplayName
 }
 ```
-[!INCLUDE [More about PnP PowerShell](../../docfx/includes/MORE-PNPPS.md)]
+[!INCLUDE [More about PnP PowerShell](../../docs/includes/MORE-PNPPS.md)]
 
 
 ## Source Credit
@@ -50,5 +50,5 @@ Sample idea first appeared on [https://www.leonarmston.com/2022/02/use-sites-sel
 | [Michał Romiszewski](https://github.com/mromiszewski) |
 
 
-[!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
+[!INCLUDE [DISCLAIMER](../../docs/includes/DISCLAIMER.md)]
 <img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/spo-grant-app-site-permission" aria-hidden="true" />

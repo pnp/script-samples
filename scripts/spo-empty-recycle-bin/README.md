@@ -30,7 +30,7 @@ Clear-PnPRecycleBinItem -SecondStageOnly
 Clear-PnPRecycleBinItem -All
 
 ```
-[!INCLUDE [More about PnP PowerShell](../../docfx/includes/MORE-PNPPS.md)]
+[!INCLUDE [More about PnP PowerShell](../../docs/includes/MORE-PNPPS.md)]
 
 # [CLI for Microsoft 365](#tab/cli-m365-ps)
 
@@ -52,7 +52,7 @@ m365 spo site recyclebinitem clear --siteUrl $siteUrl
 m365 spo site recyclebinitem clear --siteUrl $siteUrl --secondary
 
 ```
-[!INCLUDE [More about CLI for Microsoft 365](../../docfx/includes/MORE-CLIM365.md)]
+[!INCLUDE [More about CLI for Microsoft 365](../../docs/includes/MORE-CLIM365.md)]
 
 ***
 
@@ -62,5 +62,5 @@ m365 spo site recyclebinitem clear --siteUrl $siteUrl --secondary
 |-----------|
 | [Ganesh Sanap](https://ganeshsanapblogs.wordpress.com/) |
 
-[!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
+[!INCLUDE [DISCLAIMER](../../docs/includes/DISCLAIMER.md)]
 <img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/spo-empty-recycle-bin" aria-hidden="true" />

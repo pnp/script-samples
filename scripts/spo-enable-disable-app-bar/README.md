@@ -32,7 +32,7 @@ Disconnect-PnPOnline
 
 ```
 
-[!INCLUDE [More about PnP PowerShell](../../docfx/includes/MORE-PNPPS.md)]
+[!INCLUDE [More about PnP PowerShell](../../docs/includes/MORE-PNPPS.md)]
 
 # [SPO Management Shell](#tab/spoms-ps)
 
@@ -55,7 +55,7 @@ Disconnect-SPOService
 
 ```
 
-[!INCLUDE [More about SPO Management Shell](../../docfx/includes/MORE-SPOMS.md)]
+[!INCLUDE [More about SPO Management Shell](../../docs/includes/MORE-SPOMS.md)]
 
 ***
 
@@ -66,5 +66,5 @@ Disconnect-SPOService
 | [Aman Panjwani](https://www.linkedin.com/in/aman-17-panjwani/) |
 | [Ganesh Sanap](https://ganeshsanapblogs.wordpress.com/about) |
 
-[!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
+[!INCLUDE [DISCLAIMER](../../docs/includes/DISCLAIMER.md)]
 <img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/spo-enable-disable-app-bar" aria-hidden="true" />

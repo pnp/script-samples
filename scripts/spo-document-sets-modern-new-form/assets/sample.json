@@ -1,4 +1,5 @@
-[{
+[
+  {
     "name": "spo-document-sets-modern-new-form",
     "source": "pnp",
     "title": "Enable modern creation forms for Document sets",
@@ -8,45 +9,53 @@
     "creationDateTime": "2023-05-07",
     "updateDateTime": "2025-06-12",
     "products": [
-        "SharePoint"
+      "SharePoint"
     ],
-    "metadata": [{
+    "metadata": [
+      {
         "key": "PNP-POWERSHELL",
         "value": "1.12.0"
-    }],
+      }
+    ],
     "categories": [
-        "Configure"
+      "Configure"
     ],
     "tags": [
-        "modern",
-        "SharePoint Online",
-        "Connect-PnPOnline",
-        "Get-PnPList",
-        "Get-PnPContentType",
-        "Invoke-PnPQuery"
+      "modern",
+      "SharePoint Online",
+      "Connect-PnPOnline",
+      "Get-PnPList",
+      "Get-PnPContentType",
+      "Invoke-PnPQuery"
     ],
-    "thumbnails": [{
+    "thumbnails": [
+      {
         "type": "image",
         "order": 100,
         "url": "https://raw.githubusercontent.com/pnp/script-samples/main/scripts/spo-document-sets-modern-new-form/assets/output.png",
-        "alt": ""
-    }],
+        "alt": "Preview of the sample Enable modern creation forms for Document sets"
+      }
+    ],
     "authors": [
-     {
+      {
         "gitHubAccount": "sympmarc",
         "company": "Sympraxis Consulting",
         "pictureUrl": "https://github.com/sympmarc.png",
         "name": "Marc D Anderson"
-    },
-    {
+      },
+      {
         "gitHubAccount": "Tanddant",
         "company": "",
         "pictureUrl": "https://github.com/Tanddant.png",
         "name": "Dan Toft"
-    }],
-    "references": [{
+      }
+    ],
+    "references": [
+      {
         "name": "Want to learn more about PnP PowerShell and the cmdlets",
         "description": "Check out the PnP PowerShell site to get started and for the reference to the cmdlets.",
         "url": "https://aka.ms/pnp/powershell"
-    }]
-}]
+      }
+    ]
+  }
+]

@@ -84,7 +84,7 @@ Invoke-PnPGraphMethod -Url $url -Method Patch -Content $Payload
 (Get-PnPMicrosoft365GroupSettings -GroupSetting "Group.Unified").Values 
 ```
 
-[!INCLUDE [More about PnP PowerShell](../../docfx/includes/MORE-PNPPS.md)]
+[!INCLUDE [More about PnP PowerShell](../../docs/includes/MORE-PNPPS.md)]
 
 ***
 
@@ -98,5 +98,5 @@ Sample first appeared on [Managing Microsoft 365 Group Settings with PnP PowerSh
 |-----------|
 | [Reshmee Auckloo](https://github.com/reshmee011) |
 
-[!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
+[!INCLUDE [DISCLAIMER](../../docs/includes/DISCLAIMER.md)]
 <img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/aad-update-m365-global-unified-settings" aria-hidden="true" />

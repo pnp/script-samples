@@ -54,7 +54,7 @@ Disconnect-PnPOnline
 #####################
 Stop-Transcript
 ```
-[!INCLUDE [More about PnP PowerShell](../../docfx/includes/MORE-PNPPS.md)]
+[!INCLUDE [More about PnP PowerShell](../../docs/includes/MORE-PNPPS.md)]
 
 # [CLI for Microsoft 365](#tab/cli-m365-ps)
 
@@ -76,7 +76,7 @@ if ($m365Status -match "Logged Out") {
 m365 spo page add --name $pageTemplateName --webUrl $siteUrl --promoteAs Template
 
 ```
-[!INCLUDE [More about CLI for Microsoft 365](../../docfx/includes/MORE-CLIM365.md)]
+[!INCLUDE [More about CLI for Microsoft 365](../../docs/includes/MORE-CLIM365.md)]
 ***
 
 ## Contributors
@@ -86,5 +86,5 @@ m365 spo page add --name $pageTemplateName --webUrl $siteUrl --promoteAs Templat
 | [@Expiscornovus](https://twitter.com/expiscornovus) |
 | [Ganesh Sanap](https://ganeshsanapblogs.wordpress.com/about) |
 
-[!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
+[!INCLUDE [DISCLAIMER](../../docs/includes/DISCLAIMER.md)]
 <img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/spo-add-page-template" aria-hidden="true" />

@@ -25,7 +25,7 @@ Set-SPOSite -Identity $targetSiteUrl -HidePeopleWhoHaveListsOpen $true
 # Disconnect from the SharePoint Admin Center
 Disconnect-SPOService
 ```
-[!INCLUDE [More about SPO Management Shell](../../docfx/includes/MORE-SPOMS.md)]
+[!INCLUDE [More about SPO Management Shell](../../docs/includes/MORE-SPOMS.md)]
 
 ***
 
@@ -45,5 +45,5 @@ Disconnect-SPOService
 |------------------|
 | [Tetsuya Kawahara](https://github.com/tecchan1107) |
 
-[!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
+[!INCLUDE [DISCLAIMER](../../docs/includes/DISCLAIMER.md)]
 <img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/spo-hide-people-who-have-lists-open" aria-hidden="true" />

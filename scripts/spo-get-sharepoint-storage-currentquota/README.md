@@ -24,7 +24,7 @@ Get-PnPTenantSite -IncludeOneDriveSites |  Sort-Object StorageUsageCurrent -Desc
 # omit the parameter -IncludeOneDriveSites to exclude OneDrive sites 
 ```
 
-[!INCLUDE [More about PnP PowerShell](../../docfx/includes/MORE-PNPPS.md)]
+[!INCLUDE [More about PnP PowerShell](../../docs/includes/MORE-PNPPS.md)]
 
 ***
 
@@ -39,5 +39,5 @@ Sample first appeared on [SharePoint Storage Monitoring Against Allocated Quota 
 | [Reshmee Auckloo](https://github.com/reshmee011) |
 
 
-[!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
+[!INCLUDE [DISCLAIMER](../../docs/includes/DISCLAIMER.md)]
 <img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/spo-get-sharepoint-storage-currentquota" aria-hidden="true" />

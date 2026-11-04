@@ -80,7 +80,7 @@ $Output | Export-Csv  -Path c:\temp\sites.csv -Encoding utf8NoBOM -Force  -Delim
 
 
 ```
-[!INCLUDE [More about PnP PowerShell](../../docfx/includes/MORE-PNPPS.md)]
+[!INCLUDE [More about PnP PowerShell](../../docs/includes/MORE-PNPPS.md)]
 ***
 
 ## Contributors
@@ -89,5 +89,5 @@ $Output | Export-Csv  -Path c:\temp\sites.csv -Encoding utf8NoBOM -Force  -Delim
 |-----------|
 | Kasper Larsen, Fellowmind|
 
-[!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
+[!INCLUDE [DISCLAIMER](../../docs/includes/DISCLAIMER.md)]
 <img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/spo-export-basic-sitecollection-info" aria-hidden="true" />

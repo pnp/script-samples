@@ -113,7 +113,7 @@ $resultColl | Export-Csv $outputFilePath -NoTypeInformation
 write-host -ForegroundColor Magenta "Successful!!"  
 
 ```
-[!INCLUDE [More about Power Apps PowerShell](../../docfx/includes/MORE-POWERAPPS.md)]
+[!INCLUDE [More about Power Apps PowerShell](../../docs/includes/MORE-POWERAPPS.md)]
 ***
 
 ## Contributors
@@ -123,6 +123,6 @@ write-host -ForegroundColor Magenta "Successful!!"
 | Valeras Narbutas |
 | Siddharth Vaghasia |
 
-[!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
+[!INCLUDE [DISCLAIMER](../../docs/includes/DISCLAIMER.md)]
 <img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/powerapps-get-app-users-list-csv" aria-hidden="true" />
 

@@ -1,0 +1,36 @@
+---
+import ProductImage from "./ProductImage.astro";
+import { formatDate, requireProduct, samplePath, sitePath } from "../lib/catalog";
+import type { Sample } from "../lib/types";
+interface Props { sample: Sample }
+const { sample } = Astro.props;
+const product = requireProduct(sample.products[0]);
+const author = sample.authors[0];
+---
+<article class="sample-card"
+  data-sample-card data-slug={sample.slug}
+  data-search={sample.search} data-products={sample.products.join("|")}
+  data-tools={sample.tools.map((tool) => tool.id).join("|")}
+  data-categories={sample.categories.join("|")}
+  data-authors={sample.authors.map((candidate) => candidate.handle.toLowerCase()).join("|")}
+  data-title={sample.title} data-updated={sample.updated} data-created={sample.created}>
+  <a class="card-preview" href={samplePath(sample.slug)} tabindex="-1" aria-hidden="true">
+    <ProductImage product={product} size={40} /><span>{product.label}</span><span class="preview-mark">&gt;_</span>
+  </a>
+  <div class="card-body">
+    <div class="card-meta"><span class="scenario-tag">{sample.categories[0]}</span><time class="card-date" datetime={sample.updated}>{formatDate(sample.updated)}</time></div>
+    <h3><a href={samplePath(sample.slug)}>{sample.title}</a></h3>
+    <p class="card-description">{sample.description}</p>
+    <div class="tool-tags">
+      {sample.tools.slice(0, 2).map((tool) => <span class="tool-tag">{tool.label}</span>)}
+      {sample.tools.length > 2 && <span class="tool-tag" title={sample.tools.slice(2).map((tool) => tool.label).join(", ")}>+{sample.tools.length - 2} tools</span>}
+    </div>
+  </div>
+  <div class="card-footer">
+    <a class="card-author" href={`${sitePath("")}?author=${encodeURIComponent(author.handle.toLowerCase())}`}>
+      <img class="avatar" src={author.pictureUrl} alt="" width="24" height="24" loading="lazy" decoding="async" data-avatar={author.name} />
+      <span>{author.name}{sample.authors.length > 1 ? ` +${sample.authors.length - 1}` : ""}</span>
+    </a>
+    <a class="card-open" href={samplePath(sample.slug)} aria-label={`View script: ${sample.title}`}>View script <span aria-hidden="true">&#8599;</span></a>
+  </div>
+</article>

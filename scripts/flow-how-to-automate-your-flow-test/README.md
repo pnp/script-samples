@@ -216,7 +216,7 @@ Write-Output ("failed flowruns : {0} `n"-f $failedFlowRunssCount)
 
 m365 logout
 ```
-[!INCLUDE [More about CLI for Microsoft 365](../../docfx/includes/MORE-CLIM365.md)]
+[!INCLUDE [More about CLI for Microsoft 365](../../docs/includes/MORE-CLIM365.md)]
 ***
 
 ## Configurate to your flow
@@ -245,7 +245,7 @@ function createTestData{
     return $testMetadata
 }
 ```
-[!INCLUDE [More about CLI for Microsoft 365](../../docfx/includes/MORE-CLIM365.md)]
+[!INCLUDE [More about CLI for Microsoft 365](../../docs/includes/MORE-CLIM365.md)]
 ***
 
 ### Simulate the user input
@@ -288,7 +288,7 @@ if($testItemIds -contains $itemId){
     Write-Output('Not included in testdata - SharePoint-Item {0}' -f $itemId)
 }   
 ```
-[!INCLUDE [More about CLI for Microsoft 365](../../docfx/includes/MORE-CLIM365.md)]
+[!INCLUDE [More about CLI for Microsoft 365](../../docs/includes/MORE-CLIM365.md)]
 ***
 
 ### Evaluation of the test
@@ -304,7 +304,7 @@ Write-Output ("succeded flowruns : {0} `n"-f $successFlowRunsCount)
 Write-Output ("canceled flowruns : {0} `n"-f $CancelledFlowRunsCount)
 Write-Output ("failed flowruns : {0} `n"-f $failedFlowRunssCount)
 ```
-[!INCLUDE [More about CLI for Microsoft 365](../../docfx/includes/MORE-CLIM365.md)]
+[!INCLUDE [More about CLI for Microsoft 365](../../docs/includes/MORE-CLIM365.md)]
 ***
 
 ## Contributors
@@ -314,5 +314,5 @@ Write-Output ("failed flowruns : {0} `n"-f $failedFlowRunssCount)
 | Joshua Probst |
 
 
-[!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
+[!INCLUDE [DISCLAIMER](../../docs/includes/DISCLAIMER.md)]
 <img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/flow-how-to-automate-your-flow-test" aria-hidden="true" />

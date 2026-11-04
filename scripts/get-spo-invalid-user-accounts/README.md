@@ -98,7 +98,7 @@ $invalidUsers | Export-Csv -Path "C:\temp\invalidusers.csv" -Delimiter "|" -Enco
 Write-Host "Script completed. Invalid users exported to C:\temp\invalidusers.csv" -ForegroundColor Green
 
 ```
-[!INCLUDE [More about PnP PowerShell](../../docfx/includes/MORE-PNPPS.md)]
+[!INCLUDE [More about PnP PowerShell](../../docs/includes/MORE-PNPPS.md)]
 ***
 
 
@@ -109,5 +109,5 @@ Write-Host "Script completed. Invalid users exported to C:\temp\invalidusers.csv
 | Kasper Larsen |
 | [Josiah Opiyo](https://github.com/ojopiyo)  |
 
-[!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
+[!INCLUDE [DISCLAIMER](../../docs/includes/DISCLAIMER.md)]
 <img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/get-spo-invalid-user-accounts" aria-hidden="true" />

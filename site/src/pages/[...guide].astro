@@ -1,0 +1,27 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Recognition from "../components/Recognition.astro";
+import { catalog, sitePath } from "../lib/catalog";
+import type { Guide } from "../lib/types";
+export function getStaticPaths() {
+  return catalog.guides.map((guide) => ({ params: { guide: guide.route.replace(/\/$/, "") }, props: { guide } }));
+}
+interface Props { guide: Guide }
+const { guide } = Astro.props;
+const navigation = catalog.guides.filter((item) => item.route.startsWith("contributing/"));
+const contributionGuide = guide.route.startsWith("contributing/");
+---
+<Layout title={guide.title} route={guide.route}>
+  <div class="container page-section">
+    <header class="page-heading"><p class="eyebrow">{contributionGuide ? "Built together" : "From discovery to your first run"}</p><h1>{guide.title}</h1></header>
+    {guide.route === "contributing/" && <Recognition />}
+    <div class="guide-layout">
+      <article class="readme-content guide-content" set:html={guide.html}></article>
+      <aside class="guide-sidebar" aria-label="Related guidance">
+        <h2>Find your next step</h2>
+        <nav aria-label="Guidance navigation"><a href={sitePath("")}>Browse the gallery</a><a href={sitePath("getting-started/")} aria-current={guide.route === "getting-started/" ? "page" : undefined}>Get started with scripts</a>{navigation.map((item) => <a href={sitePath(item.route)} aria-current={item.route === guide.route ? "page" : undefined}>{item.title}</a>)}</nav>
+        <a href="https://aka.ms/community/calls">Join a community call &#8599;</a>
+      </aside>
+    </div>
+  </div>
+</Layout>

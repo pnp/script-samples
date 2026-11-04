@@ -88,7 +88,7 @@ function Set-SiteAppCatalogPermissions {
 
 }
 ```
-[!INCLUDE [More about PnP PowerShell](../../docfx/includes/MORE-PNPPS.md)]
+[!INCLUDE [More about PnP PowerShell](../../docs/includes/MORE-PNPPS.md)]
 
 
 
@@ -155,7 +155,7 @@ function Set-ManagedIdentityAPIPermissions {
     }
 }
 ```
-[!INCLUDE [More about Microsoft Graph PowerShell SDK](../../docfx/includes/MORE-GRAPHSDK.md)]
+[!INCLUDE [More about Microsoft Graph PowerShell SDK](../../docs/includes/MORE-GRAPHSDK.md)]
 
 
 ***
@@ -169,5 +169,5 @@ function Set-ManagedIdentityAPIPermissions {
 | Kinga Kazala |
 
 
-[!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
+[!INCLUDE [DISCLAIMER](../../docs/includes/DISCLAIMER.md)]
 <img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/aad-grant-serviceprincipal-api-permissions" aria-hidden="true" />

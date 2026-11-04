@@ -1,0 +1,74 @@
+---
+import { ArrowRight, CalendarDays, Grid2x2, List, Search } from "@lucide/astro";
+import Layout from "../layouts/Layout.astro";
+import SampleCard from "../components/SampleCard.astro";
+import ProductImage from "../components/ProductImage.astro";
+import { catalog, sitePath } from "../lib/catalog";
+const featured = catalog.products.filter((product) => product.featured);
+const otherProducts = catalog.products.filter((product) => !product.featured);
+---
+<Layout>
+  <section class="container hero">
+    <div class="hero-copy">
+      <p class="eyebrow">Microsoft 365 &amp; Power Platform Community</p>
+      <h1>Script Samples</h1>
+      <p class="hero-descriptor">A little script. A lot less work.</p>
+      <p class="hero-description">Real-world scripts for Copilot, Microsoft 365, Power Platform and more.<span class="hero-instruction"><br class="desktop-break" /> Find a starting point, choose your tool, and make it your own.</span></p>
+      <div class="hero-meta"><span><strong>{catalog.samples.length}</strong> samples</span><span><strong>{catalog.contributors.length}</strong> contributors</span><span>Open source. Community built.</span></div>
+    </div>
+    <div class="parker-scene">
+      <span class="scene-orbit orbit-one" aria-hidden="true"></span><span class="scene-orbit orbit-two" aria-hidden="true"></span>
+      <span class="scene-token token-one" aria-hidden="true">&gt;_</span><span class="scene-token token-two" aria-hidden="true">{"{ }"}</span>
+      <img src={sitePath("images/parker-ms-300.png")} alt="Parker, the community porcupine" width="170" height="218" />
+      <span class="scene-caption">Small scripts. Big possibilities.</span>
+    </div>
+  </section>
+  <aside class="community-ribbon" aria-label="Community calls">
+    <div class="container ribbon-inner"><CalendarDays size={21} aria-hidden="true" /><p>Learn together. Join the Microsoft 365 &amp; Power Platform community calls.</p><a href="https://aka.ms/community/calls">View community calls <ArrowRight size={15} aria-hidden="true" /></a></div>
+  </aside>
+  <section class="container catalog-section" id="catalog" aria-labelledby="catalog-heading">
+    <div class="section-heading">
+      <div><p class="eyebrow">The script library</p><h2 id="catalog-heading">What will you automate today?</h2></div>
+      <a class="text-link" href={sitePath("getting-started/")}>New to scripts? Start here <ArrowRight size={16} aria-hidden="true" /></a>
+    </div>
+    <div class="catalog-controls">
+      <div id="product-filters" class="product-filters" role="group" aria-label="Filter by product">
+        <button type="button" class="product-button" data-product="" data-product-label="All samples" aria-pressed="true"><span class="all-icon" aria-hidden="true">&gt;_</span><span>All samples<span class="product-number" data-product-count="">{catalog.samples.length} scripts to explore</span></span></button>
+        {featured.map((product) => <button type="button" class="product-button" data-product={product.id} data-product-label={product.label} aria-pressed="false"><ProductImage product={product} /><span>{product.label}<span class="product-number" data-product-count={product.id}>{product.count} samples</span></span></button>)}
+        <details class="more-products">
+          <summary class="product-button"><span id="more-product-label">More products</span><span aria-hidden="true">&#8964;</span></summary>
+          <div class="more-product-options">{otherProducts.map((product) => <button type="button" data-product={product.id} data-product-label={product.label} aria-pressed="false"><ProductImage product={product} size={23} /><span>{product.label}</span><span data-product-count={product.id}>{product.count}</span></button>)}</div>
+        </details>
+      </div>
+      <form class="catalog-toolbar" id="catalog-filters" role="search" aria-label="Search and filter scripts">
+        <div class="search-control"><Search size={18} aria-hidden="true" /><label class="sr-only" for="sample-search">Search scripts, commands, or scenarios</label><input id="sample-search" name="q" type="search" placeholder="Search scripts, commands, or scenarios..." autocomplete="off" /><kbd aria-hidden="true">/</kbd></div>
+        <details class="advanced-filters" id="advanced-filters" open>
+          <summary><span id="advanced-filter-label">More filters</span><span aria-hidden="true">&#8964;</span></summary>
+          <div class="filter-selects">
+            <label class="sr-only" for="tool-filter">Tool</label><select id="tool-filter" name="tool"><option value="">All tools</option>{catalog.tools.map((tool) => <option value={tool.id}>{tool.label} ({tool.count})</option>)}</select>
+            <label class="sr-only" for="category-filter">Scenario</label><select id="category-filter" name="category"><option value="">All scenarios</option>{catalog.categories.map((category) => <option>{category}</option>)}</select>
+            <label class="sr-only" for="author-filter">Contributor</label><select id="author-filter" name="author"><option value="">All contributors</option>{[...catalog.contributors].sort((a, b) => a.name.localeCompare(b.name)).map((author) => <option value={author.handle.toLowerCase()}>{author.name}</option>)}</select>
+          </div>
+        </details>
+      </form>
+    </div>
+    <p id="filter-notice" class="filter-notice" role="status" hidden></p>
+    <div id="active-filters" class="active-filters" aria-label="Active filters"></div>
+    <div class="results-bar">
+      <p id="result-count" role="status" aria-live="polite">Explore all {catalog.samples.length} community samples</p>
+      <div class="results-actions">
+        <button type="button" class="text-button" id="clear-filters">Clear filters</button>
+        <label class="sr-only" for="sort-samples">Sort samples</label><select id="sort-samples" name="sort"><option value="updated">Recently updated</option><option value="newest">Newest added</option><option value="name">Name A-Z</option></select>
+        <div class="view-toggle" role="group" aria-label="Results layout"><button type="button" data-layout="grid" aria-pressed="true" aria-label="Grid view"><Grid2x2 size={19} aria-hidden="true" /></button><button type="button" data-layout="list" aria-pressed="false" aria-label="List view"><List size={19} aria-hidden="true" /></button></div>
+      </div>
+    </div>
+    <noscript><p>All samples are listed below. Enable JavaScript for search and filters, or use your browser's find command.</p></noscript>
+    <div class="sample-grid" id="sample-grid">{catalog.samples.map((sample) => <SampleCard sample={sample} />)}</div>
+    <div class="empty-state" id="empty-state" hidden><span class="empty-icon" aria-hidden="true">&gt;_</span><h3>No scripts found. Yet.</h3><p>Try a different command, broaden your search, or clear a filter.</p><button class="button button-primary" type="button" id="empty-clear">Clear all filters</button></div>
+    <div class="load-more"><button class="button button-secondary" type="button" id="load-more">Show more samples <span aria-hidden="true">&#8595;</span></button><span id="page-count"></span></div>
+    <aside class="contribution-banner"><img class="contribution-badge" src={sitePath("assets/credly-badge.png")} alt="Script Samples community contributor badge" width="88" height="88" loading="lazy" decoding="async" /><div><h3>Your everyday script could make someone's day.</h3><p>Share a sample, help the community, and earn your contributor badge.</p></div><a class="button button-secondary" href={sitePath("contributing/")}>Contribute a sample <ArrowRight size={16} aria-hidden="true" /></a></aside>
+  </section>
+</Layout>
+<script>
+  import "../scripts/catalog";
+</script>

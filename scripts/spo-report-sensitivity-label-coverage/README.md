@@ -2,7 +2,7 @@
 
 ## Summary
 
-Before you turn Microsoft 365 Copilot loose on a site, one number matters: how much of the content has a sensitivity label, and how much does not? An unlabeled document is one Copilot can surface and summarise with no classification attached, so "how much is unlabeled, and where?" is a Copilot-readiness question, not just a compliance one.
+Before you turn Microsoft Copilot loose on a site, one number matters: how much of the content has a sensitivity label, and how much does not? An unlabeled document is one Copilot can surface and summarise with no classification attached, so "how much is unlabeled, and where?" is a Copilot-readiness question, not just a compliance one.
 
 This read-only script answers it. It uses SharePoint Search, specifically the crawled managed property `InformationProtectionLabelId`, which holds a document's sensitivity-label GUID and is empty when the document is unlabeled, to count labeled versus unlabeled documents without walking every file. That means it scales across large libraries instead of enumerating them item by item. It groups the result per library, ranks the worst-covered library first, prints a site coverage percentage and a plain Copilot-exposure line, and can optionally write a CSV of every document and a styled HTML report. It sets an exit code (`0` fully covered, `2` gaps found) so a pipeline can gate on label coverage.
 
@@ -22,7 +22,7 @@ It complements Microsoft Purview rather than reinventing it. Purview owns *apply
 <#
 .SYNOPSIS
     Reports sensitivity-label coverage for a SharePoint site - how many documents
-    are UNLABELED (what Microsoft 365 Copilot would surface with no classification)
+    are UNLABELED (what Microsoft Copilot would surface with no classification)
     and where the gaps are.
 
 .DESCRIPTION
@@ -196,7 +196,7 @@ catch {
 }
 ```
 
-[!INCLUDE [More about PnP PowerShell](../../docfx/includes/MORE-PNPPS.md)]
+[!INCLUDE [More about PnP PowerShell](../../docs/includes/MORE-PNPPS.md)]
 
 ***
 
@@ -210,5 +210,5 @@ Sample first appeared on [https://www.fivenumber.com](https://www.fivenumber.com
 | --------- |
 | Vijay Kumar G |
 
-[!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
+[!INCLUDE [DISCLAIMER](../../docs/includes/DISCLAIMER.md)]
 <img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/spo-report-sensitivity-label-coverage" aria-hidden="true" />

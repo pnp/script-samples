@@ -154,7 +154,7 @@ $resultColl | Export-Csv $outputFilePath -NoTypeInformation
 write-host -ForegroundColor Green "Successfully Script Completed"   
 
 ```
-[!INCLUDE [More about Power Apps PowerShell](../../docfx/includes/MORE-POWERAPPS.md)]
+[!INCLUDE [More about Power Apps PowerShell](../../docs/includes/MORE-POWERAPPS.md)]
 ***
 
 ## Contributors
@@ -163,6 +163,6 @@ write-host -ForegroundColor Green "Successfully Script Completed"
 |-----------|
 | [Siddharth Vaghasia](https://github.com/siddharth-vaghasia) |
 
-[!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
+[!INCLUDE [DISCLAIMER](../../docs/includes/DISCLAIMER.md)]
 <img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/powerapps-bulk-useraccess" aria-hidden="true" />
 

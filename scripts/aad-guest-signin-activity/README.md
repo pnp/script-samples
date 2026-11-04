@@ -327,7 +327,7 @@ Stop-Transcript
 
 ```
 
-[!INCLUDE [More about CLI for Microsoft 365](../../docfx/includes/MORE-CLIM365.md)]
+[!INCLUDE [More about CLI for Microsoft 365](../../docs/includes/MORE-CLIM365.md)]
 
 ## Source Credit
 
@@ -340,5 +340,5 @@ Sample first appeared on [https://peteskelly.com/cli-graph-signin-actvity/](http
 | [Pete Skelly](https://github.com/pkskelly) |
 
 
-[!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
+[!INCLUDE [DISCLAIMER](../../docs/includes/DISCLAIMER.md)]
 <img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/aad-guest-signin-activity" aria-hidden="true" />

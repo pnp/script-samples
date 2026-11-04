@@ -238,5 +238,5 @@ SharedMailboxes_Over_<ThresholdGB>GB_<Timestamp>.csv
 |-------|----|--------|
 |1.0|July 05, 2026|Initial release|
 
-[!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
+[!INCLUDE [DISCLAIMER](../../docs/includes/DISCLAIMER.md)]
 <img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/exchange-online-shared-mailbox-storage-audit" aria-hidden="true" />

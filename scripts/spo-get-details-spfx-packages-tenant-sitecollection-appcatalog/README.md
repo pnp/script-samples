@@ -70,7 +70,7 @@ $sites | select url | ForEach-Object {
 $appsDetails | Export-CSV $OutPutView -Force -NoTypeInformation
 ```
 
-[!INCLUDE [More about PnP PowerShell](../../docfx/includes/MORE-PNPPS.md)]
+[!INCLUDE [More about PnP PowerShell](../../docs/includes/MORE-PNPPS.md)]
 
 ***
 
@@ -85,5 +85,5 @@ Sample first appeared on [Retrieve SPFx Details from Tenant and Site Collection 
 | [Reshmee Auckloo](https://github.com/reshmee011) |
 
 
-[!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
+[!INCLUDE [DISCLAIMER](../../docs/includes/DISCLAIMER.md)]
 <img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/spo-get-details-spfx-packages-tenant-sitecollection-appcatalog" aria-hidden="true" />

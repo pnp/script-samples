@@ -188,7 +188,7 @@ Download or copy the following files from this sample:
 - `scripts/validate-solution.ps1`
 - `deploy-solution.yml`
 
-[!INCLUDE [More about Power Apps PowerShell](../../docfx/includes/MORE-POWERAPPS.md)]
+[!INCLUDE [More about Power Apps PowerShell](../../docs/includes/MORE-POWERAPPS.md)]
 
 ***
 
@@ -198,5 +198,5 @@ Download or copy the following files from this sample:
 |-----------|
 | Richa Pandit |
 
-[!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
+[!INCLUDE [DISCLAIMER](../../docs/includes/DISCLAIMER.md)]
 <img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/power-platform-solution-deployment-validation">

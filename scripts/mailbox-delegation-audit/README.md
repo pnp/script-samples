@@ -189,6 +189,6 @@ Version|Date|Comments
 -------|----|--------
 1.0|Mar 01, 2026|Initial release
 
-[!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
+[!INCLUDE [DISCLAIMER](../../docs/includes/DISCLAIMER.md)]
 <img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/mailbox-delegation-audit" aria-hidden="true" />
 

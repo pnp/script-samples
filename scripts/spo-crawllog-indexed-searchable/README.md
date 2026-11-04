@@ -220,7 +220,7 @@ Write-Host "Export complete: $outputCsv" -ForegroundColor Green
 
 ```
 
-[!INCLUDE [More about PnP PowerShell](../../docfx/includes/MORE-PNPPS.md)]
+[!INCLUDE [More about PnP PowerShell](../../docs/includes/MORE-PNPPS.md)]
 
 
 ## Source Credit
@@ -234,5 +234,5 @@ Sample idea first appeared on [Get-PnPSearchCrawlLog. Search as alternatives wit
 | [Reshmee Auckloo](https://github.com/reshmee011) |
 
 
-[!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
+[!INCLUDE [DISCLAIMER](../../docs/includes/DISCLAIMER.md)]
 <img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/spo-crawllog-indexed-searchable" aria-hidden="true" />

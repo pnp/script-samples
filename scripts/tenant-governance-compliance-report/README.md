@@ -822,9 +822,9 @@ try {
 
 Write-LogMessage "Tenant Governance Compliance Report completed successfully!" -Level "Success"
 ```
-[!INCLUDE [More about CLI for Microsoft 365](../../docfx/includes/MORE-CLIM365.md)]
-[!INCLUDE [More about Microsoft Graph PowerShell SDK](../../docfx/includes/MORE-GRAPHSDK.md)]
-[!INCLUDE [More about Azure CLI](../../docfx/includes/MORE-AZURECLI.md)]
+[!INCLUDE [More about CLI for Microsoft 365](../../docs/includes/MORE-CLIM365.md)]
+[!INCLUDE [More about Microsoft Graph PowerShell SDK](../../docs/includes/MORE-GRAPHSDK.md)]
+[!INCLUDE [More about Azure CLI](../../docs/includes/MORE-AZURECLI.md)]
 ***
 
 ## How to Use the Script
@@ -1102,5 +1102,5 @@ $params = @{
 |-----------|
 | [Valeras Narbutas](https://github.com/ValerasNarbutas) |
 
-[!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
+[!INCLUDE [DISCLAIMER](../../docs/includes/DISCLAIMER.md)]
 <img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/tenant-governance-compliance-report" aria-hidden="true" />

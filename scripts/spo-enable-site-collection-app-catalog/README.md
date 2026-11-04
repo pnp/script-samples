@@ -47,7 +47,7 @@ end {
     Write-Host "Finished" -ForegroundColor Green
 }
 ```
-[!INCLUDE [More about SPO Management Shell](../../docfx/includes/MORE-SPOMS.md)]
+[!INCLUDE [More about SPO Management Shell](../../docs/includes/MORE-SPOMS.md)]
 
 # [PnP PowerShell](#tab/pnpps)
 
@@ -78,7 +78,7 @@ end {
     Write-Host "Finished" -ForegroundColor Green
 }
 ```
-[!INCLUDE [More about PnP PowerShell](../../docfx/includes/MORE-PNPPS.md)]
+[!INCLUDE [More about PnP PowerShell](../../docs/includes/MORE-PNPPS.md)]
 
 # [CLI for Microsoft 365](#tab/cli-m365-ps)
 ```powershell
@@ -113,7 +113,7 @@ end {
     Write-Host "Finished" -ForegroundColor Green
 }
 ```
-[!INCLUDE [More about CLI for Microsoft 365](../../docfx/includes/MORE-CLIM365.md)]
+[!INCLUDE [More about CLI for Microsoft 365](../../docs/includes/MORE-CLIM365.md)]
 
 # [CSV file sample](#tab/csv)
 ```csv
@@ -133,5 +133,5 @@ https://contoso.sharepoint.com/sites/Retail
 |-----------|
 | [Nanddeep Nachan](https://github.com/nanddeepn) |
 
-[!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
+[!INCLUDE [DISCLAIMER](../../docs/includes/DISCLAIMER.md)]
 <img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/spo-enable-site-collection-app-catalog" aria-hidden="true" />

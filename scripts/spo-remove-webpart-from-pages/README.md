@@ -12,7 +12,7 @@ Script will remove web part(s) on multiple pages by their Id, Instance Id, or Ti
 - Edit Script and add details like SharePoint tenant URL, Term groups, and the output directory
 - Press run
 
-[!INCLUDE [Delete Warning](../../docfx/includes/DELETE-WARN.md)]
+[!INCLUDE [Delete Warning](../../docs/includes/DELETE-WARN.md)]
 
 # [PnP PowerShell](#tab/pnpps)
 ```powershell
@@ -100,7 +100,7 @@ Remove-WebPartFromPages -SiteURL https://contoso.sharepoint.com -WebPartIds "New
 
 
 ```
-[!INCLUDE [More about PnP PowerShell](../../docfx/includes/MORE-PNPPS.md)]
+[!INCLUDE [More about PnP PowerShell](../../docs/includes/MORE-PNPPS.md)]
 ***
 
 ## Contributors
@@ -109,5 +109,5 @@ Remove-WebPartFromPages -SiteURL https://contoso.sharepoint.com -WebPartIds "New
 |-----------|
 | [Ramin Ahmadi](https://github.com/ahmadiramin) |
 
-[!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
+[!INCLUDE [DISCLAIMER](../../docs/includes/DISCLAIMER.md)]
 <img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/spo-remove-webpart-from-pages" aria-hidden="true" />
