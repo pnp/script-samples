@@ -240,7 +240,7 @@ Function Get-SiteStructure {
 }
 
 ```
-[!INCLUDE [More about PnP PowerShell](../../docfx/includes/MORE-PNPPS.md)]
+[!INCLUDE [More about PnP PowerShell](../../docs/includes/MORE-PNPPS.md)]
 ***
 
 ## Source Credit
@@ -254,5 +254,5 @@ Sample taken from [https://github.com/tmaestrini/easyProvisioning/](https://gith
 | [Tobias Maestrini](https://github.com/tmaestrini)|
 
 
-[!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
-<img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/spo-copy-hubsite-navigation" aria-hidden="true" />
+[!INCLUDE [DISCLAIMER](../../docs/includes/DISCLAIMER.md)]
+<img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/spo-get-existing-site-structure" aria-hidden="true" />

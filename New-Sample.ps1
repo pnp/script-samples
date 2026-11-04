@@ -30,7 +30,7 @@
 [CmdletBinding()]
 param (
 
-    #[ValidatePattern("")]
+    [ValidatePattern('^[a-z0-9]+(?:-[a-z0-9]+)*$')]
     [Parameter(Mandatory,
         HelpMessage = "The folder name for the script e.g. spo-get-list-items or graph-export-teams")]
     [Alias("FolderName")]
@@ -38,11 +38,13 @@ param (
 
     [Parameter(Mandatory,
         HelpMessage = "The title for the script e.g. Generate a list of SharePoint Sites")]
+    [ValidateNotNullOrEmpty()]
     [Alias("Title")]
     [string] $ScriptTitle,
 
     [Parameter(Mandatory,
         HelpMessage = "The description for the script")]
+    [ValidateNotNullOrEmpty()]
     [Alias("Description")]
     [string] $ScriptShortDescription,
 
@@ -55,11 +57,13 @@ param (
 
     [Parameter(Mandatory,
         HelpMessage = "The name of the script author e.g. Paul Bullock")]
+    [ValidateNotNullOrEmpty()]
     [Alias("MyName", "Author")]
     [string] $AuthorFullName,
 
     [Parameter(Mandatory,
         HelpMessage = "Your GitHub ID, e.g. pkbullock, this is only for attribution on the sample")]
+    [ValidatePattern('^[A-Za-z0-9](?:[A-Za-z0-9-]{0,37}[A-Za-z0-9])?$')]
     [Alias("GHID", "AuthorId")]
     [string] $GitHubId,
 
@@ -71,7 +75,7 @@ begin{
     # ------------------------------------------------------------------------------
     # Global Variables
     # ------------------------------------------------------------------------------
-    $mainScriptFolder = "scripts"
+    $mainScriptFolder = Join-Path $PSScriptRoot "scripts"
     $sampleTemplateFolder = "_template-script-submission"
     $sampleAssetsFolder = "assets"
     $jsonSample = "sample.json"
@@ -117,7 +121,7 @@ begin{
     $tabBlocks = @{
         "PnPPowerShell" = [PSCustomObject]@{
             Tab = "# [PnP PowerShell](#tab/pnpps)"
-            IncludeBlock = "[!INCLUDE [More about PnP PowerShell](../../docfx/includes/MORE-PNPPS.md)]"
+            IncludeBlock = "[!INCLUDE [More about PnP PowerShell](../../docs/includes/MORE-PNPPS.md)]"
             ScriptBlock  = $psScriptBlock
             Reference = [PSCustomObject]@{
                 "name" = "Want to learn more about PnP PowerShell and the cmdlets"
@@ -130,7 +134,7 @@ begin{
         
         "CliForMicrosoft365" = [PSCustomObject]@{
             Tab = "# [CLI for Microsoft 365 using PowerShell](#tab/cli-m365-ps)"
-            IncludeBlock = "[!INCLUDE [More about CLI for Microsoft 365](../../docfx/includes/MORE-CLIM365.md)]"
+            IncludeBlock = "[!INCLUDE [More about CLI for Microsoft 365](../../docs/includes/MORE-CLIM365.md)]"
             ScriptBlock  = $psScriptBlock
             Reference = [PSCustomObject]@{
                 "name" = "Want to learn more about CLI for Microsoft 365 and the commands"
@@ -142,7 +146,7 @@ begin{
         }
         "SPOManagementShell"  = [PSCustomObject]@{
             Tab = "# [SPO Management Shell](#tab/spoms-ps)"
-            IncludeBlock = "[!INCLUDE [More about SPO Management Shell](../../docfx/includes/MORE-SPOMS.md)]"
+            IncludeBlock = "[!INCLUDE [More about SPO Management Shell](../../docs/includes/MORE-SPOMS.md)]"
             ScriptBlock  = $psScriptBlock
             Reference = [PSCustomObject]@{
                 "name" = "Introduction to the SharePoint Online Management Shell"
@@ -155,7 +159,7 @@ begin{
 
         "CliForMicrosoft365Bash"  = [PSCustomObject]@{
             Tab = "# [CLI for Microsoft 365 using Bash](#tab/cli-m365-bash)"
-            IncludeBlock = "[!INCLUDE [More about CLI for Microsoft 365](../../docfx/includes/MORE-CLIM365.md)]"
+            IncludeBlock = "[!INCLUDE [More about CLI for Microsoft 365](../../docs/includes/MORE-CLIM365.md)]"
             ScriptBlock  = $psScriptBlock
             Reference = [PSCustomObject]@{
                 "name" = "Want to learn more about CLI for Microsoft 365 and the commands"
@@ -168,7 +172,7 @@ begin{
 
         "MicrosoftGraphPowerShell"  = [PSCustomObject]@{
             Tab = "# [Microsoft Graph PowerShell](#tab/graphps)"
-            IncludeBlock = "[!INCLUDE [More about Microsoft Graph PowerShell SDK](../../docfx/includes/MORE-GRAPHSDK.md)]"
+            IncludeBlock = "[!INCLUDE [More about Microsoft Graph PowerShell SDK](../../docs/includes/MORE-GRAPHSDK.md)]"
             ScriptBlock  = $psScriptBlock
             Reference = [PSCustomObject]@{
                 "name" = "Want to learn more about Microsoft Graph PowerShell SDK and the cmdlets"
@@ -181,7 +185,7 @@ begin{
 
         "AzureCli"  = [PSCustomObject]@{
             Tab = "# [Azure CLI](#tab/azure-cli)"
-            IncludeBlock = "[!INCLUDE [More about Azure CLI](../../docfx/includes/MORE-AZURECLI.md)]"
+            IncludeBlock = "[!INCLUDE [More about Azure CLI](../../docs/includes/MORE-AZURECLI.md)]"
             ScriptBlock  = $psScriptBlock
             Reference = [PSCustomObject]@{
                 "name" = "Want to learn more about Azure CLI and the commands"
@@ -194,7 +198,7 @@ begin{
 
         "PowerAppsPowerShell" = [PSCustomObject]@{
             Tab = "# [Power Apps PowerShell](#tab/powerapps-ps)"
-            IncludeBlock = "[!INCLUDE [More about Power Apps PowerShell](../../docfx/includes/MORE-POWERAPPS.md)]"
+            IncludeBlock = "[!INCLUDE [More about Power Apps PowerShell](../../docs/includes/MORE-POWERAPPS.md)]"
             ScriptBlock  = $psScriptBlock
             Reference = [PSCustomObject]@{
                 "name" = "Want to learn more about Power Apps PowerShell and the cmdlets"
@@ -207,7 +211,7 @@ begin{
 
         "MicrosoftTeamsPowerShell" = [PSCustomObject]@{
             Tab = "# [MicrosoftTeams PowerShell](#tab/teamsps)"
-            IncludeBlock = "[!INCLUDE [More about Microsoft Teams PowerShell](../../docfx/includes/MORE-TEAMSPS.md)]"
+            IncludeBlock = "[!INCLUDE [More about Microsoft Teams PowerShell](../../docs/includes/MORE-TEAMSPS.md)]"
             ScriptBlock  = $psScriptBlock
             Reference = [PSCustomObject]@{
                 "name" = "Want to learn more about Microsoft Teams PowerShell and the cmdlets"
@@ -237,7 +241,13 @@ begin{
                                         |_|                                |_|                                                                                                                             
 "@
 
-    Write-Host " Welcome to PnP Script Samples, this script will generate a new script sample" -ForegroundColor Green
+    Write-Host " Welcome to Community Script Samples, this script will generate a new script sample" -ForegroundColor Green
+
+    if ($ScriptTool -contains 'All') {
+        $ScriptTool = @('PnPPowerShell', 'CliForMicrosoft365', 'CliForMicrosoft365Bash',
+            'SPOManagementShell', 'MicrosoftGraphPowerShell', 'AzureCli',
+            'PowerAppsPowerShell', 'MicrosoftTeamsPowerShell')
+    }
     
     # ------------------------------------------------------------------------------
     
@@ -254,6 +264,9 @@ process {
     # Copy the template to the script folder under the new name
     $templateSrc = Join-Path $mainScriptFolder -ChildPath $sampleTemplateFolder
     $targetFolder = Join-Path $mainScriptFolder -ChildPath $ScriptFolderName
+    if (Test-Path -LiteralPath $targetFolder) {
+        throw "The sample folder already exists: $targetFolder. Edit the existing sample directly or choose a new folder name."
+    }
 
     # Nesting Problem, need to test and create teh directory first then copy the contents
 
@@ -498,6 +511,8 @@ process {
         Default {}
     }
 
+    $json[0].Metadata = @($json[0].Metadata | Sort-Object -Property key -Unique)
+
     # Thumbnails
     $json[0].Thumbnails[0].Url = $json.Thumbnails[0].Url.Replace('<foldername>', $ScriptFolderName)
     $json[0].Thumbnails[0].Alt = $json.Thumbnails[0].Alt.Replace('<title>', $ScriptTitle)
@@ -544,7 +559,7 @@ process {
 
     Write-Host " - Populated the sample.json file in $targetFolder/assets"
 
-    $finalPath = Join-Path -Path "$(Get-Location)" -ChildPath $targetFolder
+    $finalPath = (Resolve-Path -LiteralPath $targetFolder).Path
     Write-Host " Sample setup complete, please go to $finalPath " -ForegroundColor Cyan
 
 }

@@ -461,7 +461,7 @@ catch {
 }
 ```
 
-[!INCLUDE [More about PnP PowerShell](../../docfx/includes/MORE-PNPPS.md)]
+[!INCLUDE [More about PnP PowerShell](../../docs/includes/MORE-PNPPS.md)]
 
 ***
 
@@ -475,5 +475,5 @@ Sample first appeared on [https://github.com/gvijaikumar9/SPSchemaCompare](https
 | --------- |
 | Vijay Kumar G |
 
-[!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
+[!INCLUDE [DISCLAIMER](../../docs/includes/DISCLAIMER.md)]
 <img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/spo-compare-list-schema" aria-hidden="true" />

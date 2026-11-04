@@ -35,7 +35,7 @@ $users | ForEach-Object {
 }
 ```
 
-[!INCLUDE [More about CLI for Microsoft 365](../../docfx/includes/MORE-CLIM365.md)]
+[!INCLUDE [More about CLI for Microsoft 365](../../docs/includes/MORE-CLIM365.md)]
 ***
 
 ## Source Credit
@@ -49,6 +49,6 @@ Sample first appeared on [Analyze users for known data breaches with have i been
 | Albert-Jan Schot |
 
 
-[!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
+[!INCLUDE [DISCLAIMER](../../docs/includes/DISCLAIMER.md)]
 <img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/aad-analyze-users-hibp" aria-hidden="true" />
 

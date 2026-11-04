@@ -1,0 +1,87 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://pnp.github.io/script-samples/schemas/sample.schema.json",
+  "title": "Community Script Samples metadata",
+  "type": "array",
+  "minItems": 1,
+  "maxItems": 1,
+  "items": {
+    "type": "object",
+    "additionalProperties": false,
+    "required": ["name", "source", "title", "shortDescription", "url", "longDescription", "creationDateTime", "updateDateTime", "products", "metadata", "categories", "tags", "thumbnails", "authors", "references"],
+    "properties": {
+      "schema": { "type": ["string", "null"] },
+      "version": { "type": ["string", "null"] },
+      "name": { "type": "string", "minLength": 1, "pattern": "^[A-Za-z0-9][A-Za-z0-9._-]*$" },
+      "source": { "const": "pnp" },
+      "title": { "type": "string", "minLength": 1, "pattern": "\\S" },
+      "shortDescription": { "type": "string", "minLength": 1, "pattern": "\\S" },
+      "url": { "type": "string", "format": "uri" },
+      "longDescription": { "type": "array", "items": { "type": "string" } },
+      "creationDateTime": { "type": "string", "format": "date" },
+      "updateDateTime": { "type": "string", "format": "date" },
+      "products": { "type": "array", "minItems": 1, "uniqueItems": true, "items": { "type": "string", "minLength": 1 } },
+      "metadata": {
+        "type": "array",
+        "minItems": 1,
+        "items": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["key", "value"],
+          "properties": {
+            "key": { "enum": ["PNP-POWERSHELL", "CLI-FOR-MICROSOFT365", "GRAPH-POWERSHELL", "SPO-MANAGEMENT-SHELL", "POWERSHELL", "AZURE-CLI", "POWERAPPS-POWERSHELL", "MICROSOFTTEAMS-POWERSHELL", "MICROSOFTWHITEBOARDADMIN", "JAVASCRIPT", "BASH", "GITHUB", "PYTHON"] },
+            "value": { "type": "string", "minLength": 1, "pattern": "\\S" }
+          }
+        }
+      },
+      "categories": { "type": "array", "minItems": 1, "uniqueItems": true, "items": { "enum": ["Modernize", "Data", "Deploy", "Provision", "Configure", "Report", "Security", "AI", "Microsoft Copilot"] } },
+      "tags": { "type": "array", "uniqueItems": true, "items": { "type": "string", "minLength": 1 } },
+      "thumbnails": {
+        "type": "array",
+        "minItems": 1,
+        "contains": { "type": "object", "required": ["type"], "properties": { "type": { "const": "image" } } },
+        "items": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["type", "order", "url", "alt"],
+          "properties": {
+            "name": { "type": "string" },
+            "type": { "enum": ["image", "video"] },
+            "order": { "type": "integer", "minimum": 0 },
+            "url": { "type": "string", "format": "uri" },
+            "alt": { "type": "string", "minLength": 1, "pattern": "\\S" }
+          }
+        }
+      },
+      "authors": {
+        "type": "array",
+        "minItems": 1,
+        "items": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["gitHubAccount", "name", "pictureUrl"],
+          "properties": {
+            "gitHubAccount": { "type": "string", "pattern": "^[A-Za-z0-9](?:[A-Za-z0-9-]{0,37}[A-Za-z0-9])?$" },
+            "name": { "type": "string", "minLength": 1, "pattern": "\\S" },
+            "pictureUrl": { "type": "string", "format": "uri" },
+            "company": { "type": "string" },
+            "twitter": { "type": "string" }
+          }
+        }
+      },
+      "references": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["name", "description", "url"],
+          "properties": {
+            "name": { "type": "string", "minLength": 1 },
+            "description": { "type": "string" },
+            "url": { "type": "string", "format": "uri" }
+          }
+        }
+      }
+    }
+  }
+}

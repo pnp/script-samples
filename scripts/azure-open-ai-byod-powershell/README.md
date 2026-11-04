@@ -109,7 +109,7 @@ $response.choices.message
 $response | ConvertTo-Json -Depth 10 | Out-File "response.json" -Force  
 
 ```
-[!INCLUDE [More about PowerShell](../../docfx/includes/MORE-PS.md)]
+[!INCLUDE [More about PowerShell](../../docs/includes/MORE-PS.md)]
 
 # [Settings File](#tab/settings)
 
@@ -133,5 +133,5 @@ $response | ConvertTo-Json -Depth 10 | Out-File "response.json" -Force
 |-----------|
 | Paul Bullock |
 
-[!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
+[!INCLUDE [DISCLAIMER](../../docs/includes/DISCLAIMER.md)]
 <img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/azure-open-ai-byod-powershell" aria-hidden="true" />

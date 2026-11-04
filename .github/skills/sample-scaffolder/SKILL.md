@@ -30,3 +30,4 @@ This skill should
 - Ensure the script-root README.md ends with the current tracking image and replace `{script-path}` with a path such as `scripts/my-sample`.
 - Copy the template.sample.json file to the assets folder and rename it to sample.json. It should then fill in the relevant information from the sample submission into the sample.json file.
 - Copy the sample image to the assets folder.
+- Validate the completed submission with `npm --prefix site run validate:samples`. The Astro gallery uses the sample README and metadata directly; shared documentation includes live under `docs/includes`.

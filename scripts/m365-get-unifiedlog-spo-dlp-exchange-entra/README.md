@@ -64,7 +64,7 @@ if($days -eq 0)
 $logCollection | sort-object "Operation" |Export-CSV $OutPutView -Force -NoTypeInformation
 ```
 
-[!INCLUDE [More about PnP PowerShell](../../docfx/includes/MORE-PNPPS.md)]
+[!INCLUDE [More about PnP PowerShell](../../docs/includes/MORE-PNPPS.md)]
 
 # [CLI for Microsoft 365](#tab/cli-m365-ps)
 
@@ -106,7 +106,7 @@ if($activity.SiteUrl ){#-and $activity.SiteUrl
 $logCollection | sort-object "Operation" |Export-CSV $OutPutView -Force -NoTypeInformation
  ```
 
-[!INCLUDE [More about CLI for Microsoft 365](../../docfx/includes/MORE-CLIM365.md)]
+[!INCLUDE [More about CLI for Microsoft 365](../../docs/includes/MORE-CLIM365.md)]
 
 > [!Note]
 > SharePoint admin rights are required to run the script ,
@@ -127,5 +127,5 @@ Sample first appeared on [Unveiling Audit Logs with PnP and Cli for M365 PowerSh
 | [Reshmee Auckloo](https://github.com/reshmee011) |
 
 
-[!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
+[!INCLUDE [DISCLAIMER](../../docs/includes/DISCLAIMER.md)]
 <img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/m365-get-unifiedlog-spo-dlp-exchange-entra" aria-hidden="true" />

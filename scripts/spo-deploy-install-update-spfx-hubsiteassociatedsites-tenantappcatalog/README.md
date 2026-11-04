@@ -124,7 +124,7 @@ foreach ($package in $packageFiles) {
 > [!Note]
 > SharePoint admin rights are required to run the script
 
-[!INCLUDE [More about PnP PowerShell](../../docfx/includes/MORE-PNPPS.md)]
+[!INCLUDE [More about PnP PowerShell](../../docs/includes/MORE-PNPPS.md)]
 
 ***
 
@@ -139,5 +139,5 @@ Sample first appeared on [Deploying SPFx Packages from Tenant App Catalog to Hub
 | [Reshmee Auckloo](https://github.com/reshmee011) |
 
 
-[!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
-<img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/spo-deploy-install-update-spfx-hubsiteassociatedsites-tenantAppCatalog" aria-hidden="true" />
+[!INCLUDE [DISCLAIMER](../../docs/includes/DISCLAIMER.md)]
+<img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/spo-deploy-install-update-spfx-hubsiteassociatedsites-tenantappcatalog" aria-hidden="true" />

@@ -66,7 +66,7 @@ Converts all blog pages in a site, this includes:
     Write-Host "Blog site modernization complete! :)" -ForegroundColor Green
 
 ```
-[!INCLUDE [More about PnP PowerShell](../../docfx/includes/MORE-PNPPS.md)]
+[!INCLUDE [More about PnP PowerShell](../../docs/includes/MORE-PNPPS.md)]
 ***
 
 ## Contributors
@@ -75,6 +75,6 @@ Converts all blog pages in a site, this includes:
 |-----------|
 | Bert Jansen |
 
-[!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
+[!INCLUDE [DISCLAIMER](../../docs/includes/DISCLAIMER.md)]
 
 <img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/modernize-blog-pages" />

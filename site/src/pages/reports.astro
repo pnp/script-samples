@@ -1,0 +1,25 @@
+---
+import Layout from "../layouts/Layout.astro";
+import { catalog, formatDate, samplePath } from "../lib/catalog";
+const commands = new Map<string, number>();
+for (const sample of catalog.samples) for (const tag of sample.tags) commands.set(tag, (commands.get(tag) ?? 0) + 1);
+const popular = [...commands].sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0]));
+const samplesByAge = [...catalog.samples].sort((a, b) => a.updated.localeCompare(b.updated) || a.title.localeCompare(b.title));
+---
+<Layout title="Catalog reports">
+  <section class="container page-section">
+    <header class="page-heading"><p class="eyebrow">Keeping the gallery useful</p><h1>Catalog reports</h1><p>Build-time reports from the same validated catalog as the gallery. Dates describe content updates, not independent verification of a script.</p></header>
+    <nav class="report-navigation" aria-label="Report sections"><a href="#matrix">Tools</a><a href="#metadata">Metadata</a><a href="#cmdusage">Commands &amp; topics</a><a href="#age">Content age</a></nav>
+    <div class="readme-content">
+      <h2 id="matrix">Distribution by tool</h2>
+      <div class="table-wrap" tabindex="0" role="region" aria-label="Tool distribution"><table><thead><tr><th>Tool</th><th>Samples</th></tr></thead><tbody>{catalog.tools.map((tool) => <tr><td>{tool.label}</td><td>{tool.count}</td></tr>)}</tbody></table></div>
+      <h2 id="metadata">Catalog metadata</h2>
+      <p>{catalog.samples.length} sample folders, {catalog.contributors.length} contributor accounts, {catalog.products.length} product groups. Every published record passes schema, identity, taxonomy, asset, date, and README-tracker checks. No samples are silently excluded.</p>
+      <p>Raw source values and tool versions come from authors. Product aliases are normalized for discovery; source metadata remains available in each sample.</p>
+      <h2 id="cmdusage">Commands and topics</h2>
+      <div class="table-wrap" tabindex="0" role="region" aria-label="Commands and topics"><table><thead><tr><th>Command or topic</th><th>Samples</th></tr></thead><tbody>{popular.map(([command, count]) => <tr><td>{command}</td><td>{count}</td></tr>)}</tbody></table></div>
+      <h2 id="age">Content update dates</h2>
+      <div class="table-wrap" tabindex="0" role="region" aria-label="Content age"><table><thead><tr><th>Sample</th><th>Updated</th></tr></thead><tbody>{samplesByAge.map((sample) => <tr><td><a href={samplePath(sample.slug)}>{sample.title}</a></td><td><time datetime={sample.updated}>{formatDate(sample.updated)}</time></td></tr>)}</tbody></table></div>
+    </div>
+  </section>
+</Layout>

@@ -71,7 +71,7 @@ foreach ($Record in $CSVRecords) {
 Write-Host "list items created..." -ForegroundColor Yellow  
 
 ```
-[!INCLUDE [More about PnP PowerShell](../../docfx/includes/MORE-PNPPS.md)]
+[!INCLUDE [More about PnP PowerShell](../../docs/includes/MORE-PNPPS.md)]
 
 # [CLI for Microsoft 365](#tab/cli-m365-ps)
 ```powershell
@@ -142,7 +142,7 @@ Write-Host "list items created..." -ForegroundColor Yellow
 
 
 ```
-[!INCLUDE [More about CLI for Microsoft 365](../../docfx/includes/MORE-CLIM365.md)]
+[!INCLUDE [More about CLI for Microsoft 365](../../docs/includes/MORE-CLIM365.md)]
 ***
 
 ## Source Credit
@@ -156,5 +156,5 @@ Sample first appeared on [https://www.c-sharpcorner.com/article/export-csv-to-sh
 | Chandani Prajapati |
 | [Adam Wójcik](https://github.com/Adam-it)|
 
-[!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
+[!INCLUDE [DISCLAIMER](../../docs/includes/DISCLAIMER.md)]
 <img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/spo-export-data-to-sharepoint-lists" aria-hidden="true" />

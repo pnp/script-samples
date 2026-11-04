@@ -52,7 +52,7 @@ Disconnect-PnPOnline
 
 ```
 
-[!INCLUDE [More about PnP PowerShell](../../docfx/includes/MORE-PNPPS.md)]
+[!INCLUDE [More about PnP PowerShell](../../docs/includes/MORE-PNPPS.md)]
 
 ***
 
@@ -62,5 +62,5 @@ Disconnect-PnPOnline
 |-----------|
 | [Aman Panjwani](https://www.linkedin.com/in/aman-17-panjwani/) |
 
-[!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
+[!INCLUDE [DISCLAIMER](../../docs/includes/DISCLAIMER.md)]
 <img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/spo-reorder-list-content-type" aria-hidden="true" />

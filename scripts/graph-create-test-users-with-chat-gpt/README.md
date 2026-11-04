@@ -118,7 +118,7 @@ function Get-ListOfUsers {
 
 
 ```
-[!INCLUDE [More about Microsoft Graph PowerShell SDK](../../docfx/includes/MORE-GRAPHSDK.md)]
+[!INCLUDE [More about Microsoft Graph PowerShell SDK](../../docs/includes/MORE-GRAPHSDK.md)]
 ***
 
 ## Contributors
@@ -127,6 +127,6 @@ function Get-ListOfUsers {
 |-----------|
 | Valeras Narbutas|
 
-[!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
+[!INCLUDE [DISCLAIMER](../../docs/includes/DISCLAIMER.md)]
 
 <img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/graph-create-test-users-with-chat-gpt" aria-hidden="true" />

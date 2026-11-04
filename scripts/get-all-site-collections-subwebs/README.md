@@ -63,7 +63,7 @@ Function AllSiteCollAndSubWebs() {
 AllSiteCollAndSubWebs
 
 ```
-[!INCLUDE [More about PnP PowerShell](../../docfx/includes/MORE-PNPPS.md)]
+[!INCLUDE [More about PnP PowerShell](../../docs/includes/MORE-PNPPS.md)]
 
 # [CLI for Microsoft 365](#tab/cli-m365-ps)
 ```powershell
@@ -105,7 +105,7 @@ function AllSiteCollAndSubWebs() {
 AllSiteCollAndSubWebs
 
 ```
-[!INCLUDE [More about CLI for Microsoft 365](../../docfx/includes/MORE-CLIM365.md)]
+[!INCLUDE [More about CLI for Microsoft 365](../../docs/includes/MORE-CLIM365.md)]
 ***
 
 ## Source Credit
@@ -119,5 +119,5 @@ Sample first appeared on [How to to get all site collections with their sub webs
 | Chandani Prajapati |
 | Adam Wójcik |
 
-[!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
+[!INCLUDE [DISCLAIMER](../../docs/includes/DISCLAIMER.md)]
 <img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/get-all-site-collections-subwebs" aria-hidden="true" />

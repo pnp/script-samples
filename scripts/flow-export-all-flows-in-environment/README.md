@@ -33,7 +33,7 @@ foreach ($flow in $flows) {
 }
 
 ```
-[!INCLUDE [More about PnP PowerShell](../../docfx/includes/MORE-PNPPS.md)]
+[!INCLUDE [More about PnP PowerShell](../../docs/includes/MORE-PNPPS.md)]
 ***
 
 ## Source Credit
@@ -48,5 +48,5 @@ Added PnP PowerShell version from [PnP.PowerShell + Bonus Script: Export all Flo
 | [Leon Armston](https://github.com/LeonArmston) |
 | [Smita Nachan](https://github.com/SmitaNachan) |
 
-[!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
+[!INCLUDE [DISCLAIMER](../../docs/includes/DISCLAIMER.md)]
 <img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/flow-export-all-flows-in-environment" aria-hidden="true" />

@@ -171,7 +171,7 @@ Translate-List -ListId "ID-App Labels" -ColumnsToTranslate @("Translation")  -Co
 Translate-List -ListId "ID-Ease" -ColumnsToTranslate @("Title")  -ColumnsToCopy @("MasterEase") -LanguageColumnName "Language" -FromLanguage "en" -LanguageList "ID-Languages"
 
 ```
-[!INCLUDE [More about PnP PowerShell](../../docfx/includes/MORE-PNPPS.md)]
+[!INCLUDE [More about PnP PowerShell](../../docs/includes/MORE-PNPPS.md)]
 
 After running the script the translated values have been added to your ID-App Labels and ID-Ease lists:
 
@@ -195,5 +195,5 @@ To run the script you will need to get a key for Azure translation services as d
 |-----------|
 | Russell Gove |
 
-[!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
+[!INCLUDE [DISCLAIMER](../../docs/includes/DISCLAIMER.md)]
 <img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/spo-translate-list" aria-hidden="true" />

@@ -48,7 +48,7 @@ foreach ($row in $search.ResultRows) {
 
 $itemsToSave | Export-Csv -Path "SearchResults.csv" -NoTypeInformation
 ```
-[!INCLUDE [More about PnP PowerShell](../../docfx/includes/MORE-PNPPS.md)]
+[!INCLUDE [More about PnP PowerShell](../../docs/includes/MORE-PNPPS.md)]
 
 
 # [CLI for Microsoft 365](#tab/cli-m365-ps)
@@ -66,7 +66,7 @@ $properties = "Title,Path,Author"
 
 m365 spo search --queryText $query --selectProperties $properties --allResults --output csv | Out-File -FilePath "SearchResults.csv"
 ```
-[!INCLUDE [More about CLI for Microsoft 365](../../docfx/includes/MORE-CLIM365.md)]
+[!INCLUDE [More about CLI for Microsoft 365](../../docs/includes/MORE-CLIM365.md)]
 ***
 
 
@@ -77,5 +77,5 @@ m365 spo search --queryText $query --selectProperties $properties --allResults -
 | James Love |
 | Smita Nachan |
 
-[!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
+[!INCLUDE [DISCLAIMER](../../docs/includes/DISCLAIMER.md)]
 <img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/spo-search-export-to-csv" aria-hidden="true" />

@@ -123,5 +123,5 @@ Sample first appeared on [https://github.com/dkaaven/MyPowerAppScript](https://g
 | [Daniel Kåven](https://github.com/dkaaven)|
 
 
-[!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
+[!INCLUDE [DISCLAIMER](../../docs/includes/DISCLAIMER.md)]
 <img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/powerapps-get-all-bootstrap-icons" aria-hidden="true" />

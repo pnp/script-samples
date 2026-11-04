@@ -68,7 +68,7 @@ $m365GroupCollection | sort-object "Site Name" |Export-CSV $OutPutView -Force -N
 # Disconnect SharePoint online connection
 Disconnect-PnPOnline
 ```
-[!INCLUDE [More about PnP PowerShell](../../docfx/includes/MORE-PNPPS.md)]
+[!INCLUDE [More about PnP PowerShell](../../docs/includes/MORE-PNPPS.md)]
 
 ***
 
@@ -78,5 +78,5 @@ Disconnect-PnPOnline
 |-----------|
 | [Reshmee Auckloo](https://github.com/reshmee011)|
 
-[!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
+[!INCLUDE [DISCLAIMER](../../docs/includes/DISCLAIMER.md)]
 <img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/spo-get-sites-membership-report" aria-hidden="true" />

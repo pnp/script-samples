@@ -39,7 +39,7 @@ Get-PnPMicrosoft365ExpiringGroup  | ForEach-Object {
 
 Disconnect-PnPOnline
 ```
-[!INCLUDE [More about PnP PowerShell](../../docfx/includes/MORE-PNPPS.md)]
+[!INCLUDE [More about PnP PowerShell](../../docs/includes/MORE-PNPPS.md)]
 
 ***
 
@@ -55,6 +55,6 @@ Sample first appeared on [Automate Renewal of Expiring M365 Groups Using PowerSh
 | [Reshmee Auckloo](https://github.com/reshmee011) |
 
 
-[!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
+[!INCLUDE [DISCLAIMER](../../docs/includes/DISCLAIMER.md)]
 <img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/aad-renew-m365-group" aria-hidden="true" />
 

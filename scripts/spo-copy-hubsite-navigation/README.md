@@ -100,7 +100,7 @@ Connect-PnPOnline "https://[tenant]-admin.sharepoint.com" -Interactive
 # Copy hub navigation from the soure hub site (here "/") to the destination hub site (here "/sites/LearningHub"):
 Copy-Hubnavigation -SourceSiteRelativeUrl "/" -DestinationSiteRelativeUrl "/sites/LearningHub"
 ```
-[!INCLUDE [More about PnP PowerShell](../../docfx/includes/MORE-PNPPS.md)]
+[!INCLUDE [More about PnP PowerShell](../../docs/includes/MORE-PNPPS.md)]
 ***
 
 ## Source Credit
@@ -114,5 +114,5 @@ Sample taken from [https://github.com/tmaestrini/easyProvisioning/](https://gith
 | [Tobias Maestrini](https://github.com/tmaestrini)|
 
 
-[!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
+[!INCLUDE [DISCLAIMER](../../docs/includes/DISCLAIMER.md)]
 <img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/spo-copy-hubsite-navigation" aria-hidden="true" />

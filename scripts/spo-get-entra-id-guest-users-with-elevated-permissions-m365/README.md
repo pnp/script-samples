@@ -171,7 +171,7 @@ $finalResults |
 Write-Host "Completed. Results exported to $OutputPath" -ForegroundColor Green
 
 ```
-[!INCLUDE [More about PnP PowerShell](../../docfx/includes/MORE-PNPPS.md)]
+[!INCLUDE [More about PnP PowerShell](../../docs/includes/MORE-PNPPS.md)]
 ***
 
 
@@ -181,5 +181,5 @@ Write-Host "Completed. Results exported to $OutputPath" -ForegroundColor Green
 |-----------|
 | Josiah Opiyo |
 
-[!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
-<img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/aspo-get-entra-id-guest-users-with-elevated-permissions-m365" aria-hidden="true" />
+[!INCLUDE [DISCLAIMER](../../docs/includes/DISCLAIMER.md)]
+<img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/spo-get-entra-id-guest-users-with-elevated-permissions-m365" aria-hidden="true" />

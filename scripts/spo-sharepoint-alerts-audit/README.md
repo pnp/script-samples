@@ -140,7 +140,7 @@ if ($errorLog.Count -gt 0) {
 # === Disconnect session ===
 Disconnect-PnPOnline
 ```
-[!INCLUDE [More about PnP PowerShell](../../docfx/includes/MORE-PNPPS.md)]
+[!INCLUDE [More about PnP PowerShell](../../docs/includes/MORE-PNPPS.md)]
 
 ***
 
@@ -150,5 +150,5 @@ Disconnect-PnPOnline
 |-----------|
 | [Tanel Vahk](https://www.linkedin.com/in/tvahk/) |
 
-[!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
+[!INCLUDE [DISCLAIMER](../../docs/includes/DISCLAIMER.md)]
 <img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/spo-sharepoint-alerts-audit" aria-hidden="true" />

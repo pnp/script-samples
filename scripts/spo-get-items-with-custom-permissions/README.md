@@ -105,7 +105,7 @@ $listOfItemWithCustomPermissions | Export-Csv -Path $listOfItemWithCustomPermiss
 $listOfListsWithCustomPermissions | Export-Csv -Path $listOfListsWithCustomPermissionsCSVPath -Force -Encoding utf8BOM -Delimiter "|"
 
 ```
-[!INCLUDE [More about PnP PowerShell](../../docfx/includes/MORE-PNPPS.md)]
+[!INCLUDE [More about PnP PowerShell](../../docs/includes/MORE-PNPPS.md)]
 ***
 
 
@@ -115,5 +115,5 @@ $listOfListsWithCustomPermissions | Export-Csv -Path $listOfListsWithCustomPermi
 |-----------|
 | Kasper Larsen |
 
-[!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
+[!INCLUDE [DISCLAIMER](../../docs/includes/DISCLAIMER.md)]
 <img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/spo-get-items-with-custom-permissions" aria-hidden="true" />

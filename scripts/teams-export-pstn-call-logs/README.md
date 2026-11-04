@@ -171,7 +171,7 @@ Write-Host "Finished!" -ForegroundColor Green
 
 Stop-Transcript
 ```
-[!INCLUDE [More about PowerShell](../../docfx/includes/MORE-PS.md)]
+[!INCLUDE [More about PowerShell](../../docs/includes/MORE-PS.md)]
 
 # [CLI for Microsoft 365](#tab/cli-m365-ps)
 
@@ -201,7 +201,7 @@ end {
 }
 ```
 
-[!INCLUDE [More about CLI for Microsoft 365](../../docfx/includes/MORE-CLIM365.md)]
+[!INCLUDE [More about CLI for Microsoft 365](../../docs/includes/MORE-CLIM365.md)]
 
 ***
 
@@ -216,5 +216,5 @@ end {
 
 The retry invoke REST method requests in PowerShell, when an error occurs is inspired from [this blog](https://blogs.aaddevsup.xyz/2021/01/retry-invoke-restmethod-requests-in-powershell-when-an-error-occurs/).
 
-[!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
+[!INCLUDE [DISCLAIMER](../../docs/includes/DISCLAIMER.md)]
 <img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/teams-export-pstn-call-logs" aria-hidden="true" />

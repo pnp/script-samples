@@ -1,7 +1,7 @@
 # <title>
 
 > [!Note]
-> This is a submission helper template. See the [preparing a submission guide](../../docfx/contributing/preparing-a-submission.md) for the required sample structure.
+> This is a submission helper template. See the [preparing a submission guide](../../docs/contributing/preparing-a-submission.md) for the required sample structure.
 
 ## Summary
 
@@ -19,7 +19,7 @@ Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Maecenas porttitor con
 <your script>
 
 ```
-[!INCLUDE [More about PnP PowerShell](../../docfx/includes/MORE-PNPPS.md)]
+[!INCLUDE [More about PnP PowerShell](../../docs/includes/MORE-PNPPS.md)]
 
 # [CLI for Microsoft 365 using PowerShell](#tab/cli-m365-ps)
 
@@ -28,7 +28,7 @@ Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Maecenas porttitor con
 <your script>
 
 ```
-[!INCLUDE [More about CLI for Microsoft 365](../../docfx/includes/MORE-CLIM365.md)]
+[!INCLUDE [More about CLI for Microsoft 365](../../docs/includes/MORE-CLIM365.md)]
 
 # [CLI for Microsoft 365 using Bash](#tab/cli-m365-bash)
 
@@ -37,7 +37,7 @@ Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Maecenas porttitor con
 <your script>
 
 ```
-[!INCLUDE [More about CLI for Microsoft 365](../../docfx/includes/MORE-CLIM365.md)]
+[!INCLUDE [More about CLI for Microsoft 365](../../docs/includes/MORE-CLIM365.md)]
 
 # [Microsoft Graph PowerShell](#tab/graphps)
 
@@ -46,7 +46,7 @@ Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Maecenas porttitor con
 <your script>
 
 ```
-[!INCLUDE [More about Microsoft Graph PowerShell SDK](../../docfx/includes/MORE-GRAPHSDK.md)]
+[!INCLUDE [More about Microsoft Graph PowerShell SDK](../../docs/includes/MORE-GRAPHSDK.md)]
 
 # [SPO Management Shell](#tab/spoms-ps)
 
@@ -55,7 +55,7 @@ Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Maecenas porttitor con
 <your script>
 
 ```
-[!INCLUDE [More about SPO Management Shell](../../docfx/includes/MORE-SPOMS.md)]
+[!INCLUDE [More about SPO Management Shell](../../docs/includes/MORE-SPOMS.md)]
 
 # [Azure CLI](#tab/azure-cli)
 
@@ -64,7 +64,7 @@ Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Maecenas porttitor con
 <your script>
 
 ```
-[!INCLUDE [More about Azure CLI](../../docfx/includes/MORE-AZURECLI.md)]
+[!INCLUDE [More about Azure CLI](../../docs/includes/MORE-AZURECLI.md)]
 
 # [Power Apps PowerShell](#tab/powerapps-ps)
 ```powershell
@@ -72,7 +72,7 @@ Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Maecenas porttitor con
 <your script>
 
 ```
-[!INCLUDE [More about Power Apps PowerShell](../../docfx/includes/MORE-POWERAPPS.md)]
+[!INCLUDE [More about Power Apps PowerShell](../../docs/includes/MORE-POWERAPPS.md)]
 
 # [MicrosoftTeams PowerShell](#tab/teamsps)
 
@@ -81,7 +81,7 @@ Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Maecenas porttitor con
 <your script>
 
 ```
-[!INCLUDE [More about Microsoft Teams PowerShell](../../docfx/includes/MORE-TEAMSPS.md)]
+[!INCLUDE [More about Microsoft Teams PowerShell](../../docs/includes/MORE-TEAMSPS.md)]
 
 ***
 
@@ -97,5 +97,5 @@ Sample first appeared on [https://pnp.github.io/cli-microsoft365/sample-scripts/
 | <-you-> |
 
 
-[!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
-<img src="https://m365-visitor-stats.azurewebsites.net/script-samples/{script-path}" />
+[!INCLUDE [DISCLAIMER](../../docs/includes/DISCLAIMER.md)]
+<img src="https://m365-visitor-stats.azurewebsites.net/script-samples/{script-path}" alt="" width="1" height="1" aria-hidden="true" />

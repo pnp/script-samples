@@ -1,0 +1,104 @@
+---
+import { ArrowUpRight, GitFork, Menu, Moon, Sun } from "@lucide/astro";
+import { basePath, sitePath, trackerUrl } from "../lib/catalog";
+import "../styles/global.css";
+
+interface Props { title?: string; description?: string; route?: string; image?: string }
+const {
+  title = "Community Script Samples",
+  description = "Real-world scripts for Copilot, Microsoft 365, Power Platform and more. Find a starting point, choose your tool, and make it your own.",
+  route = Astro.url.pathname.slice(basePath.length).replace(/^\/|\/$/g, ""),
+  image = sitePath("assets/gallery-preview.png")
+} = Astro.props;
+const pageTitle = title === "Community Script Samples" ? title : `${title} | Community Script Samples`;
+const canonical = new URL(sitePath(route === "404" ? "404.html" : route ? `${route.replace(/\/$/, "")}/` : ""), Astro.site);
+const nav = [
+  { title: "Samples", path: "" },
+  { title: "Getting started", path: "getting-started/" },
+  { title: "Contributors", path: "contributors/" },
+  { title: "Contributing", path: "contributing/" }
+];
+const current = (value: string) => value ? route.startsWith(value.replace(/\/$/, "")) : !route || route.startsWith("samples/");
+const trackingEnabled = import.meta.env.PUBLIC_ENABLE_VIEW_TRACKING === "true";
+const structuredData = { "@context": "https://schema.org", "@type": "WebSite", name: "Community Script Samples", url: new URL(sitePath(""), Astro.site).href, description };
+---
+<!doctype html>
+<html lang="en" data-theme="light">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content={description} />
+    <meta name="generator" content={Astro.generator} />
+    <meta name="theme-color" id="theme-color" content="#f2f4f5" />
+    <title>{pageTitle}</title>
+    <link rel="icon" href={sitePath("images/parker-ms-300.png")} type="image/png" />
+    <link rel="canonical" href={canonical} />
+    <meta property="og:type" content="website" /><meta property="og:site_name" content="Community Script Samples" />
+    <meta property="og:title" content={pageTitle} /><meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} /><meta property="og:image" content={new URL(image, Astro.site)} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <script type="application/ld+json" set:html={JSON.stringify(structuredData).replace(/</g, "\\u003c")} />
+    <script is:inline>
+      document.documentElement.classList.add("js");
+      try {
+        const theme = localStorage.getItem("community-script-samples-theme") === "dark" ? "dark" : "light";
+        document.documentElement.dataset.theme = theme;
+        document.documentElement.style.colorScheme = theme;
+      } catch (error) {
+        console.warn("Theme storage is unavailable; using light mode for this visit.", error);
+      }
+    </script>
+  </head>
+  <body>
+    <a class="skip-link" href="#main-content">Skip to content</a>
+    <header class="site-header">
+      <div class="spectrum" aria-hidden="true"></div>
+      <div class="container header-inner">
+        <a class="brand" href={sitePath("")} aria-label="Community Script Samples home">
+          <img src={sitePath("images/parker-ms-300.png")} alt="" width="35" height="45" />
+          <span class="brand-name"><span>Community</span> <strong>Script Samples</strong></span>
+        </a>
+        <div class="header-actions">
+          <nav class="desktop-nav" aria-label="Primary navigation">
+            <a href="https://aka.ms/community/home">Community <ArrowUpRight size={12} aria-hidden="true" /></a>
+            {nav.map((item) => <a href={sitePath(item.path)} aria-current={current(item.path) ? "page" : undefined}>{item.title}</a>)}
+            <a href="https://github.com/pnp/script-samples"><GitFork size={17} aria-hidden="true" /> GitHub</a>
+          </nav>
+          <button class="theme-toggle" id="theme-toggle" type="button" role="switch" aria-checked="false" aria-label="Switch to dark mode" title="Switch to dark mode">
+            <span class="theme-icons" aria-hidden="true"><Sun size={17} /><Moon size={17} /></span>
+          </button>
+          <details class="mobile-nav">
+            <summary aria-label="Open navigation"><Menu size={21} aria-hidden="true" /></summary>
+            <nav aria-label="Mobile navigation">
+              <a href="https://aka.ms/community/home">Community <ArrowUpRight size={12} aria-hidden="true" /></a>
+              {nav.map((item) => <a href={sitePath(item.path)} aria-current={current(item.path) ? "page" : undefined}>{item.title}</a>)}
+              <a href="https://github.com/pnp/script-samples">GitHub</a>
+            </nav>
+          </details>
+        </div>
+      </div>
+    </header>
+    <main id="main-content" tabindex="-1"><slot /></main>
+    <footer class="site-footer">
+      <div class="container footer-inner">
+        <div><strong>Microsoft 365 &amp; Power Platform Community</strong><p>Built by the community, for the community.</p></div>
+        <nav aria-label="Footer navigation">
+          <a href="https://aka.ms/community/home">Community home &#8599;</a>
+          <a href={sitePath("catalog.json")}>Catalog JSON</a>
+          <a href={sitePath("schemas/sample.schema.json")}>Metadata schema</a>
+          <a href={sitePath("reports/")}>Catalog reports</a>
+          <a href={sitePath("contributing/recognition/")}>Contributor badge</a>
+          <a href="https://github.com/pnp/script-samples/issues/new">Report an issue</a>
+          <a href="https://opensource.microsoft.com/codeofconduct/">Code of conduct</a>
+          <a href="https://github.com/pnp/script-samples/blob/main/LICENSE">MIT license</a>
+        </nav>
+      </div>
+    </footer>
+    <p class="sr-only" id="site-status" role="status" aria-live="polite"></p>
+    <img class="sr-only" data-visitor-stats data-tracker-src={trackerUrl(route)} data-tracking-enabled={String(trackingEnabled)}
+      src="data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=" alt="" width="1" height="1" aria-hidden="true" />
+    <script>
+      import "../scripts/site";
+    </script>
+  </body>
+</html>

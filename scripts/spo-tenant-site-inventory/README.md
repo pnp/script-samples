@@ -92,7 +92,7 @@ $results | Export-Csv -Path $OutputFile -NoTypeInformation -Encoding UTF8
 Disconnect-PnPOnline
 Write-Host "Site inventory exported to $OutputFile" -ForegroundColor Green
 ```
-[!INCLUDE [More about PnP PowerShell](../../docfx/includes/MORE-PNPPS.md)]
+[!INCLUDE [More about PnP PowerShell](../../docs/includes/MORE-PNPPS.md)]
 
 # [PnP PowerShell](#tab/pnpps)
 
@@ -137,7 +137,7 @@ Disconnect-PnPOnline
 
 ```
 
-[!INCLUDE [More about PnP PowerShell](../../docfx/includes/MORE-PNPPS.md)]
+[!INCLUDE [More about PnP PowerShell](../../docs/includes/MORE-PNPPS.md)]
 ***
 
 ## Contributors
@@ -148,5 +148,5 @@ Disconnect-PnPOnline
 | [Josiah Opiyo](https://github.com/ojopiyo) |
 
 
-[!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
+[!INCLUDE [DISCLAIMER](../../docs/includes/DISCLAIMER.md)]
 <img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/spo-tenant-site-inventory" aria-hidden="true" />

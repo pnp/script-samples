@@ -54,7 +54,7 @@ Disconnect-PnPOnline
 
 ```
 
-[!INCLUDE [More about PnP PowerShell](../../docfx/includes/MORE-PNPPS.md)]
+[!INCLUDE [More about PnP PowerShell](../../docs/includes/MORE-PNPPS.md)]
 
 # [CLI for Microsoft 365](#tab/cli-m365-ps)
 
@@ -101,7 +101,7 @@ m365 logout
 
 ```
 
-[!INCLUDE [More about CLI for Microsoft 365](../../docfx/includes/MORE-CLIM365.md)]
+[!INCLUDE [More about CLI for Microsoft 365](../../docs/includes/MORE-CLIM365.md)]
 
 ***
 
@@ -117,6 +117,6 @@ Article first appeared on [Testing user preferred language of SharePoint site | 
 | [Adam Wójcik](https://github.com/Adam-it)|
 | [Ganesh Sanap](https://ganeshsanapblogs.wordpress.com/about) |
 
-[!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
+[!INCLUDE [DISCLAIMER](../../docs/includes/DISCLAIMER.md)]
 
 <img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/user-language-for-site" aria-hidden="true" />

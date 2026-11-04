@@ -149,7 +149,7 @@ ForEach ($team in $allTeams) {
 Write-Host "Finished!" -ForegroundColor Green
 Stop-Transcript
 ```
-[!INCLUDE [More about PowerShell](../../docfx/includes/MORE-PS.md)]
+[!INCLUDE [More about PowerShell](../../docs/includes/MORE-PS.md)]
 
 # [CLI for Microsoft 365](#tab/cli-m365-ps)
 
@@ -190,7 +190,7 @@ end {
 }
 ```
 
-[!INCLUDE [More about CLI for Microsoft 365](../../docfx/includes/MORE-CLIM365.md)]
+[!INCLUDE [More about CLI for Microsoft 365](../../docs/includes/MORE-CLIM365.md)]
 
 ***
 
@@ -207,5 +207,5 @@ end {
 - [List all teams in Microsoft Teams for an organization](https://learn.microsoft.com/graph/teams-list-all-teams)
 
 
-[!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
-<img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/teams-export-direct-routing-calls" aria-hidden="true" />
+[!INCLUDE [DISCLAIMER](../../docs/includes/DISCLAIMER.md)]
+<img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/teams-list-installed-apps" aria-hidden="true" />

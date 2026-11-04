@@ -287,7 +287,7 @@ $outputPath = Read-Host "Enter full path for CSV output (e.g. C:\Temp\MfaUserDat
 Export-UserMfaPhoneDetailsToCsv -AccessToken $token -OutputPath $outputPath
 ```
 
-[!INCLUDE [More about Microsoft Graph PowerShell SDK](../../docfx/includes/MORE-GRAPHSDK.md)]
+[!INCLUDE [More about Microsoft Graph PowerShell SDK](../../docs/includes/MORE-GRAPHSDK.md)]
 ***
 
 ## Contributors
@@ -296,5 +296,5 @@ Export-UserMfaPhoneDetailsToCsv -AccessToken $token -OutputPath $outputPath
 |-----------|
 | [Divya Akula](https://github.com/divya-akula)|
 
-[!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
+[!INCLUDE [DISCLAIMER](../../docs/includes/DISCLAIMER.md)]
 <img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/graph-get-mfa-user-number" aria-hidden="true" />

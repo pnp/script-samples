@@ -167,7 +167,7 @@ Spanish: El Reino Unido y la UE están cerca de revisar las normas comerciales p
 #>
 
 ```
-[!INCLUDE [More about Microsoft Graph PowerShell SDK](../../docfx/includes/MORE-GRAPHSDK.md)]
+[!INCLUDE [More about Microsoft Graph PowerShell SDK](../../docs/includes/MORE-GRAPHSDK.md)]
 
 [More about Open AI API](https://platform.openai.com/docs/introduction)
 
@@ -180,5 +180,5 @@ Spanish: El Reino Unido y la UE están cerca de revisar las normas comerciales p
 | Anoop Tatti |
 
 
-[!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
+[!INCLUDE [DISCLAIMER](../../docs/includes/DISCLAIMER.md)]
 <img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/graph-openai-get-page-summary" aria-hidden="true" />

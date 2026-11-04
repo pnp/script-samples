@@ -90,7 +90,7 @@ Disconnect-PnPOnline
 > [!Note]
 > SharePoint admin rights are required to run the script
 
-[!INCLUDE [More about PnP PowerShell](../../docfx/includes/MORE-PNPPS.md)]
+[!INCLUDE [More about PnP PowerShell](../../docs/includes/MORE-PNPPS.md)]
 
 ***
 
@@ -105,5 +105,5 @@ Sample first appeared on [Retracting SPFx Solutions from Tenant Sites using PnP 
 | [Reshmee Auckloo](https://github.com/reshmee011) |
 
 
-[!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
+[!INCLUDE [DISCLAIMER](../../docs/includes/DISCLAIMER.md)]
 <img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/spo-uninstall-spfx-hubsiteassociatedsites-tenantappcatalog" aria-hidden="true" />

@@ -1,0 +1,11 @@
+---
+import Layout from "../layouts/Layout.astro";
+import { sitePath } from "../lib/catalog";
+---
+<Layout title="Page not found" route="404">
+  <section class="container page-section">
+    <div class="page-heading"><p class="eyebrow">404 / A fresh starting point</p><h1>That page isn't here.</h1><p>The sample may have moved, or the link may be incomplete. Search the gallery to find the script you need.</p></div>
+    <a class="button button-primary" href={sitePath("")}>Explore script samples &#8594;</a>
+    <a class="button button-secondary" href="https://github.com/pnp/script-samples/issues/new">Report a broken link</a>
+  </section>
+</Layout>

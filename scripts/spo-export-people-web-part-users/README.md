@@ -95,7 +95,7 @@ foreach($site in  $relevantsitecollections)
 $Output | Export-Csv  -Path c:\temp\PeopleWebPartUsers.csv -Encoding utf8NoBOM -Force  -Delimiter "|"
 
 ```
-[!INCLUDE [More about PnP PowerShell](../../docfx/includes/MORE-PNPPS.md)]
+[!INCLUDE [More about PnP PowerShell](../../docs/includes/MORE-PNPPS.md)]
 ***
 
 ## Contributors
@@ -104,5 +104,5 @@ $Output | Export-Csv  -Path c:\temp\PeopleWebPartUsers.csv -Encoding utf8NoBOM -
 |-----------|
 | Kasper Larsen, Fellowmind|
 
-[!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
-<img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/spo-export-basic-sitecollection-info" aria-hidden="true" />
+[!INCLUDE [DISCLAIMER](../../docs/includes/DISCLAIMER.md)]
+<img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/spo-export-people-web-part-users" aria-hidden="true" />

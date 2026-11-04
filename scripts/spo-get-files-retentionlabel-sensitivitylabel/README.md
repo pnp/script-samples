@@ -3,7 +3,7 @@
 # Get Files with Retention or Sensitivity Labels in SharePoint Online
 
 ## Summary
-Understanding the sensitivity and retention labels applied to files in your SharePoint Online sites is essential for maintaining data security and compliance. These labels enable you to manage and protect your data by defining retention periods and handling sensitive information appropriately. This is particularly important for initiatives like the Microsoft 365 Copilot rollout, ensuring that the correct files are stored within the appropriate SharePoint sites. For example, if a SharePoint site is a public Team site, files labeled as confidential should be moved to a private Team site or existing Team site updated from public to private.
+Understanding the sensitivity and retention labels applied to files in your SharePoint Online sites is essential for maintaining data security and compliance. These labels enable you to manage and protect your data by defining retention periods and handling sensitive information appropriately. This is particularly important for initiatives like the Microsoft Copilot rollout, ensuring that the correct files are stored within the appropriate SharePoint sites. For example, if a SharePoint site is a public Team site, files labeled as confidential should be moved to a private Team site or existing Team site updated from public to private.
 
 Example of file tagged with retention label and sensitivity label:
 
@@ -82,7 +82,7 @@ if($report -and $report.Count -gt 0){
 
 ```
 
-[!INCLUDE [More about PnP PowerShell](../../docfx/includes/MORE-PNPPS.md)]
+[!INCLUDE [More about PnP PowerShell](../../docs/includes/MORE-PNPPS.md)]
 ***
 
 ## Source Credit
@@ -95,5 +95,5 @@ Sample first appeared on [PowerShell: Fetch Files with Retention or Sensitivity 
 |-----------|
 | [Reshmee Auckloo](https://github.com/reshmee011)|
 
-[!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
+[!INCLUDE [DISCLAIMER](../../docs/includes/DISCLAIMER.md)]
 <img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/spo-get-files-retentionlabel-sensitivitylabel" aria-hidden="true" />

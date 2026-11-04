@@ -38,7 +38,7 @@ $items | foreach-object {
 $type | Export-Csv -Path "C:\temp\categories.csv" -NoTypeInformation -Force -Delimiter "|"
 ```
 
-[!INCLUDE [More about PnP PowerShell](../../docfx/includes/MORE-PNPPS.md)]
+[!INCLUDE [More about PnP PowerShell](../../docs/includes/MORE-PNPPS.md)]
 
 ***
 ## Source Credit
@@ -50,5 +50,5 @@ Sample first appeared on [Pnp Powershell Get Folder Item](https://reshmeeauckloo
 |-----------|
 | [Reshmee Auckloo (script)](https://github.com/reshmee011)|
 
-[!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
+[!INCLUDE [DISCLAIMER](../../docs/includes/DISCLAIMER.md)]
 <img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/spo-get-folder-item" aria-hidden="true" />

@@ -81,7 +81,7 @@ Stop-Transcript
 >[!Note]
 > Site regional settings can be changed in multiple ways via code. One of the examples of changing reginal setting via site design can be found in this sample [Create and add site design to SharePoint site with site columns, content type](https://pnp.github.io/script-samples/spo-add-site-design-with-custom-list/README.html)
 
-[!INCLUDE [More about PnP PowerShell](../../docfx/includes/MORE-PNPPS.md)]
+[!INCLUDE [More about PnP PowerShell](../../docs/includes/MORE-PNPPS.md)]
 ***
 
 ## Source Credit
@@ -95,5 +95,5 @@ Sample first appeared on [The many ways to set UK Locale in SharePoint](https://
 | Inspired by Paul Bullock |
 | Valeras Narbutas |
 
-[!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
+[!INCLUDE [DISCLAIMER](../../docs/includes/DISCLAIMER.md)]
 <img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/spo-set-sharepoint-regional-settings" aria-hidden="true" />
