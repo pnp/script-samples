@@ -85,7 +85,7 @@ process {
 }
 
 ```
-[!INCLUDE [More about PnP PowerShell](../../docfx/includes/MORE-PNPPS.md)]
+[!INCLUDE [More about PnP PowerShell](../../docs/includes/MORE-PNPPS.md)]
 
 ***
 
@@ -96,5 +96,5 @@ process {
 | Valeras Narbutas |
 
 
-[!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
+[!INCLUDE [DISCLAIMER](../../docs/includes/DISCLAIMER.md)]
 <img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/spo-export-space-page-as-template-and-save-to-sharepoint" aria-hidden="true" />

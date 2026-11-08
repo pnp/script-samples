@@ -1,0 +1,67 @@
+---
+import { ArrowRight, ArrowUpRight } from "@lucide/astro";
+import Layout from "../../layouts/Layout.astro";
+import ProductImage from "../../components/ProductImage.astro";
+import { catalog, formatDate, requireProduct, samplePath, sitePath } from "../../lib/catalog";
+import type { Sample } from "../../lib/types";
+export function getStaticPaths() {
+  return catalog.samples.map((sample) => ({ params: { slug: sample.slug }, props: { sample } }));
+}
+interface Props { sample: Sample }
+const { sample } = Astro.props;
+const related = catalog.samples.filter((candidate) => candidate.slug !== sample.slug && candidate.products.some((product) => sample.products.includes(product)))
+  .sort((a, b) => Number(b.categories.some((category) => sample.categories.includes(category))) - Number(a.categories.some((category) => sample.categories.includes(category))))
+  .slice(0, 3);
+const tagsWithReferences = new Map(sample.commandReferences.map((reference) => [reference.name, reference.url]));
+---
+<Layout title={sample.title} description={sample.description} route={`samples/${sample.slug}`} image={sample.previews[0].src}>
+  <div class="container detail-section">
+    <nav class="breadcrumbs" aria-label="Breadcrumb"><a href={sitePath("")} id="back-to-samples">All samples</a><span aria-hidden="true">/</span><span>{sample.categories[0]}</span></nav>
+    <header class="detail-header">
+      <span class="scenario-tag">{sample.categories.join(" / ")}</span>
+      <h1>{sample.title}</h1><p>{sample.description}</p>
+      <div class="detail-byline">
+        {sample.authors.map((author) => <a class="card-author" href={`https://github.com/${author.handle}`}><img class="avatar" src={author.pictureUrl} alt="" width="30" height="30" loading="lazy" decoding="async" data-avatar={author.name} />{author.name}</a>)}
+        <span>Updated <time datetime={sample.updated}>{formatDate(sample.updated)}</time></span>
+        <a href={sample.sourceUrl}>View on GitHub <ArrowUpRight size={12} aria-hidden="true" /></a>
+      </div>
+    </header>
+    <div class="detail-layout">
+      <div class="detail-main">
+        <aside class="safety-note" aria-label="Before you run"><strong>Understand it. Adapt it. Test it first.</strong><p>Review the full script, prerequisites, and required permissions. Test against non-production data before making changes. Samples are community contributions, provided as-is; an update date is not a claim of recent testing.</p></aside>
+        <div class="readme-content" id="sample-readme" set:html={sample.readmeHtml}></div>
+        {sample.references.length > 0 && <section class="reference-section"><h2>Tool documentation &amp; references</h2><ul>{sample.references.map((reference) => <li><a href={reference.url}>{reference.name}</a>{reference.description && <p>{reference.description}</p>}</li>)}</ul></section>}
+        <section><h2>Keep exploring</h2><div class="related-samples">{related.map((candidate) => <a href={samplePath(candidate.slug)}>{candidate.title}<ArrowRight size={15} aria-hidden="true" /></a>)}</div></section>
+      </div>
+      <aside class="detail-sidebar" aria-label="Sample information">
+        <div class="sidebar-panel"><h2>Make it your own</h2>
+          <a class="button button-primary" href={sample.sourceUrl}>Open source on GitHub <ArrowUpRight size={14} aria-hidden="true" /></a>
+          <a class="button button-secondary" href={`https://github.com/pnp/script-samples/edit/main/scripts/${encodeURIComponent(sample.slug)}/README.md`}>Improve this sample</a>
+          <dl><dt>Products</dt><dd>{sample.products.map((id) => <a class="product-inline" href={`${sitePath("")}?product=${id}`}><ProductImage product={requireProduct(id)} size={22} />{requireProduct(id).label}</a>)}</dd>
+            <dt>Tool versions from the author</dt><dd>{sample.tools.map((tool) => <div>{tool.label} <strong>{tool.version}</strong></div>)}</dd>
+            <dt>Created</dt><dd><time datetime={sample.created}>{formatDate(sample.created)}</time></dd>
+            <dt>Updated</dt><dd><time datetime={sample.updated}>{formatDate(sample.updated)}</time></dd>
+          </dl>
+        </div>
+        {sample.tags.length > 0 && <div class="sidebar-panel"><h2>Commands &amp; topics</h2><div class="tag-list">{sample.tags.map((tag) => tagsWithReferences.has(tag) ? <a href={tagsWithReferences.get(tag)}>{tag} &#8599;</a> : <a href={`${sitePath("")}?q=${encodeURIComponent(tag)}`}>{tag}</a>)}</div></div>}
+        <div class="sidebar-panel"><h2>Something not working?</h2><p class="card-description">Help the community keep this sample useful. Include the tool version, steps, and a redacted error message.</p>
+          <a class="text-link" href={`https://github.com/pnp/script-samples/issues/new?title=${encodeURIComponent(`Issue with ${sample.slug}`)}&body=${encodeURIComponent(`Sample: ${sample.url}\n\nTool and version:\n\nSteps to reproduce:\n\nExpected and actual result:\n\nRemove tenant details, credentials, and personal information before submitting.`)}`}>Report an issue &#8599;</a>
+        </div>
+        <div class="sidebar-panel"><h2>Built by the community</h2><a href={sitePath("contributing/recognition/")}><img class="detail-badge" src={sitePath("assets/credly-badge.png")} alt="Script Samples community contributor badge" width="160" height="160" loading="lazy" decoding="async" /></a><p class="card-description">Share a sample and earn your contributor badge.</p><a class="text-link" href={sitePath("contributing/")}>Get involved &#8594;</a></div>
+      </aside>
+    </div>
+  </div>
+</Layout>
+<script>
+  const back = document.querySelector<HTMLAnchorElement>("#back-to-samples");
+  if (back) {
+    try {
+      const saved = sessionStorage.getItem("community-script-samples-gallery");
+      const parsed: unknown = saved ? JSON.parse(saved) : null;
+      if (typeof parsed === "object" && parsed !== null && "url" in parsed && typeof parsed.url === "string") {
+        const url = new URL(parsed.url);
+        if (url.origin === location.origin && url.pathname === import.meta.env.BASE_URL) back.href = url.href;
+      }
+    } catch (error) { console.warn("The previous gallery filters could not be restored.", error); }
+  }
+</script>

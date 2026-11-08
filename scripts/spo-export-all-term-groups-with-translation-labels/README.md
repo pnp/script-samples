@@ -489,7 +489,7 @@ finally
 # .\Export-AllTermGroupsWithTranslationLabels.ps1 -TenantAdminUrl "https://contoso-admin.sharepoint.com/" -ClientId "<client-id>" -ExportFormat Both -OutputPath "C:\Temp\TermStoreExport_{0:yyyyMMdd_HHmmss}" -TermGroups "HR"
 
 ```
-[!INCLUDE [More about PnP PowerShell](../../docfx/includes/MORE-PNPPS.md)]
+[!INCLUDE [More about PnP PowerShell](../../docs/includes/MORE-PNPPS.md)]
 ***
 
 
@@ -499,5 +499,5 @@ finally
 |-----------|
 | Kasper Larsen |
 
-[!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
+[!INCLUDE [DISCLAIMER](../../docs/includes/DISCLAIMER.md)]
 <img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/spo-export-all-term-groups-with-translation-labels" aria-hidden="true" />

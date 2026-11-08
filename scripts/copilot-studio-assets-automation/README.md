@@ -289,7 +289,7 @@ Write-Host "`nScript execution completed." -ForegroundColor Green
 # .\CopilotStudioAssetsAutomation.ps1 -Operation "Export" -AssetType "Embeddings" -ExportPath ".\Exports" -UseGraphAPI
 # .\CopilotStudioAssetsAutomation.ps1 -Operation "Import" -AssetType "All" -ImportPath ".\Backups" -UseGraphAPI
 ```
-[!INCLUDE [More about Microsoft Graph PowerShell SDK](../../docfx/includes/MORE-GRAPHSDK.md)]
+[!INCLUDE [More about Microsoft Graph PowerShell SDK](../../docs/includes/MORE-GRAPHSDK.md)]
 
 # [CLI for Microsoft 365 using PowerShell](#tab/cli-m365-ps)
 
@@ -507,7 +507,7 @@ Write-Host "`nScript execution completed." -ForegroundColor Green
 # .\CopilotStudioAssets-CLI.ps1 -Operation "Backup" -OutputPath ".\Backups"
 # .\CopilotStudioAssets-CLI.ps1 -Operation "Import" -InputPath ".\Backups\backup_20250716_143022"
 ```
-[!INCLUDE [More about CLI for Microsoft 365](../../docfx/includes/MORE-CLIM365.md)]
+[!INCLUDE [More about CLI for Microsoft 365](../../docs/includes/MORE-CLIM365.md)]
 ***
 
 ## Usage Examples
@@ -601,5 +601,5 @@ CopilotStudioAssets/
 |-----------|
 | [Valeras Narbutas](https://github.com/ValerasNarbutas)|
 
-[!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
+[!INCLUDE [DISCLAIMER](../../docs/includes/DISCLAIMER.md)]
 <img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/copilot-studio-assets-automation" aria-hidden="true" />

@@ -54,7 +54,7 @@ foreach ($siteUrl in $sitesUrls)
 Write-Host "Cleaning up retention policy exclusions"
 Set-RetentionCompliancePolicy -Identity $retentionPolicyName -RemoveSharePointLocationException $sitesUrls
 ```
-[!INCLUDE [More about PnP PowerShell](../../docfx/includes/MORE-PNPPS.md)]
+[!INCLUDE [More about PnP PowerShell](../../docs/includes/MORE-PNPPS.md)]
 ***
 
 ## Contributors
@@ -64,5 +64,5 @@ Set-RetentionCompliancePolicy -Identity $retentionPolicyName -RemoveSharePointLo
 | Giacomo Pozzoni |
 
 
-[!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
+[!INCLUDE [DISCLAIMER](../../docs/includes/DISCLAIMER.md)]
 <img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/spo-delete-site-with-retention-policy" aria-hidden="true" />

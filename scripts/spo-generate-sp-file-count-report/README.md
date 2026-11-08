@@ -172,7 +172,7 @@ $Report | Select-Object * | Export-Csv -Path "Report.csv" -NoTypeInformation
 Invoke-Item -Path "Report.csv"
 
 ```
-[!INCLUDE [More about PnP PowerShell](../../docfx/includes/MORE-PNPPS.md)]
+[!INCLUDE [More about PnP PowerShell](../../docs/includes/MORE-PNPPS.md)]
 
 ***
 
@@ -183,5 +183,5 @@ Invoke-Item -Path "Report.csv"
 | [Dan Toft](https://dan-toft.dk) |
 
 
-[!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
+[!INCLUDE [DISCLAIMER](../../docs/includes/DISCLAIMER.md)]
 <img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/spo-generate-sp-file-count-report" aria-hidden="true" />

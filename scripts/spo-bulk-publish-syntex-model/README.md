@@ -68,7 +68,7 @@ Disconnect-PnPOnline
 Stop-Transcript  
 
 ```
-[!INCLUDE [More about PnP PowerShell](../../docfx/includes/MORE-PNPPS.md)]
+[!INCLUDE [More about PnP PowerShell](../../docs/includes/MORE-PNPPS.md)]
 
 # [CSV file](#tab/csv)
 ```csv
@@ -86,5 +86,5 @@ Refinement Rules Example;https://contoso.sharepoint.com/sites/SalesAndMarketing;
 |-----------|
 | [Leon Armston](https://github.com/LeonArmston) |
 
-[!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
+[!INCLUDE [DISCLAIMER](../../docs/includes/DISCLAIMER.md)]
 <img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/spo-bulk-publish-syntex-model" aria-hidden="true" />

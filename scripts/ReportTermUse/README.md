@@ -125,7 +125,7 @@ Catch {
 $outputArray  | Export-Csv -Path $outputPath -Force -Encoding utf8BOM -Delimiter "|"
 
 ```
-[!INCLUDE [More about PnP PowerShell](../../docfx/includes/MORE-PNPPS.md)]
+[!INCLUDE [More about PnP PowerShell](../../docs/includes/MORE-PNPPS.md)]
 
 # [CLI for Microsoft 365](#tab/cli-m365-ps)
 ```powershell
@@ -213,7 +213,7 @@ $outputArray  | Export-Csv -Path $outputPath -Force -Encoding utf8BOM -Delimiter
 
 
 ```
-[!INCLUDE [More about CLI for Microsoft 365](../../docfx/includes/MORE-CLIM365.md)]
+[!INCLUDE [More about CLI for Microsoft 365](../../docs/includes/MORE-CLIM365.md)]
 ***
 
 ## Contributors
@@ -223,6 +223,6 @@ $outputArray  | Export-Csv -Path $outputPath -Force -Encoding utf8BOM -Delimiter
 | [Kasper Bo Larsen](https://github.com/kasperbolarsen)|
 | [Adam Wójcik](https://github.com/Adam-it)|
 
-[!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
-<img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/report-term-use" aria-hidden="true" />
+[!INCLUDE [DISCLAIMER](../../docs/includes/DISCLAIMER.md)]
+<img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/ReportTermUse" aria-hidden="true" />
 

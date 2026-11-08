@@ -6,13 +6,12 @@
     "shortDescription": "Configuring Microsoft 365 Group settings is essential for ensuring a secure and compliant environment. This script can be utilized to set up different group settings, such as naming policies and guest access.",
     "url": "https://pnp.github.io/script-samples/aad-update-m365-global-unified-settings/README.html",
     "longDescription": [
-       "Managing Microsoft 365 Group settings is crucial for maintaining a compliant and secure environment.PowerShell and Microsoft Graph can be used to configure various group settings, including naming policies, guest access, and more."
+      "Managing Microsoft 365 Group settings is crucial for maintaining a compliant and secure environment.PowerShell and Microsoft Graph can be used to configure various group settings, including naming policies, guest access, and more."
     ],
     "creationDateTime": "2024-11-24",
     "updateDateTime": "2024-11-24",
     "products": [
-      "M365 Group",
-      "Unified Settings"
+      "M365 Group"
     ],
     "metadata": [
       {
@@ -23,20 +22,22 @@
     "categories": [
       "Report",
       "Security",
-      "Microsoft 365 Group"
+      "Configure"
     ],
     "tags": [
       "modern",
       "Connect-PnPOnline",
       "Invoke-PnPGraphMethod",
-      "Get-PnPMicrosoft365GroupSettings"
+      "Get-PnPMicrosoft365GroupSettings",
+      "Unified Settings",
+      "Microsoft 365 Group"
     ],
     "thumbnails": [
       {
         "type": "image",
         "order": 100,
         "url": "https://raw.githubusercontent.com/pnp/script-samples/main/scripts/aad-update-m365-global-unified-settings/assets/preview.png",
-        "alt": ""
+        "alt": "Preview of the sample Update Global Microsoft 365 Group Settings"
       }
     ],
     "authors": [

@@ -336,7 +336,7 @@ catch {
     }
 }
 ```
-[!INCLUDE [More about Microsoft Graph PowerShell SDK](../../docfx/includes/MORE-GRAPHSDK.md)]
+[!INCLUDE [More about Microsoft Graph PowerShell SDK](../../docs/includes/MORE-GRAPHSDK.md)]
 ***
 
 
@@ -359,5 +359,5 @@ catch {
 3. Detecting changes (drift) between policy versions
 4. Creating a notification system for security policy changes
 
-[!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
+[!INCLUDE [DISCLAIMER](../../docs/includes/DISCLAIMER.md)]
 <img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/aad-export-compare-conditional-access-policies" aria-hidden="true" />

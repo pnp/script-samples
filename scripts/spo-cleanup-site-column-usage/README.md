@@ -98,7 +98,7 @@ if (!$reportOnly) {
     Remove-PnPField -Identity $siteColumn
 }
 ```
-[!INCLUDE [More about PnP.PowerShell](../../docfx/includes/MORE-PNPPS.md)]
+[!INCLUDE [More about PnP.PowerShell](../../docs/includes/MORE-PNPPS.md)]
 
 # [CLI for Microsoft 365](#tab/cli-m365-ps)
 ```powershell
@@ -287,7 +287,7 @@ function Invoke-SiteColumnCleanup {
 
 Invoke-SiteColumnCleanup -SiteUrl "https://tenanttocheck.sharepoint.com/sites/PnPDemo2" -ContentTypeNames 'testContentTypeA','testContentTypeB','testContentTypeC' -SiteColumnName 'testColumn1' -ReportOnly
 ```
-[!INCLUDE [More about CLI for Microsoft 365](../../docfx/includes/MORE-CLIM365.md)]
+[!INCLUDE [More about CLI for Microsoft 365](../../docs/includes/MORE-CLIM365.md)]
 ***
 
 ## Source Credit
@@ -301,5 +301,5 @@ Sample first appeared on [Clean Up Unwanted Site Columns from Content Types and 
 | Marc D Anderson |
 | Adam Wójcik |
 
-[!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
-<img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/spo-copy-files-to-another-library" aria-hidden="true" />
+[!INCLUDE [DISCLAIMER](../../docs/includes/DISCLAIMER.md)]
+<img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/spo-cleanup-site-column-usage" aria-hidden="true" />

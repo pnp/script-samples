@@ -75,7 +75,7 @@ foreach($site in  $relevantsitecollections)
 $Output | Export-Csv  -Path c:\temp\AuthorbylineUsers.csv -Encoding utf8BOM -Force  -Delimiter "|"
 
 ```
-[!INCLUDE [More about PnP PowerShell](../../docfx/includes/MORE-PNPPS.md)]
+[!INCLUDE [More about PnP PowerShell](../../docs/includes/MORE-PNPPS.md)]
 ***
 
 ## Contributors
@@ -84,5 +84,5 @@ $Output | Export-Csv  -Path c:\temp\AuthorbylineUsers.csv -Encoding utf8BOM -For
 |-----------|
 | Kasper Larsen, Fellowmind|
 
-[!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
+[!INCLUDE [DISCLAIMER](../../docs/includes/DISCLAIMER.md)]
 <img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/spo-export-author-byline-users" aria-hidden="true" />

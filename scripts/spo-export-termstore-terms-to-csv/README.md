@@ -79,7 +79,7 @@ ExportTerms
 m365 logout  
 
 ```
-[!INCLUDE [More about CLI for Microsoft 365](../../docfx/includes/MORE-CLIM365.md)]
+[!INCLUDE [More about CLI for Microsoft 365](../../docs/includes/MORE-CLIM365.md)]
 
 
 # [PnP PowerShell](#tab/pnpps)
@@ -143,7 +143,7 @@ Disconnect-PnPOnline
   
 
 ```
-[!INCLUDE [More about PnP PowerShell](../../docfx/includes/MORE-PNPPS.md)]
+[!INCLUDE [More about PnP PowerShell](../../docs/includes/MORE-PNPPS.md)]
 ***
 
 ## Contributors
@@ -153,5 +153,5 @@ Disconnect-PnPOnline
 | [Ramin Ahmadi](https://github.com/ahmadiramin) |
 | [Reshmee Auckloo](https://github.com/reshmee011) |
 
-[!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
+[!INCLUDE [DISCLAIMER](../../docs/includes/DISCLAIMER.md)]
 <img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/spo-export-termstore-terms-to-csv" aria-hidden="true" />

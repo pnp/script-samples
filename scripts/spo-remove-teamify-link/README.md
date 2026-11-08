@@ -26,7 +26,7 @@ Remove the Teamify link on Group sites
     #alternatively use Set-PnPTeamifyPromptHidden
     Set-PnPTeamifyPromptHidden -Connection $conn
 ```
-[!INCLUDE [More about PnP PowerShell](../../docfx/includes/MORE-PNPPS.md)]
+[!INCLUDE [More about PnP PowerShell](../../docs/includes/MORE-PNPPS.md)]
 
 # [PnP PowerShell without enabling custom scripting](#tab/pnpps2)
 
@@ -35,7 +35,7 @@ Remove the Teamify link on Group sites
     $conn = Connect-PnPOnline -Url $url -interactive -ReturnConnection  -ErrorAction Stop          
     Set-PnPTeamifyPromptHidden -Connection $conn
 ```
-[!INCLUDE [More about PnP PowerShell](../../docfx/includes/MORE-PNPPS.md)]
+[!INCLUDE [More about PnP PowerShell](../../docs/includes/MORE-PNPPS.md)]
 
 # [CLI for Microsoft 365](#tab/cli-m365-ps)
 
@@ -53,7 +53,7 @@ Remove the Teamify link on Group sites
     m365 spo site classic set --url $url --noScriptSite true
 
 ```
-[!INCLUDE [More about CLI for Microsoft 365](../../docfx/includes/MORE-CLIM365.md)]
+[!INCLUDE [More about CLI for Microsoft 365](../../docs/includes/MORE-CLIM365.md)]
 
 ***
 
@@ -65,5 +65,5 @@ Remove the Teamify link on Group sites
 | Reshmee Auckloo |
 | [Valeras Narbutas](https://github.com/ValerasNarbutas) |
 
-[!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
+[!INCLUDE [DISCLAIMER](../../docs/includes/DISCLAIMER.md)]
 <img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/spo-remove-teamify-link" aria-hidden="true" />

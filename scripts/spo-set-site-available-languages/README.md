@@ -191,7 +191,7 @@ function Set-SiteAvailableLanguages
 # Set-SiteAvailableLanguages -SiteUrl "https://contoso.sharepoint.com/sites/demo" -AvailableLanguages @("fr-FR", 1040) -ClientId "<client-id>"
 
 ```
-[!INCLUDE [More about PnP PowerShell](../../docfx/includes/MORE-PNPPS.md)]
+[!INCLUDE [More about PnP PowerShell](../../docs/includes/MORE-PNPPS.md)]
 ***
 
 
@@ -201,5 +201,5 @@ function Set-SiteAvailableLanguages
 |-----------|
 | Kasper Larsen |
 
-[!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
+[!INCLUDE [DISCLAIMER](../../docs/includes/DISCLAIMER.md)]
 <img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/spo-set-site-available-languages" aria-hidden="true" />

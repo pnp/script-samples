@@ -115,7 +115,7 @@ StartProcessing
 
 ```
 
-[!INCLUDE [More about PnP PowerShell](../../docfx/includes/MORE-PNPPS.md)]
+[!INCLUDE [More about PnP PowerShell](../../docs/includes/MORE-PNPPS.md)]
 
 # [CLI for Microsoft 365](#tab/cli-m365-ps)
 
@@ -206,7 +206,7 @@ process {
   Write-Host "Script Complete! :)" -ForegroundColor Green
 }
 ```
-[!INCLUDE [More about CLI for Microsoft 365](../../docfx/includes/MORE-CLIM365.md)]
+[!INCLUDE [More about CLI for Microsoft 365](../../docs/includes/MORE-CLIM365.md)]
 ***
 
 ## Source Credit
@@ -220,5 +220,5 @@ Sample first appeared on [Fetch User Profile Properties From Site Collection And
 | Chandani Prajapati |
 | Mathijs Verbeeck |
 
-[!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
+[!INCLUDE [DISCLAIMER](../../docs/includes/DISCLAIMER.md)]
 <img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/fetch-user-profile-properties" aria-hidden="true" />

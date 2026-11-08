@@ -270,7 +270,7 @@ Stop-Transcript
 > [!Note]
 > SharePoint tenant admin right are required to be able add list design
 
-[!INCLUDE [More about SPO Management Shell](../../docfx/includes/MORE-SPOMS.md)]
+[!INCLUDE [More about SPO Management Shell](../../docs/includes/MORE-SPOMS.md)]
 
 ***
 ## Source Credit
@@ -284,6 +284,6 @@ Inspired by [Invoke-SPOListDesign to create instances of lists/libraires](https:
 | Reshmee Auckloo |
 
 
-[!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
+[!INCLUDE [DISCLAIMER](../../docs/includes/DISCLAIMER.md)]
 <img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/spo-add-list-template-with-custom-library" aria-hidden="true" />
 

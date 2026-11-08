@@ -4,7 +4,7 @@
 
 ## Summary
 
-This sample allows you to enable or disable the Search crawling on a site or a library. You can use this to control the search indexing of a site or a library. But if you disable it, web parts and search experiences will not work against the locations you disable. However, this can be used to remove locations from Microsoft 365 Copilot. 
+This sample allows you to enable or disable the Search crawling on a site or a library. You can use this to control the search indexing of a site or a library. But if you disable it, web parts and search experiences will not work against the locations you disable. However, this can be used to remove locations from Microsoft Copilot.
 
 > [!Warning]
 > Please be aware this script contains a command that will remove content from search, ensure you test and understand the implications of running the script. If this is an active site, it can negatively impact the user experience.
@@ -73,7 +73,7 @@ Write-Host "Current DOCUMENT LIBRARY ($($listName)) status - Crawling: $(!$list.
 Disconnect-PnPOnline
 
 ```
-[!INCLUDE [More about PnP PowerShell](../../docfx/includes/MORE-PNPPS.md)]
+[!INCLUDE [More about PnP PowerShell](../../docs/includes/MORE-PNPPS.md)]
 
 # [CLI for Microsoft 365](#tab/cli-m365-ps)
 
@@ -147,7 +147,7 @@ m365 logout
 
 ```
 
-[!INCLUDE [More about CLI for Microsoft 365](../../docfx/includes/MORE-CLIM365.md)]
+[!INCLUDE [More about CLI for Microsoft 365](../../docs/includes/MORE-CLIM365.md)]
 
 ***
 
@@ -158,5 +158,5 @@ m365 logout
 | Paul Bullock |
 | [Ganesh Sanap](https://ganeshsanapblogs.wordpress.com/about) |
 
-[!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
+[!INCLUDE [DISCLAIMER](../../docs/includes/DISCLAIMER.md)]
 <img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/spo-enable-disable-search-crawling" aria-hidden="true" />

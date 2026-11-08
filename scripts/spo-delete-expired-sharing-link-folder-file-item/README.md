@@ -171,7 +171,7 @@ Write-host -f Green "Deletion of expired Sharing Links Report Generated Successf
 write-host $("End time " + (Get-Date))
 ```
 
-[!INCLUDE [More about PnP PowerShell](../../docfx/includes/MORE-PNPPS.md)]
+[!INCLUDE [More about PnP PowerShell](../../docs/includes/MORE-PNPPS.md)]
 
 ***
 
@@ -185,5 +185,5 @@ Sample first appeared on [Automate the Removal of Expired Sharing Links in Share
 |-----------|
 | [Reshmee Auckloo](https://github.com/reshmee011) |
 
-[!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
-<img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/spo-delete-expired-sharingLink-folder-file-item" aria-hidden="true">
+[!INCLUDE [DISCLAIMER](../../docs/includes/DISCLAIMER.md)]
+<img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/spo-delete-expired-sharing-link-folder-file-item" aria-hidden="true">

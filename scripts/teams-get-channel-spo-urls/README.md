@@ -27,7 +27,7 @@ $m365GroupId = $team.GroupId
 Get-PnPTenantSite | Where-Object { $_.Template -eq 'TEAMCHANNEL#1' -and $_.RelatedGroupId -eq $m365GroupId  } | select Url,Template, Title
 
 ```
-[!INCLUDE [More about PnP PowerShell](../../docfx/includes/MORE-PNPPS.md)]
+[!INCLUDE [More about PnP PowerShell](../../docs/includes/MORE-PNPPS.md)]
 
 ***
 
@@ -42,5 +42,5 @@ Sample first appeared on [Retrieving SharePoint Site URL for Teams Channels](htt
 | [Reshmee Auckloo](https://github.com/reshmee011) |
 
 
-[!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
+[!INCLUDE [DISCLAIMER](../../docs/includes/DISCLAIMER.md)]
 <img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/teams-get-channel-spo-urls" aria-hidden="true" />

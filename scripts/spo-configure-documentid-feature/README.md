@@ -60,7 +60,7 @@ Get-PnPList | Where-Object { $_.BaseTemplate -eq 101 -and $_.Hidden -eq $False  
 }
 ```
 
-[!INCLUDE [More about PnP PowerShell](../../docfx/includes/MORE-PNPPS.md)]
+[!INCLUDE [More about PnP PowerShell](../../docs/includes/MORE-PNPPS.md)]
 
 ***
 
@@ -75,5 +75,5 @@ Inspired by [PnP PowerShell: Enabling and Configuring Document ID in SharePoint]
 |-----------|
 | [Reshmee Auckloo](https://github.com/reshmee011)|
 
-[!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
+[!INCLUDE [DISCLAIMER](../../docs/includes/DISCLAIMER.md)]
 <img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/spo-configure-documentid-feature" aria-hidden="true" />

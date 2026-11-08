@@ -70,7 +70,7 @@ Invoke-PnPSPRestMethod -Method Post -Url "$url/_api/web/lists/GetByTitle('$listn
 Set-PnPList -Identity $listname -ListExperience NewExperience # Set list experience to force the list to display in Modern
 Set-PnPView -List $listname -Identity $newViewTitle -Values @{DefaultView=$true;MobileView=$true;MobileDefaultView=$true} #Set newly created view To Be Default
 ```
-[!INCLUDE [More about PnP PowerShell](../../docfx/includes/MORE-PNPPS.md)]
+[!INCLUDE [More about PnP PowerShell](../../docs/includes/MORE-PNPPS.md)]
   
 ***
 
@@ -87,6 +87,6 @@ Set-PnPView -List $listname -Identity $newViewTitle -Values @{DefaultView=$true;
 | [Leon Armston](https://github.com/LeonArmston) |
 
 
-[!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
+[!INCLUDE [DISCLAIMER](../../docs/includes/DISCLAIMER.md)]
 <img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/spo-add-modern-calendar-view" aria-hidden="true" />
 

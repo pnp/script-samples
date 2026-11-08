@@ -332,7 +332,7 @@ end {
 
 
 ```
-[!INCLUDE [More about PnP PowerShell](../../docfx/includes/MORE-PNPPS.md)]
+[!INCLUDE [More about PnP PowerShell](../../docs/includes/MORE-PNPPS.md)]
 
 
 # [PnP PowerShell Alternative](#tab/pnpps2)
@@ -502,7 +502,7 @@ if( $OutputCsvFileName ) {
 }
 
 ```
-[!INCLUDE [More about PnP PowerShell](../../docfx/includes/MORE-PNPPS.md)]
+[!INCLUDE [More about PnP PowerShell](../../docs/includes/MORE-PNPPS.md)]
 ***
 
 ## Contributors
@@ -512,6 +512,6 @@ if( $OutputCsvFileName ) {
 | Rodrigo Pinto |
 | Twan van Beers |
 
-[!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
+[!INCLUDE [DISCLAIMER](../../docs/includes/DISCLAIMER.md)]
 <img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/stream-report-videos" aria-hidden="true" />
 

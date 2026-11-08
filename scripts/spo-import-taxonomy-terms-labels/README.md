@@ -95,7 +95,7 @@ sleep -Seconds 5;#added wait to make sure the terms are accessible to add labels
 Add-Synonyms $csvPath $termSId $envTermGroup
 
 ```
-[!INCLUDE [More about PnP PowerShell](../../docfx/includes/MORE-PNPPS.md)]
+[!INCLUDE [More about PnP PowerShell](../../docs/includes/MORE-PNPPS.md)]
 ***
 
 ## Contributors
@@ -104,5 +104,5 @@ Add-Synonyms $csvPath $termSId $envTermGroup
 |-----------|
 | Reshmee Auckloo |
 
-[!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
+[!INCLUDE [DISCLAIMER](../../docs/includes/DISCLAIMER.md)]
 <img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/spo-import-taxonomy-terms-labels" aria-hidden="true" />

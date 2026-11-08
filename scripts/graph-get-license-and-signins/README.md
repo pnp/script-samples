@@ -73,7 +73,7 @@ $users | Export-Csv -Path "users.csv" -NoTypeInformation
 Disconnect-MgGraph
 
 ```
-[!INCLUDE [More about Microsoft Graph PowerShell SDK](../../docfx/includes/MORE-GRAPHSDK.md)]
+[!INCLUDE [More about Microsoft Graph PowerShell SDK](../../docs/includes/MORE-GRAPHSDK.md)]
 
 ***
 
@@ -84,5 +84,5 @@ Disconnect-MgGraph
 | Paul Bullock |
 
 
-[!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
+[!INCLUDE [DISCLAIMER](../../docs/includes/DISCLAIMER.md)]
 <img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/graph-get-license-and-signins" aria-hidden="true" />

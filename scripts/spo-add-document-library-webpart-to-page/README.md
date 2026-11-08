@@ -37,7 +37,7 @@ foreach ($name in $ray) {
 }
 
 ```
-[!INCLUDE [More about PnP PowerShell](../../docfx/includes/MORE-PNPPS.md)]
+[!INCLUDE [More about PnP PowerShell](../../docs/includes/MORE-PNPPS.md)]
 
 # [CLI for Microsoft 365](#tab/cli-m365-ps)
 ```powershell
@@ -72,7 +72,7 @@ foreach ($name in $ray) {
 }
 
 ```
-[!INCLUDE [More about CLI for Microsoft 365](../../docfx/includes/MORE-CLIM365.md)]
+[!INCLUDE [More about CLI for Microsoft 365](../../docs/includes/MORE-CLIM365.md)]
 ***
 
 ## Source Credit
@@ -87,5 +87,5 @@ Sample first appeared on [Use PnP Powershell to add a document library webpart t
 | [Adam Wójcik](https://github.com/Adam-it)|
 | [Todd Klindt](https://www.toddklindt.com)|
 
-[!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
+[!INCLUDE [DISCLAIMER](../../docs/includes/DISCLAIMER.md)]
 <img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/spo-add-document-library-webpart-to-page" aria-hidden="true" />

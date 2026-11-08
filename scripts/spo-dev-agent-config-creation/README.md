@@ -234,7 +234,7 @@ $json | ConvertTo-Json -Depth 10 | Out-File "$($name).agent"
 Write-Host "JSON file generated: $($name).agent"
 
 ```
-[!INCLUDE [More about PnP PowerShell](../../docfx/includes/MORE-PNPPS.md)]
+[!INCLUDE [More about PnP PowerShell](../../docs/includes/MORE-PNPPS.md)]
 ***
 
 
@@ -244,5 +244,5 @@ Write-Host "JSON file generated: $($name).agent"
 |-----------|
 | Leon Armston |
 
-[!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
+[!INCLUDE [DISCLAIMER](../../docs/includes/DISCLAIMER.md)]
 <img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/spo-dev-agent-config-creation" aria-hidden="true" />

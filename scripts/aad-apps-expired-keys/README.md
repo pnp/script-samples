@@ -60,7 +60,7 @@ $credentials | FT -AutoSize
 #$credentials | Export-Csv -Path "AppsInventory.csv" -NoTypeInformation 
 
 ```
-[!INCLUDE [More about Microsoft Graph PowerShell SDK](../../docfx/includes/MORE-GRAPHSDK.md)]
+[!INCLUDE [More about Microsoft Graph PowerShell SDK](../../docs/includes/MORE-GRAPHSDK.md)]
 ***
 
 ## Source Credit
@@ -74,5 +74,5 @@ Sample first appeared on [List out all Azure AD Apps along with their KeyCredent
 | Srinivas Varukala |
 
 
-[!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
-<img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/aad-apps-expird-keys" aria-hidden="true" />
+[!INCLUDE [DISCLAIMER](../../docs/includes/DISCLAIMER.md)]
+<img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/aad-apps-expired-keys" aria-hidden="true" />

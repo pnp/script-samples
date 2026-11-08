@@ -28,7 +28,7 @@ Set-SPOHomeSite -HomeSiteUrl $commSiteUrl
 
 ```
 
-[!INCLUDE [More about SPO Management Shell](../../docfx/includes/MORE-SPOMS.md)]
+[!INCLUDE [More about SPO Management Shell](../../docs/includes/MORE-SPOMS.md)]
 
 # [PnP PowerShell](#tab/pnpps)
 
@@ -47,7 +47,7 @@ Connect-PnPOnline -Url $adminSiteUrl -Interactive
 Set-PnPHomeSite -HomeSiteUrl $commSiteUrl
 
 ```
-[!INCLUDE [More about PnP PowerShell](../../docfx/includes/MORE-PNPPS.md)]
+[!INCLUDE [More about PnP PowerShell](../../docs/includes/MORE-PNPPS.md)]
 
 # [CLI for Microsoft 365](#tab/cli-m365-ps)
 ```powershell
@@ -79,7 +79,7 @@ end {
     Write-Host "Finished"
 }
 ```
-[!INCLUDE [More about CLI for Microsoft 365](../../docfx/includes/MORE-CLIM365.md)]
+[!INCLUDE [More about CLI for Microsoft 365](../../docs/includes/MORE-CLIM365.md)]
 
 ***
 
@@ -91,5 +91,5 @@ end {
 | [Smita Nachan](https://github.com/SmitaNachan) |
 
 
-[!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
+[!INCLUDE [DISCLAIMER](../../docs/includes/DISCLAIMER.md)]
 <img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/spo-set-home-site" aria-hidden="true" />

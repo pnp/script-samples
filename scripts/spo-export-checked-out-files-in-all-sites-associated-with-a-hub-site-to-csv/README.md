@@ -91,7 +91,7 @@ if ($associatedSites -and $associatedSites.Count -gt 0) {
 }
 
 ```
-[!INCLUDE [More about PnP PowerShell](../../docfx/includes/MORE-PNPPS.md)]
+[!INCLUDE [More about PnP PowerShell](../../docs/includes/MORE-PNPPS.md)]
 
 
 ## Contributors
@@ -100,5 +100,5 @@ if ($associatedSites -and $associatedSites.Count -gt 0) {
 |-----------|
 | [Arash Aghajani](https://github.com/arashaghajani) |
 
-[!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
-<img src="https://m365-visitor-stats.azurewebsites.net/spo-export-checked-out-files-in-all-sites-associated-with-a-hub-site-to-csv" aria-hidden="true" />
+[!INCLUDE [DISCLAIMER](../../docs/includes/DISCLAIMER.md)]
+<img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/spo-export-checked-out-files-in-all-sites-associated-with-a-hub-site-to-csv" aria-hidden="true" />

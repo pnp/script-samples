@@ -105,7 +105,7 @@ Import-CSV $path | Out-GridView
 #endregion
 
 ```
-[!INCLUDE [More about Microsoft Graph PowerShell SDK](../../docfx/includes/MORE-GRAPHSDK.md)]
+[!INCLUDE [More about Microsoft Graph PowerShell SDK](../../docs/includes/MORE-GRAPHSDK.md)]
 
 
 
@@ -120,5 +120,5 @@ Sample first appeared on [Using the Microsoft Graph PowerShell SDK for common op
 | Nik Charlebois |
 
 
-[!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
+[!INCLUDE [DISCLAIMER](../../docs/includes/DISCLAIMER.md)]
 <img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/graph-common-operations" aria-hidden="true" />

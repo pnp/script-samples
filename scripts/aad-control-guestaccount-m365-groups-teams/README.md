@@ -60,7 +60,7 @@ $report |select *  |Export-Csv $outputPath -NoTypeInformation -Append
 Disconnect-PnPOnline
 ```
 
-[!INCLUDE [More about PnP PowerShell](../../docfx/includes/MORE-PNPPS.md)]
+[!INCLUDE [More about PnP PowerShell](../../docs/includes/MORE-PNPPS.md)]
 
 ***
 
@@ -76,6 +76,6 @@ Sample first appeared on [Prevent Guests from Being Added to a Specific Microsof
 | [Reshmee Auckloo](https://github.com/reshmee011) |
 
 
-[!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
+[!INCLUDE [DISCLAIMER](../../docs/includes/DISCLAIMER.md)]
 <img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/aad-control-guestaccount-m365-groups-teams" aria-hidden="true" />
 

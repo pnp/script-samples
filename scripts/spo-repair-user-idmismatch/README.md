@@ -27,7 +27,7 @@ After running the script you will need to grant access again to the site for the
 > [!Note]
 > The script relies on the PnP PowerShell module to interact with SharePoint Online, and it is essential to have the module installed and authenticated before executing the script.
 
-[!INCLUDE [Delete Warning](../../docfx/includes/DELETE-WARN.md)]
+[!INCLUDE [Delete Warning](../../docs/includes/DELETE-WARN.md)]
 
 ![ImageScript](assets/ScriptPreview.png)
 
@@ -175,7 +175,7 @@ ForEach($oSite in $collSiteCollections) {
 Add-ScriptLog -Color Cyan -Msg "100% Completed - Finished running script"
 Add-ScriptLog -Color Cyan -Msg "Report generated at at $($ReportOutput)"
 ```
-[!INCLUDE [More about PnP PowerShell](../../docfx/includes/MORE-PNPPS.md)]
+[!INCLUDE [More about PnP PowerShell](../../docs/includes/MORE-PNPPS.md)]
 
 
 ***
@@ -192,5 +192,5 @@ Sample first appeared on [https://github.com/Barbarur/NovaPointPowerShell/tree/m
 | Alvaro Avila Ruiz |
 
 
-[!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
+[!INCLUDE [DISCLAIMER](../../docs/includes/DISCLAIMER.md)]
 <img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/spo-repair-user-idmismatch" aria-hidden="true" />

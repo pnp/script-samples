@@ -28,7 +28,7 @@ Add-SPOOrgAssetsLibrary -LibraryURL $libraryUrl -OrgAssetType $orgAssetType
 Disconnect-SPOService
 ```
 
-[!INCLUDE [More about SPO Management Shell](../../docfx/includes/MORE-SPOMS.md)]
+[!INCLUDE [More about SPO Management Shell](../../docs/includes/MORE-SPOMS.md)]
 
 # [PnP PowerShell](#tab/pnpps)
 
@@ -52,7 +52,7 @@ Add-PnPOrgAssetsLibrary -LibraryUrl $libraryUrl -OrgAssetType $orgAssetType
 Disconnect-PnPOnline
 ```
 
-[!INCLUDE [More about PnP PowerShell](../../docfx/includes/MORE-PNPPS.md)]
+[!INCLUDE [More about PnP PowerShell](../../docs/includes/MORE-PNPPS.md)]
 
 # [CLI for Microsoft 365](#tab/cli-m365-ps)
 
@@ -76,7 +76,7 @@ m365 spo orgassetslibrary add --libraryUrl $libraryUrl --orgAssetType $orgAssetT
 m365 logout
 ```
 
-[!INCLUDE [More about CLI for Microsoft 365](../../docfx/includes/MORE-CLIM365.md)]
+[!INCLUDE [More about CLI for Microsoft 365](../../docs/includes/MORE-CLIM365.md)]
 
 ***
 
@@ -93,5 +93,5 @@ Samples first appeared on:
 |-----------|
 | [Ganesh Sanap](https://ganeshsanapblogs.wordpress.com/) |
 
-[!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
+[!INCLUDE [DISCLAIMER](../../docs/includes/DISCLAIMER.md)]
 <img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/spo-register-org-assets-library" aria-hidden="true" />

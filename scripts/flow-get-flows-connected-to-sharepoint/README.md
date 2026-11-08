@@ -64,7 +64,7 @@ foreach ($flow in $flows){
 }
 $results | Export-Csv -NoTypeInformation -Path [locationOfYourCsv]
 ```
-[!INCLUDE [More about Power Apps PowerShell](../../docfx/includes/MORE-POWERAPPS.md)]
+[!INCLUDE [More about Power Apps PowerShell](../../docs/includes/MORE-POWERAPPS.md)]
 ***
 
 ## Contributors
@@ -73,5 +73,5 @@ $results | Export-Csv -NoTypeInformation -Path [locationOfYourCsv]
 |-----------|
 | Russell Gove |
 
-[!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
+[!INCLUDE [DISCLAIMER](../../docs/includes/DISCLAIMER.md)]
 <img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/flow-get-flows-connected-to-sharepoint" aria-hidden="true" />

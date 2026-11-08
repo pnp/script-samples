@@ -28,7 +28,7 @@ Set-PnPSearchSettings -Scope Site -SearchBoxPlaceholderText "Search Contoso Site
 
 ```
 
-[!INCLUDE [More about PnP PowerShell](../../docfx/includes/MORE-PNPPS.md)]
+[!INCLUDE [More about PnP PowerShell](../../docs/includes/MORE-PNPPS.md)]
 
 ***
 
@@ -38,5 +38,5 @@ Set-PnPSearchSettings -Scope Site -SearchBoxPlaceholderText "Search Contoso Site
 |-----------|
 | [Ganesh Sanap](https://ganeshsanapblogs.wordpress.com/about) |
 
-[!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
+[!INCLUDE [DISCLAIMER](../../docs/includes/DISCLAIMER.md)]
 <img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/spo-search-change-placeholder-text" aria-hidden="true" />

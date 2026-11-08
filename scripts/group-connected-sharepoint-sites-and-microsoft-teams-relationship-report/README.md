@@ -227,5 +227,5 @@ Version|Date|Comments
 -------|----|--------
 1.0|June 17, 2026|Initial release
 
-[!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
+[!INCLUDE [DISCLAIMER](../../docs/includes/DISCLAIMER.md)]
 <img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/group-connected-sharepoint-sites-and-microsoft-teams-relationship-report" aria-hidden="true" />

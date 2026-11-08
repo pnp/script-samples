@@ -65,7 +65,7 @@ foreach ($s in $sites) {
 $results | Export-Csv -Path ($directorypath + "\TeamsChannelsExport.csv") -NoTypeInformation -Encoding UTF8
 ```
 
-[!INCLUDE [More about PnP PowerShell](../../docfx/includes/MORE-PNPPS.md)]
+[!INCLUDE [More about PnP PowerShell](../../docs/includes/MORE-PNPPS.md)]
 
 ***
 
@@ -80,5 +80,5 @@ Sample first appeared on [Find Teams, Channels, Hub Site associated with a Share
 | [Reshmee Auckloo](https://github.com/reshmee011) |
 
 
-[!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
+[!INCLUDE [DISCLAIMER](../../docs/includes/DISCLAIMER.md)]
 <img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/spo-get-team-channel-hub-from-siteurl" aria-hidden="true" />

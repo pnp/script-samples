@@ -69,7 +69,7 @@ foreach ($item in $items) {
 Write-Host "After update:"
 Show-Recordings @(Get-Recordings)
 ```
-[!INCLUDE [More about PnP PowerShell](../../docfx/includes/MORE-PNPPS.md)]
+[!INCLUDE [More about PnP PowerShell](../../docs/includes/MORE-PNPPS.md)]
 
 ***
 
@@ -79,5 +79,5 @@ Show-Recordings @(Get-Recordings)
 |-----------|
 | George Brooks |
 
-[!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
+[!INCLUDE [DISCLAIMER](../../docs/includes/DISCLAIMER.md)]
 <img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/spo-set-meeting-recording-expiration" aria-hidden="true" />

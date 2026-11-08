@@ -1,4 +1,10 @@
 {
+    "json.schemas": [
+        {
+            "fileMatch": ["/scripts/*/assets/sample.json"],
+            "url": "./.github/schemas/sample.schema.json"
+        }
+    ],
     "chat.tools.terminal.autoApprove": {
         "cp": true
     }

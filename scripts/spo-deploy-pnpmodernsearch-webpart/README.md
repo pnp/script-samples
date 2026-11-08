@@ -51,7 +51,7 @@ Inject-JSON -targetSiteUrl "https://[yourtenant].sharepoint.com/sites/[sitecolle
 
 
 ```
-[!INCLUDE [More about PnP PowerShell](../../docfx/includes/MORE-PNPPS.md)]
+[!INCLUDE [More about PnP PowerShell](../../docs/includes/MORE-PNPPS.md)]
 ***
 
 ## Contributors
@@ -60,5 +60,5 @@ Inject-JSON -targetSiteUrl "https://[yourtenant].sharepoint.com/sites/[sitecolle
 |-----------|
 | Kasper Larsen, Fellowmind|
 
-[!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
+[!INCLUDE [DISCLAIMER](../../docs/includes/DISCLAIMER.md)]
 <img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/spo-deploy-pnpmodernsearch-webpart" aria-hidden="true" />
