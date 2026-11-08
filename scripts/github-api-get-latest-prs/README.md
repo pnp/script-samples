@@ -121,6 +121,7 @@ end {
 | Author(s) |
 |-----------|
 | Paul Bullock |
+| Christian Veenhuis |
 
 [!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
 <img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/github-api-get-latest-prs" aria-hidden="true" />
