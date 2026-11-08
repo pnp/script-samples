@@ -1229,6 +1229,57 @@
     ]
   },
   {
+    "name": "aad-restrict-groupnesting",
+    "title": "Restricting Group Nesting in Microsoft Entra ID Using Graph API",
+    "shortDescription": "Create a Microsoft Entra security group that does not allow other groups to be added as members, using Microsoft Graph PowerShell.",
+    "url": "aad-restrict-groupnesting/README.html",
+    "creationDateTime": "2026-11-01",
+    "updateDateTime": "2026-11-01",
+    "products": [
+      "Graph",
+      "Entra ID"
+    ],
+    "metadata": [
+      {
+        "key": "GRAPH-POWERSHELL",
+        "value": "1.11.0"
+      },
+      {
+        "key": "POWERSHELL",
+        "value": "7.2.1"
+      }
+    ],
+    "categories": [
+      "Configure",
+      "Security"
+    ],
+    "tags": [
+      "Connect-MgGraph",
+      "Invoke-MgGraphRequest",
+      "Group.ReadWrite.All",
+      "Group-NestingSupport.ReadWrite.All",
+      "disableNesting",
+      "Microsoft Graph beta",
+      "security group"
+    ],
+    "thumbnails": [
+      {
+        "type": "image",
+        "order": 100,
+        "url": "aad-restrict-groupnesting/assets/preview.png",
+        "alt": "Preview of restricting group nesting in a security group"
+      }
+    ],
+    "authors": [
+      {
+        "gitHubAccount": "nelladath",
+        "company": "",
+        "pictureUrl": "https://github.com/nelladath.png",
+        "name": "Sujin Nelladath"
+      }
+    ]
+  },
+  {
     "name": "aad-update-m365-global-unified-settings",
     "title": "Update Global Microsoft 365 Group Settings",
     "shortDescription": "Configuring Microsoft 365 Group settings is essential for ensuring a secure and compliant environment. This script can be utilized to set up different group settings, such as naming policies and guest access.",

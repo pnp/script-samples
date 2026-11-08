@@ -1,0 +1,69 @@
+[
+  {
+    "name": "aad-restrict-groupnesting",
+    "source": "pnp",
+    "title": "Restricting Group Nesting in Microsoft Entra ID Using Graph API",
+    "shortDescription": "Create a Microsoft Entra security group that does not allow other groups to be added as members, using Microsoft Graph PowerShell.",
+    "url": "https://pnp.github.io/script-samples/aad-restrict-groupnesting/README.html",
+    "longDescription": [
+      "Creates a Microsoft Entra security group with the disableNesting property enabled through the Microsoft Graph beta API, preventing other groups from being added as its members."
+    ],
+    "creationDateTime": "2026-11-01",
+    "updateDateTime": "2026-11-01",
+    "products": [
+      "Graph",
+      "Entra ID"
+    ],
+    "metadata": [
+      {
+        "key": "GRAPH-POWERSHELL",
+        "value": "1.11.0"
+      },
+      {
+        "key": "POWERSHELL",
+        "value": "7.2.1"
+      }
+    ],
+    "categories": [
+      "Configure",
+      "Security"
+    ],
+    "tags": [
+      "Connect-MgGraph",
+      "Invoke-MgGraphRequest",
+      "Group.ReadWrite.All",
+      "Group-NestingSupport.ReadWrite.All",
+      "disableNesting",
+      "Microsoft Graph beta",
+      "security group"
+    ],
+    "thumbnails": [
+      {
+        "type": "image",
+        "order": 100,
+        "url": "https://raw.githubusercontent.com/pnp/script-samples/main/scripts/aad-restrict-groupnesting/assets/preview.png",
+        "alt": "Preview of restricting group nesting in a security group"
+      }
+    ],
+    "authors": [
+      {
+        "gitHubAccount": "nelladath",
+        "company": "",
+        "pictureUrl": "https://github.com/nelladath.png",
+        "name": "Sujin Nelladath"
+      }
+    ],
+    "references": [
+      {
+        "name": "Microsoft Graph PowerShell SDK",
+        "description": "Get started with the Microsoft Graph PowerShell SDK.",
+        "url": "https://learn.microsoft.com/graph/powershell/get-started"
+      },
+      {
+        "name": "Create group (Microsoft Graph beta)",
+        "description": "Microsoft Graph beta API reference for creating a group.",
+        "url": "https://learn.microsoft.com/graph/api/group-post-groups?view=graph-rest-beta"
+      }
+    ]
+  }
+]
