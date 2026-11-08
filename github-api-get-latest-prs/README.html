@@ -165,11 +165,11 @@ process {
         Authorization = &quot;token $githubToken&quot;
         Accept        = &quot;application/vnd.github+json&quot;
     }
-    
+
     $allPRs = @()
 
     do {
-        $url = &quot;https://api.github.com/repos/$RepoOwner/$RepoName/pulls?state=closed&amp;sort=merged_at&amp;direction=desc&amp;per_page=$perPage&amp;page=$page&quot;
+        $url = &quot;https://api.github.com/repos/$RepoOwner/$RepoName/pulls?state=closed&amp;sort=created&amp;direction=desc&amp;per_page=$perPage&amp;page=$page&quot;
         $prs = Invoke-RestMethod -Uri $url -Headers $headers
 
         foreach ($pr in $prs) {
@@ -179,7 +179,7 @@ process {
         }
         $page++
     } while ($prs.Count -eq $perPage)
-    
+
 
     #--------------------------------------------------------------------------------------
     # Produce Report of the latest merged PRs as Output PRs with user login and profile link
@@ -224,6 +224,9 @@ end {
 <tbody>
 <tr>
 <td>Paul Bullock</td>
+</tr>
+<tr>
+<td>Christian Veenhuis</td>
 </tr>
 </tbody>
 </table>
