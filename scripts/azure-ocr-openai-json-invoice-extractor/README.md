@@ -175,6 +175,7 @@ Write-Output $Result
 | Author(s) | Author(s) |
 |-----------|-----------|
 | Divya Akula | <https://www.linkedin.com/in/ms-divya-akula/> |
+| Christian Veenhuis | <https://github.com/ChVeen> |
 
 [!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
 <img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/azure-ocr-openai-json-invoice-extractor" aria-hidden="true" />
