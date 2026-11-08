@@ -1,0 +1,56 @@
+[
+  {
+    "name": "get-dynamicgroupfilterreport",
+    "source": "pnp",
+    "title": "Dynamic Distribution Group Filter Report",
+    "shortDescription": "Exports Exchange Online Dynamic Distribution Group recipient filters and highlights negative filter operators for review.",
+    "url": "https://pnp.github.io/script-samples/get-dynamicgroupfilterreport/README.html",
+    "longDescription": [
+      "Connects to Exchange Online with certificate-based app-only authentication, retrieves Dynamic Distribution Groups, and exports recipient filter configuration and related attributes to a timestamped CSV report.",
+      "Flags negative filter operators as indicators for manual review. The script does not modify groups or calculate actual recipient membership."
+    ],
+    "creationDateTime": "2026-10-24",
+    "updateDateTime": "2026-10-24",
+    "products": [
+      "Office"
+    ],
+    "metadata": [
+      {
+        "key": "POWERSHELL",
+        "value": "7.2.0"
+      }
+    ],
+    "categories": [
+      "Report",
+      "Security"
+    ],
+    "tags": [
+      "Connect-ExchangeOnline",
+      "Get-DynamicDistributionGroup",
+      "Export-Csv"
+    ],
+    "thumbnails": [
+      {
+        "type": "image",
+        "order": 100,
+        "url": "https://raw.githubusercontent.com/pnp/script-samples/main/scripts/get-dynamicgroupfilterreport/assets/preview.png",
+        "alt": "Preview of the sample Dynamic Distribution Group Filter Report"
+      }
+    ],
+    "authors": [
+      {
+        "gitHubAccount": "ojopiyo",
+        "company": "",
+        "pictureUrl": "https://github.com/ojopiyo.png",
+        "name": "Josiah Opiyo"
+      }
+    ],
+    "references": [
+      {
+        "name": "Exchange Online PowerShell module",
+        "description": "Learn how to connect to Exchange Online and use Exchange Online PowerShell cmdlets.",
+        "url": "https://learn.microsoft.com/powershell/exchange/connect-to-exchange-online-powershell"
+      }
+    ]
+  }
+]

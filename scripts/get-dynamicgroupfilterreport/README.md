@@ -1,4 +1,4 @@
-# Exchange Online Mailboxes with Calendar Delegates
+# Dynamic Distribution Group Filter Report
 
 ## Summary
 
@@ -220,3 +220,4 @@ The script creates the output directory if it does not already exist and generat
 |1.0|October 24, 2026|Initial release|
 
 [!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
+<img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/get-dynamicgroupfilterreport" />
