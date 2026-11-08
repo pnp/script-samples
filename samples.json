@@ -13429,6 +13429,51 @@
     ]
   },
   {
+    "name": "spo-get-herolinks",
+    "title": "Get Hero sharing links",
+    "shortDescription": "Get Hero sharing links.",
+    "url": "spo-get-herolinks/README.html",
+    "creationDateTime": "2026-10-28",
+    "updateDateTime": "2026-10-28",
+    "products": [
+      "SharePoint",
+      "Permissions"
+    ],
+    "metadata": [
+      {
+        "key": "PNP-POWERSHELL",
+        "value": "3.4.1"
+      }
+    ],
+    "categories": [
+      "Report",
+      "Permissions"
+    ],
+    "tags": [
+      "modern",
+      "Connect-PnPOnline",
+      "Get-PnPListItem",
+      "Get-PnPList",
+      "invoke-pnpsprestmethod"
+    ],
+    "thumbnails": [
+      {
+        "type": "image",
+        "order": 100,
+        "url": "spo-get-herolinks/assets/preview.png",
+        "alt": ""
+      }
+    ],
+    "authors": [
+      {
+        "gitHubAccount": "reshmee011",
+        "company": "",
+        "pictureUrl": "https://avatars.githubusercontent.com/u/7693852?v=4",
+        "name": "Reshmee Auckloo"
+      }
+    ]
+  },
+  {
     "name": "spo-get-inactive-sites-report",
     "title": "Get Inactive SharePoint Sites Report",
     "shortDescription": "This script identifies SharePoint Online sites that have had no content activity for a defined period (default: 365 days) and generates a CSV report containing site metadata.",
