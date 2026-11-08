@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html lang="en">
+
+  <head>
+    <meta charset="utf-8">
+    <title>How to reset hero link | PnP Samples </title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="title" content="How to reset hero link | PnP Samples ">
+    <meta name="generator" content="docfx ">
+  <meta name="description" content="A sample gallery of scripts to manage all things Microsoft 365.">
+
+    <!-- Social Media -->
+    <meta property="og:locale" content="en_GB">
+    <meta property="og:title" content="How to reset hero link | PnP Samples ">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://pnp.github.io/script-samples">
+    <meta property="og:image" content="https://pnp.github.io/script-samples/assets/social-media-screenshot.png">
+    <meta property="og:image:alt" content="Screenshot example of the PnP Script Samples Site">
+    <meta property="og:site_name" content="PnP Script Samples">
+    <meta name="msvalidate.01" content="04EFEDA66EC42C08A1247C979E2F9ADD">
+  <meta property="og:description" content="A sample gallery of scripts to manage all things Microsoft 365.">
+
+    <link rel="shortcut icon" href="https://c.s-microsoft.com/favicon.ico?v2">
+    <link rel="stylesheet" href="../styles/docfx.vendor.min.css">
+    <link rel="stylesheet" href="../styles/docfx.css">
+    <link rel="stylesheet" href="../styles/main.css">
+    <link rel="stylesheet" href="../styles/extra.css">
+    <link rel="stylesheet" href="../styles/filter.css">
+    <link rel="stylesheet" href="../styles/site.css">
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet"> 
+    <meta property="docfx:navrel" content="../toc.html">
+    <meta property="docfx:tocrel" content="../toc.html">
+  
+  
+  <meta property="docfx:newtab" content="true">
+    <script type="text/javascript">
+      (function(c,l,a,r,i,t,y){
+          c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+          t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+          y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+      })(window, document, "clarity", "script", "8j6pedl344");
+  </script>
+  </head>  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+             <div class="github-mark">
+              <a href="https://github.com/pnp/script-samples" title="Go to repository">
+               <div class="github-wrapper">
+                  <div class="github-icon">
+                    <img src="https://pnp.github.io/script-samples/assets/icons/github-light-64px.png" alt="GitHub Icon Image">
+                  </div>
+                  <div class="github-repository">
+                    <span>GitHub</span>
+                    <ul class="github-facts">
+                      <li>
+                        <i class="fa fa-code-fork" aria-hidden="true"></i>
+                        <span class="github-forks"></span>
+                      </li>
+                      <li>
+                        <i class="fa fa-star-o" aria-hidden="true"></i>
+                        <span class="github-stars"></span>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </a>
+            </div>
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../assets/logo.svg" alt="">
+              </a>            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <label class="glyphicon glyphicon-search" for="search-query"></label>
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>      </header>
+      <div role="main" class="container body-content hide-when-search">
+        <div class="article row grid">
+          <div class="col-md-12">
+            <article class="content wrap" id="_content" data-uid="">
+                  <div class="contribution-panel mobile-hide pull-right">
+                      <a href="https://github.com/pnp/script-samples/blob/main/scripts/spo-reset-herolink/README.md/#L1" title="Edit this page" class="improve-doc-lg"><i class="glyphicon glyphicon-pencil"></i></a>
+                  </div>
+  <h1 id="how-to-reset-hero-link">How to reset hero link</h1>
+
+<h2 id="summary">Summary</h2>
+<p>Hero links are part of the new sharing experience in SharePoint Online. If a hero link is compromised for example, its audience is changed to <strong>Anyone</strong> and the link is overshared you may need to revoke it. Unlike a traditional sharing link, a hero link cannot be deleted directly. Microsoft provides the <strong>Reset link</strong> option instead.</p>
+<p>Resetting invalidates the current link and creates a new URL with the <strong>Only people added</strong> audience. Anyone who had access only through the old link will lose access. Consider this impact before resetting a link.</p>
+<p>This script provides a programmatic way to reset the hero links.</p>
+<div class="tabGroup" id="tabgroup_1">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_1_pnpps" role="tab" aria-controls="tabpanel_1_pnpps" data-tab="pnpps" tabindex="0" aria-selected="true">PnP PowerShell</a>
+</li>
+</ul>
+<section id="tabpanel_1_pnpps" role="tabpanel" data-tab="pnpps">
+
+<pre><code class="lang-PowerShell">#Parameters
+#$tenantUrl = Read-Host -Prompt &quot;Enter tenant collection URL&quot;;
+$dateTime = (Get-Date).toString(&quot;dd-MM-yyyy-hh-ss&quot;)
+$invocation = (Get-Variable MyInvocation).Value
+$directorypath = Split-Path $invocation.MyCommand.Path
+$fileName = &quot;HeroLinks_Reset-&quot; + $dateTime + &quot;.csv&quot;
+$ReportOutput = $directorypath + &quot;\Logs\&quot;+ $fileName
+
+# Ensure the logs folder exists
+$logsFolder = Split-Path -Path $ReportOutput -Parent
+if (-not (Test-Path -Path $logsFolder)) {
+    New-Item -Path $logsFolder -ItemType Directory
+}
+
+# Ensure the file exists
+if (-not (Test-Path -Path $ReportOutput)) {
+    New-Item -Path $ReportOutput -ItemType File
+}
+
+#Connect to PnP Online
+#Connect-PnPOnline -Url $tenantUrl -Interactive
+#write-host $(&quot;Start time &quot; + (Get-Date))
+$global:Results = @();
+
+function Get-ListItems_WithUniquePermissions{
+    param(
+        [Parameter(Mandatory)]
+        [Microsoft.SharePoint.Client.List]$List
+    )
+    $selectFields = &quot;ID,HasUniqueRoleAssignments,FileRef,FileLeafRef,FileSystemObjectType&quot;
+   
+    $Url = $siteUrl + '/_api/web/lists/getbytitle(''' + $($list.Title) + ''')/items?$select=' + $($selectFields)
+    $nextLink = $Url
+    $listItems = @()
+    $Stoploop =$true
+    while($nextLink){  
+        do{
+        try {
+            $response = invoke-pnpsprestmethod -Url $nextLink -Method Get
+            $Stoploop =$true
+    
+        }
+        catch {
+            write-host &quot;An error occured: $_  : Retrying&quot; -ForegroundColor Red
+            $Stoploop =$true
+            Start-Sleep -Seconds 30
+        }
+    }
+    While ($Stoploop -eq $false)
+    
+        $listItems += $response.value | where-object{$_.HasUniqueRoleAssignments -eq $true}
+        if($response.'odata.nextlink'){
+            $nextLink = $response.'odata.nextlink'
+        }    else{
+            $nextLink = $null
+        }
+    }
+
+    return $listItems
+}
+
+function resetHeroSharingLink($_object,$_type,$_siteUrl,$_list)
+{
+    $relativeUrl = $_object.FileRef
+    $sharingSettings = Invoke-PnPSPRestMethod -Method Post -Url &quot;$($_siteUrl)/_api/web/Lists(@a1)/GetItemById(@a2)/GetSharingInformation?@a1='{$($_list.Id)}'&amp;@a2='$($_object.Id)'&amp;`$Expand=permissionsInformation,pickerSettings&quot;  -ContentType &quot;application/json;odata=verbose&quot; -Content &quot;{}&quot;
+
+    ForEach ($shareLink in $sharingSettings.permissionsInformation.mainaccess) 
+    {
+        $linkDetails = $shareLink.mainlink
+        if ($linkDetails.Url) {
+        $OldaudienceDescription = switch ($linkDetails.audience) {
+            1 { &quot;Only people added&quot; }
+            8 { &quot;People in your organization&quot; }
+            16 { &quot;Anyone with the link&quot; }
+            default { &quot;Unknown ($($linkDetails.audience))&quot; }
+        }
+        $OldroleDescription = switch ($linkDetails.role) {
+            1 { &quot;Can View&quot; }
+            2 { &quot;Can Edit&quot; }
+            7 { &quot;Can't Download&quot; }
+            default { &quot;Unknown ($($linkDetails.role))&quot; }
+        }
+        
+        $OldShareLink = $linkDetails.Url
+
+        if($OldaudienceDescription -eq &quot;Anyone with the link&quot;){
+           #reset link
+           Invoke-PnPSPRestMethod -Method Post -Url &quot;$($sharingSettings.ItemUrl)/invalidateMainLink&quot; -ContentType &quot;application/json;odata=verbose&quot; -Content &quot;{}&quot;
+           $UpdatedSharingSettings = Invoke-PnPSPRestMethod -Method Post -Url &quot;$($_siteUrl)/_api/web/Lists(@a1)/GetItemById(@a2)/GetSharingInformation?@a1='{$($_list.Id)}'&amp;@a2='$($_object.Id)'&amp;`$Expand=permissionsInformation,pickerSettings&quot;  -ContentType &quot;application/json;odata=verbose&quot; -Content &quot;{}&quot; 
+           $linkDetails = $UpdatedSharingSettings.permissionsInformation.mainaccess[0]?.mainlink
+         
+           $audienceDescription = switch ($linkDetails.audience) {
+            1 { &quot;Only people added&quot; }
+            8 { &quot;People in your organization&quot; }
+            16 { &quot;Anyone with the link&quot; }
+            default { &quot;Unknown ($($linkDetails.audience))&quot; }
+           }
+           $roleDescription = switch ($linkDetails.role) {
+            1 { &quot;Can View&quot; }
+            2 { &quot;Can Edit&quot; }
+            7 { &quot;Can't Download&quot; }
+            default { &quot;Unknown ($($linkDetails.role))&quot; }
+           }
+        
+
+        $sharedLinkObject = New-Object PSObject -property $([ordered]@{ 
+            ItemID   = $_object.Id
+            ShareLink = $linkDetails.Url
+            OldShareLink = $OldShareLink
+            Name = $_object.FileLeafRef ?? $_object.Title       
+            Type = $_type -eq 1 ? &quot;Folder&quot; : &quot;File&quot;
+            RelativeURL = $_object.FileRef ?? &quot;&quot;
+            audience  = $audienceDescription
+            Oldaudience  = $OldaudienceDescription
+            role = $roleDescription
+            Oldrole = $OldroleDescription
+            shareId = $linkDetails.shareId
+            ItemUrl = $sharingSettings.ItemUrl
+            HasUniqueRoleAssignments = $_object.HasUniqueRoleAssignments
+            # Add other properties as needed
+        })
+        $global:Results +=$sharedLinkObject;
+    }   
+   }  
+  }
+}
+    #Exclude system lists
+$ExcludedLists = @(&quot;Access Requests&quot;, &quot;App Packages&quot;, &quot;appdata&quot;, &quot;appfiles&quot;, &quot;Apps in Testing&quot;, &quot;Cache Profiles&quot;, &quot;Composed Looks&quot;, &quot;Content and Structure Reports&quot;, &quot;Content type publishing error log&quot;, &quot;Converted Forms&quot;,
+    &quot;Device Channels&quot;, &quot;Form Templates&quot;, &quot;fpdatasources&quot;, &quot;Get started with Apps for Office and SharePoint&quot;, &quot;List Template Gallery&quot;, &quot;Long Running Operation Status&quot;, &quot;Maintenance Log Library&quot;, &quot;Images&quot;, &quot;site collection images&quot;
+    , &quot;Master Docs&quot;, &quot;Master Page Gallery&quot;, &quot;MicroFeed&quot;, &quot;NintexFormXml&quot;, &quot;Quick Deploy Items&quot;, &quot;Relationships List&quot;, &quot;Reusable Content&quot;, &quot;Reporting Metadata&quot;, &quot;Reporting Templates&quot;, &quot;Search Config List&quot;, &quot;Site Assets&quot;, &quot;Preservation Hold Library&quot;,
+    &quot;Site Pages&quot;, &quot;Solution Gallery&quot;, &quot;Style Library&quot;, &quot;Suggested Content Browser Locations&quot;, &quot;Theme Gallery&quot;, &quot;TaxonomyHiddenList&quot;, &quot;User Information List&quot;, &quot;Web Part Gallery&quot;, &quot;wfpub&quot;, &quot;wfsvc&quot;, &quot;Workflow History&quot;, &quot;Workflow Tasks&quot;, &quot;Pages&quot;)
+
+#$m365Sites = Get-PnPTenantSite| Where-Object { $_.Url -like '*/sites/*' -and $_.Template -ne 'RedirectSite#0' } 
+#$m365Sites | ForEach-Object {
+$siteUrl = Read-Host -Prompt &quot;Enter site URL&quot;;
+#$siteUrl = $_.Url;     
+Connect-PnPOnline -Url $siteUrl -Interactive
+
+Write-Host &quot;Processing site $siteUrl&quot;  -Foregroundcolor &quot;Red&quot;; 
+
+$ll = Get-PnPList -Includes BaseType, Hidden, Title,HasUniqueRoleAssignments,RootFolder | Where-Object {$_.Hidden -eq $False -and $_.Title -notin $ExcludedLists } #$_.BaseType -eq &quot;DocumentLibrary&quot; 
+  Write-Host &quot;Number of lists $($ll.Count)&quot;;
+
+  foreach($list in $ll)
+  {       
+    #Get all list items in batches
+    $ListItems = Get-ListItems_WithUniquePermissions -List $list
+    ForEach($item in $ListItems)
+    {                
+            $type= $item.FileSystemObjectType;    
+            resetHeroSharingLink $item $type $siteUrl $list;
+    }
+  }
+#}
+ 
+ $global:Results | Export-CSV $ReportOutput -NoTypeInformation
+Write-host -f Green &quot;Hero Links Report Generated Successfully!&quot;
+write-host $(&quot;End time &quot; + (Get-Date))
+</code></pre>
+<div class="highlight-tool">
+<p>Check out the <strong>PnP PowerShell</strong> to learn more at: <a href="https://aka.ms/pnp/powershell">https://aka.ms/pnp/powershell</a></p>
+</div>
+<div class="highlight-tool">
+<p>The way you login into PnP PowerShell has changed please read <a href="https://github.com/pnp/powershell/discussions/4249">PnP Management Shell EntraID app is deleted : what should I do ?</a></p>
+</div>
+<h2 id="source-credit">Source Credit</h2>
+<p>Sample first appeared on <a href="https://reshmeeauckloo.com/posts/sharepoint-herolink-reset/">SharePoint Hero Link reset</a></p>
+<h2 id="contributors">Contributors</h2>
+<table>
+<thead>
+<tr>
+<th>Author(s)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="https://github.com/reshmee011">Reshmee Auckloo</a></td>
+</tr>
+</tbody>
+</table>
+<h2 id="disclaimer">Disclaimer</h2>
+<p><strong>THESE SAMPLES ARE PROVIDED <em>AS IS</em> WITHOUT WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, INCLUDING ANY IMPLIED WARRANTIES OF FITNESS FOR A PARTICULAR PURPOSE, MERCHANTABILITY, OR NON-INFRINGEMENT.</strong></p>
+<img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/spo-reset-herolink" aria-hidden="true">
+</section>
+</div>
+
+</article>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+      <span>Script Samples<br>Generated by <strong><a href='https://dotnet.github.io/docfx' alt='Doc FX Website'>DocFX</a></strong> with <strong><a href='https://ovasquez.github.io/docfx-material' alt='DocFx Material Theme'>Material UI</a></strong></span>
+      
+            <!-- <img src="https://telemetry.sharepointpnp.com/@pnp.github.io/index/" alt="spacer"> -->
+          </div>
+        </div>
+      </footer>    </div>
+
+    <script type="text/javascript" src="../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+
+    <script type="text/javascript" src="../styles/clipboard.min.js"></script>
+    <script type="text/javascript" src="../styles/isotope.pkgd.min.js"></script>
+    <script type="text/javascript" src="../styles/loadsamples.js"></script>
+    <script type="text/javascript" src="../styles/filtersamples.js"></script>
+
+  </body>
+</html>
