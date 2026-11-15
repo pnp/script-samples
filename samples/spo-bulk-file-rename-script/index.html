@@ -1,0 +1,307 @@
+<!DOCTYPE html><html lang="en" data-theme="light"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="description" content="Bulk rename SharePoint Online files from a CSV and create an audit report."><meta name="generator" content="Astro v7.3.6"><meta name="theme-color" id="theme-color" content="#f2f4f5"><title>SharePoint Bulk File Rename Script | Community Script Samples</title><link rel="icon" href="/script-samples/images/parker-ms-300.png" type="image/png"><link rel="canonical" href="https://pnp.github.io/script-samples/samples/spo-bulk-file-rename-script/"><meta property="og:type" content="website"><meta property="og:site_name" content="Community Script Samples"><meta property="og:title" content="SharePoint Bulk File Rename Script | Community Script Samples"><meta property="og:description" content="Bulk rename SharePoint Online files from a CSV and create an audit report."><meta property="og:url" content="https://pnp.github.io/script-samples/samples/spo-bulk-file-rename-script/"><meta property="og:image" content="https://pnp.github.io/script-samples/spo-bulk-file-rename-script/assets/preview.png"><meta name="twitter:card" content="summary_large_image"><script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"Community Script Samples","url":"https://pnp.github.io/script-samples/","description":"Bulk rename SharePoint Online files from a CSV and create an audit report."}</script><script>
+      document.documentElement.classList.add("js");
+      try {
+        const theme = localStorage.getItem("community-script-samples-theme") === "dark" ? "dark" : "light";
+        document.documentElement.dataset.theme = theme;
+        document.documentElement.style.colorScheme = theme;
+      } catch (error) {
+        console.warn("Theme storage is unavailable; using light mode for this visit.", error);
+      }
+    </script><link rel="stylesheet" href="/script-samples/_astro/Layout.BviIPkCI.css"></head><body><a class="skip-link" href="#main-content">Skip to content</a><header class="site-header"><div class="spectrum" aria-hidden="true"></div><div class="container header-inner"><a class="brand" href="/script-samples/" aria-label="Community Script Samples home"><img src="/script-samples/images/parker-ms-300.png" alt="" width="35" height="45"><span class="brand-name"><span>Community</span> <strong>Script Samples</strong></span></a><div class="header-actions"><nav class="desktop-nav" aria-label="Primary navigation"><a href="https://aka.ms/community/home">Community <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="lucide lucide-arrow-up-right"><path d="M7 7h10v10"></path><path d="M7 17 17 7"></path></svg></a><a href="/script-samples/" aria-current="page">Samples</a><a href="/script-samples/getting-started/">Getting started</a><a href="/script-samples/contributors/">Contributors</a><a href="/script-samples/contributing/">Contributing</a><a href="https://github.com/pnp/script-samples"><svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="lucide lucide-git-fork"><circle cx="12" cy="18" r="3"></circle><circle cx="6" cy="6" r="3"></circle><circle cx="18" cy="6" r="3"></circle><path d="M18 9v2c0 .6-.4 1-1 1H7c-.6 0-1-.4-1-1V9"></path><path d="M12 12v3"></path></svg> GitHub</a></nav><button class="theme-toggle" id="theme-toggle" type="button" role="switch" aria-checked="false" aria-label="Switch to dark mode" title="Switch to dark mode"><span class="theme-icons" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="lucide lucide-sun"><circle cx="12" cy="12" r="4"></circle><path d="M12 2v2"></path><path d="M12 20v2"></path><path d="m4.93 4.93 1.41 1.41"></path><path d="m17.66 17.66 1.41 1.41"></path><path d="M2 12h2"></path><path d="M20 12h2"></path><path d="m6.34 17.66-1.41 1.41"></path><path d="m19.07 4.93-1.41 1.41"></path></svg><svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="lucide lucide-moon"><path d="M20.985 12.486a9 9 0 1 1-9.473-9.472c.405-.022.617.46.402.803a6 6 0 0 0 8.268 8.268c.344-.215.825-.004.803.401"></path></svg></span></button><details class="mobile-nav"><summary aria-label="Open navigation"><svg xmlns="http://www.w3.org/2000/svg" width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="lucide lucide-menu"><path d="M4 5h16"></path><path d="M4 12h16"></path><path d="M4 19h16"></path></svg></summary><nav aria-label="Mobile navigation"><a href="https://aka.ms/community/home">Community <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="lucide lucide-arrow-up-right"><path d="M7 7h10v10"></path><path d="M7 17 17 7"></path></svg></a><a href="/script-samples/" aria-current="page">Samples</a><a href="/script-samples/getting-started/">Getting started</a><a href="/script-samples/contributors/">Contributors</a><a href="/script-samples/contributing/">Contributing</a><a href="https://github.com/pnp/script-samples">GitHub</a></nav></details></div></div></header><main id="main-content" tabindex="-1"><div class="container detail-section"><nav class="breadcrumbs" aria-label="Breadcrumb"><a href="/script-samples/" id="back-to-samples">All samples</a><span aria-hidden="true">/</span><span>Configure</span></nav><header class="detail-header"><span class="scenario-tag">Configure / Report</span><h1>SharePoint Bulk File Rename Script</h1><p>Bulk rename SharePoint Online files from a CSV and create an audit report.</p><div class="detail-byline"><a class="card-author" href="https://github.com/ojopiyo"><img class="avatar" src="https://github.com/ojopiyo.png?size=64" alt="" width="30" height="30" loading="lazy" decoding="async" data-avatar="Josiah Opiyo">Josiah Opiyo</a><span>Updated <time datetime="2026-10-14">Oct 14, 2026</time></span><a href="https://github.com/pnp/script-samples/tree/main/scripts/spo-bulk-file-rename-script">View on GitHub <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="lucide lucide-arrow-up-right"><path d="M7 7h10v10"></path><path d="M7 17 17 7"></path></svg></a></div></header><div class="detail-layout"><div class="detail-main"><aside class="safety-note" aria-label="Before you run"><strong>Understand it. Adapt it. Test it first.</strong><p>Review the full script, prerequisites, and required permissions. Test against non-production data before making changes. Samples are community contributions, provided as-is; an update date is not a claim of recent testing.</p></aside><div class="readme-content" id="sample-readme"><h2 id="summary">Summary</h2><p>This PowerShell script provides a controlled method for renaming multiple files within a SharePoint Online document library. The required file changes are defined in a CSV input file, allowing an administrator to process several file renames during a single execution.</p>
+<p>The script connects to SharePoint Online using certificate-based application authentication and uses PnP PowerShell to rename each file. During execution, it displays progress, reports the outcome of each row, and creates a detailed CSV audit report.</p>
+<p>The audit report records:</p>
+<ul>
+<li>Who initiated the script</li>
+<li>When the script was run</li>
+<li>The SharePoint site against which it was executed</li>
+<li>The original filename</li>
+<li>The original site-relative file path</li>
+<li>The requested new filename</li>
+<li>Whether the rename succeeded or failed</li>
+<li>The date and time each row was processed</li>
+<li>Any error returned for an unsuccessful rename</li>
+<li>A unique Run ID linking all changes made during the same execution</li>
+</ul>
+<h2 id="why-it-matters">Why It Matters</h2><p>Renaming files manually can be time-consuming and may result in inconsistent naming, accidental omissions, or limited evidence of what was changed. This script helps reduce those risks by processing file changes from a structured CSV file and recording the outcome of each attempted rename.</p>
+<p>Typical use cases include:</p>
+<ul>
+<li>Applying an agreed document naming convention</li>
+<li>Correcting inconsistent or outdated filenames</li>
+<li>Removing unsuitable characters or wording from filenames</li>
+<li>Adding version, year, department, or document-type information</li>
+<li>Supporting document-library migration or remediation activities</li>
+<li>Renaming a defined set of files following a content audit</li>
+<li>Standardising filenames to improve search and content discovery</li>
+</ul>
+<h3 id="benefits">Benefits</h3><ul>
+<li>Bulk remediation - Rename large numbers of SharePoint files without manually processing each file.</li>
+<li>Auditable changes - Every operation records the original URL, original name, new name, status, timestamp, and error information.</li>
+<li>Repeatable execution - CSV-driven processing makes the operation suitable for controlled administrative workflows.</li>
+<li>Failure visibility - Individual failures do not prevent subsequent rows from being processed.</li>
+<li>Tenant administration - Uses PnP.PowerShell and certificate-based application authentication, making it suitable for unattended administrative processes.</li>
+<li>Operational reporting - Provides a summary of successful and failed operations alongside a detailed CSV audit report.</li>
+</ul>
+<h2 id="prerequisites">Prerequisites</h2><ul>
+<li>PowerShell <strong>7.4 or later</strong></li>
+<li><strong>PnP.PowerShell</strong> module</li>
+<li>Entra ID application registration</li>
+<li>Certificate with private key installed in the Windows certificate store</li>
+<li>Appropriate SharePoint Online application permissions</li>
+<li>Access to the target SharePoint Online site</li>
+<li>Configured:<ul>
+<li><em>Client ID</em></li>
+<li><em>ThumbPrint</em></li>
+<li><em>Tenant</em></li>
+<li><em>Site Url</em></li>
+</ul>
+</li>
+<li>The input CSV exists at the configured path and contains the following:<ul>
+<li><em>SiteRelativeUrl</em></li>
+<li><em>NewName</em></li>
+</ul>
+</li>
+<li>The output location exists</li>
+</ul>
+<h2 id="configuration">Configuration</h2><p>Configure the variables at the beginning of the script:</p>
+<div class="table-wrap" tabindex="0" role="region" aria-label="Sample data table"><table>
+<thead>
+<tr>
+<th>Variable</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>$ClientID</code></td>
+<td>Azure AD Application (Client) ID</td>
+</tr>
+<tr>
+<td><code>$ThumbPrint</code></td>
+<td>Certificate thumbprint</td>
+</tr>
+<tr>
+<td><code>$Tenant</code></td>
+<td>Microsoft 365 tenant name (e.g. <code>contoso.onmicrosoft.com</code>)</td>
+</tr>
+<tr>
+<td><code>$SiteUrl</code></td>
+<td>Your Site URL i.e. <code>https://contoso.sharepoint.com/sites/TestEnvironment</code></td>
+</tr>
+<tr>
+<td><code>$CsvPath</code></td>
+<td>Your CSV Path Location i.e. <code>C:\Temp\Rename-Files.csv</code></td>
+</tr>
+<tr>
+<td><code>$ReportPath</code></td>
+<td>An appropriate audit location i.e. <code>C:\Temp\Rename-Files-Audit.csv</code></td>
+</tr>
+</tbody></table>
+</div>
+<div class="readme-tabs" data-tabs><div class="tool-tabs" role="tablist" aria-label="Script implementations"><button type="button" role="tab" id="tools-0-pnpps" data-tab-id="pnpps" aria-controls="tools-0-panel-0" aria-selected="true" tabindex="0">PnP PowerShell</button></div><section role="tabpanel" id="tools-0-panel-0" aria-labelledby="tools-0-pnpps" tabindex="0"><div class="code-frame"><div class="code-toolbar"><span>powershell</span><button type="button" class="copy-code" data-copy-code="code-0" aria-label="Copy powershell code">Copy code</button></div><pre id="code-0" role="region" tabindex="0" aria-label="powershell script" class="shiki shiki-themes github-light github-dark-high-contrast" style="--shiki-light:#24292e;--shiki-dark:#f0f3f6;--shiki-light-bg:#fff;--shiki-dark-bg:#0a0c10"><code><span class="line"></span>
+<span class="line"><span style="--shiki-light:#6A737D;--shiki-dark:#BDC4CC">#</span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">Requires -Modules</span><span style="--shiki-light:#E36209;--shiki-dark:#FFB757"> PnP</span><span style="--shiki-light:#6A737D;--shiki-dark:#BDC4CC">.</span><span style="--shiki-light:#E36209;--shiki-dark:#FFB757">PowerShell</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#6A737D;--shiki-dark:#BDC4CC"># ============================================================</span></span>
+<span class="line"><span style="--shiki-light:#6A737D;--shiki-dark:#BDC4CC"># AUTHENTICATION</span></span>
+<span class="line"><span style="--shiki-light:#6A737D;--shiki-dark:#BDC4CC"># ============================================================</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">$ClientID   </span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">=</span><span style="--shiki-light:#032F62;--shiki-dark:#ADDCFF"> "xxxxxxxxxxxxxxxxxxxxxxxx"</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">$ThumbPrint </span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">=</span><span style="--shiki-light:#032F62;--shiki-dark:#ADDCFF"> "xxxxxxxxxxxxxxxxxxxxxxxx"</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">$Tenant     </span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">=</span><span style="--shiki-light:#032F62;--shiki-dark:#ADDCFF"> "contoso.onmicrosoft.com"</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#6A737D;--shiki-dark:#BDC4CC"># ============================================================</span></span>
+<span class="line"><span style="--shiki-light:#6A737D;--shiki-dark:#BDC4CC"># CONFIGURATION</span></span>
+<span class="line"><span style="--shiki-light:#6A737D;--shiki-dark:#BDC4CC"># ============================================================</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">$SiteUrl    </span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">=</span><span style="--shiki-light:#032F62;--shiki-dark:#ADDCFF"> "https://contoso.sharepoint.com/sites/TestEnvironment"</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">$CsvPath    </span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">=</span><span style="--shiki-light:#032F62;--shiki-dark:#ADDCFF"> "C:\Temp\Rename-Files.csv"</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">$ReportPath </span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">=</span><span style="--shiki-light:#032F62;--shiki-dark:#ADDCFF"> "C:\Temp\Rename-Files-Audit.csv"</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#6A737D;--shiki-dark:#BDC4CC"># ============================================================</span></span>
+<span class="line"><span style="--shiki-light:#6A737D;--shiki-dark:#BDC4CC"># AUDIT INFORMATION</span></span>
+<span class="line"><span style="--shiki-light:#6A737D;--shiki-dark:#BDC4CC"># ============================================================</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">$RunId      </span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">=</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6"> [</span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">guid</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">]::NewGuid().ToString()</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">$RunBy      </span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">=</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6"> [</span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">System.Security.Principal.WindowsIdentity</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">]::GetCurrent().Name</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">$RunDate    </span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">=</span><span style="--shiki-light:#005CC5;--shiki-dark:#91CBFF"> Get-Date</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#6A737D;--shiki-dark:#BDC4CC"># ============================================================</span></span>
+<span class="line"><span style="--shiki-light:#6A737D;--shiki-dark:#BDC4CC"># CONNECT TO SHAREPOINT</span></span>
+<span class="line"><span style="--shiki-light:#6A737D;--shiki-dark:#BDC4CC"># ============================================================</span></span>
+<span class="line"><span style="--shiki-light:#005CC5;--shiki-dark:#91CBFF"><a class="command-help" href="https://pnp.github.io/powershell/cmdlets/Connect-PnPOnline.html" title="Command documentation">Connect-PnPOnline</a></span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492"> `</span></span>
+<span class="line"><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">    -</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">Url $SiteUrl </span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">`</span></span>
+<span class="line"><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">    -</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">ClientId $ClientID </span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">`</span></span>
+<span class="line"><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">    -</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">Thumbprint $ThumbPrint </span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">`</span></span>
+<span class="line"><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">    -</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">Tenant $Tenant</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#6A737D;--shiki-dark:#BDC4CC"># ============================================================</span></span>
+<span class="line"><span style="--shiki-light:#6A737D;--shiki-dark:#BDC4CC"># IMPORT THE CSV</span></span>
+<span class="line"><span style="--shiki-light:#6A737D;--shiki-dark:#BDC4CC"># ============================================================</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">$CsvData </span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">=</span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492"> @</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">(</span><span style="--shiki-light:#005CC5;--shiki-dark:#91CBFF">Import-Csv</span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492"> -</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">Path $CsvPath)</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">$TotalRows   </span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">=</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6"> $CsvData.Count</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">$CurrentRow  </span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">=</span><span style="--shiki-light:#005CC5;--shiki-dark:#91CBFF"> 0</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">$Success     </span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">=</span><span style="--shiki-light:#005CC5;--shiki-dark:#91CBFF"> 0</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">$Failed      </span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">=</span><span style="--shiki-light:#005CC5;--shiki-dark:#91CBFF"> 0</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">$AuditReport </span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">=</span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492"> @</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">()</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">foreach</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6"> ($File </span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">in</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6"> $CsvData) {</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">    $CurrentRow</span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">++</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#005CC5;--shiki-dark:#91CBFF">    Write-Progress</span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492"> `</span></span>
+<span class="line"><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">        -</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">Activity </span><span style="--shiki-light:#032F62;--shiki-dark:#ADDCFF">"Renaming SharePoint files"</span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492"> `</span></span>
+<span class="line"><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">        -</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">Status </span><span style="--shiki-light:#032F62;--shiki-dark:#ADDCFF">"</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">$CurrentRow</span><span style="--shiki-light:#032F62;--shiki-dark:#ADDCFF"> of </span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">$TotalRows</span><span style="--shiki-light:#032F62;--shiki-dark:#ADDCFF">"</span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492"> `</span></span>
+<span class="line"><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">        -</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">PercentComplete (($CurrentRow </span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">/</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6"> $TotalRows) </span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">*</span><span style="--shiki-light:#005CC5;--shiki-dark:#91CBFF"> 100</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">)</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">    $OldUrl  </span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">=</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6"> $File.SiteRelativeUrl</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">    $OldName </span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">=</span><span style="--shiki-light:#005CC5;--shiki-dark:#91CBFF"> Split-Path</span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492"> -</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">Path $OldUrl </span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">-</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">Leaf</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">    $NewName </span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">=</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6"> $File.NewName</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">    $Status  </span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">=</span><span style="--shiki-light:#032F62;--shiki-dark:#ADDCFF"> ""</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">    $ErrorMessage </span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">=</span><span style="--shiki-light:#032F62;--shiki-dark:#ADDCFF"> ""</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">    try</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6"> {</span></span>
+<span class="line"><span style="--shiki-light:#005CC5;--shiki-dark:#91CBFF">        Rename-PnPFile</span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492"> `</span></span>
+<span class="line"><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">            -</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">SiteRelativeUrl $OldUrl </span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">`</span></span>
+<span class="line"><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">            -</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">TargetFileName $NewName </span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">`</span></span>
+<span class="line"><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">            -</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">Force </span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">`</span></span>
+<span class="line"><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">            -</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">ErrorAction Stop</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">        $Status </span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">=</span><span style="--shiki-light:#032F62;--shiki-dark:#ADDCFF"> "Success"</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">        $Success</span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">++</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#005CC5;--shiki-dark:#91CBFF">        Write-Host</span><span style="--shiki-light:#032F62;--shiki-dark:#ADDCFF"> "[</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">$CurrentRow</span><span style="--shiki-light:#032F62;--shiki-dark:#ADDCFF"> of </span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">$TotalRows</span><span style="--shiki-light:#032F62;--shiki-dark:#ADDCFF">] Renamed '</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">$OldName</span><span style="--shiki-light:#032F62;--shiki-dark:#ADDCFF">' to '</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">$NewName</span><span style="--shiki-light:#032F62;--shiki-dark:#ADDCFF">'"</span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492"> `</span></span>
+<span class="line"><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">            -</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">ForegroundColor Green</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">    }</span></span>
+<span class="line"><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">    catch</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6"> {</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">        $Status </span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">=</span><span style="--shiki-light:#032F62;--shiki-dark:#ADDCFF"> "Failed"</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">        $ErrorMessage </span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">=</span><span style="--shiki-light:#005CC5;--shiki-dark:#91CBFF"> $_</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">.Exception.Message</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">        $Failed</span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">++</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#005CC5;--shiki-dark:#91CBFF">        Write-Host</span><span style="--shiki-light:#032F62;--shiki-dark:#ADDCFF"> "[</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">$CurrentRow</span><span style="--shiki-light:#032F62;--shiki-dark:#ADDCFF"> of </span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">$TotalRows</span><span style="--shiki-light:#032F62;--shiki-dark:#ADDCFF">] Failed: '</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">$OldName</span><span style="--shiki-light:#032F62;--shiki-dark:#ADDCFF">'"</span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492"> `</span></span>
+<span class="line"><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">            -</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">ForegroundColor Red</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">    }</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">    $AuditReport </span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">+=</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6"> [</span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">PSCustomObject</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">]</span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">@</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">{</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">        RunId             </span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">=</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6"> $RunId</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">        RunBy             </span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">=</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6"> $RunBy</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">        RunDate           </span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">=</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6"> $RunDate</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">        SiteUrl           </span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">=</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6"> $SiteUrl</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">        RowNumber         </span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">=</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6"> $CurrentRow</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">        OriginalFileName  </span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">=</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6"> $OldName</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">        OriginalFileUrl   </span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">=</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6"> $OldUrl</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">        NewFileName       </span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">=</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6"> $NewName</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">        Status            </span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">=</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6"> $Status</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">        ProcessedDateTime </span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">=</span><span style="--shiki-light:#005CC5;--shiki-dark:#91CBFF"> Get-Date</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">        ErrorMessage      </span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">=</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6"> $ErrorMessage</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">    }</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#005CC5;--shiki-dark:#91CBFF">Write-Progress</span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492"> -</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">Activity </span><span style="--shiki-light:#032F62;--shiki-dark:#ADDCFF">"Renaming SharePoint files"</span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492"> -</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">Completed</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#6A737D;--shiki-dark:#BDC4CC"># ============================================================</span></span>
+<span class="line"><span style="--shiki-light:#6A737D;--shiki-dark:#BDC4CC"># EXPORT THE AUDIT REPORT</span></span>
+<span class="line"><span style="--shiki-light:#6A737D;--shiki-dark:#BDC4CC"># ============================================================</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">$AuditReport </span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">|</span></span>
+<span class="line"><span style="--shiki-light:#005CC5;--shiki-dark:#91CBFF">    Export-Csv</span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492"> `</span></span>
+<span class="line"><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">        -</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">Path $ReportPath </span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">`</span></span>
+<span class="line"><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">        -</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">NoTypeInformation </span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">`</span></span>
+<span class="line"><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">        -</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">Encoding UTF8</span></span>
+<span class="line"><span style="--shiki-light:#6A737D;--shiki-dark:#BDC4CC"># ============================================================</span></span>
+<span class="line"><span style="--shiki-light:#6A737D;--shiki-dark:#BDC4CC"># DISPLAY SUMMARY</span></span>
+<span class="line"><span style="--shiki-light:#6A737D;--shiki-dark:#BDC4CC"># ============================================================</span></span>
+<span class="line"><span style="--shiki-light:#005CC5;--shiki-dark:#91CBFF">Write-Host</span><span style="--shiki-light:#032F62;--shiki-dark:#ADDCFF"> ""</span></span>
+<span class="line"><span style="--shiki-light:#005CC5;--shiki-dark:#91CBFF">Write-Host</span><span style="--shiki-light:#032F62;--shiki-dark:#ADDCFF"> "Import complete"</span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492"> -</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">ForegroundColor Cyan</span></span>
+<span class="line"><span style="--shiki-light:#005CC5;--shiki-dark:#91CBFF">Write-Host</span><span style="--shiki-light:#032F62;--shiki-dark:#ADDCFF"> "Run by: </span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">$RunBy</span><span style="--shiki-light:#032F62;--shiki-dark:#ADDCFF">"</span></span>
+<span class="line"><span style="--shiki-light:#005CC5;--shiki-dark:#91CBFF">Write-Host</span><span style="--shiki-light:#032F62;--shiki-dark:#ADDCFF"> "Total rows: </span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">$TotalRows</span><span style="--shiki-light:#032F62;--shiki-dark:#ADDCFF">"</span></span>
+<span class="line"><span style="--shiki-light:#005CC5;--shiki-dark:#91CBFF">Write-Host</span><span style="--shiki-light:#032F62;--shiki-dark:#ADDCFF"> "Successful: </span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">$Success</span><span style="--shiki-light:#032F62;--shiki-dark:#ADDCFF">"</span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492"> -</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">ForegroundColor Green</span></span>
+<span class="line"><span style="--shiki-light:#005CC5;--shiki-dark:#91CBFF">Write-Host</span><span style="--shiki-light:#032F62;--shiki-dark:#ADDCFF"> "Failed: </span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">$Failed</span><span style="--shiki-light:#032F62;--shiki-dark:#ADDCFF">"</span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492"> -</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">ForegroundColor Red</span></span>
+<span class="line"><span style="--shiki-light:#005CC5;--shiki-dark:#91CBFF">Write-Host</span><span style="--shiki-light:#032F62;--shiki-dark:#ADDCFF"> "Audit report: </span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">$ReportPath</span><span style="--shiki-light:#032F62;--shiki-dark:#ADDCFF">"</span></span>
+<span class="line"></span>
+<span class="line"></span></code></pre></div><h2 id="output">Output</h2><p>The script generates an audit CSV containing:</p>
+<div class="table-wrap" tabindex="0" role="region" aria-label="Sample data table"><table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>RunId</code></td>
+<td>Unique identifier for the execution</td>
+</tr>
+<tr>
+<td><code>RunBy</code></td>
+<td>Windows identity executing the script</td>
+</tr>
+<tr>
+<td><code>RunDate</code></td>
+<td>Start time of the execution</td>
+</tr>
+<tr>
+<td><code>SiteUrl</code></td>
+<td>SharePoint site being processed</td>
+</tr>
+<tr>
+<td><code>RowNumber</code></td>
+<td>Source CSV row being processed</td>
+</tr>
+<tr>
+<td><code>OriginalFileName</code></td>
+<td>Existing file name</td>
+</tr>
+<tr>
+<td><code>OriginalFileUrl</code></td>
+<td>Existing site-relative file URL</td>
+</tr>
+<tr>
+<td><code>NewFileName</code></td>
+<td>Requested new file name</td>
+</tr>
+<tr>
+<td><code>Status</code></td>
+<td>Success or Failed</td>
+</tr>
+<tr>
+<td><code>ProcessedDateTime</code></td>
+<td>Time the individual operation completed</td>
+</tr>
+<tr>
+<td><code>ErrorMessage</code></td>
+<td>Error returned when the operation fails</td>
+</tr>
+</tbody></table>
+</div><h2 id="production-considerations">Production Considerations</h2><p>For large Microsoft 365 tenants, the input CSV should be validated before execution. Invalid URLs, duplicate operations, missing file names, and unsupported file-name characters should be identified before making changes.</p>
+<p>The script processes files sequentially. This deliberately avoids uncontrolled parallel operations against SharePoint Online, which can increase the likelihood of throttling and transient failures.</p>
+<p>For very large workloads, consider implementing controlled batching, retry handling for transient SharePoint throttling, and checkpointing so that an interrupted run can resume without unnecessarily reprocessing completed operations.</p>
+<h2 id="notes">Notes</h2><ul>
+<li>Force allows the requested rename operation to proceed where supported by SharePoint.</li>
+<li>The script does not delete or overwrite source files; it performs file rename operations.</li>
+<li>Failed rows are recorded in the audit report while processing continues.</li>
+<li>The RunId allows individual executions to be correlated across audit reports.</li>
+<li>For unattended automation, the certificate and application identity should be managed securely rather than embedding certificate secrets in the script.</li>
+<li>Test the CSV against a non-production site or a small representative dataset before performing a large production rename operation.</li>
+</ul>
+</section></div>
+<h2 id="contributors">Contributors</h2><div class="table-wrap" tabindex="0" role="region" aria-label="Sample data table"><table>
+<thead>
+<tr>
+<th>Author(s)</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><a href="https://github.com/ojopiyo">Josiah Opiyo</a></td>
+</tr>
+</tbody></table>
+</div><p><em>Built with a focus on automation, governance, least privilege, and clean Microsoft 365 tenants - helping M365 admins gain visibility and reduce operational risk.</em></p>
+<h2 id="version-history">Version history</h2><div class="table-wrap" tabindex="0" role="region" aria-label="Sample data table"><table>
+<thead>
+<tr>
+<th>Version</th>
+<th>Date</th>
+<th>Comments</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>1.0</td>
+<td>October 07, 2026</td>
+<td>Initial release</td>
+</tr>
+</tbody></table>
+</div><h2 id="disclaimer">Disclaimer</h2><p><strong>THESE SAMPLES ARE PROVIDED <em>AS IS</em> WITHOUT WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, INCLUDING ANY IMPLIED WARRANTIES OF FITNESS FOR A PARTICULAR PURPOSE, MERCHANTABILITY, OR NON-INFRINGEMENT.</strong></p>
+</div><section class="reference-section"><h2>Tool documentation &amp; references</h2><ul><li><a href="https://aka.ms/pnp/powershell">PnP PowerShell documentation</a><p>Documentation and cmdlet reference for PnP PowerShell.</p></li></ul></section><section><h2>Keep exploring</h2><div class="related-samples"><a href="/script-samples/samples/spo-update-herolink-sharingsetting/">Update Hero Link sharing settings<svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="lucide lucide-arrow-right"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg></a><a href="/script-samples/samples/spo-reset-herolink/">How to reset hero link<svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="lucide lucide-arrow-right"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg></a><a href="/script-samples/samples/spo-update-herolink/">Update Hero Link to &#39;Only people added to the file have access&#39;<svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="lucide lucide-arrow-right"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg></a></div></section></div><aside class="detail-sidebar" aria-label="Sample information"><div class="sidebar-panel"><h2>Make it your own</h2><a class="button button-primary" href="https://github.com/pnp/script-samples/tree/main/scripts/spo-bulk-file-rename-script">Open source on GitHub <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="lucide lucide-arrow-up-right"><path d="M7 7h10v10"></path><path d="M7 17 17 7"></path></svg></a><a class="button button-secondary" href="https://github.com/pnp/script-samples/edit/main/scripts/spo-bulk-file-rename-script/README.md">Improve this sample</a><dl><dt>Products</dt><dd><a class="product-inline" href="/script-samples/?product=sharepoint"><img src="/script-samples/images/SharePoint_512.png" alt="" width="22" height="22" loading="lazy" decoding="async">SharePoint</a></dd><dt>Tool versions from the author</dt><dd><div>PnP PowerShell <strong>3.3.0</strong></div></dd><dt>Created</dt><dd><time datetime="2026-10-07">Oct 7, 2026</time></dd><dt>Updated</dt><dd><time datetime="2026-10-14">Oct 14, 2026</time></dd></dl></div><div class="sidebar-panel"><h2>Commands &amp; topics</h2><div class="tag-list"><a href="/script-samples/?q=SharePoint%20Online">SharePoint Online</a><a href="/script-samples/?q=Bulk%20Rename">Bulk Rename</a><a href="/script-samples/?q=PnP%20PowerShell">PnP PowerShell</a><a href="https://pnp.github.io/powershell/cmdlets/Connect-PnPOnline.html">Connect-PnPOnline &#8599;</a><a href="https://pnp.github.io/powershell/cmdlets/Rename-PnPFile.html">Rename-PnPFile &#8599;</a><a href="/script-samples/?q=PowerShell%207.4">PowerShell 7.4</a></div></div><div class="sidebar-panel"><h2>Something not working?</h2><p class="card-description">Help the community keep this sample useful. Include the tool version, steps, and a redacted error message.</p><a class="text-link" href="https://github.com/pnp/script-samples/issues/new?title=Issue%20with%20spo-bulk-file-rename-script&amp;body=Sample%3A%20https%3A%2F%2Fpnp.github.io%2Fscript-samples%2Fsamples%2Fspo-bulk-file-rename-script%2F%0A%0ATool%20and%20version%3A%0A%0ASteps%20to%20reproduce%3A%0A%0AExpected%20and%20actual%20result%3A%0A%0ARemove%20tenant%20details%2C%20credentials%2C%20and%20personal%20information%20before%20submitting.">Report an issue &#8599;</a></div><div class="sidebar-panel"><h2>Built by the community</h2><a href="/script-samples/contributing/recognition/"><img class="detail-badge" src="/script-samples/assets/credly-badge.png" alt="Script Samples community contributor badge" width="160" height="160" loading="lazy" decoding="async"></a><p class="card-description">Share a sample and earn your contributor badge.</p><a class="text-link" href="/script-samples/contributing/">Get involved &#8594;</a></div></aside></div></div></main><footer class="site-footer"><div class="container footer-inner"><div><strong>Microsoft 365 &amp; Power Platform Community</strong><p>Built by the community, for the community.</p></div><nav aria-label="Footer navigation"><a href="https://aka.ms/community/home">Community home &#8599;</a><a href="/script-samples/catalog.json">Catalog JSON</a><a href="/script-samples/schemas/sample.schema.json">Metadata schema</a><a href="/script-samples/reports/">Catalog reports</a><a href="/script-samples/contributing/recognition/">Contributor badge</a><a href="https://github.com/pnp/script-samples/issues/new">Report an issue</a><a href="https://opensource.microsoft.com/codeofconduct/">Code of conduct</a><a href="https://github.com/pnp/script-samples/blob/main/LICENSE">MIT license</a></nav></div></footer><p class="sr-only" id="site-status" role="status" aria-live="polite"></p><img class="sr-only" data-visitor-stats data-tracker-src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/spo-bulk-file-rename-script" data-tracking-enabled="true" src="data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=" alt="" width="1" height="1" aria-hidden="true"><script type="module" src="/script-samples/_astro/Layout.astro_astro_type_script_index_0_lang.DaWAalj3.js"></script></body></html><script type="module" src="/script-samples/_astro/_slug_.astro_astro_type_script_index_0_lang.BIay2qYY.js"></script>

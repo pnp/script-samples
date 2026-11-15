@@ -1,0 +1,202 @@
+<!DOCTYPE html><html lang="en" data-theme="light"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="description" content="This script identifies users in a Microsoft 365 tenant who are not effectively protected by Multi-Factor Authentication (MFA)."><meta name="generator" content="Astro v7.3.6"><meta name="theme-color" id="theme-color" content="#f2f4f5"><title>MFA Enforcement Gaps | Community Script Samples</title><link rel="icon" href="/script-samples/images/parker-ms-300.png" type="image/png"><link rel="canonical" href="https://pnp.github.io/script-samples/samples/mfa-enforcement-gaps/"><meta property="og:type" content="website"><meta property="og:site_name" content="Community Script Samples"><meta property="og:title" content="MFA Enforcement Gaps | Community Script Samples"><meta property="og:description" content="This script identifies users in a Microsoft 365 tenant who are not effectively protected by Multi-Factor Authentication (MFA)."><meta property="og:url" content="https://pnp.github.io/script-samples/samples/mfa-enforcement-gaps/"><meta property="og:image" content="https://pnp.github.io/script-samples/mfa-enforcement-gaps/assets/preview.png"><meta name="twitter:card" content="summary_large_image"><script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"Community Script Samples","url":"https://pnp.github.io/script-samples/","description":"This script identifies users in a Microsoft 365 tenant who are not effectively protected by Multi-Factor Authentication (MFA)."}</script><script>
+      document.documentElement.classList.add("js");
+      try {
+        const theme = localStorage.getItem("community-script-samples-theme") === "dark" ? "dark" : "light";
+        document.documentElement.dataset.theme = theme;
+        document.documentElement.style.colorScheme = theme;
+      } catch (error) {
+        console.warn("Theme storage is unavailable; using light mode for this visit.", error);
+      }
+    </script><link rel="stylesheet" href="/script-samples/_astro/Layout.BviIPkCI.css"></head><body><a class="skip-link" href="#main-content">Skip to content</a><header class="site-header"><div class="spectrum" aria-hidden="true"></div><div class="container header-inner"><a class="brand" href="/script-samples/" aria-label="Community Script Samples home"><img src="/script-samples/images/parker-ms-300.png" alt="" width="35" height="45"><span class="brand-name"><span>Community</span> <strong>Script Samples</strong></span></a><div class="header-actions"><nav class="desktop-nav" aria-label="Primary navigation"><a href="https://aka.ms/community/home">Community <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="lucide lucide-arrow-up-right"><path d="M7 7h10v10"></path><path d="M7 17 17 7"></path></svg></a><a href="/script-samples/" aria-current="page">Samples</a><a href="/script-samples/getting-started/">Getting started</a><a href="/script-samples/contributors/">Contributors</a><a href="/script-samples/contributing/">Contributing</a><a href="https://github.com/pnp/script-samples"><svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="lucide lucide-git-fork"><circle cx="12" cy="18" r="3"></circle><circle cx="6" cy="6" r="3"></circle><circle cx="18" cy="6" r="3"></circle><path d="M18 9v2c0 .6-.4 1-1 1H7c-.6 0-1-.4-1-1V9"></path><path d="M12 12v3"></path></svg> GitHub</a></nav><button class="theme-toggle" id="theme-toggle" type="button" role="switch" aria-checked="false" aria-label="Switch to dark mode" title="Switch to dark mode"><span class="theme-icons" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="lucide lucide-sun"><circle cx="12" cy="12" r="4"></circle><path d="M12 2v2"></path><path d="M12 20v2"></path><path d="m4.93 4.93 1.41 1.41"></path><path d="m17.66 17.66 1.41 1.41"></path><path d="M2 12h2"></path><path d="M20 12h2"></path><path d="m6.34 17.66-1.41 1.41"></path><path d="m19.07 4.93-1.41 1.41"></path></svg><svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="lucide lucide-moon"><path d="M20.985 12.486a9 9 0 1 1-9.473-9.472c.405-.022.617.46.402.803a6 6 0 0 0 8.268 8.268c.344-.215.825-.004.803.401"></path></svg></span></button><details class="mobile-nav"><summary aria-label="Open navigation"><svg xmlns="http://www.w3.org/2000/svg" width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="lucide lucide-menu"><path d="M4 5h16"></path><path d="M4 12h16"></path><path d="M4 19h16"></path></svg></summary><nav aria-label="Mobile navigation"><a href="https://aka.ms/community/home">Community <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="lucide lucide-arrow-up-right"><path d="M7 7h10v10"></path><path d="M7 17 17 7"></path></svg></a><a href="/script-samples/" aria-current="page">Samples</a><a href="/script-samples/getting-started/">Getting started</a><a href="/script-samples/contributors/">Contributors</a><a href="/script-samples/contributing/">Contributing</a><a href="https://github.com/pnp/script-samples">GitHub</a></nav></details></div></div></header><main id="main-content" tabindex="-1"><div class="container detail-section"><nav class="breadcrumbs" aria-label="Breadcrumb"><a href="/script-samples/" id="back-to-samples">All samples</a><span aria-hidden="true">/</span><span>Report</span></nav><header class="detail-header"><span class="scenario-tag">Report / Security</span><h1>MFA Enforcement Gaps</h1><p>This script identifies users in a Microsoft 365 tenant who are not effectively protected by Multi-Factor Authentication (MFA).</p><div class="detail-byline"><a class="card-author" href="https://github.com/ojopiyo"><img class="avatar" src="https://github.com/ojopiyo.png?size=64" alt="" width="30" height="30" loading="lazy" decoding="async" data-avatar="Josiah Opiyo">Josiah Opiyo</a><span>Updated <time datetime="2026-01-21">Jan 21, 2026</time></span><a href="https://github.com/pnp/script-samples/tree/main/scripts/mfa-enforcement-gaps">View on GitHub <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="lucide lucide-arrow-up-right"><path d="M7 7h10v10"></path><path d="M7 17 17 7"></path></svg></a></div></header><div class="detail-layout"><div class="detail-main"><aside class="safety-note" aria-label="Before you run"><strong>Understand it. Adapt it. Test it first.</strong><p>Review the full script, prerequisites, and required permissions. Test against non-production data before making changes. Samples are community contributions, provided as-is; an update date is not a claim of recent testing.</p></aside><div class="readme-content" id="sample-readme"><h2 id="professional-summary">Professional Summary</h2><p>This script identifies users in a Microsoft 365 tenant who are not effectively protected by Multi-Factor Authentication (MFA). It highlights accounts with no registered MFA methods and flags users explicitly excluded from Conditional Access (CA) policies, providing a clear view of MFA enforcement gaps across the organisation.</p>
+<p>The output supports security hardening, audit readiness, and governance decision-making with minimal operational overhead.</p>
+<h2 id="why-it-matters">Why It Matters</h2><p>In many tenants, MFA is assumed to be “on” globally, yet exceptions quietly accumulate over time:
+legacy service accounts, temporary exclusions, break-glass users, or staff onboarded before policy maturity.</p>
+<p>These gaps are often discovered <strong>only during incidents or audits</strong>.</p>
+<p>This script surfaces those risks proactively, allowing security teams to:</p>
+<ul>
+<li>Detect silent exposure before compromise</li>
+<li>Validate Conditional Access design assumptions</li>
+<li>Demonstrate effective access controls to auditors and stakeholders</li>
+</ul>
+<h2 id="benefits">Benefits</h2><ul>
+<li>Protects work accounts by exposing users without strong authentication</li>
+<li>Reduces cyber risk by identifying high-impact misconfigurations</li>
+<li>Improves compliance posture aligned with ISO 27001, GDPR best practices, and Zero Trust</li>
+<li>Strengthens defence in depth by validating MFA + Conditional Access together</li>
+<li>Improves audit outcomes with evidence-based reporting</li>
+<li>Builds confidence in identity security controls with measurable insight</li>
+</ul>
+
+<div class="readme-tabs" data-tabs><div class="tool-tabs" role="tablist" aria-label="Script implementations"><button type="button" role="tab" id="tools-0-graphps" data-tab-id="graphps" aria-controls="tools-0-panel-0" aria-selected="true" tabindex="0">Graph PowerShell SDK</button></div><section role="tabpanel" id="tools-0-panel-0" aria-labelledby="tools-0-graphps" tabindex="0"><div class="code-frame"><div class="code-toolbar"><span>powershell</span><button type="button" class="copy-code" data-copy-code="code-0" aria-label="Copy powershell code">Copy code</button></div><pre id="code-0" role="region" tabindex="0" aria-label="powershell script" class="shiki shiki-themes github-light github-dark-high-contrast" style="--shiki-light:#24292e;--shiki-dark:#f0f3f6;--shiki-light-bg:#fff;--shiki-dark-bg:#0a0c10"><code><span class="line"></span>
+<span class="line"><span style="--shiki-light:#005CC5;--shiki-dark:#91CBFF">$ErrorActionPreference</span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492"> =</span><span style="--shiki-light:#032F62;--shiki-dark:#ADDCFF"> 'Stop'</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#6A737D;--shiki-dark:#BDC4CC"># ==============================</span></span>
+<span class="line"><span style="--shiki-light:#6A737D;--shiki-dark:#BDC4CC"># Authentication Configuration</span></span>
+<span class="line"><span style="--shiki-light:#6A737D;--shiki-dark:#BDC4CC"># ==============================</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">$TenantId    </span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">=</span><span style="--shiki-light:#032F62;--shiki-dark:#ADDCFF"> ""</span><span style="--shiki-light:#6A737D;--shiki-dark:#BDC4CC">   # e.g. contoso.onmicrosoft.com</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">$ClientId   </span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">=</span><span style="--shiki-light:#032F62;--shiki-dark:#ADDCFF"> ""</span><span style="--shiki-light:#6A737D;--shiki-dark:#BDC4CC">   # App Registration Client ID</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">$Thumbprint </span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">=</span><span style="--shiki-light:#032F62;--shiki-dark:#ADDCFF"> ""</span><span style="--shiki-light:#6A737D;--shiki-dark:#BDC4CC">   # Certificate Thumbprint</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">$requiredScopes </span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">=</span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492"> @</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">(</span></span>
+<span class="line"><span style="--shiki-light:#032F62;--shiki-dark:#ADDCFF">    'User.Read.All'</span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">,</span></span>
+<span class="line"><span style="--shiki-light:#032F62;--shiki-dark:#ADDCFF">    'Directory.Read.All'</span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">,</span></span>
+<span class="line"><span style="--shiki-light:#032F62;--shiki-dark:#ADDCFF">    'Policy.Read.All'</span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">,</span></span>
+<span class="line"><span style="--shiki-light:#032F62;--shiki-dark:#ADDCFF">    'AuthenticationMethod.Read.All'</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">)</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#6A737D;--shiki-dark:#BDC4CC"># ==============================</span></span>
+<span class="line"><span style="--shiki-light:#6A737D;--shiki-dark:#BDC4CC"># Connect to Microsoft Graph</span></span>
+<span class="line"><span style="--shiki-light:#6A737D;--shiki-dark:#BDC4CC"># ==============================</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">$graphContext </span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">=</span><span style="--shiki-light:#005CC5;--shiki-dark:#91CBFF"> Get-MgContext</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">if</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6"> (</span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">-not</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6"> $graphContext) {</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">    if</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6"> ($TenantId </span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">-and</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6"> $ClientId </span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">-and</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6"> $Thumbprint) {</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#005CC5;--shiki-dark:#91CBFF">        Connect-MgGraph</span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492"> `</span></span>
+<span class="line"><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">            -</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">TenantId $TenantId </span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">`</span></span>
+<span class="line"><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">            -</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">ClientId $ClientId </span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">`</span></span>
+<span class="line"><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">            -</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">CertificateThumbprint $Thumbprint </span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">`</span></span>
+<span class="line"><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">            -</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">NoWelcome</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">    } </span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">else</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6"> {</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#005CC5;--shiki-dark:#91CBFF">        Connect-MgGraph</span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492"> `</span></span>
+<span class="line"><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">            -</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">Scopes $requiredScopes </span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">`</span></span>
+<span class="line"><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">            -</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">NoWelcome</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">    }</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#6A737D;--shiki-dark:#BDC4CC"># ==============================</span></span>
+<span class="line"><span style="--shiki-light:#6A737D;--shiki-dark:#BDC4CC"># Data Collection</span></span>
+<span class="line"><span style="--shiki-light:#6A737D;--shiki-dark:#BDC4CC"># ==============================</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">$users </span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">=</span><span style="--shiki-light:#005CC5;--shiki-dark:#91CBFF"> Get-MgUser</span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492"> -</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">All </span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">-</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">Property Id</span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">,</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">DisplayName</span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">,</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">UserPrincipalName</span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">,</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">AccountEnabled</span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">,</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">UserType</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">$enabledCAPolicies </span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">=</span><span style="--shiki-light:#005CC5;--shiki-dark:#91CBFF"> Get-MgConditionalAccessPolicy</span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492"> -</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">All </span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">|</span></span>
+<span class="line"><span style="--shiki-light:#005CC5;--shiki-dark:#91CBFF">    Where-Object</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6"> { </span><span style="--shiki-light:#005CC5;--shiki-dark:#91CBFF">$_</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">.State </span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">-eq</span><span style="--shiki-light:#032F62;--shiki-dark:#ADDCFF"> 'enabled'</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6"> }</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">$excludedUserIds </span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">=</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6"> $enabledCAPolicies </span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">|</span></span>
+<span class="line"><span style="--shiki-light:#005CC5;--shiki-dark:#91CBFF">    ForEach-Object</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6"> { </span><span style="--shiki-light:#005CC5;--shiki-dark:#91CBFF">$_</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">.Conditions.Users.ExcludeUsers } </span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">|</span></span>
+<span class="line"><span style="--shiki-light:#005CC5;--shiki-dark:#91CBFF">    Where-Object</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6"> { </span><span style="--shiki-light:#005CC5;--shiki-dark:#91CBFF">$_</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6"> } </span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">|</span></span>
+<span class="line"><span style="--shiki-light:#005CC5;--shiki-dark:#91CBFF">    Select-Object</span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492"> -</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">Unique</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#6A737D;--shiki-dark:#BDC4CC"># ==============================</span></span>
+<span class="line"><span style="--shiki-light:#6A737D;--shiki-dark:#BDC4CC"># MFA Evaluation</span></span>
+<span class="line"><span style="--shiki-light:#6A737D;--shiki-dark:#BDC4CC"># ==============================</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">$results </span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">=</span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492"> foreach</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6"> ($user </span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">in</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6"> $users) {</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">    if</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6"> (</span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">-not</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6"> $user.AccountEnabled </span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">-or</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6"> $user.UserType </span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">-ne</span><span style="--shiki-light:#032F62;--shiki-dark:#ADDCFF"> 'Member'</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">) {</span></span>
+<span class="line"><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">        continue</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">    }</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">    $authMethods </span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">=</span><span style="--shiki-light:#005CC5;--shiki-dark:#91CBFF"> Get-MgUserAuthenticationMethod</span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492"> -</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">UserId $user.Id</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">    $hasStrongMfa </span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">=</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6"> $authMethods </span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">|</span></span>
+<span class="line"><span style="--shiki-light:#005CC5;--shiki-dark:#91CBFF">        Where-Object</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6"> {</span></span>
+<span class="line"><span style="--shiki-light:#005CC5;--shiki-dark:#91CBFF">            $_</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">.</span><span style="--shiki-light:#032F62;--shiki-dark:#ADDCFF">'@odata.type'</span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492"> -match</span><span style="--shiki-light:#032F62;--shiki-dark:#ADDCFF"> 'microsoftAuthenticator|fido2|phoneAuthenticationMethod'</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">        }</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">    [</span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">PSCustomObject</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">]</span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">@</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">{</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">        DisplayName       </span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">=</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6"> $user.DisplayName</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">        UserPrincipalName </span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">=</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6"> $user.UserPrincipalName</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">        MFARegistered     </span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">=</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6"> [</span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">bool</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">]$hasStrongMfa</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">        ExcludedFromCA    </span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">=</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6"> $excludedUserIds </span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">-contains</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6"> $user.Id</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">        RiskStatus        </span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">=</span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492"> if</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6"> (</span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">-not</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6"> $hasStrongMfa </span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">-or</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6"> ($excludedUserIds </span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">-contains</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6"> $user.Id)) {</span></span>
+<span class="line"><span style="--shiki-light:#032F62;--shiki-dark:#ADDCFF">                                'MFA Gap'</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">                            } </span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">else</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6"> {</span></span>
+<span class="line"><span style="--shiki-light:#032F62;--shiki-dark:#ADDCFF">                                'Protected'</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">                            }</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">    }</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#6A737D;--shiki-dark:#BDC4CC"># ==============================</span></span>
+<span class="line"><span style="--shiki-light:#6A737D;--shiki-dark:#BDC4CC"># Output</span></span>
+<span class="line"><span style="--shiki-light:#6A737D;--shiki-dark:#BDC4CC"># ==============================</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">$results </span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">|</span></span>
+<span class="line"><span style="--shiki-light:#005CC5;--shiki-dark:#91CBFF">    Where-Object</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6"> { </span><span style="--shiki-light:#005CC5;--shiki-dark:#91CBFF">$_</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">.RiskStatus </span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">-eq</span><span style="--shiki-light:#032F62;--shiki-dark:#ADDCFF"> 'MFA Gap'</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6"> } </span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">|</span></span>
+<span class="line"><span style="--shiki-light:#005CC5;--shiki-dark:#91CBFF">    Sort-Object</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6"> ExcludedFromCA</span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">,</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6"> MFARegistered </span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">|</span></span>
+<span class="line"><span style="--shiki-light:#005CC5;--shiki-dark:#91CBFF">    Export-Csv</span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492"> -</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">Path </span><span style="--shiki-light:#032F62;--shiki-dark:#ADDCFF">'.\MFA-Enforcement-Gaps.csv'</span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492"> -</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">NoTypeInformation </span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">-</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">Encoding UTF8</span></span>
+<span class="line"></span>
+<span class="line"></span></code></pre></div><aside class="callout callout--note" aria-label="note"><p>Check out the <strong>Microsoft Graph PowerShell SDK</strong> to learn more at: <a href="https://learn.microsoft.com/powershell/microsoftgraph/get-started">https://learn.microsoft.com/powershell/microsoftgraph/get-started</a></p>
+</aside></section></div>
+<hr />
+<h2 id="usage">Usage</h2><ol>
+<li>Run from a secure admin workstation</li>
+<li>Ensure the executing identity has:<ul>
+<li>Global Reader or Security Reader</li>
+<li>Graph API consent for required scopes</li>
+</ul>
+</li>
+<li>Review the generated CSV:<ul>
+<li>Prioritise users excluded from Conditional Access</li>
+<li>Validate whether exclusions are intentional and justified</li>
+</ul>
+</li>
+</ol>
+<h2 id="output">Output</h2><p><strong>MFA-Enforcement-Gaps.csv</strong></p>
+<div class="table-wrap" tabindex="0" role="region" aria-label="Sample data table"><table>
+<thead>
+<tr>
+<th>Column</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>DisplayName</td>
+<td>User display name</td>
+</tr>
+<tr>
+<td>UserPrincipalName</td>
+<td>Sign-in identity</td>
+</tr>
+<tr>
+<td>MFARegistered</td>
+<td>Strong MFA methods detected</td>
+</tr>
+<tr>
+<td>ExcludedFromCA</td>
+<td>Explicit CA exclusion</td>
+</tr>
+<tr>
+<td>RiskIndicator</td>
+<td>MFA Gap / Protected</td>
+</tr>
+</tbody></table>
+</div><h2 id="notes">Notes</h2><ul>
+<li>This script focuses on effective MFA protection, not legacy per-user MFA states</li>
+<li>Conditional Access exclusions represent the highest risk signal</li>
+<li>Designed to scale across large tenants using Graph paging and filtering</li>
+<li>Suitable for scheduled execution and security reporting pipelines</li>
+</ul>
+<h2 id="contributors">Contributors</h2><div class="table-wrap" tabindex="0" role="region" aria-label="Sample data table"><table>
+<thead>
+<tr>
+<th>Author(s)</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><a href="https://github.com/ojopiyo">Josiah Opiyo</a></td>
+</tr>
+</tbody></table>
+</div><p><em>Built with a focus on automation, governance, least privilege, and clean Microsoft 365 tenants—helping M365 admins gain visibility and reduce operational risk.</em></p>
+<h2 id="version-history">Version history</h2><div class="table-wrap" tabindex="0" role="region" aria-label="Sample data table"><table>
+<thead>
+<tr>
+<th>Version</th>
+<th>Date</th>
+<th>Comments</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>1.0</td>
+<td>Jan 21, 2026</td>
+<td>Initial release</td>
+</tr>
+</tbody></table>
+</div><h2 id="disclaimer">Disclaimer</h2><p><strong>THESE SAMPLES ARE PROVIDED <em>AS IS</em> WITHOUT WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, INCLUDING ANY IMPLIED WARRANTIES OF FITNESS FOR A PARTICULAR PURPOSE, MERCHANTABILITY, OR NON-INFRINGEMENT.</strong></p>
+</div><section class="reference-section"><h2>Tool documentation &amp; references</h2><ul><li><a href="https://learn.microsoft.com/graph/powershell/get-started">Want to learn more about Microsoft Graph PowerShell SDK and the cmdlets</a><p>Check out the Microsoft Graph PowerShell SDK documentation site to get started and for the reference to the cmdlets.</p></li></ul></section><section><h2>Keep exploring</h2><div class="related-samples"><a href="/script-samples/samples/aad-restrict-groupnesting/">Restricting Group Nesting in Microsoft Entra ID Using Graph API<svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="lucide lucide-arrow-right"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg></a><a href="/script-samples/samples/aad-bulk-restore-deletedgroups/">Restore deleted Microsoft 365 &amp; Entra ID Security Groups<svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="lucide lucide-arrow-right"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg></a><a href="/script-samples/samples/teams-list-all-app-descriptions/">Get All Teams App Descriptions<svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="lucide lucide-arrow-right"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg></a></div></section></div><aside class="detail-sidebar" aria-label="Sample information"><div class="sidebar-panel"><h2>Make it your own</h2><a class="button button-primary" href="https://github.com/pnp/script-samples/tree/main/scripts/mfa-enforcement-gaps">Open source on GitHub <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="lucide lucide-arrow-up-right"><path d="M7 7h10v10"></path><path d="M7 17 17 7"></path></svg></a><a class="button button-secondary" href="https://github.com/pnp/script-samples/edit/main/scripts/mfa-enforcement-gaps/README.md">Improve this sample</a><dl><dt>Products</dt><dd><a class="product-inline" href="/script-samples/?product=graph"><img src="/script-samples/images/graph.svg" alt="" width="22" height="22" loading="lazy" decoding="async">Microsoft Graph</a></dd><dt>Tool versions from the author</dt><dd><div>Microsoft Graph PowerShell <strong>1.0.0</strong></div></dd><dt>Created</dt><dd><time datetime="2026-01-21">Jan 21, 2026</time></dd><dt>Updated</dt><dd><time datetime="2026-01-21">Jan 21, 2026</time></dd></dl></div><div class="sidebar-panel"><h2>Commands &amp; topics</h2><div class="tag-list"><a href="/script-samples/?q=%3CCmdlets-Used%3E">&lt;Cmdlets-Used&gt;</a></div></div><div class="sidebar-panel"><h2>Something not working?</h2><p class="card-description">Help the community keep this sample useful. Include the tool version, steps, and a redacted error message.</p><a class="text-link" href="https://github.com/pnp/script-samples/issues/new?title=Issue%20with%20mfa-enforcement-gaps&amp;body=Sample%3A%20https%3A%2F%2Fpnp.github.io%2Fscript-samples%2Fsamples%2Fmfa-enforcement-gaps%2F%0A%0ATool%20and%20version%3A%0A%0ASteps%20to%20reproduce%3A%0A%0AExpected%20and%20actual%20result%3A%0A%0ARemove%20tenant%20details%2C%20credentials%2C%20and%20personal%20information%20before%20submitting.">Report an issue &#8599;</a></div><div class="sidebar-panel"><h2>Built by the community</h2><a href="/script-samples/contributing/recognition/"><img class="detail-badge" src="/script-samples/assets/credly-badge.png" alt="Script Samples community contributor badge" width="160" height="160" loading="lazy" decoding="async"></a><p class="card-description">Share a sample and earn your contributor badge.</p><a class="text-link" href="/script-samples/contributing/">Get involved &#8594;</a></div></aside></div></div></main><footer class="site-footer"><div class="container footer-inner"><div><strong>Microsoft 365 &amp; Power Platform Community</strong><p>Built by the community, for the community.</p></div><nav aria-label="Footer navigation"><a href="https://aka.ms/community/home">Community home &#8599;</a><a href="/script-samples/catalog.json">Catalog JSON</a><a href="/script-samples/schemas/sample.schema.json">Metadata schema</a><a href="/script-samples/reports/">Catalog reports</a><a href="/script-samples/contributing/recognition/">Contributor badge</a><a href="https://github.com/pnp/script-samples/issues/new">Report an issue</a><a href="https://opensource.microsoft.com/codeofconduct/">Code of conduct</a><a href="https://github.com/pnp/script-samples/blob/main/LICENSE">MIT license</a></nav></div></footer><p class="sr-only" id="site-status" role="status" aria-live="polite"></p><img class="sr-only" data-visitor-stats data-tracker-src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/mfa-enforcement-gaps" data-tracking-enabled="true" src="data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=" alt="" width="1" height="1" aria-hidden="true"><script type="module" src="/script-samples/_astro/Layout.astro_astro_type_script_index_0_lang.DaWAalj3.js"></script></body></html><script type="module" src="/script-samples/_astro/_slug_.astro_astro_type_script_index_0_lang.BIay2qYY.js"></script>

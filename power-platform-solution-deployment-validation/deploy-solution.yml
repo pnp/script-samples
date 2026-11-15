@@ -1,0 +1,251 @@
+name: Power Platform Deployment Pipeline
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: windows-latest
+
+    env:
+      PP_SOLUTION_NAME: ${{ vars.PP_SOLUTION_NAME }}
+
+    steps:
+
+      # Step 1: Checkout repository
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      # Step 2: Validate pipeline configuration
+      - name: Validate solution configuration
+        shell: pwsh
+        env:
+          PP_ENV_URL: ${{ secrets.PP_ENV_URL }}
+          PP_ENV_TARGET_URL: ${{ secrets.PP_ENV_TARGET_URL }}
+          PP_APP_ID: ${{ secrets.PP_APP_ID }}
+          PP_CLIENT_SECRET: ${{ secrets.PP_CLIENT_SECRET }}
+          PP_TENANT_ID: ${{ secrets.PP_TENANT_ID }}
+        run: |
+          $requiredConfiguration = @{
+            "PP_SOLUTION_NAME"   = $env:PP_SOLUTION_NAME
+            "PP_ENV_URL"         = $env:PP_ENV_URL
+            "PP_ENV_TARGET_URL"  = $env:PP_ENV_TARGET_URL
+            "PP_APP_ID"          = $env:PP_APP_ID
+            "PP_CLIENT_SECRET"   = $env:PP_CLIENT_SECRET
+            "PP_TENANT_ID"       = $env:PP_TENANT_ID
+          }
+
+          foreach ($item in $requiredConfiguration.GetEnumerator()) {
+            if ([string]::IsNullOrWhiteSpace($item.Value)) {
+              throw "Required pipeline configuration '$($item.Key)' has not been set."
+            }
+          }
+
+          Write-Host "Required pipeline configuration is present."
+
+      # Step 3: Install Power Platform CLI
+      - name: Install Power Platform CLI
+        shell: pwsh
+        run: |
+          dotnet tool install --global Microsoft.PowerApps.CLI.Tool
+
+          if ($LASTEXITCODE -ne 0) {
+            throw "Power Platform CLI installation failed with exit code $LASTEXITCODE."
+          }
+
+          $env:PATH += ";$env:USERPROFILE\.dotnet\tools"
+
+          pac
+
+          if ($LASTEXITCODE -ne 0) {
+            throw "Power Platform CLI check failed with exit code $LASTEXITCODE."
+          }
+
+      # Step 4: Authenticate to source environment
+      - name: Authenticate to source environment
+        shell: pwsh
+        run: |
+          pac auth create `
+            --environment $env:PP_ENV_URL `
+            --applicationId $env:PP_APP_ID `
+            --clientSecret $env:PP_CLIENT_SECRET `
+            --tenant $env:PP_TENANT_ID
+
+          if ($LASTEXITCODE -ne 0) {
+            throw "Source environment authentication failed with exit code $LASTEXITCODE."
+          }
+        env:
+          PP_ENV_URL: ${{ secrets.PP_ENV_URL }}
+          PP_APP_ID: ${{ secrets.PP_APP_ID }}
+          PP_CLIENT_SECRET: ${{ secrets.PP_CLIENT_SECRET }}
+          PP_TENANT_ID: ${{ secrets.PP_TENANT_ID }}
+
+      # Step 5: Export solution from source environment
+      - name: Export solution from source environment
+        shell: pwsh
+        run: |
+          $solutionsPath = Join-Path (Resolve-Path .).Path "Solutions"
+          $exportPath = Join-Path $solutionsPath "$($env:PP_SOLUTION_NAME).zip"
+
+          ./scripts/ExportSolution.ps1 `
+            -EnvironmentUrl $env:PP_ENV_URL `
+            -SolutionName $env:PP_SOLUTION_NAME `
+            -ExportPath $exportPath
+        env:
+          PP_ENV_URL: ${{ secrets.PP_ENV_URL }}
+
+      # Step 6: Download SolutionPackager
+      - name: Download SolutionPackager
+        shell: pwsh
+        run: |
+          $toolsPath = Join-Path (Resolve-Path .).Path "tools"
+
+          if (!(Test-Path -LiteralPath $toolsPath)) {
+            New-Item -ItemType Directory -Path $toolsPath -Force | Out-Null
+          }
+
+          $nugetUrl = "https://www.nuget.org/api/v2/package/Microsoft.CrmSdk.CoreTools"
+          $downloadPath = Join-Path $toolsPath "CoreTools.nupkg"
+          $extractPath = Join-Path $toolsPath "CoreTools"
+
+          Invoke-WebRequest `
+            -Uri $nugetUrl `
+            -OutFile $downloadPath
+
+          Expand-Archive `
+            -LiteralPath $downloadPath `
+            -DestinationPath $extractPath `
+            -Force
+
+          $solutionPackagerPath = Join-Path `
+            $extractPath `
+            "content\bin\coretools\SolutionPackager.exe"
+
+          if (!(Test-Path -LiteralPath $solutionPackagerPath -PathType Leaf)) {
+            throw "SolutionPackager.exe was not found after extraction."
+          }
+
+          Write-Host "SolutionPackager.exe downloaded successfully."
+
+      # Step 7: Unpack solution
+      - name: Unpack solution
+        shell: pwsh
+        run: |
+          $repositoryPath = (Resolve-Path .).Path
+
+          $solutionZip = Join-Path `
+            $repositoryPath `
+            "Solutions\$($env:PP_SOLUTION_NAME).zip"
+
+          $unpackPath = Join-Path `
+            $repositoryPath `
+            "UnpackedSolution"
+
+          $solutionPackagerPath = Join-Path `
+            $repositoryPath `
+            "tools\CoreTools\content\bin\coretools\SolutionPackager.exe"
+
+          if (!(Test-Path -LiteralPath $solutionZip -PathType Leaf)) {
+            throw "Exported solution was not found at '$solutionZip'."
+          }
+
+          if (!(Test-Path -LiteralPath $solutionPackagerPath -PathType Leaf)) {
+            throw "SolutionPackager.exe was not found at '$solutionPackagerPath'."
+          }
+
+          & $solutionPackagerPath `
+            /action:Extract `
+            "/zipfile:$solutionZip" `
+            "/folder:$unpackPath" `
+            /packagetype:Unmanaged
+
+          if ($LASTEXITCODE -ne 0) {
+            throw "SolutionPackager failed with exit code $LASTEXITCODE."
+          }
+
+          if (!(Test-Path -LiteralPath $unpackPath -PathType Container)) {
+            throw "Solution unpacking did not create '$unpackPath'."
+          }
+
+          Write-Host "Solution unpacked successfully."
+
+      # Step 8: Run pre-deployment validation
+      - name: Run pre-deployment validation
+        shell: pwsh
+        run: |
+          $repositoryPath = (Resolve-Path .).Path
+
+          $solutionPath = Join-Path `
+            $repositoryPath `
+            "UnpackedSolution"
+
+          $solutionZip = Join-Path `
+            $repositoryPath `
+            "Solutions\$($env:PP_SOLUTION_NAME).zip"
+
+          $solutionPackagerPath = Join-Path `
+            $repositoryPath `
+            "tools\CoreTools\content\bin\coretools\SolutionPackager.exe"
+
+          $reportPath = Join-Path `
+            $repositoryPath `
+            "validation-report.json"
+
+          & ./scripts/validate-solution.ps1 `
+            -solutionPath $solutionPath `
+            -solutionZip $solutionZip `
+            -solutionPackagerPath $solutionPackagerPath `
+            -ReportPath $reportPath
+
+          if ($LASTEXITCODE -ne 0) {
+            throw "Solution validation failed. Deployment has been blocked."
+          }
+
+          Write-Host "Pre-deployment validation passed."
+
+      # Step 9: Authenticate to target environment
+      - name: Authenticate to target environment
+        shell: pwsh
+        run: |
+          pac auth create `
+            --environment $env:PP_ENV_TARGET_URL `
+            --applicationId $env:PP_APP_ID `
+            --clientSecret $env:PP_CLIENT_SECRET `
+            --tenant $env:PP_TENANT_ID
+
+          if ($LASTEXITCODE -ne 0) {
+            throw "Target environment authentication failed with exit code $LASTEXITCODE."
+          }
+        env:
+          PP_ENV_TARGET_URL: ${{ secrets.PP_ENV_TARGET_URL }}
+          PP_APP_ID: ${{ secrets.PP_APP_ID }}
+          PP_CLIENT_SECRET: ${{ secrets.PP_CLIENT_SECRET }}
+          PP_TENANT_ID: ${{ secrets.PP_TENANT_ID }}
+
+      # Step 10: Import solution into target environment
+      - name: Import solution into target environment
+        shell: pwsh
+        run: |
+          $solutionsPath = Join-Path (Resolve-Path .).Path "Solutions"
+
+          $solutionZip = Join-Path `
+            $solutionsPath `
+            "$($env:PP_SOLUTION_NAME).zip"
+
+          if (!(Test-Path -LiteralPath $solutionZip -PathType Leaf)) {
+            throw "Solution package was not found at '$solutionZip'."
+          }
+
+          pac solution import `
+            --path $solutionZip `
+            --force-overwrite `
+            --publish-changes
+
+          if ($LASTEXITCODE -ne 0) {
+            throw "Solution import failed with exit code $LASTEXITCODE."
+          }
+
+          Write-Host "Solution deployed successfully to the target environment."

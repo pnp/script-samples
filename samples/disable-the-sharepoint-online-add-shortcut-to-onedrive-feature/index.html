@@ -1,0 +1,174 @@
+<!DOCTYPE html><html lang="en" data-theme="light"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="description" content="Disable the Add Shortcut to OneDrive feature at the SharePoint Online tenant level using certificate-based authentication."><meta name="generator" content="Astro v7.3.6"><meta name="theme-color" id="theme-color" content="#f2f4f5"><title>Disable the SharePoint Online Add Shortcut to OneDrive Feature | Community Script Samples</title><link rel="icon" href="/script-samples/images/parker-ms-300.png" type="image/png"><link rel="canonical" href="https://pnp.github.io/script-samples/samples/disable-the-sharepoint-online-add-shortcut-to-onedrive-feature/"><meta property="og:type" content="website"><meta property="og:site_name" content="Community Script Samples"><meta property="og:title" content="Disable the SharePoint Online Add Shortcut to OneDrive Feature | Community Script Samples"><meta property="og:description" content="Disable the Add Shortcut to OneDrive feature at the SharePoint Online tenant level using certificate-based authentication."><meta property="og:url" content="https://pnp.github.io/script-samples/samples/disable-the-sharepoint-online-add-shortcut-to-onedrive-feature/"><meta property="og:image" content="https://pnp.github.io/script-samples/disable-the-sharepoint-online-add-shortcut-to-onedrive-feature/assets/preview.png"><meta name="twitter:card" content="summary_large_image"><script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"Community Script Samples","url":"https://pnp.github.io/script-samples/","description":"Disable the Add Shortcut to OneDrive feature at the SharePoint Online tenant level using certificate-based authentication."}</script><script>
+      document.documentElement.classList.add("js");
+      try {
+        const theme = localStorage.getItem("community-script-samples-theme") === "dark" ? "dark" : "light";
+        document.documentElement.dataset.theme = theme;
+        document.documentElement.style.colorScheme = theme;
+      } catch (error) {
+        console.warn("Theme storage is unavailable; using light mode for this visit.", error);
+      }
+    </script><link rel="stylesheet" href="/script-samples/_astro/Layout.BviIPkCI.css"></head><body><a class="skip-link" href="#main-content">Skip to content</a><header class="site-header"><div class="spectrum" aria-hidden="true"></div><div class="container header-inner"><a class="brand" href="/script-samples/" aria-label="Community Script Samples home"><img src="/script-samples/images/parker-ms-300.png" alt="" width="35" height="45"><span class="brand-name"><span>Community</span> <strong>Script Samples</strong></span></a><div class="header-actions"><nav class="desktop-nav" aria-label="Primary navigation"><a href="https://aka.ms/community/home">Community <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="lucide lucide-arrow-up-right"><path d="M7 7h10v10"></path><path d="M7 17 17 7"></path></svg></a><a href="/script-samples/" aria-current="page">Samples</a><a href="/script-samples/getting-started/">Getting started</a><a href="/script-samples/contributors/">Contributors</a><a href="/script-samples/contributing/">Contributing</a><a href="https://github.com/pnp/script-samples"><svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="lucide lucide-git-fork"><circle cx="12" cy="18" r="3"></circle><circle cx="6" cy="6" r="3"></circle><circle cx="18" cy="6" r="3"></circle><path d="M18 9v2c0 .6-.4 1-1 1H7c-.6 0-1-.4-1-1V9"></path><path d="M12 12v3"></path></svg> GitHub</a></nav><button class="theme-toggle" id="theme-toggle" type="button" role="switch" aria-checked="false" aria-label="Switch to dark mode" title="Switch to dark mode"><span class="theme-icons" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="lucide lucide-sun"><circle cx="12" cy="12" r="4"></circle><path d="M12 2v2"></path><path d="M12 20v2"></path><path d="m4.93 4.93 1.41 1.41"></path><path d="m17.66 17.66 1.41 1.41"></path><path d="M2 12h2"></path><path d="M20 12h2"></path><path d="m6.34 17.66-1.41 1.41"></path><path d="m19.07 4.93-1.41 1.41"></path></svg><svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="lucide lucide-moon"><path d="M20.985 12.486a9 9 0 1 1-9.473-9.472c.405-.022.617.46.402.803a6 6 0 0 0 8.268 8.268c.344-.215.825-.004.803.401"></path></svg></span></button><details class="mobile-nav"><summary aria-label="Open navigation"><svg xmlns="http://www.w3.org/2000/svg" width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="lucide lucide-menu"><path d="M4 5h16"></path><path d="M4 12h16"></path><path d="M4 19h16"></path></svg></summary><nav aria-label="Mobile navigation"><a href="https://aka.ms/community/home">Community <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="lucide lucide-arrow-up-right"><path d="M7 7h10v10"></path><path d="M7 17 17 7"></path></svg></a><a href="/script-samples/" aria-current="page">Samples</a><a href="/script-samples/getting-started/">Getting started</a><a href="/script-samples/contributors/">Contributors</a><a href="/script-samples/contributing/">Contributing</a><a href="https://github.com/pnp/script-samples">GitHub</a></nav></details></div></div></header><main id="main-content" tabindex="-1"><div class="container detail-section"><nav class="breadcrumbs" aria-label="Breadcrumb"><a href="/script-samples/" id="back-to-samples">All samples</a><span aria-hidden="true">/</span><span>Configure</span></nav><header class="detail-header"><span class="scenario-tag">Configure / Security</span><h1>Disable the SharePoint Online Add Shortcut to OneDrive Feature</h1><p>Disable the Add Shortcut to OneDrive feature at the SharePoint Online tenant level using certificate-based authentication.</p><div class="detail-byline"><a class="card-author" href="https://github.com/ojopiyo"><img class="avatar" src="https://github.com/ojopiyo.png?size=64" alt="" width="30" height="30" loading="lazy" decoding="async" data-avatar="Josiah Opiyo">Josiah Opiyo</a><span>Updated <time datetime="2026-08-07">Aug 7, 2026</time></span><a href="https://github.com/pnp/script-samples/tree/main/scripts/disable-the-sharepoint-online-add-shortcut-to-onedrive-feature">View on GitHub <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="lucide lucide-arrow-up-right"><path d="M7 7h10v10"></path><path d="M7 17 17 7"></path></svg></a></div></header><div class="detail-layout"><div class="detail-main"><aside class="safety-note" aria-label="Before you run"><strong>Understand it. Adapt it. Test it first.</strong><p>Review the full script, prerequisites, and required permissions. Test against non-production data before making changes. Samples are community contributions, provided as-is; an update date is not a claim of recent testing.</p></aside><div class="readme-content" id="sample-readme"><h2 id="summary">Summary</h2><p>This PowerShell script connects to the SharePoint Online Tenant Administration site using certificate-based authentication and disables the Add Shortcut to OneDrive feature at the tenant level.</p>
+<p>The script is designed for unattended execution using an Azure AD application and certificate, making it suitable for scheduled tasks, automation platforms, and enterprise administration. It includes execution logging, error handling, and clean session termination to support reliable operation in production environments.</p>
+<p><img src="/script-samples/disable-the-sharepoint-online-add-shortcut-to-onedrive-feature/assets/preview.png" alt="Example Screenshot" loading="lazy" decoding="async" /></p>
+<h2 id="why-it-matters">Why It Matters</h2><p>The Add Shortcut to OneDrive feature blurs the line between personal storage and shared organisational content. While it can be convenient in small or simple environments, it often introduces complexity at scale. Shortcuts behave differently from traditional sync connections, and when they break - due to permission changes, site restructuring, or sync conflicts - users experience errors they don't understand and support teams inherit the fallout.</p>
+<p>By disabling the feature, organisations reduce confusion between synced libraries and shortcuts, simplify troubleshooting, and prevent duplicate sync behaviours that frequently lead to OneDrive instability. It also supports a more consistent document access strategy, ensuring users work directly in SharePoint or Teams rather than creating ad-hoc personal views of shared content. For organisations focused on governance, compliance, or large-scale migrations, removing shortcuts eliminates a fragile layer that can undermine structure and reliability.</p>
+<p>Ultimately, disabling this setting gives administrators greater control over how content is accessed and synced across the tenant - resulting in a cleaner user experience, fewer support tickets, and a more predictable information architecture.</p>
+<h2 id="benefits">Benefits</h2><ul>
+<li>Uses modern certificate-based authentication (no interactive sign-in required).</li>
+<li>Suitable for automation and scheduled execution.</li>
+<li>Supports enterprise-scale Microsoft 365 tenants.</li>
+<li>Provides execution logging for operational visibility.</li>
+<li>Includes error handling and clean session disconnection.</li>
+<li>Eliminates manual configuration through the SharePoint Admin Center.</li>
+<li>Easily incorporated into tenant configuration baselines and deployment pipelines.</li>
+</ul>
+<h2 id="prerequisites">Prerequisites</h2><ul>
+<li>PnP PowerShell installed.</li>
+<li>An Azure AD App Registration configured for certificate authentication.</li>
+<li>Certificate installed on the execution host.</li>
+<li>Appropriate SharePoint Online application permissions with admin consent.</li>
+<li>SharePoint Administrator or Global Administrator equivalent permissions for the registered application.</li>
+</ul>
+<h2 id="configuration">Configuration</h2><p>Update the following variables before execution:</p>
+<div class="table-wrap" tabindex="0" role="region" aria-label="Sample data table"><table>
+<thead>
+<tr>
+<th>Variable</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>$TenantAdminURL</code></td>
+<td>SharePoint Online Tenant Administration URL</td>
+</tr>
+<tr>
+<td><code>$ClientID</code></td>
+<td>Azure AD Application (Client) ID</td>
+</tr>
+<tr>
+<td><code>$ThumbPrint</code></td>
+<td>Certificate thumbprint</td>
+</tr>
+<tr>
+<td><code>$Tenant</code></td>
+<td>Microsoft 365 tenant name (e.g. <code>contoso.onmicrosoft.com</code>)</td>
+</tr>
+</tbody></table>
+</div>
+<div class="readme-tabs" data-tabs><div class="tool-tabs" role="tablist" aria-label="Script implementations"><button type="button" role="tab" id="tools-0-pnpps" data-tab-id="pnpps" aria-controls="tools-0-panel-0" aria-selected="true" tabindex="0">PnP PowerShell</button></div><section role="tabpanel" id="tools-0-panel-0" aria-labelledby="tools-0-pnpps" tabindex="0"><div class="code-frame"><div class="code-toolbar"><span>powershell</span><button type="button" class="copy-code" data-copy-code="code-0" aria-label="Copy powershell code">Copy code</button></div><pre id="code-0" role="region" tabindex="0" aria-label="powershell script" class="shiki shiki-themes github-light github-dark-high-contrast" style="--shiki-light:#24292e;--shiki-dark:#f0f3f6;--shiki-light-bg:#fff;--shiki-dark-bg:#0a0c10"><code><span class="line"><span style="--shiki-light:#6A737D;--shiki-dark:#BDC4CC"># ============================================================================</span></span>
+<span class="line"><span style="--shiki-light:#6A737D;--shiki-dark:#BDC4CC"># Purpose:</span></span>
+<span class="line"><span style="--shiki-light:#6A737D;--shiki-dark:#BDC4CC">#   Disables the "Add Shortcut to OneDrive" feature at the SharePoint Online</span></span>
+<span class="line"><span style="--shiki-light:#6A737D;--shiki-dark:#BDC4CC">#   tenant level.</span></span>
+<span class="line"><span style="--shiki-light:#6A737D;--shiki-dark:#BDC4CC">#</span></span>
+<span class="line"><span style="--shiki-light:#6A737D;--shiki-dark:#BDC4CC"># Why:</span></span>
+<span class="line"><span style="--shiki-light:#6A737D;--shiki-dark:#BDC4CC">#   Prevents users from creating OneDrive shortcuts to SharePoint folders.</span></span>
+<span class="line"><span style="--shiki-light:#6A737D;--shiki-dark:#BDC4CC">#</span></span>
+<span class="line"><span style="--shiki-light:#6A737D;--shiki-dark:#BDC4CC"># Run As:</span></span>
+<span class="line"><span style="--shiki-light:#6A737D;--shiki-dark:#BDC4CC">#   Azure AD App Registration using certificate authentication.</span></span>
+<span class="line"><span style="--shiki-light:#6A737D;--shiki-dark:#BDC4CC"># ============================================================================</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#6A737D;--shiki-dark:#BDC4CC"># ======================================================</span></span>
+<span class="line"><span style="--shiki-light:#6A737D;--shiki-dark:#BDC4CC"># Configuration </span></span>
+<span class="line"><span style="--shiki-light:#6A737D;--shiki-dark:#BDC4CC"># ======================================================</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">$TenantAdminURL </span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">=</span><span style="--shiki-light:#032F62;--shiki-dark:#ADDCFF"> "https://contoso-admin.sharepoint.com"</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">$ClientID       </span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">=</span><span style="--shiki-light:#032F62;--shiki-dark:#ADDCFF"> "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">$ThumbPrint     </span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">=</span><span style="--shiki-light:#032F62;--shiki-dark:#ADDCFF"> "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">$Tenant         </span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">=</span><span style="--shiki-light:#032F62;--shiki-dark:#ADDCFF"> "contoso.onmicrosoft.com"</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#6A737D;--shiki-dark:#BDC4CC"># ======================================================</span></span>
+<span class="line"><span style="--shiki-light:#6A737D;--shiki-dark:#BDC4CC"># Script Information </span></span>
+<span class="line"><span style="--shiki-light:#6A737D;--shiki-dark:#BDC4CC"># ======================================================</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">$RunDate </span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">=</span><span style="--shiki-light:#005CC5;--shiki-dark:#91CBFF"> Get-Date</span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492"> -</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">Format </span><span style="--shiki-light:#032F62;--shiki-dark:#ADDCFF">"yyyy-MM-dd HH:mm:ss"</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">$RunBy   </span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">=</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6"> [</span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">System.Security.Principal.WindowsIdentity</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">]::GetCurrent().Name</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#005CC5;--shiki-dark:#91CBFF">Write-Host</span><span style="--shiki-light:#032F62;--shiki-dark:#ADDCFF"> "=================================================="</span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492"> -</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">ForegroundColor Cyan</span></span>
+<span class="line"><span style="--shiki-light:#005CC5;--shiki-dark:#91CBFF">Write-Host</span><span style="--shiki-light:#032F62;--shiki-dark:#ADDCFF"> "Disable 'Add Shortcut to OneDrive'"</span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492"> -</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">ForegroundColor Cyan</span></span>
+<span class="line"><span style="--shiki-light:#005CC5;--shiki-dark:#91CBFF">Write-Host</span><span style="--shiki-light:#032F62;--shiki-dark:#ADDCFF"> "Started : </span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">$RunDate</span><span style="--shiki-light:#032F62;--shiki-dark:#ADDCFF">"</span></span>
+<span class="line"><span style="--shiki-light:#005CC5;--shiki-dark:#91CBFF">Write-Host</span><span style="--shiki-light:#032F62;--shiki-dark:#ADDCFF"> "Executed by : </span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">$RunBy</span><span style="--shiki-light:#032F62;--shiki-dark:#ADDCFF">"</span></span>
+<span class="line"><span style="--shiki-light:#005CC5;--shiki-dark:#91CBFF">Write-Host</span><span style="--shiki-light:#032F62;--shiki-dark:#ADDCFF"> "=================================================="</span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492"> -</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">ForegroundColor Cyan</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">try</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6"> {</span></span>
+<span class="line"><span style="--shiki-light:#6A737D;--shiki-dark:#BDC4CC">    # Connect to the SharePoint Online tenant administration site</span></span>
+<span class="line"><span style="--shiki-light:#6A737D;--shiki-dark:#BDC4CC">    # using certificate-based authentication.</span></span>
+<span class="line"><span style="--shiki-light:#005CC5;--shiki-dark:#91CBFF">    Write-Host</span><span style="--shiki-light:#032F62;--shiki-dark:#ADDCFF"> "Connecting to SharePoint Online tenant admin site..."</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#005CC5;--shiki-dark:#91CBFF">    Connect-PnPOnline</span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492"> `</span></span>
+<span class="line"><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">        -</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">Url $TenantAdminURL </span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">`</span></span>
+<span class="line"><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">        -</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">ClientId $ClientID </span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">`</span></span>
+<span class="line"><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">        -</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">Thumbprint $ThumbPrint </span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">`</span></span>
+<span class="line"><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">        -</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">Tenant $Tenant </span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">`</span></span>
+<span class="line"><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">        -</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">ErrorAction Stop</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#6A737D;--shiki-dark:#BDC4CC">    # Apply the tenant setting to disable the</span></span>
+<span class="line"><span style="--shiki-light:#6A737D;--shiki-dark:#BDC4CC">    # "Add Shortcut to OneDrive" feature.</span></span>
+<span class="line"><span style="--shiki-light:#005CC5;--shiki-dark:#91CBFF">    Write-Host</span><span style="--shiki-light:#032F62;--shiki-dark:#ADDCFF"> "Applying tenant setting: DisableAddToOneDrive = True"</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#005CC5;--shiki-dark:#91CBFF">    Set-PnPTenant</span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492"> `</span></span>
+<span class="line"><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">        -</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">DisableAddToOneDrive </span><span style="--shiki-light:#005CC5;--shiki-dark:#91CBFF">$true</span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492"> `</span></span>
+<span class="line"><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">        -</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">ErrorAction Stop</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#005CC5;--shiki-dark:#91CBFF">    Write-Host</span><span style="--shiki-light:#032F62;--shiki-dark:#ADDCFF"> "Tenant setting updated successfully."</span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492"> -</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">ForegroundColor Green</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">}</span></span>
+<span class="line"><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">catch</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6"> {</span></span>
+<span class="line"><span style="--shiki-light:#005CC5;--shiki-dark:#91CBFF">    Write-Error</span><span style="--shiki-light:#032F62;--shiki-dark:#ADDCFF"> "Script failed: </span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">$</span><span style="--shiki-light:#032F62;--shiki-dark:#FF9492">(</span><span style="--shiki-light:#005CC5;--shiki-dark:#91CBFF">$_</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">.Exception.Message</span><span style="--shiki-light:#032F62;--shiki-dark:#FF9492">)</span><span style="--shiki-light:#032F62;--shiki-dark:#ADDCFF">"</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">}</span></span>
+<span class="line"><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">finally</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6"> {</span></span>
+<span class="line"><span style="--shiki-light:#005CC5;--shiki-dark:#91CBFF">    Write-Host</span><span style="--shiki-light:#032F62;--shiki-dark:#ADDCFF"> "Disconnecting from SharePoint Online..."</span></span>
+<span class="line"><span style="--shiki-light:#005CC5;--shiki-dark:#91CBFF">    Disconnect-PnPOnline</span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492"> -</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">ErrorAction SilentlyContinue</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#005CC5;--shiki-dark:#91CBFF">    Write-Host</span><span style="--shiki-light:#032F62;--shiki-dark:#ADDCFF"> "Completed: </span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">$</span><span style="--shiki-light:#032F62;--shiki-dark:#FF9492">(</span><span style="--shiki-light:#005CC5;--shiki-dark:#91CBFF">Get-Date</span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492"> -</span><span style="--shiki-light:#032F62;--shiki-dark:#ADDCFF">Format </span><span style="--shiki-light:#032F62;--shiki-dark:#ADDCFF">'yyyy-MM-dd HH:mm:ss'</span><span style="--shiki-light:#032F62;--shiki-dark:#FF9492">)</span><span style="--shiki-light:#032F62;--shiki-dark:#ADDCFF">"</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">}</span></span>
+<span class="line"></span></code></pre></div><aside class="callout callout--note" aria-label="note"><p>Check out the <strong>PnP PowerShell</strong> to learn more at: <a href="https://aka.ms/pnp/powershell">https://aka.ms/pnp/powershell</a>
+The way you login into PnP PowerShell has changed please read <a href="https://github.com/pnp/powershell/discussions/4249">PnP Management Shell EntraID app is deleted : what should I do ?</a> </p>
+</aside><h2 id="usage">Usage</h2><ol>
+<li>Configure the authentication variables.</li>
+<li>Execute the script using PowerShell.</li>
+<li>The script connects to the SharePoint Online Admin Center.</li>
+<li>The tenant setting is updated.</li>
+<li>The session is disconnected automatically.</li>
+</ol>
+<h2 id="output">Output</h2><p>The script provides console output including:</p>
+<ul>
+<li>Script start time</li>
+<li>User executing the script</li>
+<li>Connection status</li>
+<li>Tenant configuration update status</li>
+<li>Completion time</li>
+<li>Error details (if applicable)</li>
+</ul>
+<h2 id="notes">Notes</h2><ul>
+<li>The setting is applied at the tenant level and affects all users.</li>
+<li>Changes may take time to propagate throughout Microsoft 365.</li>
+<li>The script is idempotent and can be executed multiple times without adverse effects.</li>
+<li>Certificate-based authentication is recommended for production automation over interactive authentication.</li>
+</ul>
+</section></div>
+<h2 id="contributors">Contributors</h2><div class="table-wrap" tabindex="0" role="region" aria-label="Sample data table"><table>
+<thead>
+<tr>
+<th>Author(s)</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><a href="https://github.com/ojopiyo">Josiah Opiyo</a></td>
+</tr>
+</tbody></table>
+</div><p><em>Built with a focus on automation, governance, least privilege, and clean Microsoft 365 tenants-helping M365 admins gain visibility and reduce operational risk.</em></p>
+<h2 id="version-history">Version history</h2><div class="table-wrap" tabindex="0" role="region" aria-label="Sample data table"><table>
+<thead>
+<tr>
+<th>Version</th>
+<th>Date</th>
+<th>Comments</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>1.0</td>
+<td>August 07, 2026</td>
+<td>Initial release</td>
+</tr>
+</tbody></table>
+</div><h2 id="disclaimer">Disclaimer</h2><p><strong>THESE SAMPLES ARE PROVIDED <em>AS IS</em> WITHOUT WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, INCLUDING ANY IMPLIED WARRANTIES OF FITNESS FOR A PARTICULAR PURPOSE, MERCHANTABILITY, OR NON-INFRINGEMENT.</strong></p>
+</div><section class="reference-section"><h2>Tool documentation &amp; references</h2><ul><li><a href="https://aka.ms/pnp/powershell">Want to learn more about PnP PowerShell and the cmdlets</a><p>Check out the PnP PowerShell site to get started and for the reference to the cmdlets.</p></li></ul></section><section><h2>Keep exploring</h2><div class="related-samples"><a href="/script-samples/samples/spo-update-herolink-sharingsetting/">Update Hero Link sharing settings<svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="lucide lucide-arrow-right"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg></a><a href="/script-samples/samples/spo-reset-herolink/">How to reset hero link<svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="lucide lucide-arrow-right"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg></a><a href="/script-samples/samples/spo-update-herolink/">Update Hero Link to &#39;Only people added to the file have access&#39;<svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="lucide lucide-arrow-right"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg></a></div></section></div><aside class="detail-sidebar" aria-label="Sample information"><div class="sidebar-panel"><h2>Make it your own</h2><a class="button button-primary" href="https://github.com/pnp/script-samples/tree/main/scripts/disable-the-sharepoint-online-add-shortcut-to-onedrive-feature">Open source on GitHub <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="lucide lucide-arrow-up-right"><path d="M7 7h10v10"></path><path d="M7 17 17 7"></path></svg></a><a class="button button-secondary" href="https://github.com/pnp/script-samples/edit/main/scripts/disable-the-sharepoint-online-add-shortcut-to-onedrive-feature/README.md">Improve this sample</a><dl><dt>Products</dt><dd><a class="product-inline" href="/script-samples/?product=sharepoint"><img src="/script-samples/images/SharePoint_512.png" alt="" width="22" height="22" loading="lazy" decoding="async">SharePoint</a><a class="product-inline" href="/script-samples/?product=microsoft-365"><img src="/script-samples/images/office.svg" alt="" width="22" height="22" loading="lazy" decoding="async">Microsoft 365</a></dd><dt>Tool versions from the author</dt><dd><div>PnP PowerShell <strong>2.12.0</strong></div></dd><dt>Created</dt><dd><time datetime="2026-08-07">Aug 7, 2026</time></dd><dt>Updated</dt><dd><time datetime="2026-08-07">Aug 7, 2026</time></dd></dl></div><div class="sidebar-panel"><h2>Commands &amp; topics</h2><div class="tag-list"><a href="/script-samples/?q=SharePoint%20Online">SharePoint Online</a><a href="/script-samples/?q=Add%20Shortcut%20to%20OneDrive">Add Shortcut to OneDrive</a><a href="https://pnp.github.io/powershell/cmdlets/Connect-PnPOnline.html">Connect-PnPOnline &#8599;</a><a href="https://pnp.github.io/powershell/cmdlets/Set-PnPTenant.html">Set-PnPTenant &#8599;</a><a href="/script-samples/?q=DisableAddToOneDrive">DisableAddToOneDrive</a><a href="/script-samples/?q=certificate%20authentication">certificate authentication</a></div></div><div class="sidebar-panel"><h2>Something not working?</h2><p class="card-description">Help the community keep this sample useful. Include the tool version, steps, and a redacted error message.</p><a class="text-link" href="https://github.com/pnp/script-samples/issues/new?title=Issue%20with%20disable-the-sharepoint-online-add-shortcut-to-onedrive-feature&amp;body=Sample%3A%20https%3A%2F%2Fpnp.github.io%2Fscript-samples%2Fsamples%2Fdisable-the-sharepoint-online-add-shortcut-to-onedrive-feature%2F%0A%0ATool%20and%20version%3A%0A%0ASteps%20to%20reproduce%3A%0A%0AExpected%20and%20actual%20result%3A%0A%0ARemove%20tenant%20details%2C%20credentials%2C%20and%20personal%20information%20before%20submitting.">Report an issue &#8599;</a></div><div class="sidebar-panel"><h2>Built by the community</h2><a href="/script-samples/contributing/recognition/"><img class="detail-badge" src="/script-samples/assets/credly-badge.png" alt="Script Samples community contributor badge" width="160" height="160" loading="lazy" decoding="async"></a><p class="card-description">Share a sample and earn your contributor badge.</p><a class="text-link" href="/script-samples/contributing/">Get involved &#8594;</a></div></aside></div></div></main><footer class="site-footer"><div class="container footer-inner"><div><strong>Microsoft 365 &amp; Power Platform Community</strong><p>Built by the community, for the community.</p></div><nav aria-label="Footer navigation"><a href="https://aka.ms/community/home">Community home &#8599;</a><a href="/script-samples/catalog.json">Catalog JSON</a><a href="/script-samples/schemas/sample.schema.json">Metadata schema</a><a href="/script-samples/reports/">Catalog reports</a><a href="/script-samples/contributing/recognition/">Contributor badge</a><a href="https://github.com/pnp/script-samples/issues/new">Report an issue</a><a href="https://opensource.microsoft.com/codeofconduct/">Code of conduct</a><a href="https://github.com/pnp/script-samples/blob/main/LICENSE">MIT license</a></nav></div></footer><p class="sr-only" id="site-status" role="status" aria-live="polite"></p><img class="sr-only" data-visitor-stats data-tracker-src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/disable-the-sharepoint-online-add-shortcut-to-onedrive-feature" data-tracking-enabled="true" src="data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=" alt="" width="1" height="1" aria-hidden="true"><script type="module" src="/script-samples/_astro/Layout.astro_astro_type_script_index_0_lang.DaWAalj3.js"></script></body></html><script type="module" src="/script-samples/_astro/_slug_.astro_astro_type_script_index_0_lang.BIay2qYY.js"></script>

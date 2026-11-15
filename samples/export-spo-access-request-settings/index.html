@@ -1,0 +1,263 @@
+<!DOCTYPE html><html lang="en" data-theme="light"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="description" content="Audit SharePoint Online access request settings across site collections and subsites."><meta name="generator" content="Astro v7.3.6"><meta name="theme-color" id="theme-color" content="#f2f4f5"><title>Export SharePoint Access Request Settings | Community Script Samples</title><link rel="icon" href="/script-samples/images/parker-ms-300.png" type="image/png"><link rel="canonical" href="https://pnp.github.io/script-samples/samples/export-spo-access-request-settings/"><meta property="og:type" content="website"><meta property="og:site_name" content="Community Script Samples"><meta property="og:title" content="Export SharePoint Access Request Settings | Community Script Samples"><meta property="og:description" content="Audit SharePoint Online access request settings across site collections and subsites."><meta property="og:url" content="https://pnp.github.io/script-samples/samples/export-spo-access-request-settings/"><meta property="og:image" content="https://pnp.github.io/script-samples/export-spo-access-request-settings/assets/preview.png"><meta name="twitter:card" content="summary_large_image"><script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"Community Script Samples","url":"https://pnp.github.io/script-samples/","description":"Audit SharePoint Online access request settings across site collections and subsites."}</script><script>
+      document.documentElement.classList.add("js");
+      try {
+        const theme = localStorage.getItem("community-script-samples-theme") === "dark" ? "dark" : "light";
+        document.documentElement.dataset.theme = theme;
+        document.documentElement.style.colorScheme = theme;
+      } catch (error) {
+        console.warn("Theme storage is unavailable; using light mode for this visit.", error);
+      }
+    </script><link rel="stylesheet" href="/script-samples/_astro/Layout.BviIPkCI.css"></head><body><a class="skip-link" href="#main-content">Skip to content</a><header class="site-header"><div class="spectrum" aria-hidden="true"></div><div class="container header-inner"><a class="brand" href="/script-samples/" aria-label="Community Script Samples home"><img src="/script-samples/images/parker-ms-300.png" alt="" width="35" height="45"><span class="brand-name"><span>Community</span> <strong>Script Samples</strong></span></a><div class="header-actions"><nav class="desktop-nav" aria-label="Primary navigation"><a href="https://aka.ms/community/home">Community <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="lucide lucide-arrow-up-right"><path d="M7 7h10v10"></path><path d="M7 17 17 7"></path></svg></a><a href="/script-samples/" aria-current="page">Samples</a><a href="/script-samples/getting-started/">Getting started</a><a href="/script-samples/contributors/">Contributors</a><a href="/script-samples/contributing/">Contributing</a><a href="https://github.com/pnp/script-samples"><svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="lucide lucide-git-fork"><circle cx="12" cy="18" r="3"></circle><circle cx="6" cy="6" r="3"></circle><circle cx="18" cy="6" r="3"></circle><path d="M18 9v2c0 .6-.4 1-1 1H7c-.6 0-1-.4-1-1V9"></path><path d="M12 12v3"></path></svg> GitHub</a></nav><button class="theme-toggle" id="theme-toggle" type="button" role="switch" aria-checked="false" aria-label="Switch to dark mode" title="Switch to dark mode"><span class="theme-icons" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="lucide lucide-sun"><circle cx="12" cy="12" r="4"></circle><path d="M12 2v2"></path><path d="M12 20v2"></path><path d="m4.93 4.93 1.41 1.41"></path><path d="m17.66 17.66 1.41 1.41"></path><path d="M2 12h2"></path><path d="M20 12h2"></path><path d="m6.34 17.66-1.41 1.41"></path><path d="m19.07 4.93-1.41 1.41"></path></svg><svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="lucide lucide-moon"><path d="M20.985 12.486a9 9 0 1 1-9.473-9.472c.405-.022.617.46.402.803a6 6 0 0 0 8.268 8.268c.344-.215.825-.004.803.401"></path></svg></span></button><details class="mobile-nav"><summary aria-label="Open navigation"><svg xmlns="http://www.w3.org/2000/svg" width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="lucide lucide-menu"><path d="M4 5h16"></path><path d="M4 12h16"></path><path d="M4 19h16"></path></svg></summary><nav aria-label="Mobile navigation"><a href="https://aka.ms/community/home">Community <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="lucide lucide-arrow-up-right"><path d="M7 7h10v10"></path><path d="M7 17 17 7"></path></svg></a><a href="/script-samples/" aria-current="page">Samples</a><a href="/script-samples/getting-started/">Getting started</a><a href="/script-samples/contributors/">Contributors</a><a href="/script-samples/contributing/">Contributing</a><a href="https://github.com/pnp/script-samples">GitHub</a></nav></details></div></div></header><main id="main-content" tabindex="-1"><div class="container detail-section"><nav class="breadcrumbs" aria-label="Breadcrumb"><a href="/script-samples/" id="back-to-samples">All samples</a><span aria-hidden="true">/</span><span>Report</span></nav><header class="detail-header"><span class="scenario-tag">Report / Security / Configure</span><h1>Export SharePoint Access Request Settings</h1><p>Audit SharePoint Online access request settings across site collections and subsites.</p><div class="detail-byline"><a class="card-author" href="https://github.com/ojopiyo"><img class="avatar" src="https://github.com/ojopiyo.png?size=64" alt="" width="30" height="30" loading="lazy" decoding="async" data-avatar="Josiah Opiyo">Josiah Opiyo</a><span>Updated <time datetime="2026-08-08">Aug 8, 2026</time></span><a href="https://github.com/pnp/script-samples/tree/main/scripts/export-spo-access-request-settings">View on GitHub <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="lucide lucide-arrow-up-right"><path d="M7 7h10v10"></path><path d="M7 17 17 7"></path></svg></a></div></header><div class="detail-layout"><div class="detail-main"><aside class="safety-note" aria-label="Before you run"><strong>Understand it. Adapt it. Test it first.</strong><p>Review the full script, prerequisites, and required permissions. Test against non-production data before making changes. Samples are community contributions, provided as-is; an update date is not a claim of recent testing.</p></aside><div class="readme-content" id="sample-readme"><h2 id="summary">Summary</h2><p>This PowerShell script audits SharePoint Online access request settings across all site collections and subsites in a Microsoft 365 tenant.</p>
+<p>It uses PnP PowerShell app-only certificate authentication, retrieves the relevant SharePoint web properties, identifies whether access requests are enabled, disabled, or inherited, and determines whether requests are configured for a specific email address or the site's associated Owners group.</p>
+<p>The results are exported to a CSV file for administrative review, compliance analysis, and remediation planning.</p>
+<p>The script uses Get-PnPSubWeb -IncludeRootWeb -Recurse to enumerate root webs and nested subsites.</p>
+<h2 id="why-it-matters">Why It Matters</h2><p>Access Request settings determine where users' requests for access to SharePoint sites are directed.</p>
+<p>In a large Microsoft 365 environment, these settings can become inconsistent following site migrations, ownership changes, legacy site creation, or changes to site permissions.</p>
+<p>For example, an administrator may need to identify:</p>
+<ul>
+<li>Sites where access requests are enabled.</li>
+<li>Sites sending requests to individual email addresses.</li>
+<li>Sites relying on their associated Owners group.</li>
+<li>Sites where settings are inherited from a parent web.</li>
+<li>Sites where access requests have been explicitly disabled.</li>
+</ul>
+<p>The resulting CSV provides a tenant-wide inventory that can be reviewed before standardising or remediating access request configuration.</p>
+<h2 id="benefits">Benefits</h2><ul>
+<li><strong>Tenant-wide visibility</strong> - Audits all included site collections and nested subsites.</li>
+<li><strong>Centralised reporting</strong> - Produces a single CSV for analysis and evidence.</li>
+<li><strong>Identifies configuration differences</strong> - Highlights email-based, Owners-group, disabled, and inherited configurations.</li>
+<li><strong>Supports governance</strong> - Helps identify legacy or inconsistent access request configurations.</li>
+<li><strong>Automation-ready</strong> - Uses certificate-based app-only authentication rather than interactive sign-in.</li>
+<li><strong>Suitable for large environments</strong> - Results are collected in memory and exported once rather than repeatedly writing to the CSV.</li>
+<li><strong>Minimal permissions footprint</strong> - The script only retrieves the information required for the audit.</li>
+</ul>
+<p>Get-PnPGroup -AssociatedOwnerGroup is the PnP-supported method used to retrieve the associated Owners group.</p>
+
+<div class="readme-tabs" data-tabs><div class="tool-tabs" role="tablist" aria-label="Script implementations"><button type="button" role="tab" id="tools-0-pnpps" data-tab-id="pnpps" aria-controls="tools-0-panel-0" aria-selected="true" tabindex="0">PnP PowerShell</button></div><section role="tabpanel" id="tools-0-panel-0" aria-labelledby="tools-0-pnpps" tabindex="0"><div class="code-frame"><div class="code-toolbar"><span>powershell</span><button type="button" class="copy-code" data-copy-code="code-0" aria-label="Copy powershell code">Copy code</button></div><pre id="code-0" role="region" tabindex="0" aria-label="powershell script" class="shiki shiki-themes github-light github-dark-high-contrast" style="--shiki-light:#24292e;--shiki-dark:#f0f3f6;--shiki-light-bg:#fff;--shiki-dark-bg:#0a0c10"><code><span class="line"><span style="--shiki-light:#6A737D;--shiki-dark:#BDC4CC"># ======================================================</span></span>
+<span class="line"><span style="--shiki-light:#6A737D;--shiki-dark:#BDC4CC"># Configuration</span></span>
+<span class="line"><span style="--shiki-light:#6A737D;--shiki-dark:#BDC4CC"># ======================================================</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">$TenantAdminURL </span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">=</span><span style="--shiki-light:#032F62;--shiki-dark:#ADDCFF"> "https://contoso-admin.sharepoint.com"</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">$ClientID       </span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">=</span><span style="--shiki-light:#032F62;--shiki-dark:#ADDCFF"> "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">$ThumbPrint     </span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">=</span><span style="--shiki-light:#032F62;--shiki-dark:#ADDCFF"> "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">$Tenant         </span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">=</span><span style="--shiki-light:#032F62;--shiki-dark:#ADDCFF"> "contoso.onmicrosoft.com"</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#6A737D;--shiki-dark:#BDC4CC"># ======================================================</span></span>
+<span class="line"><span style="--shiki-light:#6A737D;--shiki-dark:#BDC4CC"># Script Information </span></span>
+<span class="line"><span style="--shiki-light:#6A737D;--shiki-dark:#BDC4CC"># ======================================================</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">$RunDate </span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">=</span><span style="--shiki-light:#005CC5;--shiki-dark:#91CBFF"> Get-Date</span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492"> -</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">Format </span><span style="--shiki-light:#032F62;--shiki-dark:#ADDCFF">"yyyy-MM-dd HH\:mm\:ss"</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">$RunBy   </span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">=</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6"> [</span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">System.Security.Principal.WindowsIdentity</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">]::GetCurrent().Name</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#6A737D;--shiki-dark:#BDC4CC"># ---------- Output ----------</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">$CSVPath </span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">=</span><span style="--shiki-light:#032F62;--shiki-dark:#ADDCFF"> "C:\Temp\AccessRequestData.csv"</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">$Results </span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">=</span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492"> @</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">()</span></span>
+<span class="line"><span style="--shiki-light:#6A737D;--shiki-dark:#BDC4CC"># ======================================================</span></span>
+<span class="line"><span style="--shiki-light:#6A737D;--shiki-dark:#BDC4CC"># Connect to SharePoint Online (App-Only) </span></span>
+<span class="line"><span style="--shiki-light:#6A737D;--shiki-dark:#BDC4CC"># ======================================================</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#005CC5;--shiki-dark:#91CBFF"><a class="command-help" href="https://pnp.github.io/powershell/cmdlets/Connect-PnPOnline.html" title="Command documentation">Connect-PnPOnline</a></span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492"> -</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">Url $TenantAdminURL </span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">-</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">ClientId $ClientID </span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">-</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">Tenant $Tenant </span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">-</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">Thumbprint $ThumbPrint</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#6A737D;--shiki-dark:#BDC4CC"># Remove old CSV if present</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">if</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6"> (</span><span style="--shiki-light:#005CC5;--shiki-dark:#91CBFF">Test-Path</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6"> $CSVPath) {</span></span>
+<span class="line"><span style="--shiki-light:#005CC5;--shiki-dark:#91CBFF">    Remove-Item</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6"> $CSVPath </span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">-</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">Force</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#6A737D;--shiki-dark:#BDC4CC"># ======================================================</span></span>
+<span class="line"><span style="--shiki-light:#6A737D;--shiki-dark:#BDC4CC"># Get All Site Collections</span></span>
+<span class="line"><span style="--shiki-light:#6A737D;--shiki-dark:#BDC4CC"># ======================================================</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">$SiteCollections </span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">=</span><span style="--shiki-light:#005CC5;--shiki-dark:#91CBFF"> Get-PnPTenantSite</span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492"> |</span><span style="--shiki-light:#005CC5;--shiki-dark:#91CBFF"> Where-Object</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6"> {</span></span>
+<span class="line"><span style="--shiki-light:#005CC5;--shiki-dark:#91CBFF">    $_</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">.Template </span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">-notin</span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492"> @</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">(</span></span>
+<span class="line"><span style="--shiki-light:#032F62;--shiki-dark:#ADDCFF">        "SRCHCEN#0"</span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">,</span></span>
+<span class="line"><span style="--shiki-light:#032F62;--shiki-dark:#ADDCFF">        "REDIRECTSITE#0"</span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">,</span></span>
+<span class="line"><span style="--shiki-light:#032F62;--shiki-dark:#ADDCFF">        "SPSMSITEHOST#0"</span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">,</span></span>
+<span class="line"><span style="--shiki-light:#032F62;--shiki-dark:#ADDCFF">        "APPCATALOG#0"</span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">,</span></span>
+<span class="line"><span style="--shiki-light:#032F62;--shiki-dark:#ADDCFF">        "POINTPUBLISHINGHUB#0"</span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">,</span></span>
+<span class="line"><span style="--shiki-light:#032F62;--shiki-dark:#ADDCFF">        "EDISC#0"</span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">,</span></span>
+<span class="line"><span style="--shiki-light:#032F62;--shiki-dark:#ADDCFF">        "STS#-1"</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">    )</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#6A737D;--shiki-dark:#BDC4CC"># ======================================================</span></span>
+<span class="line"><span style="--shiki-light:#6A737D;--shiki-dark:#BDC4CC"># Function: Get Access Request Settings</span></span>
+<span class="line"><span style="--shiki-light:#6A737D;--shiki-dark:#BDC4CC"># ======================================================</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">function</span><span style="--shiki-light:#6F42C1;--shiki-dark:#DBB7FF"> Get-AccessRequestConfig</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6"> {</span></span>
+<span class="line"><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">    param</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">($Web)</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#005CC5;--shiki-dark:#91CBFF">    Write-Host</span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492"> -</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">ForegroundColor Yellow </span><span style="--shiki-light:#032F62;--shiki-dark:#ADDCFF">"Checking: </span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">$</span><span style="--shiki-light:#032F62;--shiki-dark:#FF9492">(</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">$Web.Url</span><span style="--shiki-light:#032F62;--shiki-dark:#FF9492">)</span><span style="--shiki-light:#032F62;--shiki-dark:#ADDCFF">"</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">    $AccessRequest       </span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">=</span><span style="--shiki-light:#032F62;--shiki-dark:#ADDCFF"> ""</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">    $EmailOrGroup        </span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">=</span><span style="--shiki-light:#032F62;--shiki-dark:#ADDCFF"> ""</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">    $AccessRequestConfig </span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">=</span><span style="--shiki-light:#032F62;--shiki-dark:#ADDCFF"> ""</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">    if</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6"> ($Web.HasUniqueRoleAssignments) {</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">        if</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6"> (</span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">-not</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6"> [</span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">string</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">]::IsNullOrEmpty($Web.RequestAccessEmail)) {</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">            $AccessRequest       </span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">=</span><span style="--shiki-light:#032F62;--shiki-dark:#ADDCFF"> "Enabled"</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">            $EmailOrGroup        </span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">=</span><span style="--shiki-light:#032F62;--shiki-dark:#ADDCFF"> "Email"</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">            $AccessRequestConfig </span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">=</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6"> $Web.RequestAccessEmail</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">        }</span></span>
+<span class="line"><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">        elseif</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6"> ($Web.UseAccessRequestDefault) {</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">            $AccessRequest </span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">=</span><span style="--shiki-light:#032F62;--shiki-dark:#ADDCFF"> "Enabled"</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">            $EmailOrGroup  </span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">=</span><span style="--shiki-light:#032F62;--shiki-dark:#ADDCFF"> "Default Owner Group"</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">            $OwnersGroup </span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">=</span><span style="--shiki-light:#005CC5;--shiki-dark:#91CBFF"> Get-PnPGroup</span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492"> -</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">AssociatedOwnerGroup </span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">-</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">ErrorAction SilentlyContinue</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">            if</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6"> (</span><span style="--shiki-light:#005CC5;--shiki-dark:#91CBFF">$null</span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492"> -ne</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6"> $OwnersGroup) {</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">                $AccessRequestConfig </span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">=</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6"> $OwnersGroup.Title</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">            }</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">        }</span></span>
+<span class="line"><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">        else</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6"> {</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">            $AccessRequest </span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">=</span><span style="--shiki-light:#032F62;--shiki-dark:#ADDCFF"> "Disabled"</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">        }</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">    }</span></span>
+<span class="line"><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">    else</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6"> {</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">        $AccessRequest </span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">=</span><span style="--shiki-light:#032F62;--shiki-dark:#ADDCFF"> "Inherited"</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">    }</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">    return</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6"> [</span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">PSCustomObject</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">]</span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">@</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">{</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">        RunDate             </span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">=</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6"> $RunDate</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">        RunBy               </span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">=</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6"> $RunBy</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">        WebUrl              </span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">=</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6"> $Web.Url</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">        AccessRequest       </span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">=</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6"> $AccessRequest</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">        EmailOrGroup        </span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">=</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6"> $EmailOrGroup</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">        AccessRequestConfig </span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">=</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6"> $AccessRequestConfig</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">    }</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#6A737D;--shiki-dark:#BDC4CC"># ======================================================</span></span>
+<span class="line"><span style="--shiki-light:#6A737D;--shiki-dark:#BDC4CC"># Process Each Site Collection</span></span>
+<span class="line"><span style="--shiki-light:#6A737D;--shiki-dark:#BDC4CC"># ======================================================</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">foreach</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6"> ($Site </span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">in</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6"> $SiteCollections) {</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#005CC5;--shiki-dark:#91CBFF">    Write-Host</span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492"> -</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">ForegroundColor Cyan </span><span style="--shiki-light:#032F62;--shiki-dark:#ADDCFF">"Connecting to site: </span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">$</span><span style="--shiki-light:#032F62;--shiki-dark:#FF9492">(</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">$Site.Url</span><span style="--shiki-light:#032F62;--shiki-dark:#FF9492">)</span><span style="--shiki-light:#032F62;--shiki-dark:#ADDCFF">"</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">    try</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6"> {</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#005CC5;--shiki-dark:#91CBFF">        Connect-PnPOnline</span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492"> `</span></span>
+<span class="line"><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">            -</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">Url $Site.Url </span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">`</span></span>
+<span class="line"><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">            -</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">ClientId $ClientID </span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">`</span></span>
+<span class="line"><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">            -</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">Tenant $Tenant </span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">`</span></span>
+<span class="line"><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">            -</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">Thumbprint $ThumbPrint </span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">`</span></span>
+<span class="line"><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">            -</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">ErrorAction Stop</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">        $Webs </span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">=</span><span style="--shiki-light:#005CC5;--shiki-dark:#91CBFF"> Get-PnPSubWeb</span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492"> -</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">IncludeRootWeb </span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">-</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">Recurse </span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">-</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">Includes </span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">`</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">            HasUniqueRoleAssignments</span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">,</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6"> RequestAccessEmail</span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">,</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6"> UseAccessRequestDefault </span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">`</span></span>
+<span class="line"><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">            -</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">ErrorAction Stop</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">        foreach</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6"> ($Web </span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">in</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6"> $Webs) {</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">            $Results </span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">+=</span><span style="--shiki-light:#005CC5;--shiki-dark:#91CBFF"> Get-AccessRequestConfig</span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492"> -</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">Web $Web</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">        }</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">    }</span></span>
+<span class="line"><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">    catch</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6"> {</span></span>
+<span class="line"><span style="--shiki-light:#005CC5;--shiki-dark:#91CBFF">        Write-Host</span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492"> -</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">ForegroundColor Red </span><span style="--shiki-light:#032F62;--shiki-dark:#ADDCFF">"Error processing </span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">$</span><span style="--shiki-light:#032F62;--shiki-dark:#FF9492">(</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">$Site.Url</span><span style="--shiki-light:#032F62;--shiki-dark:#FF9492">)</span><span style="--shiki-light:#032F62;--shiki-dark:#ADDCFF">: </span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">$</span><span style="--shiki-light:#032F62;--shiki-dark:#FF9492">(</span><span style="--shiki-light:#005CC5;--shiki-dark:#91CBFF">$_</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">.Exception.Message</span><span style="--shiki-light:#032F62;--shiki-dark:#FF9492">)</span><span style="--shiki-light:#032F62;--shiki-dark:#ADDCFF">"</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">    }</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#6A737D;--shiki-dark:#BDC4CC"># ======================================================</span></span>
+<span class="line"><span style="--shiki-light:#6A737D;--shiki-dark:#BDC4CC"># Export Final Report </span></span>
+<span class="line"><span style="--shiki-light:#6A737D;--shiki-dark:#BDC4CC"># ======================================================</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">$Results </span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">|</span><span style="--shiki-light:#005CC5;--shiki-dark:#91CBFF"> Export-Csv</span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492"> -</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">Path $CSVPath </span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">-</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">NoTypeInformation </span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">-</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">Encoding UTF8</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#005CC5;--shiki-dark:#91CBFF">Write-Host</span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492"> -</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">ForegroundColor Green </span><span style="--shiki-light:#032F62;--shiki-dark:#ADDCFF">"Access Request Report generated: </span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">$CSVPath</span><span style="--shiki-light:#032F62;--shiki-dark:#ADDCFF">"</span></span>
+<span class="line"></span></code></pre></div><aside class="callout callout--note" aria-label="note"><p>Check out the <strong>PnP PowerShell</strong> to learn more at: <a href="https://aka.ms/pnp/powershell">https://aka.ms/pnp/powershell</a>
+The way you login into PnP PowerShell has changed please read <a href="https://github.com/pnp/powershell/discussions/4249">PnP Management Shell EntraID app is deleted : what should I do ?</a> </p>
+</aside></section></div>
+<hr />
+<h2 id="output">Output</h2><p>Default output: <em>C:\Temp\AccessRequestData.csv</em></p>
+<p>The CSV contains:</p>
+<div class="table-wrap" tabindex="0" role="region" aria-label="Sample data table"><table>
+<thead>
+<tr>
+<th>Column</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>RunDate</code></td>
+<td>Date and time the audit was executed</td>
+</tr>
+<tr>
+<td><code>RunBy</code></td>
+<td>Windows account running the script</td>
+</tr>
+<tr>
+<td><code>WebUrl</code></td>
+<td>SharePoint site or subsite URL</td>
+</tr>
+<tr>
+<td><code>AccessRequest</code></td>
+<td><code>Enabled</code>, <code>Disabled</code>, or <code>Inherited</code></td>
+</tr>
+<tr>
+<td><code>EmailOrGroup</code></td>
+<td><code>Email</code> or <code>Default Owner Group</code></td>
+</tr>
+<tr>
+<td><code>AccessRequestConfig</code></td>
+<td>Configured email address or Owners group name</td>
+</tr>
+</tbody></table>
+</div><h2 id="interpretation">Interpretation</h2><div class="table-wrap" tabindex="0" role="region" aria-label="Sample data table"><table>
+<thead>
+<tr>
+<th>AccessRequest</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>Enabled</code></td>
+<td>Access requests are enabled for the web</td>
+</tr>
+<tr>
+<td><code>Disabled</code></td>
+<td>Access requests are explicitly disabled</td>
+</tr>
+<tr>
+<td><code>Inherited</code></td>
+<td>The web does not have unique permissions and inherits permissions from its parent</td>
+</tr>
+</tbody></table>
+</div><h2 id="notes">Notes</h2><ul>
+<li>Requires PnP.PowerShell.</li>
+<li>Uses certificate-based app-only authentication.</li>
+<li>The certificate must be accessible to the account running PowerShell.</li>
+<li>The script does not modify SharePoint configuration.</li>
+<li>Existing CSV output is removed before the new report is generated.</li>
+<li>The script is intended as an audit/reporting tool, not a remediation script.</li>
+<li>For very large tenants, avoid unnecessary additional properties or per-web operations because they increase SharePoint requests.</li>
+</ul>
+<h2 id="contributors">Contributors</h2><div class="table-wrap" tabindex="0" role="region" aria-label="Sample data table"><table>
+<thead>
+<tr>
+<th>Author(s)</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><a href="https://github.com/ojopiyo">Josiah Opiyo</a></td>
+</tr>
+</tbody></table>
+</div><p><em>Built with a focus on automation, governance, least privilege, and clean Microsoft 365 tenants-helping M365 admins gain visibility and reduce operational risk.</em></p>
+<h2 id="version-history">Version history</h2><div class="table-wrap" tabindex="0" role="region" aria-label="Sample data table"><table>
+<thead>
+<tr>
+<th>Version</th>
+<th>Date</th>
+<th>Comments</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>1.0</td>
+<td>August 08, 2026</td>
+<td>Initial release</td>
+</tr>
+</tbody></table>
+</div><h2 id="disclaimer">Disclaimer</h2><p><strong>THESE SAMPLES ARE PROVIDED <em>AS IS</em> WITHOUT WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, INCLUDING ANY IMPLIED WARRANTIES OF FITNESS FOR A PARTICULAR PURPOSE, MERCHANTABILITY, OR NON-INFRINGEMENT.</strong></p>
+</div><section class="reference-section"><h2>Tool documentation &amp; references</h2><ul><li><a href="https://aka.ms/pnp/powershell">Want to learn more about PnP PowerShell and the cmdlets</a><p>Check out the PnP PowerShell site to get started and for the reference to the cmdlets.</p></li></ul></section><section><h2>Keep exploring</h2><div class="related-samples"><a href="/script-samples/samples/spo-update-herolink-sharingsetting/">Update Hero Link sharing settings<svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="lucide lucide-arrow-right"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg></a><a href="/script-samples/samples/spo-reset-herolink/">How to reset hero link<svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="lucide lucide-arrow-right"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg></a><a href="/script-samples/samples/spo-update-herolink/">Update Hero Link to &#39;Only people added to the file have access&#39;<svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="lucide lucide-arrow-right"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg></a></div></section></div><aside class="detail-sidebar" aria-label="Sample information"><div class="sidebar-panel"><h2>Make it your own</h2><a class="button button-primary" href="https://github.com/pnp/script-samples/tree/main/scripts/export-spo-access-request-settings">Open source on GitHub <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="lucide lucide-arrow-up-right"><path d="M7 7h10v10"></path><path d="M7 17 17 7"></path></svg></a><a class="button button-secondary" href="https://github.com/pnp/script-samples/edit/main/scripts/export-spo-access-request-settings/README.md">Improve this sample</a><dl><dt>Products</dt><dd><a class="product-inline" href="/script-samples/?product=sharepoint"><img src="/script-samples/images/SharePoint_512.png" alt="" width="22" height="22" loading="lazy" decoding="async">SharePoint</a></dd><dt>Tool versions from the author</dt><dd><div>PnP PowerShell <strong>3.6.0</strong></div></dd><dt>Created</dt><dd><time datetime="2026-08-08">Aug 8, 2026</time></dd><dt>Updated</dt><dd><time datetime="2026-08-08">Aug 8, 2026</time></dd></dl></div><div class="sidebar-panel"><h2>Commands &amp; topics</h2><div class="tag-list"><a href="https://pnp.github.io/powershell/cmdlets/Connect-PnPOnline.html">Connect-PnPOnline &#8599;</a><a href="https://pnp.github.io/powershell/cmdlets/Get-PnPSubWeb.html">Get-PnPSubWeb &#8599;</a><a href="https://pnp.github.io/powershell/cmdlets/Get-PnPTenantSite.html">Get-PnPTenantSite &#8599;</a><a href="https://pnp.github.io/powershell/cmdlets/Get-PnPGroup.html">Get-PnPGroup &#8599;</a><a href="/script-samples/?q=Export-Csv">Export-Csv</a><a href="/script-samples/?q=SharePoint">SharePoint</a></div></div><div class="sidebar-panel"><h2>Something not working?</h2><p class="card-description">Help the community keep this sample useful. Include the tool version, steps, and a redacted error message.</p><a class="text-link" href="https://github.com/pnp/script-samples/issues/new?title=Issue%20with%20export-spo-access-request-settings&amp;body=Sample%3A%20https%3A%2F%2Fpnp.github.io%2Fscript-samples%2Fsamples%2Fexport-spo-access-request-settings%2F%0A%0ATool%20and%20version%3A%0A%0ASteps%20to%20reproduce%3A%0A%0AExpected%20and%20actual%20result%3A%0A%0ARemove%20tenant%20details%2C%20credentials%2C%20and%20personal%20information%20before%20submitting.">Report an issue &#8599;</a></div><div class="sidebar-panel"><h2>Built by the community</h2><a href="/script-samples/contributing/recognition/"><img class="detail-badge" src="/script-samples/assets/credly-badge.png" alt="Script Samples community contributor badge" width="160" height="160" loading="lazy" decoding="async"></a><p class="card-description">Share a sample and earn your contributor badge.</p><a class="text-link" href="/script-samples/contributing/">Get involved &#8594;</a></div></aside></div></div></main><footer class="site-footer"><div class="container footer-inner"><div><strong>Microsoft 365 &amp; Power Platform Community</strong><p>Built by the community, for the community.</p></div><nav aria-label="Footer navigation"><a href="https://aka.ms/community/home">Community home &#8599;</a><a href="/script-samples/catalog.json">Catalog JSON</a><a href="/script-samples/schemas/sample.schema.json">Metadata schema</a><a href="/script-samples/reports/">Catalog reports</a><a href="/script-samples/contributing/recognition/">Contributor badge</a><a href="https://github.com/pnp/script-samples/issues/new">Report an issue</a><a href="https://opensource.microsoft.com/codeofconduct/">Code of conduct</a><a href="https://github.com/pnp/script-samples/blob/main/LICENSE">MIT license</a></nav></div></footer><p class="sr-only" id="site-status" role="status" aria-live="polite"></p><img class="sr-only" data-visitor-stats data-tracker-src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/export-spo-access-request-settings" data-tracking-enabled="true" src="data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=" alt="" width="1" height="1" aria-hidden="true"><script type="module" src="/script-samples/_astro/Layout.astro_astro_type_script_index_0_lang.DaWAalj3.js"></script></body></html><script type="module" src="/script-samples/_astro/_slug_.astro_astro_type_script_index_0_lang.BIay2qYY.js"></script>

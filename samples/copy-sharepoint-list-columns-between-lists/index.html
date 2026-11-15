@@ -1,0 +1,336 @@
+<!DOCTYPE html><html lang="en" data-theme="light"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="description" content="This script copies selected SharePoint list fields from a source list to a destination list using PnP PowerShell and certificate-based authentication."><meta name="generator" content="Astro v7.3.6"><meta name="theme-color" id="theme-color" content="#f2f4f5"><title>How to Copy SharePoint List Columns Between Lists Using PowerShell | Community Script Samples</title><link rel="icon" href="/script-samples/images/parker-ms-300.png" type="image/png"><link rel="canonical" href="https://pnp.github.io/script-samples/samples/copy-sharepoint-list-columns-between-lists/"><meta property="og:type" content="website"><meta property="og:site_name" content="Community Script Samples"><meta property="og:title" content="How to Copy SharePoint List Columns Between Lists Using PowerShell | Community Script Samples"><meta property="og:description" content="This script copies selected SharePoint list fields from a source list to a destination list using PnP PowerShell and certificate-based authentication."><meta property="og:url" content="https://pnp.github.io/script-samples/samples/copy-sharepoint-list-columns-between-lists/"><meta property="og:image" content="https://pnp.github.io/script-samples/copy-sharepoint-list-columns-between-lists/assets/preview.png"><meta name="twitter:card" content="summary_large_image"><script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"Community Script Samples","url":"https://pnp.github.io/script-samples/","description":"This script copies selected SharePoint list fields from a source list to a destination list using PnP PowerShell and certificate-based authentication."}</script><script>
+      document.documentElement.classList.add("js");
+      try {
+        const theme = localStorage.getItem("community-script-samples-theme") === "dark" ? "dark" : "light";
+        document.documentElement.dataset.theme = theme;
+        document.documentElement.style.colorScheme = theme;
+      } catch (error) {
+        console.warn("Theme storage is unavailable; using light mode for this visit.", error);
+      }
+    </script><link rel="stylesheet" href="/script-samples/_astro/Layout.BviIPkCI.css"></head><body><a class="skip-link" href="#main-content">Skip to content</a><header class="site-header"><div class="spectrum" aria-hidden="true"></div><div class="container header-inner"><a class="brand" href="/script-samples/" aria-label="Community Script Samples home"><img src="/script-samples/images/parker-ms-300.png" alt="" width="35" height="45"><span class="brand-name"><span>Community</span> <strong>Script Samples</strong></span></a><div class="header-actions"><nav class="desktop-nav" aria-label="Primary navigation"><a href="https://aka.ms/community/home">Community <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="lucide lucide-arrow-up-right"><path d="M7 7h10v10"></path><path d="M7 17 17 7"></path></svg></a><a href="/script-samples/" aria-current="page">Samples</a><a href="/script-samples/getting-started/">Getting started</a><a href="/script-samples/contributors/">Contributors</a><a href="/script-samples/contributing/">Contributing</a><a href="https://github.com/pnp/script-samples"><svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="lucide lucide-git-fork"><circle cx="12" cy="18" r="3"></circle><circle cx="6" cy="6" r="3"></circle><circle cx="18" cy="6" r="3"></circle><path d="M18 9v2c0 .6-.4 1-1 1H7c-.6 0-1-.4-1-1V9"></path><path d="M12 12v3"></path></svg> GitHub</a></nav><button class="theme-toggle" id="theme-toggle" type="button" role="switch" aria-checked="false" aria-label="Switch to dark mode" title="Switch to dark mode"><span class="theme-icons" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="lucide lucide-sun"><circle cx="12" cy="12" r="4"></circle><path d="M12 2v2"></path><path d="M12 20v2"></path><path d="m4.93 4.93 1.41 1.41"></path><path d="m17.66 17.66 1.41 1.41"></path><path d="M2 12h2"></path><path d="M20 12h2"></path><path d="m6.34 17.66-1.41 1.41"></path><path d="m19.07 4.93-1.41 1.41"></path></svg><svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="lucide lucide-moon"><path d="M20.985 12.486a9 9 0 1 1-9.473-9.472c.405-.022.617.46.402.803a6 6 0 0 0 8.268 8.268c.344-.215.825-.004.803.401"></path></svg></span></button><details class="mobile-nav"><summary aria-label="Open navigation"><svg xmlns="http://www.w3.org/2000/svg" width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="lucide lucide-menu"><path d="M4 5h16"></path><path d="M4 12h16"></path><path d="M4 19h16"></path></svg></summary><nav aria-label="Mobile navigation"><a href="https://aka.ms/community/home">Community <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="lucide lucide-arrow-up-right"><path d="M7 7h10v10"></path><path d="M7 17 17 7"></path></svg></a><a href="/script-samples/" aria-current="page">Samples</a><a href="/script-samples/getting-started/">Getting started</a><a href="/script-samples/contributors/">Contributors</a><a href="/script-samples/contributing/">Contributing</a><a href="https://github.com/pnp/script-samples">GitHub</a></nav></details></div></div></header><main id="main-content" tabindex="-1"><div class="container detail-section"><nav class="breadcrumbs" aria-label="Breadcrumb"><a href="/script-samples/" id="back-to-samples">All samples</a><span aria-hidden="true">/</span><span>Provision</span></nav><header class="detail-header"><span class="scenario-tag">Provision / Configure</span><h1>How to Copy SharePoint List Columns Between Lists Using PowerShell</h1><p>This script copies selected SharePoint list fields from a source list to a destination list using PnP PowerShell and certificate-based authentication.</p><div class="detail-byline"><a class="card-author" href="https://github.com/ojopiyo"><img class="avatar" src="https://github.com/ojopiyo.png?size=64" alt="" width="30" height="30" loading="lazy" decoding="async" data-avatar="Josiah Opiyo">Josiah Opiyo</a><span>Updated <time datetime="2026-07-11">Jul 11, 2026</time></span><a href="https://github.com/pnp/script-samples/tree/main/scripts/copy-sharepoint-list-columns-between-lists">View on GitHub <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="lucide lucide-arrow-up-right"><path d="M7 7h10v10"></path><path d="M7 17 17 7"></path></svg></a></div></header><div class="detail-layout"><div class="detail-main"><aside class="safety-note" aria-label="Before you run"><strong>Understand it. Adapt it. Test it first.</strong><p>Review the full script, prerequisites, and required permissions. Test against non-production data before making changes. Samples are community contributions, provided as-is; an update date is not a claim of recent testing.</p></aside><div class="readme-content" id="sample-readme"><h2 id="professional-summary">Professional Summary</h2><p>This PowerShell script copies selected SharePoint list fields from a source Microsoft 365 SharePoint site to a destination SharePoint site using PnP PowerShell authentication with an Azure AD application certificate.</p>
+<p>The script validates existing destination fields, identifies missing source fields, creates required fields using the original SharePoint schema XML, and produces an operational CSV report containing execution results, status, and error details.</p>
+<p>Designed for Microsoft 365 administrators, the script supports repeatable tenant administration tasks, controlled migrations, and SharePoint list standardisation activities.</p>
+<h2 id="why-it-matters">Why it matters</h2><p>During Microsoft 365 migrations, tenant consolidations, SharePoint information architecture projects, or application deployments, administrators often need to replicate SharePoint list structures across sites.
+Manually recreating fields introduces risks:</p>
+<ul>
+<li>Incorrect field types</li>
+<li>Missing internal names</li>
+<li>Configuration inconsistencies</li>
+<li>Deployment delays</li>
+<li>Lack of audit visibility</li>
+</ul>
+<p>This script provides a controlled method to replicate required list columns while maintaining SharePoint schema integrity and generating an audit trail suitable for enterprise change management.</p>
+<h2 id="benefits">Benefits</h2><ul>
+<li>Automates SharePoint field replication at scale</li>
+<li>Preserves SharePoint field schema definitions</li>
+<li>Avoids duplicate field creation</li>
+<li>Provides detailed operational reporting</li>
+<li>Supports unattended execution using certificate-based authentication</li>
+<li>Suitable for large Microsoft 365 environments</li>
+<li>Improves consistency across SharePoint site collections</li>
+<li>Provides migration validation evidence for governance and compliance requirements</li>
+<li>Helps teams adopt a more controlled Dev/Test/Production lifecycle for SharePoint solutions</li>
+</ul>
+<h2 id="prerequisites">Prerequisites</h2><ul>
+<li>PowerShell 7+</li>
+<li>PnP.PowerShell module</li>
+<li>Azure AD application registration</li>
+<li>Certificate-based authentication permissions:<ul>
+<li>SharePoint Sites.Selected or appropriate SharePoint application permissions</li>
+</ul>
+</li>
+</ul>
+
+<div class="readme-tabs" data-tabs><div class="tool-tabs" role="tablist" aria-label="Script implementations"><button type="button" role="tab" id="tools-0-pnpps" data-tab-id="pnpps" aria-controls="tools-0-panel-0" aria-selected="true" tabindex="0">PnP PowerShell</button><button type="button" role="tab" id="tools-0-module" data-tab-id="module" aria-controls="tools-0-panel-1" aria-selected="false" tabindex="-1">Install module</button><button type="button" role="tab" id="tools-0-run" data-tab-id="run" aria-controls="tools-0-panel-2" aria-selected="false" tabindex="-1">Run</button></div><section role="tabpanel" id="tools-0-panel-0" aria-labelledby="tools-0-pnpps" tabindex="0"><div class="code-frame"><div class="code-toolbar"><span>powershell</span><button type="button" class="copy-code" data-copy-code="code-0" aria-label="Copy powershell code">Copy code</button></div><pre id="code-0" role="region" tabindex="0" aria-label="powershell script" class="shiki shiki-themes github-light github-dark-high-contrast" style="--shiki-light:#24292e;--shiki-dark:#f0f3f6;--shiki-light-bg:#fff;--shiki-dark-bg:#0a0c10"><code><span class="line"><span style="--shiki-light:#6A737D;--shiki-dark:#BDC4CC">#==========================================</span></span>
+<span class="line"><span style="--shiki-light:#6A737D;--shiki-dark:#BDC4CC"># Configuration</span></span>
+<span class="line"><span style="--shiki-light:#6A737D;--shiki-dark:#BDC4CC">#==========================================</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">$SourceSiteUrl      </span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">=</span><span style="--shiki-light:#032F62;--shiki-dark:#ADDCFF"> "https://contoso.sharepoint.com/sites/TEST-Finance"</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">$DestinationSiteUrl </span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">=</span><span style="--shiki-light:#032F62;--shiki-dark:#ADDCFF"> "https://contoso.sharepoint.com/sites/PROD-Finance"</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">$ClientId   </span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">=</span><span style="--shiki-light:#032F62;--shiki-dark:#ADDCFF"> "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">$Thumbprint </span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">=</span><span style="--shiki-light:#032F62;--shiki-dark:#ADDCFF"> "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">$Tenant     </span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">=</span><span style="--shiki-light:#032F62;--shiki-dark:#ADDCFF"> "contoso.onmicrosoft.com"</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">$SourceListName      </span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">=</span><span style="--shiki-light:#032F62;--shiki-dark:#ADDCFF"> "Finance"</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">$DestinationListName </span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">=</span><span style="--shiki-light:#032F62;--shiki-dark:#ADDCFF"> "Finance"</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">$FieldsToCopy </span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">=</span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492"> @</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">(</span></span>
+<span class="line"><span style="--shiki-light:#032F62;--shiki-dark:#ADDCFF">    "CostCentre"</span></span>
+<span class="line"><span style="--shiki-light:#032F62;--shiki-dark:#ADDCFF">    "Department"</span></span>
+<span class="line"><span style="--shiki-light:#032F62;--shiki-dark:#ADDCFF">    "BudgetCode"</span></span>
+<span class="line"><span style="--shiki-light:#032F62;--shiki-dark:#ADDCFF">    "GLAccount"</span></span>
+<span class="line"><span style="--shiki-light:#032F62;--shiki-dark:#ADDCFF">    "ExpenseCategory"</span></span>
+<span class="line"><span style="--shiki-light:#032F62;--shiki-dark:#ADDCFF">    "BudgetAmount"</span></span>
+<span class="line"><span style="--shiki-light:#032F62;--shiki-dark:#ADDCFF">    "ForecastAmount"</span></span>
+<span class="line"><span style="--shiki-light:#032F62;--shiki-dark:#ADDCFF">    "ClaimAmount"</span></span>
+<span class="line"><span style="--shiki-light:#032F62;--shiki-dark:#ADDCFF">    "Supplier"</span></span>
+<span class="line"><span style="--shiki-light:#032F62;--shiki-dark:#ADDCFF">    "InvoiceNumber"</span></span>
+<span class="line"><span style="--shiki-light:#032F62;--shiki-dark:#ADDCFF">    "PurchaseOrder"</span></span>
+<span class="line"><span style="--shiki-light:#032F62;--shiki-dark:#ADDCFF">    "FinancialYear"</span></span>
+<span class="line"><span style="--shiki-light:#032F62;--shiki-dark:#ADDCFF">    "ApprovalStatus"</span></span>
+<span class="line"><span style="--shiki-light:#032F62;--shiki-dark:#ADDCFF">    "Approver"</span></span>
+<span class="line"><span style="--shiki-light:#032F62;--shiki-dark:#ADDCFF">    "ReceiptReference"</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">)</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">$OutputFolder </span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">=</span><span style="--shiki-light:#032F62;--shiki-dark:#ADDCFF"> "C:\Temp\FieldCopy"</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#6A737D;--shiki-dark:#BDC4CC">#==========================================</span></span>
+<span class="line"><span style="--shiki-light:#6A737D;--shiki-dark:#BDC4CC"># Initialisation</span></span>
+<span class="line"><span style="--shiki-light:#6A737D;--shiki-dark:#BDC4CC">#==========================================</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#005CC5;--shiki-dark:#91CBFF">$null</span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492"> =</span><span style="--shiki-light:#005CC5;--shiki-dark:#91CBFF"> New-Item</span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492"> -</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">Path $OutputFolder </span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">-</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">ItemType Directory </span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">-</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">Force</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">$timeStamp </span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">=</span><span style="--shiki-light:#005CC5;--shiki-dark:#91CBFF"> Get-Date</span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492"> -</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">Format </span><span style="--shiki-light:#032F62;--shiki-dark:#ADDCFF">"yyyyMMdd_HHmmss"</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">$reportPath </span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">=</span><span style="--shiki-light:#005CC5;--shiki-dark:#91CBFF"> Join-Path</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6"> $OutputFolder </span><span style="--shiki-light:#032F62;--shiki-dark:#ADDCFF">"FieldCopy_</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">$timeStamp</span><span style="--shiki-light:#032F62;--shiki-dark:#ADDCFF">.csv"</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">$startTime </span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">=</span><span style="--shiki-light:#005CC5;--shiki-dark:#91CBFF"> Get-Date</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">$operator </span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">=</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6"> [</span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">System.Security.Principal.WindowsIdentity</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">]::GetCurrent().Name</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">$computer </span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">=</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6"> $</span><span style="--shiki-light:#005CC5;--shiki-dark:#91CBFF">env:</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">COMPUTERNAME</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">$results </span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">=</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6"> [</span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">System.Collections.Generic.List</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">[</span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">object</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">]]::new()</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#005CC5;--shiki-dark:#91CBFF">Write-Host</span><span style="--shiki-light:#032F62;--shiki-dark:#ADDCFF"> ""</span></span>
+<span class="line"><span style="--shiki-light:#005CC5;--shiki-dark:#91CBFF">Write-Host</span><span style="--shiki-light:#032F62;--shiki-dark:#ADDCFF"> "Field Copy Started"</span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492"> -</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">ForegroundColor Cyan</span></span>
+<span class="line"><span style="--shiki-light:#005CC5;--shiki-dark:#91CBFF">Write-Host</span><span style="--shiki-light:#032F62;--shiki-dark:#ADDCFF"> "Operator          : </span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">$operator</span><span style="--shiki-light:#032F62;--shiki-dark:#ADDCFF">"</span></span>
+<span class="line"><span style="--shiki-light:#005CC5;--shiki-dark:#91CBFF">Write-Host</span><span style="--shiki-light:#032F62;--shiki-dark:#ADDCFF"> "Computer          : </span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">$computer</span><span style="--shiki-light:#032F62;--shiki-dark:#ADDCFF">"</span></span>
+<span class="line"><span style="--shiki-light:#005CC5;--shiki-dark:#91CBFF">Write-Host</span><span style="--shiki-light:#032F62;--shiki-dark:#ADDCFF"> "Source Site       : </span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">$SourceSiteUrl</span><span style="--shiki-light:#032F62;--shiki-dark:#ADDCFF">"</span></span>
+<span class="line"><span style="--shiki-light:#005CC5;--shiki-dark:#91CBFF">Write-Host</span><span style="--shiki-light:#032F62;--shiki-dark:#ADDCFF"> "Destination Site  : </span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">$DestinationSiteUrl</span><span style="--shiki-light:#032F62;--shiki-dark:#ADDCFF">"</span></span>
+<span class="line"><span style="--shiki-light:#005CC5;--shiki-dark:#91CBFF">Write-Host</span><span style="--shiki-light:#032F62;--shiki-dark:#ADDCFF"> ""</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#6A737D;--shiki-dark:#BDC4CC">#==========================================</span></span>
+<span class="line"><span style="--shiki-light:#6A737D;--shiki-dark:#BDC4CC"># Authentication</span></span>
+<span class="line"><span style="--shiki-light:#6A737D;--shiki-dark:#BDC4CC">#==========================================</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">try</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6"> {</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">    $sourceConnection </span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">=</span><span style="--shiki-light:#005CC5;--shiki-dark:#91CBFF"> Connect-PnPOnline</span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492"> `</span></span>
+<span class="line"><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">        -</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">Url $SourceSiteUrl </span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">`</span></span>
+<span class="line"><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">        -</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">ClientId $ClientId </span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">`</span></span>
+<span class="line"><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">        -</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">Thumbprint $Thumbprint </span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">`</span></span>
+<span class="line"><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">        -</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">Tenant $Tenant </span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">`</span></span>
+<span class="line"><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">        -</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">ReturnConnection </span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">`</span></span>
+<span class="line"><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">        -</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">ErrorAction Stop</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">    $destinationConnection </span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">=</span><span style="--shiki-light:#005CC5;--shiki-dark:#91CBFF"> Connect-PnPOnline</span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492"> `</span></span>
+<span class="line"><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">        -</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">Url $DestinationSiteUrl </span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">`</span></span>
+<span class="line"><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">        -</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">ClientId $ClientId </span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">`</span></span>
+<span class="line"><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">        -</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">Thumbprint $Thumbprint </span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">`</span></span>
+<span class="line"><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">        -</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">Tenant $Tenant </span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">`</span></span>
+<span class="line"><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">        -</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">ReturnConnection </span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">`</span></span>
+<span class="line"><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">        -</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">ErrorAction Stop</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">    $sourceFields </span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">=</span><span style="--shiki-light:#005CC5;--shiki-dark:#91CBFF"> Get-PnPField</span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492"> `</span></span>
+<span class="line"><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">        -</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">List $SourceListName </span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">`</span></span>
+<span class="line"><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">        -</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">Connection $sourceConnection </span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">`</span></span>
+<span class="line"><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">        -</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">ErrorAction Stop</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">    $destinationFields </span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">=</span><span style="--shiki-light:#005CC5;--shiki-dark:#91CBFF"> Get-PnPField</span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492"> `</span></span>
+<span class="line"><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">        -</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">List $DestinationListName </span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">`</span></span>
+<span class="line"><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">        -</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">Connection $destinationConnection </span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">`</span></span>
+<span class="line"><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">        -</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">ErrorAction Stop</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">}</span></span>
+<span class="line"><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">catch</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6"> {</span></span>
+<span class="line"><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">    throw</span><span style="--shiki-light:#032F62;--shiki-dark:#ADDCFF"> "Failed to connect to SharePoint or retrieve list fields. </span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">$</span><span style="--shiki-light:#032F62;--shiki-dark:#FF9492">(</span><span style="--shiki-light:#005CC5;--shiki-dark:#91CBFF">$_</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">.Exception.Message</span><span style="--shiki-light:#032F62;--shiki-dark:#FF9492">)</span><span style="--shiki-light:#032F62;--shiki-dark:#ADDCFF">"</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">$destinationFieldNames </span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">=</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6"> [</span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">System.Collections.Generic.HashSet</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">[</span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">string</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">]]::new(</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">    [</span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">string</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">[]]$destinationFields.InternalName</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">)</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">$totalFields </span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">=</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6"> $FieldsToCopy.Count</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">$currentField </span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">=</span><span style="--shiki-light:#005CC5;--shiki-dark:#91CBFF"> 0</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">foreach</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6"> ($fieldName </span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">in</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6"> $FieldsToCopy) {</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">    $currentField</span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">++</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#005CC5;--shiki-dark:#91CBFF">    Write-Progress</span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492"> `</span></span>
+<span class="line"><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">        -</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">Activity </span><span style="--shiki-light:#032F62;--shiki-dark:#ADDCFF">"Copying SharePoint Fields"</span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492"> `</span></span>
+<span class="line"><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">        -</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">Status </span><span style="--shiki-light:#032F62;--shiki-dark:#ADDCFF">"Processing </span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">$fieldName</span><span style="--shiki-light:#032F62;--shiki-dark:#ADDCFF"> (</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">$currentField</span><span style="--shiki-light:#032F62;--shiki-dark:#ADDCFF"> of </span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">$totalFields</span><span style="--shiki-light:#032F62;--shiki-dark:#ADDCFF">)"</span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492"> `</span></span>
+<span class="line"><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">        -</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">PercentComplete (($currentField </span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">/</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6"> $totalFields) </span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">*</span><span style="--shiki-light:#005CC5;--shiki-dark:#91CBFF"> 100</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">)</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">    $status </span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">=</span><span style="--shiki-light:#032F62;--shiki-dark:#ADDCFF"> ""</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">    $errorMessage </span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">=</span><span style="--shiki-light:#032F62;--shiki-dark:#ADDCFF"> ""</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">    try</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6"> {</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">        if</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6"> ($destinationFieldNames.Contains($fieldName)) {</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">            $status </span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">=</span><span style="--shiki-light:#032F62;--shiki-dark:#ADDCFF"> "Already Exists"</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#005CC5;--shiki-dark:#91CBFF">            Write-Host</span><span style="--shiki-light:#032F62;--shiki-dark:#ADDCFF"> "[SKIP] </span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">$fieldName</span><span style="--shiki-light:#032F62;--shiki-dark:#ADDCFF"> already exists."</span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492"> -</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">ForegroundColor Yellow</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">        }</span></span>
+<span class="line"><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">        else</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6"> {</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">            $sourceField </span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">=</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6"> $sourceFields </span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">|</span><span style="--shiki-light:#005CC5;--shiki-dark:#91CBFF"> Where-Object</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6"> InternalName </span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">-eq</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6"> $fieldName</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">            if</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6"> (</span><span style="--shiki-light:#005CC5;--shiki-dark:#91CBFF">$null</span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492"> -eq</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6"> $sourceField) {</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">                $status </span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">=</span><span style="--shiki-light:#032F62;--shiki-dark:#ADDCFF"> "Source Missing"</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#005CC5;--shiki-dark:#91CBFF">                Write-Host</span><span style="--shiki-light:#032F62;--shiki-dark:#ADDCFF"> "[WARN] </span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">$fieldName</span><span style="--shiki-light:#032F62;--shiki-dark:#ADDCFF"> not found in source list."</span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492"> -</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">ForegroundColor Yellow</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">            }</span></span>
+<span class="line"><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">            else</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6"> {</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#005CC5;--shiki-dark:#91CBFF">                Add-PnPFieldFromXml</span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492"> `</span></span>
+<span class="line"><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">                    -</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">List $DestinationListName </span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">`</span></span>
+<span class="line"><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">                    -</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">FieldXml $sourceField.SchemaXml </span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">`</span></span>
+<span class="line"><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">                    -</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">Connection $destinationConnection </span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">`</span></span>
+<span class="line"><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">                    -</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">ErrorAction Stop </span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">|</span><span style="--shiki-light:#005CC5;--shiki-dark:#91CBFF"> Out-Null</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">                $destinationFieldNames.Add($fieldName) </span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">|</span><span style="--shiki-light:#005CC5;--shiki-dark:#91CBFF"> Out-Null</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">                $status </span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">=</span><span style="--shiki-light:#032F62;--shiki-dark:#ADDCFF"> "Copied"</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#005CC5;--shiki-dark:#91CBFF">                Write-Host</span><span style="--shiki-light:#032F62;--shiki-dark:#ADDCFF"> "[OK]   </span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">$fieldName</span><span style="--shiki-light:#032F62;--shiki-dark:#ADDCFF"> copied."</span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492"> -</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">ForegroundColor Green</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">            }</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">        }</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">    }</span></span>
+<span class="line"><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">    catch</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6"> {</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">        $status </span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">=</span><span style="--shiki-light:#032F62;--shiki-dark:#ADDCFF"> "Failed"</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">        $errorMessage </span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">=</span><span style="--shiki-light:#005CC5;--shiki-dark:#91CBFF"> $_</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">.Exception.Message</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#005CC5;--shiki-dark:#91CBFF">        Write-Host</span><span style="--shiki-light:#032F62;--shiki-dark:#ADDCFF"> "[FAIL] </span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">$fieldName</span><span style="--shiki-light:#032F62;--shiki-dark:#ADDCFF">"</span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492"> -</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">ForegroundColor Red</span></span>
+<span class="line"><span style="--shiki-light:#005CC5;--shiki-dark:#91CBFF">        Write-Host</span><span style="--shiki-light:#032F62;--shiki-dark:#ADDCFF"> "       </span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">$errorMessage</span><span style="--shiki-light:#032F62;--shiki-dark:#ADDCFF">"</span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492"> -</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">ForegroundColor DarkRed</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">    }</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">    $results.Add([</span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">PSCustomObject</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">]</span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">@</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">{</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">        Date              </span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">=</span><span style="--shiki-light:#005CC5;--shiki-dark:#91CBFF"> Get-Date</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">        Operator          </span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">=</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6"> $operator</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">        Computer          </span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">=</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6"> $computer</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">        SourceSite        </span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">=</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6"> $SourceSiteUrl</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">        DestinationSite   </span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">=</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6"> $DestinationSiteUrl</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">        SourceList        </span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">=</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6"> $SourceListName</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">        DestinationList   </span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">=</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6"> $DestinationListName</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">        Field             </span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">=</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6"> $fieldName</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">        Status            </span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">=</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6"> $status</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">        Error             </span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">=</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6"> $errorMessage</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">    })</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#005CC5;--shiki-dark:#91CBFF">Write-Progress</span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492"> -</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">Activity </span><span style="--shiki-light:#032F62;--shiki-dark:#ADDCFF">"Copying SharePoint Fields"</span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492"> -</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">Completed</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">$results </span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">|</span></span>
+<span class="line"><span style="--shiki-light:#005CC5;--shiki-dark:#91CBFF">    Sort-Object</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6"> Field </span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">|</span></span>
+<span class="line"><span style="--shiki-light:#005CC5;--shiki-dark:#91CBFF">    Export-Csv</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6"> $reportPath </span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">-</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">NoTypeInformation </span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">-</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">Encoding UTF8</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">$endTime </span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">=</span><span style="--shiki-light:#005CC5;--shiki-dark:#91CBFF"> Get-Date</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">$duration </span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">=</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6"> $endTime </span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">-</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6"> $startTime</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">$copied </span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">=</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6"> ($results </span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">|</span><span style="--shiki-light:#005CC5;--shiki-dark:#91CBFF"> Where-Object</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6"> Status </span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">-eq</span><span style="--shiki-light:#032F62;--shiki-dark:#ADDCFF"> "Copied"</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">).Count</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">$existing </span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">=</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6"> ($results </span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">|</span><span style="--shiki-light:#005CC5;--shiki-dark:#91CBFF"> Where-Object</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6"> Status </span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">-eq</span><span style="--shiki-light:#032F62;--shiki-dark:#ADDCFF"> "Already Exists"</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">).Count</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">$missing </span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">=</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6"> ($results </span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">|</span><span style="--shiki-light:#005CC5;--shiki-dark:#91CBFF"> Where-Object</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6"> Status </span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">-eq</span><span style="--shiki-light:#032F62;--shiki-dark:#ADDCFF"> "Source Missing"</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">).Count</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">$failed </span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">=</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6"> ($results </span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">|</span><span style="--shiki-light:#005CC5;--shiki-dark:#91CBFF"> Where-Object</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6"> Status </span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">-eq</span><span style="--shiki-light:#032F62;--shiki-dark:#ADDCFF"> "Failed"</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">).Count</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#005CC5;--shiki-dark:#91CBFF">Write-Host</span><span style="--shiki-light:#032F62;--shiki-dark:#ADDCFF"> ""</span></span>
+<span class="line"><span style="--shiki-light:#005CC5;--shiki-dark:#91CBFF">Write-Host</span><span style="--shiki-light:#032F62;--shiki-dark:#ADDCFF"> "========================================"</span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492"> -</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">ForegroundColor Cyan</span></span>
+<span class="line"><span style="--shiki-light:#005CC5;--shiki-dark:#91CBFF">Write-Host</span><span style="--shiki-light:#032F62;--shiki-dark:#ADDCFF"> "Field Copy Complete"</span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492"> -</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">ForegroundColor Green</span></span>
+<span class="line"><span style="--shiki-light:#005CC5;--shiki-dark:#91CBFF">Write-Host</span><span style="--shiki-light:#032F62;--shiki-dark:#ADDCFF"> "========================================"</span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492"> -</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">ForegroundColor Cyan</span></span>
+<span class="line"><span style="--shiki-light:#005CC5;--shiki-dark:#91CBFF">Write-Host</span><span style="--shiki-light:#032F62;--shiki-dark:#ADDCFF"> ""</span></span>
+<span class="line"><span style="--shiki-light:#005CC5;--shiki-dark:#91CBFF">Write-Host</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6"> (</span><span style="--shiki-light:#032F62;--shiki-dark:#ADDCFF">"Fields Requested : {0}"</span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492"> -f</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6"> $totalFields)</span></span>
+<span class="line"><span style="--shiki-light:#005CC5;--shiki-dark:#91CBFF">Write-Host</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6"> (</span><span style="--shiki-light:#032F62;--shiki-dark:#ADDCFF">"Copied           : {0}"</span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492"> -f</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6"> $copied) </span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">-</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">ForegroundColor Green</span></span>
+<span class="line"><span style="--shiki-light:#005CC5;--shiki-dark:#91CBFF">Write-Host</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6"> (</span><span style="--shiki-light:#032F62;--shiki-dark:#ADDCFF">"Already Exists   : {0}"</span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492"> -f</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6"> $existing) </span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">-</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">ForegroundColor Yellow</span></span>
+<span class="line"><span style="--shiki-light:#005CC5;--shiki-dark:#91CBFF">Write-Host</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6"> (</span><span style="--shiki-light:#032F62;--shiki-dark:#ADDCFF">"Source Missing   : {0}"</span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492"> -f</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6"> $missing) </span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">-</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">ForegroundColor Yellow</span></span>
+<span class="line"><span style="--shiki-light:#005CC5;--shiki-dark:#91CBFF">Write-Host</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6"> (</span><span style="--shiki-light:#032F62;--shiki-dark:#ADDCFF">"Failed           : {0}"</span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492"> -f</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6"> $failed) </span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">-</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">ForegroundColor Red</span></span>
+<span class="line"><span style="--shiki-light:#005CC5;--shiki-dark:#91CBFF">Write-Host</span><span style="--shiki-light:#032F62;--shiki-dark:#ADDCFF"> ""</span></span>
+<span class="line"><span style="--shiki-light:#005CC5;--shiki-dark:#91CBFF">Write-Host</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6"> (</span><span style="--shiki-light:#032F62;--shiki-dark:#ADDCFF">"Started          : {0}"</span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492"> -f</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6"> $startTime)</span></span>
+<span class="line"><span style="--shiki-light:#005CC5;--shiki-dark:#91CBFF">Write-Host</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6"> (</span><span style="--shiki-light:#032F62;--shiki-dark:#ADDCFF">"Completed        : {0}"</span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492"> -f</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6"> $endTime)</span></span>
+<span class="line"><span style="--shiki-light:#005CC5;--shiki-dark:#91CBFF">Write-Host</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6"> (</span><span style="--shiki-light:#032F62;--shiki-dark:#ADDCFF">"Duration         : {0}"</span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492"> -f</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6"> $duration)</span></span>
+<span class="line"><span style="--shiki-light:#005CC5;--shiki-dark:#91CBFF">Write-Host</span><span style="--shiki-light:#032F62;--shiki-dark:#ADDCFF"> ""</span></span>
+<span class="line"><span style="--shiki-light:#005CC5;--shiki-dark:#91CBFF">Write-Host</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6"> (</span><span style="--shiki-light:#032F62;--shiki-dark:#ADDCFF">"CSV Report       : {0}"</span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492"> -f</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6"> $reportPath)</span></span>
+<span class="line"><span style="--shiki-light:#005CC5;--shiki-dark:#91CBFF">Write-Host</span><span style="--shiki-light:#032F62;--shiki-dark:#ADDCFF"> ""</span></span>
+<span class="line"></span></code></pre></div><aside class="callout callout--note" aria-label="note"><p>Check out the <strong>PnP PowerShell</strong> to learn more at: <a href="https://aka.ms/pnp/powershell">https://aka.ms/pnp/powershell</a>
+The way you login into PnP PowerShell has changed please read <a href="https://github.com/pnp/powershell/discussions/4249">PnP Management Shell EntraID app is deleted : what should I do ?</a> </p>
+</aside></section><section role="tabpanel" id="tools-0-panel-1" aria-labelledby="tools-0-module" tabindex="0" hidden="hidden"><div class="code-frame"><div class="code-toolbar"><span>powershell</span><button type="button" class="copy-code" data-copy-code="code-1" aria-label="Copy powershell code">Copy code</button></div><pre id="code-1" role="region" tabindex="0" aria-label="powershell script" class="shiki shiki-themes github-light github-dark-high-contrast" style="--shiki-light:#24292e;--shiki-dark:#f0f3f6;--shiki-light-bg:#fff;--shiki-dark-bg:#0a0c10"><code><span class="line"></span>
+<span class="line"><span style="--shiki-light:#005CC5;--shiki-dark:#91CBFF">Install-Module</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6"> PnP.PowerShell </span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">-</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">Scope CurrentUser</span></span>
+<span class="line"></span></code></pre></div></section><section role="tabpanel" id="tools-0-panel-2" aria-labelledby="tools-0-run" tabindex="0" hidden="hidden"><div class="code-frame"><div class="code-toolbar"><span>powershell</span><button type="button" class="copy-code" data-copy-code="code-2" aria-label="Copy powershell code">Copy code</button></div><pre id="code-2" role="region" tabindex="0" aria-label="powershell script" class="shiki shiki-themes github-light github-dark-high-contrast" style="--shiki-light:#24292e;--shiki-dark:#f0f3f6;--shiki-light-bg:#fff;--shiki-dark-bg:#0a0c10"><code><span class="line"></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">.</span><span style="--shiki-light:#005CC5;--shiki-dark:#91CBFF">\Copy-SharePointListColumnsBetweenLists.ps1</span></span>
+<span class="line"></span></code></pre></div><aside class="callout callout--note" aria-label="note"><p>Check out the <strong>PnP PowerShell</strong> to learn more at: <a href="https://aka.ms/pnp/powershell">https://aka.ms/pnp/powershell</a>
+The way you login into PnP PowerShell has changed please read <a href="https://github.com/pnp/powershell/discussions/4249">PnP Management Shell EntraID app is deleted : what should I do ?</a> </p>
+</aside></section></div>
+<hr />
+<h2 id="output">Output</h2><h3 id="csv-report-location">CSV Report Location</h3><p>C:\Temp\FieldCopy\</p>
+<h3 id="report-contents">Report Contents</h3><p>The script generates a CSV report containing:</p>
+<div class="table-wrap" tabindex="0" role="region" aria-label="Sample data table"><table>
+<thead>
+<tr>
+<th>Column</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Date</td>
+<td>Execution timestamp</td>
+</tr>
+<tr>
+<td>Operator</td>
+<td>Account running the script</td>
+</tr>
+<tr>
+<td>Computer</td>
+<td>Execution host</td>
+</tr>
+<tr>
+<td>SourceSite</td>
+<td>Source SharePoint site</td>
+</tr>
+<tr>
+<td>DestinationSite</td>
+<td>Target SharePoint site</td>
+</tr>
+<tr>
+<td>SourceList</td>
+<td>Source list name</td>
+</tr>
+<tr>
+<td>DestinationList</td>
+<td>Destination list name</td>
+</tr>
+<tr>
+<td>Field</td>
+<td>Field processed</td>
+</tr>
+<tr>
+<td>Status</td>
+<td>Copy result</td>
+</tr>
+<tr>
+<td>Error</td>
+<td>Failure details if applicable</td>
+</tr>
+</tbody></table>
+</div><h2 id="notes">Notes</h2><ul>
+<li>Field creation uses the original SharePoint SchemaXml to preserve configuration.</li>
+<li>Existing destination fields are skipped automatically.</li>
+<li>The script is idempotent and safe to rerun.</li>
+<li>For enterprise deployments, store application IDs and certificates securely using Azure Key Vault, managed automation accounts, or enterprise credential management solutions.</li>
+</ul>
+<h2 id="contributors">Contributors</h2><div class="table-wrap" tabindex="0" role="region" aria-label="Sample data table"><table>
+<thead>
+<tr>
+<th>Author(s)</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><a href="https://github.com/ojopiyo">Josiah Opiyo</a></td>
+</tr>
+</tbody></table>
+</div><p><em>Built with a focus on automation, governance, least privilege, and clean Microsoft 365 tenants-helping M365 admins gain visibility and reduce operational risk.</em></p>
+<h2 id="version-history">Version history</h2><div class="table-wrap" tabindex="0" role="region" aria-label="Sample data table"><table>
+<thead>
+<tr>
+<th>Version</th>
+<th>Date</th>
+<th>Comments</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>1.0</td>
+<td>July 11, 2026</td>
+<td>Initial release</td>
+</tr>
+</tbody></table>
+</div><h2 id="disclaimer">Disclaimer</h2><p><strong>THESE SAMPLES ARE PROVIDED <em>AS IS</em> WITHOUT WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, INCLUDING ANY IMPLIED WARRANTIES OF FITNESS FOR A PARTICULAR PURPOSE, MERCHANTABILITY, OR NON-INFRINGEMENT.</strong></p>
+</div><section class="reference-section"><h2>Tool documentation &amp; references</h2><ul><li><a href="https://aka.ms/pnp/powershell">Want to learn more about PnP PowerShell and the cmdlets</a><p>Check out the PnP PowerShell site to get started and for the reference to the cmdlets.</p></li></ul></section><section><h2>Keep exploring</h2><div class="related-samples"><a href="/script-samples/samples/spo-update-herolink-sharingsetting/">Update Hero Link sharing settings<svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="lucide lucide-arrow-right"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg></a><a href="/script-samples/samples/spo-reset-herolink/">How to reset hero link<svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="lucide lucide-arrow-right"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg></a><a href="/script-samples/samples/spo-update-herolink/">Update Hero Link to &#39;Only people added to the file have access&#39;<svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="lucide lucide-arrow-right"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg></a></div></section></div><aside class="detail-sidebar" aria-label="Sample information"><div class="sidebar-panel"><h2>Make it your own</h2><a class="button button-primary" href="https://github.com/pnp/script-samples/tree/main/scripts/copy-sharepoint-list-columns-between-lists">Open source on GitHub <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="lucide lucide-arrow-up-right"><path d="M7 7h10v10"></path><path d="M7 17 17 7"></path></svg></a><a class="button button-secondary" href="https://github.com/pnp/script-samples/edit/main/scripts/copy-sharepoint-list-columns-between-lists/README.md">Improve this sample</a><dl><dt>Products</dt><dd><a class="product-inline" href="/script-samples/?product=sharepoint"><img src="/script-samples/images/SharePoint_512.png" alt="" width="22" height="22" loading="lazy" decoding="async">SharePoint</a></dd><dt>Tool versions from the author</dt><dd><div>PnP PowerShell <strong>2.2.0</strong></div></dd><dt>Created</dt><dd><time datetime="2026-07-11">Jul 11, 2026</time></dd><dt>Updated</dt><dd><time datetime="2026-07-11">Jul 11, 2026</time></dd></dl></div><div class="sidebar-panel"><h2>Commands &amp; topics</h2><div class="tag-list"><a href="https://pnp.github.io/powershell/cmdlets/Connect-PnPOnline.html">Connect-PnPOnline &#8599;</a><a href="https://pnp.github.io/powershell/cmdlets/Get-PnPField.html">Get-PnPField &#8599;</a><a href="https://pnp.github.io/powershell/cmdlets/Add-PnPFieldFromXml.html">Add-PnPFieldFromXml &#8599;</a><a href="/script-samples/?q=Export-Csv">Export-Csv</a></div></div><div class="sidebar-panel"><h2>Something not working?</h2><p class="card-description">Help the community keep this sample useful. Include the tool version, steps, and a redacted error message.</p><a class="text-link" href="https://github.com/pnp/script-samples/issues/new?title=Issue%20with%20copy-sharepoint-list-columns-between-lists&amp;body=Sample%3A%20https%3A%2F%2Fpnp.github.io%2Fscript-samples%2Fsamples%2Fcopy-sharepoint-list-columns-between-lists%2F%0A%0ATool%20and%20version%3A%0A%0ASteps%20to%20reproduce%3A%0A%0AExpected%20and%20actual%20result%3A%0A%0ARemove%20tenant%20details%2C%20credentials%2C%20and%20personal%20information%20before%20submitting.">Report an issue &#8599;</a></div><div class="sidebar-panel"><h2>Built by the community</h2><a href="/script-samples/contributing/recognition/"><img class="detail-badge" src="/script-samples/assets/credly-badge.png" alt="Script Samples community contributor badge" width="160" height="160" loading="lazy" decoding="async"></a><p class="card-description">Share a sample and earn your contributor badge.</p><a class="text-link" href="/script-samples/contributing/">Get involved &#8594;</a></div></aside></div></div></main><footer class="site-footer"><div class="container footer-inner"><div><strong>Microsoft 365 &amp; Power Platform Community</strong><p>Built by the community, for the community.</p></div><nav aria-label="Footer navigation"><a href="https://aka.ms/community/home">Community home &#8599;</a><a href="/script-samples/catalog.json">Catalog JSON</a><a href="/script-samples/schemas/sample.schema.json">Metadata schema</a><a href="/script-samples/reports/">Catalog reports</a><a href="/script-samples/contributing/recognition/">Contributor badge</a><a href="https://github.com/pnp/script-samples/issues/new">Report an issue</a><a href="https://opensource.microsoft.com/codeofconduct/">Code of conduct</a><a href="https://github.com/pnp/script-samples/blob/main/LICENSE">MIT license</a></nav></div></footer><p class="sr-only" id="site-status" role="status" aria-live="polite"></p><img class="sr-only" data-visitor-stats data-tracker-src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/copy-sharepoint-list-columns-between-lists" data-tracking-enabled="true" src="data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=" alt="" width="1" height="1" aria-hidden="true"><script type="module" src="/script-samples/_astro/Layout.astro_astro_type_script_index_0_lang.DaWAalj3.js"></script></body></html><script type="module" src="/script-samples/_astro/_slug_.astro_astro_type_script_index_0_lang.BIay2qYY.js"></script>

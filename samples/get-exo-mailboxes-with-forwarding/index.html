@@ -1,0 +1,316 @@
+<!DOCTYPE html><html lang="en" data-theme="light"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="description" content="This script identifies all Exchange Online mailboxes configured with email forwarding and exports the results to a timestamped CSV report."><meta name="generator" content="Astro v7.3.6"><meta name="theme-color" id="theme-color" content="#f2f4f5"><title>Get Exchange Online Mailboxes Configured With Email Forwarding | Community Script Samples</title><link rel="icon" href="/script-samples/images/parker-ms-300.png" type="image/png"><link rel="canonical" href="https://pnp.github.io/script-samples/samples/get-exo-mailboxes-with-forwarding/"><meta property="og:type" content="website"><meta property="og:site_name" content="Community Script Samples"><meta property="og:title" content="Get Exchange Online Mailboxes Configured With Email Forwarding | Community Script Samples"><meta property="og:description" content="This script identifies all Exchange Online mailboxes configured with email forwarding and exports the results to a timestamped CSV report."><meta property="og:url" content="https://pnp.github.io/script-samples/samples/get-exo-mailboxes-with-forwarding/"><meta property="og:image" content="https://pnp.github.io/script-samples/get-exo-mailboxes-with-forwarding/assets/preview.png"><meta name="twitter:card" content="summary_large_image"><script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"Community Script Samples","url":"https://pnp.github.io/script-samples/","description":"This script identifies all Exchange Online mailboxes configured with email forwarding and exports the results to a timestamped CSV report."}</script><script>
+      document.documentElement.classList.add("js");
+      try {
+        const theme = localStorage.getItem("community-script-samples-theme") === "dark" ? "dark" : "light";
+        document.documentElement.dataset.theme = theme;
+        document.documentElement.style.colorScheme = theme;
+      } catch (error) {
+        console.warn("Theme storage is unavailable; using light mode for this visit.", error);
+      }
+    </script><link rel="stylesheet" href="/script-samples/_astro/Layout.BviIPkCI.css"></head><body><a class="skip-link" href="#main-content">Skip to content</a><header class="site-header"><div class="spectrum" aria-hidden="true"></div><div class="container header-inner"><a class="brand" href="/script-samples/" aria-label="Community Script Samples home"><img src="/script-samples/images/parker-ms-300.png" alt="" width="35" height="45"><span class="brand-name"><span>Community</span> <strong>Script Samples</strong></span></a><div class="header-actions"><nav class="desktop-nav" aria-label="Primary navigation"><a href="https://aka.ms/community/home">Community <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="lucide lucide-arrow-up-right"><path d="M7 7h10v10"></path><path d="M7 17 17 7"></path></svg></a><a href="/script-samples/" aria-current="page">Samples</a><a href="/script-samples/getting-started/">Getting started</a><a href="/script-samples/contributors/">Contributors</a><a href="/script-samples/contributing/">Contributing</a><a href="https://github.com/pnp/script-samples"><svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="lucide lucide-git-fork"><circle cx="12" cy="18" r="3"></circle><circle cx="6" cy="6" r="3"></circle><circle cx="18" cy="6" r="3"></circle><path d="M18 9v2c0 .6-.4 1-1 1H7c-.6 0-1-.4-1-1V9"></path><path d="M12 12v3"></path></svg> GitHub</a></nav><button class="theme-toggle" id="theme-toggle" type="button" role="switch" aria-checked="false" aria-label="Switch to dark mode" title="Switch to dark mode"><span class="theme-icons" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="lucide lucide-sun"><circle cx="12" cy="12" r="4"></circle><path d="M12 2v2"></path><path d="M12 20v2"></path><path d="m4.93 4.93 1.41 1.41"></path><path d="m17.66 17.66 1.41 1.41"></path><path d="M2 12h2"></path><path d="M20 12h2"></path><path d="m6.34 17.66-1.41 1.41"></path><path d="m19.07 4.93-1.41 1.41"></path></svg><svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="lucide lucide-moon"><path d="M20.985 12.486a9 9 0 1 1-9.473-9.472c.405-.022.617.46.402.803a6 6 0 0 0 8.268 8.268c.344-.215.825-.004.803.401"></path></svg></span></button><details class="mobile-nav"><summary aria-label="Open navigation"><svg xmlns="http://www.w3.org/2000/svg" width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="lucide lucide-menu"><path d="M4 5h16"></path><path d="M4 12h16"></path><path d="M4 19h16"></path></svg></summary><nav aria-label="Mobile navigation"><a href="https://aka.ms/community/home">Community <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="lucide lucide-arrow-up-right"><path d="M7 7h10v10"></path><path d="M7 17 17 7"></path></svg></a><a href="/script-samples/" aria-current="page">Samples</a><a href="/script-samples/getting-started/">Getting started</a><a href="/script-samples/contributors/">Contributors</a><a href="/script-samples/contributing/">Contributing</a><a href="https://github.com/pnp/script-samples">GitHub</a></nav></details></div></div></header><main id="main-content" tabindex="-1"><div class="container detail-section"><nav class="breadcrumbs" aria-label="Breadcrumb"><a href="/script-samples/" id="back-to-samples">All samples</a><span aria-hidden="true">/</span><span>Report</span></nav><header class="detail-header"><span class="scenario-tag">Report / Security</span><h1>Get Exchange Online Mailboxes Configured With Email Forwarding</h1><p>This script identifies all Exchange Online mailboxes configured with email forwarding and exports the results to a timestamped CSV report.</p><div class="detail-byline"><a class="card-author" href="https://github.com/ojopiyo"><img class="avatar" src="https://github.com/ojopiyo.png?size=64" alt="" width="30" height="30" loading="lazy" decoding="async" data-avatar="Josiah Opiyo">Josiah Opiyo</a><span>Updated <time datetime="2026-07-04">Jul 4, 2026</time></span><a href="https://github.com/pnp/script-samples/tree/main/scripts/get-exo-mailboxes-with-forwarding">View on GitHub <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="lucide lucide-arrow-up-right"><path d="M7 7h10v10"></path><path d="M7 17 17 7"></path></svg></a></div></header><div class="detail-layout"><div class="detail-main"><aside class="safety-note" aria-label="Before you run"><strong>Understand it. Adapt it. Test it first.</strong><p>Review the full script, prerequisites, and required permissions. Test against non-production data before making changes. Samples are community contributions, provided as-is; an update date is not a claim of recent testing.</p></aside><div class="readme-content" id="sample-readme"><h2 id="professional-summary">Professional Summary</h2><p>This script identifies all Exchange Online mailboxes configured with email forwarding and exports the results to a timestamped CSV report.</p>
+<p>The script authenticates to Exchange Online using an Azure AD App Registration and certificate-based authentication, making it suitable for unattended execution.</p>
+<p>For each mailbox with forwarding enabled, the report includes:</p>
+<ul>
+<li>Mailbox Display Name</li>
+<li>Primary SMTP Address</li>
+<li>Mailbox Type</li>
+<li>Forwarding Destination</li>
+<li>Internal or External forwarding classification</li>
+<li>Forwarding Recipient (if applicable)</li>
+<li>SMTP Forwarding Address</li>
+<li>Deliver to Mailbox and Forward status</li>
+<li>Report execution date</li>
+<li>Report execution account</li>
+</ul>
+<p>The report is exported to a configurable output location for auditing and operational review.</p>
+<h2 id="why-it-matters">Why it matters</h2><p>Mailbox forwarding is commonly used for business processes, shared services, and user transitions. However, forwarding - particularly to external recipients - can introduce security, compliance, and data governance risks if not regularly monitored.</p>
+<p>This report enables administrators to quickly identify forwarding configurations across the tenant, helping to detect:</p>
+<ul>
+<li>Unauthorised external forwarding</li>
+<li>Legacy mailbox configurations</li>
+<li>Forgotten forwarding rules after staff departures</li>
+<li>Shared mailboxes forwarding to individual users</li>
+<li>Potential data exfiltration risks</li>
+<li>Mail routing issues caused by incorrect forwarding settings</li>
+</ul>
+<p>The script is well suited to scheduled compliance reporting or periodic Exchange Online health checks.</p>
+<h2 id="benefits">Benefits</h2><ul>
+<li>Provides a tenant-wide inventory of mailbox forwarding.</li>
+<li>Identifies external forwarding destinations for security review.</li>
+<li>Supports Microsoft 365 governance and compliance initiatives.</li>
+<li>Assists with migration validation and post-project audits.</li>
+<li>Helps troubleshoot unexpected mail routing behaviour.</li>
+<li>Produces a consistent CSV report suitable for archiving or further analysis.</li>
+<li>Supports unattended execution using certificate-based authentication.</li>
+</ul>
+<h2 id="prerequisites">Prerequisites</h2><ul>
+<li>PowerShell 7.x or Windows PowerShell 5.1</li>
+<li>Exchange Online PowerShell Module</li>
+<li>Microsoft Entra ID App Registration configured for certificate-based authentication</li>
+<li>Exchange.ManageAsApp permission granted</li>
+<li>Exchange Administrator (or equivalent application permissions)</li>
+</ul>
+<h2 id="usage">Usage</h2><ol>
+<li>Configure tenant-specific values:<ul>
+<li>Client ID</li>
+<li>Certificate Thumbprint</li>
+<li>Tenant Name</li>
+<li>Output Folder</li>
+</ul>
+</li>
+<li>Execute the script using a privileged administrative account context.</li>
+<li>Review the generated CSV reports.</li>
+</ol>
+
+<div class="readme-tabs" data-tabs><div class="tool-tabs" role="tablist" aria-label="Script implementations"><button type="button" role="tab" id="tools-0-pnpps" data-tab-id="pnpps" aria-controls="tools-0-panel-0" aria-selected="true" tabindex="0">PnP PowerShell</button></div><section role="tabpanel" id="tools-0-panel-0" aria-labelledby="tools-0-pnpps" tabindex="0"><div class="code-frame"><div class="code-toolbar"><span>powershell</span><button type="button" class="copy-code" data-copy-code="code-0" aria-label="Copy powershell code">Copy code</button></div><pre id="code-0" role="region" tabindex="0" aria-label="powershell script" class="shiki shiki-themes github-light github-dark-high-contrast" style="--shiki-light:#24292e;--shiki-dark:#f0f3f6;--shiki-light-bg:#fff;--shiki-dark-bg:#0a0c10"><code><span class="line"></span>
+<span class="line"><span style="--shiki-light:#6A737D;--shiki-dark:#BDC4CC"># ------------------------------------------------------------</span></span>
+<span class="line"><span style="--shiki-light:#6A737D;--shiki-dark:#BDC4CC"># Mailboxes with Forwarding Enabled - Audit Report</span></span>
+<span class="line"><span style="--shiki-light:#6A737D;--shiki-dark:#BDC4CC"># Exchange Online App Authentication</span></span>
+<span class="line"><span style="--shiki-light:#6A737D;--shiki-dark:#BDC4CC"># ------------------------------------------------------------</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#6A737D;--shiki-dark:#BDC4CC"># ---------- Configuration ----------</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">$ClientID      </span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">=</span><span style="--shiki-light:#032F62;--shiki-dark:#ADDCFF"> "xxxxxxxxxxxxxxxxxxxxxxxxx"</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">$ThumbPrint    </span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">=</span><span style="--shiki-light:#032F62;--shiki-dark:#ADDCFF"> "xxxxxxxxxxxxxxxxxxxxxxxxx"</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">$Tenant        </span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">=</span><span style="--shiki-light:#032F62;--shiki-dark:#ADDCFF"> "contoso.onmicrosoft.com"</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">$OutputFolder  </span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">=</span><span style="--shiki-light:#032F62;--shiki-dark:#ADDCFF"> "C:\Temp\Outlook"</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#6A737D;--shiki-dark:#BDC4CC"># Your accepted email domains (used to determine Internal vs External forwarding)</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">$AcceptedDomains </span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">=</span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492"> @</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">(</span></span>
+<span class="line"><span style="--shiki-light:#032F62;--shiki-dark:#ADDCFF">    "contoso.com"</span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">,</span></span>
+<span class="line"><span style="--shiki-light:#032F62;--shiki-dark:#ADDCFF">    "contoso.onmicrosoft.com"</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">)</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#6A737D;--shiki-dark:#BDC4CC"># ---------- Report Information ----------</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">$ReportName    </span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">=</span><span style="--shiki-light:#032F62;--shiki-dark:#ADDCFF"> "Mailboxes with Forwarding Enabled"</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">$ReportRunDate </span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">=</span><span style="--shiki-light:#005CC5;--shiki-dark:#91CBFF"> Get-Date</span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492"> -</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">Format </span><span style="--shiki-light:#032F62;--shiki-dark:#ADDCFF">"yyyy-MM-dd HH:mm:ss"</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">$ReportRunBy   </span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">=</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6"> [</span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">System.Security.Principal.WindowsIdentity</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">]::GetCurrent().Name</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">$DateStamp     </span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">=</span><span style="--shiki-light:#005CC5;--shiki-dark:#91CBFF"> Get-Date</span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492"> -</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">Format </span><span style="--shiki-light:#032F62;--shiki-dark:#ADDCFF">"yyyy-MM-dd_HHmmss"</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">$OutputFile    </span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">=</span><span style="--shiki-light:#005CC5;--shiki-dark:#91CBFF"> Join-Path</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6"> $OutputFolder </span><span style="--shiki-light:#032F62;--shiki-dark:#ADDCFF">"MailboxesWithForwarding_</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">$DateStamp</span><span style="--shiki-light:#032F62;--shiki-dark:#ADDCFF">.csv"</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#6A737D;--shiki-dark:#BDC4CC"># ---------- Create Output Folder ----------</span></span>
+<span class="line"><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">if</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6"> (</span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">!</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">(</span><span style="--shiki-light:#005CC5;--shiki-dark:#91CBFF">Test-Path</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6"> $OutputFolder)) {</span></span>
+<span class="line"><span style="--shiki-light:#005CC5;--shiki-dark:#91CBFF">    Write-Host</span><span style="--shiki-light:#032F62;--shiki-dark:#ADDCFF"> "Creating output folder..."</span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492"> -</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">ForegroundColor Yellow</span></span>
+<span class="line"><span style="--shiki-light:#005CC5;--shiki-dark:#91CBFF">    New-Item</span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492"> -</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">ItemType Directory </span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">-</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">Path $OutputFolder </span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">|</span><span style="--shiki-light:#005CC5;--shiki-dark:#91CBFF"> Out-Null</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">try</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6"> {</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#6A737D;--shiki-dark:#BDC4CC">    # ---------- Connect ----------</span></span>
+<span class="line"><span style="--shiki-light:#005CC5;--shiki-dark:#91CBFF">    Write-Host</span><span style="--shiki-light:#032F62;--shiki-dark:#ADDCFF"> "Connecting to Exchange Online..."</span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492"> -</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">ForegroundColor Cyan</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#005CC5;--shiki-dark:#91CBFF">    Connect-ExchangeOnline</span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492"> `</span></span>
+<span class="line"><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">        -</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">AppId $ClientID </span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">`</span></span>
+<span class="line"><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">        -</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">CertificateThumbprint $ThumbPrint </span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">`</span></span>
+<span class="line"><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">        -</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">Organization $Tenant </span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">`</span></span>
+<span class="line"><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">        -</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">ShowBanner:</span><span style="--shiki-light:#005CC5;--shiki-dark:#91CBFF">$false</span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492"> `</span></span>
+<span class="line"><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">        -</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">ErrorAction Stop</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#005CC5;--shiki-dark:#91CBFF">    Write-Host</span><span style="--shiki-light:#032F62;--shiki-dark:#ADDCFF"> "Connected successfully."</span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492"> -</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">ForegroundColor Green</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#6A737D;--shiki-dark:#BDC4CC">    # ---------- Retrieve Mailboxes ----------</span></span>
+<span class="line"><span style="--shiki-light:#005CC5;--shiki-dark:#91CBFF">    Write-Host</span><span style="--shiki-light:#032F62;--shiki-dark:#ADDCFF"> "Retrieving mailboxes..."</span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492"> -</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">ForegroundColor Cyan</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">    $mailboxes </span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">=</span><span style="--shiki-light:#005CC5;--shiki-dark:#91CBFF"> Get-EXOMailbox</span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492"> `</span></span>
+<span class="line"><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">        -</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">ResultSize Unlimited </span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">`</span></span>
+<span class="line"><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">        -</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">Properties ForwardingAddress</span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">,</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">ForwardingSmtpAddress</span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">,</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">DeliverToMailboxAndForward</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">    $total </span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">=</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6"> $mailboxes.Count</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">    $counter </span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">=</span><span style="--shiki-light:#005CC5;--shiki-dark:#91CBFF"> 0</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#005CC5;--shiki-dark:#91CBFF">    Write-Host</span><span style="--shiki-light:#032F62;--shiki-dark:#ADDCFF"> "Processing </span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">$total</span><span style="--shiki-light:#032F62;--shiki-dark:#ADDCFF"> mailbox(es)..."</span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492"> -</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">ForegroundColor Cyan</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">    $results </span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">=</span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492"> foreach</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6"> ($mailbox </span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">in</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6"> $mailboxes) {</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">        $counter</span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">++</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#005CC5;--shiki-dark:#91CBFF">        Write-Progress</span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492"> `</span></span>
+<span class="line"><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">            -</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">Activity </span><span style="--shiki-light:#032F62;--shiki-dark:#ADDCFF">"Checking Mailboxes"</span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492"> `</span></span>
+<span class="line"><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">            -</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">Status </span><span style="--shiki-light:#032F62;--shiki-dark:#ADDCFF">"</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">$counter</span><span style="--shiki-light:#032F62;--shiki-dark:#ADDCFF"> of </span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">$total</span><span style="--shiki-light:#032F62;--shiki-dark:#ADDCFF">"</span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492"> `</span></span>
+<span class="line"><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">            -</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">PercentComplete (($counter </span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">/</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6"> $total) </span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">*</span><span style="--shiki-light:#005CC5;--shiki-dark:#91CBFF"> 100</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">)</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">        if</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6"> ($mailbox.ForwardingAddress </span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">-or</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6"> $mailbox.ForwardingSmtpAddress) {</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#6A737D;--shiki-dark:#BDC4CC">            # Determine forwarding destination</span></span>
+<span class="line"><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">            if</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6"> ($mailbox.ForwardingAddress) {</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">                $ForwardTo </span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">=</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6"> $mailbox.ForwardingAddress.PrimarySmtpAddress</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">                $ForwardingRecipient </span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">=</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6"> $mailbox.ForwardingAddress.Name</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">            }</span></span>
+<span class="line"><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">            else</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6"> {</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">                $ForwardTo </span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">=</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6"> $mailbox.ForwardingSmtpAddress</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">                $ForwardingRecipient </span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">=</span><span style="--shiki-light:#032F62;--shiki-dark:#ADDCFF"> ""</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">            }</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#6A737D;--shiki-dark:#BDC4CC">            # Determine Internal / External</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">            $ForwardType </span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">=</span><span style="--shiki-light:#032F62;--shiki-dark:#ADDCFF"> "Unknown"</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">            if</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6"> ($ForwardTo) {</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">                $ForwardDomain </span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">=</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6"> ($ForwardTo.ToString().Split(</span><span style="--shiki-light:#032F62;--shiki-dark:#ADDCFF">"@"</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">)[</span><span style="--shiki-light:#005CC5;--shiki-dark:#91CBFF">-1</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">]).ToLower()</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">                if</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6"> ($AcceptedDomains </span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">-contains</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6"> $ForwardDomain) {</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">                    $ForwardType </span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">=</span><span style="--shiki-light:#032F62;--shiki-dark:#ADDCFF"> "Internal"</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">                }</span></span>
+<span class="line"><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">                else</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6"> {</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">                    $ForwardType </span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">=</span><span style="--shiki-light:#032F62;--shiki-dark:#ADDCFF"> "External"</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">                }</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">            }</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">            [</span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">PSCustomObject</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">]</span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">@</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">{</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">                ReportName                 </span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">=</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6"> $ReportName</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">                ReportRunDate              </span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">=</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6"> $ReportRunDate</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">                ReportRunBy                </span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">=</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6"> $ReportRunBy</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">                DisplayName                </span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">=</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6"> $mailbox.DisplayName</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">                PrimarySmtpAddress         </span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">=</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6"> $mailbox.PrimarySmtpAddress</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">                MailboxType                </span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">=</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6"> $mailbox.RecipientTypeDetails</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">                ForwardTo                  </span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">=</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6"> $ForwardTo</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">                ForwardType                </span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">=</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6"> $ForwardType</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">                ForwardingRecipient        </span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">=</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6"> $ForwardingRecipient</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">                ForwardingSmtpAddress      </span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">=</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6"> $mailbox.ForwardingSmtpAddress</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">                DeliverToMailboxAndForward </span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">=</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6"> $mailbox.DeliverToMailboxAndForward</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">            }</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">        }</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">    }</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#005CC5;--shiki-dark:#91CBFF">    Write-Progress</span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492"> -</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">Activity </span><span style="--shiki-light:#032F62;--shiki-dark:#ADDCFF">"Checking Mailboxes"</span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492"> -</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">Completed</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#6A737D;--shiki-dark:#BDC4CC">    # ---------- Export ----------</span></span>
+<span class="line"><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">    if</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6"> ($results) {</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">        $results </span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">|</span></span>
+<span class="line"><span style="--shiki-light:#005CC5;--shiki-dark:#91CBFF">            Sort-Object</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6"> DisplayName </span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">|</span></span>
+<span class="line"><span style="--shiki-light:#005CC5;--shiki-dark:#91CBFF">            Export-Csv</span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492"> -</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">Path $OutputFile </span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">-</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">NoTypeInformation </span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">-</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">Encoding UTF8</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#005CC5;--shiki-dark:#91CBFF">        Write-Host</span><span style="--shiki-light:#032F62;--shiki-dark:#ADDCFF"> ""</span></span>
+<span class="line"><span style="--shiki-light:#005CC5;--shiki-dark:#91CBFF">        Write-Host</span><span style="--shiki-light:#032F62;--shiki-dark:#ADDCFF"> "============================================="</span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492"> -</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">ForegroundColor Green</span></span>
+<span class="line"><span style="--shiki-light:#005CC5;--shiki-dark:#91CBFF">        Write-Host</span><span style="--shiki-light:#032F62;--shiki-dark:#ADDCFF"> "Report Complete"</span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492"> -</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">ForegroundColor Green</span></span>
+<span class="line"><span style="--shiki-light:#005CC5;--shiki-dark:#91CBFF">        Write-Host</span><span style="--shiki-light:#032F62;--shiki-dark:#ADDCFF"> "============================================="</span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492"> -</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">ForegroundColor Green</span></span>
+<span class="line"><span style="--shiki-light:#005CC5;--shiki-dark:#91CBFF">        Write-Host</span><span style="--shiki-light:#032F62;--shiki-dark:#ADDCFF"> "Mailboxes with forwarding : </span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">$</span><span style="--shiki-light:#032F62;--shiki-dark:#FF9492">(</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">$results.Count</span><span style="--shiki-light:#032F62;--shiki-dark:#FF9492">)</span><span style="--shiki-light:#032F62;--shiki-dark:#ADDCFF">"</span></span>
+<span class="line"><span style="--shiki-light:#005CC5;--shiki-dark:#91CBFF">        Write-Host</span><span style="--shiki-light:#032F62;--shiki-dark:#ADDCFF"> "Report saved to           : </span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">$OutputFile</span><span style="--shiki-light:#032F62;--shiki-dark:#ADDCFF">"</span></span>
+<span class="line"><span style="--shiki-light:#005CC5;--shiki-dark:#91CBFF">        Write-Host</span><span style="--shiki-light:#032F62;--shiki-dark:#ADDCFF"> "Run by                    : </span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">$ReportRunBy</span><span style="--shiki-light:#032F62;--shiki-dark:#ADDCFF">"</span></span>
+<span class="line"><span style="--shiki-light:#005CC5;--shiki-dark:#91CBFF">        Write-Host</span><span style="--shiki-light:#032F62;--shiki-dark:#ADDCFF"> "Run date                  : </span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">$ReportRunDate</span><span style="--shiki-light:#032F62;--shiki-dark:#ADDCFF">"</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">    }</span></span>
+<span class="line"><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">    else</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6"> {</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#005CC5;--shiki-dark:#91CBFF">        Write-Host</span><span style="--shiki-light:#032F62;--shiki-dark:#ADDCFF"> ""</span></span>
+<span class="line"><span style="--shiki-light:#005CC5;--shiki-dark:#91CBFF">        Write-Host</span><span style="--shiki-light:#032F62;--shiki-dark:#ADDCFF"> "No mailboxes with forwarding enabled were found."</span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492"> -</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">ForegroundColor Green</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">    }</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">}</span></span>
+<span class="line"><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">catch</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6"> {</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#005CC5;--shiki-dark:#91CBFF">    Write-Host</span><span style="--shiki-light:#032F62;--shiki-dark:#ADDCFF"> ""</span></span>
+<span class="line"><span style="--shiki-light:#005CC5;--shiki-dark:#91CBFF">    Write-Host</span><span style="--shiki-light:#032F62;--shiki-dark:#ADDCFF"> "ERROR: </span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">$</span><span style="--shiki-light:#032F62;--shiki-dark:#FF9492">(</span><span style="--shiki-light:#005CC5;--shiki-dark:#91CBFF">$_</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">.Exception.Message</span><span style="--shiki-light:#032F62;--shiki-dark:#FF9492">)</span><span style="--shiki-light:#032F62;--shiki-dark:#ADDCFF">"</span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492"> -</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">ForegroundColor Red</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">}</span></span>
+<span class="line"><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">finally</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6"> {</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#005CC5;--shiki-dark:#91CBFF">    Disconnect-ExchangeOnline</span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492"> -</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">Confirm:</span><span style="--shiki-light:#005CC5;--shiki-dark:#91CBFF">$false</span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492"> -</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">ErrorAction SilentlyContinue</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">}</span></span>
+<span class="line"></span></code></pre></div><h2 id="output">Output</h2><h3 id="detailed-report">Detailed Report</h3><p>The script generates a timestamped CSV file similar to:</p>
+<p>MailboxesWithForwarding_yyyyMMdd_HHmmss.csv</p>
+<p>The report contains the following fields:</p>
+<div class="table-wrap" tabindex="0" role="region" aria-label="Sample data table"><table>
+<thead>
+<tr>
+<th>Column</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>ReportName</td>
+<td>Name of the report</td>
+</tr>
+<tr>
+<td>ReportRunDate</td>
+<td>Date and time the report was generated</td>
+</tr>
+<tr>
+<td>ReportRunBy</td>
+<td>Windows account executing the script</td>
+</tr>
+<tr>
+<td>DisplayName</td>
+<td>Mailbox display name</td>
+</tr>
+<tr>
+<td>PrimarySmtpAddress</td>
+<td>Primary email address</td>
+</tr>
+<tr>
+<td>MailboxType</td>
+<td>Exchange mailbox type</td>
+</tr>
+<tr>
+<td>ForwardTo</td>
+<td>Destination address receiving forwarded mail</td>
+</tr>
+<tr>
+<td>ForwardType</td>
+<td>Internal or External</td>
+</tr>
+<tr>
+<td>ForwardingRecipient</td>
+<td>Internal Exchange recipient (if configured)</td>
+</tr>
+<tr>
+<td>ForwardingSmtpAddress</td>
+<td>SMTP forwarding address</td>
+</tr>
+<tr>
+<td>DeliverToMailboxAndForward</td>
+<td>Indicates whether mail is retained in the original mailbox</td>
+</tr>
+</tbody></table>
+</div><h2 id="typical-use-cases">Typical Use Cases</h2><ul>
+<li>Exchange Online security audits</li>
+<li>Governance reporting</li>
+<li>Compliance reviews</li>
+<li>Tenant health checks</li>
+<li>Migration validation</li>
+<li>Quarterly mailbox audits</li>
+<li>Operational documentation</li>
+<li>Incident investigations</li>
+</ul>
+<h2 id="notes">Notes</h2><ul>
+<li>Only mailboxes with forwarding configured are included in the report.</li>
+<li>Internal versus External forwarding is determined using the tenant's accepted email domains.</li>
+<li>The script automatically disconnects from Exchange Online when processing is complete.</li>
+<li>The script is designed for unattended execution using certificate-based authentication and can be scheduled using Task Scheduler, Azure Automation, or similar orchestration platforms.</li>
+</ul>
+</section></div>
+<h2 id="contributors">Contributors</h2><div class="table-wrap" tabindex="0" role="region" aria-label="Sample data table"><table>
+<thead>
+<tr>
+<th>Author(s)</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><a href="https://github.com/ojopiyo">Josiah Opiyo</a></td>
+</tr>
+</tbody></table>
+</div><p><em>Built with a focus on automation, governance, least privilege, and clean Microsoft 365 tenants-helping M365 admins gain visibility and reduce operational risk.</em></p>
+<h2 id="version-history">Version history</h2><div class="table-wrap" tabindex="0" role="region" aria-label="Sample data table"><table>
+<thead>
+<tr>
+<th>Version</th>
+<th>Date</th>
+<th>Comments</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>1.0</td>
+<td>July 04, 2026</td>
+<td>Initial release</td>
+</tr>
+</tbody></table>
+</div><h2 id="disclaimer">Disclaimer</h2><p><strong>THESE SAMPLES ARE PROVIDED <em>AS IS</em> WITHOUT WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, INCLUDING ANY IMPLIED WARRANTIES OF FITNESS FOR A PARTICULAR PURPOSE, MERCHANTABILITY, OR NON-INFRINGEMENT.</strong></p>
+</div><section class="reference-section"><h2>Tool documentation &amp; references</h2><ul><li><a href="https://learn.microsoft.com/powershell/exchange/connect-to-exchange-online-powershell">Exchange Online PowerShell module</a><p>Learn how to connect to Exchange Online and use Exchange Online PowerShell cmdlets.</p></li></ul></section><section><h2>Keep exploring</h2><div class="related-samples"><a href="/script-samples/samples/exo-mailboxes-with-calendar-delegates/">Exchange Online Mailboxes with Calendar Delegates<svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="lucide lucide-arrow-right"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg></a><a href="/script-samples/samples/exo-mailboxes-with-archive-disabled/">Exchange Online Mailboxes with Archive Disabled<svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="lucide lucide-arrow-right"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg></a><a href="/script-samples/samples/aad-bulk-restore-deletedgroups/">Restore deleted Microsoft 365 &amp; Entra ID Security Groups<svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="lucide lucide-arrow-right"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg></a></div></section></div><aside class="detail-sidebar" aria-label="Sample information"><div class="sidebar-panel"><h2>Make it your own</h2><a class="button button-primary" href="https://github.com/pnp/script-samples/tree/main/scripts/get-exo-mailboxes-with-forwarding">Open source on GitHub <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="lucide lucide-arrow-up-right"><path d="M7 7h10v10"></path><path d="M7 17 17 7"></path></svg></a><a class="button button-secondary" href="https://github.com/pnp/script-samples/edit/main/scripts/get-exo-mailboxes-with-forwarding/README.md">Improve this sample</a><dl><dt>Products</dt><dd><a class="product-inline" href="/script-samples/?product=microsoft-365"><img src="/script-samples/images/office.svg" alt="" width="22" height="22" loading="lazy" decoding="async">Microsoft 365</a></dd><dt>Tool versions from the author</dt><dd><div>PowerShell <strong>7.2.0</strong></div></dd><dt>Created</dt><dd><time datetime="2026-07-04">Jul 4, 2026</time></dd><dt>Updated</dt><dd><time datetime="2026-07-04">Jul 4, 2026</time></dd></dl></div><div class="sidebar-panel"><h2>Commands &amp; topics</h2><div class="tag-list"><a href="/script-samples/?q=Connect-ExchangeOnline">Connect-ExchangeOnline</a><a href="/script-samples/?q=Get-EXOMailbox">Get-EXOMailbox</a><a href="/script-samples/?q=Export-Csv">Export-Csv</a><a href="/script-samples/?q=Exchange%20Online">Exchange Online</a><a href="/script-samples/?q=Mailbox%20Forwarding">Mailbox Forwarding</a></div></div><div class="sidebar-panel"><h2>Something not working?</h2><p class="card-description">Help the community keep this sample useful. Include the tool version, steps, and a redacted error message.</p><a class="text-link" href="https://github.com/pnp/script-samples/issues/new?title=Issue%20with%20get-exo-mailboxes-with-forwarding&amp;body=Sample%3A%20https%3A%2F%2Fpnp.github.io%2Fscript-samples%2Fsamples%2Fget-exo-mailboxes-with-forwarding%2F%0A%0ATool%20and%20version%3A%0A%0ASteps%20to%20reproduce%3A%0A%0AExpected%20and%20actual%20result%3A%0A%0ARemove%20tenant%20details%2C%20credentials%2C%20and%20personal%20information%20before%20submitting.">Report an issue &#8599;</a></div><div class="sidebar-panel"><h2>Built by the community</h2><a href="/script-samples/contributing/recognition/"><img class="detail-badge" src="/script-samples/assets/credly-badge.png" alt="Script Samples community contributor badge" width="160" height="160" loading="lazy" decoding="async"></a><p class="card-description">Share a sample and earn your contributor badge.</p><a class="text-link" href="/script-samples/contributing/">Get involved &#8594;</a></div></aside></div></div></main><footer class="site-footer"><div class="container footer-inner"><div><strong>Microsoft 365 &amp; Power Platform Community</strong><p>Built by the community, for the community.</p></div><nav aria-label="Footer navigation"><a href="https://aka.ms/community/home">Community home &#8599;</a><a href="/script-samples/catalog.json">Catalog JSON</a><a href="/script-samples/schemas/sample.schema.json">Metadata schema</a><a href="/script-samples/reports/">Catalog reports</a><a href="/script-samples/contributing/recognition/">Contributor badge</a><a href="https://github.com/pnp/script-samples/issues/new">Report an issue</a><a href="https://opensource.microsoft.com/codeofconduct/">Code of conduct</a><a href="https://github.com/pnp/script-samples/blob/main/LICENSE">MIT license</a></nav></div></footer><p class="sr-only" id="site-status" role="status" aria-live="polite"></p><img class="sr-only" data-visitor-stats data-tracker-src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/get-exo-mailboxes-with-forwarding" data-tracking-enabled="true" src="data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=" alt="" width="1" height="1" aria-hidden="true"><script type="module" src="/script-samples/_astro/Layout.astro_astro_type_script_index_0_lang.DaWAalj3.js"></script></body></html><script type="module" src="/script-samples/_astro/_slug_.astro_astro_type_script_index_0_lang.BIay2qYY.js"></script>

@@ -10,8 +10,7 @@
     "updateDateTime": "2024-03-04",
     "products": [
       "SharePoint",
-      "SharePoint Online",
-      "Termstores"
+      "SharePoint Online"
     ],
     "metadata": [
       {
@@ -22,7 +21,8 @@
     "tags": [
       "Microsoft.SharePoint.Client.ClientContext",
       "Microsoft.SharePoint.Client.SharePointOnlineCredentials",
-      "GetTaxonomySession"
+      "GetTaxonomySession",
+      "Termstores"
     ],
     "categories": [
       "Data"
@@ -32,10 +32,10 @@
         "type": "image",
         "order": 100,
         "url": "https://raw.githubusercontent.com/pnp/script-samples/main/scripts/spo-get-termstores-hierarchy-using-csom/assets/preview.png",
-        "alt": ""
+        "alt": "Preview of the sample How to retrieve the hierarchy of all term stores for all levels?"
       }
     ],
-    "authors": [      
+    "authors": [
       {
         "gitHubAccount": "chandaniprajapati",
         "pictureUrl": "https://avatars.githubusercontent.com/u/52065929?v=4",
@@ -47,7 +47,7 @@
         "name": "Want to learn more about CSOM PowerShell and the cmdlets",
         "description": "Check out the CSOM PowerShell site to get started and for the reference to the cmdlets.",
         "url": "https://learn.microsoft.com/en-us/sharepoint/dev/sp-add-ins/complete-basic-operations-using-sharepoint-client-library-code"
-      }      
+      }
     ]
   }
 ]

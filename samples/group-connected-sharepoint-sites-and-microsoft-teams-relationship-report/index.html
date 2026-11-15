@@ -1,0 +1,262 @@
+<!DOCTYPE html><html lang="en" data-theme="light"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="description" content="Generate a tenant-wide CSV report of Microsoft 365 Group-connected SharePoint sites, ownership, and Microsoft Teams linkage."><meta name="generator" content="Astro v7.3.6"><meta name="theme-color" id="theme-color" content="#f2f4f5"><title>Group-Connected SharePoint Sites and Microsoft Teams Relationship Report | Community Script Samples</title><link rel="icon" href="/script-samples/images/parker-ms-300.png" type="image/png"><link rel="canonical" href="https://pnp.github.io/script-samples/samples/group-connected-sharepoint-sites-and-microsoft-teams-relationship-report/"><meta property="og:type" content="website"><meta property="og:site_name" content="Community Script Samples"><meta property="og:title" content="Group-Connected SharePoint Sites and Microsoft Teams Relationship Report | Community Script Samples"><meta property="og:description" content="Generate a tenant-wide CSV report of Microsoft 365 Group-connected SharePoint sites, ownership, and Microsoft Teams linkage."><meta property="og:url" content="https://pnp.github.io/script-samples/samples/group-connected-sharepoint-sites-and-microsoft-teams-relationship-report/"><meta property="og:image" content="https://pnp.github.io/script-samples/group-connected-sharepoint-sites-and-microsoft-teams-relationship-report/assets/preview.png"><meta name="twitter:card" content="summary_large_image"><script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"Community Script Samples","url":"https://pnp.github.io/script-samples/","description":"Generate a tenant-wide CSV report of Microsoft 365 Group-connected SharePoint sites, ownership, and Microsoft Teams linkage."}</script><script>
+      document.documentElement.classList.add("js");
+      try {
+        const theme = localStorage.getItem("community-script-samples-theme") === "dark" ? "dark" : "light";
+        document.documentElement.dataset.theme = theme;
+        document.documentElement.style.colorScheme = theme;
+      } catch (error) {
+        console.warn("Theme storage is unavailable; using light mode for this visit.", error);
+      }
+    </script><link rel="stylesheet" href="/script-samples/_astro/Layout.BviIPkCI.css"></head><body><a class="skip-link" href="#main-content">Skip to content</a><header class="site-header"><div class="spectrum" aria-hidden="true"></div><div class="container header-inner"><a class="brand" href="/script-samples/" aria-label="Community Script Samples home"><img src="/script-samples/images/parker-ms-300.png" alt="" width="35" height="45"><span class="brand-name"><span>Community</span> <strong>Script Samples</strong></span></a><div class="header-actions"><nav class="desktop-nav" aria-label="Primary navigation"><a href="https://aka.ms/community/home">Community <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="lucide lucide-arrow-up-right"><path d="M7 7h10v10"></path><path d="M7 17 17 7"></path></svg></a><a href="/script-samples/" aria-current="page">Samples</a><a href="/script-samples/getting-started/">Getting started</a><a href="/script-samples/contributors/">Contributors</a><a href="/script-samples/contributing/">Contributing</a><a href="https://github.com/pnp/script-samples"><svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="lucide lucide-git-fork"><circle cx="12" cy="18" r="3"></circle><circle cx="6" cy="6" r="3"></circle><circle cx="18" cy="6" r="3"></circle><path d="M18 9v2c0 .6-.4 1-1 1H7c-.6 0-1-.4-1-1V9"></path><path d="M12 12v3"></path></svg> GitHub</a></nav><button class="theme-toggle" id="theme-toggle" type="button" role="switch" aria-checked="false" aria-label="Switch to dark mode" title="Switch to dark mode"><span class="theme-icons" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="lucide lucide-sun"><circle cx="12" cy="12" r="4"></circle><path d="M12 2v2"></path><path d="M12 20v2"></path><path d="m4.93 4.93 1.41 1.41"></path><path d="m17.66 17.66 1.41 1.41"></path><path d="M2 12h2"></path><path d="M20 12h2"></path><path d="m6.34 17.66-1.41 1.41"></path><path d="m19.07 4.93-1.41 1.41"></path></svg><svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="lucide lucide-moon"><path d="M20.985 12.486a9 9 0 1 1-9.473-9.472c.405-.022.617.46.402.803a6 6 0 0 0 8.268 8.268c.344-.215.825-.004.803.401"></path></svg></span></button><details class="mobile-nav"><summary aria-label="Open navigation"><svg xmlns="http://www.w3.org/2000/svg" width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="lucide lucide-menu"><path d="M4 5h16"></path><path d="M4 12h16"></path><path d="M4 19h16"></path></svg></summary><nav aria-label="Mobile navigation"><a href="https://aka.ms/community/home">Community <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="lucide lucide-arrow-up-right"><path d="M7 7h10v10"></path><path d="M7 17 17 7"></path></svg></a><a href="/script-samples/" aria-current="page">Samples</a><a href="/script-samples/getting-started/">Getting started</a><a href="/script-samples/contributors/">Contributors</a><a href="/script-samples/contributing/">Contributing</a><a href="https://github.com/pnp/script-samples">GitHub</a></nav></details></div></div></header><main id="main-content" tabindex="-1"><div class="container detail-section"><nav class="breadcrumbs" aria-label="Breadcrumb"><a href="/script-samples/" id="back-to-samples">All samples</a><span aria-hidden="true">/</span><span>Report</span></nav><header class="detail-header"><span class="scenario-tag">Report</span><h1>Group-Connected SharePoint Sites and Microsoft Teams Relationship Report</h1><p>Generate a tenant-wide CSV report of Microsoft 365 Group-connected SharePoint sites, ownership, and Microsoft Teams linkage.</p><div class="detail-byline"><a class="card-author" href="https://github.com/ojopiyo"><img class="avatar" src="https://github.com/ojopiyo.png?size=64" alt="" width="30" height="30" loading="lazy" decoding="async" data-avatar="Josiah Opiyo">Josiah Opiyo</a><span>Updated <time datetime="2026-06-20">Jun 20, 2026</time></span><a href="https://github.com/pnp/script-samples/tree/main/scripts/group-connected-sharepoint-sites-and-microsoft-teams-relationship-report">View on GitHub <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="lucide lucide-arrow-up-right"><path d="M7 7h10v10"></path><path d="M7 17 17 7"></path></svg></a></div></header><div class="detail-layout"><div class="detail-main"><aside class="safety-note" aria-label="Before you run"><strong>Understand it. Adapt it. Test it first.</strong><p>Review the full script, prerequisites, and required permissions. Test against non-production data before making changes. Samples are community contributions, provided as-is; an update date is not a claim of recent testing.</p></aside><div class="readme-content" id="sample-readme"><h2 id="professional-summary">Professional Summary</h2><p>This PowerShell script generates a comprehensive inventory of Microsoft 365 Group-connected SharePoint Online sites across the tenant. It identifies the associated Microsoft 365 Group, determines whether the group is connected to Microsoft Teams, retrieves group ownership information, and exports the results to a CSV report for analysis and governance purposes.</p>
+<p>The report provides visibility into the relationship between SharePoint Online, Microsoft 365 Groups, and Microsoft Teams, enabling administrators to better understand collaboration workloads across the tenant.</p>
+<h2 id="why-it-matters">Why it matters</h2><p>As Microsoft 365 environments mature, organisations often accumulate hundreds or thousands of Microsoft 365 Groups, SharePoint sites, and Teams workspaces.</p>
+<p>Without a central inventory, administrators can face challenges such as:</p>
+<ul>
+<li>Identifying orphaned collaboration workspaces with no owners.</li>
+<li>Determining which SharePoint sites are actively associated with Teams.</li>
+<li>Assessing migration readiness during tenant consolidations or mergers.</li>
+<li>Reviewing governance compliance for Microsoft 365 Groups.</li>
+<li>Understanding the relationship between Teams, Groups, and SharePoint resources.</li>
+</ul>
+<p>This report provides a single source of truth for Group-connected SharePoint sites and their associated ownership and Teams status.</p>
+<h2 id="benefits">Benefits</h2><ul>
+<li>Provides a complete inventory of Microsoft 365 Group-connected SharePoint sites.</li>
+<li>Identifies sites with no assigned owners.</li>
+<li>Highlights which Groups are connected to Microsoft Teams.</li>
+<li>Supports governance and lifecycle management initiatives.</li>
+<li>Assists with migration and tenant consolidation projects.</li>
+<li>Simplifies audit and compliance reviews.</li>
+<li>Enables proactive management of collaboration workloads.</li>
+<li>Produces a timestamped CSV report suitable for further analysis and reporting.</li>
+</ul>
+<h2 id="prerequisites">Prerequisites</h2><ul>
+<li>PowerShell 7.x or Windows PowerShell 5.1</li>
+<li>PnP PowerShell module</li>
+<li>SharePoint Administrator permissions</li>
+<li>Microsoft Entra ID App Registration configured for certificate-based authentication</li>
+<li>Appropriate SharePoint Online application permissions granted and consented</li>
+</ul>
+<h2 id="usage">Usage</h2><ol>
+<li>Configure tenant-specific values:<ul>
+<li>Admin Center URL</li>
+<li>Client ID</li>
+<li>Certificate Thumbprint</li>
+<li>Tenant Name</li>
+<li>Output Folder</li>
+</ul>
+</li>
+<li>Execute the script using a privileged administrative account context.</li>
+<li>Review the generated CSV reports.</li>
+</ol>
+
+<div class="readme-tabs" data-tabs><div class="tool-tabs" role="tablist" aria-label="Script implementations"><button type="button" role="tab" id="tools-0-pnpps" data-tab-id="pnpps" aria-controls="tools-0-panel-0" aria-selected="true" tabindex="0">PnP PowerShell</button></div><section role="tabpanel" id="tools-0-panel-0" aria-labelledby="tools-0-pnpps" tabindex="0"><div class="code-frame"><div class="code-toolbar"><span>powershell</span><button type="button" class="copy-code" data-copy-code="code-0" aria-label="Copy powershell code">Copy code</button></div><pre id="code-0" role="region" tabindex="0" aria-label="powershell script" class="shiki shiki-themes github-light github-dark-high-contrast" style="--shiki-light:#24292e;--shiki-dark:#f0f3f6;--shiki-light-bg:#fff;--shiki-dark-bg:#0a0c10"><code><span class="line"></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#6A737D;--shiki-dark:#BDC4CC"># ==========================================</span></span>
+<span class="line"><span style="--shiki-light:#6A737D;--shiki-dark:#BDC4CC"># Group-Connected SharePoint Sites Report</span></span>
+<span class="line"><span style="--shiki-light:#6A737D;--shiki-dark:#BDC4CC"># ==========================================</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#6A737D;--shiki-dark:#BDC4CC"># ---------- Configuration ----------</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">$AdminCenterUrl </span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">=</span><span style="--shiki-light:#032F62;--shiki-dark:#ADDCFF">  "https://contoso-admin.sharepoint.com"</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">$ClientID </span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">=</span><span style="--shiki-light:#032F62;--shiki-dark:#ADDCFF"> "xxxxxxxxxxxxxxxxxxxxxxxxx"</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">$ThumbPrint </span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">=</span><span style="--shiki-light:#032F62;--shiki-dark:#ADDCFF"> "xxxxxxxxxxxxxxxxxxxxxxxxxx"</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">  </span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">$Tenant </span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">=</span><span style="--shiki-light:#032F62;--shiki-dark:#ADDCFF"> "contoso.onmicrosoft.com"</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6"> </span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">$OutputFolder   </span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">=</span><span style="--shiki-light:#032F62;--shiki-dark:#ADDCFF"> "C:\Temp\GroupConnectedSites"</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#6A737D;--shiki-dark:#BDC4CC"># ---------- Initialization ----------</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">$TimeStamp  </span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">=</span><span style="--shiki-light:#005CC5;--shiki-dark:#91CBFF"> Get-Date</span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492"> -</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">Format </span><span style="--shiki-light:#032F62;--shiki-dark:#ADDCFF">"yyyyMMdd_HHmmss"</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">$OutputFile </span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">=</span><span style="--shiki-light:#005CC5;--shiki-dark:#91CBFF"> Join-Path</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6"> $OutputFolder </span><span style="--shiki-light:#032F62;--shiki-dark:#ADDCFF">"GroupConnectedSites_</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">$TimeStamp</span><span style="--shiki-light:#032F62;--shiki-dark:#ADDCFF">.csv"</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">if</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6"> (</span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">-not</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6"> (</span><span style="--shiki-light:#005CC5;--shiki-dark:#91CBFF">Test-Path</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6"> $OutputFolder)) {</span></span>
+<span class="line"><span style="--shiki-light:#005CC5;--shiki-dark:#91CBFF">    New-Item</span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492"> -</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">Path $OutputFolder </span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">-</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">ItemType Directory </span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">-</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">Force </span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">|</span><span style="--shiki-light:#005CC5;--shiki-dark:#91CBFF"> Out-Null</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">$StartTime </span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">=</span><span style="--shiki-light:#005CC5;--shiki-dark:#91CBFF"> Get-Date</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#005CC5;--shiki-dark:#91CBFF">Write-Host</span><span style="--shiki-light:#032F62;--shiki-dark:#ADDCFF"> "===== GROUP CONNECTED SITES REPORT ====="</span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492"> -</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">ForegroundColor Cyan</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#6A737D;--shiki-dark:#BDC4CC"># ---------- Connect ----------</span></span>
+<span class="line"><span style="--shiki-light:#005CC5;--shiki-dark:#91CBFF"><a class="command-help" href="https://pnp.github.io/powershell/cmdlets/Connect-PnPOnline.html" title="Command documentation">Connect-PnPOnline</a></span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492"> `</span></span>
+<span class="line"><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">    -</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">Url $AdminCenterUrl </span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">`</span></span>
+<span class="line"><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">    -</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">ClientId $ClientID </span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">`</span></span>
+<span class="line"><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">    -</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">Thumbprint $ThumbPrint </span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">`</span></span>
+<span class="line"><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">    -</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">Tenant $Tenant</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#6A737D;--shiki-dark:#BDC4CC"># ---------- Processing ----------</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">$Results </span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">=</span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492"> @</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">()</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">try</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6"> {</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#005CC5;--shiki-dark:#91CBFF">    Write-Host</span><span style="--shiki-light:#032F62;--shiki-dark:#ADDCFF"> "Retrieving tenant sites..."</span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492"> -</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">ForegroundColor Yellow</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">    $Sites </span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">=</span><span style="--shiki-light:#005CC5;--shiki-dark:#91CBFF"> Get-PnPTenantSite</span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492"> -</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">Detailed </span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">|</span></span>
+<span class="line"><span style="--shiki-light:#005CC5;--shiki-dark:#91CBFF">        Where-Object</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6"> { </span><span style="--shiki-light:#005CC5;--shiki-dark:#91CBFF">$_</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">.GroupId </span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">-ne</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6"> [</span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">Guid</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">]::Empty }</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">    $TotalSites </span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">=</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6"> $Sites.Count</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">    $Index </span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">=</span><span style="--shiki-light:#005CC5;--shiki-dark:#91CBFF"> 0</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">    foreach</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6"> ($Site </span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">in</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6"> $Sites) {</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">        $Index</span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">++</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#005CC5;--shiki-dark:#91CBFF">        Write-Progress</span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492"> `</span></span>
+<span class="line"><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">            -</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">Activity </span><span style="--shiki-light:#032F62;--shiki-dark:#ADDCFF">"Processing Group-Connected Sites"</span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492"> `</span></span>
+<span class="line"><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">            -</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">Status </span><span style="--shiki-light:#032F62;--shiki-dark:#ADDCFF">"[</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">$Index</span><span style="--shiki-light:#032F62;--shiki-dark:#ADDCFF">/</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">$TotalSites</span><span style="--shiki-light:#032F62;--shiki-dark:#ADDCFF">] </span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">$</span><span style="--shiki-light:#032F62;--shiki-dark:#FF9492">(</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">$Site.Url</span><span style="--shiki-light:#032F62;--shiki-dark:#FF9492">)</span><span style="--shiki-light:#032F62;--shiki-dark:#ADDCFF">"</span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492"> `</span></span>
+<span class="line"><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">            -</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">PercentComplete (($Index </span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">/</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6"> $TotalSites) </span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">*</span><span style="--shiki-light:#005CC5;--shiki-dark:#91CBFF"> 100</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">)</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">        try</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6"> {</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">            $GroupId </span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">=</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6"> $Site.GroupId</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">            $Owners </span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">=</span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492"> @</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">()</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">            $TeamConnected </span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">=</span><span style="--shiki-light:#005CC5;--shiki-dark:#91CBFF"> $false</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#6A737D;--shiki-dark:#BDC4CC">            # ---------- Get Owners ----------</span></span>
+<span class="line"><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">            try</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6"> {</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">                $Owners </span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">=</span><span style="--shiki-light:#005CC5;--shiki-dark:#91CBFF"> Get-PnPMicrosoft365GroupOwners</span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492"> -</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">Identity $GroupId </span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">|</span></span>
+<span class="line"><span style="--shiki-light:#005CC5;--shiki-dark:#91CBFF">                    Select-Object</span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492"> -</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">ExpandProperty UserPrincipalName</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">            }</span></span>
+<span class="line"><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">            catch</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6"> {</span></span>
+<span class="line"><span style="--shiki-light:#005CC5;--shiki-dark:#91CBFF">                Write-Warning</span><span style="--shiki-light:#032F62;--shiki-dark:#ADDCFF"> "Failed to retrieve owners for </span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">$GroupId</span><span style="--shiki-light:#032F62;--shiki-dark:#ADDCFF">"</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">            }</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#6A737D;--shiki-dark:#BDC4CC">            # ---------- Check Teams Connection ----------</span></span>
+<span class="line"><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">            try</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6"> {</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">                $Team </span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">=</span><span style="--shiki-light:#005CC5;--shiki-dark:#91CBFF"> Get-PnPTeamsTeam</span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492"> -</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">Identity $GroupId </span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">-</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">ErrorAction Stop</span></span>
+<span class="line"><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">                if</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6"> ($Team) { $TeamConnected </span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">=</span><span style="--shiki-light:#005CC5;--shiki-dark:#91CBFF"> $true</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6"> }</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">            }</span></span>
+<span class="line"><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">            catch</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6"> {</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">                $TeamConnected </span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">=</span><span style="--shiki-light:#005CC5;--shiki-dark:#91CBFF"> $false</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">            }</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#6A737D;--shiki-dark:#BDC4CC">            # ---------- Add Result ----------</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">            $Results </span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">+=</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6"> [</span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">PSCustomObject</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">]</span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">@</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">{</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">                SiteUrl       </span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">=</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6"> $Site.Url</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">                SiteTitle     </span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">=</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6"> $Site.Title</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">                GroupId       </span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">=</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6"> $GroupId</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">                TeamConnected </span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">=</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6"> $TeamConnected</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">                OwnerCount    </span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">=</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6"> $Owners.Count</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">                Owners        </span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">=</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6"> ($Owners </span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">-join</span><span style="--shiki-light:#032F62;--shiki-dark:#ADDCFF"> "; "</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">)</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">                CreatedDate   </span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">=</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6"> $Site.CreationDate</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">                StorageMB     </span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">=</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6"> $Site.StorageUsageCurrent</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">                Template      </span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">=</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6"> $Site.Template</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">            }</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">        }</span></span>
+<span class="line"><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">        catch</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6"> {</span></span>
+<span class="line"><span style="--shiki-light:#005CC5;--shiki-dark:#91CBFF">            Write-Warning</span><span style="--shiki-light:#032F62;--shiki-dark:#ADDCFF"> "Failed processing site: </span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">$</span><span style="--shiki-light:#032F62;--shiki-dark:#FF9492">(</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">$Site.Url</span><span style="--shiki-light:#032F62;--shiki-dark:#FF9492">)</span><span style="--shiki-light:#032F62;--shiki-dark:#ADDCFF">"</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">        }</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">    }</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#6A737D;--shiki-dark:#BDC4CC">    # ---------- Export ----------</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">    $Results </span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">|</span></span>
+<span class="line"><span style="--shiki-light:#005CC5;--shiki-dark:#91CBFF">        Sort-Object</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6"> SiteTitle </span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">|</span></span>
+<span class="line"><span style="--shiki-light:#005CC5;--shiki-dark:#91CBFF">        Export-Csv</span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492"> -</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">Path $OutputFile </span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">-</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">NoTypeInformation </span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">-</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">Encoding UTF8</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#6A737D;--shiki-dark:#BDC4CC">    # ---------- Summary ----------</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">    $Summary </span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">=</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6"> [</span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">PSCustomObject</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">]</span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">@</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">{</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">        TotalSites        </span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">=</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6"> $Results.Count</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">        TeamsConnected    </span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">=</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6"> ($Results </span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">|</span><span style="--shiki-light:#005CC5;--shiki-dark:#91CBFF"> Where-Object</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6"> TeamConnected).Count</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">        NonTeamsSites     </span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">=</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6"> ($Results </span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">|</span><span style="--shiki-light:#005CC5;--shiki-dark:#91CBFF"> Where-Object</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6"> { </span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">-not</span><span style="--shiki-light:#005CC5;--shiki-dark:#91CBFF"> $_</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">.TeamConnected }).Count</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">        SitesNoOwners     </span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">=</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6"> ($Results </span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">|</span><span style="--shiki-light:#005CC5;--shiki-dark:#91CBFF"> Where-Object</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6"> { </span><span style="--shiki-light:#005CC5;--shiki-dark:#91CBFF">$_</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">.OwnerCount </span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">-eq</span><span style="--shiki-light:#005CC5;--shiki-dark:#91CBFF"> 0</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6"> }).Count</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">        GeneratedUtc      </span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">=</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6"> (</span><span style="--shiki-light:#005CC5;--shiki-dark:#91CBFF">Get-Date</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">).ToUniversalTime().ToString(</span><span style="--shiki-light:#032F62;--shiki-dark:#ADDCFF">"yyyy-MM-ddTHH:mm:ssZ"</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">)</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">        RuntimeMinutes    </span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">=</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6"> [</span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">math</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">]::Round(((</span><span style="--shiki-light:#005CC5;--shiki-dark:#91CBFF">Get-Date</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">) </span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">-</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6"> $StartTime).TotalMinutes</span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">,</span><span style="--shiki-light:#005CC5;--shiki-dark:#91CBFF"> 2</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">)</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">    }</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#6A737D;--shiki-dark:#BDC4CC">    # ---------- Output ----------</span></span>
+<span class="line"><span style="--shiki-light:#005CC5;--shiki-dark:#91CBFF">    Write-Host</span><span style="--shiki-light:#032F62;--shiki-dark:#ADDCFF"> ""</span></span>
+<span class="line"><span style="--shiki-light:#005CC5;--shiki-dark:#91CBFF">    Write-Host</span><span style="--shiki-light:#032F62;--shiki-dark:#ADDCFF"> "===== SUMMARY ====="</span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492"> -</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">ForegroundColor Cyan</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">    $Summary </span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">|</span><span style="--shiki-light:#005CC5;--shiki-dark:#91CBFF"> Format-List</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#005CC5;--shiki-dark:#91CBFF">    Write-Host</span><span style="--shiki-light:#032F62;--shiki-dark:#ADDCFF"> ""</span></span>
+<span class="line"><span style="--shiki-light:#005CC5;--shiki-dark:#91CBFF">    Write-Host</span><span style="--shiki-light:#032F62;--shiki-dark:#ADDCFF"> "Report exported:"</span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492"> -</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">ForegroundColor Green</span></span>
+<span class="line"><span style="--shiki-light:#005CC5;--shiki-dark:#91CBFF">    Write-Host</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6"> $OutputFile </span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">-</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">ForegroundColor Green</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">}</span></span>
+<span class="line"><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">finally</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6"> {</span></span>
+<span class="line"><span style="--shiki-light:#005CC5;--shiki-dark:#91CBFF">    Disconnect-PnPOnline</span></span>
+<span class="line"><span style="--shiki-light:#005CC5;--shiki-dark:#91CBFF">    Write-Host</span><span style="--shiki-light:#032F62;--shiki-dark:#ADDCFF"> ""</span></span>
+<span class="line"><span style="--shiki-light:#005CC5;--shiki-dark:#91CBFF">    Write-Host</span><span style="--shiki-light:#032F62;--shiki-dark:#ADDCFF"> "Disconnected from SharePoint"</span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492"> -</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">ForegroundColor DarkGray</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#005CC5;--shiki-dark:#91CBFF">Write-Host</span><span style="--shiki-light:#032F62;--shiki-dark:#ADDCFF"> ""</span></span>
+<span class="line"><span style="--shiki-light:#005CC5;--shiki-dark:#91CBFF">Write-Host</span><span style="--shiki-light:#032F62;--shiki-dark:#ADDCFF"> "===== COMPLETE ====="</span></span>
+<span class="line"></span>
+<span class="line"></span></code></pre></div><h2 id="output">Output</h2><h3 id="detailed-report">Detailed Report</h3><p>The script exports a timestamped CSV file containing the following information:</p>
+<div class="table-wrap" tabindex="0" role="region" aria-label="Sample data table"><table>
+<thead>
+<tr>
+<th>Column</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>SiteUrl</td>
+<td>SharePoint site URL</td>
+</tr>
+<tr>
+<td>SiteTitle</td>
+<td>SharePoint site title</td>
+</tr>
+<tr>
+<td>GroupId</td>
+<td>Associated Microsoft 365 Group ID</td>
+</tr>
+<tr>
+<td>TeamConnected</td>
+<td>Indicates whether a Team exists</td>
+</tr>
+<tr>
+<td>OwnerCount</td>
+<td>Number of Group owners</td>
+</tr>
+<tr>
+<td>Owners</td>
+<td>Group owner UPNs</td>
+</tr>
+<tr>
+<td>CreatedDate</td>
+<td>Site creation date</td>
+</tr>
+<tr>
+<td>StorageMB</td>
+<td>Current storage consumption</td>
+</tr>
+<tr>
+<td>Template</td>
+<td>SharePoint site template</td>
+</tr>
+</tbody></table>
+</div><h2 id="notes">Notes</h2><ul>
+<li>Only Microsoft 365 Group-connected SharePoint sites are included.</li>
+<li>Standalone SharePoint sites are excluded from the report.</li>
+<li>Teams-connected sites are identified using Microsoft Graph through PnP PowerShell.</li>
+<li>Sites without owners should be reviewed as part of ongoing governance and lifecycle management processes.</li>
+<li>The script uses certificate-based authentication and is suitable for unattended execution via Azure Automation, Task Scheduler, or other automation platforms.</li>
+</ul>
+</section></div>
+<h2 id="contributors">Contributors</h2><div class="table-wrap" tabindex="0" role="region" aria-label="Sample data table"><table>
+<thead>
+<tr>
+<th>Author(s)</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><a href="https://github.com/ojopiyo">Josiah Opiyo</a></td>
+</tr>
+</tbody></table>
+</div><p><em>Built with a focus on automation, governance, least privilege, and clean Microsoft 365 tenants-helping M365 admins gain visibility and reduce operational risk.</em></p>
+<h2 id="version-history">Version history</h2><div class="table-wrap" tabindex="0" role="region" aria-label="Sample data table"><table>
+<thead>
+<tr>
+<th>Version</th>
+<th>Date</th>
+<th>Comments</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>1.0</td>
+<td>June 17, 2026</td>
+<td>Initial release</td>
+</tr>
+</tbody></table>
+</div><h2 id="disclaimer">Disclaimer</h2><p><strong>THESE SAMPLES ARE PROVIDED <em>AS IS</em> WITHOUT WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, INCLUDING ANY IMPLIED WARRANTIES OF FITNESS FOR A PARTICULAR PURPOSE, MERCHANTABILITY, OR NON-INFRINGEMENT.</strong></p>
+</div><section class="reference-section"><h2>Tool documentation &amp; references</h2><ul><li><a href="https://aka.ms/pnp/powershell">Want to learn more about PnP PowerShell and the cmdlets</a><p>Check out the PnP PowerShell site to get started and for the reference to the cmdlets.</p></li></ul></section><section><h2>Keep exploring</h2><div class="related-samples"><a href="/script-samples/samples/spo-get-herolinks/">Get Hero sharing links<svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="lucide lucide-arrow-right"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg></a><a href="/script-samples/samples/spe-export-container-inventory-to-csv/">Export SharePoint Embedded container inventory to CSV<svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="lucide lucide-arrow-right"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg></a><a href="/script-samples/samples/spo-duplicate-list-value-audit/">SPO - Duplicate List Value Audit<svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="lucide lucide-arrow-right"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg></a></div></section></div><aside class="detail-sidebar" aria-label="Sample information"><div class="sidebar-panel"><h2>Make it your own</h2><a class="button button-primary" href="https://github.com/pnp/script-samples/tree/main/scripts/group-connected-sharepoint-sites-and-microsoft-teams-relationship-report">Open source on GitHub <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="lucide lucide-arrow-up-right"><path d="M7 7h10v10"></path><path d="M7 17 17 7"></path></svg></a><a class="button button-secondary" href="https://github.com/pnp/script-samples/edit/main/scripts/group-connected-sharepoint-sites-and-microsoft-teams-relationship-report/README.md">Improve this sample</a><dl><dt>Products</dt><dd><a class="product-inline" href="/script-samples/?product=sharepoint"><img src="/script-samples/images/SharePoint_512.png" alt="" width="22" height="22" loading="lazy" decoding="async">SharePoint</a><a class="product-inline" href="/script-samples/?product=teams"><img src="/script-samples/images/Teams_512.png" alt="" width="22" height="22" loading="lazy" decoding="async">Teams</a><a class="product-inline" href="/script-samples/?product=graph"><img src="/script-samples/images/graph.svg" alt="" width="22" height="22" loading="lazy" decoding="async">Microsoft Graph</a><a class="product-inline" href="/script-samples/?product=microsoft-365"><img src="/script-samples/images/office.svg" alt="" width="22" height="22" loading="lazy" decoding="async">Microsoft 365</a></dd><dt>Tool versions from the author</dt><dd><div>PnP PowerShell <strong>1.11.0</strong></div></dd><dt>Created</dt><dd><time datetime="2026-06-20">Jun 20, 2026</time></dd><dt>Updated</dt><dd><time datetime="2026-06-20">Jun 20, 2026</time></dd></dl></div><div class="sidebar-panel"><h2>Commands &amp; topics</h2><div class="tag-list"><a href="https://pnp.github.io/powershell/cmdlets/Get-PnPTenantSite.html">Get-PnPTenantSite &#8599;</a><a href="/script-samples/?q=Get-PnPMicrosoft365GroupOwners">Get-PnPMicrosoft365GroupOwners</a><a href="https://pnp.github.io/powershell/cmdlets/Get-PnPTeamsTeam.html">Get-PnPTeamsTeam &#8599;</a><a href="/script-samples/?q=Export-Csv">Export-Csv</a><a href="/script-samples/?q=SharePoint%20Online">SharePoint Online</a><a href="/script-samples/?q=Microsoft%20365%20Groups">Microsoft 365 Groups</a><a href="/script-samples/?q=Microsoft%20Teams">Microsoft Teams</a><a href="/script-samples/?q=Governance">Governance</a></div></div><div class="sidebar-panel"><h2>Something not working?</h2><p class="card-description">Help the community keep this sample useful. Include the tool version, steps, and a redacted error message.</p><a class="text-link" href="https://github.com/pnp/script-samples/issues/new?title=Issue%20with%20group-connected-sharepoint-sites-and-microsoft-teams-relationship-report&amp;body=Sample%3A%20https%3A%2F%2Fpnp.github.io%2Fscript-samples%2Fsamples%2Fgroup-connected-sharepoint-sites-and-microsoft-teams-relationship-report%2F%0A%0ATool%20and%20version%3A%0A%0ASteps%20to%20reproduce%3A%0A%0AExpected%20and%20actual%20result%3A%0A%0ARemove%20tenant%20details%2C%20credentials%2C%20and%20personal%20information%20before%20submitting.">Report an issue &#8599;</a></div><div class="sidebar-panel"><h2>Built by the community</h2><a href="/script-samples/contributing/recognition/"><img class="detail-badge" src="/script-samples/assets/credly-badge.png" alt="Script Samples community contributor badge" width="160" height="160" loading="lazy" decoding="async"></a><p class="card-description">Share a sample and earn your contributor badge.</p><a class="text-link" href="/script-samples/contributing/">Get involved &#8594;</a></div></aside></div></div></main><footer class="site-footer"><div class="container footer-inner"><div><strong>Microsoft 365 &amp; Power Platform Community</strong><p>Built by the community, for the community.</p></div><nav aria-label="Footer navigation"><a href="https://aka.ms/community/home">Community home &#8599;</a><a href="/script-samples/catalog.json">Catalog JSON</a><a href="/script-samples/schemas/sample.schema.json">Metadata schema</a><a href="/script-samples/reports/">Catalog reports</a><a href="/script-samples/contributing/recognition/">Contributor badge</a><a href="https://github.com/pnp/script-samples/issues/new">Report an issue</a><a href="https://opensource.microsoft.com/codeofconduct/">Code of conduct</a><a href="https://github.com/pnp/script-samples/blob/main/LICENSE">MIT license</a></nav></div></footer><p class="sr-only" id="site-status" role="status" aria-live="polite"></p><img class="sr-only" data-visitor-stats data-tracker-src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/group-connected-sharepoint-sites-and-microsoft-teams-relationship-report" data-tracking-enabled="true" src="data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=" alt="" width="1" height="1" aria-hidden="true"><script type="module" src="/script-samples/_astro/Layout.astro_astro_type_script_index_0_lang.DaWAalj3.js"></script></body></html><script type="module" src="/script-samples/_astro/_slug_.astro_astro_type_script_index_0_lang.BIay2qYY.js"></script>

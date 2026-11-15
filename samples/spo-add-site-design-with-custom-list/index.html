@@ -1,0 +1,429 @@
+<!DOCTYPE html><html lang="en" data-theme="light"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="description" content="Script that creates and applies custom site design with custom column types"><meta name="generator" content="Astro v7.3.6"><meta name="theme-color" id="theme-color" content="#f2f4f5"><title>Creates and apply custom site design with custom column types | Community Script Samples</title><link rel="icon" href="/script-samples/images/parker-ms-300.png" type="image/png"><link rel="canonical" href="https://pnp.github.io/script-samples/samples/spo-add-site-design-with-custom-list/"><meta property="og:type" content="website"><meta property="og:site_name" content="Community Script Samples"><meta property="og:title" content="Creates and apply custom site design with custom column types | Community Script Samples"><meta property="og:description" content="Script that creates and applies custom site design with custom column types"><meta property="og:url" content="https://pnp.github.io/script-samples/samples/spo-add-site-design-with-custom-list/"><meta property="og:image" content="https://pnp.github.io/script-samples/spo-add-site-design-with-custom-list/assets/preview.png"><meta name="twitter:card" content="summary_large_image"><script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"Community Script Samples","url":"https://pnp.github.io/script-samples/","description":"Script that creates and applies custom site design with custom column types"}</script><script>
+      document.documentElement.classList.add("js");
+      try {
+        const theme = localStorage.getItem("community-script-samples-theme") === "dark" ? "dark" : "light";
+        document.documentElement.dataset.theme = theme;
+        document.documentElement.style.colorScheme = theme;
+      } catch (error) {
+        console.warn("Theme storage is unavailable; using light mode for this visit.", error);
+      }
+    </script><link rel="stylesheet" href="/script-samples/_astro/Layout.BviIPkCI.css"></head><body><a class="skip-link" href="#main-content">Skip to content</a><header class="site-header"><div class="spectrum" aria-hidden="true"></div><div class="container header-inner"><a class="brand" href="/script-samples/" aria-label="Community Script Samples home"><img src="/script-samples/images/parker-ms-300.png" alt="" width="35" height="45"><span class="brand-name"><span>Community</span> <strong>Script Samples</strong></span></a><div class="header-actions"><nav class="desktop-nav" aria-label="Primary navigation"><a href="https://aka.ms/community/home">Community <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="lucide lucide-arrow-up-right"><path d="M7 7h10v10"></path><path d="M7 17 17 7"></path></svg></a><a href="/script-samples/" aria-current="page">Samples</a><a href="/script-samples/getting-started/">Getting started</a><a href="/script-samples/contributors/">Contributors</a><a href="/script-samples/contributing/">Contributing</a><a href="https://github.com/pnp/script-samples"><svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="lucide lucide-git-fork"><circle cx="12" cy="18" r="3"></circle><circle cx="6" cy="6" r="3"></circle><circle cx="18" cy="6" r="3"></circle><path d="M18 9v2c0 .6-.4 1-1 1H7c-.6 0-1-.4-1-1V9"></path><path d="M12 12v3"></path></svg> GitHub</a></nav><button class="theme-toggle" id="theme-toggle" type="button" role="switch" aria-checked="false" aria-label="Switch to dark mode" title="Switch to dark mode"><span class="theme-icons" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="lucide lucide-sun"><circle cx="12" cy="12" r="4"></circle><path d="M12 2v2"></path><path d="M12 20v2"></path><path d="m4.93 4.93 1.41 1.41"></path><path d="m17.66 17.66 1.41 1.41"></path><path d="M2 12h2"></path><path d="M20 12h2"></path><path d="m6.34 17.66-1.41 1.41"></path><path d="m19.07 4.93-1.41 1.41"></path></svg><svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="lucide lucide-moon"><path d="M20.985 12.486a9 9 0 1 1-9.473-9.472c.405-.022.617.46.402.803a6 6 0 0 0 8.268 8.268c.344-.215.825-.004.803.401"></path></svg></span></button><details class="mobile-nav"><summary aria-label="Open navigation"><svg xmlns="http://www.w3.org/2000/svg" width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="lucide lucide-menu"><path d="M4 5h16"></path><path d="M4 12h16"></path><path d="M4 19h16"></path></svg></summary><nav aria-label="Mobile navigation"><a href="https://aka.ms/community/home">Community <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="lucide lucide-arrow-up-right"><path d="M7 7h10v10"></path><path d="M7 17 17 7"></path></svg></a><a href="/script-samples/" aria-current="page">Samples</a><a href="/script-samples/getting-started/">Getting started</a><a href="/script-samples/contributors/">Contributors</a><a href="/script-samples/contributing/">Contributing</a><a href="https://github.com/pnp/script-samples">GitHub</a></nav></details></div></div></header><main id="main-content" tabindex="-1"><div class="container detail-section"><nav class="breadcrumbs" aria-label="Breadcrumb"><a href="/script-samples/" id="back-to-samples">All samples</a><span aria-hidden="true">/</span><span>Modernize</span></nav><header class="detail-header"><span class="scenario-tag">Modernize / Deploy / Provision</span><h1>Creates and apply custom site design with custom column types</h1><p>Script that creates and applies custom site design with custom column types</p><div class="detail-byline"><a class="card-author" href="https://github.com/ValerasNarbutas"><img class="avatar" src="https://github.com/ValerasNarbutas.png?size=64" alt="" width="30" height="30" loading="lazy" decoding="async" data-avatar="Valeras Narbutas">Valeras Narbutas</a><span>Updated <time datetime="2021-11-03">Nov 3, 2021</time></span><a href="https://github.com/pnp/script-samples/tree/main/scripts/spo-add-site-design-with-custom-list">View on GitHub <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="lucide lucide-arrow-up-right"><path d="M7 7h10v10"></path><path d="M7 17 17 7"></path></svg></a></div></header><div class="detail-layout"><div class="detail-main"><aside class="safety-note" aria-label="Before you run"><strong>Understand it. Adapt it. Test it first.</strong><p>Review the full script, prerequisites, and required permissions. Test against non-production data before making changes. Samples are community contributions, provided as-is; an update date is not a claim of recent testing.</p></aside><div class="readme-content" id="sample-readme"><h2 id="summary">Summary</h2><p>This script will create site design with different column types. </p>
+<ul>
+<li>Sets regional settings</li>
+<li>Creates custom content type </li>
+<li>Adds new fields to new content type</li>
+<li>Creates new list with new content type</li>
+<li>Changes list view to custom one</li>
+</ul>
+<p>More about site design schema
+ <a href="https://learn.microsoft.com/sharepoint/dev/declarative-customization/site-design-json-schema">https://learn.microsoft.com/sharepoint/dev/declarative-customization/site-design-json-schema</a></p>
+<p><img src="/script-samples/spo-add-site-design-with-custom-list/assets/example.png" alt="Example Screenshot" loading="lazy" decoding="async" /></p>
+
+<div class="readme-tabs" data-tabs><div class="tool-tabs" role="tablist" aria-label="Script implementations"><button type="button" role="tab" id="tools-0-pnpps" data-tab-id="pnpps" aria-controls="tools-0-panel-0" aria-selected="true" tabindex="0">PnP PowerShell</button><button type="button" role="tab" id="tools-0-cli-m365-ps" data-tab-id="cli-m365-ps" aria-controls="tools-0-panel-1" aria-selected="false" tabindex="-1">CLI for Microsoft 365</button><button type="button" role="tab" id="tools-0-json1" data-tab-id="json1" aria-controls="tools-0-panel-2" aria-selected="false" tabindex="-1">JSON Site Script</button><button type="button" role="tab" id="tools-0-json2" data-tab-id="json2" aria-controls="tools-0-panel-3" aria-selected="false" tabindex="-1">JSON Site Script 2</button></div><section role="tabpanel" id="tools-0-panel-0" aria-labelledby="tools-0-pnpps" tabindex="0"><div class="code-frame"><div class="code-toolbar"><span>powershell</span><button type="button" class="copy-code" data-copy-code="code-0" aria-label="Copy powershell code">Copy code</button></div><pre id="code-0" role="region" tabindex="0" aria-label="powershell script" class="shiki shiki-themes github-light github-dark-high-contrast" style="--shiki-light:#24292e;--shiki-dark:#f0f3f6;--shiki-light-bg:#fff;--shiki-dark-bg:#0a0c10"><code><span class="line"></span>
+<span class="line"><span style="--shiki-light:#6A737D;--shiki-dark:#BDC4CC">###### Declare and Initialize Variables ######  </span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#6A737D;--shiki-dark:#BDC4CC">#Destination site collection url</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">$url</span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">=</span><span style="--shiki-light:#032F62;--shiki-dark:#ADDCFF">"https://&lt;tenant&gt;.sharepoint.com/sites/sitename"</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#6A737D;--shiki-dark:#BDC4CC"># log file will be saved in same directory script was started from  </span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">$currentTime</span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">=</span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492"> $</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">(</span><span style="--shiki-light:#005CC5;--shiki-dark:#91CBFF">get-date</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">).ToString(</span><span style="--shiki-light:#032F62;--shiki-dark:#ADDCFF">"yyyyMMddHHmmss"</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">)  </span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">$logFilePath</span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">=</span><span style="--shiki-light:#032F62;--shiki-dark:#ADDCFF">".\log-"</span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">+</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">$currentTime</span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">+</span><span style="--shiki-light:#032F62;--shiki-dark:#ADDCFF">".log"</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">  </span></span>
+<span class="line"></span>
+<span class="line"></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#6A737D;--shiki-dark:#BDC4CC">## Start the Transcript  </span></span>
+<span class="line"><span style="--shiki-light:#005CC5;--shiki-dark:#91CBFF">Start-Transcript</span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492"> -</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">Path $logFilePath </span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#6A737D;--shiki-dark:#BDC4CC">## Connect to SharePoint Online site  </span></span>
+<span class="line"><span style="--shiki-light:#005CC5;--shiki-dark:#91CBFF"><a class="command-help" href="https://pnp.github.io/powershell/cmdlets/Connect-PnPOnline.html" title="Command documentation">Connect-PnPOnline</a></span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492"> -</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">Url $Url </span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">-</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">Interactive</span></span>
+<span class="line"></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#6A737D;--shiki-dark:#BDC4CC">#Site design script</span></span>
+<span class="line"><span style="--shiki-light:#6A737D;--shiki-dark:#BDC4CC"># - Set site regionalsettings (useful for formatting date type field)</span></span>
+<span class="line"><span style="--shiki-light:#6A737D;--shiki-dark:#BDC4CC"># - Apply custom theme</span></span>
+<span class="line"><span style="--shiki-light:#6A737D;--shiki-dark:#BDC4CC"># - Create site columns (text, number, person, choice)</span></span>
+<span class="line"><span style="--shiki-light:#6A737D;--shiki-dark:#BDC4CC"># - Create site content type with created site columns</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#6A737D;--shiki-dark:#BDC4CC">#site design version, can be static, for me it is easier check versions</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">$v </span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">=</span><span style="--shiki-light:#032F62;--shiki-dark:#ADDCFF"> "1"</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#6A737D;--shiki-dark:#BDC4CC">#content type Id</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">$ctId </span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">=</span><span style="--shiki-light:#032F62;--shiki-dark:#ADDCFF"> "0x010100A45633E36EDA6040B00F4AE79CBF8F32"</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">$site_script </span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">=</span><span style="--shiki-light:#032F62;--shiki-dark:#ADDCFF"> '{</span></span>
+<span class="line"><span style="--shiki-light:#032F62;--shiki-dark:#ADDCFF">    "$schema": "https://developer.microsoft.com/json-schemas/sp/site-design-script-actions.schema.json",</span></span>
+<span class="line"><span style="--shiki-light:#032F62;--shiki-dark:#ADDCFF">    "actions": [</span></span>
+<span class="line"><span style="--shiki-light:#032F62;--shiki-dark:#ADDCFF">         {</span></span>
+<span class="line"><span style="--shiki-light:#032F62;--shiki-dark:#ADDCFF">          "verb": "setRegionalSettings",</span></span>
+<span class="line"><span style="--shiki-light:#032F62;--shiki-dark:#ADDCFF">          "timeZone": 4, </span></span>
+<span class="line"><span style="--shiki-light:#032F62;--shiki-dark:#ADDCFF">          "locale": 2057, </span></span>
+<span class="line"><span style="--shiki-light:#032F62;--shiki-dark:#ADDCFF">          "sortOrder": 25, </span></span>
+<span class="line"><span style="--shiki-light:#032F62;--shiki-dark:#ADDCFF">          "hourFormat": "24"</span></span>
+<span class="line"><span style="--shiki-light:#032F62;--shiki-dark:#ADDCFF">        },</span></span>
+<span class="line"><span style="--shiki-light:#032F62;--shiki-dark:#ADDCFF">        {</span></span>
+<span class="line"><span style="--shiki-light:#032F62;--shiki-dark:#ADDCFF">        "verb": "applyTheme",</span></span>
+<span class="line"><span style="--shiki-light:#032F62;--shiki-dark:#ADDCFF">        "themeJson": {</span></span>
+<span class="line"><span style="--shiki-light:#032F62;--shiki-dark:#ADDCFF">          "version": "2",</span></span>
+<span class="line"><span style="--shiki-light:#032F62;--shiki-dark:#ADDCFF">          "isInverted": false,</span></span>
+<span class="line"><span style="--shiki-light:#032F62;--shiki-dark:#ADDCFF">          "palette": {</span></span>
+<span class="line"><span style="--shiki-light:#032F62;--shiki-dark:#ADDCFF">            "themePrimary":"#0047ba",</span></span>
+<span class="line"><span style="--shiki-light:#032F62;--shiki-dark:#ADDCFF">            "themeLighterAlt":"#f2f6fc",</span></span>
+<span class="line"><span style="--shiki-light:#032F62;--shiki-dark:#ADDCFF">            "themeLighter":"#c3d4eb",</span></span>
+<span class="line"><span style="--shiki-light:#032F62;--shiki-dark:#ADDCFF">            "themeLight":"#7aabde",</span></span>
+<span class="line"><span style="--shiki-light:#032F62;--shiki-dark:#ADDCFF">            "themeTertiary":"#0091a5",</span></span>
+<span class="line"><span style="--shiki-light:#032F62;--shiki-dark:#ADDCFF">            "themeSecondary":"#c3d4eb",</span></span>
+<span class="line"><span style="--shiki-light:#032F62;--shiki-dark:#ADDCFF">            "themeDarkAlt":"#0040a8",</span></span>
+<span class="line"><span style="--shiki-light:#032F62;--shiki-dark:#ADDCFF">            "themeDark":"#00368d",</span></span>
+<span class="line"><span style="--shiki-light:#032F62;--shiki-dark:#ADDCFF">            "themeDarker":"#002868",</span></span>
+<span class="line"><span style="--shiki-light:#032F62;--shiki-dark:#ADDCFF">            "neutralLighterAlt":"#f8f8f8",</span></span>
+<span class="line"><span style="--shiki-light:#032F62;--shiki-dark:#ADDCFF">            "neutralLighter":"#f4f4f4",</span></span>
+<span class="line"><span style="--shiki-light:#032F62;--shiki-dark:#ADDCFF">            "neutralLight":"#eaeaea",</span></span>
+<span class="line"><span style="--shiki-light:#032F62;--shiki-dark:#ADDCFF">            "neutralQuaternaryAlt":"#dadada",</span></span>
+<span class="line"><span style="--shiki-light:#032F62;--shiki-dark:#ADDCFF">            "neutralQuaternary":"#d0d0d0",</span></span>
+<span class="line"><span style="--shiki-light:#032F62;--shiki-dark:#ADDCFF">            "neutralTertiaryAlt":"#c8c8c8",</span></span>
+<span class="line"><span style="--shiki-light:#032F62;--shiki-dark:#ADDCFF">            "neutralTertiary":"#595959",</span></span>
+<span class="line"><span style="--shiki-light:#032F62;--shiki-dark:#ADDCFF">            "neutralSecondary":"#373737",</span></span>
+<span class="line"><span style="--shiki-light:#032F62;--shiki-dark:#ADDCFF">            "neutralPrimaryAlt":"#2f2f2f",</span></span>
+<span class="line"><span style="--shiki-light:#032F62;--shiki-dark:#ADDCFF">            "neutralPrimary":"#000000",</span></span>
+<span class="line"><span style="--shiki-light:#032F62;--shiki-dark:#ADDCFF">            "neutralDark":"#151515",</span></span>
+<span class="line"><span style="--shiki-light:#032F62;--shiki-dark:#ADDCFF">            "black":"#0b0b0b",</span></span>
+<span class="line"><span style="--shiki-light:#032F62;--shiki-dark:#ADDCFF">            "white":"#ffffff",</span></span>
+<span class="line"><span style="--shiki-light:#032F62;--shiki-dark:#ADDCFF">            "primaryBackground":"#ffffff",</span></span>
+<span class="line"><span style="--shiki-light:#032F62;--shiki-dark:#ADDCFF">            "primaryText":"#000000",</span></span>
+<span class="line"><span style="--shiki-light:#032F62;--shiki-dark:#ADDCFF">            "bodyBackground":"#ffffff",</span></span>
+<span class="line"><span style="--shiki-light:#032F62;--shiki-dark:#ADDCFF">            "bodyText":"#000000",</span></span>
+<span class="line"><span style="--shiki-light:#032F62;--shiki-dark:#ADDCFF">            "disabledBackground":"#f4f4f4",</span></span>
+<span class="line"><span style="--shiki-light:#032F62;--shiki-dark:#ADDCFF">            "disabledText":"#c8c8c8"</span></span>
+<span class="line"><span style="--shiki-light:#032F62;--shiki-dark:#ADDCFF">           }</span></span>
+<span class="line"><span style="--shiki-light:#032F62;--shiki-dark:#ADDCFF">         }</span></span>
+<span class="line"><span style="--shiki-light:#032F62;--shiki-dark:#ADDCFF">        },</span></span>
+<span class="line"><span style="--shiki-light:#032F62;--shiki-dark:#ADDCFF">        {</span></span>
+<span class="line"><span style="--shiki-light:#032F62;--shiki-dark:#ADDCFF">          "verb": "createSiteColumnXml",</span></span>
+<span class="line"><span style="--shiki-light:#032F62;--shiki-dark:#ADDCFF">          "schemaXml": "&lt;Field ID=\"{e1605fb4-611a-4eae-b119-77b4b633b436}\" Type=\"MultiChoice\" DisplayName=\"Hobbies\" Required=\"FALSE\" FillInChoice=\"FALSE\" StaticName=\"Hobbies\" Name=\"Hobbies\"&gt;&lt;DefaultFormula&gt;=\"\"&lt;/DefaultFormula&gt;&lt;CHOICES&gt;&lt;CHOICE&gt;PingPong&lt;/CHOICE&gt;&lt;CHOICE&gt;Books&lt;/CHOICE&gt;&lt;CHOICE&gt;Sharing Is Carring&lt;/CHOICE&gt;&lt;CHOICE&gt;This is easter egg&lt;/CHOICE&gt;&lt;CHOICE&gt;Wearing Mask&lt;/CHOICE&gt;&lt;CHOICE&gt;Face Tatoos&lt;/CHOICE&gt;&lt;CHOICE&gt;Flying with no Cape&lt;/CHOICE&gt;&lt;/CHOICES&gt;&lt;/Field&gt;"</span></span>
+<span class="line"><span style="--shiki-light:#032F62;--shiki-dark:#ADDCFF">        },</span></span>
+<span class="line"><span style="--shiki-light:#032F62;--shiki-dark:#ADDCFF">        {</span></span>
+<span class="line"><span style="--shiki-light:#032F62;--shiki-dark:#ADDCFF">          "verb": "createSiteColumn",</span></span>
+<span class="line"><span style="--shiki-light:#032F62;--shiki-dark:#ADDCFF">          "fieldType": "Text",</span></span>
+<span class="line"><span style="--shiki-light:#032F62;--shiki-dark:#ADDCFF">          "internalName": "SimpleTextField",</span></span>
+<span class="line"><span style="--shiki-light:#032F62;--shiki-dark:#ADDCFF">          "displayName": "SimpleTextField",</span></span>
+<span class="line"><span style="--shiki-light:#032F62;--shiki-dark:#ADDCFF">          "isRequired": false,</span></span>
+<span class="line"><span style="--shiki-light:#032F62;--shiki-dark:#ADDCFF">          "id": "60f37466-fd00-47a3-9665-44b48a743e27"</span></span>
+<span class="line"><span style="--shiki-light:#032F62;--shiki-dark:#ADDCFF">        },</span></span>
+<span class="line"><span style="--shiki-light:#032F62;--shiki-dark:#ADDCFF">        {</span></span>
+<span class="line"><span style="--shiki-light:#032F62;--shiki-dark:#ADDCFF">          "verb": "createSiteColumn",</span></span>
+<span class="line"><span style="--shiki-light:#032F62;--shiki-dark:#ADDCFF">          "fieldType": "User",</span></span>
+<span class="line"><span style="--shiki-light:#032F62;--shiki-dark:#ADDCFF">          "internalName": "siteColumn4User",</span></span>
+<span class="line"><span style="--shiki-light:#032F62;--shiki-dark:#ADDCFF">          "displayName": "Owner",</span></span>
+<span class="line"><span style="--shiki-light:#032F62;--shiki-dark:#ADDCFF">          "isRequired": false,</span></span>
+<span class="line"><span style="--shiki-light:#032F62;--shiki-dark:#ADDCFF">          "id": "181c4370-cdae-471b-9499-730046e55b75"</span></span>
+<span class="line"><span style="--shiki-light:#032F62;--shiki-dark:#ADDCFF">        },</span></span>
+<span class="line"><span style="--shiki-light:#032F62;--shiki-dark:#ADDCFF">        {</span></span>
+<span class="line"><span style="--shiki-light:#032F62;--shiki-dark:#ADDCFF">          "verb": "createSiteColumn",</span></span>
+<span class="line"><span style="--shiki-light:#032F62;--shiki-dark:#ADDCFF">          "fieldType": "Number",</span></span>
+<span class="line"><span style="--shiki-light:#032F62;--shiki-dark:#ADDCFF">          "internalName": "Number",</span></span>
+<span class="line"><span style="--shiki-light:#032F62;--shiki-dark:#ADDCFF">          "displayName": "Number",</span></span>
+<span class="line"><span style="--shiki-light:#032F62;--shiki-dark:#ADDCFF">          "isRequired": false,</span></span>
+<span class="line"><span style="--shiki-light:#032F62;--shiki-dark:#ADDCFF">          "id": "151c4370-cdae-471b-9499-730046e55b78"</span></span>
+<span class="line"><span style="--shiki-light:#032F62;--shiki-dark:#ADDCFF">        },</span></span>
+<span class="line"><span style="--shiki-light:#032F62;--shiki-dark:#ADDCFF">        {</span></span>
+<span class="line"><span style="--shiki-light:#032F62;--shiki-dark:#ADDCFF">          "verb": "createContentType",</span></span>
+<span class="line"><span style="--shiki-light:#032F62;--shiki-dark:#ADDCFF">          "name": "Powershel Samples",</span></span>
+<span class="line"><span style="--shiki-light:#032F62;--shiki-dark:#ADDCFF">          "description": "Create something with fields",</span></span>
+<span class="line"><span style="--shiki-light:#032F62;--shiki-dark:#ADDCFF">          "id":"'</span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">+</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">$ctId</span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">+</span><span style="--shiki-light:#032F62;--shiki-dark:#ADDCFF">'",</span></span>
+<span class="line"><span style="--shiki-light:#032F62;--shiki-dark:#ADDCFF">          "hidden": false,</span></span>
+<span class="line"><span style="--shiki-light:#032F62;--shiki-dark:#ADDCFF">          "group": "Power Samples",</span></span>
+<span class="line"><span style="--shiki-light:#032F62;--shiki-dark:#ADDCFF">          "subactions":</span></span>
+<span class="line"><span style="--shiki-light:#032F62;--shiki-dark:#ADDCFF">            [</span></span>
+<span class="line"><span style="--shiki-light:#032F62;--shiki-dark:#ADDCFF">              {</span></span>
+<span class="line"><span style="--shiki-light:#032F62;--shiki-dark:#ADDCFF">                "verb": "addSiteColumn",</span></span>
+<span class="line"><span style="--shiki-light:#032F62;--shiki-dark:#ADDCFF">                "internalName": "Hobbies"</span></span>
+<span class="line"><span style="--shiki-light:#032F62;--shiki-dark:#ADDCFF">              },</span></span>
+<span class="line"><span style="--shiki-light:#032F62;--shiki-dark:#ADDCFF">              {</span></span>
+<span class="line"><span style="--shiki-light:#032F62;--shiki-dark:#ADDCFF">                "verb": "addSiteColumn",</span></span>
+<span class="line"><span style="--shiki-light:#032F62;--shiki-dark:#ADDCFF">                "internalName": "SimpleTextField"</span></span>
+<span class="line"><span style="--shiki-light:#032F62;--shiki-dark:#ADDCFF">              },</span></span>
+<span class="line"><span style="--shiki-light:#032F62;--shiki-dark:#ADDCFF">              {</span></span>
+<span class="line"><span style="--shiki-light:#032F62;--shiki-dark:#ADDCFF">                "verb": "addSiteColumn",</span></span>
+<span class="line"><span style="--shiki-light:#032F62;--shiki-dark:#ADDCFF">                "internalName": "siteColumn4User"</span></span>
+<span class="line"><span style="--shiki-light:#032F62;--shiki-dark:#ADDCFF">              },</span></span>
+<span class="line"><span style="--shiki-light:#032F62;--shiki-dark:#ADDCFF">              {</span></span>
+<span class="line"><span style="--shiki-light:#032F62;--shiki-dark:#ADDCFF">                "verb": "addSiteColumn",</span></span>
+<span class="line"><span style="--shiki-light:#032F62;--shiki-dark:#ADDCFF">                "internalName": "Number"</span></span>
+<span class="line"><span style="--shiki-light:#032F62;--shiki-dark:#ADDCFF">              }</span></span>
+<span class="line"><span style="--shiki-light:#032F62;--shiki-dark:#ADDCFF">            ]</span></span>
+<span class="line"><span style="--shiki-light:#032F62;--shiki-dark:#ADDCFF">        }</span></span>
+<span class="line"><span style="--shiki-light:#032F62;--shiki-dark:#ADDCFF"> ],</span></span>
+<span class="line"><span style="--shiki-light:#032F62;--shiki-dark:#ADDCFF">    "bindata": { },</span></span>
+<span class="line"><span style="--shiki-light:#032F62;--shiki-dark:#ADDCFF">    "version": "'</span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">+</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">$v</span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">+</span><span style="--shiki-light:#032F62;--shiki-dark:#ADDCFF">'"</span></span>
+<span class="line"><span style="--shiki-light:#032F62;--shiki-dark:#ADDCFF">}'</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#6A737D;--shiki-dark:#BDC4CC">#site script to create list and update it with columns by adding content type</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6"> $site_script_CreateAndUpdateSiteList </span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">=</span><span style="--shiki-light:#032F62;--shiki-dark:#ADDCFF"> '</span></span>
+<span class="line"><span style="--shiki-light:#032F62;--shiki-dark:#ADDCFF"> {</span></span>
+<span class="line"><span style="--shiki-light:#032F62;--shiki-dark:#ADDCFF">    "$schema": "https://developer.microsoft.com/json-schemas/sp/site-design-script-actions.schema.json",</span></span>
+<span class="line"><span style="--shiki-light:#032F62;--shiki-dark:#ADDCFF">    "actions": [</span></span>
+<span class="line"><span style="--shiki-light:#032F62;--shiki-dark:#ADDCFF">    {</span></span>
+<span class="line"><span style="--shiki-light:#032F62;--shiki-dark:#ADDCFF">                  "verb": "createSPList",</span></span>
+<span class="line"><span style="--shiki-light:#032F62;--shiki-dark:#ADDCFF">                  "listName": "DemoListForPowerShellSamples",</span></span>
+<span class="line"><span style="--shiki-light:#032F62;--shiki-dark:#ADDCFF">                  "templateType": 100,</span></span>
+<span class="line"><span style="--shiki-light:#032F62;--shiki-dark:#ADDCFF">                  "subactions": [</span></span>
+<span class="line"><span style="--shiki-light:#032F62;--shiki-dark:#ADDCFF">                  {</span></span>
+<span class="line"><span style="--shiki-light:#032F62;--shiki-dark:#ADDCFF">                      "verb": "addContentType",</span></span>
+<span class="line"><span style="--shiki-light:#032F62;--shiki-dark:#ADDCFF">                      "name": "Powershel Samples"</span></span>
+<span class="line"><span style="--shiki-light:#032F62;--shiki-dark:#ADDCFF">                    },</span></span>
+<span class="line"><span style="--shiki-light:#032F62;--shiki-dark:#ADDCFF">                    {</span></span>
+<span class="line"><span style="--shiki-light:#032F62;--shiki-dark:#ADDCFF">                        "verb": "addSPView",</span></span>
+<span class="line"><span style="--shiki-light:#032F62;--shiki-dark:#ADDCFF">                        "name": "Custom View",</span></span>
+<span class="line"><span style="--shiki-light:#032F62;--shiki-dark:#ADDCFF">                        "viewFields":</span></span>
+<span class="line"><span style="--shiki-light:#032F62;--shiki-dark:#ADDCFF">                        [</span></span>
+<span class="line"><span style="--shiki-light:#032F62;--shiki-dark:#ADDCFF">                          "Hobbies",</span></span>
+<span class="line"><span style="--shiki-light:#032F62;--shiki-dark:#ADDCFF">                          "Number"</span></span>
+<span class="line"><span style="--shiki-light:#032F62;--shiki-dark:#ADDCFF">                        ],</span></span>
+<span class="line"><span style="--shiki-light:#032F62;--shiki-dark:#ADDCFF">                        "query": "&lt;OrderBy&gt;&lt;FieldRef Title=\"FileLeafRef\" Ascending=\"TRUE\" /&gt;&lt;/OrderBy&gt;",</span></span>
+<span class="line"><span style="--shiki-light:#032F62;--shiki-dark:#ADDCFF">                        "rowLimit": 100,</span></span>
+<span class="line"><span style="--shiki-light:#032F62;--shiki-dark:#ADDCFF">                        "isPaged": true,</span></span>
+<span class="line"><span style="--shiki-light:#032F62;--shiki-dark:#ADDCFF">                        "makeDefault": true</span></span>
+<span class="line"><span style="--shiki-light:#032F62;--shiki-dark:#ADDCFF">                    },</span></span>
+<span class="line"><span style="--shiki-light:#032F62;--shiki-dark:#ADDCFF">                    {</span></span>
+<span class="line"><span style="--shiki-light:#032F62;--shiki-dark:#ADDCFF">                        "verb": "removeContentType",</span></span>
+<span class="line"><span style="--shiki-light:#032F62;--shiki-dark:#ADDCFF">                        "name": "Item"</span></span>
+<span class="line"><span style="--shiki-light:#032F62;--shiki-dark:#ADDCFF">                    }</span></span>
+<span class="line"><span style="--shiki-light:#032F62;--shiki-dark:#ADDCFF">                  </span></span>
+<span class="line"><span style="--shiki-light:#032F62;--shiki-dark:#ADDCFF">                  ]</span></span>
+<span class="line"><span style="--shiki-light:#032F62;--shiki-dark:#ADDCFF">                  </span></span>
+<span class="line"><span style="--shiki-light:#032F62;--shiki-dark:#ADDCFF">    }</span></span>
+<span class="line"><span style="--shiki-light:#032F62;--shiki-dark:#ADDCFF">            </span></span>
+<span class="line"><span style="--shiki-light:#032F62;--shiki-dark:#ADDCFF">],</span></span>
+<span class="line"><span style="--shiki-light:#032F62;--shiki-dark:#ADDCFF">     "bindata": { },</span></span>
+<span class="line"><span style="--shiki-light:#032F62;--shiki-dark:#ADDCFF">    "version": "'</span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">+</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">$v</span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">+</span><span style="--shiki-light:#032F62;--shiki-dark:#ADDCFF">'"</span></span>
+<span class="line"><span style="--shiki-light:#032F62;--shiki-dark:#ADDCFF">}'</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#6A737D;--shiki-dark:#BDC4CC"> #add Script to SharePoint sharepoint tenant</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6"> $addScript </span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">=</span><span style="--shiki-light:#005CC5;--shiki-dark:#91CBFF"> Add-PnPSiteScript</span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492"> -</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">Title </span><span style="--shiki-light:#032F62;--shiki-dark:#ADDCFF">"This is first script"</span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">  -</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">Content $site_script  </span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">-</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">Description </span><span style="--shiki-light:#032F62;--shiki-dark:#ADDCFF">"Sets regional settings and creates site columns and content type."</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6"> $site_script_CreateAndUpdateSiteList </span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">=</span><span style="--shiki-light:#005CC5;--shiki-dark:#91CBFF"> Add-PnPSiteScript</span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">  -</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">Title </span><span style="--shiki-light:#032F62;--shiki-dark:#ADDCFF">"This is second script for list"</span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">  -</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">Content $site_script_CreateAndUpdateSiteList  </span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">-</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">Description </span><span style="--shiki-light:#032F62;--shiki-dark:#ADDCFF">"Create and Update list"</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#6A737D;--shiki-dark:#BDC4CC"> #add site design to site collection with site script</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6"> $siteDesign </span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">=</span><span style="--shiki-light:#005CC5;--shiki-dark:#91CBFF"> Add-PnPSiteDesign</span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">  -</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">Title </span><span style="--shiki-light:#032F62;--shiki-dark:#ADDCFF">"DevGods site design"</span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">  -</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">WebTemplate </span><span style="--shiki-light:#032F62;--shiki-dark:#ADDCFF">"64"</span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">  -</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">SiteScriptIds  $addScript.Id</span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">,</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">  $site_script_CreateAndUpdateSiteList.Id </span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">-</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">Description </span><span style="--shiki-light:#032F62;--shiki-dark:#ADDCFF">"Site design for the sample"</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#6A737D;--shiki-dark:#BDC4CC"> #set design on site collection</span></span>
+<span class="line"><span style="--shiki-light:#005CC5;--shiki-dark:#91CBFF"> Set-PnPSiteDesign</span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492"> -</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">Identity $siteDesign.Id </span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">-</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">Title </span><span style="--shiki-light:#032F62;--shiki-dark:#ADDCFF">"DevGods site design"</span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">  -</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">WebTemplate </span><span style="--shiki-light:#032F62;--shiki-dark:#ADDCFF">"64"</span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">  -</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">SiteScriptIds  $addScript.Id</span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">,</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">  $site_script_CreateAndUpdateSiteList.Id </span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">-</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">Description </span><span style="--shiki-light:#032F62;--shiki-dark:#ADDCFF">"Site design for the sample"</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#6A737D;--shiki-dark:#BDC4CC"> #invoke site design</span></span>
+<span class="line"><span style="--shiki-light:#005CC5;--shiki-dark:#91CBFF"> Invoke-PnPSiteDesign</span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492"> -</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">Identity $siteDesign.Id </span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">-</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">WebUrl $url</span></span>
+<span class="line"></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#6A737D;--shiki-dark:#BDC4CC">## Disconnect the context  </span></span>
+<span class="line"><span style="--shiki-light:#005CC5;--shiki-dark:#91CBFF"><a class="command-help" href="https://pnp.github.io/powershell/cmdlets/Disconnect-PnPOnline.html" title="Command documentation">Disconnect-PnPOnline</a></span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">  </span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6"> </span></span>
+<span class="line"><span style="--shiki-light:#6A737D;--shiki-dark:#BDC4CC">## Stop Transcript  </span></span>
+<span class="line"><span style="--shiki-light:#005CC5;--shiki-dark:#91CBFF">Stop-Transcript</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">  </span></span>
+<span class="line"></span></code></pre></div><aside class="callout callout--note" aria-label="note"><p>SharePoint tenant admin right are required to be able add site design</p>
+</aside><aside class="callout callout--note" aria-label="note"><p>Check out the <strong>PnP PowerShell</strong> to learn more at: <a href="https://aka.ms/pnp/powershell">https://aka.ms/pnp/powershell</a>
+The way you login into PnP PowerShell has changed please read <a href="https://github.com/pnp/powershell/discussions/4249">PnP Management Shell EntraID app is deleted : what should I do ?</a> </p>
+</aside></section><section role="tabpanel" id="tools-0-panel-1" aria-labelledby="tools-0-cli-m365-ps" tabindex="0" hidden="hidden"><div class="code-frame"><div class="code-toolbar"><span>powershell</span><button type="button" class="copy-code" data-copy-code="code-1" aria-label="Copy powershell code">Copy code</button></div><pre id="code-1" role="region" tabindex="0" aria-label="powershell script" class="shiki shiki-themes github-light github-dark-high-contrast" style="--shiki-light:#24292e;--shiki-dark:#f0f3f6;--shiki-light-bg:#fff;--shiki-dark-bg:#0a0c10"><code><span class="line"><span style="--shiki-light:#6A737D;--shiki-dark:#BDC4CC">###### Declare and Initialize Variables ######  </span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#6A737D;--shiki-dark:#BDC4CC">#Destination site collection url</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">$url</span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">=</span><span style="--shiki-light:#032F62;--shiki-dark:#ADDCFF">"https://&lt;tenant&gt;.sharepoint.com/sites/siteurl"</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#005CC5;--shiki-dark:#91CBFF">Write-host</span><span style="--shiki-light:#032F62;--shiki-dark:#ADDCFF"> 'setup script example'</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#005CC5;--shiki-dark:#91CBFF">Write-host</span><span style="--shiki-light:#032F62;--shiki-dark:#ADDCFF"> 'ensure logged in'</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">$m365Status </span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">=</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6"> m365 status</span></span>
+<span class="line"><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">if</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6"> ($m365Status </span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">-match</span><span style="--shiki-light:#032F62;--shiki-dark:#ADDCFF"> "Logged Out"</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">) {</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">  m365 login </span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">--</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">authType browser</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">}</span></span>
+<span class="line"></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#6A737D;--shiki-dark:#BDC4CC">## Connect to SharePoint Online site  </span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">$site </span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">=</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6"> m365 spo site get </span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">--</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">url $url </span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">$site </span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">=</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6"> $site </span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">|</span><span style="--shiki-light:#005CC5;--shiki-dark:#91CBFF"> ConvertFrom-Json</span></span>
+<span class="line"></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#6A737D;--shiki-dark:#BDC4CC">#Site design script</span></span>
+<span class="line"><span style="--shiki-light:#6A737D;--shiki-dark:#BDC4CC"># - Set site regionalsettings (useful for formatting date type field)</span></span>
+<span class="line"><span style="--shiki-light:#6A737D;--shiki-dark:#BDC4CC"># - Apply custom theme</span></span>
+<span class="line"><span style="--shiki-light:#6A737D;--shiki-dark:#BDC4CC"># - Create site columns (text, number, person, choice)</span></span>
+<span class="line"><span style="--shiki-light:#6A737D;--shiki-dark:#BDC4CC"># - Create site content type with created site columns</span></span>
+<span class="line"></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#6A737D;--shiki-dark:#BDC4CC"> #add Script to SharePoint sharepoint tenant </span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6"> $addScript </span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">=</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6"> m365 spo sitescript add </span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">--</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">title </span><span style="--shiki-light:#032F62;--shiki-dark:#ADDCFF">"This is first script CLI 1"</span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492"> --</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">description </span><span style="--shiki-light:#032F62;--shiki-dark:#ADDCFF">"some description "</span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492"> --</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">content </span><span style="--shiki-light:#032F62;--shiki-dark:#ADDCFF">"@firstscript.json"</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6"> $addScript </span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">=</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">  $addScript </span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">|</span><span style="--shiki-light:#005CC5;--shiki-dark:#91CBFF"> ConvertFrom-Json</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6"> $site_script_CreateAndUpdateSiteList </span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">=</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6"> m365 spo sitescript add </span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">--</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">title </span><span style="--shiki-light:#032F62;--shiki-dark:#ADDCFF">"This is second script for list CLI 2"</span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492"> --</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">description </span><span style="--shiki-light:#032F62;--shiki-dark:#ADDCFF">"Create and Update list CLI2"</span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492"> --</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">content </span><span style="--shiki-light:#032F62;--shiki-dark:#ADDCFF">"@secondscript.json"</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6"> $site_script_CreateAndUpdateSiteList </span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">=</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6"> $site_script_CreateAndUpdateSiteList </span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">|</span><span style="--shiki-light:#005CC5;--shiki-dark:#91CBFF"> ConvertFrom-Json</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6"> </span></span>
+<span class="line"><span style="--shiki-light:#6A737D;--shiki-dark:#BDC4CC"> #add site design to site collection with site script</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6"> $siteDesign </span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">=</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6"> m365 spo sitedesign add </span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">--</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">title </span><span style="--shiki-light:#032F62;--shiki-dark:#ADDCFF">"DevGods site design CLI"</span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492"> --</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">webTemplate </span><span style="--shiki-light:#032F62;--shiki-dark:#ADDCFF">"TeamSite"</span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492"> --</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">siteScripts </span><span style="--shiki-light:#032F62;--shiki-dark:#ADDCFF">"</span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">$</span><span style="--shiki-light:#032F62;--shiki-dark:#FF9492">(</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">$addScript.Id</span><span style="--shiki-light:#032F62;--shiki-dark:#FF9492">)</span><span style="--shiki-light:#032F62;--shiki-dark:#ADDCFF">,</span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">$</span><span style="--shiki-light:#032F62;--shiki-dark:#FF9492">(</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">$site_script_CreateAndUpdateSiteList.Id</span><span style="--shiki-light:#032F62;--shiki-dark:#FF9492">)</span><span style="--shiki-light:#032F62;--shiki-dark:#ADDCFF">"</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6"> $siteDesign </span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">=</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">$siteDesign </span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">|</span><span style="--shiki-light:#005CC5;--shiki-dark:#91CBFF"> ConvertFrom-Json</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6"> </span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6"> </span></span>
+<span class="line"><span style="--shiki-light:#6A737D;--shiki-dark:#BDC4CC"> #set design on site collection</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6"> m365 spo sitedesign set </span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">--</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">id $siteDesign.Id </span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">--</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">title </span><span style="--shiki-light:#032F62;--shiki-dark:#ADDCFF">"DevGods site design from cli"</span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492"> --</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">version </span><span style="--shiki-light:#005CC5;--shiki-dark:#91CBFF">2</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6"> </span></span>
+<span class="line"><span style="--shiki-light:#6A737D;--shiki-dark:#BDC4CC"> #invoke site design</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6"> m365 spo sitedesign apply </span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">--</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">id $siteDesign.Id </span><span style="--shiki-light:#D73A49;--shiki-dark:#FF9492">--</span><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6">webUrl  $url</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6"> </span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#F0F3F6"> m365 logout</span></span>
+<span class="line"></span></code></pre></div><aside class="callout callout--note" aria-label="note"><p>Check out the <strong>CLI for Microsoft 365</strong> to learn more at: <a href="https://aka.ms/cli-m365">https://aka.ms/cli-m365</a>
+Important changes coming to the way you login into CLI for Microsoft 365 (effective 9th September 2024) see <a href="https://pnp.github.io/blog/post/changes-pnp-management-shell-registration/">Changes in PnP Management Shell registration in Microsoft 365</a></p>
+</aside><aside class="callout callout--note" aria-label="note"><p>PowerShell cant correctly pass json of design script if it is added directly in the code. 
+To make this work save json files in same directory you are running script, in the code above files names "firstscript.json" and "secondscript.json"</p>
+</aside></section><section role="tabpanel" id="tools-0-panel-2" aria-labelledby="tools-0-json1" tabindex="0" hidden="hidden"><div class="code-frame"><div class="code-toolbar"><span>text</span><button type="button" class="copy-code" data-copy-code="code-2" aria-label="Copy text code">Copy code</button></div><pre id="code-2" role="region" tabindex="0" aria-label="text script" class="shiki shiki-themes github-light github-dark-high-contrast" style="--shiki-light:#24292e;--shiki-dark:#f0f3f6;--shiki-light-bg:#fff;--shiki-dark-bg:#0a0c10"><code><span class="line"><span>{</span></span>
+<span class="line"><span>    "$schema": "https://developer.microsoft.com/json-schemas/sp/site-design-script-actions.schema.json",</span></span>
+<span class="line"><span>    "actions": [</span></span>
+<span class="line"><span>         {</span></span>
+<span class="line"><span>          "verb": "setRegionalSettings",</span></span>
+<span class="line"><span>          "timeZone": 4, </span></span>
+<span class="line"><span>          "locale": 2057, </span></span>
+<span class="line"><span>          "sortOrder": 25, </span></span>
+<span class="line"><span>          "hourFormat": "24"</span></span>
+<span class="line"><span>        },</span></span>
+<span class="line"><span>        {</span></span>
+<span class="line"><span>        "verb": "applyTheme",</span></span>
+<span class="line"><span>        "themeJson": {</span></span>
+<span class="line"><span>          "version": "2",</span></span>
+<span class="line"><span>          "isInverted": false,</span></span>
+<span class="line"><span>          "palette": {</span></span>
+<span class="line"><span>            "themePrimary":"#0047ba",</span></span>
+<span class="line"><span>            "themeLighterAlt":"#f2f6fc",</span></span>
+<span class="line"><span>            "themeLighter":"#c3d4eb",</span></span>
+<span class="line"><span>            "themeLight":"#7aabde",</span></span>
+<span class="line"><span>            "themeTertiary":"#0091a5",</span></span>
+<span class="line"><span>            "themeSecondary":"#c3d4eb",</span></span>
+<span class="line"><span>            "themeDarkAlt":"#0040a8",</span></span>
+<span class="line"><span>            "themeDark":"#00368d",</span></span>
+<span class="line"><span>            "themeDarker":"#002868",</span></span>
+<span class="line"><span>            "neutralLighterAlt":"#f8f8f8",</span></span>
+<span class="line"><span>            "neutralLighter":"#f4f4f4",</span></span>
+<span class="line"><span>            "neutralLight":"#eaeaea",</span></span>
+<span class="line"><span>            "neutralQuaternaryAlt":"#dadada",</span></span>
+<span class="line"><span>            "neutralQuaternary":"#d0d0d0",</span></span>
+<span class="line"><span>            "neutralTertiaryAlt":"#c8c8c8",</span></span>
+<span class="line"><span>            "neutralTertiary":"#595959",</span></span>
+<span class="line"><span>            "neutralSecondary":"#373737",</span></span>
+<span class="line"><span>            "neutralPrimaryAlt":"#2f2f2f",</span></span>
+<span class="line"><span>            "neutralPrimary":"#000000",</span></span>
+<span class="line"><span>            "neutralDark":"#151515",</span></span>
+<span class="line"><span>            "black":"#0b0b0b",</span></span>
+<span class="line"><span>            "white":"#ffffff",</span></span>
+<span class="line"><span>            "primaryBackground":"#ffffff",</span></span>
+<span class="line"><span>            "primaryText":"#000000",</span></span>
+<span class="line"><span>            "bodyBackground":"#ffffff",</span></span>
+<span class="line"><span>            "bodyText":"#000000",</span></span>
+<span class="line"><span>            "disabledBackground":"#f4f4f4",</span></span>
+<span class="line"><span>            "disabledText":"#c8c8c8"</span></span>
+<span class="line"><span>           }</span></span>
+<span class="line"><span>         }</span></span>
+<span class="line"><span>        },</span></span>
+<span class="line"><span>        {</span></span>
+<span class="line"><span>          "verb": "createSiteColumnXml",</span></span>
+<span class="line"><span>          "schemaXml": "&lt;Field ID=\"{e1605fb4-611a-4eae-b119-77b4b633b436}\" Type=\"MultiChoice\" DisplayName=\"Hobbies\" Required=\"FALSE\" FillInChoice=\"FALSE\" StaticName=\"Hobbies\" Name=\"Hobbies\"&gt;&lt;DefaultFormula&gt;=\"\"&lt;/DefaultFormula&gt;&lt;CHOICES&gt;&lt;CHOICE&gt;PingPong&lt;/CHOICE&gt;&lt;CHOICE&gt;Books&lt;/CHOICE&gt;&lt;CHOICE&gt;Sharing Is Carring&lt;/CHOICE&gt;&lt;CHOICE&gt;This is easter egg&lt;/CHOICE&gt;&lt;CHOICE&gt;Wearing Mask&lt;/CHOICE&gt;&lt;CHOICE&gt;Face Tatoos&lt;/CHOICE&gt;&lt;CHOICE&gt;Flying with no Cape&lt;/CHOICE&gt;&lt;/CHOICES&gt;&lt;/Field&gt;"</span></span>
+<span class="line"><span>        },</span></span>
+<span class="line"><span>        {</span></span>
+<span class="line"><span>          "verb": "createSiteColumn",</span></span>
+<span class="line"><span>          "fieldType": "Text",</span></span>
+<span class="line"><span>          "internalName": "SimpleTextField",</span></span>
+<span class="line"><span>          "displayName": "SimpleTextField",</span></span>
+<span class="line"><span>          "isRequired": false,</span></span>
+<span class="line"><span>          "id": "60f37466-fd00-47a3-9665-44b48a743e27"</span></span>
+<span class="line"><span>        },</span></span>
+<span class="line"><span>        {</span></span>
+<span class="line"><span>          "verb": "createSiteColumn",</span></span>
+<span class="line"><span>          "fieldType": "User",</span></span>
+<span class="line"><span>          "internalName": "siteColumn4User",</span></span>
+<span class="line"><span>          "displayName": "Owner",</span></span>
+<span class="line"><span>          "isRequired": false,</span></span>
+<span class="line"><span>          "id": "181c4370-cdae-471b-9499-730046e55b75"</span></span>
+<span class="line"><span>        },</span></span>
+<span class="line"><span>        {</span></span>
+<span class="line"><span>          "verb": "createSiteColumn",</span></span>
+<span class="line"><span>          "fieldType": "Number",</span></span>
+<span class="line"><span>          "internalName": "Number",</span></span>
+<span class="line"><span>          "displayName": "Number",</span></span>
+<span class="line"><span>          "isRequired": false,</span></span>
+<span class="line"><span>          "id": "151c4370-cdae-471b-9499-730046e55b78"</span></span>
+<span class="line"><span>        },</span></span>
+<span class="line"><span>        {</span></span>
+<span class="line"><span>          "verb": "createContentType",</span></span>
+<span class="line"><span>          "name": "Powershel Samples",</span></span>
+<span class="line"><span>          "description": "Create something with fields",</span></span>
+<span class="line"><span>          "id":"'+$ctId+'",</span></span>
+<span class="line"><span>          "hidden": false,</span></span>
+<span class="line"><span>          "group": "Power Samples",</span></span>
+<span class="line"><span>          "subactions":</span></span>
+<span class="line"><span>            [</span></span>
+<span class="line"><span>              {</span></span>
+<span class="line"><span>                "verb": "addSiteColumn",</span></span>
+<span class="line"><span>                "internalName": "Hobbies"</span></span>
+<span class="line"><span>              },</span></span>
+<span class="line"><span>              {</span></span>
+<span class="line"><span>                "verb": "addSiteColumn",</span></span>
+<span class="line"><span>                "internalName": "SimpleTextField"</span></span>
+<span class="line"><span>              },</span></span>
+<span class="line"><span>              {</span></span>
+<span class="line"><span>                "verb": "addSiteColumn",</span></span>
+<span class="line"><span>                "internalName": "siteColumn4User"</span></span>
+<span class="line"><span>              },</span></span>
+<span class="line"><span>              {</span></span>
+<span class="line"><span>                "verb": "addSiteColumn",</span></span>
+<span class="line"><span>                "internalName": "Number"</span></span>
+<span class="line"><span>              }</span></span>
+<span class="line"><span>            ]</span></span>
+<span class="line"><span>        }</span></span>
+<span class="line"><span> ],</span></span>
+<span class="line"><span>    "bindata": { },</span></span>
+<span class="line"><span>    "version": "1"</span></span>
+<span class="line"><span>}</span></span></code></pre></div></section><section role="tabpanel" id="tools-0-panel-3" aria-labelledby="tools-0-json2" tabindex="0" hidden="hidden"><div class="code-frame"><div class="code-toolbar"><span>text</span><button type="button" class="copy-code" data-copy-code="code-3" aria-label="Copy text code">Copy code</button></div><pre id="code-3" role="region" tabindex="0" aria-label="text script" class="shiki shiki-themes github-light github-dark-high-contrast" style="--shiki-light:#24292e;--shiki-dark:#f0f3f6;--shiki-light-bg:#fff;--shiki-dark-bg:#0a0c10"><code><span class="line"><span>{</span></span>
+<span class="line"><span>    "$schema": "https://developer.microsoft.com/json-schemas/sp/site-design-script-actions.schema.json",</span></span>
+<span class="line"><span>    "actions": [</span></span>
+<span class="line"><span>    {</span></span>
+<span class="line"><span>                  "verb": "createSPList",</span></span>
+<span class="line"><span>                  "listName": "DemoListForPowerShellSamples",</span></span>
+<span class="line"><span>                  "templateType": 100,</span></span>
+<span class="line"><span>                  "subactions": [</span></span>
+<span class="line"><span>                  {</span></span>
+<span class="line"><span>                      "verb": "addContentType",</span></span>
+<span class="line"><span>                      "name": "Powershel Samples"</span></span>
+<span class="line"><span>                    },</span></span>
+<span class="line"><span>                    {</span></span>
+<span class="line"><span>                        "verb": "addSPView",</span></span>
+<span class="line"><span>                        "name": "Custom View",</span></span>
+<span class="line"><span>                        "viewFields":</span></span>
+<span class="line"><span>                        [</span></span>
+<span class="line"><span>                          "Hobbies",</span></span>
+<span class="line"><span>                          "Number"</span></span>
+<span class="line"><span>                        ],</span></span>
+<span class="line"><span>                        "query": "&lt;OrderBy&gt;&lt;FieldRef Title=\"FileLeafRef\" Ascending=\"TRUE\" /&gt;&lt;/OrderBy&gt;",</span></span>
+<span class="line"><span>                        "rowLimit": 100,</span></span>
+<span class="line"><span>                        "isPaged": true,</span></span>
+<span class="line"><span>                        "makeDefault": true</span></span>
+<span class="line"><span>                    },</span></span>
+<span class="line"><span>                    {</span></span>
+<span class="line"><span>                        "verb": "removeContentType",</span></span>
+<span class="line"><span>                        "name": "Item"</span></span>
+<span class="line"><span>                    }</span></span>
+<span class="line"><span>                  </span></span>
+<span class="line"><span>                  ]</span></span>
+<span class="line"><span>                  </span></span>
+<span class="line"><span>    }</span></span>
+<span class="line"><span>            </span></span>
+<span class="line"><span>],</span></span>
+<span class="line"><span>     "bindata": { },</span></span>
+<span class="line"><span>    "version": "1"</span></span>
+<span class="line"><span>}</span></span></code></pre></div><aside class="callout callout--note" aria-label="note"><p>Check out the <strong>PnP PowerShell</strong> to learn more at: <a href="https://aka.ms/pnp/powershell">https://aka.ms/pnp/powershell</a>
+The way you login into PnP PowerShell has changed please read <a href="https://github.com/pnp/powershell/discussions/4249">PnP Management Shell EntraID app is deleted : what should I do ?</a> </p>
+</aside></section></div>
+<hr />
+<h2 id="contributors">Contributors</h2><div class="table-wrap" tabindex="0" role="region" aria-label="Sample data table"><table>
+<thead>
+<tr>
+<th>Author(s)</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Valeras Narbutas</td>
+</tr>
+</tbody></table>
+</div><h2 id="disclaimer">Disclaimer</h2><p><strong>THESE SAMPLES ARE PROVIDED <em>AS IS</em> WITHOUT WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, INCLUDING ANY IMPLIED WARRANTIES OF FITNESS FOR A PARTICULAR PURPOSE, MERCHANTABILITY, OR NON-INFRINGEMENT.</strong></p>
+</div><section class="reference-section"><h2>Tool documentation &amp; references</h2><ul><li><a href="https://aka.ms/pnp/powershell">Want to learn more about PnP PowerShell and the cmdlets</a><p>Check out the PnP PowerShell site to get started and for the reference to the cmdlets.</p></li><li><a href="https://aka.ms/cli-m365">Want to learn more about CLI for Microsoft 365 and the commands</a><p>Check out the CLI for Microsoft 365 site to get started and for the reference to the commands.</p></li></ul></section><section><h2>Keep exploring</h2><div class="related-samples"><a href="/script-samples/samples/spfx-install-js/">Install SharePoint Framework Development Environment<svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="lucide lucide-arrow-right"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg></a><a href="/script-samples/samples/spo-get-agent-list/">Get SharePoint Agents<svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="lucide lucide-arrow-right"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg></a><a href="/script-samples/samples/power-platform-custom-connector-inventory/">List Custom Connectors Across All Environments<svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="lucide lucide-arrow-right"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg></a></div></section></div><aside class="detail-sidebar" aria-label="Sample information"><div class="sidebar-panel"><h2>Make it your own</h2><a class="button button-primary" href="https://github.com/pnp/script-samples/tree/main/scripts/spo-add-site-design-with-custom-list">Open source on GitHub <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="lucide lucide-arrow-up-right"><path d="M7 7h10v10"></path><path d="M7 17 17 7"></path></svg></a><a class="button button-secondary" href="https://github.com/pnp/script-samples/edit/main/scripts/spo-add-site-design-with-custom-list/README.md">Improve this sample</a><dl><dt>Products</dt><dd><a class="product-inline" href="/script-samples/?product=sharepoint"><img src="/script-samples/images/SharePoint_512.png" alt="" width="22" height="22" loading="lazy" decoding="async">SharePoint</a></dd><dt>Tool versions from the author</dt><dd><div>PnP PowerShell <strong>1.7.0</strong></div><div>CLI for Microsoft 365 <strong>4.1.0</strong></div></dd><dt>Created</dt><dd><time datetime="2021-10-03">Oct 3, 2021</time></dd><dt>Updated</dt><dd><time datetime="2021-11-03">Nov 3, 2021</time></dd></dl></div><div class="sidebar-panel"><h2>Commands &amp; topics</h2><div class="tag-list"><a href="/script-samples/?q=modern">modern</a><a href="https://pnp.github.io/cli-microsoft365/cmd/login/">m365 login &#8599;</a><a href="https://pnp.github.io/cli-microsoft365/cmd/logout/">m365 logout &#8599;</a><a href="https://pnp.github.io/cli-microsoft365/cmd/status/">m365 status &#8599;</a><a href="https://pnp.github.io/cli-microsoft365/cmd/spo/site/site-get">m365 spo site get &#8599;</a><a href="https://pnp.github.io/cli-microsoft365/cmd/spo/sitedesign/sitedesign-add">m365 spo sitedesign add &#8599;</a><a href="https://pnp.github.io/cli-microsoft365/cmd/spo/sitedesign/sitedesign-apply">m365 spo sitedesign apply &#8599;</a><a href="https://pnp.github.io/cli-microsoft365/cmd/spo/sitedesign/sitedesign-set">m365 spo sitedesign set &#8599;</a><a href="https://pnp.github.io/cli-microsoft365/cmd/spo/sitescript/sitescript-add">m365 spo sitescript add &#8599;</a><a href="https://pnp.github.io/powershell/cmdlets/Add-PnPSiteDesign.html">Add-PnPSiteDesign &#8599;</a><a href="https://pnp.github.io/powershell/cmdlets/Add-PnPSiteScript.html">Add-PnPSiteScript &#8599;</a><a href="https://pnp.github.io/powershell/cmdlets/Connect-PnPOnline.html">Connect-PnPOnline &#8599;</a><a href="https://pnp.github.io/powershell/cmdlets/Disconnect-PnPOnline.html">Disconnect-PnPOnline &#8599;</a><a href="https://pnp.github.io/powershell/cmdlets/Invoke-PnPSiteDesign.html">Invoke-PnPSiteDesign &#8599;</a><a href="https://pnp.github.io/powershell/cmdlets/Set-PnPSite.html">Set-PnPSite &#8599;</a><a href="https://pnp.github.io/powershell/cmdlets/Set-PnPSiteDesign.html">Set-PnPSiteDesign &#8599;</a></div></div><div class="sidebar-panel"><h2>Something not working?</h2><p class="card-description">Help the community keep this sample useful. Include the tool version, steps, and a redacted error message.</p><a class="text-link" href="https://github.com/pnp/script-samples/issues/new?title=Issue%20with%20spo-add-site-design-with-custom-list&amp;body=Sample%3A%20https%3A%2F%2Fpnp.github.io%2Fscript-samples%2Fsamples%2Fspo-add-site-design-with-custom-list%2F%0A%0ATool%20and%20version%3A%0A%0ASteps%20to%20reproduce%3A%0A%0AExpected%20and%20actual%20result%3A%0A%0ARemove%20tenant%20details%2C%20credentials%2C%20and%20personal%20information%20before%20submitting.">Report an issue &#8599;</a></div><div class="sidebar-panel"><h2>Built by the community</h2><a href="/script-samples/contributing/recognition/"><img class="detail-badge" src="/script-samples/assets/credly-badge.png" alt="Script Samples community contributor badge" width="160" height="160" loading="lazy" decoding="async"></a><p class="card-description">Share a sample and earn your contributor badge.</p><a class="text-link" href="/script-samples/contributing/">Get involved &#8594;</a></div></aside></div></div></main><footer class="site-footer"><div class="container footer-inner"><div><strong>Microsoft 365 &amp; Power Platform Community</strong><p>Built by the community, for the community.</p></div><nav aria-label="Footer navigation"><a href="https://aka.ms/community/home">Community home &#8599;</a><a href="/script-samples/catalog.json">Catalog JSON</a><a href="/script-samples/schemas/sample.schema.json">Metadata schema</a><a href="/script-samples/reports/">Catalog reports</a><a href="/script-samples/contributing/recognition/">Contributor badge</a><a href="https://github.com/pnp/script-samples/issues/new">Report an issue</a><a href="https://opensource.microsoft.com/codeofconduct/">Code of conduct</a><a href="https://github.com/pnp/script-samples/blob/main/LICENSE">MIT license</a></nav></div></footer><p class="sr-only" id="site-status" role="status" aria-live="polite"></p><img class="sr-only" data-visitor-stats data-tracker-src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/spo-add-site-design-with-custom-list" data-tracking-enabled="true" src="data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=" alt="" width="1" height="1" aria-hidden="true"><script type="module" src="/script-samples/_astro/Layout.astro_astro_type_script_index_0_lang.DaWAalj3.js"></script></body></html><script type="module" src="/script-samples/_astro/_slug_.astro_astro_type_script_index_0_lang.BIay2qYY.js"></script>

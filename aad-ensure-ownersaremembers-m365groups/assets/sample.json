@@ -9,13 +9,15 @@
     "creationDateTime": "2023-10-29",
     "updateDateTime": "2025-11-11",
     "shortDescription": "Ensuring m365 group owners are m365 group members",
-    "longDescription": ["M365 group owners are not always m365 group members because of the various methods of managing M365 group permissions, such as through the Teams admin center, Microsoft Teams, SharePoint admin center, SharePoint connected sites, Planner, or scripting using PowerShell. The script will help identify these discrepancies and ensures m365 group owners are also m365 group members."],
+    "longDescription": [
+      "M365 group owners are not always m365 group members because of the various methods of managing M365 group permissions, such as through the Teams admin center, Microsoft Teams, SharePoint admin center, SharePoint connected sites, Planner, or scripting using PowerShell. The script will help identify these discrepancies and ensures m365 group owners are also m365 group members."
+    ],
     "products": [
       "AzureAD",
       "SharePoint"
     ],
     "categories": [
-      "Governance"
+      "Configure"
     ],
     "tags": [
       "SharePoint Online",
@@ -27,8 +29,9 @@
       "Add-PnPMicrosoft365GroupMember",
       "m365 login",
       "m365 spo site list",
-      "m365 entra m365group user list ",
-      "m365 entra m365group user add"
+      "m365 entra m365group user list",
+      "m365 entra m365group user add",
+      "Governance"
     ],
     "metadata": [
       {
@@ -45,8 +48,7 @@
         "type": "image",
         "order": 100,
         "url": "https://raw.githubusercontent.com/pnp/script-samples/main/scripts/aad-ensure-ownersaremembers-m365groups/assets/preview.png",
-        "alt": "preview image for the sample",
-        "slides": null
+        "alt": "Preview of the sample Ensuring m365 group owners are m365 group members"
       }
     ],
     "authors": [

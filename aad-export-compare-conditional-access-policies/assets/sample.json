@@ -9,7 +9,8 @@
       "This script automates the export and comparison of Conditional Access Policies within an Azure AD tenant to detect configuration drift. It helps monitor changes to these critical security controls over time, ensuring they remain compliant with your organization's zero-trust baselines."
     ],
     "creationDateTime": "2025-05-25",
-    "updateDateTime": "2025-05-25",    "products": [
+    "updateDateTime": "2025-05-25",
+    "products": [
       "Graph",
       "Azure",
       "Microsoft 365",
@@ -20,13 +21,12 @@
         "key": "GRAPH-POWERSHELL",
         "value": "1.0.0"
       }
-    ],    
+    ],
     "categories": [
       "Security",
       "Report",
-      "Configure",
-      "Monitor"
-    ],    
+      "Configure"
+    ],
     "tags": [
       "Microsoft Graph",
       "Conditional Access",
@@ -35,7 +35,8 @@
       "Policy management",
       "Connect-MgGraph",
       "Invoke-MgGraphRequest",
-      "Compare-Object"
+      "Compare-Object",
+      "Monitor"
     ],
     "thumbnails": [
       {
