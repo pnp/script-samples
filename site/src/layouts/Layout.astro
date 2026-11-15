@@ -36,6 +36,9 @@ const structuredData = { "@context": "https://schema.org", "@type": "WebSite", n
     <meta property="og:type" content="website" /><meta property="og:site_name" content="Community Script Samples" />
     <meta property="og:title" content={pageTitle} /><meta property="og:description" content={description} />
     <meta property="og:url" content={canonical} /><meta property="og:image" content={new URL(image, Astro.site)} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="1200" />
+    <meta property="og:image:alt" content="Screenshot of the Community Script Samples gallery showing its search, filters, and script cards." />
     <meta name="twitter:card" content="summary_large_image" />
     <script type="application/ld+json" set:html={JSON.stringify(structuredData).replace(/</g, "\\u003c")} />
     <script is:inline>
