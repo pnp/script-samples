@@ -48,7 +48,7 @@ $m365Sites | ForEach-Object {
 $m365GroupCollection | sort-object "Site Name" | Export-CSV $OutPutView -Force -NoTypeInformation
 ```
 
-[!INCLUDE [More about PnP PowerShell](../../docfx/includes/MORE-PNPPS.md)]
+[!INCLUDE [More about PnP PowerShell](../../docs/includes/MORE-PNPPS.md)]
 
 # [CLI for Microsoft 365](#tab/cli-m365-ps)
 
@@ -148,7 +148,7 @@ end {
 
 ```
 
-[!INCLUDE [More about CLI for Microsoft 365](../../docfx/includes/MORE-CLIM365.md)]
+[!INCLUDE [More about CLI for Microsoft 365](../../docs/includes/MORE-CLIM365.md)]
 
 ***
 
@@ -165,5 +165,5 @@ Sample first appeared on [Ensuring Owners Are Members](https://reshmeeauckloo.co
 | Adam Wójcik |
 
 
-[!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
+[!INCLUDE [DISCLAIMER](../../docs/includes/DISCLAIMER.md)]
 <img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/aad-ensure-ownersaremembers-m365groups" aria-hidden="true" />

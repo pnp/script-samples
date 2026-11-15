@@ -56,7 +56,7 @@ m365 spo app add --filePath $PathToSpfxApp --overwrite --verbose
 
 ```
 
-[!INCLUDE [More about CLI for Microsoft 365](../../docfx/includes/MORE-CLIM365.md)]
+[!INCLUDE [More about CLI for Microsoft 365](../../docs/includes/MORE-CLIM365.md)]
 
 ***
 
@@ -66,5 +66,5 @@ m365 spo app add --filePath $PathToSpfxApp --overwrite --verbose
 |-----------|
 | [Valeras Narbutas](https://github.com/ValerasNarbutas) |
 
-[!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
+[!INCLUDE [DISCLAIMER](../../docs/includes/DISCLAIMER.md)]
 <img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/spo-add-sppkg-ad-app-certificate" aria-hidden="true" />

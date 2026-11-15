@@ -6,7 +6,7 @@
 
 Locate, take ownership of, and delete temporary orphaned pages from /SitePages library.
 
-[!INCLUDE [Delete Warning](../../docfx/includes/DELETE-WARN.md)]
+[!INCLUDE [Delete Warning](../../docs/includes/DELETE-WARN.md)]
 
 # [PnP PowerShell](#tab/pnpps)
 ```powershell
@@ -64,7 +64,7 @@ $nowString = [System.DateTime]::Now.ToString("yyyyMMdd_hhmm")
 $path = "$env:USERPROFILE\Desktop\PS1\Get-FilesWithNoCheckin_$nowString.csv"
 $filesProcessed | select ServerRelativeUrl, Exists, UIVersionLabel | Export-Csv $path -NoTypeInformation
 ```
-[!INCLUDE [More about PnP PowerShell](../../docfx/includes/MORE-PNPPS.md)]
+[!INCLUDE [More about PnP PowerShell](../../docs/includes/MORE-PNPPS.md)]
 
 # [CLI for Microsoft 365 using PowerShell](#tab/cli-m365-ps)
 ```powershell
@@ -115,7 +115,7 @@ $filesProcessed | select ServerRelativeUrl, Exists, UIVersionLabel | Export-Csv 
 ## Disconnect the context  
 m365 logout  
 ```
-[!INCLUDE [More about CLI for Microsoft 365](../../docfx/includes/MORE-CLIM365.md)]
+[!INCLUDE [More about CLI for Microsoft 365](../../docs/includes/MORE-CLIM365.md)]
 ***
 
 ## Contributors
@@ -125,6 +125,6 @@ m365 logout
 | [Brian P. McCullough](https://github.com/brianpmccullough) |
 | [Reshmee Auckloo](https://github.com/reshmee011)|
 
-[!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
+[!INCLUDE [DISCLAIMER](../../docs/includes/DISCLAIMER.md)]
 <img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/spo-delete-orphaned-temporary-sitepages" aria-hidden="true" />
 

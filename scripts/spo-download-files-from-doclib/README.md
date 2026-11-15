@@ -75,7 +75,7 @@ Download-FilesFromSharePoint -LibraryPath $libraryPath -LocalDownloadPath $local
 Write-Host "Download completed."
 
 ```
-[!INCLUDE [More about PnP PowerShell](../../docfx/includes/MORE-PNPPS.md)]
+[!INCLUDE [More about PnP PowerShell](../../docs/includes/MORE-PNPPS.md)]
 # [CLI for Microsoft 365 using PowerShell](#tab/cli-m365-ps)
 
 ```powershell
@@ -125,7 +125,7 @@ Download-FilesFromSharePoint -LibraryPath $libraryPath -LocalDownloadPath $local
 Write-Host "Download completed."
 
 ```
-[!INCLUDE [More about CLI for Microsoft 365](../../docfx/includes/MORE-CLIM365.md)]
+[!INCLUDE [More about CLI for Microsoft 365](../../docs/includes/MORE-CLIM365.md)]
 
 ***
 
@@ -136,5 +136,5 @@ Write-Host "Download completed."
 | [Peter Paul Kirschner](https://github.com/petkir) |
 
 
-[!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
+[!INCLUDE [DISCLAIMER](../../docs/includes/DISCLAIMER.md)]
 <img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/spo-download-files-from-doclib" aria-hidden="true" />

@@ -71,7 +71,7 @@ $Web.Update()
 Invoke-PnPQuery
 
 ```
-[!INCLUDE [More about PnP PowerShell](../../docfx/includes/MORE-PNPPS.md)]
+[!INCLUDE [More about PnP PowerShell](../../docs/includes/MORE-PNPPS.md)]
 
 ***
 
@@ -87,5 +87,5 @@ Sample first appeared on [SharePoint Diary](https://www.sharepointdiary.com/2019
 | [Kshitiz Kalra](https://www.linkedin.com/in/kshitiz-kalra-b3107b164/) |
 
 
-[!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
+[!INCLUDE [DISCLAIMER](../../docs/includes/DISCLAIMER.md)]
 <img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/spo-add-language-settings" aria-hidden="true" />

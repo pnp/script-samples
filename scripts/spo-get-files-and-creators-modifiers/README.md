@@ -27,7 +27,7 @@ $LibraryList = Get-PnPList -Includes IsSystemList,RootFolder | Where-Object {($_
 $LibraryList | ForEach-Object{Get-PnPListItem -List $_.RootFolder.Name | Where-Object{$_.FieldValues.FSObjType -ne 1} | Select-Object @{n="FileRef";e={$_.FieldValues.FileRef}},@{n="Created_x0020_By";e={$($_.FieldValues.Created_x0020_By).split("|")[2]}},@{n="Created";e={$_.FieldValues.Created}},@{n="Modified_x0020_By";e={$($_.FieldValues.Modified_x0020_By).split("|")[2]}},@{n="Modified";e={$_.FieldValues.Modified}}} | Export-Csv -Path .\FilesAndOwners.csv -Append
 
 ```
-[!INCLUDE [More about PnP PowerShell](../../docfx/includes/MORE-PNPPS.md)]
+[!INCLUDE [More about PnP PowerShell](../../docs/includes/MORE-PNPPS.md)]
 ***
 
 ## Contributors
@@ -36,5 +36,5 @@ $LibraryList | ForEach-Object{Get-PnPListItem -List $_.RootFolder.Name | Where-O
 |-----------|
 | [Todd Klindt](https://www.toddklindt.com)|
 
-[!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
+[!INCLUDE [DISCLAIMER](../../docs/includes/DISCLAIMER.md)]
 <img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/spo-get-files-and-creators-modifiers" aria-hidden="true" />

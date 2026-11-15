@@ -59,7 +59,7 @@ Connect-PnPOnline -Url  $siteUrl
 
  $ResultData | Export-Csv $ReportOutput -NoTypeInformation
 ```
-[!INCLUDE [More about PnP PowerShell](../../docfx/includes/MORE-PNPPS.md)]
+[!INCLUDE [More about PnP PowerShell](../../docs/includes/MORE-PNPPS.md)]
 
 
 # [CLI for Microsoft 365](#tab/cli-m365-ps)
@@ -102,7 +102,7 @@ If ($lists.Count -gt 0) {
 $ResultData | Export-Csv $ReportOutput -NoTypeInformation
 
 ```
-[!INCLUDE [More about CLI for Microsoft 365](../../docfx/includes/MORE-CLIM365.md)]
+[!INCLUDE [More about CLI for Microsoft 365](../../docs/includes/MORE-CLIM365.md)]
 ***
 
 ## Contributors
@@ -114,5 +114,5 @@ $ResultData | Export-Csv $ReportOutput -NoTypeInformation
 | [Alex Talarico](https://github.com/getalex) |
 
 
-[!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
-<img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/bulk-undelete-from-recyclebin" aria-hidden="true" />
+[!INCLUDE [DISCLAIMER](../../docs/includes/DISCLAIMER.md)]
+<img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/spo-get-lists-libraries-item-count-permissions" aria-hidden="true" />

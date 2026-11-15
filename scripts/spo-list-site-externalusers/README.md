@@ -50,7 +50,7 @@ foreach ($site in $allSPOSites) {
 Write-Host "Completed."
 
 ```
-[!INCLUDE [More about SPO Management Shell](../../docfx/includes/MORE-SPOMS.md)]
+[!INCLUDE [More about SPO Management Shell](../../docs/includes/MORE-SPOMS.md)]
 
 # [PnP PowerShell](#tab/pnpps)
 ```powershell
@@ -137,5 +137,5 @@ Sample first appeared on [List all external users in all site collections | CLI 
 | Martin Lingstuyl |
 
 
-[!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
+[!INCLUDE [DISCLAIMER](../../docs/includes/DISCLAIMER.md)]
 <img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/spo-list-site-externalusers" aria-hidden="true" />

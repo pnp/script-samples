@@ -245,5 +245,5 @@ For very large workloads, consider implementing controlled batching, retry handl
 |-------|----|--------|
 |1.0|October 07, 2026|Initial release|
 
-[!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
+[!INCLUDE [DISCLAIMER](../../docs/includes/DISCLAIMER.md)]
 <img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/spo-bulk-file-rename-script" />

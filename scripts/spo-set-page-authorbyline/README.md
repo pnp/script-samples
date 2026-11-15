@@ -84,7 +84,7 @@ This script uses PnP PowerShell to set the `Authors` and `AuthorByline` properti
     # Set-Page-Author-Byline.ps1 -SiteUrl https://tenantname.sharepoint.com/sites/sitename -PageName Page-1.aspx -UserEmail user@tenantname.onmicrosoft.com
 
 ```
-[!INCLUDE [More about PnP PowerShell](../../docfx/includes/MORE-PNPPS.md)]
+[!INCLUDE [More about PnP PowerShell](../../docs/includes/MORE-PNPPS.md)]
 ***
 
 ## Contributors
@@ -93,7 +93,7 @@ This script uses PnP PowerShell to set the `Authors` and `AuthorByline` properti
 |-----------|
 | Anoop Tatti |
 
-[!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
+[!INCLUDE [DISCLAIMER](../../docs/includes/DISCLAIMER.md)]
 
 <img src="https://telemetry.sharepointpnp.com/script-samples/scripts/spo-set-page-authorbyline" aria-hidden="true" />
 

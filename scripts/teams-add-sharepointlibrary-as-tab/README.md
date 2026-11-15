@@ -25,7 +25,7 @@ Add-PnPTeamsTab -Team $team -Channel $channel -DisplayName $displayName -Type Cu
 Disconnect-PnPOnline
 ```
 
-[!INCLUDE [More about PnP PowerShell](../../docfx/includes/MORE-PNPPS.md)]
+[!INCLUDE [More about PnP PowerShell](../../docs/includes/MORE-PNPPS.md)]
 
 # [CLI for Microsoft 365](#tab/cli-m365-ps)
 
@@ -53,7 +53,7 @@ m365 teams tab add --teamId $teamId --channelId $channelId --appId "2a527703-1f6
 m365 logout
 ```
 
-[!INCLUDE [More about CLI for Microsoft 365](../../docfx/includes/MORE-CLIM365.md)]
+[!INCLUDE [More about CLI for Microsoft 365](../../docs/includes/MORE-CLIM365.md)]
 
 ***
 
@@ -68,5 +68,5 @@ Sample first appeared on [How to Add a SharePoint Document Library as a Tab in M
 | [Reshmee Auckloo](https://github.com/reshmee011) |
 
 
-[!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
+[!INCLUDE [DISCLAIMER](../../docs/includes/DISCLAIMER.md)]
 <img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/teams-add-sharepointlibrary-as-tab" aria-hidden="true" />

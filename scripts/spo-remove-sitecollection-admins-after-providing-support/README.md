@@ -62,7 +62,7 @@ foreach ($site in $cleanup) {
 }
 ```
 
-[!INCLUDE [More about PnP PowerShell](../../docfx/includes/MORE-PNPPS.md)]
+[!INCLUDE [More about PnP PowerShell](../../docs/includes/MORE-PNPPS.md)]
 
 ***
 
@@ -72,5 +72,5 @@ foreach ($site in $cleanup) {
 |-----------|
 | Fabian Hutzli |
 
-[!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
+[!INCLUDE [DISCLAIMER](../../docs/includes/DISCLAIMER.md)]
 <img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/spo-remove-sitecollection-admins-after-providing-support" aria-hidden="true" />

@@ -132,7 +132,7 @@ foreach ($SiteUrl in $SiteUrls) {
 Stop-Transcript
 
 ```
-[!INCLUDE [More about PnP PowerShell](../../docfx/includes/MORE-PNPPS.md)]
+[!INCLUDE [More about PnP PowerShell](../../docs/includes/MORE-PNPPS.md)]
 
 
 
@@ -144,5 +144,5 @@ Stop-Transcript
 | [Josiah Opiyo](https://github.com/ojopiyo)  |
 
 
-[!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
+[!INCLUDE [DISCLAIMER](../../docs/includes/DISCLAIMER.md)]
 <img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/spo-change-retention-labels" aria-hidden="true" />

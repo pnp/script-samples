@@ -128,7 +128,7 @@ foreach ($plan in $plans) {
 }
 ```
 
-[!INCLUDE [More about CLI for Microsoft 365](../../docfx/includes/MORE-CLIM365.md)]
+[!INCLUDE [More about CLI for Microsoft 365](../../docs/includes/MORE-CLIM365.md)]
 
 # [PnP PowerShell](#tab/pnpps)
 ```powershell
@@ -240,7 +240,7 @@ if ($null -ne $plan) {
   }
 
 ```
-[!INCLUDE [More about PnP PowerShell](../../docfx/includes/MORE-PNPPS.md)]
+[!INCLUDE [More about PnP PowerShell](../../docs/includes/MORE-PNPPS.md)]
 
 ***
 
@@ -257,6 +257,6 @@ Sample first appeared on [Planner migration to SharePoint list | CLI for Microso
 | Jasey Waegebaert |
 
 
-[!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
+[!INCLUDE [DISCLAIMER](../../docs/includes/DISCLAIMER.md)]
 <img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/planner-migration-spo-list" aria-hidden="true" />
 

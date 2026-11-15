@@ -1,0 +1,87 @@
+name: Deploy gallery
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions: {}
+
+concurrency:
+  group: github-pages
+  cancel-in-progress: true
+
+jobs:
+  build:
+    if: github.repository == 'pnp/script-samples'
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    permissions:
+      contents: read
+    defaults:
+      run:
+        working-directory: site
+    steps:
+      - name: Checkout
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - name: Set up Node
+        uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
+        with:
+          node-version: "22.19.0"
+          cache: npm
+          cache-dependency-path: site/package-lock.json
+      - name: Install dependencies
+        run: npm ci
+      - name: Test catalog and sample generator
+        run: npm test
+      - name: Test generator
+        shell: pwsh
+        run: ./tests/generator.ps1
+      - name: Build and validate production gallery
+        run: npm run build
+        env:
+          PUBLIC_COMMIT_SHA: ${{ github.sha }}
+          PUBLIC_ENABLE_VIEW_TRACKING: "true"
+      - name: Install Chromium
+        run: npx playwright install --with-deps chromium
+      - name: Test release
+        run: npm run test:e2e
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@fc324d3547104276b827a68afc52ff2a11cc49c9 # v5.0.0
+        with:
+          path: site/dist
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@cd2ce8fcbc39b97be8ca5fce6e763baed58fa128 # v5.0.0
+      - name: Verify published commit
+        shell: pwsh
+        env:
+          SITE_URL: ${{ steps.deployment.outputs.page_url }}
+          EXPECTED_COMMIT: ${{ github.sha }}
+        run: |
+          $ErrorActionPreference = 'Stop'
+          $baseUrl = $env:SITE_URL.TrimEnd('/')
+          for ($attempt = 1; $attempt -le 12; $attempt++) {
+            try {
+              $marker = Invoke-RestMethod "$baseUrl/deployment.json"
+              $home = Invoke-WebRequest "$baseUrl/"
+              if ($marker.commit -ne $env:EXPECTED_COMMIT) { throw 'Deployed commit does not match this workflow.' }
+              if ($home.Content -notmatch '<title>Community Script Samples</title>') { throw 'The gallery home page was not deployed.' }
+              Write-Host "Verified $baseUrl at commit $env:EXPECTED_COMMIT with $($marker.sampleCount) samples."
+              exit 0
+            } catch {
+              if ($attempt -eq 12) { throw }
+              Start-Sleep -Seconds 10
+            }
+          }

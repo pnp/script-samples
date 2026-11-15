@@ -108,7 +108,7 @@ Write-Host "Script completed successfully!" -ForegroundColor Green
 
 
 ```
-[!INCLUDE [More about PnP PowerShell](../../docfx/includes/MORE-PNPPS.md)]
+[!INCLUDE [More about PnP PowerShell](../../docs/includes/MORE-PNPPS.md)]
 
 
 # [PnP PowerShell](#tab/pnpps)
@@ -158,7 +158,7 @@ foreach ($MySite in $MySites) {
 }
 
 ```
-[!INCLUDE [More about PnP PowerShell](../../docfx/includes/MORE-PNPPS.md)]
+[!INCLUDE [More about PnP PowerShell](../../docs/includes/MORE-PNPPS.md)]
 ***
 
 
@@ -170,5 +170,5 @@ foreach ($MySite in $MySites) {
 | [Josiah Opiyo](https://github.com/ojopiyo) |
 
 
-[!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
+[!INCLUDE [DISCLAIMER](../../docs/includes/DISCLAIMER.md)]
 <img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/onedrive-export-admins" aria-hidden="true" />

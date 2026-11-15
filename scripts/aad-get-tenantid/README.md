@@ -79,7 +79,7 @@ function Get-TenantIdFromDomain {
 }
 
 ```
-[!INCLUDE [More about PowerShell](../../docfx/includes/MORE-PS.md)]
+[!INCLUDE [More about PowerShell](../../docs/includes/MORE-PS.md)]
 
 
 # [PowerShell (Subscription)](#tab/ps1)
@@ -150,7 +150,7 @@ function Get-TenantIdFromSubscriptionId {
 }
 
 ```
-[!INCLUDE [More about PowerShell](../../docfx/includes/MORE-PS.md)]
+[!INCLUDE [More about PowerShell](../../docs/includes/MORE-PS.md)]
 
 # [PnP PowerShell](#tab/pnpps)
 
@@ -171,7 +171,7 @@ param (
 Get-PnPTenantId -Url $tenantUrl
 
 ```
-[!INCLUDE [More about PnP PowerShell](../../docfx/includes/MORE-PNPPS.md)]
+[!INCLUDE [More about PnP PowerShell](../../docs/includes/MORE-PNPPS.md)]
 
 ***
 
@@ -188,5 +188,5 @@ Sample first appeared on [https://github.com/dkaaven/M365-Scripts](https://githu
 | Ganesh Sanap |
 | Erwin van Hunen |
 
-[!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
+[!INCLUDE [DISCLAIMER](../../docs/includes/DISCLAIMER.md)]
 <img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/aad-get-tenantid" aria-hidden="true" />

@@ -84,7 +84,7 @@ Set-PnPField -List $ListName -Identity $FieldName -Values @{
 } -ErrorAction Stop
 ```
 
-[!INCLUDE [More about PnP PowerShell](../../docfx/includes/MORE-PNPPS.md)]
+[!INCLUDE [More about PnP PowerShell](../../docs/includes/MORE-PNPPS.md)]
 
 ***
 
@@ -99,5 +99,5 @@ Sample first appeared on [Updating Multiline Text Field Properties in SharePoint
 | [Reshmee Auckloo](https://github.com/reshmee011) |
 
 
-[!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
+[!INCLUDE [DISCLAIMER](../../docs/includes/DISCLAIMER.md)]
 <img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/spo-multiline-field-properties" aria-hidden="true" />

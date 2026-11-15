@@ -39,7 +39,7 @@ foreach ($team in $teams){
     Write-host "there are no external user added to any team in your organization" -ForegroundColor yellow
  }
 ```
-[!INCLUDE [More about Microsoft Teams PowerShell](../../docfx/includes/MORE-TEAMSPS.md)]
+[!INCLUDE [More about Microsoft Teams PowerShell](../../docs/includes/MORE-TEAMSPS.md)]
 
 # [PnP PowerShell](#tab/pnpps)
 ```powershell
@@ -79,7 +79,7 @@ foreach ($team in $teams)
  }
 
 ```
-[!INCLUDE [More about PnP PowerShell](../../docfx/includes/MORE-PNPPS.md)]
+[!INCLUDE [More about PnP PowerShell](../../docs/includes/MORE-PNPPS.md)]
 
 # [CLI for Microsoft 365](#tab/cli-m365-ps)
 ```powershell
@@ -122,7 +122,7 @@ else
 	Write-host "there are no external user added to any team in your organization" -ForegroundColor yellow
 }
 ```
-[!INCLUDE [More about CLI for Microsoft 365](../../docfx/includes/MORE-CLIM365.md)]
+[!INCLUDE [More about CLI for Microsoft 365](../../docs/includes/MORE-CLIM365.md)]
 ***
 
 ## Contributors
@@ -134,6 +134,6 @@ else
 | [Jasey Waegebaert](https://github.com/Jwaegebaert) |
 
 
-[!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
+[!INCLUDE [DISCLAIMER](../../docs/includes/DISCLAIMER.md)]
 <img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/teams-list-guestusers" aria-hidden="true" />
 

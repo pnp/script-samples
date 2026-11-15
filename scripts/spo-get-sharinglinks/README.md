@@ -112,7 +112,7 @@ $ll = Get-PnPList -Includes BaseType, Hidden, Title,HasUniqueRoleAssignments,Roo
 Write-host -f Green "Sharing Links Report Generated Successfully!"
 ```
 
-[!INCLUDE [More about PnP PowerShell](../../docfx/includes/MORE-PNPPS.md)]
+[!INCLUDE [More about PnP PowerShell](../../docs/includes/MORE-PNPPS.md)]
 
 ***
 
@@ -127,5 +127,5 @@ Sample first appeared on [Oversight of Sharing Links in SharePoint sites using P
 | [Reshmee Auckloo](https://github.com/reshmee011) |
 
 
-[!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
+[!INCLUDE [DISCLAIMER](../../docs/includes/DISCLAIMER.md)]
 <img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/spo-get-sharinglinks" aria-hidden="true" />

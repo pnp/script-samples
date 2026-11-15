@@ -392,7 +392,7 @@ CheckFiles -SiteUrl $targetSiteUrl -LibraryName $libraryName
 
 
 ```
-[!INCLUDE [More about PnP PowerShell](../../docfx/includes/MORE-PNPPS.md)]
+[!INCLUDE [More about PnP PowerShell](../../docs/includes/MORE-PNPPS.md)]
 
 ***
 
@@ -408,5 +408,5 @@ Sample first appeared on [https://michalkornet.com/2023/09/19/Report-of-SharePoi
 | [Michał Kornet](https://github.com/mkm17) |
 
 
-[!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
+[!INCLUDE [DISCLAIMER](../../docs/includes/DISCLAIMER.md)]
 <img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/spo-export-report-files-incidents" aria-hidden="true" />

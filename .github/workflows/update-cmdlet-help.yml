@@ -18,8 +18,8 @@ jobs:
 
       - name: Clone help repositories
         run: |
-          mkdir -p docfx/help-repos
-          cd docfx/help-repos
+          mkdir -p tooling/help-repos
+          cd tooling/help-repos
           
           # Clone PnP PowerShell documentation
           git clone --depth 1 https://github.com/pnp/powershell.git pnp-powershell
@@ -33,13 +33,13 @@ jobs:
       - name: Run Get-HelpJson.ps1
         shell: pwsh
         run: |
-          cd docfx
+          cd tooling
           ./Get-HelpJson.ps1
 
       - name: Check for changes
         id: check_changes
         run: |
-          if git diff --quiet docfx/assets/help/*.help.json; then
+          if git diff --quiet docs/assets/help/*.help.json; then
             echo "has_changes=false" >> $GITHUB_OUTPUT
           else
             echo "has_changes=true" >> $GITHUB_OUTPUT
@@ -61,9 +61,9 @@ jobs:
             - [MicrosoftDocs/OfficeDocs-SharePoint-PowerShell](https://github.com/MicrosoftDocs/OfficeDocs-SharePoint-PowerShell)
             
             The following help files have been updated:
-            - `docfx/assets/help/powershell.help.json` - PnP PowerShell cmdlets
-            - `docfx/assets/help/cli.help.json` - CLI for Microsoft 365 commands
-            - `docfx/assets/help/spoms.help.json` - SharePoint Online Management Shell cmdlets
+            - `docs/assets/help/powershell.help.json` - PnP PowerShell cmdlets
+            - `docs/assets/help/cli.help.json` - CLI for Microsoft 365 commands
+            - `docs/assets/help/spoms.help.json` - SharePoint Online Management Shell cmdlets
             
             Please review the changes and merge if everything looks correct.
           branch: automated/update-cmdlet-help

@@ -193,7 +193,7 @@ if ($Report.Count -gt 0) {
 
 ```
 
-[!INCLUDE [More about PnP PowerShell](../../docfx/includes/MORE-PNPPS.md)]
+[!INCLUDE [More about PnP PowerShell](../../docs/includes/MORE-PNPPS.md)]
 
 ***
 
@@ -255,5 +255,5 @@ The CSV contains one row for each list item associated with a duplicate value.
 |-------|----|--------|
 |1.0|October 18, 2026|Initial release|
 
-[!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
+[!INCLUDE [DISCLAIMER](../../docs/includes/DISCLAIMER.md)]
 <img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/spo-duplicate-list-value-audit" aria-hidden="true" />

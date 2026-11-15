@@ -1109,7 +1109,7 @@ Write-Host "`nDone." -ForegroundColor Cyan
 
 ***
 
-[!INCLUDE [More about Microsoft Graph PowerShell](../../docfx/includes/MORE-GRAPHSDK.md)]
+[!INCLUDE [More about Microsoft Graph PowerShell](../../docs/includes/MORE-GRAPHSDK.md)]
 
 ## Parameters
 
@@ -1135,5 +1135,5 @@ Sample first appeared on [PnP Script Samples](https://pnp.github.io/script-sampl
 | [Sam Larson](https://github.com/salarson) |
 | [Jill McClenahan](https://github.com/JillTh) |
 
-[!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
+[!INCLUDE [DISCLAIMER](../../docs/includes/DISCLAIMER.md)]
 <img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/onedrive-overquota-report" aria-hidden="true" />

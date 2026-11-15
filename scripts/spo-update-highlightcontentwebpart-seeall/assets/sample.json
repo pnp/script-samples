@@ -5,7 +5,8 @@
     "title": "How to Hide the 'See All' Button in the Highlighted Content Web Part",
     "shortDescription": "This sample shows how to Hide the 'See All' Button in the Highlighted Content Web Part using PnP PowerShell",
     "url": "https://pnp.github.io/script-samples/spo-update-highlightcontentwebpart-seeall/README.html",
-    "longDescription": ["Recently, I encountered an issue with the 'Show title and commands' toggle in the out-of-the-box Highlighted Content web part. It stopped working on both my development and customer tenant. While awaiting a resolution from Microsoft, I decided to find a workaround. That's when the PnP PowerShell cmdlet `Set-PnPPageWebPart` came to the rescue. The solution involves updating the PropertiesJson property of the web part."
+    "longDescription": [
+      "Recently, I encountered an issue with the 'Show title and commands' toggle in the out-of-the-box Highlighted Content web part. It stopped working on both my development and customer tenant. While awaiting a resolution from Microsoft, I decided to find a workaround. That's when the PnP PowerShell cmdlet `Set-PnPPageWebPart` came to the rescue. The solution involves updating the PropertiesJson property of the web part."
     ],
     "creationDateTime": "2023-11-10",
     "updateDateTime": "2023-11-22",
@@ -32,7 +33,7 @@
         "type": "image",
         "order": 100,
         "url": "https://raw.githubusercontent.com/pnp/script-samples/main/scripts/spo-update-highlightcontentwebpart-seeall/assets/preview.png",
-        "alt": "preview image for the sample"
+        "alt": "Preview of the sample How to Hide the 'See All' Button in the Highlighted Content Web Part"
       }
     ],
     "authors": [

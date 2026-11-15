@@ -82,7 +82,7 @@ $fieldToFormat.CustomFormatter = $fieldFormatFromGit
 $fieldToFormat.UpdateAndPushChanges($true)
 
 ```
-[!INCLUDE [More about PnP PowerShell](../../docfx/includes/MORE-PNPPS.md)]
+[!INCLUDE [More about PnP PowerShell](../../docs/includes/MORE-PNPPS.md)]
 
 > [!Note]
 > In 3rd method i use **$fieldToFormat.UpdateAndPushChanges($true)** but it is perfectly fine to use **Set-PnPField** command as in method 1 and 2
@@ -156,7 +156,7 @@ $fieldFormatFromGit = $webContent.Content
 m365 spo field set --webUrl $url --listTitle $listName --name "GitHubFormatted" --CustomFormatter $fieldFormatFromGit.Replace('"', '""')
 
 ```
-[!INCLUDE [More about CLI for Microsoft 365](../../docfx/includes/MORE-CLIM365.md)]
+[!INCLUDE [More about CLI for Microsoft 365](../../docs/includes/MORE-CLIM365.md)]
 
 # [JSON](#tab/json)
 
@@ -208,5 +208,5 @@ m365 spo field set --webUrl $url --listTitle $listName --name "GitHubFormatted" 
 | [Jasey Waegebaert](https://github.com/Jwaegebaert) |
 
 
-[!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
+[!INCLUDE [DISCLAIMER](../../docs/includes/DISCLAIMER.md)]
 <img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/spo-apply-column-format" aria-hidden="true" />

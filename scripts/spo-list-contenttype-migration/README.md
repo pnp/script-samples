@@ -124,5 +124,5 @@ As mentioned, this script doesn't solve everything:
 | [Jeppe Spanggaard](https://github.com/jeppesc11) |
 
 
-[!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
+[!INCLUDE [DISCLAIMER](../../docs/includes/DISCLAIMER.md)]
 <img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/spo-list-contenttype-migration" aria-hidden="true" />

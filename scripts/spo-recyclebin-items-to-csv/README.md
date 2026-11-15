@@ -103,7 +103,7 @@ Function Main {
 Main
 
 ```
-[!INCLUDE [More about PnP PowerShell](../../docfx/includes/MORE-PNPPS.md)]
+[!INCLUDE [More about PnP PowerShell](../../docs/includes/MORE-PNPPS.md)]
 
 
 # [CLI for Microsoft 365](#tab/cli-m365-ps)
@@ -188,7 +188,7 @@ Function Main {
 Main
 
 ```
-[!INCLUDE [More about CLI for Microsoft 365](../../docfx/includes/MORE-CLIM365.md)]
+[!INCLUDE [More about CLI for Microsoft 365](../../docs/includes/MORE-CLIM365.md)]
 
 > [!note]
 > CLI version of this script is in the latest CLI for Microsoft 365 release which is still considered as beta, use v4.4.0 or higher
@@ -203,5 +203,5 @@ Main
 | Chandani Prajapati |
 | [Adam Wójcik](https://github.com/Adam-it)|
 
-[!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
+[!INCLUDE [DISCLAIMER](../../docs/includes/DISCLAIMER.md)]
 <img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/spo-recyclebin-items-to-csv" aria-hidden="true" />

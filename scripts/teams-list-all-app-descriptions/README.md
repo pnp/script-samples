@@ -140,7 +140,7 @@ end {
 }
 
 ```
-[!INCLUDE [More about PnP PowerShell](../../docfx/includes/MORE-PNPPS.md)]
+[!INCLUDE [More about PnP PowerShell](../../docs/includes/MORE-PNPPS.md)]
 
 # [CLI for Microsoft 365](#tab/cli-m365-ps)
 
@@ -198,7 +198,7 @@ $reportCollection | Export-Csv -Path $report -NoTypeInformation -Force
 Write-Host "Report saved to: $report" -ForegroundColor Green
 
 ```
-[!INCLUDE [More about CLI for Microsoft 365](../../docfx/includes/MORE-CLIM365.md)]
+[!INCLUDE [More about CLI for Microsoft 365](../../docs/includes/MORE-CLIM365.md)]
 ***
 
 
@@ -209,5 +209,5 @@ Write-Host "Report saved to: $report" -ForegroundColor Green
 | Paul Bullock |
 | [Elliot Margot](https://github.com/OwnOptic) |
 
-[!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
+[!INCLUDE [DISCLAIMER](../../docs/includes/DISCLAIMER.md)]
 <img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/teams-list-all-app-descriptions" aria-hidden="true" />

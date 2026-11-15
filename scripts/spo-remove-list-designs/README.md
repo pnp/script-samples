@@ -6,7 +6,7 @@
 
 Custom list templates can be deleted by removing the list designs and associated site scripts when no longer needed. Use the scripts below to delete them. 
  
-[!INCLUDE [Delete Warning](../../docfx/includes/DELETE-WARN.md)]
+[!INCLUDE [Delete Warning](../../docs/includes/DELETE-WARN.md)]
 
 
 # [PnP PowerShell](#tab/pnpps)
@@ -35,7 +35,7 @@ foreach ($listDesign in $listDesigns)
 }
 
 ```
-[!INCLUDE [More about PnP PowerShell](../../docfx/includes/MORE-PNPPS.md)]
+[!INCLUDE [More about PnP PowerShell](../../docs/includes/MORE-PNPPS.md)]
 
 ***
 
@@ -46,7 +46,7 @@ foreach ($listDesign in $listDesigns)
 | [Reshmee Auckloo](https://github.com/reshmee011)|
 
 
-[!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
+[!INCLUDE [DISCLAIMER](../../docs/includes/DISCLAIMER.md)]
 <img src="https://telemetry.sharepointpnp.com/script-samples/scripts/spo-remove-list-designs" aria-hidden="true" />
 
 <img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/spo-remove-list-designs" />

@@ -1,0 +1,9 @@
+---
+import { sitePath } from "../lib/catalog";
+import type { Product } from "../lib/types";
+interface Props { product: Product; size?: number }
+const { product, size = 34 } = Astro.props;
+---
+{product.image
+  ? <img src={sitePath(`images/${product.image}`)} alt="" width={size} height={size} loading="lazy" decoding="async" />
+  : <span class="product-monogram" aria-hidden="true">{product.monogram}</span>}

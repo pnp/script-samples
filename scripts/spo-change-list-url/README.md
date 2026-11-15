@@ -55,7 +55,7 @@ try {
 
 ```
 
-[!INCLUDE [More about PnP PowerShell](../../docfx/includes/MORE-PNPPS.md)]
+[!INCLUDE [More about PnP PowerShell](../../docs/includes/MORE-PNPPS.md)]
 
 ***
 
@@ -66,5 +66,5 @@ try {
 | [Ganesh Sanap](https://ganeshsanapblogs.wordpress.com/about) |
 | [Josiah Opiyo](https://github.com/ojopiyo) |
 
-[!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
+[!INCLUDE [DISCLAIMER](../../docs/includes/DISCLAIMER.md)]
 <img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/spo-change-list-url" aria-hidden="true" />

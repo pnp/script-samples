@@ -286,7 +286,7 @@ if ($LogStream) {
 }
 
 ```
-[!INCLUDE [More about Azure CLI](../../docfx/includes/MORE-AZURECLI.md)]
+[!INCLUDE [More about Azure CLI](../../docs/includes/MORE-AZURECLI.md)]
 ***
 
 ## Contributors
@@ -295,5 +295,5 @@ if ($LogStream) {
 | --------------- |
 | Harminder Singh |
 
-[!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
+[!INCLUDE [DISCLAIMER](../../docs/includes/DISCLAIMER.md)]
 <img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/azure-devops-clone-all-repositories" aria-hidden="true" />

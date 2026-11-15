@@ -35,7 +35,7 @@ Foreach ($app in $apps)
 $powerApps | Export-Csv "C:\Development\PowerShell\TEMP\powerAppsExport.csv" -NoTypeInformation -Force
 
 ```
-[!INCLUDE [More about Power Apps PowerShell](../../docfx/includes/MORE-POWERAPPS.md)]
+[!INCLUDE [More about Power Apps PowerShell](../../docs/includes/MORE-POWERAPPS.md)]
 ***
 
 
@@ -46,5 +46,5 @@ $powerApps | Export-Csv "C:\Development\PowerShell\TEMP\powerAppsExport.csv" -No
 | Jimmy Hang |
 
 
-[!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
+[!INCLUDE [DISCLAIMER](../../docs/includes/DISCLAIMER.md)]
 <img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/powerapps-get-all-apps" aria-hidden="true" />

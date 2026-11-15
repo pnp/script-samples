@@ -117,7 +117,7 @@ Function StartProcessing {
 StartProcessing
 
 ```
-[!INCLUDE [More about Client Side Object Mode (CSOM)](../../docfx/includes/MORE-CSOM.md)]
+[!INCLUDE [More about Client Side Object Mode (CSOM)](../../docs/includes/MORE-CSOM.md)]
 ***
 
 ## Contributors
@@ -126,5 +126,5 @@ StartProcessing
 |-----------|
 | Chandani Prajapati |
 
-[!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
+[!INCLUDE [DISCLAIMER](../../docs/includes/DISCLAIMER.md)]
 <img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/spo-get-termstores-hierarchy-using-csom" aria-hidden="true" />

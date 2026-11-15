@@ -101,7 +101,7 @@ $targetpage = Get-PnPPage -Web  $web -Identity "home.aspx" -Connection $destinat
 Add-PnPPageWebPart -Page $targetpage -DefaultWebPartType "QuickLinks" -WebPartProperties $jsonPropsQuickLinks -Connection $portalConn
 
 ```
-[!INCLUDE [More about PnP PowerShell](../../docfx/includes/MORE-PNPPS.md)]
+[!INCLUDE [More about PnP PowerShell](../../docs/includes/MORE-PNPPS.md)]
 ***
 
 ## Contributors
@@ -110,6 +110,6 @@ Add-PnPPageWebPart -Page $targetpage -DefaultWebPartType "QuickLinks" -WebPartPr
 |-----------|
 | [Kasper Larsen](https://github.com/kasperbolarsen)|
 
-[!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
+[!INCLUDE [DISCLAIMER](../../docs/includes/DISCLAIMER.md)]
 <img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/spo-quicklink-wp-creator" aria-hidden="true" />
 

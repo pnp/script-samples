@@ -134,7 +134,7 @@ Write-Host "Total sites processed: $count" -ForegroundColor Cyan
 Write-Host "Please review the log at $($log)" -ForegroundColor Cyan 
 
 ```
-[!INCLUDE [More about PnP PowerShell](../../docfx/includes/MORE-PNPPS.md)]
+[!INCLUDE [More about PnP PowerShell](../../docs/includes/MORE-PNPPS.md)]
 ***
 
 ## Source
@@ -150,5 +150,5 @@ https://github.com/pnp/powershell
 | Sam Larson |
 | Paul Bullock |
 
-[!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
+[!INCLUDE [DISCLAIMER](../../docs/includes/DISCLAIMER.md)]
 <img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/spo-get-site-list-ids" aria-hidden="true" />

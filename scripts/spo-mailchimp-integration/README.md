@@ -136,7 +136,7 @@ $bodyContent = $updatedHtml
 Create-PublishWikiPage -connectToSP $connectToSP -pageTitle $pageTitle -bodyContent $bodyContent
 
 ```
-[!INCLUDE [More about PnP PowerShell](../../docfx/includes/MORE-PNPPS.md)]
+[!INCLUDE [More about PnP PowerShell](../../docs/includes/MORE-PNPPS.md)]
 ***
 
 
@@ -146,5 +146,5 @@ Create-PublishWikiPage -connectToSP $connectToSP -pageTitle $pageTitle -bodyCont
 |-----------|
 | R. Ali |
 
-[!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
+[!INCLUDE [DISCLAIMER](../../docs/includes/DISCLAIMER.md)]
 <img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/spo-mailchimp-integration" aria-hidden="true" />

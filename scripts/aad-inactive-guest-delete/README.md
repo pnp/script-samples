@@ -40,7 +40,7 @@ A typical operational workflow is:
 6. Retain the generated reports and execution logs according to organisational retention requirements.
 
 
-[!INCLUDE [Delete Warning](../../docfx/includes/DELETE-WARN.md)]
+[!INCLUDE [Delete Warning](../../docs/includes/DELETE-WARN.md)]
 
 ## Requirements
 
@@ -521,7 +521,7 @@ Write-Log "Report: $ReportPath"
 Write-Log "============================================================"
 
 ```
-[!INCLUDE [More about Microsoft Graph PowerShell SDK](../../docfx/includes/MORE-GRAPHSDK.md)]
+[!INCLUDE [More about Microsoft Graph PowerShell SDK](../../docs/includes/MORE-GRAPHSDK.md)]
 
 ## Output
 
@@ -607,7 +607,7 @@ if ($inactiveUsers.Count -gt 0) {
 
 Disconnect-MgGraph
 ```
-[!INCLUDE [More about Microsoft Graph PowerShell SDK](../../docfx/includes/MORE-GRAPHSDK.md)]
+[!INCLUDE [More about Microsoft Graph PowerShell SDK](../../docs/includes/MORE-GRAPHSDK.md)]
 ***
 
 
@@ -628,6 +628,6 @@ Disconnect-MgGraph
 |1.0|October 02, 2024|Initial release|
 |2.0|August 23, 2026|Refactored and improved version|
 
-[!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
+[!INCLUDE [DISCLAIMER](../../docs/includes/DISCLAIMER.md)]
 
 <img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/aad-inactive-guest-delete" />
