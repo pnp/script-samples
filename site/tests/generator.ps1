@@ -20,6 +20,10 @@ try {
     $readme = Get-Content -LiteralPath $readmePath -Raw
     $metadata = @(Get-Content -LiteralPath (Join-Path $sample 'assets\sample.json') -Raw | ConvertFrom-Json)[0]
     if ([regex]::Matches($readme, '(?m)^# \[.+\]\(#tab/').Count -ne 8) { throw 'All must generate eight code tabs.' }
+    if ([regex]::Matches($readme, '(?m)^```powershell\s*$').Count -ne 7) { throw 'All must generate seven PowerShell code blocks.' }
+    if ([regex]::Matches($readme, '(?m)^```bash\s*$').Count -ne 1) { throw 'All must generate one Bash code block.' }
+    if ([regex]::Matches($readme, '(?m)^```\s*$').Count -ne 8) { throw 'Each generated code block must have a closing fence.' }
+    if ([regex]::Matches($readme, '<your script>').Count -ne 8) { throw 'Each generated code block must have a script placeholder.' }
     if (@($metadata.metadata).Count -ne 7) { throw 'All must generate seven unique tool keys, with CLI shared by PowerShell and Bash.' }
     if ($readme -match '\.\./\.\./docfx/') { throw 'Generator must use the migrated shared include paths.' }
     if ($readme.TrimEnd().Split("`n")[-1] -notmatch 'script-samples/scripts/spo-generator-check') { throw 'Incorrect final view tracker.' }
@@ -32,7 +36,11 @@ try {
     $arguments.ScriptTool = @('CliForMicrosoft365', 'CliForMicrosoft365Bash')
     & $generator @arguments
     $cli = @(Get-Content -LiteralPath (Join-Path $fixture 'scripts\spo-cli-check\assets\sample.json') -Raw | ConvertFrom-Json)[0]
+    $cliReadme = Get-Content -LiteralPath (Join-Path $fixture 'scripts\spo-cli-check\README.md') -Raw
     if (@($cli.metadata).Count -ne 1) { throw 'CLI variants must not duplicate metadata keys.' }
+    if ([regex]::Matches($cliReadme, '(?m)^# \[.+\]\(#tab/').Count -ne 2) { throw 'CLI selection must generate only the two selected tabs.' }
+    if ($cliReadme -notmatch '(?s)# \[CLI for Microsoft 365 using PowerShell\]\(#tab/cli-m365-ps\)\s+```powershell\s+<your script>\s+```') { throw 'CLI PowerShell tab must contain a PowerShell code block.' }
+    if ($cliReadme -notmatch '(?s)# \[CLI for Microsoft 365 using Bash\]\(#tab/cli-m365-bash\)\s+```bash\s+<your script>\s+```') { throw 'CLI Bash tab must contain a Bash code block.' }
     Write-Host 'Generator checks passed: all tools, unique metadata, migrated includes, tracker, and overwrite protection.'
 } finally {
     Get-ChildItem -LiteralPath $fixture -Recurse -File | Remove-Item -Force
