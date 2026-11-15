@@ -240,4 +240,4 @@ finally
 
 
 [!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
-<img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/aad-bulk-restore-deletedgroups" aria-hidden="true" />
+<img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/aad-restrict-groupnesting" aria-hidden="true" />
