@@ -147,7 +147,9 @@ test("retains old sample, guide, filter, and report links without redirect track
 
 test("keeps local previews free of production analytics and maps every page tracker correctly", async ({ page }) => {
   const requests: string[] = [];
-  page.on("request", (request) => { if (request.url().includes("m365-visitor-stats")) requests.push(request.url()); });
+  page.on("request", (request) => {
+    if (request.url().includes("m365-visitor-stats") || request.url().includes("clarity.ms")) requests.push(request.url());
+  });
   const paths = [
     ["./", "script-samples"],
     ["contributors/", "script-samples/contributors"],
@@ -171,9 +173,14 @@ test("activates exactly one production tracker without counting filter or theme 
   if (!baseURL) throw new Error("Browser tests require the local production server.");
   const origin = new URL(baseURL).origin;
   const tracked: string[] = [];
+  const clarity: string[] = [];
   await page.route("https://m365-visitor-stats.azurewebsites.net/**", async (route) => {
     tracked.push(route.request().url());
     await route.fulfill({ contentType: "image/gif", headers: { "Cache-Control": "no-store" }, body: Buffer.from("R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=", "base64") });
+  });
+  await page.route("https://www.clarity.ms/tag/**", async (route) => {
+    clarity.push(route.request().url());
+    await route.fulfill({ contentType: "application/javascript", body: "window.__clarityTestLoaded = true;" });
   });
   await page.route("https://pnp.github.io/script-samples/**", async (route) => {
     const url = new URL(route.request().url());
@@ -188,6 +195,9 @@ test("activates exactly one production tracker without counting filter or theme 
   await page.goto("https://pnp.github.io/script-samples/");
   await expect.poll(() => tracked.length).toBe(1);
   expect(tracked[0]).toBe("https://m365-visitor-stats.azurewebsites.net/script-samples");
+  await expect.poll(() => clarity.length).toBe(1);
+  expect(clarity[0]).toBe("https://www.clarity.ms/tag/8j6pedl344");
+  await expect.poll(() => page.evaluate(() => (window as Window & { __clarityTestLoaded?: boolean }).__clarityTestLoaded)).toBe(true);
   await page.locator('[data-product="graph"]').click();
   await page.locator("#sample-search").fill("permissions");
   await page.locator("#theme-toggle").click();
