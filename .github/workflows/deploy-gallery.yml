@@ -95,9 +95,9 @@ jobs:
           for ($attempt = 1; $attempt -le 12; $attempt++) {
             try {
               $marker = Invoke-RestMethod "$baseUrl/deployment.json"
-              $home = Invoke-WebRequest "$baseUrl/"
+              $homePage = Invoke-WebRequest "$baseUrl/"
               if ($marker.commit -ne $env:EXPECTED_COMMIT) { throw 'Deployed commit does not match this workflow.' }
-              if ($home.Content -notmatch '<title>Community Script Samples</title>') { throw 'The gallery home page was not deployed.' }
+              if ($homePage.Content -notmatch '<title>Community Script Samples</title>') { throw 'The gallery home page was not deployed.' }
               Write-Host "Verified $baseUrl at commit $env:EXPECTED_COMMIT with $($marker.sampleCount) samples."
               exit 0
             } catch {
