@@ -96,26 +96,26 @@ begin{
     $readmeSourceCreditText = "Sample first appeared on [https://pnp.github.io/cli-microsoft365/sample-scripts/spo/add-app-catalog/](https://pnp.github.io/cli-microsoft365/sample-scripts/spo/add-app-catalog/)"
 
     $scriptBlockEnding = "***"
-    $psScriptPlaceholderReplaceHeader = "`powershell"
-    $psScriptBashPlaceholderReplaceHeader = "``````bash"
-    $psScriptPlaceholderReplaceFooter = "``"
+    $psScriptPlaceholderReplaceHeader = '```powershell'
+    $psScriptBashPlaceholderReplaceHeader = '```bash'
+    $psScriptPlaceholderReplaceFooter = '```'
     $psScriptPlaceholderReplaceBody = "<your script>"
 
-    $psScriptBlock = @"
-```````powershell
+    $psScriptBlock = @'
+```powershell
 
 <your script>  
 
-```````
-"@
+```
+'@
 
-    $bashScriptBlock = @"
-```````bash
+    $bashScriptBlock = @'
+```bash
 
 <your script>  
 
-```````
-"@
+```
+'@
 
     # Todo: Example on all the tool tab types
     $tabBlocks = @{
@@ -160,7 +160,7 @@ begin{
         "CliForMicrosoft365Bash"  = [PSCustomObject]@{
             Tab = "# [CLI for Microsoft 365 using Bash](#tab/cli-m365-bash)"
             IncludeBlock = "[!INCLUDE [More about CLI for Microsoft 365](../../docs/includes/MORE-CLIM365.md)]"
-            ScriptBlock  = $psScriptBlock
+            ScriptBlock  = $bashScriptBlock
             Reference = [PSCustomObject]@{
                 "name" = "Want to learn more about CLI for Microsoft 365 and the commands"
                 "description" = "Check out the CLI for Microsoft 365 site to get started and for the reference to the commands."
