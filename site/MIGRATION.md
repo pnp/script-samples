@@ -9,7 +9,7 @@ This package replaces the DocFX build with the approved Community Script Samples
 - Product imagery and count-ordered quick filters, combined command/alias search, tool/scenario/author filters, grid/list views, progressive results, and restored browsing context.
 - Contributor profiles and the supplied Credly badge. A malformed duplicate author account was corrected from other matching source records, resulting in 107 distinct accounts.
 - Approachable supporting guides, the sample generator, and build-time maintenance reports.
-- Read-only PR checks and a separate, upstream-only GitHub Pages deployment.
+- Read-only PR checks and an upstream-only GitHub Pages deployment to `gh-pages`.
 
 ## Legacy content and data repairs
 
@@ -40,10 +40,9 @@ Redirects preserve query/fragment context and emit no tracking image. Canonical 
 ## Owner action before deployment
 
 1. Review the PR's catalog, generator, Astro build, link/redirect/tracker, desktop/mobile, and accessibility checks.
-2. Set **Settings > Pages > Build and deployment > Source** to **GitHub Actions** when ready to cut over from the old `gh-pages` branch.
-3. Allow the `github-pages` deployment environment to deploy from `main`, and merge the package.
-4. Confirm the deployment workflow succeeds and verifies its commit using `/script-samples/deployment.json`.
-5. Smoke-test an old sample link, filtering and browser back, a multi-tool sample, contributors, badge guidance, and the 404 page.
+2. Keep **Settings > Pages > Build and deployment > Source** configured to deploy from the `gh-pages` branch.
+3. Merge the package and confirm the deployment workflow verifies its commit using `/script-samples/deployment.json`.
+4. Smoke-test an old sample link, filtering and browser back, a multi-tool sample, contributors, badge guidance, and the 404 page.
 
 The workflow deliberately does not deploy from personal forks. No repository settings are changed automatically by this package.
 

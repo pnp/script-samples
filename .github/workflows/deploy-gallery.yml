@@ -46,28 +46,48 @@ jobs:
         run: npx playwright install --with-deps chromium
       - name: Test release
         run: npm run test:e2e
-      - name: Upload Pages artifact
-        uses: actions/upload-pages-artifact@fc324d3547104276b827a68afc52ff2a11cc49c9 # v5.0.0
+      - name: Upload built gallery
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
         with:
+          name: gallery-dist-${{ github.run_id }}
           path: site/dist
+          if-no-files-found: error
+          retention-days: 1
 
   deploy:
     needs: build
+    if: github.repository == 'pnp/script-samples' && github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
     permissions:
-      pages: write
-      id-token: write
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
+      contents: write
     steps:
-      - name: Deploy GitHub Pages
-        id: deployment
-        uses: actions/deploy-pages@cd2ce8fcbc39b97be8ca5fce6e763baed58fa128 # v5.0.0
+      - name: Checkout
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - name: Download built gallery
+        uses: actions/download-artifact@37930b1c2abaa49bbe596cd826c3c89aef350131 # v7.0.0
+        with:
+          name: gallery-dist-${{ github.run_id }}
+          path: /tmp/gallery-dist
+      - name: Publish static site to gh-pages
+        shell: bash
+        run: |
+          set -euo pipefail
+          publish_dir="$(mktemp -d)"
+          rmdir "$publish_dir"
+          git fetch origin gh-pages
+          git worktree add --detach "$publish_dir" origin/gh-pages
+          git -C "$publish_dir" rm -r --ignore-unmatch .
+          cp -a /tmp/gallery-dist/. "$publish_dir/"
+          touch "$publish_dir/.nojekyll"
+          git -C "$publish_dir" add --all
+          git -C "$publish_dir" -c user.name="github-actions[bot]" \
+            -c user.email="41898282+github-actions[bot]@users.noreply.github.com" \
+            commit -m "Deploy gallery ${GITHUB_SHA}"
+          git -C "$publish_dir" push origin HEAD:gh-pages
       - name: Verify published commit
         shell: pwsh
         env:
-          SITE_URL: ${{ steps.deployment.outputs.page_url }}
+          SITE_URL: https://pnp.github.io/script-samples
           EXPECTED_COMMIT: ${{ github.sha }}
         run: |
           $ErrorActionPreference = 'Stop'
