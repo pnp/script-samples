@@ -1,7 +1,3 @@
----
-plugin: add-to-gallery
----
-
 # Creation of an FAQ page in SharePoint from an CSV file as the source.
 
 ## Summary

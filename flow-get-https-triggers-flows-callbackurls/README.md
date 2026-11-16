@@ -1,7 +1,3 @@
----
-plugin: add-to-gallery
----
-
 # Export HTTP Trigger Callback URLs for Power Automate Flows
 
 ## Summary

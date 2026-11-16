@@ -1,7 +1,3 @@
----
-plugin: add-to-gallery
----
-
 # Get Azure AD (Entra ID) Guest Users with Elevated Permissions (M365)
 
 

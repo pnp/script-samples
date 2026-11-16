@@ -1,7 +1,3 @@
----
-plugin: add-to-gallery
----
-
 # Install SharePoint Framework Development Environment
 
 ## Summary
