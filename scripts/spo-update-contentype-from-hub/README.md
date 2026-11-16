@@ -1,7 +1,3 @@
----
-plugin: add-to-gallery
----
-
 # Update Content type from Hub on sites
 
 ## Summary

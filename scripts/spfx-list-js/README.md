@@ -1,7 +1,3 @@
----
-plugin: add-to-gallery
----
-
 # List SPFx Versions
 
 ## Summary
