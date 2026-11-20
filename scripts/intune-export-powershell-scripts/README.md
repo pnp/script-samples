@@ -244,4 +244,4 @@ Write-Host "Export complete." -ForegroundColor Green
 
 
 [!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
-<img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/aad-add-app-permission" aria-hidden="true" />
+<img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/intune-export-powershell-scripts" aria-hidden="true" />

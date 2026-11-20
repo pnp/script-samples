@@ -111,4 +111,4 @@ Write-Host "Automatic reply settings successfully applied for $userPrincipalName
 
 
 [!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
-<img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/aad-add-app-permission" aria-hidden="true" />
+<img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/outlook-set-out-of-office" aria-hidden="true" />
