@@ -156,7 +156,7 @@ function Download-SharePointFiles {
 
 
 ```
-[!INCLUDE [More about PnP PowerShell](../../docfx/includes/MORE-PNPPS.md)]
+[!INCLUDE [More about PnP PowerShell](../../docs/includes/MORE-PNPPS.md)]
 
 ***
 
@@ -172,5 +172,5 @@ Sample first appeared on [https://pnp.github.io/cli-microsoft365/sample-scripts/
 | Todd Klindt (https://www.toddklindt.com/blog) |
 
 
-[!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
+[!INCLUDE [DISCLAIMER](../../docs/includes/DISCLAIMER.md)]
 <img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/spo-download-all-doclibs" aria-hidden="true" />

@@ -1,0 +1,60 @@
+[
+  {
+    "name": "power-platform-solution-deployment-validation",
+    "source": "pnp",
+    "title": "Deploy Power Platform Solutions with Pre-Deployment Validation",
+    "shortDescription": "Automate Power Platform solution deployment between environments with configurable validation checks before import.",
+    "url": "https://pnp.github.io/script-samples/power-platform-solution-deployment-validation/README.html",
+    "longDescription": [
+      "Automate the export, validation and deployment of an unmanaged Power Platform solution between environments.",
+      "The GitHub Actions workflow uses Power Platform CLI and PowerShell to export the solution, unpack it, validate components against configurable naming conventions, and import it into the target environment only when validation succeeds."
+    ],
+    "creationDateTime": "2026-10-22",
+    "updateDateTime": "2026-10-22",
+    "products": [
+      "PowerApps",
+      "Power Automate"
+    ],
+    "metadata": [
+      {
+        "key": "POWERAPPS-POWERSHELL",
+        "value": "2.0.0"
+      }
+    ],
+    "categories": [
+      "Deploy",
+      "Configure"
+    ],
+    "tags": [
+      "Power Platform CLI",
+      "PowerShell",
+      "GitHub Actions",
+      "Solution",
+      "ALM",
+      "Validation"
+    ],
+    "thumbnails": [
+      {
+        "type": "image",
+        "order": 100,
+        "url": "https://raw.githubusercontent.com/pnp/script-samples/main/scripts/power-platform-solution-deployment-validation/assets/preview.png",
+        "alt": "Preview of the sample Deploy Power Platform Solutions with Pre-Deployment Validation"
+      }
+    ],
+    "authors": [
+      {
+        "gitHubAccount": "RichaPandit",
+        "company": "",
+        "pictureUrl": "https://github.com/RichaPandit.png",
+        "name": "Richa Pandit"
+      }
+    ],
+    "references": [
+      {
+        "name": "Power Apps PowerShell documentation",
+        "description": "Microsoft documentation for Power Apps PowerShell.",
+        "url": "https://learn.microsoft.com/power-platform/admin/powerapps-powershell"
+      }
+    ]
+  }
+]

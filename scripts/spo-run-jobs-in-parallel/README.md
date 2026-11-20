@@ -154,7 +154,7 @@ Write-Host "Running parallel total time:$timespan " -ForegroundColor Blue
 
 
 ```
-[!INCLUDE [More about PnP PowerShell](../../docfx/includes/MORE-PNPPS.md)]
+[!INCLUDE [More about PnP PowerShell](../../docs/includes/MORE-PNPPS.md)]
 ***
 
 ## Contributors
@@ -163,5 +163,5 @@ Write-Host "Running parallel total time:$timespan " -ForegroundColor Blue
 |-----------|
 | Kasper Larsen, Fellowmind|
 
-[!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
-<img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/run-jobs-in-parallel" aria-hidden="true" />
+[!INCLUDE [DISCLAIMER](../../docs/includes/DISCLAIMER.md)]
+<img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/spo-run-jobs-in-parallel" aria-hidden="true" />

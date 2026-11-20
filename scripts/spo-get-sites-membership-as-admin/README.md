@@ -126,7 +126,7 @@ function Get-Site-Membership {
 Get-Site-Membership -shownProperty "name" -showDataInSeparateRows $true
 ```
 
-[!INCLUDE [More about CLI for Microsoft 365](../../docfx/includes/MORE-CLIM365.md)]
+[!INCLUDE [More about CLI for Microsoft 365](../../docs/includes/MORE-CLIM365.md)]
 
 ***
 
@@ -137,5 +137,5 @@ Get-Site-Membership -shownProperty "name" -showDataInSeparateRows $true
 | [Michał Kornet](https://github.com/mkm17) |
 
 
-[!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
+[!INCLUDE [DISCLAIMER](../../docs/includes/DISCLAIMER.md)]
 <img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/spo-get-sites-membership-as-admin" aria-hidden="true" />

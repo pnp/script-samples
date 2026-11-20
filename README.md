@@ -1,37 +1,64 @@
-# Welcome to PnP Script Samples
+# Community Script Samples
 
-This repository contains scripts for PnP PowerShell, CLI for Microsoft365, Graph SDK PowerShell, SPO PowerShell, and Azure CLI, that are based on real world examples of the scripts that you run to perform tasks.
+[![Community Script Samples gallery redesign preview with search, product filters, and script cards](docs/assets/gallery-preview.png)](https://pnp.github.io/script-samples/)
 
-If you are looking for all the scenario and scripts, we have over 300+, rather than view the repository, please visit: [https://pnp.github.io/script-samples](https://pnp.github.io/script-samples) as this has a navigation and filtering experience to help you better find the content you are seek. 
+**[Browse the script gallery](https://pnp.github.io/script-samples/)** | [Get started](docs/getting-started.md) | [Share a sample](docs/contributing/preparing-a-submission.md)
 
-What is PnP Script Samples? Check out our YouTube Video for an overview:
-[![Introducing Script Samples](https://img.youtube.com/vi/cB2aideuHlk/maxresdefault.jpg)](https://www.youtube.com/embed/cB2aideuHlk)
+*Gallery preview. The published site updates after this change is reviewed, merged, and deployed.*
 
-## Authors
+A little script. A lot less work. Explore 400+ real-world scripts for Copilot, Microsoft 365, Power Platform and more, shared by the community. Find a starting point, choose your tool, and make it your own.
 
-This repository's contributors are all community members who volunteered their time to share code samples. Work is done as an open source community project, which each sample contained in their own solution.
+Find scripts for SharePoint, Microsoft Graph, Teams, Microsoft Copilot, Power Platform, Azure, and more. Choose the tools you already use: PnP PowerShell, CLI for Microsoft 365, Microsoft Graph PowerShell, SharePoint Online Management Shell, Azure CLI, and others.
 
-## Contributions
+## Find your next starting point
 
-These samples are direct from the feature teams, PnP team (https://aka.ms/m365pnp) or shared by the community. We welcome your input on issues and suggestions for new and existing samples. We welcome community contributions for sample scripts. If you have any questions, just let us know.
+1. **Find a task:** search the [gallery](https://pnp.github.io/script-samples/) for a scenario or command, or browse by product or tool.
+2. **Choose an implementation:** many samples offer more than one tool. Read the README and select the matching code tab.
+3. **Review, adapt, and test:** check prerequisites and permissions, replace placeholders, and test safely before using production data. Samples can modify or remove tenant data.
 
-We are looking for contributions in the following areas:
+The scripts and their documentation live together under [scripts/](scripts/). No need to install or build the gallery to use or contribute a sample.
 
-* Create a new scenario with a script
-* Update a scenario with an alternative script using another tool e.g. Adding a PnP PowerShell script to a scenario that only has CLI for Microsoft 365 as an example.
-* Feedback on the usability of the site, we are always looking to improve the experience.
+## Your everyday script could make someone's day
 
-In this repo, we are created a template submission folder and files, complete the readme, add any screenshots and submit your GitHub Pull Request, please contact us via issues list to communicate what your planning.
+New contributors are welcome. Share a useful scenario, add another tool to an existing sample, fix a bug, or improve the guidance. A focused contribution does not have to be a large one.
 
-Check out our [Contribution Guidance](https://pnp.github.io/script-samples/contributing/index.html) before submitting your pull requests, so that we can get your contribution processed as fast as possible.
+The [New-Sample.ps1 generator](New-Sample.ps1) creates a sample folder, README, metadata, tool tabs, and placeholder images. Run it from the cloned repository root in PowerShell 7, using your own name and GitHub handle:
 
-If you need any support or want to know how to use GitHub then we have a great programme to [support new contributors | sharing is caring](https://pnp.github.io/sharing-is-caring/).
+```powershell
+.\New-Sample.ps1 -ScriptFolderName "spo-get-site-report" `
+    -ScriptTitle "Report SharePoint sites" `
+    -ScriptShortDescription "Export a SharePoint site inventory." `
+    -ScriptTool PnPPowerShell `
+    -AuthorFullName "Your name" `
+    -GitHubId "your-github-handle"
+```
 
-## Join the community calls
+Replace the generated script placeholder, finish the metadata, and add your preview. The [step-by-step contribution guide](docs/contributing/preparing-a-submission.md) explains what the generator does and what to finish before opening a pull request.
 
-Stay up to date with the latest Copilot, Microsoft 365, and Power Platform topics by joining our weekly community calls. Everyone is welcome. Come to learn, ask questions, and connect with the community.
+Not ready to write a sample? [Report an issue](https://github.com/pnp/script-samples/issues/new), suggest a scenario, or help test an existing script. New to GitHub? [Sharing is caring](https://pnp.github.io/sharing-is-caring/) offers friendly, hands-on sessions.
 
-[View the call schedule and download the recurring invites](https://aka.ms/community/calls) so you don't miss an upcoming call.
+## Earn your Script Samples contributor badge
+
+[<img src="docs/assets/credly-badge.png" alt="Microsoft 365 and Power Platform Community Script Samples contributor badge" width="200" />](https://pnp.github.io/recognitionprogram/)
+
+Every sample contributor is eligible, including first-time contributors. After your first accepted sample, [opt in to the community recognition program](https://pnp.github.io/recognitionprogram/) to receive your badge. Issuance is processed in batches, so it is not immediate.
+
+Your contribution is credited in the sample. Share its gallery link with your team or community, and [request a community demo slot](https://aka.ms/community/request/demo) to show what you learned. See [contributor recognition](docs/contributing/recognition.md) for details.
+
+## Learn and share with the community
+
+- [Join the Microsoft 365 & Power Platform community](https://aka.ms/community/home).
+- [View community calls and download recurring invites](https://aka.ms/community/calls). Everyone is welcome to learn, ask questions, and share ideas.
+- [Explore ways to contribute](docs/contributing/how-can-i-contribute.md) or [help maintain the gallery](docs/contributing/maintainers-guidance.md).
+- When sharing a sample, link to its gallery page, credit its authors, and explain the scenario it helped you solve. Remove tenant or personal information from screenshots.
+
+This is an open-source community project maintained by volunteers. Thank you to everyone who shares code, reports issues, and helps others get started.
+
+## Work on the gallery
+
+The site uses Astro and TypeScript. With Node.js 22.19 or later, run `npm --prefix site ci`, then `npm --prefix site run dev` and open `http://localhost:4321/script-samples/`.
+
+[Local development, validation, and deployment](docs/contributing/maintainers-guidance.md) | [Migration and GitHub Pages cutover notes](site/MIGRATION.md)
 
 ## Code of Conduct
 

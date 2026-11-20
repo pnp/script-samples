@@ -174,6 +174,6 @@ Disconnect-PnPOnline
 | Summary        | Added an execution summary showing sites processed, failures, permissions identified, report location, and completion time. |
 | Safety         | Script remains read-only and makes no changes to SharePoint permissions.                                                    |
 
-[!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
+[!INCLUDE [DISCLAIMER](../../docs/includes/DISCLAIMER.md)]
 
 <img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/spo-get-m365-users-with-direct-sharepoint-permissions" />

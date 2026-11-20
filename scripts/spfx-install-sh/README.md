@@ -1,7 +1,3 @@
----
-plugin: add-to-gallery
----
-
 # spfx-install.sh
 
 > ##### DEPRECATED: Please use the updated version of this script located at [scripts/spfx-install-js](../spfx-install-js/README.md)
@@ -449,5 +445,5 @@ fi
 |-----------|
 | [Don Kirkham](https://github.com/donkirkham) |
 
-[!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
+[!INCLUDE [DISCLAIMER](../../docs/includes/DISCLAIMER.md)]
 <img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/spfx-install-sh" aria-hidden="true" />

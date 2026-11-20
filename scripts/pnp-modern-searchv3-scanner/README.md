@@ -91,7 +91,7 @@ foreach($page in $pages)
 $outputarray | Export-Csv -Path "C:\temp\ModernSearchWebParts.csv" -NoTypeInformation -Delimiter "|" -Encoding $encoding
 
 ```
-[!INCLUDE [More about PnP PowerShell](../../docfx/includes/MORE-PNPPS.md)]
+[!INCLUDE [More about PnP PowerShell](../../docs/includes/MORE-PNPPS.md)]
 ***
 
 
@@ -101,5 +101,5 @@ $outputarray | Export-Csv -Path "C:\temp\ModernSearchWebParts.csv" -NoTypeInform
 |-----------|
 | Kasper Larsen |
 
-[!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
+[!INCLUDE [DISCLAIMER](../../docs/includes/DISCLAIMER.md)]
 <img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/pnp-modern-searchv3-scanner" aria-hidden="true" />

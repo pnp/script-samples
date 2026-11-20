@@ -32,7 +32,7 @@ $siteId = (($site.id) -split ",")[1]
 write-host $siteId
 ```
 
-[!INCLUDE [More about PnP PowerShell](../../docfx/includes/MORE-PNPPS.md)]
+[!INCLUDE [More about PnP PowerShell](../../docs/includes/MORE-PNPPS.md)]
 
 ***
 
@@ -48,5 +48,5 @@ Sample first appeared on [Retrieving SiteId from Microsoft Graph for Subsequent 
 | Ioannis Gianko|
 
 
-[!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
+[!INCLUDE [DISCLAIMER](../../docs/includes/DISCLAIMER.md)]
 <img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/spo-get-siteid-from-microsoftgraph" aria-hidden="true" />

@@ -76,7 +76,7 @@ $spfxApp = m365 spo app get --name $(spfx_package_name).sppkg --appCatalogUrl ht
 # Install the app with specified ID to the SharePoint site.
 m365 spo app install --id $spfxApp.ID --siteUrl https://$(tenant).sharepoint.com/$(targetsite)
 ```
-[!INCLUDE [More about CLI for Microsoft 365](../../docfx/includes/MORE-CLIM365.md)]
+[!INCLUDE [More about CLI for Microsoft 365](../../docs/includes/MORE-CLIM365.md)]
 ***
 
 ## Contributors
@@ -86,5 +86,5 @@ m365 spo app install --id $spfxApp.ID --siteUrl https://$(tenant).sharepoint.com
 |[Nanddeep Nachan](https://github.com/nanddeepn)|
 
 
-[!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
+[!INCLUDE [DISCLAIMER](../../docs/includes/DISCLAIMER.md)]
 <img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/spo-install-deploy-spfx-solution" aria-hidden="true" />

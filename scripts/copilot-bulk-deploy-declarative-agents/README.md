@@ -2,7 +2,7 @@
 
 ## Summary
 
-This sample deploys multiple Copilot Teams Toolkit declarative agents in bulk using Teams Toolkit CLI, you will need to ensure you are logged in and installed the prerequisites. This runs thorugh a set structure (see below) and provisions the agents into Microsoft 365 Copilot - the chat experience. This is not deploying to the organisation store however this can be modified to do so.
+This sample deploys multiple Copilot Teams Toolkit declarative agents in bulk using Teams Toolkit CLI, you will need to ensure you are logged in and installed the prerequisites. This runs thorugh a set structure (see below) and provisions the agents into Microsoft Copilot - the chat experience. This is not deploying to the organisation store however this can be modified to do so.
 
 >Note: This script is a campanion to this sample: https://pnp.github.io/script-samples/copilot-teams-toolkit-da-apply-template/README.html
 
@@ -101,11 +101,11 @@ Read-Host -Prompt "This script will bulk deploy for all agents in the current di
 
 ```
 ***
-[!INCLUDE [More about Teams Toolkit CLI](../../docfx/includes/MORE-TEAMSTOOLKITCLI.md)]
+[!INCLUDE [More about Teams Toolkit CLI](../../docs/includes/MORE-TEAMSTOOLKITCLI.md)]
 
 ## Source Blog Article
 
-- [Create Microsoft 365 Copilot declarative agents with Teams Toolkit CLI | pkbullock.com](https://pkbullock.com/blog/2025/create-declarative-agent-with-teams-toolkit-cli)
+- [Create Microsoft Copilot declarative agents with Teams Toolkit CLI | pkbullock.com](https://pkbullock.com/blog/2025/create-declarative-agent-with-teams-toolkit-cli)
 
 
 ## Contributors
@@ -114,5 +114,5 @@ Read-Host -Prompt "This script will bulk deploy for all agents in the current di
 |-----------|
 | Paul Bullock |
 
-[!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
+[!INCLUDE [DISCLAIMER](../../docs/includes/DISCLAIMER.md)]
 <img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/copilot-bulk-deploy-declarative-agents" aria-hidden="true" />

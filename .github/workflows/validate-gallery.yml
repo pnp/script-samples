@@ -1,0 +1,82 @@
+name: Validate gallery
+
+on:
+  pull_request:
+    paths:
+      - "scripts/**"
+      - "docs/**"
+      - "site/**"
+      - "tooling/**"
+      - "New-Sample.ps1"
+      - ".github/schemas/**"
+      - ".github/workflows/validate-gallery.yml"
+      - ".github/workflows/deploy-gallery.yml"
+      - "README.md"
+      - "CONTRIBUTING.md"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: "${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}"
+  cancel-in-progress: true
+
+jobs:
+  validate:
+    name: Validate catalog, site, and accessibility
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    defaults:
+      run:
+        working-directory: site
+    steps:
+      - name: Checkout
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - name: Set up Node
+        uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
+        with:
+          node-version: "22.19.0"
+          cache: npm
+          cache-dependency-path: site/package-lock.json
+      - name: Install locked dependencies
+        run: npm ci
+      - name: Validate all sample metadata, assets, and README trackers
+        run: npm run validate:samples
+      - name: Test catalog and Markdown compatibility
+        run: npm test
+      - name: Test sample generator
+        shell: pwsh
+        run: ./tests/generator.ps1
+      - name: Check and build production gallery
+        run: npm run build
+        env:
+          PUBLIC_COMMIT_SHA: ${{ github.sha }}
+          PUBLIC_ENABLE_VIEW_TRACKING: "false"
+      - name: Install Chromium
+        run: npx playwright install --with-deps chromium
+      - name: Test desktop, mobile, accessibility, and redirects
+        run: npm run test:e2e
+      - name: Summarize validation
+        if: always()
+        shell: bash
+        run: |
+          {
+            echo "## Community Script Samples validation"
+            echo "- Read-only PR validation: schema, source assets, trackers, generator, Markdown, Astro, links, redirects, desktop/mobile, and accessibility."
+            if [ -f dist/catalog.json ]; then
+              node -e 'const fs=require("node:fs");const c=JSON.parse(fs.readFileSync("dist/catalog.json","utf8"));console.log(`- ${c.samples.length} samples and ${c.contributors.length} contributors.`)'
+              echo "- Static artifact: $(du -sh dist | cut -f1)"
+            fi
+            echo "- Production view tracking is disabled for this PR build."
+          } >> "$GITHUB_STEP_SUMMARY"
+      - name: Upload browser failure diagnostics
+        if: failure()
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        with:
+          name: gallery-browser-failures-${{ github.run_id }}
+          path: |
+            site/playwright-report/
+            site/test-results/
+          if-no-files-found: ignore
+          retention-days: 7

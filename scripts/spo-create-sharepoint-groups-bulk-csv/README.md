@@ -44,7 +44,7 @@ for ($index = 0; $index -lt $importedFile.Count; $index++) {
 
 ```
 
-[!INCLUDE [More about PnP PowerShell](../../docfx/includes/MORE-PNPPS.md)]
+[!INCLUDE [More about PnP PowerShell](../../docs/includes/MORE-PNPPS.md)]
 
 # [CLI for Microsoft 365](#tab/cli-m365-ps)
 
@@ -70,7 +70,7 @@ for ($index = 0; $index -lt $importedFile.Count; $index++) {
 m365 logout
 
 ```
-[!INCLUDE [More about CLI for Microsoft 365](../../docfx/includes/MORE-CLIM365.md)]
+[!INCLUDE [More about CLI for Microsoft 365](../../docs/includes/MORE-CLIM365.md)]
 
 # [SPO Management Shell](#tab/spoms-ps)
 
@@ -97,7 +97,7 @@ Disconnect-SPOService
 
 ```
 
-[!INCLUDE [More about SPO Management Shell](../../docfx/includes/MORE-SPOMS.md)]
+[!INCLUDE [More about SPO Management Shell](../../docs/includes/MORE-SPOMS.md)]
 
 ***
 
@@ -108,6 +108,6 @@ Disconnect-SPOService
 | Kunj Sangani |
 | [Ganesh Sanap](https://ganeshsanapblogs.wordpress.com/about) |
 
-[!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
-<img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/spo-create-sharepointgroups-bulk-csv" aria-hidden="true" />
+[!INCLUDE [DISCLAIMER](../../docs/includes/DISCLAIMER.md)]
+<img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/spo-create-sharepoint-groups-bulk-csv" aria-hidden="true" />
 

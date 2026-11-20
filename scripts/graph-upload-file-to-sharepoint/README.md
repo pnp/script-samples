@@ -183,7 +183,7 @@ while ($fileLength -gt ($end + 1)) {
     Write-Host "Percentage Complete: $([Math]::Ceiling($index/$maxloops*100)) %"
 }
 ```
-[!INCLUDE [More about Azure CLI](../../docfx/includes/MORE-AZURECLI.md)]
+[!INCLUDE [More about Azure CLI](../../docs/includes/MORE-AZURECLI.md)]
 ***
 
 ## Contributors
@@ -192,6 +192,6 @@ while ($fileLength -gt ($end + 1)) {
 | ----------------------------------------------- |
 | [Paul Matthews](https://github.com/pmatthews05) |
 
-[!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
+[!INCLUDE [DISCLAIMER](../../docs/includes/DISCLAIMER.md)]
 
 <img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/graph-upload-file-to-sharepoint" aria-hidden="true" />

@@ -1,0 +1,80 @@
+[
+  {
+    "name": "spe-export-container-inventory-to-csv",
+    "source": "pnp",
+    "title": "Export SharePoint Embedded container inventory to CSV",
+    "shortDescription": "Inventory every SharePoint Embedded container in the tenant (active, archived and deleted) with owning app, storage and sensitivity label, and export it to CSV.",
+    "url": "https://pnp.github.io/script-samples/spe-export-container-inventory-to-csv/README.html",
+    "longDescription": [
+      "SharePoint Embedded containers do not appear in the SharePoint admin center site list and can only be viewed per application with no export. This script discovers the SharePoint Embedded applications in the tenant (Get-PnPContainerApplication where available, a built-in list of Microsoft applications, and container types owned by the tenant), then reads every active, archived and deleted container page by page, captures owning application, container type, billing classification, site URL, status, sensitivity label, owners, storage used and dates, writes a single CSV and prints a summary of container count and storage per application and state, plus the number of live containers without an owner or a sensitivity label. Works with PnP PowerShell 3.4.1 and later."
+    ],
+    "creationDateTime": "2026-10-20",
+    "updateDateTime": "2026-10-20",
+    "products": [
+      "SharePoint"
+    ],
+    "metadata": [
+      {
+        "key": "PNP-POWERSHELL",
+        "value": "3.4.1"
+      }
+    ],
+    "categories": [
+      "Report",
+      "Security"
+    ],
+    "tags": [
+      "Connect-PnPOnline",
+      "Get-PnPContainerType",
+      "Get-PnPContainerApplication",
+      "Get-PnPContext",
+      "Get-PnPContainer",
+      "Get-PnPDeletedContainer",
+      "Export-Csv",
+      "Disconnect-PnPOnline"
+    ],
+    "thumbnails": [
+      {
+        "type": "image",
+        "order": 100,
+        "url": "https://raw.githubusercontent.com/pnp/script-samples/main/scripts/spe-export-container-inventory-to-csv/assets/preview.png",
+        "alt": "Preview of the sample Export SharePoint Embedded container inventory to CSV"
+      }
+    ],
+    "authors": [
+      {
+        "gitHubAccount": "ari20089",
+        "company": "Capgemini",
+        "pictureUrl": "https://github.com/ari20089.png",
+        "name": "Arindam Choudhury"
+      }
+    ],
+    "references": [
+      {
+        "name": "Want to learn more about PnP PowerShell and the cmdlets",
+        "description": "Check out the PnP PowerShell site to get started and for the reference to the cmdlets.",
+        "url": "https://aka.ms/pnp/powershell"
+      },
+      {
+        "name": "Get-PnPContainer",
+        "description": "PnP PowerShell cmdlet reference for listing SharePoint Embedded containers and reading a single container by id.",
+        "url": "https://pnp.github.io/powershell/cmdlets/Get-PnPContainer.html"
+      },
+      {
+        "name": "Get-PnPContainerType",
+        "description": "PnP PowerShell cmdlet reference for listing container types owned by the tenant.",
+        "url": "https://pnp.github.io/powershell/cmdlets/Get-PnPContainerType.html"
+      },
+      {
+        "name": "Get-PnPDeletedContainer",
+        "description": "PnP PowerShell cmdlet reference for listing containers in the deleted container collection.",
+        "url": "https://pnp.github.io/powershell/cmdlets/Get-PnPDeletedContainer.html"
+      },
+      {
+        "name": "Manage SharePoint Embedded containers with PowerShell",
+        "description": "Microsoft Learn guidance for consuming tenant admins on inventorying and managing SharePoint Embedded applications and containers.",
+        "url": "https://learn.microsoft.com/sharepoint/dev/embedded/admin/manage-containers-powershell"
+      }
+    ]
+  }
+]

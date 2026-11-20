@@ -105,7 +105,7 @@ $Params = @{
 
 Invoke-RestMethod @Params
 ```
-[!INCLUDE [More about PnP PowerShell](../../docfx/includes/MORE-PNPPS.md)]
+[!INCLUDE [More about PnP PowerShell](../../docs/includes/MORE-PNPPS.md)]
 
 ***
 
@@ -116,5 +116,5 @@ Invoke-RestMethod @Params
 | [Leon Armston](https://github.com/LeonArmston)|
 
 
-[!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
-<img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/flow-search-flows-for-connection" aria-hidden="true" />
+[!INCLUDE [DISCLAIMER](../../docs/includes/DISCLAIMER.md)]
+<img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/flow-runs-day-summary" aria-hidden="true" />

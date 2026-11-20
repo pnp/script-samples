@@ -91,7 +91,7 @@ $ViewCollection | Export-CSV $OutPutView -Force -NoTypeInformation
 m365 logout
 ```
 
-[!INCLUDE [More about CLI for Microsoft 365](../../docfx/includes/MORE-CLIM365.md)]
+[!INCLUDE [More about CLI for Microsoft 365](../../docs/includes/MORE-CLIM365.md)]
 
 # [PnP PowerShell](#tab/pnpps)
 ```powershell
@@ -164,7 +164,7 @@ $ViewCollection | Export-CSV $OutPutView -Force -NoTypeInformation
 Disconnect-PnPOnline
  
 ```
-[!INCLUDE [More about PnP PowerShell](../../docfx/includes/MORE-PNPPS.md)]
+[!INCLUDE [More about PnP PowerShell](../../docs/includes/MORE-PNPPS.md)]
 ***
 
 ## Contributors
@@ -173,5 +173,5 @@ Disconnect-PnPOnline
 |-----------|
 | [Reshmee Auckloo](https://github.com/reshmee011)|
 
-[!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
+[!INCLUDE [DISCLAIMER](../../docs/includes/DISCLAIMER.md)]
 <img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/spo-copy-library-view" aria-hidden="true" />

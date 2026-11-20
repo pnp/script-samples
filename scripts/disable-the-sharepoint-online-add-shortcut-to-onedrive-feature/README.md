@@ -116,7 +116,7 @@ finally {
 
 ```
 
-[!INCLUDE [More about PnP PowerShell](../../docfx/includes/MORE-PNPPS.md)]
+[!INCLUDE [More about PnP PowerShell](../../docs/includes/MORE-PNPPS.md)]
 
 ## Usage
 
@@ -158,5 +158,5 @@ The script provides console output including:
 |-------|----|--------|
 |1.0|August 07, 2026|Initial release|
 
-[!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
+[!INCLUDE [DISCLAIMER](../../docs/includes/DISCLAIMER.md)]
 <img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/disable-the-sharepoint-online-add-shortcut-to-onedrive-feature" aria-hidden="true" />

@@ -31,7 +31,7 @@ New-PnPTenantSite -Template $siteTemplate -Title $siteTitle -Url $newSiteUrl `
 Write-Host "Script Complete! :)" -ForegroundColor Green
 
 ```
-[!INCLUDE [More about PnP PowerShell](../../docfx/includes/MORE-PNPPS.md)]
+[!INCLUDE [More about PnP PowerShell](../../docs/includes/MORE-PNPPS.md)]
 
 # [SPO Management Shell](#tab/spoms-ps)
 
@@ -53,7 +53,7 @@ New-SPOSite -Template $siteTemplate -Title $siteTitle -Url $newSiteUrl `
 Write-Host "Script Complete! :)" -ForegroundColor Green
 
 ```
-[!INCLUDE [More about SPO Management Shell](../../docfx/includes/MORE-SPOMS.md)]
+[!INCLUDE [More about SPO Management Shell](../../docs/includes/MORE-SPOMS.md)]
 
 # [CLI for Microsoft 365](#tab/cli-m365-ps)
 ```powershell
@@ -71,7 +71,7 @@ m365 spo site add --type CommunicationSite --url $newSiteUrl --title $siteTitle 
 Write-Host "Script Complete! :)" -ForegroundColor Green
 
 ```
-[!INCLUDE [More about CLI for Microsoft 365](../../docfx/includes/MORE-CLIM365.md)]
+[!INCLUDE [More about CLI for Microsoft 365](../../docs/includes/MORE-CLIM365.md)]
 ***
 
 To see a list of LCIDs, check out the sample [Generate Markdown Report of LCIDs](../generate-markdown-lcids/README.md) to see the full list
@@ -87,6 +87,6 @@ Article first appeared on [https://www.pkbullock.com/blog/2018/create-communicat
 | Paul Bullock |
 | Adam Wójcik |
 
-[!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
+[!INCLUDE [DISCLAIMER](../../docs/includes/DISCLAIMER.md)]
 
 <img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/create-comm-sites-specific-locale" aria-hidden="true" />

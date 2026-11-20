@@ -57,7 +57,7 @@ if (-not (Test-Path $outputPath)) {
 $report |select *  |Export-Csv $outputPath -NoTypeInformation -Append
 ```
 
-[!INCLUDE [More about PnP PowerShell](../../docfx/includes/MORE-PNPPS.md)]
+[!INCLUDE [More about PnP PowerShell](../../docs/includes/MORE-PNPPS.md)]
 
 ***
 
@@ -73,5 +73,5 @@ The script first appeared  ["Audit Service Principal Access to SharePoint Sites 
 | [Reshmee Auckloo](https://github.com/reshmee011)|
 
 
-[!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
+[!INCLUDE [DISCLAIMER](../../docs/includes/DISCLAIMER.md)]
 <img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/spo-serviceprincipals-sites.selected-permission-sites" aria-hidden="true" />

@@ -124,7 +124,7 @@ $global:Results | Export-CSV $ReportOutput -NoTypeInformation
 Write-host -f Green "Sharing Links Report Generated Successfully! to $ReportOutput"
 ```
 
-[!INCLUDE [More about PnP PowerShell](../../docfx/includes/MORE-PNPPS.md)]
+[!INCLUDE [More about PnP PowerShell](../../docs/includes/MORE-PNPPS.md)]
 
 ***
 
@@ -139,5 +139,5 @@ Sample first appeared on [Deletion of company-wide and anonymous sharing links w
 | [Reshmee Auckloo](https://github.com/reshmee011) |
 
 
-[!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
+[!INCLUDE [DISCLAIMER](../../docs/includes/DISCLAIMER.md)]
 <img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/spo-delete-companywide-anonymous-sharinglink" aria-hidden="true" />

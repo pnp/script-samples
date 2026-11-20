@@ -268,7 +268,7 @@ Write-Host "============================================" -ForegroundColor Cyan
 
 Disconnect-ExchangeOnline -Confirm:$false
 ```
-[!INCLUDE [More about PowerShell](../../docfx/includes/MORE-PS.md)]
+[!INCLUDE [More about PowerShell](../../docs/includes/MORE-PS.md)]
 
 ## Contributors
 
@@ -279,5 +279,5 @@ Disconnect-ExchangeOnline -Confirm:$false
 
 ## References
 
-[!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
+[!INCLUDE [DISCLAIMER](../../docs/includes/DISCLAIMER.md)]
 <img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/teams-meetings-with-copilot-usage" aria-hidden="true" />

@@ -75,7 +75,7 @@ Write-Host "Script execution completed successfully!" -foregroundcolor Green
 
 ```
 
-[!INCLUDE [More about PnP PowerShell](../../docfx/includes/MORE-PNPPS.md)]
+[!INCLUDE [More about PnP PowerShell](../../docs/includes/MORE-PNPPS.md)]
 
 # [CLI for Microsoft 365](#tab/cli-m365-ps)
 
@@ -143,7 +143,7 @@ Write-Host "Script execution completed successfully!" -foregroundcolor Green
 
 ```
 
-[!INCLUDE [More about CLI for Microsoft 365](../../docfx/includes/MORE-CLIM365.md)]
+[!INCLUDE [More about CLI for Microsoft 365](../../docs/includes/MORE-CLIM365.md)]
 
 ***
 
@@ -154,5 +154,5 @@ Write-Host "Script execution completed successfully!" -foregroundcolor Green
 | [Kshitiz Kalra](https://www.linkedin.com/in/kshitiz-kalra-b3107b164/) |
 | [Ganesh Sanap](https://ganeshsanapblogs.wordpress.com/about) |
 
-[!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
+[!INCLUDE [DISCLAIMER](../../docs/includes/DISCLAIMER.md)]
 <img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/spo-bulk-creation-sharepoint-sites-csv" aria-hidden="true" />

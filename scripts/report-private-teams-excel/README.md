@@ -58,7 +58,7 @@ $file = Add-PnPFile -Path $reportFileName -Folder "Shared Documents" -Connection
 Write-Host "Uploaded Excel File to SharePoint"
 
 ```
-[!INCLUDE [More about PnP PowerShell](../../docfx/includes/MORE-PNPPS.md)]
+[!INCLUDE [More about PnP PowerShell](../../docs/includes/MORE-PNPPS.md)]
 
 # [CLI for Microsoft 365](#tab/cli-m365-ps)
 ```powershell
@@ -103,7 +103,7 @@ m365 spo file add --webUrl "https://contoso.sharepoint.com" --folder 'Shared Doc
 Write-Host "Uploaded Excel File to SharePoint"
 
 ```
-[!INCLUDE [More about CLI for Microsoft 365](../../docfx/includes/MORE-CLIM365.md)]
+[!INCLUDE [More about CLI for Microsoft 365](../../docs/includes/MORE-CLIM365.md)]
 ***
 
 ## Source Credit
@@ -117,6 +117,6 @@ Sample first appeared on [Azure Automation to the Rescue – Session at Scottish
 | Paul Bullock |
 | [Adam Wójcik](https://github.com/Adam-it)|
 
-[!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
+[!INCLUDE [DISCLAIMER](../../docs/includes/DISCLAIMER.md)]
 <img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/report-private-teams-excel" aria-hidden="true" />
 

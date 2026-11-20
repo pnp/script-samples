@@ -107,7 +107,7 @@ Install-Module Microsoft.Graph
 
 3. Run the script from a secure admin workstation.
 
-[!INCLUDE [More about PnP PowerShell](../../docfx/includes/MORE-PNPPS.md)]
+[!INCLUDE [More about PnP PowerShell](../../docs/includes/MORE-PNPPS.md)]
 ***
 
 
@@ -147,5 +147,5 @@ Version|Date|Comments
 1.0|Dec 22, 2025|Initial release
 
 
-[!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
+[!INCLUDE [DISCLAIMER](../../docs/includes/DISCLAIMER.md)]
 <img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/spo-site-collection-ownership-validation" aria-hidden="true" />

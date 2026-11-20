@@ -19,7 +19,7 @@ The -Verbose switch lists the functions that are imported.
 
 Once the module is imported the function `Replace-PnPOwnerInFlows` will be loaded and ready to use.
 
-[!INCLUDE [Delete Warning](../../docfx/includes/DELETE-WARN.md)]
+[!INCLUDE [Delete Warning](../../docs/includes/DELETE-WARN.md)]
 
 # [CLI for Microsoft 365](#tab/cli-m365-ps)
 ```powershell
@@ -103,7 +103,7 @@ Replace-PnPOwnerInFlows -oldOwner "john.doe@contoso.com" -newOwner "sansa.stark@
 }
 ```
 
-[!INCLUDE [More about CLI for Microsoft 365](../../docfx/includes/MORE-CLIM365.md)]
+[!INCLUDE [More about CLI for Microsoft 365](../../docs/includes/MORE-CLIM365.md)]
 # [PnP PowerShell](#tab/pnpps)
 
 ```powershell
@@ -178,7 +178,7 @@ Function Replace-PnPOwnerInFlows {
     }
 ```
 
-[!INCLUDE [More about PnP PowerShell](../../docfx/includes/MORE-PNPPS.md)]
+[!INCLUDE [More about PnP PowerShell](../../docs/includes/MORE-PNPPS.md)]
 ***
 
 ## Contributors
@@ -188,5 +188,5 @@ Function Replace-PnPOwnerInFlows {
 | [Nico De Cleyre](https://www.nicodecleyre.com)|
 | Reshmee Auckloo |
 
-[!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
+[!INCLUDE [DISCLAIMER](../../docs/includes/DISCLAIMER.md)]
 <img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/power-automate-replace-owner" aria-hidden="true" />

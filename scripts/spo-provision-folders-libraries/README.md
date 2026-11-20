@@ -84,7 +84,7 @@ Write-Host "Template applied to: $DestinationSiteUrl" -ForegroundColor White
 Write-Host "========================================" -ForegroundColor Cyan 
 ```
 
-[!INCLUDE [More about PnP PowerShell](../../docfx/includes/MORE-PNPPS.md)]
+[!INCLUDE [More about PnP PowerShell](../../docs/includes/MORE-PNPPS.md)]
 
 ***
 
@@ -99,5 +99,5 @@ Sample first appeared on [Exporting and Migrating SharePoint Libraries with Fold
 | [Reshmee Auckloo](https://github.com/reshmee011) |
 
 
-[!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
+[!INCLUDE [DISCLAIMER](../../docs/includes/DISCLAIMER.md)]
 <img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/spo-provision-folders-libraries" aria-hidden="true" />

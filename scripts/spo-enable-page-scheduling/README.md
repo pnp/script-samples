@@ -38,7 +38,7 @@ end {
     Write-Host "Finished" -ForegroundColor Green
 }
 ```
-[!INCLUDE [More about PnP PowerShell](../../docfx/includes/MORE-PNPPS.md)]
+[!INCLUDE [More about PnP PowerShell](../../docs/includes/MORE-PNPPS.md)]
 
 ***
 
@@ -48,5 +48,5 @@ end {
 |-----------|
 | [Nanddeep Nachan](https://github.com/nanddeepn) |
 
-[!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
+[!INCLUDE [DISCLAIMER](../../docs/includes/DISCLAIMER.md)]
 <img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/spo-enable-page-scheduling" aria-hidden="true" />

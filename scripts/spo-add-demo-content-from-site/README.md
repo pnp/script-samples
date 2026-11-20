@@ -154,7 +154,7 @@ Connect-PnPOnline $TargetUrl -Interactive
 CrawlLink "$WebUrl/$extension" 0
 
 ```
-[!INCLUDE [More about PnP PowerShell](../../docfx/includes/MORE-PNPPS.md)]
+[!INCLUDE [More about PnP PowerShell](../../docs/includes/MORE-PNPPS.md)]
 
 ## Contributors
 
@@ -162,6 +162,6 @@ CrawlLink "$WebUrl/$extension" 0
 |-----------|
 | [Kevin McDonnell](https://github.com/kevmcdonk)|
 
-[!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
+[!INCLUDE [DISCLAIMER](../../docs/includes/DISCLAIMER.md)]
 
 <img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/spo-add-demo-content-from-site" aria-hidden="true" />

@@ -249,5 +249,5 @@ The console also provides an audit summary:
 |-------|----|--------|
 |1.0|September 02, 2026|Initial release|
 
-[!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
+[!INCLUDE [DISCLAIMER](../../docs/includes/DISCLAIMER.md)]
 <img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/exchange-online-distribution-group-external-sender-audit" aria-hidden="true" />

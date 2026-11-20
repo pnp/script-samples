@@ -52,7 +52,7 @@ ConvertTo-PnPClientSidePage -Identity "Quality-Cherry-Cake.aspx" -PublishingPage
 
 
 ```
-[!INCLUDE [More about PnP PowerShell](../../docfx/includes/MORE-PNPPS.md)]
+[!INCLUDE [More about PnP PowerShell](../../docs/includes/MORE-PNPPS.md)]
 
 > [!note]
 > This script uses the older [SharePoint PnP PowerShell Online module](https://www.powershellgallery.com/packages/SharePointPnPPowerShellOnline/3.29.2101.0)
@@ -99,7 +99,7 @@ ConvertTo-PnPPage -Identity "Quality-Cherry-Cake.aspx" -PublishingPage `
 
 
 ```
-[!INCLUDE [More about PnP PowerShell](../../docfx/includes/MORE-PNPPS.md)]
+[!INCLUDE [More about PnP PowerShell](../../docs/includes/MORE-PNPPS.md)]
 
 > [!note]
 > This script uses:
@@ -114,6 +114,6 @@ ConvertTo-PnPPage -Identity "Quality-Cherry-Cake.aspx" -PublishingPage `
 |-----------|
 | Paul Bullock |
 
-[!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
+[!INCLUDE [DISCLAIMER](../../docs/includes/DISCLAIMER.md)]
 
 <img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/modernize-classic-pages-from-publishing-sites" aria-hidden="true" />

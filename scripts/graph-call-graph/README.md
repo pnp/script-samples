@@ -19,7 +19,7 @@ $me = Invoke-RestMethod -Uri https://graph.microsoft.com/v1.0/me -Headers @{"Aut
 $me
 
 ```
-[!INCLUDE [More about CLI for Microsoft 365](../../docfx/includes/MORE-CLIM365.md)]
+[!INCLUDE [More about CLI for Microsoft 365](../../docs/includes/MORE-CLIM365.md)]
 
 # [CLI for Microsoft 365 using Bash](#tab/cli-m365-bash)
 ```bash
@@ -31,7 +31,7 @@ token=`m365 util accesstoken get --resource https://graph.microsoft.com --new`
 me=`curl https://graph.microsoft.com/v1.0/me -H "Authorization: Bearer $token"`
 echo $me | jq
 ```
-[!INCLUDE [More about CLI for Microsoft 365](../../docfx/includes/MORE-CLIM365.md)]
+[!INCLUDE [More about CLI for Microsoft 365](../../docs/includes/MORE-CLIM365.md)]
 
 # [PnP PowerShell](#tab/pnpps)
 
@@ -44,7 +44,7 @@ $uri = 'https://graph.microsoft.com/v1.0/users?$filter=displayName eq ''Paul Bul
 $me = Invoke-RestMethod -Uri $uri -Headers @{"Authorization"="Bearer $($token)"} -Method Get -ContentType "application/json"
 $me.value
 ```
-[!INCLUDE [More about PnP PowerShell](../../docfx/includes/MORE-PNPPS.md)]
+[!INCLUDE [More about PnP PowerShell](../../docs/includes/MORE-PNPPS.md)]
 # [Microsoft Graph PowerShell](#tab/graphps)
 
 ```powershell
@@ -55,7 +55,7 @@ Get-MgUser -Filter "displayName eq 'Paul Bullock'"
 Disconnect-MgGraph
 
 ```
-[!INCLUDE [More about Microsoft Graph PowerShell SDK](../../docfx/includes/MORE-GRAPHSDK.md)]
+[!INCLUDE [More about Microsoft Graph PowerShell SDK](../../docs/includes/MORE-GRAPHSDK.md)]
 ***
 
 ## Source Credit
@@ -70,6 +70,6 @@ Sample first appeared on  [Authenticate with and call the Microsoft Graph](https
 | Garry Trinder |
 | Paul Bullock |
 
-[!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
+[!INCLUDE [DISCLAIMER](../../docs/includes/DISCLAIMER.md)]
 
-<img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/authenticate-graph" aria-hidden="true" />
+<img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/graph-call-graph" aria-hidden="true" />

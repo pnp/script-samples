@@ -233,7 +233,7 @@ Disconnect-MgGraph
 Write-Host "Disconnected from Microsoft Graph." -ForegroundColor Cyan
 ```
 
-[!INCLUDE [Check out the Microsoft Graph PowerShell SDK to learn more at:](../../docfx/includes/MORE-GRAPHSDK.md)]
+[!INCLUDE [Check out the Microsoft Graph PowerShell SDK to learn more at:](../../docs/includes/MORE-GRAPHSDK.md)]
 ***
 
 ---
@@ -251,5 +251,5 @@ Write-Host "Disconnected from Microsoft Graph." -ForegroundColor Cyan
 | 1.0 | Feb 28, 2026 | Initial release |
 
 
-[!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
+[!INCLUDE [DISCLAIMER](../../docs/includes/DISCLAIMER.md)]
 <img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/entra-remove-user-mfa-methods" aria-hidden="true" /> 

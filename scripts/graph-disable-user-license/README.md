@@ -6,7 +6,7 @@
 
 This script connects to Micrsoft Graph and searches all Microsoft E3 Licenses for YAMMER_Enterprise licenses. It will then deactive the Yammer license within Office 365, it can be used to remove other Office 365 licenses as well. It will cycle through the entire Office 365 directory for all users.
 
-[!INCLUDE [Delete Warning](../../docfx/includes/DELETE-WARN.md)]
+[!INCLUDE [Delete Warning](../../docs/includes/DELETE-WARN.md)]
 
 # [Microsoft Graph PowerShell](#tab/graphps)
 
@@ -45,7 +45,7 @@ foreach ($user in $users) {
 }  
 
 ```
-[!INCLUDE [More about Microsoft Graph PowerShell SDK](../../docfx/includes/MORE-GRAPHSDK.md)]
+[!INCLUDE [More about Microsoft Graph PowerShell SDK](../../docs/includes/MORE-GRAPHSDK.md)]
 ***
 
 
@@ -55,5 +55,5 @@ foreach ($user in $users) {
 |-----------|
 | Brad Chaney |
 
-[!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
+[!INCLUDE [DISCLAIMER](../../docs/includes/DISCLAIMER.md)]
 <img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/graph-disable-user-license" aria-hidden="true" />

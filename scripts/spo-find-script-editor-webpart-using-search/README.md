@@ -2,9 +2,6 @@
 
 # Find every page that contains a Modern Script Editor web part
 
-> [!Note]
-> This is a submission helper template please find the [contributor guidance](/docfx/contribute.md) to help you write this scenario.
-
 ## Summary
 
 Since the Modern Script Editor web part is impacted by the automatic disabling af Custom Scripting every 24 hours, it is a good idea to find all pages that contain this web part. This script will search through all pages in a site collection and return the pages that contain the Modern Script Editor web part.
@@ -39,7 +36,7 @@ $data | Export-Csv -Path "C:\temp\searchresult.csv" -NoTypeInformation
 
 
 ```
-[!INCLUDE [More about PnP PowerShell](../../docfx/includes/MORE-PNPPS.md)]
+[!INCLUDE [More about PnP PowerShell](../../docs/includes/MORE-PNPPS.md)]
 ***
 
 
@@ -49,5 +46,5 @@ $data | Export-Csv -Path "C:\temp\searchresult.csv" -NoTypeInformation
 |-----------|
 | Kasper Larsen |
 
-[!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
+[!INCLUDE [DISCLAIMER](../../docs/includes/DISCLAIMER.md)]
 <img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/spo-find-script-editor-webpart-using-search" aria-hidden="true" />

@@ -162,7 +162,7 @@ write-host "site storage $siteStorage GB"
 DeleteVersions -siteUrl $siteUrl -ListName "DocLibMajors"  -versionsToKeep 10
 $arraylist | Export-Csv -Path "C:\temp\versiontrimmer.csv" -NoTypeInformation -Force -Encoding utf8BOM -Delimiter "|"
 ```
-[!INCLUDE [More about PnP PowerShell](../../docfx/includes/MORE-PNPPS.md)]
+[!INCLUDE [More about PnP PowerShell](../../docs/includes/MORE-PNPPS.md)]
 
 # [PnP PowerShell Enhanced Version Control Batch Delete Job](#tab/pnpps2)
 
@@ -275,7 +275,7 @@ if ($library) {
     Write-Host "Finished"
 ```
 
-[!INCLUDE [More about CLI for Microsoft 365](../../docfx/includes/MORE-CLIM365.md)]
+[!INCLUDE [More about CLI for Microsoft 365](../../docs/includes/MORE-CLIM365.md)]
 
 ***
 ## Source Credit
@@ -290,5 +290,5 @@ The 'PnP PowerShell Enhanced Version Control Batch Delete Job' sample first appe
 | [Nanddeep Nachan](https://github.com/nanddeepn) |
 | [Reshmee Auckloo (script)](https://github.com/reshmee011)|
 
-[!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
+[!INCLUDE [DISCLAIMER](../../docs/includes/DISCLAIMER.md)]
 <img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/spo-file-version-trimmer" aria-hidden="true" />

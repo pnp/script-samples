@@ -80,7 +80,7 @@ $Payload = @"
 Invoke-PnPGraphMethod -Url $url -Method Patch -Content $Payload
 ```
 
-[!INCLUDE [More about PnP PowerShell](../../docfx/includes/MORE-PNPPS.md)]
+[!INCLUDE [More about PnP PowerShell](../../docs/includes/MORE-PNPPS.md)]
 
 ***
 
@@ -94,6 +94,6 @@ The script first appeared  ["Get Drive ID and Drive Item ID for File for Further
 |-----------|
 | [Reshmee Auckloo](https://github.com/reshmee011) |
 
-[!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
+[!INCLUDE [DISCLAIMER](../../docs/includes/DISCLAIMER.md)]
 <img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/spo-record-lock-unlock-file" aria-hidden="true" />
 

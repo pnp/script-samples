@@ -57,7 +57,7 @@ Function StartProcessing {
 
 StartProcessing
 ```
-[!INCLUDE [More about PnP PowerShell](../../docfx/includes/MORE-PNPPS.md)]
+[!INCLUDE [More about PnP PowerShell](../../docs/includes/MORE-PNPPS.md)]
 
 # [SPO Management Shell](#tab/spoms-ps)
 
@@ -108,7 +108,7 @@ Function StartProcessing {
 
 StartProcessing
 ```
-[!INCLUDE [More about SPO Management Shell](../../docfx/includes/MORE-SPOMS.md)]
+[!INCLUDE [More about SPO Management Shell](../../docs/includes/MORE-SPOMS.md)]
 ***
 ## Contributors
 
@@ -117,5 +117,5 @@ StartProcessing
 | Chandani Prajapati (https://github.com/chandaniprajapati) |
 
 
-[!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
+[!INCLUDE [DISCLAIMER](../../docs/includes/DISCLAIMER.md)]
 <img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/export-inactive-sites-based-on-days-to-csv" aria-hidden="true" />

@@ -75,7 +75,7 @@ $allAgentFiles | Export-Csv -Path $fileLocation -NoTypeInformation
 Write-Host $fileLocation
 
 ```
-[!INCLUDE [More about PnP PowerShell](../../docfx/includes/MORE-PNPPS.md)]
+[!INCLUDE [More about PnP PowerShell](../../docs/includes/MORE-PNPPS.md)]
 
 # [CLI for Microsoft 365](#tab/cli-m365-ps)
 
@@ -136,7 +136,7 @@ $allAgentFiles | Export-Csv -Path $fileLocation -NoTypeInformation
 Write-Host $fileLocation
 
 ```
-[!INCLUDE [More about CLI for Microsoft 365](../../docfx/includes/MORE-CLIM365.md)]
+[!INCLUDE [More about CLI for Microsoft 365](../../docs/includes/MORE-CLIM365.md)]
 ***
 
 
@@ -147,5 +147,5 @@ Write-Host $fileLocation
 | Valeras Narbutas |
 | [Elliot Margot](https://github.com/OwnOptic) |
 
-[!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
+[!INCLUDE [DISCLAIMER](../../docs/includes/DISCLAIMER.md)]
 <img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/spo-get-agent-list" aria-hidden="true" />

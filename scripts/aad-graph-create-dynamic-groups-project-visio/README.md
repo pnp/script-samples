@@ -113,7 +113,7 @@ $groupidpu = $projectuninstall.id
 write-host "Project Uninstall Group Created - $groupidpu" -ForegroundColor Green
        
 ```
-[!INCLUDE [More about Microsoft Graph PowerShell SDK](../../docfx/includes/MORE-GRAPHSDK.md)]
+[!INCLUDE [More about Microsoft Graph PowerShell SDK](../../docs/includes/MORE-GRAPHSDK.md)]
 ***
 
 
@@ -124,5 +124,5 @@ write-host "Project Uninstall Group Created - $groupidpu" -ForegroundColor Green
 | [Andrew Taylor](https://github.com/andrew-s-taylor) |
 
 
-[!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
+[!INCLUDE [DISCLAIMER](../../docs/includes/DISCLAIMER.md)]
 <img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/aad-graph-create-dynamic-groups-project-visio" aria-hidden="true" />

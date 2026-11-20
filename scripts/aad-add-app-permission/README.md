@@ -110,7 +110,7 @@ function Get-AADPermission {
 Get-AADPermission -ApiName $api -PermissionName $permission -Application
 
 ```
-[!INCLUDE [More about CLI for Microsoft 365](../../docfx/includes/MORE-CLIM365.md)]
+[!INCLUDE [More about CLI for Microsoft 365](../../docs/includes/MORE-CLIM365.md)]
 
 
 # [Microsoft Graph PowerShell](#tab/graphps)
@@ -229,7 +229,7 @@ Write-Host "Requested Permissions: $($PermissionName -join ', ')" -ForegroundCol
 Write-Host "Don't forget to grant admin consent manually in Entra admin center > App registrations > API permissions." -ForegroundColor Yellow
 
 ```
-[!INCLUDE [More about Microsoft Graph PowerShell SDK](../../docfx/includes/MORE-GRAPHSDK.md)]
+[!INCLUDE [More about Microsoft Graph PowerShell SDK](../../docs/includes/MORE-GRAPHSDK.md)]
 ***
 
 
@@ -240,5 +240,5 @@ Write-Host "Don't forget to grant admin consent manually in Entra admin center >
 | [Sujin Nelladath](https://github.com/nelladath) | (https://www.linkedin.com/in/sujin-nelladath-8911968a/)
 
 
-[!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
+[!INCLUDE [DISCLAIMER](../../docs/includes/DISCLAIMER.md)]
 <img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/aad-add-app-permission" aria-hidden="true" />

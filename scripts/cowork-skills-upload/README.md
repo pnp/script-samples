@@ -107,7 +107,7 @@ end {
 	Write-Host "Done! :)" -ForegroundColor Green
 }
 ```
-[!INCLUDE [More about PnP PowerShell](../../docfx/includes/MORE-PNPPS.md)]
+[!INCLUDE [More about PnP PowerShell](../../docs/includes/MORE-PNPPS.md)]
 
 # [SKILL.md](#tab/skill)
 ```markdown
@@ -193,5 +193,5 @@ delivered as an email or Teams message, with an optional coordination chat.
 |-----------|
 | Paul Bullock |
 
-[!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
+[!INCLUDE [DISCLAIMER](../../docs/includes/DISCLAIMER.md)]
 <img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/cowork-skills-upload" aria-hidden="true" />

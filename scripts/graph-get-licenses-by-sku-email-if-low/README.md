@@ -7,7 +7,7 @@
 
 ## Summary
 
-This script is designed to help administrators monitor the availability of Microsoft 365 licenses for specific SKUs, including Microsoft 365 Copilot, Microsoft 365 E3, Office 365 E1, and Microsoft Defender Plan 1. It retrieves the current license counts using the Microsoft Graph API and sends an email alert if any SKU has fewer than 5 licenses remaining. The script includes error handling for API calls and module imports, and formats the email body as an HTML table for clear presentation of the license data.
+This script is designed to help administrators monitor the availability of Microsoft 365 licenses for specific SKUs, including Microsoft Copilot, Microsoft 365 E3, Office 365 E1, and Microsoft Defender Plan 1. It retrieves the current license counts using the Microsoft Graph API and sends an email alert if any SKU has fewer than 5 licenses remaining. The script includes error handling for API calls and module imports, and formats the email body as an HTML table for clear presentation of the license data.
 
 To use this script, you need to:
 
@@ -105,7 +105,7 @@ else {
 }
 
 ```
-[!INCLUDE [More about Microsoft Graph PowerShell SDK](../../docfx/includes/MORE-GRAPHSDK.md)]
+[!INCLUDE [More about Microsoft Graph PowerShell SDK](../../docs/includes/MORE-GRAPHSDK.md)]
 ***
 
 ## Contributors
@@ -115,5 +115,5 @@ else {
 | Eilaf Barmare |
 
 
-[!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
+[!INCLUDE [DISCLAIMER](../../docs/includes/DISCLAIMER.md)]
 <img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/graph-get-licenses-by-sku-email-if-low" aria-hidden="true" />

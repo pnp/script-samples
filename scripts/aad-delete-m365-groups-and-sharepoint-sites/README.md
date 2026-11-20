@@ -6,7 +6,7 @@
 
 This script sample shows how you can delete Microsoft 365 Groups and associated SharePoint Online sites in your development environment.
  
-[!INCLUDE [Delete Warning](../../docfx/includes/DELETE-WARN.md)]
+[!INCLUDE [Delete Warning](../../docs/includes/DELETE-WARN.md)]
 
 # [PnP PowerShell](#tab/pnpps)
 
@@ -45,7 +45,7 @@ $sites | ForEach-Object {
 Disconnect-PnPOnline
 ```
 
-[!INCLUDE [More about PnP PowerShell](../../docfx/includes/MORE-PNPPS.md)]
+[!INCLUDE [More about PnP PowerShell](../../docs/includes/MORE-PNPPS.md)]
 
 # [CLI for Microsoft 365](#tab/cli-m365-ps)
 
@@ -74,7 +74,7 @@ $groups | ForEach-Object {
 m365 logout
 ```
 
-[!INCLUDE [More about CLI for Microsoft 365](../../docfx/includes/MORE-CLIM365.md)]
+[!INCLUDE [More about CLI for Microsoft 365](../../docs/includes/MORE-CLIM365.md)]
 
 ***
 
@@ -85,5 +85,5 @@ m365 logout
 | Reshmee Auckloo |
 | [Ganesh Sanap](https://ganeshsanapblogs.wordpress.com/) |
 
-[!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
+[!INCLUDE [DISCLAIMER](../../docs/includes/DISCLAIMER.md)]
 <img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/aad-delete-m365-groups-and-sharepoint-sites" aria-hidden="true" />

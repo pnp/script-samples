@@ -1,7 +1,3 @@
----
-plugin: add-to-gallery
----
-
 # Creation of an FAQ page in SharePoint from an CSV file as the source.
 
 ## Summary
@@ -54,7 +50,7 @@ foreach ($row in $csvContent) {
 m365 logout
 ```
 
-[!INCLUDE [More about CLI for Microsoft 365](../../docfx/includes/MORE-CLIM365.md)]
+[!INCLUDE [More about CLI for Microsoft 365](../../docs/includes/MORE-CLIM365.md)]
 
 ***
 
@@ -65,5 +61,5 @@ m365 logout
 | [Michał Kornet](https://github.com/mkm17) |
 
 
-[!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
+[!INCLUDE [DISCLAIMER](../../docs/includes/DISCLAIMER.md)]
 <img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/spo-create-sharepoint-faq-page" aria-hidden="true" />

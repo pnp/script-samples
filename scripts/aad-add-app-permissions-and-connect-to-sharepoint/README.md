@@ -57,5 +57,5 @@ Get-pnpSite
 | Valeras Narbutas|
 
 
-[!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
+[!INCLUDE [DISCLAIMER](../../docs/includes/DISCLAIMER.md)]
 <img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/aad-add-app-permissions-and-connect-to-sharepoint" aria-hidden="true" />

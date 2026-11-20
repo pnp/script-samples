@@ -228,7 +228,7 @@ end {
 # Preview what would be revoked (WhatIf mode)
 # ./Revoke-AppSitePermissions.ps1 -TenantAdminUrl "https://contoso-admin.sharepoint.com" -AppDisplayName "MyApp" -RevokePermissions -WhatIf
 ```
-[!INCLUDE [More about CLI for Microsoft 365](../../docfx/includes/MORE-CLIM365.md)]
+[!INCLUDE [More about CLI for Microsoft 365](../../docs/includes/MORE-CLIM365.md)]
 
 
 # [PnP PowerShell](#tab/pnpps)
@@ -326,7 +326,7 @@ else {
     Write-Host "Report-only mode: No permissions were revoked. Use -RevokePermissions switch to revoke." -ForegroundColor Yellow
 }
 ```
-[!INCLUDE [More about PnP PowerShell](../../docfx/includes/MORE-PNPPS.md)]
+[!INCLUDE [More about PnP PowerShell](../../docs/includes/MORE-PNPPS.md)]
 ***
 
 ## Source Credit
@@ -341,5 +341,5 @@ Sample idea first appeared on [Revoke Entra ID App Permissions from SharePoint S
 | [Adam Wójcik](https://github.com/Adam-it) |
 
 
-[!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
+[!INCLUDE [DISCLAIMER](../../docs/includes/DISCLAIMER.md)]
 <img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/spo-revoke-app-site-permission" aria-hidden="true" />

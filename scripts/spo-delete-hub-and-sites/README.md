@@ -7,7 +7,7 @@ Sometimes you need to delete a hub site and all the sites associated with it. Th
 
 ![Example Screenshot](assets/example.png)
 
-[!INCLUDE [Deletion Warning](../../docfx/includes/DELETE-WARN.md)]
+[!INCLUDE [Deletion Warning](../../docs/includes/DELETE-WARN.md)]
 
 # [PnP PowerShell](#tab/pnpps)
 
@@ -73,7 +73,7 @@ $hubSiteUrl = "https://contoso.sharepoint.com/sites/ANL11855"
 Remove-HubAndSites -hubsiteUrl $hubSiteUrl -adminConnection $adminconn
 
 ```
-[!INCLUDE [More about PnP PowerShell](../../docfx/includes/MORE-PNPPS.md)]
+[!INCLUDE [More about PnP PowerShell](../../docs/includes/MORE-PNPPS.md)]
 ***
 
 
@@ -83,5 +83,5 @@ Remove-HubAndSites -hubsiteUrl $hubSiteUrl -adminConnection $adminconn
 |-----------|
 | Kasper Larsen |
 
-[!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
+[!INCLUDE [DISCLAIMER](../../docs/includes/DISCLAIMER.md)]
 <img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/spo-delete-hub-and-sites" aria-hidden="true" />

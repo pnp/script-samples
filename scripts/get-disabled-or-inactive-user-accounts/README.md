@@ -149,7 +149,7 @@ $results |
  
 
 ```
-[!INCLUDE [More about PnP PowerShell](../../docfx/includes/MORE-PNPPS.md)]
+[!INCLUDE [More about PnP PowerShell](../../docs/includes/MORE-PNPPS.md)]
 
 # [PnP PowerShell](#tab/pnpps)
 
@@ -240,7 +240,7 @@ $users3 = Get-UserFromGraphThatHasntLoggedInResently
 $userd1 | Export-Csv -Path "C:\temp\disabledusers.csv" -NoTypeInformation 
 
 ```
-[!INCLUDE [More about PnP PowerShell](../../docfx/includes/MORE-PNPPS.md)]
+[!INCLUDE [More about PnP PowerShell](../../docs/includes/MORE-PNPPS.md)]
 
 # [CLI for Microsoft 365 using PowerShell](#tab/cli-m365-ps)
 
@@ -377,7 +377,7 @@ $results |
 Write-Host "Exported $($results.Count) findings to $ExportPath"
 
 ```
-[!INCLUDE [More about CLI for Microsoft 365](../../docfx/includes/MORE-CLIM365.md)]
+[!INCLUDE [More about CLI for Microsoft 365](../../docs/includes/MORE-CLIM365.md)]
 
 ***
 
@@ -390,5 +390,5 @@ Write-Host "Exported $($results.Count) findings to $ExportPath"
 | [Josiah Opiyo](https://github.com/ojopiyo) |
 | [juandresrodca](https://github.com/juandresrodca) |
 
-[!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
+[!INCLUDE [DISCLAIMER](../../docs/includes/DISCLAIMER.md)]
 <img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/get-disabled-or-inactive-user-accounts" aria-hidden="true" />

@@ -22,7 +22,7 @@ Both steps include informative messages to keep users updated on the progress an
 > [!Note]
 > The script relies on the PnP PowerShell module to interact with SharePoint Online, and it is essential to have the module installed and authenticated before executing the script. Additionally, users should carefully review and modify the "recyclebin.csv" file in Step 2 to ensure that only the intended items are deleted. 
 
-[!INCLUDE [Delete Warning](../../docfx/includes/DELETE-WARN.md)]
+[!INCLUDE [Delete Warning](../../docs/includes/DELETE-WARN.md)]
 
 ![Example Screenshot](assets/example.png)
 
@@ -179,7 +179,7 @@ Start-Processing -csvFilePath $Path -processBatchCount $NoInBatch | Export-Csv $
 
 ```
 
-[!INCLUDE [More about PnP PowerShell](../../docfx/includes/MORE-PNPPS.md)]
+[!INCLUDE [More about PnP PowerShell](../../docs/includes/MORE-PNPPS.md)]
 
 ***
 
@@ -194,5 +194,5 @@ Sample first appeared on [Restore large amount of items from SharePoint Recycle 
 | Eilaf Barmare |
 
 
-[!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
+[!INCLUDE [DISCLAIMER](../../docs/includes/DISCLAIMER.md)]
 <img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/spo-bulk-delete-recyclebin-in-batch-avoid-lvt" aria-hidden="true" />

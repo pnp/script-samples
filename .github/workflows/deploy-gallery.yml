@@ -1,0 +1,107 @@
+name: Deploy gallery
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions: {}
+
+concurrency:
+  group: github-pages
+  cancel-in-progress: true
+
+jobs:
+  build:
+    if: github.repository == 'pnp/script-samples'
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    permissions:
+      contents: read
+    defaults:
+      run:
+        working-directory: site
+    steps:
+      - name: Checkout
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - name: Set up Node
+        uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
+        with:
+          node-version: "22.19.0"
+          cache: npm
+          cache-dependency-path: site/package-lock.json
+      - name: Install dependencies
+        run: npm ci
+      - name: Test catalog and sample generator
+        run: npm test
+      - name: Test generator
+        shell: pwsh
+        run: ./tests/generator.ps1
+      - name: Build and validate production gallery
+        run: npm run build
+        env:
+          PUBLIC_COMMIT_SHA: ${{ github.sha }}
+          PUBLIC_ENABLE_VIEW_TRACKING: "true"
+      - name: Install Chromium
+        run: npx playwright install --with-deps chromium
+      - name: Test release
+        run: npm run test:e2e
+      - name: Upload built gallery
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        with:
+          name: gallery-dist-${{ github.run_id }}
+          path: site/dist
+          if-no-files-found: error
+          retention-days: 1
+
+  deploy:
+    needs: build
+    if: github.repository == 'pnp/script-samples' && github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - name: Download built gallery
+        uses: actions/download-artifact@37930b1c2abaa49bbe596cd826c3c89aef350131 # v7.0.0
+        with:
+          name: gallery-dist-${{ github.run_id }}
+          path: /tmp/gallery-dist
+      - name: Publish static site to gh-pages
+        shell: bash
+        run: |
+          set -euo pipefail
+          publish_dir="$(mktemp -d)"
+          rmdir "$publish_dir"
+          git fetch origin gh-pages
+          git worktree add --detach "$publish_dir" origin/gh-pages
+          git -C "$publish_dir" rm -r --ignore-unmatch .
+          cp -a /tmp/gallery-dist/. "$publish_dir/"
+          touch "$publish_dir/.nojekyll"
+          git -C "$publish_dir" add --all
+          git -C "$publish_dir" -c user.name="github-actions[bot]" \
+            -c user.email="41898282+github-actions[bot]@users.noreply.github.com" \
+            commit -m "Deploy gallery ${GITHUB_SHA}"
+          git -C "$publish_dir" push origin HEAD:gh-pages
+      - name: Verify published commit
+        shell: pwsh
+        env:
+          SITE_URL: https://pnp.github.io/script-samples
+          EXPECTED_COMMIT: ${{ github.sha }}
+        run: |
+          $ErrorActionPreference = 'Stop'
+          $baseUrl = $env:SITE_URL.TrimEnd('/')
+          for ($attempt = 1; $attempt -le 12; $attempt++) {
+            try {
+              $marker = Invoke-RestMethod "$baseUrl/deployment.json"
+              $homePage = Invoke-WebRequest "$baseUrl/"
+              if ($marker.commit -ne $env:EXPECTED_COMMIT) { throw 'Deployed commit does not match this workflow.' }
+              if ($homePage.Content -notmatch '<title>Community Script Samples</title>') { throw 'The gallery home page was not deployed.' }
+              Write-Host "Verified $baseUrl at commit $env:EXPECTED_COMMIT with $($marker.sampleCount) samples."
+              exit 0
+            } catch {
+              if ($attempt -eq 12) { throw }
+              Start-Sleep -Seconds 10
+            }
+          }

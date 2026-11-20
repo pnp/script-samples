@@ -77,7 +77,7 @@ foreach ($cachedIssue in $cachedIssues) {
     }
 }
 ```
-[!INCLUDE [More about CLI for Microsoft 365](../../docfx/includes/MORE-CLIM365.md)]
+[!INCLUDE [More about CLI for Microsoft 365](../../docs/includes/MORE-CLIM365.md)]
 
 
 ## Source Credit
@@ -91,5 +91,5 @@ Sample first appeared on [Blimped | Getting notified of service incidents in Mic
 | Martin Lingstuyl |
 
 
-[!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
-<img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/tenant-monitor-notify-healthstatus" aria-hidden="true" />
+[!INCLUDE [DISCLAIMER](../../docs/includes/DISCLAIMER.md)]
+<img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/tenant-health-notify-teams" aria-hidden="true" />

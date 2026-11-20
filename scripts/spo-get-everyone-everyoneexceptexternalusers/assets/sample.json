@@ -6,15 +6,12 @@
     "shortDescription": "Audit 'Everyone' and  'Everyone except external users' claim within a SharePoint site",
     "url": "https://pnp.github.io/script-samples/spo-get-everyone-everyoneexceptexternalusers/README.html",
     "longDescription": [
-       "As part of Microsoft 365 Copilot readiness, you may want to find where 'Everyone' and 'Everyone except external users' claims are granted permissions which is a cause of oversharing. This script will help you audit the 'Everyone' and 'Everyone except external users' claims within your SharePoint site collection."
+      "As part of Microsoft Copilot readiness, you may want to find where 'Everyone' and 'Everyone except external users' claims are granted permissions which is a cause of oversharing. This script will help you audit the 'Everyone' and 'Everyone except external users' claims within your SharePoint site collection."
     ],
     "creationDateTime": "2024-10-01",
     "updateDateTime": "2024-11-13",
     "products": [
-      "SharePoint",
-      "Permissions",
-      "Unique Permissions",
-      "SharePoint Groups"
+      "SharePoint"
     ],
     "metadata": [
       {
@@ -25,7 +22,7 @@
     "categories": [
       "Report",
       "Security",
-      "Microsoft 365 Copilot"
+      "Microsoft Copilot"
     ],
     "tags": [
       "modern",
@@ -35,14 +32,17 @@
       "Get-PnPList",
       "Get-PnPWeb",
       "Get-PnPContext",
-      "Get-PnPGroupMember"
+      "Get-PnPGroupMember",
+      "Permissions",
+      "Unique Permissions",
+      "SharePoint Groups"
     ],
     "thumbnails": [
       {
         "type": "image",
         "order": 100,
         "url": "https://raw.githubusercontent.com/pnp/script-samples/main/scripts/spo-get-everyone-everyoneexceptexternalusers/assets/preview.png",
-        "alt": ""
+        "alt": "Preview of the sample Audit 'Everyone' and  'Everyone except external users' claim within a SharePoint site"
       }
     ],
     "authors": [

@@ -66,7 +66,7 @@ foreach($imageFile in $imageFiles){
 }
 
 ```
-[!INCLUDE [More about Microsoft Graph PowerShell SDK](../../docfx/includes/MORE-GRAPHSDK.md)]
+[!INCLUDE [More about Microsoft Graph PowerShell SDK](../../docs/includes/MORE-GRAPHSDK.md)]
 ***
 
 ## Contributors
@@ -75,5 +75,5 @@ foreach($imageFile in $imageFiles){
 |-----------|
 | [Peter Paul Kirschner](https://github.com/petkir) |
 
-[!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
+[!INCLUDE [DISCLAIMER](../../docs/includes/DISCLAIMER.md)]
 <img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/graph-update-user-photo" aria-hidden="true" />

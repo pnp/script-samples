@@ -90,7 +90,7 @@ PO,Purchase Orders
 ![Results Screenshot](assets/results.png)
 
 
-[!INCLUDE [More about PnP PowerShell](../../docfx/includes/MORE-PNPPS.md)]
+[!INCLUDE [More about PnP PowerShell](../../docs/includes/MORE-PNPPS.md)]
 
 ***
 ## Source Credit
@@ -104,6 +104,6 @@ Inspired by [Invoke-SPOListDesign to create instances of lists/libraires](https:
 | Reshmee Auckloo |
 
 
-[!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
+[!INCLUDE [DISCLAIMER](../../docs/includes/DISCLAIMER.md)]
 <img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/spo-add-multiple-document-libraries-with-list-template" aria-hidden="true" />
 

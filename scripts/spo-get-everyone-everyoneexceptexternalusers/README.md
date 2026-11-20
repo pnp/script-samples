@@ -4,7 +4,7 @@
 
 ## Summary
 
-As part of Microsoft 365 Copilot readiness, you may want to find where "Everyone and "Everyone except external users" claims are granted permissions which is a cause of oversharing.
+As part of Microsoft Copilot readiness, you may want to find where "Everyone and "Everyone except external users" claims are granted permissions which is a cause of oversharing.
 
 This is an example where 'Everyone except external users' has been added to the SharePoint site visitors group.
 
@@ -248,7 +248,7 @@ else{
 }
 ```
 
-[!INCLUDE [More about PnP PowerShell](../../docfx/includes/MORE-PNPPS.md)]
+[!INCLUDE [More about PnP PowerShell](../../docs/includes/MORE-PNPPS.md)]
 
 ***
 
@@ -264,5 +264,5 @@ Sample first appeared on [Manage 'Everyone' and 'Everyone except external users'
 | TiloGit |
 
 
-[!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
+[!INCLUDE [DISCLAIMER](../../docs/includes/DISCLAIMER.md)]
 <img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/spo-get-everyone-everyoneexceptexternalusers" aria-hidden="true" />

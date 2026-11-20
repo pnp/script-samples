@@ -22,7 +22,7 @@ Connect-PnPOnline -Url $TargetSiteUrl -PnPManagementShell
 Invoke-PnPSiteTemplate -Path $SiteTemplateFile
 
 ```
-[!INCLUDE [More about PnP PowerShell](../../docfx/includes/MORE-PNPPS.md)]
+[!INCLUDE [More about PnP PowerShell](../../docs/includes/MORE-PNPPS.md)]
 
 ## Source Credit
 
@@ -36,6 +36,6 @@ Understand more about this script by reading this Microsoft 365 Platform Communi
 | Lewis Baybutt |
 
 
-[!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
+[!INCLUDE [DISCLAIMER](../../docs/includes/DISCLAIMER.md)]
 <img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/spo-extract-and-invoke-site-template" aria-hidden="true" />
 

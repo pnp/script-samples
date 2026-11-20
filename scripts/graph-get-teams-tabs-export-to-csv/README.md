@@ -43,7 +43,7 @@ foreach($team in $teams)
 $teamsWithWiki.GetEnumerator() | select description, id, displayName, tenatId  | Export-Csv -Path "teams_with_wiki.csv" -NoTypeInformation
 
 ```
-[!INCLUDE [More about Microsoft Graph PowerShell SDK](../../docfx/includes/MORE-GRAPHSDK.md)]
+[!INCLUDE [More about Microsoft Graph PowerShell SDK](../../docs/includes/MORE-GRAPHSDK.md)]
 ***
 
 ## Contributors
@@ -52,6 +52,6 @@ $teamsWithWiki.GetEnumerator() | select description, id, displayName, tenatId  |
 |-----------|
 | Valeras Narbutas|
 
-[!INCLUDE [DISCLAIMER](../../docfx/includes/DISCLAIMER.md)]
+[!INCLUDE [DISCLAIMER](../../docs/includes/DISCLAIMER.md)]
 
 <img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/graph-get-teams-tabs-export-to-csv" aria-hidden="true" />
