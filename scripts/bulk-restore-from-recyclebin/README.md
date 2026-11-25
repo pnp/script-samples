@@ -145,7 +145,7 @@ function Restore-RecycleBinItems {
 Write-Information -MessageData:"Processing file $Path and restoring recycle bin items in batches of $NoInBatch..."
 Start-Processing -csvFilePath:$Path -processBatchCount:$NoInBatch | Export-Csv $OutputFile -NoTypeInformation
 ```
-[!INCLUDE [More about PnP PowerShell](../../docs/includes/MORE-PNPPS.md)]
+[!INCLUDE [More about PnP PowerShell](../../site/docs/includes/MORE-PNPPS.md)]
 ***
 
 ## Contributors
@@ -154,5 +154,5 @@ Start-Processing -csvFilePath:$Path -processBatchCount:$NoInBatch | Export-Csv $
 | ---------------------------------------------- |
 | [Paul Matthews](https://github.com/pmatthews05) |
 
-[!INCLUDE [DISCLAIMER](../../docs/includes/DISCLAIMER.md)]
+[!INCLUDE [DISCLAIMER](../../site/docs/includes/DISCLAIMER.md)]
 <img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/bulk-restore-from-recyclebin" aria-hidden="true" />

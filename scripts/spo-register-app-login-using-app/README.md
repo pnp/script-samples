@@ -29,7 +29,7 @@ Connect-PnPOnline $url -ClientId $result.'AzureAppId/ClientId'  -Tenant $tenant 
 Set-PnPTenantSite -identity $url -RequestFilesLinkExpirationInDay 50
 
 ```
-[!INCLUDE [More about PnP PowerShell](../../docs/includes/MORE-PNPPS.md)]
+[!INCLUDE [More about PnP PowerShell](../../site/docs/includes/MORE-PNPPS.md)]
 
 
 ***
@@ -40,5 +40,5 @@ Set-PnPTenantSite -identity $url -RequestFilesLinkExpirationInDay 50
 |-----------|
 | Valeras Narbutas |
 
-[!INCLUDE [DISCLAIMER](../../docs/includes/DISCLAIMER.md)]
+[!INCLUDE [DISCLAIMER](../../site/docs/includes/DISCLAIMER.md)]
 <img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/spo-register-app-login-using-app" aria-hidden="true" />

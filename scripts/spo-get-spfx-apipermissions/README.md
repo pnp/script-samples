@@ -252,5 +252,5 @@ Disconnect-PnPOnline
 | ------------ |
 | Kinga Kazala |
 
-[!INCLUDE [DISCLAIMER](../../docs/includes/DISCLAIMER.md)]
+[!INCLUDE [DISCLAIMER](../../site/docs/includes/DISCLAIMER.md)]
 <img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/spo-get-spfx-apipermissions" aria-hidden="true" />

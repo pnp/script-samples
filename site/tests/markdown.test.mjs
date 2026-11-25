@@ -30,7 +30,7 @@ test("keeps literal tracker examples inside code while removing actual tracker i
   assert.ok(!/<img\b[^>]*m365-visitor-stats/.test(html));
 });
 test("expands shared guidance, preserves example includes inside code, and strips duplicate trackers", () => {
-  const markdown = "# Sample\n\n[!INCLUDE [Disclaimer](../../docs/includes/DISCLAIMER.md)]\n\n```markdown\n[!INCLUDE [Example](../../docs/includes/DOES-NOT-EXIST.md)]\n```\n\n<img src=\"https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/example\" />";
+  const markdown = "# Sample\n\n[!INCLUDE [Disclaimer](../../site/docs/includes/DISCLAIMER.md)]\n\n```markdown\n[!INCLUDE [Example](../../site/docs/includes/DOES-NOT-EXIST.md)]\n```\n\n<img src=\"https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/example\" />";
   const { html } = renderMarkdown(markdown, "scripts/example/README.md");
   assert.match(html, /WITHOUT WARRANTY/);
   assert.ok(!html.includes("m365-visitor-stats"));
@@ -47,7 +47,7 @@ test("renders warnings and sanitized HTML without changing code samples", () => 
 });
 test("resolves legacy content, documentation, assets, and safe external links", () => {
   assert.equal(contentTarget("scripts/aad-add-app-permission/README.md", "assets/example.png", true), "/script-samples/aad-add-app-permission/assets/example.png");
-  assert.equal(contentTarget("scripts/aad-add-app-permission/README.md", "../../docs/contributing/index.md"), "/script-samples/contributing/");
+  assert.equal(contentTarget("scripts/aad-add-app-permission/README.md", "../../site/docs/contributing/index.md"), "/script-samples/contributing/");
   assert.equal(contentTarget("README.md", "https://pnp.github.io/script-samples/aad-add-app-permission/README.html"), "/script-samples/samples/aad-add-app-permission/");
   assert.throws(() => contentTarget("README.md", "../../../outside.txt"), /escapes/);
   assert.throws(() => contentTarget("README.md", "javascript:alert(1)"), /unsupported link scheme/);

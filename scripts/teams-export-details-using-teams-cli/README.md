@@ -89,7 +89,7 @@ StartProcessing
 
 ```
 
-[!INCLUDE [More about Microsoft Teams PowerShell](../../docs/includes/MORE-TEAMSPS.md)]
+[!INCLUDE [More about Microsoft Teams PowerShell](../../site/docs/includes/MORE-TEAMSPS.md)]
 
 ***
 
@@ -99,5 +99,5 @@ StartProcessing
 |-----------|
 | Chandani Prajapati (https://github.com/chandaniprajapati) |
 
-[!INCLUDE [DISCLAIMER](../../docs/includes/DISCLAIMER.md)]
+[!INCLUDE [DISCLAIMER](../../site/docs/includes/DISCLAIMER.md)]
 <img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/teams-export-details-using-teams-cli" aria-hidden="true" />

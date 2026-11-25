@@ -62,7 +62,7 @@ foreach($hit in $hits.ResultRows)
 $Output | Export-Csv -Path "C:\temp\ReindexResults.csv" -Encoding UTF8 -Delimiter "|" -Force
 
 ```
-[!INCLUDE [More about PnP PowerShell](../../docs/includes/MORE-PNPPS.md)]
+[!INCLUDE [More about PnP PowerShell](../../site/docs/includes/MORE-PNPPS.md)]
 ***
 
 
@@ -72,5 +72,5 @@ $Output | Export-Csv -Path "C:\temp\ReindexResults.csv" -Encoding UTF8 -Delimite
 |-----------|
 | Kasper Larsen |
 
-[!INCLUDE [DISCLAIMER](../../docs/includes/DISCLAIMER.md)]
+[!INCLUDE [DISCLAIMER](../../site/docs/includes/DISCLAIMER.md)]
 <img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/spo-reindex-list-where-term-is-used" aria-hidden="true" />

@@ -43,7 +43,7 @@ foreach ($pageItem in $pageItems)
     }
 }
 ```
-[!INCLUDE [More about PnP PowerShell](../../docs/includes/MORE-PNPPS.md)]
+[!INCLUDE [More about PnP PowerShell](../../site/docs/includes/MORE-PNPPS.md)]
 ***
 
 ## Source Credit
@@ -57,5 +57,5 @@ This sample reuses parts of [https://pnp.github.io/script-samples/spo-export-str
 | Giacomo Pozzoni |
 
 
-[!INCLUDE [DISCLAIMER](../../docs/includes/DISCLAIMER.md)]
+[!INCLUDE [DISCLAIMER](../../site/docs/includes/DISCLAIMER.md)]
 <img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/spo-export-page-html" aria-hidden="true" />

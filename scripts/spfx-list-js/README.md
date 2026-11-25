@@ -894,5 +894,5 @@ Version|Date|Comments
 |-----------|
 | [Don Kirkham](https://github.com/donkirkham) |
 
-[!INCLUDE [DISCLAIMER](../../docs/includes/DISCLAIMER.md)]
+[!INCLUDE [DISCLAIMER](../../site/docs/includes/DISCLAIMER.md)]
 <img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/spfx-list-js" aria-hidden="true" />

@@ -66,7 +66,7 @@ end {
 }
 
 ```
-[!INCLUDE [More about PnP PowerShell](../../docs/includes/MORE-PNPPS.md)]
+[!INCLUDE [More about PnP PowerShell](../../site/docs/includes/MORE-PNPPS.md)]
 ***
 
 
@@ -77,5 +77,5 @@ end {
 | Paul Bullock |
 
 
-[!INCLUDE [DISCLAIMER](../../docs/includes/DISCLAIMER.md)]
+[!INCLUDE [DISCLAIMER](../../site/docs/includes/DISCLAIMER.md)]
 <img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/spo-enable-ai-skills" aria-hidden="true" />

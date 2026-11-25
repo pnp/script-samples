@@ -180,7 +180,7 @@ end {
 }
 
 ```
-[!INCLUDE [More about PnP PowerShell](../../docs/includes/MORE-PNPPS.md)]
+[!INCLUDE [More about PnP PowerShell](../../site/docs/includes/MORE-PNPPS.md)]
 
 
 # [JSON](#tab/json)
@@ -276,5 +276,5 @@ end {
 | Paul Bullock |
 
 
-[!INCLUDE [DISCLAIMER](../../docs/includes/DISCLAIMER.md)]
+[!INCLUDE [DISCLAIMER](../../site/docs/includes/DISCLAIMER.md)]
 <img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/spo-create-multi-hub-sites" aria-hidden="true" />

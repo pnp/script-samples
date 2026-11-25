@@ -207,7 +207,7 @@ Write-Host -ForegroundColor White "Job duration: '$($jobduration.Hours)'h '$($jo
 Write-Host -ForegroundColor Green "DONE"
 
 ```
-[!INCLUDE [More about PnP PowerShell](../../docs/includes/MORE-PNPPS.md)]
+[!INCLUDE [More about PnP PowerShell](../../site/docs/includes/MORE-PNPPS.md)]
 ***
 
 ## Contributors
@@ -217,5 +217,5 @@ Write-Host -ForegroundColor Green "DONE"
 | Timo Vomstein |
 
 
-[!INCLUDE [DISCLAIMER](../../docs/includes/DISCLAIMER.md)]
+[!INCLUDE [DISCLAIMER](../../site/docs/includes/DISCLAIMER.md)]
 <img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/spo-copy-library-across-tenants" aria-hidden="true" />

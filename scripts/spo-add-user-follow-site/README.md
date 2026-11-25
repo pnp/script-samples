@@ -123,7 +123,7 @@ End {
 }
        
 ```
-[!INCLUDE [More about Microsoft Graph PowerShell SDK](../../docs/includes/MORE-GRAPHSDK.md)]
+[!INCLUDE [More about Microsoft Graph PowerShell SDK](../../site/docs/includes/MORE-GRAPHSDK.md)]
 ***
 
 
@@ -134,5 +134,5 @@ End {
 | [Andre Lage](https://github.com/aaclage) |
 
 
-[!INCLUDE [DISCLAIMER](../../docs/includes/DISCLAIMER.md)]
+[!INCLUDE [DISCLAIMER](../../site/docs/includes/DISCLAIMER.md)]
 <img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/spo-add-user-follow-site" aria-hidden="true" />

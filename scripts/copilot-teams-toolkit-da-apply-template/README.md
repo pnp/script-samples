@@ -177,7 +177,7 @@ Read-Host -Prompt "This script will set the template overlay for all folders in 
 .\Set-TemplateOverlay.ps1 -targetFolderName "Other-Agent-4" -appName "Other Agent 4" -appShortName "Other-Agent-4-"
 ```
 ***
-[!INCLUDE [More about Teams Toolkit CLI](../../docs/includes/MORE-TEAMSTOOLKITCLI.md)]
+[!INCLUDE [More about Teams Toolkit CLI](../../site/docs/includes/MORE-TEAMSTOOLKITCLI.md)]
 
 ## Template Files
 
@@ -261,5 +261,5 @@ You are a declarative agent and were created to support developers in extending 
 | Paul Bullock |
 
 
-[!INCLUDE [DISCLAIMER](../../docs/includes/DISCLAIMER.md)]
+[!INCLUDE [DISCLAIMER](../../site/docs/includes/DISCLAIMER.md)]
 <img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/copilot-teams-toolkit-da-apply-template" aria-hidden="true" />

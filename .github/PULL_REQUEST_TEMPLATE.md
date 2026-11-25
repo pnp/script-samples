@@ -15,4 +15,4 @@ Include tool versions, the expected result, and any limitations. Do not include 
 - [ ] No template placeholders or private tenant details remain.
 - [ ] The final README tracker points to this sample.
 
-Need a hand? See the [contribution guide](../docs/contributing/preparing-a-submission.md). Every sample contributor is eligible for the [contributor badge](../docs/contributing/recognition.md) after their first accepted sample and recognition-program opt-in.
+Need a hand? See the [contribution guide](../site/docs/contributing/preparing-a-submission.md). Every sample contributor is eligible for the [contributor badge](../site/docs/contributing/recognition.md) after their first accepted sample and recognition-program opt-in.

@@ -165,7 +165,7 @@ if ($platform -eq 'Unix' -or $platform -eq 'MacOSX') {
 Export-M365ActiveUsers | Out-Null
 ```
 
-[!INCLUDE [More about Microsoft Graph PowerShell SDK](../../docs/includes/MORE-GRAPHSDK.md)]
+[!INCLUDE [More about Microsoft Graph PowerShell SDK](../../site/docs/includes/MORE-GRAPHSDK.md)]
 ***
 
 ## Contributors
@@ -174,6 +174,6 @@ Export-M365ActiveUsers | Out-Null
 |-----------|
 | [Divya Akula](https://github.com/divya-akula)|
 
-[!INCLUDE [DISCLAIMER](../../docs/includes/DISCLAIMER.md)]
+[!INCLUDE [DISCLAIMER](../../site/docs/includes/DISCLAIMER.md)]
 
 <img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/graph-get-users-export-to-csv" aria-hidden="true" />

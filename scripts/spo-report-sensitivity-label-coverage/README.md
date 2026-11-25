@@ -196,7 +196,7 @@ catch {
 }
 ```
 
-[!INCLUDE [More about PnP PowerShell](../../docs/includes/MORE-PNPPS.md)]
+[!INCLUDE [More about PnP PowerShell](../../site/docs/includes/MORE-PNPPS.md)]
 
 ***
 
@@ -210,5 +210,5 @@ Sample first appeared on [https://www.fivenumber.com](https://www.fivenumber.com
 | --------- |
 | Vijay Kumar G |
 
-[!INCLUDE [DISCLAIMER](../../docs/includes/DISCLAIMER.md)]
+[!INCLUDE [DISCLAIMER](../../site/docs/includes/DISCLAIMER.md)]
 <img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/spo-report-sensitivity-label-coverage" aria-hidden="true" />

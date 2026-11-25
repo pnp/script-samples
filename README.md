@@ -1,8 +1,8 @@
 # Community Script Samples
 
-[![Community Script Samples gallery redesign preview with search, product filters, and script cards](docs/assets/gallery-preview.png)](https://pnp.github.io/script-samples/)
+[![Community Script Samples gallery redesign preview with search, product filters, and script cards](site/docs/assets/gallery-preview.png)](https://pnp.github.io/script-samples/)
 
-**[Browse the script gallery](https://pnp.github.io/script-samples/)** | [Get started](docs/getting-started.md) | [Share a sample](docs/contributing/preparing-a-submission.md)
+**[Browse the script gallery](https://pnp.github.io/script-samples/)** | [Get started](site/docs/getting-started.md) | [Share a sample](site/docs/contributing/preparing-a-submission.md)
 
 *Gallery preview. The published site updates after this change is reviewed, merged, and deployed.*
 
@@ -33,23 +33,23 @@ The [New-Sample.ps1 generator](New-Sample.ps1) creates a sample folder, README, 
     -GitHubId "your-github-handle"
 ```
 
-Replace the generated script placeholder, finish the metadata, and add your preview. The [step-by-step contribution guide](docs/contributing/preparing-a-submission.md) explains what the generator does and what to finish before opening a pull request.
+Replace the generated script placeholder, finish the metadata, and add your preview. The [step-by-step contribution guide](site/docs/contributing/preparing-a-submission.md) explains what the generator does and what to finish before opening a pull request.
 
 Not ready to write a sample? [Report an issue](https://github.com/pnp/script-samples/issues/new), suggest a scenario, or help test an existing script. New to GitHub? [Sharing is caring](https://pnp.github.io/sharing-is-caring/) offers friendly, hands-on sessions.
 
 ## Earn your Script Samples contributor badge
 
-[<img src="docs/assets/credly-badge.png" alt="Microsoft 365 and Power Platform Community Script Samples contributor badge" width="200" />](https://pnp.github.io/recognitionprogram/)
+[<img src="site/docs/assets/credly-badge.png" alt="Microsoft 365 and Power Platform Community Script Samples contributor badge" width="200" />](https://pnp.github.io/recognitionprogram/)
 
 Every sample contributor is eligible, including first-time contributors. After your first accepted sample, [opt in to the community recognition program](https://pnp.github.io/recognitionprogram/) to receive your badge. Issuance is processed in batches, so it is not immediate.
 
-Your contribution is credited in the sample. Share its gallery link with your team or community, and [request a community demo slot](https://aka.ms/community/request/demo) to show what you learned. See [contributor recognition](docs/contributing/recognition.md) for details.
+Your contribution is credited in the sample. Share its gallery link with your team or community, and [request a community demo slot](https://aka.ms/community/request/demo) to show what you learned. See [contributor recognition](site/docs/contributing/recognition.md) for details.
 
 ## Learn and share with the community
 
 - [Join the Microsoft 365 & Power Platform community](https://aka.ms/community/home).
 - [View community calls and download recurring invites](https://aka.ms/community/calls). Everyone is welcome to learn, ask questions, and share ideas.
-- [Explore ways to contribute](docs/contributing/how-can-i-contribute.md) or [help maintain the gallery](docs/contributing/maintainers-guidance.md).
+- [Explore ways to contribute](site/docs/contributing/how-can-i-contribute.md) or [help maintain the gallery](site/docs/contributing/maintainers-guidance.md).
 - When sharing a sample, link to its gallery page, credit its authors, and explain the scenario it helped you solve. Remove tenant or personal information from screenshots.
 
 This is an open-source community project maintained by volunteers. Thank you to everyone who shares code, reports issues, and helps others get started.
@@ -58,7 +58,7 @@ This is an open-source community project maintained by volunteers. Thank you to 
 
 The site uses Astro and TypeScript. With Node.js 22.19 or later, run `npm --prefix site ci`, then `npm --prefix site run dev` and open `http://localhost:4321/script-samples/`.
 
-[Local development, validation, and deployment](docs/contributing/maintainers-guidance.md) | [Migration and GitHub Pages cutover notes](site/MIGRATION.md)
+[Local development, validation, and deployment](site/docs/contributing/maintainers-guidance.md) | [Migration and GitHub Pages cutover notes](site/MIGRATION.md)
 
 ## Code of Conduct
 

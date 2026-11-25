@@ -109,7 +109,7 @@ When accessing to created custom List the new Content Type Hub should be availab
 ![Content Type List Screenshot](assets/ContentTypeHubList.PNG)
 
 
-[!INCLUDE [More about PnP PowerShell](../../docs/includes/MORE-PNPPS.md)]
+[!INCLUDE [More about PnP PowerShell](../../site/docs/includes/MORE-PNPPS.md)]
 
 ***
 
@@ -120,6 +120,6 @@ When accessing to created custom List the new Content Type Hub should be availab
 | [André Lage](https://github.com/aaclage) |
 
 
-[!INCLUDE [DISCLAIMER](../../docs/includes/DISCLAIMER.md)]
+[!INCLUDE [DISCLAIMER](../../site/docs/includes/DISCLAIMER.md)]
 <img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/spo-add-contenttypehub-format-field-to-List" aria-hidden="true" />
 

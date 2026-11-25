@@ -101,7 +101,7 @@ Read-Host -Prompt "This script will bulk deploy for all agents in the current di
 
 ```
 ***
-[!INCLUDE [More about Teams Toolkit CLI](../../docs/includes/MORE-TEAMSTOOLKITCLI.md)]
+[!INCLUDE [More about Teams Toolkit CLI](../../site/docs/includes/MORE-TEAMSTOOLKITCLI.md)]
 
 ## Source Blog Article
 
@@ -114,5 +114,5 @@ Read-Host -Prompt "This script will bulk deploy for all agents in the current di
 |-----------|
 | Paul Bullock |
 
-[!INCLUDE [DISCLAIMER](../../docs/includes/DISCLAIMER.md)]
+[!INCLUDE [DISCLAIMER](../../site/docs/includes/DISCLAIMER.md)]
 <img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/copilot-bulk-deploy-declarative-agents" aria-hidden="true" />

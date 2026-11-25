@@ -17,4 +17,4 @@ npm --prefix site run build
 
 Browser tests need Chromium installed once with `npx playwright install chromium` from the `site` directory. Run them with `npm --prefix site run test:e2e`.
 
-You do not need to build the gallery to contribute a script. Follow the [contribution guide](../docs/contributing/preparing-a-submission.md).
+You do not need to build the gallery to contribute a script. Follow the [contribution guide](../site/docs/contributing/preparing-a-submission.md).

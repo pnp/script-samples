@@ -51,7 +51,7 @@ The generated catalog, public sample copies, build output, and browser diagnosti
 ## Content and compatibility
 
 - `scripts/<sample>/README.md` and `assets/sample.json` remain the sample source of truth.
-- `docs/` holds contributor guides, shared includes, and retained assets. Keep shared include statements pointing to `../../docs/includes/`.
+- `site/docs/` holds contributor guides, shared includes, and retained assets. Keep sample include statements pointing to `../../site/docs/includes/`.
 - `site/scripts/config.mjs` defines product aliases, tool labels, and scenario categories. Unknown products fail validation rather than silently disappearing.
 - The renderer supports existing tool tabs, admonitions, tables, relative images/downloads, and shared includes. It strips source view trackers before adding the page tracker.
 - Existing `/<sample>/README.html` URLs redirect to `/samples/<sample>/`. Old by-product/by-tool/compact pages redirect to equivalent gallery state.
@@ -71,7 +71,7 @@ The new deployment workflow replaces the old DocFX/`gh-pages` build. The reposit
 
 The deployment workflow runs on `main` in `pnp/script-samples`, uploads the static artifact, deploys to the `github-pages` environment, and verifies the published commit using `deployment.json`. Fork branches run no production deployment.
 
-Review the [migration notes](../../site/MIGRATION.md) before the first release. Keep the existing published site available until the new artifact has passed validation and the owner is ready to change the Pages source.
+Review the [migration notes](../../MIGRATION.md) before the first release. Keep the existing published site available until the new artifact has passed validation and the owner is ready to change the Pages source.
 
 ## Recognize and amplify the work
 

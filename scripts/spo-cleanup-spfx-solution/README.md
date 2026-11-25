@@ -66,7 +66,7 @@ foreach ($item in $recycleItems) {
     Clear-PnPRecycleBinItem -Identity $item.Id -Force
 }
 ```
-[!INCLUDE [More about PnP PowerShell](../../docs/includes/MORE-PNPPS.md)]
+[!INCLUDE [More about PnP PowerShell](../../site/docs/includes/MORE-PNPPS.md)]
 
 ***
 
@@ -77,5 +77,5 @@ foreach ($item in $recycleItems) {
 | [Fabian Hutzli](https://github.com/fabianhutzli)|
 
 
-[!INCLUDE [DISCLAIMER](../../docs/includes/DISCLAIMER.md)]
+[!INCLUDE [DISCLAIMER](../../site/docs/includes/DISCLAIMER.md)]
 <img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/spo-cleanup-spfx-solution" aria-hidden="true" />

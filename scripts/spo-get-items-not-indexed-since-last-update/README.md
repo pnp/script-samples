@@ -75,7 +75,7 @@ catch
 }
 
 ```
-[!INCLUDE [More about PnP PowerShell](../../docs/includes/MORE-PNPPS.md)]
+[!INCLUDE [More about PnP PowerShell](../../site/docs/includes/MORE-PNPPS.md)]
 ***
 
 ## Contributors
@@ -84,6 +84,6 @@ catch
 |-----------|
 | [Kasper Larsen](https://github.com/kasperbolarsen)|
 
-[!INCLUDE [DISCLAIMER](../../docs/includes/DISCLAIMER.md)]
+[!INCLUDE [DISCLAIMER](../../site/docs/includes/DISCLAIMER.md)]
 <img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/spo-get-items-not-indexed-since-last-update" aria-hidden="true" />
 

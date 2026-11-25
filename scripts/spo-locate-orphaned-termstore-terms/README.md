@@ -84,7 +84,7 @@ foreach($hit in $hits.ResultRows)
 
 
 ```
-[!INCLUDE [More about PnP PowerShell](../../docs/includes/MORE-PNPPS.md)]
+[!INCLUDE [More about PnP PowerShell](../../site/docs/includes/MORE-PNPPS.md)]
 ***
 
 
@@ -95,5 +95,5 @@ foreach($hit in $hits.ResultRows)
 | Kasper Larsen |
 
 
-[!INCLUDE [DISCLAIMER](../../docs/includes/DISCLAIMER.md)]
+[!INCLUDE [DISCLAIMER](../../site/docs/includes/DISCLAIMER.md)]
 <img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/spo-locate-orphaned-termstore-terms" aria-hidden="true" />

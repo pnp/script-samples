@@ -4,9 +4,8 @@ on:
   pull_request:
     paths:
       - "scripts/**"
-      - "docs/**"
+      - "site/docs/**"
       - "site/**"
-      - "tooling/**"
       - "New-Sample.ps1"
       - ".github/schemas/**"
       - ".github/workflows/validate-gallery.yml"

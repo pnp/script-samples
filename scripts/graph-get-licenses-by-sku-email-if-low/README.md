@@ -105,7 +105,7 @@ else {
 }
 
 ```
-[!INCLUDE [More about Microsoft Graph PowerShell SDK](../../docs/includes/MORE-GRAPHSDK.md)]
+[!INCLUDE [More about Microsoft Graph PowerShell SDK](../../site/docs/includes/MORE-GRAPHSDK.md)]
 ***
 
 ## Contributors
@@ -115,5 +115,5 @@ else {
 | Eilaf Barmare |
 
 
-[!INCLUDE [DISCLAIMER](../../docs/includes/DISCLAIMER.md)]
+[!INCLUDE [DISCLAIMER](../../site/docs/includes/DISCLAIMER.md)]
 <img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/graph-get-licenses-by-sku-email-if-low" aria-hidden="true" />

@@ -60,13 +60,13 @@ export function productIds(values) {
 }
 
 export const GUIDE_ROUTES = {
-  "docs/index.md": "",
-  "docs/getting-started.md": "getting-started/",
-  "docs/contributing/index.md": "contributing/",
-  "docs/contributing/how-can-i-contribute.md": "contributing/how-can-i-contribute/",
-  "docs/contributing/preparing-a-submission.md": "contributing/preparing-a-submission/",
-  "docs/contributing/submitting-pull-requests.md": "contributing/submitting-pull-requests/",
-  "docs/contributing/recognition.md": "contributing/recognition/",
-  "docs/contributing/merging-existing-project.md": "contributing/merging-existing-project/",
-  "docs/contributing/maintainers-guidance.md": "contributing/maintainers-guidance/"
+  "site/docs/index.md": "",
+  "site/docs/getting-started.md": "getting-started/",
+  "site/docs/contributing/index.md": "contributing/",
+  "site/docs/contributing/how-can-i-contribute.md": "contributing/how-can-i-contribute/",
+  "site/docs/contributing/preparing-a-submission.md": "contributing/preparing-a-submission/",
+  "site/docs/contributing/submitting-pull-requests.md": "contributing/submitting-pull-requests/",
+  "site/docs/contributing/recognition.md": "contributing/recognition/",
+  "site/docs/contributing/merging-existing-project.md": "contributing/merging-existing-project/",
+  "site/docs/contributing/maintainers-guidance.md": "contributing/maintainers-guidance/"
 };

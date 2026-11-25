@@ -98,7 +98,7 @@ Keep the generated tab headings and shared documentation includes. If editing a 
 # Replace this comment with your tested script.
 ```
 
-[!INCLUDE [More about PnP PowerShell](../../docs/includes/MORE-PNPPS.md)]
+[!INCLUDE [More about PnP PowerShell](../includes/MORE-PNPPS.md)]
 ````
 
 ### assets/sample.json: help people find the sample

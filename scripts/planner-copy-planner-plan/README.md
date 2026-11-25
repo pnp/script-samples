@@ -100,7 +100,7 @@ end {
 }
 ```
 
-[!INCLUDE [More about CLI for Microsoft 365](../../docs/includes/MORE-CLIM365.md)]
+[!INCLUDE [More about CLI for Microsoft 365](../../site/docs/includes/MORE-CLIM365.md)]
 
 # [PnP PowerShell](#tab/pnpps)
 ```powershell
@@ -175,7 +175,7 @@ end {
 }
 
 ```
-[!INCLUDE [More about PnP PowerShell](../../docs/includes/MORE-PNPPS.md)]
+[!INCLUDE [More about PnP PowerShell](../../site/docs/includes/MORE-PNPPS.md)]
 
 ***
 ## Contributors
@@ -185,5 +185,5 @@ end {
 | Milan Holemans |
 | [Reshmee Auckloo](https://github.com/reshmee011)|
 
-[!INCLUDE [DISCLAIMER](../../docs/includes/DISCLAIMER.md)]
+[!INCLUDE [DISCLAIMER](../../site/docs/includes/DISCLAIMER.md)]
 <img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/planner-copy-planner-plan" aria-hidden="true" />
