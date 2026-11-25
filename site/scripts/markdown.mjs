@@ -56,13 +56,13 @@ export function contentTarget(source, target, image = false) {
   const decoded = decodeURIComponent(filename).replaceAll("\\", "/");
   let relative = decoded.startsWith("/") ? decoded.replace(/^\/script-samples\/|^\//, "")
     : path.posix.normalize(path.posix.join(path.posix.dirname(source), decoded));
-  relative = relative.replace(/^docfx\//, "docs/");
+  relative = relative.replace(/^docfx\//, "site/docs/");
   if (GUIDE_ROUTES[relative] !== undefined) return `${sitePath(GUIDE_ROUTES[relative])}${query}${fragment}`;
-  if (relative === "docs/by-product.md" || relative === "docs/by-tool.md") return `${sitePath("")}${query}${fragment}`;
+  if (relative === "site/docs/by-product.md" || relative === "site/docs/by-tool.md") return `${sitePath("")}${query}${fragment}`;
   const actual = canonicalFile(relative);
   const sampleReadme = /^scripts\/([^/]+)\/README\.md$/.exec(actual);
   if (sampleReadme) return `${sitePath(`samples/${encodeURIComponent(sampleReadme[1])}/`)}${query}${fragment}`;
-  if (actual.startsWith("docs/assets/")) return `${sitePath(`assets/${encodePath(actual.slice(12))}`)}${query}${fragment}`;
+  if (actual.startsWith("site/docs/assets/")) return `${sitePath(`assets/${encodePath(actual.slice(17))}`)}${query}${fragment}`;
   if (actual.startsWith("scripts/") && !actual.endsWith(".md")) return `${sitePath(encodePath(actual.slice(8)))}${query}${fragment}`;
   if (image) throw new Error(`${source}: image is not in published content: ${actual}`);
   return `${REPOSITORY_URL}/blob/main/${encodePath(actual)}${fragment}`;
@@ -81,8 +81,8 @@ export function expandIncludes(markdown, source, chain = []) {
       result.push(line.replace(/^\s*>\s*\[!Video\s+(https:\/\/[^\]]+)\]\s*$/i, "> [Watch this sample's video]($1)"));
       continue;
     }
-    const relative = path.posix.normalize(path.posix.join(path.posix.dirname(source), include[1].replaceAll("\\", "/"))).replace(/^docfx\//, "docs/");
-    if (!relative.startsWith("docs/includes/")) throw new Error(`${source}: shared include must be under docs/includes: ${include[1]}`);
+    const relative = path.posix.normalize(path.posix.join(path.posix.dirname(source), include[1].replaceAll("\\", "/"))).replace(/^docfx\//, "site/docs/");
+    if (!relative.startsWith("site/docs/includes/")) throw new Error(`${source}: shared include must be under site/docs/includes: ${include[1]}`);
     if (chain.includes(relative)) throw new Error(`${source}: circular Markdown include ${relative}`);
     const actual = canonicalFile(relative);
     const buffer = fs.readFileSync(path.join(REPOSITORY_ROOT, ...actual.split("/")));

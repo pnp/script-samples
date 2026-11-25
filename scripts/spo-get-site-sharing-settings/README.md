@@ -140,7 +140,7 @@ $adminConnection = Get-PnPConnection
     Write-Host "Exported successfully!..." -ForegroundColor Green
 ```
 
-[!INCLUDE [More about PnP PowerShell](../../docs/includes/MORE-PNPPS.md)]
+[!INCLUDE [More about PnP PowerShell](../../site/docs/includes/MORE-PNPPS.md)]
 
 ***
 
@@ -155,5 +155,5 @@ Sample first appeared on [Get SharePoint site sharing Settings with PowerShell](
 | [Reshmee Auckloo](https://github.com/reshmee011) |
 
 
-[!INCLUDE [DISCLAIMER](../../docs/includes/DISCLAIMER.md)]
+[!INCLUDE [DISCLAIMER](../../site/docs/includes/DISCLAIMER.md)]
 <img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/spo-get-site-sharing-settings" aria-hidden="true" />

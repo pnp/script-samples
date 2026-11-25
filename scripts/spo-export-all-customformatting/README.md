@@ -71,7 +71,7 @@ function get-customFormatting() {
 get-customFormatting;
 ```
 
-[!INCLUDE [More about PnP PowerShell](../../docs/includes/MORE-PNPPS.md)]
+[!INCLUDE [More about PnP PowerShell](../../site/docs/includes/MORE-PNPPS.md)]
 
 ***
 
@@ -81,5 +81,5 @@ get-customFormatting;
 |-----------|
 | [Dan Toft](https://twitter.com/tanddant) |
 
-[!INCLUDE [DISCLAIMER](../../docs/includes/DISCLAIMER.md)]
+[!INCLUDE [DISCLAIMER](../../site/docs/includes/DISCLAIMER.md)]
 <img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/spo-export-all-customformatting" aria-hidden="true" />

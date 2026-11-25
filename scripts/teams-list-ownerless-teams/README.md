@@ -40,5 +40,5 @@ $MappedObjects | Select-Object -Property * | Export-Csv -Path ".\$fileName" -Enc
 | [Dan Toft](https://Dan-Toft.dk) |
 
 
-[!INCLUDE [DISCLAIMER](../../docs/includes/DISCLAIMER.md)]
+[!INCLUDE [DISCLAIMER](../../site/docs/includes/DISCLAIMER.md)]
 <img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/teams-list-ownerless-teams" aria-hidden="true" />

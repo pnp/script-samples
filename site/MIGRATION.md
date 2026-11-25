@@ -13,9 +13,9 @@ This package replaces the DocFX build with the approved Community Script Samples
 
 ## Legacy content and data repairs
 
-The useful guides, assets, shared includes, and command-help index moved from `docfx/` to `docs/`. Existing include statements were updated. The renderer still understands the established tool-tab and include syntax, so authors do not need to learn Astro.
+The useful guides, assets, shared includes, and command-help index moved from `docfx/` to `site/docs/`. Existing include statements were updated. The renderer still understands the established tool-tab and include syntax, so authors do not need to learn Astro.
 
-The obsolete DocFX configuration, templates, plugins, generated-report scripts, .NET tool manifest, and container setup were removed. The command-help refresh tooling remains under `tooling/`.
+The obsolete DocFX configuration, templates, plugins, generated-report scripts, .NET tool manifest, and container setup were removed. The command-help refresh tooling remains under `site/tooling/`.
 
 Catalog validation exposed and repaired legacy issues rather than excluding samples:
 

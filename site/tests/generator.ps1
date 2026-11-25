@@ -26,6 +26,7 @@ try {
     if ([regex]::Matches($readme, '<your script>').Count -ne 8) { throw 'Each generated code block must have a script placeholder.' }
     if (@($metadata.metadata).Count -ne 7) { throw 'All must generate seven unique tool keys, with CLI shared by PowerShell and Bash.' }
     if ($readme -match '\.\./\.\./docfx/') { throw 'Generator must use the migrated shared include paths.' }
+    if ($readme -notmatch '\.\./\.\./site/docs/includes/MORE-PNPPS\.md') { throw 'Generator must use the site docs include paths.' }
     if ($readme.TrimEnd().Split("`n")[-1] -notmatch 'script-samples/scripts/spo-generator-check') { throw 'Incorrect final view tracker.' }
     $original = Get-FileHash -LiteralPath $readmePath
     $rejected = $false

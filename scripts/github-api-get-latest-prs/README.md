@@ -112,7 +112,7 @@ end {
 }
 
 ```
-[!INCLUDE [More about GitHub API](../../docs/includes/MORE-GITHUBAPI.md)]
+[!INCLUDE [More about GitHub API](../../site/docs/includes/MORE-GITHUBAPI.md)]
 ***
 
 
@@ -123,5 +123,5 @@ end {
 | Paul Bullock |
 | Christian Veenhuis |
 
-[!INCLUDE [DISCLAIMER](../../docs/includes/DISCLAIMER.md)]
+[!INCLUDE [DISCLAIMER](../../site/docs/includes/DISCLAIMER.md)]
 <img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/github-api-get-latest-prs" aria-hidden="true" />

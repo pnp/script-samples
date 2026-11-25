@@ -136,7 +136,7 @@ Write-Host "Report generated at: $outputCsv" -ForegroundColor Green
 # ...existing code...
 ```
 
-[!INCLUDE [More about CLI for Microsoft 365](../../docs/includes/MORE-CLIM365.md)]
+[!INCLUDE [More about CLI for Microsoft 365](../../site/docs/includes/MORE-CLIM365.md)]
 
 ***
 
@@ -146,5 +146,5 @@ Write-Host "Report generated at: $outputCsv" -ForegroundColor Green
 | ------------------------------------------- |
 | [Siddharth Vaghasia](https://github.com/siddharth-vaghasia) |
 
-[!INCLUDE [DISCLAIMER](../../docs/includes/DISCLAIMER.md)]
+[!INCLUDE [DISCLAIMER](../../site/docs/includes/DISCLAIMER.md)]
 <img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/flow-get-https-triggers-flows-callbackurls" aria-hidden="true" />

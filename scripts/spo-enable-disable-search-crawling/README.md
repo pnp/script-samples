@@ -73,7 +73,7 @@ Write-Host "Current DOCUMENT LIBRARY ($($listName)) status - Crawling: $(!$list.
 Disconnect-PnPOnline
 
 ```
-[!INCLUDE [More about PnP PowerShell](../../docs/includes/MORE-PNPPS.md)]
+[!INCLUDE [More about PnP PowerShell](../../site/docs/includes/MORE-PNPPS.md)]
 
 # [CLI for Microsoft 365](#tab/cli-m365-ps)
 
@@ -147,7 +147,7 @@ m365 logout
 
 ```
 
-[!INCLUDE [More about CLI for Microsoft 365](../../docs/includes/MORE-CLIM365.md)]
+[!INCLUDE [More about CLI for Microsoft 365](../../site/docs/includes/MORE-CLIM365.md)]
 
 ***
 
@@ -158,5 +158,5 @@ m365 logout
 | Paul Bullock |
 | [Ganesh Sanap](https://ganeshsanapblogs.wordpress.com/about) |
 
-[!INCLUDE [DISCLAIMER](../../docs/includes/DISCLAIMER.md)]
+[!INCLUDE [DISCLAIMER](../../site/docs/includes/DISCLAIMER.md)]
 <img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/spo-enable-disable-search-crawling" aria-hidden="true" />

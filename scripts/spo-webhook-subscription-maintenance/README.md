@@ -376,7 +376,7 @@ Write-Host ""
 Write-Host "========================================" -ForegroundColor Cyan 
 
 ```
-[!INCLUDE [More about PnP PowerShell](../../docs/includes/MORE-PNPPS.md)]
+[!INCLUDE [More about PnP PowerShell](../../site/docs/includes/MORE-PNPPS.md)]
 ***
 
 
@@ -387,5 +387,5 @@ Write-Host "========================================" -ForegroundColor Cyan
 | [Valeras Narbutas](https://github.com/ValerasNarbutas) |
 
 
-[!INCLUDE [DISCLAIMER](../../docs/includes/DISCLAIMER.md)]
+[!INCLUDE [DISCLAIMER](../../site/docs/includes/DISCLAIMER.md)]
 <img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/spo-webhook-subscription-maintenance" aria-hidden="true" />

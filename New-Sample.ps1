@@ -121,7 +121,7 @@ begin{
     $tabBlocks = @{
         "PnPPowerShell" = [PSCustomObject]@{
             Tab = "# [PnP PowerShell](#tab/pnpps)"
-            IncludeBlock = "[!INCLUDE [More about PnP PowerShell](../../docs/includes/MORE-PNPPS.md)]"
+            IncludeBlock = "[!INCLUDE [More about PnP PowerShell](../../site/docs/includes/MORE-PNPPS.md)]"
             ScriptBlock  = $psScriptBlock
             Reference = [PSCustomObject]@{
                 "name" = "Want to learn more about PnP PowerShell and the cmdlets"
@@ -134,7 +134,7 @@ begin{
         
         "CliForMicrosoft365" = [PSCustomObject]@{
             Tab = "# [CLI for Microsoft 365 using PowerShell](#tab/cli-m365-ps)"
-            IncludeBlock = "[!INCLUDE [More about CLI for Microsoft 365](../../docs/includes/MORE-CLIM365.md)]"
+            IncludeBlock = "[!INCLUDE [More about CLI for Microsoft 365](../../site/docs/includes/MORE-CLIM365.md)]"
             ScriptBlock  = $psScriptBlock
             Reference = [PSCustomObject]@{
                 "name" = "Want to learn more about CLI for Microsoft 365 and the commands"
@@ -146,7 +146,7 @@ begin{
         }
         "SPOManagementShell"  = [PSCustomObject]@{
             Tab = "# [SPO Management Shell](#tab/spoms-ps)"
-            IncludeBlock = "[!INCLUDE [More about SPO Management Shell](../../docs/includes/MORE-SPOMS.md)]"
+            IncludeBlock = "[!INCLUDE [More about SPO Management Shell](../../site/docs/includes/MORE-SPOMS.md)]"
             ScriptBlock  = $psScriptBlock
             Reference = [PSCustomObject]@{
                 "name" = "Introduction to the SharePoint Online Management Shell"
@@ -159,7 +159,7 @@ begin{
 
         "CliForMicrosoft365Bash"  = [PSCustomObject]@{
             Tab = "# [CLI for Microsoft 365 using Bash](#tab/cli-m365-bash)"
-            IncludeBlock = "[!INCLUDE [More about CLI for Microsoft 365](../../docs/includes/MORE-CLIM365.md)]"
+            IncludeBlock = "[!INCLUDE [More about CLI for Microsoft 365](../../site/docs/includes/MORE-CLIM365.md)]"
             ScriptBlock  = $bashScriptBlock
             Reference = [PSCustomObject]@{
                 "name" = "Want to learn more about CLI for Microsoft 365 and the commands"
@@ -172,7 +172,7 @@ begin{
 
         "MicrosoftGraphPowerShell"  = [PSCustomObject]@{
             Tab = "# [Microsoft Graph PowerShell](#tab/graphps)"
-            IncludeBlock = "[!INCLUDE [More about Microsoft Graph PowerShell SDK](../../docs/includes/MORE-GRAPHSDK.md)]"
+            IncludeBlock = "[!INCLUDE [More about Microsoft Graph PowerShell SDK](../../site/docs/includes/MORE-GRAPHSDK.md)]"
             ScriptBlock  = $psScriptBlock
             Reference = [PSCustomObject]@{
                 "name" = "Want to learn more about Microsoft Graph PowerShell SDK and the cmdlets"
@@ -185,7 +185,7 @@ begin{
 
         "AzureCli"  = [PSCustomObject]@{
             Tab = "# [Azure CLI](#tab/azure-cli)"
-            IncludeBlock = "[!INCLUDE [More about Azure CLI](../../docs/includes/MORE-AZURECLI.md)]"
+            IncludeBlock = "[!INCLUDE [More about Azure CLI](../../site/docs/includes/MORE-AZURECLI.md)]"
             ScriptBlock  = $psScriptBlock
             Reference = [PSCustomObject]@{
                 "name" = "Want to learn more about Azure CLI and the commands"
@@ -198,7 +198,7 @@ begin{
 
         "PowerAppsPowerShell" = [PSCustomObject]@{
             Tab = "# [Power Apps PowerShell](#tab/powerapps-ps)"
-            IncludeBlock = "[!INCLUDE [More about Power Apps PowerShell](../../docs/includes/MORE-POWERAPPS.md)]"
+            IncludeBlock = "[!INCLUDE [More about Power Apps PowerShell](../../site/docs/includes/MORE-POWERAPPS.md)]"
             ScriptBlock  = $psScriptBlock
             Reference = [PSCustomObject]@{
                 "name" = "Want to learn more about Power Apps PowerShell and the cmdlets"
@@ -211,7 +211,7 @@ begin{
 
         "MicrosoftTeamsPowerShell" = [PSCustomObject]@{
             Tab = "# [MicrosoftTeams PowerShell](#tab/teamsps)"
-            IncludeBlock = "[!INCLUDE [More about Microsoft Teams PowerShell](../../docs/includes/MORE-TEAMSPS.md)]"
+            IncludeBlock = "[!INCLUDE [More about Microsoft Teams PowerShell](../../site/docs/includes/MORE-TEAMSPS.md)]"
             ScriptBlock  = $psScriptBlock
             Reference = [PSCustomObject]@{
                 "name" = "Want to learn more about Microsoft Teams PowerShell and the cmdlets"

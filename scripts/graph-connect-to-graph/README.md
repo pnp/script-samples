@@ -104,7 +104,7 @@ Function Connect-ToGraph {
 
 ```
 
-[!INCLUDE [More about Microsoft Graph PowerShell SDK](../../docs/includes/MORE-GRAPHSDK.md)]
+[!INCLUDE [More about Microsoft Graph PowerShell SDK](../../site/docs/includes/MORE-GRAPHSDK.md)]
 
 ***
 
@@ -114,5 +114,5 @@ Function Connect-ToGraph {
 |------------------------------------------------------|
 | [Andrew Taylor](https://github.com/andrew-s-taylor) |
 
-[!INCLUDE [DISCLAIMER](../../docs/includes/DISCLAIMER.md)]
+[!INCLUDE [DISCLAIMER](../../site/docs/includes/DISCLAIMER.md)]
 <img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/graph-connect-to-graph" aria-hidden="true" />

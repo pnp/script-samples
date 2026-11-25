@@ -121,7 +121,7 @@ Update-CCWebpartProperties -SiteURL https://contoso.sharepoint.com -WebPartIdent
 
 
 ```
-[!INCLUDE [More about PnP PowerShell](../../docs/includes/MORE-PNPPS.md)]
+[!INCLUDE [More about PnP PowerShell](../../site/docs/includes/MORE-PNPPS.md)]
 ***
 
 ## Contributors
@@ -130,5 +130,5 @@ Update-CCWebpartProperties -SiteURL https://contoso.sharepoint.com -WebPartIdent
 |-----------|
 | [Ramin Ahmadi](https://github.com/ahmadiramin) |
 
-[!INCLUDE [DISCLAIMER](../../docs/includes/DISCLAIMER.md)]
+[!INCLUDE [DISCLAIMER](../../site/docs/includes/DISCLAIMER.md)]
 <img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/spo-update-modern-webpart-properties" aria-hidden="true" />

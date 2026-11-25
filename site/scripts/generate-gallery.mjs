@@ -8,20 +8,20 @@ const sources = await loadSources();
 const output = path.join(SITE_ROOT, "src", "generated");
 const publicRoot = path.join(SITE_ROOT, "public");
 await Promise.all([mkdir(output, { recursive: true }), mkdir(path.join(publicRoot, "generated"), { recursive: true })]);
-await cp(path.join(REPOSITORY_ROOT, "docs", "assets"), path.join(publicRoot, "assets"), { recursive: true });
+await cp(path.join(SITE_ROOT, "docs", "assets"), path.join(publicRoot, "assets"), { recursive: true });
 await mkdir(path.join(publicRoot, "schemas"), { recursive: true });
 await copyFile(path.join(REPOSITORY_ROOT, ".github", "schemas", "sample.schema.json"), path.join(publicRoot, "schemas", "sample.schema.json"));
 const productRoot = path.join(publicRoot, "images");
 for (const name of ["graph.svg", "aad.svg", "azure.svg", "office.svg", "todo.svg"]) {
-  await copyFile(path.join(REPOSITORY_ROOT, "docs", "assets", "icons", "custom", name), path.join(productRoot, name));
+  await copyFile(path.join(SITE_ROOT, "docs", "assets", "icons", "custom", name), path.join(productRoot, name));
 }
 const authors = new Map();
 const samples = [];
 const publishContent = (source) => !["node_modules", ".git"].includes(path.basename(source)) && !/^\.env(?:\.|$)/.test(path.basename(source));
 const codeHelp = new Map();
 for (const filename of ["powershell.help.json", "cli.help.json", "spoms.help.json", "other.help.json"]) {
-  const entries = JSON.parse(await readText(path.join(REPOSITORY_ROOT, "docs", "assets", "help", filename)));
-  if (!Array.isArray(entries)) throw new Error(`docs/assets/help/${filename}: expected command reference array`);
+  const entries = JSON.parse(await readText(path.join(SITE_ROOT, "docs", "assets", "help", filename)));
+  if (!Array.isArray(entries)) throw new Error(`site/docs/assets/help/${filename}: expected command reference array`);
   for (const entry of entries) if (entry.cmd && entry.helpUrl) codeHelp.set(entry.cmd.toLowerCase(), entry.helpUrl);
 }
 for (const source of sources) {

@@ -214,7 +214,7 @@ process {
 
 
 ```
-[!INCLUDE [More about PnP PowerShell](../../docs/includes/MORE-PNPPS.md)]
+[!INCLUDE [More about PnP PowerShell](../../site/docs/includes/MORE-PNPPS.md)]
 
 # [CLI for Microsoft 365](#tab/cli-m365-ps)
 ```powershell
@@ -386,7 +386,7 @@ process {
 }
 
 ```
-[!INCLUDE [More about CLI for Microsoft 365](../../docs/includes/MORE-CLIM365.md)]
+[!INCLUDE [More about CLI for Microsoft 365](../../site/docs/includes/MORE-CLIM365.md)]
 
 ***
 
@@ -397,7 +397,7 @@ process {
 | [Reshmee Auckloo](https://github.com/reshmee011)|
 | Rodrigo Pinto |
 
-[!INCLUDE [DISCLAIMER](../../docs/includes/DISCLAIMER.md)]
+[!INCLUDE [DISCLAIMER](../../site/docs/includes/DISCLAIMER.md)]
 <img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/teams-full-report" aria-hidden="true" />
 
 

@@ -82,7 +82,7 @@ Function StartProcessing {
 StartProcessing
 ```
 
-[!INCLUDE [More about PnP PowerShell](../../docs/includes/MORE-PNPPS.md)]
+[!INCLUDE [More about PnP PowerShell](../../site/docs/includes/MORE-PNPPS.md)]
 
 # [CLI for Microsoft 365](#tab/cli-m365-ps)
 
@@ -152,7 +152,7 @@ Function StartProcessing {
 StartProcessing
 ```
 
-[!INCLUDE [More about CLI for Microsoft 365](../../docs/includes/MORE-CLIM365.md)]
+[!INCLUDE [More about CLI for Microsoft 365](../../site/docs/includes/MORE-CLIM365.md)]
 
 ***
 
@@ -164,5 +164,5 @@ StartProcessing
 | [Ganesh Sanap](https://ganeshsanapblogs.wordpress.com/) |
 
 
-[!INCLUDE [DISCLAIMER](../../docs/includes/DISCLAIMER.md)]
+[!INCLUDE [DISCLAIMER](../../site/docs/includes/DISCLAIMER.md)]
 <img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/spo-export-content-type-details-to-csv" aria-hidden="true" />

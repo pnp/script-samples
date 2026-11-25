@@ -36,7 +36,7 @@ $data | Export-Csv -Path "C:\temp\searchresult.csv" -NoTypeInformation
 
 
 ```
-[!INCLUDE [More about PnP PowerShell](../../docs/includes/MORE-PNPPS.md)]
+[!INCLUDE [More about PnP PowerShell](../../site/docs/includes/MORE-PNPPS.md)]
 ***
 
 
@@ -46,5 +46,5 @@ $data | Export-Csv -Path "C:\temp\searchresult.csv" -NoTypeInformation
 |-----------|
 | Kasper Larsen |
 
-[!INCLUDE [DISCLAIMER](../../docs/includes/DISCLAIMER.md)]
+[!INCLUDE [DISCLAIMER](../../site/docs/includes/DISCLAIMER.md)]
 <img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/spo-find-script-editor-webpart-using-search" aria-hidden="true" />

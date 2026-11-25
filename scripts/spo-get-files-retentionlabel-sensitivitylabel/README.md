@@ -82,7 +82,7 @@ if($report -and $report.Count -gt 0){
 
 ```
 
-[!INCLUDE [More about PnP PowerShell](../../docs/includes/MORE-PNPPS.md)]
+[!INCLUDE [More about PnP PowerShell](../../site/docs/includes/MORE-PNPPS.md)]
 ***
 
 ## Source Credit
@@ -95,5 +95,5 @@ Sample first appeared on [PowerShell: Fetch Files with Retention or Sensitivity 
 |-----------|
 | [Reshmee Auckloo](https://github.com/reshmee011)|
 
-[!INCLUDE [DISCLAIMER](../../docs/includes/DISCLAIMER.md)]
+[!INCLUDE [DISCLAIMER](../../site/docs/includes/DISCLAIMER.md)]
 <img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/spo-get-files-retentionlabel-sensitivitylabel" aria-hidden="true" />

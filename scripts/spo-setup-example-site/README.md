@@ -164,7 +164,7 @@ $nodeAddedResponse = Add-PnPNavigationNode -Title "Hidden Sample List PNP" -Url 
 ## Disconnect the context  
 Disconnect-PnPOnline  
 ```
-[!INCLUDE [More about PnP PowerShell](../../docs/includes/MORE-PNPPS.md)]
+[!INCLUDE [More about PnP PowerShell](../../site/docs/includes/MORE-PNPPS.md)]
 ***
 
 
@@ -175,5 +175,5 @@ Disconnect-PnPOnline
 | Valeras Narbutas |
 
 
-[!INCLUDE [DISCLAIMER](../../docs/includes/DISCLAIMER.md)]
+[!INCLUDE [DISCLAIMER](../../site/docs/includes/DISCLAIMER.md)]
 <img src="https://m365-visitor-stats.azurewebsites.net/script-samples/scripts/spo-setup-example-site" aria-hidden="true" />
